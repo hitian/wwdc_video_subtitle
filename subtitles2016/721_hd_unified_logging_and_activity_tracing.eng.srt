@@ -1,0 +1,3339 @@
+1
+00:00:07,516 --> 00:00:18,500
+[ Music ]
+
+2
+00:00:24,516 --> 00:00:30,336
+[ Applause ]
+
+3
+00:00:30,836 --> 00:00:33,266
+&gt;&gt; Welcome all of you
+
+4
+00:00:33,266 --> 00:00:36,516
+and Tracing Activity session,
+
+5
+00:00:36,596 --> 00:00:38,346
+And I'd like to thank
+
+6
+00:00:38,346 --> 00:00:40,366
+out this late on a Friday.
+
+7
+00:00:40,366 --> 00:00:42,956
+So my name is Steve
+
+8
+00:00:43,516 --> 00:00:47,776
+[ Applause ]
+
+9
+00:00:48,276 --> 00:00:50,256
+Certainly, didn't expect
+
+10
+00:00:50,776 --> 00:00:53,646
+So my name is Steven Szymanski
+
+11
+00:00:53,646 --> 00:00:55,616
+of the talking and a little
+
+12
+00:00:55,616 --> 00:00:56,476
+by Matthieu Lucas.
+
+13
+00:00:57,636 --> 00:01:01,076
+So let's get into this, there's
+
+14
+00:00:57,636 --> 00:01:01,076
+So let's get into this, there's
+
+15
+00:01:01,076 --> 00:01:03,436
+I'm going to start with a
+
+16
+00:01:03,436 --> 00:01:04,715
+and then go into some
+
+17
+00:01:04,715 --> 00:01:07,196
+of the basic concepts behind
+
+18
+00:01:07,196 --> 00:01:08,356
+that we've introduced this week.
+
+19
+00:01:08,356 --> 00:01:12,086
+There will be a short demo, then
+
+20
+00:01:12,086 --> 00:01:13,206
+about how to actually use it.
+
+21
+00:01:13,206 --> 00:01:15,736
+How to use the APIs,
+
+22
+00:01:16,306 --> 00:01:18,966
+and then some discussion of what
+
+23
+00:01:18,966 --> 00:01:19,946
+of how to use this.
+
+24
+00:01:20,576 --> 00:01:22,306
+A little talk about how
+
+25
+00:01:22,306 --> 00:01:25,586
+to gather the logs once you've
+
+26
+00:01:25,586 --> 00:01:27,586
+some talk about some
+
+27
+00:01:28,716 --> 00:01:29,616
+So let's get started.
+
+28
+00:01:30,606 --> 00:01:32,656
+A little bit of background.
+
+29
+00:01:33,036 --> 00:01:35,606
+For those of you who have been
+
+30
+00:01:35,606 --> 00:01:37,296
+that back in 2014,
+
+31
+00:01:37,746 --> 00:01:40,316
+Apple introduced the
+
+32
+00:01:40,786 --> 00:01:43,936
+This is the ability to
+
+33
+00:01:44,276 --> 00:01:46,706
+that is done throughout
+
+34
+00:01:46,706 --> 00:01:47,916
+on behalf of some operation.
+
+35
+00:01:48,196 --> 00:01:50,886
+Whether that work is done
+
+36
+00:01:50,976 --> 00:01:53,386
+inside of a library of
+
+37
+00:01:53,386 --> 00:01:56,386
+from that application
+
+38
+00:01:56,386 --> 00:01:59,066
+in a separate process on
+
+39
+00:02:00,116 --> 00:02:03,746
+Another thing we introduced at
+
+40
+00:02:03,746 --> 00:02:07,086
+of Faults and Errors, which
+
+41
+00:02:07,456 --> 00:02:11,246
+that will trigger additional
+
+42
+00:02:11,246 --> 00:02:12,556
+to collect additional data.
+
+43
+00:02:14,086 --> 00:02:15,706
+The last thing I
+
+44
+00:02:15,706 --> 00:02:17,906
+of introduction is we recognize
+
+45
+00:02:17,906 --> 00:02:21,636
+that Apple has several logging
+
+46
+00:02:21,636 --> 00:02:25,446
+by the end of this talk you'll
+
+47
+00:02:25,446 --> 00:02:32,086
+this new API and how that
+
+48
+00:02:32,306 --> 00:02:34,746
+So what are the goals
+
+49
+00:02:35,456 --> 00:02:37,116
+First and foremost,
+
+50
+00:02:37,116 --> 00:02:41,826
+to do was build one common
+
+51
+00:02:41,826 --> 00:02:43,646
+across the whole system
+
+52
+00:02:43,646 --> 00:02:45,416
+in both user mode
+
+53
+00:02:46,996 --> 00:02:49,586
+One of the purposes of this
+
+54
+00:02:49,796 --> 00:02:53,546
+of information that we could
+
+55
+00:02:53,546 --> 00:02:54,526
+observer effect.
+
+56
+00:02:54,936 --> 00:02:57,646
+By observer effect I mean
+
+57
+00:02:57,646 --> 00:03:00,396
+of us have had as developers
+
+58
+00:02:57,646 --> 00:03:00,396
+of us have had as developers
+
+59
+00:03:00,606 --> 00:03:03,006
+you stick some logging
+
+60
+00:03:03,006 --> 00:03:04,726
+and suddenly the
+
+61
+00:03:04,726 --> 00:03:05,886
+because you've changed
+
+62
+00:03:06,516 --> 00:03:10,106
+We want a very, very low
+
+63
+00:03:10,106 --> 00:03:14,906
+that has minimal impact on your
+
+64
+00:03:15,666 --> 00:03:17,906
+So the way we accomplish
+
+65
+00:03:17,906 --> 00:03:19,176
+into more detail in this talk.
+
+66
+00:03:19,576 --> 00:03:20,996
+First off, we compress the data.
+
+67
+00:03:21,506 --> 00:03:26,976
+So you can fit a whole lot
+
+68
+00:03:26,976 --> 00:03:28,856
+without using up more space.
+
+69
+00:03:29,896 --> 00:03:31,276
+Another thing we do that's very,
+
+70
+00:03:31,276 --> 00:03:33,276
+very important is we
+
+71
+00:03:33,766 --> 00:03:36,496
+As anything that we
+
+72
+00:03:36,496 --> 00:03:39,166
+at which you display the
+
+73
+00:03:39,166 --> 00:03:41,946
+at which we collect it we
+
+74
+00:03:42,196 --> 00:03:44,846
+That's one of the key ways
+
+75
+00:03:46,216 --> 00:03:50,706
+And then another thing we do is
+
+76
+00:03:50,706 --> 00:03:51,686
+in new ways.
+
+77
+00:03:52,286 --> 00:03:55,416
+The idea being that different
+
+78
+00:03:55,416 --> 00:03:57,506
+around in the system for
+
+79
+00:03:57,846 --> 00:03:59,566
+to maximize the chance
+
+80
+00:03:59,566 --> 00:04:02,006
+that you want will
+
+81
+00:03:59,566 --> 00:04:02,006
+that you want will
+
+82
+00:04:02,006 --> 00:04:04,056
+when you actually go
+
+83
+00:04:04,466 --> 00:04:07,326
+The background of all that is
+
+84
+00:04:07,376 --> 00:04:11,066
+as much logging turned on
+
+85
+00:04:11,426 --> 00:04:15,186
+without having to go back and
+
+86
+00:04:15,186 --> 00:04:16,326
+and give me a new log.
+
+87
+00:04:16,555 --> 00:04:18,666
+We want it all on
+
+88
+00:04:20,116 --> 00:04:22,886
+The other thing that
+
+89
+00:04:22,926 --> 00:04:25,736
+to design privacy into the
+
+90
+00:04:25,816 --> 00:04:27,646
+and I'll talk more
+
+91
+00:04:27,646 --> 00:04:32,096
+So what are the key
+
+92
+00:04:33,276 --> 00:04:36,596
+There's new and improved
+
+93
+00:04:36,656 --> 00:04:38,246
+and filtering log messages.
+
+94
+00:04:38,606 --> 00:04:40,356
+So there's some new tools that
+
+95
+00:04:40,356 --> 00:04:43,386
+to you for you to
+
+96
+00:04:43,666 --> 00:04:46,876
+so when it comes around to
+
+97
+00:04:46,876 --> 00:04:48,836
+to find log messages
+
+98
+00:04:50,546 --> 00:04:54,066
+Another important thing is
+
+99
+00:04:54,066 --> 00:04:57,736
+information for you, so there's
+
+100
+00:04:57,736 --> 00:05:02,506
+to pass file, line to identify
+
+101
+00:04:57,736 --> 00:05:02,506
+to pass file, line to identify
+
+102
+00:05:02,846 --> 00:05:04,916
+We are automatically
+
+103
+00:05:07,516 --> 00:05:11,946
+[ Applause ]
+
+104
+00:05:12,446 --> 00:05:15,776
+There's also a whole bunch of
+
+105
+00:05:16,236 --> 00:05:20,706
+that allow us to format binary
+
+106
+00:05:20,706 --> 00:05:21,726
+to spend the time doing it.
+
+107
+00:05:22,926 --> 00:05:24,586
+There's a new Console
+
+108
+00:05:24,586 --> 00:05:26,316
+and a new command
+
+109
+00:05:26,316 --> 00:05:27,836
+to access all of these features.
+
+110
+00:05:27,836 --> 00:05:32,836
+This is supported across all
+
+111
+00:05:32,836 --> 00:05:35,936
+watchOS, tvOS, and
+
+112
+00:05:36,556 --> 00:05:47,126
+It is supported in the
+
+113
+00:05:47,126 --> 00:05:50,436
+and Objective-C and support
+
+114
+00:05:54,086 --> 00:05:57,166
+So to give you a little
+
+115
+00:05:57,166 --> 00:05:59,926
+This is the current Console
+
+116
+00:06:01,616 --> 00:06:04,206
+and this is what the
+
+117
+00:06:04,566 --> 00:06:05,896
+Now one thing I want to point
+
+118
+00:06:05,896 --> 00:06:13,236
+out to you here is take a
+
+119
+00:06:13,236 --> 00:06:14,076
+that I highlighted there.
+
+120
+00:06:14,376 --> 00:06:18,426
+That is a tree showing you
+
+121
+00:06:18,706 --> 00:06:21,086
+as it flows from process
+
+122
+00:06:21,086 --> 00:06:24,356
+so you can see visually all
+
+123
+00:06:24,356 --> 00:06:26,726
+on behalf of some
+
+124
+00:06:28,796 --> 00:06:32,436
+So now let's back up and
+
+125
+00:06:32,436 --> 00:06:34,316
+and the abstract
+
+126
+00:06:35,256 --> 00:06:36,326
+First off, adoption.
+
+127
+00:06:36,876 --> 00:06:40,236
+If you want to use the new
+
+128
+00:06:40,236 --> 00:06:42,446
+need to start doing is
+
+129
+00:06:42,446 --> 00:06:43,536
+that was released this week.
+
+130
+00:06:44,256 --> 00:06:48,406
+What'll happen if you do that is
+
+131
+00:06:48,766 --> 00:06:51,226
+asl log, message syslog,
+
+132
+00:06:51,226 --> 00:06:54,586
+all of those will get
+
+133
+00:06:54,766 --> 00:06:56,546
+You don't have to
+
+134
+00:06:56,546 --> 00:06:58,186
+to start using the system.
+
+135
+00:06:58,186 --> 00:07:01,396
+Now obviously to use some
+
+136
+00:06:58,186 --> 00:07:01,396
+Now obviously to use some
+
+137
+00:07:01,396 --> 00:07:06,156
+to start using the new APIs, but
+
+138
+00:07:06,156 --> 00:07:08,296
+with the new system
+
+139
+00:07:08,296 --> 00:07:09,726
+into the new logging
+
+140
+00:07:10,546 --> 00:07:13,156
+On the other hand, if for
+
+141
+00:07:13,156 --> 00:07:15,856
+to start using the new logging
+
+142
+00:07:15,856 --> 00:07:20,856
+with the old SDK and there'll
+
+143
+00:07:21,066 --> 00:07:23,386
+So new file formats.
+
+144
+00:07:24,016 --> 00:07:28,516
+In this new system
+
+145
+00:07:28,636 --> 00:07:31,146
+in a compressed binary
+
+146
+00:07:31,206 --> 00:07:32,896
+it's called a .tracev3 file.
+
+147
+00:07:34,186 --> 00:07:37,966
+Those files are now stored
+
+148
+00:07:38,556 --> 00:07:42,686
+with additional supporting
+
+149
+00:07:44,006 --> 00:07:46,856
+There are new tools
+
+150
+00:07:46,856 --> 00:07:50,326
+there's a new Console, a new
+
+151
+00:07:50,326 --> 00:07:51,666
+of the things you have
+
+152
+00:07:51,666 --> 00:07:53,686
+because the data is now stored
+
+153
+00:07:53,686 --> 00:07:57,546
+in a binary format you must
+
+154
+00:07:57,606 --> 00:08:00,526
+So you can no longer grep
+
+155
+00:07:57,606 --> 00:08:00,526
+So you can no longer grep
+
+156
+00:08:00,526 --> 00:08:02,436
+to use our tools to do
+
+157
+00:08:04,236 --> 00:08:06,866
+There's also another new
+
+158
+00:08:07,626 --> 00:08:09,986
+which is there for
+
+159
+00:08:10,466 --> 00:08:13,966
+Essentially a .logarchive is
+
+160
+00:08:14,006 --> 00:08:18,336
+out of /var/db/diagnostics and
+
+161
+00:08:18,336 --> 00:08:22,276
+into a single file that's
+
+162
+00:08:22,556 --> 00:08:27,436
+to attach to bug
+
+163
+00:08:28,126 --> 00:08:29,496
+Another new concept that comes
+
+164
+00:08:29,496 --> 00:08:32,155
+in with this system is
+
+165
+00:08:33,186 --> 00:08:35,145
+Log messages can
+
+166
+00:08:35,145 --> 00:08:38,056
+with a subsystem and a category.
+
+167
+00:08:38,356 --> 00:08:41,706
+They can be used to control
+
+168
+00:08:41,706 --> 00:08:42,376
+and displayed.
+
+169
+00:08:43,506 --> 00:08:47,426
+A subsystem can in fact maintain
+
+170
+00:08:47,876 --> 00:08:50,176
+and you can use as
+
+171
+00:08:50,266 --> 00:08:52,176
+and categories as you need.
+
+172
+00:08:53,096 --> 00:08:57,316
+So as an example, you
+
+173
+00:08:57,366 --> 00:08:59,696
+and you might define
+
+174
+00:08:59,846 --> 00:09:00,476
+your-company.
+
+175
+00:08:59,846 --> 00:09:00,476
+your-company.
+
+176
+00:09:00,616 --> 00:09:04,476
+your-application that has
+
+177
+00:09:04,476 --> 00:09:05,936
+inprogress and teardown.
+
+178
+00:09:06,966 --> 00:09:10,526
+In that same application you can
+
+179
+00:09:10,696 --> 00:09:12,216
+your-company.
+
+180
+00:09:12,256 --> 00:09:17,316
+test.your-application with a
+
+181
+00:09:17,816 --> 00:09:19,216
+And you can then use those
+
+182
+00:09:19,216 --> 00:09:22,116
+to control how the log
+
+183
+00:09:23,706 --> 00:09:26,066
+Logging behavior, this is kind
+
+184
+00:09:27,046 --> 00:09:30,496
+Each log message has a
+
+185
+00:09:30,496 --> 00:09:32,076
+that you used to create it.
+
+186
+00:09:32,436 --> 00:09:36,456
+There are three basic levels
+
+187
+00:09:36,456 --> 00:09:39,646
+and there are two special
+
+188
+00:09:41,896 --> 00:09:45,046
+Each basic level has
+
+189
+00:09:45,046 --> 00:09:47,276
+that can be set either
+
+190
+00:09:47,686 --> 00:09:49,286
+for a specific subsystem
+
+191
+00:09:49,646 --> 00:09:52,396
+or for a specific category
+
+192
+00:09:53,246 --> 00:09:54,876
+The first of those
+
+193
+00:09:54,876 --> 00:09:57,886
+if you make the call does it
+
+194
+00:09:58,516 --> 00:10:01,836
+Note that the fault
+
+195
+00:09:58,516 --> 00:10:01,836
+Note that the fault
+
+196
+00:10:01,946 --> 00:10:03,786
+you can't turn off
+
+197
+00:10:04,736 --> 00:10:07,916
+The other characteristic
+
+198
+00:10:07,916 --> 00:10:10,926
+of those levels is, is it
+
+199
+00:10:11,286 --> 00:10:13,736
+Now storing to disk it's
+
+200
+00:10:14,216 --> 00:10:16,616
+but what I mean by
+
+201
+00:10:17,046 --> 00:10:21,156
+Well the new Unified Logging
+
+202
+00:10:21,156 --> 00:10:23,636
+of in-memory circular buffers
+
+203
+00:10:23,916 --> 00:10:26,376
+to which some log
+
+204
+00:10:26,936 --> 00:10:30,946
+These messages are then saved to
+
+205
+00:10:31,826 --> 00:10:35,036
+This is very useful for messages
+
+206
+00:10:35,036 --> 00:10:37,016
+So if you have a
+
+207
+00:10:37,336 --> 00:10:41,876
+that basically the
+
+208
+00:10:42,126 --> 00:10:44,396
+and all you ever look
+
+209
+00:10:44,396 --> 00:10:47,326
+of that message whenever you
+
+210
+00:10:47,326 --> 00:10:49,606
+to store hundreds
+
+211
+00:10:49,606 --> 00:10:50,916
+of that log message on disk.
+
+212
+00:10:51,286 --> 00:10:54,756
+Instead, send it to the memory
+
+213
+00:10:54,756 --> 00:10:57,406
+on a Fault and Error and
+
+214
+00:10:57,406 --> 00:11:00,026
+that you need without a lot of
+
+215
+00:10:57,406 --> 00:11:00,026
+that you need without a lot of
+
+216
+00:11:00,026 --> 00:11:04,526
+The levels here are
+
+217
+00:11:04,526 --> 00:11:07,536
+by that is if you set Debug
+
+218
+00:11:07,536 --> 00:11:09,406
+that info will go
+
+219
+00:11:10,596 --> 00:11:13,396
+And all this behavior
+
+220
+00:11:13,396 --> 00:11:16,856
+by installing profiles or on
+
+221
+00:11:16,856 --> 00:11:21,466
+So what's the standard
+
+222
+00:11:21,466 --> 00:11:24,146
+if you don't install
+
+223
+00:11:25,056 --> 00:11:27,846
+Well, default level
+
+224
+00:11:28,136 --> 00:11:31,956
+and by standard configuration
+
+225
+00:11:32,776 --> 00:11:36,276
+Info level messages are
+
+226
+00:11:37,206 --> 00:11:41,006
+Debug level messages
+
+227
+00:11:41,346 --> 00:11:43,596
+they're not enabled
+
+228
+00:11:43,596 --> 00:11:44,916
+since they're off they
+
+229
+00:11:46,466 --> 00:11:48,586
+So the other two
+
+230
+00:11:48,586 --> 00:11:50,086
+that occur are Faults
+
+231
+00:11:50,956 --> 00:11:54,516
+Faults and Errors are always
+
+232
+00:11:54,516 --> 00:11:59,626
+So let's talk a moment
+
+233
+00:11:59,746 --> 00:12:03,046
+As you know, Apple values
+
+234
+00:11:59,746 --> 00:12:03,046
+As you know, Apple values
+
+235
+00:12:03,046 --> 00:12:05,856
+As a guiding principle
+
+236
+00:12:05,856 --> 00:12:09,966
+in our apps, in our services, in
+
+237
+00:12:09,966 --> 00:12:11,566
+about their privacy respected.
+
+238
+00:12:12,076 --> 00:12:15,086
+And all developers, including
+
+239
+00:12:15,086 --> 00:12:16,406
+that responsibility with us.
+
+240
+00:12:17,076 --> 00:12:18,336
+So how does it apply to logging?
+
+241
+00:12:18,676 --> 00:12:21,456
+What we want to prevent
+
+242
+00:12:21,456 --> 00:12:25,086
+of personally identifiable
+
+243
+00:12:25,316 --> 00:12:27,916
+where someone can actually get
+
+244
+00:12:28,966 --> 00:12:33,356
+So to that end, dynamic strings,
+
+245
+00:12:33,356 --> 00:12:36,066
+and the like are assumed
+
+246
+00:12:36,336 --> 00:12:39,616
+Static strings and scalars
+
+247
+00:12:40,686 --> 00:12:42,676
+And I'll get into
+
+248
+00:12:42,896 --> 00:12:44,226
+about how you can control that.
+
+249
+00:12:45,616 --> 00:12:46,636
+Okay, Faults and Errors.
+
+250
+00:12:46,636 --> 00:12:49,516
+I talked earlier about how
+
+251
+00:12:49,516 --> 00:12:50,486
+of Tracing Release,
+
+252
+00:12:50,836 --> 00:12:53,036
+we introduced the concept
+
+253
+00:12:53,546 --> 00:12:56,956
+One of the basic ideas
+
+254
+00:12:56,956 --> 00:13:01,016
+that we do additional work
+
+255
+00:12:56,956 --> 00:13:01,016
+that we do additional work
+
+256
+00:13:01,016 --> 00:13:02,546
+we save additional information.
+
+257
+00:13:03,356 --> 00:13:06,696
+So an Error represents
+
+258
+00:13:06,696 --> 00:13:09,056
+within the different
+
+259
+00:13:09,936 --> 00:13:12,386
+On an Error what
+
+260
+00:13:12,426 --> 00:13:15,246
+through the in-memory
+
+261
+00:13:15,246 --> 00:13:18,666
+of the log messages that were
+
+262
+00:13:18,666 --> 00:13:20,246
+out to disk as part
+
+263
+00:13:21,586 --> 00:13:25,426
+Alternatively, Faults
+
+264
+00:13:25,426 --> 00:13:27,706
+in the system where
+
+265
+00:13:28,396 --> 00:13:32,736
+On a Fault we again look through
+
+266
+00:13:32,736 --> 00:13:36,666
+up all the log messages from
+
+267
+00:13:36,666 --> 00:13:38,036
+that was involved
+
+268
+00:13:38,696 --> 00:13:41,946
+And we also we actually collect
+
+269
+00:13:41,946 --> 00:13:45,076
+information that
+
+270
+00:13:45,556 --> 00:13:48,466
+Faults and Errors and all of
+
+271
+00:13:48,466 --> 00:13:50,616
+as part of them are
+
+272
+00:13:50,616 --> 00:13:53,696
+into a separate set
+
+273
+00:13:54,046 --> 00:13:57,896
+We do that so that normal
+
+274
+00:13:57,896 --> 00:14:00,866
+and cause them to
+
+275
+00:13:57,896 --> 00:14:00,866
+and cause them to
+
+276
+00:14:00,976 --> 00:14:02,486
+and cause us to reclaim
+
+277
+00:14:02,856 --> 00:14:05,406
+So the idea is the Fault
+
+278
+00:14:05,406 --> 00:14:08,076
+around even longer than
+
+279
+00:14:10,706 --> 00:14:15,216
+So okay, I'm going to give a
+
+280
+00:14:15,216 --> 00:14:17,806
+of how the system works with a
+
+281
+00:14:18,076 --> 00:14:20,916
+So this is like a
+
+282
+00:14:20,986 --> 00:14:26,156
+Okay within each process there's
+
+283
+00:14:26,156 --> 00:14:27,676
+into which we log messages.
+
+284
+00:14:28,126 --> 00:14:30,456
+These buffers are actually
+
+285
+00:14:30,456 --> 00:14:31,406
+with the logging daemon.
+
+286
+00:14:32,476 --> 00:14:35,746
+As these buffers are filled up
+
+287
+00:14:36,086 --> 00:14:37,816
+to compress that data into a set
+
+288
+00:14:37,816 --> 00:14:39,976
+of larger buffers
+
+289
+00:14:40,866 --> 00:14:44,036
+As those larger buffers are
+
+290
+00:14:44,036 --> 00:14:46,696
+out to disk or we
+
+291
+00:14:46,696 --> 00:14:48,356
+of the memory only buffers.
+
+292
+00:14:48,946 --> 00:14:52,896
+So the other activity
+
+293
+00:14:53,036 --> 00:14:55,686
+if you request livestreaming
+
+294
+00:14:55,686 --> 00:14:58,326
+so you're on the Console
+
+295
+00:14:58,496 --> 00:14:59,996
+that are happening
+
+296
+00:15:00,636 --> 00:15:04,626
+The way we implement that
+
+297
+00:15:04,626 --> 00:15:06,456
+over to the diagnostic daemon
+
+298
+00:15:06,816 --> 00:15:09,956
+who then distributes those log
+
+299
+00:15:10,716 --> 00:15:12,336
+The side effect of that is
+
+300
+00:15:12,666 --> 00:15:15,086
+that there is a significant
+
+301
+00:15:15,086 --> 00:15:16,866
+of livestreaming of log data.
+
+302
+00:15:17,376 --> 00:15:20,336
+Basically, a lot of the work
+
+303
+00:15:20,396 --> 00:15:24,526
+and speed up logging so it
+
+304
+00:15:24,526 --> 00:15:27,536
+on your code goes away
+
+305
+00:15:27,536 --> 00:15:30,396
+on every single call.
+
+306
+00:15:30,456 --> 00:15:34,976
+The other thing to note is how
+
+307
+00:15:34,976 --> 00:15:38,266
+from applications or
+
+308
+00:15:38,316 --> 00:15:43,396
+through this can be changed
+
+309
+00:15:43,626 --> 00:15:45,326
+So enough of me talking
+
+310
+00:15:45,326 --> 00:15:47,836
+at this point I will
+
+311
+00:15:47,946 --> 00:15:49,636
+up to give a demonstration
+
+312
+00:15:50,346 --> 00:15:52,246
+in action using the Console app.
+
+313
+00:15:53,516 --> 00:15:58,656
+[ Applause ]
+
+314
+00:15:59,156 --> 00:16:00,086
+&gt;&gt; Thanks Steven.
+
+315
+00:15:59,156 --> 00:16:00,086
+&gt;&gt; Thanks Steven.
+
+316
+00:16:00,726 --> 00:16:03,466
+So as Steven mentioned
+
+317
+00:16:03,696 --> 00:16:06,356
+this year we introduced
+
+318
+00:16:06,826 --> 00:16:10,626
+So we wrote it from
+
+319
+00:16:10,626 --> 00:16:13,986
+We wanted to leverage
+
+320
+00:16:13,986 --> 00:16:17,906
+and making your developing
+
+321
+00:16:18,676 --> 00:16:20,866
+Let's look at the app.
+
+322
+00:16:21,286 --> 00:16:22,266
+So here's the new look.
+
+323
+00:16:23,756 --> 00:16:26,516
+As you can see, the layout
+
+324
+00:16:26,646 --> 00:16:31,656
+You still have your mainstream
+
+325
+00:16:31,656 --> 00:16:34,756
+on top, and then different
+
+326
+00:16:35,286 --> 00:16:38,576
+Let's look at the
+
+327
+00:16:38,906 --> 00:16:43,126
+So you can still see your
+
+328
+00:16:43,126 --> 00:16:46,536
+or user reports, the
+
+329
+00:16:46,536 --> 00:16:48,396
+that you may have
+
+330
+00:16:48,806 --> 00:16:50,696
+But here you can see that
+
+331
+00:16:51,066 --> 00:16:54,136
+Now we display all the
+
+332
+00:16:54,136 --> 00:16:56,806
+to your machine and we also
+
+333
+00:17:01,716 --> 00:17:07,116
+So we support iOS, tvOS,
+
+334
+00:17:07,116 --> 00:17:10,886
+so you can plug every
+
+335
+00:17:10,935 --> 00:17:13,715
+So let's just look at the
+
+336
+00:17:14,195 --> 00:17:16,136
+So now the log stream
+
+337
+00:17:16,726 --> 00:17:19,675
+You have the messages view
+
+338
+00:17:19,776 --> 00:17:22,306
+as Steven mentioned earlier.
+
+339
+00:17:22,806 --> 00:17:25,156
+So in the activities view
+
+340
+00:17:25,156 --> 00:17:30,506
+activities and the related
+
+341
+00:17:30,756 --> 00:17:33,066
+in the details it tells
+
+342
+00:17:34,956 --> 00:17:37,396
+Let's switch to the
+
+343
+00:17:38,496 --> 00:17:42,016
+So here you can see
+
+344
+00:17:42,256 --> 00:17:47,186
+so in order to include Debug
+
+345
+00:17:47,186 --> 00:17:50,666
+to manually do it in the
+
+346
+00:17:50,666 --> 00:17:52,206
+up along the default stream.
+
+347
+00:17:53,406 --> 00:17:57,866
+So now we should see more
+
+348
+00:17:57,866 --> 00:17:59,996
+so let's create some logs.
+
+349
+00:18:00,846 --> 00:18:04,406
+So here now you can see that
+
+350
+00:18:04,716 --> 00:18:07,736
+So you can see the
+
+351
+00:18:08,306 --> 00:18:12,256
+through those color dots
+
+352
+00:18:12,256 --> 00:18:16,626
+So the gray one are
+
+353
+00:18:17,226 --> 00:18:20,986
+the yellow ones are the Errors,
+
+354
+00:18:21,186 --> 00:18:26,326
+and the dark gray
+
+355
+00:18:26,446 --> 00:18:29,776
+Whenever there is no dots
+
+356
+00:18:31,366 --> 00:18:35,986
+So you can also expand
+
+357
+00:18:35,986 --> 00:18:40,196
+or collapse your messages
+
+358
+00:18:40,196 --> 00:18:46,286
+or right arrows or using the
+
+359
+00:18:46,286 --> 00:18:46,776
+or Collapse.
+
+360
+00:18:48,196 --> 00:18:49,556
+Then whenever you are
+
+361
+00:18:49,556 --> 00:18:53,816
+on the single message you
+
+362
+00:18:54,046 --> 00:18:56,396
+of a specific message directly
+
+363
+00:18:56,396 --> 00:18:58,506
+in the details view
+
+364
+00:18:59,356 --> 00:19:02,636
+So we are able to show you all
+
+365
+00:18:59,356 --> 00:19:02,636
+So we are able to show you all
+
+366
+00:19:03,126 --> 00:19:07,406
+about a specific log, that's
+
+367
+00:19:07,666 --> 00:19:10,156
+So now we can show
+
+368
+00:19:10,246 --> 00:19:11,916
+the library where it comes from.
+
+369
+00:19:12,256 --> 00:19:15,166
+So as you can see for this one,
+
+370
+00:19:15,166 --> 00:19:18,096
+from accounts D and then
+
+371
+00:19:18,786 --> 00:19:23,096
+You can also see
+
+372
+00:19:23,096 --> 00:19:26,696
+as we gather during
+
+373
+00:19:26,956 --> 00:19:30,746
+So you can see we have now
+
+374
+00:19:31,196 --> 00:19:34,046
+the activity ID, the
+
+375
+00:19:35,796 --> 00:19:39,206
+Now let's switch to the
+
+376
+00:19:39,496 --> 00:19:44,086
+So I connected an iPad where
+
+377
+00:19:44,526 --> 00:19:49,796
+that has some figures and we'll
+
+378
+00:19:50,486 --> 00:19:52,526
+through the different features.
+
+379
+00:19:53,726 --> 00:19:57,766
+So first, we can start by just
+
+380
+00:19:57,766 --> 00:20:01,026
+so to do so I can right
+
+381
+00:19:57,766 --> 00:20:01,026
+so to do so I can right
+
+382
+00:20:01,336 --> 00:20:05,916
+and then include or
+
+383
+00:20:06,046 --> 00:20:09,876
+So I'll just add the subsystem,
+
+384
+00:20:10,896 --> 00:20:14,196
+and then I will just
+
+385
+00:20:14,196 --> 00:20:17,276
+So this layout is
+
+386
+00:20:17,596 --> 00:20:19,086
+so you won't have
+
+387
+00:20:19,836 --> 00:20:21,876
+So now we can see
+
+388
+00:20:21,876 --> 00:20:24,556
+of information from this device.
+
+389
+00:20:24,606 --> 00:20:30,056
+So in order to refine your
+
+390
+00:20:30,056 --> 00:20:31,776
+to do it.
+
+391
+00:20:31,776 --> 00:20:35,186
+You can first right click
+
+392
+00:20:35,846 --> 00:20:38,576
+and then you'll get option
+
+393
+00:20:38,576 --> 00:20:42,566
+mute the process or
+
+394
+00:20:42,626 --> 00:20:45,316
+So in that case we
+
+395
+00:20:45,416 --> 00:20:48,296
+by muting a specific category.
+
+396
+00:20:48,296 --> 00:20:49,986
+Let's say that we
+
+397
+00:20:51,426 --> 00:20:55,556
+Now you can also the second way
+
+398
+00:20:55,556 --> 00:20:58,496
+of just refining is
+
+399
+00:20:58,936 --> 00:21:03,056
+So as you can see, we just
+
+400
+00:20:58,936 --> 00:21:03,056
+So as you can see, we just
+
+401
+00:21:03,936 --> 00:21:07,346
+Let's say that I want to
+
+402
+00:21:07,726 --> 00:21:09,776
+that's the app that
+
+403
+00:21:10,936 --> 00:21:15,506
+So by doing so now I have only
+
+404
+00:21:15,766 --> 00:21:17,606
+without the category widgets.
+
+405
+00:21:18,106 --> 00:21:23,126
+Let's just add another token
+
+406
+00:21:24,776 --> 00:21:27,626
+So now we only have messages
+
+407
+00:21:27,626 --> 00:21:31,566
+without the category widgets
+
+408
+00:21:32,176 --> 00:21:36,826
+So we can see that we have
+
+409
+00:21:36,826 --> 00:21:39,436
+from the web view, so
+
+410
+00:21:39,796 --> 00:21:45,666
+we relate it down to
+
+411
+00:21:46,176 --> 00:21:50,886
+So in order to reuse it later
+
+412
+00:21:50,946 --> 00:21:53,456
+on the Save button
+
+413
+00:21:54,956 --> 00:21:58,026
+So I'll just name
+
+414
+00:21:58,916 --> 00:22:02,866
+So you can see that all your
+
+415
+00:21:58,916 --> 00:22:02,866
+So you can see that all your
+
+416
+00:22:02,866 --> 00:22:04,136
+in this section here.
+
+417
+00:22:04,996 --> 00:22:08,796
+So you can reorder those as
+
+418
+00:22:08,796 --> 00:22:12,526
+if you want and you also have
+
+419
+00:22:12,526 --> 00:22:14,526
+which are All Messages
+
+420
+00:22:15,066 --> 00:22:18,626
+Now let's switch to
+
+421
+00:22:18,686 --> 00:22:22,626
+if we can find more context
+
+422
+00:22:22,626 --> 00:22:24,376
+if we can reproduce [inaudible].
+
+423
+00:22:25,796 --> 00:22:29,596
+So here we can see that we
+
+424
+00:22:29,926 --> 00:22:33,996
+So the activities view is based
+
+425
+00:22:34,666 --> 00:22:36,796
+so we could apply
+
+426
+00:22:36,796 --> 00:22:39,176
+and then save it as well.
+
+427
+00:22:39,976 --> 00:22:45,206
+So here we can see that we
+
+428
+00:22:45,206 --> 00:22:47,476
+with different children.
+
+429
+00:22:47,826 --> 00:22:49,966
+So we can see that we were
+
+430
+00:22:49,966 --> 00:22:55,746
+then we retrieve an object and
+
+431
+00:22:55,746 --> 00:22:57,606
+and then we configure
+
+432
+00:22:57,606 --> 00:22:58,866
+and then we load the web view.
+
+433
+00:22:59,356 --> 00:23:02,546
+So as you can see now, the
+
+434
+00:22:59,356 --> 00:23:02,546
+So as you can see now, the
+
+435
+00:23:02,546 --> 00:23:05,496
+in the bottom of this
+
+436
+00:23:05,496 --> 00:23:06,876
+that are related
+
+437
+00:23:06,876 --> 00:23:10,506
+So this message was written
+
+438
+00:23:10,776 --> 00:23:12,946
+in this specific activity,
+
+439
+00:23:13,386 --> 00:23:16,346
+Now we can see that
+
+440
+00:23:16,346 --> 00:23:20,906
+those two failures were part of
+
+441
+00:23:22,126 --> 00:23:25,806
+So now we know that we
+
+442
+00:23:26,346 --> 00:23:29,396
+of what happened to this Error.
+
+443
+00:23:29,796 --> 00:23:34,506
+So now we also added the
+
+444
+00:23:34,506 --> 00:23:37,976
+so you can just select a bunch
+
+445
+00:23:38,326 --> 00:23:41,686
+and share it directly
+
+446
+00:23:41,686 --> 00:23:45,336
+So I'll just add it as a note
+
+447
+00:23:46,586 --> 00:23:47,856
+Now the next.
+
+448
+00:23:48,516 --> 00:23:52,746
+[ Applause ]
+
+449
+00:23:53,246 --> 00:23:58,806
+The other input that we
+
+450
+00:23:58,806 --> 00:24:00,256
+So [inaudible] log archive
+
+451
+00:23:58,806 --> 00:24:00,256
+So [inaudible] log archive
+
+452
+00:24:00,256 --> 00:24:03,646
+that was previously
+
+453
+00:24:04,226 --> 00:24:07,556
+So if you do have one too you
+
+454
+00:24:07,676 --> 00:24:08,806
+and Console will open it.
+
+455
+00:24:09,666 --> 00:24:13,786
+So as you can see whenever you
+
+456
+00:24:14,076 --> 00:24:15,496
+it just loads everything.
+
+457
+00:24:15,986 --> 00:24:18,616
+And then you can see that we
+
+458
+00:24:18,816 --> 00:24:21,836
+filters as we just said before.
+
+459
+00:24:22,146 --> 00:24:26,716
+So in order to see if this
+
+460
+00:24:26,716 --> 00:24:30,556
+same -- contain the same Error
+
+461
+00:24:30,876 --> 00:24:33,846
+that we stream we
+
+462
+00:24:33,846 --> 00:24:38,696
+and it will automatically
+
+463
+00:24:39,596 --> 00:24:43,616
+So we can see that we have the
+
+464
+00:24:43,616 --> 00:24:48,686
+at the activities view to see
+
+465
+00:24:49,376 --> 00:24:51,226
+So that's it for Console
+
+466
+00:24:51,736 --> 00:24:54,546
+and I'll let Steven
+
+467
+00:24:55,016 --> 00:24:55,316
+Thank you.
+
+468
+00:24:56,516 --> 00:25:01,500
+[ Applause ]
+
+469
+00:24:56,516 --> 00:25:01,500
+[ Applause ]
+
+470
+00:25:06,056 --> 00:25:08,626
+&gt;&gt; So thank you very
+
+471
+00:25:08,626 --> 00:25:12,386
+I really like the new
+
+472
+00:25:13,176 --> 00:25:17,266
+So let's talk about the
+
+473
+00:25:17,266 --> 00:25:18,556
+and how you actually use it.
+
+474
+00:25:19,156 --> 00:25:21,896
+So to start off with
+
+475
+00:25:21,896 --> 00:25:23,676
+of all the new APIs
+
+476
+00:25:24,346 --> 00:25:26,806
+Os log is your basic logging API
+
+477
+00:25:26,806 --> 00:25:29,786
+that logs something
+
+478
+00:25:30,096 --> 00:25:34,746
+Os log info is the call that
+
+479
+00:25:34,746 --> 00:25:40,006
+into memory and that's for the
+
+480
+00:25:40,006 --> 00:25:40,866
+that you want to gather.
+
+481
+00:25:41,526 --> 00:25:44,186
+Os log debug is for your
+
+482
+00:25:44,416 --> 00:25:47,606
+And then there's os log
+
+483
+00:25:47,606 --> 00:25:49,566
+for generating a
+
+484
+00:25:49,566 --> 00:25:52,076
+And the last call
+
+485
+00:25:52,336 --> 00:25:54,446
+that creates a log
+
+486
+00:25:54,446 --> 00:25:55,846
+to customize your behavior.
+
+487
+00:25:56,226 --> 00:25:58,216
+So let's dive into that
+
+488
+00:25:58,216 --> 00:26:00,836
+because it's probably the one
+
+489
+00:25:58,216 --> 00:26:00,836
+because it's probably the one
+
+490
+00:26:00,836 --> 00:26:02,636
+of analogy to other stuff.
+
+491
+00:26:03,316 --> 00:26:06,776
+So we have a call os log
+
+492
+00:26:06,816 --> 00:26:09,256
+the name of the subsystem
+
+493
+00:26:09,256 --> 00:26:12,876
+And what it does is it creates
+
+494
+00:26:13,166 --> 00:26:14,476
+that controls the behavior
+
+495
+00:26:14,476 --> 00:26:16,526
+of the log calls
+
+496
+00:26:17,626 --> 00:26:21,006
+So by default it ends up having
+
+497
+00:26:21,366 --> 00:26:24,606
+but you can customize it to
+
+498
+00:26:24,606 --> 00:26:26,666
+profiles or the log
+
+499
+00:26:26,916 --> 00:26:30,676
+The way you use it is you simply
+
+500
+00:26:30,676 --> 00:26:31,686
+to all of the other calls.
+
+501
+00:26:31,686 --> 00:26:35,786
+So here I call os log and
+
+502
+00:26:35,786 --> 00:26:39,126
+which is the value that got
+
+503
+00:26:40,846 --> 00:26:44,186
+What that does is it causes
+
+504
+00:26:44,186 --> 00:26:47,396
+and subsystem that was
+
+505
+00:26:47,636 --> 00:26:50,706
+to be stored with every log
+
+506
+00:26:51,286 --> 00:26:53,766
+which then can be used
+
+507
+00:26:53,996 --> 00:26:55,656
+to filter and display messages.
+
+508
+00:26:57,066 --> 00:27:00,686
+So if you don't care about
+
+509
+00:26:57,066 --> 00:27:00,686
+So if you don't care about
+
+510
+00:27:00,686 --> 00:27:02,996
+and category, then
+
+511
+00:27:02,996 --> 00:27:05,036
+to simply pass an
+
+512
+00:27:05,036 --> 00:27:07,726
+which is a default log object
+
+513
+00:27:08,026 --> 00:27:11,236
+It doesn't have a subsystem
+
+514
+00:27:11,236 --> 00:27:13,696
+if you really don't care
+
+515
+00:27:14,196 --> 00:27:17,366
+Built-in type formatters.
+
+516
+00:27:18,266 --> 00:27:21,446
+We all spend way
+
+517
+00:27:21,446 --> 00:27:24,106
+to convert binary
+
+518
+00:27:24,106 --> 00:27:25,056
+so that we can log them.
+
+519
+00:27:25,396 --> 00:27:28,776
+The Unified Logging System takes
+
+520
+00:27:28,776 --> 00:27:31,876
+by providing built-in
+
+521
+00:27:32,396 --> 00:27:35,746
+What's even more
+
+522
+00:27:35,746 --> 00:27:39,006
+that conversion work until
+
+523
+00:27:39,266 --> 00:27:41,626
+so you don't have to
+
+524
+00:27:41,626 --> 00:27:43,576
+at the time you generate
+
+525
+00:27:44,096 --> 00:27:49,066
+Avoiding all of the different
+
+526
+00:27:50,066 --> 00:27:52,506
+So just to talk a
+
+527
+00:27:52,596 --> 00:27:55,206
+There's built-in decoding
+
+528
+00:27:55,626 --> 00:28:00,066
+The syntax is instead of doing
+
+529
+00:27:55,626 --> 00:28:00,066
+The syntax is instead of doing
+
+530
+00:28:00,066 --> 00:28:06,846
+and that basically says
+
+531
+00:28:06,846 --> 00:28:10,566
+that you're passing in is
+
+532
+00:28:10,566 --> 00:28:13,686
+when it gets printed it should
+
+533
+00:28:14,406 --> 00:28:18,546
+Likewise, for errno, if you
+
+534
+00:28:18,546 --> 00:28:21,076
+that into a human readable
+
+535
+00:28:23,606 --> 00:28:29,286
+We also have a new basic time
+
+536
+00:28:29,286 --> 00:28:32,236
+P, which has been around
+
+537
+00:28:32,236 --> 00:28:34,126
+to display arbitrary
+
+538
+00:28:34,766 --> 00:28:37,656
+And there's decoders for
+
+539
+00:28:37,656 --> 00:28:39,906
+so for instance %(uuid t).
+
+540
+00:28:40,776 --> 00:28:45,806
+And in fact, here is a list
+
+541
+00:28:45,806 --> 00:28:48,346
+which we have, so all the
+
+542
+00:28:48,686 --> 00:28:53,946
+errno, uuids, all the
+
+543
+00:28:54,486 --> 00:28:58,396
+And we do anticipate having more
+
+544
+00:28:58,966 --> 00:29:02,796
+So Per Parameter Privacy.
+
+545
+00:28:58,966 --> 00:29:02,796
+So Per Parameter Privacy.
+
+546
+00:29:04,186 --> 00:29:07,646
+Privacy is now handled on a
+
+547
+00:29:08,176 --> 00:29:11,046
+scalars and static strings
+
+548
+00:29:11,806 --> 00:29:14,766
+On the other hand, dynamic
+
+549
+00:29:14,766 --> 00:29:16,436
+and objects are assumed
+
+550
+00:29:16,436 --> 00:29:20,186
+to contain private information
+
+551
+00:29:21,226 --> 00:29:23,326
+So that behavior
+
+552
+00:29:23,746 --> 00:29:25,376
+on a per-parameter basis.
+
+553
+00:29:25,666 --> 00:29:31,386
+So instead of doing %@ to say
+
+554
+00:29:31,386 --> 00:29:34,946
+to include in my log
+
+555
+00:29:35,256 --> 00:29:37,686
+to tell us it's an
+
+556
+00:29:37,686 --> 00:29:40,546
+in that object is public, so you
+
+557
+00:29:41,206 --> 00:29:43,606
+Alternatively, if you
+
+558
+00:29:43,606 --> 00:29:45,846
+where you have some integer
+
+559
+00:29:45,846 --> 00:29:50,366
+that for some reason is secret
+
+560
+00:29:50,606 --> 00:29:54,116
+to log that data as being
+
+561
+00:29:54,676 --> 00:29:59,806
+You can by the way, combine
+
+562
+00:30:00,046 --> 00:30:01,596
+So I could do %(public,
+
+563
+00:30:01,836 --> 00:30:06,986
+uuid t).16P to basically
+
+564
+00:30:06,986 --> 00:30:10,376
+it's public information and
+
+565
+00:30:12,116 --> 00:30:14,076
+So let's give a little
+
+566
+00:30:14,076 --> 00:30:18,056
+of what the difference this
+
+567
+00:30:18,706 --> 00:30:21,366
+So log message simplification.
+
+568
+00:30:21,536 --> 00:30:23,516
+Okay, here's the old
+
+569
+00:30:23,976 --> 00:30:25,726
+All right, first off
+
+570
+00:30:25,726 --> 00:30:29,096
+and say is the current log level
+
+571
+00:30:29,236 --> 00:30:34,166
+and then let's say you have a
+
+572
+00:30:34,166 --> 00:30:36,716
+Well the first thing you
+
+573
+00:30:36,716 --> 00:30:38,056
+to convert that into a string.
+
+574
+00:30:38,746 --> 00:30:41,716
+You also happen to have a socket
+
+575
+00:30:41,716 --> 00:30:43,386
+to also convert into a string.
+
+576
+00:30:44,386 --> 00:30:46,326
+Then you call NSLog with all
+
+577
+00:30:46,326 --> 00:30:49,956
+that stuff that's been
+
+578
+00:30:49,956 --> 00:30:52,146
+you have to pass the
+
+579
+00:30:52,146 --> 00:30:53,146
+and the line number for you.
+
+580
+00:30:53,856 --> 00:30:55,986
+And then when you're done
+
+581
+00:30:55,986 --> 00:30:58,996
+to free the string that was
+
+582
+00:30:59,606 --> 00:31:00,506
+And you're done.
+
+583
+00:30:59,606 --> 00:31:00,506
+And you're done.
+
+584
+00:31:01,256 --> 00:31:02,336
+Now here's the new way.
+
+585
+00:31:03,306 --> 00:31:06,206
+You simply call os
+
+586
+00:31:06,206 --> 00:31:07,606
+of checking the log
+
+587
+00:31:07,996 --> 00:31:10,286
+In this case I'm passing
+
+588
+00:31:11,366 --> 00:31:16,136
+I specify in my format string
+
+589
+00:31:16,136 --> 00:31:18,926
+and a socket address, so I
+
+590
+00:31:19,216 --> 00:31:22,596
+None of the work happens now the
+
+591
+00:31:23,286 --> 00:31:26,076
+And then I simply pass the
+
+592
+00:31:27,516 --> 00:31:35,546
+[ Applause ]
+
+593
+00:31:36,046 --> 00:31:38,046
+While I'm doing examples let
+
+594
+00:31:38,046 --> 00:31:40,286
+of an example of using
+
+595
+00:31:41,516 --> 00:31:43,186
+So here I do a log create
+
+596
+00:31:43,506 --> 00:31:46,936
+and I specify a subsystem
+
+597
+00:31:46,936 --> 00:31:49,196
+The subsystem is
+
+598
+00:31:49,616 --> 00:31:51,046
+and the category is general
+
+599
+00:31:51,046 --> 00:31:53,306
+and so this is my
+
+600
+00:31:53,756 --> 00:31:55,986
+I do the same thing, but
+
+601
+00:31:55,986 --> 00:31:57,486
+with a category timestamp.
+
+602
+00:31:57,636 --> 00:32:02,206
+You know, the basic
+
+603
+00:31:57,636 --> 00:32:02,206
+You know, the basic
+
+604
+00:32:02,206 --> 00:32:03,796
+I use the general log object,
+
+605
+00:32:04,146 --> 00:32:05,896
+pass it a string,
+
+606
+00:32:07,146 --> 00:32:08,916
+Here's a little bit more
+
+607
+00:32:09,326 --> 00:32:11,966
+I call os log info, so this is
+
+608
+00:32:11,966 --> 00:32:14,076
+into the memory buffer
+
+609
+00:32:14,116 --> 00:32:15,426
+if there's a Fault or an Error.
+
+610
+00:32:16,196 --> 00:32:20,176
+And then in my format
+
+611
+00:32:20,396 --> 00:32:23,276
+for the filename because the
+
+612
+00:32:23,426 --> 00:32:26,386
+and we would assume that it's
+
+613
+00:32:26,386 --> 00:32:27,496
+tell us that it's public.
+
+614
+00:32:28,246 --> 00:32:30,136
+A little bit more
+
+615
+00:32:30,456 --> 00:32:32,646
+I open the file, I
+
+616
+00:32:32,866 --> 00:32:36,266
+if it returns an error
+
+617
+00:32:36,906 --> 00:32:39,186
+and in my format
+
+618
+00:32:39,186 --> 00:32:42,466
+that the filename is
+
+619
+00:32:42,466 --> 00:32:44,686
+to format the errno as an errno.
+
+620
+00:32:45,786 --> 00:32:49,806
+Another very example, this
+
+621
+00:32:49,866 --> 00:32:52,986
+but gee I'm calling fstat after
+
+622
+00:32:52,986 --> 00:32:55,046
+so maybe something
+
+623
+00:32:55,046 --> 00:32:56,906
+if I'm getting an error on that.
+
+624
+00:32:57,236 --> 00:33:00,016
+So I call os log fault,
+
+625
+00:32:57,236 --> 00:33:00,016
+So I call os log fault,
+
+626
+00:33:00,496 --> 00:33:04,636
+And then the very last
+
+627
+00:33:04,876 --> 00:33:07,876
+but this time I pass
+
+628
+00:33:08,446 --> 00:33:11,606
+and then I basically dump all
+
+629
+00:33:11,856 --> 00:33:13,876
+What that means is
+
+630
+00:33:13,876 --> 00:33:17,986
+at the Console I can
+
+631
+00:33:17,986 --> 00:33:20,426
+and say all I want to see
+
+632
+00:33:20,736 --> 00:33:22,826
+or I don't want to see
+
+633
+00:33:22,826 --> 00:33:24,096
+because I'm looking
+
+634
+00:33:24,666 --> 00:33:29,366
+So the new Unified Logging
+
+635
+00:33:29,366 --> 00:33:30,146
+in this release.
+
+636
+00:33:30,146 --> 00:33:33,396
+There are also some improvements
+
+637
+00:33:34,356 --> 00:33:36,896
+Activities are now
+
+638
+00:33:36,926 --> 00:33:38,476
+that can be stored and re-used.
+
+639
+00:33:39,926 --> 00:33:42,696
+And the act of creation
+
+640
+00:33:42,696 --> 00:33:47,076
+over the relationships between
+
+641
+00:33:47,076 --> 00:33:48,516
+at the point at which
+
+642
+00:33:48,516 --> 00:33:51,656
+There's also some new APIs
+
+643
+00:33:51,656 --> 00:33:55,886
+that scope the activities
+
+644
+00:33:56,976 --> 00:33:59,376
+So here's all of the new APIs.
+
+645
+00:33:59,676 --> 00:34:03,206
+So there's a new os activity
+
+646
+00:33:59,676 --> 00:34:03,206
+So there's a new os activity
+
+647
+00:34:03,206 --> 00:34:07,076
+like os log create to create a
+
+648
+00:34:07,076 --> 00:34:08,646
+identifying an activity.
+
+649
+00:34:08,646 --> 00:34:12,616
+There's two calls that
+
+650
+00:34:12,616 --> 00:34:16,826
+that to your code os activity
+
+651
+00:34:17,196 --> 00:34:19,045
+I'll show you examples
+
+652
+00:34:19,045 --> 00:34:20,846
+about how they work differently.
+
+653
+00:34:21,386 --> 00:34:24,536
+And finally, there's os
+
+654
+00:34:24,996 --> 00:34:26,596
+that labels an activity
+
+655
+00:34:26,596 --> 00:34:29,786
+as a user action UI-based
+
+656
+00:34:31,146 --> 00:34:32,946
+So let me give an
+
+657
+00:34:33,376 --> 00:34:36,996
+First off, I call os activity
+
+658
+00:34:36,996 --> 00:34:37,886
+that I'm calling init.
+
+659
+00:34:38,286 --> 00:34:40,726
+Notice that the second parameter
+
+660
+00:34:40,726 --> 00:34:43,366
+of this function is a
+
+661
+00:34:43,676 --> 00:34:46,815
+That's basically saying this
+
+662
+00:34:46,856 --> 00:34:49,255
+to whatever happens to
+
+663
+00:34:50,416 --> 00:34:54,216
+Now I go off and do os activity
+
+664
+00:34:54,676 --> 00:34:58,036
+but my second parameter is the
+
+665
+00:34:58,036 --> 00:34:59,756
+So now I've created
+
+666
+00:34:59,756 --> 00:35:02,356
+between these activities
+
+667
+00:34:59,756 --> 00:35:02,356
+between these activities
+
+668
+00:35:04,006 --> 00:35:06,716
+So now I have a block of
+
+669
+00:35:06,716 --> 00:35:09,166
+and then I have some code
+
+670
+00:35:09,626 --> 00:35:12,716
+The first thing I do is
+
+671
+00:35:13,086 --> 00:35:15,326
+and I'm passing in this
+
+672
+00:35:16,006 --> 00:35:18,546
+What that does is it means
+
+673
+00:35:18,546 --> 00:35:21,486
+in that block is considered
+
+674
+00:35:21,486 --> 00:35:23,366
+until I hit that closing brace.
+
+675
+00:35:24,046 --> 00:35:27,946
+There's no need to have to
+
+676
+00:35:27,946 --> 00:35:30,276
+at the end it just
+
+677
+00:35:30,966 --> 00:35:32,216
+And as soon as you leave
+
+678
+00:35:32,216 --> 00:35:35,206
+that scope you're now no
+
+679
+00:35:36,726 --> 00:35:39,826
+The other call that we're
+
+680
+00:35:40,506 --> 00:35:45,126
+you pass the activity object
+
+681
+00:35:45,126 --> 00:35:47,536
+and then it basically
+
+682
+00:35:47,536 --> 00:35:49,886
+with that activity as the scope.
+
+683
+00:35:50,776 --> 00:35:55,096
+Tools, so Matthieu already
+
+684
+00:35:55,096 --> 00:35:57,106
+of the new Console,
+
+685
+00:35:57,106 --> 00:35:59,076
+through the functionality
+
+686
+00:35:59,266 --> 00:36:02,626
+You can view live
+
+687
+00:35:59,266 --> 00:36:02,626
+You can view live
+
+688
+00:36:03,096 --> 00:36:04,616
+You can open log archives.
+
+689
+00:36:05,196 --> 00:36:08,786
+You can use the new activity
+
+690
+00:36:09,556 --> 00:36:11,636
+You can use advanced
+
+691
+00:36:12,376 --> 00:36:14,826
+and you can see logs
+
+692
+00:36:14,826 --> 00:36:17,926
+Now let me talk a little bit
+
+693
+00:36:17,926 --> 00:36:22,166
+about the new log
+
+694
+00:36:22,846 --> 00:36:25,966
+It provides all of the same
+
+695
+00:36:25,966 --> 00:36:27,116
+but from the command line.
+
+696
+00:36:27,666 --> 00:36:32,286
+So you want to stream live
+
+697
+00:36:32,516 --> 00:36:33,296
+log stream.
+
+698
+00:36:33,996 --> 00:36:36,686
+If you want to get fancy,
+
+699
+00:36:36,686 --> 00:36:41,176
+predicate eventMessage contains
+
+700
+00:36:41,176 --> 00:36:43,566
+for you is it will stream
+
+701
+00:36:43,566 --> 00:36:45,286
+that contain the
+
+702
+00:36:47,096 --> 00:36:51,266
+Just like the Console it could
+
+703
+00:36:51,566 --> 00:36:56,026
+You can display a log
+
+704
+00:36:56,486 --> 00:36:59,146
+You do log show and then
+
+705
+00:36:59,556 --> 00:37:01,576
+and it displays the
+
+706
+00:36:59,556 --> 00:37:01,576
+and it displays the
+
+707
+00:37:03,446 --> 00:37:07,706
+Another thing you can do on
+
+708
+00:37:08,016 --> 00:37:09,976
+to actually change
+
+709
+00:37:09,976 --> 00:37:11,786
+of your subsystems
+
+710
+00:37:12,076 --> 00:37:15,976
+So here's an example,
+
+711
+00:37:16,136 --> 00:37:22,116
+mode level:debug and then
+
+712
+00:37:22,296 --> 00:37:24,916
+and what that does is it
+
+713
+00:37:24,916 --> 00:37:28,316
+on that subsystem for
+
+714
+00:37:28,886 --> 00:37:32,206
+So coming soon.
+
+715
+00:37:33,076 --> 00:37:36,126
+We do appreciate that
+
+716
+00:37:36,126 --> 00:37:40,556
+to be developing applications
+
+717
+00:37:40,556 --> 00:37:44,906
+with macOS 10.11 on your
+
+718
+00:37:44,906 --> 00:37:51,186
+Tools for being able to access
+
+719
+00:37:51,186 --> 00:37:58,506
+in fact coming, but in the
+
+720
+00:37:58,506 --> 00:38:02,746
+of a hackish workaround, which
+
+721
+00:37:58,506 --> 00:38:02,746
+of a hackish workaround, which
+
+722
+00:38:02,746 --> 00:38:04,026
+from inside the simulator.
+
+723
+00:38:04,436 --> 00:38:06,846
+So xcrun simctl spawn booted
+
+724
+00:38:07,156 --> 00:38:09,956
+and then you give log show
+
+725
+00:38:09,956 --> 00:38:12,356
+and you can run all
+
+726
+00:38:12,506 --> 00:38:13,856
+like you would otherwise.
+
+727
+00:38:14,266 --> 00:38:15,956
+The alternative is
+
+728
+00:38:16,516 --> 00:38:20,996
+[ Applause ]
+
+729
+00:38:21,496 --> 00:38:22,446
+So let me talk a moment
+
+730
+00:38:22,446 --> 00:38:25,236
+about best practices,
+
+731
+00:38:25,996 --> 00:38:30,476
+Try to ensure that your messages
+
+732
+00:38:30,476 --> 00:38:33,056
+information, don't have
+
+733
+00:38:33,056 --> 00:38:35,216
+or filler data in there.
+
+734
+00:38:35,426 --> 00:38:36,556
+Try to keep it compact.
+
+735
+00:38:38,736 --> 00:38:40,236
+Let us do the formatting,
+
+736
+00:38:40,476 --> 00:38:43,736
+leverage the built-in
+
+737
+00:38:44,026 --> 00:38:46,976
+The more work you do
+
+738
+00:38:46,976 --> 00:38:50,136
+in advance the more that's going
+
+739
+00:38:50,136 --> 00:38:53,326
+to letting us do the
+
+740
+00:38:53,326 --> 00:38:55,526
+at which it gets output.
+
+741
+00:38:55,526 --> 00:38:58,756
+Avoid wrapping os log
+
+742
+00:38:59,096 --> 00:39:02,356
+If you wrap it in another
+
+743
+00:38:59,096 --> 00:39:02,356
+If you wrap it in another
+
+744
+00:39:02,356 --> 00:39:06,036
+ability to collect the file
+
+745
+00:39:07,176 --> 00:39:11,146
+If you absolutely have to
+
+746
+00:39:11,146 --> 00:39:12,876
+in macros and not in functions.
+
+747
+00:39:14,326 --> 00:39:17,926
+Only log what's needed from
+
+748
+00:39:17,926 --> 00:39:20,266
+Dictionaries, I mean
+
+749
+00:39:21,156 --> 00:39:23,846
+They take up a lot of space on
+
+750
+00:39:23,846 --> 00:39:26,386
+to pushing out other log
+
+751
+00:39:26,946 --> 00:39:29,616
+Try to only log the parts
+
+752
+00:39:29,616 --> 00:39:31,726
+really need for your logs.
+
+753
+00:39:32,716 --> 00:39:38,536
+And avoid logging in
+
+754
+00:39:38,666 --> 00:39:41,186
+So a brief word on what
+
+755
+00:39:41,186 --> 00:39:42,496
+of our new APIs are.
+
+756
+00:39:43,106 --> 00:39:48,306
+Os log to log basically
+
+757
+00:39:48,306 --> 00:39:49,366
+on logging information.
+
+758
+00:39:49,366 --> 00:39:52,716
+This is the kind of information
+
+759
+00:39:52,716 --> 00:39:55,416
+to help debug your problem.
+
+760
+00:39:55,416 --> 00:39:58,236
+Use os log info for
+
+761
+00:39:58,236 --> 00:39:59,536
+that is very, very timely.
+
+762
+00:40:00,046 --> 00:40:01,236
+So use this first
+
+763
+00:40:01,236 --> 00:40:02,816
+to get stale very, very quickly.
+
+764
+00:40:03,826 --> 00:40:07,676
+Use os log debug for high volume
+
+765
+00:40:08,636 --> 00:40:12,496
+Error in the case that you want
+
+766
+00:40:12,496 --> 00:40:13,916
+and captured for your app.
+
+767
+00:40:14,706 --> 00:40:18,056
+And fault if you want additional
+
+768
+00:40:18,056 --> 00:40:19,066
+about the system.
+
+769
+00:40:19,646 --> 00:40:24,506
+A quick word on gathering logs.
+
+770
+00:40:24,976 --> 00:40:27,206
+Sydiagnose is the
+
+771
+00:40:27,206 --> 00:40:29,946
+to capture data for bug reports.
+
+772
+00:40:30,326 --> 00:40:32,756
+If you do sysdiagnose
+
+773
+00:40:33,046 --> 00:40:35,976
+in the system I've just
+
+774
+00:40:35,976 --> 00:40:39,486
+within that archive as a file
+
+775
+00:40:41,416 --> 00:40:44,756
+You can use key-chords
+
+776
+00:40:45,166 --> 00:40:47,916
+If you do a sysdiagnose on an
+
+777
+00:40:47,916 --> 00:40:49,876
+on both the watch
+
+778
+00:40:51,006 --> 00:40:54,216
+And then you can use iTunes
+
+779
+00:40:54,216 --> 00:40:58,036
+over to your Mac to
+
+780
+00:40:58,316 --> 00:41:02,006
+This is the file that Apple
+
+781
+00:40:58,316 --> 00:41:02,006
+This is the file that Apple
+
+782
+00:41:02,006 --> 00:41:04,416
+from you when you talk
+
+783
+00:41:04,616 --> 00:41:07,096
+So either attaching it to
+
+784
+00:41:07,096 --> 00:41:08,386
+to developer technical support.
+
+785
+00:41:08,386 --> 00:41:11,466
+So here's the various
+
+786
+00:41:11,466 --> 00:41:15,556
+Shift + Control + Option
+
+787
+00:41:15,556 --> 00:41:16,396
+for Mac OS.
+
+788
+00:41:16,706 --> 00:41:20,026
+Volume up + Volume
+
+789
+00:41:20,026 --> 00:41:23,606
+On the phone you'll get a slight
+
+790
+00:41:24,266 --> 00:41:27,156
+On watchOS it's press and
+
+791
+00:41:27,156 --> 00:41:28,906
+and side button for
+
+792
+00:41:28,966 --> 00:41:31,026
+If you don't present it long
+
+793
+00:41:31,026 --> 00:41:32,196
+screenshot instead.
+
+794
+00:41:32,196 --> 00:41:37,546
+There will be a slight haptic
+
+795
+00:41:37,546 --> 00:41:42,976
+Play/Pause + Volume Down tvOS.
+
+796
+00:41:43,576 --> 00:41:47,036
+Note that on older remotes
+
+797
+00:41:47,036 --> 00:41:49,416
+to actually hold it down
+
+798
+00:41:50,606 --> 00:41:55,166
+Deprecations, so as part
+
+799
+00:41:55,166 --> 00:41:56,946
+that we're going to
+
+800
+00:41:57,286 --> 00:42:02,006
+First off, all of the ASL
+
+801
+00:41:57,286 --> 00:42:02,006
+First off, all of the ASL
+
+802
+00:42:02,006 --> 00:42:03,586
+by these new APIs
+
+803
+00:42:03,586 --> 00:42:05,566
+those old APIs are deprecated.
+
+804
+00:42:06,296 --> 00:42:07,856
+There is an interesting
+
+805
+00:42:08,466 --> 00:42:11,946
+A new API for searching
+
+806
+00:42:11,946 --> 00:42:13,486
+to be made public
+
+807
+00:42:13,516 --> 00:42:15,366
+What that means is that
+
+808
+00:42:15,416 --> 00:42:17,186
+to asl search functionality.
+
+809
+00:42:17,896 --> 00:42:21,446
+If you absolutely depend on
+
+810
+00:42:21,866 --> 00:42:25,326
+that may be a reason to wait for
+
+811
+00:42:27,976 --> 00:42:32,196
+There's also some
+
+812
+00:42:32,196 --> 00:42:33,186
+that are being deprecated.
+
+813
+00:42:33,776 --> 00:42:36,796
+Instead of doing
+
+814
+00:42:36,796 --> 00:42:41,336
+and os activity end we now have
+
+815
+00:42:41,336 --> 00:42:44,086
+as I showed you and then
+
+816
+00:42:44,086 --> 00:42:46,486
+to apply it to a block of code.
+
+817
+00:42:46,486 --> 00:42:48,396
+Os activity breadcrumb
+
+818
+00:42:48,396 --> 00:42:51,306
+with os activity user label.
+
+819
+00:42:51,516 --> 00:42:53,786
+Os trace with payload
+
+820
+00:42:53,786 --> 00:42:55,466
+by any of the os log calls.
+
+821
+00:42:56,326 --> 00:42:59,366
+Note that these functions as
+
+822
+00:42:59,366 --> 00:43:01,236
+So if you continue calling
+
+823
+00:42:59,366 --> 00:43:01,236
+So if you continue calling
+
+824
+00:43:01,236 --> 00:43:01,876
+to do anything.
+
+825
+00:43:03,336 --> 00:43:09,096
+So in summary, the new logging
+
+826
+00:43:09,446 --> 00:43:10,696
+and gives you more control,
+
+827
+00:43:10,856 --> 00:43:13,736
+but it does require using
+
+828
+00:43:14,656 --> 00:43:17,656
+Related sessions, I've
+
+829
+00:43:17,656 --> 00:43:21,276
+in 2014 Activity
+
+830
+00:43:21,526 --> 00:43:22,656
+in which we talk about that.
+
+831
+00:43:22,656 --> 00:43:24,116
+So if you want go
+
+832
+00:43:24,116 --> 00:43:26,936
+And if you want to
+
+833
+00:43:26,936 --> 00:43:28,766
+about this talk, that's the URL.
+
+834
+00:43:29,326 --> 00:43:29,976
+Thank you very much.
+
+835
+00:43:30,516 --> 00:43:34,500
+[ Applause ]

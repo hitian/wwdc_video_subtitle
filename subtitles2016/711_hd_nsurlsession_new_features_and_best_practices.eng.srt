@@ -1,0 +1,3467 @@
+1
+00:00:07,516 --> 00:00:17,500
+[ Music ]
+
+2
+00:00:24,516 --> 00:00:29,326
+[ Applause ]
+
+3
+00:00:29,826 --> 00:00:30,266
+&gt;&gt; Thank you.
+
+4
+00:00:30,306 --> 00:00:30,856
+Thank you.
+
+5
+00:00:30,856 --> 00:00:31,646
+Good morning.
+
+6
+00:00:34,066 --> 00:00:35,636
+Thanks for coming
+
+7
+00:00:35,636 --> 00:00:41,056
+This is NSURLSession: New
+
+8
+00:00:41,466 --> 00:00:42,946
+My name is Jeff Jenkins.
+
+9
+00:00:42,946 --> 00:00:44,246
+I'm a Software Engineer
+
+10
+00:00:44,246 --> 00:00:46,096
+in the Internet Technologies
+
+11
+00:00:46,096 --> 00:00:48,696
+I think we have some great
+
+12
+00:00:48,696 --> 00:00:51,886
+like to share with you today
+
+13
+00:00:51,886 --> 00:00:54,726
+So why don't we just get started
+
+14
+00:00:54,726 --> 00:00:57,526
+and show you some of the
+
+15
+00:00:58,256 --> 00:01:02,626
+The NSURLSession API provides
+
+16
+00:00:58,256 --> 00:01:02,626
+The NSURLSession API provides
+
+17
+00:01:03,016 --> 00:01:05,286
+and methods that
+
+18
+00:01:05,286 --> 00:01:06,836
+of modern day networking.
+
+19
+00:01:07,276 --> 00:01:09,636
+Today I'm going to discuss
+
+20
+00:01:09,636 --> 00:01:12,996
+with you how the
+
+21
+00:01:12,996 --> 00:01:15,036
+And I'm going to share
+
+22
+00:01:15,516 --> 00:01:17,766
+and enhancements that
+
+23
+00:01:17,766 --> 00:01:20,656
+And we're going to have a
+
+24
+00:01:20,656 --> 00:01:23,846
+some of these features and
+
+25
+00:01:24,396 --> 00:01:28,696
+I'll spend some time
+
+26
+00:01:29,406 --> 00:01:31,866
+It's important for your
+
+27
+00:01:32,066 --> 00:01:34,056
+and privacy be safeguarded.
+
+28
+00:01:34,236 --> 00:01:37,276
+If it's important to your users,
+
+29
+00:01:37,276 --> 00:01:38,646
+and to your applications.
+
+30
+00:01:39,236 --> 00:01:40,496
+So I'm going to share
+
+31
+00:01:40,496 --> 00:01:43,336
+of the enhancements we've made
+
+32
+00:01:43,336 --> 00:01:44,826
+with regards to use security.
+
+33
+00:01:45,406 --> 00:01:50,636
+Now, during the entirety of this
+
+34
+00:01:50,636 --> 00:01:53,146
+with you some best
+
+35
+00:01:53,416 --> 00:01:56,086
+so that you can make your
+
+36
+00:01:56,086 --> 00:02:02,946
+Now, let's start by looking at
+
+37
+00:01:56,086 --> 00:02:02,946
+Now, let's start by looking at
+
+38
+00:02:02,946 --> 00:02:05,686
+to applications across
+
+39
+00:02:06,956 --> 00:02:09,235
+For many years, Foundation
+
+40
+00:02:09,235 --> 00:02:10,816
+NSURLConnection API.
+
+41
+00:02:11,656 --> 00:02:15,346
+Now, NSURLConnection was a
+
+42
+00:02:15,546 --> 00:02:18,116
+It enabled a lot of great
+
+43
+00:02:18,216 --> 00:02:20,466
+functionality for you
+
+44
+00:02:21,096 --> 00:02:22,756
+But you know, we
+
+45
+00:02:23,126 --> 00:02:24,066
+What could we do better?
+
+46
+00:02:24,796 --> 00:02:27,486
+And what is it that you
+
+47
+00:02:27,796 --> 00:02:30,346
+And we sat down and
+
+48
+00:02:30,346 --> 00:02:32,616
+And we found that a lot
+
+49
+00:02:32,616 --> 00:02:34,926
+with configuring networking --
+
+50
+00:02:34,926 --> 00:02:37,586
+that configuring network
+
+51
+00:02:37,586 --> 00:02:39,276
+especially if you need
+
+52
+00:02:39,276 --> 00:02:41,786
+of networking all from
+
+53
+00:02:43,456 --> 00:02:44,496
+So, we took action.
+
+54
+00:02:45,186 --> 00:02:50,626
+We officially deprecated the
+
+55
+00:02:50,626 --> 00:02:53,436
+And this really means we're not
+
+56
+00:02:53,436 --> 00:02:56,046
+And it's really receiving
+
+57
+00:02:57,506 --> 00:03:02,346
+But prior to the official
+
+58
+00:02:57,506 --> 00:03:02,346
+But prior to the official
+
+59
+00:03:02,806 --> 00:03:06,396
+we introduced NSURLSession
+
+60
+00:03:06,396 --> 00:03:08,236
+for Foundation layer networking.
+
+61
+00:03:09,116 --> 00:03:11,986
+Now, we encouraged you then, we
+
+62
+00:03:12,576 --> 00:03:14,946
+to move your networking
+
+63
+00:03:15,006 --> 00:03:17,866
+in your applications today
+
+64
+00:03:17,866 --> 00:03:21,416
+to be developing in the future.
+
+65
+00:03:21,586 --> 00:03:25,036
+Now, since NSURLSession
+
+66
+00:03:25,036 --> 00:03:28,876
+for network programming
+
+67
+00:03:29,386 --> 00:03:32,576
+let's review some of the
+
+68
+00:03:33,066 --> 00:03:36,726
+Now, if you want a real
+
+69
+00:03:37,836 --> 00:03:41,396
+inside into NSURLSession, I
+
+70
+00:03:41,396 --> 00:03:47,246
+to WWDC of 2015, and
+
+71
+00:03:47,246 --> 00:03:48,876
+at the videos and slides
+
+72
+00:03:49,296 --> 00:03:53,986
+with the sessions
+
+73
+00:03:55,656 --> 00:03:57,856
+So, I've been praising
+
+74
+00:03:57,856 --> 00:04:00,756
+and recommending that
+
+75
+00:03:57,856 --> 00:04:00,756
+and recommending that
+
+76
+00:04:01,726 --> 00:04:04,206
+So what really makes
+
+77
+00:04:04,206 --> 00:04:05,366
+of all this praise?
+
+78
+00:04:05,366 --> 00:04:09,436
+Well, some of the benefits,
+
+79
+00:04:09,756 --> 00:04:13,936
+for the HTTP/1.1 protocol.
+
+80
+00:04:13,936 --> 00:04:16,315
+We also have support
+
+81
+00:04:16,745 --> 00:04:20,136
+Now, we don't recommend that
+
+82
+00:04:20,136 --> 00:04:22,646
+on SPDY, but really
+
+83
+00:04:22,876 --> 00:04:26,686
+to HTTP/2 and that protocol.
+
+84
+00:04:26,906 --> 00:04:31,176
+We obviously have support
+
+85
+00:04:31,806 --> 00:04:34,886
+Our support is based
+
+86
+00:04:35,436 --> 00:04:41,026
+And we're adding new features
+
+87
+00:04:41,236 --> 00:04:43,576
+The app transport
+
+88
+00:04:43,576 --> 00:04:46,706
+This is a great feature
+
+89
+00:04:47,176 --> 00:04:50,396
+It's a security feature
+
+90
+00:04:50,666 --> 00:04:52,726
+and data integrity
+
+91
+00:04:52,726 --> 00:04:55,526
+between apps and Web processes.
+
+92
+00:04:56,876 --> 00:04:59,506
+One of the most important
+
+93
+00:04:59,856 --> 00:05:03,166
+that your apps must
+
+94
+00:04:59,856 --> 00:05:03,166
+that your apps must
+
+95
+00:05:04,016 --> 00:05:06,346
+Now, at the same time it
+
+96
+00:05:06,346 --> 00:05:09,316
+to implement best practices
+
+97
+00:05:09,696 --> 00:05:12,146
+to remote servers
+
+98
+00:05:13,746 --> 00:05:18,086
+The HTTP Strict Transport
+
+99
+00:05:18,366 --> 00:05:20,716
+another great feature
+
+100
+00:05:21,216 --> 00:05:24,086
+This feature protects your
+
+101
+00:05:24,086 --> 00:05:28,356
+Now, it can be configured
+
+102
+00:05:28,446 --> 00:05:29,716
+from your Web service.
+
+103
+00:05:30,206 --> 00:05:33,616
+Or it can be configured using
+
+104
+00:05:33,926 --> 00:05:35,966
+in the system along
+
+105
+00:05:36,516 --> 00:05:39,986
+Once configured, all the data
+
+106
+00:05:39,986 --> 00:05:41,986
+received over a secure
+
+107
+00:05:42,656 --> 00:05:45,586
+The great thing about HSTS is
+
+108
+00:05:45,586 --> 00:05:47,316
+changes in your applications.
+
+109
+00:05:50,096 --> 00:05:53,776
+All the great built-in
+
+110
+00:05:53,776 --> 00:05:57,946
+in for the handling of
+
+111
+00:05:58,336 --> 00:05:59,876
+authentication challenges,
+
+112
+00:05:59,876 --> 00:06:02,036
+all these things are
+
+113
+00:05:59,876 --> 00:06:02,036
+all these things are
+
+114
+00:06:02,036 --> 00:06:05,536
+And last but not
+
+115
+00:06:05,536 --> 00:06:08,506
+As I said, we talked a lot
+
+116
+00:06:08,506 --> 00:06:11,676
+or configuring networking
+
+117
+00:06:12,436 --> 00:06:15,056
+We feel that we need to have
+
+118
+00:06:15,056 --> 00:06:17,176
+So, we looked at
+
+119
+00:06:17,176 --> 00:06:21,406
+So what we did to achieve
+
+120
+00:06:21,406 --> 00:06:23,606
+over your networking
+
+121
+00:06:23,606 --> 00:06:27,156
+we created this new class called
+
+122
+00:06:27,926 --> 00:06:30,236
+Now, this class contains
+
+123
+00:06:30,236 --> 00:06:31,346
+that you can configure.
+
+124
+00:06:32,746 --> 00:06:34,916
+You can create configurations
+
+125
+00:06:34,916 --> 00:06:38,036
+on different networking needs
+
+126
+00:06:39,466 --> 00:06:42,166
+Now, here's a sample of
+
+127
+00:06:42,526 --> 00:06:45,636
+that you can set with
+
+128
+00:06:46,836 --> 00:06:50,806
+The Transport Layer
+
+129
+00:06:51,836 --> 00:06:54,856
+You can control the minimum
+
+130
+00:06:54,856 --> 00:06:56,806
+that your app wants to support.
+
+131
+00:06:57,246 --> 00:07:02,666
+We default the minimum TLS to
+
+132
+00:06:57,246 --> 00:07:02,666
+We default the minimum TLS to
+
+133
+00:07:03,356 --> 00:07:09,296
+You can control the use of
+
+134
+00:07:09,296 --> 00:07:12,126
+Do you want to let your app
+
+135
+00:07:12,416 --> 00:07:14,346
+Maybe you want Wi-Fi
+
+136
+00:07:14,346 --> 00:07:16,276
+This is the place to do that.
+
+137
+00:07:16,796 --> 00:07:22,106
+You can specify your
+
+138
+00:07:22,626 --> 00:07:24,936
+Some examples of this
+
+139
+00:07:24,936 --> 00:07:27,906
+which is the standard
+
+140
+00:07:27,906 --> 00:07:33,146
+Your app might have VoiP control
+
+141
+00:07:33,506 --> 00:07:34,586
+All sorts of different
+
+142
+00:07:34,586 --> 00:07:37,986
+And really, this is just a
+
+143
+00:07:38,416 --> 00:07:42,166
+of what type of data to expect
+
+144
+00:07:42,166 --> 00:07:43,766
+of service that's
+
+145
+00:07:44,156 --> 00:07:46,426
+on the device that
+
+146
+00:07:48,136 --> 00:07:49,376
+Cookie policy.
+
+147
+00:07:49,556 --> 00:07:52,776
+Now, maybe you want your
+
+148
+00:07:52,776 --> 00:07:54,206
+or a persistent cookies.
+
+149
+00:07:54,206 --> 00:07:56,156
+This is the place to
+
+150
+00:07:56,636 --> 00:07:57,786
+Similar for cache.
+
+151
+00:07:57,786 --> 00:07:59,436
+Maybe you want an
+
+152
+00:07:59,826 --> 00:08:02,746
+persistent cache that's
+
+153
+00:07:59,826 --> 00:08:02,746
+persistent cache that's
+
+154
+00:08:03,316 --> 00:08:04,996
+This is a place to
+
+155
+00:08:06,366 --> 00:08:09,196
+You can also specify
+
+156
+00:08:09,556 --> 00:08:13,086
+Well, maybe you want to share
+
+157
+00:08:13,086 --> 00:08:15,936
+of networking or cookies between
+
+158
+00:08:15,936 --> 00:08:16,966
+all within your same app.
+
+159
+00:08:17,586 --> 00:08:20,336
+This is a place that you
+
+160
+00:08:20,336 --> 00:08:21,586
+for that configuration.
+
+161
+00:08:22,716 --> 00:08:24,316
+And time-out specifiers.
+
+162
+00:08:24,426 --> 00:08:27,896
+You can set resource
+
+163
+00:08:28,236 --> 00:08:31,596
+so that your app can handle
+
+164
+00:08:32,145 --> 00:08:36,635
+Now, I expect many of
+
+165
+00:08:36,635 --> 00:08:38,006
+to NSURLSession API.
+
+166
+00:08:38,385 --> 00:08:40,296
+If not, really, go
+
+167
+00:08:40,296 --> 00:08:43,606
+at the WWDC 2014
+
+168
+00:08:43,606 --> 00:08:45,746
+You're going to get a lot
+
+169
+00:08:46,176 --> 00:08:47,896
+on how that API works.
+
+170
+00:08:48,236 --> 00:08:50,836
+But I think for us in the
+
+171
+00:08:50,836 --> 00:08:55,136
+it's good for us to take a
+
+172
+00:08:55,286 --> 00:08:56,526
+from a code perspective.
+
+173
+00:08:57,806 --> 00:09:00,486
+So very simply, the first
+
+174
+00:08:57,806 --> 00:09:00,486
+So very simply, the first
+
+175
+00:09:00,486 --> 00:09:02,716
+to create a configuration
+
+176
+00:09:02,756 --> 00:09:03,556
+First thing we do.
+
+177
+00:09:03,556 --> 00:09:05,746
+Here we call
+
+178
+00:09:06,086 --> 00:09:08,306
+.defaultSessionConfiguration.
+
+179
+00:09:08,996 --> 00:09:10,686
+We take all the defaults
+
+180
+00:09:10,996 --> 00:09:13,366
+and we've got a very
+
+181
+00:09:13,366 --> 00:09:18,746
+Now, we take that config
+
+182
+00:09:18,746 --> 00:09:21,446
+We create a session by
+
+183
+00:09:21,806 --> 00:09:23,126
+that takes a config object.
+
+184
+00:09:23,296 --> 00:09:26,216
+And boom! We've got a very
+
+185
+00:09:26,826 --> 00:09:30,386
+Now that we've got this session,
+
+186
+00:09:30,386 --> 00:09:34,136
+Now, the first thing we're
+
+187
+00:09:34,756 --> 00:09:37,376
+and specify what's the
+
+188
+00:09:37,376 --> 00:09:39,646
+to retrieve or request
+
+189
+00:09:40,366 --> 00:09:43,046
+Once we have that,
+
+190
+00:09:43,286 --> 00:09:45,256
+Here we call the
+
+191
+00:09:45,256 --> 00:09:47,096
+And we pass the NSURL object
+
+192
+00:09:47,686 --> 00:09:49,726
+that we created to
+
+193
+00:09:51,626 --> 00:09:53,586
+We also provide a closure.
+
+194
+00:09:54,056 --> 00:09:56,766
+Now, this closure is
+
+195
+00:09:57,146 --> 00:09:58,806
+when our task is
+
+196
+00:09:59,196 --> 00:10:02,746
+and the requested
+
+197
+00:09:59,196 --> 00:10:02,746
+and the requested
+
+198
+00:10:04,296 --> 00:10:07,856
+Now always, don't forget, make
+
+199
+00:10:08,266 --> 00:10:10,856
+All of our tasks are
+
+200
+00:10:10,856 --> 00:10:14,406
+So you must call task.resume
+
+201
+00:10:14,896 --> 00:10:16,186
+All right.
+
+202
+00:10:16,186 --> 00:10:18,346
+So in review, very
+
+203
+00:10:19,056 --> 00:10:21,746
+NSURLSession is really
+
+204
+00:10:22,956 --> 00:10:24,846
+First you're going to create
+
+205
+00:10:27,516 --> 00:10:30,246
+Once you have that config you're
+
+206
+00:10:30,836 --> 00:10:35,276
+And now you're ready with that
+
+207
+00:10:35,276 --> 00:10:37,416
+and you're going to create
+
+208
+00:10:37,906 --> 00:10:40,526
+Now, I want to suggest to
+
+209
+00:10:41,056 --> 00:10:45,736
+Want to make sure that
+
+210
+00:10:45,736 --> 00:10:47,456
+to one-session model.
+
+211
+00:10:48,826 --> 00:10:51,866
+You should really not set
+
+212
+00:10:52,756 --> 00:10:55,356
+Really, what you want
+
+213
+00:10:55,356 --> 00:10:58,846
+to design this is have
+
+214
+00:10:58,846 --> 00:10:59,566
+many tasks.
+
+215
+00:10:59,566 --> 00:11:01,296
+So of course, you can
+
+216
+00:10:59,566 --> 00:11:01,296
+So of course, you can
+
+217
+00:11:01,756 --> 00:11:05,936
+But avoid the one-session
+
+218
+00:11:06,226 --> 00:11:07,346
+And the reason for that,
+
+219
+00:11:07,346 --> 00:11:09,056
+it really boils down
+
+220
+00:11:09,436 --> 00:11:11,246
+You're going to get
+
+221
+00:11:11,346 --> 00:11:13,426
+and OS resource utilization
+
+222
+00:11:13,426 --> 00:11:20,256
+by having few sessions
+
+223
+00:11:20,256 --> 00:11:23,376
+Now, as I mentioned, the
+
+224
+00:11:24,006 --> 00:11:27,056
+I'd like to talk about
+
+225
+00:11:27,056 --> 00:11:28,636
+and what we've been doing
+
+226
+00:11:28,636 --> 00:11:31,266
+in this protocol
+
+227
+00:11:32,676 --> 00:11:36,616
+Now, the support of
+
+228
+00:11:36,616 --> 00:11:39,746
+within the NSURLSession was
+
+229
+00:11:39,746 --> 00:11:42,946
+And it's increasing
+
+230
+00:11:43,946 --> 00:11:48,556
+You know, large Internet service
+
+231
+00:11:49,716 --> 00:11:53,196
+Now, what makes HTTP/2
+
+232
+00:11:53,196 --> 00:11:55,486
+Well, let's look at
+
+233
+00:11:55,866 --> 00:11:58,956
+One of the great features
+
+234
+00:11:58,956 --> 00:12:00,356
+and concurrency support.
+
+235
+00:11:58,956 --> 00:12:00,356
+and concurrency support.
+
+236
+00:12:00,946 --> 00:12:05,116
+Now, this feature allows
+
+237
+00:12:05,256 --> 00:12:07,386
+to be in flight concurrently.
+
+238
+00:12:08,046 --> 00:12:11,186
+Responses can be received
+
+239
+00:12:11,186 --> 00:12:13,606
+on the same single
+
+240
+00:12:14,836 --> 00:12:17,736
+Another great feature of the
+
+241
+00:12:18,256 --> 00:12:22,076
+This reduces the size
+
+242
+00:12:22,546 --> 00:12:24,736
+It cuts down on network
+
+243
+00:12:24,986 --> 00:12:27,366
+This is better for
+
+244
+00:12:27,366 --> 00:12:29,196
+for performance for
+
+245
+00:12:30,566 --> 00:12:33,506
+Another great feature
+
+246
+00:12:33,876 --> 00:12:38,026
+As a client of HTTP/2 you
+
+247
+00:12:38,026 --> 00:12:40,756
+at which resources are
+
+248
+00:12:41,076 --> 00:12:42,726
+And this really allows
+
+249
+00:12:42,726 --> 00:12:46,056
+and tune the networking
+
+250
+00:12:47,516 --> 00:12:51,486
+So in essence, HTTP/2 is
+
+251
+00:12:51,716 --> 00:12:55,216
+Now, this will result in an
+
+252
+00:12:55,216 --> 00:12:56,796
+as they interact with your apps.
+
+253
+00:12:57,396 --> 00:12:59,856
+Now, there's one more
+
+254
+00:12:59,856 --> 00:13:02,196
+to take a look at of HTTP/2.
+
+255
+00:12:59,856 --> 00:13:02,196
+to take a look at of HTTP/2.
+
+256
+00:13:02,896 --> 00:13:06,176
+Today we're introducing
+
+257
+00:13:06,176 --> 00:13:10,166
+for HTTP/2's Server
+
+258
+00:13:11,516 --> 00:13:15,496
+[ Applause ]
+
+259
+00:13:15,996 --> 00:13:18,016
+So what is Server Push?
+
+260
+00:13:18,016 --> 00:13:20,476
+Well, when a client
+
+261
+00:13:20,526 --> 00:13:22,796
+a server will respond
+
+262
+00:13:23,286 --> 00:13:26,776
+But concurrently, it can
+
+263
+00:13:26,776 --> 00:13:27,506
+to the client.
+
+264
+00:13:27,716 --> 00:13:30,306
+So if you think about a Web
+
+265
+00:13:30,306 --> 00:13:31,566
+and lots of resources.
+
+266
+00:13:32,006 --> 00:13:35,066
+Instead of the client having to
+
+267
+00:13:35,066 --> 00:13:37,376
+over the network, a server can,
+
+268
+00:13:37,696 --> 00:13:42,036
+in parallel to the original
+
+269
+00:13:42,356 --> 00:13:45,326
+about additional resources
+
+270
+00:13:47,056 --> 00:13:50,296
+So, Server Push prevents
+
+271
+00:13:50,296 --> 00:13:56,526
+that HTTP/1.1 and non-Server
+
+272
+00:13:57,976 --> 00:13:59,896
+Now, I want to bring to
+
+273
+00:13:59,896 --> 00:14:03,396
+that the server obviously
+
+274
+00:13:59,896 --> 00:14:03,396
+that the server obviously
+
+275
+00:14:03,396 --> 00:14:07,436
+has to support HTTP/2 and
+
+276
+00:14:07,866 --> 00:14:10,066
+to enable the Server
+
+277
+00:14:10,896 --> 00:14:13,976
+Now, Server Push is
+
+278
+00:14:14,916 --> 00:14:16,696
+that use NSURLSession.
+
+279
+00:14:16,876 --> 00:14:18,616
+There's no need to opt in.
+
+280
+00:14:18,876 --> 00:14:21,076
+No funny properties
+
+281
+00:14:21,326 --> 00:14:22,306
+It's just there.
+
+282
+00:14:22,386 --> 00:14:23,626
+And it just works.
+
+283
+00:14:24,256 --> 00:14:26,046
+So this is all more
+
+284
+00:14:26,046 --> 00:14:28,886
+that NSURLSession
+
+285
+00:14:28,886 --> 00:14:30,336
+for your applications today.
+
+286
+00:14:30,926 --> 00:14:34,016
+Now, let's take a minute here
+
+287
+00:14:34,016 --> 00:14:36,706
+about how Server Push
+
+288
+00:14:39,306 --> 00:14:42,136
+Here I've got a graph that
+
+289
+00:14:42,136 --> 00:14:46,256
+of NSURLSession using
+
+290
+00:14:46,686 --> 00:14:48,146
+to do some network loading.
+
+291
+00:14:48,736 --> 00:14:50,626
+Now, as we move down this graph,
+
+292
+00:14:50,786 --> 00:14:52,746
+we're going to accumulate
+
+293
+00:14:52,746 --> 00:14:55,086
+And this will be
+
+294
+00:14:55,296 --> 00:14:57,806
+for our network loading
+
+295
+00:14:58,996 --> 00:15:02,396
+So, first our app is
+
+296
+00:14:58,996 --> 00:15:02,396
+So, first our app is
+
+297
+00:15:02,896 --> 00:15:06,976
+And that task is going
+
+298
+00:15:08,096 --> 00:15:09,656
+We'll assume that
+
+299
+00:15:09,656 --> 00:15:10,936
+because networks just do that.
+
+300
+00:15:10,936 --> 00:15:14,066
+And we're going to get our
+
+301
+00:15:14,066 --> 00:15:15,386
+with the requested data.
+
+302
+00:15:16,506 --> 00:15:19,606
+Now, in addition to the
+
+303
+00:15:19,866 --> 00:15:21,366
+we note that time has passed.
+
+304
+00:15:21,806 --> 00:15:24,926
+And that our total latency has
+
+305
+00:15:26,346 --> 00:15:29,076
+Now, our app is going
+
+306
+00:15:29,076 --> 00:15:32,036
+and request style.css
+
+307
+00:15:32,366 --> 00:15:34,506
+And again, assuming
+
+308
+00:15:34,506 --> 00:15:36,206
+we're going to get
+
+309
+00:15:36,946 --> 00:15:38,636
+And now we have style.css
+
+310
+00:15:38,636 --> 00:15:42,686
+and our total latency has now
+
+311
+00:15:42,686 --> 00:15:44,666
+to fetch that resource
+
+312
+00:15:45,286 --> 00:15:49,736
+Here the application will
+
+313
+00:15:49,736 --> 00:15:51,386
+and request background.jpg.
+
+314
+00:15:52,266 --> 00:15:54,066
+We get the response
+
+315
+00:15:54,586 --> 00:15:56,456
+And here we've got
+
+316
+00:15:56,456 --> 00:16:01,386
+Our application is now finished
+
+317
+00:15:56,456 --> 00:16:01,386
+Our application is now finished
+
+318
+00:16:01,836 --> 00:16:03,216
+And we look at the graph,
+
+319
+00:16:03,216 --> 00:16:09,146
+we see this is our total latency
+
+320
+00:16:10,256 --> 00:16:13,016
+Now, let's take a look at our
+
+321
+00:16:13,016 --> 00:16:15,926
+to use HTTP/2 and Server Push.
+
+322
+00:16:16,396 --> 00:16:19,356
+And I'm just going to shift
+
+323
+00:16:19,356 --> 00:16:20,866
+over to the side
+
+324
+00:16:21,806 --> 00:16:26,696
+So again, our app will resume
+
+325
+00:16:27,156 --> 00:16:31,426
+Again, our total latency,
+
+326
+00:16:31,526 --> 00:16:36,766
+And our total latency is pretty
+
+327
+00:16:36,766 --> 00:16:38,726
+for the non-Server Push case.
+
+328
+00:16:39,436 --> 00:16:40,276
+That's expected.
+
+329
+00:16:40,276 --> 00:16:44,316
+What will happen, however,
+
+330
+00:16:44,316 --> 00:16:47,246
+to our response for
+
+331
+00:16:47,636 --> 00:16:50,836
+the server will push other
+
+332
+00:16:52,296 --> 00:16:55,956
+Now, this comes along with the
+
+333
+00:16:55,956 --> 00:16:57,246
+from the original request.
+
+334
+00:16:58,496 --> 00:17:02,016
+When our application
+
+335
+00:16:58,496 --> 00:17:02,016
+When our application
+
+336
+00:17:02,496 --> 00:17:06,896
+and requests style.css we get
+
+337
+00:17:07,185 --> 00:17:10,185
+And this is because Server
+
+338
+00:17:10,496 --> 00:17:12,406
+really knew we needed it.
+
+339
+00:17:12,986 --> 00:17:16,806
+Now we have style.css and we
+
+340
+00:17:16,806 --> 00:17:20,136
+for style.css is substantially
+
+341
+00:17:20,136 --> 00:17:24,455
+to the HTTP/1.1 needed to
+
+342
+00:17:24,455 --> 00:17:29,406
+Now the app makes
+
+343
+00:17:29,406 --> 00:17:30,536
+and requests background.jpg.
+
+344
+00:17:30,536 --> 00:17:33,446
+Again, we get a real
+
+345
+00:17:33,916 --> 00:17:35,576
+The app has background.jpg.
+
+346
+00:17:35,576 --> 00:17:39,566
+And we add the total time
+
+347
+00:17:39,706 --> 00:17:43,456
+At this point the app is done
+
+348
+00:17:44,716 --> 00:17:46,826
+And we see that the HTTP/2
+
+349
+00:17:46,826 --> 00:17:51,556
+with Server Push latency is much
+
+350
+00:17:51,556 --> 00:17:53,256
+or the non-Server Push load.
+
+351
+00:17:53,996 --> 00:17:56,046
+The reason for this
+
+352
+00:17:56,046 --> 00:17:59,776
+that with Server Push we were
+
+353
+00:17:59,776 --> 00:18:03,386
+of network round trips needed
+
+354
+00:17:59,776 --> 00:18:03,386
+of network round trips needed
+
+355
+00:18:03,946 --> 00:18:09,816
+Now, I'd like to
+
+356
+00:18:10,016 --> 00:18:11,916
+to show us what Server
+
+357
+00:18:11,916 --> 00:18:14,356
+like in a real application.
+
+358
+00:18:14,486 --> 00:18:15,136
+Andreas.
+
+359
+00:18:16,516 --> 00:18:19,636
+[ Applause ]
+
+360
+00:18:20,136 --> 00:18:20,776
+&gt;&gt; Thank you, Jeff.
+
+361
+00:18:21,886 --> 00:18:22,816
+Good morning everyone.
+
+362
+00:18:23,516 --> 00:18:26,006
+Today I'm going to
+
+363
+00:18:26,006 --> 00:18:30,136
+of using HTTP/2 Server Push when
+
+364
+00:18:39,256 --> 00:18:42,276
+You are looking at the very
+
+365
+00:18:42,276 --> 00:18:44,796
+of you may already
+
+366
+00:18:44,796 --> 00:18:47,876
+or at least have seen while
+
+367
+00:18:48,776 --> 00:18:52,456
+What you see now could
+
+368
+00:18:52,456 --> 00:18:55,236
+for photographers showing
+
+369
+00:18:55,726 --> 00:18:58,316
+where you can list the
+
+370
+00:18:58,316 --> 00:18:59,786
+for a certain photographer.
+
+371
+00:19:00,386 --> 00:19:01,836
+View the individual pictures.
+
+372
+00:19:02,966 --> 00:19:03,946
+Go to the next.
+
+373
+00:19:04,886 --> 00:19:07,256
+Go back. Go back
+
+374
+00:19:07,256 --> 00:19:08,406
+Choose another one to view.
+
+375
+00:19:09,096 --> 00:19:10,006
+And so on.
+
+376
+00:19:11,206 --> 00:19:14,076
+This app could be
+
+377
+00:19:14,286 --> 00:19:16,986
+or a music streaming app
+
+378
+00:19:17,376 --> 00:19:21,766
+So an app which is loading
+
+379
+00:19:22,196 --> 00:19:26,216
+In this case, it is loading
+
+380
+00:19:27,116 --> 00:19:30,406
+Now notice here for demo
+
+381
+00:19:31,346 --> 00:19:34,006
+It allows us to choose
+
+382
+00:19:34,006 --> 00:19:37,216
+with Server Push configured
+
+383
+00:19:38,386 --> 00:19:43,426
+In both cases, first we request
+
+384
+00:19:43,456 --> 00:19:45,426
+the image URLs to load.
+
+385
+00:19:46,096 --> 00:19:47,426
+Then we request the images.
+
+386
+00:19:48,116 --> 00:19:51,316
+If the Server Push is off,
+
+387
+00:19:51,616 --> 00:19:53,126
+So we need to send the requests
+
+388
+00:19:53,346 --> 00:19:55,576
+for every image over
+
+389
+00:19:56,826 --> 00:19:59,616
+In case of the Server Push,
+
+390
+00:19:59,616 --> 00:20:05,156
+to this mode, as Jeff explained
+
+391
+00:19:59,616 --> 00:20:05,156
+to this mode, as Jeff explained
+
+392
+00:20:05,156 --> 00:20:08,546
+of the initial document
+
+393
+00:20:08,546 --> 00:20:11,996
+of the resources from the
+
+394
+00:20:13,156 --> 00:20:15,166
+There will be no need
+
+395
+00:20:15,166 --> 00:20:17,076
+for every image over
+
+396
+00:20:17,486 --> 00:20:20,306
+The data for your data
+
+397
+00:20:20,306 --> 00:20:24,216
+out of the Server Push storage
+
+398
+00:20:26,346 --> 00:20:29,546
+Now, let's compare the
+
+399
+00:20:29,546 --> 00:20:30,806
+and non-Server Push loads.
+
+400
+00:20:31,666 --> 00:20:36,326
+I'm going to switch between the
+
+401
+00:20:36,326 --> 00:20:43,876
+and non-Server Push a couple
+
+402
+00:20:44,236 --> 00:20:45,956
+when the Server Push is on,
+
+403
+00:20:47,196 --> 00:20:50,326
+this entire collection
+
+404
+00:20:51,646 --> 00:20:52,576
+But how much faster?
+
+405
+00:20:52,886 --> 00:20:54,666
+Well, let me show you that.
+
+406
+00:20:55,626 --> 00:20:59,836
+Now the demo application is
+
+407
+00:21:00,456 --> 00:21:01,886
+It's the bottom of
+
+408
+00:21:02,296 --> 00:21:05,686
+For the fastest non-Server
+
+409
+00:21:06,206 --> 00:21:09,226
+And for the fastest
+
+410
+00:21:11,356 --> 00:21:12,736
+Let me do it a couple of times.
+
+411
+00:21:17,546 --> 00:21:19,716
+Now the same with
+
+412
+00:21:21,366 --> 00:21:23,856
+A couple of times.
+
+413
+00:21:23,856 --> 00:21:24,606
+Server Push off.
+
+414
+00:21:24,606 --> 00:21:25,386
+Server Push on.
+
+415
+00:21:26,526 --> 00:21:29,756
+You can see here that
+
+416
+00:21:29,756 --> 00:21:32,536
+at least two times faster.
+
+417
+00:21:34,276 --> 00:21:38,106
+Pushing the images is about
+
+418
+00:21:38,246 --> 00:21:42,016
+than loading them on the high
+
+419
+00:21:42,016 --> 00:21:42,716
+using here.
+
+420
+00:21:43,286 --> 00:21:46,186
+The kind of network your
+
+421
+00:21:46,566 --> 00:21:48,476
+when on cellular or slow Wi-Fi.
+
+422
+00:21:49,666 --> 00:21:53,226
+I prepared a video showing
+
+423
+00:21:53,226 --> 00:21:56,516
+and non-Server Push
+
+424
+00:21:56,736 --> 00:21:57,976
+Well, let me show you that.
+
+425
+00:22:07,356 --> 00:22:11,876
+So, you can see when the Server
+
+426
+00:22:11,876 --> 00:22:16,426
+pictures, the other guy is just
+
+427
+00:22:16,836 --> 00:22:19,976
+Let's see it one more time.
+
+428
+00:22:20,766 --> 00:22:25,066
+Once again, the Server Push
+
+429
+00:22:25,436 --> 00:22:27,916
+through much faster than
+
+430
+00:22:27,916 --> 00:22:28,536
+on the left.
+
+431
+00:22:36,346 --> 00:22:38,406
+Two to three times faster.
+
+432
+00:22:38,406 --> 00:22:39,596
+Just think about it.
+
+433
+00:22:40,156 --> 00:22:43,016
+Think about the user experience
+
+434
+00:22:43,486 --> 00:22:46,906
+if you configure the Server
+
+435
+00:22:47,526 --> 00:22:50,526
+And you don't even have to
+
+436
+00:22:50,626 --> 00:22:51,596
+And this is great.
+
+437
+00:22:51,876 --> 00:22:52,496
+Just awesome.
+
+438
+00:22:53,066 --> 00:22:54,566
+This was the Server Push demo.
+
+439
+00:22:54,566 --> 00:22:55,306
+Thank you very much.
+
+440
+00:22:55,306 --> 00:22:56,236
+Have a great conference.
+
+441
+00:22:56,696 --> 00:22:58,956
+And now, back to Jeff.
+
+442
+00:22:59,516 --> 00:23:03,666
+[ Applause ]
+
+443
+00:22:59,516 --> 00:23:03,666
+[ Applause ]
+
+444
+00:23:04,166 --> 00:23:05,436
+&gt;&gt; All right, thanks, Andreas.
+
+445
+00:23:07,876 --> 00:23:10,136
+So let's summarize
+
+446
+00:23:10,136 --> 00:23:14,106
+and discussed regarding
+
+447
+00:23:15,436 --> 00:23:18,736
+Server Push is supported
+
+448
+00:23:18,916 --> 00:23:22,276
+So if you're writing new apps
+
+449
+00:23:22,946 --> 00:23:26,786
+we highly recommend that you
+
+450
+00:23:28,076 --> 00:23:30,776
+There's no coding
+
+451
+00:23:30,776 --> 00:23:32,436
+to take advantage
+
+452
+00:23:32,436 --> 00:23:33,336
+It's not an opt-in.
+
+453
+00:23:33,336 --> 00:23:34,586
+It just works.
+
+454
+00:23:36,026 --> 00:23:38,436
+And with Server Push
+
+455
+00:23:38,436 --> 00:23:39,776
+in the most optimal manner,
+
+456
+00:23:40,176 --> 00:23:42,806
+giving your users an
+
+457
+00:23:42,806 --> 00:23:44,196
+with your applications.
+
+458
+00:23:46,336 --> 00:23:51,046
+Now, another evolution to the
+
+459
+00:23:51,046 --> 00:23:52,876
+of Network Statistics.
+
+460
+00:23:55,576 --> 00:23:57,846
+Now, who out here
+
+461
+00:23:57,846 --> 00:23:59,046
+We have any statistic people?
+
+462
+00:23:59,046 --> 00:24:00,496
+We got some folks
+
+463
+00:23:59,046 --> 00:24:00,496
+We got some folks
+
+464
+00:24:00,496 --> 00:24:01,936
+All right, I've got
+
+465
+00:24:01,936 --> 00:24:03,996
+Are you ready?
+
+466
+00:24:03,996 --> 00:24:05,596
+Here it is.
+
+467
+00:24:06,306 --> 00:24:07,366
+All right.
+
+468
+00:24:07,366 --> 00:24:08,246
+Right. Sorry about that.
+
+469
+00:24:08,246 --> 00:24:11,786
+Sorry. We're going to get to
+
+470
+00:24:11,786 --> 00:24:14,436
+And this is, we believe,
+
+471
+00:24:14,436 --> 00:24:16,406
+of that 2% useful values.
+
+472
+00:24:16,906 --> 00:24:19,146
+So, why is it useful?
+
+473
+00:24:19,146 --> 00:24:21,936
+Have you ever had slow
+
+474
+00:24:21,936 --> 00:24:22,976
+in your applications?
+
+475
+00:24:23,806 --> 00:24:24,896
+Imagine some of you have.
+
+476
+00:24:24,896 --> 00:24:27,756
+And how did you go about
+
+477
+00:24:28,406 --> 00:24:29,716
+You know, how did
+
+478
+00:24:30,726 --> 00:24:34,746
+We believe network statistics is
+
+479
+00:24:34,746 --> 00:24:36,366
+to be able to use
+
+480
+00:24:36,366 --> 00:24:37,716
+and debugging environment.
+
+481
+00:24:37,826 --> 00:24:40,406
+You could use this to
+
+482
+00:24:40,616 --> 00:24:41,766
+possibly out in the field.
+
+483
+00:24:41,766 --> 00:24:43,366
+Maybe you could leverage
+
+484
+00:24:43,676 --> 00:24:44,906
+and collect some information
+
+485
+00:24:44,906 --> 00:24:46,506
+about your app running
+
+486
+00:24:47,746 --> 00:24:50,706
+Network statistics is
+
+487
+00:24:50,846 --> 00:24:52,536
+of network loading
+
+488
+00:24:52,846 --> 00:24:56,356
+It's about finding and fixing
+
+489
+00:24:56,356 --> 00:24:58,996
+And it's about giving
+
+490
+00:24:59,156 --> 00:25:02,486
+of what your networking is doing
+
+491
+00:24:59,156 --> 00:25:02,486
+of what your networking is doing
+
+492
+00:25:04,116 --> 00:25:07,546
+Currently, network
+
+493
+00:25:07,756 --> 00:25:10,816
+macOS and on tvOS platforms.
+
+494
+00:25:12,546 --> 00:25:15,846
+Now, before we get started with
+
+495
+00:25:15,846 --> 00:25:18,266
+let me explain to you how you're
+
+496
+00:25:18,676 --> 00:25:22,286
+And to do this, we need to
+
+497
+00:25:22,476 --> 00:25:25,246
+Here we have a brand
+
+498
+00:25:25,246 --> 00:25:27,926
+didFinishCollecting metrics.
+
+499
+00:25:28,416 --> 00:25:29,596
+This is a delegate method
+
+500
+00:25:29,596 --> 00:25:32,376
+of the NSURLSession
+
+501
+00:25:33,026 --> 00:25:35,806
+Now, when you implement
+
+502
+00:25:36,156 --> 00:25:38,326
+it's going to be passed a task
+
+503
+00:25:38,326 --> 00:25:40,006
+for which the metrics
+
+504
+00:25:40,316 --> 00:25:42,086
+and a new class object.
+
+505
+00:25:42,086 --> 00:25:45,036
+This is NSURLSessionTaskMetrics.
+
+506
+00:25:47,156 --> 00:25:50,486
+The NSURLSessionTaskMetrics
+
+507
+00:25:50,486 --> 00:25:52,216
+named taskInterval.
+
+508
+00:25:53,566 --> 00:25:55,816
+This is the interval of
+
+509
+00:25:55,816 --> 00:25:58,336
+to the point in time when all
+
+510
+00:25:58,336 --> 00:25:59,776
+and are ready to be delivered
+
+511
+00:25:59,776 --> 00:26:01,926
+to your
+
+512
+00:25:59,776 --> 00:26:01,926
+to your
+
+513
+00:26:01,926 --> 00:26:02,456
+delegate.
+
+514
+00:26:03,236 --> 00:26:06,406
+Another property I'm showing
+
+515
+00:26:06,996 --> 00:26:08,376
+Now, that's fairly
+
+516
+00:26:08,376 --> 00:26:11,176
+And as the name indicates,
+
+517
+00:26:11,176 --> 00:26:14,706
+that an HTTP redirection
+
+518
+00:26:14,706 --> 00:26:16,116
+task's execution.
+
+519
+00:26:17,216 --> 00:26:18,396
+The last property
+
+520
+00:26:20,016 --> 00:26:23,966
+of NSURLSessionTaskMetrics
+
+521
+00:26:24,486 --> 00:26:26,276
+Now, this property
+
+522
+00:26:26,276 --> 00:26:28,506
+This is the meat of
+
+523
+00:26:28,506 --> 00:26:30,416
+This is where you get an array
+
+524
+00:26:30,416 --> 00:26:33,966
+of NSURLTaskTransactionMetric
+
+525
+00:26:34,096 --> 00:26:37,446
+Now, let's take a closer look
+
+526
+00:26:37,446 --> 00:26:38,646
+because this is really
+
+527
+00:26:38,646 --> 00:26:40,596
+of the great metrics
+
+528
+00:26:42,126 --> 00:26:44,826
+Now, in order to understand
+
+529
+00:26:44,826 --> 00:26:47,496
+we're going to chop them
+
+530
+00:26:48,006 --> 00:26:53,216
+Now, the first two properties of
+
+531
+00:26:53,216 --> 00:26:54,406
+up the first category.
+
+532
+00:26:54,406 --> 00:26:57,116
+And I'm going to call
+
+533
+00:26:58,376 --> 00:27:02,986
+There's two properties here
+
+534
+00:26:58,376 --> 00:27:02,986
+There's two properties here
+
+535
+00:27:03,676 --> 00:27:05,096
+And they really allow you
+
+536
+00:27:05,096 --> 00:27:07,596
+to analyze what was
+
+537
+00:27:08,046 --> 00:27:12,686
+And what was the response
+
+538
+00:27:14,356 --> 00:27:16,816
+The second category of
+
+539
+00:27:16,816 --> 00:27:18,916
+with protocol and connection.
+
+540
+00:27:21,456 --> 00:27:25,416
+The property networkProtocolName
+
+541
+00:27:25,416 --> 00:27:26,796
+it tells you what type
+
+542
+00:27:26,796 --> 00:27:28,596
+of protocol was used
+
+543
+00:27:28,596 --> 00:27:31,566
+at which statistics
+
+544
+00:27:31,866 --> 00:27:34,256
+And here's a possible list
+
+545
+00:27:34,766 --> 00:27:37,716
+HTTP/1.1, HTTP/2, or SPDY.
+
+546
+00:27:37,716 --> 00:27:40,056
+Now, this list can and
+
+547
+00:27:41,136 --> 00:27:44,376
+Another property you'll
+
+548
+00:27:45,006 --> 00:27:47,976
+This tells you whether
+
+549
+00:27:48,276 --> 00:27:51,106
+or had a proxy connection
+
+550
+00:27:51,106 --> 00:27:52,336
+collections were gathered,
+
+551
+00:27:52,946 --> 00:27:55,096
+or statistics were
+
+552
+00:27:55,596 --> 00:27:59,166
+And the isReusedConnection.
+
+553
+00:27:59,166 --> 00:28:00,976
+This property is set to Yes
+
+554
+00:27:59,166 --> 00:28:00,976
+This property is set to Yes
+
+555
+00:28:00,976 --> 00:28:04,326
+if a persistent connection
+
+556
+00:28:04,326 --> 00:28:05,256
+of the resource.
+
+557
+00:28:08,126 --> 00:28:10,876
+Now, the third category of
+
+558
+00:28:10,876 --> 00:28:12,436
+And it deals with
+
+559
+00:28:12,436 --> 00:28:15,416
+about the resource
+
+560
+00:28:16,706 --> 00:28:19,446
+The single property
+
+561
+00:28:20,026 --> 00:28:22,466
+Now, it tells you how a
+
+562
+00:28:22,776 --> 00:28:26,326
+Now, some of the values you
+
+563
+00:28:26,416 --> 00:28:29,246
+This indicates that the resource
+
+564
+00:28:29,506 --> 00:28:31,496
+as commonly referred
+
+565
+00:28:32,416 --> 00:28:33,876
+You might see local cache,
+
+566
+00:28:34,206 --> 00:28:36,616
+which indicates the resource
+
+567
+00:28:36,616 --> 00:28:38,096
+It was stored local
+
+568
+00:28:38,096 --> 00:28:40,776
+No network transaction
+
+569
+00:28:41,346 --> 00:28:42,526
+And Server Push.
+
+570
+00:28:42,916 --> 00:28:45,096
+This tells that the resource
+
+571
+00:28:45,096 --> 00:28:50,006
+of a Server Push cache hit
+
+572
+00:28:50,876 --> 00:28:53,886
+The fourth category of
+
+573
+00:28:53,886 --> 00:28:56,386
+with connection establishment
+
+574
+00:28:57,576 --> 00:29:01,226
+Now, the first group of
+
+575
+00:28:57,576 --> 00:29:01,226
+Now, the first group of
+
+576
+00:29:01,226 --> 00:29:03,186
+to the setup of a
+
+577
+00:29:04,476 --> 00:29:08,436
+The second group of metrics
+
+578
+00:29:08,436 --> 00:29:09,326
+of a network load.
+
+579
+00:29:10,006 --> 00:29:13,346
+These properties are timestamps
+
+580
+00:29:13,346 --> 00:29:15,016
+when the event actually
+
+581
+00:29:15,196 --> 00:29:17,316
+So let's take a closer
+
+582
+00:29:17,316 --> 00:29:20,076
+and when they are collected
+
+583
+00:29:20,076 --> 00:29:20,906
+of a network load.
+
+584
+00:29:21,676 --> 00:29:24,876
+To do this, we're going to look
+
+585
+00:29:25,076 --> 00:29:28,146
+Now note that this is just
+
+586
+00:29:28,146 --> 00:29:29,676
+There's all sorts of activities
+
+587
+00:29:30,076 --> 00:29:31,766
+that happen during
+
+588
+00:29:32,036 --> 00:29:33,276
+You've got cache lookups.
+
+589
+00:29:33,546 --> 00:29:34,826
+You've got cookie lookups.
+
+590
+00:29:34,826 --> 00:29:36,406
+You're dealing with
+
+591
+00:29:36,406 --> 00:29:38,166
+sometimes authentication
+
+592
+00:29:38,316 --> 00:29:39,916
+But we're going to keep
+
+593
+00:29:39,916 --> 00:29:41,326
+for our purposes here.
+
+594
+00:29:41,606 --> 00:29:47,136
+The NSURLTaskTransactionMetrics
+
+595
+00:29:47,216 --> 00:29:49,836
+that contain all these time
+
+596
+00:29:50,146 --> 00:29:53,856
+So, we begin with fetchStart.
+
+597
+00:29:54,476 --> 00:29:57,986
+fetchStart is a time when the
+
+598
+00:29:57,986 --> 00:29:58,706
+a resource.
+
+599
+00:29:58,706 --> 00:30:01,016
+A fetch could be satisfied
+
+600
+00:29:58,706 --> 00:30:01,016
+A fetch could be satisfied
+
+601
+00:30:01,426 --> 00:30:03,796
+or possibly resource
+
+602
+00:30:05,256 --> 00:30:07,576
+So now we're looking
+
+603
+00:30:09,066 --> 00:30:11,266
+So the domainLookupStart
+
+604
+00:30:11,266 --> 00:30:13,446
+This is the time just
+
+605
+00:30:13,446 --> 00:30:14,786
+for a resource begins.
+
+606
+00:30:15,116 --> 00:30:16,496
+Now, this is the DNS query.
+
+607
+00:30:16,976 --> 00:30:19,596
+And this converts a host
+
+608
+00:30:20,006 --> 00:30:23,886
+So, domainLookupEnd is
+
+609
+00:30:24,146 --> 00:30:26,076
+And an IP address is
+
+610
+00:30:26,646 --> 00:30:30,776
+Here we're going to take a
+
+611
+00:30:30,776 --> 00:30:32,456
+for connection establishment.
+
+612
+00:30:33,596 --> 00:30:37,016
+The connectStart property is the
+
+613
+00:30:37,016 --> 00:30:40,036
+to start or establish
+
+614
+00:30:40,036 --> 00:30:41,016
+with the remote server.
+
+615
+00:30:41,526 --> 00:30:43,106
+Now, this value could be nil
+
+616
+00:30:43,106 --> 00:30:45,376
+if the response is
+
+617
+00:30:46,256 --> 00:30:48,656
+I'll discuss the connectEnd
+
+618
+00:30:52,236 --> 00:30:57,006
+If you're doing HTTPS you're
+
+619
+00:30:57,006 --> 00:30:58,606
+So we've got a statistic
+
+620
+00:30:59,186 --> 00:31:01,526
+The secureConnectionStart
+
+621
+00:30:59,186 --> 00:31:01,526
+The secureConnectionStart
+
+622
+00:31:01,766 --> 00:31:04,176
+the point in time just before
+
+623
+00:31:04,176 --> 00:31:07,636
+security handshake to secure
+
+624
+00:31:08,136 --> 00:31:09,606
+And secureConnectionEnd, well,
+
+625
+00:31:09,606 --> 00:31:12,376
+that's when the secure
+
+626
+00:31:13,156 --> 00:31:14,216
+It's finished.
+
+627
+00:31:14,256 --> 00:31:16,166
+Now, as I mentioned, connectEnd.
+
+628
+00:31:16,586 --> 00:31:19,586
+Now, that's the time immediately
+
+629
+00:31:19,586 --> 00:31:22,016
+to the remote server,
+
+630
+00:31:22,016 --> 00:31:23,756
+security-related handshakes.
+
+631
+00:31:24,196 --> 00:31:26,536
+This is the point in
+
+632
+00:31:26,536 --> 00:31:28,016
+considered established.
+
+633
+00:31:28,476 --> 00:31:31,906
+Now that we have an
+
+634
+00:31:32,136 --> 00:31:35,616
+we can actually do some HTTP.
+
+635
+00:31:35,846 --> 00:31:37,926
+So, we have a few stats
+
+636
+00:31:37,926 --> 00:31:40,246
+for you regarding the
+
+637
+00:31:40,246 --> 00:31:42,686
+So first we have requestStart.
+
+638
+00:31:42,686 --> 00:31:44,656
+And this is the time when
+
+639
+00:31:44,656 --> 00:31:47,236
+resource regardless of whether
+
+640
+00:31:47,236 --> 00:31:49,556
+from a local cache
+
+641
+00:31:50,086 --> 00:31:52,626
+If an origin load was
+
+642
+00:31:52,966 --> 00:31:57,166
+at which the first byte of the
+
+643
+00:31:57,886 --> 00:32:00,676
+requestEnd is the time
+
+644
+00:31:57,886 --> 00:32:00,676
+requestEnd is the time
+
+645
+00:32:00,676 --> 00:32:02,736
+of the request was
+
+646
+00:32:06,656 --> 00:32:07,776
+responseStart.
+
+647
+00:32:08,466 --> 00:32:10,576
+This represents a time
+
+648
+00:32:10,576 --> 00:32:13,326
+of the response is
+
+649
+00:32:13,836 --> 00:32:15,116
+Now, if this is a cache load,
+
+650
+00:32:15,116 --> 00:32:18,956
+this is when the cache response
+
+651
+00:32:19,376 --> 00:32:22,006
+And responseEnd was
+
+652
+00:32:22,006 --> 00:32:24,586
+after the application
+
+653
+00:32:25,476 --> 00:32:27,486
+of the resource requested.
+
+654
+00:32:27,986 --> 00:32:32,106
+Now that we've been looking
+
+655
+00:32:32,106 --> 00:32:34,336
+at stats collected
+
+656
+00:32:35,016 --> 00:32:37,536
+That is, we had to send bytes
+
+657
+00:32:38,136 --> 00:32:42,006
+It's possible that the
+
+658
+00:32:42,006 --> 00:32:43,466
+satisfied from a local cache.
+
+659
+00:32:43,466 --> 00:32:44,286
+And I've mentioned that.
+
+660
+00:32:44,286 --> 00:32:48,026
+So if a local cache contains
+
+661
+00:32:48,376 --> 00:32:49,416
+then there's no need for DNS.
+
+662
+00:32:49,416 --> 00:32:52,756
+So there's no need to make
+
+663
+00:32:53,316 --> 00:32:56,366
+Those statistics will be set
+
+664
+00:32:56,366 --> 00:32:57,446
+So just be aware of that
+
+665
+00:32:57,446 --> 00:32:58,946
+as you're looking
+
+666
+00:32:59,496 --> 00:33:03,776
+Now, you might be asking,
+
+667
+00:32:59,496 --> 00:33:03,776
+Now, you might be asking,
+
+668
+00:33:03,776 --> 00:33:06,206
+How do I get these
+
+669
+00:33:06,536 --> 00:33:10,146
+So, to do that, let's
+
+670
+00:33:10,146 --> 00:33:12,366
+Now, as I showed you earlier,
+
+671
+00:33:12,766 --> 00:33:14,426
+And here I have an
+
+672
+00:33:14,426 --> 00:33:17,246
+of the NSURLSessionTaskDelegate.
+
+673
+00:33:17,736 --> 00:33:21,796
+This implements the new
+
+674
+00:33:21,796 --> 00:33:22,686
+delegate callback.
+
+675
+00:33:23,086 --> 00:33:25,276
+And the one I'm showing you
+
+676
+00:33:25,276 --> 00:33:26,666
+of any interest at the moment.
+
+677
+00:33:26,976 --> 00:33:28,606
+I totally expect
+
+678
+00:33:28,606 --> 00:33:30,196
+to do some really
+
+679
+00:33:30,196 --> 00:33:31,566
+Maybe you're going
+
+680
+00:33:31,956 --> 00:33:33,926
+A good point to do some
+
+681
+00:33:33,926 --> 00:33:35,516
+at what's happening
+
+682
+00:33:35,816 --> 00:33:38,476
+Again, maybe leverage Test
+
+683
+00:33:38,766 --> 00:33:40,766
+so you can collect some
+
+684
+00:33:40,766 --> 00:33:44,756
+about how the networking is
+
+685
+00:33:45,696 --> 00:33:46,556
+That's all up to you.
+
+686
+00:33:47,226 --> 00:33:49,886
+So, let's keep looking
+
+687
+00:33:49,886 --> 00:33:52,316
+Maybe a little bit
+
+688
+00:33:52,636 --> 00:33:53,566
+First thing we have to do
+
+689
+00:33:53,566 --> 00:33:57,376
+with our delegate implementation
+
+690
+00:33:57,376 --> 00:33:58,246
+of it.
+
+691
+00:33:59,786 --> 00:34:02,336
+Now, we're going to create a
+
+692
+00:33:59,786 --> 00:34:02,336
+Now, we're going to create a
+
+693
+00:34:02,336 --> 00:34:03,726
+We take all the defaults just
+
+694
+00:34:03,726 --> 00:34:05,976
+by calling
+
+695
+00:34:06,406 --> 00:34:10,106
+Next, we're going to
+
+696
+00:34:10,536 --> 00:34:13,576
+or we're going to create an
+
+697
+00:34:13,576 --> 00:34:16,186
+And we have to do that because
+
+698
+00:34:16,186 --> 00:34:23,636
+some queue, so that our delegate
+
+699
+00:34:23,636 --> 00:34:27,826
+And as I mentioned earlier,
+
+700
+00:34:27,826 --> 00:34:29,226
+with that configuration object.
+
+701
+00:34:29,226 --> 00:34:32,565
+But here I'm calling
+
+702
+00:34:32,966 --> 00:34:34,676
+that takes additional
+
+703
+00:34:34,676 --> 00:34:38,005
+And namely, those are the
+
+704
+00:34:38,076 --> 00:34:42,216
+object and the NSOperationQueue
+
+705
+00:34:42,746 --> 00:34:45,956
+So now we can actually
+
+706
+00:34:45,956 --> 00:34:47,766
+We create a task
+
+707
+00:34:47,766 --> 00:34:50,866
+And what do we want
+
+708
+00:34:50,866 --> 00:34:53,596
+Well, let's just simply load
+
+709
+00:34:54,076 --> 00:34:56,906
+And here I'm using,
+
+710
+00:34:57,526 --> 00:35:00,936
+And this requires a
+
+711
+00:34:57,526 --> 00:35:00,936
+And this requires a
+
+712
+00:35:01,856 --> 00:35:04,116
+Now, note with this closure
+
+713
+00:35:04,116 --> 00:35:06,506
+that our
+
+714
+00:35:06,506 --> 00:35:10,626
+delegate callback will be
+
+715
+00:35:10,926 --> 00:35:12,626
+that closure is invoked.
+
+716
+00:35:13,626 --> 00:35:18,196
+So, oh, and also, don't forget
+
+717
+00:35:18,326 --> 00:35:19,736
+Got to make sure
+
+718
+00:35:19,736 --> 00:35:21,526
+so that the work can
+
+719
+00:35:21,866 --> 00:35:24,746
+Now, this is an overly
+
+720
+00:35:24,746 --> 00:35:27,356
+to implement
+
+721
+00:35:27,356 --> 00:35:30,356
+callback and the code
+
+722
+00:35:30,736 --> 00:35:31,646
+I'm sure that you guys are going
+
+723
+00:35:31,646 --> 00:35:34,636
+to do much more interesting
+
+724
+00:35:34,636 --> 00:35:37,576
+with your use of Network
+
+725
+00:35:38,166 --> 00:35:42,026
+Now, I hope you like what you've
+
+726
+00:35:42,026 --> 00:35:42,826
+What do you think of those?
+
+727
+00:35:43,016 --> 00:35:44,526
+[ Applause ]
+
+728
+00:35:44,526 --> 00:35:44,876
+All right.
+
+729
+00:35:47,696 --> 00:35:51,266
+Now you can access information
+
+730
+00:35:51,266 --> 00:35:54,306
+under the hood with your
+
+731
+00:35:55,096 --> 00:35:58,646
+This will help you in your
+
+732
+00:35:58,826 --> 00:36:00,456
+to be able to get, you
+
+733
+00:35:58,826 --> 00:36:00,456
+to be able to get, you
+
+734
+00:36:00,456 --> 00:36:03,136
+and make your apps work
+
+735
+00:36:03,406 --> 00:36:07,326
+And tune, really tune the Web
+
+736
+00:36:07,326 --> 00:36:08,556
+that you're making so
+
+737
+00:36:08,556 --> 00:36:09,706
+in the most optimal way.
+
+738
+00:36:09,796 --> 00:36:14,996
+And again, this new feature is
+
+739
+00:36:14,996 --> 00:36:17,876
+It's a great time to
+
+740
+00:36:18,026 --> 00:36:22,706
+Now, in the final
+
+741
+00:36:22,706 --> 00:36:24,926
+to discuss a topic that's
+
+742
+00:36:24,926 --> 00:36:27,196
+And now, as developers,
+
+743
+00:36:27,356 --> 00:36:30,906
+we all care about guarding
+
+744
+00:36:31,506 --> 00:36:34,496
+The NSURLSession API
+
+745
+00:36:34,496 --> 00:36:35,376
+security features.
+
+746
+00:36:35,376 --> 00:36:37,286
+And I want to share with you
+
+747
+00:36:37,286 --> 00:36:38,986
+made to these features.
+
+748
+00:36:40,376 --> 00:36:43,156
+Transport Layer Security,
+
+749
+00:36:43,156 --> 00:36:47,506
+that protects data transmitted
+
+750
+00:36:47,506 --> 00:36:49,566
+So sometimes you've
+
+751
+00:36:49,866 --> 00:36:51,526
+This was the predecessor to TLS.
+
+752
+00:36:51,526 --> 00:36:54,606
+So, TLS and SSL are sometimes
+
+753
+00:36:55,226 --> 00:36:58,996
+TLS makes use of ciphers
+
+754
+00:36:59,096 --> 00:37:01,226
+Ciphers scramble
+
+755
+00:36:59,096 --> 00:37:01,226
+Ciphers scramble
+
+756
+00:37:01,536 --> 00:37:03,666
+scramble data sent
+
+757
+00:37:04,036 --> 00:37:06,496
+And the other receiving
+
+758
+00:37:06,496 --> 00:37:09,556
+to unscramble that data so that
+
+759
+00:37:09,556 --> 00:37:12,846
+If somebody were to grab
+
+760
+00:37:12,846 --> 00:37:14,856
+it's just big glob of blah.
+
+761
+00:37:14,856 --> 00:37:15,556
+They can't use it.
+
+762
+00:37:15,556 --> 00:37:16,646
+So it protects the data.
+
+763
+00:37:17,666 --> 00:37:19,916
+Now, one of the things
+
+764
+00:37:19,916 --> 00:37:21,266
+and I want to make you aware of,
+
+765
+00:37:21,266 --> 00:37:26,366
+is that Apple's platforms no
+
+766
+00:37:27,386 --> 00:37:32,236
+So for more details, I recommend
+
+767
+00:37:32,396 --> 00:37:35,606
+review the security sessions
+
+768
+00:37:36,096 --> 00:37:37,976
+Possibly attend one
+
+769
+00:37:37,976 --> 00:37:39,036
+and ask some questions there
+
+770
+00:37:39,036 --> 00:37:40,606
+for a little bit
+
+771
+00:37:41,256 --> 00:37:44,036
+So, what this means to
+
+772
+00:37:44,036 --> 00:37:45,986
+is that connections
+
+773
+00:37:45,986 --> 00:37:49,626
+to make successfully could
+
+774
+00:37:50,006 --> 00:37:51,656
+And this could be due to servers
+
+775
+00:37:51,656 --> 00:37:54,596
+that are supporting
+
+776
+00:37:55,186 --> 00:37:58,036
+Now, we have a way that you can
+
+777
+00:37:59,316 --> 00:38:02,786
+There is a command line
+
+778
+00:37:59,316 --> 00:38:02,786
+There is a command line
+
+779
+00:38:02,786 --> 00:38:07,236
+And this could be used to test
+
+780
+00:38:07,236 --> 00:38:08,746
+that your apps communicate with.
+
+781
+00:38:09,316 --> 00:38:12,626
+Now, here I'm going
+
+782
+00:38:12,626 --> 00:38:15,556
+to grab the root
+
+783
+00:38:15,986 --> 00:38:18,826
+So if I execute this
+
+784
+00:38:18,826 --> 00:38:22,046
+I see that, hey, the
+
+785
+00:38:22,246 --> 00:38:22,876
+Hmm. That's funny.
+
+786
+00:38:22,876 --> 00:38:24,406
+I used to be able to
+
+787
+00:38:24,796 --> 00:38:28,196
+Let's find out if our theory
+
+788
+00:38:29,616 --> 00:38:33,666
+Here I've added a flag to
+
+789
+00:38:33,786 --> 00:38:37,626
+And that means that I am
+
+790
+00:38:37,756 --> 00:38:39,516
+on the client's side
+
+791
+00:38:39,916 --> 00:38:40,736
+So I run this.
+
+792
+00:38:41,416 --> 00:38:43,376
+Wow! This worked
+
+793
+00:38:43,376 --> 00:38:46,296
+So this proves to me that this
+
+794
+00:38:46,346 --> 00:38:49,376
+I'm going to have to go have
+
+795
+00:38:49,736 --> 00:38:52,636
+and figure out what could we
+
+796
+00:38:52,636 --> 00:38:56,036
+onto that server so we
+
+797
+00:38:56,036 --> 00:38:57,166
+within our application.
+
+798
+00:38:57,166 --> 00:38:58,556
+So I hope you get
+
+799
+00:38:59,056 --> 00:39:01,976
+The RC4 cipher is no longer
+
+800
+00:38:59,056 --> 00:39:01,976
+The RC4 cipher is no longer
+
+801
+00:39:01,976 --> 00:39:03,686
+And this could affect
+
+802
+00:39:03,686 --> 00:39:05,226
+So just be aware of that.
+
+803
+00:39:06,166 --> 00:39:08,266
+App Transport Security, or ATS.
+
+804
+00:39:08,266 --> 00:39:09,946
+This is a great security
+
+805
+00:39:09,946 --> 00:39:13,206
+It allows you to set the policy,
+
+806
+00:39:13,206 --> 00:39:15,516
+You specify keys that
+
+807
+00:39:15,976 --> 00:39:18,496
+And these become your
+
+808
+00:39:18,496 --> 00:39:20,826
+Now, we've added two new keys
+
+809
+00:39:21,686 --> 00:39:24,806
+The first one is
+
+810
+00:39:24,806 --> 00:39:25,726
+WebContent.
+
+811
+00:39:26,066 --> 00:39:30,876
+So, if you have a WK Web
+
+812
+00:39:30,876 --> 00:39:34,466
+to that class, if you have
+
+813
+00:39:34,466 --> 00:39:37,616
+and you have this key present,
+
+814
+00:39:37,616 --> 00:39:40,326
+to make any sort of network
+
+815
+00:39:40,326 --> 00:39:43,226
+It'll ignore whatever other
+
+816
+00:39:43,566 --> 00:39:45,716
+But again, that's contained
+
+817
+00:39:45,716 --> 00:39:48,456
+Any loads outside of
+
+818
+00:39:48,776 --> 00:39:50,256
+to your security policy.
+
+819
+00:39:52,436 --> 00:39:56,396
+The other value we have
+
+820
+00:39:56,396 --> 00:39:57,336
+Transparency.
+
+821
+00:39:57,766 --> 00:39:59,366
+Now, this requires that certs
+
+822
+00:39:59,796 --> 00:40:03,366
+that your app receives must
+
+823
+00:39:59,796 --> 00:40:03,366
+that your app receives must
+
+824
+00:40:03,366 --> 00:40:05,166
+transparency feature.
+
+825
+00:40:05,636 --> 00:40:09,286
+Certificate Transparency is
+
+826
+00:40:09,646 --> 00:40:12,496
+This allows you to use
+
+827
+00:40:12,496 --> 00:40:15,866
+with greater assurance that
+
+828
+00:40:15,866 --> 00:40:17,746
+And that you can
+
+829
+00:40:17,746 --> 00:40:19,066
+that gave you that certificate.
+
+830
+00:40:19,636 --> 00:40:23,826
+For more details on that
+
+831
+00:40:23,826 --> 00:40:26,366
+recommend that you take a look
+
+832
+00:40:26,366 --> 00:40:29,046
+or attend one of their
+
+833
+00:40:29,046 --> 00:40:30,846
+on Certificate Transparency.
+
+834
+00:40:31,456 --> 00:40:34,446
+Everything that I've discussed
+
+835
+00:40:35,176 --> 00:40:37,086
+We've seen this API evolve
+
+836
+00:40:37,606 --> 00:40:39,186
+with new features
+
+837
+00:40:39,476 --> 00:40:42,106
+And we're really excited to see
+
+838
+00:40:42,106 --> 00:40:44,476
+with your applications as
+
+839
+00:40:44,476 --> 00:40:45,646
+of these great new features.
+
+840
+00:40:46,546 --> 00:40:51,046
+I introduced support for the
+
+841
+00:40:51,696 --> 00:40:53,716
+This means that your
+
+842
+00:40:53,716 --> 00:40:54,956
+to perform even better.
+
+843
+00:40:56,536 --> 00:40:58,826
+I introduced Network Statistics.
+
+844
+00:40:59,456 --> 00:41:02,596
+Now you can introspect your
+
+845
+00:40:59,456 --> 00:41:02,596
+Now you can introspect your
+
+846
+00:41:02,596 --> 00:41:03,936
+like never before.
+
+847
+00:41:04,386 --> 00:41:07,316
+This will result in an
+
+848
+00:41:07,426 --> 00:41:08,836
+for your applications.
+
+849
+00:41:09,786 --> 00:41:13,626
+I shared with you some
+
+850
+00:41:13,626 --> 00:41:15,786
+and the deprecation
+
+851
+00:41:16,286 --> 00:41:19,456
+Your apps can now implement
+
+852
+00:41:19,456 --> 00:41:22,726
+and keep your user data
+
+853
+00:41:22,726 --> 00:41:27,046
+Now, we hope that you
+
+854
+00:41:27,046 --> 00:41:30,056
+in your applications for
+
+855
+00:41:30,056 --> 00:41:31,346
+but for all the great features
+
+856
+00:41:31,346 --> 00:41:33,276
+that are inside of
+
+857
+00:41:35,076 --> 00:41:36,856
+If you want more information,
+
+858
+00:41:36,856 --> 00:41:38,876
+this is the URL for
+
+859
+00:41:38,876 --> 00:41:40,126
+So you can go back
+
+860
+00:41:40,126 --> 00:41:41,366
+of the things we
+
+861
+00:41:42,756 --> 00:41:45,466
+Some related sessions we think
+
+862
+00:41:45,466 --> 00:41:48,486
+in on this subject I've
+
+863
+00:41:49,436 --> 00:41:50,186
+Well, that's it.
+
+864
+00:41:50,186 --> 00:41:50,666
+Thank you.
+
+865
+00:41:50,666 --> 00:41:52,956
+Hope you have a great
+
+866
+00:41:53,506 --> 00:41:53,856
+Thank you.
+
+867
+00:41:54,508 --> 00:41:56,508
+[ Applause ]

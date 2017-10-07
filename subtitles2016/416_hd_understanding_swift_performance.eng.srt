@@ -1,0 +1,4967 @@
+1
+00:00:07,516 --> 00:00:18,500
+[ Music ]
+
+2
+00:00:25,016 --> 00:00:26,236
+[ Applause ]
+
+3
+00:00:26,236 --> 00:00:29,136
+&gt;&gt; Hello and welcome to
+
+4
+00:00:29,416 --> 00:00:33,476
+I'm Kyle. Arnold and I are so
+
+5
+00:00:33,476 --> 00:00:34,536
+to you guys about Swift.
+
+6
+00:00:35,536 --> 00:00:38,086
+As developers, Swift
+
+7
+00:00:38,086 --> 00:00:40,026
+and powerful design
+
+8
+00:00:40,566 --> 00:00:43,076
+Swift has a variety
+
+9
+00:00:43,326 --> 00:00:46,086
+and various mechanisms for
+
+10
+00:00:46,996 --> 00:00:49,286
+All of these language
+
+11
+00:00:49,376 --> 00:00:51,256
+in interesting, emergent ways.
+
+12
+00:00:51,576 --> 00:00:55,086
+So, how do we go about
+
+13
+00:00:55,476 --> 00:00:56,946
+and picking the right
+
+14
+00:00:57,816 --> 00:00:59,776
+Well, first and foremost,
+
+15
+00:00:59,776 --> 00:01:01,956
+into account the
+
+16
+00:00:59,776 --> 00:01:01,956
+into account the
+
+17
+00:01:02,156 --> 00:01:04,616
+of Swift's different
+
+18
+00:01:04,965 --> 00:01:07,516
+Are value or reference
+
+19
+00:01:08,326 --> 00:01:11,966
+How dynamic do you need
+
+20
+00:01:12,396 --> 00:01:14,926
+Well, Arnold and I also
+
+21
+00:01:15,146 --> 00:01:17,266
+to use performance to
+
+22
+00:01:17,706 --> 00:01:20,356
+In my experience, taking
+
+23
+00:01:20,356 --> 00:01:24,176
+into account often helps guide
+
+24
+00:01:24,666 --> 00:01:27,736
+So, we're going to be focusing
+
+25
+00:01:28,036 --> 00:01:29,316
+We'll touch a bit on modeling.
+
+26
+00:01:29,796 --> 00:01:31,416
+But we had some great
+
+27
+00:01:31,416 --> 00:01:34,286
+and we have another great talk
+
+28
+00:01:34,286 --> 00:01:35,706
+for modeling your
+
+29
+00:01:36,166 --> 00:01:37,736
+If you want to get the
+
+30
+00:01:37,976 --> 00:01:40,456
+I strongly recommend watching
+
+31
+00:01:41,396 --> 00:01:41,716
+All right.
+
+32
+00:01:42,356 --> 00:01:44,806
+So, we want to use performance
+
+33
+00:01:45,376 --> 00:01:48,306
+Well, the best way to understand
+
+34
+00:01:48,306 --> 00:01:50,516
+of Swift's abstraction
+
+35
+00:01:50,516 --> 00:01:52,516
+to understand their
+
+36
+00:01:52,856 --> 00:01:54,086
+So, that's what we're
+
+37
+00:01:54,386 --> 00:01:55,976
+We're going to begin
+
+38
+00:01:55,976 --> 00:01:58,586
+by identifying the different
+
+39
+00:01:58,586 --> 00:02:01,196
+into account when evaluating
+
+40
+00:01:58,586 --> 00:02:01,196
+into account when evaluating
+
+41
+00:02:01,196 --> 00:02:02,146
+mechanism options.
+
+42
+00:02:02,296 --> 00:02:03,876
+For each of these,
+
+43
+00:02:03,876 --> 00:02:06,316
+through some code using
+
+44
+00:02:06,576 --> 00:02:09,116
+to deepen our mental model
+
+45
+00:02:09,226 --> 00:02:10,226
+And then we're going to look
+
+46
+00:02:10,226 --> 00:02:12,026
+at how we can apply what
+
+47
+00:02:12,136 --> 00:02:13,556
+and speed up some Swift code.
+
+48
+00:02:14,516 --> 00:02:15,716
+In the second half of this talk,
+
+49
+00:02:15,716 --> 00:02:17,616
+we're going to evaluate
+
+50
+00:02:17,616 --> 00:02:19,176
+of protocol oriented
+
+51
+00:02:19,576 --> 00:02:21,166
+We're going to look
+
+52
+00:02:21,166 --> 00:02:24,456
+of advanced Swift features
+
+53
+00:02:24,686 --> 00:02:26,936
+to get a better understanding
+
+54
+00:02:26,936 --> 00:02:28,306
+and performance implications.
+
+55
+00:02:29,066 --> 00:02:31,116
+Quick disclaimer: We're
+
+56
+00:02:31,116 --> 00:02:34,706
+at memory representations and
+
+57
+00:02:34,776 --> 00:02:36,976
+of what Swift compiles and
+
+58
+00:02:37,686 --> 00:02:40,226
+These are inevitably going to
+
+59
+00:02:40,226 --> 00:02:41,786
+and I think we've struck
+
+60
+00:02:42,026 --> 00:02:44,256
+between seeing simplicity
+
+61
+00:02:44,446 --> 00:02:45,906
+And this is a really
+
+62
+00:02:46,066 --> 00:02:47,166
+to reason about your code with.
+
+63
+00:02:48,126 --> 00:02:48,796
+All right.
+
+64
+00:02:49,116 --> 00:02:51,936
+Let's get started by identifying
+
+65
+00:02:51,936 --> 00:02:52,606
+of performance.
+
+66
+00:02:53,496 --> 00:02:55,736
+So, when you're building
+
+67
+00:02:55,736 --> 00:02:57,336
+and choosing an abstraction
+
+68
+00:02:57,656 --> 00:03:00,276
+you should be asking
+
+69
+00:02:57,656 --> 00:03:00,276
+you should be asking
+
+70
+00:03:00,276 --> 00:03:02,696
+to be allocated on
+
+71
+00:03:03,436 --> 00:03:05,026
+When I pass this
+
+72
+00:03:05,526 --> 00:03:08,056
+how much reference counting
+
+73
+00:03:08,786 --> 00:03:10,646
+When I call a method
+
+74
+00:03:10,856 --> 00:03:13,526
+is it going to be statically
+
+75
+00:03:14,196 --> 00:03:17,016
+If we want to write fast Swift
+
+76
+00:03:17,016 --> 00:03:19,516
+to avoid paying for
+
+77
+00:03:19,516 --> 00:03:21,176
+that we're not taking
+
+78
+00:03:22,966 --> 00:03:26,406
+And we're going to need to
+
+79
+00:03:26,406 --> 00:03:27,816
+between these different
+
+80
+00:03:28,216 --> 00:03:29,206
+for better performance.
+
+81
+00:03:30,066 --> 00:03:30,356
+All right.
+
+82
+00:03:30,716 --> 00:03:32,746
+We're going to go through
+
+83
+00:03:32,746 --> 00:03:34,496
+at a time beginning
+
+84
+00:03:36,226 --> 00:03:38,016
+Swift automatically allocates
+
+85
+00:03:38,016 --> 00:03:39,546
+and deallocates memory
+
+86
+00:03:39,896 --> 00:03:41,506
+Some of that memory it
+
+87
+00:03:42,666 --> 00:03:44,436
+The stack is a really
+
+88
+00:03:44,726 --> 00:03:46,246
+You can push onto
+
+89
+00:03:46,276 --> 00:03:48,386
+and you can pop off
+
+90
+00:03:48,686 --> 00:03:51,236
+Because you can only ever add or
+
+91
+00:03:51,506 --> 00:03:54,766
+we can implement the stack --
+
+92
+00:03:54,766 --> 00:03:58,246
+by keeping a pointer to
+
+93
+00:03:58,246 --> 00:04:00,896
+And this means, when we call
+
+94
+00:03:58,246 --> 00:04:00,896
+And this means, when we call
+
+95
+00:04:01,136 --> 00:04:01,876
+that pointer at the end
+
+96
+00:04:01,876 --> 00:04:03,606
+of the stack is called
+
+97
+00:04:03,946 --> 00:04:06,216
+And when we call into a
+
+98
+00:04:06,216 --> 00:04:08,316
+that memory that we need just
+
+99
+00:04:08,316 --> 00:04:11,556
+by trivially decrementing the
+
+100
+00:04:11,876 --> 00:04:14,096
+And when we've finished
+
+101
+00:04:14,296 --> 00:04:16,815
+we can trivially
+
+102
+00:04:16,815 --> 00:04:18,846
+by incrementing the
+
+103
+00:04:18,875 --> 00:04:20,685
+where it was before we
+
+104
+00:04:21,255 --> 00:04:23,916
+Now, if you're not that familiar
+
+105
+00:04:24,246 --> 00:04:25,366
+what I want you to take away
+
+106
+00:04:25,366 --> 00:04:28,086
+from this slide is just how
+
+107
+00:04:28,416 --> 00:04:30,606
+It's literally the cost
+
+108
+00:04:32,016 --> 00:04:35,086
+So, this is in contrast to the
+
+109
+00:04:35,426 --> 00:04:36,726
+but less efficient
+
+110
+00:04:37,196 --> 00:04:40,216
+The heap lets you do things the
+
+111
+00:04:40,216 --> 00:04:41,376
+with a dynamic lifetime.
+
+112
+00:04:42,326 --> 00:04:44,376
+But that requires a more
+
+113
+00:04:44,376 --> 00:04:46,196
+So, if you're going to
+
+114
+00:04:46,526 --> 00:04:48,896
+you actually have to search
+
+115
+00:04:48,896 --> 00:04:51,246
+to find an unused block
+
+116
+00:04:51,636 --> 00:04:53,496
+And then when you're done
+
+117
+00:04:53,786 --> 00:04:56,236
+you have to reinsert
+
+118
+00:04:56,236 --> 00:04:57,436
+into the appropriate position.
+
+119
+00:04:58,286 --> 00:04:59,936
+So, clearly, there's
+
+120
+00:04:59,936 --> 00:05:02,846
+than just assigning an integer
+
+121
+00:04:59,936 --> 00:05:02,846
+than just assigning an integer
+
+122
+00:05:02,916 --> 00:05:04,706
+But these aren't even
+
+123
+00:05:04,706 --> 00:05:05,936
+involved with heap allocation.
+
+124
+00:05:06,566 --> 00:05:09,056
+Because multiple threads can be
+
+125
+00:05:09,176 --> 00:05:10,816
+at the same time, the heap needs
+
+126
+00:05:10,816 --> 00:05:13,116
+to protect its integrity
+
+127
+00:05:13,116 --> 00:05:14,826
+or other synchronization
+
+128
+00:05:15,256 --> 00:05:16,486
+This is a pretty large cost.
+
+129
+00:05:17,106 --> 00:05:19,706
+If you're not paying attention
+
+130
+00:05:19,706 --> 00:05:21,876
+in your program you're
+
+131
+00:05:22,176 --> 00:05:23,646
+just by being a little
+
+132
+00:05:23,646 --> 00:05:25,846
+you can likely dramatically
+
+133
+00:05:26,616 --> 00:05:27,456
+All right.
+
+134
+00:05:27,666 --> 00:05:28,716
+Let's trace through some code
+
+135
+00:05:28,916 --> 00:05:30,636
+and see what Swift is
+
+136
+00:05:31,206 --> 00:05:34,306
+Here we have a point struct
+
+137
+00:05:34,726 --> 00:05:36,966
+It also has the draw
+
+138
+00:05:37,006 --> 00:05:40,476
+We're going to construct the
+
+139
+00:05:40,476 --> 00:05:43,286
+to point2 making a copy,
+
+140
+00:05:43,286 --> 00:05:45,236
+to point2.x. Then, we're going
+
+141
+00:05:45,296 --> 00:05:47,546
+to use our point1
+
+142
+00:05:48,016 --> 00:05:49,006
+So, let's trace through this.
+
+143
+00:05:49,636 --> 00:05:51,516
+As we enter this function,
+
+144
+00:05:52,066 --> 00:05:55,586
+before we even begin executing
+
+145
+00:05:55,586 --> 00:05:57,636
+on the stack for
+
+146
+00:05:57,686 --> 00:05:58,836
+and our point2 instance.
+
+147
+00:05:59,116 --> 00:06:00,556
+And because point is a struct,
+
+148
+00:05:59,116 --> 00:06:00,556
+And because point is a struct,
+
+149
+00:06:00,856 --> 00:06:04,216
+the x and y properties are
+
+150
+00:06:04,896 --> 00:06:07,676
+So, when we go to construct our
+
+151
+00:06:07,676 --> 00:06:09,646
+of 0, all we're doing
+
+152
+00:06:09,646 --> 00:06:12,026
+that memory we've already
+
+153
+00:06:12,616 --> 00:06:15,916
+When we assign point1 to
+
+154
+00:06:16,136 --> 00:06:19,836
+of that point and initializing
+
+155
+00:06:19,836 --> 00:06:21,206
+that we'd already
+
+156
+00:06:21,926 --> 00:06:24,996
+Note that point1 and point2
+
+157
+00:06:25,366 --> 00:06:27,696
+That means, when we go
+
+158
+00:06:27,696 --> 00:06:32,056
+to point2.x, point2.x is
+
+159
+00:06:32,376 --> 00:06:34,006
+This is known as
+
+160
+00:06:34,576 --> 00:06:37,286
+Then we'll go ahead and
+
+161
+00:06:37,286 --> 00:06:39,336
+and we're done executing
+
+162
+00:06:39,896 --> 00:06:42,876
+So, we can trivially deallocate
+
+163
+00:06:42,876 --> 00:06:46,716
+and point2 just by incrementing
+
+164
+00:06:46,716 --> 00:06:48,426
+where we were when we
+
+165
+00:06:49,456 --> 00:06:52,676
+Let's contrast this to the same
+
+166
+00:06:52,676 --> 00:06:55,106
+which is a class
+
+167
+00:06:56,256 --> 00:06:56,936
+All right.
+
+168
+00:06:57,496 --> 00:06:59,186
+So, when we enter this
+
+169
+00:06:59,186 --> 00:07:00,486
+we're allocating
+
+170
+00:06:59,186 --> 00:07:00,486
+we're allocating
+
+171
+00:07:01,086 --> 00:07:04,166
+But instead of for the actual
+
+172
+00:07:04,166 --> 00:07:05,776
+on point, we're going
+
+173
+00:07:05,776 --> 00:07:07,746
+for references to
+
+174
+00:07:08,696 --> 00:07:10,836
+References to memory we're going
+
+175
+00:07:11,246 --> 00:07:14,366
+So, when we construct our
+
+176
+00:07:14,366 --> 00:07:16,426
+to lock the heap and
+
+177
+00:07:16,426 --> 00:07:18,476
+for an unused block of memory
+
+178
+00:07:19,066 --> 00:07:22,016
+Then, once we have it, we can
+
+179
+00:07:22,016 --> 00:07:25,186
+of 0, a y of 0, and we can
+
+180
+00:07:25,466 --> 00:07:28,616
+with the memory address to
+
+181
+00:07:29,246 --> 00:07:32,256
+Note, when we allocate it on the
+
+182
+00:07:32,256 --> 00:07:35,206
+for our class point
+
+183
+00:07:35,536 --> 00:07:38,286
+This is in contrast to
+
+184
+00:07:38,286 --> 00:07:39,296
+when our point was a struct.
+
+185
+00:07:39,726 --> 00:07:41,276
+This is because now
+
+186
+00:07:41,376 --> 00:07:43,666
+in addition to these
+
+187
+00:07:44,046 --> 00:07:45,916
+we're allocating two more
+
+188
+00:07:45,916 --> 00:07:46,896
+to manage on our behalf.
+
+189
+00:07:47,196 --> 00:07:50,796
+Those are denoted with these
+
+190
+00:07:51,566 --> 00:07:53,726
+When we assign point1 to
+
+191
+00:07:53,726 --> 00:07:55,316
+to copy the contents of point --
+
+192
+00:07:55,316 --> 00:07:56,616
+like we did when
+
+193
+00:07:56,876 --> 00:07:58,246
+Instead, we're going
+
+194
+00:07:58,546 --> 00:08:00,756
+So, point1 and point2
+
+195
+00:07:58,546 --> 00:08:00,756
+So, point1 and point2
+
+196
+00:08:00,756 --> 00:08:02,996
+to the same exact instance
+
+197
+00:08:03,596 --> 00:08:06,446
+That means when we go and assign
+
+198
+00:08:06,836 --> 00:08:09,436
+both point1.x and
+
+199
+00:08:09,936 --> 00:08:12,236
+This is known as reference
+
+200
+00:08:12,236 --> 00:08:13,596
+to unintended sharing of state.
+
+201
+00:08:13,596 --> 00:08:16,346
+Then, we're going to
+
+202
+00:08:16,346 --> 00:08:18,816
+and then Swift is going
+
+203
+00:08:18,816 --> 00:08:21,636
+on our behalf locking the heap
+
+204
+00:08:21,636 --> 00:08:22,616
+to the appropriate position.
+
+205
+00:08:22,676 --> 00:08:24,166
+And then we can pop the stack.
+
+206
+00:08:25,246 --> 00:08:25,816
+All right.
+
+207
+00:08:26,016 --> 00:08:26,926
+So, what did we just see?
+
+208
+00:08:27,546 --> 00:08:30,006
+We saw that classes are
+
+209
+00:08:30,066 --> 00:08:33,186
+than structs because classes
+
+210
+00:08:34,566 --> 00:08:37,256
+Because classes are
+
+211
+00:08:37,256 --> 00:08:38,535
+and have reference semantics,
+
+212
+00:08:39,015 --> 00:08:42,086
+classes have some
+
+213
+00:08:42,086 --> 00:08:43,905
+like identity and
+
+214
+00:08:44,356 --> 00:08:46,786
+But, if we don't need those
+
+215
+00:08:47,196 --> 00:08:48,916
+we're going to better
+
+216
+00:08:51,086 --> 00:08:55,326
+And structs aren't prone
+
+217
+00:08:55,326 --> 00:08:56,596
+of state like classes are.
+
+218
+00:08:57,176 --> 00:08:58,216
+So, let's see how we can apply
+
+219
+00:08:58,216 --> 00:09:00,566
+that to improve the
+
+220
+00:08:58,216 --> 00:09:00,566
+that to improve the
+
+221
+00:09:00,996 --> 00:09:01,946
+Here's an example
+
+222
+00:09:02,226 --> 00:09:05,006
+from a messaging application
+
+223
+00:09:05,286 --> 00:09:08,216
+So, [laughing] basically
+
+224
+00:09:08,586 --> 00:09:11,316
+And my users send a
+
+225
+00:09:11,316 --> 00:09:14,216
+that text message I want to
+
+226
+00:09:14,536 --> 00:09:17,206
+My makeBalloon function is
+
+227
+00:09:17,316 --> 00:09:19,006
+and it supports a
+
+228
+00:09:19,006 --> 00:09:21,776
+or the whole configuration
+
+229
+00:09:22,036 --> 00:09:25,276
+For example, this balloon
+
+230
+00:09:25,276 --> 00:09:26,906
+with a right orientation
+
+231
+00:09:27,516 --> 00:09:29,776
+We also support, for
+
+232
+00:09:30,026 --> 00:09:31,816
+with a left orientation
+
+233
+00:09:33,346 --> 00:09:35,896
+Now, the makeBalloon function
+
+234
+00:09:35,896 --> 00:09:38,296
+because I call it frequently
+
+235
+00:09:38,546 --> 00:09:39,646
+and during user scrolling.
+
+236
+00:09:39,806 --> 00:09:41,236
+And so I've added
+
+237
+00:09:41,376 --> 00:09:43,926
+So, for any given
+
+238
+00:09:44,046 --> 00:09:47,006
+to generate this balloon
+
+239
+00:09:47,006 --> 00:09:48,726
+If I've done it once, I can
+
+240
+00:09:49,476 --> 00:09:52,316
+The way I've done this is
+
+241
+00:09:52,316 --> 00:09:55,406
+orientation, and tail into
+
+242
+00:09:55,756 --> 00:09:58,216
+Now, there's a couple
+
+243
+00:09:59,256 --> 00:10:02,156
+String isn't particularly
+
+244
+00:09:59,256 --> 00:10:02,156
+String isn't particularly
+
+245
+00:10:02,626 --> 00:10:05,376
+I'm using it to represent
+
+246
+00:10:05,376 --> 00:10:08,426
+but I could just as easily put
+
+247
+00:10:08,556 --> 00:10:09,796
+So, not a lot of safety there.
+
+248
+00:10:10,246 --> 00:10:12,436
+Also, String can
+
+249
+00:10:12,686 --> 00:10:14,526
+because it actually
+
+250
+00:10:14,526 --> 00:10:16,376
+of its characters
+
+251
+00:10:16,726 --> 00:10:18,096
+So, that means every
+
+252
+00:10:18,096 --> 00:10:20,856
+into this makeBalloon function,
+
+253
+00:10:21,166 --> 00:10:22,526
+we're incurring a
+
+254
+00:10:23,746 --> 00:10:24,646
+Let's see if we can do better.
+
+255
+00:10:25,316 --> 00:10:28,136
+Well, in Swift we can represent
+
+256
+00:10:28,196 --> 00:10:31,396
+of color, orientation, and
+
+257
+00:10:32,156 --> 00:10:33,306
+This is a much safer way
+
+258
+00:10:33,306 --> 00:10:35,516
+to represent this configuration
+
+259
+00:10:35,926 --> 00:10:38,086
+And because structs are
+
+260
+00:10:38,486 --> 00:10:40,566
+they can be used as the
+
+261
+00:10:41,676 --> 00:10:43,706
+Now, when we call the
+
+262
+00:10:44,066 --> 00:10:46,646
+if we have a cache hit,
+
+263
+00:10:46,966 --> 00:10:48,606
+because constructing a struct
+
+264
+00:10:48,606 --> 00:10:51,996
+like this attributes one doesn't
+
+265
+00:10:51,996 --> 00:10:54,246
+It can be allocated
+
+266
+00:10:54,246 --> 00:10:56,886
+So, this is a lot safer and
+
+267
+00:10:57,846 --> 00:10:59,766
+Let's move on to
+
+268
+00:10:59,766 --> 00:11:02,316
+of performance, reference
+
+269
+00:10:59,766 --> 00:11:02,316
+of performance, reference
+
+270
+00:11:03,576 --> 00:11:05,866
+So, I glossed over a
+
+271
+00:11:05,866 --> 00:11:06,836
+about heap allocation.
+
+272
+00:11:07,356 --> 00:11:09,086
+How does Swift know
+
+273
+00:11:09,086 --> 00:11:13,016
+to deallocate memory it
+
+274
+00:11:13,426 --> 00:11:16,496
+Well, the answer is Swift keeps
+
+275
+00:11:16,496 --> 00:11:18,826
+of references to any
+
+276
+00:11:18,826 --> 00:11:20,456
+And it keeps it on
+
+277
+00:11:20,756 --> 00:11:22,686
+When you add a reference
+
+278
+00:11:22,936 --> 00:11:25,316
+that reference count is
+
+279
+00:11:25,726 --> 00:11:29,116
+When that count hits zero,
+
+280
+00:11:29,116 --> 00:11:31,546
+to this instance on the
+
+281
+00:11:31,546 --> 00:11:32,546
+to deallocate that memory.
+
+282
+00:11:33,326 --> 00:11:34,816
+The key thing to keep in mind
+
+283
+00:11:34,816 --> 00:11:37,306
+with reference counting is this
+
+284
+00:11:37,526 --> 00:11:39,956
+and there's actually more
+
+285
+00:11:39,956 --> 00:11:41,086
+and decrementing an integer.
+
+286
+00:11:41,416 --> 00:11:43,866
+First, there's a couple
+
+287
+00:11:43,866 --> 00:11:47,966
+to just go and execute the
+
+288
+00:11:48,366 --> 00:11:50,726
+But, more importantly, just
+
+289
+00:11:51,116 --> 00:11:53,956
+there is thread safety to
+
+290
+00:11:54,316 --> 00:11:57,416
+because references can be added
+
+291
+00:11:57,416 --> 00:11:59,656
+on multiple threads at the
+
+292
+00:11:59,656 --> 00:12:02,086
+to atomically increment and
+
+293
+00:11:59,656 --> 00:12:02,086
+to atomically increment and
+
+294
+00:12:02,566 --> 00:12:03,696
+And because of the frequency
+
+295
+00:12:03,696 --> 00:12:04,856
+of reference counting
+
+296
+00:12:05,136 --> 00:12:06,056
+this cost can add up.
+
+297
+00:12:07,606 --> 00:12:11,566
+So, let's go back to our point
+
+298
+00:12:11,566 --> 00:12:14,806
+at what Swift is actually
+
+299
+00:12:14,966 --> 00:12:17,486
+So, here now we have,
+
+300
+00:12:17,626 --> 00:12:19,206
+some generated pseudocode.
+
+301
+00:12:19,636 --> 00:12:22,636
+We see our point has gained an
+
+302
+00:12:23,246 --> 00:12:26,766
+And we see that Swift has added
+
+303
+00:12:26,866 --> 00:12:28,856
+or a call to retain and a
+
+304
+00:12:29,276 --> 00:12:31,636
+Retain is going to atomically
+
+305
+00:12:31,636 --> 00:12:32,346
+and release is going
+
+306
+00:12:32,346 --> 00:12:33,906
+to atomically decrement
+
+307
+00:12:34,336 --> 00:12:36,406
+In this way Swift will
+
+308
+00:12:36,406 --> 00:12:39,806
+of how many references are
+
+309
+00:12:39,806 --> 00:12:41,786
+All right.
+
+310
+00:12:41,786 --> 00:12:43,106
+And if we trace through
+
+311
+00:12:43,496 --> 00:12:45,766
+we can see that after
+
+312
+00:12:45,886 --> 00:12:48,256
+on the heap, it's initialized
+
+313
+00:12:48,506 --> 00:12:51,216
+because we have one live
+
+314
+00:12:51,796 --> 00:12:55,756
+As we go through our program
+
+315
+00:12:55,756 --> 00:12:59,136
+we now have two references
+
+316
+00:12:59,136 --> 00:13:01,316
+to atomically increment
+
+317
+00:12:59,136 --> 00:13:01,316
+to atomically increment
+
+318
+00:13:01,576 --> 00:13:02,566
+of our point instance.
+
+319
+00:13:02,946 --> 00:13:07,846
+As we keep executing, once
+
+320
+00:13:07,986 --> 00:13:09,116
+Swift has added a call
+
+321
+00:13:09,116 --> 00:13:10,886
+to atomically decrement
+
+322
+00:13:11,076 --> 00:13:13,576
+because point1 is no longer
+
+323
+00:13:13,576 --> 00:13:14,516
+as far as it's concerned.
+
+324
+00:13:15,176 --> 00:13:16,936
+Similarly, once we're
+
+325
+00:13:16,936 --> 00:13:19,076
+Swift has added another
+
+326
+00:13:19,076 --> 00:13:19,746
+of the reference count.
+
+327
+00:13:20,046 --> 00:13:22,726
+At this point, there's no more
+
+328
+00:13:22,726 --> 00:13:24,736
+of our point instance and
+
+329
+00:13:25,036 --> 00:13:28,000
+to lock the heap and return
+
+330
+00:13:31,256 --> 00:13:32,506
+So, what about structs?
+
+331
+00:13:33,256 --> 00:13:35,186
+Is there any reference
+
+332
+00:13:35,716 --> 00:13:38,166
+Well, when we constructed
+
+333
+00:13:38,166 --> 00:13:39,586
+there was no heap
+
+334
+00:13:40,346 --> 00:13:42,406
+When we copied, there was
+
+335
+00:13:42,616 --> 00:13:44,206
+There were no references
+
+336
+00:13:44,666 --> 00:13:47,336
+So, there's no reference
+
+337
+00:13:47,616 --> 00:13:48,546
+for our point struct.
+
+338
+00:13:49,146 --> 00:13:52,536
+What about a more
+
+339
+00:13:53,196 --> 00:13:55,746
+Here we have a label struct
+
+340
+00:13:55,746 --> 00:13:58,176
+of type String and
+
+341
+00:13:58,626 --> 00:14:01,296
+String, as we heard earlier,
+
+342
+00:13:58,626 --> 00:14:01,296
+String, as we heard earlier,
+
+343
+00:14:01,296 --> 00:14:03,076
+the contents of its
+
+344
+00:14:03,426 --> 00:14:04,746
+So, that needs to be
+
+345
+00:14:05,156 --> 00:14:06,706
+And font is a class.
+
+346
+00:14:06,706 --> 00:14:08,276
+And so that also needs
+
+347
+00:14:08,856 --> 00:14:10,346
+If we look at our
+
+348
+00:14:10,666 --> 00:14:12,066
+labels got two references.
+
+349
+00:14:12,286 --> 00:14:13,566
+And when we make a copy of it,
+
+350
+00:14:13,716 --> 00:14:15,406
+we're actually adding
+
+351
+00:14:15,546 --> 00:14:18,296
+another one to the text storage
+
+352
+00:14:18,886 --> 00:14:20,346
+The way Swift tracks this --
+
+353
+00:14:20,416 --> 00:14:22,566
+these heap allocations
+
+354
+00:14:22,626 --> 00:14:23,516
+to retain and release.
+
+355
+00:14:24,436 --> 00:14:26,406
+So, here we see the
+
+356
+00:14:26,406 --> 00:14:28,306
+to be incurring twice the
+
+357
+00:14:28,616 --> 00:14:30,976
+that a class would have.
+
+358
+00:14:31,536 --> 00:14:32,166
+All right.
+
+359
+00:14:32,166 --> 00:14:36,386
+So, in summary, because classes
+
+360
+00:14:36,386 --> 00:14:38,756
+Swift has to manage the lifetime
+
+361
+00:14:39,056 --> 00:14:41,806
+It does so with reference
+
+362
+00:14:42,076 --> 00:14:44,276
+This is nontrivial because
+
+363
+00:14:44,276 --> 00:14:46,686
+are relatively frequently
+
+364
+00:14:46,686 --> 00:14:47,626
+of the reference counting.
+
+365
+00:14:48,406 --> 00:14:50,426
+This is just one more
+
+366
+00:14:51,806 --> 00:14:54,556
+But if structs contain
+
+367
+00:14:54,556 --> 00:14:56,486
+to be paying reference
+
+368
+00:14:56,486 --> 00:14:57,446
+In fact, structs are going
+
+369
+00:14:57,446 --> 00:14:59,366
+to be paying reference
+
+370
+00:14:59,366 --> 00:15:01,076
+to the number of
+
+371
+00:14:59,366 --> 00:15:01,076
+to the number of
+
+372
+00:15:01,596 --> 00:15:03,976
+So, if they have more than
+
+373
+00:15:04,196 --> 00:15:07,726
+to retain more reference
+
+374
+00:15:07,726 --> 00:15:11,666
+Let's see how we chain apply
+
+375
+00:15:11,736 --> 00:15:13,726
+from my theoretical
+
+376
+00:15:14,466 --> 00:15:17,346
+So, my users weren't satisfied
+
+377
+00:15:17,396 --> 00:15:18,916
+They also wanted
+
+378
+00:15:19,136 --> 00:15:20,286
+like images to each other.
+
+379
+00:15:20,436 --> 00:15:22,696
+And so I have this
+
+380
+00:15:22,696 --> 00:15:24,386
+which is a model object
+
+381
+00:15:24,796 --> 00:15:28,566
+It's got a fileURL property,
+
+382
+00:15:28,566 --> 00:15:29,996
+on disk for this attachment.
+
+383
+00:15:30,196 --> 00:15:33,646
+It has a uuid, which is a unique
+
+384
+00:15:33,906 --> 00:15:36,946
+so that we can recognize this
+
+385
+00:15:36,946 --> 00:15:37,906
+and different client devices.
+
+386
+00:15:38,376 --> 00:15:41,756
+It's got a mimeType, which
+
+387
+00:15:41,756 --> 00:15:44,176
+that this attachment represents
+
+388
+00:15:44,176 --> 00:15:47,466
+Probably the only
+
+389
+00:15:47,466 --> 00:15:50,206
+in this example is the failable
+
+390
+00:15:50,436 --> 00:15:52,746
+if the mimeType is one
+
+391
+00:15:52,746 --> 00:15:54,906
+for this application because
+
+392
+00:15:55,006 --> 00:15:57,986
+And if it's not supported, we're
+
+393
+00:15:58,036 --> 00:15:58,796
+Otherwise, we're going
+
+394
+00:15:58,796 --> 00:16:03,376
+to initialize our fileURL,
+
+395
+00:15:58,796 --> 00:16:03,376
+to initialize our fileURL,
+
+396
+00:16:03,486 --> 00:16:05,476
+So, we noticed a lot of
+
+397
+00:16:05,926 --> 00:16:08,696
+and if we actually look at
+
+398
+00:16:08,696 --> 00:16:10,586
+of this struct, all 3
+
+399
+00:16:10,586 --> 00:16:12,496
+of our properties are incurring
+
+400
+00:16:12,496 --> 00:16:14,376
+when you pass them around
+
+401
+00:16:14,486 --> 00:16:17,246
+to heap allocations underlying
+
+402
+00:16:18,246 --> 00:16:18,996
+We can do better.
+
+403
+00:16:20,036 --> 00:16:21,926
+First, just like we saw before,
+
+404
+00:16:22,726 --> 00:16:24,916
+uuid is a really
+
+405
+00:16:25,116 --> 00:16:29,586
+It's a 128 bit randomly
+
+406
+00:16:30,156 --> 00:16:31,496
+And we don't want
+
+407
+00:16:31,496 --> 00:16:33,426
+to put anything in
+
+408
+00:16:33,556 --> 00:16:35,096
+And, as a String,
+
+409
+00:16:35,686 --> 00:16:40,016
+Well, Foundation this year
+
+410
+00:16:40,016 --> 00:16:43,986
+for uuid, which is really great
+
+411
+00:16:44,316 --> 00:16:45,866
+in line directly in the struct.
+
+412
+00:16:46,296 --> 00:16:47,516
+And so let's use that.
+
+413
+00:16:48,256 --> 00:16:50,366
+What this is going to do is
+
+414
+00:16:50,366 --> 00:16:51,916
+of the reference counting
+
+415
+00:16:51,916 --> 00:16:53,596
+for that uuid field, the
+
+416
+00:16:53,596 --> 00:16:55,776
+And we've got much
+
+417
+00:16:55,946 --> 00:16:57,286
+because I can't just
+
+418
+00:16:57,286 --> 00:16:58,526
+I can only put a uuid.
+
+419
+00:16:59,046 --> 00:16:59,776
+That's fantastic.
+
+420
+00:17:00,336 --> 00:17:02,856
+Let's take a look at
+
+421
+00:17:02,856 --> 00:17:04,695
+at how I've implemented
+
+422
+00:17:05,126 --> 00:17:07,526
+I'm actually only
+
+423
+00:17:07,526 --> 00:17:10,945
+of mimeTypes today,
+
+424
+00:17:12,026 --> 00:17:14,256
+And, you know, Swift has a
+
+425
+00:17:14,256 --> 00:17:16,586
+for representing a
+
+426
+00:17:16,756 --> 00:17:17,715
+And that's an enumeration.
+
+427
+00:17:18,266 --> 00:17:19,685
+So, I'm going to take
+
+428
+00:17:19,945 --> 00:17:21,546
+put it inside a failable
+
+429
+00:17:21,796 --> 00:17:24,445
+and map those mimeTypes
+
+430
+00:17:24,445 --> 00:17:26,296
+to the appropriate
+
+431
+00:17:26,665 --> 00:17:29,336
+So, now I've got more type
+
+432
+00:17:29,336 --> 00:17:32,486
+and I've also got more
+
+433
+00:17:32,486 --> 00:17:35,026
+to be storing these different
+
+434
+00:17:35,236 --> 00:17:37,936
+Swift actually has a really
+
+435
+00:17:37,936 --> 00:17:39,116
+for writing this exact code,
+
+436
+00:17:39,486 --> 00:17:42,226
+which is using enum that's
+
+437
+00:17:42,516 --> 00:17:46,136
+And so this is effectively the
+
+438
+00:17:46,136 --> 00:17:48,686
+more powerful, has the same
+
+439
+00:17:48,726 --> 00:17:50,006
+but it's way more
+
+440
+00:17:50,436 --> 00:17:52,086
+So, if we looked at our
+
+441
+00:17:52,606 --> 00:17:53,716
+it's way more type safe.
+
+442
+00:17:53,756 --> 00:17:55,856
+We've got a strongly typed
+
+443
+00:17:56,196 --> 00:17:58,826
+and we're not paying nearly as
+
+444
+00:17:58,856 --> 00:18:00,946
+because uuid and
+
+445
+00:17:58,856 --> 00:18:00,946
+because uuid and
+
+446
+00:18:00,986 --> 00:18:02,686
+to be reference counted
+
+447
+00:18:03,886 --> 00:18:04,656
+All right.
+
+448
+00:18:04,656 --> 00:18:06,586
+Let's move on to
+
+449
+00:18:06,586 --> 00:18:08,556
+of performance, method dispatch.
+
+450
+00:18:09,746 --> 00:18:11,716
+When you call a method
+
+451
+00:18:12,126 --> 00:18:14,156
+Swift needs to execute the
+
+452
+00:18:15,246 --> 00:18:17,696
+If it can determine the
+
+453
+00:18:17,806 --> 00:18:20,176
+at compile time, that's
+
+454
+00:18:20,276 --> 00:18:22,306
+And at runtime, we're just going
+
+455
+00:18:22,306 --> 00:18:23,396
+to the correct implementation.
+
+456
+00:18:23,596 --> 00:18:26,966
+And this is really cool because
+
+457
+00:18:27,186 --> 00:18:28,716
+to be able to have visibility
+
+458
+00:18:28,916 --> 00:18:31,006
+into which implementations
+
+459
+00:18:31,206 --> 00:18:32,486
+And so it's going to be able
+
+460
+00:18:32,486 --> 00:18:35,286
+to optimize this code pretty
+
+461
+00:18:35,286 --> 00:18:35,846
+like inlining.
+
+462
+00:18:36,766 --> 00:18:38,826
+This is in contrast
+
+463
+00:18:39,896 --> 00:18:41,546
+Dynamic dispatch isn't going --
+
+464
+00:18:41,546 --> 00:18:42,716
+we're not going to be able
+
+465
+00:18:42,716 --> 00:18:44,276
+to determine a compile
+
+466
+00:18:44,276 --> 00:18:45,536
+which implementation to go to.
+
+467
+00:18:45,586 --> 00:18:47,636
+And so at runtime, we're
+
+468
+00:18:47,636 --> 00:18:50,526
+up the implementation
+
+469
+00:18:50,746 --> 00:18:52,996
+So, on its own, a
+
+470
+00:18:52,996 --> 00:18:54,936
+that much more expensive
+
+471
+00:18:54,936 --> 00:18:56,206
+There's just one
+
+472
+00:18:56,556 --> 00:18:59,056
+None of this thread
+
+473
+00:18:59,056 --> 00:19:02,006
+like we had with reference
+
+474
+00:18:59,056 --> 00:19:02,006
+like we had with reference
+
+475
+00:19:02,506 --> 00:19:06,056
+But this dynamic dispatch blocks
+
+476
+00:19:06,186 --> 00:19:09,236
+and so while the compiler
+
+477
+00:19:09,236 --> 00:19:12,236
+optimizations for our static
+
+478
+00:19:12,236 --> 00:19:15,986
+the compiler is not going to
+
+479
+00:19:16,146 --> 00:19:17,136
+So, I mentioned inlining.
+
+480
+00:19:17,556 --> 00:19:18,436
+What is inlining?
+
+481
+00:19:19,056 --> 00:19:22,416
+Well, let's return to our
+
+482
+00:19:23,346 --> 00:19:25,446
+It's got an x and y and
+
+483
+00:19:25,696 --> 00:19:27,616
+I've also added this
+
+484
+00:19:28,236 --> 00:19:31,256
+The drawAPoint method takes in a
+
+485
+00:19:31,746 --> 00:19:32,266
+Really fancy.
+
+486
+00:19:32,266 --> 00:19:35,046
+And then the body of my program
+
+487
+00:19:35,046 --> 00:19:37,196
+0) and passes that
+
+488
+00:19:37,616 --> 00:19:38,876
+Well, the drawAPoint function
+
+489
+00:19:39,166 --> 00:19:42,856
+and the point.draw method are
+
+490
+00:19:43,386 --> 00:19:47,626
+What this means is that
+
+491
+00:19:47,626 --> 00:19:49,356
+which implementations
+
+492
+00:19:49,356 --> 00:19:52,826
+and so it's actually going to
+
+493
+00:19:52,946 --> 00:19:54,076
+and it's just going to replace
+
+494
+00:19:54,116 --> 00:19:56,666
+that with the implementation
+
+495
+00:19:57,476 --> 00:19:59,686
+And then it's going to take
+
+496
+00:20:00,036 --> 00:20:02,196
+because that's a static
+
+497
+00:20:02,236 --> 00:20:05,266
+that with the actual
+
+498
+00:20:05,556 --> 00:20:07,836
+So, when we go and execute
+
+499
+00:20:07,836 --> 00:20:09,746
+we're going to be able to
+
+500
+00:20:10,326 --> 00:20:13,406
+run the implementation,
+
+501
+00:20:13,746 --> 00:20:15,516
+We didn't need those two --
+
+502
+00:20:15,636 --> 00:20:17,936
+the overhead of those
+
+503
+00:20:17,936 --> 00:20:19,186
+and the associated setting
+
+504
+00:20:19,186 --> 00:20:20,706
+up of the call stack
+
+505
+00:20:21,136 --> 00:20:22,056
+So, this is really cool.
+
+506
+00:20:22,216 --> 00:20:24,606
+And this gets to why
+
+507
+00:20:24,606 --> 00:20:27,406
+and how static dispatches are
+
+508
+00:20:29,046 --> 00:20:30,916
+Whereas like a single
+
+509
+00:20:30,916 --> 00:20:33,056
+to a single dynamic dispatch,
+
+510
+00:20:33,056 --> 00:20:35,716
+of a difference, but a whole
+
+511
+00:20:35,916 --> 00:20:37,216
+the compiler is going
+
+512
+00:20:37,216 --> 00:20:38,266
+through that whole chain.
+
+513
+00:20:38,626 --> 00:20:40,816
+Whereas the chain of
+
+514
+00:20:40,816 --> 00:20:43,376
+to be blocked at every
+
+515
+00:20:43,416 --> 00:20:44,716
+at a higher level without it.
+
+516
+00:20:44,716 --> 00:20:46,656
+And so the compiler is going
+
+517
+00:20:46,656 --> 00:20:48,536
+of static method dispatches just
+
+518
+00:20:48,536 --> 00:20:49,906
+like into a single
+
+519
+00:20:50,106 --> 00:20:52,366
+with no call stack overhead.
+
+520
+00:20:52,866 --> 00:20:54,206
+So, that's really cool.
+
+521
+00:20:54,496 --> 00:20:55,626
+So, why do we have
+
+522
+00:20:55,626 --> 00:20:57,316
+this dynamic dispatch
+
+523
+00:20:57,946 --> 00:21:00,966
+Well, one of the reasons is it
+
+524
+00:20:57,946 --> 00:21:00,966
+Well, one of the reasons is it
+
+525
+00:21:01,296 --> 00:21:02,726
+like polymorphism.
+
+526
+00:21:03,096 --> 00:21:05,666
+If we look at a traditional
+
+527
+00:21:05,666 --> 00:21:07,816
+with a drawable abstract
+
+528
+00:21:08,446 --> 00:21:11,776
+I could define a point
+
+529
+00:21:12,066 --> 00:21:14,296
+that override draw with their
+
+530
+00:21:14,296 --> 00:21:17,476
+And then I have a program
+
+531
+00:21:17,906 --> 00:21:20,446
+can create an array
+
+532
+00:21:20,676 --> 00:21:21,566
+Might contain lines.
+
+533
+00:21:21,566 --> 00:21:22,396
+Might contain points.
+
+534
+00:21:22,466 --> 00:21:23,826
+And it can call draw
+
+535
+00:21:25,016 --> 00:21:26,356
+So, how does this work?
+
+536
+00:21:26,886 --> 00:21:30,626
+Well, because point --
+
+537
+00:21:30,626 --> 00:21:33,766
+and line are all classes, we can
+
+538
+00:21:33,946 --> 00:21:35,806
+and they're all the same size
+
+539
+00:21:35,806 --> 00:21:36,926
+by reference in the array.
+
+540
+00:21:37,676 --> 00:21:40,246
+And then when we go
+
+541
+00:21:40,486 --> 00:21:44,096
+we're going to call
+
+542
+00:21:44,186 --> 00:21:47,356
+So, we can understand -- or
+
+543
+00:21:47,646 --> 00:21:51,256
+about why the compiler can't
+
+544
+00:21:51,256 --> 00:21:53,046
+which is the correct
+
+545
+00:21:53,346 --> 00:21:57,026
+Because this d.draw, it could
+
+546
+00:21:57,346 --> 00:21:58,366
+They are different code paths.
+
+547
+00:21:58,636 --> 00:22:00,166
+So, how does it determine
+
+548
+00:21:58,636 --> 00:22:00,166
+So, how does it determine
+
+549
+00:22:00,696 --> 00:22:03,716
+Well, the compiler adds
+
+550
+00:22:03,836 --> 00:22:06,986
+which is a pointer to the
+
+551
+00:22:07,046 --> 00:22:08,226
+and it's stored in
+
+552
+00:22:08,776 --> 00:22:10,846
+And so when we go and call draw,
+
+553
+00:22:11,026 --> 00:22:12,346
+what the compiler
+
+554
+00:22:12,346 --> 00:22:14,656
+on our behalf is a
+
+555
+00:22:15,006 --> 00:22:17,576
+to something called the
+
+556
+00:22:17,576 --> 00:22:19,346
+and static memory,
+
+557
+00:22:19,346 --> 00:22:21,286
+to the correct implementation
+
+558
+00:22:21,596 --> 00:22:24,696
+And so if we change this d.draw
+
+559
+00:22:24,696 --> 00:22:27,036
+on our behalf, we see
+
+560
+00:22:27,036 --> 00:22:28,466
+up through the virtual
+
+561
+00:22:28,466 --> 00:22:30,716
+to find the correct draw
+
+562
+00:22:30,856 --> 00:22:32,726
+And then it passes
+
+563
+00:22:32,926 --> 00:22:34,216
+as the implicit self-parameter.
+
+564
+00:22:36,896 --> 00:22:37,976
+All right.
+
+565
+00:22:38,076 --> 00:22:38,746
+So, what have we seen here?
+
+566
+00:22:40,366 --> 00:22:43,156
+Well, classes by default
+
+567
+00:22:43,156 --> 00:22:43,796
+their methods.
+
+568
+00:22:44,476 --> 00:22:46,526
+This doesn't make a big
+
+569
+00:22:46,786 --> 00:22:49,016
+but when it comes to method
+
+570
+00:22:49,056 --> 00:22:52,396
+it can prevent optimizations
+
+571
+00:22:52,396 --> 00:22:54,216
+like inlining and
+
+572
+00:22:54,426 --> 00:22:57,336
+Not all classes, though,
+
+573
+00:22:57,596 --> 00:22:59,986
+If you never intend for
+
+574
+00:23:00,466 --> 00:23:03,896
+you can mark it as final to
+
+575
+00:23:03,936 --> 00:23:06,566
+and to your future self that
+
+576
+00:23:07,096 --> 00:23:08,796
+The compiler will pick
+
+577
+00:23:08,796 --> 00:23:10,366
+to statically dispatch
+
+578
+00:23:10,966 --> 00:23:13,756
+Furthermore, if the
+
+579
+00:23:13,986 --> 00:23:15,746
+that you're never going
+
+580
+00:23:15,746 --> 00:23:16,506
+in your application,
+
+581
+00:23:16,696 --> 00:23:19,196
+it'll opportunistically turn
+
+582
+00:23:19,306 --> 00:23:20,946
+into static dispatches
+
+583
+00:23:21,166 --> 00:23:23,716
+If you want to hear about
+
+584
+00:23:24,016 --> 00:23:25,596
+check out this great
+
+585
+00:23:25,596 --> 00:23:27,000
+on optimizing Swift performance.
+
+586
+00:23:29,336 --> 00:23:29,976
+All right.
+
+587
+00:23:29,976 --> 00:23:32,756
+So, where does that leave us?
+
+588
+00:23:33,086 --> 00:23:35,046
+What I want you to take
+
+589
+00:23:35,046 --> 00:23:37,486
+of the talk is these
+
+590
+00:23:37,956 --> 00:23:39,786
+Whenever you're reading
+
+591
+00:23:40,556 --> 00:23:42,056
+you should be looking
+
+592
+00:23:42,336 --> 00:23:43,606
+"Is this instance
+
+593
+00:23:43,606 --> 00:23:44,406
+on the stack or the heap?
+
+594
+00:23:45,586 --> 00:23:46,936
+When I pass this
+
+595
+00:23:47,156 --> 00:23:49,206
+how much reference containing
+
+596
+00:23:49,906 --> 00:23:51,386
+When I call a method
+
+597
+00:23:51,386 --> 00:23:53,846
+is it going to be statically
+
+598
+00:23:54,346 --> 00:23:56,246
+If we're paying for
+
+599
+00:23:56,246 --> 00:23:57,896
+it's going to hurt
+
+600
+00:23:58,696 --> 00:24:01,496
+And if you're new to
+
+601
+00:23:58,696 --> 00:24:01,496
+And if you're new to
+
+602
+00:24:01,496 --> 00:24:03,456
+in a code base that's been
+
+603
+00:24:03,506 --> 00:24:06,546
+over to Swift, you can likely
+
+604
+00:24:06,616 --> 00:24:07,766
+than you currently are today.
+
+605
+00:24:08,356 --> 00:24:12,026
+Like we've seen with my examples
+
+606
+00:24:12,026 --> 00:24:12,596
+of strings.
+
+607
+00:24:14,736 --> 00:24:17,356
+One question, though,
+
+608
+00:24:17,356 --> 00:24:19,326
+about writing polymorphic
+
+609
+00:24:19,656 --> 00:24:20,656
+We haven't seen that yet.
+
+610
+00:24:21,436 --> 00:24:23,306
+Well, the answer is protocol
+
+611
+00:24:23,546 --> 00:24:24,596
+And to tell you all about it,
+
+612
+00:24:24,596 --> 00:24:26,656
+I'd like to invite
+
+613
+00:24:28,516 --> 00:24:32,146
+[ Applause ]
+
+614
+00:24:32,646 --> 00:24:32,936
+Go get it.
+
+615
+00:24:32,936 --> 00:24:33,526
+&gt;&gt; Thank you, Kyle.
+
+616
+00:24:34,656 --> 00:24:36,186
+Hello. I'm Arnold.
+
+617
+00:24:36,996 --> 00:24:40,196
+Come and join me on a journey
+
+618
+00:24:40,196 --> 00:24:43,526
+of protocol types and
+
+619
+00:24:43,526 --> 00:24:44,406
+with protocol types.
+
+620
+00:24:44,406 --> 00:24:47,476
+We will look at how variables
+
+621
+00:24:47,476 --> 00:24:49,696
+and copied and how
+
+622
+00:24:50,526 --> 00:24:52,176
+Let's come back
+
+623
+00:24:52,416 --> 00:24:55,526
+to our application this
+
+624
+00:24:55,526 --> 00:24:56,336
+protocol types.
+
+625
+00:24:57,336 --> 00:24:59,656
+Instead of a drawable
+
+626
+00:25:00,146 --> 00:25:04,116
+we now have protocol drawable
+
+627
+00:25:05,176 --> 00:25:07,886
+And we have value
+
+628
+00:25:08,466 --> 00:25:11,046
+and struct Line conformed
+
+629
+00:25:12,526 --> 00:25:15,956
+Note, we could have also had
+
+630
+00:25:15,956 --> 00:25:16,586
+to the protocol.
+
+631
+00:25:17,096 --> 00:25:20,496
+However, we decided because
+
+632
+00:25:20,786 --> 00:25:23,916
+that reference semantics that
+
+633
+00:25:23,916 --> 00:25:25,446
+with it to not to do that.
+
+634
+00:25:25,576 --> 00:25:27,000
+So, let's drop it.
+
+635
+00:25:30,186 --> 00:25:31,986
+Our program was still
+
+636
+00:25:32,516 --> 00:25:38,836
+We could store both values of
+
+637
+00:25:39,356 --> 00:25:41,616
+in our array of drawable
+
+638
+00:25:42,146 --> 00:25:45,146
+However, compared to before,
+
+639
+00:25:47,076 --> 00:25:49,426
+Note that our value
+
+640
+00:25:49,716 --> 00:25:53,656
+and struct Point don't share a
+
+641
+00:25:55,216 --> 00:25:57,686
+necessary to do V-Table
+
+642
+00:25:57,686 --> 00:25:58,876
+that Kyle just showed us.
+
+643
+00:25:59,416 --> 00:26:03,036
+So, how does Swift dispatch
+
+644
+00:25:59,416 --> 00:26:03,036
+So, how does Swift dispatch
+
+645
+00:26:03,736 --> 00:26:06,006
+While it's going over
+
+646
+00:26:07,386 --> 00:26:11,476
+The answer to this question is a
+
+647
+00:26:11,476 --> 00:26:12,536
+Protocol Witness Table.
+
+648
+00:26:13,506 --> 00:26:15,886
+There's one of those
+
+649
+00:26:16,446 --> 00:26:19,116
+that implements the
+
+650
+00:26:20,376 --> 00:26:23,326
+And the entries in
+
+651
+00:26:23,876 --> 00:26:28,076
+to an implementation
+
+652
+00:26:28,076 --> 00:26:30,706
+OK. So, now we know how
+
+653
+00:26:31,526 --> 00:26:35,376
+But there's still a question,
+
+654
+00:26:35,376 --> 00:26:37,126
+in the array to the table?"
+
+655
+00:26:38,256 --> 00:26:39,376
+And there's another question.
+
+656
+00:26:40,516 --> 00:26:43,916
+Note that we now have
+
+657
+00:26:44,706 --> 00:26:47,246
+Our Line needs four words.
+
+658
+00:26:48,586 --> 00:26:50,036
+Point needs two words.
+
+659
+00:26:50,606 --> 00:26:52,086
+They don't have the same size.
+
+660
+00:26:52,756 --> 00:26:56,206
+But our array wants to
+
+661
+00:26:56,516 --> 00:26:58,136
+at fixed offsets in the array.
+
+662
+00:26:58,136 --> 00:26:59,000
+So, how does that work?
+
+663
+00:27:02,046 --> 00:27:03,156
+The answer to this question is
+
+664
+00:27:03,156 --> 00:27:07,016
+that Swift uses a special
+
+665
+00:27:07,016 --> 00:27:08,146
+Existential Container.
+
+666
+00:27:08,766 --> 00:27:10,636
+Now, what's in there?
+
+667
+00:27:11,196 --> 00:27:17,086
+The first three words in that
+
+668
+00:27:17,086 --> 00:27:18,856
+reserved for the valueBuffer.
+
+669
+00:27:20,606 --> 00:27:24,446
+Small types like our Point,
+
+670
+00:27:24,636 --> 00:27:25,956
+fit into this valueBuffer.
+
+671
+00:27:26,726 --> 00:27:28,316
+Now, you might say,
+
+672
+00:27:28,776 --> 00:27:29,876
+What about our Line?
+
+673
+00:27:30,396 --> 00:27:31,476
+It needs four words.
+
+674
+00:27:31,756 --> 00:27:32,656
+Where do we put that?"
+
+675
+00:27:33,756 --> 00:27:37,166
+Well, in this case Swift
+
+676
+00:27:38,106 --> 00:27:41,566
+and stores the value there and
+
+677
+00:27:43,016 --> 00:27:45,546
+in the existential container.
+
+678
+00:27:46,516 --> 00:27:48,736
+Now, you saw that
+
+679
+00:27:48,736 --> 00:27:49,866
+between Line and Point.
+
+680
+00:27:50,216 --> 00:27:52,226
+So, somehow the existential
+
+681
+00:27:52,226 --> 00:27:53,466
+to manage this difference.
+
+682
+00:27:53,926 --> 00:27:54,806
+So, how does it do that?
+
+683
+00:27:56,576 --> 00:28:00,806
+Hmmm. The answer to this, again,
+
+684
+00:27:56,576 --> 00:28:00,806
+Hmmm. The answer to this, again,
+
+685
+00:28:01,356 --> 00:28:03,826
+In this case, we call it
+
+686
+00:28:05,196 --> 00:28:09,526
+The Value Witness Table manages
+
+687
+00:28:10,246 --> 00:28:12,826
+and there is one of those
+
+688
+00:28:13,796 --> 00:28:17,346
+Now, let's take a look at the
+
+689
+00:28:17,346 --> 00:28:19,426
+to see how this table operates.
+
+690
+00:28:20,366 --> 00:28:22,856
+So, at the beginning of the
+
+691
+00:28:22,856 --> 00:28:26,836
+of protocol type, Swift calls
+
+692
+00:28:26,836 --> 00:28:27,466
+of that table.
+
+693
+00:28:28,606 --> 00:28:31,236
+This function, because we
+
+694
+00:28:31,236 --> 00:28:34,046
+a Line Value Witness Table,
+
+695
+00:28:34,046 --> 00:28:36,526
+on the heap and store a
+
+696
+00:28:36,526 --> 00:28:38,366
+of the valueBuffer of the
+
+697
+00:28:39,886 --> 00:28:43,936
+Next, Swift needs to copy
+
+698
+00:28:43,936 --> 00:28:46,356
+of the assignment that
+
+699
+00:28:46,776 --> 00:28:48,816
+into the existential container.
+
+700
+00:28:49,286 --> 00:28:53,126
+Again, we have a Line
+
+701
+00:28:53,126 --> 00:28:56,426
+of our value witness table will
+
+702
+00:28:56,706 --> 00:28:59,966
+into the valueBuffer
+
+703
+00:29:00,956 --> 00:29:05,636
+OK. Program continues and we
+
+704
+00:29:05,636 --> 00:29:06,546
+of our local variable.
+
+705
+00:29:06,546 --> 00:29:09,476
+And so Swift calls
+
+706
+00:29:09,476 --> 00:29:10,436
+in the value witness table,
+
+707
+00:29:10,796 --> 00:29:14,446
+which will decrement any
+
+708
+00:29:14,506 --> 00:29:16,026
+that might be contained
+
+709
+00:29:16,946 --> 00:29:19,686
+Line doesn't have any so
+
+710
+00:29:20,116 --> 00:29:21,216
+And then at the very end,
+
+711
+00:29:21,586 --> 00:29:24,346
+Swift calls the deallocate
+
+712
+00:29:24,616 --> 00:29:26,776
+Again, we have a value
+
+713
+00:29:26,776 --> 00:29:29,086
+so this will deallocate
+
+714
+00:29:29,086 --> 00:29:31,136
+on the heap for our value.
+
+715
+00:29:32,456 --> 00:29:34,696
+OK. So, we've seen the mechanics
+
+716
+00:29:35,006 --> 00:29:37,056
+of how Swift can
+
+717
+00:29:37,326 --> 00:29:38,686
+with different kind of values.
+
+718
+00:29:38,996 --> 00:29:41,346
+But somehow it still needs to
+
+719
+00:29:42,886 --> 00:29:44,886
+Well, the answer is obvious.
+
+720
+00:29:45,476 --> 00:29:48,226
+The next entry in the value
+
+721
+00:29:48,776 --> 00:29:50,996
+In the existential
+
+722
+00:29:51,296 --> 00:29:52,326
+to the value witness table.
+
+723
+00:29:53,656 --> 00:29:56,896
+And, finally, how do we get
+
+724
+00:29:56,976 --> 00:30:00,816
+Well, it is, again, referenced
+
+725
+00:29:56,976 --> 00:30:00,816
+Well, it is, again, referenced
+
+726
+00:30:02,076 --> 00:30:03,396
+So, we've seen the mechanics
+
+727
+00:30:03,796 --> 00:30:10,466
+of how Swift manages
+
+728
+00:30:10,966 --> 00:30:13,936
+Let's take a look at an example
+
+729
+00:30:13,936 --> 00:30:15,696
+to see the existential
+
+730
+00:30:18,226 --> 00:30:22,786
+So, in this example
+
+731
+00:30:22,786 --> 00:30:25,646
+that takes a protocol
+
+732
+00:30:26,636 --> 00:30:28,576
+and executes the
+
+733
+00:30:28,576 --> 00:30:31,526
+And then our program
+
+734
+00:30:32,116 --> 00:30:36,716
+of drawable protocol type and
+
+735
+00:30:37,596 --> 00:30:40,046
+And passes this local
+
+736
+00:30:40,396 --> 00:30:43,156
+to a drawACopy function
+
+737
+00:30:44,716 --> 00:30:46,926
+In order to illustrate the code
+
+738
+00:30:46,926 --> 00:30:48,896
+that the Swift compiler
+
+739
+00:30:49,646 --> 00:30:53,666
+I will use Swift as a
+
+740
+00:30:53,666 --> 00:30:54,286
+this example.
+
+741
+00:30:54,656 --> 00:30:57,816
+And so for the existential
+
+742
+00:30:58,386 --> 00:31:03,736
+that has three words storage
+
+743
+00:30:58,386 --> 00:31:03,736
+that has three words storage
+
+744
+00:31:03,736 --> 00:31:05,556
+to the value witness and
+
+745
+00:31:06,156 --> 00:31:10,146
+When the drawACopy
+
+746
+00:31:10,876 --> 00:31:16,326
+it receives the argument and
+
+747
+00:31:17,216 --> 00:31:18,876
+In the generated code we see
+
+748
+00:31:19,186 --> 00:31:21,356
+that Swift passes the
+
+749
+00:31:21,356 --> 00:31:24,000
+of the argument to
+
+750
+00:31:27,116 --> 00:31:28,846
+When the function
+
+751
+00:31:29,076 --> 00:31:32,556
+it creates a local
+
+752
+00:31:33,936 --> 00:31:35,176
+and assigns the argument to it.
+
+753
+00:31:36,376 --> 00:31:41,106
+And so in the generated code,
+
+754
+00:31:41,106 --> 00:31:43,716
+Swift will allocate an
+
+755
+00:31:43,996 --> 00:31:46,046
+on the heap.
+
+756
+00:31:46,166 --> 00:31:48,386
+Next it will read the
+
+757
+00:31:48,616 --> 00:31:49,876
+and the protocol witness table
+
+758
+00:31:50,346 --> 00:31:52,696
+from the argument
+
+759
+00:31:53,636 --> 00:31:57,286
+and initializes the fields in
+
+760
+00:31:57,796 --> 00:32:02,276
+Next, it will call a
+
+761
+00:31:57,796 --> 00:32:02,276
+Next, it will call a
+
+762
+00:32:02,606 --> 00:32:05,696
+to allocate a buffer if
+
+763
+00:32:06,566 --> 00:32:08,776
+In this example we
+
+764
+00:32:09,296 --> 00:32:12,006
+so no dynamic heap
+
+765
+00:32:12,966 --> 00:32:16,246
+This function just copies
+
+766
+00:32:17,196 --> 00:32:19,916
+into the local existential
+
+767
+00:32:20,856 --> 00:32:23,876
+However, had we passed
+
+768
+00:32:24,346 --> 00:32:28,000
+this function would allocate the
+
+769
+00:32:31,216 --> 00:32:34,106
+Next, the draw method
+
+770
+00:32:34,106 --> 00:32:37,386
+up the protocol witness
+
+771
+00:32:37,386 --> 00:32:40,486
+in the existential container,
+
+772
+00:32:40,486 --> 00:32:43,736
+in the fixed offset in
+
+773
+00:32:43,736 --> 00:32:44,586
+to the implementation.
+
+774
+00:32:45,386 --> 00:32:46,126
+But wait a second.
+
+775
+00:32:47,896 --> 00:32:49,946
+There's another value
+
+776
+00:32:50,746 --> 00:32:53,186
+Why is that there?
+
+777
+00:32:53,396 --> 00:32:55,696
+Well, the draw method
+
+778
+00:32:55,696 --> 00:32:57,566
+of our value as its input.
+
+779
+00:32:58,096 --> 00:33:01,626
+And note that depending
+
+780
+00:32:58,096 --> 00:33:01,626
+And note that depending
+
+781
+00:33:01,626 --> 00:33:04,476
+on whether our value is
+
+782
+00:33:04,476 --> 00:33:06,926
+into the inline buffer, this
+
+783
+00:33:07,186 --> 00:33:11,876
+of our existential container,
+
+784
+00:33:11,876 --> 00:33:14,046
+that does not fit into
+
+785
+00:33:14,396 --> 00:33:17,096
+the address is the beginning
+
+786
+00:33:17,316 --> 00:33:19,126
+of the memory allocated
+
+787
+00:33:20,146 --> 00:33:24,386
+So, this value witness function
+
+788
+00:33:24,386 --> 00:33:26,726
+depending on the type.
+
+789
+00:33:26,936 --> 00:33:30,766
+A draw method executes,
+
+790
+00:33:30,766 --> 00:33:33,836
+at the end of our function which
+
+791
+00:33:33,836 --> 00:33:36,076
+for the parameter
+
+792
+00:33:37,146 --> 00:33:40,246
+And so Swift calls a
+
+793
+00:33:40,246 --> 00:33:41,286
+to destruct the value,
+
+794
+00:33:41,776 --> 00:33:43,526
+which will decrement
+
+795
+00:33:43,786 --> 00:33:47,266
+if there are references in the
+
+796
+00:33:47,266 --> 00:33:48,886
+if a buffer was allocated.
+
+797
+00:33:50,096 --> 00:33:56,136
+Our function finishes executing
+
+798
+00:33:56,336 --> 00:33:59,456
+which removes the local
+
+799
+00:33:59,456 --> 00:34:00,906
+on the stack for us.
+
+800
+00:33:59,456 --> 00:34:00,906
+on the stack for us.
+
+801
+00:34:01,956 --> 00:34:05,006
+OK. That was a lot of work.
+
+802
+00:34:06,136 --> 00:34:09,616
+Right? There is one thing
+
+803
+00:34:09,616 --> 00:34:15,085
+from this is this work is what
+
+804
+00:34:15,085 --> 00:34:19,376
+such as struct Line and struct
+
+805
+00:34:19,686 --> 00:34:22,466
+to get dynamic behavior,
+
+806
+00:34:22,466 --> 00:34:26,186
+We can store a Line and
+
+807
+00:34:26,216 --> 00:34:29,966
+of drawable protocol type.
+
+808
+00:34:31,036 --> 00:34:34,476
+If you need this dynamism,
+
+809
+00:34:35,466 --> 00:34:39,856
+and compares to using
+
+810
+00:34:39,856 --> 00:34:42,775
+that Kyle showed us
+
+811
+00:34:42,775 --> 00:34:45,456
+through a V-Table and they
+
+812
+00:34:46,085 --> 00:34:49,295
+of reference counting.
+
+813
+00:34:51,025 --> 00:34:55,616
+OK. So, we've seen how
+
+814
+00:34:55,996 --> 00:35:00,976
+and how method dispatch works
+
+815
+00:34:55,996 --> 00:35:00,976
+and how method dispatch works
+
+816
+00:35:01,046 --> 00:35:02,146
+Let's look at stored properties.
+
+817
+00:35:03,816 --> 00:35:06,766
+So, in this example,
+
+818
+00:35:07,206 --> 00:35:10,516
+that contains two stored
+
+819
+00:35:11,596 --> 00:35:14,166
+of protocol -- drawable
+
+820
+00:35:14,976 --> 00:35:18,546
+How does Swift store those
+
+821
+00:35:19,406 --> 00:35:23,226
+Hmm. Well, inline of
+
+822
+00:35:24,226 --> 00:35:27,866
+So, if we look at --
+
+823
+00:35:28,166 --> 00:35:31,596
+Swift will store the two
+
+824
+00:35:31,996 --> 00:35:35,386
+for the storage of that pair
+
+825
+00:35:35,386 --> 00:35:39,636
+Our program then goes
+
+826
+00:35:39,636 --> 00:35:42,276
+of the Line and the Point
+
+827
+00:35:42,736 --> 00:35:44,966
+for our Line, we will
+
+828
+00:35:45,356 --> 00:35:48,436
+Point fits into the inline
+
+829
+00:35:48,936 --> 00:35:50,896
+in the -- inline in the
+
+830
+00:35:51,446 --> 00:35:55,906
+Now, this representation allows
+
+831
+00:35:55,906 --> 00:35:58,266
+value later in the program.
+
+832
+00:35:58,616 --> 00:36:01,486
+So, the program goes and stores
+
+833
+00:35:58,616 --> 00:36:01,486
+So, the program goes and stores
+
+834
+00:36:01,746 --> 00:36:04,546
+This works, but we have
+
+835
+00:36:05,596 --> 00:36:07,326
+OK. Two heap allocations.
+
+836
+00:36:07,786 --> 00:36:10,996
+Well, let's look at a
+
+837
+00:36:10,996 --> 00:36:12,336
+that cost of heap allocation.
+
+838
+00:36:14,046 --> 00:36:18,396
+So, again, we create a
+
+839
+00:36:18,396 --> 00:36:20,546
+and initialize this
+
+840
+00:36:21,106 --> 00:36:23,906
+So, we have one, two
+
+841
+00:36:24,006 --> 00:36:27,086
+And then we create a
+
+842
+00:36:27,696 --> 00:36:29,426
+two existential containers
+
+843
+00:36:29,526 --> 00:36:30,896
+and then two heap allocations.
+
+844
+00:36:31,506 --> 00:36:35,186
+Now, you might say, "Kyle
+
+845
+00:36:35,186 --> 00:36:35,806
+are expensive.
+
+846
+00:36:36,116 --> 00:36:37,836
+Four heap allocations?
+
+847
+00:36:38,236 --> 00:36:42,596
+Hmm." Can we do anything
+
+848
+00:36:42,836 --> 00:36:49,026
+Well, remember our
+
+849
+00:36:49,026 --> 00:36:52,896
+for three words and
+
+850
+00:36:52,896 --> 00:36:55,516
+into those three words because a
+
+851
+00:36:56,496 --> 00:37:03,086
+So, if we implemented our Line
+
+852
+00:36:56,496 --> 00:37:03,086
+So, if we implemented our Line
+
+853
+00:37:03,086 --> 00:37:05,606
+and class is a reference
+
+854
+00:37:06,056 --> 00:37:09,226
+by reference -- this reference
+
+855
+00:37:09,796 --> 00:37:17,346
+And when we copy the first
+
+856
+00:37:17,346 --> 00:37:20,916
+in our pair, only the
+
+857
+00:37:20,916 --> 00:37:24,276
+the only price we pay is then
+
+858
+00:37:25,716 --> 00:37:26,986
+Now, you might say,
+
+859
+00:37:27,396 --> 00:37:30,986
+Haven't we just heard about
+
+860
+00:37:31,906 --> 00:37:33,686
+that reference semantics
+
+861
+00:37:34,316 --> 00:37:41,446
+So, if we store to the x1
+
+862
+00:37:41,446 --> 00:37:44,526
+in our pair, the first field
+
+863
+00:37:45,296 --> 00:37:47,376
+And that's not what
+
+864
+00:37:47,676 --> 00:37:48,756
+We want value semantics.
+
+865
+00:37:48,756 --> 00:37:50,046
+Right? Hmmm.
+
+866
+00:37:50,516 --> 00:37:52,946
+What can we do about this?
+
+867
+00:37:53,156 --> 00:37:56,496
+Well, there's a technique
+
+868
+00:37:57,406 --> 00:37:59,056
+that allows us to
+
+869
+00:38:00,216 --> 00:38:04,466
+So, before we write
+
+870
+00:38:04,636 --> 00:38:05,746
+we check its reference count.
+
+871
+00:38:07,036 --> 00:38:08,686
+We've heard that
+
+872
+00:38:08,686 --> 00:38:11,416
+than one reference outstanding
+
+873
+00:38:11,826 --> 00:38:14,236
+the reference count will
+
+874
+00:38:14,236 --> 00:38:15,376
+or three, or four, or five.
+
+875
+00:38:15,936 --> 00:38:20,086
+And so if this is the case,
+
+876
+00:38:20,316 --> 00:38:23,356
+we copy the instance and
+
+877
+00:38:23,546 --> 00:38:26,626
+This will decouple the state.
+
+878
+00:38:26,826 --> 00:38:31,000
+OK. Let's take a look at how
+
+879
+00:38:34,786 --> 00:38:38,076
+Instead of directly implementing
+
+880
+00:38:38,656 --> 00:38:40,586
+we create a class
+
+881
+00:38:40,986 --> 00:38:42,936
+that has all the fields
+
+882
+00:38:43,646 --> 00:38:47,066
+And then our Line struct
+
+883
+00:38:48,006 --> 00:38:50,036
+And whenever we want
+
+884
+00:38:50,346 --> 00:38:53,886
+we just read the value
+
+885
+00:38:54,846 --> 00:38:57,796
+However, when we come to
+
+886
+00:38:58,356 --> 00:38:59,806
+we first check the
+
+887
+00:39:00,176 --> 00:39:01,216
+Is it greater than one?
+
+888
+00:39:01,886 --> 00:39:04,666
+This is what the
+
+889
+00:39:04,666 --> 00:39:05,786
+here achieves.
+
+890
+00:39:05,786 --> 00:39:07,996
+The only thing it does is
+
+891
+00:39:08,336 --> 00:39:10,576
+Is it greater or equal to one?
+
+892
+00:39:12,116 --> 00:39:13,716
+And if the reference
+
+893
+00:39:14,816 --> 00:39:17,176
+greater than one
+
+894
+00:39:17,176 --> 00:39:20,166
+of our Line storage
+
+895
+00:39:21,156 --> 00:39:27,236
+OK. So, we've seen how we can
+
+896
+00:39:28,476 --> 00:39:30,806
+to get indirect storage
+
+897
+00:39:30,806 --> 00:39:32,086
+Let's come back to our example
+
+898
+00:39:32,326 --> 00:39:37,526
+to see what happens here this
+
+899
+00:39:38,506 --> 00:39:39,926
+So, again, we create a Line.
+
+900
+00:39:40,696 --> 00:39:43,466
+This will create a line
+
+901
+00:39:43,876 --> 00:39:46,586
+And then we use that line
+
+902
+00:39:47,006 --> 00:39:52,000
+This time only the references
+
+903
+00:39:54,456 --> 00:39:57,000
+When we come to copy our Line --
+
+904
+00:40:00,116 --> 00:40:01,896
+Again, only the references
+
+905
+00:40:02,546 --> 00:40:03,846
+and the reference
+
+906
+00:40:03,916 --> 00:40:06,656
+This is a lot cheaper
+
+907
+00:40:07,166 --> 00:40:08,000
+It's a good trade off to make.
+
+908
+00:40:15,686 --> 00:40:20,736
+OK. So, we've seen how variables
+
+909
+00:40:20,976 --> 00:40:23,806
+and stored and how
+
+910
+00:40:24,226 --> 00:40:27,166
+Let's take a look what
+
+911
+00:40:28,536 --> 00:40:31,416
+If we have protocol types
+
+912
+00:40:31,686 --> 00:40:33,566
+that can fit into the
+
+913
+00:40:33,766 --> 00:40:36,946
+of the existential container,
+
+914
+00:40:38,386 --> 00:40:40,626
+If our struct does not
+
+915
+00:40:40,836 --> 00:40:42,046
+there's also no reference
+
+916
+00:40:42,266 --> 00:40:43,756
+So, this is really fast code.
+
+917
+00:40:44,626 --> 00:40:46,956
+However, because
+
+918
+00:40:47,906 --> 00:40:51,326
+through value witness and
+
+919
+00:40:51,826 --> 00:40:58,286
+we get the full power of
+
+920
+00:40:58,286 --> 00:41:01,000
+for dynamically polymorph
+
+921
+00:40:58,286 --> 00:41:01,000
+for dynamically polymorph
+
+922
+00:41:03,456 --> 00:41:04,786
+Compare this with large values.
+
+923
+00:41:04,786 --> 00:41:07,696
+Large values incur heap
+
+924
+00:41:07,846 --> 00:41:12,306
+initialize or assign
+
+925
+00:41:12,516 --> 00:41:13,776
+Potentially reference counting
+
+926
+00:41:14,126 --> 00:41:17,000
+if our large value
+
+927
+00:41:19,456 --> 00:41:21,246
+However, I showed
+
+928
+00:41:21,446 --> 00:41:24,666
+namely using indirect
+
+929
+00:41:24,986 --> 00:41:29,000
+that you can use to trade the
+
+930
+00:41:32,086 --> 00:41:33,546
+For cheaper reference counting.
+
+931
+00:41:35,676 --> 00:41:40,846
+Note that this compares
+
+932
+00:41:41,506 --> 00:41:45,716
+Classes also incur
+
+933
+00:41:46,166 --> 00:41:48,246
+And allocation on
+
+934
+00:41:48,826 --> 00:41:53,836
+It's a good trade off to make.
+
+935
+00:41:53,836 --> 00:41:58,116
+OK. So, we went back
+
+936
+00:41:58,116 --> 00:42:02,456
+protocol types provide a
+
+937
+00:41:58,116 --> 00:42:02,456
+protocol types provide a
+
+938
+00:42:03,126 --> 00:42:06,726
+We can use value types
+
+939
+00:42:07,416 --> 00:42:11,306
+and can store our
+
+940
+00:42:11,306 --> 00:42:12,466
+of an array of protocol type.
+
+941
+00:42:13,456 --> 00:42:16,356
+This is achieved by
+
+942
+00:42:16,356 --> 00:42:18,906
+and value witness tables
+
+943
+00:42:20,016 --> 00:42:24,046
+Copying of large values
+
+944
+00:42:24,046 --> 00:42:25,986
+However, I showed you a
+
+945
+00:42:25,986 --> 00:42:28,656
+around this by implementing
+
+946
+00:42:28,656 --> 00:42:30,266
+with indirect storage
+
+947
+00:42:32,366 --> 00:42:35,056
+OK. Let's come back
+
+948
+00:42:35,056 --> 00:42:36,146
+and take a look again.
+
+949
+00:42:36,896 --> 00:42:38,906
+So, in our application
+
+950
+00:42:39,016 --> 00:42:42,776
+a function that took a
+
+951
+00:42:44,056 --> 00:42:45,266
+However, the way that we use
+
+952
+00:42:45,266 --> 00:42:48,606
+that is we would always
+
+953
+00:42:49,586 --> 00:42:50,816
+Here we used it on a Line.
+
+954
+00:42:51,496 --> 00:42:54,596
+Later in our program we
+
+955
+00:42:55,976 --> 00:42:56,886
+And we thought, "Hmm.
+
+956
+00:42:57,456 --> 00:43:00,256
+Could we use generic code here?"
+
+957
+00:42:57,456 --> 00:43:00,256
+Could we use generic code here?"
+
+958
+00:43:01,306 --> 00:43:02,266
+Well, yes, we can.
+
+959
+00:43:02,986 --> 00:43:03,816
+So, let's take a look.
+
+960
+00:43:04,286 --> 00:43:08,306
+During this last part of the
+
+961
+00:43:08,606 --> 00:43:10,516
+of generic type are
+
+962
+00:43:10,796 --> 00:43:12,256
+and how method dispatch
+
+963
+00:43:12,896 --> 00:43:13,456
+So, coming back
+
+964
+00:43:13,456 --> 00:43:17,446
+to our application this time
+
+965
+00:43:17,546 --> 00:43:20,456
+DrawACopy method now takes a
+
+966
+00:43:20,456 --> 00:43:24,000
+to be Drawable and the rest
+
+967
+00:43:26,216 --> 00:43:31,626
+So, what is different when I
+
+968
+00:43:33,976 --> 00:43:36,606
+Generic code supports
+
+969
+00:43:36,606 --> 00:43:39,276
+of polymorphism also known
+
+970
+00:43:39,776 --> 00:43:41,396
+One type per call context.
+
+971
+00:43:42,336 --> 00:43:43,246
+What do I mean by that?
+
+972
+00:43:43,246 --> 00:43:45,176
+Well, let's take a
+
+973
+00:43:45,756 --> 00:43:50,526
+We have the function foo, which
+
+974
+00:43:50,586 --> 00:43:51,806
+T constraint to be drawable,
+
+975
+00:43:52,676 --> 00:43:55,166
+and it passes this parameter
+
+976
+00:43:56,256 --> 00:43:58,556
+This function, again, takes
+
+977
+00:43:59,066 --> 00:44:00,916
+And then our program
+
+978
+00:43:59,066 --> 00:44:00,916
+And then our program
+
+979
+00:44:01,316 --> 00:44:03,206
+and passes this point
+
+980
+00:44:04,316 --> 00:44:06,006
+When this function executes,
+
+981
+00:44:07,556 --> 00:44:15,386
+Swift will bind the generic
+
+982
+00:44:15,386 --> 00:44:17,856
+at this call side, which
+
+983
+00:44:18,426 --> 00:44:24,096
+When the function foo executes
+
+984
+00:44:24,096 --> 00:44:27,076
+to the function call
+
+985
+00:44:27,316 --> 00:44:29,506
+the local variable has the type
+
+986
+00:44:29,506 --> 00:44:31,056
+that was just found,
+
+987
+00:44:31,536 --> 00:44:34,586
+And so, again, the
+
+988
+00:44:34,586 --> 00:44:37,746
+in this call context is
+
+989
+00:44:38,316 --> 00:44:40,106
+As we can see, the
+
+990
+00:44:40,106 --> 00:44:41,956
+down the call chain
+
+991
+00:44:42,126 --> 00:44:47,216
+This is what we mean by a more
+
+992
+00:44:47,216 --> 00:44:48,516
+or parametric polymorphism.
+
+993
+00:44:48,746 --> 00:44:49,436
+So, let's take a look
+
+994
+00:44:49,436 --> 00:44:53,286
+of how Swift implements
+
+995
+00:44:53,706 --> 00:44:56,496
+Again, coming back to
+
+996
+00:44:58,646 --> 00:45:05,146
+In this example,
+
+997
+00:44:58,646 --> 00:45:05,146
+In this example,
+
+998
+00:45:05,146 --> 00:45:06,876
+Like when we used
+
+999
+00:45:06,876 --> 00:45:08,536
+there is one shared
+
+1000
+00:45:09,076 --> 00:45:13,316
+And this shared implementation,
+
+1001
+00:45:13,316 --> 00:45:14,936
+like I did before
+
+1002
+00:45:15,326 --> 00:45:16,846
+the code would look
+
+1003
+00:45:17,456 --> 00:45:20,636
+It would use protocol
+
+1004
+00:45:20,636 --> 00:45:23,396
+to generically perform
+
+1005
+00:45:23,396 --> 00:45:24,016
+of that function.
+
+1006
+00:45:26,276 --> 00:45:29,756
+However, because we have
+
+1007
+00:45:30,086 --> 00:45:32,366
+Swift does not use an
+
+1008
+00:45:34,616 --> 00:45:38,726
+Instead, it can pass both
+
+1009
+00:45:38,816 --> 00:45:40,746
+and the protocol witness
+
+1010
+00:45:40,746 --> 00:45:43,476
+of the type used
+
+1011
+00:45:43,766 --> 00:45:45,496
+as additional arguments
+
+1012
+00:45:45,636 --> 00:45:49,206
+So, in this case, we see
+
+1013
+00:45:49,206 --> 00:45:50,496
+for Point and Line is passed.
+
+1014
+00:45:51,296 --> 00:45:53,676
+And then during execution
+
+1015
+00:45:53,676 --> 00:45:57,756
+when we create a local
+
+1016
+00:45:58,906 --> 00:46:01,216
+Swift will use the
+
+1017
+00:45:58,906 --> 00:46:01,216
+Swift will use the
+
+1018
+00:46:01,496 --> 00:46:04,476
+to allocate potentially any
+
+1019
+00:46:04,886 --> 00:46:07,746
+and execute the copy
+
+1020
+00:46:07,746 --> 00:46:10,036
+of the assignment
+
+1021
+00:46:10,656 --> 00:46:14,276
+And similar when it
+
+1022
+00:46:14,276 --> 00:46:17,556
+on the local parameter, it will
+
+1023
+00:46:17,556 --> 00:46:21,456
+passed, look up the draw method
+
+1024
+00:46:21,456 --> 00:46:23,000
+and jump to the implementation.
+
+1025
+00:46:26,046 --> 00:46:28,686
+Now, I just told you there is
+
+1026
+00:46:29,656 --> 00:46:33,306
+So, how does Swift allocate
+
+1027
+00:46:33,306 --> 00:46:36,196
+for the local parameter --
+
+1028
+00:46:36,506 --> 00:46:38,466
+for the local variable
+
+1029
+00:46:39,926 --> 00:46:43,976
+Well, it allocates a
+
+1030
+00:46:44,166 --> 00:46:46,446
+Again, this valueBuffer
+
+1031
+00:46:47,106 --> 00:46:50,316
+Small values like a Point
+
+1032
+00:46:51,766 --> 00:46:56,816
+Large values like our Line
+
+1033
+00:46:57,216 --> 00:46:59,296
+and we store a pointer
+
+1034
+00:46:59,296 --> 00:47:01,176
+of the local existential
+
+1035
+00:46:59,296 --> 00:47:01,176
+of the local existential
+
+1036
+00:47:04,426 --> 00:47:06,256
+And all of this is
+
+1037
+00:47:06,256 --> 00:47:07,296
+of the value witness table.
+
+1038
+00:47:07,986 --> 00:47:11,336
+Now, you might ask,
+
+1039
+00:47:11,336 --> 00:47:12,076
+Is this any better?
+
+1040
+00:47:12,656 --> 00:47:17,246
+Could I not -- have not just
+
+1041
+00:47:18,176 --> 00:47:20,056
+Well, this static form
+
+1042
+00:47:20,056 --> 00:47:24,336
+of polymorphism enables the
+
+1043
+00:47:24,336 --> 00:47:25,716
+specialization of generics.
+
+1044
+00:47:25,966 --> 00:47:26,646
+Let's take a look.
+
+1045
+00:47:27,536 --> 00:47:29,566
+So, again, here is
+
+1046
+00:47:29,566 --> 00:47:33,796
+that takes a generic
+
+1047
+00:47:33,876 --> 00:47:35,576
+to that function
+
+1048
+00:47:35,976 --> 00:47:39,056
+And we have static polymorphism
+
+1049
+00:47:39,056 --> 00:47:41,306
+so there is one type
+
+1050
+00:47:41,666 --> 00:47:46,406
+Swift uses that type to
+
+1051
+00:47:46,646 --> 00:47:49,946
+in the function and create
+
+1052
+00:47:50,396 --> 00:47:51,786
+that is specific to that type.
+
+1053
+00:47:52,786 --> 00:47:55,146
+So, here we have a drawACopy
+
+1054
+00:47:55,746 --> 00:47:58,586
+that takes a parameter
+
+1055
+00:47:59,076 --> 00:48:03,026
+and the code inside of
+
+1056
+00:47:59,076 --> 00:48:03,026
+and the code inside of
+
+1057
+00:48:03,026 --> 00:48:04,786
+specific to that type.
+
+1058
+00:48:05,656 --> 00:48:09,666
+And, as Kyle showed us, this
+
+1059
+00:48:10,476 --> 00:48:14,356
+Swift will create a
+
+1060
+00:48:14,356 --> 00:48:16,096
+at a call-site in your program.
+
+1061
+00:48:16,096 --> 00:48:19,606
+So, if we call the drawACopy
+
+1062
+00:48:19,756 --> 00:48:23,626
+it will specialize and create
+
+1063
+00:48:24,336 --> 00:48:25,586
+Now, you might say,
+
+1064
+00:48:26,006 --> 00:48:28,656
+This has the potential to
+
+1065
+00:48:28,716 --> 00:48:33,036
+Right?" But because the
+
+1066
+00:48:33,036 --> 00:48:36,586
+that is not available
+
+1067
+00:48:36,586 --> 00:48:40,436
+optimization, Swift can actually
+
+1068
+00:48:40,436 --> 00:48:40,896
+size here.
+
+1069
+00:48:41,306 --> 00:48:43,346
+So, for example, it will
+
+1070
+00:48:43,346 --> 00:48:44,766
+of a Point method -- function.
+
+1071
+00:48:45,506 --> 00:48:46,976
+And then further
+
+1072
+00:48:46,976 --> 00:48:49,036
+because it now has
+
+1073
+00:48:49,796 --> 00:48:53,436
+And so that function
+
+1074
+00:48:53,436 --> 00:48:55,746
+to this one line and,
+
+1075
+00:48:55,746 --> 00:49:00,156
+this can be even further reduced
+
+1076
+00:48:55,746 --> 00:49:00,156
+this can be even further reduced
+
+1077
+00:49:01,216 --> 00:49:02,316
+Now that the drawACopy
+
+1078
+00:49:02,316 --> 00:49:04,586
+of a Point method is
+
+1079
+00:49:04,856 --> 00:49:06,856
+the compiler will also remove it
+
+1080
+00:49:06,856 --> 00:49:09,396
+and perform similar optimization
+
+1081
+00:49:09,796 --> 00:49:11,336
+So, it's not necessarily
+
+1082
+00:49:11,336 --> 00:49:15,176
+that this compiler optimization
+
+1083
+00:49:15,776 --> 00:49:16,356
+Can happen.
+
+1084
+00:49:16,546 --> 00:49:19,000
+Not necessarily the case.
+
+1085
+00:49:21,076 --> 00:49:23,346
+OK. So, we've seen how
+
+1086
+00:49:23,726 --> 00:49:28,606
+but one question to ask
+
+1087
+00:49:28,766 --> 00:49:31,496
+Well, let's take a look
+
+1088
+00:49:31,496 --> 00:49:35,556
+So, we define a Point and
+
+1089
+00:49:35,556 --> 00:49:36,066
+of that type.
+
+1090
+00:49:36,146 --> 00:49:39,376
+Point -- initialize it to a
+
+1091
+00:49:39,726 --> 00:49:43,476
+as a -- for argument to
+
+1092
+00:49:44,256 --> 00:49:47,366
+Now, in order to specialize this
+
+1093
+00:49:47,366 --> 00:49:49,996
+to infer the type
+
+1094
+00:49:50,336 --> 00:49:53,746
+It can do that because it can
+
+1095
+00:49:54,386 --> 00:49:56,036
+walk back to its initialization,
+
+1096
+00:49:56,036 --> 00:49:59,000
+and see that it has been
+
+1097
+00:50:01,816 --> 00:50:03,826
+Swift also needs to
+
+1098
+00:50:04,196 --> 00:50:06,966
+of both the type used
+
+1099
+00:50:07,346 --> 00:50:10,796
+and the function -- the generic
+
+1100
+00:50:10,796 --> 00:50:11,966
+Again, this is the case here.
+
+1101
+00:50:12,356 --> 00:50:13,596
+It's all defined in one file.
+
+1102
+00:50:15,896 --> 00:50:19,186
+This is a place where whole
+
+1103
+00:50:19,186 --> 00:50:21,516
+improve the optimization
+
+1104
+00:50:22,406 --> 00:50:25,000
+Let's take a look why that is.
+
+1105
+00:50:26,266 --> 00:50:29,236
+So, let's say I've
+
+1106
+00:50:29,236 --> 00:50:31,326
+of my Point into
+
+1107
+00:50:32,516 --> 00:50:34,766
+Now, if we compile those
+
+1108
+00:50:35,366 --> 00:50:40,796
+when I come to compile the
+
+1109
+00:50:41,036 --> 00:50:42,606
+of my Point is no
+
+1110
+00:50:42,606 --> 00:50:44,186
+because the compiler
+
+1111
+00:50:44,186 --> 00:50:44,846
+files separately.
+
+1112
+00:50:45,686 --> 00:50:47,636
+However, with whole
+
+1113
+00:50:48,966 --> 00:50:52,386
+the compiler will compile both
+
+1114
+00:50:52,996 --> 00:50:57,346
+and will have insight into the
+
+1115
+00:50:58,136 --> 00:50:59,966
+and optimization can take place.
+
+1116
+00:51:00,806 --> 00:51:04,936
+Because this so greatly improves
+
+1117
+00:51:04,936 --> 00:51:07,326
+we have now enabled a
+
+1118
+00:51:07,326 --> 00:51:08,000
+for default in Xcode 8.
+
+1119
+00:51:15,096 --> 00:51:17,646
+OK. Let's come back
+
+1120
+00:51:18,606 --> 00:51:24,266
+So, in our program we had this
+
+1121
+00:51:24,756 --> 00:51:29,386
+And, again, we noticed
+
+1122
+00:51:31,166 --> 00:51:34,236
+Whenever we wanted to create
+
+1123
+00:51:34,236 --> 00:51:35,896
+to create a pair
+
+1124
+00:51:36,246 --> 00:51:41,000
+say a pair of Lines
+
+1125
+00:51:43,606 --> 00:51:48,036
+Now, remember that the storage
+
+1126
+00:51:48,036 --> 00:51:50,000
+of Lines would cost
+
+1127
+00:51:53,046 --> 00:51:54,746
+When we looked at this program,
+
+1128
+00:51:54,746 --> 00:51:59,366
+we realized that we could
+
+1129
+00:52:00,736 --> 00:52:05,236
+So, if we define our pair to
+
+1130
+00:52:05,236 --> 00:52:08,116
+and second property of that
+
+1131
+00:52:08,116 --> 00:52:10,776
+type, then the compiler
+
+1132
+00:52:11,556 --> 00:52:15,076
+that we only ever create
+
+1133
+00:52:15,966 --> 00:52:20,996
+Furthermore, we can't store a
+
+1134
+00:52:20,996 --> 00:52:21,726
+in the program either.
+
+1135
+00:52:22,266 --> 00:52:26,496
+So, this is what we
+
+1136
+00:52:26,496 --> 00:52:29,966
+the representation of that any
+
+1137
+00:52:29,966 --> 00:52:31,000
+Let's take a look.
+
+1138
+00:52:34,186 --> 00:52:35,456
+So, here we have our pair.
+
+1139
+00:52:35,456 --> 00:52:38,706
+This time the store
+
+1140
+00:52:39,766 --> 00:52:43,000
+Remember that I said that the
+
+1141
+00:52:46,046 --> 00:52:49,476
+What that means for
+
+1142
+00:52:49,476 --> 00:52:52,466
+that Swift can allocate
+
+1143
+00:52:52,466 --> 00:52:53,416
+of the enclosing type.
+
+1144
+00:52:53,966 --> 00:52:56,546
+So, when we create
+
+1145
+00:52:57,946 --> 00:53:01,026
+the memory for the Line will
+
+1146
+00:52:57,946 --> 00:53:01,026
+the memory for the Line will
+
+1147
+00:53:01,026 --> 00:53:02,006
+of the enclosing pair.
+
+1148
+00:53:03,016 --> 00:53:04,916
+No extra heap allocation
+
+1149
+00:53:05,406 --> 00:53:07,000
+That's pretty cool.
+
+1150
+00:53:10,046 --> 00:53:15,236
+However, as I said, you cannot
+
+1151
+00:53:15,236 --> 00:53:16,756
+later to that stored property.
+
+1152
+00:53:17,136 --> 00:53:18,000
+But this is what we wanted.
+
+1153
+00:53:23,216 --> 00:53:27,046
+OK. So, we've seen how
+
+1154
+00:53:27,046 --> 00:53:28,866
+the value witness and the
+
+1155
+00:53:29,416 --> 00:53:34,396
+and how the compiler can
+
+1156
+00:53:34,466 --> 00:53:37,626
+type-specific versions
+
+1157
+00:53:38,596 --> 00:53:40,236
+Let's take a look
+
+1158
+00:53:40,726 --> 00:53:42,236
+of this first looking
+
+1159
+00:53:42,236 --> 00:53:46,846
+at specialized generic
+
+1160
+00:53:47,366 --> 00:53:49,696
+In this case, we have
+
+1161
+00:53:49,956 --> 00:53:52,936
+identical to using struct
+
+1162
+00:53:53,416 --> 00:53:55,106
+the generated code
+
+1163
+00:53:55,106 --> 00:53:58,566
+as if you had written this
+
+1164
+00:53:58,936 --> 00:54:02,076
+No heap allocation is
+
+1165
+00:53:58,936 --> 00:54:02,076
+No heap allocation is
+
+1166
+00:54:02,366 --> 00:54:04,016
+of struct type around.
+
+1167
+00:54:05,126 --> 00:54:06,106
+No reference counting
+
+1168
+00:54:06,796 --> 00:54:08,876
+if our struct didn't
+
+1169
+00:54:10,386 --> 00:54:12,216
+And we have static
+
+1170
+00:54:12,576 --> 00:54:15,026
+which enables further
+
+1171
+00:54:15,026 --> 00:54:21,626
+and reduces your runtime
+
+1172
+00:54:21,916 --> 00:54:26,136
+Comparing this with class
+
+1173
+00:54:26,806 --> 00:54:31,366
+we get similar characteristics
+
+1174
+00:54:31,366 --> 00:54:33,586
+and creating the
+
+1175
+00:54:33,586 --> 00:54:35,646
+for passing the value around,
+
+1176
+00:54:35,956 --> 00:54:39,106
+and dynamic dispatch
+
+1177
+00:54:39,156 --> 00:54:42,506
+Now, let's look at unspecialized
+
+1178
+00:54:42,506 --> 00:54:43,326
+small values.
+
+1179
+00:54:43,976 --> 00:54:46,506
+There's no heap allocation
+
+1180
+00:54:46,506 --> 00:54:49,126
+as we've seen, because
+
+1181
+00:54:49,126 --> 00:54:52,546
+into the valueBuffer
+
+1182
+00:54:53,256 --> 00:54:54,676
+There's no reference counting
+
+1183
+00:54:54,956 --> 00:54:56,726
+if the value didn't
+
+1184
+00:54:57,866 --> 00:55:01,066
+However, we get to
+
+1185
+00:54:57,866 --> 00:55:01,066
+However, we get to
+
+1186
+00:55:01,986 --> 00:55:05,356
+across all potential
+
+1187
+00:55:05,416 --> 00:55:08,000
+of the witness table
+
+1188
+00:55:13,806 --> 00:55:18,836
+OK. So, we've seen during this
+
+1189
+00:55:18,836 --> 00:55:20,926
+characteristics of struct
+
+1190
+00:55:21,626 --> 00:55:25,916
+and how generic code works
+
+1191
+00:55:26,896 --> 00:55:28,746
+What -- what can we
+
+1192
+00:55:30,516 --> 00:55:32,406
+Oh. Hmm. There you go.
+
+1193
+00:55:32,406 --> 00:55:34,436
+I forgot the punchline.
+
+1194
+00:55:34,646 --> 00:55:39,626
+So, if we are using large
+
+1195
+00:55:40,066 --> 00:55:41,546
+we are incurring
+
+1196
+00:55:41,546 --> 00:55:43,296
+But I showed you that
+
+1197
+00:55:43,296 --> 00:55:47,066
+using indirect storage
+
+1198
+00:55:47,656 --> 00:55:50,226
+If the large value
+
+1199
+00:55:50,596 --> 00:55:54,726
+then there's reference counting
+
+1200
+00:55:54,726 --> 00:55:57,926
+of dynamic dispatch, which
+
+1201
+00:55:57,926 --> 00:56:01,000
+implementation across our code.
+
+1202
+00:55:57,926 --> 00:56:01,000
+implementation across our code.
+
+1203
+00:56:04,046 --> 00:56:04,236
+All right.
+
+1204
+00:56:04,666 --> 00:56:08,386
+So, let's come to
+
+1205
+00:56:09,816 --> 00:56:12,006
+Choose a fitting
+
+1206
+00:56:12,006 --> 00:56:14,046
+for the entities
+
+1207
+00:56:14,456 --> 00:56:17,706
+with the least dynamic
+
+1208
+00:56:18,936 --> 00:56:23,036
+This will enable static type
+
+1209
+00:56:23,036 --> 00:56:28,016
+that your program is correct at
+
+1210
+00:56:28,396 --> 00:56:29,956
+the compiler has
+
+1211
+00:56:29,956 --> 00:56:33,256
+to optimize your code so
+
+1212
+00:56:33,606 --> 00:56:35,256
+So, if you can express
+
+1213
+00:56:35,256 --> 00:56:39,476
+in your program using value
+
+1214
+00:56:40,016 --> 00:56:42,456
+you'll get value
+
+1215
+00:56:42,636 --> 00:56:44,116
+no unintended sharing of state,
+
+1216
+00:56:45,076 --> 00:56:47,466
+and you'll get highly
+
+1217
+00:56:49,636 --> 00:56:52,286
+If you need to use classes
+
+1218
+00:56:52,286 --> 00:56:55,496
+an entity or you're working with
+
+1219
+00:56:56,366 --> 00:56:58,876
+Kyle showed us some techniques
+
+1220
+00:56:58,876 --> 00:57:00,000
+of reference counting.
+
+1221
+00:57:03,046 --> 00:57:06,806
+If parts of your program can be
+
+1222
+00:57:07,026 --> 00:57:09,886
+form of polymorphism, you
+
+1223
+00:57:11,246 --> 00:57:15,036
+with value types and,
+
+1224
+00:57:15,496 --> 00:57:18,056
+but share the implementation
+
+1225
+00:57:18,696 --> 00:57:23,126
+And if you need dynamic
+
+1226
+00:57:23,176 --> 00:57:26,026
+in our array of drawable
+
+1227
+00:57:27,046 --> 00:57:31,656
+you can combine protocol types
+
+1228
+00:57:31,656 --> 00:57:36,486
+get a code that is comparably
+
+1229
+00:57:37,026 --> 00:57:40,416
+but you still can stay
+
+1230
+00:57:40,906 --> 00:57:45,606
+And if you run into
+
+1231
+00:57:46,116 --> 00:57:49,626
+because you're copying large
+
+1232
+00:57:49,916 --> 00:57:53,276
+or generic types, I showed
+
+1233
+00:57:53,276 --> 00:57:55,206
+using indirect storage with copy
+
+1234
+00:57:55,206 --> 00:57:58,626
+and write how to
+
+1235
+00:57:58,836 --> 00:58:03,226
+OK. So, here's some related
+
+1236
+00:57:58,836 --> 00:58:03,226
+OK. So, here's some related
+
+1237
+00:58:03,846 --> 00:58:04,966
+and about performance.
+
+1238
+00:58:05,146 --> 00:58:07,856
+And I especially want to call
+
+1239
+00:58:08,166 --> 00:58:10,096
+about Protocol and Value
+
+1240
+00:58:10,096 --> 00:58:11,426
+in your UIKit Apps.
+
+1241
+00:58:11,626 --> 00:58:11,966
+Thank you.
+
+1242
+00:58:12,508 --> 00:58:14,508
+[ Applause ]

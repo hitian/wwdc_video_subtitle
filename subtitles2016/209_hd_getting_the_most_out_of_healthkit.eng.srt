@@ -1,0 +1,3163 @@
+1
+00:00:07,516 --> 00:00:19,500
+[ Music ]
+
+2
+00:00:24,516 --> 00:00:27,866
+[ Applause ]
+
+3
+00:00:28,366 --> 00:00:29,856
+&gt;&gt; Good morning, and welcome
+
+4
+00:00:29,856 --> 00:00:31,446
+to Getting the Most
+
+5
+00:00:31,996 --> 00:00:34,716
+I'm Matt, I'm a software
+
+6
+00:00:34,826 --> 00:00:37,366
+and I'll be joined on stage
+
+7
+00:00:38,276 --> 00:00:40,726
+In this session, we'll be
+
+8
+00:00:40,726 --> 00:00:42,846
+and recent additions
+
+9
+00:00:42,846 --> 00:00:44,566
+in iOS 10 and watchOS 3.
+
+10
+00:00:45,496 --> 00:00:48,866
+Just as importantly, we'll be
+
+11
+00:00:48,866 --> 00:00:51,826
+core concepts, and important
+
+12
+00:00:51,826 --> 00:00:54,696
+that you're really able to
+
+13
+00:00:56,036 --> 00:00:58,026
+We expect you have some
+
+14
+00:00:58,026 --> 00:01:00,176
+if you're here watching this
+
+15
+00:00:58,026 --> 00:01:00,176
+if you're here watching this
+
+16
+00:01:00,176 --> 00:01:02,386
+we'll list some past sessions
+
+17
+00:01:02,386 --> 00:01:04,446
+that you can refer to
+
+18
+00:01:05,215 --> 00:01:09,876
+But for now, let's get started.
+
+19
+00:01:09,996 --> 00:01:12,126
+As all of you here
+
+20
+00:01:12,126 --> 00:01:15,496
+and fitness ecosystem has become
+
+21
+00:01:16,176 --> 00:01:18,296
+People are getting more
+
+22
+00:01:18,296 --> 00:01:21,576
+because of the integration of
+
+23
+00:01:21,576 --> 00:01:24,096
+and CareKit with
+
+24
+00:01:24,096 --> 00:01:25,386
+for iPhone and Apple Watch.
+
+25
+00:01:26,436 --> 00:01:28,346
+We want to make sure
+
+26
+00:01:28,346 --> 00:01:29,976
+to keep creating
+
+27
+00:01:29,976 --> 00:01:31,526
+and fitness user experiences
+
+28
+00:01:31,526 --> 00:01:33,786
+that our users have come
+
+29
+00:01:35,316 --> 00:01:38,176
+So today we're going to be
+
+30
+00:01:38,176 --> 00:01:40,546
+to do to get these
+
+31
+00:01:41,936 --> 00:01:43,856
+First, we'll cover
+
+32
+00:01:43,856 --> 00:01:46,126
+which underpins everything
+
+33
+00:01:47,076 --> 00:01:51,586
+Next, we'll cover the Activity
+
+34
+00:01:52,016 --> 00:01:54,446
+and Health Records
+
+35
+00:01:54,976 --> 00:01:57,886
+both of which happen to have
+
+36
+00:01:57,886 --> 00:01:58,766
+to authorization.
+
+37
+00:02:00,696 --> 00:02:02,836
+Finally, we'll spend the
+
+38
+00:02:02,836 --> 00:02:05,626
+over a wide range of best
+
+39
+00:02:05,836 --> 00:02:07,186
+when you're interacting
+
+40
+00:02:07,716 --> 00:02:11,776
+So let's dive in.
+
+41
+00:02:12,286 --> 00:02:13,946
+First up is authorization.
+
+42
+00:02:14,376 --> 00:02:17,416
+If you've been using HealthKit
+
+43
+00:02:17,416 --> 00:02:18,856
+of this section might
+
+44
+00:02:19,366 --> 00:02:21,336
+but we really recommend
+
+45
+00:02:21,336 --> 00:02:22,996
+to the details because
+
+46
+00:02:22,996 --> 00:02:24,706
+for the stuff we cover
+
+47
+00:02:25,286 --> 00:02:27,126
+We'll sprinkle in some
+
+48
+00:02:27,126 --> 00:02:30,006
+so keep your ears peeled.
+
+49
+00:02:31,196 --> 00:02:34,636
+iOS gives users full control
+
+50
+00:02:34,636 --> 00:02:37,196
+and which apps can access
+
+51
+00:02:38,396 --> 00:02:39,816
+Before interacting
+
+52
+00:02:40,226 --> 00:02:41,766
+your app should request access
+
+53
+00:02:41,766 --> 00:02:43,876
+to the appropriate types
+
+54
+00:02:44,106 --> 00:02:45,276
+and then the Health Store
+
+55
+00:02:45,276 --> 00:02:47,866
+in turn will present the
+
+56
+00:02:47,866 --> 00:02:49,276
+to the user if necessary.
+
+57
+00:02:51,106 --> 00:02:53,786
+Be aware that the user can
+
+58
+00:02:53,786 --> 00:02:55,126
+at any time, so you should keep
+
+59
+00:02:55,126 --> 00:02:56,546
+that in mind while you're
+
+60
+00:02:57,026 --> 00:03:00,256
+And just as importantly,
+
+61
+00:02:57,026 --> 00:03:00,256
+And just as importantly,
+
+62
+00:03:00,396 --> 00:03:02,666
+and write authorization
+
+63
+00:03:03,526 --> 00:03:05,866
+That last bit can actually be
+
+64
+00:03:05,866 --> 00:03:10,006
+at it in a little more detail.
+
+65
+00:03:11,266 --> 00:03:13,356
+Here's how read and write
+
+66
+00:03:14,246 --> 00:03:16,926
+If the user grants you both
+
+67
+00:03:16,926 --> 00:03:20,286
+to a given HealthKit type, then
+
+68
+00:03:20,286 --> 00:03:22,126
+for that HealthKit type
+
+69
+00:03:22,816 --> 00:03:26,226
+If the user grants you only read
+
+70
+00:03:26,226 --> 00:03:28,506
+then your app can read but
+
+71
+00:03:28,506 --> 00:03:29,046
+for that type.
+
+72
+00:03:29,296 --> 00:03:30,096
+So far, so good.
+
+73
+00:03:30,096 --> 00:03:33,786
+Now, if the user grants
+
+74
+00:03:33,786 --> 00:03:36,896
+for a given type, then your
+
+75
+00:03:36,896 --> 00:03:38,566
+for that type but
+
+76
+00:03:38,566 --> 00:03:39,626
+from HealthKit for that type.
+
+77
+00:03:40,276 --> 00:03:42,966
+Write permissions do not
+
+78
+00:03:43,286 --> 00:03:45,726
+However, there's an important
+
+79
+00:03:46,486 --> 00:03:47,866
+If your app has write
+
+80
+00:03:47,866 --> 00:03:50,246
+for a HealthKit type, then
+
+81
+00:03:50,246 --> 00:03:53,456
+that your app has written, just
+
+82
+00:03:55,436 --> 00:03:58,476
+Finally, if the user denies you
+
+83
+00:03:58,476 --> 00:04:01,436
+for a given type, then you can
+
+84
+00:03:58,476 --> 00:04:01,436
+for a given type, then you can
+
+85
+00:04:01,436 --> 00:04:01,956
+for that type.
+
+86
+00:04:02,666 --> 00:04:03,906
+And there's an important
+
+87
+00:04:03,906 --> 00:04:05,046
+of that last point as well.
+
+88
+00:04:05,316 --> 00:04:08,276
+If the user denies you a
+
+89
+00:04:08,276 --> 00:04:09,236
+permission for that app,
+
+90
+00:04:09,676 --> 00:04:11,966
+then that means your app
+
+91
+00:04:11,966 --> 00:04:13,106
+from HealthKit for that type,
+
+92
+00:04:13,526 --> 00:04:15,706
+even data that your
+
+93
+00:04:15,916 --> 00:04:17,036
+so keep that in mind.
+
+94
+00:04:18,935 --> 00:04:22,756
+So that was all technically
+
+95
+00:04:23,046 --> 00:04:25,456
+but there is one important
+
+96
+00:04:25,456 --> 00:04:27,626
+in general in iOS 10,
+
+97
+00:04:27,626 --> 00:04:28,826
+with usage descriptions.
+
+98
+00:04:30,226 --> 00:04:33,776
+Apps linked on or after iOS
+
+99
+00:04:33,776 --> 00:04:36,176
+for the user of why they're
+
+100
+00:04:36,776 --> 00:04:39,616
+This reinforces our principle
+
+101
+00:04:41,466 --> 00:04:43,536
+These usage descriptions
+
+102
+00:04:43,536 --> 00:04:45,956
+on your app's info.plist
+
+103
+00:04:45,956 --> 00:04:48,316
+for the
+
+104
+00:04:48,316 --> 00:04:49,606
+key if you're reading data
+
+105
+00:04:49,716 --> 00:04:52,386
+or the
+
+106
+00:04:52,386 --> 00:04:53,536
+key if you're writing data.
+
+107
+00:04:54,116 --> 00:04:58,856
+As a refresher, this is how
+
+108
+00:04:59,246 --> 00:05:02,196
+The first thing we
+
+109
+00:04:59,246 --> 00:05:02,196
+The first thing we
+
+110
+00:05:02,196 --> 00:05:04,156
+that HealthKit is even
+
+111
+00:05:04,156 --> 00:05:05,646
+For instance, maybe
+
+112
+00:05:05,646 --> 00:05:08,076
+of our app is running
+
+113
+00:05:08,076 --> 00:05:10,346
+After we've established
+
+114
+00:05:10,346 --> 00:05:11,906
+that we're interested
+
+115
+00:05:12,946 --> 00:05:15,006
+And finally, we call
+
+116
+00:05:15,006 --> 00:05:17,816
+on HK Health Store, pass in
+
+117
+00:05:17,846 --> 00:05:19,516
+and then handle the
+
+118
+00:05:20,106 --> 00:05:25,136
+What if you have a watchOS app?
+
+119
+00:05:25,276 --> 00:05:27,746
+Authorizations are shared
+
+120
+00:05:27,746 --> 00:05:29,206
+and its companion watchOS app,
+
+121
+00:05:29,616 --> 00:05:31,766
+and you can request
+
+122
+00:05:31,766 --> 00:05:33,696
+from your iOS code
+
+123
+00:05:34,506 --> 00:05:37,216
+However, the system
+
+124
+00:05:37,216 --> 00:05:38,826
+presented to the
+
+125
+00:05:39,186 --> 00:05:41,356
+so this has some important
+
+126
+00:05:42,736 --> 00:05:45,456
+For instance, if the user
+
+127
+00:05:45,586 --> 00:05:47,856
+they might already have their
+
+128
+00:05:47,856 --> 00:05:48,786
+and if that's the case,
+
+129
+00:05:49,326 --> 00:05:51,706
+they can't really easily
+
+130
+00:05:51,706 --> 00:05:53,836
+from your app, so this
+
+131
+00:05:53,836 --> 00:05:55,456
+to request initial
+
+132
+00:05:57,126 --> 00:05:59,146
+But there's an even
+
+133
+00:05:59,706 --> 00:06:02,696
+If the user's using a Watch app,
+
+134
+00:05:59,706 --> 00:06:02,696
+If the user's using a Watch app,
+
+135
+00:06:02,696 --> 00:06:04,006
+at all, and if that's the case,
+
+136
+00:06:04,166 --> 00:06:06,326
+the authorization sheet
+
+137
+00:06:07,066 --> 00:06:09,736
+So we really recommend you
+
+138
+00:06:09,736 --> 00:06:12,296
+when you're developing
+
+139
+00:06:12,496 --> 00:06:14,556
+Also remember that
+
+140
+00:06:14,556 --> 00:06:17,056
+for the request authorization
+
+141
+00:06:17,106 --> 00:06:19,726
+so definitely don't block
+
+142
+00:06:19,806 --> 00:06:23,346
+for a response.
+
+143
+00:06:24,356 --> 00:06:25,906
+So clearly it's important
+
+144
+00:06:25,906 --> 00:06:28,096
+to get the authorization
+
+145
+00:06:28,566 --> 00:06:31,966
+and on top of that, your app
+
+146
+00:06:32,216 --> 00:06:33,946
+or even many HealthKit
+
+147
+00:06:34,276 --> 00:06:36,236
+so that all raises a
+
+148
+00:06:36,806 --> 00:06:38,916
+When should I be
+
+149
+00:06:38,916 --> 00:06:40,146
+or all of these types?
+
+150
+00:06:41,556 --> 00:06:43,476
+Here are our recommendations
+
+151
+00:06:44,436 --> 00:06:46,856
+First, we recommend
+
+152
+00:06:46,916 --> 00:06:49,666
+to sensible groupings
+
+153
+00:06:49,666 --> 00:06:51,536
+to logical activities
+
+154
+00:06:52,616 --> 00:06:54,816
+So for instance, say
+
+155
+00:06:54,816 --> 00:06:56,506
+to track both food
+
+156
+00:06:56,506 --> 00:06:58,466
+as body measurements like BMI.
+
+157
+00:06:58,866 --> 00:07:01,446
+If that's the case, you might
+
+158
+00:06:58,866 --> 00:07:01,446
+If that's the case, you might
+
+159
+00:07:01,476 --> 00:07:04,546
+to nutrition types the first
+
+160
+00:07:04,856 --> 00:07:06,056
+but then requesting access
+
+161
+00:07:06,056 --> 00:07:08,356
+to body measurement types
+
+162
+00:07:08,356 --> 00:07:12,396
+to log one of those.
+
+163
+00:07:12,396 --> 00:07:13,696
+One exception to that rule is
+
+164
+00:07:13,696 --> 00:07:15,206
+if your app has an
+
+165
+00:07:15,756 --> 00:07:18,066
+If this is the case, it
+
+166
+00:07:18,066 --> 00:07:20,856
+to request access to all
+
+167
+00:07:20,856 --> 00:07:23,796
+to use upfront because
+
+168
+00:07:23,796 --> 00:07:26,726
+where you can clearly explain to
+
+169
+00:07:26,726 --> 00:07:27,876
+to be doing with those types.
+
+170
+00:07:29,536 --> 00:07:32,326
+Regardless of which you
+
+171
+00:07:32,326 --> 00:07:34,246
+that you frequently
+
+172
+00:07:34,246 --> 00:07:34,996
+during development.
+
+173
+00:07:35,686 --> 00:07:38,266
+You can easily reset the
+
+174
+00:07:38,266 --> 00:07:40,356
+by deleting your app
+
+175
+00:07:40,356 --> 00:07:42,956
+of the simulator before
+
+176
+00:07:43,266 --> 00:07:44,826
+so that HealthKit
+
+177
+00:07:44,826 --> 00:07:47,066
+with the initial authorization
+
+178
+00:07:48,236 --> 00:07:51,476
+When you're doing this,
+
+179
+00:07:51,476 --> 00:07:53,266
+where authorization
+
+180
+00:07:53,266 --> 00:07:54,916
+or completely denied
+
+181
+00:07:55,506 --> 00:07:57,276
+How does your app
+
+182
+00:07:57,766 --> 00:07:59,236
+What capabilities are left over?
+
+183
+00:08:01,036 --> 00:08:03,386
+Finally, if we could
+
+184
+00:08:03,386 --> 00:08:04,646
+in one sentence, it's this.
+
+185
+00:08:05,676 --> 00:08:07,216
+Consider the user experience.
+
+186
+00:08:08,106 --> 00:08:10,466
+Don't present obstacles
+
+187
+00:08:10,466 --> 00:08:16,276
+and ensure that your
+
+188
+00:08:16,456 --> 00:08:19,266
+So we've spent a lot of time
+
+189
+00:08:19,406 --> 00:08:21,616
+Now let's move onto some
+
+190
+00:08:21,616 --> 00:08:23,636
+in HealthKit, starting
+
+191
+00:08:26,106 --> 00:08:28,906
+Apple's developed a great health
+
+192
+00:08:28,906 --> 00:08:31,216
+and fitness tracking
+
+193
+00:08:31,986 --> 00:08:35,135
+Users love how easy it is to
+
+194
+00:08:35,135 --> 00:08:38,496
+and improve their day, and
+
+195
+00:08:38,496 --> 00:08:40,635
+users can even share
+
+196
+00:08:40,635 --> 00:08:41,885
+with each other and compete.
+
+197
+00:08:43,726 --> 00:08:45,366
+Now we're giving you a great way
+
+198
+00:08:45,546 --> 00:08:47,976
+to incorporate this Activity
+
+199
+00:08:47,976 --> 00:08:51,706
+into your app with the
+
+200
+00:08:52,366 --> 00:08:57,506
+To do this, we start with
+
+201
+00:08:59,636 --> 00:09:03,776
+HKActivitySummary represents
+
+202
+00:08:59,636 --> 00:09:03,776
+HKActivitySummary represents
+
+203
+00:09:03,776 --> 00:09:05,066
+over the course of a given day.
+
+204
+00:09:05,636 --> 00:09:09,416
+That includes their move
+
+205
+00:09:09,916 --> 00:09:13,986
+and stand hours, and
+
+206
+00:09:15,136 --> 00:09:18,846
+HKActivitySummary is a
+
+207
+00:09:19,446 --> 00:09:22,216
+It's not an HKObject, but
+
+208
+00:09:22,276 --> 00:09:24,436
+that you request
+
+209
+00:09:24,436 --> 00:09:25,536
+from its component types.
+
+210
+00:09:26,816 --> 00:09:28,156
+That last part's
+
+211
+00:09:29,686 --> 00:09:33,016
+HKActivitySummary covers some of
+
+212
+00:09:33,016 --> 00:09:36,596
+as the HealthKit types; active
+
+213
+00:09:36,686 --> 00:09:41,096
+and stand hours, but only
+
+214
+00:09:41,276 --> 00:09:44,786
+So for instance, if you want
+
+215
+00:09:45,256 --> 00:09:49,146
+like contribute to a
+
+216
+00:09:49,146 --> 00:09:52,836
+to the active energy type or
+
+217
+00:09:52,836 --> 00:09:55,846
+for activity over the course
+
+218
+00:09:55,846 --> 00:09:57,196
+you'd want to request access
+
+219
+00:09:57,196 --> 00:09:59,016
+to the constituent
+
+220
+00:10:01,046 --> 00:10:04,156
+Now, because an ActivitySummary
+
+221
+00:10:04,156 --> 00:10:06,376
+over the course of a given
+
+222
+00:10:06,376 --> 00:10:09,396
+or may not correspond to a
+
+223
+00:10:10,056 --> 00:10:11,656
+we specify the day corresponding
+
+224
+00:10:11,656 --> 00:10:14,346
+to an activity summary using
+
+225
+00:10:15,146 --> 00:10:16,996
+Let's see how that works
+
+226
+00:10:17,356 --> 00:10:25,076
+So suppose we want to fetch
+
+227
+00:10:25,636 --> 00:10:28,396
+To do that, we use an
+
+228
+00:10:29,986 --> 00:10:31,566
+First, we use our calendar
+
+229
+00:10:31,676 --> 00:10:33,936
+to create a DateComponents
+
+230
+00:10:33,936 --> 00:10:36,516
+to today using the
+
+231
+00:10:36,976 --> 00:10:39,626
+era, year, month, and day.
+
+232
+00:10:41,296 --> 00:10:44,146
+Next, we use those components
+
+233
+00:10:44,236 --> 00:10:45,516
+that restricts our query
+
+234
+00:10:45,816 --> 00:10:48,486
+to activity summaries whose
+
+235
+00:10:49,166 --> 00:10:52,946
+And then finally, we create our
+
+236
+00:10:53,236 --> 00:10:56,066
+and then handle the, in this
+
+237
+00:10:56,066 --> 00:10:57,506
+that should come
+
+238
+00:10:58,176 --> 00:11:03,426
+So that's how you retrieve
+
+239
+00:10:58,176 --> 00:11:03,426
+So that's how you retrieve
+
+240
+00:11:03,426 --> 00:11:05,836
+but the really fun part is
+
+241
+00:11:06,146 --> 00:11:09,196
+To do that, we use
+
+242
+00:11:09,196 --> 00:11:12,916
+or the analogous
+
+243
+00:11:13,126 --> 00:11:13,896
+on watchOS.
+
+244
+00:11:14,756 --> 00:11:17,136
+They look like this, and
+
+245
+00:11:17,326 --> 00:11:18,756
+they perform this
+
+246
+00:11:18,916 --> 00:11:21,316
+when you call
+
+247
+00:11:21,846 --> 00:11:27,146
+Some tips for using
+
+248
+00:11:27,146 --> 00:11:28,916
+and WKInterfaceActivityRing.
+
+249
+00:11:30,316 --> 00:11:33,196
+Firstly, just like in the
+
+250
+00:11:33,196 --> 00:11:36,546
+and watchOS, the rings look
+
+251
+00:11:36,576 --> 00:11:38,996
+so we recommend display
+
+252
+00:11:41,096 --> 00:11:42,786
+Secondly, if your
+
+253
+00:11:42,786 --> 00:11:45,826
+and communication features, you
+
+254
+00:11:45,826 --> 00:11:48,846
+of HKActivitySummary to
+
+255
+00:11:49,206 --> 00:11:53,146
+supply it to HKActivityRingView
+
+256
+00:11:53,566 --> 00:11:56,156
+and thereby display another
+
+257
+00:11:56,156 --> 00:11:59,606
+current user's rings
+
+258
+00:12:00,456 --> 00:12:03,106
+Finally, when you're using
+
+259
+00:12:03,106 --> 00:12:06,366
+remember to use the required
+
+260
+00:12:06,486 --> 00:12:09,346
+month, and day in your
+
+261
+00:12:11,236 --> 00:12:12,866
+Date map can be notoriously
+
+262
+00:12:12,936 --> 00:12:15,566
+so if you have any
+
+263
+00:12:15,566 --> 00:12:17,906
+or DateComponents, be sure
+
+264
+00:12:17,966 --> 00:12:23,046
+from a prior conference.
+
+265
+00:12:23,046 --> 00:12:24,066
+So we've been talking a lot
+
+266
+00:12:24,066 --> 00:12:25,766
+about authorization
+
+267
+00:12:25,766 --> 00:12:27,586
+Let's put it into
+
+268
+00:12:28,636 --> 00:12:31,016
+Here on the right, we
+
+269
+00:12:31,016 --> 00:12:32,596
+for a medical group
+
+270
+00:12:33,346 --> 00:12:34,716
+This app has some
+
+271
+00:12:34,716 --> 00:12:37,626
+but its main page is a dashboard
+
+272
+00:12:37,626 --> 00:12:41,016
+so for instance, your doctor's
+
+273
+00:12:41,256 --> 00:12:42,176
+and some healthy tips.
+
+274
+00:12:43,716 --> 00:12:46,906
+LoopHealth wants their patients
+
+275
+00:12:46,906 --> 00:12:48,976
+as well, so they saw this
+
+276
+00:12:48,976 --> 00:12:50,986
+to incorporate Apple's
+
+277
+00:12:50,986 --> 00:12:51,876
+onto their dashboard.
+
+278
+00:12:52,336 --> 00:12:53,676
+As you can see here,
+
+279
+00:12:53,676 --> 00:12:56,156
+we've already dropped
+
+280
+00:12:56,156 --> 00:12:58,006
+into the storyboard
+
+281
+00:12:58,306 --> 00:12:59,616
+but we haven't actually
+
+282
+00:12:59,616 --> 00:13:00,866
+that hooks it up with data yet.
+
+283
+00:12:59,616 --> 00:13:00,866
+that hooks it up with data yet.
+
+284
+00:13:01,136 --> 00:13:02,446
+Let's see how easy
+
+285
+00:13:03,146 --> 00:13:06,196
+So over here in Xcode, we
+
+286
+00:13:06,196 --> 00:13:07,906
+This is the view controller
+
+287
+00:13:07,906 --> 00:13:09,566
+at in the LoopHealth app.
+
+288
+00:13:10,216 --> 00:13:11,566
+It's pretty empty so far,
+
+289
+00:13:12,046 --> 00:13:13,876
+but we do have some
+
+290
+00:13:14,746 --> 00:13:17,766
+You can see right here we have
+
+291
+00:13:17,826 --> 00:13:19,856
+to the activityRingView
+
+292
+00:13:21,276 --> 00:13:23,316
+Up here we import HealthKitUI.
+
+293
+00:13:23,526 --> 00:13:24,996
+This is the new framework
+
+294
+00:13:24,996 --> 00:13:27,796
+that you can find
+
+295
+00:13:29,316 --> 00:13:32,106
+And finally down
+
+296
+00:13:32,106 --> 00:13:34,656
+up its app-wide HKHealthStore
+
+297
+00:13:34,726 --> 00:13:37,556
+so we've just set up a simple
+
+298
+00:13:37,556 --> 00:13:40,656
+for convenience when we need it.
+
+299
+00:13:41,416 --> 00:13:44,276
+Okay, so if we want to show an
+
+300
+00:13:44,346 --> 00:13:47,026
+the first thing we need to
+
+301
+00:13:47,026 --> 00:13:48,286
+to HKActivitySummary.
+
+302
+00:13:49,366 --> 00:13:51,746
+And since we're reading health
+
+303
+00:13:51,746 --> 00:13:53,156
+to include a usage description,
+
+304
+00:13:53,386 --> 00:13:57,376
+so let's go to our info.plist
+
+305
+00:13:58,666 --> 00:13:59,986
+The key we're interested
+
+306
+00:13:59,986 --> 00:14:02,466
+in is called NSHealthShare
+
+307
+00:13:59,986 --> 00:14:02,466
+in is called NSHealthShare
+
+308
+00:14:02,466 --> 00:14:05,536
+which is written here in plain
+
+309
+00:14:09,156 --> 00:14:11,406
+Perfect. And I'll drop
+
+310
+00:14:11,406 --> 00:14:13,946
+in a quick usage
+
+311
+00:14:13,946 --> 00:14:14,516
+We're all set.
+
+312
+00:14:15,876 --> 00:14:17,966
+Now I can go back to
+
+313
+00:14:17,966 --> 00:14:20,466
+and then write the code that
+
+314
+00:14:21,946 --> 00:14:24,906
+Since we want to show the
+
+315
+00:14:24,906 --> 00:14:27,286
+and also update our rings
+
+316
+00:14:27,286 --> 00:14:29,616
+to the dashboard tab, the
+
+317
+00:14:29,616 --> 00:14:31,206
+in the viewDidAppear method.
+
+318
+00:14:32,386 --> 00:14:34,426
+So I'll drop that in here.
+
+319
+00:14:34,426 --> 00:14:37,676
+And after our requisite
+
+320
+00:14:37,676 --> 00:14:39,656
+notice that we call
+
+321
+00:14:39,656 --> 00:14:43,146
+on HKHealthStore, pass in
+
+322
+00:14:43,146 --> 00:14:46,976
+and then in the response, we
+
+323
+00:14:47,806 --> 00:14:50,126
+which we'll write to actually
+
+324
+00:14:50,386 --> 00:14:51,416
+Let's go implement that now.
+
+325
+00:14:53,036 --> 00:14:58,496
+So here's our skeleton
+
+326
+00:14:58,496 --> 00:15:01,306
+and what we want to
+
+327
+00:14:58,496 --> 00:15:01,306
+and what we want to
+
+328
+00:15:01,306 --> 00:15:05,946
+HKActivitySummaryQuery, request
+
+329
+00:15:05,996 --> 00:15:07,646
+and then set that
+
+330
+00:15:07,646 --> 00:15:10,376
+on our HKActivityRingView
+
+331
+00:15:11,916 --> 00:15:13,846
+First, let's create a
+
+332
+00:15:13,846 --> 00:15:14,876
+corresponding to today.
+
+333
+00:15:15,416 --> 00:15:18,866
+Since DateComponents only
+
+334
+00:15:18,866 --> 00:15:21,356
+of a particular calendar,
+
+335
+00:15:21,356 --> 00:15:24,376
+that we use back on
+
+336
+00:15:26,216 --> 00:15:27,466
+Oops, perfect.
+
+337
+00:15:28,496 --> 00:15:30,376
+Next, we can create
+
+338
+00:15:30,376 --> 00:15:34,656
+that components object, and
+
+339
+00:15:34,856 --> 00:15:37,516
+we can create our query,
+
+340
+00:15:37,516 --> 00:15:40,866
+and then in the response,
+
+341
+00:15:40,866 --> 00:15:42,056
+that should come back for today.
+
+342
+00:15:44,666 --> 00:15:46,236
+Now, once we have that summary,
+
+343
+00:15:46,356 --> 00:15:48,776
+all we have to do is dispatch
+
+344
+00:15:48,776 --> 00:15:53,606
+to update our UI and then
+
+345
+00:15:53,926 --> 00:15:56,236
+animated on our Activity
+
+346
+00:15:58,036 --> 00:15:59,836
+Now that we have our
+
+347
+00:15:59,836 --> 00:16:04,826
+to do is execute
+
+348
+00:15:59,836 --> 00:16:04,826
+to do is execute
+
+349
+00:16:05,506 --> 00:16:07,876
+So let's build and run and
+
+350
+00:16:23,836 --> 00:16:24,356
+Excellent.
+
+351
+00:16:24,356 --> 00:16:27,086
+So first thing you see is now
+
+352
+00:16:27,086 --> 00:16:29,816
+to activity summary,
+
+353
+00:16:29,816 --> 00:16:31,146
+to approve authorization.
+
+354
+00:16:33,486 --> 00:16:35,756
+Let's approve read access
+
+355
+00:16:35,756 --> 00:16:37,666
+and while we're down there,
+
+356
+00:16:37,666 --> 00:16:39,536
+of the screen, that usage
+
+357
+00:16:39,536 --> 00:16:42,116
+for reading health data is
+
+358
+00:16:42,716 --> 00:16:44,506
+It's important to note
+
+359
+00:16:44,506 --> 00:16:46,406
+we'd want to make sure this
+
+360
+00:16:46,446 --> 00:16:49,426
+so we'd include that in our
+
+361
+00:16:51,996 --> 00:16:56,616
+I'll approve authorization
+
+362
+00:16:56,616 --> 00:16:59,836
+we see the Activity Rings
+
+363
+00:17:00,516 --> 00:17:06,500
+[ Applause ]
+
+364
+00:17:09,226 --> 00:17:10,276
+So that's how easy it is
+
+365
+00:17:10,276 --> 00:17:12,386
+to incorporate Activity Rings
+
+366
+00:17:12,536 --> 00:17:13,736
+Be sure to check out the API.
+
+367
+00:17:14,756 --> 00:17:17,136
+Next, I'll turn it over to
+
+368
+00:17:17,136 --> 00:17:19,636
+to tell you about an awesome
+
+369
+00:17:20,516 --> 00:17:25,626
+[ Applause ]
+
+370
+00:17:26,126 --> 00:17:26,656
+&gt;&gt; Thanks, Matt.
+
+371
+00:17:27,286 --> 00:17:28,156
+Good morning, everyone.
+
+372
+00:17:28,746 --> 00:17:30,186
+My name is Joefrey Kibuule.
+
+373
+00:17:30,726 --> 00:17:33,366
+I work alongside Matt as
+
+374
+00:17:33,406 --> 00:17:34,126
+on the Health team.
+
+375
+00:17:35,006 --> 00:17:37,246
+Today I have the proud
+
+376
+00:17:37,246 --> 00:17:40,426
+to you a new feature of
+
+377
+00:17:41,456 --> 00:17:44,006
+Health Records provides
+
+378
+00:17:44,006 --> 00:17:45,966
+to carry the information
+
+379
+00:17:45,966 --> 00:17:48,286
+to you right on your smartphone.
+
+380
+00:17:50,056 --> 00:17:52,036
+Today the current experience
+
+381
+00:17:52,166 --> 00:17:55,446
+when users visit a medical
+
+382
+00:17:55,446 --> 00:17:57,716
+for their health records
+
+383
+00:17:58,866 --> 00:18:01,036
+A stack of documents
+
+384
+00:17:58,866 --> 00:18:01,036
+A stack of documents
+
+385
+00:18:01,326 --> 00:18:03,666
+to find a particular
+
+386
+00:18:05,426 --> 00:18:06,296
+More recently,
+
+387
+00:18:06,296 --> 00:18:09,356
+health organizations have been
+
+388
+00:18:10,366 --> 00:18:15,186
+CDs of digitized information
+
+389
+00:18:17,016 --> 00:18:19,646
+But now with Health
+
+390
+00:18:20,056 --> 00:18:21,476
+we can help solve this problem.
+
+391
+00:18:23,756 --> 00:18:26,036
+Through the work that
+
+392
+00:18:26,386 --> 00:18:29,026
+your apps can start to
+
+393
+00:18:29,696 --> 00:18:32,056
+in the exchange and
+
+394
+00:18:32,716 --> 00:18:37,016
+In fact, in the U.S., adoption
+
+395
+00:18:37,016 --> 00:18:39,756
+of these APIs can help
+
+396
+00:18:39,796 --> 00:18:42,346
+with new regulations
+
+397
+00:18:42,346 --> 00:18:44,276
+to give their patients
+
+398
+00:18:44,276 --> 00:18:48,066
+of their own health data.
+
+399
+00:18:48,246 --> 00:18:49,886
+So first, an overview.
+
+400
+00:18:50,676 --> 00:18:53,626
+Health Records in iOS is
+
+401
+00:18:53,736 --> 00:18:55,026
+to represent a variety
+
+402
+00:18:55,026 --> 00:18:57,076
+of different patient
+
+403
+00:18:57,076 --> 00:18:58,326
+by health institutions.
+
+404
+00:19:00,016 --> 00:19:02,036
+Today we're adding
+
+405
+00:19:02,036 --> 00:19:03,176
+for health documents.
+
+406
+00:19:04,696 --> 00:19:06,916
+Standard machine-readable XML
+
+407
+00:19:06,916 --> 00:19:08,926
+that represents specific
+
+408
+00:19:10,176 --> 00:19:12,796
+These include patient
+
+409
+00:19:13,606 --> 00:19:15,086
+continuity of care visits,
+
+410
+00:19:15,576 --> 00:19:19,626
+and operative notes,
+
+411
+00:19:19,986 --> 00:19:23,206
+We support the international
+
+412
+00:19:23,206 --> 00:19:26,116
+for interoperability with a
+
+413
+00:19:28,276 --> 00:19:29,886
+These documents are available
+
+414
+00:19:29,886 --> 00:19:31,696
+through patient healthcare
+
+415
+00:19:31,766 --> 00:19:38,496
+and can be imported via Safari,
+
+416
+00:19:39,796 --> 00:19:41,716
+These documents are stored just
+
+417
+00:19:41,716 --> 00:19:45,056
+like all other HealthKit
+
+418
+00:19:45,056 --> 00:19:49,996
+and securely encrypted
+
+419
+00:19:50,156 --> 00:19:51,966
+Next, let's talk
+
+420
+00:19:53,256 --> 00:19:55,386
+Since so much information
+
+421
+00:19:55,386 --> 00:19:56,626
+within each health document,
+
+422
+00:19:57,026 --> 00:19:59,476
+we give the user
+
+423
+00:19:59,476 --> 00:20:01,626
+to other data types
+
+424
+00:19:59,476 --> 00:20:01,626
+to other data types
+
+425
+00:20:03,046 --> 00:20:06,416
+Access is granted on a
+
+426
+00:20:06,416 --> 00:20:10,156
+to the health document
+
+427
+00:20:10,356 --> 00:20:13,436
+As shown on the right, we
+
+428
+00:20:13,436 --> 00:20:15,126
+to allow the user to both view
+
+429
+00:20:15,126 --> 00:20:17,946
+and select the document before
+
+430
+00:20:19,716 --> 00:20:23,016
+This UI will present it whenever
+
+431
+00:20:23,066 --> 00:20:24,426
+and a new one is available.
+
+432
+00:20:25,706 --> 00:20:29,206
+If you query for documents and
+
+433
+00:20:30,176 --> 00:20:32,836
+we will not show
+
+434
+00:20:32,916 --> 00:20:35,586
+and your query will return
+
+435
+00:20:41,296 --> 00:20:43,876
+If you query for documents
+
+436
+00:20:43,876 --> 00:20:47,676
+in the background, we will
+
+437
+00:20:47,676 --> 00:20:49,486
+to grant access to
+
+438
+00:20:50,166 --> 00:20:52,636
+HealthKit ensures that
+
+439
+00:20:52,636 --> 00:20:54,296
+when they're granting
+
+440
+00:20:54,296 --> 00:20:56,506
+to your apps the
+
+441
+00:20:57,096 --> 00:21:02,076
+Next, let's talk about how to
+
+442
+00:20:57,096 --> 00:21:02,076
+Next, let's talk about how to
+
+443
+00:21:04,336 --> 00:21:06,326
+When saving a document
+
+444
+00:21:06,326 --> 00:21:07,786
+you can save the raw XML
+
+445
+00:21:07,786 --> 00:21:11,056
+into the new HKCDADocumentSample
+
+446
+00:21:12,716 --> 00:21:15,416
+We validate on creation
+
+447
+00:21:15,416 --> 00:21:21,316
+with the standard and will
+
+448
+00:21:21,886 --> 00:21:26,266
+We automatically extract the
+
+449
+00:21:26,266 --> 00:21:28,976
+and author names whenever the
+
+450
+00:21:29,366 --> 00:21:32,226
+in order to make querying
+
+451
+00:21:32,536 --> 00:21:34,336
+without needing to read
+
+452
+00:21:34,826 --> 00:21:38,206
+Let's take a look at
+
+453
+00:21:38,206 --> 00:21:40,356
+We're going to take
+
+454
+00:21:40,356 --> 00:21:42,146
+and transform it
+
+455
+00:21:42,736 --> 00:21:44,816
+The origin of this XML
+
+456
+00:21:44,816 --> 00:21:46,336
+from a health organization
+
+457
+00:21:47,726 --> 00:21:51,236
+We're then going to create a
+
+458
+00:21:51,276 --> 00:21:54,566
+in that data object, setting
+
+459
+00:21:55,186 --> 00:21:58,366
+and any additional metadata,
+
+460
+00:21:58,366 --> 00:22:02,186
+And then we'll save the
+
+461
+00:21:58,366 --> 00:22:02,186
+And then we'll save the
+
+462
+00:22:02,886 --> 00:22:03,506
+That's it.
+
+463
+00:22:03,996 --> 00:22:07,046
+Now your health document is
+
+464
+00:22:07,046 --> 00:22:09,286
+to be used in other
+
+465
+00:22:09,286 --> 00:22:13,186
+by the user in the Health App.
+
+466
+00:22:13,456 --> 00:22:16,156
+Now, let's talk about querying
+
+467
+00:22:17,656 --> 00:22:21,616
+Since HKCDADocumentSample
+
+468
+00:22:22,436 --> 00:22:24,836
+existing query objects you
+
+469
+00:22:24,836 --> 00:22:27,046
+with continue to work
+
+470
+00:22:28,336 --> 00:22:30,866
+However, you need to use
+
+471
+00:22:30,866 --> 00:22:32,486
+in order to fetch the raw XML.
+
+472
+00:22:33,016 --> 00:22:35,456
+Fetching the raw XML's
+
+473
+00:22:35,456 --> 00:22:37,766
+so when explicitly specified.
+
+474
+00:22:39,616 --> 00:22:42,726
+We provide predicate
+
+475
+00:22:42,726 --> 00:22:48,596
+for the automatically extracted
+
+476
+00:22:48,596 --> 00:22:52,546
+to remember that since
+
+477
+00:22:52,546 --> 00:22:53,466
+updated information
+
+478
+00:22:53,466 --> 00:22:56,546
+to previously samples are
+
+479
+00:22:56,546 --> 00:23:01,346
+Now, let's take a look at
+
+480
+00:22:56,546 --> 00:23:01,346
+Now, let's take a look at
+
+481
+00:23:01,346 --> 00:23:02,526
+for documents in HealthKit.
+
+482
+00:23:02,916 --> 00:23:04,416
+In this example,
+
+483
+00:23:04,416 --> 00:23:06,486
+for all the documents
+
+484
+00:23:07,636 --> 00:23:09,776
+So first, we need to
+
+485
+00:23:09,906 --> 00:23:12,326
+We're going to pass
+
+486
+00:23:12,326 --> 00:23:14,706
+into the document type
+
+487
+00:23:14,706 --> 00:23:15,866
+on HKObjectType.
+
+488
+00:23:18,456 --> 00:23:20,556
+We're then going to
+
+489
+00:23:21,406 --> 00:23:23,216
+You have additional
+
+490
+00:23:23,216 --> 00:23:25,146
+and order the documents
+
+491
+00:23:25,146 --> 00:23:26,786
+to you the order
+
+492
+00:23:27,566 --> 00:23:30,276
+And then we execute
+
+493
+00:23:30,276 --> 00:23:33,026
+to get the HKCDADocumentSamples
+
+494
+00:23:33,556 --> 00:23:38,166
+One thing I want to note in
+
+495
+00:23:38,166 --> 00:23:40,086
+includeDocumentData to false.
+
+496
+00:23:40,276 --> 00:23:41,966
+Only ever set it to true
+
+497
+00:23:41,966 --> 00:23:47,556
+if you need the full
+
+498
+00:23:47,736 --> 00:23:50,346
+Now, let's talk about some
+
+499
+00:23:50,346 --> 00:23:52,296
+with the health documents
+
+500
+00:23:53,516 --> 00:23:56,796
+First, check for validation
+
+501
+00:23:56,796 --> 00:23:58,176
+and HKCDADocumentSample.
+
+502
+00:23:59,426 --> 00:24:01,346
+The errors will tell
+
+503
+00:23:59,426 --> 00:24:01,346
+The errors will tell
+
+504
+00:24:01,346 --> 00:24:04,566
+to transform your raw
+
+505
+00:24:07,016 --> 00:24:09,416
+Next, you should
+
+506
+00:24:09,726 --> 00:24:12,816
+that you imported
+
+507
+00:24:12,856 --> 00:24:14,946
+and automatically
+
+508
+00:24:15,796 --> 00:24:17,556
+This way, you can tell
+
+509
+00:24:17,556 --> 00:24:20,566
+on those automatically extracted
+
+510
+00:24:20,566 --> 00:24:21,386
+that you'd expect.
+
+511
+00:24:23,156 --> 00:24:26,856
+And lastly, request the raw
+
+512
+00:24:27,156 --> 00:24:30,506
+Queries that don't request,
+
+513
+00:24:30,976 --> 00:24:33,326
+will return the automatically
+
+514
+00:24:33,326 --> 00:24:35,846
+and this may be all you
+
+515
+00:24:35,846 --> 00:24:38,586
+to uniquely identify a
+
+516
+00:24:40,166 --> 00:24:43,416
+For more information on
+
+517
+00:24:43,416 --> 00:24:44,696
+visit the link on the screen.
+
+518
+00:24:49,046 --> 00:24:50,316
+Now, I'd like to switch gears
+
+519
+00:24:50,316 --> 00:24:52,486
+and offer some general
+
+520
+00:24:52,486 --> 00:24:58,836
+As you know, HealthKit serves
+
+521
+00:24:58,836 --> 00:25:01,956
+where your app and other
+
+522
+00:24:58,836 --> 00:25:01,956
+where your app and other
+
+523
+00:25:01,956 --> 00:25:03,656
+to a user's record
+
+524
+00:25:05,346 --> 00:25:08,176
+Your app in cloud service may
+
+525
+00:25:08,176 --> 00:25:09,816
+with another app
+
+526
+00:25:10,266 --> 00:25:12,606
+and this may require some
+
+527
+00:25:13,336 --> 00:25:16,226
+So there are three main topics
+
+528
+00:25:16,226 --> 00:25:17,616
+when talking about
+
+529
+00:25:18,736 --> 00:25:20,246
+First, syncing data.
+
+530
+00:25:21,206 --> 00:25:23,186
+Second, tracking change data.
+
+531
+00:25:24,016 --> 00:25:27,396
+And third, migrating data.
+
+532
+00:25:27,586 --> 00:25:29,246
+So first, syncing data.
+
+533
+00:25:30,316 --> 00:25:32,956
+You should be using
+
+534
+00:25:32,956 --> 00:25:36,676
+to handle processing both new
+
+535
+00:25:36,676 --> 00:25:38,666
+to keep up to date
+
+536
+00:25:39,576 --> 00:25:41,956
+Anchors act as a
+
+537
+00:25:41,956 --> 00:25:44,276
+of the last query operation
+
+538
+00:25:44,916 --> 00:25:47,056
+You could save this anchor
+
+539
+00:25:47,056 --> 00:25:49,166
+to create a new
+
+540
+00:25:51,656 --> 00:25:53,726
+You'll open one query
+
+541
+00:25:53,726 --> 00:25:54,606
+that you're interested in
+
+542
+00:25:55,516 --> 00:25:58,346
+and then pass an optional
+
+543
+00:25:58,346 --> 00:26:02,006
+to continuously process new and
+
+544
+00:25:58,346 --> 00:26:02,006
+to continuously process new and
+
+545
+00:26:02,006 --> 00:26:03,856
+to unnecessarily
+
+546
+00:26:05,116 --> 00:26:07,746
+But say for a better
+
+547
+00:26:08,006 --> 00:26:09,056
+in order to have fresh UI
+
+548
+00:26:09,056 --> 00:26:11,176
+when your application
+
+549
+00:26:11,586 --> 00:26:15,866
+or to keep your cloud data in
+
+550
+00:26:15,866 --> 00:26:18,376
+to handle processing new
+
+551
+00:26:18,376 --> 00:26:19,486
+when it's currently not running.
+
+552
+00:26:20,586 --> 00:26:23,046
+That's where HKObserverQuery
+
+553
+00:26:23,046 --> 00:26:25,426
+with HKAnchoredObjectQuery
+
+554
+00:26:26,576 --> 00:26:29,036
+Let's look at an
+
+555
+00:26:30,596 --> 00:26:34,096
+So there are four
+
+556
+00:26:34,096 --> 00:26:35,876
+to handle background
+
+557
+00:26:35,876 --> 00:26:39,046
+into two phases;
+
+558
+00:26:39,866 --> 00:26:42,026
+In the first step,
+
+559
+00:26:42,026 --> 00:26:43,126
+for background updates.
+
+560
+00:26:43,486 --> 00:26:45,246
+You need to do this
+
+561
+00:26:45,246 --> 00:26:46,136
+that you're interested in.
+
+562
+00:26:47,176 --> 00:26:50,236
+In the second step, you're
+
+563
+00:26:51,236 --> 00:26:55,176
+Once set up, the ObserverQuery
+
+564
+00:26:55,176 --> 00:26:56,686
+and deleted samples
+
+565
+00:26:58,976 --> 00:27:00,736
+When new samples are generated,
+
+566
+00:26:58,976 --> 00:27:00,736
+When new samples are generated,
+
+567
+00:27:00,736 --> 00:27:02,306
+that's when you have
+
+568
+00:27:02,856 --> 00:27:04,716
+You'll get a callback
+
+569
+00:27:04,866 --> 00:27:07,536
+and then execute an
+
+570
+00:27:07,536 --> 00:27:09,386
+to fetch new and
+
+571
+00:27:10,036 --> 00:27:12,756
+And then in the fourth step,
+
+572
+00:27:13,456 --> 00:27:15,956
+you'll call the observer queries
+
+573
+00:27:15,956 --> 00:27:17,666
+to let HealthKit know
+
+574
+00:27:17,666 --> 00:27:19,146
+and delivered the
+
+575
+00:27:20,576 --> 00:27:23,496
+You'll then continue to cycle
+
+576
+00:27:23,496 --> 00:27:25,246
+in order to keep up to
+
+577
+00:27:25,336 --> 00:27:33,876
+Now, let's take a look at this
+
+578
+00:27:34,046 --> 00:27:37,336
+So in the first step, we need to
+
+579
+00:27:37,716 --> 00:27:40,466
+Your application needs to do
+
+580
+00:27:40,466 --> 00:27:41,666
+so we recommend you do it
+
+581
+00:27:41,666 --> 00:27:44,256
+in application
+
+582
+00:27:45,746 --> 00:27:48,756
+You'll then grab the step's
+
+583
+00:27:49,486 --> 00:27:53,026
+and then pass that to HK Health
+
+584
+00:27:53,026 --> 00:27:54,666
+for, passing in the steps type
+
+585
+00:27:54,666 --> 00:27:56,486
+and the frequency
+
+586
+00:27:57,586 --> 00:28:00,586
+Do note that background delivery
+
+587
+00:27:57,586 --> 00:28:00,586
+Do note that background delivery
+
+588
+00:28:02,976 --> 00:28:06,366
+Your application needs to pick
+
+589
+00:28:06,366 --> 00:28:07,596
+it can handle in order
+
+590
+00:28:07,596 --> 00:28:09,856
+to preserve a user's
+
+591
+00:28:11,256 --> 00:28:14,156
+Also note that this
+
+592
+00:28:14,586 --> 00:28:17,306
+Background updates are
+
+593
+00:28:17,896 --> 00:28:22,586
+In the second step, we're going
+
+594
+00:28:22,616 --> 00:28:25,816
+to create the HKAnchored,
+
+595
+00:28:27,036 --> 00:28:29,826
+Here we'll have a
+
+596
+00:28:30,206 --> 00:28:33,096
+that we can use in order
+
+597
+00:28:33,096 --> 00:28:35,706
+and deleted samples when
+
+598
+00:28:36,366 --> 00:28:38,306
+And then we're going
+
+599
+00:28:39,116 --> 00:28:39,686
+That's it.
+
+600
+00:28:39,736 --> 00:28:42,336
+That completes the setup
+
+601
+00:28:42,336 --> 00:28:44,596
+to monitor new and deleted
+
+602
+00:28:45,556 --> 00:28:50,136
+So as I'm walking across stage
+
+603
+00:28:50,136 --> 00:28:54,486
+step samples, our,
+
+604
+00:28:54,486 --> 00:28:57,306
+into the update steps method in
+
+605
+00:28:57,306 --> 00:28:59,196
+in order to grab new
+
+606
+00:28:59,726 --> 00:29:02,576
+So first, we're going to create
+
+607
+00:28:59,726 --> 00:29:02,576
+So first, we're going to create
+
+608
+00:29:03,076 --> 00:29:04,216
+passing in the steps type.
+
+609
+00:29:04,606 --> 00:29:08,066
+You'll also have predicate,
+
+610
+00:29:08,066 --> 00:29:10,846
+to filter the particular
+
+611
+00:29:13,336 --> 00:29:16,656
+Then we'll call the handleSteps
+
+612
+00:29:16,656 --> 00:29:22,666
+and deleted samples and
+
+613
+00:29:22,666 --> 00:29:25,586
+for the next time we need to
+
+614
+00:29:26,216 --> 00:29:29,436
+We then call the
+
+615
+00:29:29,436 --> 00:29:32,486
+to know that we've done
+
+616
+00:29:32,486 --> 00:29:36,146
+and then we execute the query.
+
+617
+00:29:37,646 --> 00:29:39,376
+Then lastly, in step four,
+
+618
+00:29:39,376 --> 00:29:41,546
+we're going to call the
+
+619
+00:29:41,546 --> 00:29:44,056
+from the observer query in order
+
+620
+00:29:44,056 --> 00:29:45,966
+to let HealthKit know
+
+621
+00:29:46,016 --> 00:29:48,146
+and processed the
+
+622
+00:29:48,746 --> 00:29:49,576
+And that's it.
+
+623
+00:29:49,576 --> 00:29:52,166
+Now your application will
+
+624
+00:29:52,336 --> 00:29:58,876
+and keep your cloud data in sync
+
+625
+00:29:59,056 --> 00:30:01,206
+Next, let's talk about
+
+626
+00:29:59,056 --> 00:30:01,206
+Next, let's talk about
+
+627
+00:30:02,156 --> 00:30:04,006
+You should be using
+
+628
+00:30:04,006 --> 00:30:06,126
+to keep tracking of
+
+629
+00:30:08,016 --> 00:30:13,916
+A unique identifier is set
+
+630
+00:30:13,916 --> 00:30:15,836
+and persists for the
+
+631
+00:30:17,776 --> 00:30:22,356
+Record UUIDs in your own
+
+632
+00:30:22,356 --> 00:30:24,256
+on the device and
+
+633
+00:30:24,336 --> 00:30:28,606
+so that way you could tell a
+
+634
+00:30:28,806 --> 00:30:31,396
+Whenever these samples
+
+635
+00:30:31,396 --> 00:30:34,826
+a workout from the Health
+
+636
+00:30:34,826 --> 00:30:36,466
+for these changes to
+
+637
+00:30:36,726 --> 00:30:39,086
+those same samples are
+
+638
+00:30:39,086 --> 00:30:41,746
+on the device and
+
+639
+00:30:43,646 --> 00:30:47,696
+And ensure that future sync
+
+640
+00:30:47,696 --> 00:30:48,536
+deleted samples.
+
+641
+00:30:49,626 --> 00:30:52,596
+Now, there are two
+
+642
+00:30:52,596 --> 00:30:55,196
+like to discuss when
+
+643
+00:30:55,196 --> 00:30:56,796
+about how to avoid duplication.
+
+644
+00:30:57,556 --> 00:30:59,586
+The first is pre-populating
+
+645
+00:30:59,976 --> 00:31:02,586
+Pre-populating data is,
+
+646
+00:30:59,976 --> 00:31:02,586
+Pre-populating data is,
+
+647
+00:31:03,166 --> 00:31:05,906
+Pre-populating data is a
+
+648
+00:31:05,906 --> 00:31:08,126
+to save the user time
+
+649
+00:31:08,126 --> 00:31:09,836
+that may already be
+
+650
+00:31:11,626 --> 00:31:14,916
+Users have the ability to verify
+
+651
+00:31:14,986 --> 00:31:16,326
+and change it if necessary.
+
+652
+00:31:17,956 --> 00:31:20,746
+However, the problem is
+
+653
+00:31:21,886 --> 00:31:25,806
+Be sure only to save data again
+
+654
+00:31:28,696 --> 00:31:32,926
+Another additional potential
+
+655
+00:31:32,996 --> 00:31:34,726
+both from another
+
+656
+00:31:35,986 --> 00:31:37,956
+Remember to only pick one source
+
+657
+00:31:37,956 --> 00:31:40,786
+of information that's most
+
+658
+00:31:41,676 --> 00:31:43,346
+HealthKit has a great
+
+659
+00:31:43,346 --> 00:31:45,386
+that our users have
+
+660
+00:31:45,386 --> 00:31:50,866
+However, you know what's, what
+
+661
+00:31:51,146 --> 00:31:53,946
+Make sure not to save
+
+662
+00:31:53,946 --> 00:31:54,896
+on their behalf.
+
+663
+00:31:56,346 --> 00:31:59,946
+Writing only your data once
+
+664
+00:31:59,946 --> 00:32:02,746
+by simplifying which
+
+665
+00:31:59,946 --> 00:32:02,746
+by simplifying which
+
+666
+00:32:02,746 --> 00:32:03,246
+to write it.
+
+667
+00:32:04,156 --> 00:32:06,446
+There is one particular
+
+668
+00:32:06,476 --> 00:32:08,326
+Sometimes duplication
+
+669
+00:32:09,586 --> 00:32:11,996
+For example, if data's
+
+670
+00:32:12,716 --> 00:32:17,416
+If a data, step data is
+
+671
+00:32:17,416 --> 00:32:23,176
+and his or her Apple Watch,
+
+672
+00:32:23,206 --> 00:32:25,786
+and HKStatisticsCollectionQuery
+
+673
+00:32:25,786 --> 00:32:28,916
+to automatically
+
+674
+00:32:28,916 --> 00:32:32,716
+of the preferred data sources
+
+675
+00:32:32,716 --> 00:32:35,576
+This way, our users get
+
+676
+00:32:35,796 --> 00:32:38,346
+of the view of their health
+
+677
+00:32:38,476 --> 00:32:42,146
+Now, I want to talk
+
+678
+00:32:42,716 --> 00:32:45,526
+Let's say that you've launched
+
+679
+00:32:45,636 --> 00:32:47,566
+and app that writes
+
+680
+00:32:48,396 --> 00:32:50,966
+Your application has been in
+
+681
+00:32:51,046 --> 00:32:52,746
+but your users discover
+
+682
+00:32:53,516 --> 00:32:57,856
+In certain locales, instead of
+
+683
+00:32:58,726 --> 00:33:01,386
+you actually save
+
+684
+00:32:58,726 --> 00:33:01,386
+you actually save
+
+685
+00:33:01,776 --> 00:33:03,136
+That's a bit warm.
+
+686
+00:33:04,186 --> 00:33:06,896
+But in this case, we know
+
+687
+00:33:06,976 --> 00:33:08,496
+data in order to fix it.
+
+688
+00:33:08,946 --> 00:33:14,866
+We first need to find old
+
+689
+00:33:14,916 --> 00:33:17,336
+making sure to update
+
+690
+00:33:17,336 --> 00:33:20,816
+and then delete old samples.
+
+691
+00:33:22,936 --> 00:33:25,746
+Now, a few new things
+
+692
+00:33:25,746 --> 00:33:27,456
+between iPhone and Apple Watch.
+
+693
+00:33:28,986 --> 00:33:32,106
+Starting in iOS 9.3,
+
+694
+00:33:32,106 --> 00:33:34,246
+on a user's phone will
+
+695
+00:33:34,246 --> 00:33:35,386
+of their paired Apple Watches.
+
+696
+00:33:35,646 --> 00:33:37,516
+Apple Watch is now a reflection
+
+697
+00:33:37,516 --> 00:33:39,436
+of the most recent
+
+698
+00:33:39,436 --> 00:33:41,036
+within the HealthKit ecosystem.
+
+699
+00:33:41,166 --> 00:33:44,066
+In order to accomplish this,
+
+700
+00:33:44,446 --> 00:33:47,526
+samples are now periodically
+
+701
+00:33:47,656 --> 00:33:49,306
+on Apple Watch.
+
+702
+00:33:52,576 --> 00:33:54,346
+Make sure to save samples
+
+703
+00:33:54,346 --> 00:33:58,316
+after HKHealthStore's earliest
+
+704
+00:33:58,316 --> 00:34:00,266
+to make sure your samples
+
+705
+00:33:58,316 --> 00:34:00,266
+to make sure your samples
+
+706
+00:34:00,756 --> 00:34:03,176
+and synced back to
+
+707
+00:34:05,076 --> 00:34:07,786
+Lastly, sync times
+
+708
+00:34:09,056 --> 00:34:12,166
+You should be saving
+
+709
+00:34:12,166 --> 00:34:14,846
+or Apple Watch, not both.
+
+710
+00:34:17,476 --> 00:34:20,706
+Now, I'm going to hand it back
+
+711
+00:34:20,706 --> 00:34:21,846
+up the rest of our session.
+
+712
+00:34:22,275 --> 00:34:24,485
+Thank you, everyone,
+
+713
+00:34:25,516 --> 00:34:29,976
+[ Applause ]
+
+714
+00:34:30,476 --> 00:34:30,996
+&gt;&gt; Thank you, Jeff.
+
+715
+00:34:32,206 --> 00:34:35,656
+Before we wrap up, I'd like to
+
+716
+00:34:35,656 --> 00:34:38,806
+feature that's brand new
+
+717
+00:34:40,456 --> 00:34:41,686
+Wheelchair support.
+
+718
+00:34:43,525 --> 00:34:46,626
+Accessibility is extremely
+
+719
+00:34:47,275 --> 00:34:50,656
+All of our and your users
+
+720
+00:34:50,656 --> 00:34:52,686
+and experiences as
+
+721
+00:34:53,196 --> 00:34:55,386
+and the great activity
+
+722
+00:34:55,386 --> 00:34:57,136
+to Apple Watch is no exception.
+
+723
+00:34:58,536 --> 00:35:02,506
+iOS 10 and watchOS 3 include
+
+724
+00:34:58,536 --> 00:35:02,506
+iOS 10 and watchOS 3 include
+
+725
+00:35:02,506 --> 00:35:05,346
+features that automatically
+
+726
+00:35:05,346 --> 00:35:06,216
+to wheelchair users.
+
+727
+00:35:06,836 --> 00:35:09,736
+And now you can work with
+
+728
+00:35:09,866 --> 00:35:11,366
+when you're interacting
+
+729
+00:35:11,836 --> 00:35:16,576
+First, there's a new
+
+730
+00:35:16,816 --> 00:35:19,876
+HKWheelchairUse that
+
+731
+00:35:19,876 --> 00:35:20,416
+a wheelchair.
+
+732
+00:35:20,906 --> 00:35:23,916
+The value can be yes,
+
+733
+00:35:24,386 --> 00:35:27,806
+Next, we have some new
+
+734
+00:35:27,806 --> 00:35:28,696
+to wheelchair users.
+
+735
+00:35:28,866 --> 00:35:31,956
+Those include wheelchair
+
+736
+00:35:31,956 --> 00:35:34,046
+which you can think
+
+737
+00:35:35,156 --> 00:35:37,896
+Finally, we have some new
+
+738
+00:35:37,896 --> 00:35:39,176
+to wheelchair users as well.
+
+739
+00:35:39,446 --> 00:35:42,816
+Those include wheelchair walk
+
+740
+00:35:46,876 --> 00:35:49,236
+When a wheelchair user
+
+741
+00:35:49,356 --> 00:35:51,836
+the watch automatically
+
+742
+00:35:51,836 --> 00:35:53,286
+to the new push count data type.
+
+743
+00:35:54,276 --> 00:35:57,066
+In addition, the stand
+
+744
+00:35:57,066 --> 00:36:00,396
+to the stand hours data type
+
+745
+00:35:57,066 --> 00:36:00,396
+to the stand hours data type
+
+746
+00:36:01,706 --> 00:36:05,026
+Be aware that wheelchair
+
+747
+00:36:05,026 --> 00:36:08,876
+recorded during a wheelchair
+
+748
+00:36:09,166 --> 00:36:12,096
+that a user's wheelchair
+
+749
+00:36:12,666 --> 00:36:13,746
+This is really important
+
+750
+00:36:13,746 --> 00:36:15,516
+if you're querying
+
+751
+00:36:15,926 --> 00:36:18,076
+In this case, you want to
+
+752
+00:36:18,256 --> 00:36:21,386
+for both wheelchair types
+
+753
+00:36:21,386 --> 00:36:23,606
+so that you're not potentially
+
+754
+00:36:23,606 --> 00:36:25,836
+of the user's historical
+
+755
+00:36:26,516 --> 00:36:30,346
+To sum up, we work really
+
+756
+00:36:30,346 --> 00:36:33,126
+of our products and experiences
+
+757
+00:36:33,536 --> 00:36:34,516
+You should too.
+
+758
+00:36:34,826 --> 00:36:37,566
+We strongly encourage you to
+
+759
+00:36:37,566 --> 00:36:40,176
+of our users by supporting
+
+760
+00:36:40,176 --> 00:36:43,006
+to wheelchair data
+
+761
+00:36:44,776 --> 00:36:48,266
+So we've talked about
+
+762
+00:36:48,586 --> 00:36:49,226
+Let's recap.
+
+763
+00:36:50,996 --> 00:36:53,276
+Authorization is
+
+764
+00:36:53,276 --> 00:36:54,816
+for protecting users' privacy,
+
+765
+00:36:55,056 --> 00:36:58,136
+but getting the user experience
+
+766
+00:36:59,276 --> 00:37:01,786
+Keep authorization in mind when
+
+767
+00:36:59,276 --> 00:37:01,786
+Keep authorization in mind when
+
+768
+00:37:01,946 --> 00:37:03,446
+and be sure to test it often.
+
+769
+00:37:03,926 --> 00:37:08,326
+Next, fit in with Apple's
+
+770
+00:37:08,426 --> 00:37:10,966
+by incorporating the Activity
+
+771
+00:37:11,136 --> 00:37:14,846
+with the Activity Rings API.
+
+772
+00:37:15,086 --> 00:37:16,706
+Whenever you're interacting
+
+773
+00:37:17,056 --> 00:37:20,066
+take care to handle all cases
+
+774
+00:37:20,066 --> 00:37:22,836
+deleted, or duplicated
+
+775
+00:37:22,836 --> 00:37:24,996
+that your users' data
+
+776
+00:37:25,316 --> 00:37:28,406
+and always what you'd expect.
+
+777
+00:37:28,956 --> 00:37:31,796
+And finally, don't forget to
+
+778
+00:37:31,796 --> 00:37:34,356
+new features we've
+
+779
+00:37:34,356 --> 00:37:37,376
+and watchOS 3, especially
+
+780
+00:37:37,636 --> 00:37:39,606
+something we think is
+
+781
+00:37:41,776 --> 00:37:44,646
+If you'd like more
+
+782
+00:37:44,646 --> 00:37:45,946
+of the things we
+
+783
+00:37:45,946 --> 00:37:48,186
+or if you have any questions,
+
+784
+00:37:48,186 --> 00:37:50,306
+We have lots of additional
+
+785
+00:37:50,856 --> 00:37:55,196
+And don't forget to check out
+
+786
+00:37:55,966 --> 00:37:58,306
+We also have these great
+
+787
+00:37:58,306 --> 00:37:59,976
+if you want to get up
+
+788
+00:38:00,586 --> 00:38:02,276
+Thank you for creating
+
+789
+00:38:02,276 --> 00:38:04,106
+that help users live
+
+790
+00:38:04,106 --> 00:38:06,546
+and enjoy the rest of your WWDC.
+
+791
+00:38:07,508 --> 00:38:09,508
+[ Applause ]

@@ -1,0 +1,5211 @@
+1
+00:00:08,516 --> 00:00:17,500
+[ Music ]
+
+2
+00:00:23,216 --> 00:00:24,276
+&gt;&gt; Good morning.
+
+3
+00:00:25,666 --> 00:00:27,896
+Morning everyone and
+
+4
+00:00:28,526 --> 00:00:29,466
+I'm Brad Ford.
+
+5
+00:00:29,686 --> 00:00:30,816
+I work on the Core Media
+
+6
+00:00:30,816 --> 00:00:32,986
+and AV Foundation
+
+7
+00:00:34,726 --> 00:00:37,206
+And this session is all
+
+8
+00:00:37,416 --> 00:00:38,836
+Hopefully you've
+
+9
+00:00:38,986 --> 00:00:41,366
+This is the most popular
+
+10
+00:00:41,536 --> 00:00:43,616
+And it's also about photography.
+
+11
+00:00:43,866 --> 00:00:47,316
+If you develop a photography
+
+12
+00:00:47,316 --> 00:00:48,856
+about developing
+
+13
+00:00:49,276 --> 00:00:51,366
+then this is a very
+
+14
+00:00:51,506 --> 00:00:54,666
+I think you and iOS 10 are
+
+15
+00:00:55,666 --> 00:00:58,196
+Today we'll be focusing on
+
+16
+00:00:58,306 --> 00:01:01,336
+which is our lowest level
+
+17
+00:00:58,306 --> 00:01:01,336
+which is our lowest level
+
+18
+00:01:01,336 --> 00:01:02,446
+for accessing the camera.
+
+19
+00:01:02,446 --> 00:01:05,025
+AV Foundation is broad and deep.
+
+20
+00:01:05,316 --> 00:01:08,016
+If you're new to camera
+
+21
+00:01:08,016 --> 00:01:12,376
+to review our past WWC camera
+
+22
+00:01:13,076 --> 00:01:16,046
+They give you a good base for
+
+23
+00:01:16,046 --> 00:01:17,636
+you get to watch
+
+24
+00:01:18,116 --> 00:01:22,086
+Here's what we're going to
+
+25
+00:01:22,876 --> 00:01:26,006
+I'll present a brand
+
+26
+00:01:26,206 --> 00:01:29,166
+for capturing photographic
+
+27
+00:01:29,166 --> 00:01:30,986
+to focus on four feature areas.
+
+28
+00:01:30,986 --> 00:01:34,096
+We're going to focus
+
+29
+00:01:34,266 --> 00:01:36,166
+You'll learn how to capture
+
+30
+00:01:36,426 --> 00:01:38,106
+just like Apple's camera app.
+
+31
+00:01:38,916 --> 00:01:41,976
+You'll learn how to capture
+
+32
+00:01:41,976 --> 00:01:45,236
+to DNG files, which is a
+
+33
+00:01:46,146 --> 00:01:47,636
+You'll learn about
+
+34
+00:01:47,636 --> 00:01:51,006
+or thumbnail images along with
+
+35
+00:01:51,006 --> 00:01:52,286
+for a more responsive UI.
+
+36
+00:01:53,766 --> 00:01:56,196
+And lastly, you'll learn
+
+37
+00:01:56,256 --> 00:01:58,416
+vivid images in wide color.
+
+38
+00:01:58,976 --> 00:01:59,676
+Let's get started.
+
+39
+00:02:00,476 --> 00:02:01,436
+Here's a quick refresher
+
+40
+00:02:01,436 --> 00:02:03,716
+on how AV Foundation's
+
+41
+00:02:04,216 --> 00:02:06,216
+At the center of our
+
+42
+00:02:06,216 --> 00:02:07,636
+the AVCaptureSession.
+
+43
+00:02:08,106 --> 00:02:10,795
+This is the object you tell
+
+44
+00:02:11,466 --> 00:02:14,776
+In order to do anything useful,
+
+45
+00:02:14,776 --> 00:02:17,066
+Inputs like a camera
+
+46
+00:02:17,476 --> 00:02:19,476
+And they provide
+
+47
+00:02:19,746 --> 00:02:22,086
+And it also needs outputs
+
+48
+00:02:22,476 --> 00:02:25,686
+such as a StillImageOutput
+
+49
+00:02:26,036 --> 00:02:27,796
+or a QuickTime movie
+
+50
+00:02:27,866 --> 00:02:29,316
+which records QuickTime movies.
+
+51
+00:02:30,156 --> 00:02:34,736
+There are also connections, and
+
+52
+00:02:34,876 --> 00:02:36,506
+as AVCaptureConnections.
+
+53
+00:02:36,866 --> 00:02:38,496
+That's our overall object graph.
+
+54
+00:02:38,496 --> 00:02:40,866
+You've kind of seen how we
+
+55
+00:02:42,006 --> 00:02:43,596
+All of these features,
+
+56
+00:02:43,596 --> 00:02:45,076
+relate to taking still images.
+
+57
+00:02:45,076 --> 00:02:47,516
+So we might expect that we'd
+
+58
+00:02:47,516 --> 00:02:51,586
+in the AVCaptureStillImageOutput
+
+59
+00:02:53,196 --> 00:02:56,696
+Today we're introducing a brand
+
+60
+00:02:56,696 --> 00:02:58,966
+And it's called the
+
+61
+00:02:59,406 --> 00:03:01,936
+emphasizing the fact that
+
+62
+00:02:59,406 --> 00:03:01,936
+emphasizing the fact that
+
+63
+00:03:01,936 --> 00:03:03,416
+than static still images now.
+
+64
+00:03:04,496 --> 00:03:09,236
+AVCapturePhotoOutput addresses
+
+65
+00:03:09,236 --> 00:03:11,736
+challenges in four main areas.
+
+66
+00:03:12,446 --> 00:03:14,906
+It features a functional
+
+67
+00:03:15,196 --> 00:03:16,476
+There are clear delineations
+
+68
+00:03:16,476 --> 00:03:18,546
+between mutable and
+
+69
+00:03:19,456 --> 00:03:21,236
+We've encapsulated
+
+70
+00:03:21,236 --> 00:03:23,636
+into a distinct object
+
+71
+00:03:24,556 --> 00:03:27,846
+And the PhotoOutput can
+
+72
+00:03:27,846 --> 00:03:29,186
+from request to completion
+
+73
+00:03:29,506 --> 00:03:32,196
+through a delegate-style
+
+74
+00:03:32,726 --> 00:03:36,456
+And lastly, it resolves your
+
+75
+00:03:36,456 --> 00:03:37,896
+early in the capture process,
+
+76
+00:03:38,166 --> 00:03:39,716
+so you know what you're
+
+77
+00:03:39,776 --> 00:03:42,916
+Let's talk a little bit more
+
+78
+00:03:44,276 --> 00:03:46,356
+Here's what an
+
+79
+00:03:46,666 --> 00:03:49,736
+Even with all its new features,
+
+80
+00:03:49,826 --> 00:03:52,536
+smaller even than
+
+81
+00:03:52,976 --> 00:03:55,236
+It has a small set of
+
+82
+00:03:55,556 --> 00:03:57,896
+that tell you whether particular
+
+83
+00:03:58,196 --> 00:04:00,626
+such as is
+
+84
+00:03:58,196 --> 00:04:00,626
+such as is
+
+85
+00:04:01,346 --> 00:04:04,536
+It has a smaller set of writable
+
+86
+00:04:04,536 --> 00:04:07,586
+in for particular
+
+87
+00:04:07,766 --> 00:04:10,876
+Some capture features affect how
+
+88
+00:04:10,876 --> 00:04:13,716
+built, so you have to
+
+89
+00:04:14,126 --> 00:04:16,216
+One such is
+
+90
+00:04:16,286 --> 00:04:18,995
+If you ever intend to capture
+
+91
+00:04:18,995 --> 00:04:23,486
+such as five-megapixel
+
+92
+00:04:24,066 --> 00:04:26,806
+you have to opt-in for the
+
+93
+00:04:26,806 --> 00:04:28,666
+startRunning on the
+
+94
+00:04:29,486 --> 00:04:32,806
+Lastly, there's a single
+
+95
+00:04:32,936 --> 00:04:34,286
+to kick off a photo capture.
+
+96
+00:04:35,056 --> 00:04:35,796
+Just one verb.
+
+97
+00:04:35,876 --> 00:04:36,246
+That's it.
+
+98
+00:04:36,896 --> 00:04:39,306
+Now you're probably asking
+
+99
+00:04:39,306 --> 00:04:40,746
+to all the per photo state?
+
+100
+00:04:40,886 --> 00:04:43,356
+How do I request
+
+101
+00:04:43,356 --> 00:04:44,786
+How do I get BGRA?
+
+102
+00:04:44,786 --> 00:04:46,496
+How do I get still
+
+103
+00:04:47,386 --> 00:04:49,276
+These features and
+
+104
+00:04:49,276 --> 00:04:52,456
+to a new object called
+
+105
+00:04:53,026 --> 00:04:55,356
+This object contains all
+
+106
+00:04:55,356 --> 00:04:57,946
+to one single photo
+
+107
+00:04:58,136 --> 00:05:01,666
+Think of it like the
+
+108
+00:04:58,136 --> 00:05:01,666
+Think of it like the
+
+109
+00:05:01,666 --> 00:05:04,966
+from when you're buying a MAC
+
+110
+00:05:05,416 --> 00:05:07,436
+You fill out the online
+
+111
+00:05:07,436 --> 00:05:10,096
+that you want and then you
+
+112
+00:05:10,646 --> 00:05:13,496
+And placing the order is
+
+113
+00:05:13,766 --> 00:05:15,656
+passing the
+
+114
+00:05:15,656 --> 00:05:16,766
+as your first parameter.
+
+115
+00:05:17,796 --> 00:05:19,436
+Now when you place
+
+116
+00:05:19,566 --> 00:05:21,996
+the store needs your email
+
+117
+00:05:21,996 --> 00:05:23,316
+with you about your order.
+
+118
+00:05:24,376 --> 00:05:26,396
+Within AVCapturePhotoOutput's
+
+119
+00:05:26,446 --> 00:05:30,236
+the email address you provide
+
+120
+00:05:30,236 --> 00:05:33,476
+to AVCapturePhotoCaptureDelegate
+
+121
+00:05:34,056 --> 00:05:36,716
+This delegate gets called
+
+122
+00:05:36,716 --> 00:05:38,336
+to your photo capture occur.
+
+123
+00:05:39,016 --> 00:05:41,406
+This object gets passed
+
+124
+00:05:41,406 --> 00:05:42,276
+to CapturePhoto.
+
+125
+00:05:43,686 --> 00:05:46,146
+Okay, so what's good about
+
+126
+00:05:46,526 --> 00:05:48,326
+First of all, they are atomic.
+
+127
+00:05:48,856 --> 00:05:51,736
+All settings are
+
+128
+00:05:52,026 --> 00:05:54,996
+There's no potential for
+
+129
+00:05:55,496 --> 00:05:58,456
+because they are not properties
+
+130
+00:05:58,656 --> 00:06:00,816
+but rather, a per-settings
+
+131
+00:05:58,656 --> 00:06:00,816
+but rather, a per-settings
+
+132
+00:06:01,396 --> 00:06:02,036
+They're unique.
+
+133
+00:06:02,636 --> 00:06:05,966
+Each photo settings instance
+
+134
+00:06:06,356 --> 00:06:09,136
+You're only allowed to use
+
+135
+00:06:09,376 --> 00:06:10,166
+and never again.
+
+136
+00:06:10,406 --> 00:06:13,186
+So you'll receive
+
+137
+00:06:13,186 --> 00:06:14,996
+for each photo capture request.
+
+138
+00:06:16,836 --> 00:06:19,716
+After requesting a photo
+
+139
+00:06:19,716 --> 00:06:22,666
+you can hold onto it and
+
+140
+00:06:22,666 --> 00:06:23,686
+as they're returned to you.
+
+141
+00:06:23,746 --> 00:06:26,206
+Sort of like making a
+
+142
+00:06:26,206 --> 00:06:27,346
+your online order form.
+
+143
+00:06:28,666 --> 00:06:30,836
+So then, what's good
+
+144
+00:06:31,776 --> 00:06:33,526
+Well, it's a single
+
+145
+00:06:33,556 --> 00:06:35,896
+Again, per photo settings.
+
+146
+00:06:36,696 --> 00:06:38,076
+The ordering is documented.
+
+147
+00:06:38,146 --> 00:06:39,966
+You know exactly which
+
+148
+00:06:39,966 --> 00:06:41,766
+and at what time
+
+149
+00:06:42,436 --> 00:06:45,386
+And it's a vehicle for resolving
+
+150
+00:06:45,846 --> 00:06:48,246
+That one I think I need to
+
+151
+00:06:48,876 --> 00:06:51,756
+Let's say your app requests
+
+152
+00:06:51,886 --> 00:06:54,016
+on this timeline.
+
+153
+00:06:54,366 --> 00:06:56,936
+You've specified photo
+
+154
+00:06:57,186 --> 00:06:59,446
+and auto still image
+
+155
+00:06:59,566 --> 00:07:01,996
+I shortened still image
+
+156
+00:06:59,566 --> 00:07:01,996
+I shortened still image
+
+157
+00:07:01,996 --> 00:07:03,876
+so it would fit on
+
+158
+00:07:04,096 --> 00:07:08,006
+You're telling the PhotoOutput
+
+159
+00:07:08,006 --> 00:07:09,566
+but only if you need to, only
+
+160
+00:07:09,566 --> 00:07:10,776
+if they're appropriate
+
+161
+00:07:11,926 --> 00:07:14,286
+So very soon after
+
+162
+00:07:14,386 --> 00:07:16,886
+the PhotoOutput calls your
+
+163
+00:07:17,156 --> 00:07:19,916
+which is willBegin
+
+164
+00:07:20,506 --> 00:07:23,316
+This callback is always,
+
+165
+00:07:23,646 --> 00:07:25,486
+It's sort of like the
+
+166
+00:07:25,486 --> 00:07:28,076
+from Apple saying we've
+
+167
+00:07:28,516 --> 00:07:29,716
+Here's what we'll
+
+168
+00:07:30,376 --> 00:07:32,366
+The callback passes
+
+169
+00:07:32,366 --> 00:07:36,886
+of a new object called
+
+170
+00:07:37,546 --> 00:07:39,946
+It's just like the photo
+
+171
+00:07:39,946 --> 00:07:41,576
+except now everything
+
+172
+00:07:42,586 --> 00:07:43,996
+They have the same unique ID.
+
+173
+00:07:43,996 --> 00:07:45,746
+Your unresolved version
+
+174
+00:07:45,746 --> 00:07:47,796
+and resolved version
+
+175
+00:07:47,796 --> 00:07:49,026
+so you compare them together.
+
+176
+00:07:49,496 --> 00:07:52,396
+It also tells you what features
+
+177
+00:07:52,866 --> 00:07:55,806
+So notice, in this case,
+
+178
+00:07:56,246 --> 00:07:57,926
+and SIS has been
+
+179
+00:07:58,106 --> 00:08:00,136
+So clearly we're in a
+
+180
+00:07:58,106 --> 00:08:00,136
+So clearly we're in a
+
+181
+00:08:00,136 --> 00:08:01,116
+such as this conference room.
+
+182
+00:08:01,506 --> 00:08:04,576
+Next comes willCapture
+
+183
+00:08:04,996 --> 00:08:07,466
+It's delivered right when
+
+184
+00:08:07,726 --> 00:08:10,376
+or like when the virtual
+
+185
+00:08:10,716 --> 00:08:12,276
+and the shudder sound
+
+186
+00:08:12,276 --> 00:08:15,286
+If you want to perform some
+
+187
+00:08:15,286 --> 00:08:16,916
+this is the appropriate
+
+188
+00:08:17,906 --> 00:08:20,946
+And then shortly thereafter
+
+189
+00:08:20,946 --> 00:08:23,896
+ResolvedSettings, just after
+
+190
+00:08:23,896 --> 00:08:26,146
+and read out, and the
+
+191
+00:08:27,486 --> 00:08:29,276
+Then some time has to pass
+
+192
+00:08:29,276 --> 00:08:31,046
+because the image
+
+193
+00:08:31,046 --> 00:08:32,765
+applying all the features
+
+194
+00:08:33,416 --> 00:08:34,976
+And when the photo
+
+195
+00:08:35,186 --> 00:08:37,515
+you get the
+
+196
+00:08:37,515 --> 00:08:40,726
+callback, along with an
+
+197
+00:08:40,726 --> 00:08:41,246
+waiting for.
+
+198
+00:08:41,246 --> 00:08:43,876
+So, yay. It's like getting the
+
+199
+00:08:44,716 --> 00:08:48,336
+And finally, you get
+
+200
+00:08:48,336 --> 00:08:49,576
+ResolvedSettings callback,
+
+201
+00:08:49,576 --> 00:08:51,516
+which is guaranteed
+
+202
+00:08:52,426 --> 00:08:54,016
+It's like the follow-up
+
+203
+00:08:54,016 --> 00:08:57,236
+from Apple saying all your
+
+204
+00:08:57,236 --> 00:08:59,076
+A pleasure doing business
+
+205
+00:08:59,796 --> 00:09:02,886
+This is a good time to clean up
+
+206
+00:08:59,796 --> 00:09:02,886
+This is a good time to clean up
+
+207
+00:09:04,196 --> 00:09:06,976
+So let's talk about those
+
+208
+00:09:07,526 --> 00:09:10,556
+The callbacks track a single
+
+209
+00:09:11,466 --> 00:09:14,926
+The photo output holds a weak
+
+210
+00:09:14,966 --> 00:09:17,176
+so it will not keep that
+
+211
+00:09:17,676 --> 00:09:19,966
+Remember to keep a strong
+
+212
+00:09:20,806 --> 00:09:24,026
+All the callbacks in this
+
+213
+00:09:24,406 --> 00:09:26,466
+but some of them become
+
+214
+00:09:26,466 --> 00:09:27,786
+depending on your
+
+215
+00:09:27,786 --> 00:09:30,526
+For instance, when you're
+
+216
+00:09:30,526 --> 00:09:32,396
+compressed photo,
+
+217
+00:09:32,396 --> 00:09:34,976
+to implement the one callback
+
+218
+00:09:35,256 --> 00:09:37,356
+Otherwise, we would have
+
+219
+00:09:38,016 --> 00:09:39,266
+The rules are clearly spelled
+
+220
+00:09:39,266 --> 00:09:41,516
+out in the
+
+221
+00:09:41,516 --> 00:09:42,076
+headerDoc.
+
+222
+00:09:43,236 --> 00:09:45,016
+All callbacks pass an instance
+
+223
+00:09:45,016 --> 00:09:47,286
+of that nice
+
+224
+00:09:47,286 --> 00:09:47,946
+talked to you about.
+
+225
+00:09:47,946 --> 00:09:48,876
+So you always know what you're
+
+226
+00:09:48,876 --> 00:09:49,976
+about to get or what
+
+227
+00:09:53,936 --> 00:09:56,566
+So speaking of settings, let's
+
+228
+00:09:56,566 --> 00:09:57,846
+to initiate photo captures
+
+229
+00:09:57,846 --> 00:10:00,446
+with various
+
+230
+00:09:57,846 --> 00:10:00,446
+with various
+
+231
+00:10:01,236 --> 00:10:03,676
+Okay, the first one,
+
+232
+00:10:04,266 --> 00:10:06,036
+as I said before, the
+
+233
+00:10:06,036 --> 00:10:10,316
+on iPhone 6s supports
+
+234
+00:10:10,316 --> 00:10:13,526
+selfies, but it can't
+
+235
+00:10:13,586 --> 00:10:15,826
+It can only do individual
+
+236
+00:10:16,486 --> 00:10:19,196
+So you have to create
+
+237
+00:10:19,456 --> 00:10:23,246
+opting in for the HighResolution
+
+238
+00:10:23,596 --> 00:10:26,626
+This gives you the
+
+239
+00:10:26,626 --> 00:10:29,056
+AVCapturePhotoSettings,
+
+240
+00:10:29,636 --> 00:10:33,016
+And then, by default, it sets
+
+241
+00:10:33,016 --> 00:10:35,526
+and opts you in for still
+
+242
+00:10:36,436 --> 00:10:38,436
+I then set
+
+243
+00:10:38,436 --> 00:10:40,666
+to true and then
+
+244
+00:10:41,556 --> 00:10:45,866
+In the second example,
+
+245
+00:10:45,866 --> 00:10:47,786
+Notice that the flashMode
+
+246
+00:10:47,786 --> 00:10:48,946
+of the settings object.
+
+247
+00:10:48,946 --> 00:10:50,836
+If you've worked with
+
+248
+00:10:50,836 --> 00:10:54,346
+you'll know that Flash was
+
+249
+00:10:54,666 --> 00:10:55,986
+so we had a problem
+
+250
+00:10:55,986 --> 00:10:58,866
+to access two different objects
+
+251
+00:10:58,996 --> 00:11:01,686
+Here, it's all part of
+
+252
+00:10:58,996 --> 00:11:01,686
+Here, it's all part of
+
+253
+00:11:02,076 --> 00:11:06,776
+Nice. The final sample here
+
+254
+00:11:06,776 --> 00:11:08,206
+of AVCapturePhotoSettings.
+
+255
+00:11:08,206 --> 00:11:11,986
+This time we're going to pass
+
+256
+00:11:11,986 --> 00:11:14,536
+In this case, we want an
+
+257
+00:11:14,906 --> 00:11:17,826
+So we make a dictionary of
+
+258
+00:11:18,356 --> 00:11:19,686
+and then pass it
+
+259
+00:11:19,686 --> 00:11:22,666
+as the parameter
+
+260
+00:11:23,096 --> 00:11:23,806
+and we're good to go.
+
+261
+00:11:24,496 --> 00:11:26,146
+Now when you call capturePhoto,
+
+262
+00:11:26,496 --> 00:11:28,796
+AVCapturePhotoOutput will
+
+263
+00:11:28,796 --> 00:11:31,006
+and make sure you haven't
+
+264
+00:11:31,006 --> 00:11:34,706
+It'll ensure self-consistency,
+
+265
+00:11:34,706 --> 00:11:36,406
+that you've asked for
+
+266
+00:11:36,696 --> 00:11:38,586
+And if it's not, it
+
+267
+00:11:40,416 --> 00:11:44,096
+Result settings, as you might
+
+268
+00:11:44,366 --> 00:11:45,916
+All the properties
+
+269
+00:11:46,076 --> 00:11:47,656
+They're purely for
+
+270
+00:11:47,926 --> 00:11:50,466
+Again, this is the functional
+
+271
+00:11:51,066 --> 00:11:53,076
+It has a unique ID
+
+272
+00:11:53,076 --> 00:11:55,186
+with the unresolved settings
+
+273
+00:11:55,706 --> 00:11:56,666
+This is kind of a nice feature.
+
+274
+00:11:56,666 --> 00:11:58,696
+It tells you the dimensions
+
+275
+00:11:58,696 --> 00:12:00,106
+to get before you get it.
+
+276
+00:11:58,696 --> 00:12:00,106
+to get before you get it.
+
+277
+00:12:00,636 --> 00:12:03,476
+So you can plan, do
+
+278
+00:12:03,476 --> 00:12:04,526
+whatever you need to do.
+
+279
+00:12:05,656 --> 00:12:08,466
+It tells you whether it was
+
+280
+00:12:08,826 --> 00:12:10,896
+And still image stabilization
+
+281
+00:12:12,166 --> 00:12:14,516
+It also supports
+
+282
+00:12:14,856 --> 00:12:16,386
+It's a specialized
+
+283
+00:12:16,386 --> 00:12:18,256
+where you request
+
+284
+00:12:18,476 --> 00:12:20,476
+sometimes with differing
+
+285
+00:12:20,846 --> 00:12:22,396
+This might be done, for
+
+286
+00:12:22,396 --> 00:12:25,026
+to fuse differently
+
+287
+00:12:25,336 --> 00:12:28,736
+to produce an effect
+
+288
+00:12:28,736 --> 00:12:30,166
+I spoke at length
+
+289
+00:12:30,166 --> 00:12:32,846
+of captures in 2014 Session 508.
+
+290
+00:12:33,566 --> 00:12:35,526
+Go check that video
+
+291
+00:12:36,286 --> 00:12:38,486
+As with
+
+292
+00:12:38,686 --> 00:12:40,876
+we support auto exposure
+
+293
+00:12:41,036 --> 00:12:43,016
+and custom exposure brackets.
+
+294
+00:12:43,856 --> 00:12:47,016
+But the new way to request
+
+295
+00:12:47,016 --> 00:12:50,876
+to instantiate an
+
+296
+00:12:51,006 --> 00:12:53,146
+So it's like the photo
+
+297
+00:12:53,146 --> 00:12:54,806
+and it has the extra
+
+298
+00:12:54,806 --> 00:12:56,416
+for doing a bracketed capture.
+
+299
+00:12:57,286 --> 00:13:01,046
+When you create one of
+
+300
+00:12:57,286 --> 00:13:01,046
+When you create one of
+
+301
+00:13:01,286 --> 00:13:03,496
+of AVCapture BracketedStill
+
+302
+00:13:03,496 --> 00:13:05,206
+This is an existing object
+
+303
+00:13:05,206 --> 00:13:07,546
+from the
+
+304
+00:13:08,266 --> 00:13:10,306
+You specify one of
+
+305
+00:13:10,306 --> 00:13:14,886
+For instance, -2EV, +2EV, 0EV.
+
+306
+00:13:15,586 --> 00:13:18,976
+Also, if you're on
+
+307
+00:13:18,976 --> 00:13:22,416
+you can optionally enable
+
+308
+00:13:22,416 --> 00:13:24,176
+isLensStabilizationEnabled
+
+309
+00:13:24,696 --> 00:13:26,866
+So you recall the
+
+310
+00:13:26,866 --> 00:13:28,836
+on the previous slide, where
+
+311
+00:13:28,836 --> 00:13:31,946
+to didFinish ProcessingPhoto
+
+312
+00:13:32,476 --> 00:13:35,076
+When you request a bracket
+
+313
+00:13:35,316 --> 00:13:37,286
+that callback is going
+
+314
+00:13:37,286 --> 00:13:38,386
+Once per image.
+
+315
+00:13:38,726 --> 00:13:41,136
+And the fifth parameter
+
+316
+00:13:41,136 --> 00:13:42,886
+which particular
+
+317
+00:13:42,926 --> 00:13:45,886
+in this image request
+
+318
+00:13:46,916 --> 00:13:50,486
+Okay. So we like the new
+
+319
+00:13:50,646 --> 00:13:52,626
+that we want you to move
+
+320
+00:13:52,936 --> 00:13:56,766
+And so we're deprecating in iOS
+
+321
+00:13:57,126 --> 00:14:00,436
+and all of the flash-related
+
+322
+00:13:57,126 --> 00:14:00,436
+and all of the flash-related
+
+323
+00:14:00,746 --> 00:14:03,236
+and instead, this is
+
+324
+00:14:03,706 --> 00:14:07,286
+Like I said, there are parts
+
+325
+00:14:07,286 --> 00:14:09,886
+and parcel to the
+
+326
+00:14:09,886 --> 00:14:11,506
+it's a much better
+
+327
+00:14:11,876 --> 00:14:13,146
+Move over as soon as you can.
+
+328
+00:14:14,416 --> 00:14:16,666
+The last item is -- let's talk
+
+329
+00:14:16,666 --> 00:14:19,546
+about the photo benefits
+
+330
+00:14:20,566 --> 00:14:22,026
+They're good for
+
+331
+00:14:22,856 --> 00:14:24,496
+Immediate settings resolution.
+
+332
+00:14:25,266 --> 00:14:26,786
+Confident request tracking.
+
+333
+00:14:27,336 --> 00:14:28,896
+And it's good for Apple.
+
+334
+00:14:28,896 --> 00:14:31,306
+It's good for us because
+
+335
+00:14:31,306 --> 00:14:32,596
+of callbacks for us.
+
+336
+00:14:32,596 --> 00:14:35,196
+We can add new ways to
+
+337
+00:14:35,716 --> 00:14:38,976
+and that last little bit is
+
+338
+00:14:38,976 --> 00:14:40,946
+that I'm going to talk
+
+339
+00:14:41,356 --> 00:14:44,906
+So Apple.com has a
+
+340
+00:14:45,026 --> 00:14:46,926
+on Live Photos and
+
+341
+00:14:46,926 --> 00:14:50,466
+It says, "A still photo captures
+
+342
+00:14:51,106 --> 00:14:53,096
+With Live Photos, you
+
+343
+00:14:53,146 --> 00:14:55,516
+into unforgettable
+
+344
+00:14:56,896 --> 00:14:59,656
+The beautiful thing about Live
+
+345
+00:14:59,656 --> 00:15:02,016
+in value the further
+
+346
+00:14:59,656 --> 00:15:02,016
+in value the further
+
+347
+00:15:02,806 --> 00:15:05,306
+So, in this picture, this
+
+348
+00:15:05,306 --> 00:15:06,236
+in and of itself.
+
+349
+00:15:06,966 --> 00:15:10,436
+Huge disgusting sand crabs my
+
+350
+00:15:10,436 --> 00:15:11,246
+A great photo.
+
+351
+00:15:11,586 --> 00:15:12,926
+But if I 3D touch it --
+
+352
+00:15:13,516 --> 00:15:16,656
+[ Inaudible ]
+
+353
+00:15:17,156 --> 00:15:18,356
+Okay. So now I remember.
+
+354
+00:15:18,416 --> 00:15:19,656
+It was a freezing day.
+
+355
+00:15:19,656 --> 00:15:22,116
+He'd never been in the ocean
+
+356
+00:15:22,116 --> 00:15:24,106
+He'd been in for too long
+
+357
+00:15:24,326 --> 00:15:26,796
+And I also hear my brother's
+
+358
+00:15:27,086 --> 00:15:29,386
+So all of these things
+
+359
+00:15:29,686 --> 00:15:32,986
+because I have more
+
+360
+00:15:33,976 --> 00:15:35,976
+Then there are people
+
+361
+00:15:35,976 --> 00:15:38,656
+to use Live Photos as an
+
+362
+00:15:38,656 --> 00:15:40,946
+This shot is a twist
+
+363
+00:15:41,446 --> 00:15:44,296
+Our camera products team calls
+
+364
+00:15:44,856 --> 00:15:48,426
+A high degree of
+
+365
+00:15:48,996 --> 00:15:51,966
+Also popular is the
+
+366
+00:15:52,386 --> 00:15:53,146
+with Live Photo.
+
+367
+00:15:53,256 --> 00:15:53,906
+Try that one out.
+
+368
+00:15:54,976 --> 00:15:57,806
+I'm a big fan of the
+
+369
+00:15:58,146 --> 00:15:59,976
+but unfortunately,
+
+370
+00:16:06,426 --> 00:16:08,406
+A three-second window
+
+371
+00:16:08,406 --> 00:16:10,226
+for my natural-borne
+
+372
+00:16:10,226 --> 00:16:14,096
+So Live Photos began life
+
+373
+00:16:14,096 --> 00:16:15,336
+from Apple's design studio.
+
+374
+00:16:15,406 --> 00:16:18,056
+The premise was, even though
+
+375
+00:16:18,056 --> 00:16:20,626
+screens now for sharing
+
+376
+00:16:21,056 --> 00:16:25,106
+the photo experience itself has
+
+377
+00:16:25,706 --> 00:16:28,436
+JPEGs that we swipe through
+
+378
+00:16:28,436 --> 00:16:30,636
+versions of the chemicals
+
+379
+00:16:30,666 --> 00:16:32,876
+through in our shoeboxes.
+
+380
+00:16:32,876 --> 00:16:34,056
+And yet, it's the primary way
+
+381
+00:16:34,056 --> 00:16:35,306
+that people store
+
+382
+00:16:35,306 --> 00:16:37,586
+So isn't there something
+
+383
+00:16:37,586 --> 00:16:40,566
+And after a lot of
+
+384
+00:16:40,566 --> 00:16:43,146
+we converged on what this
+
+385
+00:16:43,756 --> 00:16:44,716
+A moment or a memory.
+
+386
+00:16:45,016 --> 00:16:48,076
+Well, first of all and
+
+387
+00:16:48,456 --> 00:16:50,786
+It's still as good
+
+388
+00:16:50,786 --> 00:16:54,286
+It's a 12-megapixel JPEG
+
+389
+00:16:54,566 --> 00:16:57,886
+and it has the same
+
+390
+00:16:57,886 --> 00:16:59,396
+Let me emphasize that again.
+
+391
+00:16:59,916 --> 00:17:02,316
+Live Photos get all
+
+392
+00:16:59,916 --> 00:17:02,316
+Live Photos get all
+
+393
+00:17:02,316 --> 00:17:04,086
+that Apple's non-Live Photos do,
+
+394
+00:17:04,226 --> 00:17:08,846
+so you are not sacrificing
+
+395
+00:17:08,965 --> 00:17:11,935
+Also a big deal was the idea
+
+396
+00:17:12,396 --> 00:17:14,306
+That means there's
+
+397
+00:17:14,435 --> 00:17:16,566
+You take photos the same
+
+398
+00:17:17,106 --> 00:17:20,286
+Still the same spontaneous
+
+399
+00:17:20,626 --> 00:17:21,976
+nothing additional
+
+400
+00:17:23,516 --> 00:17:25,685
+A Live Photo is also
+
+401
+00:17:26,066 --> 00:17:28,666
+It has to engage more senses
+
+402
+00:17:28,666 --> 00:17:30,416
+It has to aid in memory recall.
+
+403
+00:17:31,536 --> 00:17:34,656
+So it's nominally a short
+
+404
+00:17:34,656 --> 00:17:37,886
+with 1.5 seconds coming before
+
+405
+00:17:37,886 --> 00:17:39,966
+after the still, and we take it
+
+406
+00:17:39,966 --> 00:17:43,786
+at about screen resolution
+
+407
+00:17:45,286 --> 00:17:47,136
+And it includes audio.
+
+408
+00:17:48,576 --> 00:17:50,866
+And we're constantly
+
+409
+00:17:50,926 --> 00:17:54,046
+In iOS 9.1, we added
+
+410
+00:17:54,046 --> 00:17:55,936
+of automatically
+
+411
+00:17:55,936 --> 00:17:58,556
+in case you did a sweeping
+
+412
+00:17:58,556 --> 00:17:59,276
+or your pockets.
+
+413
+00:17:59,546 --> 00:18:01,726
+So now we'll auto trim them
+
+414
+00:17:59,546 --> 00:18:01,726
+So now we'll auto trim them
+
+415
+00:18:01,726 --> 00:18:03,076
+that you don't want
+
+416
+00:18:03,836 --> 00:18:05,836
+New in iOS 10, we've
+
+417
+00:18:05,956 --> 00:18:08,976
+Now all of the Live Photo
+
+418
+00:18:10,276 --> 00:18:11,596
+Also new in iOS 10,
+
+419
+00:18:11,626 --> 00:18:13,286
+interruption-free
+
+420
+00:18:13,286 --> 00:18:13,976
+So if you happen
+
+421
+00:18:14,516 --> 00:18:18,006
+[ Applause ]
+
+422
+00:18:18,506 --> 00:18:19,346
+Yeah. That's a good one.
+
+423
+00:18:19,406 --> 00:18:20,056
+I like that one, too.
+
+424
+00:18:21,886 --> 00:18:24,576
+So in order to be both
+
+425
+00:18:24,706 --> 00:18:27,186
+a Live Photo consists of two
+
+426
+00:18:27,186 --> 00:18:29,156
+JPEG file, QuickTime Movie file.
+
+427
+00:18:29,566 --> 00:18:31,566
+These two assets
+
+428
+00:18:31,566 --> 00:18:33,396
+that uniquely pairs
+
+429
+00:18:33,776 --> 00:18:35,566
+The JPEG file's UUID is stored
+
+430
+00:18:35,566 --> 00:18:37,016
+within the Apple Maker
+
+431
+00:18:37,016 --> 00:18:40,436
+And the movie asset
+
+432
+00:18:40,436 --> 00:18:43,306
+nominally three seconds
+
+433
+00:18:43,306 --> 00:18:46,556
+roughly 1080p, with a
+
+434
+00:18:47,206 --> 00:18:50,676
+It contains a timed metadata
+
+435
+00:18:50,676 --> 00:18:53,666
+in it that corresponds to the
+
+436
+00:18:53,906 --> 00:18:55,046
+within the movie's timeline.
+
+437
+00:18:55,626 --> 00:18:58,136
+It also contains a piece
+
+438
+00:18:58,136 --> 00:19:00,496
+that pairs it with
+
+439
+00:18:58,136 --> 00:19:00,496
+that pairs it with
+
+440
+00:19:00,756 --> 00:19:03,686
+and that's called the
+
+441
+00:19:04,086 --> 00:19:06,326
+And its value is a
+
+442
+00:19:08,006 --> 00:19:10,666
+Okay. So what do you have to
+
+443
+00:19:11,456 --> 00:19:12,976
+In AVCapturePhotoOutput,
+
+444
+00:19:12,976 --> 00:19:17,306
+there is a property called
+
+445
+00:19:17,306 --> 00:19:18,376
+You have to make
+
+446
+00:19:18,376 --> 00:19:19,986
+It's not supported
+
+447
+00:19:20,566 --> 00:19:22,046
+And currently it's
+
+448
+00:19:22,046 --> 00:19:24,596
+when you're using
+
+449
+00:19:25,716 --> 00:19:29,206
+You opt in for it using
+
+450
+00:19:29,206 --> 00:19:32,446
+PhotoCaptureEnabled,
+
+451
+00:19:32,446 --> 00:19:35,496
+You have to opt in for it before
+
+452
+00:19:35,566 --> 00:19:37,966
+Otherwise, it will cause a
+
+453
+00:19:37,966 --> 00:19:40,976
+of the session, and
+
+454
+00:19:40,976 --> 00:19:44,686
+Also if you want audio in
+
+455
+00:19:44,686 --> 00:19:46,806
+you have to add an
+
+456
+00:19:46,806 --> 00:19:47,716
+for the microphone.
+
+457
+00:19:48,176 --> 00:19:48,786
+Very important.
+
+458
+00:19:48,836 --> 00:19:49,556
+Don't forget to do that.
+
+459
+00:19:50,466 --> 00:19:53,626
+Also not supported is
+
+460
+00:19:53,626 --> 00:19:57,136
+of regular movies using
+
+461
+00:19:57,136 --> 00:19:58,876
+and Live Photos at
+
+462
+00:19:59,156 --> 00:20:00,546
+So if you have a
+
+463
+00:19:59,156 --> 00:20:00,546
+So if you have a
+
+464
+00:20:00,546 --> 00:20:04,856
+in your session's topology, it
+
+465
+00:20:04,896 --> 00:20:08,446
+You configure a LivePhotoCapture
+
+466
+00:20:09,106 --> 00:20:11,716
+It's got the default
+
+467
+00:20:12,166 --> 00:20:17,086
+but additionally you specify a
+
+468
+00:20:17,386 --> 00:20:20,206
+This is where you want
+
+469
+00:20:20,346 --> 00:20:21,816
+And it has to be
+
+470
+00:20:21,816 --> 00:20:23,456
+and it has to be
+
+471
+00:20:23,576 --> 00:20:28,366
+You're not required to specify
+
+472
+00:20:28,366 --> 00:20:29,616
+but you can if you'd like to.
+
+473
+00:20:30,086 --> 00:20:33,936
+Here I gave an example of
+
+474
+00:20:33,936 --> 00:20:35,716
+And I set myself as the author,
+
+475
+00:20:35,716 --> 00:20:37,616
+so that the world will
+
+476
+00:20:37,966 --> 00:20:39,636
+But you could also
+
+477
+00:20:39,636 --> 00:20:42,296
+like add GPS tagging
+
+478
+00:20:42,636 --> 00:20:45,526
+So now let's talk about Live
+
+479
+00:20:45,946 --> 00:20:48,186
+Like I said, we have
+
+480
+00:20:48,186 --> 00:20:50,126
+of delegate callbacks,
+
+481
+00:20:50,846 --> 00:20:52,176
+When capturing a Live Photo,
+
+482
+00:20:52,176 --> 00:20:53,866
+your first callback
+
+483
+00:20:53,866 --> 00:20:55,726
+that a Live Photo
+
+484
+00:20:56,126 --> 00:20:58,796
+by telling you the movie's
+
+485
+00:20:58,796 --> 00:21:01,316
+See that? Now, in addition
+
+486
+00:20:58,796 --> 00:21:01,316
+See that? Now, in addition
+
+487
+00:21:01,316 --> 00:21:03,916
+you also know what dimensions
+
+488
+00:21:04,336 --> 00:21:06,016
+You receive the expected
+
+489
+00:21:06,066 --> 00:21:10,036
+including a JPEG being delivered
+
+490
+00:21:10,036 --> 00:21:11,916
+But now we're going to
+
+491
+00:21:12,826 --> 00:21:15,796
+A Live Photo movie is
+
+492
+00:21:15,856 --> 00:21:17,616
+with a still image
+
+493
+00:21:17,966 --> 00:21:22,206
+So that means up to 1.5 seconds
+
+494
+00:21:22,476 --> 00:21:24,226
+you're going to receive
+
+495
+00:21:24,226 --> 00:21:25,436
+And this one has a strange name,
+
+496
+00:21:25,946 --> 00:21:28,906
+didFinishRecording
+
+497
+00:21:28,906 --> 00:21:31,146
+EventualFileAtURL.
+
+498
+00:21:31,836 --> 00:21:33,516
+Try to parse that.
+
+499
+00:21:33,516 --> 00:21:37,026
+It means the file hasn't been
+
+500
+00:21:37,026 --> 00:21:38,096
+that need to be collected
+
+501
+00:21:38,096 --> 00:21:40,086
+for the movie are
+
+502
+00:21:40,236 --> 00:21:44,586
+In other words, if you have a
+
+503
+00:21:44,906 --> 00:21:46,946
+this is an appropriate
+
+504
+00:21:46,986 --> 00:21:48,926
+Let people know that they don't
+
+505
+00:21:49,496 --> 00:21:52,346
+A good time to dismiss
+
+506
+00:21:53,116 --> 00:21:57,336
+And soon after, the movie file
+
+507
+00:21:57,636 --> 00:21:59,386
+And you'll get the
+
+508
+00:21:59,386 --> 00:22:01,336
+LivePhotoTo MovieFileAtURL.
+
+509
+00:21:59,386 --> 00:22:01,336
+LivePhotoTo MovieFileAtURL.
+
+510
+00:22:01,896 --> 00:22:04,416
+That is a required callback,
+
+511
+00:22:04,846 --> 00:22:06,516
+And now the movie's
+
+512
+00:22:07,906 --> 00:22:10,696
+Lastly you get the
+
+513
+00:22:10,696 --> 00:22:13,976
+We've delivered everything
+
+514
+00:22:14,606 --> 00:22:15,956
+So note that the JPEG portion
+
+515
+00:22:15,956 --> 00:22:18,416
+of the LivePhotoCapture is
+
+516
+00:22:18,416 --> 00:22:20,016
+as static still photos.
+
+517
+00:22:20,016 --> 00:22:22,716
+It comes as a sample
+
+518
+00:22:23,136 --> 00:22:25,326
+using didFinishing
+
+519
+00:22:25,326 --> 00:22:26,776
+callback, as we've already seen.
+
+520
+00:22:26,776 --> 00:22:30,836
+If you want to write this
+
+521
+00:22:31,726 --> 00:22:34,146
+We have a class method
+
+522
+00:22:34,146 --> 00:22:38,316
+for rewriting JPEGs as a
+
+523
+00:22:38,716 --> 00:22:41,936
+that's suitable for writing
+
+524
+00:22:42,296 --> 00:22:43,556
+And you can see it
+
+525
+00:22:43,556 --> 00:22:46,966
+I'm going to gloss over
+
+526
+00:22:46,966 --> 00:22:49,046
+to that function, the
+
+527
+00:22:49,046 --> 00:22:50,366
+We'll discuss it
+
+528
+00:22:51,856 --> 00:22:55,686
+So here's a suggestion for you
+
+529
+00:22:56,136 --> 00:22:58,706
+LivePhotoCapture is an
+
+530
+00:22:58,706 --> 00:23:00,436
+that delivers multiple assets.
+
+531
+00:22:58,706 --> 00:23:00,436
+that delivers multiple assets.
+
+532
+00:23:00,436 --> 00:23:03,506
+Sort of like a multi-order,
+
+533
+00:23:03,506 --> 00:23:05,056
+to get the computer in one
+
+534
+00:23:05,056 --> 00:23:07,336
+to get the dongle
+
+535
+00:23:07,556 --> 00:23:10,916
+So when it delivers multiple
+
+536
+00:23:10,916 --> 00:23:12,786
+in our own test apps
+
+537
+00:23:13,216 --> 00:23:18,266
+to instantiate a new
+
+538
+00:23:18,266 --> 00:23:21,296
+for each photo request
+
+539
+00:23:21,686 --> 00:23:24,516
+So then, within that
+
+540
+00:23:24,516 --> 00:23:25,556
+of the things that
+
+541
+00:23:25,556 --> 00:23:29,056
+The sample buffer, the movie,
+
+542
+00:23:29,056 --> 00:23:31,626
+And then, there's a convenient
+
+543
+00:23:31,626 --> 00:23:33,146
+when you get the
+
+544
+00:23:33,146 --> 00:23:33,906
+saying that we're done.
+
+545
+00:23:34,466 --> 00:23:35,806
+That's just a helpful tip there.
+
+546
+00:23:37,286 --> 00:23:39,016
+Once your assets have
+
+547
+00:23:39,016 --> 00:23:41,456
+there are still several more
+
+548
+00:23:41,796 --> 00:23:43,866
+to get the full live
+
+549
+00:23:43,926 --> 00:23:46,566
+Though the video complement
+
+550
+00:23:46,906 --> 00:23:48,756
+it's not meant to be
+
+551
+00:23:48,756 --> 00:23:51,136
+with an AV Player like
+
+552
+00:23:51,496 --> 00:23:53,406
+There's a special recipe
+
+553
+00:23:53,786 --> 00:23:58,396
+It's supposed to ease in and out
+
+554
+00:23:58,436 --> 00:24:01,316
+When you swipe between
+
+555
+00:23:58,436 --> 00:24:01,316
+When you swipe between
+
+556
+00:24:01,316 --> 00:24:03,546
+of assets have a little bit
+
+557
+00:24:04,236 --> 00:24:06,526
+So to get the full Live
+
+558
+00:24:06,526 --> 00:24:09,506
+you need to use the photos
+
+559
+00:24:09,886 --> 00:24:12,086
+And there are classes
+
+560
+00:24:12,426 --> 00:24:15,656
+to ingest your RAW assets
+
+561
+00:24:15,956 --> 00:24:17,656
+and properly play them
+
+562
+00:24:17,656 --> 00:24:18,866
+with the LivePhotoView.
+
+563
+00:24:20,186 --> 00:24:21,516
+And new in iOS 10,
+
+564
+00:24:21,516 --> 00:24:24,816
+photos framework lets you
+
+565
+00:24:24,816 --> 00:24:27,756
+as you would a still
+
+566
+00:24:28,076 --> 00:24:28,966
+and I'd like to demo it.
+
+567
+00:24:36,346 --> 00:24:40,186
+Okay. So we have a bit of sample
+
+568
+00:24:40,186 --> 00:24:41,816
+which has been out
+
+569
+00:24:42,506 --> 00:24:44,616
+but now we have spruced it up,
+
+570
+00:24:44,616 --> 00:24:47,526
+so that it has a specific
+
+571
+00:24:47,926 --> 00:24:50,596
+That's because you can only
+
+572
+00:24:51,006 --> 00:24:53,156
+And notice it's got some badging
+
+573
+00:24:53,156 --> 00:24:55,076
+that Live Photo mode
+
+574
+00:24:56,036 --> 00:24:57,546
+And you can switch cameras.
+
+575
+00:24:57,806 --> 00:25:00,006
+I'm going to try to do the
+
+576
+00:24:57,806 --> 00:25:00,006
+I'm going to try to do the
+
+577
+00:25:00,006 --> 00:25:01,516
+Let's see how successful I am.
+
+578
+00:25:01,806 --> 00:25:05,236
+So you have to start and
+
+579
+00:25:05,236 --> 00:25:07,566
+in the middle and then finish.
+
+580
+00:25:07,896 --> 00:25:09,996
+So notice, while I was doing
+
+581
+00:25:09,996 --> 00:25:12,126
+that came up, and that's
+
+582
+00:25:12,126 --> 00:25:13,866
+that I talked to
+
+583
+00:25:15,406 --> 00:25:16,126
+So here it is.
+
+584
+00:25:16,126 --> 00:25:18,926
+It was written to the
+
+585
+00:25:18,926 --> 00:25:21,946
+then take it somewhere in
+
+586
+00:25:22,396 --> 00:25:24,266
+But that's not all we
+
+587
+00:25:24,386 --> 00:25:26,826
+In iOS 9, when you tried
+
+588
+00:25:26,826 --> 00:25:28,426
+you would lose the
+
+589
+00:25:28,816 --> 00:25:34,026
+But now we can either, in the
+
+590
+00:25:34,026 --> 00:25:35,256
+that you provide in your app,
+
+591
+00:25:35,596 --> 00:25:38,346
+such as this little sample
+
+592
+00:25:38,346 --> 00:25:42,106
+that I've included as a
+
+593
+00:25:42,916 --> 00:25:45,876
+I can apply a simple
+
+594
+00:25:46,376 --> 00:25:48,016
+This just does a
+
+595
+00:25:48,016 --> 00:25:49,626
+of applying a tonal filter,
+
+596
+00:25:49,896 --> 00:25:51,596
+but notice it didn't
+
+597
+00:25:51,596 --> 00:25:53,956
+I can still play it --
+
+598
+00:25:53,956 --> 00:25:55,176
+in the middle -- so, nice.
+
+599
+00:25:55,176 --> 00:25:55,976
+You can now edit
+
+600
+00:25:56,516 --> 00:26:03,306
+[ Applause ]
+
+601
+00:25:56,516 --> 00:26:03,306
+[ Applause ]
+
+602
+00:26:03,806 --> 00:26:04,166
+All right.
+
+603
+00:26:04,266 --> 00:26:07,616
+AVCam. Now, like I
+
+604
+00:26:07,616 --> 00:26:08,946
+and photo recording modes,
+
+605
+00:26:08,946 --> 00:26:10,876
+so you get the best
+
+606
+00:26:10,876 --> 00:26:12,876
+You get the best
+
+607
+00:26:13,266 --> 00:26:15,446
+And it shows the proper
+
+608
+00:26:15,446 --> 00:26:16,336
+that I was talking about.
+
+609
+00:26:16,706 --> 00:26:19,316
+It also shows you how to
+
+610
+00:26:19,696 --> 00:26:21,596
+and that sample code
+
+611
+00:26:21,636 --> 00:26:24,276
+If you go to our sessions'
+
+612
+00:26:25,306 --> 00:26:26,466
+It was even Swiftified.
+
+613
+00:26:26,696 --> 00:26:28,896
+If you want to know more
+
+614
+00:26:29,166 --> 00:26:32,086
+please come to session
+
+615
+00:26:32,336 --> 00:26:34,926
+You'll hear all about it.
+
+616
+00:26:35,186 --> 00:26:37,306
+Okay. We also support
+
+617
+00:26:37,306 --> 00:26:39,146
+LivePhotoCaptureSuspension.
+
+618
+00:26:39,326 --> 00:26:42,616
+Here's a quick example of
+
+619
+00:26:43,106 --> 00:26:45,196
+Let's say you have an
+
+620
+00:26:45,196 --> 00:26:47,646
+and makes obnoxious
+
+621
+00:26:48,896 --> 00:26:50,226
+Okay, just go with
+
+622
+00:26:50,726 --> 00:26:52,156
+It takes pictures.
+
+623
+00:26:52,406 --> 00:26:53,946
+Makes obnoxious foghorn sounds.
+
+624
+00:26:54,236 --> 00:26:55,706
+Now let's say that
+
+625
+00:26:55,746 --> 00:26:57,706
+your user takes a
+
+626
+00:26:58,416 --> 00:27:01,906
+and then they play an
+
+627
+00:26:58,416 --> 00:27:01,906
+and then they play an
+
+628
+00:27:02,006 --> 00:27:05,696
+And then after it's done
+
+629
+00:27:05,696 --> 00:27:06,286
+Photo there.
+
+630
+00:27:07,736 --> 00:27:11,686
+So this is a problem because
+
+631
+00:27:11,726 --> 00:27:14,166
+of photos one and two overlap
+
+632
+00:27:14,336 --> 00:27:16,066
+with the obnoxious
+
+633
+00:27:16,566 --> 00:27:19,116
+you have now ruined
+
+634
+00:27:19,486 --> 00:27:22,056
+You're going to hear the end
+
+635
+00:27:22,056 --> 00:27:24,876
+and the beginning of the
+
+636
+00:27:25,016 --> 00:27:25,706
+That's no good.
+
+637
+00:27:25,806 --> 00:27:27,296
+So to cope with this problem,
+
+638
+00:27:27,726 --> 00:27:30,596
+you can set
+
+639
+00:27:30,756 --> 00:27:33,516
+to true, just before you
+
+640
+00:27:34,166 --> 00:27:37,096
+And that will cause any
+
+641
+00:27:37,346 --> 00:27:39,896
+to abruptly be trimmed
+
+642
+00:27:40,356 --> 00:27:41,516
+And you can do the same thing
+
+643
+00:27:41,516 --> 00:27:43,336
+by setting
+
+644
+00:27:43,336 --> 00:27:46,876
+to false, and that will
+
+645
+00:27:46,876 --> 00:27:50,116
+on the endpoint, so
+
+646
+00:27:50,116 --> 00:27:53,746
+than that point will appear in
+
+647
+00:27:53,856 --> 00:27:54,776
+A nice little feature.
+
+648
+00:27:56,316 --> 00:27:57,806
+So let's talk about support.
+
+649
+00:27:57,806 --> 00:27:59,686
+Where do we support
+
+650
+00:28:00,466 --> 00:28:04,346
+We support it on all the recent
+
+651
+00:28:04,346 --> 00:28:07,486
+to remember it is every device
+
+652
+00:28:07,716 --> 00:28:09,376
+that's where we support
+
+653
+00:28:11,596 --> 00:28:14,556
+All right, onto our next
+
+654
+00:28:14,556 --> 00:28:16,036
+and that's RAW Photo Capture.
+
+655
+00:28:16,576 --> 00:28:21,656
+So to explain what RAW
+
+656
+00:28:21,656 --> 00:28:25,166
+with a very high level overview
+
+657
+00:28:26,086 --> 00:28:28,586
+CMOS sensors collect
+
+658
+00:28:28,586 --> 00:28:31,136
+through two-dimensional
+
+659
+00:28:32,096 --> 00:28:35,356
+The top layer of the array is
+
+660
+00:28:36,056 --> 00:28:38,256
+and as light passes
+
+661
+00:28:38,496 --> 00:28:41,336
+it only allows one color
+
+662
+00:28:41,506 --> 00:28:43,696
+green or blue, in
+
+663
+00:28:44,416 --> 00:28:46,936
+Green is twice as prevalent in
+
+664
+00:28:46,936 --> 00:28:50,046
+because our eyes are twice
+
+665
+00:28:50,046 --> 00:28:51,396
+as they are to the other colors.
+
+666
+00:28:52,256 --> 00:28:54,766
+The bottom layer here is
+
+667
+00:28:55,966 --> 00:29:00,686
+Now what actually gets stored
+
+668
+00:28:55,966 --> 00:29:00,686
+Now what actually gets stored
+
+669
+00:29:00,686 --> 00:29:03,096
+of the amount of either
+
+670
+00:29:03,136 --> 00:29:07,776
+that hit the sensor through each
+
+671
+00:29:07,776 --> 00:29:09,676
+to be stored that Bayer pattern.
+
+672
+00:29:09,676 --> 00:29:13,096
+In other words, the arrangement
+
+673
+00:29:13,466 --> 00:29:15,446
+so that later on it
+
+674
+00:29:15,446 --> 00:29:18,736
+You have to store a lot
+
+675
+00:29:18,736 --> 00:29:20,986
+about color information,
+
+676
+00:29:22,416 --> 00:29:25,006
+And so RAW converters
+
+677
+00:29:25,256 --> 00:29:27,896
+A RAW converter that basically
+
+678
+00:29:27,896 --> 00:29:29,646
+and turns it into an RGB image.
+
+679
+00:29:30,316 --> 00:29:33,166
+Demosaicing is just
+
+680
+00:29:33,296 --> 00:29:35,526
+A lot of stuff needs to
+
+681
+00:29:35,746 --> 00:29:37,226
+presented onscreen.
+
+682
+00:29:38,416 --> 00:29:41,806
+So to draw an analogy,
+
+683
+00:29:41,806 --> 00:29:44,216
+like storing the ingredients
+
+684
+00:29:44,736 --> 00:29:47,046
+And then you have to
+
+685
+00:29:47,046 --> 00:29:48,296
+around with you wherever you go.
+
+686
+00:29:48,296 --> 00:29:50,256
+It's kind of heavy.
+
+687
+00:29:50,356 --> 00:29:51,426
+It's kind of awkward.
+
+688
+00:29:51,946 --> 00:29:55,556
+It takes some time to
+
+689
+00:29:55,556 --> 00:29:56,986
+If you ask two different bakers
+
+690
+00:29:57,146 --> 00:29:59,006
+to bake the cake using
+
+691
+00:29:59,006 --> 00:30:01,976
+you might get a slightly
+
+692
+00:29:59,006 --> 00:30:01,976
+you might get a slightly
+
+693
+00:30:02,396 --> 00:30:04,786
+But there are also some
+
+694
+00:30:05,136 --> 00:30:09,086
+First and foremost, you have
+
+695
+00:30:09,086 --> 00:30:11,186
+So you're carrying
+
+696
+00:30:11,186 --> 00:30:14,246
+but you can make a
+
+697
+00:30:15,186 --> 00:30:17,436
+There's no compression involved
+
+698
+00:30:17,586 --> 00:30:21,396
+like there would
+
+699
+00:30:21,396 --> 00:30:22,736
+You have more bits to work with.
+
+700
+00:30:22,986 --> 00:30:25,806
+It's a 10-bit sensor
+
+701
+00:30:25,806 --> 00:30:28,636
+in 14 bits per pixel
+
+702
+00:30:30,176 --> 00:30:32,036
+Also, you have lots of
+
+703
+00:30:33,216 --> 00:30:35,136
+And some greater
+
+704
+00:30:35,136 --> 00:30:37,916
+to make different
+
+705
+00:30:37,916 --> 00:30:39,686
+So basically you're just
+
+706
+00:30:39,686 --> 00:30:40,316
+until later.
+
+707
+00:30:41,206 --> 00:30:42,716
+Okay? Now what's JPEG?
+
+708
+00:30:43,306 --> 00:30:45,486
+RAW images offer many benefits
+
+709
+00:30:45,486 --> 00:30:47,796
+but they're not the
+
+710
+00:30:47,796 --> 00:30:49,036
+It's important to understand
+
+711
+00:30:49,036 --> 00:30:51,576
+that there are tradeoffs
+
+712
+00:30:51,856 --> 00:30:56,086
+and that JPEGs are still
+
+713
+00:30:56,086 --> 00:31:00,846
+JPEGs are the cake, the lovingly
+
+714
+00:30:56,086 --> 00:31:00,846
+JPEGs are the cake, the lovingly
+
+715
+00:31:00,996 --> 00:31:03,086
+and it's a pretty good cake.
+
+716
+00:31:03,206 --> 00:31:06,206
+It's got all of the
+
+717
+00:31:07,146 --> 00:31:08,206
+Much faster rendering.
+
+718
+00:31:08,206 --> 00:31:11,346
+You don't have to carry as
+
+719
+00:31:11,486 --> 00:31:15,486
+You also get some secret
+
+720
+00:31:15,686 --> 00:31:19,366
+As I mentioned, we use multiple
+
+721
+00:31:19,756 --> 00:31:21,486
+You can't get that with
+
+722
+00:31:21,486 --> 00:31:24,136
+no matter how good it is,
+
+723
+00:31:24,136 --> 00:31:25,986
+I guess it's kind of
+
+724
+00:31:26,626 --> 00:31:29,256
+Okay? So yeah, you can't do
+
+725
+00:31:30,176 --> 00:31:32,136
+Also you get smaller file size.
+
+726
+00:31:33,476 --> 00:31:36,746
+So all of these things make JPEG
+
+727
+00:31:36,826 --> 00:31:39,276
+and you should decide
+
+728
+00:31:39,276 --> 00:31:40,216
+which is better for your app.
+
+729
+00:31:41,256 --> 00:31:44,146
+We identify RAW formats
+
+730
+00:31:44,146 --> 00:31:46,396
+just like we do for
+
+731
+00:31:46,436 --> 00:31:47,936
+in the Core Video framework.
+
+732
+00:31:48,346 --> 00:31:51,596
+We've added four new
+
+733
+00:31:51,596 --> 00:31:53,896
+to describe the four
+
+734
+00:31:54,226 --> 00:31:56,146
+that you'll encounter
+
+735
+00:31:56,426 --> 00:31:57,306
+and they're listed there.
+
+736
+00:31:57,366 --> 00:31:59,216
+Basically they describe
+
+737
+00:31:59,216 --> 00:32:00,846
+greens and blues in
+
+738
+00:31:59,216 --> 00:32:00,846
+greens and blues in
+
+739
+00:32:02,266 --> 00:32:05,196
+How do you capture RAW
+
+740
+00:32:05,556 --> 00:32:06,306
+It's pretty simple.
+
+741
+00:32:07,086 --> 00:32:10,526
+RAW is only supported when
+
+742
+00:32:10,526 --> 00:32:13,096
+the preset photo,
+
+743
+00:32:14,036 --> 00:32:16,016
+It's only supported
+
+744
+00:32:17,276 --> 00:32:21,526
+And we do support RAW brackets,
+
+745
+00:32:21,526 --> 00:32:23,706
+of three RAW images,
+
+746
+00:32:24,806 --> 00:32:26,146
+To request a RAW capture,
+
+747
+00:32:26,296 --> 00:32:28,686
+you create an
+
+748
+00:32:28,686 --> 00:32:30,976
+but surprise, surprise,
+
+749
+00:32:31,546 --> 00:32:33,586
+This one takes a
+
+750
+00:32:34,486 --> 00:32:37,716
+So how do you decide which
+
+751
+00:32:37,716 --> 00:32:38,716
+to deliver to you?
+
+752
+00:32:38,996 --> 00:32:41,716
+Well you can ask the
+
+753
+00:32:41,716 --> 00:32:44,366
+It'll tell you here are my
+
+754
+00:32:44,566 --> 00:32:48,086
+formats, and you can
+
+755
+00:32:49,416 --> 00:32:52,666
+The RAW format you specify has
+
+756
+00:32:52,666 --> 00:32:57,046
+Now also important is that
+
+757
+00:32:57,686 --> 00:33:02,306
+SIS has no meaning because
+
+758
+00:32:57,686 --> 00:33:02,306
+SIS has no meaning because
+
+759
+00:33:02,496 --> 00:33:03,836
+fusion scenario.
+
+760
+00:33:04,276 --> 00:33:07,086
+So autoStillImage
+
+761
+00:33:07,086 --> 00:33:09,146
+to be set to no or it
+
+762
+00:33:09,646 --> 00:33:12,096
+And also
+
+763
+00:33:12,096 --> 00:33:14,776
+meaningless because you're
+
+764
+00:33:15,426 --> 00:33:16,956
+so it also must be set to false.
+
+765
+00:33:18,276 --> 00:33:19,926
+There's a separate
+
+766
+00:33:19,926 --> 00:33:25,476
+for RAW photos called didFinish
+
+767
+00:33:25,866 --> 00:33:29,276
+And if you are really sharp-eyed
+
+768
+00:33:29,276 --> 00:33:31,426
+that it has exactly
+
+769
+00:33:31,566 --> 00:33:35,396
+as the previous callback,
+
+770
+00:33:35,396 --> 00:33:37,076
+of image, the didFinish
+
+771
+00:33:37,076 --> 00:33:38,296
+PhotoSampleBuffer callback.
+
+772
+00:33:38,746 --> 00:33:42,136
+So now you might ask yourself
+
+773
+00:33:42,136 --> 00:33:45,346
+new delegate callback
+
+774
+00:33:45,346 --> 00:33:48,336
+if it has the same exact
+
+775
+00:33:48,856 --> 00:33:55,386
+There's a good reason, and that
+
+776
+00:33:55,386 --> 00:33:56,066
+image support.
+
+777
+00:33:56,226 --> 00:33:59,626
+So we do support, just
+
+778
+00:33:59,626 --> 00:34:03,036
+mirrorless cameras, a workflow
+
+779
+00:33:59,626 --> 00:34:03,036
+mirrorless cameras, a workflow
+
+780
+00:34:03,036 --> 00:34:04,956
+and JPEG simultaneously.
+
+781
+00:34:05,046 --> 00:34:06,516
+That's what I mean
+
+782
+00:34:07,226 --> 00:34:09,186
+The ability to shoot
+
+783
+00:34:09,186 --> 00:34:10,916
+of a professional feature,
+
+784
+00:34:11,255 --> 00:34:14,916
+So you can get RAW
+
+785
+00:34:14,916 --> 00:34:17,866
+It doesn't have to be a
+
+786
+00:34:18,775 --> 00:34:22,005
+The processed image is
+
+787
+00:34:22,076 --> 00:34:24,516
+the didFinish ProcessingPhoto
+
+788
+00:34:24,956 --> 00:34:30,246
+and the RAW is delivered to
+
+789
+00:34:30,246 --> 00:34:33,255
+RAW plus processed
+
+790
+00:34:33,255 --> 00:34:34,606
+so see if you can wrap
+
+791
+00:34:34,766 --> 00:34:36,106
+That would be --
+
+792
+00:34:36,106 --> 00:34:38,176
+and I'm asking for
+
+793
+00:34:38,396 --> 00:34:40,246
+So if I'm doing a
+
+794
+00:34:40,246 --> 00:34:42,565
+I'm going to get three
+
+795
+00:34:43,096 --> 00:34:46,676
+RAW plus still image
+
+796
+00:34:46,676 --> 00:34:47,916
+though, is not supported.
+
+797
+00:34:49,525 --> 00:34:53,076
+Okay, so to capture RAW plus
+
+798
+00:34:53,076 --> 00:34:56,446
+there's yet another constructor
+
+799
+00:34:56,835 --> 00:34:59,806
+In this one, you specify
+
+800
+00:34:59,806 --> 00:35:02,126
+and the processed
+
+801
+00:34:59,806 --> 00:35:02,126
+and the processed
+
+802
+00:35:02,786 --> 00:35:07,776
+Here I'm choosing JPEG as the
+
+803
+00:35:09,656 --> 00:35:12,296
+Now when you select JPEGPlusRAW,
+
+804
+00:35:12,296 --> 00:35:14,936
+HighResolutionPhotoEnabled
+
+805
+00:35:14,936 --> 00:35:17,146
+Because now it's
+
+806
+00:35:19,136 --> 00:35:19,796
+All right.
+
+807
+00:35:20,016 --> 00:35:21,736
+Let's talk about
+
+808
+00:35:21,996 --> 00:35:23,396
+They're not that useful
+
+809
+00:35:23,396 --> 00:35:25,506
+if all you can do is
+
+810
+00:35:26,356 --> 00:35:29,456
+So rather than introduce an
+
+811
+00:35:29,456 --> 00:35:32,776
+format, like so many other
+
+812
+00:35:32,776 --> 00:35:36,236
+to use Adobe's digital
+
+813
+00:35:36,836 --> 00:35:40,906
+DNG is a standard way of just
+
+814
+00:35:41,036 --> 00:35:43,576
+It doesn't imply a file
+
+815
+00:35:43,706 --> 00:35:48,646
+So going back to our cake-baking
+
+816
+00:35:48,646 --> 00:35:51,346
+like a standard box for
+
+817
+00:35:52,056 --> 00:35:55,176
+It's still up to individual
+
+818
+00:35:55,176 --> 00:35:56,546
+to interpret those ingredients.
+
+819
+00:35:56,916 --> 00:36:00,866
+So DNGs opened by one third
+
+820
+00:35:56,916 --> 00:36:00,866
+So DNGs opened by one third
+
+821
+00:36:00,866 --> 00:36:03,686
+than DNGs opened
+
+822
+00:36:03,896 --> 00:36:05,726
+So storing in DNG
+
+823
+00:36:06,416 --> 00:36:10,326
+You just call the class function
+
+824
+00:36:11,116 --> 00:36:12,866
+passing the RAW buffer
+
+825
+00:36:13,006 --> 00:36:14,076
+in the delegate callback.
+
+826
+00:36:14,656 --> 00:36:17,916
+This creates a capital
+
+827
+00:36:18,376 --> 00:36:19,556
+that can be written to file.
+
+828
+00:36:20,536 --> 00:36:23,866
+And this API always writes
+
+829
+00:36:23,866 --> 00:36:24,976
+to save space.
+
+830
+00:36:28,756 --> 00:36:29,126
+All right.
+
+831
+00:36:29,126 --> 00:36:29,976
+I feel a demo coming on.
+
+832
+00:36:36,986 --> 00:36:40,746
+Okay. So for RAW capture, we've
+
+833
+00:36:40,746 --> 00:36:42,786
+of sample code and
+
+834
+00:36:43,356 --> 00:36:45,516
+We released this one in 2014,
+
+835
+00:36:45,516 --> 00:36:48,576
+when we showed off our
+
+836
+00:36:48,646 --> 00:36:53,986
+So it lets you choose focus,
+
+837
+00:36:54,306 --> 00:36:57,536
+and you can manually
+
+838
+00:36:58,046 --> 00:37:02,046
+And then there's a new thing
+
+839
+00:36:58,046 --> 00:37:02,046
+And then there's a new thing
+
+840
+00:37:02,326 --> 00:37:04,616
+that lets you select
+
+841
+00:37:05,326 --> 00:37:08,806
+So you can choose to shoot
+
+842
+00:37:09,496 --> 00:37:10,916
+Let's go to exposure.
+
+843
+00:37:10,916 --> 00:37:14,166
+Let me see if I can purposely
+
+844
+00:37:14,166 --> 00:37:16,596
+and then I'll take a photo.
+
+845
+00:37:16,666 --> 00:37:19,346
+And now I'm going
+
+846
+00:37:20,426 --> 00:37:24,236
+I'm going to go to an
+
+847
+00:37:24,236 --> 00:37:26,096
+Now this was not written
+
+848
+00:37:26,096 --> 00:37:27,716
+This was written by
+
+849
+00:37:27,716 --> 00:37:30,666
+but they graciously let
+
+850
+00:37:30,776 --> 00:37:34,036
+And we'll go down and we can see
+
+851
+00:37:34,876 --> 00:37:37,536
+Now this one is a RAW.
+
+852
+00:37:37,666 --> 00:37:39,666
+It's reading the DNG file.
+
+853
+00:37:40,216 --> 00:37:42,796
+And we can do things with
+
+854
+00:37:42,796 --> 00:37:48,966
+with the JPEGs, like we restore
+
+855
+00:37:49,286 --> 00:37:53,866
+We can adjust the
+
+856
+00:37:53,866 --> 00:37:55,856
+All of these things
+
+857
+00:37:55,856 --> 00:37:57,106
+and are completely reversible.
+
+858
+00:37:57,586 --> 00:38:00,596
+You can also look and see
+
+859
+00:37:57,586 --> 00:38:00,596
+You can also look and see
+
+860
+00:38:00,596 --> 00:38:01,796
+or without noise reduction.
+
+861
+00:38:02,066 --> 00:38:03,586
+So all of these are part
+
+862
+00:38:03,586 --> 00:38:06,176
+of a new Core image
+
+863
+00:38:06,176 --> 00:38:06,976
+Okay, let's go back to slides.
+
+864
+00:38:13,706 --> 00:38:18,156
+The AVCamManual sample code
+
+865
+00:38:18,156 --> 00:38:18,816
+You can go get it.
+
+866
+00:38:18,816 --> 00:38:21,746
+It's associated with
+
+867
+00:38:22,406 --> 00:38:25,716
+And also, if you want to
+
+868
+00:38:25,786 --> 00:38:28,276
+you need to come to that
+
+869
+00:38:28,276 --> 00:38:31,336
+about before, session 505, where
+
+870
+00:38:31,416 --> 00:38:34,026
+The second part is RAW
+
+871
+00:38:34,326 --> 00:38:37,196
+It's a great session.
+
+872
+00:38:37,346 --> 00:38:39,406
+Where is RAW photo
+
+873
+00:38:40,566 --> 00:38:43,326
+By happy coincidence, it's
+
+874
+00:38:43,326 --> 00:38:46,346
+as where we support Live Photos.
+
+875
+00:38:46,836 --> 00:38:48,946
+So anything with a
+
+876
+00:38:48,946 --> 00:38:50,326
+where you can do RAW photos.
+
+877
+00:38:51,556 --> 00:38:55,366
+Onto our next topic, which
+
+878
+00:38:55,656 --> 00:38:57,536
+also known as thumbnails.
+
+879
+00:38:57,746 --> 00:39:01,296
+Photography apps commonly
+
+880
+00:38:57,746 --> 00:39:01,296
+Photography apps commonly
+
+881
+00:39:01,296 --> 00:39:03,396
+to quickly show a
+
+882
+00:39:03,836 --> 00:39:05,586
+such as Apple Zone camera app.
+
+883
+00:39:06,266 --> 00:39:07,976
+So take a look in the bottom
+
+884
+00:39:14,026 --> 00:39:17,256
+And you see, as soon as it
+
+885
+00:39:17,256 --> 00:39:19,816
+almost instantaneously
+
+886
+00:39:19,816 --> 00:39:21,936
+in the image well
+
+887
+00:39:22,046 --> 00:39:22,636
+That's good.
+
+888
+00:39:22,636 --> 00:39:24,276
+That's comforting to
+
+889
+00:39:24,276 --> 00:39:26,076
+that what they did just worked.
+
+890
+00:39:26,656 --> 00:39:28,646
+It gives them instant feedback.
+
+891
+00:39:29,346 --> 00:39:31,906
+Also a number of image
+
+892
+00:39:31,906 --> 00:39:34,696
+such as Core Images,
+
+893
+00:39:34,996 --> 00:39:38,976
+or CI QR Code Detector work
+
+894
+00:39:39,076 --> 00:39:40,546
+smaller uncompressed images.
+
+895
+00:39:40,546 --> 00:39:43,996
+They don't need the full
+
+896
+00:39:45,386 --> 00:39:50,176
+Unfortunately there is an
+
+897
+00:39:51,066 --> 00:39:53,106
+You request a high-quality JPEG
+
+898
+00:39:53,446 --> 00:39:55,896
+because that's what you
+
+899
+00:39:55,896 --> 00:39:59,466
+That's what you want to
+
+900
+00:39:59,466 --> 00:40:00,976
+to get a preview on
+
+901
+00:39:59,466 --> 00:40:00,976
+to get a preview on
+
+902
+00:40:02,166 --> 00:40:03,746
+So if you have to do
+
+903
+00:40:03,746 --> 00:40:05,116
+you're decompressing the JPEG.
+
+904
+00:40:05,116 --> 00:40:06,096
+You're downscaling it.
+
+905
+00:40:06,306 --> 00:40:07,386
+And finally displaying it.
+
+906
+00:40:08,216 --> 00:40:09,346
+All of this takes time
+
+907
+00:40:09,346 --> 00:40:11,296
+and buffer copies
+
+908
+00:40:12,036 --> 00:40:15,806
+Nicer would be to get both the
+
+909
+00:40:15,876 --> 00:40:18,786
+and if the camera could give
+
+910
+00:40:19,186 --> 00:40:22,376
+directly from the camera, not
+
+911
+00:40:23,626 --> 00:40:26,266
+Then you could skip all those
+
+912
+00:40:26,266 --> 00:40:27,166
+with the preview image.
+
+913
+00:40:28,136 --> 00:40:30,346
+And this is exactly the
+
+914
+00:40:30,346 --> 00:40:31,566
+in AVCapturePhotoOutput.
+
+915
+00:40:32,436 --> 00:40:32,966
+The delegate --
+
+916
+00:40:33,516 --> 00:40:36,856
+[ Applause ]
+
+917
+00:40:37,356 --> 00:40:37,976
+I'll pander.
+
+918
+00:40:38,256 --> 00:40:38,756
+I'll pander.
+
+919
+00:40:39,106 --> 00:40:42,716
+The delegate callback can
+
+920
+00:40:42,716 --> 00:40:44,656
+with the processed or RAW image.
+
+921
+00:40:45,306 --> 00:40:49,046
+The preview is uncompressed,
+
+922
+00:40:49,046 --> 00:40:50,596
+or BGRA, you're choice.
+
+923
+00:40:50,776 --> 00:40:52,966
+If you know the size you want,
+
+924
+00:40:53,266 --> 00:40:56,356
+you can specify the
+
+925
+00:40:56,756 --> 00:40:58,866
+Or if you're not sure what
+
+926
+00:40:58,866 --> 00:41:00,206
+for this current platform,
+
+927
+00:40:58,866 --> 00:41:00,206
+for this current platform,
+
+928
+00:41:00,456 --> 00:41:02,866
+the PhotoOutput can pick a
+
+929
+00:41:04,656 --> 00:41:07,986
+Here's some sample code showing
+
+930
+00:41:08,496 --> 00:41:11,406
+After creating a photo
+
+931
+00:41:11,406 --> 00:41:15,276
+of the usual ways, you can
+
+932
+00:41:15,666 --> 00:41:19,476
+Again, the photo settings
+
+933
+00:41:19,916 --> 00:41:23,246
+which formats are
+
+934
+00:41:23,546 --> 00:41:25,626
+so that the most
+
+935
+00:41:25,786 --> 00:41:28,186
+So here, I'm getting the very
+
+936
+00:41:28,816 --> 00:41:31,246
+And when I say optimal,
+
+937
+00:41:31,246 --> 00:41:33,176
+that requires the
+
+938
+00:41:33,356 --> 00:41:34,756
+from the native camera.
+
+939
+00:41:36,346 --> 00:41:39,246
+You create a CVPixelBuffer
+
+940
+00:41:39,246 --> 00:41:43,666
+with that format type key, and
+
+941
+00:41:43,666 --> 00:41:46,056
+So if you want preview images,
+
+942
+00:41:46,056 --> 00:41:48,936
+you have to at least specify
+
+943
+00:41:49,606 --> 00:41:53,546
+Optionally, you can also
+
+944
+00:41:54,646 --> 00:41:56,196
+if you want to custom size.
+
+945
+00:41:56,676 --> 00:41:59,826
+And you don't need to know
+
+946
+00:41:59,826 --> 00:42:00,936
+of the image that
+
+947
+00:41:59,826 --> 00:42:00,936
+of the image that
+
+948
+00:42:01,406 --> 00:42:03,826
+Here I just specified
+
+949
+00:42:03,856 --> 00:42:07,396
+I don't really expect to get
+
+950
+00:42:07,396 --> 00:42:09,546
+as the max for both
+
+951
+00:42:09,906 --> 00:42:12,136
+And AVCapturePhotoOutput
+
+952
+00:42:12,136 --> 00:42:15,626
+of resizing the preview image
+
+953
+00:42:15,936 --> 00:42:17,046
+preserving aspect ratio.
+
+954
+00:42:18,976 --> 00:42:21,626
+Retrieving preview images is
+
+955
+00:42:22,146 --> 00:42:27,886
+Here we've requested a JPEG plus
+
+956
+00:42:28,926 --> 00:42:31,736
+So when we get our first
+
+957
+00:42:31,736 --> 00:42:37,586
+your order, you get a willBegin
+
+958
+00:42:38,676 --> 00:42:41,686
+and a ResolvedPhotoSettings
+
+959
+00:42:41,686 --> 00:42:46,126
+the previewPhotoDimensions
+
+960
+00:42:46,126 --> 00:42:49,566
+They're 160 by 120
+
+961
+00:42:49,746 --> 00:42:52,156
+to something that's
+
+962
+00:42:52,156 --> 00:42:58,886
+for the 12-megapixel
+
+963
+00:42:58,886 --> 00:43:02,956
+When the didFinish
+
+964
+00:42:58,886 --> 00:43:02,956
+When the didFinish
+
+965
+00:43:02,956 --> 00:43:05,346
+callback finally comes, you
+
+966
+00:43:05,346 --> 00:43:07,886
+The full-sized JPEG is
+
+967
+00:43:08,096 --> 00:43:14,506
+and the previewPhotoSampleBuffer
+
+968
+00:43:14,506 --> 00:43:15,686
+So if you're following
+
+969
+00:43:15,686 --> 00:43:17,206
+and adding things
+
+970
+00:43:17,206 --> 00:43:19,446
+If you do a RAW plus bracket
+
+971
+00:43:19,476 --> 00:43:20,976
+then you're going to get mRAWs,
+
+972
+00:43:25,656 --> 00:43:28,156
+Another great use of
+
+973
+00:43:28,216 --> 00:43:32,636
+as an embedded thumbnail in your
+
+974
+00:43:33,446 --> 00:43:36,366
+In this code sample, I'm using
+
+975
+00:43:36,366 --> 00:43:40,036
+parameter of my didFinish
+
+976
+00:43:40,036 --> 00:43:44,076
+callback as an embedded
+
+977
+00:43:44,666 --> 00:43:48,546
+So when I call PhotoOutput's
+
+978
+00:43:48,856 --> 00:43:51,006
+I'm passing that as
+
+979
+00:43:51,606 --> 00:43:53,496
+You should always do this, okay?
+
+980
+00:43:53,996 --> 00:43:56,716
+Embedding a thumbnail
+
+981
+00:43:56,926 --> 00:43:59,106
+because you don't know where
+
+982
+00:43:59,646 --> 00:44:05,786
+Some apps can handle
+
+983
+00:43:59,646 --> 00:44:05,786
+Some apps can handle
+
+984
+00:44:05,816 --> 00:44:07,196
+the RAW bits, and some can't.
+
+985
+00:44:07,566 --> 00:44:09,286
+But if you have an
+
+986
+00:44:09,356 --> 00:44:10,906
+everyone's going to be
+
+987
+00:44:10,906 --> 00:44:13,656
+You definitely want to do
+
+988
+00:44:13,656 --> 00:44:16,146
+to the Photo Library so
+
+989
+00:44:16,146 --> 00:44:16,846
+quick preview.
+
+990
+00:44:18,786 --> 00:44:21,976
+Preview image delivery
+
+991
+00:44:25,376 --> 00:44:29,736
+All right, onto the last topic
+
+992
+00:44:30,046 --> 00:44:32,976
+And as you might suspect,
+
+993
+00:44:37,566 --> 00:44:40,806
+You've no doubt heard about the
+
+994
+00:44:40,906 --> 00:44:43,176
+on our iPad Pro 9.7 inch.
+
+995
+00:44:43,766 --> 00:44:46,986
+It's a wide-gamut
+
+996
+00:44:46,986 --> 00:44:50,346
+with the 4K and 5K iMax.
+
+997
+00:44:50,346 --> 00:44:53,476
+It's capable of displaying
+
+998
+00:44:53,476 --> 00:44:57,406
+and yellows and deeply
+
+999
+00:44:58,446 --> 00:45:01,476
+To take advantage of the
+
+1000
+00:44:58,446 --> 00:45:01,476
+To take advantage of the
+
+1001
+00:45:01,646 --> 00:45:05,406
+we introduced color management
+
+1002
+00:45:05,406 --> 00:45:06,866
+I'm not sure if you
+
+1003
+00:45:06,906 --> 00:45:10,766
+but we're now color managed
+
+1004
+00:45:11,736 --> 00:45:15,126
+And with displays this
+
+1005
+00:45:15,126 --> 00:45:17,936
+to also capture photos
+
+1006
+00:45:18,426 --> 00:45:20,246
+so that we enhance the
+
+1007
+00:45:20,246 --> 00:45:22,836
+And so that when you look at
+
+1008
+00:45:22,836 --> 00:45:24,496
+you've got more color
+
+1009
+00:45:25,116 --> 00:45:27,886
+Beginning in iOS
+
+1010
+00:45:27,886 --> 00:45:30,916
+on the iPad Pro 9.7 will
+
+1011
+00:45:30,916 --> 00:45:31,686
+color captures.
+
+1012
+00:45:32,916 --> 00:45:35,816
+Let me give you a brief overview
+
+1013
+00:45:35,816 --> 00:45:37,766
+wide color terminology, starting
+
+1014
+00:45:37,766 --> 00:45:39,816
+with the concept
+
+1015
+00:45:40,456 --> 00:45:44,416
+A color space describes
+
+1016
+00:45:44,416 --> 00:45:49,766
+in which colors are represented,
+
+1017
+00:45:49,766 --> 00:45:51,896
+And the most common
+
+1018
+00:45:51,896 --> 00:45:54,186
+in computer displays is sRGB.
+
+1019
+00:45:54,456 --> 00:45:56,916
+The s stands for
+
+1020
+00:45:57,716 --> 00:46:01,616
+It's based on an
+
+1021
+00:45:57,716 --> 00:46:01,616
+It's based on an
+
+1022
+00:46:02,346 --> 00:46:06,956
+It has a gamma of roughly
+
+1023
+00:46:06,956 --> 00:46:09,216
+of 6500 degrees Kelvin.
+
+1024
+00:46:09,706 --> 00:46:14,216
+sRGB does a really good job of
+
+1025
+00:46:14,276 --> 00:46:19,326
+like faces, sky, grass,
+
+1026
+00:46:19,326 --> 00:46:21,916
+that sRGB does not
+
+1027
+00:46:21,916 --> 00:46:24,956
+For instance, more than 40%
+
+1028
+00:46:24,956 --> 00:46:28,746
+of pro football jerseys are
+
+1029
+00:46:29,466 --> 00:46:36,376
+Who knew? The iPad Pro 9.7
+
+1030
+00:46:36,376 --> 00:46:38,606
+color space that
+
+1031
+00:46:38,606 --> 00:46:42,736
+It's similar to the
+
+1032
+00:46:42,736 --> 00:46:47,356
+That's a color space that's used
+
+1033
+00:46:47,526 --> 00:46:52,626
+The color primaries are the same
+
+1034
+00:46:52,626 --> 00:46:54,136
+in gamma and white point.
+
+1035
+00:46:55,686 --> 00:46:59,776
+The gamma and white point
+
+1036
+00:47:00,866 --> 00:47:02,046
+Why would we do that?
+
+1037
+00:47:02,656 --> 00:47:07,026
+The reason for that is that the
+
+1038
+00:47:07,026 --> 00:47:08,086
+toward the green side.
+
+1039
+00:47:08,086 --> 00:47:10,966
+It was chosen to
+
+1040
+00:47:11,046 --> 00:47:15,026
+in dark home theater
+
+1041
+00:47:15,026 --> 00:47:16,866
+that with the white
+
+1042
+00:47:16,866 --> 00:47:20,576
+we get a more compatible
+
+1043
+00:47:20,806 --> 00:47:25,086
+So here on this slide you
+
+1044
+00:47:25,086 --> 00:47:27,206
+and then you can
+
+1045
+00:47:27,206 --> 00:47:28,406
+around it, the Display P3.
+
+1046
+00:47:28,406 --> 00:47:30,776
+And it does a nice job of kind
+
+1047
+00:47:30,776 --> 00:47:33,496
+of broadly covering
+
+1048
+00:47:33,496 --> 00:47:36,426
+And that's why we chose it.
+
+1049
+00:47:36,696 --> 00:47:39,556
+Using Apple's color
+
+1050
+00:47:39,646 --> 00:47:42,266
+you can see a visual
+
+1051
+00:47:42,266 --> 00:47:46,076
+So I took a little screen
+
+1052
+00:47:46,126 --> 00:47:49,166
+You can compare it with
+
+1053
+00:47:49,516 --> 00:47:51,476
+So here I'm selecting
+
+1054
+00:47:51,476 --> 00:47:53,966
+and then I do the hold
+
+1055
+00:47:53,966 --> 00:47:54,636
+That's a neat trick.
+
+1056
+00:47:54,636 --> 00:47:56,676
+And then I select sRGB.
+
+1057
+00:47:56,676 --> 00:47:59,726
+And then I see the one
+
+1058
+00:47:59,726 --> 00:48:03,136
+of the other, so you can see
+
+1059
+00:47:59,726 --> 00:48:03,136
+of the other, so you can see
+
+1060
+00:48:03,136 --> 00:48:05,006
+on the outside, and
+
+1061
+00:48:05,006 --> 00:48:10,126
+for just how wide the Display
+
+1062
+00:48:10,126 --> 00:48:12,976
+And the range of representable
+
+1063
+00:48:16,766 --> 00:48:18,616
+So now let's get down
+
+1064
+00:48:18,616 --> 00:48:20,446
+of capturing Display P3 content.
+
+1065
+00:48:20,446 --> 00:48:24,326
+For highest fidelity, the color
+
+1066
+00:48:24,326 --> 00:48:26,246
+to be determined at the source.
+
+1067
+00:48:26,616 --> 00:48:29,696
+That's not something that
+
+1068
+00:48:29,696 --> 00:48:31,886
+and then be up-converted
+
+1069
+00:48:31,886 --> 00:48:32,926
+It has to start wide.
+
+1070
+00:48:33,616 --> 00:48:35,086
+So, as you might expect,
+
+1071
+00:48:35,086 --> 00:48:37,516
+the color space is
+
+1072
+00:48:37,516 --> 00:48:40,126
+of the AVCaptureDevice,
+
+1073
+00:48:40,916 --> 00:48:42,346
+So we're going to
+
+1074
+00:48:42,346 --> 00:48:44,656
+about the AVCaptureDevice
+
+1075
+00:48:44,656 --> 00:48:46,086
+about the AVCaptureSession.
+
+1076
+00:48:46,626 --> 00:48:50,106
+The session is where automatic
+
+1077
+00:48:50,106 --> 00:48:54,216
+determined for the whole session
+
+1078
+00:48:54,386 --> 00:48:58,786
+Okay. AVCaptureDevice is how AV
+
+1079
+00:48:59,336 --> 00:48:59,806
+or a mic.
+
+1080
+00:49:00,786 --> 00:49:03,706
+Each AVCaptureDevice
+
+1081
+00:49:04,176 --> 00:49:08,006
+Formats is an array of
+
+1082
+00:49:08,006 --> 00:49:11,286
+They are objects themselves,
+
+1083
+00:49:11,286 --> 00:49:12,906
+that the device can capture in.
+
+1084
+00:49:13,726 --> 00:49:16,116
+They come in pairs,
+
+1085
+00:49:16,116 --> 00:49:18,856
+For each resolution
+
+1086
+00:49:19,036 --> 00:49:23,216
+there's a 402v version
+
+1087
+00:49:23,426 --> 00:49:27,666
+That stands for v for
+
+1088
+00:49:28,146 --> 00:49:31,276
+or f for full range,
+
+1089
+00:49:32,436 --> 00:49:33,936
+So new in iOS 10,
+
+1090
+00:49:34,506 --> 00:49:37,456
+AVCaptureDevice formats
+
+1091
+00:49:37,456 --> 00:49:38,656
+spaces property.
+
+1092
+00:49:39,336 --> 00:49:43,006
+It's an array of numbers
+
+1093
+00:49:43,006 --> 00:49:46,996
+for sRGB or 1 for P3 D65.
+
+1094
+00:49:47,676 --> 00:49:51,496
+We refer to it as Display P3
+
+1095
+00:49:51,496 --> 00:49:57,346
+to as P3 D65, the d
+
+1096
+00:49:57,346 --> 00:50:01,346
+for the 6500 Kelvin white point.
+
+1097
+00:49:57,346 --> 00:50:01,346
+for the 6500 Kelvin white point.
+
+1098
+00:50:01,486 --> 00:50:06,916
+On an iPad Pro 9.7, the 420v
+
+1099
+00:50:07,966 --> 00:50:12,156
+But the full-range 420f
+
+1100
+00:50:12,476 --> 00:50:13,546
+or Display P3.
+
+1101
+00:50:13,546 --> 00:50:17,756
+The device has a settable
+
+1102
+00:50:17,756 --> 00:50:18,456
+That's not new.
+
+1103
+00:50:19,156 --> 00:50:20,716
+So that one of the formats
+
+1104
+00:50:20,716 --> 00:50:22,726
+in the list is always
+
+1105
+00:50:23,016 --> 00:50:24,876
+As you can see here,
+
+1106
+00:50:24,876 --> 00:50:26,016
+around the one that is active.
+
+1107
+00:50:26,366 --> 00:50:29,456
+It happens to be the
+
+1108
+00:50:29,456 --> 00:50:34,066
+And if that activeFormat,
+
+1109
+00:50:34,376 --> 00:50:38,376
+happens to support Display P3,
+
+1110
+00:50:38,376 --> 00:50:40,976
+that you can set
+
+1111
+00:50:40,976 --> 00:50:45,176
+And if the activeFormat supports
+
+1112
+00:50:45,176 --> 00:50:47,946
+from your source to all
+
+1113
+00:50:49,286 --> 00:50:52,156
+That was longwinded, but what
+
+1114
+00:50:52,156 --> 00:50:54,776
+from this is hopefully you
+
+1115
+00:50:55,106 --> 00:50:56,336
+Most clients will never need
+
+1116
+00:50:56,336 --> 00:50:58,986
+to set the activeColorSpace
+
+1117
+00:50:58,986 --> 00:51:01,346
+because AVCaptureSession
+
+1118
+00:50:58,986 --> 00:51:01,346
+because AVCaptureSession
+
+1119
+00:51:01,346 --> 00:51:02,246
+for you automatically.
+
+1120
+00:51:02,846 --> 00:51:07,686
+So in iOS 10, AVCaptureSession
+
+1121
+00:51:08,026 --> 00:51:12,066
+automaticallyConfigures
+
+1122
+00:51:13,016 --> 00:51:15,356
+When does it want to
+
+1123
+00:51:16,516 --> 00:51:20,046
+Wide color, in iOS 10,
+
+1124
+00:51:20,416 --> 00:51:21,446
+Let me say that again.
+
+1125
+00:51:22,396 --> 00:51:26,716
+Wide color, in iOS 10, is only
+
+1126
+00:51:26,716 --> 00:51:29,436
+I'll explain why in a minute.
+
+1127
+00:51:30,696 --> 00:51:31,876
+It can automatically,
+
+1128
+00:51:31,876 --> 00:51:33,906
+the session can automatically
+
+1129
+00:51:33,906 --> 00:51:37,526
+to configure the whole session
+
+1130
+00:51:37,806 --> 00:51:41,516
+It will set the activeColorSpace
+
+1131
+00:51:41,516 --> 00:51:43,696
+to P3, depending on your config.
+
+1132
+00:51:44,356 --> 00:51:46,276
+You have to have a PhotoOutput
+
+1133
+00:51:46,276 --> 00:51:47,836
+in your session for
+
+1134
+00:51:48,296 --> 00:51:49,586
+If you don't have a PhotoOutput,
+
+1135
+00:51:49,806 --> 00:51:51,406
+you're obviously not
+
+1136
+00:51:51,616 --> 00:51:52,726
+so you don't need wide color.
+
+1137
+00:51:52,876 --> 00:51:56,126
+There are some caveats here.
+
+1138
+00:51:56,216 --> 00:51:58,786
+Like, if you start adding
+
+1139
+00:51:59,096 --> 00:52:01,336
+maybe it's not as clear
+
+1140
+00:51:59,096 --> 00:52:01,336
+maybe it's not as clear
+
+1141
+00:52:02,256 --> 00:52:05,016
+If you add an
+
+1142
+00:52:05,456 --> 00:52:10,756
+the session will automatically
+
+1143
+00:52:11,166 --> 00:52:13,746
+because you're just previewing
+
+1144
+00:52:13,746 --> 00:52:15,926
+If you have a MovieFileOutput
+
+1145
+00:52:16,016 --> 00:52:18,546
+and a PhotoOutput,
+
+1146
+00:52:18,546 --> 00:52:20,336
+You might really care
+
+1147
+00:52:20,566 --> 00:52:24,096
+so it will not automatically
+
+1148
+00:52:24,596 --> 00:52:28,656
+VideoDataOutput is a special
+
+1149
+00:52:28,656 --> 00:52:31,226
+to you via a callback and there,
+
+1150
+00:52:31,356 --> 00:52:33,146
+the session will
+
+1151
+00:52:33,146 --> 00:52:35,356
+if you're using the
+
+1152
+00:52:35,856 --> 00:52:38,196
+It's pretty sure if you're
+
+1153
+00:52:38,196 --> 00:52:40,656
+to do photography stuff
+
+1154
+00:52:41,926 --> 00:52:45,566
+If you really, really want to,
+
+1155
+00:52:45,566 --> 00:52:47,636
+to do wide color and here's how.
+
+1156
+00:52:47,886 --> 00:52:51,346
+First you would tell the
+
+1157
+00:52:51,346 --> 00:52:52,096
+that thing for me.
+
+1158
+00:52:52,096 --> 00:52:52,956
+Get out of my way.
+
+1159
+00:52:54,036 --> 00:52:56,386
+And then you would
+
+1160
+00:52:56,386 --> 00:52:57,936
+and set the active
+
+1161
+00:52:57,936 --> 00:52:59,626
+to a format that's
+
+1162
+00:53:00,156 --> 00:53:03,656
+And then you would set the
+
+1163
+00:53:04,466 --> 00:53:09,216
+Once you do this, wide color
+
+1164
+00:53:09,246 --> 00:53:10,416
+that accept video data.
+
+1165
+00:53:10,606 --> 00:53:13,326
+That includes VideoDataOutput,
+
+1166
+00:53:13,706 --> 00:53:16,546
+even the deprecated
+
+1167
+00:53:18,196 --> 00:53:22,256
+So while you can forcibly set
+
+1168
+00:53:22,256 --> 00:53:25,676
+to display P3, I want
+
+1169
+00:53:25,676 --> 00:53:27,506
+against doing it
+
+1170
+00:53:27,506 --> 00:53:28,476
+really know what you're doing.
+
+1171
+00:53:29,546 --> 00:53:32,546
+The reason is wide
+
+1172
+00:53:32,726 --> 00:53:36,486
+because we have a good photo
+
+1173
+00:53:36,836 --> 00:53:38,536
+not so much for video.
+
+1174
+00:53:39,186 --> 00:53:41,616
+So the main worry with
+
+1175
+00:53:41,616 --> 00:53:44,226
+that the consumer has
+
+1176
+00:53:44,526 --> 00:53:46,746
+or your content will
+
+1177
+00:53:46,746 --> 00:53:48,356
+and the colors will
+
+1178
+00:53:48,776 --> 00:53:49,766
+They'll be rendered badly.
+
+1179
+00:53:50,456 --> 00:53:53,286
+Most video playback
+
+1180
+00:53:53,586 --> 00:53:59,046
+So if you store a wide Display
+
+1181
+00:53:59,046 --> 00:54:01,456
+to play it back with
+
+1182
+00:53:59,046 --> 00:54:01,456
+to play it back with
+
+1183
+00:54:01,826 --> 00:54:03,986
+it will likely render
+
+1184
+00:54:05,126 --> 00:54:06,776
+So if you do choose to do this,
+
+1185
+00:54:06,776 --> 00:54:09,636
+make sure that your
+
+1186
+00:54:10,136 --> 00:54:11,736
+That it's propagating
+
+1187
+00:54:11,736 --> 00:54:13,336
+That it's doing something
+
+1188
+00:54:13,336 --> 00:54:14,126
+That it's color-aware.
+
+1189
+00:54:14,746 --> 00:54:19,336
+And if you do choose to capture
+
+1190
+00:54:19,336 --> 00:54:21,426
+MovieFileOutput, just be aware
+
+1191
+00:54:21,426 --> 00:54:25,376
+that they may render
+
+1192
+00:54:25,376 --> 00:54:28,496
+This is -- we do allow this,
+
+1193
+00:54:28,496 --> 00:54:33,436
+that it's important for some
+
+1194
+00:54:33,436 --> 00:54:35,326
+to do wide color movies as well.
+
+1195
+00:54:36,266 --> 00:54:39,576
+So now dire warnings out
+
+1196
+00:54:39,576 --> 00:54:42,176
+that we do have a very
+
+1197
+00:54:42,316 --> 00:54:43,896
+in sharing wide colors.
+
+1198
+00:54:44,556 --> 00:54:47,756
+We should be aware that wide
+
+1199
+00:54:47,756 --> 00:54:50,996
+profile and consumers of
+
+1200
+00:54:50,996 --> 00:54:51,876
+to be color-aware.
+
+1201
+00:54:52,366 --> 00:54:56,426
+The good news is photo services,
+
+1202
+00:54:56,576 --> 00:54:58,086
+they are color-aware these days.
+
+1203
+00:54:58,636 --> 00:55:00,516
+iCloud Photo Library
+
+1204
+00:54:58,636 --> 00:55:00,516
+iCloud Photo Library
+
+1205
+00:55:00,696 --> 00:55:05,086
+It can intelligently convert
+
+1206
+00:55:05,086 --> 00:55:06,296
+that don't support wide color,
+
+1207
+00:55:06,996 --> 00:55:10,416
+but store the nice wide
+
+1208
+00:55:10,416 --> 00:55:14,026
+We're also an industry
+
+1209
+00:55:14,026 --> 00:55:17,836
+so some photo services
+
+1210
+00:55:17,836 --> 00:55:19,806
+but most of them at
+
+1211
+00:55:19,806 --> 00:55:22,296
+to render it as sRGB.
+
+1212
+00:55:23,476 --> 00:55:25,416
+For mixed sharing scenarios,
+
+1213
+00:55:25,416 --> 00:55:28,666
+like say sending a photo
+
+1214
+00:55:28,976 --> 00:55:30,066
+You don't know where it's going.
+
+1215
+00:55:30,196 --> 00:55:31,996
+It might be going
+
+1216
+00:55:32,416 --> 00:55:34,066
+Some of them might
+
+1217
+00:55:34,066 --> 00:55:34,786
+Some might not.
+
+1218
+00:55:35,226 --> 00:55:40,266
+So for this situation, we have
+
+1219
+00:55:40,266 --> 00:55:42,206
+Wide Color Sharing Profile.
+
+1220
+00:55:42,986 --> 00:55:47,966
+Your content can be
+
+1221
+00:55:47,966 --> 00:55:52,926
+that we generate a content
+
+1222
+00:55:53,236 --> 00:55:56,556
+that's specific to
+
+1223
+00:55:57,306 --> 00:56:00,496
+And what's nice about it is
+
+1224
+00:55:57,306 --> 00:56:00,496
+And what's nice about it is
+
+1225
+00:56:00,496 --> 00:56:02,646
+who doesn't know about
+
+1226
+00:56:02,646 --> 00:56:05,526
+in the sRGB gamut renders
+
+1227
+00:56:06,016 --> 00:56:08,046
+The extra information is carried
+
+1228
+00:56:08,296 --> 00:56:11,056
+in the extra ICC profile
+
+1229
+00:56:11,056 --> 00:56:14,176
+that they can recover the
+
+1230
+00:56:14,176 --> 00:56:15,976
+with minimal quality loss.
+
+1231
+00:56:16,316 --> 00:56:20,096
+You can learn more about how
+
+1232
+00:56:20,096 --> 00:56:24,246
+in sessions 505 and 712.
+
+1233
+00:56:24,326 --> 00:56:25,586
+Both of those are on Thursday.
+
+1234
+00:56:25,906 --> 00:56:27,896
+I've talked about the
+
+1235
+00:56:28,316 --> 00:56:31,226
+The working with wide color one
+
+1236
+00:56:32,936 --> 00:56:34,936
+On iPad Pro 9.7,
+
+1237
+00:56:35,036 --> 00:56:38,216
+the AVCapturePhotoOutput
+
+1238
+00:56:38,436 --> 00:56:44,476
+It supports it in 420f, BGRA
+
+1239
+00:56:44,506 --> 00:56:49,386
+So if you have your session
+
+1240
+00:56:49,386 --> 00:56:51,986
+but then you say you
+
+1241
+00:56:52,306 --> 00:56:56,306
+it will be converted to sRGB.
+
+1242
+00:56:56,306 --> 00:56:59,146
+Live Photos support wide color.
+
+1243
+00:56:59,386 --> 00:57:01,066
+Both the still and the movie.
+
+1244
+00:56:59,386 --> 00:57:01,066
+Both the still and the movie.
+
+1245
+00:57:01,266 --> 00:57:02,446
+These are special movies.
+
+1246
+00:57:02,446 --> 00:57:03,816
+This is part of the
+
+1247
+00:57:03,816 --> 00:57:05,476
+So those are just
+
+1248
+00:57:06,976 --> 00:57:09,836
+And bracketed captures also
+
+1249
+00:57:12,236 --> 00:57:14,256
+Here's an interesting twist.
+
+1250
+00:57:14,256 --> 00:57:17,076
+While I've been talking
+
+1251
+00:57:17,076 --> 00:57:20,136
+iPad Pro, we support RAW.
+
+1252
+00:57:20,496 --> 00:57:25,946
+And RAW capture is inherently
+
+1253
+00:57:25,946 --> 00:57:27,486
+of those extra bits
+
+1254
+00:57:27,976 --> 00:57:29,916
+We store it in the
+
+1255
+00:57:30,426 --> 00:57:32,576
+and there is enough
+
+1256
+00:57:32,576 --> 00:57:36,986
+to be either rendered
+
+1257
+00:57:37,066 --> 00:57:40,066
+Again, you're carrying the
+
+1258
+00:57:40,066 --> 00:57:43,756
+You can decide later if you want
+
+1259
+00:57:44,266 --> 00:57:46,676
+So shooting RAW and
+
+1260
+00:57:47,106 --> 00:57:50,216
+you can produce wide
+
+1261
+00:57:50,216 --> 00:57:51,976
+of iOS devices, not
+
+1262
+00:57:55,066 --> 00:57:59,456
+As I just said, you can learn
+
+1263
+00:57:59,456 --> 00:58:01,906
+not just sharing but
+
+1264
+00:57:59,456 --> 00:58:01,906
+not just sharing but
+
+1265
+00:58:02,066 --> 00:58:04,806
+The best session to view is
+
+1266
+00:58:04,906 --> 00:58:05,916
+on Thursday afternoon.
+
+1267
+00:58:08,026 --> 00:58:11,606
+Use AVCapturePhotoOutput
+
+1268
+00:58:12,676 --> 00:58:14,916
+And we talked about four
+
+1269
+00:58:14,916 --> 00:58:16,466
+We talked about capturing
+
+1270
+00:58:16,466 --> 00:58:21,266
+in your app, RAW,
+
+1271
+00:58:22,216 --> 00:58:24,966
+Nice little preview images
+
+1272
+00:58:25,676 --> 00:58:27,346
+And wide color photos.
+
+1273
+00:58:28,646 --> 00:58:32,056
+And believe it or not,
+
+1274
+00:58:32,056 --> 00:58:33,626
+to cover everything
+
+1275
+00:58:33,626 --> 00:58:36,326
+So we've done an
+
+1276
+00:58:36,326 --> 00:58:37,736
+It's already recorded.
+
+1277
+00:58:37,816 --> 00:58:39,146
+It should already be online.
+
+1278
+00:58:39,766 --> 00:58:41,766
+It's a slide plus
+
+1279
+00:58:41,766 --> 00:58:44,126
+that we're calling a Chalk Talk.
+
+1280
+00:58:44,126 --> 00:58:46,896
+And it tells you
+
+1281
+00:58:46,896 --> 00:58:48,006
+that we didn't have time for.
+
+1282
+00:58:48,456 --> 00:58:51,016
+Scene monitoring in
+
+1283
+00:58:51,696 --> 00:58:54,086
+Resource preparation
+
+1284
+00:58:54,406 --> 00:58:56,886
+And then an unrelated topic,
+
+1285
+00:58:56,886 --> 00:59:00,046
+changes to camera
+
+1286
+00:58:56,886 --> 00:59:00,046
+changes to camera
+
+1287
+00:59:00,046 --> 00:59:01,436
+So please take a
+
+1288
+00:59:01,436 --> 00:59:02,556
+It's about 20 minutes long.
+
+1289
+00:59:04,426 --> 00:59:05,346
+More information.
+
+1290
+00:59:05,526 --> 00:59:07,686
+All you need to remember
+
+1291
+00:59:07,876 --> 00:59:10,596
+Go to that and you'll find,
+
+1292
+00:59:10,596 --> 00:59:13,446
+of sample code as well
+
+1293
+00:59:13,446 --> 00:59:14,786
+for AVCapturePhotoOutput.
+
+1294
+00:59:14,836 --> 00:59:17,186
+The documentation folks
+
+1295
+00:59:17,186 --> 00:59:20,186
+and they've documented
+
+1296
+00:59:20,436 --> 00:59:22,806
+And here are the related
+
+1297
+00:59:23,466 --> 00:59:25,466
+The one that is the Chalk Talk,
+
+1298
+00:59:25,466 --> 00:59:27,936
+we're calling
+
+1299
+00:59:27,936 --> 00:59:28,606
+the basics.
+
+1300
+00:59:29,046 --> 00:59:30,536
+And you can look at
+
+1301
+00:59:30,536 --> 00:59:30,716
+All right.
+
+1302
+00:59:30,716 --> 00:59:32,976
+Have a great rest of the show,
+
+1303
+00:59:33,508 --> 00:59:35,508
+[ Applause ]

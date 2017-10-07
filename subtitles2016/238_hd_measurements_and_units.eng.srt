@@ -1,0 +1,2679 @@
+1
+00:00:07,516 --> 00:00:19,500
+[ Music ]
+
+2
+00:00:27,516 --> 00:00:33,546
+[ Applause ]
+
+3
+00:00:34,046 --> 00:00:35,826
+&gt;&gt; Hi, my name is Daphne Larose.
+
+4
+00:00:35,826 --> 00:00:37,696
+I'm a software engineer
+
+5
+00:00:38,186 --> 00:00:39,066
+Welcome to my talk.
+
+6
+00:00:39,476 --> 00:00:41,466
+Thanks to those of you
+
+7
+00:00:41,466 --> 00:00:44,896
+I know it's kind
+
+8
+00:00:45,096 --> 00:00:47,676
+So, I wanted to start
+
+9
+00:00:47,676 --> 00:00:49,906
+that we commonly
+
+10
+00:00:50,656 --> 00:00:52,356
+The first thing that comes
+
+11
+00:00:52,356 --> 00:00:54,036
+about you, are converter apps.
+
+12
+00:00:54,516 --> 00:00:56,856
+Makes sense, convert
+
+13
+00:00:57,796 --> 00:01:00,216
+But I wonder though,
+
+14
+00:00:57,796 --> 00:01:00,216
+But I wonder though,
+
+15
+00:01:00,566 --> 00:01:03,276
+that also use measurements but
+
+16
+00:01:04,965 --> 00:01:09,296
+I don't know, but when I think
+
+17
+00:01:09,296 --> 00:01:12,706
+it's interesting, right, because
+
+18
+00:01:13,156 --> 00:01:15,296
+We just don't normally think
+
+19
+00:01:15,456 --> 00:01:17,846
+and they can pop up in
+
+20
+00:01:18,276 --> 00:01:21,476
+one of those ways being when
+
+21
+00:01:21,506 --> 00:01:24,446
+that are common for whatever
+
+22
+00:01:24,966 --> 00:01:28,466
+So, let's say I'm in
+
+23
+00:01:28,946 --> 00:01:30,626
+that is calculating
+
+24
+00:01:31,246 --> 00:01:34,746
+and I expect the measurement to
+
+25
+00:01:35,396 --> 00:01:36,956
+but they show up
+
+26
+00:01:37,126 --> 00:01:37,826
+It's like, hmm.
+
+27
+00:01:38,406 --> 00:01:41,746
+It makes for kind of a jarring,
+
+28
+00:01:42,706 --> 00:01:45,946
+And so in this talk, we're going
+
+29
+00:01:45,946 --> 00:01:48,316
+of APIs that helps you ensure
+
+30
+00:01:48,316 --> 00:01:51,106
+that this never happens
+
+31
+00:01:52,416 --> 00:01:54,906
+So, if we think again about
+
+32
+00:01:54,956 --> 00:01:57,296
+other apps that we
+
+33
+00:01:57,486 --> 00:01:59,926
+I had mentioned converter
+
+34
+00:02:00,586 --> 00:02:03,036
+But another example
+
+35
+00:02:03,906 --> 00:02:08,186
+So, today we're talking about
+
+36
+00:02:08,226 --> 00:02:10,596
+It's called Jammin' in
+
+37
+00:02:10,645 --> 00:02:12,726
+because z's are cool, and
+
+38
+00:02:13,806 --> 00:02:16,266
+So, the premise of the game is
+
+39
+00:02:16,266 --> 00:02:18,056
+to dance from level to level.
+
+40
+00:02:18,636 --> 00:02:22,156
+I have some pretty set
+
+41
+00:02:22,466 --> 00:02:24,916
+One, I need this
+
+42
+00:02:24,996 --> 00:02:27,076
+Like, the most fun a
+
+43
+00:02:27,706 --> 00:02:30,976
+Two, tons of emoji,
+
+44
+00:02:31,716 --> 00:02:34,406
+Three, it needs to be
+
+45
+00:02:34,406 --> 00:02:35,146
+I want it everywhere.
+
+46
+00:02:35,846 --> 00:02:39,296
+So, when we think
+
+47
+00:02:39,296 --> 00:02:40,896
+that this game would
+
+48
+00:02:41,516 --> 00:02:43,676
+every round would be
+
+49
+00:02:44,346 --> 00:02:47,686
+and within this jam session,
+
+50
+00:02:47,686 --> 00:02:51,446
+of time that it takes our player
+
+51
+00:02:51,996 --> 00:02:53,766
+the distance that
+
+52
+00:02:53,836 --> 00:02:55,996
+the number of dance
+
+53
+00:02:56,456 --> 00:02:59,256
+and maybe even, like, the rate
+
+54
+00:02:59,256 --> 00:03:04,516
+But let's think about the things
+
+55
+00:02:59,256 --> 00:03:04,516
+But let's think about the things
+
+56
+00:03:05,376 --> 00:03:06,186
+Notice anything?
+
+57
+00:03:06,906 --> 00:03:07,846
+They're all measureable.
+
+58
+00:03:07,906 --> 00:03:10,116
+They're quantifiable
+
+59
+00:03:10,526 --> 00:03:14,036
+And so, if we were stop
+
+60
+00:03:14,556 --> 00:03:16,326
+whip out a computer,
+
+61
+00:03:17,226 --> 00:03:18,376
+how would we represent this?
+
+62
+00:03:19,356 --> 00:03:21,856
+Well, we could represent
+
+63
+00:03:22,586 --> 00:03:23,086
+That's true.
+
+64
+00:03:24,076 --> 00:03:27,586
+Easy. The problem with that
+
+65
+00:03:27,586 --> 00:03:29,366
+some context when we do that.
+
+66
+00:03:29,986 --> 00:03:31,236
+And so let's look at an example.
+
+67
+00:03:32,806 --> 00:03:33,876
+So we have our little player.
+
+68
+00:03:34,156 --> 00:03:36,026
+I told you, lots of
+
+69
+00:03:37,016 --> 00:03:39,886
+And our little player has
+
+70
+00:03:40,556 --> 00:03:42,686
+and they've moonwalked
+
+71
+00:03:43,326 --> 00:03:48,906
+Now, if we stored this distance
+
+72
+00:03:48,906 --> 00:03:51,146
+but what does five
+
+73
+00:03:51,516 --> 00:03:53,566
+It brings up this
+
+74
+00:03:54,836 --> 00:03:57,286
+But if we say five feet,
+
+75
+00:03:57,336 --> 00:03:58,616
+This actually makes sense.
+
+76
+00:03:58,806 --> 00:04:00,706
+It now has context
+
+77
+00:03:58,806 --> 00:04:00,706
+It now has context
+
+78
+00:04:02,206 --> 00:04:06,616
+And so now, let's talk
+
+79
+00:04:06,616 --> 00:04:08,896
+or the API that Foundation
+
+80
+00:04:08,896 --> 00:04:11,486
+to accurately represent
+
+81
+00:04:11,636 --> 00:04:13,626
+So, you have a new struct.
+
+82
+00:04:14,306 --> 00:04:16,366
+It's called Measurement, and
+
+83
+00:04:16,366 --> 00:04:19,185
+and we'll get into what a
+
+84
+00:04:20,745 --> 00:04:24,846
+Contains a unit as well as
+
+85
+00:04:25,956 --> 00:04:29,626
+So, what's cool about this is
+
+86
+00:04:29,626 --> 00:04:33,346
+to represent a measurement
+
+87
+00:04:33,966 --> 00:04:36,696
+And so if we go back
+
+88
+00:04:37,336 --> 00:04:39,646
+let's say in the game we
+
+89
+00:04:39,646 --> 00:04:42,466
+of distance traveled, but
+
+90
+00:04:42,466 --> 00:04:44,406
+of the distance that the
+
+91
+00:04:45,116 --> 00:04:47,876
+How would we do this
+
+92
+00:04:48,816 --> 00:04:51,046
+Well, now we can
+
+93
+00:04:51,126 --> 00:04:52,916
+as a measurement of five feet.
+
+94
+00:04:53,376 --> 00:04:55,936
+We could also represent
+
+95
+00:04:56,266 --> 00:04:58,436
+as a measurement of,
+
+96
+00:04:59,716 --> 00:05:02,126
+And so now, you can actually
+
+97
+00:04:59,716 --> 00:05:02,126
+And so now, you can actually
+
+98
+00:05:02,126 --> 00:05:02,496
+with them.
+
+99
+00:05:02,976 --> 00:05:05,216
+You can add them together
+
+100
+00:05:05,596 --> 00:05:08,126
+which is a measurement
+
+101
+00:05:09,586 --> 00:05:12,446
+You can multiply them
+
+102
+00:05:12,526 --> 00:05:13,636
+the value that you expect.
+
+103
+00:05:14,506 --> 00:05:16,016
+You could also divide them,
+
+104
+00:05:17,196 --> 00:05:19,436
+and get a similar
+
+105
+00:05:19,436 --> 00:05:23,106
+So if we go back to
+
+106
+00:05:24,406 --> 00:05:27,946
+what are some things that we
+
+107
+00:05:29,056 --> 00:05:35,516
+Well, first off, every unit
+
+108
+00:05:35,716 --> 00:05:39,866
+Units can have a dimension, and
+
+109
+00:05:39,866 --> 00:05:43,186
+for the dimension length.
+
+110
+00:05:43,426 --> 00:05:46,936
+It could use, like, feet
+
+111
+00:05:47,366 --> 00:05:51,706
+Units could also be
+
+112
+00:05:51,796 --> 00:05:55,366
+so one foot could be equivalent
+
+113
+00:05:56,086 --> 00:05:58,296
+And so now we have APIs
+
+114
+00:05:58,296 --> 00:06:00,526
+to actually represent
+
+115
+00:05:58,296 --> 00:06:00,526
+to actually represent
+
+116
+00:06:01,496 --> 00:06:04,726
+Now, if you're paying close
+
+117
+00:06:04,726 --> 00:06:06,446
+that every unit has a symbol,
+
+118
+00:06:06,696 --> 00:06:10,416
+and so in this API we're
+
+119
+00:06:11,016 --> 00:06:13,346
+We don't necessarily
+
+120
+00:06:13,346 --> 00:06:16,506
+or the equivalents because not
+
+121
+00:06:16,506 --> 00:06:19,356
+to another one, and not
+
+122
+00:06:20,006 --> 00:06:22,416
+But at the very least,
+
+123
+00:06:22,486 --> 00:06:23,596
+so we're representing that here.
+
+124
+00:06:24,556 --> 00:06:26,026
+But if we go back
+
+125
+00:06:26,026 --> 00:06:28,296
+of a dimension, what
+
+126
+00:06:28,296 --> 00:06:29,276
+What does that actually mean?
+
+127
+00:06:30,206 --> 00:06:33,726
+Well, dimensions are categories
+
+128
+00:06:34,066 --> 00:06:35,186
+with different kinds of units.
+
+129
+00:06:35,556 --> 00:06:37,456
+So, when we think of
+
+130
+00:06:38,296 --> 00:06:40,436
+length can be represented
+
+131
+00:06:40,496 --> 00:06:44,376
+feet, miles, what have you.
+
+132
+00:06:44,576 --> 00:06:47,236
+Dimensions also always have
+
+133
+00:06:47,236 --> 00:06:50,226
+to the length example, the
+
+134
+00:06:50,306 --> 00:06:54,356
+You can also perform
+
+135
+00:06:54,356 --> 00:06:55,446
+within a single dimension.
+
+136
+00:06:55,446 --> 00:06:58,176
+So you can convert
+
+137
+00:06:58,466 --> 00:07:00,246
+meters to miles, et cetera.
+
+138
+00:06:58,466 --> 00:07:00,246
+meters to miles, et cetera.
+
+139
+00:07:00,846 --> 00:07:05,926
+So now we have API to represent
+
+140
+00:07:05,926 --> 00:07:07,356
+that dimension subclass is Unit,
+
+141
+00:07:07,776 --> 00:07:11,076
+which means that it inherently
+
+142
+00:07:12,776 --> 00:07:14,266
+We have a converter property,
+
+143
+00:07:14,366 --> 00:07:17,376
+and I'll go into what a unit
+
+144
+00:07:17,436 --> 00:07:20,486
+but essentially it defines
+
+145
+00:07:20,486 --> 00:07:21,686
+and from its base unit.
+
+146
+00:07:21,686 --> 00:07:24,476
+We have an initializer,
+
+147
+00:07:24,476 --> 00:07:27,886
+and a converter instance,
+
+148
+00:07:27,886 --> 00:07:29,236
+every dimension has a base unit.
+
+149
+00:07:29,236 --> 00:07:30,456
+So now we have a class property
+
+150
+00:07:30,836 --> 00:07:32,226
+that will return
+
+151
+00:07:33,006 --> 00:07:34,636
+The important thing to
+
+152
+00:07:35,166 --> 00:07:37,576
+is that every instance
+
+153
+00:07:37,746 --> 00:07:40,566
+in and of itself a unit.
+
+154
+00:07:40,686 --> 00:07:42,936
+Now, with this new API
+
+155
+00:07:42,936 --> 00:07:46,176
+the cool thing is that
+
+156
+00:07:46,176 --> 00:07:51,086
+to you some 170-plus units that
+
+157
+00:07:51,226 --> 00:07:52,556
+You don't even have to
+
+158
+00:07:52,556 --> 00:07:55,386
+You can just use them, like,
+
+159
+00:07:56,156 --> 00:08:01,236
+And most of these
+
+160
+00:07:56,156 --> 00:08:01,236
+And most of these
+
+161
+00:08:01,236 --> 00:08:03,706
+with the International System
+
+162
+00:08:03,706 --> 00:08:05,936
+that you're already used to
+
+163
+00:08:07,396 --> 00:08:08,656
+Now let's look at an example.
+
+164
+00:08:09,286 --> 00:08:12,906
+We have the dimension of
+
+165
+00:08:13,296 --> 00:08:16,046
+of units that are class
+
+166
+00:08:16,046 --> 00:08:16,786
+this dimension.
+
+167
+00:08:17,076 --> 00:08:19,136
+And so, if we go back
+
+168
+00:08:19,166 --> 00:08:21,596
+instances of a dimension
+
+169
+00:08:22,376 --> 00:08:24,386
+what happens is any time you
+
+170
+00:08:24,386 --> 00:08:26,336
+getting back an instance
+
+171
+00:08:27,226 --> 00:08:30,036
+The difference between each
+
+172
+00:08:30,036 --> 00:08:33,035
+their symbols are different,
+
+173
+00:08:33,035 --> 00:08:36,696
+that define their
+
+174
+00:08:39,376 --> 00:08:43,366
+So, just an overview of all of
+
+175
+00:08:43,366 --> 00:08:44,916
+to you, all the different
+
+176
+00:08:45,126 --> 00:08:48,626
+Remember I told you there's like
+
+177
+00:08:49,106 --> 00:08:50,636
+play with them to
+
+178
+00:08:51,296 --> 00:08:53,956
+But we have some pretty cool
+
+179
+00:08:53,956 --> 00:08:56,266
+like area, mass,
+
+180
+00:08:56,676 --> 00:08:59,586
+But also, some kind of
+
+181
+00:08:59,586 --> 00:09:04,796
+and electric current, but sounds
+
+182
+00:08:59,586 --> 00:09:04,796
+and electric current, but sounds
+
+183
+00:09:05,056 --> 00:09:07,256
+So, let's go back to
+
+184
+00:09:07,326 --> 00:09:09,286
+and our distance
+
+185
+00:09:09,696 --> 00:09:11,166
+So, this is code
+
+186
+00:09:12,326 --> 00:09:13,936
+Now, we're going to
+
+187
+00:09:13,936 --> 00:09:15,176
+out because we're
+
+188
+00:09:15,866 --> 00:09:17,306
+So, we're leaving
+
+189
+00:09:18,146 --> 00:09:20,916
+but now we're defining
+
+190
+00:09:20,916 --> 00:09:23,506
+of six, but instead of
+
+191
+00:09:23,506 --> 00:09:24,626
+we're passing in kilometers.
+
+192
+00:09:25,426 --> 00:09:29,746
+Now, this is where things
+
+193
+00:09:29,836 --> 00:09:32,346
+because we're now
+
+194
+00:09:32,456 --> 00:09:35,126
+and distanceToGo
+
+195
+00:09:35,176 --> 00:09:36,166
+and one's in kilometers.
+
+196
+00:09:37,076 --> 00:09:38,956
+What does this mean
+
+197
+00:09:39,076 --> 00:09:40,006
+Is it in terms of feet?
+
+198
+00:09:40,246 --> 00:09:41,536
+It is in terms of kilometers?
+
+199
+00:09:41,716 --> 00:09:43,756
+Will this stage just
+
+200
+00:09:43,826 --> 00:09:44,226
+I don't know.
+
+201
+00:09:45,286 --> 00:09:46,976
+But, phew, no, it won't.
+
+202
+00:09:47,066 --> 00:09:49,476
+Actually what happened is
+
+203
+00:09:49,476 --> 00:09:51,156
+of the base unit,
+
+204
+00:09:51,606 --> 00:09:55,176
+And so what's cool about this is
+
+205
+00:09:55,176 --> 00:09:56,916
+of this implicitly for you.
+
+206
+00:09:57,166 --> 00:09:58,596
+You don't have to
+
+207
+00:09:58,846 --> 00:10:00,676
+You could just use the
+
+208
+00:09:58,846 --> 00:10:00,676
+You could just use the
+
+209
+00:10:00,906 --> 00:10:02,086
+with regular scalar values
+
+210
+00:10:02,086 --> 00:10:05,976
+and you get the results
+
+211
+00:10:06,056 --> 00:10:09,846
+So, now let's say, and
+
+212
+00:10:09,846 --> 00:10:14,336
+to track the player at certain
+
+213
+00:10:14,336 --> 00:10:17,816
+of the demo we're just printing
+
+214
+00:10:17,816 --> 00:10:19,376
+to do something funkier,
+
+215
+00:10:19,376 --> 00:10:21,056
+add more functionality
+
+216
+00:10:21,256 --> 00:10:22,576
+But the key here is
+
+217
+00:10:22,576 --> 00:10:24,966
+to compare these
+
+218
+00:10:24,966 --> 00:10:27,776
+So Measurement has support for
+
+219
+00:10:27,776 --> 00:10:28,496
+to be able to do this.
+
+220
+00:10:28,926 --> 00:10:32,976
+And so if we were to
+
+221
+00:10:33,796 --> 00:10:36,136
+we would get what we expect,
+
+222
+00:10:36,176 --> 00:10:38,506
+because Measurement was
+
+223
+00:10:38,506 --> 00:10:41,286
+that distanceTraveled is
+
+224
+00:10:44,576 --> 00:10:47,326
+So, let's talk more
+
+225
+00:10:47,406 --> 00:10:49,216
+because we haven't really
+
+226
+00:10:50,716 --> 00:10:53,196
+As previously mentioned,
+
+227
+00:10:53,196 --> 00:10:55,246
+in terms of their base unit.
+
+228
+00:10:56,056 --> 00:11:00,916
+There are methods that
+
+229
+00:10:56,056 --> 00:11:00,916
+There are methods that
+
+230
+00:11:01,246 --> 00:11:04,376
+and from the base unit
+
+231
+00:11:04,376 --> 00:11:07,406
+about that a little bit more
+
+232
+00:11:09,276 --> 00:11:12,316
+The important thing, though,
+
+233
+00:11:12,316 --> 00:11:15,126
+that conversion can only happen
+
+234
+00:11:15,536 --> 00:11:17,386
+So, when you think of
+
+235
+00:11:17,666 --> 00:11:22,376
+you can convert kilometers
+
+236
+00:11:22,376 --> 00:11:25,026
+to convert kilometers
+
+237
+00:11:25,366 --> 00:11:27,516
+Conceptually that doesn't
+
+238
+00:11:28,086 --> 00:11:30,496
+And so, in this case, with
+
+239
+00:11:30,496 --> 00:11:34,126
+to do that, it would
+
+240
+00:11:34,126 --> 00:11:36,506
+or it would be a
+
+241
+00:11:38,896 --> 00:11:42,066
+So, remember I had
+
+242
+00:11:42,066 --> 00:11:44,606
+like 170 plus units
+
+243
+00:11:45,036 --> 00:11:48,506
+Chances are, you won't need to
+
+244
+00:11:48,976 --> 00:11:51,586
+but if you do, that's the
+
+245
+00:11:51,586 --> 00:11:53,826
+about defining them,
+
+246
+00:11:53,866 --> 00:11:54,956
+You can actually just use them,
+
+247
+00:11:55,066 --> 00:11:57,306
+the units that are already
+
+248
+00:11:57,956 --> 00:12:00,696
+but if you are creating a
+
+249
+00:11:57,956 --> 00:12:00,696
+but if you are creating a
+
+250
+00:12:00,696 --> 00:12:02,866
+about how the converter
+
+251
+00:12:04,016 --> 00:12:06,256
+And so, the cool thing is
+
+252
+00:12:06,256 --> 00:12:08,646
+that Measurement can
+
+253
+00:12:08,646 --> 00:12:11,396
+for you implicitly even
+
+254
+00:12:12,326 --> 00:12:15,936
+It just auto-magically works.
+
+255
+00:12:16,166 --> 00:12:17,766
+So, let's talk about
+
+256
+00:12:17,766 --> 00:12:19,166
+We're making some custom
+
+257
+00:12:19,896 --> 00:12:25,106
+We have a jamz unit here,
+
+258
+00:12:25,106 --> 00:12:28,126
+to calculate total time
+
+259
+00:12:28,126 --> 00:12:29,946
+of this unit called jamz.
+
+260
+00:12:30,286 --> 00:12:31,856
+Seconds is a little
+
+261
+00:12:32,616 --> 00:12:36,846
+But if you see here, we have
+
+262
+00:12:36,946 --> 00:12:37,456
+What is that?
+
+263
+00:12:37,456 --> 00:12:38,996
+We haven't really
+
+264
+00:12:39,766 --> 00:12:41,176
+So let's go back to talking
+
+265
+00:12:41,176 --> 00:12:43,956
+about conversions
+
+266
+00:12:44,196 --> 00:12:45,936
+So again, to and
+
+267
+00:12:46,966 --> 00:12:49,876
+UnitConverter is a root class
+
+268
+00:12:50,266 --> 00:12:53,056
+that describe this conversion.
+
+269
+00:12:53,416 --> 00:12:57,016
+So baseUnitValue(fromValue),
+
+270
+00:12:58,086 --> 00:13:01,626
+UnitConverterLinear
+
+271
+00:12:58,086 --> 00:13:01,626
+UnitConverterLinear
+
+272
+00:13:01,936 --> 00:13:03,546
+and defines them linearly.
+
+273
+00:13:03,546 --> 00:13:05,866
+So, for all the math people
+
+274
+00:13:05,866 --> 00:13:08,146
+of A X plus B, where
+
+275
+00:13:08,146 --> 00:13:09,026
+and B is the constant.
+
+276
+00:13:09,586 --> 00:13:12,476
+So, if we go back
+
+277
+00:13:13,216 --> 00:13:17,796
+we see here that this
+
+278
+00:13:17,796 --> 00:13:19,966
+a scalar value of
+
+279
+00:13:19,966 --> 00:13:24,066
+that one jamz unit is equivalent
+
+280
+00:13:24,146 --> 00:13:28,116
+in our linear function, we have
+
+281
+00:13:28,116 --> 00:13:28,436
+would be.
+
+282
+00:13:28,436 --> 00:13:32,206
+So, if a jam session was
+
+283
+00:13:32,656 --> 00:13:35,076
+then if we wanted to
+
+284
+00:13:35,076 --> 00:13:37,486
+it would be four times 30
+
+285
+00:13:38,006 --> 00:13:39,036
+and you could do the reverse.
+
+286
+00:13:39,036 --> 00:13:41,676
+120 divided by 30 to
+
+287
+00:13:42,636 --> 00:13:47,026
+Yeah. So let's say I wanted
+
+288
+00:13:47,356 --> 00:13:49,606
+for length, for example,
+
+289
+00:13:49,666 --> 00:13:51,956
+to calculate distance traveled
+
+290
+00:13:51,956 --> 00:13:53,656
+I wanted to do something a
+
+291
+00:13:53,656 --> 00:13:54,006
+like hopz.
+
+292
+00:13:55,216 --> 00:13:57,146
+So, here, same concept.
+
+293
+00:13:57,696 --> 00:14:01,126
+One hopz is equivalent
+
+294
+00:13:57,696 --> 00:14:01,126
+One hopz is equivalent
+
+295
+00:14:01,546 --> 00:14:05,226
+and so we're defining the
+
+296
+00:14:05,846 --> 00:14:07,916
+and same with some
+
+297
+00:14:07,916 --> 00:14:09,976
+that I would create for this.
+
+298
+00:14:09,976 --> 00:14:14,026
+So, you start to get the idea.
+
+299
+00:14:14,236 --> 00:14:16,476
+So, if you recall
+
+300
+00:14:16,476 --> 00:14:19,366
+about the jam session,
+
+301
+00:14:19,416 --> 00:14:23,466
+that I had named was the number
+
+302
+00:14:24,426 --> 00:14:26,836
+Unfortunately, the
+
+303
+00:14:26,836 --> 00:14:28,616
+of units does not
+
+304
+00:14:28,616 --> 00:14:30,336
+that recognizes dance movements.
+
+305
+00:14:30,336 --> 00:14:32,966
+I'm not entirely sure
+
+306
+00:14:32,966 --> 00:14:34,386
+that we are defining here today.
+
+307
+00:14:34,506 --> 00:14:36,006
+And so, we have UnitDanceMove
+
+308
+00:14:36,696 --> 00:14:38,996
+with a base unit of
+
+309
+00:14:40,486 --> 00:14:43,746
+And so you see here that one
+
+310
+00:14:43,746 --> 00:14:45,756
+to another wackyArmMovement,
+
+311
+00:14:45,756 --> 00:14:48,466
+another way to think about how
+
+312
+00:14:48,466 --> 00:14:51,626
+many of the base unit make
+
+313
+00:14:52,066 --> 00:14:55,726
+So, here's one-to-ones so
+
+314
+00:14:55,926 --> 00:14:58,206
+Let's say we wanted to
+
+315
+00:14:58,746 --> 00:14:59,826
+It's like, approximately
+
+316
+00:14:59,826 --> 00:15:03,866
+like four wackyArmMovements,
+
+317
+00:14:59,826 --> 00:15:03,866
+like four wackyArmMovements,
+
+318
+00:15:04,086 --> 00:15:06,716
+cabbagePatch is like
+
+319
+00:15:06,886 --> 00:15:11,736
+Sure. And of course, no dance
+
+320
+00:15:11,776 --> 00:15:15,166
+without jazzHands, which is
+
+321
+00:15:15,636 --> 00:15:17,216
+I think it's pretty accurate,
+
+322
+00:15:18,566 --> 00:15:22,596
+And so now, let's go back and
+
+323
+00:15:22,596 --> 00:15:23,976
+that I had outlined earlier.
+
+324
+00:15:25,036 --> 00:15:27,886
+So distance traveled, this
+
+325
+00:15:27,886 --> 00:15:30,756
+which will be in terms of this
+
+326
+00:15:31,336 --> 00:15:33,736
+jamTime will be in
+
+327
+00:15:34,706 --> 00:15:37,146
+and dance moves will be
+
+328
+00:15:37,206 --> 00:15:41,816
+So our player will be roboting
+
+329
+00:15:42,016 --> 00:15:44,406
+And so the dance rate
+
+330
+00:15:44,406 --> 00:15:46,326
+of meters per second,
+
+331
+00:15:46,586 --> 00:15:49,496
+none of the other measurements
+
+332
+00:15:49,496 --> 00:15:51,146
+so how are we going
+
+333
+00:15:52,216 --> 00:15:54,796
+Well, we can take stepsTaken
+
+334
+00:15:55,266 --> 00:15:58,086
+We can also take the jamTime
+
+335
+00:15:59,126 --> 00:16:01,456
+and now we can actually
+
+336
+00:15:59,126 --> 00:16:01,456
+and now we can actually
+
+337
+00:16:01,456 --> 00:16:03,066
+in terms of meters per second.
+
+338
+00:16:03,696 --> 00:16:07,096
+And so the cool thing here
+
+339
+00:16:07,096 --> 00:16:08,506
+of code we were actually able
+
+340
+00:16:08,506 --> 00:16:11,256
+to completely define
+
+341
+00:16:11,826 --> 00:16:18,596
+So, now we know how to actually
+
+342
+00:16:18,596 --> 00:16:19,846
+as model objects,
+
+343
+00:16:20,506 --> 00:16:22,096
+But I told you, though,
+
+344
+00:16:22,296 --> 00:16:24,776
+that I want this game
+
+345
+00:16:25,326 --> 00:16:27,916
+Now to do that we actually have
+
+346
+00:16:28,566 --> 00:16:29,896
+That's where things
+
+347
+00:16:31,196 --> 00:16:34,656
+So, if we have our player, and
+
+348
+00:16:34,656 --> 00:16:38,176
+for only five feet, they danced
+
+349
+00:16:38,876 --> 00:16:39,346
+Hard core.
+
+350
+00:16:39,986 --> 00:16:41,956
+If we wanted to represent this
+
+351
+00:16:41,956 --> 00:16:43,416
+across the world,
+
+352
+00:16:44,606 --> 00:16:47,036
+Well, in Canada, we could
+
+353
+00:16:47,206 --> 00:16:49,516
+as it was previously written,
+
+354
+00:16:50,016 --> 00:16:53,486
+If we were to try to represent
+
+355
+00:16:53,486 --> 00:16:55,486
+we'd actually have to
+
+356
+00:16:56,736 --> 00:16:58,736
+In Arabic, we'd have
+
+357
+00:16:58,946 --> 00:17:01,896
+and change the number
+
+358
+00:16:58,946 --> 00:17:01,896
+and change the number
+
+359
+00:17:01,896 --> 00:17:03,746
+that our right-to-left
+
+360
+00:17:04,316 --> 00:17:06,425
+So, all of this is more
+
+361
+00:17:06,425 --> 00:17:07,705
+to add manually to my app.
+
+362
+00:17:08,715 --> 00:17:11,876
+And then finally, in the
+
+363
+00:17:12,066 --> 00:17:13,116
+What are those?
+
+364
+00:17:13,116 --> 00:17:14,356
+What are those things?"
+
+365
+00:17:14,356 --> 00:17:19,256
+So, then, not only do I have to
+
+366
+00:17:19,256 --> 00:17:22,376
+of my calculations, but I also
+
+367
+00:17:22,376 --> 00:17:25,396
+for formatting, which is
+
+368
+00:17:25,396 --> 00:17:26,826
+to add to my app.
+
+369
+00:17:27,656 --> 00:17:28,946
+So, what's the solution here?
+
+370
+00:17:29,506 --> 00:17:31,576
+You let Foundation do
+
+371
+00:17:32,296 --> 00:17:34,516
+We have a new formatter
+
+372
+00:17:35,186 --> 00:17:39,376
+It formatters both measurements
+
+373
+00:17:39,376 --> 00:17:40,836
+so you don't have to
+
+374
+00:17:42,156 --> 00:17:43,166
+So let's take a look at it.
+
+375
+00:17:43,776 --> 00:17:44,936
+Its subclass is Formatter.
+
+376
+00:17:44,936 --> 00:17:46,036
+If you're familiar with any
+
+377
+00:17:46,036 --> 00:17:48,426
+of our other formatters,
+
+378
+00:17:48,936 --> 00:17:52,456
+It has the unitOptions property,
+
+379
+00:17:52,456 --> 00:17:53,846
+about unitOptions in a second.
+
+380
+00:17:54,776 --> 00:17:55,746
+It also has unitStyle.
+
+381
+00:17:55,746 --> 00:17:56,796
+So, again, if you're familiar
+
+382
+00:17:56,796 --> 00:17:58,856
+with the other formatter,
+
+383
+00:17:59,436 --> 00:18:02,106
+It has a locale that's setable.
+
+384
+00:17:59,436 --> 00:18:02,106
+It has a locale that's setable.
+
+385
+00:18:02,276 --> 00:18:05,966
+Now, chances are, you're
+
+386
+00:18:06,076 --> 00:18:08,566
+to the current locale
+
+387
+00:18:08,566 --> 00:18:11,436
+which is what this locale
+
+388
+00:18:11,816 --> 00:18:15,446
+but if you needed to set
+
+389
+00:18:16,626 --> 00:18:18,456
+It also takes a custom
+
+390
+00:18:18,456 --> 00:18:21,596
+So, let's say you wanted your
+
+391
+00:18:21,596 --> 00:18:23,926
+to be represented in terms
+
+392
+00:18:24,116 --> 00:18:26,126
+you can provide a
+
+393
+00:18:26,126 --> 00:18:28,976
+to do that for you.
+
+394
+00:18:29,046 --> 00:18:30,476
+It also has methods that take
+
+395
+00:18:30,476 --> 00:18:32,976
+in both a Measurement
+
+396
+00:18:33,516 --> 00:18:36,916
+So let's talk a little bit
+
+397
+00:18:37,976 --> 00:18:39,866
+The cool thing is
+
+398
+00:18:39,986 --> 00:18:43,966
+by default the formatter formats
+
+399
+00:18:43,966 --> 00:18:45,066
+of your user's locale.
+
+400
+00:18:45,296 --> 00:18:46,596
+So, you don't even
+
+401
+00:18:47,066 --> 00:18:48,776
+It also takes into account
+
+402
+00:18:48,806 --> 00:18:52,446
+So, you know, if you're
+
+403
+00:18:52,446 --> 00:18:55,456
+of road distance verses in terms
+
+404
+00:18:55,456 --> 00:19:00,506
+to want to use different units
+
+405
+00:18:55,456 --> 00:19:00,506
+to want to use different units
+
+406
+00:19:00,506 --> 00:19:02,726
+So I'll take a look
+
+407
+00:19:02,726 --> 00:19:04,216
+that MeasurementFormatter
+
+408
+00:19:05,466 --> 00:19:08,536
+One is provided unit, and
+
+409
+00:19:08,536 --> 00:19:11,686
+where we want to pass in a
+
+410
+00:19:12,006 --> 00:19:15,766
+but our locale is the U.S. Now
+
+411
+00:19:15,766 --> 00:19:18,616
+for road distance for
+
+412
+00:19:18,936 --> 00:19:20,456
+because that's what's
+
+413
+00:19:20,956 --> 00:19:23,556
+But if you set provided
+
+414
+00:19:23,556 --> 00:19:26,726
+that whatever unit you
+
+415
+00:19:26,726 --> 00:19:27,796
+that actually gets formatted.
+
+416
+00:19:29,336 --> 00:19:31,416
+There's also an action
+
+417
+00:19:31,536 --> 00:19:36,126
+So, this is great in
+
+418
+00:19:36,156 --> 00:19:38,366
+So, if your, you know, your
+
+419
+00:19:38,696 --> 00:19:41,246
+and you're really concerned
+
+420
+00:19:41,996 --> 00:19:44,066
+then instead of putting
+
+421
+00:19:44,066 --> 00:19:46,376
+which would take up a
+
+422
+00:19:46,376 --> 00:19:48,876
+you can actually have it
+
+423
+00:19:49,386 --> 00:19:52,896
+Another is temperature
+
+424
+00:19:53,026 --> 00:19:54,456
+So let's say you
+
+425
+00:19:54,456 --> 00:19:56,236
+that represents 90
+
+426
+00:19:56,526 --> 00:19:58,086
+but you don't want
+
+427
+00:19:58,086 --> 00:19:58,926
+to actually show.
+
+428
+00:19:59,356 --> 00:20:03,676
+You can set this to get the
+
+429
+00:19:59,356 --> 00:20:03,676
+You can set this to get the
+
+430
+00:20:03,676 --> 00:20:05,356
+So, let's play around
+
+431
+00:20:05,356 --> 00:20:06,516
+We have our formatter here,
+
+432
+00:20:07,486 --> 00:20:09,996
+and we have our original
+
+433
+00:20:09,996 --> 00:20:11,876
+in five kilometers,
+
+434
+00:20:11,876 --> 00:20:12,456
+player danced.
+
+435
+00:20:13,336 --> 00:20:16,166
+And now we want to get a
+
+436
+00:20:17,086 --> 00:20:20,756
+You'll see that the result is
+
+437
+00:20:20,756 --> 00:20:22,496
+about this is that in
+
+438
+00:20:22,656 --> 00:20:24,756
+not only did we get the
+
+439
+00:20:25,056 --> 00:20:28,016
+but we didn't have to do
+
+440
+00:20:28,246 --> 00:20:30,586
+just out-of-the-box
+
+441
+00:20:30,786 --> 00:20:33,046
+it knew exactly what to do.
+
+442
+00:20:33,456 --> 00:20:36,206
+Now let's say that we give it
+
+443
+00:20:36,716 --> 00:20:38,536
+And Measurement,
+
+444
+00:20:38,536 --> 00:20:42,986
+that has no conception, no idea
+
+445
+00:20:44,296 --> 00:20:48,246
+but we create this hopz
+
+446
+00:20:48,376 --> 00:20:51,896
+to the formatter, and
+
+447
+00:20:51,896 --> 00:20:54,326
+to do the conversion
+
+448
+00:20:54,816 --> 00:20:58,286
+We don't have to do anything.
+
+449
+00:20:58,286 --> 00:21:01,146
+Now let's say though, you know,
+
+450
+00:20:58,286 --> 00:21:01,146
+Now let's say though, you know,
+
+451
+00:21:01,146 --> 00:21:02,526
+and we actually want
+
+452
+00:21:02,936 --> 00:21:04,106
+so we'll set provided unit.
+
+453
+00:21:05,036 --> 00:21:07,716
+We'll give it a measurement
+
+454
+00:21:08,626 --> 00:21:11,726
+And now the result will
+
+455
+00:21:11,726 --> 00:21:16,166
+Now this case is a
+
+456
+00:21:16,246 --> 00:21:19,396
+because not only are we
+
+457
+00:21:19,466 --> 00:21:21,216
+but we're also providing
+
+458
+00:21:21,216 --> 00:21:22,956
+within a custom dimension,
+
+459
+00:21:23,326 --> 00:21:25,906
+And so at this point, it's
+
+460
+00:21:25,906 --> 00:21:27,386
+what will MeasurementFormatter
+
+461
+00:21:28,456 --> 00:21:30,486
+Oh, well, it'll do
+
+462
+00:21:30,636 --> 00:21:31,376
+which is pretty awesome.
+
+463
+00:21:32,046 --> 00:21:35,896
+So, now, I'm going to hand
+
+464
+00:21:35,896 --> 00:21:38,376
+of the Foundation
+
+465
+00:21:38,376 --> 00:21:41,436
+to show how measurements
+
+466
+00:21:41,436 --> 00:21:43,926
+and formatted in the High
+
+467
+00:21:46,766 --> 00:21:46,966
+Thanks [applause].
+
+468
+00:21:47,166 --> 00:21:49,026
+&gt;&gt; Thank you, Daphne.
+
+469
+00:21:49,026 --> 00:21:50,666
+So, my name is Peter Hosey.
+
+470
+00:21:50,906 --> 00:21:53,176
+I am also an engineer
+
+471
+00:21:53,966 --> 00:21:57,176
+and like Daphne said, this
+
+472
+00:21:57,396 --> 00:21:59,986
+where we're showing a list
+
+473
+00:22:00,846 --> 00:22:04,236
+As you tap on each one,
+
+474
+00:22:04,236 --> 00:22:06,536
+about the level, the
+
+475
+00:22:07,196 --> 00:22:09,256
+You see some important
+
+476
+00:22:09,256 --> 00:22:11,356
+about playing the level,
+
+477
+00:22:12,496 --> 00:22:15,136
+And you even see your statistics
+
+478
+00:22:15,136 --> 00:22:17,446
+of how well you've
+
+479
+00:22:18,676 --> 00:22:21,516
+You see things like
+
+480
+00:22:21,516 --> 00:22:24,586
+how many wacky arm
+
+481
+00:22:25,236 --> 00:22:26,566
+You see how far you've danced.
+
+482
+00:22:26,566 --> 00:22:27,876
+You see how fast you've danced.
+
+483
+00:22:29,126 --> 00:22:31,956
+But these values are
+
+484
+00:22:32,596 --> 00:22:34,496
+They lack dimension.
+
+485
+00:22:35,936 --> 00:22:39,536
+So we don't know,
+
+486
+00:22:40,176 --> 00:22:46,986
+Now you could implement an
+
+487
+00:22:47,366 --> 00:22:50,506
+You could start small by just
+
+488
+00:22:50,506 --> 00:22:51,456
+of each of these numbers.
+
+489
+00:22:52,216 --> 00:22:54,316
+You could maybe build out
+
+490
+00:22:55,706 --> 00:22:57,956
+have a unit conversion system
+
+491
+00:22:57,956 --> 00:23:00,566
+that will understand
+
+492
+00:22:57,956 --> 00:23:00,566
+that will understand
+
+493
+00:23:00,566 --> 00:23:02,816
+and translate the unit
+
+494
+00:23:02,816 --> 00:23:05,156
+and that's a lot
+
+495
+00:23:05,256 --> 00:23:08,716
+Like Daphne said, let Foundation
+
+496
+00:23:08,716 --> 00:23:10,856
+We now have Measurement
+
+497
+00:23:10,856 --> 00:23:12,556
+and MeasurementFormatter
+
+498
+00:23:13,536 --> 00:23:15,976
+so let's use them in our game.
+
+499
+00:23:16,566 --> 00:23:21,096
+So we're going to start by
+
+500
+00:23:21,286 --> 00:23:23,486
+that Daphne showed you,
+
+501
+00:23:24,016 --> 00:23:27,336
+We've got a couple of length
+
+502
+00:23:27,896 --> 00:23:31,136
+and we have our four
+
+503
+00:23:31,136 --> 00:23:32,916
+that do not come
+
+504
+00:23:35,156 --> 00:23:38,346
+Now that we've got our custom
+
+505
+00:23:38,346 --> 00:23:40,876
+into our model, which
+
+506
+00:23:41,626 --> 00:23:44,226
+which has our basic
+
+507
+00:23:44,976 --> 00:23:47,356
+and includes the
+
+508
+00:23:47,356 --> 00:23:49,216
+which are just numbers.
+
+509
+00:23:49,576 --> 00:23:51,796
+So let's change them
+
+510
+00:23:52,276 --> 00:23:54,936
+So, now we have a measurement
+
+511
+00:23:54,936 --> 00:23:56,246
+of length, and a
+
+512
+00:23:56,706 --> 00:23:58,346
+and as we change the properties,
+
+513
+00:23:58,886 --> 00:24:00,596
+so much we change
+
+514
+00:23:58,886 --> 00:24:00,596
+so much we change
+
+515
+00:24:01,246 --> 00:24:04,056
+So, now it's possible to create
+
+516
+00:24:04,866 --> 00:24:08,636
+and we want to do that in
+
+517
+00:24:08,826 --> 00:24:10,976
+which is a controller for this
+
+518
+00:24:12,206 --> 00:24:16,246
+Our List ViewController
+
+519
+00:24:16,736 --> 00:24:21,496
+which returns a JSON list of
+
+520
+00:24:21,726 --> 00:24:23,376
+containing all of
+
+521
+00:24:24,836 --> 00:24:27,956
+And particularly includes
+
+522
+00:24:28,156 --> 00:24:29,166
+as just numbers.
+
+523
+00:24:29,836 --> 00:24:31,626
+So, we want to create
+
+524
+00:24:31,676 --> 00:24:32,976
+around these numbers,
+
+525
+00:24:34,086 --> 00:24:36,516
+so now this a number
+
+526
+00:24:36,776 --> 00:24:38,136
+This is a number of Hopz.
+
+527
+00:24:38,276 --> 00:24:40,546
+This is a number of hopzPerJamz.
+
+528
+00:24:41,286 --> 00:24:48,096
+Now that this information is in
+
+529
+00:24:48,096 --> 00:24:50,036
+as measurements in our
+
+530
+00:24:50,866 --> 00:24:52,266
+and that's the only
+
+531
+00:24:52,266 --> 00:24:53,116
+in the List ViewController.
+
+532
+00:24:54,276 --> 00:24:56,426
+Now we can go over to the
+
+533
+00:24:56,426 --> 00:24:59,886
+which is what shows this
+
+534
+00:25:00,136 --> 00:25:01,716
+for every one of these levels,
+
+535
+00:25:02,286 --> 00:25:07,386
+and we can use our
+
+536
+00:25:07,526 --> 00:25:11,716
+So, we already have
+
+537
+00:25:11,776 --> 00:25:14,756
+This is a NumberFormatter, and
+
+538
+00:25:14,896 --> 00:25:17,736
+to six digits with zeros,
+
+539
+00:25:18,236 --> 00:25:19,576
+but we want to build
+
+540
+00:25:19,576 --> 00:25:20,906
+We want to make this
+
+541
+00:25:21,476 --> 00:25:24,336
+So we're going to add
+
+542
+00:25:25,566 --> 00:25:27,096
+and I'll explain
+
+543
+00:25:28,336 --> 00:25:29,486
+Now that we've created them,
+
+544
+00:25:30,176 --> 00:25:32,856
+we go to the same place we're
+
+545
+00:25:32,856 --> 00:25:34,806
+formatter, which is in
+
+546
+00:25:35,146 --> 00:25:37,136
+This is inherited
+
+547
+00:25:37,136 --> 00:25:38,096
+and here we're overwriting it.
+
+548
+00:25:39,086 --> 00:25:41,236
+We configure the
+
+549
+00:25:41,236 --> 00:25:44,286
+with our minimum integer
+
+550
+00:25:44,286 --> 00:25:45,976
+to configure our
+
+551
+00:25:46,656 --> 00:25:49,226
+to use our provided unit,
+
+552
+00:25:49,936 --> 00:25:51,066
+which you can't tell
+
+553
+00:25:52,536 --> 00:25:54,346
+And use our NumberFormatter
+
+554
+00:25:54,586 --> 00:25:56,886
+so that we continue
+
+555
+00:25:58,286 --> 00:26:01,056
+And I mentioned we created
+
+556
+00:25:58,286 --> 00:26:01,056
+And I mentioned we created
+
+557
+00:26:01,056 --> 00:26:02,266
+so let's configure
+
+558
+00:26:03,076 --> 00:26:05,296
+This one we want to use the
+
+559
+00:26:05,296 --> 00:26:06,846
+so we're not going to
+
+560
+00:26:06,976 --> 00:26:13,186
+but we're still going to set
+
+561
+00:26:14,236 --> 00:26:18,986
+And now if I run that, oops, oh.
+
+562
+00:26:19,646 --> 00:26:21,946
+So, I've configured
+
+563
+00:26:22,576 --> 00:26:25,666
+Now I need to actually use the
+
+564
+00:26:27,316 --> 00:26:29,266
+So we're already
+
+565
+00:26:29,606 --> 00:26:31,766
+and we say sting
+
+566
+00:26:33,136 --> 00:26:34,496
+Well that worked fine
+
+567
+00:26:34,496 --> 00:26:35,326
+but now it's a measurement.
+
+568
+00:26:35,596 --> 00:26:37,566
+So now we need to talk to
+
+569
+00:26:37,566 --> 00:26:39,286
+Now, it's a simple
+
+570
+00:26:40,286 --> 00:26:41,596
+Otherwise, it's exactly
+
+571
+00:26:42,496 --> 00:26:43,736
+Works the same for
+
+572
+00:26:44,906 --> 00:26:47,426
+The other two we're creating
+
+573
+00:26:47,736 --> 00:26:49,806
+and you can imagine how
+
+574
+00:26:49,806 --> 00:26:50,976
+for your localization effort.
+
+575
+00:26:52,366 --> 00:26:53,806
+Here too we want
+
+576
+00:26:54,936 --> 00:26:57,916
+So, we'll use our other
+
+577
+00:26:58,076 --> 00:26:59,006
+again, the same thing.
+
+578
+00:26:59,006 --> 00:27:01,876
+We do string from, in this
+
+579
+00:26:59,006 --> 00:27:01,876
+We do string from, in this
+
+580
+00:27:02,016 --> 00:27:06,216
+and this returns a string,
+
+581
+00:27:07,276 --> 00:27:08,636
+So now we can run the app.
+
+582
+00:27:15,226 --> 00:27:17,626
+And now we see our
+
+583
+00:27:18,456 --> 00:27:21,196
+So this is a start, but,
+
+584
+00:27:21,336 --> 00:27:24,346
+we're still not really
+
+585
+00:27:24,346 --> 00:27:25,426
+which is our goal to start with.
+
+586
+00:27:26,216 --> 00:27:28,536
+We need to show these
+
+587
+00:27:29,326 --> 00:27:33,226
+So we could do some
+
+588
+00:27:33,716 --> 00:27:35,926
+but MeasurementFormatter
+
+589
+00:27:35,926 --> 00:27:39,596
+So, we're going to create one
+
+590
+00:27:40,346 --> 00:27:42,806
+and as we have the custom
+
+591
+00:27:43,046 --> 00:27:45,056
+we're also going to
+
+592
+00:27:45,136 --> 00:27:45,896
+MeasurementFormatter.
+
+593
+00:27:46,456 --> 00:27:49,666
+As we create it, same
+
+594
+00:27:49,666 --> 00:27:52,186
+except we don't' actually
+
+595
+00:27:52,776 --> 00:27:55,896
+because MeasurementFormatter
+
+596
+00:27:55,896 --> 00:27:58,956
+automatically to the unit
+
+597
+00:27:58,956 --> 00:28:00,816
+that the player expects
+
+598
+00:27:58,956 --> 00:28:00,816
+that the player expects
+
+599
+00:28:02,866 --> 00:28:06,806
+Now, this is where it's going
+
+600
+00:28:06,806 --> 00:28:07,726
+so bear with me a moment.
+
+601
+00:28:08,646 --> 00:28:11,246
+We're currently talking
+
+602
+00:28:11,526 --> 00:28:12,686
+asking it for one string,
+
+603
+00:28:12,846 --> 00:28:14,186
+and passing it directly
+
+604
+00:28:14,186 --> 00:28:21,016
+So what we're going to do
+
+605
+00:28:21,016 --> 00:28:23,926
+to the customUnitsMeasurement
+
+606
+00:28:24,206 --> 00:28:25,996
+get its string for
+
+607
+00:28:27,056 --> 00:28:29,676
+Then we talk to the
+
+608
+00:28:30,026 --> 00:28:31,836
+and get its string
+
+609
+00:28:32,726 --> 00:28:35,156
+And then we'll use a
+
+610
+00:28:35,386 --> 00:28:39,006
+to put these two things
+
+611
+00:28:39,006 --> 00:28:42,806
+that we will pass to the label,
+
+612
+00:28:42,806 --> 00:28:44,306
+and we do it also
+
+613
+00:28:44,836 --> 00:28:46,896
+And that's all we have to do.
+
+614
+00:28:53,136 --> 00:28:57,766
+In order to show both our
+
+615
+00:28:57,766 --> 00:28:59,186
+that the player expects
+
+616
+00:29:00,526 --> 00:29:01,626
+their real world distance.
+
+617
+00:29:02,516 --> 00:29:06,596
+[ Applause ]
+
+618
+00:29:07,096 --> 00:29:08,456
+But we don't need to stop there,
+
+619
+00:29:08,566 --> 00:29:11,796
+because remember the goal
+
+620
+00:29:11,796 --> 00:29:13,096
+over the world in every country.
+
+621
+00:29:14,096 --> 00:29:16,026
+So miles is great in
+
+622
+00:29:16,026 --> 00:29:16,896
+we're in the United States.
+
+623
+00:29:16,896 --> 00:29:17,646
+We see miles.
+
+624
+00:29:17,646 --> 00:29:20,206
+But we want to make sure
+
+625
+00:29:21,236 --> 00:29:25,246
+So I'm going to make use of
+
+626
+00:29:25,246 --> 00:29:28,966
+of your scheme, so I'm going
+
+627
+00:29:39,356 --> 00:29:40,846
+I'm going to duplicate
+
+628
+00:29:41,376 --> 00:29:43,826
+and when it duplicates
+
+629
+00:29:43,826 --> 00:29:47,556
+It's going to ask me for a
+
+630
+00:29:47,726 --> 00:29:49,936
+to give my scheme a
+
+631
+00:29:50,696 --> 00:29:56,766
+And now, having named my scheme,
+
+632
+00:29:57,346 --> 00:30:00,816
+I'm going to make one simple
+
+633
+00:29:57,346 --> 00:30:00,816
+I'm going to make one simple
+
+634
+00:30:03,066 --> 00:30:06,506
+Options tab, Application Region.
+
+635
+00:30:07,536 --> 00:30:14,586
+I'm going to our testing into an
+
+636
+00:30:15,396 --> 00:30:21,776
+And now, I'm going to
+
+637
+00:30:21,996 --> 00:30:24,256
+and with no code
+
+638
+00:30:24,256 --> 00:30:26,686
+with no configuration
+
+639
+00:30:26,906 --> 00:30:29,746
+just changing the scheme, we
+
+640
+00:30:29,796 --> 00:30:30,926
+this shows kilometers.
+
+641
+00:30:32,976 --> 00:30:35,006
+That's all you have to
+
+642
+00:30:35,006 --> 00:30:36,576
+with our new Measurement
+
+643
+00:30:36,576 --> 00:30:38,666
+and MeasurementFormatter
+
+644
+00:30:38,986 --> 00:30:39,316
+Thank you [applause].
+
+645
+00:30:40,276 --> 00:30:42,966
+Thank you, Daphne.
+
+646
+00:30:43,396 --> 00:30:44,316
+&gt;&gt; Thanks so much, Peter.
+
+647
+00:30:44,316 --> 00:30:46,616
+So, obviously this game
+
+648
+00:30:46,616 --> 00:30:50,446
+I'm, like, super
+
+649
+00:30:50,706 --> 00:30:51,946
+Let's wrap up real quick though.
+
+650
+00:30:52,206 --> 00:30:55,966
+So, we just saw throughout
+
+651
+00:30:55,966 --> 00:30:59,246
+and in the demo how Measurements
+
+652
+00:30:59,246 --> 00:31:01,306
+that we can use in our apps,
+
+653
+00:30:59,246 --> 00:31:01,306
+that we can use in our apps,
+
+654
+00:31:01,776 --> 00:31:04,096
+We also saw that it's
+
+655
+00:31:04,126 --> 00:31:09,246
+and they require very little
+
+656
+00:31:09,246 --> 00:31:12,556
+And the best part
+
+657
+00:31:12,556 --> 00:31:15,886
+of this very powerful
+
+658
+00:31:15,886 --> 00:31:19,126
+without having to specify
+
+659
+00:31:19,126 --> 00:31:20,316
+just right out of the box.
+
+660
+00:31:21,216 --> 00:31:22,336
+So, now you don't actually have
+
+661
+00:31:22,386 --> 00:31:25,056
+to suddenly become a
+
+662
+00:31:25,596 --> 00:31:27,876
+change all the logic
+
+663
+00:31:27,926 --> 00:31:29,076
+to be able to support this.
+
+664
+00:31:29,136 --> 00:31:30,786
+You could just use it as-is.
+
+665
+00:31:31,676 --> 00:31:34,516
+If you'd like more information,
+
+666
+00:31:34,646 --> 00:31:37,776
+These sessions are
+
+667
+00:31:37,886 --> 00:31:39,656
+but if you're super
+
+668
+00:31:39,656 --> 00:31:41,396
+I would recommend
+
+669
+00:31:42,766 --> 00:31:43,816
+and thank you so much.
+
+670
+00:31:44,516 --> 00:31:48,500
+[ Applause ]

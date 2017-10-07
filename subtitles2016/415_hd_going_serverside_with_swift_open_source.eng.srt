@@ -1,0 +1,3191 @@
+1
+00:00:06,516 --> 00:00:17,500
+[ Music ]
+
+2
+00:00:21,516 --> 00:00:28,366
+[ Applause ]
+
+3
+00:00:28,866 --> 00:00:29,206
+&gt;&gt; Welcome.
+
+4
+00:00:29,356 --> 00:00:32,436
+My name's Philippe Hausler, and
+
+5
+00:00:32,646 --> 00:00:35,656
+and today we're going to
+
+6
+00:00:36,076 --> 00:00:38,406
+We'll go over why Server-Side
+
+7
+00:00:38,696 --> 00:00:42,526
+how all the pieces fit together,
+
+8
+00:00:42,796 --> 00:00:46,086
+what you don't, some real-world
+
+9
+00:00:46,086 --> 00:00:49,546
+on the server, and, most
+
+10
+00:00:49,696 --> 00:00:51,896
+to contribute to making
+
+11
+00:00:53,516 --> 00:00:56,066
+Modern application
+
+12
+00:00:56,066 --> 00:00:57,176
+for one platform.
+
+13
+00:00:57,666 --> 00:00:58,906
+It's an ecosystem.
+
+14
+00:00:59,206 --> 00:01:01,146
+You'd be hard pressed
+
+15
+00:00:59,206 --> 00:01:01,146
+You'd be hard pressed
+
+16
+00:01:01,506 --> 00:01:03,886
+that doesn't have some sort
+
+17
+00:01:04,306 --> 00:01:06,836
+be it from analytics,
+
+18
+00:01:07,136 --> 00:01:08,916
+or shared state being
+
+19
+00:01:09,346 --> 00:01:10,966
+servers are an integral
+
+20
+00:01:10,966 --> 00:01:12,986
+in making rich and
+
+21
+00:01:14,106 --> 00:01:16,206
+Now building the
+
+22
+00:01:16,406 --> 00:01:19,386
+often there are contact
+
+23
+00:01:20,706 --> 00:01:23,966
+You end up humming along,
+
+24
+00:01:24,306 --> 00:01:26,166
+and the next thing you
+
+25
+00:01:26,166 --> 00:01:27,296
+in a different language.
+
+26
+00:01:27,436 --> 00:01:30,576
+This can cause downtime and
+
+27
+00:01:30,626 --> 00:01:33,586
+and we all know how much we
+
+28
+00:01:33,586 --> 00:01:34,066
+in code.
+
+29
+00:01:35,426 --> 00:01:37,916
+But Swift running on the
+
+30
+00:01:37,916 --> 00:01:40,646
+to just provide a seamless
+
+31
+00:01:40,936 --> 00:01:43,866
+but also a richer and more
+
+32
+00:01:44,416 --> 00:01:46,476
+By sharing the right
+
+33
+00:01:46,806 --> 00:01:48,716
+time can be saved not
+
+34
+00:01:48,806 --> 00:01:51,216
+but also testing and QA.
+
+35
+00:01:51,816 --> 00:01:53,216
+But it's not just the language.
+
+36
+00:01:53,466 --> 00:01:54,166
+It's the API's.
+
+37
+00:01:55,196 --> 00:01:57,996
+It's often hard to disambiguate
+
+38
+00:01:57,996 --> 00:02:01,246
+from the construction of
+
+39
+00:01:57,996 --> 00:02:01,246
+from the construction of
+
+40
+00:02:01,246 --> 00:02:04,476
+like strings, arrays,
+
+41
+00:02:04,916 --> 00:02:06,626
+They often become a core set
+
+42
+00:02:06,626 --> 00:02:08,866
+of libraries expressing
+
+43
+00:02:09,196 --> 00:02:12,086
+And with that, it brings us
+
+44
+00:02:12,146 --> 00:02:15,186
+not just on the server,
+
+45
+00:02:15,186 --> 00:02:16,486
+on all platforms.
+
+46
+00:02:17,906 --> 00:02:19,836
+As in early design
+
+47
+00:02:20,226 --> 00:02:23,596
+Swift wouldn't just be
+
+48
+00:02:23,746 --> 00:02:27,516
+It can by its very nature
+
+49
+00:02:27,636 --> 00:02:30,756
+and with the community's help,
+
+50
+00:02:30,756 --> 00:02:33,326
+to be realized with
+
+51
+00:02:33,326 --> 00:02:36,146
+like [inaudible] SD,
+
+52
+00:02:36,146 --> 00:02:38,706
+and even things like
+
+53
+00:02:39,016 --> 00:02:41,206
+Some pretty exciting stuff.
+
+54
+00:02:42,146 --> 00:02:45,346
+On all of these, Swift relies
+
+55
+00:02:45,706 --> 00:02:48,166
+Building on top of that, you
+
+56
+00:02:48,606 --> 00:02:51,366
+It provides some of those
+
+57
+00:02:51,366 --> 00:02:53,566
+blocks and data structures.
+
+58
+00:02:54,096 --> 00:02:58,266
+On Darwin, we have an
+
+59
+00:02:58,536 --> 00:03:01,526
+that aids system frameworks
+
+60
+00:02:58,536 --> 00:03:01,526
+that aids system frameworks
+
+61
+00:03:01,996 --> 00:03:06,096
+but since there is no foundation
+
+62
+00:03:06,376 --> 00:03:08,886
+a portable interface
+
+63
+00:03:08,886 --> 00:03:10,406
+in those fundamental pieces.
+
+64
+00:03:10,926 --> 00:03:13,926
+We started off with an outline
+
+65
+00:03:13,926 --> 00:03:16,216
+and a few initial
+
+66
+00:03:16,306 --> 00:03:19,936
+and with the community, we have
+
+67
+00:03:19,936 --> 00:03:21,826
+that are needed for
+
+68
+00:03:23,256 --> 00:03:25,126
+So when you application
+
+69
+00:03:25,456 --> 00:03:26,786
+you can see that all
+
+70
+00:03:26,786 --> 00:03:30,356
+of the pieces just fit together
+
+71
+00:03:30,766 --> 00:03:33,666
+With Swift built in this
+
+72
+00:03:33,746 --> 00:03:37,466
+you can pick the right pieces
+
+73
+00:03:37,466 --> 00:03:39,816
+for the server and use
+
+74
+00:03:39,816 --> 00:03:42,666
+that you're used to using.
+
+75
+00:03:42,766 --> 00:03:45,446
+Swift.org is the central place
+
+76
+00:03:45,446 --> 00:03:47,806
+for getting the most
+
+77
+00:03:47,806 --> 00:03:50,026
+Signing up for the
+
+78
+00:03:50,026 --> 00:03:53,306
+for the GitHub repositories or
+
+79
+00:03:53,786 --> 00:03:56,116
+or a great place to
+
+80
+00:03:56,116 --> 00:03:58,116
+on the most recent
+
+81
+00:03:58,156 --> 00:04:00,726
+It is the place for
+
+82
+00:03:58,156 --> 00:04:00,726
+It is the place for
+
+83
+00:04:01,596 --> 00:04:04,336
+So what comes in this toolbox?
+
+84
+00:04:05,316 --> 00:04:07,466
+Out of the box, you get
+
+85
+00:04:07,466 --> 00:04:09,176
+on both Linux and Mac.
+
+86
+00:04:09,846 --> 00:04:13,426
+So you can develop on your Mac
+
+87
+00:04:13,616 --> 00:04:16,456
+There are continuous
+
+88
+00:04:16,456 --> 00:04:21,656
+that the changes that are made
+
+89
+00:04:21,766 --> 00:04:23,706
+and continuously integrate
+
+90
+00:04:23,706 --> 00:04:25,856
+so that everything
+
+91
+00:04:25,856 --> 00:04:28,316
+You have the standard library.
+
+92
+00:04:28,746 --> 00:04:32,106
+That gives you those basic
+
+93
+00:04:32,106 --> 00:04:34,176
+structures, and types
+
+94
+00:04:34,176 --> 00:04:36,096
+in building any Swift
+
+95
+00:04:36,916 --> 00:04:40,966
+but you also get Foundation,
+
+96
+00:04:40,966 --> 00:04:43,086
+within the, the Swift
+
+97
+00:04:43,586 --> 00:04:46,326
+These give you a cross
+
+98
+00:04:46,416 --> 00:04:49,476
+that can keep your code
+
+99
+00:04:49,476 --> 00:04:51,116
+across multiple platforms.
+
+100
+00:04:52,016 --> 00:04:54,986
+But you also get a suite of
+
+101
+00:04:55,296 --> 00:04:59,136
+and debugging Swift apps as well
+
+102
+00:04:59,136 --> 00:05:02,346
+try out some of those new
+
+103
+00:04:59,136 --> 00:05:02,346
+try out some of those new
+
+104
+00:05:02,346 --> 00:05:05,126
+of these things on
+
+105
+00:05:06,896 --> 00:05:09,806
+Now there are a few things
+
+106
+00:05:10,046 --> 00:05:12,836
+There was a design, a design
+
+107
+00:05:12,836 --> 00:05:15,696
+that some things just
+
+108
+00:05:15,766 --> 00:05:18,676
+in a cross platform nature,
+
+109
+00:05:18,746 --> 00:05:21,886
+better served to let developers
+
+110
+00:05:21,966 --> 00:05:23,466
+since they're highly
+
+111
+00:05:24,646 --> 00:05:27,036
+New platforms are not just code.
+
+112
+00:05:27,556 --> 00:05:30,476
+They are continuous
+
+113
+00:05:30,476 --> 00:05:32,036
+and the champions reporting
+
+114
+00:05:32,036 --> 00:05:36,436
+to new platforms usually know
+
+115
+00:05:38,416 --> 00:05:42,116
+User interface is a very
+
+116
+00:05:42,586 --> 00:05:44,446
+On iOS, you have UIKit.
+
+117
+00:05:44,896 --> 00:05:48,866
+On Mac, you have
+
+118
+00:05:48,866 --> 00:05:51,076
+that they share a
+
+119
+00:05:51,146 --> 00:05:53,636
+there have to be
+
+120
+00:05:53,636 --> 00:05:55,556
+because they're solving
+
+121
+00:05:56,426 --> 00:06:00,016
+For that matter, UI
+
+122
+00:05:56,426 --> 00:06:00,016
+For that matter, UI
+
+123
+00:06:00,016 --> 00:06:04,746
+and sometimes the user in user
+
+124
+00:06:04,746 --> 00:06:06,696
+instead, it's another
+
+125
+00:06:06,746 --> 00:06:08,776
+that is routing a
+
+126
+00:06:09,586 --> 00:06:12,996
+These are all clearly something
+
+127
+00:06:13,826 --> 00:06:16,326
+Now deploying your
+
+128
+00:06:16,326 --> 00:06:18,166
+and of itself is a
+
+129
+00:06:18,616 --> 00:06:21,236
+This way you can pick
+
+130
+00:06:21,236 --> 00:06:26,086
+that fits your requirements,
+
+131
+00:06:26,086 --> 00:06:27,676
+of course, your application.
+
+132
+00:06:28,526 --> 00:06:31,806
+This shouldn't have to be tied
+
+133
+00:06:31,916 --> 00:06:34,506
+Running on the server, you
+
+134
+00:06:34,506 --> 00:06:36,406
+running with multiple
+
+135
+00:06:37,826 --> 00:06:41,126
+It's amazing to see the
+
+136
+00:06:41,126 --> 00:06:44,266
+and sharing community,
+
+137
+00:06:44,266 --> 00:06:46,296
+of the great things,
+
+138
+00:06:46,296 --> 00:06:47,926
+to enrich the Swift ecosystem.
+
+139
+00:06:48,406 --> 00:06:52,926
+There have already been some
+
+140
+00:06:52,926 --> 00:06:56,286
+of these areas and more,
+
+141
+00:06:56,286 --> 00:06:59,856
+over at IBM have been making
+
+142
+00:07:00,406 --> 00:07:02,856
+We've gone over some
+
+143
+00:07:02,856 --> 00:07:04,586
+So let's dive a little
+
+144
+00:07:04,866 --> 00:07:07,246
+So here to present some
+
+145
+00:07:07,516 --> 00:07:10,086
+of how they're, they are
+
+146
+00:07:10,086 --> 00:07:12,566
+at IBM is John Ponzo
+
+147
+00:07:13,516 --> 00:07:20,336
+[ Applause ]
+
+148
+00:07:20,836 --> 00:07:21,476
+&gt;&gt; Thank you, Philippe.
+
+149
+00:07:22,086 --> 00:07:23,626
+Hi. My name is John Ponzo.
+
+150
+00:07:23,626 --> 00:07:26,226
+I'm the Technical Leader for
+
+151
+00:07:26,226 --> 00:07:29,726
+and I'm thrilled to
+
+152
+00:07:30,026 --> 00:07:34,936
+We at IBM are very excited about
+
+153
+00:07:34,936 --> 00:07:36,896
+of the open source, and
+
+154
+00:07:36,896 --> 00:07:37,646
+for the language.
+
+155
+00:07:38,936 --> 00:07:41,956
+For those unfamiliar, let me
+
+156
+00:07:41,956 --> 00:07:43,656
+and our involvement with Swift.
+
+157
+00:07:44,426 --> 00:07:47,046
+Apple and IBM announced
+
+158
+00:07:47,046 --> 00:07:50,436
+on enterprise apps
+
+159
+00:07:51,096 --> 00:07:54,486
+And, subsequently, IBM became
+
+160
+00:07:54,486 --> 00:07:58,676
+of Swift when it was announced
+
+161
+00:07:59,546 --> 00:08:01,346
+Since that time, we've created
+
+162
+00:07:59,546 --> 00:08:01,346
+Since that time, we've created
+
+163
+00:08:01,346 --> 00:08:03,906
+over 100 enterprise
+
+164
+00:08:04,736 --> 00:08:08,076
+building those apps and
+
+165
+00:08:08,596 --> 00:08:12,026
+and we also have one of
+
+166
+00:08:12,026 --> 00:08:15,126
+of Swift developers at IBM
+
+167
+00:08:16,296 --> 00:08:18,636
+Our experience building
+
+168
+00:08:18,636 --> 00:08:22,216
+and solutions consistently
+
+169
+00:08:22,216 --> 00:08:25,066
+of the backend, enabling
+
+170
+00:08:26,166 --> 00:08:29,036
+As developers, we know
+
+171
+00:08:29,316 --> 00:08:33,556
+to have a backend, to enable
+
+172
+00:08:34,966 --> 00:08:37,446
+We also know it's
+
+173
+00:08:37,446 --> 00:08:40,666
+and safely deploy the right
+
+174
+00:08:41,256 --> 00:08:42,596
+and that's why we're so excited
+
+175
+00:08:42,596 --> 00:08:46,546
+to help bring Swift
+
+176
+00:08:46,956 --> 00:08:48,696
+We appreciate the
+
+177
+00:08:48,696 --> 00:08:52,586
+around Swift.org community,
+
+178
+00:08:52,786 --> 00:08:55,596
+to code contributions and
+
+179
+00:08:55,596 --> 00:08:56,246
+that are forming.
+
+180
+00:08:56,986 --> 00:08:59,756
+I'd like to highlight some of
+
+181
+00:08:59,756 --> 00:09:02,726
+at IBM to help the open
+
+182
+00:08:59,756 --> 00:09:02,726
+at IBM to help the open
+
+183
+00:09:02,726 --> 00:09:03,326
+to the server.
+
+184
+00:09:04,726 --> 00:09:07,156
+First, I'll tell you about
+
+185
+00:09:07,256 --> 00:09:09,466
+and tell you about
+
+186
+00:09:09,606 --> 00:09:12,666
+and Swift package catalog
+
+187
+00:09:12,666 --> 00:09:16,316
+to help developers to
+
+188
+00:09:16,506 --> 00:09:18,266
+and share Swift assets.
+
+189
+00:09:19,856 --> 00:09:23,716
+Next, we are motivated by
+
+190
+00:09:24,106 --> 00:09:26,896
+that links the client and
+
+191
+00:09:27,166 --> 00:09:30,046
+we created the Kitura web
+
+192
+00:09:30,046 --> 00:09:32,776
+to motivate and prioritize
+
+193
+00:09:33,036 --> 00:09:36,556
+into the core libraries of
+
+194
+00:09:38,176 --> 00:09:41,296
+And next, Cloud enablement
+
+195
+00:09:41,296 --> 00:09:44,446
+of the development
+
+196
+00:09:44,506 --> 00:09:48,316
+to make it even easier and fun
+
+197
+00:09:48,786 --> 00:09:51,836
+Through early support in the
+
+198
+00:09:51,836 --> 00:09:56,736
+and the introduction of
+
+199
+00:09:56,976 --> 00:10:00,566
+to help deploy that
+
+200
+00:09:56,976 --> 00:10:00,566
+to help deploy that
+
+201
+00:10:01,916 --> 00:10:03,896
+When Swift.org was
+
+202
+00:10:04,296 --> 00:10:06,716
+one of the first things
+
+203
+00:10:06,716 --> 00:10:08,636
+to help grow the
+
+204
+00:10:09,476 --> 00:10:11,566
+We saw the value of the
+
+205
+00:10:11,566 --> 00:10:14,046
+to quickly introduce
+
+206
+00:10:14,586 --> 00:10:18,296
+We created the Sandbox that
+
+207
+00:10:18,676 --> 00:10:21,646
+to easily run and
+
+208
+00:10:22,316 --> 00:10:25,346
+The Sandbox runs in a
+
+209
+00:10:25,346 --> 00:10:28,816
+you can easily start writing
+
+210
+00:10:29,016 --> 00:10:30,596
+and see the execution
+
+211
+00:10:31,616 --> 00:10:34,636
+Since we released the
+
+212
+00:10:34,636 --> 00:10:37,546
+of enhancements based on
+
+213
+00:10:38,146 --> 00:10:42,916
+The Sandbox currently supports
+
+214
+00:10:44,056 --> 00:10:46,336
+autosaving of code,
+
+215
+00:10:46,736 --> 00:10:48,586
+to select multiple
+
+216
+00:10:49,266 --> 00:10:52,836
+Also, to help developers to
+
+217
+00:10:52,836 --> 00:10:56,796
+around Swift, we added code
+
+218
+00:10:56,796 --> 00:10:58,016
+by a persistent URL.
+
+219
+00:10:58,516 --> 00:11:01,936
+You could use this to share
+
+220
+00:10:58,516 --> 00:11:01,936
+You could use this to share
+
+221
+00:11:02,256 --> 00:11:04,576
+and developer forums
+
+222
+00:11:11,176 --> 00:11:14,816
+Thank you, and we've seen
+
+223
+00:11:14,816 --> 00:11:17,286
+in the Sandbox since we
+
+224
+00:11:17,756 --> 00:11:20,406
+and this is over
+
+225
+00:11:20,786 --> 00:11:22,616
+since just this February.
+
+226
+00:11:24,006 --> 00:11:26,656
+And the Sandbox is
+
+227
+00:11:26,656 --> 00:11:28,976
+to Swift from other platforms.
+
+228
+00:11:29,726 --> 00:11:33,496
+In fact, we're seeing
+
+229
+00:11:33,636 --> 00:11:36,126
+in executions and
+
+230
+00:11:36,126 --> 00:11:37,706
+from other operating systems.
+
+231
+00:11:38,016 --> 00:11:39,286
+We're very pleased to see this,
+
+232
+00:11:39,566 --> 00:11:42,176
+and we'd like to see
+
+233
+00:11:43,736 --> 00:11:46,196
+We're also seeing usage
+
+234
+00:11:46,786 --> 00:11:50,456
+Developers using the Sandbox
+
+235
+00:11:51,466 --> 00:11:54,336
+Our intent is to continue
+
+236
+00:11:54,336 --> 00:11:56,566
+to help grow the community.
+
+237
+00:11:59,016 --> 00:12:03,206
+A vibrant package ecosystem
+
+238
+00:11:59,016 --> 00:12:03,206
+A vibrant package ecosystem
+
+239
+00:12:04,236 --> 00:12:07,706
+While the Swift Package Manager
+
+240
+00:12:07,706 --> 00:12:10,066
+technology, everything
+
+241
+00:12:10,066 --> 00:12:13,256
+on the server is based on
+
+242
+00:12:13,256 --> 00:12:14,526
+of Swift-based packages.
+
+243
+00:12:15,516 --> 00:12:18,276
+Because of this, we found
+
+244
+00:12:18,736 --> 00:12:20,586
+and to publish our own packages.
+
+245
+00:12:21,066 --> 00:12:23,806
+So we created the Swift package
+
+246
+00:12:24,556 --> 00:12:26,826
+We continue to update
+
+247
+00:12:27,106 --> 00:12:30,346
+as the Swift Package Manager
+
+248
+00:12:31,286 --> 00:12:36,156
+And today we have over 1,500
+
+249
+00:12:36,156 --> 00:12:37,936
+packages on the catalog,
+
+250
+00:12:38,636 --> 00:12:41,366
+and this is up 400
+
+251
+00:12:43,896 --> 00:12:46,866
+Next, when we start
+
+252
+00:12:47,386 --> 00:12:48,876
+a foundational requirement
+
+253
+00:12:48,916 --> 00:12:51,256
+for any server language
+
+254
+00:12:51,256 --> 00:12:52,976
+to stand up web interfaces.
+
+255
+00:12:53,966 --> 00:12:56,406
+While web frameworks are
+
+256
+00:12:56,406 --> 00:13:00,086
+on ports and routing code
+
+257
+00:12:56,406 --> 00:13:00,086
+on ports and routing code
+
+258
+00:13:01,036 --> 00:13:03,576
+we thought it was very
+
+259
+00:13:03,576 --> 00:13:05,176
+as consistent as possible
+
+260
+00:13:05,176 --> 00:13:06,846
+with the client-side
+
+261
+00:13:07,676 --> 00:13:09,866
+And towards that end, we
+
+262
+00:13:10,956 --> 00:13:13,146
+We open source Kitura
+
+263
+00:13:13,826 --> 00:13:16,496
+It's a modular package
+
+264
+00:13:17,786 --> 00:13:21,296
+It leverages libdispatch and
+
+265
+00:13:21,526 --> 00:13:23,026
+and utility library support.
+
+266
+00:13:25,256 --> 00:13:28,686
+It's also driving IBM's
+
+267
+00:13:30,126 --> 00:13:33,626
+We're using Kitura to build
+
+268
+00:13:34,916 --> 00:13:36,836
+and we're working with the
+
+269
+00:13:36,836 --> 00:13:40,306
+of committers outside of IBM
+
+270
+00:13:41,036 --> 00:13:42,946
+It's an important part
+
+271
+00:13:42,946 --> 00:13:44,646
+to server enable Swift.
+
+272
+00:13:45,506 --> 00:13:51,066
+We're also optimizing our Cloud
+
+273
+00:13:51,756 --> 00:13:54,556
+And I'm pleased to
+
+274
+00:13:54,666 --> 00:13:57,616
+to our Cloud foundry-based
+
+275
+00:13:58,166 --> 00:13:59,776
+that includes everything
+
+276
+00:14:00,146 --> 00:14:03,286
+to rapidly deploy your
+
+277
+00:14:03,386 --> 00:14:04,356
+to the IBM Cloud.
+
+278
+00:14:05,396 --> 00:14:08,326
+These build packs include the
+
+279
+00:14:08,696 --> 00:14:11,956
+core libraries, and
+
+280
+00:14:12,186 --> 00:14:14,376
+They're needed to deploy
+
+281
+00:14:16,476 --> 00:14:20,566
+But in addition, development
+
+282
+00:14:20,566 --> 00:14:23,076
+to announce IBM Cloud
+
+283
+00:14:23,316 --> 00:14:25,906
+a Mac companion application
+
+284
+00:14:25,906 --> 00:14:28,606
+to easily build end-to-end
+
+285
+00:14:29,796 --> 00:14:31,396
+The tool helps you to quickly
+
+286
+00:14:31,396 --> 00:14:35,056
+and easily connect
+
+287
+00:14:35,136 --> 00:14:37,756
+with service-side Swift
+
+288
+00:14:38,636 --> 00:14:41,606
+Just continue developing
+
+289
+00:14:41,796 --> 00:14:45,756
+and service-side projects
+
+290
+00:14:45,816 --> 00:14:49,636
+to link those projects and
+
+291
+00:14:50,746 --> 00:14:53,496
+Now with that introduction, I'd
+
+292
+00:14:53,496 --> 00:14:54,896
+Patrick Bohrer, up to the stage
+
+293
+00:14:54,896 --> 00:14:57,706
+who will show you
+
+294
+00:14:58,516 --> 00:15:05,126
+[ Applause ]
+
+295
+00:14:58,516 --> 00:15:05,126
+[ Applause ]
+
+296
+00:15:05,626 --> 00:15:06,116
+&gt;&gt; Thanks, John.
+
+297
+00:15:06,386 --> 00:15:07,146
+I'm Pat Bohrer.
+
+298
+00:15:07,486 --> 00:15:09,026
+I'm the Technical Lead for a lot
+
+299
+00:15:09,026 --> 00:15:10,886
+of the fun stuff we're
+
+300
+00:15:11,346 --> 00:15:14,566
+So we're thrilled to be
+
+301
+00:15:14,566 --> 00:15:16,356
+to be leading what
+
+302
+00:15:16,356 --> 00:15:17,686
+and exciting part
+
+303
+00:15:18,366 --> 00:15:20,926
+It's fun because I'm going to be
+
+304
+00:15:20,926 --> 00:15:23,506
+on the server, and it's
+
+305
+00:15:23,506 --> 00:15:25,876
+of my demos are dependent on a
+
+306
+00:15:25,876 --> 00:15:27,756
+So wish me luck.
+
+307
+00:15:30,846 --> 00:15:34,366
+So as we talk about server-side
+
+308
+00:15:34,366 --> 00:15:36,666
+of things to a lot of
+
+309
+00:15:36,666 --> 00:15:37,466
+and for this session,
+
+310
+00:15:37,466 --> 00:15:39,506
+we're really talking
+
+311
+00:15:41,246 --> 00:15:42,806
+So what are web services?
+
+312
+00:15:43,276 --> 00:15:45,516
+In a very simple
+
+313
+00:15:45,516 --> 00:15:46,906
+that are off running
+
+314
+00:15:47,916 --> 00:15:48,456
+They're listening.
+
+315
+00:15:48,996 --> 00:15:50,526
+They're listening for
+
+316
+00:15:51,356 --> 00:15:53,056
+They're responsible for
+
+317
+00:15:53,056 --> 00:15:56,236
+to some server-side logic,
+
+318
+00:15:56,916 --> 00:15:59,326
+And now as far as what's out
+
+319
+00:15:59,326 --> 00:16:00,596
+it could be another application.
+
+320
+00:15:59,326 --> 00:16:00,596
+it could be another application.
+
+321
+00:16:01,126 --> 00:16:01,836
+Who knows?
+
+322
+00:16:01,836 --> 00:16:02,856
+It could be another service,
+
+323
+00:16:03,266 --> 00:16:05,126
+but as simple level,
+
+324
+00:16:05,586 --> 00:16:07,846
+So to get started, that
+
+325
+00:16:08,756 --> 00:16:14,366
+Let's go ahead and jump in,
+
+326
+00:16:15,076 --> 00:16:16,266
+OK. So as I mentioned,
+
+327
+00:16:17,126 --> 00:16:19,496
+oftentimes these web
+
+328
+00:16:19,496 --> 00:16:21,926
+and we've heard about
+
+329
+00:16:22,236 --> 00:16:23,426
+So let's go ahead
+
+330
+00:16:23,426 --> 00:16:25,346
+for this first demo
+
+331
+00:16:25,486 --> 00:16:27,596
+Let's go ahead and do that.
+
+332
+00:16:28,546 --> 00:16:29,966
+So here we have Linux
+
+333
+00:16:29,966 --> 00:16:31,516
+Make sure I'm not lying.
+
+334
+00:16:32,466 --> 00:16:34,526
+So let's go ahead and
+
+335
+00:16:34,526 --> 00:16:35,886
+to do some, to play around.
+
+336
+00:16:35,886 --> 00:16:38,256
+So we'll very creatively
+
+337
+00:16:39,456 --> 00:16:40,556
+You can see we have
+
+338
+00:16:41,566 --> 00:16:43,446
+And now we'll use the
+
+339
+00:16:43,446 --> 00:16:46,206
+So every, as John mentioned,
+
+340
+00:16:47,026 --> 00:16:49,146
+on server-side is
+
+341
+00:16:49,516 --> 00:16:51,296
+And so we're going to
+
+342
+00:16:51,296 --> 00:16:54,526
+of the Swift Package Manager
+
+343
+00:16:54,526 --> 00:16:58,136
+this syntax changes, but for the
+
+344
+00:16:58,186 --> 00:17:00,456
+it has an initialization step.
+
+345
+00:16:58,186 --> 00:17:00,456
+it has an initialization step.
+
+346
+00:17:01,226 --> 00:17:02,706
+And so if we issue this command,
+
+347
+00:17:03,116 --> 00:17:04,826
+we can see that it's
+
+348
+00:17:05,726 --> 00:17:10,195
+So based on the structure
+
+349
+00:17:11,046 --> 00:17:13,606
+the Swift Package Manager knows
+
+350
+00:17:13,945 --> 00:17:17,976
+And so as you can see here,
+
+351
+00:17:18,506 --> 00:17:21,935
+and it's created a Sources.main,
+
+352
+00:17:21,935 --> 00:17:24,146
+to build a Swift, a
+
+353
+00:17:24,806 --> 00:17:26,906
+So with that said, let's
+
+354
+00:17:27,226 --> 00:17:30,586
+So we can issue Swift build,
+
+355
+00:17:30,966 --> 00:17:35,386
+And so it's created a
+
+356
+00:17:35,386 --> 00:17:38,056
+So let's run that.
+
+357
+00:17:38,056 --> 00:17:39,396
+Ah. Hello world.
+
+358
+00:17:44,976 --> 00:17:46,196
+But we're building web services.
+
+359
+00:17:46,196 --> 00:17:49,776
+So let's get real.
+
+360
+00:17:49,976 --> 00:17:53,496
+OK. So here, this is what
+
+361
+00:17:53,496 --> 00:17:54,186
+created for us.
+
+362
+00:17:54,186 --> 00:17:56,956
+So, again, it's best that
+
+363
+00:17:56,956 --> 00:17:59,296
+on our directory called Plays.
+
+364
+00:17:59,296 --> 00:18:00,816
+It's named our executed play,
+
+365
+00:17:59,296 --> 00:18:00,816
+It's named our executed play,
+
+366
+00:18:00,816 --> 00:18:02,036
+and so that's why
+
+367
+00:18:02,526 --> 00:18:05,536
+And we want to add one piece
+
+368
+00:18:05,976 --> 00:18:08,616
+on Kitura, and that's
+
+369
+00:18:10,826 --> 00:18:15,276
+So now we will go
+
+370
+00:18:15,876 --> 00:18:17,346
+Let's delete our
+
+371
+00:18:17,386 --> 00:18:20,226
+and let's add a bit
+
+372
+00:18:20,956 --> 00:18:23,926
+So what this code does
+
+373
+00:18:23,926 --> 00:18:25,026
+We're pulling in Foundation.
+
+374
+00:18:25,796 --> 00:18:28,216
+We're also importing
+
+375
+00:18:28,216 --> 00:18:30,116
+of Kitura support packages.
+
+376
+00:18:31,406 --> 00:18:33,716
+Here, we're specifying a
+
+377
+00:18:33,716 --> 00:18:34,686
+for incoming requests.
+
+378
+00:18:34,686 --> 00:18:36,106
+We have to route these
+
+379
+00:18:36,736 --> 00:18:38,126
+And we're going to
+
+380
+00:18:38,126 --> 00:18:40,706
+right here, that is /hello.
+
+381
+00:18:41,486 --> 00:18:45,726
+So if any, if any requests
+
+382
+00:18:46,046 --> 00:18:46,796
+Simple enough.
+
+383
+00:18:47,516 --> 00:18:49,436
+We'll specify some
+
+384
+00:18:50,126 --> 00:18:53,086
+and we'll send back a
+
+385
+00:18:53,836 --> 00:18:56,286
+Now down here we specify
+
+386
+00:18:56,286 --> 00:19:00,526
+and it's the 8095, and we
+
+387
+00:18:56,286 --> 00:19:00,526
+and it's the 8095, and we
+
+388
+00:19:00,526 --> 00:19:02,086
+and we specify our
+
+389
+00:19:02,086 --> 00:19:03,166
+and then we start the server.
+
+390
+00:19:03,996 --> 00:19:04,726
+So it's pretty simple.
+
+391
+00:19:06,086 --> 00:19:10,186
+Let's go ahead and save that.
+
+392
+00:19:10,746 --> 00:19:15,256
+Now we're going to build
+
+393
+00:19:15,786 --> 00:19:17,246
+and so we've added
+
+394
+00:19:17,246 --> 00:19:18,026
+As John mentioned,
+
+395
+00:19:18,026 --> 00:19:20,706
+we're leveraging
+
+396
+00:19:21,106 --> 00:19:22,656
+And so what it's doing
+
+397
+00:19:22,656 --> 00:19:25,116
+the Swift Package Manager's
+
+398
+00:19:25,366 --> 00:19:26,946
+So we wrote the code
+
+399
+00:19:27,386 --> 00:19:29,626
+and the Swift Package Manager
+
+400
+00:19:29,986 --> 00:19:32,016
+it's pulling down our
+
+401
+00:19:32,016 --> 00:19:35,046
+down some system support,
+
+402
+00:19:35,046 --> 00:19:39,426
+that you'd need in a, in a web
+
+403
+00:19:39,426 --> 00:19:41,566
+to listen on sockets
+
+404
+00:19:41,566 --> 00:19:43,966
+And so each of these are
+
+405
+00:19:43,966 --> 00:19:46,256
+out on GitHub that
+
+406
+00:19:47,896 --> 00:19:51,326
+And it's compiled and built.
+
+407
+00:19:51,986 --> 00:19:56,786
+So now let's go ahead and
+
+408
+00:19:57,016 --> 00:19:58,256
+So we can see that it's now,
+
+409
+00:19:58,786 --> 00:20:01,976
+it just says it's
+
+410
+00:19:58,786 --> 00:20:01,976
+it just says it's
+
+411
+00:20:02,206 --> 00:20:07,306
+So let's go ahead and
+
+412
+00:20:08,056 --> 00:20:11,126
+We'll bring up local host 8095
+
+413
+00:20:11,326 --> 00:20:12,916
+on our, on our Mac and Linux,
+
+414
+00:20:13,176 --> 00:20:14,836
+and you can see we
+
+415
+00:20:14,836 --> 00:20:17,216
+So this basically, if we haven't
+
+416
+00:20:17,726 --> 00:20:18,916
+it'll bring up this page
+
+417
+00:20:19,176 --> 00:20:21,236
+and specify other
+
+418
+00:20:21,236 --> 00:20:22,546
+You can always override this,
+
+419
+00:20:22,946 --> 00:20:25,656
+but for us all we've
+
+420
+00:20:28,516 --> 00:20:33,526
+[ Applause ]
+
+421
+00:20:34,026 --> 00:20:36,386
+And so, of course, the
+
+422
+00:20:36,386 --> 00:20:37,646
+to do is say hello world, right.
+
+423
+00:20:37,646 --> 00:20:40,626
+So the first step, but,
+
+424
+00:20:40,626 --> 00:20:42,806
+about it, let's go back,
+
+425
+00:20:43,386 --> 00:20:46,926
+Let's go back and
+
+426
+00:20:47,386 --> 00:20:49,646
+We have a lot of
+
+427
+00:20:49,916 --> 00:20:50,996
+So we have Foundation,
+
+428
+00:20:52,196 --> 00:20:54,176
+and we also have the
+
+429
+00:20:54,176 --> 00:21:00,116
+So add a little helper code here
+
+430
+00:20:54,176 --> 00:21:00,116
+So add a little helper code here
+
+431
+00:21:00,546 --> 00:21:03,566
+We'll also add a new
+
+432
+00:21:05,366 --> 00:21:09,186
+So now, again, here's a new
+
+433
+00:21:09,186 --> 00:21:12,666
+saying /today, it'll do,
+
+434
+00:21:13,006 --> 00:21:14,106
+to go get the current date.
+
+435
+00:21:14,106 --> 00:21:16,876
+We'll go ahead and create
+
+436
+00:21:16,876 --> 00:21:17,986
+like we would on the client.
+
+437
+00:21:18,516 --> 00:21:20,836
+We'll use that DateFormatter
+
+438
+00:21:20,966 --> 00:21:25,196
+a time string, and now we'll get
+
+439
+00:21:25,196 --> 00:21:27,816
+and so here we'll create a
+
+440
+00:21:28,276 --> 00:21:31,536
+and now because in the Internet,
+
+441
+00:21:31,986 --> 00:21:34,976
+So we specify message is hello
+
+442
+00:21:34,976 --> 00:21:37,086
+our time is our time,
+
+443
+00:21:37,086 --> 00:21:38,256
+we convert that into a string,
+
+444
+00:21:38,256 --> 00:21:40,106
+and that's what we
+
+445
+00:21:40,206 --> 00:21:41,736
+So let's take, see
+
+446
+00:21:42,586 --> 00:21:45,826
+Let's go ahead and rebuild.
+
+447
+00:21:46,756 --> 00:21:47,436
+Much faster.
+
+448
+00:21:47,496 --> 00:21:48,446
+All the packages are here.
+
+449
+00:21:48,446 --> 00:21:49,486
+So that's good.
+
+450
+00:21:50,946 --> 00:21:52,086
+So, again, we'll run this again.
+
+451
+00:21:52,086 --> 00:21:55,126
+You can see we're
+
+452
+00:21:56,026 --> 00:22:00,176
+We'll reload and see we're still
+
+453
+00:21:56,026 --> 00:22:00,176
+We'll reload and see we're still
+
+454
+00:22:00,176 --> 00:22:01,826
+and now let's look at today.
+
+455
+00:22:02,676 --> 00:22:04,606
+And there we go.
+
+456
+00:22:04,646 --> 00:22:05,776
+We have our JSON payload.
+
+457
+00:22:11,476 --> 00:22:13,686
+And now, again, every time
+
+458
+00:22:13,686 --> 00:22:15,976
+it's executing that code,
+
+459
+00:22:16,126 --> 00:22:18,856
+So that's at a very simple
+
+460
+00:22:26,556 --> 00:22:28,406
+OK. My wife said to take
+
+461
+00:22:28,566 --> 00:22:32,996
+So that was pretty fun, but now
+
+462
+00:22:32,996 --> 00:22:33,646
+more interesting.
+
+463
+00:22:34,826 --> 00:22:36,916
+So as we go through, first
+
+464
+00:22:36,916 --> 00:22:39,146
+to a really interesting sample
+
+465
+00:22:39,146 --> 00:22:40,916
+to this community, and
+
+466
+00:22:42,306 --> 00:22:45,426
+So BluePic is a sample
+
+467
+00:22:45,426 --> 00:22:45,996
+that's social.
+
+468
+00:22:46,876 --> 00:22:51,346
+It has a rich client interface,
+
+469
+00:22:51,346 --> 00:22:54,406
+that we've built and provided
+
+470
+00:22:55,176 --> 00:22:59,106
+It also has a really
+
+471
+00:22:59,106 --> 00:23:03,906
+That is, a Swift server backend,
+
+472
+00:22:59,106 --> 00:23:03,906
+That is, a Swift server backend,
+
+473
+00:23:03,906 --> 00:23:07,336
+running the IBM Cloud, and it's
+
+474
+00:23:07,676 --> 00:23:10,856
+services that I'll mentioned
+
+475
+00:23:10,856 --> 00:23:12,636
+[inaudible] SQL databases,
+
+476
+00:23:13,476 --> 00:23:15,686
+And if you're, if you're
+
+477
+00:23:17,976 --> 00:23:22,296
+it even has some use of
+
+478
+00:23:22,296 --> 00:23:23,916
+programming model
+
+479
+00:23:23,956 --> 00:23:25,406
+that also supports Swift.
+
+480
+00:23:25,816 --> 00:23:28,696
+So, again, this package
+
+481
+00:23:29,026 --> 00:23:31,046
+and it's available now
+
+482
+00:23:31,046 --> 00:23:31,766
+who want to get started.
+
+483
+00:23:33,686 --> 00:23:36,006
+So before we dive
+
+484
+00:23:36,006 --> 00:23:37,236
+I want to spend a little
+
+485
+00:23:37,236 --> 00:23:38,316
+about the design pattern here.
+
+486
+00:23:39,566 --> 00:23:42,966
+So unlike before where we had a
+
+487
+00:23:43,776 --> 00:23:45,726
+we, of course, have
+
+488
+00:23:46,076 --> 00:23:47,636
+It has our model
+
+489
+00:23:47,886 --> 00:23:49,736
+and you can see it also
+
+490
+00:23:49,736 --> 00:23:50,996
+with requests and responses.
+
+491
+00:23:51,376 --> 00:23:53,716
+And it's talking to
+
+492
+00:23:53,926 --> 00:23:55,226
+which is similar to
+
+493
+00:23:55,226 --> 00:23:57,516
+It's just a little bit more
+
+494
+00:23:57,516 --> 00:23:59,666
+accepting an incoming
+
+495
+00:23:59,716 --> 00:24:01,256
+routing those to some logic.
+
+496
+00:23:59,716 --> 00:24:01,256
+routing those to some logic.
+
+497
+00:24:01,256 --> 00:24:04,936
+And then, finally, we
+
+498
+00:24:04,936 --> 00:24:06,876
+where we have some interesting
+
+499
+00:24:06,876 --> 00:24:10,396
+into in a bit, for holding all
+
+500
+00:24:11,746 --> 00:24:14,166
+So, again, just to dig
+
+501
+00:24:14,636 --> 00:24:15,866
+So we have the client-side.
+
+502
+00:24:16,556 --> 00:24:17,276
+It's responsible.
+
+503
+00:24:17,276 --> 00:24:20,786
+It's very user specific view
+
+504
+00:24:20,786 --> 00:24:23,806
+you know, interactions
+
+505
+00:24:23,806 --> 00:24:26,126
+of the application, and
+
+506
+00:24:26,486 --> 00:24:28,506
+The midtier is responding
+
+507
+00:24:28,506 --> 00:24:29,416
+with the things they have,
+
+508
+00:24:29,806 --> 00:24:31,686
+but it's also doing some
+
+509
+00:24:31,906 --> 00:24:36,106
+So as photos get submitted
+
+510
+00:24:36,106 --> 00:24:37,396
+it'll accept those photos.
+
+511
+00:24:37,396 --> 00:24:39,216
+It'll save them into
+
+512
+00:24:39,296 --> 00:24:41,056
+It'll create some
+
+513
+00:24:41,056 --> 00:24:43,506
+but it'll do a few other things
+
+514
+00:24:43,506 --> 00:24:46,556
+So it will take those
+
+515
+00:24:46,556 --> 00:24:48,686
+over to Watson's Vision Insights
+
+516
+00:24:49,116 --> 00:24:51,216
+and extract just tags
+
+517
+00:24:51,346 --> 00:24:53,836
+Is it mountains and lakes and
+
+518
+00:24:53,836 --> 00:24:55,366
+So it's kind of adding
+
+519
+00:24:55,366 --> 00:24:57,216
+to our application
+
+520
+00:24:57,606 --> 00:24:59,746
+It will also notice
+
+521
+00:25:00,426 --> 00:25:02,616
+and call Watson's
+
+522
+00:25:02,746 --> 00:25:03,786
+and pull down information.
+
+523
+00:25:03,786 --> 00:25:05,356
+What was the weather
+
+524
+00:25:05,486 --> 00:25:06,576
+So we're adding all of that.
+
+525
+00:25:06,576 --> 00:25:08,556
+So, again, instead of
+
+526
+00:25:08,556 --> 00:25:11,036
+from the client-side, we're
+
+527
+00:25:11,036 --> 00:25:13,416
+which is always on, always
+
+528
+00:25:13,416 --> 00:25:14,936
+and do our service
+
+529
+00:25:15,626 --> 00:25:19,056
+And the fact that this is
+
+530
+00:25:19,056 --> 00:25:22,646
+the right code to
+
+531
+00:25:23,076 --> 00:25:25,436
+So now here is BluePic
+
+532
+00:25:26,266 --> 00:25:27,516
+It's running on a device.
+
+533
+00:25:27,516 --> 00:25:29,436
+It's connecting into
+
+534
+00:25:29,916 --> 00:25:31,956
+The application server,
+
+535
+00:25:31,956 --> 00:25:34,766
+to all the different services
+
+536
+00:25:35,436 --> 00:25:37,476
+Now if something comes
+
+537
+00:25:37,476 --> 00:25:40,046
+or develop this application
+
+538
+00:25:40,726 --> 00:25:43,376
+Right. Well, as iOS developers,
+
+539
+00:25:43,976 --> 00:25:46,296
+We pull down the source for
+
+540
+00:25:46,846 --> 00:25:49,836
+we load it all up into Xcode,
+
+541
+00:25:49,836 --> 00:25:50,966
+We can debug this.
+
+542
+00:25:51,606 --> 00:25:52,876
+We can debug the application.
+
+543
+00:25:52,876 --> 00:25:54,616
+You can even be calling
+
+544
+00:25:54,616 --> 00:25:55,806
+and making other requests.
+
+545
+00:25:56,126 --> 00:25:57,856
+So this is something we
+
+546
+00:25:58,366 --> 00:26:00,526
+but now that this midtier
+
+547
+00:25:58,366 --> 00:26:00,526
+but now that this midtier
+
+548
+00:26:00,816 --> 00:26:01,336
+what do we do?
+
+549
+00:26:02,136 --> 00:26:03,016
+Right. You probably don't want
+
+550
+00:26:03,016 --> 00:26:05,546
+to be using VI like
+
+551
+00:26:06,146 --> 00:26:09,176
+But, again, we can
+
+552
+00:26:09,446 --> 00:26:13,076
+We can pull down the source code
+
+553
+00:26:13,076 --> 00:26:15,586
+onto our Mac, load
+
+554
+00:26:16,056 --> 00:26:18,246
+and now we can also just
+
+555
+00:26:18,246 --> 00:26:19,556
+and debug locally on our Mac.
+
+556
+00:26:19,606 --> 00:26:20,926
+So we're debugging
+
+557
+00:26:20,926 --> 00:26:24,266
+It's exciting.
+
+558
+00:26:27,256 --> 00:26:30,376
+So now our development world
+
+559
+00:26:30,486 --> 00:26:32,806
+So we actually control
+
+560
+00:26:32,806 --> 00:26:34,456
+from the client to the midtier,
+
+561
+00:26:34,456 --> 00:26:36,156
+even to the services
+
+562
+00:26:36,536 --> 00:26:38,726
+So we, we really are
+
+563
+00:26:38,756 --> 00:26:41,596
+because we think it brings
+
+564
+00:26:41,716 --> 00:26:43,576
+you know, as you're doing things
+
+565
+00:26:43,576 --> 00:26:45,396
+to add some capabilities
+
+566
+00:26:45,736 --> 00:26:47,296
+it's all in the world
+
+567
+00:26:49,036 --> 00:26:51,076
+Towards that end, as
+
+568
+00:26:51,276 --> 00:26:52,776
+we thought we can go
+
+569
+00:26:53,696 --> 00:26:55,536
+So just like we've done
+
+570
+00:26:55,536 --> 00:26:56,386
+and the Swift Sandbox,
+
+571
+00:26:56,746 --> 00:26:59,716
+we created this application
+
+572
+00:27:00,366 --> 00:27:03,466
+as a Mac application to
+
+573
+00:27:03,466 --> 00:27:04,146
+development world.
+
+574
+00:27:04,796 --> 00:27:08,416
+So we're really excited
+
+575
+00:27:08,466 --> 00:27:11,346
+This application actually
+
+576
+00:27:11,346 --> 00:27:15,836
+to manage this entire stack
+
+577
+00:27:15,836 --> 00:27:17,966
+there's a lot of things
+
+578
+00:27:18,626 --> 00:27:20,546
+but why not have some tools
+
+579
+00:27:22,126 --> 00:27:24,426
+So we're excited to hear
+
+580
+00:27:24,426 --> 00:27:26,336
+like we have the
+
+581
+00:27:26,986 --> 00:27:29,126
+And we'll keep, you know,
+
+582
+00:27:29,126 --> 00:27:32,196
+with this application, and,
+
+583
+00:27:32,196 --> 00:27:33,716
+we know what we want it to do.
+
+584
+00:27:34,016 --> 00:27:35,916
+We'll keep adding things, and
+
+585
+00:27:35,916 --> 00:27:37,606
+as well, but we're
+
+586
+00:27:37,606 --> 00:27:38,646
+about the possibilities here.
+
+587
+00:27:39,416 --> 00:27:41,856
+So our goal is really to
+
+588
+00:27:42,256 --> 00:27:45,186
+to keep creating great
+
+589
+00:27:45,186 --> 00:27:48,126
+by Swift on the server.
+
+590
+00:27:48,316 --> 00:27:50,976
+So now with all of that
+
+591
+00:27:50,976 --> 00:27:52,116
+in and do some demos again.
+
+592
+00:27:52,926 --> 00:27:55,296
+Going to show you just
+
+593
+00:27:55,296 --> 00:27:55,806
+with Swift.
+
+594
+00:28:01,806 --> 00:28:05,886
+OK. So first off, this is the
+
+595
+00:28:06,306 --> 00:28:08,906
+If you want to get
+
+596
+00:28:08,906 --> 00:28:11,986
+with an interface that's
+
+597
+00:28:12,146 --> 00:28:14,896
+and for those wanting to
+
+598
+00:28:15,146 --> 00:28:18,126
+it even has an ability to
+
+599
+00:28:18,936 --> 00:28:22,016
+to create just a Kitura project
+
+600
+00:28:22,506 --> 00:28:23,556
+Now the part that's interesting
+
+601
+00:28:23,556 --> 00:28:26,276
+about this is not only is it
+
+602
+00:28:26,276 --> 00:28:28,086
+in bringing them down, it's also
+
+603
+00:28:28,086 --> 00:28:30,836
+under the covers provisioning
+
+604
+00:28:31,166 --> 00:28:34,406
+to deploy that project when
+
+605
+00:28:34,766 --> 00:28:37,266
+in fact, when you create these,
+
+606
+00:28:37,386 --> 00:28:39,526
+because it knows it's
+
+607
+00:28:40,126 --> 00:28:41,866
+So, again, to get up
+
+608
+00:28:42,576 --> 00:28:43,556
+it's a great way to start.
+
+609
+00:28:45,706 --> 00:28:48,406
+For us, we've already created
+
+610
+00:28:49,406 --> 00:28:52,476
+and you can see we
+
+611
+00:28:53,336 --> 00:28:54,296
+Very cleverly named.
+
+612
+00:28:54,476 --> 00:28:57,166
+And here you can see we
+
+613
+00:28:57,346 --> 00:29:00,216
+a binding between a client
+
+614
+00:28:57,346 --> 00:29:00,216
+a binding between a client
+
+615
+00:29:00,296 --> 00:29:01,466
+Both of these are in Swift.
+
+616
+00:29:02,056 --> 00:29:06,336
+Additionally, if we drill in,
+
+617
+00:29:06,656 --> 00:29:09,076
+you can see it has a reference
+
+618
+00:29:09,076 --> 00:29:12,626
+on our, on my machine as well
+
+619
+00:29:12,626 --> 00:29:16,446
+into the Cloud as well as all of
+
+620
+00:29:16,446 --> 00:29:18,266
+on behalf of this application.
+
+621
+00:29:18,636 --> 00:29:21,946
+So, again, I can manage all
+
+622
+00:29:23,586 --> 00:29:28,566
+As well as I can go ahead and
+
+623
+00:29:28,696 --> 00:29:29,786
+to look at my client-side.
+
+624
+00:29:30,976 --> 00:29:33,046
+So here's the BluePic
+
+625
+00:29:33,876 --> 00:29:40,096
+It is also created, let me zoom
+
+626
+00:29:40,226 --> 00:29:41,726
+It's a Bluemix.plist.
+
+627
+00:29:42,126 --> 00:29:44,476
+Knowing this development
+
+628
+00:29:44,686 --> 00:29:46,796
+against your Cloud
+
+629
+00:29:46,866 --> 00:29:50,236
+versus remotely it's very
+
+630
+00:29:50,416 --> 00:29:55,396
+It'll either listen locally to
+
+631
+00:29:55,396 --> 00:29:57,206
+and pass in the,
+
+632
+00:29:58,246 --> 00:30:00,426
+So, again, the thought here
+
+633
+00:29:58,246 --> 00:30:00,426
+So, again, the thought here
+
+634
+00:30:01,346 --> 00:30:03,916
+So here we'll go ahead and
+
+635
+00:30:03,916 --> 00:30:10,436
+that somebody's filed a bug
+
+636
+00:30:10,436 --> 00:30:11,806
+So here's our application.
+
+637
+00:30:12,126 --> 00:30:14,556
+Again, it's got a
+
+638
+00:30:15,106 --> 00:30:16,026
+We can scroll through.
+
+639
+00:30:16,026 --> 00:30:17,436
+We can see some pictures.
+
+640
+00:30:17,506 --> 00:30:18,896
+If we click on these pictures,
+
+641
+00:30:19,956 --> 00:30:21,326
+we can see there's
+
+642
+00:30:21,326 --> 00:30:22,996
+So the name is nature
+
+643
+00:30:23,146 --> 00:30:24,076
+We can see who took it.
+
+644
+00:30:24,456 --> 00:30:26,536
+We can see, supposedly,
+
+645
+00:30:26,536 --> 00:30:27,656
+which we don't have mountains.
+
+646
+00:30:28,246 --> 00:30:31,316
+So. We can also see what
+
+647
+00:30:31,446 --> 00:30:33,586
+and then thanks to
+
+648
+00:30:34,096 --> 00:30:35,706
+we see that there's
+
+649
+00:30:35,706 --> 00:30:36,576
+So this is interesting.
+
+650
+00:30:36,576 --> 00:30:38,726
+If I click on tags, I
+
+651
+00:30:38,726 --> 00:30:40,376
+we have one photo
+
+652
+00:30:41,186 --> 00:30:43,086
+If I go back, let's
+
+653
+00:30:43,086 --> 00:30:46,126
+and we can see there's a few
+
+654
+00:30:46,126 --> 00:30:48,766
+again, all of this was done
+
+655
+00:30:48,766 --> 00:30:50,446
+We didn't have users
+
+656
+00:30:50,446 --> 00:30:51,786
+This was just auto extracted.
+
+657
+00:30:51,866 --> 00:30:54,166
+But we heard that
+
+658
+00:30:54,166 --> 00:30:55,546
+about when I click cloudy skies.
+
+659
+00:30:55,546 --> 00:30:56,346
+So let's look at that.
+
+660
+00:30:57,696 --> 00:30:59,736
+So we click cloudy sky,
+
+661
+00:31:00,126 --> 00:31:02,736
+So we know what's going on here,
+
+662
+00:31:02,736 --> 00:31:05,786
+and somehow the server's not
+
+663
+00:31:06,486 --> 00:31:07,606
+So now let's switch.
+
+664
+00:31:08,436 --> 00:31:10,776
+We want to go ahead and figure
+
+665
+00:31:11,326 --> 00:31:13,196
+And so we'll go over
+
+666
+00:31:13,196 --> 00:31:15,226
+on our server-side code.
+
+667
+00:31:15,226 --> 00:31:18,656
+It will launch us and
+
+668
+00:31:18,656 --> 00:31:20,176
+where the server-side code is.
+
+669
+00:31:21,206 --> 00:31:23,426
+And if I go ahead and
+
+670
+00:31:24,616 --> 00:31:28,416
+you can see a lot of the
+
+671
+00:31:28,416 --> 00:31:30,426
+we're doing Swift
+
+672
+00:31:30,776 --> 00:31:32,096
+We have our Package.Swift.
+
+673
+00:31:32,346 --> 00:31:33,316
+We have our sources.
+
+674
+00:31:33,726 --> 00:31:35,366
+But, additionally,
+
+675
+00:31:35,366 --> 00:31:37,926
+and created an Xcode project
+
+676
+00:31:37,926 --> 00:31:40,526
+So let's go ahead and open that.
+
+677
+00:31:40,826 --> 00:31:45,236
+So here's the code, and, again,
+
+678
+00:31:45,366 --> 00:31:48,006
+So we know that when we
+
+679
+00:31:48,006 --> 00:31:51,156
+we'll call this get
+
+680
+00:31:51,826 --> 00:31:54,376
+So if we look at this, we want
+
+681
+00:31:54,376 --> 00:31:56,046
+somehow when we pass in a tag,
+
+682
+00:31:56,376 --> 00:31:57,876
+we're not returning
+
+683
+00:31:58,096 --> 00:32:01,426
+So let's set a break point
+
+684
+00:31:58,096 --> 00:32:01,426
+So let's set a break point
+
+685
+00:32:01,546 --> 00:32:08,256
+And now we can see our server is
+
+686
+00:32:09,206 --> 00:32:11,626
+Now let's switch back.
+
+687
+00:32:14,796 --> 00:32:19,146
+So here we're going to have our
+
+688
+00:32:19,146 --> 00:32:21,886
+yes so that it will actually
+
+689
+00:32:22,206 --> 00:32:23,976
+and let's rerun the simulator.
+
+690
+00:32:25,286 --> 00:32:28,966
+By the way, I'm getting
+
+691
+00:32:28,966 --> 00:32:30,416
+with all this network
+
+692
+00:32:30,416 --> 00:32:32,306
+So keep up whatever
+
+693
+00:32:34,096 --> 00:32:36,796
+OK. So let's just scroll down
+
+694
+00:32:36,796 --> 00:32:37,806
+problems with.
+
+695
+00:32:37,806 --> 00:32:38,626
+Let's click on here.
+
+696
+00:32:39,356 --> 00:32:41,136
+Let's click on cloudy skies.
+
+697
+00:32:41,326 --> 00:32:42,126
+Ah, great.
+
+698
+00:32:43,246 --> 00:32:44,906
+Here, we hit a break
+
+699
+00:32:45,516 --> 00:32:49,646
+[ Applause ]
+
+700
+00:32:50,146 --> 00:32:54,456
+So if we want to get a feel
+
+701
+00:32:54,456 --> 00:32:55,636
+and say we want to print tag.
+
+702
+00:32:55,636 --> 00:33:01,166
+And we can see, kind
+
+703
+00:32:55,636 --> 00:33:01,166
+And we can see, kind
+
+704
+00:33:01,866 --> 00:33:03,126
+We can see that the
+
+705
+00:33:03,126 --> 00:33:05,386
+in as cloudy percent 20 sky.
+
+706
+00:33:05,876 --> 00:33:06,436
+That's no good.
+
+707
+00:33:06,436 --> 00:33:07,126
+We don't want that.
+
+708
+00:33:08,456 --> 00:33:10,046
+So let's take a look at that.
+
+709
+00:33:10,096 --> 00:33:11,766
+We also know that we
+
+710
+00:33:12,726 --> 00:33:14,366
+So what if we go ahead
+
+711
+00:33:15,236 --> 00:33:17,106
+to clean this up a bit.
+
+712
+00:33:18,796 --> 00:33:20,566
+We'll remove the
+
+713
+00:33:21,686 --> 00:33:25,846
+Oh, this is now a variable
+
+714
+00:33:25,846 --> 00:33:30,356
+Let's go ahead and build this.
+
+715
+00:33:30,576 --> 00:33:31,486
+We'll run it again.
+
+716
+00:33:32,626 --> 00:33:33,446
+Rerun the server.
+
+717
+00:33:34,846 --> 00:33:38,156
+Let's go back to
+
+718
+00:33:39,106 --> 00:33:41,886
+Oh. There we go.
+
+719
+00:33:42,566 --> 00:33:43,696
+Timed out waiting for us.
+
+720
+00:33:44,566 --> 00:33:45,336
+Let's go back.
+
+721
+00:33:45,336 --> 00:33:50,136
+Let's click cloudy sky again,
+
+722
+00:33:51,556 --> 00:33:52,266
+Print to tag.
+
+723
+00:33:53,086 --> 00:33:53,896
+Ah, much better.
+
+724
+00:33:54,126 --> 00:33:54,986
+That's what we want.
+
+725
+00:33:54,986 --> 00:34:01,046
+So let's go ahead and turn off
+
+726
+00:33:54,986 --> 00:34:01,046
+So let's go ahead and turn off
+
+727
+00:34:01,136 --> 00:34:07,976
+And we see we got our result.
+
+728
+00:34:08,516 --> 00:34:14,335
+[ Applause ]
+
+729
+00:34:14,835 --> 00:34:17,326
+So now additionally, since
+
+730
+00:34:18,045 --> 00:34:21,106
+I can go back into
+
+731
+00:34:21,516 --> 00:34:25,266
+and I can do a redeploy of
+
+732
+00:34:25,266 --> 00:34:27,446
+So it will start redeploying
+
+733
+00:34:28,136 --> 00:34:30,686
+So, again, it's that simple
+
+734
+00:34:30,686 --> 00:34:32,976
+and your server-side and
+
+735
+00:34:33,516 --> 00:34:40,315
+[ Applause ]
+
+736
+00:34:40,815 --> 00:34:43,766
+So I hope you really like these
+
+737
+00:34:43,766 --> 00:34:45,946
+I feel a tremendous amount of
+
+738
+00:34:46,906 --> 00:34:51,406
+So on behalf of IBM,
+
+739
+00:34:51,406 --> 00:34:53,556
+like to thank everyone
+
+740
+00:34:53,676 --> 00:34:56,596
+This is a really exciting
+
+741
+00:34:57,176 --> 00:35:01,756
+and we invite you to join us and
+
+742
+00:34:57,176 --> 00:35:01,756
+and we invite you to join us and
+
+743
+00:35:02,036 --> 00:35:05,616
+and bring, to bring the
+
+744
+00:35:06,206 --> 00:35:08,526
+And for more information about
+
+745
+00:35:08,916 --> 00:35:10,656
+about what we're,
+
+746
+00:35:11,256 --> 00:35:14,036
+we have our
+
+747
+00:35:14,036 --> 00:35:16,436
+Center that you can go to.
+
+748
+00:35:16,436 --> 00:35:17,576
+And with that, thanks again.
+
+749
+00:35:17,576 --> 00:35:18,546
+I'll hand it back to Philippe.
+
+750
+00:35:19,516 --> 00:35:26,796
+[ Applause ]
+
+751
+00:35:27,296 --> 00:35:30,696
+&gt;&gt; So as you can see, IBM has
+
+752
+00:35:30,696 --> 00:35:31,626
+things with Swift.
+
+753
+00:35:31,996 --> 00:35:34,606
+They've not just been
+
+754
+00:35:34,936 --> 00:35:36,746
+but they've also been
+
+755
+00:35:36,746 --> 00:35:38,726
+with their vast experience
+
+756
+00:35:38,726 --> 00:35:40,386
+and streamlining
+
+757
+00:35:40,466 --> 00:35:42,606
+Some of their work
+
+758
+00:35:42,916 --> 00:35:44,716
+in making server-side
+
+759
+00:35:45,996 --> 00:35:49,126
+But you, too, can help make
+
+760
+00:35:49,246 --> 00:35:50,946
+and there are a number of things
+
+761
+00:35:50,946 --> 00:35:53,156
+that definitely you
+
+762
+00:35:54,366 --> 00:35:56,566
+Portions of Swift
+
+763
+00:35:56,856 --> 00:35:59,806
+There's a lot of work to be
+
+764
+00:35:59,806 --> 00:36:01,416
+that are not yet
+
+765
+00:35:59,806 --> 00:36:01,416
+that are not yet
+
+766
+00:36:01,726 --> 00:36:05,086
+and unimplemented just means
+
+767
+00:36:05,576 --> 00:36:07,856
+There are number of easy ways
+
+768
+00:36:08,286 --> 00:36:12,266
+The bug tracker even has a
+
+769
+00:36:12,266 --> 00:36:15,856
+as starter bugs, but code
+
+770
+00:36:16,386 --> 00:36:19,296
+Designing new API's and
+
+771
+00:36:19,296 --> 00:36:21,406
+in Swift are something
+
+772
+00:36:21,406 --> 00:36:23,926
+on on a daily basis
+
+773
+00:36:24,166 --> 00:36:27,516
+Many of the discussions are
+
+774
+00:36:27,596 --> 00:36:29,756
+and coming from contributors
+
+775
+00:36:30,726 --> 00:36:34,856
+And, of course, your packages,
+
+776
+00:36:34,856 --> 00:36:36,386
+to make Swift on
+
+777
+00:36:36,966 --> 00:36:42,066
+And if you have any questions
+
+778
+00:36:42,066 --> 00:36:45,876
+to what we've actually talked
+
+779
+00:36:46,016 --> 00:36:48,306
+this session, we have
+
+780
+00:36:48,976 --> 00:36:52,736
+and there are number of other
+
+781
+00:36:52,736 --> 00:36:54,626
+that I would highly
+
+782
+00:36:54,986 --> 00:36:58,616
+The API design guidelines
+
+783
+00:36:58,616 --> 00:37:03,176
+of our thoughts behind actually
+
+784
+00:36:58,616 --> 00:37:03,176
+of our thoughts behind actually
+
+785
+00:37:03,786 --> 00:37:07,256
+and I would highly suggest
+
+786
+00:37:07,256 --> 00:37:09,186
+at the What's New in
+
+787
+00:37:09,576 --> 00:37:12,666
+All of the new value
+
+788
+00:37:12,666 --> 00:37:15,086
+that are being added are
+
+789
+00:37:15,086 --> 00:37:16,186
+on the server as well.
+
+790
+00:37:16,776 --> 00:37:19,206
+Of course, performance is
+
+791
+00:37:19,206 --> 00:37:20,216
+local application.
+
+792
+00:37:20,986 --> 00:37:22,576
+We all, we need to
+
+793
+00:37:22,576 --> 00:37:25,186
+that our servers are going
+
+794
+00:37:25,516 --> 00:37:29,606
+So performance, all across the
+
+795
+00:37:29,956 --> 00:37:33,716
+by far, something to look into,
+
+796
+00:37:33,716 --> 00:37:36,886
+to take a look at the
+
+797
+00:37:36,886 --> 00:37:38,956
+that are being released
+
+798
+00:37:39,536 --> 00:37:41,976
+And with that, thank

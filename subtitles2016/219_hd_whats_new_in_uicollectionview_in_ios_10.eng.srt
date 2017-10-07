@@ -1,0 +1,3039 @@
+1
+00:00:07,516 --> 00:00:17,500
+[ Music ]
+
+2
+00:00:21,626 --> 00:00:22,206
+&gt;&gt; Good morning.
+
+3
+00:00:25,816 --> 00:00:27,626
+My name is Steve Breen.
+
+4
+00:00:27,826 --> 00:00:31,086
+&gt;&gt; And my name is Peter Hajas,
+
+5
+00:00:31,086 --> 00:00:32,906
+on the UIKit Frameworks Team.
+
+6
+00:00:34,076 --> 00:00:35,496
+&gt;&gt; We're really excited to share
+
+7
+00:00:35,496 --> 00:00:37,336
+with what we're working
+
+8
+00:00:37,996 --> 00:00:39,896
+So let's get right into it.
+
+9
+00:00:41,246 --> 00:00:43,506
+We've got three big topics
+
+10
+00:00:44,206 --> 00:00:47,416
+Our first topic is going
+
+11
+00:00:48,466 --> 00:00:50,816
+Now, every iOS app expects
+
+12
+00:00:50,816 --> 00:00:52,686
+to have great scrolling
+
+13
+00:00:52,966 --> 00:00:55,096
+and we got some great
+
+14
+00:00:55,096 --> 00:00:58,606
+to help your apps scroll better
+
+15
+00:00:58,606 --> 00:01:01,046
+about this is many of these
+
+16
+00:00:58,606 --> 00:01:01,046
+about this is many of these
+
+17
+00:01:01,286 --> 00:01:03,266
+to no work in your applications.
+
+18
+00:01:03,716 --> 00:01:06,486
+Next, we're going to talk
+
+19
+00:01:06,486 --> 00:01:09,126
+about improvements
+
+20
+00:01:09,696 --> 00:01:12,626
+Now this API was
+
+21
+00:01:12,626 --> 00:01:15,626
+and we're bringing some great
+
+22
+00:01:15,626 --> 00:01:17,326
+to make it easier to adopt.
+
+23
+00:01:18,446 --> 00:01:22,656
+And, finally, we're going to
+
+24
+00:01:23,256 --> 00:01:26,196
+This API was introduced
+
+25
+00:01:26,596 --> 00:01:28,496
+and we've got some great
+
+26
+00:01:28,496 --> 00:01:30,296
+to go over for iOS 10.
+
+27
+00:01:30,956 --> 00:01:33,236
+&gt;&gt; Let's start off
+
+28
+00:01:33,806 --> 00:01:39,396
+A hallmark of the iOS device
+
+29
+00:01:39,396 --> 00:01:44,286
+immediately to the user's
+
+30
+00:01:44,286 --> 00:01:48,036
+of this responsive user
+
+31
+00:01:48,706 --> 00:01:51,436
+that as I scroll my
+
+32
+00:01:51,816 --> 00:01:53,606
+the objects onscreen move
+
+33
+00:01:53,606 --> 00:01:55,766
+as if they're moving
+
+34
+00:01:56,556 --> 00:01:59,746
+This is really important
+
+35
+00:02:00,066 --> 00:02:01,106
+in their applications.
+
+36
+00:02:02,006 --> 00:02:04,016
+We're going to talk
+
+37
+00:02:04,206 --> 00:02:07,146
+and some enhancements we've
+
+38
+00:02:07,906 --> 00:02:10,936
+by talking through a demo app.
+
+39
+00:02:10,936 --> 00:02:14,446
+As you'll see, this application
+
+40
+00:02:14,446 --> 00:02:15,126
+that great.
+
+41
+00:02:15,126 --> 00:02:17,536
+We wanted to scroll like
+
+42
+00:02:17,536 --> 00:02:20,086
+it's scrolling a lot more
+
+43
+00:02:20,506 --> 00:02:21,546
+So let's go to the iPad.
+
+44
+00:02:25,596 --> 00:02:27,696
+I'm going to switch
+
+45
+00:02:29,276 --> 00:02:32,906
+Just to clarify, blue squares
+
+46
+00:02:32,906 --> 00:02:34,936
+but we've intentionally
+
+47
+00:02:35,576 --> 00:02:37,066
+So imagine they're
+
+48
+00:02:37,066 --> 00:02:39,086
+For example, maybe they
+
+49
+00:02:40,406 --> 00:02:44,486
+Anyways, we've got this
+
+50
+00:02:44,486 --> 00:02:47,416
+that scrolling already
+
+51
+00:02:47,416 --> 00:02:50,166
+and fast, but check this out.
+
+52
+00:02:50,166 --> 00:02:51,426
+Steve, watch closely.
+
+53
+00:02:52,016 --> 00:02:53,486
+When I scroll a little bit more.
+
+54
+00:02:54,656 --> 00:02:55,646
+&gt;&gt; Ooh, ouch.
+
+55
+00:02:56,086 --> 00:02:59,236
+One star, do not buy.
+
+56
+00:02:59,476 --> 00:03:00,966
+&gt;&gt; I wouldn't buy it either.
+
+57
+00:02:59,476 --> 00:03:00,966
+&gt;&gt; I wouldn't buy it either.
+
+58
+00:03:01,136 --> 00:03:04,336
+This type of user experience
+
+59
+00:03:04,336 --> 00:03:04,776
+to avoid.
+
+60
+00:03:05,306 --> 00:03:06,276
+So what's going on here?
+
+61
+00:03:07,036 --> 00:03:10,306
+Well, we said before that these
+
+62
+00:03:10,306 --> 00:03:13,966
+squares to simulate to really
+
+63
+00:03:14,166 --> 00:03:17,646
+in your app, and that's running
+
+64
+00:03:18,306 --> 00:03:21,286
+and the fact that it loads cells
+
+65
+00:03:21,436 --> 00:03:22,706
+Let me show you what I mean.
+
+66
+00:03:24,116 --> 00:03:26,386
+We'll reload our data
+
+67
+00:03:26,386 --> 00:03:29,166
+on a view that's going to show
+
+68
+00:03:29,166 --> 00:03:29,946
+in the CollectionView.
+
+69
+00:03:30,076 --> 00:03:33,526
+So you can see those bottom
+
+70
+00:03:33,526 --> 00:03:35,156
+up beyond the visible bounds.
+
+71
+00:03:35,876 --> 00:03:37,796
+Now watch what happens
+
+72
+00:03:38,346 --> 00:03:42,986
+We're bringing in an
+
+73
+00:03:43,416 --> 00:03:46,396
+This is what's leading to that
+
+74
+00:03:47,376 --> 00:03:50,396
+In performance terminology,
+
+75
+00:03:50,476 --> 00:03:52,876
+that the app is dropping frames.
+
+76
+00:03:53,516 --> 00:03:55,686
+Let's switch back to slides
+
+77
+00:03:56,086 --> 00:03:58,066
+&gt;&gt; So what exactly do
+
+78
+00:03:58,066 --> 00:03:59,896
+about dropping frames.
+
+79
+00:04:00,456 --> 00:04:02,276
+Now, in your applications,
+
+80
+00:04:02,546 --> 00:04:04,906
+the users expect a smooth
+
+81
+00:04:04,906 --> 00:04:07,686
+which means your app wants
+
+82
+00:04:07,946 --> 00:04:09,446
+of 60 frames per second.
+
+83
+00:04:10,616 --> 00:04:11,616
+Now if we do the math,
+
+84
+00:04:11,806 --> 00:04:15,086
+that means that for every time
+
+85
+00:04:15,086 --> 00:04:17,536
+to hit that window
+
+86
+00:04:18,565 --> 00:04:20,426
+OK. So let's look
+
+87
+00:04:20,476 --> 00:04:23,836
+Here we have a diagram that
+
+88
+00:04:25,076 --> 00:04:29,566
+In our first frame, we got
+
+89
+00:04:29,906 --> 00:04:33,486
+Now as Peter mentioned before,
+
+90
+00:04:33,486 --> 00:04:34,606
+up and down the display.
+
+91
+00:04:35,026 --> 00:04:37,216
+It's a highly optimized
+
+92
+00:04:37,216 --> 00:04:38,486
+So it's superfast.
+
+93
+00:04:38,486 --> 00:04:41,716
+Not much work to hit, and
+
+94
+00:04:41,716 --> 00:04:42,716
+scrolling performance.
+
+95
+00:04:43,156 --> 00:04:43,916
+That's a good frame.
+
+96
+00:04:45,916 --> 00:04:49,066
+However, in the demo, it
+
+97
+00:04:50,506 --> 00:04:52,306
+Occasionally, we'd
+
+98
+00:04:52,416 --> 00:04:54,196
+where we have a lot
+
+99
+00:04:54,426 --> 00:04:56,856
+Not only do we fill
+
+100
+00:04:57,196 --> 00:04:58,966
+we went into the next frame.
+
+101
+00:05:00,516 --> 00:05:02,446
+This is our ad frame.
+
+102
+00:05:02,446 --> 00:05:04,226
+We drop a frame, one star.
+
+103
+00:05:04,226 --> 00:05:08,356
+Let's look at this in a
+
+104
+00:05:08,926 --> 00:05:12,696
+Now on this graph, we can see
+
+105
+00:05:13,266 --> 00:05:14,746
+We have the region on the top,
+
+106
+00:05:14,746 --> 00:05:16,446
+which we're going to
+
+107
+00:05:16,446 --> 00:05:19,966
+This is the area where we miss
+
+108
+00:05:19,966 --> 00:05:22,026
+that magical 16 millisecond
+
+109
+00:05:22,406 --> 00:05:25,186
+Let's check out the labels
+
+110
+00:05:25,826 --> 00:05:29,116
+So on our y-axis, we're
+
+111
+00:05:29,116 --> 00:05:31,856
+on the main thread,
+
+112
+00:05:32,166 --> 00:05:36,256
+this is the display fresh events
+
+113
+00:05:36,556 --> 00:05:38,206
+OK. So let's look at a graph.
+
+114
+00:05:39,466 --> 00:05:40,716
+Alright. So in this graph,
+
+115
+00:05:41,046 --> 00:05:43,136
+this shows what Peter was
+
+116
+00:05:43,136 --> 00:05:45,546
+where we have these visits
+
+117
+00:05:45,546 --> 00:05:48,326
+where we're dropping
+
+118
+00:05:48,326 --> 00:05:49,776
+look at these quiet times
+
+119
+00:05:50,066 --> 00:05:52,256
+where the CollectionView's
+
+120
+00:05:53,136 --> 00:05:54,136
+but then we have
+
+121
+00:05:54,136 --> 00:05:55,116
+to the red zone at the end.
+
+122
+00:05:55,246 --> 00:05:59,666
+So what if we could change this
+
+123
+00:05:59,666 --> 00:06:02,626
+out the amount of work we're
+
+124
+00:05:59,666 --> 00:06:02,626
+out the amount of work we're
+
+125
+00:06:03,056 --> 00:06:05,236
+OK, cool. Look at this.
+
+126
+00:06:05,236 --> 00:06:08,846
+So now instead of these
+
+127
+00:06:09,656 --> 00:06:12,896
+and those periods of quiescence,
+
+128
+00:06:12,896 --> 00:06:15,046
+of work, and we're spreading
+
+129
+00:06:16,396 --> 00:06:18,206
+&gt;&gt; To help talk through
+
+130
+00:06:18,206 --> 00:06:20,936
+to flatten these peaks
+
+131
+00:06:21,236 --> 00:06:24,956
+to create this nice, consistent
+
+132
+00:06:24,956 --> 00:06:29,176
+through the life cycle of a
+
+133
+00:06:29,816 --> 00:06:32,566
+We're going to go through the
+
+134
+00:06:33,026 --> 00:06:33,656
+It's beautiful.
+
+135
+00:06:34,536 --> 00:06:36,106
+Let's bring our CollectionView
+
+136
+00:06:37,186 --> 00:06:39,176
+and we're scrolling along,
+
+137
+00:06:39,176 --> 00:06:40,426
+to bring in a new cell.
+
+138
+00:06:41,776 --> 00:06:43,156
+We'll take it out
+
+139
+00:06:43,156 --> 00:06:45,306
+and we'll call prepareForReuse
+
+140
+00:06:46,316 --> 00:06:49,356
+This gives the cell an
+
+141
+00:06:49,576 --> 00:06:53,396
+to its default state, ready to
+
+142
+00:06:54,316 --> 00:06:58,576
+Next, we'll continue calling the
+
+143
+00:06:59,446 --> 00:07:01,406
+This is where you should
+
+144
+00:06:59,446 --> 00:07:01,406
+This is where you should
+
+145
+00:07:01,406 --> 00:07:02,956
+of your work populating
+
+146
+00:07:03,426 --> 00:07:06,056
+You'll access your data
+
+147
+00:07:06,246 --> 00:07:08,006
+and return them back
+
+148
+00:07:09,076 --> 00:07:12,026
+Now, right before that
+
+149
+00:07:12,306 --> 00:07:14,336
+we'll call willDisplayCell.
+
+150
+00:07:15,556 --> 00:07:16,996
+This will give your app a chance
+
+151
+00:07:17,306 --> 00:07:20,976
+to do any other last-minute
+
+152
+00:07:20,976 --> 00:07:22,276
+that cell goes on screen.
+
+153
+00:07:23,156 --> 00:07:26,526
+And for any outgoing cells,
+
+154
+00:07:27,806 --> 00:07:31,716
+&gt;&gt; OK. So that's the life cycle
+
+155
+00:07:32,746 --> 00:07:35,336
+Now let's check out what
+
+156
+00:07:35,956 --> 00:07:37,476
+So here we have the
+
+157
+00:07:37,476 --> 00:07:38,576
+that Peter just talked about.
+
+158
+00:07:38,876 --> 00:07:39,696
+The single column.
+
+159
+00:07:39,696 --> 00:07:41,566
+It's simple for demonstration
+
+160
+00:07:42,496 --> 00:07:44,776
+So now as the user scrolls up,
+
+161
+00:07:44,846 --> 00:07:47,616
+notice here that well
+
+162
+00:07:47,616 --> 00:07:49,866
+to be displayed on screen,
+
+163
+00:07:49,866 --> 00:07:50,976
+in from the reuse queue.
+
+164
+00:07:51,106 --> 00:07:54,236
+And then following that familiar
+
+165
+00:07:54,546 --> 00:07:56,366
+we're going to send
+
+166
+00:07:56,856 --> 00:07:59,696
+and then construct the rest
+
+167
+00:07:59,696 --> 00:08:01,186
+with cellForItemAtIndexPath.
+
+168
+00:07:59,696 --> 00:08:01,186
+with cellForItemAtIndexPath.
+
+169
+00:08:01,616 --> 00:08:05,306
+Now as the user continues to
+
+170
+00:08:06,106 --> 00:08:08,086
+Now we didn't call
+
+171
+00:08:08,086 --> 00:08:09,136
+when we created this cell.
+
+172
+00:08:09,136 --> 00:08:12,536
+We have a hesitant, hesitation,
+
+173
+00:08:12,666 --> 00:08:14,496
+we're going to call
+
+174
+00:08:15,596 --> 00:08:17,766
+OK. So now the user
+
+175
+00:08:19,046 --> 00:08:20,826
+We're going to fade away
+
+176
+00:08:20,826 --> 00:08:23,776
+on the lifetime of this
+
+177
+00:08:23,776 --> 00:08:26,286
+about to exit the visible
+
+178
+00:08:26,746 --> 00:08:29,676
+So we'll send it the
+
+179
+00:08:30,236 --> 00:08:33,356
+Now what Peter was talking
+
+180
+00:08:33,476 --> 00:08:36,155
+the cell entered the reuse
+
+181
+00:08:36,686 --> 00:08:39,196
+To display the data in
+
+182
+00:08:39,515 --> 00:08:41,265
+we'd have to go through the
+
+183
+00:08:41,265 --> 00:08:43,976
+to cell and call
+
+184
+00:08:44,756 --> 00:08:46,666
+But in iOS 10, we're
+
+185
+00:08:46,666 --> 00:08:48,336
+onto that cell just
+
+186
+00:08:49,166 --> 00:08:50,626
+So if the user scrolls
+
+187
+00:08:50,626 --> 00:08:51,736
+and then says, "Oh,
+
+188
+00:08:51,736 --> 00:08:53,406
+That was a picture of
+
+189
+00:08:53,406 --> 00:08:55,756
+I'm going to scroll back
+
+190
+00:08:55,756 --> 00:08:58,906
+onto that cell, and send
+
+191
+00:08:59,086 --> 00:09:01,896
+Now the content will
+
+192
+00:08:59,086 --> 00:09:01,896
+Now the content will
+
+193
+00:09:02,516 --> 00:09:07,500
+[ Applause ]
+
+194
+00:09:21,176 --> 00:09:24,516
+&gt;&gt; So notice as Steve's showing
+
+195
+00:09:24,516 --> 00:09:26,066
+to multicolumn layouts.
+
+196
+00:09:26,856 --> 00:09:29,996
+We're going to be bringing in
+
+197
+00:09:29,996 --> 00:09:32,456
+of all at once to get better
+
+198
+00:09:32,456 --> 00:09:34,056
+&gt;&gt; That's right,
+
+199
+00:09:34,056 --> 00:09:36,546
+these cells aren't actually
+
+200
+00:09:36,766 --> 00:09:38,046
+They're still off the screen.
+
+201
+00:09:38,226 --> 00:09:40,856
+And now that we sent the
+
+202
+00:09:41,166 --> 00:09:44,776
+the cellForItemIndexPath,
+
+203
+00:09:44,866 --> 00:09:47,796
+now we're going to send
+
+204
+00:09:47,796 --> 00:09:50,296
+to both right before
+
+205
+00:09:51,486 --> 00:09:53,676
+&gt;&gt; While this may seem
+
+206
+00:09:53,826 --> 00:09:55,856
+it's actually a lot
+
+207
+00:09:56,246 --> 00:09:59,096
+By adopting this new
+
+208
+00:09:59,486 --> 00:10:01,976
+we get automatic faster
+
+209
+00:09:59,486 --> 00:10:01,976
+we get automatic faster
+
+210
+00:10:02,406 --> 00:10:03,326
+Let's go back to iPad.
+
+211
+00:10:06,186 --> 00:10:11,716
+So I'm going to switch back
+
+212
+00:10:11,716 --> 00:10:15,146
+that same CollectionView we
+
+213
+00:10:15,766 --> 00:10:19,516
+Remember, scrolling existing
+
+214
+00:10:19,756 --> 00:10:21,256
+but when we have to
+
+215
+00:10:22,506 --> 00:10:23,766
+that's when things get choppy.
+
+216
+00:10:24,346 --> 00:10:26,256
+Now, while preparing
+
+217
+00:10:26,486 --> 00:10:29,676
+we also prepared one in the
+
+218
+00:10:30,006 --> 00:10:31,816
+So I'm going to switch
+
+219
+00:10:32,936 --> 00:10:35,816
+and here we've got the
+
+220
+00:10:36,066 --> 00:10:40,236
+with those same really expensive
+
+221
+00:10:41,606 --> 00:10:45,556
+We can see that scrolling
+
+222
+00:10:45,556 --> 00:10:48,576
+fast, and fluid, but
+
+223
+00:10:48,766 --> 00:10:49,046
+&gt;&gt; Alright.
+
+224
+00:10:49,046 --> 00:10:50,616
+&gt;&gt; When I scroll
+
+225
+00:10:51,656 --> 00:10:52,786
+&gt;&gt; Oh, that's great.
+
+226
+00:10:52,786 --> 00:10:53,686
+Five stars.
+
+227
+00:10:54,246 --> 00:10:54,966
+&gt;&gt; That's exactly right.
+
+228
+00:10:55,516 --> 00:11:00,536
+[ Applause ]
+
+229
+00:10:55,516 --> 00:11:00,536
+[ Applause ]
+
+230
+00:11:01,036 --> 00:11:04,386
+This is because we're using
+
+231
+00:11:04,676 --> 00:11:06,426
+The application hasn't
+
+232
+00:11:07,176 --> 00:11:09,256
+I'm going to turn on that
+
+233
+00:11:09,256 --> 00:11:11,626
+to show you all the cells
+
+234
+00:11:11,846 --> 00:11:13,246
+to help highlight
+
+235
+00:11:13,756 --> 00:11:15,936
+So let me turn that on.
+
+236
+00:11:16,746 --> 00:11:18,526
+So here you can see
+
+237
+00:11:18,526 --> 00:11:20,446
+of cells is just peaking above,
+
+238
+00:11:20,486 --> 00:11:22,676
+but watch what happens
+
+239
+00:11:23,396 --> 00:11:25,786
+Instead of bringing in a
+
+240
+00:11:26,676 --> 00:11:29,006
+we're now spreading that
+
+241
+00:11:29,286 --> 00:11:32,366
+This is what leads to that much
+
+242
+00:11:32,446 --> 00:11:33,136
+Isn't that great?
+
+243
+00:11:38,926 --> 00:11:41,066
+To learn more about this,
+
+244
+00:11:44,896 --> 00:11:46,136
+&gt;&gt; So this is pretty great.
+
+245
+00:11:46,596 --> 00:11:48,226
+So today we're very pleased
+
+246
+00:11:48,226 --> 00:11:51,436
+to announce UI CollectionView
+
+247
+00:11:52,816 --> 00:11:54,206
+Now this is enabled by default
+
+248
+00:11:54,206 --> 00:11:56,176
+when you compile
+
+249
+00:11:57,636 --> 00:11:59,856
+There's no step one.
+
+250
+00:12:00,006 --> 00:12:01,866
+Now for any reason you need
+
+251
+00:12:01,866 --> 00:12:05,296
+to use the old life cycle
+
+252
+00:12:05,376 --> 00:12:06,666
+opting out is easy.
+
+253
+00:12:07,206 --> 00:12:09,616
+Just set the new property
+
+254
+00:12:09,616 --> 00:12:11,996
+to isPrefetchingEnabled
+
+255
+00:12:11,996 --> 00:12:16,316
+Now we've got some
+
+256
+00:12:16,316 --> 00:12:17,866
+for adopting this
+
+257
+00:12:19,136 --> 00:12:21,186
+The first thing we want
+
+258
+00:12:21,186 --> 00:12:23,866
+to do all the heavy lifting
+
+259
+00:12:23,866 --> 00:12:26,036
+All the, all the content
+
+260
+00:12:26,036 --> 00:12:28,956
+Everything should be centered
+
+261
+00:12:30,816 --> 00:12:33,466
+Additionally, we want to
+
+262
+00:12:33,786 --> 00:12:36,586
+willDisplayCell in
+
+263
+00:12:38,416 --> 00:12:40,736
+And, finally, it's
+
+264
+00:12:41,376 --> 00:12:44,556
+that cellForItemaAtIndexPath
+
+265
+00:12:44,556 --> 00:12:45,636
+actually displayed.
+
+266
+00:12:45,756 --> 00:12:48,836
+The user may scroll away before
+
+267
+00:12:48,836 --> 00:12:49,686
+to be displayed.
+
+268
+00:12:51,096 --> 00:12:52,756
+&gt;&gt; So this is great.
+
+269
+00:12:53,446 --> 00:12:55,406
+By just recompiling in iOS 10
+
+270
+00:12:55,666 --> 00:12:58,316
+and doing what you're likely
+
+271
+00:12:58,316 --> 00:13:00,706
+of your work in
+
+272
+00:12:58,316 --> 00:13:00,706
+of your work in
+
+273
+00:13:01,126 --> 00:13:04,516
+you automatically get better
+
+274
+00:13:05,706 --> 00:13:07,736
+But we wanted to
+
+275
+00:13:08,306 --> 00:13:10,416
+We understand that there's
+
+276
+00:13:10,736 --> 00:13:13,746
+which has a simple question for
+
+277
+00:13:14,226 --> 00:13:17,336
+What do I do about my
+
+278
+00:13:18,476 --> 00:13:19,866
+The fact of the matter is
+
+279
+00:13:20,056 --> 00:13:23,506
+that many CollectionView cells
+
+280
+00:13:23,506 --> 00:13:24,986
+access to create.
+
+281
+00:13:25,676 --> 00:13:28,596
+I'm talking about things
+
+282
+00:13:28,946 --> 00:13:30,976
+talking to your database,
+
+283
+00:13:30,976 --> 00:13:32,266
+out of your core data store.
+
+284
+00:13:32,836 --> 00:13:35,596
+And we understand that for
+
+285
+00:13:36,196 --> 00:13:37,216
+we don't want to show things
+
+286
+00:13:37,216 --> 00:13:40,266
+like template cells while we do
+
+287
+00:13:41,456 --> 00:13:44,416
+To help solve this problem,
+
+288
+00:13:44,606 --> 00:13:49,016
+in iOS 10 to help inform how
+
+289
+00:13:50,196 --> 00:13:51,536
+Since its introduction,
+
+290
+00:13:51,676 --> 00:13:55,416
+UI CollectionView has always
+
+291
+00:13:56,126 --> 00:13:58,106
+The data source and
+
+292
+00:13:58,516 --> 00:14:02,356
+And new in iOS 10 we have
+
+293
+00:13:58,516 --> 00:14:02,356
+And new in iOS 10 we have
+
+294
+00:14:02,666 --> 00:14:05,866
+It's optional, and it's
+
+295
+00:14:06,786 --> 00:14:08,766
+There's just one
+
+296
+00:14:09,046 --> 00:14:10,766
+It's really easy to implement.
+
+297
+00:14:11,546 --> 00:14:14,616
+ColletionView prefetchItemsAt
+
+298
+00:14:15,746 --> 00:14:18,526
+This will be called on
+
+299
+00:14:18,826 --> 00:14:21,316
+when it's time for
+
+300
+00:14:21,616 --> 00:14:23,006
+from your asynchronous model.
+
+301
+00:14:23,936 --> 00:14:28,036
+That argument index paths is
+
+302
+00:14:28,756 --> 00:14:31,756
+so earlier items in that
+
+303
+00:14:32,456 --> 00:14:35,926
+You can use this to influence
+
+304
+00:14:36,816 --> 00:14:39,276
+There's a second optional
+
+305
+00:14:39,756 --> 00:14:42,776
+CollectionView
+
+306
+00:14:42,776 --> 00:14:43,616
+indexPaths.
+
+307
+00:14:45,416 --> 00:14:48,296
+This will be called on
+
+308
+00:14:49,436 --> 00:14:52,756
+when we determine that we're no
+
+309
+00:14:52,966 --> 00:14:53,716
+of index paths.
+
+310
+00:14:54,666 --> 00:14:56,456
+You can use this to cancel
+
+311
+00:14:56,876 --> 00:15:00,516
+or lower the priority
+
+312
+00:14:56,876 --> 00:15:00,516
+or lower the priority
+
+313
+00:15:01,376 --> 00:15:03,416
+Now there's something really
+
+314
+00:15:03,416 --> 00:15:04,846
+that I want to highlight.
+
+315
+00:15:05,766 --> 00:15:07,886
+This is not a replacement
+
+316
+00:15:07,886 --> 00:15:08,936
+that you've already written.
+
+317
+00:15:09,466 --> 00:15:13,716
+Instead, it works alongside your
+
+318
+00:15:13,716 --> 00:15:16,506
+that you've built for
+
+319
+00:15:17,836 --> 00:15:21,446
+What you'll do is use this as
+
+320
+00:15:21,446 --> 00:15:23,226
+to load content in
+
+321
+00:15:26,046 --> 00:15:28,536
+&gt;&gt; So let's tie all this
+
+322
+00:15:28,536 --> 00:15:31,676
+that shows all of the concepts
+
+323
+00:15:31,756 --> 00:15:36,246
+and we're going to introduce
+
+324
+00:15:36,466 --> 00:15:37,076
+&gt;&gt; Check this out.
+
+325
+00:15:37,076 --> 00:15:38,756
+Steve's about to
+
+326
+00:15:39,566 --> 00:15:40,326
+&gt;&gt; Science, man.
+
+327
+00:15:44,116 --> 00:15:46,716
+Alright. We're going to
+
+328
+00:15:46,716 --> 00:15:47,626
+which we showed before.
+
+329
+00:15:48,116 --> 00:15:53,106
+OK. So here's the demo app
+
+330
+00:15:53,106 --> 00:15:55,396
+but we've hidden this really
+
+331
+00:15:55,396 --> 00:15:56,306
+science panel.
+
+332
+00:15:56,936 --> 00:15:58,476
+Alright, so I'm going
+
+333
+00:15:58,476 --> 00:16:02,576
+OK. So we have these two
+
+334
+00:15:58,476 --> 00:16:02,576
+OK. So we have these two
+
+335
+00:16:02,576 --> 00:16:03,586
+We've got that red zone.
+
+336
+00:16:03,586 --> 00:16:05,476
+That's the one star bad
+
+337
+00:16:05,476 --> 00:16:07,386
+that nice fat green
+
+338
+00:16:07,726 --> 00:16:10,506
+where we get the super
+
+339
+00:16:11,466 --> 00:16:13,296
+So what I'm going to do
+
+340
+00:16:13,296 --> 00:16:17,546
+through with the iOS 9 version
+
+341
+00:16:17,546 --> 00:16:20,536
+to play back a scrolling
+
+342
+00:16:20,536 --> 00:16:23,006
+to show you what this looks
+
+343
+00:16:24,196 --> 00:16:25,216
+OK. So here we go.
+
+344
+00:16:26,276 --> 00:16:28,246
+Scrolling along,
+
+345
+00:16:29,396 --> 00:16:29,986
+Chop, chop.
+
+346
+00:16:29,986 --> 00:16:32,526
+OK. What do we have here?
+
+347
+00:16:33,516 --> 00:16:34,766
+So check out this graph.
+
+348
+00:16:35,236 --> 00:16:37,316
+We got eight visits
+
+349
+00:16:37,786 --> 00:16:38,906
+Eight dropped frames.
+
+350
+00:16:40,146 --> 00:16:42,596
+But also we can see that
+
+351
+00:16:42,596 --> 00:16:44,246
+of quiescence like we
+
+352
+00:16:44,916 --> 00:16:47,206
+So the area on the graph
+
+353
+00:16:47,206 --> 00:16:48,986
+and then going back
+
+354
+00:16:49,526 --> 00:16:51,026
+Let's see what this
+
+355
+00:16:51,466 --> 00:16:55,726
+OK. I'm going to switch
+
+356
+00:16:55,726 --> 00:16:57,976
+that Peter was talking about
+
+357
+00:16:57,976 --> 00:17:01,566
+to playback that same scrolling
+
+358
+00:16:57,976 --> 00:17:01,566
+to playback that same scrolling
+
+359
+00:17:01,666 --> 00:17:02,256
+Check it out, Peter.
+
+360
+00:17:02,256 --> 00:17:03,666
+&gt;&gt; It's a lot smoother, Steve.
+
+361
+00:17:03,666 --> 00:17:04,646
+&gt;&gt; Yeah, that definitely
+
+362
+00:17:04,646 --> 00:17:06,746
+See what we get.
+
+363
+00:17:07,185 --> 00:17:08,256
+Hey, look at that.
+
+364
+00:17:08,695 --> 00:17:09,856
+No missed frames.
+
+365
+00:17:13,276 --> 00:17:13,715
+Pretty great.
+
+366
+00:17:16,175 --> 00:17:18,096
+Now check out what we've
+
+367
+00:17:18,096 --> 00:17:19,506
+on this particular graph.
+
+368
+00:17:19,935 --> 00:17:22,726
+Instead of those peaks way up in
+
+369
+00:17:23,016 --> 00:17:24,496
+we've blended those together,
+
+370
+00:17:24,496 --> 00:17:26,346
+and now we have this
+
+371
+00:17:26,636 --> 00:17:29,346
+that makes your app much more
+
+372
+00:17:30,056 --> 00:17:32,356
+OK. You ready for this, Peter?
+
+373
+00:17:33,076 --> 00:17:33,526
+&gt;&gt; I'm set.
+
+374
+00:17:33,526 --> 00:17:34,326
+&gt;&gt; Let's do it.
+
+375
+00:17:35,276 --> 00:17:38,206
+OK. So now we're going to
+
+376
+00:17:38,206 --> 00:17:40,116
+but we're going to have
+
+377
+00:17:40,116 --> 00:17:41,946
+that Peter talked about earlier.
+
+378
+00:17:41,946 --> 00:17:43,876
+We're going to adopt
+
+379
+00:17:44,126 --> 00:17:46,336
+Alright. So I'm all
+
+380
+00:17:46,666 --> 00:17:48,666
+I'm going to play back that
+
+381
+00:17:49,676 --> 00:17:50,886
+Whoa, Peter, look at that.
+
+382
+00:17:50,886 --> 00:17:52,036
+&gt;&gt; Now that's butter, Steve.
+
+383
+00:17:52,116 --> 00:17:52,886
+&gt;&gt; That's looking pretty good.
+
+384
+00:17:53,876 --> 00:17:54,546
+Five stars.
+
+385
+00:17:54,576 --> 00:17:56,976
+And the science agrees.
+
+386
+00:17:57,516 --> 00:18:03,656
+[ Applause ]
+
+387
+00:17:57,516 --> 00:18:03,656
+[ Applause ]
+
+388
+00:18:04,156 --> 00:18:06,786
+OK. So, but, Peter, something's
+
+389
+00:18:06,786 --> 00:18:09,976
+The area on the curve between
+
+390
+00:18:09,976 --> 00:18:11,846
+and the prior version
+
+391
+00:18:11,846 --> 00:18:12,666
+This is a lot lower.
+
+392
+00:18:12,666 --> 00:18:13,446
+What's going on here?
+
+393
+00:18:14,136 --> 00:18:17,246
+&gt;&gt; So if we're adopting the
+
+394
+00:18:17,556 --> 00:18:19,526
+we're probably moving
+
+395
+00:18:19,746 --> 00:18:22,386
+onto a background queue
+
+396
+00:18:23,326 --> 00:18:24,176
+&gt;&gt; That's exactly right.
+
+397
+00:18:25,056 --> 00:18:25,876
+That's what's going on.
+
+398
+00:18:25,876 --> 00:18:28,216
+So now we've moved all that
+
+399
+00:18:28,346 --> 00:18:30,976
+and we no longer have to
+
+400
+00:18:31,496 --> 00:18:32,796
+Let's switch back the slides.
+
+401
+00:18:39,756 --> 00:18:41,556
+So next I'd like to
+
+402
+00:18:41,556 --> 00:18:45,176
+about some pre-fetching API tips
+
+403
+00:18:45,176 --> 00:18:47,126
+in the best possible way.
+
+404
+00:18:48,236 --> 00:18:51,136
+The first, when you
+
+405
+00:18:51,256 --> 00:18:52,616
+you want to make sure
+
+406
+00:18:52,616 --> 00:18:54,186
+on the background
+
+407
+00:18:54,346 --> 00:18:57,086
+Now we've got two great
+
+408
+00:18:57,416 --> 00:19:00,036
+GCD and NSOperationQueue.
+
+409
+00:18:57,416 --> 00:19:00,036
+GCD and NSOperationQueue.
+
+410
+00:19:00,536 --> 00:19:05,266
+Now it's also important
+
+411
+00:19:05,266 --> 00:19:07,726
+that pre-fetch is an
+
+412
+00:19:07,726 --> 00:19:09,726
+Now what do I mean by
+
+413
+00:19:10,346 --> 00:19:12,946
+Well, remember when we talked
+
+414
+00:19:12,946 --> 00:19:14,776
+and how pre-fetch takes
+
+415
+00:19:15,036 --> 00:19:16,706
+by doing additional work.
+
+416
+00:19:17,376 --> 00:19:19,206
+There are times in
+
+417
+00:19:19,466 --> 00:19:21,346
+where the user's
+
+418
+00:19:21,346 --> 00:19:22,776
+that there's no quiet times.
+
+419
+00:19:23,286 --> 00:19:24,596
+During these times when we have
+
+420
+00:19:24,596 --> 00:19:25,976
+to update the display
+
+421
+00:19:26,056 --> 00:19:29,376
+we will not do pre-fetching.
+
+422
+00:19:30,876 --> 00:19:34,526
+[Inaudible] And, finally,
+
+423
+00:19:34,526 --> 00:19:36,986
+to adapt to your
+
+424
+00:19:37,116 --> 00:19:39,266
+Now it's possible that
+
+425
+00:19:39,266 --> 00:19:41,286
+up in their CollectionView,
+
+426
+00:19:41,286 --> 00:19:43,086
+with the content, but then
+
+427
+00:19:43,086 --> 00:19:44,136
+and move in another direction.
+
+428
+00:19:44,756 --> 00:19:47,286
+We will notify you of this
+
+429
+00:19:47,526 --> 00:19:50,566
+so you can deprioritize
+
+430
+00:19:50,566 --> 00:19:54,716
+on the new content that
+
+431
+00:19:54,936 --> 00:19:57,186
+&gt;&gt; So this is really
+
+432
+00:19:57,696 --> 00:20:01,106
+By doing no work at all, you get
+
+433
+00:19:57,696 --> 00:20:01,106
+By doing no work at all, you get
+
+434
+00:20:01,336 --> 00:20:03,196
+and by doing just a
+
+435
+00:20:03,506 --> 00:20:05,556
+and using the classes
+
+436
+00:20:05,766 --> 00:20:07,716
+you get even better
+
+437
+00:20:08,536 --> 00:20:10,616
+And if you're using
+
+438
+00:20:10,656 --> 00:20:11,616
+You're not chopped liver.
+
+439
+00:20:11,926 --> 00:20:14,736
+We've brought the exact
+
+440
+00:20:15,516 --> 00:20:21,716
+[ Applause ]
+
+441
+00:20:22,216 --> 00:20:26,276
+It's got a very similar optional
+
+442
+00:20:26,276 --> 00:20:30,526
+object with a similar
+
+443
+00:20:31,396 --> 00:20:34,306
+TableView prefetchRowsAt
+
+444
+00:20:34,846 --> 00:20:39,296
+Again, index paths is an array
+
+445
+00:20:39,296 --> 00:20:41,016
+to the table's visible area.
+
+446
+00:20:41,486 --> 00:20:43,996
+So earlier index paths
+
+447
+00:20:44,856 --> 00:20:46,366
+Just like with the
+
+448
+00:20:46,366 --> 00:20:50,746
+you can use this to inform your
+
+449
+00:20:51,306 --> 00:20:54,846
+And it's got that same second
+
+450
+00:20:55,686 --> 00:20:58,286
+TableView
+
+451
+00:20:58,286 --> 00:20:59,076
+indexPaths.
+
+452
+00:20:59,076 --> 00:21:02,956
+As Steve just mentioned to
+
+453
+00:20:59,076 --> 00:21:02,956
+As Steve just mentioned to
+
+454
+00:21:03,196 --> 00:21:07,696
+to cancel or deprioritize
+
+455
+00:21:08,606 --> 00:21:10,326
+And this is what's really great.
+
+456
+00:21:10,786 --> 00:21:12,696
+Just like with the
+
+457
+00:21:13,206 --> 00:21:16,186
+this works alongside your
+
+458
+00:21:16,186 --> 00:21:17,046
+model solution.
+
+459
+00:21:17,496 --> 00:21:18,906
+You don't have to
+
+460
+00:21:19,286 --> 00:21:22,846
+Instead, use this to inform the
+
+461
+00:21:23,446 --> 00:21:25,976
+So that's it for cell
+
+462
+00:21:26,516 --> 00:21:32,076
+[ Applause ]
+
+463
+00:21:32,576 --> 00:21:34,696
+&gt;&gt; So we're really excited about
+
+464
+00:21:34,696 --> 00:21:36,426
+I mean, we can't wait
+
+465
+00:21:36,426 --> 00:21:37,946
+with the smoother
+
+466
+00:21:37,946 --> 00:21:41,966
+So next up, we're going
+
+467
+00:21:41,966 --> 00:21:45,386
+about improvements we've made
+
+468
+00:21:46,066 --> 00:21:48,016
+This API was introduced in iOS 8
+
+469
+00:21:48,016 --> 00:21:50,116
+and we're bringing some
+
+470
+00:21:50,116 --> 00:21:52,686
+year to make it easier
+
+471
+00:21:53,616 --> 00:21:55,566
+Now, before we get
+
+472
+00:21:55,566 --> 00:22:01,286
+over the existing API,
+
+473
+00:21:55,566 --> 00:22:01,286
+over the existing API,
+
+474
+00:22:01,286 --> 00:22:04,316
+So we shift a concrete
+
+475
+00:22:04,316 --> 00:22:07,326
+in CollectionView called
+
+476
+00:22:07,326 --> 00:22:09,046
+and we have full support
+
+477
+00:22:09,046 --> 00:22:11,016
+for self-sizing cells
+
+478
+00:22:12,066 --> 00:22:15,486
+To enable this, we just need
+
+479
+00:22:15,486 --> 00:22:18,876
+to some non-zero CG size,
+
+480
+00:22:18,876 --> 00:22:21,956
+that you want to, you want to
+
+481
+00:22:22,016 --> 00:22:23,506
+as content is displayed.
+
+482
+00:22:23,506 --> 00:22:27,936
+Now as far as getting the
+
+483
+00:22:27,936 --> 00:22:30,096
+there's three different
+
+484
+00:22:31,036 --> 00:22:33,206
+The first method is
+
+485
+00:22:33,206 --> 00:22:37,426
+If you can fully constrain the
+
+486
+00:22:37,506 --> 00:22:39,436
+to the content view of
+
+487
+00:22:39,816 --> 00:22:41,906
+we'll ask the auto
+
+488
+00:22:41,906 --> 00:22:44,296
+that cell should be
+
+489
+00:22:44,296 --> 00:22:47,426
+Now if you don't
+
+490
+00:22:47,426 --> 00:22:51,886
+or you need more manual control,
+
+491
+00:22:52,396 --> 00:22:55,716
+And, finally, for
+
+492
+00:22:56,236 --> 00:22:58,366
+you can override
+
+493
+00:22:58,576 --> 00:23:01,656
+FittingAttributes, and provide
+
+494
+00:22:58,576 --> 00:23:01,656
+FittingAttributes, and provide
+
+495
+00:23:01,866 --> 00:23:03,256
+but also you can
+
+496
+00:23:03,256 --> 00:23:04,896
+like alpha and transform.
+
+497
+00:23:06,286 --> 00:23:08,906
+&gt;&gt; So specifying the
+
+498
+00:23:08,906 --> 00:23:11,386
+of these three mechanisms,
+
+499
+00:23:11,866 --> 00:23:14,856
+Most apps will use auto layout,
+
+500
+00:23:14,856 --> 00:23:16,826
+they can take on
+
+501
+00:23:17,046 --> 00:23:18,546
+with the second two
+
+502
+00:23:19,336 --> 00:23:22,246
+But we found that
+
+503
+00:23:22,646 --> 00:23:25,026
+picking a good estimated
+
+504
+00:23:25,026 --> 00:23:26,476
+out to be really challenging
+
+505
+00:23:27,096 --> 00:23:29,126
+because sometimes it's
+
+506
+00:23:30,076 --> 00:23:32,146
+I mean, sometimes
+
+507
+00:23:32,216 --> 00:23:35,286
+50 by 50, 100 by 100, even more.
+
+508
+00:23:35,506 --> 00:23:36,446
+It's hard to say.
+
+509
+00:23:37,456 --> 00:23:41,036
+For these types of layouts,
+
+510
+00:23:41,036 --> 00:23:45,076
+if flow layout could adapt
+
+511
+00:23:45,076 --> 00:23:48,776
+on your behalf and instead
+
+512
+00:23:48,836 --> 00:23:51,816
+from actual sizes of
+
+513
+00:23:53,086 --> 00:23:56,666
+So in iOS 10, we've got new
+
+514
+00:23:57,936 --> 00:24:01,086
+All you have to do is set your
+
+515
+00:23:57,936 --> 00:24:01,086
+All you have to do is set your
+
+516
+00:24:01,086 --> 00:24:01,996
+to a new constant,
+
+517
+00:24:02,426 --> 00:24:05,456
+UICollectionViewFlowLayout
+
+518
+00:24:11,906 --> 00:24:15,236
+By setting your estimated
+
+519
+00:24:15,606 --> 00:24:17,766
+you'll indicate to the
+
+520
+00:24:17,896 --> 00:24:19,376
+that it should do
+
+521
+00:24:19,876 --> 00:24:22,446
+It'll keep a running
+
+522
+00:24:22,446 --> 00:24:24,486
+that it's already sized, and use
+
+523
+00:24:24,486 --> 00:24:27,556
+that to influence its
+
+524
+00:24:28,136 --> 00:24:29,186
+As we'll see in a minute,
+
+525
+00:24:29,576 --> 00:24:32,646
+this makes the flow layout much
+
+526
+00:24:32,646 --> 00:24:35,426
+your CollectionView cells
+
+527
+00:24:35,556 --> 00:24:38,066
+and a more accurate
+
+528
+00:24:38,816 --> 00:24:42,346
+So we're going to do a demo
+
+529
+00:24:42,346 --> 00:24:45,636
+of UICollectionViewFlowLayout
+
+530
+00:24:50,276 --> 00:24:51,946
+So I'm going to switch
+
+531
+00:25:00,156 --> 00:25:03,026
+Now here we've got a
+
+532
+00:25:03,026 --> 00:25:03,606
+flow layout.
+
+533
+00:25:04,256 --> 00:25:07,626
+Each cell represents a
+
+534
+00:25:08,546 --> 00:25:10,506
+Just to clarify,
+
+535
+00:25:10,506 --> 00:25:13,596
+that you build a text viewer or
+
+536
+00:25:14,446 --> 00:25:15,986
+but this does make
+
+537
+00:25:16,856 --> 00:25:19,046
+I'm going to put
+
+538
+00:25:19,466 --> 00:25:21,806
+where we can watch
+
+539
+00:25:21,806 --> 00:25:24,156
+as it sizes each
+
+540
+00:25:24,976 --> 00:25:27,696
+No user would ever see
+
+541
+00:25:27,696 --> 00:25:30,506
+for visualizing the
+
+542
+00:25:31,446 --> 00:25:33,856
+Let's start out with
+
+543
+00:25:33,976 --> 00:25:35,586
+like we'd use on iOS 9.
+
+544
+00:25:35,586 --> 00:25:37,716
+So I'm going to turn
+
+545
+00:25:39,016 --> 00:25:41,856
+Here, you can see that
+
+546
+00:25:42,006 --> 00:25:45,666
+with that initial estimated
+
+547
+00:25:46,426 --> 00:25:50,496
+And I'm going to size the first
+
+548
+00:25:51,136 --> 00:25:52,146
+and watch what happens.
+
+549
+00:25:54,356 --> 00:25:57,786
+So we size Lorem, and now
+
+550
+00:25:58,126 --> 00:26:01,376
+but notice the CollectionView
+
+551
+00:25:58,126 --> 00:26:01,376
+but notice the CollectionView
+
+552
+00:26:01,376 --> 00:26:03,916
+to what its destination
+
+553
+00:26:04,496 --> 00:26:07,316
+We didn't use that estimate
+
+554
+00:26:07,686 --> 00:26:10,646
+and everything else is still
+
+555
+00:26:10,646 --> 00:26:11,376
+that we passed in.
+
+556
+00:26:11,906 --> 00:26:17,436
+Now this continues as we
+
+557
+00:26:17,646 --> 00:26:18,476
+in this CollectionView.
+
+558
+00:26:19,856 --> 00:26:23,196
+Notice how we're not actually
+
+559
+00:26:23,196 --> 00:26:25,806
+of the other cell sizes
+
+560
+00:26:25,806 --> 00:26:26,946
+that we've already computed.
+
+561
+00:26:27,836 --> 00:26:31,136
+This is especially obvious
+
+562
+00:26:31,136 --> 00:26:35,416
+in this run of text, Fusce,
+
+563
+00:26:36,596 --> 00:26:39,446
+you'll notice that we slide
+
+564
+00:26:39,516 --> 00:26:41,166
+invalidating their y-positions,
+
+565
+00:26:42,096 --> 00:26:44,626
+and we haven't used the
+
+566
+00:26:44,626 --> 00:26:48,356
+of text to influence the sizes
+
+567
+00:26:49,606 --> 00:26:51,186
+So now I'm going
+
+568
+00:26:51,186 --> 00:26:55,456
+into iOS 10 mode using
+
+569
+00:26:55,896 --> 00:26:56,816
+automatic size.
+
+570
+00:26:56,816 --> 00:26:58,206
+So let's switch over.
+
+571
+00:26:59,456 --> 00:27:00,206
+OK, great.
+
+572
+00:26:59,456 --> 00:27:00,206
+OK, great.
+
+573
+00:27:00,276 --> 00:27:02,956
+So we've seeded this with
+
+574
+00:27:03,306 --> 00:27:04,866
+to help you visualize
+
+575
+00:27:05,586 --> 00:27:07,896
+I'm going to size the
+
+576
+00:27:08,316 --> 00:27:09,576
+and watch what happens.
+
+577
+00:27:10,916 --> 00:27:15,876
+Wow. So we size that first
+
+578
+00:27:16,196 --> 00:27:19,526
+as a running estimate for all
+
+579
+00:27:20,196 --> 00:27:22,286
+Now the layout's not
+
+580
+00:27:22,746 --> 00:27:25,696
+but notice how it's a lot closer
+
+581
+00:27:26,116 --> 00:27:27,426
+In fact, the heights
+
+582
+00:27:27,426 --> 00:27:29,426
+in y-positions are
+
+583
+00:27:30,416 --> 00:27:34,406
+And notice that as I size this
+
+584
+00:27:34,406 --> 00:27:37,496
+that estimated size, making
+
+585
+00:27:37,876 --> 00:27:39,966
+for your CollectionView
+
+586
+00:27:41,876 --> 00:27:44,966
+And notice when we size the
+
+587
+00:27:45,826 --> 00:27:48,066
+we're no longer invalidating
+
+588
+00:27:48,166 --> 00:27:49,576
+of all the other cells.
+
+589
+00:27:50,006 --> 00:27:52,506
+This is really great
+
+590
+00:27:52,506 --> 00:27:55,096
+when you're doing things like
+
+591
+00:27:56,296 --> 00:27:59,686
+Now due to the nature of this
+
+592
+00:27:59,686 --> 00:28:01,846
+for your buck using
+
+593
+00:27:59,686 --> 00:28:01,846
+for your buck using
+
+594
+00:28:02,336 --> 00:28:05,436
+if your cells have
+
+595
+00:28:06,156 --> 00:28:08,706
+So that's it for self-sizing
+
+596
+00:28:08,706 --> 00:28:09,976
+Let's go back to slides.
+
+597
+00:28:10,516 --> 00:28:15,726
+[ Applause ]
+
+598
+00:28:16,226 --> 00:28:20,656
+So that wraps up our
+
+599
+00:28:20,656 --> 00:28:22,246
+and now we're going
+
+600
+00:28:22,246 --> 00:28:26,396
+about an API we introduced last
+
+601
+00:28:27,776 --> 00:28:30,196
+Now, this is a familiar
+
+602
+00:28:30,196 --> 00:28:31,716
+to users of TableView cells.
+
+603
+00:28:31,716 --> 00:28:34,956
+They like to, users might grab
+
+604
+00:28:34,956 --> 00:28:37,656
+and rearrange it
+
+605
+00:28:38,136 --> 00:28:41,106
+So we brought this technology
+
+606
+00:28:41,426 --> 00:28:43,296
+with a new interactive
+
+607
+00:28:43,716 --> 00:28:45,026
+Let's run back over to the iPad
+
+608
+00:28:45,026 --> 00:28:46,946
+and see what this might
+
+609
+00:28:57,536 --> 00:28:58,726
+Switch back over to the iPad.
+
+610
+00:28:58,916 --> 00:28:59,306
+&gt;&gt; Alright.
+
+611
+00:28:59,306 --> 00:28:59,726
+&gt;&gt; Here we are.
+
+612
+00:29:00,386 --> 00:29:03,116
+OK. So we've got this really
+
+613
+00:29:03,116 --> 00:29:05,826
+Oh, man, look at
+
+614
+00:29:06,236 --> 00:29:08,316
+&gt;&gt; We probably adapted
+
+615
+00:29:08,316 --> 00:29:09,326
+which is really easy.
+
+616
+00:29:09,546 --> 00:29:10,386
+&gt;&gt; That's probably it.
+
+617
+00:29:10,706 --> 00:29:11,726
+OK. So check it out.
+
+618
+00:29:11,726 --> 00:29:13,836
+So let's say the user
+
+619
+00:29:13,836 --> 00:29:14,986
+but they want to rearrange it.
+
+620
+00:29:15,406 --> 00:29:19,056
+Might drag their finger around
+
+621
+00:29:19,056 --> 00:29:20,176
+around the CollectionView,
+
+622
+00:29:20,176 --> 00:29:22,476
+and notice how it
+
+623
+00:29:22,546 --> 00:29:24,926
+And not only that, if
+
+624
+00:29:24,926 --> 00:29:27,486
+that has a different
+
+625
+00:29:27,486 --> 00:29:28,056
+to do the right thing.
+
+626
+00:29:28,536 --> 00:29:31,356
+Now when the user's done
+
+627
+00:29:31,766 --> 00:29:34,316
+Smoothly animates into
+
+628
+00:29:35,136 --> 00:29:37,126
+Let's switch back to slides, and
+
+629
+00:29:37,126 --> 00:29:41,656
+&gt;&gt; So that's interactive
+
+630
+00:29:41,656 --> 00:29:44,966
+on iOS 9, and this
+
+631
+00:29:46,336 --> 00:29:48,676
+To start an interactive
+
+632
+00:29:48,676 --> 00:29:51,136
+to call CollectionViews
+
+633
+00:29:51,136 --> 00:29:53,176
+MovementForItemat indexPath
+
+634
+00:29:53,766 --> 00:29:57,436
+where index path represents
+
+635
+00:29:57,616 --> 00:29:58,856
+that we'd like to move around.
+
+636
+00:29:59,696 --> 00:30:01,686
+If you're doing this in
+
+637
+00:29:59,696 --> 00:30:01,686
+If you're doing this in
+
+638
+00:30:02,016 --> 00:30:05,936
+you can hit test the
+
+639
+00:30:06,196 --> 00:30:07,286
+for item at location.
+
+640
+00:30:08,126 --> 00:30:11,606
+Next, each time the gesture
+
+641
+00:30:11,606 --> 00:30:14,856
+to update the cell's position
+
+642
+00:30:15,206 --> 00:30:18,186
+For this, we're going to call
+
+643
+00:30:18,576 --> 00:30:19,456
+TargetPosition.
+
+644
+00:30:20,076 --> 00:30:22,086
+Passing in the location
+
+645
+00:30:22,266 --> 00:30:24,146
+in the CollectionView's
+
+646
+00:30:24,526 --> 00:30:28,846
+Next, when we'd like to end
+
+647
+00:30:29,016 --> 00:30:30,286
+and confirm the reorder,
+
+648
+00:30:30,596 --> 00:30:32,996
+we're going to call
+
+649
+00:30:33,096 --> 00:30:33,956
+on the CollectionView.
+
+650
+00:30:35,196 --> 00:30:37,416
+CollectionView will
+
+651
+00:30:37,696 --> 00:30:39,746
+handling all the layout
+
+652
+00:30:40,086 --> 00:30:42,416
+and then message back to
+
+653
+00:30:42,466 --> 00:30:45,496
+so that you could do the
+
+654
+00:30:47,216 --> 00:30:49,916
+Now, if the gesture cancels,
+
+655
+00:30:49,916 --> 00:30:52,196
+or if you'd like to not allow
+
+656
+00:30:52,696 --> 00:30:55,676
+you can call CollectionView's
+
+657
+00:30:56,466 --> 00:30:58,946
+Here, we'll put everything
+
+658
+00:30:59,566 --> 00:31:01,396
+and we won't call
+
+659
+00:30:59,566 --> 00:31:01,396
+and we won't call
+
+660
+00:31:02,466 --> 00:31:05,376
+Now for those of you using
+
+661
+00:31:05,766 --> 00:31:07,656
+this is even easier
+
+662
+00:31:08,366 --> 00:31:10,756
+You just have to set the
+
+663
+00:31:10,756 --> 00:31:13,326
+for interactive movement
+
+664
+00:31:14,086 --> 00:31:16,906
+and CollectionViewController
+
+665
+00:31:17,006 --> 00:31:19,886
+that will call these
+
+666
+00:31:20,196 --> 00:31:23,176
+All you have to do is
+
+667
+00:31:23,516 --> 00:31:27,976
+&gt;&gt; So that's the API that we
+
+668
+00:31:29,326 --> 00:31:31,546
+This year we're very proud
+
+669
+00:31:31,546 --> 00:31:33,346
+to add paging support to this.
+
+670
+00:31:33,396 --> 00:31:37,286
+Now there's no new API, which
+
+671
+00:31:37,286 --> 00:31:40,046
+and since CollectionView is
+
+672
+00:31:40,496 --> 00:31:44,416
+all you need to do is set
+
+673
+00:31:44,416 --> 00:31:46,836
+of the ScrollView's
+
+674
+00:31:46,996 --> 00:31:48,516
+and that'll enable the support.
+
+675
+00:31:48,516 --> 00:31:51,106
+Let's switch back to the iPad
+
+676
+00:31:52,106 --> 00:31:53,916
+&gt;&gt; And here, we've
+
+677
+00:31:53,916 --> 00:31:55,396
+scrolling CollectionView.
+
+678
+00:31:56,566 --> 00:31:59,076
+This is currently
+
+679
+00:31:59,076 --> 00:32:00,706
+It's just continuous, and look
+
+680
+00:31:59,076 --> 00:32:00,706
+It's just continuous, and look
+
+681
+00:32:00,706 --> 00:32:02,776
+at that smooth scrolling
+
+682
+00:32:02,776 --> 00:32:04,156
+&gt;&gt; Hey, hey.
+
+683
+00:32:04,356 --> 00:32:07,986
+&gt;&gt; So in reordering when
+
+684
+00:32:08,626 --> 00:32:11,396
+we pick up the CollectionView
+
+685
+00:32:11,396 --> 00:32:14,726
+of the screen, and then we
+
+686
+00:32:14,726 --> 00:32:15,586
+scrolling behavior.
+
+687
+00:32:15,936 --> 00:32:17,916
+This is familiar to users
+
+688
+00:32:18,016 --> 00:32:19,936
+of many CollectionView
+
+689
+00:32:19,936 --> 00:32:24,556
+Now I'm going to turn on
+
+690
+00:32:24,556 --> 00:32:27,816
+that CollectionView now advances
+
+691
+00:32:28,306 --> 00:32:31,366
+This is really natural for
+
+692
+00:32:31,976 --> 00:32:33,166
+Now here's what's new.
+
+693
+00:32:34,246 --> 00:32:35,986
+We're calling the
+
+694
+00:32:36,646 --> 00:32:38,116
+but new in iOS 10,
+
+695
+00:32:38,116 --> 00:32:41,076
+that reordering works
+
+696
+00:32:41,736 --> 00:32:44,066
+So as I move my cell to
+
+697
+00:32:44,576 --> 00:32:49,566
+we're going to automatically
+
+698
+00:32:50,916 --> 00:32:53,626
+This can give your app a
+
+699
+00:32:53,626 --> 00:32:54,806
+reordering experience.
+
+700
+00:32:55,006 --> 00:32:56,946
+I'm going to let
+
+701
+00:32:57,516 --> 00:33:03,366
+[ Applause ]
+
+702
+00:32:57,516 --> 00:33:03,366
+[ Applause ]
+
+703
+00:33:03,866 --> 00:33:05,016
+Let's go back to slides.
+
+704
+00:33:10,756 --> 00:33:12,546
+&gt;&gt; So they're a little
+
+705
+00:33:12,706 --> 00:33:15,886
+So while we were developing
+
+706
+00:33:16,316 --> 00:33:19,156
+Pete would often come to my
+
+707
+00:33:19,916 --> 00:33:22,076
+"Steve, I'm working
+
+708
+00:33:22,076 --> 00:33:23,866
+Developers are going to flip."
+
+709
+00:33:24,376 --> 00:33:24,906
+He's like that.
+
+710
+00:33:25,426 --> 00:33:27,926
+And I agree, it's
+
+711
+00:33:27,926 --> 00:33:29,806
+I can't wait to show it
+
+712
+00:33:30,606 --> 00:33:34,066
+So during the run up to WWDC,
+
+713
+00:33:34,066 --> 00:33:36,766
+to land this particular
+
+714
+00:33:36,766 --> 00:33:37,636
+and share it to people.
+
+715
+00:33:38,706 --> 00:33:40,466
+So even a couple days ago,
+
+716
+00:33:40,616 --> 00:33:42,426
+he made the pitch again,
+
+717
+00:33:43,156 --> 00:33:44,276
+So I said, "OK, fine."
+
+718
+00:33:44,836 --> 00:33:47,176
+Two slides, ninety
+
+719
+00:33:47,406 --> 00:33:48,536
+Can you get it done?
+
+720
+00:33:48,536 --> 00:33:49,146
+&gt;&gt; Thanks, Steve.
+
+721
+00:33:49,146 --> 00:33:50,276
+It'll just take a minute.
+
+722
+00:33:50,806 --> 00:33:53,886
+Another feature that I'm
+
+723
+00:33:53,886 --> 00:33:57,456
+in CollectionView in iOS
+
+724
+00:33:58,096 --> 00:33:58,746
+That's right!
+
+725
+00:33:58,786 --> 00:34:01,796
+UIRefreshControl is now
+
+726
+00:33:58,786 --> 00:34:01,796
+UIRefreshControl is now
+
+727
+00:34:01,796 --> 00:34:02,526
+of CollectionView.
+
+728
+00:34:05,936 --> 00:34:09,025
+But not only that, it's also
+
+729
+00:34:09,025 --> 00:34:12,386
+of UITableView without
+
+730
+00:34:12,775 --> 00:34:16,516
+And not only that, it's also
+
+731
+00:34:16,686 --> 00:34:19,866
+because RefreshControl is now
+
+732
+00:34:21,666 --> 00:34:27,505
+It's really easy to use, too.
+
+733
+00:34:27,985 --> 00:34:30,866
+All you have to use, do is
+
+734
+00:34:31,565 --> 00:34:33,946
+add yourself as a target
+
+735
+00:34:34,505 --> 00:34:35,896
+and set it on your
+
+736
+00:34:36,235 --> 00:34:38,485
+and you'll be pulling
+
+737
+00:34:38,795 --> 00:34:39,616
+Thanks a lot, Steve.
+
+738
+00:34:39,616 --> 00:34:40,315
+It means a lot to me.
+
+739
+00:34:40,315 --> 00:34:41,045
+&gt;&gt; Hey, great job.
+
+740
+00:34:41,755 --> 00:34:42,206
+Great job.
+
+741
+00:34:46,956 --> 00:34:48,795
+It's like the summarizer
+
+742
+00:34:48,795 --> 00:34:51,235
+We went over the brand
+
+743
+00:34:51,235 --> 00:34:53,306
+pre-fetching stuff,
+
+744
+00:34:53,306 --> 00:34:55,315
+to see what you guys are going
+
+745
+00:34:55,846 --> 00:34:58,916
+And then we covered the new
+
+746
+00:34:58,916 --> 00:35:00,926
+for Collection and TableView.
+
+747
+00:34:58,916 --> 00:35:00,926
+for Collection and TableView.
+
+748
+00:35:02,476 --> 00:35:04,136
+Next, we covered
+
+749
+00:35:04,136 --> 00:35:07,286
+to self-sizing cells with the
+
+750
+00:35:07,786 --> 00:35:10,186
+And then we chatted a little bit
+
+751
+00:35:10,186 --> 00:35:13,176
+about the iOS 9 introduced
+
+752
+00:35:13,176 --> 00:35:15,906
+and the new paging
+
+753
+00:35:15,906 --> 00:35:19,566
+You want to check out the
+
+754
+00:35:19,566 --> 00:35:22,556
+for this app, for this session,
+
+755
+00:35:22,556 --> 00:35:24,126
+on the developer website.
+
+756
+00:35:24,836 --> 00:35:26,776
+We got some great
+
+757
+00:35:26,776 --> 00:35:27,696
+with these technologies
+
+758
+00:35:27,696 --> 00:35:29,936
+We want to thank you
+
+759
+00:35:29,936 --> 00:35:30,606
+Have a great --
+
+760
+00:35:30,746 --> 00:35:31,516
+&gt;&gt; Thank you so much.

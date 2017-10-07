@@ -1,0 +1,2675 @@
+1
+00:00:07,516 --> 00:00:17,500
+[ Music ]
+
+2
+00:00:22,616 --> 00:00:23,686
+&gt;&gt; Good morning.
+
+3
+00:00:29,216 --> 00:00:31,776
+Welcome to Leveraging
+
+4
+00:00:32,076 --> 00:00:34,286
+My name is Dominik
+
+5
+00:00:34,286 --> 00:00:36,566
+on the UIKit Team,
+
+6
+00:00:36,566 --> 00:00:39,336
+about how you can make the
+
+7
+00:00:39,336 --> 00:00:42,016
+in Multi-Touch and
+
+8
+00:00:42,916 --> 00:00:46,136
+First, let's go over our new
+
+9
+00:00:46,136 --> 00:00:50,406
+Since last WWDC, we
+
+10
+00:00:50,916 --> 00:00:54,776
+For example, 3D Touch with
+
+11
+00:00:55,106 --> 00:00:57,736
+which gives you access to
+
+12
+00:00:58,636 --> 00:01:00,356
+I won't talk much about this,
+
+13
+00:00:58,636 --> 00:01:00,356
+I won't talk much about this,
+
+14
+00:01:00,616 --> 00:01:05,046
+but you can have all the great
+
+15
+00:01:05,536 --> 00:01:07,906
+in the session at A Peek
+
+16
+00:01:09,466 --> 00:01:11,576
+We introduced faster
+
+17
+00:01:11,576 --> 00:01:13,396
+with iPad Air 2 and iPad Pro,
+
+18
+00:01:13,396 --> 00:01:15,006
+giving you a temporary
+
+19
+00:01:15,006 --> 00:01:16,946
+of twice the refresh
+
+20
+00:01:18,166 --> 00:01:21,296
+We also introduced Apple
+
+21
+00:01:21,786 --> 00:01:26,776
+and this amazing device, thank
+
+22
+00:01:26,856 --> 00:01:28,856
+at a [inaudible] accuracy
+
+23
+00:01:29,596 --> 00:01:33,136
+It has an even higher temporary
+
+24
+00:01:34,926 --> 00:01:38,086
+It gives you access to its
+
+25
+00:01:38,086 --> 00:01:39,716
+of course, all the force.
+
+26
+00:01:41,046 --> 00:01:44,866
+And our algorithms team did an
+
+27
+00:01:45,236 --> 00:01:47,886
+So you can rest your palm
+
+28
+00:01:47,886 --> 00:01:50,346
+and don't have to
+
+29
+00:01:50,836 --> 00:01:53,706
+We also released Apple
+
+30
+00:01:54,926 --> 00:01:58,116
+and its track mainly
+
+31
+00:01:58,116 --> 00:02:00,056
+and your interactions
+
+32
+00:01:58,116 --> 00:02:00,056
+and your interactions
+
+33
+00:02:00,786 --> 00:02:03,156
+But you can also access the
+
+34
+00:02:03,156 --> 00:02:07,066
+Controller framework for both
+
+35
+00:02:07,216 --> 00:02:10,295
+or also getting the absolute
+
+36
+00:02:10,866 --> 00:02:14,476
+And, finally, you can
+
+37
+00:02:14,476 --> 00:02:17,976
+in indirect touches in our
+
+38
+00:02:18,546 --> 00:02:20,666
+I won't talk much
+
+39
+00:02:20,666 --> 00:02:22,876
+but there are the great
+
+40
+00:02:23,206 --> 00:02:28,036
+and there's also Game Controller
+
+41
+00:02:28,956 --> 00:02:30,466
+What am I going to talk about?
+
+42
+00:02:30,766 --> 00:02:33,526
+I'm going to talk about how
+
+43
+00:02:34,346 --> 00:02:37,886
+We will build a drawing app from
+
+44
+00:02:37,886 --> 00:02:40,246
+about all the new
+
+45
+00:02:40,246 --> 00:02:42,886
+so you can access all
+
+46
+00:02:43,706 --> 00:02:46,536
+We will talk you
+
+47
+00:02:47,086 --> 00:02:51,206
+and show you all the different
+
+48
+00:02:51,206 --> 00:02:54,426
+on what you see,
+
+49
+00:02:54,426 --> 00:02:56,546
+of this app is completely
+
+50
+00:02:56,546 --> 00:02:59,136
+So you can just relax
+
+51
+00:02:59,526 --> 00:03:00,936
+and play with it later.
+
+52
+00:02:59,526 --> 00:03:00,936
+and play with it later.
+
+53
+00:03:01,846 --> 00:03:04,176
+So say hello to SpeedSketch.
+
+54
+00:03:04,176 --> 00:03:05,226
+This is our sample.
+
+55
+00:03:06,626 --> 00:03:09,466
+SpeedSketch is one sheet
+
+56
+00:03:09,466 --> 00:03:12,526
+It has full support for
+
+57
+00:03:13,086 --> 00:03:16,356
+and 3D Touch on iPhone 6S.
+
+58
+00:03:16,486 --> 00:03:19,246
+It also works on all
+
+59
+00:03:20,556 --> 00:03:22,386
+So let's first talk
+
+60
+00:03:25,696 --> 00:03:30,976
+So this is a stroke, and this
+
+61
+00:03:31,116 --> 00:03:35,036
+Each of those points is one
+
+62
+00:03:35,036 --> 00:03:36,396
+of a mutable UI touch.
+
+63
+00:03:36,816 --> 00:03:39,146
+You get handed down in
+
+64
+00:03:39,756 --> 00:03:43,616
+And we will model our data
+
+65
+00:03:45,356 --> 00:03:50,986
+And because of the UI touch
+
+66
+00:03:50,986 --> 00:03:54,876
+of one touch sequence,
+
+67
+00:03:54,876 --> 00:03:57,626
+out of this UI touch in
+
+68
+00:03:57,906 --> 00:03:59,246
+into something more static.
+
+69
+00:04:01,306 --> 00:04:04,766
+So we will build a stroke sample
+
+70
+00:04:04,766 --> 00:04:08,976
+of our data structure, which
+
+71
+00:04:08,976 --> 00:04:11,666
+location of this, of the
+
+72
+00:04:11,666 --> 00:04:14,186
+we will fill in all the
+
+73
+00:04:15,776 --> 00:04:19,526
+And we will put those
+
+74
+00:04:19,706 --> 00:04:21,516
+Let's just an array
+
+75
+00:04:21,516 --> 00:04:25,106
+and we have a little bit
+
+76
+00:04:25,926 --> 00:04:28,126
+And because we want
+
+77
+00:04:28,516 --> 00:04:33,246
+as our main data capture
+
+78
+00:04:34,026 --> 00:04:37,126
+So it can be active while
+
+79
+00:04:37,126 --> 00:04:39,396
+when the user is done,
+
+80
+00:04:39,396 --> 00:04:42,916
+if a different user interaction
+
+81
+00:04:42,916 --> 00:04:45,276
+So we can throw it away
+
+82
+00:04:47,626 --> 00:04:49,996
+And, lastly, we put this
+
+83
+00:04:49,996 --> 00:04:53,686
+which will just be an array of
+
+84
+00:04:53,686 --> 00:04:57,346
+down strokes, and to make it a
+
+85
+00:04:57,346 --> 00:05:00,226
+we will have the active
+
+86
+00:04:57,346 --> 00:05:00,226
+we will have the active
+
+87
+00:05:00,226 --> 00:05:02,006
+So we can use the
+
+88
+00:05:02,006 --> 00:05:05,606
+as our data model
+
+89
+00:05:06,026 --> 00:05:08,536
+So next up is where to
+
+90
+00:05:09,356 --> 00:05:12,276
+So, essentially, you have
+
+91
+00:05:12,526 --> 00:05:15,346
+The first one, is a
+
+92
+00:05:15,346 --> 00:05:17,936
+a custom UIGestureRecognizer
+
+93
+00:05:19,046 --> 00:05:23,216
+The next place to look
+
+94
+00:05:24,126 --> 00:05:28,506
+where the touch goes down, and
+
+95
+00:05:28,506 --> 00:05:31,346
+up the responder chain,
+
+96
+00:05:31,346 --> 00:05:33,266
+I want you to think
+
+97
+00:05:33,266 --> 00:05:36,156
+If you can do a
+
+98
+00:05:36,156 --> 00:05:37,656
+or a custom subclass do that.
+
+99
+00:05:38,286 --> 00:05:43,246
+Second, do a UIView as close as
+
+100
+00:05:43,246 --> 00:05:46,206
+and only if you have to
+
+101
+00:05:46,886 --> 00:05:50,186
+So this is what we going to do.
+
+102
+00:05:50,746 --> 00:05:53,386
+We are building a stroke
+
+103
+00:05:53,386 --> 00:05:54,246
+to a subclass.
+
+104
+00:05:54,686 --> 00:05:56,886
+We will target our
+
+105
+00:05:58,636 --> 00:06:02,736
+and then in the action methods,
+
+106
+00:05:58,636 --> 00:06:02,736
+and then in the action methods,
+
+107
+00:06:02,736 --> 00:06:04,096
+of our view with a stroke.
+
+108
+00:06:06,006 --> 00:06:08,616
+So let's start building this
+
+109
+00:06:08,616 --> 00:06:10,106
+The first thing you
+
+110
+00:06:10,146 --> 00:06:12,976
+to import the
+
+111
+00:06:13,336 --> 00:06:16,706
+This exposes the internals of
+
+112
+00:06:16,956 --> 00:06:18,806
+so you can do subclassing.
+
+113
+00:06:19,296 --> 00:06:22,666
+Be aware, though, that these
+
+114
+00:06:22,666 --> 00:06:24,696
+outside of a
+
+115
+00:06:25,086 --> 00:06:29,626
+For example, the state setter
+
+116
+00:06:29,806 --> 00:06:32,836
+and you shouldn't use
+
+117
+00:06:32,836 --> 00:06:37,516
+Otherwise, the gesture system
+
+118
+00:06:37,516 --> 00:06:39,366
+and you will have
+
+119
+00:06:40,546 --> 00:06:43,676
+So let's add our stroke
+
+120
+00:06:43,676 --> 00:06:45,856
+in our gesture recognizer
+
+121
+00:06:46,666 --> 00:06:48,446
+and implement the
+
+122
+00:06:49,456 --> 00:06:52,376
+And since we do various
+
+123
+00:06:52,376 --> 00:06:54,996
+in all the four touch
+
+124
+00:06:54,996 --> 00:06:57,846
+we will have a helper
+
+125
+00:06:57,846 --> 00:06:59,976
+into the set of UITouches.
+
+126
+00:07:00,276 --> 00:07:04,066
+Determining if we are interested
+
+127
+00:07:04,806 --> 00:07:07,926
+Adding that to our data model
+
+128
+00:07:08,026 --> 00:07:11,146
+as a sample at the
+
+129
+00:07:11,416 --> 00:07:12,936
+if you were interested in those.
+
+130
+00:07:13,226 --> 00:07:16,906
+We will use this helper
+
+131
+00:07:16,906 --> 00:07:18,596
+and set our state to begin.
+
+132
+00:07:19,486 --> 00:07:23,566
+For UIGestureRecognizer, that
+
+133
+00:07:23,566 --> 00:07:27,556
+between the state possible and
+
+134
+00:07:27,556 --> 00:07:29,886
+that different gesture
+
+135
+00:07:29,886 --> 00:07:32,326
+about have, handing
+
+136
+00:07:32,756 --> 00:07:36,466
+However, for our stroke, we
+
+137
+00:07:36,466 --> 00:07:37,596
+when the touch goes down.
+
+138
+00:07:37,596 --> 00:07:40,926
+So this is exactly
+
+139
+00:07:41,316 --> 00:07:44,586
+In touchesMoved, we do the same
+
+140
+00:07:44,976 --> 00:07:46,596
+Note that in a gesture
+
+141
+00:07:46,596 --> 00:07:48,916
+each state change
+
+142
+00:07:48,916 --> 00:07:50,126
+even if it's for the same.
+
+143
+00:07:50,126 --> 00:07:55,706
+And we do the same for
+
+144
+00:07:56,026 --> 00:07:59,256
+And, finally, we have to
+
+145
+00:07:59,476 --> 00:08:02,286
+and replace the previous
+
+146
+00:07:59,476 --> 00:08:02,286
+and replace the previous
+
+147
+00:08:02,286 --> 00:08:03,676
+so we can catch on the next one.
+
+148
+00:08:03,906 --> 00:08:06,766
+And as a good citizen, we
+
+149
+00:08:06,766 --> 00:08:12,346
+Let's use this in
+
+150
+00:08:14,466 --> 00:08:17,746
+In our viewDidLoad, we set up
+
+151
+00:08:18,186 --> 00:08:22,506
+ourselves as the target with
+
+152
+00:08:22,506 --> 00:08:24,446
+and then we add it
+
+153
+00:08:25,126 --> 00:08:29,926
+And in the update callback,
+
+154
+00:08:29,926 --> 00:08:32,596
+from the gesture, and
+
+155
+00:08:32,596 --> 00:08:33,746
+That's all for now.
+
+156
+00:08:34,535 --> 00:08:36,846
+I told you about the
+
+157
+00:08:37,126 --> 00:08:39,926
+but just to bring up, I
+
+158
+00:08:41,256 --> 00:08:44,046
+So let's see what this gives us.
+
+159
+00:08:45,426 --> 00:08:46,866
+I always like this moment
+
+160
+00:08:46,866 --> 00:08:48,996
+when the first time
+
+161
+00:08:50,726 --> 00:08:53,976
+So what you see is
+
+162
+00:08:53,976 --> 00:08:55,846
+of the pencil on the display.
+
+163
+00:08:56,486 --> 00:09:00,726
+Let's have a look.
+
+164
+00:08:56,486 --> 00:09:00,726
+Let's have a look.
+
+165
+00:09:00,726 --> 00:09:06,656
+Oh. That doesn't look good.
+
+166
+00:09:07,926 --> 00:09:08,626
+What happened?
+
+167
+00:09:09,306 --> 00:09:11,766
+Let's have a closer
+
+168
+00:09:13,796 --> 00:09:18,586
+That's really not
+
+169
+00:09:18,846 --> 00:09:20,916
+So let's, what did we see?
+
+170
+00:09:20,916 --> 00:09:22,606
+We have the position
+
+171
+00:09:23,356 --> 00:09:25,506
+We have a really,
+
+172
+00:09:25,536 --> 00:09:27,026
+to the last line we drew,
+
+173
+00:09:27,476 --> 00:09:31,376
+and the lines we drew were
+
+174
+00:09:31,516 --> 00:09:33,656
+That is not what I,
+
+175
+00:09:33,656 --> 00:09:36,226
+We have a really good
+
+176
+00:09:36,226 --> 00:09:37,316
+Why does it look this way?
+
+177
+00:09:38,216 --> 00:09:40,326
+So, obviously, we
+
+178
+00:09:41,066 --> 00:09:43,696
+and we missed some events
+
+179
+00:09:43,696 --> 00:09:45,866
+One of them is our drawing
+
+180
+00:09:45,866 --> 00:09:46,626
+very naively.
+
+181
+00:09:47,086 --> 00:09:50,856
+It is drawing a complete bit map
+
+182
+00:09:50,856 --> 00:09:55,436
+and that is not quick enough to
+
+183
+00:09:56,216 --> 00:09:57,916
+And we will talk about
+
+184
+00:09:58,556 --> 00:10:01,136
+And the most, more important
+
+185
+00:09:58,556 --> 00:10:01,136
+And the most, more important
+
+186
+00:10:01,206 --> 00:10:03,436
+iOS 9 API that we have
+
+187
+00:10:03,436 --> 00:10:05,546
+to actually get to
+
+188
+00:10:05,976 --> 00:10:08,906
+And for that, I want to look a
+
+189
+00:10:08,906 --> 00:10:11,826
+So let's see that again.
+
+190
+00:10:12,986 --> 00:10:18,056
+Here are all the rich samples
+
+191
+00:10:18,056 --> 00:10:22,376
+And in our touch handing
+
+192
+00:10:22,376 --> 00:10:28,556
+and the ended, but in
+
+193
+00:10:29,046 --> 00:10:34,636
+And we don't get all of
+
+194
+00:10:34,636 --> 00:10:37,796
+in as a sample, and
+
+195
+00:10:37,796 --> 00:10:41,436
+If we would deliver to you
+
+196
+00:10:41,436 --> 00:10:42,956
+if you would block
+
+197
+00:10:43,366 --> 00:10:45,726
+you would see something
+
+198
+00:10:45,726 --> 00:10:48,266
+of the touch interaction, and
+
+199
+00:10:48,566 --> 00:10:50,076
+that's not at all what you want.
+
+200
+00:10:50,226 --> 00:10:52,426
+You want the most recent
+
+201
+00:10:53,026 --> 00:10:54,606
+and that's what we do generally,
+
+202
+00:10:54,606 --> 00:10:56,946
+and that's what we
+
+203
+00:10:56,946 --> 00:10:58,746
+We actually dropped
+
+204
+00:10:58,746 --> 00:11:02,176
+If you weren't quick
+
+205
+00:10:58,746 --> 00:11:02,176
+If you weren't quick
+
+206
+00:11:02,846 --> 00:11:06,596
+then you just didn't see any of
+
+207
+00:11:06,596 --> 00:11:09,066
+we give you access
+
+208
+00:11:09,466 --> 00:11:13,856
+And the other reason is as
+
+209
+00:11:13,856 --> 00:11:18,786
+than the display, we don't
+
+210
+00:11:18,786 --> 00:11:21,416
+for each datapoint we have.
+
+211
+00:11:22,036 --> 00:11:23,976
+So you do too much work.
+
+212
+00:11:23,976 --> 00:11:26,086
+So we try to coalesce
+
+213
+00:11:26,686 --> 00:11:30,026
+into one delivery per
+
+214
+00:11:32,596 --> 00:11:36,416
+So what you can do
+
+215
+00:11:36,416 --> 00:11:38,536
+using the life touch
+
+216
+00:11:39,286 --> 00:11:41,996
+ask for the touches you missed,
+
+217
+00:11:42,316 --> 00:11:44,826
+and that includes the touch
+
+218
+00:11:44,826 --> 00:11:46,746
+So you have a complete
+
+219
+00:11:47,296 --> 00:11:49,526
+And those touches are
+
+220
+00:11:49,906 --> 00:11:52,426
+And you do that for
+
+221
+00:11:53,906 --> 00:11:57,936
+And you do that also
+
+222
+00:11:58,916 --> 00:12:01,076
+Because you have to
+
+223
+00:11:58,916 --> 00:12:01,076
+Because you have to
+
+224
+00:12:01,076 --> 00:12:03,156
+Either you handle
+
+225
+00:12:03,206 --> 00:12:04,956
+or you handle the
+
+226
+00:12:05,376 --> 00:12:08,386
+Because there are methods
+
+227
+00:12:08,596 --> 00:12:11,626
+that reference the previous
+
+228
+00:12:11,766 --> 00:12:13,256
+then you into problems there.
+
+229
+00:12:14,486 --> 00:12:17,126
+So now that we know how,
+
+230
+00:12:17,126 --> 00:12:18,236
+let's do this in code.
+
+231
+00:12:19,606 --> 00:12:23,556
+The method is coalescedTouches
+
+232
+00:12:23,556 --> 00:12:25,956
+and you get the event in
+
+233
+00:12:27,576 --> 00:12:32,436
+And now that the optional
+
+234
+00:12:32,436 --> 00:12:34,176
+because we will give you nil.
+
+235
+00:12:35,236 --> 00:12:36,926
+Anytime if you only
+
+236
+00:12:36,926 --> 00:12:38,266
+and we don't have
+
+237
+00:12:38,806 --> 00:12:42,696
+it's because you could ask for
+
+238
+00:12:42,696 --> 00:12:44,236
+of the event, and then
+
+239
+00:12:44,626 --> 00:12:47,076
+You're guaranteed to
+
+240
+00:12:47,076 --> 00:12:50,126
+at least the one you put in
+
+241
+00:12:50,526 --> 00:12:54,376
+So you don't have to do an
+
+242
+00:12:55,116 --> 00:12:59,006
+So let's use this in our code.
+
+243
+00:12:59,006 --> 00:13:01,286
+In our code where we look at
+
+244
+00:12:59,006 --> 00:13:01,286
+In our code where we look at
+
+245
+00:13:01,566 --> 00:13:04,626
+we did appendTouch, and all
+
+246
+00:13:04,626 --> 00:13:07,636
+over the Coalesce Touches
+
+247
+00:13:08,086 --> 00:13:10,876
+That gives us all the data.
+
+248
+00:13:10,876 --> 00:13:15,136
+Let's have a look
+
+249
+00:13:15,136 --> 00:13:17,676
+Nice. Now we really
+
+250
+00:13:18,496 --> 00:13:20,146
+Let's have a comparison.
+
+251
+00:13:20,146 --> 00:13:28,286
+And, again, in slow
+
+252
+00:13:30,616 --> 00:13:32,076
+So what are you seeing here?
+
+253
+00:13:32,076 --> 00:13:34,346
+This is in [inaudible]
+
+254
+00:13:34,346 --> 00:13:35,596
+on the glass currently.
+
+255
+00:13:36,936 --> 00:13:41,096
+These are the Coalesce Touches
+
+256
+00:13:41,096 --> 00:13:43,426
+Now debugging drawing engine.
+
+257
+00:13:44,236 --> 00:13:45,996
+The black one is also
+
+258
+00:13:45,996 --> 00:13:48,086
+but the one corresponding
+
+259
+00:13:49,236 --> 00:13:50,776
+And what you also see is
+
+260
+00:13:50,776 --> 00:13:52,836
+that you see too many
+
+261
+00:13:53,546 --> 00:13:55,756
+If our digitizer is running
+
+262
+00:13:55,756 --> 00:13:56,736
+of the display, you see,
+
+263
+00:13:57,166 --> 00:14:01,156
+you should see an average three
+
+264
+00:13:57,166 --> 00:14:01,156
+you should see an average three
+
+265
+00:14:01,576 --> 00:14:02,516
+These are way too many.
+
+266
+00:14:04,166 --> 00:14:06,626
+And we still have this
+
+267
+00:14:06,626 --> 00:14:10,176
+which leads to lag,
+
+268
+00:14:10,176 --> 00:14:13,406
+So what did we see?
+
+269
+00:14:13,846 --> 00:14:15,756
+The speed is still lagging
+
+270
+00:14:15,756 --> 00:14:19,396
+We didn't address this up
+
+271
+00:14:19,396 --> 00:14:20,686
+by coalescing the touches,
+
+272
+00:14:20,746 --> 00:14:24,346
+and the final drawing really has
+
+273
+00:14:24,766 --> 00:14:28,096
+So if you only take
+
+274
+00:14:28,096 --> 00:14:30,306
+then use Coalesce
+
+275
+00:14:30,306 --> 00:14:32,366
+to have the rich
+
+276
+00:14:32,676 --> 00:14:39,696
+So what is the problem
+
+277
+00:14:39,696 --> 00:14:41,576
+You should not draw
+
+278
+00:14:42,046 --> 00:14:44,366
+because the display
+
+279
+00:14:44,806 --> 00:14:48,136
+Although we try to actually
+
+280
+00:14:48,136 --> 00:14:51,546
+frame, you can draw, that
+
+281
+00:14:51,546 --> 00:14:54,626
+because if you mix
+
+282
+00:14:54,626 --> 00:14:56,886
+or have other events coming in,
+
+283
+00:14:56,886 --> 00:14:58,226
+we need to deliver
+
+284
+00:14:58,516 --> 00:15:01,756
+And so you need to be
+
+285
+00:14:58,516 --> 00:15:01,756
+And so you need to be
+
+286
+00:15:01,756 --> 00:15:04,296
+than you can, than
+
+287
+00:15:05,206 --> 00:15:07,026
+And do not try to draw faster
+
+288
+00:15:07,026 --> 00:15:11,496
+because this is just costing
+
+289
+00:15:11,496 --> 00:15:14,466
+and doing work that doesn't even
+
+290
+00:15:14,816 --> 00:15:16,406
+So when should you render?
+
+291
+00:15:16,586 --> 00:15:19,466
+In our example, we are using
+
+292
+00:15:19,466 --> 00:15:21,646
+graphics, and in that case,
+
+293
+00:15:21,706 --> 00:15:24,156
+you should just use setsNeeds
+
+294
+00:15:24,926 --> 00:15:28,316
+marking that view is needing
+
+295
+00:15:28,316 --> 00:15:31,796
+to actually call the draw method
+
+296
+00:15:31,796 --> 00:15:33,326
+of your custom bit drawing.
+
+297
+00:15:34,066 --> 00:15:39,896
+If you're using a GLKView or
+
+298
+00:15:39,896 --> 00:15:42,546
+into this behavior
+
+299
+00:15:42,986 --> 00:15:46,426
+by setting the enableSetsNeeds
+
+300
+00:15:47,016 --> 00:15:50,626
+That way those views behave in
+
+301
+00:15:51,776 --> 00:15:54,506
+If you need to draw at a
+
+302
+00:15:54,506 --> 00:15:57,266
+at a steady pace and not
+
+303
+00:15:57,626 --> 00:15:59,246
+and you can do so
+
+304
+00:15:59,246 --> 00:16:03,396
+and GLViews internal
+
+305
+00:15:59,246 --> 00:16:03,396
+and GLViews internal
+
+306
+00:16:03,396 --> 00:16:06,676
+so using a CADisplayLink
+
+307
+00:16:06,676 --> 00:16:08,056
+in the wake of your DisplayLink.
+
+308
+00:16:08,646 --> 00:16:10,526
+What we did was we had
+
+309
+00:16:10,526 --> 00:16:14,706
+in our strokes [inaudible] just
+
+310
+00:16:14,706 --> 00:16:15,956
+with drawImageAndUpdate.
+
+311
+00:16:16,426 --> 00:16:18,436
+This created the
+
+312
+00:16:18,916 --> 00:16:21,046
+So let's just do
+
+313
+00:16:21,726 --> 00:16:25,416
+and move the drawing code
+
+314
+00:16:26,396 --> 00:16:29,256
+If you're using a regular
+
+315
+00:16:29,546 --> 00:16:33,276
+You can only mark the changed
+
+316
+00:16:33,906 --> 00:16:38,366
+that also needs some kind
+
+317
+00:16:38,366 --> 00:16:41,726
+because your drawing might,
+
+318
+00:16:41,726 --> 00:16:42,846
+than the changed touches,
+
+319
+00:16:42,846 --> 00:16:45,406
+and the touches change
+
+320
+00:16:45,796 --> 00:16:48,696
+You can look at the sample
+
+321
+00:16:48,696 --> 00:16:50,956
+of how you could do this
+
+322
+00:16:52,796 --> 00:16:55,926
+And even further, you can
+
+323
+00:16:56,586 --> 00:16:57,636
+on the layer.
+
+324
+00:16:57,906 --> 00:17:02,036
+This puts all the drawing you
+
+325
+00:16:57,906 --> 00:17:02,036
+This puts all the drawing you
+
+326
+00:17:02,036 --> 00:17:06,046
+up to CA, and CA draws it
+
+327
+00:17:06,185 --> 00:17:09,185
+which opens your main thread
+
+328
+00:17:09,726 --> 00:17:13,896
+and you do so by simply setting
+
+329
+00:17:13,896 --> 00:17:14,996
+or your diffuse layer.
+
+330
+00:17:16,046 --> 00:17:17,976
+Let's see how far this got us.
+
+331
+00:17:24,976 --> 00:17:26,366
+Again in slow motion.
+
+332
+00:17:28,856 --> 00:17:33,786
+So now we have the steady amount
+
+333
+00:17:33,786 --> 00:17:36,556
+of Coalesce Touches
+
+334
+00:17:36,556 --> 00:17:39,106
+about three Coalesce
+
+335
+00:17:39,106 --> 00:17:42,366
+But we still have some lag.
+
+336
+00:17:42,606 --> 00:17:46,486
+It however, it's way smaller
+
+337
+00:17:46,486 --> 00:17:51,146
+at the display speed, and we
+
+338
+00:17:51,146 --> 00:17:53,236
+And how can we improve that?
+
+339
+00:17:53,956 --> 00:17:58,546
+So we have a facility called
+
+340
+00:17:58,886 --> 00:18:02,416
+and Predicted Touches give
+
+341
+00:17:58,886 --> 00:18:02,416
+and Predicted Touches give
+
+342
+00:18:02,416 --> 00:18:06,956
+You use the same way as Coalesce
+
+343
+00:18:06,956 --> 00:18:10,206
+for the Predicted Touches for
+
+344
+00:18:11,086 --> 00:18:13,596
+of touches that are
+
+345
+00:18:13,596 --> 00:18:17,606
+And what do you do
+
+346
+00:18:17,606 --> 00:18:20,386
+You add them to your data
+
+347
+00:18:20,446 --> 00:18:22,326
+They change on every
+
+348
+00:18:22,606 --> 00:18:25,096
+So you really have to do
+
+349
+00:18:25,956 --> 00:18:28,026
+And you choose their appearance,
+
+350
+00:18:28,026 --> 00:18:33,896
+I highly recommend that you make
+
+351
+00:18:34,956 --> 00:18:39,256
+and look at the result, and
+
+352
+00:18:39,256 --> 00:18:42,056
+by too much, then tone it down.
+
+353
+00:18:42,056 --> 00:18:43,486
+It makes them appears tentative
+
+354
+00:18:43,846 --> 00:18:48,506
+to still get the closer
+
+355
+00:18:49,636 --> 00:18:51,206
+Let's look over that in code.
+
+356
+00:18:52,346 --> 00:18:53,786
+So now in our touch
+
+357
+00:18:53,786 --> 00:18:55,596
+after you added the
+
+358
+00:18:55,786 --> 00:19:02,816
+you add the Predicted Touches
+
+359
+00:18:55,786 --> 00:19:02,816
+you add the Predicted Touches
+
+360
+00:19:02,816 --> 00:19:06,076
+to make sure that you remove
+
+361
+00:19:07,406 --> 00:19:10,676
+So I will show you a video of
+
+362
+00:19:10,676 --> 00:19:11,496
+of what you should do.
+
+363
+00:19:11,496 --> 00:19:15,276
+I will highlight the Predicted
+
+364
+00:19:15,576 --> 00:19:18,046
+if they are good
+
+365
+00:19:18,216 --> 00:19:22,976
+And, again, in slow motion
+
+366
+00:19:29,856 --> 00:19:32,956
+So these are the Predictive
+
+367
+00:19:32,956 --> 00:19:36,806
+to the actual Pencil position,
+
+368
+00:19:36,806 --> 00:19:39,896
+for perceived lag
+
+369
+00:19:40,296 --> 00:19:42,516
+And as you can see
+
+370
+00:19:42,516 --> 00:19:43,946
+this really worked out fine.
+
+371
+00:19:43,946 --> 00:19:45,246
+So we will just use them
+
+372
+00:19:45,246 --> 00:19:47,666
+and draw them the same way
+
+373
+00:19:47,666 --> 00:19:50,816
+So have we seen so far?
+
+374
+00:19:51,226 --> 00:19:53,976
+We have seen how to collect
+
+375
+00:19:53,976 --> 00:19:58,046
+UIGestureRecognizer, how to
+
+376
+00:19:59,096 --> 00:20:04,786
+how to make the rendering faster
+
+377
+00:19:59,096 --> 00:20:04,786
+how to make the rendering faster
+
+378
+00:20:04,786 --> 00:20:05,976
+how to use the Predictive
+
+379
+00:20:06,686 --> 00:20:10,746
+All of those techniques work
+
+380
+00:20:10,796 --> 00:20:13,626
+We used them for the Pencil
+
+381
+00:20:13,976 --> 00:20:15,416
+but they work overall.
+
+382
+00:20:15,746 --> 00:20:20,456
+Now let's go on to the
+
+383
+00:20:21,426 --> 00:20:24,006
+So let's begin with touch types.
+
+384
+00:20:24,856 --> 00:20:29,886
+With Apple Pencil UITouch
+
+385
+00:20:30,246 --> 00:20:33,376
+and UITouch type can
+
+386
+00:20:34,326 --> 00:20:37,556
+It can be direct, which would
+
+387
+00:20:37,556 --> 00:20:38,566
+know about.
+
+388
+00:20:39,756 --> 00:20:43,436
+There's indirect only for
+
+389
+00:20:43,926 --> 00:20:46,836
+and there's stylus
+
+390
+00:20:47,736 --> 00:20:52,676
+And the first thing
+
+391
+00:20:52,676 --> 00:20:54,556
+with Apple Pencil is
+
+392
+00:20:55,026 --> 00:20:57,976
+and you do so by using
+
+393
+00:20:58,946 --> 00:21:01,756
+and you also have the precise
+
+394
+00:20:58,946 --> 00:21:01,756
+and you also have the precise
+
+395
+00:21:02,426 --> 00:21:05,256
+You should use those whenever
+
+396
+00:21:05,256 --> 00:21:06,436
+for something like a drawing.
+
+397
+00:21:06,826 --> 00:21:08,236
+If you want to do hit testing,
+
+398
+00:21:08,346 --> 00:21:13,046
+you should still use the
+
+399
+00:21:13,046 --> 00:21:15,126
+and previous location in.
+
+400
+00:21:15,266 --> 00:21:17,176
+But for drawing, this
+
+401
+00:21:17,486 --> 00:21:19,036
+Without the precise locations,
+
+402
+00:21:19,036 --> 00:21:22,796
+you will add some staircase
+
+403
+00:21:22,796 --> 00:21:23,816
+which you don't want to see.
+
+404
+00:21:24,626 --> 00:21:27,706
+And you can ask all kind of
+
+405
+00:21:27,706 --> 00:21:30,806
+You will just get
+
+406
+00:21:31,386 --> 00:21:33,176
+Next up, there's force.
+
+407
+00:21:33,416 --> 00:21:36,216
+Force is exposed as a
+
+408
+00:21:36,596 --> 00:21:38,496
+and a maximum possible force.
+
+409
+00:21:38,836 --> 00:21:42,606
+Those are CG floats, and they
+
+410
+00:21:42,606 --> 00:21:44,126
+to the maximum possible force
+
+411
+00:21:44,656 --> 00:21:47,676
+where 1.0 represents
+
+412
+00:21:47,676 --> 00:21:50,116
+So these are not
+
+413
+00:21:50,386 --> 00:21:52,396
+So you shouldn't do
+
+414
+00:21:52,396 --> 00:21:57,036
+to the actual force,
+
+415
+00:21:57,466 --> 00:21:59,076
+to affect your drawing.
+
+416
+00:21:59,076 --> 00:22:04,936
+And on all previous devices
+
+417
+00:21:59,076 --> 00:22:04,936
+And on all previous devices
+
+418
+00:22:05,236 --> 00:22:06,616
+it will always return zero.
+
+419
+00:22:07,206 --> 00:22:11,126
+A quick note on force.
+
+420
+00:22:11,126 --> 00:22:15,256
+Since we added force to
+
+421
+00:22:15,256 --> 00:22:18,486
+in touch handing, and that
+
+422
+00:22:18,486 --> 00:22:19,106
+more often.
+
+423
+00:22:19,476 --> 00:22:21,576
+Because you want to
+
+424
+00:22:21,576 --> 00:22:23,366
+if the force value changed.
+
+425
+00:22:23,786 --> 00:22:26,756
+We will send you
+
+426
+00:22:26,806 --> 00:22:29,896
+Previously, we were
+
+427
+00:22:29,896 --> 00:22:31,616
+to only send you touchesMoved
+
+428
+00:22:31,616 --> 00:22:33,446
+when the location
+
+429
+00:22:33,976 --> 00:22:36,446
+and that is through
+
+430
+00:22:36,446 --> 00:22:37,816
+not even the precise location.
+
+431
+00:22:38,996 --> 00:22:40,836
+And that has implications
+
+432
+00:22:41,456 --> 00:22:44,376
+So, for example, we've seen
+
+433
+00:22:44,376 --> 00:22:46,046
+If you did in touchesMoved,
+
+434
+00:22:46,476 --> 00:22:51,786
+if you just cancel a tap
+
+435
+00:22:51,786 --> 00:22:53,966
+That doesn't work anymore.
+
+436
+00:22:53,966 --> 00:22:57,946
+And what you see is that
+
+437
+00:22:57,996 --> 00:23:00,456
+or with the Pencil,
+
+438
+00:22:57,996 --> 00:23:00,456
+or with the Pencil,
+
+439
+00:23:00,456 --> 00:23:03,006
+really just slightly
+
+440
+00:23:03,006 --> 00:23:05,726
+then this is what you're running
+
+441
+00:23:05,726 --> 00:23:07,116
+at your touch handing code.
+
+442
+00:23:07,546 --> 00:23:08,346
+What should you do?
+
+443
+00:23:09,046 --> 00:23:11,276
+You should actually use a
+
+444
+00:23:11,276 --> 00:23:13,396
+if you can because
+
+445
+00:23:13,396 --> 00:23:17,116
+of our knowledge there, or the
+
+446
+00:23:17,176 --> 00:23:19,636
+to remember the location
+
+447
+00:23:19,876 --> 00:23:24,246
+and only cancel it if you
+
+448
+00:23:24,246 --> 00:23:25,446
+from the original location.
+
+449
+00:23:26,906 --> 00:23:30,576
+So let's add our force to the
+
+450
+00:23:31,156 --> 00:23:34,486
+and we just do that by an
+
+451
+00:23:34,646 --> 00:23:38,686
+We will add all the other
+
+452
+00:23:38,686 --> 00:23:41,406
+and I won't show
+
+453
+00:23:41,706 --> 00:23:46,566
+So let's see how the force
+
+454
+00:23:48,046 --> 00:23:49,496
+Nice. What did we do?
+
+455
+00:23:50,116 --> 00:23:53,176
+We just changed the
+
+456
+00:23:55,126 --> 00:23:56,866
+So next up is tilt.
+
+457
+00:23:57,946 --> 00:24:01,546
+Apple Pencil gives you access
+
+458
+00:23:57,946 --> 00:24:01,546
+Apple Pencil gives you access
+
+459
+00:24:01,896 --> 00:24:05,196
+and this is measured in an
+
+460
+00:24:05,196 --> 00:24:08,396
+and the device which
+
+461
+00:24:09,146 --> 00:24:12,546
+And the altitude angle is
+
+462
+00:24:12,586 --> 00:24:14,696
+It's a CG float.
+
+463
+00:24:15,496 --> 00:24:18,976
+It reported at angle at
+
+464
+00:24:18,976 --> 00:24:21,076
+from about 10 degrees
+
+465
+00:24:21,656 --> 00:24:27,686
+And that second part
+
+466
+00:24:27,686 --> 00:24:32,036
+The orientation is measured
+
+467
+00:24:32,036 --> 00:24:35,796
+and it's measured between
+
+468
+00:24:36,356 --> 00:24:38,846
+and the direction the
+
+469
+00:24:39,486 --> 00:24:42,206
+And this is called azimuth.
+
+470
+00:24:43,856 --> 00:24:48,066
+Together, azimuth and tilt form
+
+471
+00:24:48,066 --> 00:24:50,886
+and you can drive your
+
+472
+00:24:50,886 --> 00:24:51,806
+for your drawing with it.
+
+473
+00:24:52,316 --> 00:24:56,066
+So azimuth is depending on
+
+474
+00:24:56,316 --> 00:25:00,186
+So you have to call a method
+
+475
+00:24:56,316 --> 00:25:00,186
+So you have to call a method
+
+476
+00:25:00,616 --> 00:25:02,486
+and most of the time
+
+477
+00:25:02,486 --> 00:25:03,986
+to use a vector anyways.
+
+478
+00:25:04,196 --> 00:25:07,166
+So we exposed the azimuth
+
+479
+00:25:07,496 --> 00:25:08,916
+which will be a vector pointing
+
+480
+00:25:08,916 --> 00:25:10,576
+in the direction
+
+481
+00:25:10,576 --> 00:25:15,036
+from with a magnitude of one.
+
+482
+00:25:15,756 --> 00:25:16,826
+Next up, force.
+
+483
+00:25:17,546 --> 00:25:20,586
+So force, for the Pencil
+
+484
+00:25:20,586 --> 00:25:25,896
+than 3D Touch force, and that is
+
+485
+00:25:25,896 --> 00:25:27,186
+axis of the Pencil.
+
+486
+00:25:27,986 --> 00:25:30,486
+With 3D Touch, the force
+
+487
+00:25:30,486 --> 00:25:32,616
+and perpendicular to
+
+488
+00:25:33,186 --> 00:25:36,916
+That makes for some difference,
+
+489
+00:25:36,916 --> 00:25:39,786
+out if you want to
+
+490
+00:25:39,946 --> 00:25:43,166
+all the perpendicular
+
+491
+00:25:43,216 --> 00:25:45,156
+because it really, it
+
+492
+00:25:45,766 --> 00:25:48,556
+Luckily, it's easy to
+
+493
+00:25:49,296 --> 00:25:50,846
+and here's the code for that.
+
+494
+00:25:51,506 --> 00:25:54,896
+So you can get the perpendicular
+
+495
+00:25:55,056 --> 00:25:58,626
+through the sign of the altitude
+
+496
+00:25:58,626 --> 00:26:00,656
+in the same range, you
+
+497
+00:25:58,626 --> 00:26:00,656
+in the same range, you
+
+498
+00:26:00,656 --> 00:26:02,276
+to the maximumPossibleForce.
+
+499
+00:26:02,816 --> 00:26:07,056
+And there's finally
+
+500
+00:26:07,276 --> 00:26:08,746
+for Apple Pencil with the force.
+
+501
+00:26:08,986 --> 00:26:12,736
+It's measured inside the
+
+502
+00:26:12,816 --> 00:26:16,666
+over the air to the iPad, and
+
+503
+00:26:16,666 --> 00:26:17,976
+of over-the-air transmissions.
+
+504
+00:26:18,056 --> 00:26:20,366
+That means they take
+
+505
+00:26:20,366 --> 00:26:22,826
+of time, and data can be lost.
+
+506
+00:26:23,546 --> 00:26:25,176
+So instead of making you wait
+
+507
+00:26:25,176 --> 00:26:27,206
+for the over-the-air
+
+508
+00:26:27,456 --> 00:26:30,296
+we decided to give you
+
+509
+00:26:31,316 --> 00:26:35,316
+and update them later so you
+
+510
+00:26:36,126 --> 00:26:40,876
+So for that, we exposed
+
+511
+00:26:41,476 --> 00:26:43,536
+which is of the type
+
+512
+00:26:44,496 --> 00:26:51,086
+So estimated properties
+
+513
+00:26:51,466 --> 00:26:53,416
+which for Apple Pencil
+
+514
+00:26:53,416 --> 00:26:55,516
+for the first event you get.
+
+515
+00:26:57,906 --> 00:27:00,406
+But also the azimuth
+
+516
+00:26:57,906 --> 00:27:00,406
+But also the azimuth
+
+517
+00:27:00,406 --> 00:27:03,776
+and altitude can be
+
+518
+00:27:04,216 --> 00:27:06,216
+That happens when you
+
+519
+00:27:06,216 --> 00:27:09,656
+and we not hundred percent
+
+520
+00:27:09,656 --> 00:27:11,646
+or if you draw very
+
+521
+00:27:11,646 --> 00:27:15,516
+because our senses can't really
+
+522
+00:27:15,816 --> 00:27:17,866
+And we tell you that
+
+523
+00:27:17,866 --> 00:27:19,076
+so you can do something with it.
+
+524
+00:27:19,076 --> 00:27:21,006
+For example, when
+
+525
+00:27:21,386 --> 00:27:24,466
+you could back fill them
+
+526
+00:27:24,506 --> 00:27:29,906
+and in the sample I gave to
+
+527
+00:27:29,906 --> 00:27:31,436
+as to illustrate that point.
+
+528
+00:27:32,366 --> 00:27:34,036
+And there's also the location,
+
+529
+00:27:34,036 --> 00:27:36,946
+which is an estimated property
+
+530
+00:27:37,146 --> 00:27:38,426
+which gives you an easy way
+
+531
+00:27:38,426 --> 00:27:40,736
+to determine Predicted
+
+532
+00:27:43,706 --> 00:27:47,766
+And for the updates, we also
+
+533
+00:27:47,766 --> 00:27:49,176
+expecting updates.
+
+534
+00:27:50,296 --> 00:27:52,626
+This is also of type
+
+535
+00:27:52,626 --> 00:27:54,016
+and currently it's only force.
+
+536
+00:27:54,016 --> 00:27:57,076
+It might be in the future also
+
+537
+00:27:57,076 --> 00:28:00,956
+currently, it's only the force
+
+538
+00:27:57,076 --> 00:28:00,956
+currently, it's only the force
+
+539
+00:28:01,026 --> 00:28:04,656
+we will send you updates in
+
+540
+00:28:04,656 --> 00:28:07,546
+so in our new responder
+
+541
+00:28:07,546 --> 00:28:10,876
+PropertiesUpdated, and we
+
+542
+00:28:10,876 --> 00:28:13,376
+So we will send you
+
+543
+00:28:13,376 --> 00:28:15,356
+and then send you updates later.
+
+544
+00:28:16,966 --> 00:28:18,126
+Let's walk through this.
+
+545
+00:28:19,026 --> 00:28:20,506
+So what do you do?
+
+546
+00:28:20,506 --> 00:28:22,126
+[Inaudible] touches
+
+547
+00:28:22,126 --> 00:28:23,966
+you check the
+
+548
+00:28:23,966 --> 00:28:27,806
+ExpectedUpdates on your touch,
+
+549
+00:28:29,286 --> 00:28:32,616
+you use the property
+
+550
+00:28:32,616 --> 00:28:35,286
+on the UITouch, which is
+
+551
+00:28:35,786 --> 00:28:39,786
+for touches that either expect
+
+552
+00:28:40,276 --> 00:28:43,546
+and use that to store your
+
+553
+00:28:43,546 --> 00:28:46,016
+your current touch
+
+554
+00:28:46,306 --> 00:28:47,396
+so you can look it up later.
+
+555
+00:28:47,396 --> 00:28:51,746
+In the touchesEstimated
+
+556
+00:28:51,746 --> 00:28:55,996
+up your sample, and using the
+
+557
+00:28:55,996 --> 00:28:58,836
+you get an update
+
+558
+00:28:58,836 --> 00:29:00,226
+that were expecting updates.
+
+559
+00:28:58,836 --> 00:29:00,226
+that were expecting updates.
+
+560
+00:29:01,526 --> 00:29:04,026
+Note, though, that some
+
+561
+00:29:04,086 --> 00:29:05,346
+after touch has ended.
+
+562
+00:29:06,266 --> 00:29:08,326
+That's a life cycle thing
+
+563
+00:29:08,326 --> 00:29:10,796
+If you don't keep
+
+564
+00:29:10,796 --> 00:29:15,396
+around after touch has ended,
+
+565
+00:29:15,586 --> 00:29:20,396
+at the end of your stroke,
+
+566
+00:29:20,586 --> 00:29:22,266
+So let's go with that in code.
+
+567
+00:29:23,296 --> 00:29:26,196
+So we have touchesEstimated
+
+568
+00:29:26,196 --> 00:29:28,526
+and we go through our touches.
+
+569
+00:29:29,306 --> 00:29:32,246
+We look up the estimation index
+
+570
+00:29:32,246 --> 00:29:34,206
+We can just implicitly
+
+571
+00:29:34,936 --> 00:29:37,756
+We find our sample
+
+572
+00:29:37,976 --> 00:29:40,196
+We update the sample,
+
+573
+00:29:40,196 --> 00:29:42,626
+we update only the
+
+574
+00:29:43,026 --> 00:29:44,886
+that we're expecting
+
+575
+00:29:45,126 --> 00:29:50,946
+And then we update our
+
+576
+00:29:50,946 --> 00:29:53,666
+we check if this touch
+
+577
+00:29:53,826 --> 00:29:56,776
+and only if it doesn't we
+
+578
+00:29:57,346 --> 00:29:58,956
+So let's see this in action.
+
+579
+00:30:04,986 --> 00:30:07,406
+So I tried to use
+
+580
+00:30:07,686 --> 00:30:10,236
+to do a calligraphy
+
+581
+00:30:11,436 --> 00:30:15,696
+And now that we have all the
+
+582
+00:30:15,696 --> 00:30:17,486
+without the debugging mode.
+
+583
+00:30:21,336 --> 00:30:22,986
+Doesn't that look nice?
+
+584
+00:30:22,986 --> 00:30:27,156
+And that's literally just me
+
+585
+00:30:27,156 --> 00:30:27,866
+from the hardware.
+
+586
+00:30:27,866 --> 00:30:29,956
+That is not interpolating
+
+587
+00:30:29,956 --> 00:30:31,196
+or doing something fancy
+
+588
+00:30:31,196 --> 00:30:32,526
+like your drawing
+
+589
+00:30:37,826 --> 00:30:39,886
+So with that, let's add
+
+590
+00:30:40,326 --> 00:30:41,436
+to the final app.
+
+591
+00:30:41,776 --> 00:30:45,396
+Up to now, we just drew
+
+592
+00:30:45,676 --> 00:30:48,586
+We don't want to be
+
+593
+00:30:48,586 --> 00:30:51,816
+So let's support our
+
+594
+00:30:52,146 --> 00:30:56,426
+For that, we include our stroke
+
+595
+00:30:56,426 --> 00:30:58,376
+add a little bit of
+
+596
+00:30:58,766 --> 00:31:01,896
+that into a [inaudible] draw
+
+597
+00:30:58,766 --> 00:31:01,896
+that into a [inaudible] draw
+
+598
+00:31:03,136 --> 00:31:04,266
+Not quite.
+
+599
+00:31:04,516 --> 00:31:09,686
+So now we have to think about
+
+600
+00:31:10,046 --> 00:31:13,116
+because the [inaudible]
+
+601
+00:31:13,116 --> 00:31:14,626
+with our stroke gesture
+
+602
+00:31:15,476 --> 00:31:18,546
+If we change nothing, then
+
+603
+00:31:18,546 --> 00:31:19,846
+and we can never scroll.
+
+604
+00:31:20,036 --> 00:31:21,066
+This is not what we want.
+
+605
+00:31:21,766 --> 00:31:23,226
+So one way around this is
+
+606
+00:31:23,286 --> 00:31:25,266
+to disable scrolling
+
+607
+00:31:25,616 --> 00:31:28,266
+This would be useful for
+
+608
+00:31:28,266 --> 00:31:31,376
+where you would always like to
+
+609
+00:31:31,646 --> 00:31:33,566
+and specifically disable that.
+
+610
+00:31:33,746 --> 00:31:37,006
+You can do that because
+
+611
+00:31:37,006 --> 00:31:38,406
+to UIGestureRecognizer.
+
+612
+00:31:38,996 --> 00:31:44,346
+UITouch types is an array of
+
+613
+00:31:44,576 --> 00:31:47,276
+and it defaults to all
+
+614
+00:31:47,716 --> 00:31:49,396
+So what we are going to do here
+
+615
+00:31:49,396 --> 00:31:52,556
+in this example is we would
+
+616
+00:31:52,556 --> 00:31:56,686
+from our scroll view, we will
+
+617
+00:31:56,686 --> 00:32:00,456
+to only allow direct touches
+
+618
+00:31:56,686 --> 00:32:00,456
+to only allow direct touches
+
+619
+00:32:01,706 --> 00:32:05,436
+and we will change our stroke
+
+620
+00:32:06,416 --> 00:32:08,606
+So this obviously is
+
+621
+00:32:08,606 --> 00:32:10,866
+In the sample code, you
+
+622
+00:32:10,866 --> 00:32:13,196
+but switches dynamically
+
+623
+00:32:13,466 --> 00:32:14,876
+and is a little bit
+
+624
+00:32:15,216 --> 00:32:16,486
+but it illustrates the point
+
+625
+00:32:16,486 --> 00:32:19,736
+that you can restrict
+
+626
+00:32:19,736 --> 00:32:22,636
+to either the Pencil
+
+627
+00:32:23,186 --> 00:32:28,116
+And one final note on this.
+
+628
+00:32:29,546 --> 00:32:32,136
+There's also a new property
+
+629
+00:32:32,136 --> 00:32:34,406
+that is called
+
+630
+00:32:35,306 --> 00:32:39,776
+and although our gesture
+
+631
+00:32:39,776 --> 00:32:44,446
+to all the touch types, if
+
+632
+00:32:44,446 --> 00:32:47,026
+to recognize, they are
+
+633
+00:32:47,766 --> 00:32:50,526
+That is so you don't
+
+634
+00:32:50,526 --> 00:32:51,846
+with a Pencil and a finger.
+
+635
+00:32:51,846 --> 00:32:55,796
+This is the regularly what you
+
+636
+00:32:56,026 --> 00:32:59,386
+If you don't want this, you set
+
+637
+00:32:59,536 --> 00:33:03,046
+type to force, and then
+
+638
+00:32:59,536 --> 00:33:03,046
+type to force, and then
+
+639
+00:33:03,046 --> 00:33:04,756
+between fingers and the Pencil.
+
+640
+00:33:05,436 --> 00:33:08,766
+So to summarize, I showed
+
+641
+00:33:08,766 --> 00:33:12,646
+of UITouch so you can
+
+642
+00:33:13,166 --> 00:33:16,296
+I showed you how to use the
+
+643
+00:33:16,586 --> 00:33:20,206
+to both have the richest data
+
+644
+00:33:20,466 --> 00:33:22,226
+and to have the least latency.
+
+645
+00:33:23,346 --> 00:33:26,316
+I told you about property
+
+646
+00:33:26,546 --> 00:33:28,856
+and how you actually
+
+647
+00:33:28,896 --> 00:33:34,116
+to the full rich data the Pencil
+
+648
+00:33:34,116 --> 00:33:39,316
+to adjust gestures to either
+
+649
+00:33:40,886 --> 00:33:45,336
+And this is a screenshot of the
+
+650
+00:33:45,336 --> 00:33:48,616
+that does the nice
+
+651
+00:33:48,946 --> 00:33:50,856
+and more interesting to you,
+
+652
+00:33:51,006 --> 00:33:54,096
+it also has the debug mode
+
+653
+00:33:54,096 --> 00:33:54,486
+of them.
+
+654
+00:33:54,726 --> 00:33:57,326
+So you can see how your
+
+655
+00:33:57,626 --> 00:34:02,046
+how they are estimated at
+
+656
+00:33:57,626 --> 00:34:02,046
+how they are estimated at
+
+657
+00:34:02,046 --> 00:34:07,106
+and azimuth, and just play
+
+658
+00:34:07,106 --> 00:34:08,416
+of our touch handling works.
+
+659
+00:34:09,016 --> 00:34:13,356
+So the full information of
+
+660
+00:34:14,416 --> 00:34:15,386
+at this URL.
+
+661
+00:34:16,036 --> 00:34:19,335
+We have controlling game
+
+662
+00:34:19,335 --> 00:34:21,156
+for Siri remote handling.
+
+663
+00:34:21,686 --> 00:34:25,806
+A peek at 3D Touch will show you
+
+664
+00:34:26,076 --> 00:34:30,826
+with the force in 3D Touch to a
+
+665
+00:34:31,295 --> 00:34:35,596
+and to get, to know more about
+
+666
+00:34:36,076 --> 00:34:38,295
+you should have a look
+
+667
+00:34:38,295 --> 00:34:39,886
+on iOS from last year.
+
+668
+00:34:40,606 --> 00:34:42,606
+And with that, that's it.
+
+669
+00:34:42,795 --> 00:34:43,536
+Thank you very much.

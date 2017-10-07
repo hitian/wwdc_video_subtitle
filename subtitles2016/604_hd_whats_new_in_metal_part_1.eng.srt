@@ -1,0 +1,4951 @@
+1
+00:00:06,516 --> 00:00:18,500
+[ Music ]
+
+2
+00:00:24,626 --> 00:00:25,396
+&gt;&gt; Morning, everyone.
+
+3
+00:00:26,696 --> 00:00:26,946
+Thanks.
+
+4
+00:00:27,516 --> 00:00:30,126
+[ Applause ]
+
+5
+00:00:30,626 --> 00:00:32,266
+&gt;&gt; My name is Aaftab Munshi.
+
+6
+00:00:32,726 --> 00:00:34,966
+And my colleagues and I
+
+7
+00:00:34,966 --> 00:00:36,416
+with you the new
+
+8
+00:00:36,906 --> 00:00:38,826
+in macOS Sierra and iOS 10.
+
+9
+00:00:39,276 --> 00:00:43,026
+But let's begin by highlighting
+
+10
+00:00:43,416 --> 00:00:45,236
+on Metal this year at WWDC.
+
+11
+00:00:45,426 --> 00:00:48,256
+So yesterday we had two
+
+12
+00:00:48,256 --> 00:00:50,526
+about adopting Metal
+
+13
+00:00:51,086 --> 00:00:53,116
+And today we have
+
+14
+00:00:53,356 --> 00:00:56,296
+So this session and
+
+15
+00:00:56,346 --> 00:00:59,296
+that cover the new features in
+
+16
+00:00:59,296 --> 00:01:01,076
+by another session
+
+17
+00:00:59,296 --> 00:01:01,076
+by another session
+
+18
+00:01:01,076 --> 00:01:03,136
+about optimizing
+
+19
+00:01:03,706 --> 00:01:04,736
+All right.
+
+20
+00:01:04,736 --> 00:01:10,426
+So let's look at the features
+
+21
+00:01:10,546 --> 00:01:13,426
+So in the second session the
+
+22
+00:01:13,426 --> 00:01:16,916
+about are function or shader
+
+23
+00:01:16,916 --> 00:01:20,106
+to write to resources such
+
+24
+00:01:20,436 --> 00:01:22,266
+from your fragment
+
+25
+00:01:22,766 --> 00:01:26,106
+wide color using wide color
+
+26
+00:01:26,106 --> 00:01:29,136
+and texture assets, and some
+
+27
+00:01:29,136 --> 00:01:32,656
+to Metal performance shaders,
+
+28
+00:01:32,656 --> 00:01:34,656
+and [inaudible] networks
+
+29
+00:01:35,226 --> 00:01:39,366
+In this session we're
+
+30
+00:01:39,366 --> 00:01:41,686
+of the improvements we
+
+31
+00:01:41,686 --> 00:01:43,326
+which we think you guys
+
+32
+00:01:43,956 --> 00:01:45,346
+We've also made resource heaps
+
+33
+00:01:45,486 --> 00:01:47,786
+and resource allocations
+
+34
+00:01:48,206 --> 00:01:49,256
+and given you more control.
+
+35
+00:01:49,376 --> 00:01:51,016
+So we'll talk about
+
+36
+00:01:51,016 --> 00:01:52,146
+and memoryless render targets.
+
+37
+00:01:52,636 --> 00:01:54,396
+And I'm going to be
+
+38
+00:01:54,766 --> 00:01:55,556
+So let's begin.
+
+39
+00:01:56,256 --> 00:01:56,946
+All right.
+
+40
+00:01:57,026 --> 00:02:01,376
+So the first thing, let's spend
+
+41
+00:01:57,026 --> 00:02:01,376
+So the first thing, let's spend
+
+42
+00:02:01,376 --> 00:02:03,766
+to understand why we
+
+43
+00:02:04,256 --> 00:02:08,686
+So we are seeing applications
+
+44
+00:02:08,686 --> 00:02:10,256
+and more realistic
+
+45
+00:02:10,606 --> 00:02:13,136
+So what that means is in
+
+46
+00:02:13,136 --> 00:02:15,266
+we need to be able to
+
+47
+00:02:15,266 --> 00:02:16,746
+of geometry to the GPU.
+
+48
+00:02:16,836 --> 00:02:18,366
+That's where we're going
+
+49
+00:02:19,076 --> 00:02:21,736
+That means lots and lots
+
+50
+00:02:21,736 --> 00:02:24,246
+to be processed, which
+
+51
+00:02:24,246 --> 00:02:24,916
+in memory bandwidth.
+
+52
+00:02:25,286 --> 00:02:26,776
+It would be really nice
+
+53
+00:02:27,526 --> 00:02:31,076
+if instead we could just
+
+54
+00:02:31,076 --> 00:02:33,756
+that we want to send to the GPU
+
+55
+00:02:34,006 --> 00:02:38,526
+call it a core smash, and
+
+56
+00:02:38,526 --> 00:02:39,516
+high-resolution model.
+
+57
+00:02:39,886 --> 00:02:42,756
+So in fact, that's
+
+58
+00:02:43,486 --> 00:02:45,886
+Tessellation is a technique
+
+59
+00:02:45,886 --> 00:02:48,616
+and refine the details
+
+60
+00:02:49,006 --> 00:02:51,416
+We have two important
+
+61
+00:02:51,986 --> 00:02:55,276
+The first is that the
+
+62
+00:02:55,276 --> 00:02:58,456
+the triangles that are
+
+63
+00:02:58,456 --> 00:02:59,226
+in graphics memory.
+
+64
+00:02:59,266 --> 00:03:00,976
+We don't want to pay
+
+65
+00:02:59,266 --> 00:03:00,976
+We don't want to pay
+
+66
+00:03:01,066 --> 00:03:03,716
+And the second is a
+
+67
+00:03:03,716 --> 00:03:04,396
+to be programmable.
+
+68
+00:03:04,666 --> 00:03:06,756
+So let's look at an example.
+
+69
+00:03:06,756 --> 00:03:10,726
+So here is a screenshot
+
+70
+00:03:10,926 --> 00:03:12,516
+which is a benchmark
+
+71
+00:03:12,516 --> 00:03:15,656
+And one of the key features
+
+72
+00:03:15,836 --> 00:03:16,926
+So here's a screenshot
+
+73
+00:03:16,926 --> 00:03:19,666
+of the car that's being
+
+74
+00:03:19,786 --> 00:03:20,816
+You can see those rims.
+
+75
+00:03:21,616 --> 00:03:22,396
+They're very polygonal.
+
+76
+00:03:22,396 --> 00:03:23,856
+You wouldn't drive a car
+
+77
+00:03:24,946 --> 00:03:27,676
+Even the body panels
+
+78
+00:03:28,076 --> 00:03:32,296
+And the reason for that is this
+
+79
+00:03:32,296 --> 00:03:32,986
+being sent.
+
+80
+00:03:32,986 --> 00:03:36,076
+So you can see not a lot of
+
+81
+00:03:36,076 --> 00:03:38,076
+it's exactly what we want.
+
+82
+00:03:38,566 --> 00:03:41,356
+What tessellation does is
+
+83
+00:03:41,356 --> 00:03:42,896
+and produces something
+
+84
+00:03:44,336 --> 00:03:46,376
+I think this is really cool.
+
+85
+00:03:46,706 --> 00:03:48,686
+So if you look at
+
+86
+00:03:49,016 --> 00:03:51,136
+you can see the GPUs
+
+87
+00:03:51,136 --> 00:03:53,736
+now we're rendering lots
+
+88
+00:03:53,736 --> 00:03:55,186
+And that's the power
+
+89
+00:03:55,866 --> 00:03:56,276
+All right.
+
+90
+00:03:56,276 --> 00:03:58,976
+So let's look at how
+
+91
+00:03:59,846 --> 00:04:04,186
+So just like we did
+
+92
+00:03:59,846 --> 00:04:04,186
+So just like we did
+
+93
+00:04:04,186 --> 00:04:07,506
+we wanted to take a clean
+
+94
+00:04:07,506 --> 00:04:09,396
+We wanted to design
+
+95
+00:04:09,816 --> 00:04:11,716
+even though there
+
+96
+00:04:11,886 --> 00:04:14,636
+that do support tessellation
+
+97
+00:04:14,936 --> 00:04:17,926
+we wanted something that
+
+98
+00:04:18,046 --> 00:04:20,366
+you know, easy to use,
+
+99
+00:04:20,366 --> 00:04:21,755
+to leave any performance
+
+100
+00:04:23,016 --> 00:04:25,676
+And we think we have achieved
+
+101
+00:04:25,746 --> 00:04:26,816
+after this presentation.
+
+102
+00:04:27,826 --> 00:04:31,736
+So tessellation is available
+
+103
+00:04:32,086 --> 00:04:33,196
+with the A9 processor.
+
+104
+00:04:33,296 --> 00:04:34,066
+All right.
+
+105
+00:04:34,066 --> 00:04:37,396
+So let's -- the things I'm
+
+106
+00:04:37,596 --> 00:04:39,586
+how does the Metal
+
+107
+00:04:39,586 --> 00:04:40,956
+like for tessellation?
+
+108
+00:04:41,556 --> 00:04:43,566
+How do I render my
+
+109
+00:04:43,566 --> 00:04:45,816
+And then how do I adopt
+
+110
+00:04:46,266 --> 00:04:46,866
+So let's begin.
+
+111
+00:04:47,726 --> 00:04:51,796
+So today when you send
+
+112
+00:04:51,796 --> 00:04:55,696
+with Metal, you're sending
+
+113
+00:04:56,186 --> 00:04:59,016
+With tessellation, you're
+
+114
+00:04:59,726 --> 00:05:02,916
+And put simply, a patch is
+
+115
+00:04:59,726 --> 00:05:02,916
+And put simply, a patch is
+
+116
+00:05:03,376 --> 00:05:04,856
+that is made up of
+
+117
+00:05:04,856 --> 00:05:05,576
+What does that mean?
+
+118
+00:05:05,576 --> 00:05:06,416
+You may have heard of things
+
+119
+00:05:06,416 --> 00:05:08,686
+like Bezier patches
+
+120
+00:05:09,166 --> 00:05:12,476
+So you describe a patch by
+
+121
+00:05:12,476 --> 00:05:16,256
+So in this figure you
+
+122
+00:05:16,256 --> 00:05:19,666
+So you have 16 control-points
+
+123
+00:05:20,316 --> 00:05:25,096
+And what tessellation does put
+
+124
+00:05:25,156 --> 00:05:28,676
+okay, how many triangles do
+
+125
+00:05:28,786 --> 00:05:30,056
+So you may decide,
+
+126
+00:05:30,296 --> 00:05:31,676
+I don't really want
+
+127
+00:05:31,736 --> 00:05:33,186
+I don't care how it looks."
+
+128
+00:05:33,186 --> 00:05:36,386
+So you may decide just four
+
+129
+00:05:36,386 --> 00:05:37,826
+and you'll get a polygonal look.
+
+130
+00:05:38,456 --> 00:05:41,446
+Or you decide, "Hey, I
+
+131
+00:05:41,446 --> 00:05:41,976
+and smooth."
+
+132
+00:05:43,296 --> 00:05:44,466
+That would take a
+
+133
+00:05:44,686 --> 00:05:46,266
+But you have that control.
+
+134
+00:05:47,086 --> 00:05:48,726
+So let's start.
+
+135
+00:05:48,936 --> 00:05:51,256
+So the first stage in
+
+136
+00:05:51,256 --> 00:05:53,146
+when we're doing
+
+137
+00:05:53,146 --> 00:05:54,096
+tessellation kernel.
+
+138
+00:05:54,666 --> 00:05:56,576
+And what it does is
+
+139
+00:05:56,576 --> 00:05:59,016
+we talked about the patch with
+
+140
+00:05:59,436 --> 00:06:02,816
+and decides, okay, how much
+
+141
+00:05:59,436 --> 00:06:02,816
+and decides, okay, how much
+
+142
+00:06:03,146 --> 00:06:05,866
+How many triangles do I want
+
+143
+00:06:06,256 --> 00:06:09,066
+This information is
+
+144
+00:06:09,066 --> 00:06:10,246
+as tessellation factors.
+
+145
+00:06:10,396 --> 00:06:11,396
+And I'll talk a little bit
+
+146
+00:06:11,396 --> 00:06:14,056
+about what these factors
+
+147
+00:06:15,006 --> 00:06:18,346
+And you can also generate
+
+148
+00:06:18,346 --> 00:06:20,196
+if you need it in a later stage.
+
+149
+00:06:20,426 --> 00:06:22,256
+The key thing this is
+
+150
+00:06:22,256 --> 00:06:24,676
+that means you're writing code.
+
+151
+00:06:24,856 --> 00:06:27,376
+So once you've written
+
+152
+00:06:27,376 --> 00:06:30,276
+factors, the next stage
+
+153
+00:06:30,846 --> 00:06:32,336
+So this is a fixed
+
+154
+00:06:32,516 --> 00:06:33,556
+So no code to write.
+
+155
+00:06:33,786 --> 00:06:37,266
+But you do net knobs
+
+156
+00:06:37,506 --> 00:06:39,296
+So it takes those
+
+157
+00:06:39,856 --> 00:06:42,046
+and breaks the patch
+
+158
+00:06:42,766 --> 00:06:45,126
+And the key thing the
+
+159
+00:06:45,126 --> 00:06:46,576
+that it does not store
+
+160
+00:06:46,936 --> 00:06:49,216
+that triangle list it
+
+161
+00:06:49,996 --> 00:06:52,526
+In addition to the triangle
+
+162
+00:06:52,786 --> 00:06:56,146
+for each vertex in the triangle
+
+163
+00:06:56,146 --> 00:06:58,936
+call a parametric coordinate
+
+164
+00:06:59,296 --> 00:07:02,656
+And it uses this along
+
+165
+00:06:59,296 --> 00:07:02,656
+And it uses this along
+
+166
+00:07:03,026 --> 00:07:05,946
+to compute the actual
+
+167
+00:07:05,946 --> 00:07:07,156
+Okay? All right.
+
+168
+00:07:07,156 --> 00:07:09,316
+So the tessellator
+
+169
+00:07:09,316 --> 00:07:13,666
+Today in Metal when you
+
+170
+00:07:13,906 --> 00:07:15,806
+you send triangles to the GPU.
+
+171
+00:07:16,246 --> 00:07:17,316
+What is the first thing
+
+172
+00:07:17,316 --> 00:07:20,876
+that happens is a vertex
+
+173
+00:07:21,136 --> 00:07:23,196
+Well, here the tessellator's
+
+174
+00:07:23,196 --> 00:07:25,966
+So if you think logically,
+
+175
+00:07:25,966 --> 00:07:29,316
+the next stage would be a
+
+176
+00:07:29,546 --> 00:07:32,446
+We just call it the
+
+177
+00:07:32,446 --> 00:07:34,786
+because it's operating
+
+178
+00:07:34,786 --> 00:07:36,426
+that are generated
+
+179
+00:07:37,036 --> 00:07:40,876
+And so it's going to execute for
+
+180
+00:07:41,126 --> 00:07:43,426
+that the tessellator
+
+181
+00:07:43,426 --> 00:07:45,846
+to output transform positions.
+
+182
+00:07:46,026 --> 00:07:48,076
+So if you're familiar
+
+183
+00:07:48,206 --> 00:07:50,906
+it's this shader plays
+
+184
+00:07:50,906 --> 00:07:53,776
+as the domain shader
+
+185
+00:07:55,046 --> 00:07:55,316
+All right.
+
+186
+00:07:55,316 --> 00:07:57,536
+And then the rest of the
+
+187
+00:07:57,536 --> 00:07:59,776
+We have the rasterizer and
+
+188
+00:08:00,136 --> 00:08:03,736
+So you may ask, "Well, so I need
+
+189
+00:08:03,736 --> 00:08:05,296
+to generate the tessellation
+
+190
+00:08:05,816 --> 00:08:08,016
+Well, can I use the
+
+191
+00:08:08,536 --> 00:08:09,386
+Of course you can.
+
+192
+00:08:09,926 --> 00:08:12,816
+In fact, you don't even
+
+193
+00:08:12,816 --> 00:08:15,456
+to generate these factors;
+
+194
+00:08:15,856 --> 00:08:17,666
+and you can just load
+
+195
+00:08:17,696 --> 00:08:18,566
+that to the tessellator.
+
+196
+00:08:18,566 --> 00:08:19,936
+So you have a lot of control.
+
+197
+00:08:20,306 --> 00:08:25,016
+But if you are generating these
+
+198
+00:08:25,016 --> 00:08:26,076
+that you use a compute kernel.
+
+199
+00:08:26,076 --> 00:08:27,116
+Because guess what?
+
+200
+00:08:27,496 --> 00:08:30,686
+That allows us to run
+
+201
+00:08:30,686 --> 00:08:31,606
+with other draw commands.
+
+202
+00:08:32,426 --> 00:08:33,746
+So netting you a performance win
+
+203
+00:08:33,946 --> 00:08:35,806
+and I think you guys
+
+204
+00:08:36,775 --> 00:08:38,506
+Well, actually let's
+
+205
+00:08:39,066 --> 00:08:40,756
+You don't even need to run
+
+206
+00:08:41,346 --> 00:08:42,106
+Because guess what?
+
+207
+00:08:42,566 --> 00:08:44,576
+If you have computed the
+
+208
+00:08:44,576 --> 00:08:46,726
+let's say you decide,
+
+209
+00:08:46,726 --> 00:08:49,186
+to the camera get much
+
+210
+00:08:49,546 --> 00:08:51,666
+objects further away
+
+211
+00:08:51,886 --> 00:08:53,806
+So once I've computed
+
+212
+00:08:53,806 --> 00:08:56,676
+on how the object is moving,
+
+213
+00:08:57,116 --> 00:08:58,456
+and the tessellator takes that.
+
+214
+00:08:58,456 --> 00:09:01,266
+So really, the pipeline
+
+215
+00:08:58,456 --> 00:09:01,266
+So really, the pipeline
+
+216
+00:09:01,266 --> 00:09:02,946
+We have four stages.
+
+217
+00:09:03,406 --> 00:09:05,936
+So let's compare it with
+
+218
+00:09:05,936 --> 00:09:06,806
+without tessellation.
+
+219
+00:09:08,096 --> 00:09:09,666
+So without tessellation
+
+220
+00:09:10,416 --> 00:09:12,536
+we have vertex shade,
+
+221
+00:09:12,626 --> 00:09:13,456
+and the fragment stage.
+
+222
+00:09:13,686 --> 00:09:16,466
+With tessellation we added a
+
+223
+00:09:16,466 --> 00:09:18,886
+It's fixed function so you
+
+224
+00:09:19,466 --> 00:09:22,256
+And the vertex shader became the
+
+225
+00:09:23,396 --> 00:09:26,016
+We think this is really
+
+226
+00:09:26,156 --> 00:09:28,306
+I hope you agree.
+
+227
+00:09:28,876 --> 00:09:29,556
+All right.
+
+228
+00:09:29,556 --> 00:09:31,956
+So how do I render my
+
+229
+00:09:32,746 --> 00:09:34,596
+There are four things
+
+230
+00:09:35,166 --> 00:09:37,226
+Okay. Let's look at
+
+231
+00:09:37,226 --> 00:09:39,986
+or post-tess vertex shader;
+
+232
+00:09:39,986 --> 00:09:41,186
+from the regular vertex shader?
+
+233
+00:09:41,686 --> 00:09:43,386
+How do I pass my patch inputs?
+
+234
+00:09:43,756 --> 00:09:46,306
+And I told you that the
+
+235
+00:09:46,306 --> 00:09:48,046
+So let's look at
+
+236
+00:09:48,046 --> 00:09:48,876
+and then draw patches.
+
+237
+00:09:50,886 --> 00:09:53,166
+So, well, meet the new shader,
+
+238
+00:09:53,406 --> 00:09:56,266
+So in fact, you declare a
+
+239
+00:09:56,266 --> 00:09:57,356
+with a vertex qualifier.
+
+240
+00:09:57,356 --> 00:10:01,536
+But in addition to that, you
+
+241
+00:09:57,356 --> 00:10:01,536
+But in addition to that, you
+
+242
+00:10:01,536 --> 00:10:03,286
+which says, "Hey, it's
+
+243
+00:10:03,536 --> 00:10:06,646
+There are two kinds of patches
+
+244
+00:10:06,726 --> 00:10:08,186
+And you see the number
+
+245
+00:10:08,186 --> 00:10:11,586
+That number tells you how many
+
+246
+00:10:11,586 --> 00:10:12,056
+working on.
+
+247
+00:10:13,006 --> 00:10:15,116
+So if you had a regular
+
+248
+00:10:15,146 --> 00:10:17,296
+you would have passed
+
+249
+00:10:17,796 --> 00:10:19,836
+Now you pass a patchID as input.
+
+250
+00:10:20,536 --> 00:10:22,936
+Remember I told you the
+
+251
+00:10:22,936 --> 00:10:24,936
+parametric UV coordinate?
+
+252
+00:10:25,006 --> 00:10:28,106
+Well, that's what this
+
+253
+00:10:28,646 --> 00:10:31,266
+And then if you had a
+
+254
+00:10:31,266 --> 00:10:33,236
+you would have passed
+
+255
+00:10:33,506 --> 00:10:35,416
+the patch input we
+
+256
+00:10:36,016 --> 00:10:37,636
+Everything else you
+
+257
+00:10:37,696 --> 00:10:40,936
+and you're generating a
+
+258
+00:10:40,936 --> 00:10:43,676
+And that's actually going
+
+259
+00:10:43,676 --> 00:10:45,266
+because the next stage with
+
+260
+00:10:45,266 --> 00:10:48,326
+or without tessellation
+
+261
+00:10:50,316 --> 00:10:50,636
+All right.
+
+262
+00:10:50,636 --> 00:10:51,806
+So let's look at patch inputs.
+
+263
+00:10:52,616 --> 00:10:55,056
+So if you had a regular
+
+264
+00:10:55,246 --> 00:10:57,176
+you would have described
+
+265
+00:10:57,176 --> 00:10:59,326
+as a struct, okay,
+
+266
+00:10:59,396 --> 00:11:03,026
+And if you had decoupled the
+
+267
+00:10:59,396 --> 00:11:03,026
+And if you had decoupled the
+
+268
+00:11:03,026 --> 00:11:05,246
+and the buffers where the
+
+269
+00:11:05,246 --> 00:11:08,176
+from do not match the
+
+270
+00:11:08,176 --> 00:11:10,326
+then you would have used
+
+271
+00:11:10,326 --> 00:11:12,116
+to describe the layout.
+
+272
+00:11:12,576 --> 00:11:14,946
+Well, for patches
+
+273
+00:11:15,096 --> 00:11:17,336
+One is the per-patch input.
+
+274
+00:11:17,746 --> 00:11:20,666
+And remember, I told there are
+
+275
+00:11:21,096 --> 00:11:23,476
+So we need to specify
+
+276
+00:11:23,866 --> 00:11:27,466
+But it looks identical
+
+277
+00:11:27,716 --> 00:11:31,356
+So you use a MTLVertexDescriptor
+
+278
+00:11:31,356 --> 00:11:33,656
+of the patch input
+
+279
+00:11:34,186 --> 00:11:37,246
+And as I showed you the slide
+
+280
+00:11:37,246 --> 00:11:38,256
+as a stage in as well.
+
+281
+00:11:38,776 --> 00:11:43,376
+And you use the attribute index
+
+282
+00:11:43,376 --> 00:11:46,036
+in the shader with the
+
+283
+00:11:46,376 --> 00:11:47,926
+in your MTLVertexDescriptor.
+
+284
+00:11:49,136 --> 00:11:53,906
+Since there can be more than one
+
+285
+00:11:53,906 --> 00:11:55,686
+to declare it using
+
+286
+00:11:55,686 --> 00:11:57,546
+And I'll talk about
+
+287
+00:11:57,546 --> 00:11:58,656
+So let's look at an example.
+
+288
+00:11:58,656 --> 00:12:00,906
+So here I have my
+
+289
+00:11:58,656 --> 00:12:00,906
+So here I have my
+
+290
+00:12:01,036 --> 00:12:02,096
+It has two elements.
+
+291
+00:12:02,346 --> 00:12:04,086
+So I'm using attributes
+
+292
+00:12:04,966 --> 00:12:07,846
+And my per-patch data, which
+
+293
+00:12:08,256 --> 00:12:09,926
+So we combine these
+
+294
+00:12:09,926 --> 00:12:12,526
+and this is my patch
+
+295
+00:12:13,086 --> 00:12:16,386
+So notice that control templated
+
+296
+00:12:16,386 --> 00:12:17,096
+underscore point.
+
+297
+00:12:17,556 --> 00:12:20,316
+So that's what tells the
+
+298
+00:12:20,316 --> 00:12:21,916
+this is referring to
+
+299
+00:12:22,346 --> 00:12:25,286
+Okay? And remember I told
+
+300
+00:12:25,286 --> 00:12:26,436
+or whatever the number is?
+
+301
+00:12:26,886 --> 00:12:29,286
+That also tells the Metal
+
+302
+00:12:29,286 --> 00:12:30,326
+control-points there are.
+
+303
+00:12:30,866 --> 00:12:34,626
+So now we have all information
+
+304
+00:12:35,156 --> 00:12:36,846
+And so we just pass
+
+305
+00:12:37,776 --> 00:12:41,276
+It's pretty simple, I think.
+
+306
+00:12:42,216 --> 00:12:42,516
+All right.
+
+307
+00:12:43,526 --> 00:12:45,546
+So okay, how do I
+
+308
+00:12:45,716 --> 00:12:46,856
+So there are properties
+
+309
+00:12:46,856 --> 00:12:49,026
+in the
+
+310
+00:12:49,026 --> 00:12:49,436
+can set.
+
+311
+00:12:49,986 --> 00:12:54,476
+A few examples are you can tell
+
+312
+00:12:54,476 --> 00:12:56,566
+want to use to generate
+
+313
+00:12:56,566 --> 00:12:57,886
+it's called the partitioning
+
+314
+00:12:58,656 --> 00:13:01,696
+You can also specify a
+
+315
+00:12:58,656 --> 00:13:01,696
+You can also specify a
+
+316
+00:13:02,016 --> 00:13:04,926
+And we think this is
+
+317
+00:13:04,926 --> 00:13:08,186
+because it allows you to control
+
+318
+00:13:08,526 --> 00:13:10,976
+that the GPU will generate
+
+319
+00:13:11,696 --> 00:13:14,996
+Remember, the tessellator
+
+320
+00:13:15,256 --> 00:13:17,396
+So you need to specify the
+
+321
+00:13:17,856 --> 00:13:21,016
+So use the
+
+322
+00:13:21,646 --> 00:13:22,116
+to do that.
+
+323
+00:13:22,336 --> 00:13:26,416
+Now, these factors,
+
+324
+00:13:26,456 --> 00:13:30,046
+to subdivide the patches along
+
+325
+00:13:30,536 --> 00:13:32,206
+So we have two kinds of patches.
+
+326
+00:13:32,206 --> 00:13:33,536
+If it's a triangular patch,
+
+327
+00:13:33,666 --> 00:13:35,756
+there are three edges
+
+328
+00:13:36,186 --> 00:13:39,616
+If it's a quad, then you have
+
+329
+00:13:39,616 --> 00:13:43,516
+So you specify these as half
+
+330
+00:13:43,846 --> 00:13:45,156
+that you pass in.
+
+331
+00:13:47,466 --> 00:13:48,376
+And then drawing.
+
+332
+00:13:48,776 --> 00:13:51,586
+So today when you're
+
+333
+00:13:51,926 --> 00:13:53,866
+you're sending triangles
+
+334
+00:13:54,216 --> 00:13:55,736
+you're either going
+
+335
+00:13:56,056 --> 00:13:57,406
+or drawIndexPrimitives.
+
+336
+00:13:57,986 --> 00:14:00,996
+You the specify the start
+
+337
+00:13:57,986 --> 00:14:00,996
+You the specify the start
+
+338
+00:14:01,406 --> 00:14:03,776
+And if your vertex
+
+339
+00:14:03,836 --> 00:14:05,236
+you will pass an index buffer.
+
+340
+00:14:05,766 --> 00:14:08,006
+Well, to draw patches,
+
+341
+00:14:08,766 --> 00:14:09,896
+or drawIndexedPatches.
+
+342
+00:14:10,246 --> 00:14:13,216
+You specify the start patch,
+
+343
+00:14:13,216 --> 00:14:15,886
+And if you're control-point
+
+344
+00:14:16,016 --> 00:14:17,336
+you specify an index buffer.
+
+345
+00:14:17,596 --> 00:14:18,946
+So it's just a one-to-one
+
+346
+00:14:19,556 --> 00:14:22,716
+And then there is the
+
+347
+00:14:23,176 --> 00:14:25,576
+And what these are is
+
+348
+00:14:25,996 --> 00:14:28,076
+where the start patch
+
+349
+00:14:28,306 --> 00:14:31,136
+and other information when
+
+350
+00:14:31,306 --> 00:14:32,636
+but instead you pass a buffer.
+
+351
+00:14:33,516 --> 00:14:35,896
+And that gets filled out
+
+352
+00:14:35,896 --> 00:14:38,746
+by a command that's running on
+
+353
+00:14:38,746 --> 00:14:39,756
+for drawPrimitives as well.
+
+354
+00:14:40,436 --> 00:14:43,336
+So really, if you don't know
+
+355
+00:14:43,836 --> 00:14:46,846
+then drawPatches just
+
+356
+00:14:47,076 --> 00:14:49,216
+Okay? So we think this
+
+357
+00:14:49,936 --> 00:14:50,676
+All right?
+
+358
+00:14:51,616 --> 00:14:55,976
+So hold on.
+
+359
+00:14:57,466 --> 00:15:00,386
+So I've shown you what
+
+360
+00:14:57,466 --> 00:15:00,386
+So I've shown you what
+
+361
+00:15:00,646 --> 00:15:02,446
+and how to use it.
+
+362
+00:15:02,796 --> 00:15:05,366
+As many of you may
+
+363
+00:15:05,366 --> 00:15:09,376
+or already using tessellation in
+
+364
+00:15:09,846 --> 00:15:12,526
+or OpenGL, you will notice
+
+365
+00:15:12,526 --> 00:15:13,106
+little different.
+
+366
+00:15:13,596 --> 00:15:14,146
+Don't worry.
+
+367
+00:15:14,516 --> 00:15:15,816
+We've designed Metal
+
+368
+00:15:15,966 --> 00:15:17,326
+so it's incredibly
+
+369
+00:15:17,326 --> 00:15:19,916
+to move your existing
+
+370
+00:15:20,296 --> 00:15:23,736
+As an example, for the past
+
+371
+00:15:23,736 --> 00:15:24,326
+with Unity.
+
+372
+00:15:24,896 --> 00:15:28,026
+And in an incredibly short
+
+373
+00:15:28,026 --> 00:15:30,666
+to integrate Metal
+
+374
+00:15:30,996 --> 00:15:34,836
+And here's what they
+
+375
+00:15:35,076 --> 00:15:38,916
+So we're really excited that
+
+376
+00:15:39,226 --> 00:15:42,296
+Metal Compute and the ability
+
+377
+00:15:42,296 --> 00:15:43,756
+in Unity's coming
+
+378
+00:15:44,066 --> 00:15:46,266
+It's incredibly exciting.
+
+379
+00:15:46,596 --> 00:15:48,666
+And we've also been
+
+380
+00:15:49,386 --> 00:15:52,546
+to efficiently integrate Metal
+
+381
+00:15:53,336 --> 00:15:56,546
+And Epic is planning to
+
+382
+00:15:56,656 --> 00:15:58,836
+in UE4 later this year, okay?
+
+383
+00:16:00,176 --> 00:16:04,226
+So we have UE4, we have Unity
+
+384
+00:16:04,716 --> 00:16:09,516
+Well, let me show you
+
+385
+00:16:09,916 --> 00:16:11,316
+in these game engines
+
+386
+00:16:11,316 --> 00:16:15,106
+by demonstrating two commonly
+
+387
+00:16:15,106 --> 00:16:18,276
+adaptive tessellation
+
+388
+00:16:19,906 --> 00:16:21,226
+All right.
+
+389
+00:16:25,056 --> 00:16:31,786
+So here we have a
+
+390
+00:16:31,786 --> 00:16:35,126
+by a few Apple engineers
+
+391
+00:16:35,196 --> 00:16:37,466
+So let's turn tessellation
+
+392
+00:16:37,566 --> 00:16:38,776
+and get wire frame mode.
+
+393
+00:16:39,276 --> 00:16:40,486
+You can see there are not a lot
+
+394
+00:16:40,486 --> 00:16:42,506
+of triangles being
+
+395
+00:16:42,506 --> 00:16:43,446
+This is great.
+
+396
+00:16:43,446 --> 00:16:44,546
+This is exactly what we want.
+
+397
+00:16:44,546 --> 00:16:46,816
+We want to keep the amount of
+
+398
+00:16:46,816 --> 00:16:48,146
+to be as little as possible.
+
+399
+00:16:48,596 --> 00:16:51,056
+Let's turn tessellation
+
+400
+00:16:52,246 --> 00:16:55,356
+You can see now the GPU is
+
+401
+00:16:56,156 --> 00:16:59,066
+And adaptive tessellation
+
+402
+00:16:59,066 --> 00:17:02,006
+to control the geometric
+
+403
+00:16:59,066 --> 00:17:02,006
+to control the geometric
+
+404
+00:17:02,226 --> 00:17:05,415
+So in this example we've decided
+
+405
+00:17:05,415 --> 00:17:06,906
+to the camera need more detail.
+
+406
+00:17:07,286 --> 00:17:09,185
+So let's draw them with
+
+407
+00:17:09,185 --> 00:17:11,086
+versus objects further
+
+408
+00:17:11,415 --> 00:17:15,836
+So the regions in blue represent
+
+409
+00:17:15,836 --> 00:17:18,646
+of tessellation, and the region
+
+410
+00:17:18,646 --> 00:17:19,876
+with the highest
+
+411
+00:17:19,876 --> 00:17:22,236
+I can show you as I move
+
+412
+00:17:22,465 --> 00:17:24,425
+I can use that to increase
+
+413
+00:17:24,425 --> 00:17:27,266
+and you can see objects
+
+414
+00:17:27,715 --> 00:17:30,556
+Okay? Well, let's turn
+
+415
+00:17:31,416 --> 00:17:34,196
+And if you run -- as we
+
+416
+00:17:34,556 --> 00:17:36,506
+you can see there's a
+
+417
+00:17:36,506 --> 00:17:40,226
+If I turn tessellation off, all
+
+418
+00:17:41,106 --> 00:17:43,976
+Turn tessellation on,
+
+419
+00:17:44,356 --> 00:17:49,526
+So this is an example of
+
+420
+00:17:50,396 --> 00:17:53,826
+to really create rich visual
+
+421
+00:17:54,346 --> 00:17:56,886
+And I wanted to thank
+
+422
+00:17:56,886 --> 00:17:57,846
+for making this happen.
+
+423
+00:17:58,776 --> 00:18:09,646
+So the next demo is displacement
+
+424
+00:17:58,776 --> 00:18:09,646
+So the next demo is displacement
+
+425
+00:18:10,156 --> 00:18:11,816
+So here we have a
+
+426
+00:18:12,436 --> 00:18:14,256
+Well, let's look at how
+
+427
+00:18:14,256 --> 00:18:15,036
+to render the sphere.
+
+428
+00:18:16,416 --> 00:18:17,506
+Not a lot, right?
+
+429
+00:18:17,506 --> 00:18:19,366
+There are about 3,000 triangles.
+
+430
+00:18:19,836 --> 00:18:22,346
+And what displacement
+
+431
+00:18:22,346 --> 00:18:25,706
+that allows you to
+
+432
+00:18:26,056 --> 00:18:27,706
+to create incredible detail.
+
+433
+00:18:28,216 --> 00:18:30,416
+And it does that
+
+434
+00:18:30,736 --> 00:18:33,646
+using a displacement
+
+435
+00:18:33,646 --> 00:18:36,426
+So you look up, you know, from
+
+436
+00:18:36,426 --> 00:18:39,126
+and then use that to
+
+437
+00:18:39,526 --> 00:18:41,706
+Or you may actually do this
+
+438
+00:18:42,306 --> 00:18:45,846
+But displacement mapping
+
+439
+00:18:45,846 --> 00:18:48,166
+you're drawing lots and
+
+440
+00:18:48,166 --> 00:18:49,496
+really small triangles.
+
+441
+00:18:49,636 --> 00:18:50,466
+Otherwise it doesn't work.
+
+442
+00:18:50,466 --> 00:18:52,106
+It creates artifacts,
+
+443
+00:18:52,606 --> 00:18:53,826
+But that's fine, you know?
+
+444
+00:18:53,826 --> 00:18:54,706
+We can use tessellation.
+
+445
+00:18:54,706 --> 00:18:55,516
+That's what it's here for.
+
+446
+00:18:55,896 --> 00:18:58,426
+Because we still want
+
+447
+00:18:58,426 --> 00:18:59,786
+smaller triangles to the GPU
+
+448
+00:19:00,166 --> 00:19:01,526
+and use tessellation
+
+449
+00:19:01,526 --> 00:19:02,776
+So let's turn wire
+
+450
+00:19:03,206 --> 00:19:04,936
+and let's turn displacement
+
+451
+00:19:06,286 --> 00:19:09,516
+As you can see now incredible
+
+452
+00:19:09,516 --> 00:19:11,036
+If I turn wire frame mode on,
+
+453
+00:19:11,566 --> 00:19:14,386
+you can see we're generating
+
+454
+00:19:14,516 --> 00:19:15,816
+and they are really,
+
+455
+00:19:16,416 --> 00:19:18,706
+In fact, let's actually
+
+456
+00:19:18,706 --> 00:19:20,576
+so you can see the
+
+457
+00:19:20,856 --> 00:19:24,946
+and let's zoom in to see detail.
+
+458
+00:19:25,156 --> 00:19:26,776
+You can see self-shadowing
+
+459
+00:19:27,896 --> 00:19:30,646
+And the reason self-shadowing
+
+460
+00:19:30,696 --> 00:19:33,206
+because we're actually
+
+461
+00:19:33,616 --> 00:19:36,116
+unlike a technique many
+
+462
+00:19:36,116 --> 00:19:37,026
+with called bump mapping
+
+463
+00:19:37,326 --> 00:19:39,206
+which just creates an
+
+464
+00:19:39,466 --> 00:19:41,526
+So this is another
+
+465
+00:19:41,806 --> 00:19:44,526
+with tessellation to
+
+466
+00:19:44,526 --> 00:19:46,256
+in your application
+
+467
+00:19:46,716 --> 00:19:50,306
+And hey, thank you to
+
+468
+00:19:51,516 --> 00:19:57,786
+[ Applause ]
+
+469
+00:19:58,286 --> 00:19:58,566
+All right.
+
+470
+00:19:58,566 --> 00:19:58,876
+So
+
+471
+00:20:05,306 --> 00:20:07,556
+Metal Tessellation
+
+472
+00:20:07,556 --> 00:20:09,846
+to accelerate digital
+
+473
+00:20:10,426 --> 00:20:14,586
+As an example OpenSubdiv is an
+
+474
+00:20:14,586 --> 00:20:15,016
+by Pixar.
+
+475
+00:20:15,766 --> 00:20:17,856
+And it implements
+
+476
+00:20:17,856 --> 00:20:18,866
+subdivision surfaces.
+
+477
+00:20:19,206 --> 00:20:21,196
+Actually, it has been
+
+478
+00:20:21,196 --> 00:20:23,726
+of third-party digital
+
+479
+00:20:24,066 --> 00:20:25,686
+such as Maya from Autodesk.
+
+480
+00:20:26,716 --> 00:20:28,736
+And OpenSubdiv uses tessellation
+
+481
+00:20:28,936 --> 00:20:30,656
+to render these subdivision
+
+482
+00:20:31,316 --> 00:20:34,976
+Well, we -- Apple -- have
+
+483
+00:20:34,976 --> 00:20:35,976
+into OpenSubdiv.
+
+484
+00:20:35,976 --> 00:20:38,726
+And I'm really excited to
+
+485
+00:20:38,726 --> 00:20:39,686
+to release these changes
+
+486
+00:20:39,716 --> 00:20:42,746
+to the OpenSubdiv open source
+
+487
+00:20:42,746 --> 00:20:45,126
+Okay. I mean, here's
+
+488
+00:20:46,576 --> 00:20:48,156
+As you can see, Pixar's
+
+489
+00:20:48,156 --> 00:20:49,956
+to see a native Metal
+
+490
+00:20:50,366 --> 00:20:55,976
+of OpenSubdiv in iOS and macOS.
+
+491
+00:20:56,046 --> 00:20:56,246
+All right.
+
+492
+00:20:56,246 --> 00:20:58,766
+So now you may be asking,
+
+493
+00:20:59,176 --> 00:21:02,346
+How do I move my existing
+
+494
+00:20:59,176 --> 00:21:02,346
+How do I move my existing
+
+495
+00:21:02,346 --> 00:21:03,816
+Well, let me show you how.
+
+496
+00:21:04,546 --> 00:21:06,216
+So we'll take DirectX
+
+497
+00:21:06,216 --> 00:21:07,796
+but the same rules
+
+498
+00:21:07,796 --> 00:21:11,516
+So here is what the DirectX
+
+499
+00:21:11,516 --> 00:21:12,416
+like with tessellation.
+
+500
+00:21:12,906 --> 00:21:15,516
+We have three new stages --
+
+501
+00:21:15,516 --> 00:21:17,066
+They're called the hull
+
+502
+00:21:17,526 --> 00:21:19,026
+And then we have this
+
+503
+00:21:19,136 --> 00:21:20,016
+Right? So, well, okay.
+
+504
+00:21:20,056 --> 00:21:20,966
+How do I move this to Metal?
+
+505
+00:21:21,396 --> 00:21:23,136
+Notice where the
+
+506
+00:21:23,136 --> 00:21:24,426
+It sits right after
+
+507
+00:21:24,426 --> 00:21:27,396
+Does it remind you of any
+
+508
+00:21:27,396 --> 00:21:28,186
+in the Metal pipeline?
+
+509
+00:21:28,906 --> 00:21:30,016
+Yeah, I think so.
+
+510
+00:21:30,016 --> 00:21:31,876
+Yeah, post-tessellation
+
+511
+00:21:31,876 --> 00:21:32,686
+Because guess what?
+
+512
+00:21:33,006 --> 00:21:33,786
+The domain shader
+
+513
+00:21:34,126 --> 00:21:37,206
+with tessellation really
+
+514
+00:21:37,836 --> 00:21:41,236
+And just like you can
+
+515
+00:21:41,416 --> 00:21:44,096
+or GLSL vertex functions
+
+516
+00:21:44,566 --> 00:21:47,076
+you can move these domain
+
+517
+00:21:47,346 --> 00:21:49,516
+to the post-tessellation
+
+518
+00:21:49,936 --> 00:21:52,396
+The tessellator is exactly
+
+519
+00:21:52,966 --> 00:21:55,306
+So really, we have this
+
+520
+00:21:55,716 --> 00:21:56,816
+the vertex and hull shader.
+
+521
+00:21:57,026 --> 00:21:58,606
+And we got to make
+
+522
+00:21:58,746 --> 00:22:02,056
+Okay. Let's look at
+
+523
+00:21:58,746 --> 00:22:02,056
+Okay. Let's look at
+
+524
+00:22:02,206 --> 00:22:06,726
+So let's look at some --
+
+525
+00:22:07,376 --> 00:22:10,566
+that means there's probably
+
+526
+00:22:10,946 --> 00:22:12,616
+at runtime by the application.
+
+527
+00:22:13,366 --> 00:22:16,426
+And that means -- because
+
+528
+00:22:16,426 --> 00:22:17,046
+to be decoupled.
+
+529
+00:22:17,046 --> 00:22:19,416
+So that means I need
+
+530
+00:22:19,606 --> 00:22:22,186
+But I don't do stage
+
+531
+00:22:22,386 --> 00:22:24,146
+Right? Well, now you can.
+
+532
+00:22:24,426 --> 00:22:25,516
+We've added support for it.
+
+533
+00:22:25,926 --> 00:22:28,506
+So just like in a vertex
+
+534
+00:22:28,506 --> 00:22:31,946
+in to say this is my vertex
+
+535
+00:22:31,946 --> 00:22:34,496
+in to say this my
+
+536
+00:22:34,896 --> 00:22:37,986
+And you can specify
+
+537
+00:22:38,536 --> 00:22:40,926
+in a MTLStage
+
+538
+00:22:41,136 --> 00:22:42,416
+It behaves identically.
+
+539
+00:22:42,416 --> 00:22:44,956
+It's very similar to
+
+540
+00:22:45,166 --> 00:22:49,036
+Some of the things you
+
+541
+00:22:49,036 --> 00:22:54,106
+because this is for
+
+542
+00:22:56,206 --> 00:23:00,106
+And then two things to observe.
+
+543
+00:22:56,206 --> 00:23:00,106
+And then two things to observe.
+
+544
+00:23:00,276 --> 00:23:02,546
+With tessellation
+
+545
+00:23:02,956 --> 00:23:06,296
+the vertex shader executes on
+
+546
+00:23:06,836 --> 00:23:09,996
+And the hull shader has
+
+547
+00:23:10,386 --> 00:23:13,056
+One that executes on a
+
+548
+00:23:13,056 --> 00:23:14,146
+that executes on a patch.
+
+549
+00:23:14,656 --> 00:23:17,226
+The per-patch hull function is
+
+550
+00:23:17,226 --> 00:23:18,186
+tessellation factors.
+
+551
+00:23:18,696 --> 00:23:19,016
+All right.
+
+552
+00:23:19,436 --> 00:23:20,796
+So the best thing to do?
+
+553
+00:23:20,796 --> 00:23:23,186
+Translate all these three
+
+554
+00:23:23,606 --> 00:23:24,946
+And then we'll write
+
+555
+00:23:24,946 --> 00:23:26,476
+that will call these functions.
+
+556
+00:23:26,736 --> 00:23:28,366
+But don't worry, we're not
+
+557
+00:23:28,846 --> 00:23:30,376
+The Metal compiler
+
+558
+00:23:30,576 --> 00:23:34,136
+Okay? So let's look
+
+559
+00:23:34,136 --> 00:23:36,106
+So each thread basically
+
+560
+00:23:36,106 --> 00:23:39,166
+to call the control-point
+
+561
+00:23:39,166 --> 00:23:40,466
+and for the hull, right?
+
+562
+00:23:40,466 --> 00:23:42,526
+So let's say there
+
+563
+00:23:42,926 --> 00:23:44,896
+So the first thread
+
+564
+00:23:45,066 --> 00:23:46,346
+and control-point hull function,
+
+565
+00:23:46,866 --> 00:23:49,736
+second thread does the
+
+566
+00:23:49,736 --> 00:23:52,856
+Right? And any intermittent data
+
+567
+00:23:52,856 --> 00:23:55,206
+to share, they'll put that
+
+568
+00:23:55,206 --> 00:23:57,756
+which is this local memory
+
+569
+00:23:57,756 --> 00:24:00,376
+which is high-performance,
+
+570
+00:23:57,756 --> 00:24:00,376
+which is high-performance,
+
+571
+00:24:00,376 --> 00:24:01,856
+So we're not going
+
+572
+00:24:02,306 --> 00:24:04,946
+And then if there were
+
+573
+00:24:04,946 --> 00:24:07,316
+there will be 16 threads
+
+574
+00:24:07,836 --> 00:24:11,126
+Only one of them need to execute
+
+575
+00:24:11,126 --> 00:24:13,046
+That means you typically
+
+576
+00:24:13,416 --> 00:24:14,396
+and then you will execute --
+
+577
+00:24:14,396 --> 00:24:16,846
+only one of the thread will
+
+578
+00:24:16,846 --> 00:24:18,466
+You have a conditional
+
+579
+00:24:18,466 --> 00:24:21,776
+is my thread in thread
+
+580
+00:24:21,776 --> 00:24:22,706
+Then call this thing."
+
+581
+00:24:22,916 --> 00:24:24,116
+And this is the function
+
+582
+00:24:24,116 --> 00:24:27,656
+that will output the
+
+583
+00:24:27,856 --> 00:24:28,636
+to graphics memory.
+
+584
+00:24:29,156 --> 00:24:31,266
+If you had any additional
+
+585
+00:24:31,266 --> 00:24:32,716
+to output, you could do so.
+
+586
+00:24:32,716 --> 00:24:35,196
+And if you really, really,
+
+587
+00:24:35,196 --> 00:24:38,376
+to output the control-point
+
+588
+00:24:38,376 --> 00:24:41,626
+But we find in most case the
+
+589
+00:24:41,676 --> 00:24:42,306
+passed through.
+
+590
+00:24:42,306 --> 00:24:45,036
+It's the nature of
+
+591
+00:24:45,036 --> 00:24:47,006
+and these are the existing API's
+
+592
+00:24:47,346 --> 00:24:48,966
+which requires you
+
+593
+00:24:49,116 --> 00:24:51,366
+But you're just passing them
+
+594
+00:24:51,476 --> 00:24:53,516
+You already have them
+
+595
+00:24:54,486 --> 00:24:55,346
+All right.
+
+596
+00:24:55,346 --> 00:24:56,096
+Let me close.
+
+597
+00:24:56,386 --> 00:24:58,576
+So I hope I have shown you
+
+598
+00:24:58,916 --> 00:25:03,616
+that Metal Tessellation
+
+599
+00:24:58,916 --> 00:25:03,616
+that Metal Tessellation
+
+600
+00:25:03,796 --> 00:25:06,696
+We designed it from the
+
+601
+00:25:07,646 --> 00:25:09,046
+I've shown you how easy it is
+
+602
+00:25:09,156 --> 00:25:12,356
+to adapt your existing
+
+603
+00:25:13,356 --> 00:25:15,056
+It's available on iOS and macOS.
+
+604
+00:25:15,276 --> 00:25:17,986
+So now it's your turn.
+
+605
+00:25:18,446 --> 00:25:20,316
+Show us, you know,
+
+606
+00:25:20,316 --> 00:25:22,716
+and create some amazing visuals
+
+607
+00:25:22,716 --> 00:25:24,716
+that you can render
+
+608
+00:25:25,956 --> 00:25:27,456
+So I want to thank
+
+609
+00:25:27,456 --> 00:25:29,946
+I'm going to call my colleague,
+
+610
+00:25:29,946 --> 00:25:32,606
+to you about resource heaps
+
+611
+00:25:32,606 --> 00:25:32,996
+Thank you.
+
+612
+00:25:34,516 --> 00:25:40,596
+[ Applause ]
+
+613
+00:25:41,096 --> 00:25:41,386
+&gt;&gt; All right.
+
+614
+00:25:41,386 --> 00:25:41,996
+Thank you, Aaftab.
+
+615
+00:25:42,826 --> 00:25:45,866
+For the next part of
+
+616
+00:25:45,866 --> 00:25:49,926
+to introduce two new Metal
+
+617
+00:25:49,926 --> 00:25:53,016
+and tvOS - resource heaps and
+
+618
+00:25:54,196 --> 00:25:56,196
+These features enable
+
+619
+00:25:56,196 --> 00:25:58,926
+of your resource
+
+620
+00:25:58,926 --> 00:25:59,946
+and memory efficiency.
+
+621
+00:26:00,876 --> 00:26:02,496
+I'll introduce resource
+
+622
+00:26:02,716 --> 00:26:04,336
+followed by memoryless
+
+623
+00:26:06,246 --> 00:26:09,146
+So resource heaps are a
+
+624
+00:26:09,146 --> 00:26:10,436
+management option in Metal.
+
+625
+00:26:10,436 --> 00:26:13,406
+Now, you can already create
+
+626
+00:26:13,856 --> 00:26:15,216
+so why do we need another way?
+
+627
+00:26:16,076 --> 00:26:18,516
+Well, creating resources
+
+628
+00:26:18,626 --> 00:26:21,126
+with a device is
+
+629
+00:26:21,516 --> 00:26:23,586
+and many developers
+
+630
+00:26:24,346 --> 00:26:25,966
+On the other hand, as many
+
+631
+00:26:25,966 --> 00:26:28,336
+of your Metal apps
+
+632
+00:26:28,366 --> 00:26:31,646
+and complex scenes, you
+
+633
+00:26:31,646 --> 00:26:34,726
+over your Metal resources
+
+634
+00:26:34,726 --> 00:26:35,646
+and memory efficiency.
+
+635
+00:26:36,426 --> 00:26:39,396
+That's why we are
+
+636
+00:26:39,576 --> 00:26:43,246
+Resource heaps enable fast
+
+637
+00:26:43,556 --> 00:26:45,036
+through resource sub-allocation.
+
+638
+00:26:45,866 --> 00:26:49,236
+The flexibility of resource
+
+639
+00:26:49,286 --> 00:26:52,116
+by allowing multiple
+
+640
+00:26:52,986 --> 00:26:55,656
+And finally, the
+
+641
+00:26:55,656 --> 00:26:59,026
+of resource heaps is made
+
+642
+00:26:59,026 --> 00:27:00,926
+over tracking resource
+
+643
+00:26:59,026 --> 00:27:00,926
+over tracking resource
+
+644
+00:27:01,266 --> 00:27:02,966
+with explicit command
+
+645
+00:27:03,946 --> 00:27:06,386
+Now, let's dive into each one
+
+646
+00:27:06,386 --> 00:27:07,906
+with resource sub-allocation.
+
+647
+00:27:09,276 --> 00:27:11,506
+Before talking about the
+
+648
+00:27:11,816 --> 00:27:15,556
+let's first discuss why
+
+649
+00:27:15,556 --> 00:27:16,226
+is expensive.
+
+650
+00:27:17,416 --> 00:27:18,876
+Creating an individual resource
+
+651
+00:27:19,076 --> 00:27:21,186
+with a Metal device
+
+652
+00:27:21,856 --> 00:27:24,776
+Allocating the memory; preparing
+
+653
+00:27:25,476 --> 00:27:28,136
+clearing the memory for
+
+654
+00:27:28,196 --> 00:27:29,886
+creating the Metal object.
+
+655
+00:27:30,616 --> 00:27:33,036
+Each one of these steps
+
+656
+00:27:33,036 --> 00:27:34,886
+of the time is spent
+
+657
+00:27:35,696 --> 00:27:38,686
+But there are situations when
+
+658
+00:27:38,916 --> 00:27:40,376
+on your performance-critical
+
+659
+00:27:40,686 --> 00:27:42,266
+without introducing
+
+660
+00:27:43,366 --> 00:27:44,736
+Texture streaming is one example
+
+661
+00:27:45,396 --> 00:27:48,316
+or perhaps you have an image
+
+662
+00:27:48,316 --> 00:27:49,116
+to generate a number
+
+663
+00:27:49,116 --> 00:27:50,956
+of temporary textures
+
+664
+00:27:51,536 --> 00:27:55,086
+The cost of binding resources
+
+665
+00:27:55,276 --> 00:27:57,946
+to command encoders can also
+
+666
+00:27:58,836 --> 00:28:01,616
+Metal must track each
+
+667
+00:27:58,836 --> 00:28:01,616
+Metal must track each
+
+668
+00:28:01,616 --> 00:28:03,416
+to a command encoder
+
+669
+00:28:03,416 --> 00:28:05,066
+that the GPU can
+
+670
+00:28:05,736 --> 00:28:08,316
+And for complex scenes, this
+
+671
+00:28:10,066 --> 00:28:12,226
+Resource sub-allocation
+
+672
+00:28:12,226 --> 00:28:13,396
+of these performance issues.
+
+673
+00:28:14,236 --> 00:28:17,146
+Remember that the expensive
+
+674
+00:28:17,146 --> 00:28:18,246
+in the memory operations.
+
+675
+00:28:19,046 --> 00:28:21,626
+With resource heaps you can
+
+676
+00:28:21,626 --> 00:28:23,736
+ahead of time outside
+
+677
+00:28:24,976 --> 00:28:27,656
+Resource heaps address the
+
+678
+00:28:27,656 --> 00:28:31,096
+to sub-allocate many logical
+
+679
+00:28:32,056 --> 00:28:34,436
+By sub-allocating multiple
+
+680
+00:28:34,756 --> 00:28:37,256
+Metal tracks one memory
+
+681
+00:28:37,256 --> 00:28:38,816
+of one per individual resource.
+
+682
+00:28:39,566 --> 00:28:41,696
+This significantly reduces
+
+683
+00:28:43,486 --> 00:28:44,946
+Now, let's compare
+
+684
+00:28:44,946 --> 00:28:47,426
+between the Metal device and
+
+685
+00:28:48,146 --> 00:28:51,786
+When you create a resource with
+
+686
+00:28:51,786 --> 00:28:52,986
+and prepare a block of memory
+
+687
+00:28:53,466 --> 00:28:54,716
+and then create the
+
+688
+00:28:55,406 --> 00:28:57,506
+So for four resources,
+
+689
+00:28:57,506 --> 00:28:59,016
+or prepare four blocks
+
+690
+00:28:59,826 --> 00:29:01,996
+Now, compare that
+
+691
+00:28:59,826 --> 00:29:01,996
+Now, compare that
+
+692
+00:29:02,456 --> 00:29:04,206
+When you use a MTLHeap
+
+693
+00:29:04,206 --> 00:29:06,486
+you first create the heap
+
+694
+00:29:07,276 --> 00:29:09,726
+Memory will allocate and
+
+695
+00:29:09,796 --> 00:29:10,836
+of the requested size.
+
+696
+00:29:11,466 --> 00:29:13,816
+And if you do this ahead of time
+
+697
+00:29:14,376 --> 00:29:16,666
+the expensive part of
+
+698
+00:29:18,166 --> 00:29:20,356
+Now, to create four
+
+699
+00:29:20,986 --> 00:29:23,706
+Metal only needs to reserve
+
+700
+00:29:23,926 --> 00:29:25,186
+and create the resource
+
+701
+00:29:25,586 --> 00:29:26,606
+This is much faster.
+
+702
+00:29:27,496 --> 00:29:28,626
+Now let's see what
+
+703
+00:29:28,626 --> 00:29:29,906
+to release some resources.
+
+704
+00:29:30,956 --> 00:29:33,136
+When a device-based
+
+705
+00:29:33,456 --> 00:29:34,796
+the Metal object is destroyed,
+
+706
+00:29:35,306 --> 00:29:38,466
+but the device will also free
+
+707
+00:29:39,236 --> 00:29:41,186
+On the other hand, when
+
+708
+00:29:41,416 --> 00:29:43,006
+only the object is destroyed.
+
+709
+00:29:43,586 --> 00:29:45,156
+The memory is still
+
+710
+00:29:45,856 --> 00:29:47,066
+So creating a new resource
+
+711
+00:29:47,066 --> 00:29:50,136
+on the device will incur another
+
+712
+00:29:50,596 --> 00:29:54,006
+whereas the heap can quickly
+
+713
+00:29:54,216 --> 00:29:55,166
+to another resource.
+
+714
+00:29:56,766 --> 00:29:58,066
+Let me show you how easy it is
+
+715
+00:29:58,096 --> 00:30:00,726
+to sub-allocate Metal
+
+716
+00:29:58,096 --> 00:30:00,726
+to sub-allocate Metal
+
+717
+00:30:01,256 --> 00:30:04,096
+So like many Metal objects,
+
+718
+00:30:04,256 --> 00:30:07,866
+the Metal resource heap has a
+
+719
+00:30:08,406 --> 00:30:11,176
+So let's create a heap
+
+720
+00:30:11,406 --> 00:30:14,376
+to the amount of
+
+721
+00:30:14,896 --> 00:30:16,756
+With the heap descriptor
+
+722
+00:30:16,916 --> 00:30:18,256
+to create us a heap object.
+
+723
+00:30:18,726 --> 00:30:20,906
+Remember, this is the slower
+
+724
+00:30:20,906 --> 00:30:22,996
+of time, like when
+
+725
+00:30:23,056 --> 00:30:24,576
+or at content loading time.
+
+726
+00:30:26,136 --> 00:30:27,386
+With the constructed heap,
+
+727
+00:30:27,736 --> 00:30:29,426
+we can call its resource
+
+728
+00:30:29,586 --> 00:30:32,076
+which should look very
+
+729
+00:30:32,076 --> 00:30:38,006
+and arguments are the same
+
+730
+00:30:39,496 --> 00:30:41,526
+So before moving on
+
+731
+00:30:41,526 --> 00:30:42,876
+like to share some
+
+732
+00:30:42,876 --> 00:30:44,776
+for using resource heaps
+
+733
+00:30:45,466 --> 00:30:48,276
+Now, the most important tip
+
+734
+00:30:48,516 --> 00:30:51,176
+to create resources on your
+
+735
+00:30:51,696 --> 00:30:54,496
+Creating resources using
+
+736
+00:30:54,496 --> 00:30:58,426
+for your game loop;
+
+737
+00:30:59,076 --> 00:31:03,146
+Allocating resources of varying
+
+738
+00:30:59,076 --> 00:31:03,146
+Allocating resources of varying
+
+739
+00:31:03,146 --> 00:31:03,966
+of a heap's memory
+
+740
+00:31:04,256 --> 00:31:06,346
+if the resources have
+
+741
+00:31:07,226 --> 00:31:10,326
+So use multiple heaps and
+
+742
+00:31:10,526 --> 00:31:12,026
+to limit the effects
+
+743
+00:31:12,516 --> 00:31:15,306
+Now, you may also
+
+744
+00:31:15,306 --> 00:31:17,006
+to choose an appropriate
+
+745
+00:31:17,716 --> 00:31:20,456
+Well, Metal provides two new
+
+746
+00:31:20,816 --> 00:31:24,066
+to query the size and alignment
+
+747
+00:31:25,076 --> 00:31:27,256
+Use these queries to help
+
+748
+00:31:27,256 --> 00:31:27,726
+that you need.
+
+749
+00:31:29,406 --> 00:31:30,816
+Okay. Let's move on
+
+750
+00:31:30,816 --> 00:31:32,866
+of resource heaps --
+
+751
+00:31:34,256 --> 00:31:36,956
+Resource aliasing allows
+
+752
+00:31:37,226 --> 00:31:38,616
+to occupy the same memory,
+
+753
+00:31:38,906 --> 00:31:41,246
+therefore reducing the
+
+754
+00:31:41,426 --> 00:31:42,296
+of the resources.
+
+755
+00:31:42,956 --> 00:31:46,666
+Dynamic resources have contents
+
+756
+00:31:46,666 --> 00:31:51,116
+and include things like your
+
+757
+00:31:51,116 --> 00:31:53,586
+or temporary textures
+
+758
+00:31:55,246 --> 00:31:58,096
+Here we have a heap containing
+
+759
+00:31:58,656 --> 00:32:00,656
+Compare that to this heap
+
+760
+00:31:58,656 --> 00:32:00,656
+Compare that to this heap
+
+761
+00:32:00,656 --> 00:32:02,526
+resources but now
+
+762
+00:32:02,796 --> 00:32:04,026
+Now, you can obviously see
+
+763
+00:32:04,026 --> 00:32:07,206
+that the aliasing resources can
+
+764
+00:32:10,066 --> 00:32:13,566
+Let's apply resource
+
+765
+00:32:14,376 --> 00:32:16,626
+The shadow map passes render
+
+766
+00:32:17,036 --> 00:32:18,436
+one for each light in the scene.
+
+767
+00:32:19,426 --> 00:32:21,316
+So here in our heap we have
+
+768
+00:32:21,976 --> 00:32:26,556
+And in the main pass during
+
+769
+00:32:26,556 --> 00:32:28,416
+will sample the shadow
+
+770
+00:32:28,416 --> 00:32:29,946
+if each object is in shadow.
+
+771
+00:32:29,946 --> 00:32:34,016
+Now, after the main
+
+772
+00:32:34,016 --> 00:32:35,856
+for the shadow maps are
+
+773
+00:32:35,896 --> 00:32:38,306
+They will be regenerated
+
+774
+00:32:38,966 --> 00:32:42,736
+So after the main pass ends, we
+
+775
+00:32:42,796 --> 00:32:45,476
+that can consist of a number
+
+776
+00:32:45,866 --> 00:32:48,486
+each executing a specific
+
+777
+00:32:49,556 --> 00:32:52,286
+These filters will store
+
+778
+00:32:52,286 --> 00:32:54,966
+to pass filter results to
+
+779
+00:32:55,686 --> 00:32:58,766
+Now, the key takeaway
+
+780
+00:32:58,766 --> 00:33:00,936
+for the shadow maps and the
+
+781
+00:32:58,766 --> 00:33:00,936
+for the shadow maps and the
+
+782
+00:33:00,936 --> 00:33:02,326
+never used at the same time.
+
+783
+00:33:03,146 --> 00:33:06,846
+So why not share the memory?
+
+784
+00:33:07,176 --> 00:33:10,136
+So let me show you how to create
+
+785
+00:33:10,136 --> 00:33:10,586
+with Swift.
+
+786
+00:33:11,296 --> 00:33:12,906
+Now, the first section
+
+787
+00:33:13,366 --> 00:33:15,026
+First we ask the device
+
+788
+00:33:15,916 --> 00:33:18,126
+and we create our
+
+789
+00:33:18,786 --> 00:33:21,586
+Okay. Now we see a new
+
+790
+00:33:22,546 --> 00:33:23,876
+By calling makeAliasable
+
+791
+00:33:23,876 --> 00:33:26,476
+on a heap resource you are
+
+792
+00:33:26,476 --> 00:33:28,056
+that resource's memory
+
+793
+00:33:29,366 --> 00:33:33,126
+The shadow maps are still
+
+794
+00:33:33,126 --> 00:33:35,546
+to be reassigned by the
+
+795
+00:33:35,806 --> 00:33:38,796
+So now when we create the
+
+796
+00:33:38,796 --> 00:33:41,916
+on the same heap, they
+
+797
+00:33:41,916 --> 00:33:43,426
+as the shadow maps.
+
+798
+00:33:44,616 --> 00:33:47,856
+So now let's talk about
+
+799
+00:33:47,926 --> 00:33:48,896
+for resource aliasing.
+
+800
+00:33:49,526 --> 00:33:52,226
+To maximize memory reuse
+
+801
+00:33:52,226 --> 00:33:56,756
+for dynamic resources call
+
+802
+00:33:56,826 --> 00:33:59,796
+in the same sequence that their
+
+803
+00:34:00,646 --> 00:34:02,956
+That will allow you to
+
+804
+00:34:03,616 --> 00:34:06,606
+that will allow you to
+
+805
+00:34:07,026 --> 00:34:11,976
+when the resource contents
+
+806
+00:34:12,045 --> 00:34:13,096
+And you want to keep dynamic
+
+807
+00:34:13,226 --> 00:34:15,005
+and static resources
+
+808
+00:34:15,886 --> 00:34:18,966
+Static resources are generally
+
+809
+00:34:18,966 --> 00:34:21,766
+up preventing dynamic
+
+810
+00:34:21,766 --> 00:34:22,716
+with each other due
+
+811
+00:34:22,716 --> 00:34:24,156
+to fragmentation of
+
+812
+00:34:25,926 --> 00:34:28,815
+Next I'm going to talk about how
+
+813
+00:34:28,876 --> 00:34:32,496
+to your heap resources.
+
+814
+00:34:33,045 --> 00:34:35,746
+So, so far we have discussed
+
+815
+00:34:35,815 --> 00:34:38,346
+with sub-allocation and
+
+816
+00:34:38,346 --> 00:34:39,446
+with resource aliasing.
+
+817
+00:34:40,025 --> 00:34:42,426
+But remember that resource
+
+818
+00:34:42,616 --> 00:34:44,406
+because you control
+
+819
+00:34:44,406 --> 00:34:45,326
+of heap resources.
+
+820
+00:34:45,916 --> 00:34:47,396
+This is something
+
+821
+00:34:47,396 --> 00:34:48,525
+with device resources.
+
+822
+00:34:49,716 --> 00:34:52,356
+But unlike device
+
+823
+00:34:52,356 --> 00:34:54,946
+when a command modifies the
+
+824
+00:34:55,456 --> 00:34:59,096
+like when a render pass stores
+
+825
+00:35:00,346 --> 00:35:02,646
+Metal also doesn't know when
+
+826
+00:35:02,646 --> 00:35:05,576
+of the heap's memory from
+
+827
+00:35:06,116 --> 00:35:08,866
+But for correctness,
+
+828
+00:35:08,866 --> 00:35:10,776
+when a command is
+
+829
+00:35:11,076 --> 00:35:14,016
+so that other commands can
+
+830
+00:35:15,076 --> 00:35:16,296
+This is especially important
+
+831
+00:35:16,296 --> 00:35:19,066
+because the GPU can execute
+
+832
+00:35:19,736 --> 00:35:22,656
+So to synchronize
+
+833
+00:35:22,886 --> 00:35:25,786
+your application will
+
+834
+00:35:26,466 --> 00:35:29,256
+to communicate resource
+
+835
+00:35:30,276 --> 00:35:32,086
+Let's take a closer look
+
+836
+00:35:33,416 --> 00:35:35,516
+So a GPU fence is the timestamp.
+
+837
+00:35:35,976 --> 00:35:39,496
+It is a reference point in
+
+838
+00:35:40,026 --> 00:35:42,316
+Now, you can encode
+
+839
+00:35:42,366 --> 00:35:43,386
+to synchronize commands.
+
+840
+00:35:43,876 --> 00:35:47,406
+A command can update a fence
+
+841
+00:35:47,466 --> 00:35:48,466
+when the command is finished.
+
+842
+00:35:49,156 --> 00:35:51,916
+And a command can wait
+
+843
+00:35:51,916 --> 00:35:54,476
+until the GPU has reached
+
+844
+00:35:54,476 --> 00:35:55,316
+before executing.
+
+845
+00:35:56,676 --> 00:35:58,836
+Okay. Let's bring back
+
+846
+00:35:58,996 --> 00:36:00,616
+and I will show you
+
+847
+00:35:58,996 --> 00:36:00,616
+and I will show you
+
+848
+00:36:00,726 --> 00:36:03,596
+to synchronize command access
+
+849
+00:36:05,206 --> 00:36:08,776
+So here again is the example
+
+850
+00:36:08,866 --> 00:36:10,676
+but now we have five
+
+851
+00:36:10,676 --> 00:36:13,556
+of the render stages, render
+
+852
+00:36:13,636 --> 00:36:15,476
+and fragment processing steps.
+
+853
+00:36:16,096 --> 00:36:18,296
+So we have a shadow
+
+854
+00:36:18,296 --> 00:36:20,106
+and finally a post-processing
+
+855
+00:36:20,536 --> 00:36:21,866
+that we will execute
+
+856
+00:36:23,656 --> 00:36:25,806
+So Metal commands are submitted
+
+857
+00:36:25,806 --> 00:36:27,916
+in serial order to
+
+858
+00:36:28,556 --> 00:36:29,586
+So maybe it's not quite clear
+
+859
+00:36:29,586 --> 00:36:32,116
+yet why we need any
+
+860
+00:36:33,046 --> 00:36:35,546
+But GPUs are very parallel
+
+861
+00:36:35,546 --> 00:36:37,006
+on multiple commands
+
+862
+00:36:38,296 --> 00:36:41,956
+GPUs in our iOS and tvOS
+
+863
+00:36:42,266 --> 00:36:45,436
+fragment, and compute
+
+864
+00:36:45,496 --> 00:36:47,846
+to maximize GPU utilization.
+
+865
+00:36:48,456 --> 00:36:49,936
+The GPU can even be working
+
+866
+00:36:49,936 --> 00:36:52,486
+on multiple frames
+
+867
+00:36:53,316 --> 00:36:53,696
+All right.
+
+868
+00:36:53,696 --> 00:36:55,136
+So maybe now you spot a problem.
+
+869
+00:36:55,136 --> 00:36:57,936
+Look at these two commands
+
+870
+00:36:58,586 --> 00:37:00,246
+They are both updating
+
+871
+00:36:58,586 --> 00:37:00,246
+They are both updating
+
+872
+00:37:00,286 --> 00:37:01,986
+and heap resources
+
+873
+00:37:02,766 --> 00:37:04,896
+We have to use a
+
+874
+00:37:05,866 --> 00:37:07,466
+So first let's bring in a fence.
+
+875
+00:37:08,876 --> 00:37:11,686
+The post-process command
+
+876
+00:37:13,006 --> 00:37:16,336
+so that the shadow commands
+
+877
+00:37:16,336 --> 00:37:17,246
+wait on the fence.
+
+878
+00:37:18,616 --> 00:37:21,456
+Right? So now the two
+
+879
+00:37:21,456 --> 00:37:22,426
+at the same time anymore.
+
+880
+00:37:22,426 --> 00:37:25,886
+So I'm going to show you how
+
+881
+00:37:25,886 --> 00:37:28,696
+and fence wait with Swift.
+
+882
+00:37:29,456 --> 00:37:31,666
+First, we create a
+
+883
+00:37:32,416 --> 00:37:34,226
+This is a new method
+
+884
+00:37:35,036 --> 00:37:37,776
+Next, let's encode the
+
+885
+00:37:37,906 --> 00:37:39,066
+at the end of the first frame.
+
+886
+00:37:39,776 --> 00:37:43,416
+We first create a
+
+887
+00:37:43,656 --> 00:37:44,726
+and encode the dispatches.
+
+888
+00:37:45,216 --> 00:37:51,156
+But before we end the encoder,
+
+889
+00:37:51,286 --> 00:37:53,146
+so that subsequent
+
+890
+00:37:53,146 --> 00:37:55,896
+until this command has
+
+891
+00:37:56,186 --> 00:38:01,326
+So in the next frame we would
+
+892
+00:37:56,186 --> 00:38:01,326
+So in the next frame we would
+
+893
+00:38:01,706 --> 00:38:03,336
+So we create a
+
+894
+00:38:03,966 --> 00:38:06,476
+in commandBufB, which
+
+895
+00:38:06,476 --> 00:38:07,576
+for the next frame.
+
+896
+00:38:08,146 --> 00:38:12,156
+But before drawing the scene,
+
+897
+00:38:13,226 --> 00:38:15,136
+to wait until the
+
+898
+00:38:15,336 --> 00:38:15,996
+on the GPU.
+
+899
+00:38:16,286 --> 00:38:18,266
+Now, notice this time
+
+900
+00:38:18,706 --> 00:38:21,046
+There's a second argument
+
+901
+00:38:22,496 --> 00:38:25,236
+Render commands execute in two
+
+902
+00:38:25,606 --> 00:38:29,346
+So Metal allows you to specify
+
+903
+00:38:29,346 --> 00:38:30,306
+to wait for the fence.
+
+904
+00:38:31,056 --> 00:38:33,056
+In our example only the
+
+905
+00:38:33,106 --> 00:38:37,936
+to access the heap resources, so
+
+906
+00:38:38,416 --> 00:38:40,736
+Finally, we can render
+
+907
+00:38:41,086 --> 00:38:43,536
+because we know that this
+
+908
+00:38:43,536 --> 00:38:46,146
+after the previous frame's
+
+909
+00:38:46,756 --> 00:38:50,056
+Okay. Let me talk about
+
+910
+00:38:50,056 --> 00:38:51,156
+for command synchronization.
+
+911
+00:38:51,966 --> 00:38:55,336
+So you know that if you use
+
+912
+00:38:55,336 --> 00:38:56,696
+to synchronize command access.
+
+913
+00:38:57,196 --> 00:38:58,526
+But you are given this control
+
+914
+00:38:58,526 --> 00:39:00,356
+because you know you
+
+915
+00:38:58,526 --> 00:39:00,356
+because you know you
+
+916
+00:39:00,356 --> 00:39:02,366
+about how your resources
+
+917
+00:39:02,846 --> 00:39:05,936
+and your application will
+
+918
+00:39:06,246 --> 00:39:08,196
+than if Metal were to
+
+919
+00:39:09,106 --> 00:39:11,926
+For example, textures
+
+920
+00:39:11,926 --> 00:39:14,566
+and never modified don't
+
+921
+00:39:15,916 --> 00:39:17,136
+And as another example,
+
+922
+00:39:17,376 --> 00:39:19,896
+resources that are used
+
+923
+00:39:19,896 --> 00:39:21,606
+with a single fence.
+
+924
+00:39:23,476 --> 00:39:26,976
+So let me summarize the main
+
+925
+00:39:28,326 --> 00:39:31,126
+Create resources faster
+
+926
+00:39:32,296 --> 00:39:34,226
+Use your memory budget
+
+927
+00:39:34,666 --> 00:39:35,716
+with resource aliasing.
+
+928
+00:39:36,866 --> 00:39:40,156
+And synchronize your
+
+929
+00:39:40,256 --> 00:39:43,066
+across GPU commands
+
+930
+00:39:45,956 --> 00:39:49,786
+Okay. Now I'd like to introduce
+
+931
+00:39:49,986 --> 00:39:52,766
+in iOS and tvOS:
+
+932
+00:39:53,626 --> 00:39:54,956
+Now, this sounds
+
+933
+00:39:55,366 --> 00:39:58,146
+but I will show you how almost
+
+934
+00:39:58,146 --> 00:40:00,536
+feature to save a
+
+935
+00:39:58,146 --> 00:40:00,536
+feature to save a
+
+936
+00:40:00,976 --> 00:40:03,266
+with a single line of code.
+
+937
+00:40:03,976 --> 00:40:07,106
+So memoryless render
+
+938
+00:40:07,106 --> 00:40:10,136
+that do not allocate any system
+
+939
+00:40:11,016 --> 00:40:14,676
+Without any memory backing
+
+940
+00:40:14,956 --> 00:40:16,776
+what remains is the
+
+941
+00:40:17,086 --> 00:40:19,796
+such as the texture's dimensions
+
+942
+00:40:20,506 --> 00:40:22,746
+Now obviously this is
+
+943
+00:40:23,356 --> 00:40:25,356
+but when can you use a
+
+944
+00:40:26,506 --> 00:40:29,566
+You can use them for render pass
+
+945
+00:40:30,566 --> 00:40:34,596
+Most Metal apps will have
+
+946
+00:40:34,596 --> 00:40:38,606
+with a store action of don't
+
+947
+00:40:38,746 --> 00:40:41,296
+And the textures used for those
+
+948
+00:40:41,296 --> 00:40:42,026
+be memoryless.
+
+949
+00:40:42,726 --> 00:40:46,236
+To make a memoryless
+
+950
+00:40:46,556 --> 00:40:48,976
+you can simply create the
+
+951
+00:40:49,306 --> 00:40:50,836
+with an additional
+
+952
+00:40:51,486 --> 00:40:53,226
+MTLStorageModeMemoryless.
+
+953
+00:40:53,646 --> 00:40:54,756
+That's it.
+
+954
+00:40:55,286 --> 00:40:57,776
+This feature is supported
+
+955
+00:40:57,776 --> 00:40:59,326
+because it relies
+
+956
+00:40:59,326 --> 00:41:01,366
+on the tile-based
+
+957
+00:40:59,326 --> 00:41:01,366
+on the tile-based
+
+958
+00:41:01,646 --> 00:41:03,616
+of A7 and later GPUs.
+
+959
+00:41:04,596 --> 00:41:05,886
+Let me show you how
+
+960
+00:41:06,846 --> 00:41:09,786
+Here on your right we have
+
+961
+00:41:10,136 --> 00:41:11,876
+a color attachment and
+
+962
+00:41:12,326 --> 00:41:15,886
+Now, A7 and later GPUs
+
+963
+00:41:15,886 --> 00:41:20,436
+at a time, taking advantage
+
+964
+00:41:20,696 --> 00:41:22,076
+at the heart of the GPU.
+
+965
+00:41:22,806 --> 00:41:25,836
+The GPU tile storage contains
+
+966
+00:41:25,836 --> 00:41:28,206
+of your depth, stencil,
+
+967
+00:41:28,946 --> 00:41:31,246
+And this tile storage
+
+968
+00:41:31,566 --> 00:41:33,246
+from the texture backing
+
+969
+00:41:33,906 --> 00:41:37,466
+Now, in Metal your load and
+
+970
+00:41:37,466 --> 00:41:40,136
+to initialize the GPU
+
+971
+00:41:40,136 --> 00:41:43,326
+to copy the results from
+
+972
+00:41:43,326 --> 00:41:44,076
+to system memory.
+
+973
+00:41:44,906 --> 00:41:48,376
+If an attachment is not loaded
+
+974
+00:41:48,376 --> 00:41:50,496
+to memory, you can
+
+975
+00:41:50,496 --> 00:41:51,836
+for that attachment memoryless
+
+976
+00:41:52,186 --> 00:41:54,516
+to eliminate the
+
+977
+00:41:55,866 --> 00:41:57,966
+Next, I'll describe some
+
+978
+00:41:57,996 --> 00:42:00,446
+where you can apply this
+
+979
+00:41:57,996 --> 00:42:00,446
+where you can apply this
+
+980
+00:42:01,996 --> 00:42:04,526
+Depth attachments
+
+981
+00:42:04,646 --> 00:42:06,956
+to enable depth testing
+
+982
+00:42:07,966 --> 00:42:11,016
+But the A7 and later GPUs
+
+983
+00:42:11,016 --> 00:42:13,286
+in GPU tile storage
+
+984
+00:42:13,906 --> 00:42:16,356
+Depth testing does not
+
+985
+00:42:17,246 --> 00:42:19,826
+So if you don't store the depth
+
+986
+00:42:20,586 --> 00:42:22,586
+make the texture memoryless
+
+987
+00:42:23,106 --> 00:42:25,686
+Let me show you another
+
+988
+00:42:27,226 --> 00:42:29,546
+When executing multisample
+
+989
+00:42:29,546 --> 00:42:31,676
+the A7 and later GPUs
+
+990
+00:42:31,676 --> 00:42:32,686
+in GPU tile storage.
+
+991
+00:42:32,726 --> 00:42:35,906
+The MSAA color attachment
+
+992
+00:42:35,906 --> 00:42:38,386
+if you choose to store the
+
+993
+00:42:39,646 --> 00:42:43,476
+But most apps will choose the
+
+994
+00:42:43,836 --> 00:42:45,986
+which results directly
+
+995
+00:42:46,296 --> 00:42:47,946
+to the resolve color
+
+996
+00:42:49,256 --> 00:42:51,666
+So in that case make the
+
+997
+00:42:51,666 --> 00:42:54,636
+texture memoryless and this
+
+998
+00:42:55,966 --> 00:42:57,206
+As you can see, the savings
+
+999
+00:42:57,206 --> 00:42:59,176
+for adopting this
+
+1000
+00:42:59,176 --> 00:43:02,396
+By making a 1080p depth
+
+1001
+00:42:59,176 --> 00:43:02,396
+By making a 1080p depth
+
+1002
+00:43:02,856 --> 00:43:04,596
+your app will save
+
+1003
+00:43:05,666 --> 00:43:07,206
+If you are rendering to
+
+1004
+00:43:07,206 --> 00:43:09,296
+of a 12.9-inch iPad Pro,
+
+1005
+00:43:09,596 --> 00:43:11,896
+the savings for the depth
+
+1006
+00:43:12,706 --> 00:43:15,516
+And the savings for making a
+
+1007
+00:43:15,516 --> 00:43:18,476
+target memoryless are even
+
+1008
+00:43:19,876 --> 00:43:23,436
+So use memoryless render
+
+1009
+00:43:23,436 --> 00:43:25,846
+of your application's
+
+1010
+00:43:26,396 --> 00:43:29,216
+Use the savings to lower the
+
+1011
+00:43:29,576 --> 00:43:32,646
+Or better yet, use the
+
+1012
+00:43:32,646 --> 00:43:34,326
+and unique content to your game.
+
+1013
+00:43:36,446 --> 00:43:38,976
+Okay. I'd like to invite
+
+1014
+00:43:38,976 --> 00:43:40,806
+about the improvements
+
+1015
+00:43:41,516 --> 00:43:46,966
+[ Applause ]
+
+1016
+00:43:47,466 --> 00:43:47,946
+&gt;&gt; Thank you, James.
+
+1017
+00:43:48,666 --> 00:43:50,116
+So outside the great additions
+
+1018
+00:43:50,116 --> 00:43:52,396
+to the Metal API we did
+
+1019
+00:43:52,396 --> 00:43:56,256
+to Metal Developer Tools
+
+1020
+00:43:56,546 --> 00:43:59,296
+First we'll talk about
+
+1021
+00:43:59,846 --> 00:44:02,096
+Than we'll introduce a new
+
+1022
+00:43:59,846 --> 00:44:02,096
+Than we'll introduce a new
+
+1023
+00:44:03,146 --> 00:44:05,766
+And we have some very
+
+1024
+00:44:05,766 --> 00:44:10,586
+to GPU Frame Debugger.
+
+1025
+00:44:12,006 --> 00:44:13,156
+So what is Metal System Trace?
+
+1026
+00:44:14,316 --> 00:44:18,016
+In the [inaudible] Metal session
+
+1027
+00:44:18,016 --> 00:44:21,966
+you Metal working on
+
+1028
+00:44:22,126 --> 00:44:24,236
+Metal System Trace is
+
+1029
+00:44:24,236 --> 00:44:25,926
+for visualizing just that,
+
+1030
+00:44:26,746 --> 00:44:28,176
+helping you understand
+
+1031
+00:44:28,176 --> 00:44:29,576
+of your Metal applications
+
+1032
+00:44:29,876 --> 00:44:33,096
+through the whole graphic
+
+1033
+00:44:33,806 --> 00:44:38,746
+to the GPU, and then
+
+1034
+00:44:38,886 --> 00:44:41,836
+Last year at WWDC we
+
+1035
+00:44:41,836 --> 00:44:42,876
+for iOS platform.
+
+1036
+00:44:43,446 --> 00:44:46,176
+I highly recommend checking
+
+1037
+00:44:46,356 --> 00:44:49,566
+for a great overview
+
+1038
+00:44:49,756 --> 00:44:52,176
+Later in the fall we
+
+1039
+00:44:53,236 --> 00:44:55,806
+And today we're happy to
+
+1040
+00:44:55,806 --> 00:44:59,266
+for macOS to help you squeeze
+
+1041
+00:44:59,816 --> 00:45:00,836
+on all Metal platforms.
+
+1042
+00:44:59,816 --> 00:45:00,836
+on all Metal platforms.
+
+1043
+00:45:01,516 --> 00:45:05,756
+[ Applause ]
+
+1044
+00:45:06,256 --> 00:45:08,696
+&gt;&gt; We improved Metal System
+
+1045
+00:45:08,786 --> 00:45:12,226
+extending the events
+
+1046
+00:45:12,226 --> 00:45:12,956
+[Inaudible] events,
+
+1047
+00:45:13,376 --> 00:45:16,236
+we visualized expensive resource
+
+1048
+00:45:16,236 --> 00:45:18,146
+from system memory
+
+1049
+00:45:20,106 --> 00:45:23,986
+Like in this case where we
+
+1050
+00:45:24,456 --> 00:45:26,106
+which is causing a
+
+1051
+00:45:29,336 --> 00:45:32,736
+Metal System Trace also
+
+1052
+00:45:32,906 --> 00:45:33,966
+which make it easier for you
+
+1053
+00:45:33,966 --> 00:45:38,736
+to understand command encoded
+
+1054
+00:45:38,916 --> 00:45:42,586
+On macOS we support tracing
+
+1055
+00:45:42,946 --> 00:45:44,806
+which is unbelievable
+
+1056
+00:45:44,806 --> 00:45:47,926
+where you're distributing
+
+1057
+00:45:49,016 --> 00:45:51,946
+And on iOS we now
+
+1058
+00:45:52,236 --> 00:45:54,786
+so that you can diagnose when
+
+1059
+00:45:55,286 --> 00:46:00,966
+by rotating or scaling
+
+1060
+00:45:55,286 --> 00:46:00,966
+by rotating or scaling
+
+1061
+00:46:01,156 --> 00:46:02,786
+You can now use a wider range
+
+1062
+00:46:02,786 --> 00:46:04,876
+of instruments alongside
+
+1063
+00:46:05,656 --> 00:46:09,636
+such as Time Profiler,
+
+1064
+00:46:10,896 --> 00:46:13,356
+Allocations, and many more.
+
+1065
+00:46:13,686 --> 00:46:15,506
+Even different views
+
+1066
+00:46:15,826 --> 00:46:18,136
+which will show you
+
+1067
+00:46:19,766 --> 00:46:23,406
+These will help you to correlate
+
+1068
+00:46:23,606 --> 00:46:24,856
+deepening the understanding
+
+1069
+00:46:25,276 --> 00:46:27,566
+of how the system is
+
+1070
+00:46:28,166 --> 00:46:29,776
+and allowing you
+
+1071
+00:46:29,776 --> 00:46:35,786
+such as GPU starvation
+
+1072
+00:46:35,786 --> 00:46:37,346
+to a [inaudible] operation.
+
+1073
+00:46:40,576 --> 00:46:43,196
+Metal System Trace
+
+1074
+00:46:43,586 --> 00:46:45,996
+So we made it easier for you
+
+1075
+00:46:47,506 --> 00:46:50,086
+With the new workload
+
+1076
+00:46:50,086 --> 00:46:52,336
+on any command encoder
+
+1077
+00:46:53,246 --> 00:46:54,286
+as it works through
+
+1078
+00:46:54,396 --> 00:46:56,906
+And with with support
+
+1079
+00:46:56,906 --> 00:46:59,056
+you can quickly move your
+
+1080
+00:47:01,456 --> 00:47:04,246
+Finally, I want to introduce
+
+1081
+00:47:05,026 --> 00:47:07,886
+And what Performance
+
+1082
+00:47:07,886 --> 00:47:10,896
+with a comprehensive list of
+
+1083
+00:47:10,896 --> 00:47:12,266
+in your trace from analyzing it.
+
+1084
+00:47:13,996 --> 00:47:16,336
+From display surface
+
+1085
+00:47:17,666 --> 00:47:20,146
+to unexpected shader
+
+1086
+00:47:21,316 --> 00:47:26,066
+or high GPU execution times,
+
+1087
+00:47:26,066 --> 00:47:27,596
+for you the events which
+
+1088
+00:47:28,356 --> 00:47:29,856
+which you can navigate
+
+1089
+00:47:29,856 --> 00:47:31,436
+from the Performance
+
+1090
+00:47:32,706 --> 00:47:34,006
+All these new additions
+
+1091
+00:47:34,006 --> 00:47:36,216
+to tune your Metal
+
+1092
+00:47:36,216 --> 00:47:37,126
+as you want them to be.
+
+1093
+00:47:38,426 --> 00:47:39,526
+And now for a demonstration
+
+1094
+00:47:39,526 --> 00:47:41,346
+of our awesome GPU
+
+1095
+00:47:41,736 --> 00:47:43,166
+let me hand over to
+
+1096
+00:47:44,516 --> 00:47:49,500
+[ Applause ]
+
+1097
+00:47:57,046 --> 00:47:57,596
+&gt;&gt; Thanks, Jose.
+
+1098
+00:47:58,856 --> 00:48:01,246
+I have a number of great
+
+1099
+00:47:58,856 --> 00:48:01,246
+I have a number of great
+
+1100
+00:48:01,416 --> 00:48:02,596
+So let's dive right in.
+
+1101
+00:48:02,676 --> 00:48:05,506
+I have my app running here,
+
+1102
+00:48:05,896 --> 00:48:09,586
+cruising over beautiful terrain
+
+1103
+00:48:10,746 --> 00:48:13,136
+Wouldn't it be great to see
+
+1104
+00:48:13,136 --> 00:48:14,936
+to see triangles individually?
+
+1105
+00:48:15,656 --> 00:48:19,286
+The good news is our newest
+
+1106
+00:48:19,676 --> 00:48:22,516
+gives you ability to modify
+
+1107
+00:48:22,516 --> 00:48:24,756
+from the debug bar while
+
+1108
+00:48:26,096 --> 00:48:28,606
+We have a number of different
+
+1109
+00:48:28,906 --> 00:48:29,896
+including wire frame mode.
+
+1110
+00:48:31,566 --> 00:48:32,606
+Let's switch to wire frame mode
+
+1111
+00:48:32,606 --> 00:48:35,506
+to see how tessellated
+
+1112
+00:48:36,966 --> 00:48:40,146
+Visualizing each
+
+1113
+00:48:40,216 --> 00:48:42,046
+to tune your tessellation
+
+1114
+00:48:42,046 --> 00:48:45,006
+between performance
+
+1115
+00:48:45,326 --> 00:48:47,006
+Normally you'd have to go back
+
+1116
+00:48:47,006 --> 00:48:49,776
+and change your code,
+
+1117
+00:48:49,856 --> 00:48:52,456
+But with GPU Overrides,
+
+1118
+00:48:52,456 --> 00:48:56,936
+with your tessellation scaling
+
+1119
+00:48:57,136 --> 00:48:59,276
+Let's set scaling to 25%.
+
+1120
+00:49:02,306 --> 00:49:05,226
+Now we have far less
+
+1121
+00:49:05,226 --> 00:49:06,386
+of the interesting details.
+
+1122
+00:49:07,706 --> 00:49:11,066
+Let's try 75%.
+
+1123
+00:49:11,776 --> 00:49:12,586
+I think this looks better.
+
+1124
+00:49:12,586 --> 00:49:16,926
+Let's see it without
+
+1125
+00:49:16,926 --> 00:49:18,006
+Okay. I like this one.
+
+1126
+00:49:18,596 --> 00:49:21,056
+Now, we have less triangles
+
+1127
+00:49:21,526 --> 00:49:23,256
+but still have all
+
+1128
+00:49:23,256 --> 00:49:25,006
+And with the performance gains,
+
+1129
+00:49:25,366 --> 00:49:27,246
+I can add more cool
+
+1130
+00:49:28,776 --> 00:49:32,296
+So as seen here, GPU Overrides
+
+1131
+00:49:32,296 --> 00:49:34,666
+with initial diagnosis
+
+1132
+00:49:34,906 --> 00:49:38,276
+and performance problems
+
+1133
+00:49:38,496 --> 00:49:42,926
+Next, let's capture the frame
+
+1134
+00:49:43,016 --> 00:49:45,506
+that will greatly improve
+
+1135
+00:49:47,776 --> 00:49:50,466
+The frame capture is
+
+1136
+00:49:50,466 --> 00:49:54,566
+for the terrain resources to
+
+1137
+00:49:57,456 --> 00:50:00,536
+Let's switch to all GPU
+
+1138
+00:49:57,456 --> 00:50:00,536
+Let's switch to all GPU
+
+1139
+00:50:00,936 --> 00:50:03,376
+where you can see all
+
+1140
+00:50:05,976 --> 00:50:07,986
+So we have all of
+
+1141
+00:50:08,526 --> 00:50:10,346
+And going over everything
+
+1142
+00:50:10,766 --> 00:50:14,016
+to find terrain resources
+
+1143
+00:50:14,676 --> 00:50:16,946
+This is where the new
+
+1144
+00:50:18,036 --> 00:50:21,496
+You can filter by any properties
+
+1145
+00:50:21,976 --> 00:50:23,866
+type, size, or details.
+
+1146
+00:50:25,256 --> 00:50:27,446
+Since I labeled all
+
+1147
+00:50:27,596 --> 00:50:29,116
+I'll just filter by terrain.
+
+1148
+00:50:29,166 --> 00:50:32,696
+And right here I have
+
+1149
+00:50:32,696 --> 00:50:35,456
+for rendering the terrain.
+
+1150
+00:50:35,636 --> 00:50:38,336
+Now that I found the terrain
+
+1151
+00:50:38,396 --> 00:50:41,176
+like to do is to see where
+
+1152
+00:50:42,506 --> 00:50:47,156
+With a simple drag and drop I
+
+1153
+00:50:47,156 --> 00:50:49,516
+to show me all the
+
+1154
+00:50:49,516 --> 00:50:51,496
+to terrain patches
+
+1155
+00:50:52,636 --> 00:50:56,406
+In this case, I see where it
+
+1156
+00:50:56,896 --> 00:51:01,556
+and where it says [inaudible]
+
+1157
+00:50:56,896 --> 00:51:01,556
+and where it says [inaudible]
+
+1158
+00:51:01,736 --> 00:51:03,166
+This filter is really powerful.
+
+1159
+00:51:03,166 --> 00:51:06,186
+I can also use any
+
+1160
+00:51:06,186 --> 00:51:08,226
+of the bound resources
+
+1161
+00:51:09,146 --> 00:51:11,886
+For example, if you
+
+1162
+00:51:12,776 --> 00:51:16,436
+you'll see all the draw calls
+
+1163
+00:51:16,476 --> 00:51:18,326
+with SRGB pixel format.
+
+1164
+00:51:19,666 --> 00:51:21,846
+This is a natural
+
+1165
+00:51:21,846 --> 00:51:22,926
+around your frame quickly.
+
+1166
+00:51:24,836 --> 00:51:28,536
+Next, let's move
+
+1167
+00:51:28,536 --> 00:51:31,916
+to see how we are using these
+
+1168
+00:51:32,536 --> 00:51:36,986
+In bound mode your
+
+1169
+00:51:36,986 --> 00:51:39,176
+under different sections
+
+1170
+00:51:39,176 --> 00:51:40,636
+of the Metal pipeline
+
+1171
+00:51:40,636 --> 00:51:44,256
+in so you know exactly
+
+1172
+00:51:44,486 --> 00:51:45,776
+Looking at the vertex stage,
+
+1173
+00:51:46,236 --> 00:51:49,476
+terrain patches is a buffer
+
+1174
+00:51:49,646 --> 00:51:50,686
+with different offsets.
+
+1175
+00:51:52,036 --> 00:51:58,026
+Let's use our only buffer
+
+1176
+00:51:58,026 --> 00:52:00,046
+All the vertex data
+
+1177
+00:51:58,026 --> 00:52:00,046
+All the vertex data
+
+1178
+00:52:00,096 --> 00:52:02,796
+with the layout except
+
+1179
+00:52:02,796 --> 00:52:03,456
+with patches.
+
+1180
+00:52:04,036 --> 00:52:06,496
+So this is using the
+
+1181
+00:52:06,496 --> 00:52:07,716
+as your post-vertex function.
+
+1182
+00:52:08,256 --> 00:52:11,186
+And we have a color data here.
+
+1183
+00:52:11,956 --> 00:52:15,576
+It recognizes the word color
+
+1184
+00:52:15,576 --> 00:52:19,576
+of the value right in there.
+
+1185
+00:52:19,696 --> 00:52:22,146
+Since this is a large buffer
+
+1186
+00:52:22,146 --> 00:52:24,886
+of data, I have added
+
+1187
+00:52:25,016 --> 00:52:28,616
+with the new [inaudible] API,
+
+1188
+00:52:28,616 --> 00:52:29,926
+to find what you
+
+1189
+00:52:32,496 --> 00:52:35,356
+With the layout menu,
+
+1190
+00:52:35,356 --> 00:52:43,136
+to any other available layout
+
+1191
+00:52:43,316 --> 00:52:45,056
+Looking at individual
+
+1192
+00:52:45,926 --> 00:52:48,916
+What is even better is the
+
+1193
+00:52:49,526 --> 00:52:51,936
+which lets you see
+
+1194
+00:52:52,006 --> 00:52:53,756
+as your vertex shader sees it.
+
+1195
+00:52:56,036 --> 00:52:59,046
+Input attributes collects all
+
+1196
+00:52:59,496 --> 00:53:02,556
+tessellation factor buffers,
+
+1197
+00:52:59,496 --> 00:53:02,556
+tessellation factor buffers,
+
+1198
+00:53:02,556 --> 00:53:10,276
+then provides you a single view
+
+1199
+00:53:10,276 --> 00:53:13,946
+In this case we are rendering
+
+1200
+00:53:14,436 --> 00:53:18,766
+and I can see what data belongs
+
+1201
+00:53:19,316 --> 00:53:22,746
+So that was a quick look at some
+
+1202
+00:53:22,746 --> 00:53:24,716
+of our newest GPU Frame
+
+1203
+00:53:25,246 --> 00:53:31,556
+Let's switch back to
+
+1204
+00:53:32,516 --> 00:53:37,336
+[ Applause ]
+
+1205
+00:53:37,836 --> 00:53:39,156
+So you've just seen some
+
+1206
+00:53:39,156 --> 00:53:41,086
+of our newest GPU Frame
+
+1207
+00:53:41,756 --> 00:53:43,316
+I would like to tell
+
+1208
+00:53:44,026 --> 00:53:49,746
+With the new Extended Validation
+
+1209
+00:53:49,746 --> 00:53:52,596
+perform even deeper
+
+1210
+00:53:53,386 --> 00:53:56,676
+providing recommendations
+
+1211
+00:53:56,676 --> 00:53:59,646
+usage or storage mode
+
+1212
+00:54:01,356 --> 00:54:07,116
+You can enable this mode from
+
+1213
+00:54:07,626 --> 00:54:08,486
+And the new support
+
+1214
+00:54:08,486 --> 00:54:11,886
+for stand-alone Metal Library
+
+1215
+00:54:11,886 --> 00:54:14,256
+libraries to be shared
+
+1216
+00:54:14,806 --> 00:54:18,096
+or include multiple of
+
+1217
+00:54:18,096 --> 00:54:19,806
+like any other framework
+
+1218
+00:54:22,536 --> 00:54:24,456
+So we talked about features
+
+1219
+00:54:24,456 --> 00:54:26,416
+that will greatly improve
+
+1220
+00:54:26,956 --> 00:54:30,326
+Now let's summarize what we have
+
+1221
+00:54:32,636 --> 00:54:36,136
+We have seen the great additions
+
+1222
+00:54:36,916 --> 00:54:39,726
+resource heaps and
+
+1223
+00:54:40,216 --> 00:54:43,296
+then we showed you improved
+
+1224
+00:54:43,296 --> 00:54:44,236
+and GPU Frame Debugger.
+
+1225
+00:54:45,606 --> 00:54:47,836
+Be sure to stick around
+
+1226
+00:54:47,896 --> 00:54:51,046
+where I will talk about
+
+1227
+00:54:51,196 --> 00:54:54,426
+and function resource
+
+1228
+00:54:54,676 --> 00:54:57,356
+and texture assets,
+
+1229
+00:54:57,356 --> 00:54:58,816
+to Metal performance shaders.
+
+1230
+00:55:00,636 --> 00:55:02,546
+For more information
+
+1231
+00:55:02,726 --> 00:55:04,336
+please check the link online.
+
+1232
+00:55:04,676 --> 00:55:06,816
+You can catch the
+
+1233
+00:55:06,816 --> 00:55:11,376
+to documentation
+
+1234
+00:55:11,866 --> 00:55:15,596
+We had great sessions yesterday,
+
+1235
+00:55:15,886 --> 00:55:18,976
+And this afternoon we have
+
+1236
+00:55:18,976 --> 00:55:22,066
+then Advanced Metal Shader
+
+1237
+00:55:23,276 --> 00:55:25,306
+Thanks for coming,
+
+1238
+00:55:26,516 --> 00:55:29,500
+[ Applause ]

@@ -1,0 +1,2967 @@
+1
+00:00:06,516 --> 00:00:17,500
+[ Music ]
+
+2
+00:00:21,516 --> 00:00:24,276
+[ Applause ]
+
+3
+00:00:24,776 --> 00:00:25,436
+&gt;&gt; Good afternoon.
+
+4
+00:00:28,346 --> 00:00:30,166
+Hi. My name is Matthew
+
+5
+00:00:30,736 --> 00:00:34,106
+I'm a software engineer working
+
+6
+00:00:34,106 --> 00:00:38,396
+to talk about Focus
+
+7
+00:00:39,016 --> 00:00:42,696
+Last year we introduced
+
+8
+00:00:42,886 --> 00:00:44,556
+for building apps on Apple TV.
+
+9
+00:00:46,306 --> 00:00:48,796
+And whether you're building
+
+10
+00:00:49,146 --> 00:00:52,636
+or looking to port an existing
+
+11
+00:00:53,146 --> 00:00:54,276
+it's immediately obvious
+
+12
+00:00:54,376 --> 00:00:56,926
+that Apple TV is unlike
+
+13
+00:00:58,046 --> 00:01:02,256
+There's no touchscreen on a TV
+
+14
+00:00:58,046 --> 00:01:02,256
+There's no touchscreen on a TV
+
+15
+00:01:02,256 --> 00:01:04,215
+of user input just
+
+16
+00:01:04,215 --> 00:01:05,546
+in a living room environment.
+
+17
+00:01:06,186 --> 00:01:10,866
+Instead, we use this, a
+
+18
+00:01:11,246 --> 00:01:13,926
+in order to control
+
+19
+00:01:15,056 --> 00:01:18,386
+The Siri Remote and Apple TV
+
+20
+00:01:18,856 --> 00:01:21,046
+to provide the best
+
+21
+00:01:21,566 --> 00:01:26,046
+But Apple TV also supports
+
+22
+00:01:26,556 --> 00:01:29,096
+like game controllers,
+
+23
+00:01:29,096 --> 00:01:31,486
+and the new remote app.
+
+24
+00:01:32,036 --> 00:01:35,276
+And sometimes users might feel
+
+25
+00:01:35,276 --> 00:01:39,316
+of these other input devices in
+
+26
+00:01:39,926 --> 00:01:42,396
+and tvOS helps you
+
+27
+00:01:42,786 --> 00:01:46,046
+through a user interaction
+
+28
+00:01:46,386 --> 00:01:51,636
+With Focus interaction, users
+
+29
+00:01:52,236 --> 00:01:54,616
+through a single focused
+
+30
+00:01:55,226 --> 00:01:56,296
+and they can move focus
+
+31
+00:01:56,346 --> 00:01:58,946
+around the screen
+
+32
+00:02:00,456 --> 00:02:05,006
+Users will expect that your
+
+33
+00:02:05,006 --> 00:02:06,016
+with Focus interaction.
+
+34
+00:02:06,916 --> 00:02:10,566
+And to help with that, UIKit
+
+35
+00:02:10,566 --> 00:02:14,446
+for all of its standard
+
+36
+00:02:14,476 --> 00:02:17,576
+you may also want to customize
+
+37
+00:02:17,576 --> 00:02:19,086
+in order to take them
+
+38
+00:02:19,086 --> 00:02:21,466
+and provide an even
+
+39
+00:02:21,966 --> 00:02:24,896
+And for that, UIKit
+
+40
+00:02:25,746 --> 00:02:30,016
+Now today's talk is
+
+41
+00:02:30,276 --> 00:02:31,936
+and we split it into two parts.
+
+42
+00:02:32,336 --> 00:02:34,596
+First, we're going to
+
+43
+00:02:34,596 --> 00:02:36,656
+in the Focus API
+
+44
+00:02:36,656 --> 00:02:40,926
+And then in the second part
+
+45
+00:02:40,926 --> 00:02:43,736
+into an extended case study
+
+46
+00:02:44,106 --> 00:02:46,716
+fully focusable control
+
+47
+00:02:47,286 --> 00:02:49,066
+This is a great demo
+
+48
+00:02:49,066 --> 00:02:51,876
+to get started building
+
+49
+00:02:51,876 --> 00:02:54,516
+in your tvOS apps.
+
+50
+00:02:54,516 --> 00:02:55,906
+Now a quick note
+
+51
+00:02:56,696 --> 00:02:59,576
+We're going to assume that you
+
+52
+00:02:59,626 --> 00:03:01,836
+with the Focus API
+
+53
+00:02:59,626 --> 00:03:01,836
+with the Focus API
+
+54
+00:03:02,156 --> 00:03:04,126
+of how Focus works on tvOS.
+
+55
+00:03:04,536 --> 00:03:07,416
+But even if you're new to
+
+56
+00:03:08,166 --> 00:03:10,416
+You can still generally
+
+57
+00:03:10,416 --> 00:03:12,736
+of the talk today, we'll call
+
+58
+00:03:13,056 --> 00:03:18,286
+to help you get started with
+
+59
+00:03:19,476 --> 00:03:25,256
+So what's new in tvOS 10 and to
+
+60
+00:03:26,126 --> 00:03:28,556
+to enhance the preferred
+
+61
+00:03:28,646 --> 00:03:33,056
+Now as a quick review, when
+
+62
+00:03:33,336 --> 00:03:35,236
+we mean the process
+
+63
+00:03:35,236 --> 00:03:38,966
+where Focus should show
+
+64
+00:03:39,696 --> 00:03:41,256
+Whenever Focus updates,
+
+65
+00:03:41,326 --> 00:03:44,746
+for example when your app first
+
+66
+00:03:44,746 --> 00:03:46,646
+to know where focus
+
+67
+00:03:47,356 --> 00:03:48,906
+It does this by asking your app
+
+68
+00:03:49,886 --> 00:03:52,036
+where it prefers
+
+69
+00:03:52,886 --> 00:03:54,696
+Let's look at a specific
+
+70
+00:03:55,836 --> 00:03:59,216
+When your app first launches,
+
+71
+00:03:59,216 --> 00:04:01,466
+to figure out where Focus
+
+72
+00:03:59,216 --> 00:04:01,466
+to figure out where Focus
+
+73
+00:04:02,016 --> 00:04:05,156
+and it's going to start by
+
+74
+00:04:05,546 --> 00:04:06,816
+that we're updating Focus to.
+
+75
+00:04:07,056 --> 00:04:08,826
+And when our app first
+
+76
+00:04:09,476 --> 00:04:12,936
+In this case, the Focus engine
+
+77
+00:04:12,966 --> 00:04:14,416
+preferred Focus view is.
+
+78
+00:04:15,186 --> 00:04:17,055
+The window delegates
+
+79
+00:04:17,055 --> 00:04:18,326
+to its root view controller,
+
+80
+00:04:18,886 --> 00:04:22,416
+which could also return some
+
+81
+00:04:22,606 --> 00:04:24,086
+as its preferred Focus view.
+
+82
+00:04:24,956 --> 00:04:26,196
+The Focus engine will then ask
+
+83
+00:04:26,196 --> 00:04:28,296
+that view what its
+
+84
+00:04:28,296 --> 00:04:30,286
+and it will continue
+
+85
+00:04:30,766 --> 00:04:33,296
+until it reaches the end, which
+
+86
+00:04:33,296 --> 00:04:36,776
+that it found as the new
+
+87
+00:04:37,736 --> 00:04:40,716
+Leveraging the Preferred
+
+88
+00:04:40,716 --> 00:04:42,756
+to provide a good
+
+89
+00:04:42,936 --> 00:04:44,636
+in complex apps, especially.
+
+90
+00:04:44,636 --> 00:04:48,176
+So that focus is directed to
+
+91
+00:04:48,236 --> 00:04:49,646
+at the appropriate times.
+
+92
+00:04:50,196 --> 00:04:54,456
+In tvOS 10, we're
+
+93
+00:04:54,456 --> 00:04:58,376
+that allows your apps to
+
+94
+00:04:58,446 --> 00:05:01,536
+preferences and the name of this
+
+95
+00:04:58,446 --> 00:05:01,536
+preferences and the name of this
+
+96
+00:05:01,936 --> 00:05:04,336
+Preferred Focus Environments
+
+97
+00:05:04,336 --> 00:05:07,806
+in the UIFocusEnvironment
+
+98
+00:05:07,806 --> 00:05:09,976
+of objects that also conform to
+
+99
+00:05:10,246 --> 00:05:13,876
+And this property has
+
+100
+00:05:14,366 --> 00:05:19,246
+First, by returning objects that
+
+101
+00:05:20,216 --> 00:05:23,726
+you can specify that focus be
+
+102
+00:05:23,726 --> 00:05:26,556
+on screen, not just views but
+
+103
+00:05:27,766 --> 00:05:29,756
+The second benefit
+
+104
+00:05:29,756 --> 00:05:32,486
+that it returns an array of
+
+105
+00:05:32,986 --> 00:05:35,696
+which allows you to specify
+
+106
+00:05:36,216 --> 00:05:39,266
+and this enables complex,
+
+107
+00:05:39,266 --> 00:05:41,206
+to be expressed much
+
+108
+00:05:42,326 --> 00:05:46,286
+And there's a specific pattern
+
+109
+00:05:46,906 --> 00:05:49,146
+that Preferred Focus
+
+110
+00:05:49,146 --> 00:05:51,556
+in which is custom
+
+111
+00:05:51,736 --> 00:05:55,586
+Let's look at an
+
+112
+00:05:56,566 --> 00:05:58,776
+Say we have an app with a
+
+113
+00:05:59,486 --> 00:06:01,156
+We have a container
+
+114
+00:05:59,486 --> 00:06:01,156
+We have a container
+
+115
+00:06:01,386 --> 00:06:03,466
+with two child view controllers.
+
+116
+00:06:04,826 --> 00:06:06,966
+In this example, we want
+
+117
+00:06:06,966 --> 00:06:09,976
+that focus show up in the left
+
+118
+00:06:10,766 --> 00:06:13,396
+but if that's not possible,
+
+119
+00:06:13,396 --> 00:06:14,946
+to its right child
+
+120
+00:06:15,796 --> 00:06:19,276
+And we can express this logic
+
+121
+00:06:19,466 --> 00:06:21,236
+preferredFocusEnvironments
+
+122
+00:06:22,356 --> 00:06:25,726
+Here, we override
+
+123
+00:06:25,906 --> 00:06:29,026
+to return an array of both
+
+124
+00:06:29,026 --> 00:06:30,676
+as the first item in the array.
+
+125
+00:06:32,466 --> 00:06:33,816
+This is great because
+
+126
+00:06:33,816 --> 00:06:36,396
+to check ourselves whether
+
+127
+00:06:36,396 --> 00:06:37,986
+actually contains
+
+128
+00:06:37,986 --> 00:06:39,186
+We don't have to know anything
+
+129
+00:06:39,186 --> 00:06:41,116
+about the contents
+
+130
+00:06:41,846 --> 00:06:44,126
+We just tell the Focus engine
+
+131
+00:06:44,336 --> 00:06:47,566
+and it takes care of
+
+132
+00:06:47,686 --> 00:06:49,246
+So if our left child
+
+133
+00:06:49,246 --> 00:06:52,356
+in this example happened to
+
+134
+00:06:52,726 --> 00:06:54,506
+the Focus engine will
+
+135
+00:06:54,906 --> 00:06:56,706
+to that right child
+
+136
+00:06:56,706 --> 00:06:59,786
+And in this example, maybe it
+
+137
+00:07:00,346 --> 00:07:03,546
+So the
+
+138
+00:07:03,576 --> 00:07:06,376
+property helps us to express
+
+139
+00:07:06,376 --> 00:07:07,456
+clearly and concisely,
+
+140
+00:07:08,156 --> 00:07:11,006
+and if the first item doesn't
+
+141
+00:07:11,006 --> 00:07:16,146
+we can easily fall back to the
+
+142
+00:07:16,146 --> 00:07:17,686
+Next up, we have
+
+143
+00:07:17,686 --> 00:07:19,836
+to the Preferred Focus
+
+144
+00:07:19,836 --> 00:07:23,496
+for more specific use case
+
+145
+00:07:23,716 --> 00:07:25,376
+after view controller
+
+146
+00:07:26,726 --> 00:07:30,186
+So before we introduce the API,
+
+147
+00:07:30,186 --> 00:07:33,546
+to illustrate what exactly
+
+148
+00:07:34,016 --> 00:07:38,326
+Say we have an app
+
+149
+00:07:38,726 --> 00:07:41,526
+It's a simple view controller
+
+150
+00:07:41,906 --> 00:07:44,126
+And our root view
+
+151
+00:07:44,126 --> 00:07:46,886
+that by default we want our
+
+152
+00:07:47,066 --> 00:07:49,156
+It did this using the
+
+153
+00:07:49,156 --> 00:07:51,516
+property that we just looked at.
+
+154
+00:07:51,866 --> 00:07:54,886
+Now suppose the user moves to
+
+155
+00:07:55,296 --> 00:07:56,386
+and selects that button
+
+156
+00:07:56,796 --> 00:07:58,586
+to present a detail
+
+157
+00:07:59,096 --> 00:08:02,516
+In that case we're
+
+158
+00:07:59,096 --> 00:08:02,516
+In that case we're
+
+159
+00:08:02,516 --> 00:08:04,806
+when this detail view
+
+160
+00:08:06,326 --> 00:08:09,746
+After the dismissal, focus
+
+161
+00:08:10,246 --> 00:08:11,596
+to our root view controller.
+
+162
+00:08:13,436 --> 00:08:15,306
+Now the user would
+
+163
+00:08:15,946 --> 00:08:18,126
+that focus gets restored
+
+164
+00:08:18,216 --> 00:08:20,326
+that was last focused,
+
+165
+00:08:20,506 --> 00:08:22,636
+which is the last
+
+166
+00:08:23,926 --> 00:08:26,276
+However, if we ask our
+
+167
+00:08:26,276 --> 00:08:29,136
+at this time what its preferred
+
+168
+00:08:29,626 --> 00:08:31,836
+it would still direct us to
+
+169
+00:08:33,376 --> 00:08:36,316
+And so instead, the Focus engine
+
+170
+00:08:36,316 --> 00:08:40,645
+focus item for us so that after
+
+171
+00:08:40,686 --> 00:08:43,556
+it automatically restores
+
+172
+00:08:43,655 --> 00:08:45,406
+that the user would expect.
+
+173
+00:08:46,516 --> 00:08:48,996
+This is behavior that
+
+174
+00:08:51,396 --> 00:08:54,236
+While this is almost always
+
+175
+00:08:54,236 --> 00:08:57,496
+and often the developer
+
+176
+00:08:57,496 --> 00:08:59,796
+where you might want to
+
+177
+00:08:59,796 --> 00:09:00,886
+of your user interface.
+
+178
+00:08:59,796 --> 00:09:00,886
+of your user interface.
+
+179
+00:09:02,166 --> 00:09:05,096
+Suppose for example that while
+
+180
+00:09:05,286 --> 00:09:07,466
+our app's underlying
+
+181
+00:09:07,466 --> 00:09:10,096
+so that the last button
+
+182
+00:09:10,096 --> 00:09:12,486
+different action or data
+
+183
+00:09:13,056 --> 00:09:16,446
+In that case the user might not
+
+184
+00:09:16,446 --> 00:09:18,166
+restored back to that last item.
+
+185
+00:09:19,526 --> 00:09:21,646
+In that case, we
+
+186
+00:09:22,256 --> 00:09:25,326
+to use your view controller's
+
+187
+00:09:25,866 --> 00:09:28,516
+in order to determine where
+
+188
+00:09:28,856 --> 00:09:30,576
+And in tvOS 10, we're
+
+189
+00:09:30,876 --> 00:09:33,566
+that allows you to do just that.
+
+190
+00:09:33,896 --> 00:09:36,636
+It's called
+
+191
+00:09:37,036 --> 00:09:40,706
+It's a Boolean property
+
+192
+00:09:41,656 --> 00:09:42,936
+and the way it works
+
+193
+00:09:43,816 --> 00:09:47,126
+If set to true, the view
+
+194
+00:09:47,126 --> 00:09:47,916
+default behavior.
+
+195
+00:09:47,916 --> 00:09:49,496
+It'll tell the Focus engine
+
+196
+00:09:49,736 --> 00:09:53,326
+to use its default behavior
+
+197
+00:09:53,326 --> 00:09:55,266
+that was focused before
+
+198
+00:09:56,576 --> 00:09:58,056
+If set to false, however,
+
+199
+00:09:58,126 --> 00:10:00,736
+then the Focus engine will
+
+200
+00:09:58,126 --> 00:10:00,736
+then the Focus engine will
+
+201
+00:10:00,736 --> 00:10:02,776
+controller's
+
+202
+00:10:03,436 --> 00:10:05,476
+giving your app a
+
+203
+00:10:05,476 --> 00:10:06,976
+where focus gets
+
+204
+00:10:07,046 --> 00:10:11,966
+The property is set to
+
+205
+00:10:12,166 --> 00:10:13,626
+that previous default behavior
+
+206
+00:10:14,856 --> 00:10:16,806
+and it affects view
+
+207
+00:10:16,806 --> 00:10:17,756
+like we just talked about,
+
+208
+00:10:18,276 --> 00:10:22,046
+but other common built-in view
+
+209
+00:10:22,666 --> 00:10:26,676
+such as navigation pops and
+
+210
+00:10:26,676 --> 00:10:28,536
+between your view
+
+211
+00:10:29,966 --> 00:10:31,956
+We recommend that when
+
+212
+00:10:32,526 --> 00:10:36,546
+set it always be true or always
+
+213
+00:10:36,546 --> 00:10:37,616
+within your view controllers
+
+214
+00:10:37,616 --> 00:10:41,396
+in a consistent and
+
+215
+00:10:41,826 --> 00:10:43,836
+We really hope that this
+
+216
+00:10:43,836 --> 00:10:46,606
+some of those tricky edge cases
+
+217
+00:10:48,956 --> 00:10:50,936
+To show you how to use
+
+218
+00:10:50,936 --> 00:10:52,876
+that we just talked
+
+219
+00:10:52,876 --> 00:10:54,626
+up my colleague Brandon
+
+220
+00:10:56,516 --> 00:10:59,500
+[ Applause ]
+
+221
+00:11:06,636 --> 00:11:07,176
+&gt;&gt; Hi, everyone.
+
+222
+00:11:07,466 --> 00:11:09,446
+My name is Brandon and I'm
+
+223
+00:11:09,446 --> 00:11:10,596
+to take advantage of some
+
+224
+00:11:10,596 --> 00:11:14,006
+of the new Focus APIs
+
+225
+00:11:14,756 --> 00:11:17,386
+So I've been working on
+
+226
+00:11:17,386 --> 00:11:19,116
+and it's coming along
+
+227
+00:11:19,896 --> 00:11:23,456
+You can view your events for a
+
+228
+00:11:23,456 --> 00:11:25,546
+between weeks using the
+
+229
+00:11:26,556 --> 00:11:28,976
+Now when the app
+
+230
+00:11:28,976 --> 00:11:30,036
+on the previous button
+
+231
+00:11:30,736 --> 00:11:33,286
+when I think it would
+
+232
+00:11:33,286 --> 00:11:35,186
+if we focused on the
+
+233
+00:11:35,326 --> 00:11:37,356
+So let's go modify
+
+234
+00:11:38,086 --> 00:11:41,756
+So to direct focus, we need
+
+235
+00:11:41,756 --> 00:11:43,636
+to override the
+
+236
+00:11:43,636 --> 00:11:44,086
+property.
+
+237
+00:11:45,336 --> 00:11:47,826
+This returns an array
+
+238
+00:11:47,826 --> 00:11:49,576
+for the focus engine
+
+239
+00:11:50,026 --> 00:11:52,816
+We'll start by adding our
+
+240
+00:11:52,816 --> 00:11:53,836
+of the week to our array.
+
+241
+00:11:54,516 --> 00:11:57,246
+If we have no more upcoming
+
+242
+00:11:57,306 --> 00:11:58,686
+to default to the next button.
+
+243
+00:11:58,986 --> 00:12:00,546
+So we'll add that to
+
+244
+00:11:58,986 --> 00:12:00,546
+So we'll add that to
+
+245
+00:12:01,676 --> 00:12:02,966
+Now let's run this,
+
+246
+00:12:11,196 --> 00:12:14,116
+All right, so this time when
+
+247
+00:12:14,116 --> 00:12:16,446
+on the super secret party I'm
+
+248
+00:12:17,196 --> 00:12:19,846
+Now, I wonder what would happen
+
+249
+00:12:20,466 --> 00:12:21,826
+When an event is canceled,
+
+250
+00:12:21,956 --> 00:12:24,136
+it becomes grayed
+
+251
+00:12:25,106 --> 00:12:27,776
+So I would expect focus would
+
+252
+00:12:27,776 --> 00:12:29,566
+which is a tvOS lab
+
+253
+00:12:30,206 --> 00:12:31,846
+But a good developer
+
+254
+00:12:31,846 --> 00:12:32,936
+So let's go try this out.
+
+255
+00:12:32,936 --> 00:12:36,546
+So I'm going to go
+
+256
+00:12:36,586 --> 00:12:40,976
+and cancel my not-so-secret
+
+257
+00:12:47,776 --> 00:12:51,006
+All right, just as we
+
+258
+00:12:51,006 --> 00:12:52,376
+we're focused on the tvOS lab.
+
+259
+00:12:53,166 --> 00:12:55,406
+So because our first
+
+260
+00:12:55,676 --> 00:12:57,986
+unfocusable, the Focus
+
+261
+00:12:57,986 --> 00:12:59,486
+to our next preferred
+
+262
+00:13:00,006 --> 00:13:02,536
+We didn't have to modify
+
+263
+00:13:02,536 --> 00:13:04,666
+The Focus engine
+
+264
+00:13:05,446 --> 00:13:07,876
+Now if you want to view
+
+265
+00:13:07,956 --> 00:13:09,896
+you can select it to
+
+266
+00:13:10,506 --> 00:13:12,336
+From here, you can swipe
+
+267
+00:13:12,336 --> 00:13:13,766
+to the next or previous event.
+
+268
+00:13:13,766 --> 00:13:17,406
+I received some bug
+
+269
+00:13:17,496 --> 00:13:20,766
+that when they exit this view,
+
+270
+00:13:20,766 --> 00:13:22,066
+that was just selected.
+
+271
+00:13:22,396 --> 00:13:24,316
+So in this case, we've
+
+272
+00:13:24,666 --> 00:13:26,196
+So if I menu out, I would expect
+
+273
+00:13:26,196 --> 00:13:29,386
+that we would be
+
+274
+00:13:29,586 --> 00:13:32,106
+Instead, we're still
+
+275
+00:13:32,236 --> 00:13:34,886
+which is our first available
+
+276
+00:13:35,626 --> 00:13:38,026
+So all we need to do is update
+
+277
+00:13:38,026 --> 00:13:39,916
+code to return our
+
+278
+00:13:40,406 --> 00:13:42,606
+as our preferred
+
+279
+00:13:43,296 --> 00:13:45,646
+So let's go back to our
+
+280
+00:13:46,086 --> 00:13:49,226
+and I have the selectedEventView
+
+281
+00:13:49,226 --> 00:13:51,466
+of the selected event when
+
+282
+00:13:52,096 --> 00:13:54,976
+So if this property
+
+283
+00:13:54,976 --> 00:13:56,846
+as my first preferred
+
+284
+00:13:56,926 --> 00:13:59,546
+All right, let's run
+
+285
+00:14:05,866 --> 00:14:09,266
+Okay. So I'll select the
+
+286
+00:14:09,266 --> 00:14:11,266
+to the bash, and then menu out,
+
+287
+00:14:12,076 --> 00:14:14,146
+and we're still focused
+
+288
+00:14:14,206 --> 00:14:17,186
+And I'm remembering now
+
+289
+00:14:17,186 --> 00:14:18,906
+in the session that by default,
+
+290
+00:14:18,906 --> 00:14:20,626
+the Focus engine
+
+291
+00:14:20,626 --> 00:14:23,106
+preferredFocusEnvironments
+
+292
+00:14:23,106 --> 00:14:24,956
+from a view controller.
+
+293
+00:14:25,546 --> 00:14:26,746
+So to change that behavior,
+
+294
+00:14:27,146 --> 00:14:29,696
+we need to set the
+
+295
+00:14:29,696 --> 00:14:30,786
+property to false.
+
+296
+00:14:30,936 --> 00:14:34,836
+So let's go do that in our
+
+297
+00:14:35,396 --> 00:14:36,946
+and rerun the app,
+
+298
+00:14:43,816 --> 00:14:46,436
+All right, we'll select
+
+299
+00:14:47,136 --> 00:14:49,356
+move our selection to
+
+300
+00:14:49,916 --> 00:14:52,076
+Awesome, so now we're
+
+301
+00:14:52,076 --> 00:14:53,486
+which is exactly what we wanted.
+
+302
+00:14:54,796 --> 00:14:56,756
+So by using the
+
+303
+00:14:56,936 --> 00:14:59,246
+and restoresFocusAfterTransition
+
+304
+00:14:59,316 --> 00:15:02,196
+we're able to provide a much
+
+305
+00:14:59,316 --> 00:15:02,196
+we're able to provide a much
+
+306
+00:15:02,806 --> 00:15:03,976
+Now I'd like to invite
+
+307
+00:15:04,516 --> 00:15:09,736
+[ Applause ]
+
+308
+00:15:10,236 --> 00:15:10,796
+&gt;&gt; Thanks, Brandon.
+
+309
+00:15:11,616 --> 00:15:12,556
+That was a really great demo.
+
+310
+00:15:13,276 --> 00:15:14,916
+Using these two new properties,
+
+311
+00:15:14,916 --> 00:15:17,616
+we hope that you can reduce the
+
+312
+00:15:18,206 --> 00:15:20,226
+and also provide a
+
+313
+00:15:22,276 --> 00:15:26,476
+Now, next up I'm really
+
+314
+00:15:27,026 --> 00:15:30,096
+that we're bringing focus
+
+315
+00:15:30,166 --> 00:15:31,026
+into SpriteKit.
+
+316
+00:15:32,636 --> 00:15:35,996
+Prior to tvOS 10,
+
+317
+00:15:35,996 --> 00:15:38,316
+to manually implement
+
+318
+00:15:38,396 --> 00:15:41,646
+in their SpriteKit games
+
+319
+00:15:41,646 --> 00:15:45,656
+of their own state and
+
+320
+00:15:46,226 --> 00:15:50,736
+But now in tvOS 10, we're
+
+321
+00:15:51,576 --> 00:15:53,686
+the same API you're
+
+322
+00:15:54,066 --> 00:15:57,226
+to also support your
+
+323
+00:15:58,476 --> 00:16:04,746
+But first, what would
+
+324
+00:15:58,476 --> 00:16:04,746
+But first, what would
+
+325
+00:16:04,856 --> 00:16:08,366
+Well the first and most obvious
+
+326
+00:16:08,556 --> 00:16:10,996
+in games is game menus.
+
+327
+00:16:12,156 --> 00:16:16,126
+Your users will expect
+
+328
+00:16:16,126 --> 00:16:19,866
+and behave similar to
+
+329
+00:16:21,036 --> 00:16:25,106
+The Focus Interaction model also
+
+330
+00:16:25,596 --> 00:16:28,206
+where users navigate around
+
+331
+00:16:28,666 --> 00:16:31,816
+and select items on that game
+
+332
+00:16:32,066 --> 00:16:35,146
+And in fact, Focus Interaction
+
+333
+00:16:35,756 --> 00:16:38,876
+where selection is a
+
+334
+00:16:39,686 --> 00:16:41,126
+And in any of this use cases,
+
+335
+00:16:41,196 --> 00:16:44,096
+again users will expect
+
+336
+00:16:44,416 --> 00:16:46,686
+to feel similar to the
+
+337
+00:16:47,246 --> 00:16:51,226
+Otherwise, your app might feel
+
+338
+00:16:51,766 --> 00:16:57,706
+And so to help with that, we've
+
+339
+00:16:57,706 --> 00:17:02,196
+that you're used to in UIKit to
+
+340
+00:16:57,706 --> 00:17:02,196
+that you're used to in UIKit to
+
+341
+00:17:02,446 --> 00:17:05,096
+This is a shared API,
+
+342
+00:17:05,096 --> 00:17:09,756
+that SKNodes are now able to
+
+343
+00:17:10,556 --> 00:17:12,195
+and taking advantage of all
+
+344
+00:17:12,195 --> 00:17:14,546
+of the Focus engine's
+
+345
+00:17:16,106 --> 00:17:19,346
+UIKit and SpriteKit have been
+
+346
+00:17:19,346 --> 00:17:21,915
+to move freely between
+
+347
+00:17:21,955 --> 00:17:24,165
+so you don't have to handle
+
+348
+00:17:26,256 --> 00:17:30,896
+So how exactly does this work?
+
+349
+00:17:31,086 --> 00:17:34,766
+First, let's review how
+
+350
+00:17:35,386 --> 00:17:39,196
+Prior to tvOS 10, UIViews were
+
+351
+00:17:39,256 --> 00:17:41,016
+that were capable
+
+352
+00:17:41,256 --> 00:17:43,796
+and they defined their
+
+353
+00:17:43,796 --> 00:17:45,746
+canBecomeFocused property.
+
+354
+00:17:47,806 --> 00:17:52,716
+UIViews also conform to the
+
+355
+00:17:53,526 --> 00:17:56,576
+And this allows views to get
+
+356
+00:17:56,576 --> 00:17:58,766
+and also control the
+
+357
+00:17:58,766 --> 00:18:00,206
+within their subview hierarchy.
+
+358
+00:17:58,766 --> 00:18:00,206
+within their subview hierarchy.
+
+359
+00:18:00,956 --> 00:18:04,986
+So to support SpriteKit
+
+360
+00:18:04,986 --> 00:18:07,856
+to bring these same
+
+361
+00:18:08,286 --> 00:18:10,106
+and we've made some
+
+362
+00:18:10,676 --> 00:18:12,626
+We're abstracting
+
+363
+00:18:12,626 --> 00:18:15,686
+out into their own protocol
+
+364
+00:18:16,206 --> 00:18:20,786
+This protocol defines both
+
+365
+00:18:21,676 --> 00:18:24,566
+and conformance to the
+
+366
+00:18:26,496 --> 00:18:30,876
+Next, we refactored
+
+367
+00:18:31,056 --> 00:18:32,886
+to conform to this new protocol.
+
+368
+00:18:33,776 --> 00:18:35,906
+And this allows both
+
+369
+00:18:35,906 --> 00:18:40,696
+to share these exact same API
+
+370
+00:18:40,696 --> 00:18:43,046
+in your existing UIKit code.
+
+371
+00:18:44,356 --> 00:18:46,846
+We've also made additions to
+
+372
+00:18:47,066 --> 00:18:50,556
+in order to take advantage of
+
+373
+00:18:51,936 --> 00:18:54,856
+First, let's look at the
+
+374
+00:18:55,396 --> 00:18:58,066
+which provides contextual
+
+375
+00:18:58,066 --> 00:18:59,496
+update notifications.
+
+376
+00:19:00,866 --> 00:19:03,546
+In order to support focus
+
+377
+00:19:03,776 --> 00:19:06,816
+we're introducing two new
+
+378
+00:19:07,476 --> 00:19:10,186
+previouslyFocusedItem
+
+379
+00:19:10,886 --> 00:19:14,016
+and these tell you which items
+
+380
+00:19:14,946 --> 00:19:17,526
+We've made a similar
+
+381
+00:19:17,896 --> 00:19:21,196
+introducing a new focusedItem
+
+382
+00:19:21,196 --> 00:19:23,916
+to type UIFocusItem and
+
+383
+00:19:24,116 --> 00:19:29,596
+to query what the current focus
+
+384
+00:19:29,936 --> 00:19:32,476
+Now there's one more API
+
+385
+00:19:32,476 --> 00:19:34,156
+but it requires a little
+
+386
+00:19:34,986 --> 00:19:39,346
+In tvOS 9, the UIFocusItem
+
+387
+00:19:39,346 --> 00:19:41,126
+preferredFocusView property.
+
+388
+00:19:41,126 --> 00:19:46,076
+And prior to tvOS 10, this was
+
+389
+00:19:46,076 --> 00:19:48,386
+preferences, like we were
+
+390
+00:19:49,536 --> 00:19:51,656
+But you can probably
+
+391
+00:19:51,956 --> 00:19:54,246
+which is that it
+
+392
+00:19:54,726 --> 00:19:58,216
+And if we're going to support
+
+393
+00:19:58,276 --> 00:20:00,576
+to define focus preferences
+
+394
+00:19:58,276 --> 00:20:00,576
+to define focus preferences
+
+395
+00:20:00,576 --> 00:20:01,976
+And so this isn't going to work.
+
+396
+00:20:02,176 --> 00:20:07,336
+But luckily, earlier
+
+397
+00:20:07,816 --> 00:20:10,006
+we introduced this new
+
+398
+00:20:10,386 --> 00:20:12,196
+property, which does
+
+399
+00:20:12,516 --> 00:20:15,656
+But because it returns an array
+
+400
+00:20:15,656 --> 00:20:19,316
+and now SKNode conforms to the
+
+401
+00:20:20,576 --> 00:20:22,836
+we can now define focus
+
+402
+00:20:22,976 --> 00:20:26,566
+view controller, SKNodes,
+
+403
+00:20:26,566 --> 00:20:27,706
+to UIFocusEnvironment.
+
+404
+00:20:28,476 --> 00:20:30,506
+And this makes defining
+
+405
+00:20:30,506 --> 00:20:33,026
+in your environments
+
+406
+00:20:34,256 --> 00:20:36,776
+And because
+
+407
+00:20:36,776 --> 00:20:39,166
+care of all the use cases
+
+408
+00:20:39,166 --> 00:20:40,856
+but also provides
+
+409
+00:20:40,976 --> 00:20:43,446
+that we've talked about,
+
+410
+00:20:43,446 --> 00:20:44,956
+to deprecate preferredFocusView.
+
+411
+00:20:45,546 --> 00:20:49,036
+So if you're currently
+
+412
+00:20:49,036 --> 00:20:52,106
+in your applications,
+
+413
+00:20:52,106 --> 00:20:54,246
+to preferredFocusEnvironments
+
+414
+00:20:55,476 --> 00:20:57,066
+We think this will really help.
+
+415
+00:20:58,336 --> 00:21:01,336
+So that's Focus Interaction
+
+416
+00:20:58,336 --> 00:21:01,336
+So that's Focus Interaction
+
+417
+00:21:02,126 --> 00:21:05,546
+Focus API now supports generic
+
+418
+00:21:05,546 --> 00:21:07,036
+UIFocusItem protocol.
+
+419
+00:21:07,756 --> 00:21:10,626
+Both UIView and SKNode
+
+420
+00:21:11,516 --> 00:21:13,736
+And for SpriteKit
+
+421
+00:21:13,736 --> 00:21:15,906
+in to supporting focus
+
+422
+00:21:16,256 --> 00:21:18,316
+of all the Focus
+
+423
+00:21:18,986 --> 00:21:22,376
+For UIKit developers that don't
+
+424
+00:21:23,076 --> 00:21:24,336
+there are no changes required.
+
+425
+00:21:24,546 --> 00:21:26,876
+The view-based API
+
+426
+00:21:26,876 --> 00:21:30,766
+of preferredFocusView is still
+
+427
+00:21:31,586 --> 00:21:34,556
+We do encourage you, however,
+
+428
+00:21:34,736 --> 00:21:37,946
+in your code to take advantage
+
+429
+00:21:38,046 --> 00:21:41,276
+of more generic and
+
+430
+00:21:43,216 --> 00:21:46,906
+For more details on exactly
+
+431
+00:21:46,906 --> 00:21:48,826
+in to focus support in
+
+432
+00:21:49,446 --> 00:21:51,006
+we recommend watching
+
+433
+00:21:51,006 --> 00:21:53,426
+in SpriteKit session happening
+
+434
+00:21:53,426 --> 00:21:56,556
+into more detail on exactly
+
+435
+00:21:57,576 --> 00:22:01,086
+So that's Focus Interaction
+
+436
+00:21:57,576 --> 00:22:01,086
+So that's Focus Interaction
+
+437
+00:22:01,526 --> 00:22:06,546
+And that concludes our overview
+
+438
+00:22:06,546 --> 00:22:10,136
+And so for the next part of our
+
+439
+00:22:10,216 --> 00:22:11,486
+with a case study on how
+
+440
+00:22:11,486 --> 00:22:13,926
+to build a fully custom,
+
+441
+00:22:15,236 --> 00:22:16,306
+And for our example today,
+
+442
+00:22:16,306 --> 00:22:19,106
+we're going to use a
+
+443
+00:22:20,716 --> 00:22:23,856
+Now we've already done some work
+
+444
+00:22:23,856 --> 00:22:27,076
+of this control and I'd
+
+445
+00:22:27,156 --> 00:22:31,206
+We just used the normal UIButton
+
+446
+00:22:31,466 --> 00:22:32,666
+as the title of the button.
+
+447
+00:22:32,896 --> 00:22:35,536
+If you select the button,
+
+448
+00:22:35,536 --> 00:22:36,776
+and if you keep selecting
+
+449
+00:22:36,776 --> 00:22:38,656
+it'll cycle through all
+
+450
+00:22:39,166 --> 00:22:42,206
+Now this is okay.
+
+451
+00:22:43,266 --> 00:22:46,636
+It gives us the functionality
+
+452
+00:22:46,636 --> 00:22:47,896
+to take our app to
+
+453
+00:22:48,096 --> 00:22:51,126
+And this control, it's
+
+454
+00:22:51,126 --> 00:22:52,786
+It's not very interactive.
+
+455
+00:22:53,426 --> 00:22:56,096
+And so we thought long and
+
+456
+00:22:56,096 --> 00:22:58,846
+up with a new design and
+
+457
+00:22:59,976 --> 00:23:02,246
+That's a lot better.
+
+458
+00:22:59,976 --> 00:23:02,246
+That's a lot better.
+
+459
+00:23:02,596 --> 00:23:04,656
+Instead of just saying
+
+460
+00:23:04,866 --> 00:23:07,836
+we now visually indicate our
+
+461
+00:23:08,376 --> 00:23:10,976
+When you select the control,
+
+462
+00:23:10,976 --> 00:23:12,666
+where you can use
+
+463
+00:23:13,246 --> 00:23:15,696
+to change our rating
+
+464
+00:23:15,696 --> 00:23:17,766
+And when we're done, we
+
+465
+00:23:17,836 --> 00:23:19,706
+and we exit editing mode.
+
+466
+00:23:20,306 --> 00:23:22,996
+This is a great example of
+
+467
+00:23:22,996 --> 00:23:25,066
+for focus interaction and
+
+468
+00:23:25,066 --> 00:23:27,016
+through building this
+
+469
+00:23:27,016 --> 00:23:28,706
+from scratch using
+
+470
+00:23:29,416 --> 00:23:31,486
+And for that, I'm going to hand
+
+471
+00:23:32,516 --> 00:23:35,500
+[ Applause ]
+
+472
+00:23:42,496 --> 00:23:44,556
+All right, thanks, Matt.
+
+473
+00:23:44,696 --> 00:23:46,646
+So I have a project here
+
+474
+00:23:47,106 --> 00:23:50,436
+which contains our simple button
+
+475
+00:23:50,796 --> 00:23:52,326
+as nice as the one
+
+476
+00:23:52,416 --> 00:23:53,396
+So let's just delete that.
+
+477
+00:23:54,516 --> 00:23:56,156
+Let's go ahead and
+
+478
+00:23:56,956 --> 00:23:59,896
+to represent our new control.
+
+479
+00:23:59,896 --> 00:24:04,216
+We'll set up some constraints
+
+480
+00:23:59,896 --> 00:24:04,216
+We'll set up some constraints
+
+481
+00:24:04,216 --> 00:24:07,956
+from the top, a width
+
+482
+00:24:09,576 --> 00:24:14,246
+and we'll center it
+
+483
+00:24:14,466 --> 00:24:17,726
+Great. Now I've already
+
+484
+00:24:17,836 --> 00:24:20,046
+to represent this
+
+485
+00:24:20,046 --> 00:24:21,136
+that as a views class.
+
+486
+00:24:21,946 --> 00:24:25,926
+And let's go check out
+
+487
+00:24:27,856 --> 00:24:29,816
+We chose a subclass
+
+488
+00:24:29,816 --> 00:24:32,306
+because it provides a lot of
+
+489
+00:24:32,306 --> 00:24:35,836
+For example, it determines if
+
+490
+00:24:35,836 --> 00:24:39,206
+or not based on its
+
+491
+00:24:39,336 --> 00:24:41,686
+it doesn't have a
+
+492
+00:24:41,686 --> 00:24:42,986
+We have to provide
+
+493
+00:24:42,986 --> 00:24:45,846
+So let's go do that.
+
+494
+00:24:45,986 --> 00:24:48,696
+We'll start by adding a corner
+
+495
+00:24:49,356 --> 00:24:52,836
+and then we'll override
+
+496
+00:24:52,836 --> 00:24:54,996
+with coordinator to
+
+497
+00:24:54,996 --> 00:24:55,986
+and unfocused appearance.
+
+498
+00:24:55,986 --> 00:24:59,476
+So if the next focus
+
+499
+00:24:59,476 --> 00:25:02,426
+then we'll configure the focus
+
+500
+00:24:59,476 --> 00:25:02,426
+then we'll configure the focus
+
+501
+00:25:02,426 --> 00:25:04,366
+of scaling the view,
+
+502
+00:25:04,366 --> 00:25:05,816
+and changing the
+
+503
+00:25:06,846 --> 00:25:09,166
+If the previously focused
+
+504
+00:25:09,596 --> 00:25:12,006
+then we'll configure the
+
+505
+00:25:12,466 --> 00:25:14,276
+which just rests all
+
+506
+00:25:14,976 --> 00:25:16,386
+Now before I run this,
+
+507
+00:25:16,626 --> 00:25:18,626
+I also want to add motion
+
+508
+00:25:19,286 --> 00:25:22,076
+Motion effects makes your
+
+509
+00:25:22,386 --> 00:25:24,906
+and helps the user find
+
+510
+00:25:25,546 --> 00:25:28,646
+So to do that, I'll
+
+511
+00:25:28,646 --> 00:25:31,956
+to add horizontal and vertical
+
+512
+00:25:31,956 --> 00:25:32,866
+around the touch surface.
+
+513
+00:25:34,166 --> 00:25:36,836
+Now I need to go back, and when
+
+514
+00:25:37,596 --> 00:25:41,116
+I will add the motion effect,
+
+515
+00:25:41,226 --> 00:25:43,216
+I will remove the motion effect.
+
+516
+00:25:43,966 --> 00:25:45,156
+Now I make all these changes
+
+517
+00:25:45,196 --> 00:25:47,466
+within addCoordinatedAnimations
+
+518
+00:25:47,816 --> 00:25:51,206
+This way, our property
+
+519
+00:25:51,206 --> 00:25:52,516
+with our focus animations.
+
+520
+00:25:52,516 --> 00:25:54,976
+So let's see how this looks.
+
+521
+00:26:04,186 --> 00:26:07,126
+All right, so what we've done
+
+522
+00:26:07,126 --> 00:26:10,576
+so far is create a very basic
+
+523
+00:26:10,576 --> 00:26:13,266
+and unfocused appearance
+
+524
+00:26:13,266 --> 00:26:15,526
+So it moves when I move my
+
+525
+00:26:16,376 --> 00:26:18,936
+But this is supposed to be
+
+526
+00:26:18,936 --> 00:26:20,336
+and we don't have any stars yet.
+
+527
+00:26:20,936 --> 00:26:25,326
+So let's go add those.
+
+528
+00:26:25,556 --> 00:26:27,186
+So first we need to
+
+529
+00:26:27,296 --> 00:26:28,406
+to store our control state.
+
+530
+00:26:29,476 --> 00:26:31,466
+And then in our awakeFromNib
+
+531
+00:26:33,196 --> 00:26:37,616
+we'll add a horizontal stackView
+
+532
+00:26:37,616 --> 00:26:41,356
+I've already created the star
+
+533
+00:26:41,396 --> 00:26:42,506
+but if you're following along,
+
+534
+00:26:42,506 --> 00:26:45,126
+I configured their focus
+
+535
+00:26:45,126 --> 00:26:46,366
+process that we just saw.
+
+536
+00:26:46,366 --> 00:26:50,596
+Now when the user selects the
+
+537
+00:26:50,596 --> 00:26:51,666
+to edit the current rating.
+
+538
+00:26:52,376 --> 00:26:54,546
+So I'll add a
+
+539
+00:26:54,946 --> 00:26:55,876
+to our control.
+
+540
+00:26:55,876 --> 00:26:59,226
+And when that's triggered,
+
+541
+00:26:59,226 --> 00:27:00,426
+and request a focus update.
+
+542
+00:26:59,226 --> 00:27:00,426
+and request a focus update.
+
+543
+00:27:01,686 --> 00:27:02,956
+When a focus update happens,
+
+544
+00:27:02,996 --> 00:27:04,796
+it consults our
+
+545
+00:27:05,016 --> 00:27:06,286
+So we'll override that property.
+
+546
+00:27:06,696 --> 00:27:09,986
+And if we're editing,
+
+547
+00:27:09,986 --> 00:27:11,486
+as our
+
+548
+00:27:12,276 --> 00:27:14,706
+Otherwise, we'll just return
+
+549
+00:27:14,706 --> 00:27:17,566
+Let's run this, see
+
+550
+00:27:22,326 --> 00:27:26,876
+Okay, so this time
+
+551
+00:27:26,876 --> 00:27:29,516
+we have some stars
+
+552
+00:27:29,516 --> 00:27:32,406
+And when I select the control,
+
+553
+00:27:32,406 --> 00:27:35,296
+within the control; however,
+
+554
+00:27:35,296 --> 00:27:37,466
+to move focus to
+
+555
+00:27:38,296 --> 00:27:40,686
+This is because there's some
+
+556
+00:27:40,686 --> 00:27:43,636
+So when we try to move focus
+
+557
+00:27:43,636 --> 00:27:46,626
+up focusing on our control,
+
+558
+00:27:46,626 --> 00:27:49,106
+to our first star using
+
+559
+00:27:49,636 --> 00:27:52,916
+So to fix this, we want to
+
+560
+00:27:52,916 --> 00:27:54,546
+focusable when we're editing.
+
+561
+00:27:55,146 --> 00:27:58,416
+So let's override
+
+562
+00:27:58,486 --> 00:28:02,126
+and we'll return false if our
+
+563
+00:27:58,486 --> 00:28:02,126
+and we'll return false if our
+
+564
+00:28:02,126 --> 00:28:05,946
+So let's run this, see
+
+565
+00:28:11,516 --> 00:28:13,006
+All right, that's much better.
+
+566
+00:28:13,316 --> 00:28:15,426
+So now I'll able to move
+
+567
+00:28:16,436 --> 00:28:19,526
+But it's difficult to tell
+
+568
+00:28:19,526 --> 00:28:21,536
+because we don't provide
+
+569
+00:28:22,126 --> 00:28:25,226
+So to do that, we need to
+
+570
+00:28:25,226 --> 00:28:26,516
+when our focus changes.
+
+571
+00:28:27,466 --> 00:28:30,986
+So let's go back to our
+
+572
+00:28:31,726 --> 00:28:33,776
+and at the bottom,
+
+573
+00:28:34,486 --> 00:28:36,476
+we'll set the current
+
+574
+00:28:36,696 --> 00:28:38,166
+of the currently
+
+575
+00:28:38,616 --> 00:28:42,376
+And let's go back up to
+
+576
+00:28:42,956 --> 00:28:46,466
+and we'll tie that directly
+
+577
+00:28:46,466 --> 00:28:48,896
+to the isSelected
+
+578
+00:28:49,156 --> 00:28:51,866
+And this property just sets the
+
+579
+00:28:51,866 --> 00:28:53,976
+So let's see how that looks.
+
+580
+00:29:02,096 --> 00:29:07,076
+Okay, so now when I select
+
+581
+00:29:07,076 --> 00:29:08,146
+that the first star is selected.
+
+582
+00:29:08,146 --> 00:29:11,926
+And when I move focus, all the
+
+583
+00:29:12,006 --> 00:29:14,056
+So it's easy to tell what
+
+584
+00:29:15,066 --> 00:29:17,226
+So this is pretty good
+
+585
+00:29:18,346 --> 00:29:20,776
+Right now I'm able to move
+
+586
+00:29:21,606 --> 00:29:22,686
+and I don't want
+
+587
+00:29:22,686 --> 00:29:24,496
+that when I'm editing
+
+588
+00:29:25,446 --> 00:29:27,646
+Also, when I select the control,
+
+589
+00:29:27,886 --> 00:29:30,266
+we always reset the current
+
+590
+00:29:30,266 --> 00:29:32,946
+I think it would be better
+
+591
+00:29:32,946 --> 00:29:35,046
+and just focused on
+
+592
+00:29:35,796 --> 00:29:37,416
+So let's go make those changes.
+
+593
+00:29:40,436 --> 00:29:44,616
+So we'll start by overriding
+
+594
+00:29:44,716 --> 00:29:45,936
+to restrict focus movement.
+
+595
+00:29:46,626 --> 00:29:50,266
+So if we're editing and the
+
+596
+00:29:50,266 --> 00:29:52,386
+of our star views,
+
+597
+00:29:52,386 --> 00:29:56,156
+to say no, focus can't move.
+
+598
+00:29:56,386 --> 00:29:59,476
+Also, in our
+
+599
+00:29:59,476 --> 00:30:05,336
+we want to return our last
+
+600
+00:29:59,476 --> 00:30:05,336
+we want to return our last
+
+601
+00:30:05,336 --> 00:30:07,326
+and the current rating
+
+602
+00:30:07,906 --> 00:30:09,916
+So this way we don't reset
+
+603
+00:30:11,636 --> 00:30:12,956
+Let's run this one more
+
+604
+00:30:20,716 --> 00:30:22,606
+Okay, now I'm no longer able
+
+605
+00:30:22,606 --> 00:30:24,656
+to move focus outside
+
+606
+00:30:24,656 --> 00:30:28,336
+And when I select a control, the
+
+607
+00:30:28,716 --> 00:30:30,686
+and we just focus on
+
+608
+00:30:31,816 --> 00:30:33,706
+So that completes
+
+609
+00:30:34,006 --> 00:30:36,606
+By utilizing the Focus
+
+610
+00:30:36,606 --> 00:30:39,116
+to create a pretty complex
+
+611
+00:30:39,656 --> 00:30:41,836
+Now I'd like to invite
+
+612
+00:30:42,516 --> 00:30:47,676
+[ Applause ]
+
+613
+00:30:48,176 --> 00:30:48,776
+&gt;&gt; Thanks, Brandon.
+
+614
+00:30:49,436 --> 00:30:51,476
+I rate that demo
+
+615
+00:30:54,226 --> 00:30:58,966
+Okay, we chose that demo
+
+616
+00:30:58,966 --> 00:31:02,096
+of using many different parts
+
+617
+00:30:58,966 --> 00:31:02,096
+of using many different parts
+
+618
+00:31:02,096 --> 00:31:05,126
+to create a rich focus
+
+619
+00:31:06,006 --> 00:31:09,116
+And there are just a couple
+
+620
+00:31:09,216 --> 00:31:11,746
+that Brandon showed us that
+
+621
+00:31:11,746 --> 00:31:12,926
+because they're important
+
+622
+00:31:12,926 --> 00:31:15,036
+for really creating a
+
+623
+00:31:16,096 --> 00:31:19,316
+The first tip we have is
+
+624
+00:31:19,866 --> 00:31:23,436
+UIControl provides a lot of
+
+625
+00:31:23,786 --> 00:31:26,646
+for instance, as Brandon said,
+
+626
+00:31:26,646 --> 00:31:29,756
+of your controls based on
+
+627
+00:31:31,096 --> 00:31:33,196
+So when you're building
+
+628
+00:31:34,296 --> 00:31:36,276
+you should also subclass
+
+629
+00:31:38,396 --> 00:31:41,846
+We also used the focus
+
+630
+00:31:41,846 --> 00:31:45,276
+to define our focus-related
+
+631
+00:31:45,276 --> 00:31:46,976
+when changing our focus state.
+
+632
+00:31:48,026 --> 00:31:50,296
+This is also really
+
+633
+00:31:50,296 --> 00:31:52,166
+that our focus animations
+
+634
+00:31:52,436 --> 00:31:54,966
+with other focus animations
+
+635
+00:31:54,966 --> 00:31:55,926
+of the user interface.
+
+636
+00:31:56,326 --> 00:31:59,706
+And we do this to make sure
+
+637
+00:31:59,706 --> 00:32:01,926
+around the screen when
+
+638
+00:31:59,706 --> 00:32:01,926
+around the screen when
+
+639
+00:32:01,926 --> 00:32:03,096
+between different controls.
+
+640
+00:32:03,546 --> 00:32:05,476
+So when you're defining
+
+641
+00:32:05,476 --> 00:32:06,786
+for your focus appearance,
+
+642
+00:32:07,136 --> 00:32:09,636
+please use the focus
+
+643
+00:32:10,206 --> 00:32:14,746
+And the last tip is
+
+644
+00:32:15,266 --> 00:32:17,056
+Brandon showed us how
+
+645
+00:32:17,476 --> 00:32:19,406
+to create a little
+
+646
+00:32:19,566 --> 00:32:23,816
+when you place your thumb on the
+
+647
+00:32:23,816 --> 00:32:25,896
+of movement but not enough
+
+648
+00:32:27,496 --> 00:32:29,456
+You can use the UIMotionEffect's
+
+649
+00:32:29,836 --> 00:32:32,136
+to implement this
+
+650
+00:32:33,226 --> 00:32:36,046
+This is important because
+
+651
+00:32:36,046 --> 00:32:38,056
+to get this direct
+
+652
+00:32:38,336 --> 00:32:40,686
+so that they get
+
+653
+00:32:40,686 --> 00:32:42,436
+as they start using
+
+654
+00:32:43,246 --> 00:32:46,076
+It also helps the user
+
+655
+00:32:46,076 --> 00:32:48,036
+so that they can sit down
+
+656
+00:32:48,396 --> 00:32:49,816
+wiggle the remote around,
+
+657
+00:32:50,206 --> 00:32:53,006
+and immediately the
+
+658
+00:32:54,276 --> 00:32:57,206
+Before we wrap us, just
+
+659
+00:32:57,996 --> 00:33:03,046
+The first is to point out that
+
+660
+00:32:57,996 --> 00:33:03,046
+The first is to point out that
+
+661
+00:33:03,046 --> 00:33:04,256
+same capabilities.
+
+662
+00:33:04,256 --> 00:33:06,286
+And this is definitely
+
+663
+00:33:06,286 --> 00:33:07,796
+to testing your custom controls.
+
+664
+00:33:08,336 --> 00:33:11,746
+Now the good news is that
+
+665
+00:33:12,196 --> 00:33:15,076
+to build your custom controls,
+
+666
+00:33:15,416 --> 00:33:18,346
+then your control should work
+
+667
+00:33:18,346 --> 00:33:20,456
+that we talked about
+
+668
+00:33:20,456 --> 00:33:25,536
+Bluetooth keyboards, the Siri
+
+669
+00:33:25,696 --> 00:33:28,836
+But not all these input devices
+
+670
+00:33:29,056 --> 00:33:31,126
+so that if your custom
+
+671
+00:33:31,226 --> 00:33:34,526
+on some custom event handling
+
+672
+00:33:34,526 --> 00:33:36,496
+for example, let's say
+
+673
+00:33:36,756 --> 00:33:40,176
+for example you're
+
+674
+00:33:40,176 --> 00:33:42,866
+which generates touch events
+
+675
+00:33:43,346 --> 00:33:46,526
+and you're using that
+
+676
+00:33:46,526 --> 00:33:47,686
+within your custom control,
+
+677
+00:33:48,176 --> 00:33:50,316
+well if a user is using
+
+678
+00:33:50,436 --> 00:33:52,106
+they can't generate
+
+679
+00:33:52,466 --> 00:33:55,016
+And so you'll have to do
+
+680
+00:33:55,016 --> 00:33:58,216
+that your control can behave
+
+681
+00:33:58,486 --> 00:34:00,686
+for all users, in
+
+682
+00:33:58,486 --> 00:34:00,686
+for all users, in
+
+683
+00:34:01,226 --> 00:34:03,606
+And so definitely
+
+684
+00:34:03,606 --> 00:34:08,116
+that use custom event handling
+
+685
+00:34:08,356 --> 00:34:11,186
+Try out a Bluetooth keyboard,
+
+686
+00:34:11,636 --> 00:34:14,315
+very important to maintaining
+
+687
+00:34:15,516 --> 00:34:18,696
+And finally, please,
+
+688
+00:34:18,696 --> 00:34:19,636
+with accessibility.
+
+689
+00:34:19,886 --> 00:34:23,295
+The good news here is that the
+
+690
+00:34:23,295 --> 00:34:23,956
+work for you.
+
+691
+00:34:24,106 --> 00:34:28,606
+For example, if the user wants
+
+692
+00:34:29,036 --> 00:34:31,886
+the Focus engine will
+
+693
+00:34:32,176 --> 00:34:34,545
+around the currently focused
+
+694
+00:34:34,545 --> 00:34:36,856
+out on the screen and
+
+695
+00:34:37,936 --> 00:34:40,815
+But for other accessibility
+
+696
+00:34:41,216 --> 00:34:43,735
+you're going to have the do
+
+697
+00:34:43,735 --> 00:34:45,676
+that you're used to
+
+698
+00:34:45,676 --> 00:34:47,906
+that your controls
+
+699
+00:34:49,016 --> 00:34:53,235
+And so please test your controls
+
+700
+00:34:53,636 --> 00:34:56,815
+to make sure that they behavior
+
+701
+00:34:57,986 --> 00:35:01,336
+So that's our talk today.
+
+702
+00:34:57,986 --> 00:35:01,336
+So that's our talk today.
+
+703
+00:35:01,656 --> 00:35:03,626
+We introduced two
+
+704
+00:35:03,626 --> 00:35:07,156
+preferredFocusEnvironments and
+
+705
+00:35:07,476 --> 00:35:10,316
+to help manage preferred
+
+706
+00:35:10,466 --> 00:35:12,936
+We also announced the new
+
+707
+00:35:13,026 --> 00:35:16,516
+for SpriteKit and we think this
+
+708
+00:35:16,516 --> 00:35:18,106
+complexity of your
+
+709
+00:35:18,106 --> 00:35:21,756
+And finally, we took you through
+
+710
+00:35:21,756 --> 00:35:25,036
+to build a custom focusable
+
+711
+00:35:25,036 --> 00:35:25,746
+rating control.
+
+712
+00:35:26,676 --> 00:35:28,236
+Now before we leave today,
+
+713
+00:35:28,706 --> 00:35:30,716
+we'd like to mention some
+
+714
+00:35:30,756 --> 00:35:31,666
+to help you learn more.
+
+715
+00:35:33,006 --> 00:35:34,516
+Specifically, you
+
+716
+00:35:34,516 --> 00:35:36,806
+out the Apple TV
+
+717
+00:35:37,566 --> 00:35:39,976
+These cover -- these are
+
+718
+00:35:39,976 --> 00:35:43,586
+They cover a wide array
+
+719
+00:35:43,586 --> 00:35:46,296
+for people getting new to
+
+720
+00:35:46,296 --> 00:35:48,976
+if you've had some experience
+
+721
+00:35:49,846 --> 00:35:53,356
+Specifically, there's one
+
+722
+00:35:53,356 --> 00:35:56,256
+with UIKit that goes
+
+723
+00:35:56,256 --> 00:35:58,216
+of the more basic
+
+724
+00:35:58,976 --> 00:36:02,416
+some of the basic concepts,
+
+725
+00:35:58,976 --> 00:36:02,416
+some of the basic concepts,
+
+726
+00:36:02,416 --> 00:36:04,306
+of the parts of the API
+
+727
+00:36:05,166 --> 00:36:07,716
+It talks about some best
+
+728
+00:36:07,716 --> 00:36:10,326
+and debugging support, which
+
+729
+00:36:10,326 --> 00:36:11,246
+with building your apps.
+
+730
+00:36:11,856 --> 00:36:14,096
+You can find these
+
+731
+00:36:14,496 --> 00:36:17,996
+And for more information
+
+732
+00:36:18,526 --> 00:36:20,756
+you can go to this URL to
+
+733
+00:36:20,826 --> 00:36:23,266
+There are some other
+
+734
+00:36:23,266 --> 00:36:24,186
+that you should check out.
+
+735
+00:36:24,716 --> 00:36:26,916
+If you're building games
+
+736
+00:36:26,916 --> 00:36:29,726
+to the What's New in SpriteKit
+
+737
+00:36:29,726 --> 00:36:32,676
+about how to specifically
+
+738
+00:36:32,776 --> 00:36:36,836
+for focus support and then also
+
+739
+00:36:36,836 --> 00:36:39,096
+in Mastering UIKit
+
+740
+00:36:39,426 --> 00:36:41,586
+to really take your UIKit
+
+741
+00:36:42,336 --> 00:36:43,866
+And of course, have
+
+742
+00:36:43,996 --> 00:36:44,736
+Thank you for coming today.

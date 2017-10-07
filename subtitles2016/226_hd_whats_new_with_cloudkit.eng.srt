@@ -1,0 +1,3843 @@
+1
+00:00:09,516 --> 00:00:19,500
+[ Music ]
+
+2
+00:00:24,516 --> 00:00:29,396
+[ Applause ]
+
+3
+00:00:29,896 --> 00:00:32,586
+&gt;&gt; Good afternoon and
+
+4
+00:00:32,676 --> 00:00:33,706
+What's New in CloudKit.
+
+5
+00:00:34,416 --> 00:00:35,576
+My name is Paul Seligman.
+
+6
+00:00:35,716 --> 00:00:39,116
+I'm an engineer on the CloudKit
+
+7
+00:00:39,176 --> 00:00:41,646
+to be with you here today
+
+8
+00:00:41,836 --> 00:00:43,786
+and new features in
+
+9
+00:00:44,536 --> 00:00:45,756
+So, what are we going
+
+10
+00:00:46,256 --> 00:00:47,266
+We're going to start off today
+
+11
+00:00:47,266 --> 00:00:49,356
+with a quick overview
+
+12
+00:00:49,356 --> 00:00:52,596
+We're then going to switch
+
+13
+00:00:52,966 --> 00:00:54,766
+a new feature which
+
+14
+00:00:54,766 --> 00:00:57,346
+to visualize how your
+
+15
+00:00:57,346 --> 00:00:57,926
+are behaving.
+
+16
+00:00:58,506 --> 00:01:01,016
+We're going to talk about
+
+17
+00:00:58,506 --> 00:01:01,016
+We're going to talk about
+
+18
+00:01:01,016 --> 00:01:02,486
+and their availabilities.
+
+19
+00:01:03,116 --> 00:01:06,356
+And we're going to talk
+
+20
+00:01:06,356 --> 00:01:08,146
+which gives your
+
+21
+00:01:08,146 --> 00:01:10,776
+to share their data while
+
+22
+00:01:10,776 --> 00:01:14,546
+over who has access to it.
+
+23
+00:01:14,886 --> 00:01:16,916
+So, what is CloudKit?
+
+24
+00:01:17,476 --> 00:01:20,156
+CloudKit is a technology
+
+25
+00:01:20,156 --> 00:01:21,406
+to have your application data
+
+26
+00:01:21,696 --> 00:01:24,136
+and your user data available
+
+27
+00:01:25,336 --> 00:01:27,366
+CloudKit is a framework
+
+28
+00:01:27,366 --> 00:01:29,096
+to a database stored on iCloud.
+
+29
+00:01:30,256 --> 00:01:33,156
+We use CloudKit extensively
+
+30
+00:01:33,486 --> 00:01:35,826
+This gives you the confidence to
+
+31
+00:01:36,016 --> 00:01:38,436
+and it gives us the confidence
+
+32
+00:01:38,436 --> 00:01:39,926
+to hundreds of millions
+
+33
+00:01:41,866 --> 00:01:44,426
+CloudKit is available on
+
+34
+00:01:44,996 --> 00:01:49,656
+Now, I'm going to quickly
+
+35
+00:01:49,656 --> 00:01:52,536
+to CloudKit, covering topics
+
+36
+00:01:52,536 --> 00:01:53,746
+in introduction to CloudKit.
+
+37
+00:01:54,046 --> 00:01:56,646
+I recommend you go check out
+
+38
+00:01:56,686 --> 00:01:58,906
+if you'd like a broader
+
+39
+00:01:59,986 --> 00:02:02,816
+I'd also like to mention these
+
+40
+00:01:59,986 --> 00:02:02,816
+I'd also like to mention these
+
+41
+00:02:02,816 --> 00:02:04,436
+about specific aspects
+
+42
+00:02:04,946 --> 00:02:06,836
+You can use these to
+
+43
+00:02:06,836 --> 00:02:09,295
+and your application can use
+
+44
+00:02:10,205 --> 00:02:12,466
+Now, all the sessions
+
+45
+00:02:12,526 --> 00:02:14,936
+from
+
+46
+00:02:17,046 --> 00:02:19,696
+Here we see the list of objects
+
+47
+00:02:19,696 --> 00:02:21,426
+that every developer
+
+48
+00:02:21,426 --> 00:02:22,136
+to be familiar with.
+
+49
+00:02:23,096 --> 00:02:25,656
+Let's step through them
+
+50
+00:02:26,106 --> 00:02:30,046
+A Container is the mechanism by
+
+51
+00:02:30,506 --> 00:02:32,566
+So, notes uses a Container.
+
+52
+00:02:32,566 --> 00:02:36,206
+Photos uses a Container and your
+
+53
+00:02:36,206 --> 00:02:38,846
+of CloudKit, will also have
+
+54
+00:02:39,736 --> 00:02:41,546
+If we look inside
+
+55
+00:02:41,726 --> 00:02:44,236
+we see that Containers
+
+56
+00:02:44,716 --> 00:02:47,206
+And until last week
+
+57
+00:02:47,686 --> 00:02:50,706
+A Container had two databases,
+
+58
+00:02:51,726 --> 00:02:53,036
+With the introduction
+
+59
+00:02:53,036 --> 00:02:56,146
+we introduced a third database
+
+60
+00:02:56,696 --> 00:02:57,896
+More about that in a little bit.
+
+61
+00:03:00,296 --> 00:03:02,976
+The basic unit of storage
+
+62
+00:03:03,406 --> 00:03:06,896
+A record is a group of key value
+
+63
+00:03:06,896 --> 00:03:09,536
+to an object model, an
+
+64
+00:03:10,676 --> 00:03:13,286
+Now, we don't store records
+
+65
+00:03:13,616 --> 00:03:16,626
+Rather, we encapsulate
+
+66
+00:03:17,616 --> 00:03:19,886
+Many records can exist
+
+67
+00:03:20,206 --> 00:03:23,146
+and many Record Zones can
+
+68
+00:03:23,916 --> 00:03:27,476
+Different databases support
+
+69
+00:03:28,026 --> 00:03:31,056
+The public and private databases
+
+70
+00:03:31,446 --> 00:03:32,866
+This is where all your
+
+71
+00:03:32,866 --> 00:03:34,736
+up unless you specify otherwise.
+
+72
+00:03:35,776 --> 00:03:38,486
+Your private database can also
+
+73
+00:03:38,916 --> 00:03:41,096
+which are zones that
+
+74
+00:03:41,096 --> 00:03:42,596
+and uploads into the database.
+
+75
+00:03:43,586 --> 00:03:46,056
+And lastly, the new
+
+76
+00:03:46,056 --> 00:03:47,226
+of shared Record Zones.
+
+77
+00:03:48,606 --> 00:03:50,906
+With the introduction
+
+78
+00:03:50,906 --> 00:03:53,186
+we're going to add one new
+
+79
+00:03:53,436 --> 00:03:54,546
+The concept of a Share.
+
+80
+00:03:55,676 --> 00:03:58,646
+A Share is a subclass
+
+81
+00:03:58,886 --> 00:04:01,906
+lives alongside Records
+
+82
+00:03:58,886 --> 00:04:01,906
+lives alongside Records
+
+83
+00:04:01,906 --> 00:04:04,596
+You can think of a Record as
+
+84
+00:04:04,596 --> 00:04:07,706
+to share and Share representing
+
+85
+00:04:07,806 --> 00:04:09,666
+things like participants
+
+86
+00:04:10,366 --> 00:04:11,866
+Again, we'll get more
+
+87
+00:04:12,056 --> 00:04:13,276
+Just know that it exists.
+
+88
+00:04:13,846 --> 00:04:18,286
+Now, I mentioned that we use
+
+89
+00:04:18,286 --> 00:04:20,236
+of Apple and I wanted
+
+90
+00:04:20,236 --> 00:04:21,896
+to highlight some
+
+91
+00:04:22,486 --> 00:04:24,906
+In the public database
+
+92
+00:04:24,906 --> 00:04:28,376
+that you've probably used,
+
+93
+00:04:28,836 --> 00:04:32,176
+The News App in particular
+
+94
+00:04:32,176 --> 00:04:33,656
+etc., in the public database.
+
+95
+00:04:33,956 --> 00:04:35,816
+And it's a great use
+
+96
+00:04:36,176 --> 00:04:38,556
+Storing content that you
+
+97
+00:04:38,556 --> 00:04:39,536
+to all of your users.
+
+98
+00:04:40,106 --> 00:04:43,046
+And we can contrast this
+
+99
+00:04:43,496 --> 00:04:45,236
+The private database
+
+100
+00:04:45,236 --> 00:04:46,646
+to store the user's
+
+101
+00:04:47,346 --> 00:04:49,096
+We have several clients
+
+102
+00:04:49,096 --> 00:04:52,266
+of Apple including iCloud
+
+103
+00:04:52,586 --> 00:04:54,486
+iCloud Photo Library and Notes.
+
+104
+00:04:56,106 --> 00:04:58,986
+And I'm happy to report
+
+105
+00:04:59,296 --> 00:05:02,366
+Notes Collaboration and
+
+106
+00:04:59,296 --> 00:05:02,366
+Notes Collaboration and
+
+107
+00:05:02,366 --> 00:05:03,576
+on top of CloudKit Sharing.
+
+108
+00:05:04,326 --> 00:05:05,876
+So, as such, the Notes
+
+109
+00:05:05,876 --> 00:05:08,886
+and Activity Applications are
+
+110
+00:05:12,276 --> 00:05:15,176
+Two years ago we
+
+111
+00:05:15,176 --> 00:05:16,846
+by providing two
+
+112
+00:05:16,846 --> 00:05:18,886
+one on iOS and one on macOS.
+
+113
+00:05:19,886 --> 00:05:22,796
+Last year we extended that
+
+114
+00:05:22,796 --> 00:05:26,566
+for tvOS and two web
+
+115
+00:05:26,566 --> 00:05:27,996
+and CloudKit Web Services.
+
+116
+00:05:28,686 --> 00:05:32,206
+The web frameworks give your
+
+117
+00:05:32,476 --> 00:05:34,666
+whether they're on the
+
+118
+00:05:34,746 --> 00:05:36,736
+that doesn't have a native
+
+119
+00:05:37,736 --> 00:05:40,686
+And this year we're going to go
+
+120
+00:05:41,036 --> 00:05:43,316
+by adding a native
+
+121
+00:05:45,246 --> 00:05:47,976
+With this, we now have a native
+
+122
+00:05:47,976 --> 00:05:49,536
+across all of Apple's platforms.
+
+123
+00:05:50,126 --> 00:05:51,636
+Let's take a moment and step
+
+124
+00:05:51,636 --> 00:05:54,426
+through some notable
+
+125
+00:05:54,466 --> 00:05:54,836
+this year.
+
+126
+00:05:55,256 --> 00:05:56,596
+Starting with macOS.
+
+127
+00:05:57,486 --> 00:05:59,896
+The big news that we
+
+128
+00:05:59,896 --> 00:06:00,996
+that you no longer need
+
+129
+00:05:59,896 --> 00:06:00,996
+that you no longer need
+
+130
+00:06:00,996 --> 00:06:04,166
+to distribute your application
+
+131
+00:06:04,166 --> 00:06:06,186
+to take advantage of CloudKit.
+
+132
+00:06:08,316 --> 00:06:10,316
+[ Applause ]
+
+133
+00:06:10,616 --> 00:06:12,986
+Using the new iCloud for
+
+134
+00:06:13,236 --> 00:06:15,706
+you can directly entitle your
+
+135
+00:06:15,706 --> 00:06:18,886
+and other iCloud services via
+
+136
+00:06:20,566 --> 00:06:22,706
+Next I want to talk
+
+137
+00:06:23,156 --> 00:06:24,866
+This is a feature that's
+
+138
+00:06:24,866 --> 00:06:27,736
+for a few months now and it's
+
+139
+00:06:27,736 --> 00:06:31,326
+to have your servers directly
+
+140
+00:06:31,566 --> 00:06:32,856
+as administrative users.
+
+141
+00:06:34,086 --> 00:06:35,766
+Your servers can
+
+142
+00:06:35,766 --> 00:06:38,316
+to CloudKit using a
+
+143
+00:06:38,346 --> 00:06:40,496
+previously established on
+
+144
+00:06:41,896 --> 00:06:45,386
+And you can set your servers
+
+145
+00:06:45,386 --> 00:06:46,346
+to the public database.
+
+146
+00:06:47,856 --> 00:06:50,126
+This is a great way for
+
+147
+00:06:50,126 --> 00:06:53,586
+from your servers into
+
+148
+00:06:53,586 --> 00:06:55,336
+from CloudKit to your servers.
+
+149
+00:06:55,866 --> 00:06:58,026
+Or to keep two sets
+
+150
+00:06:58,026 --> 00:06:59,626
+between your servers
+
+151
+00:07:00,626 --> 00:07:05,356
+With the introduction of
+
+152
+00:07:05,436 --> 00:07:07,946
+on watchOS, you now
+
+153
+00:07:07,946 --> 00:07:10,986
+to keep your watch Apps and
+
+154
+00:07:11,966 --> 00:07:14,436
+In that way, you can think
+
+155
+00:07:14,436 --> 00:07:15,866
+to the watch connectivity
+
+156
+00:07:16,306 --> 00:07:18,516
+And CloudKit comes with
+
+157
+00:07:18,846 --> 00:07:20,736
+That is standalone
+
+158
+00:07:22,156 --> 00:07:24,916
+CloudKit uses NSURL
+
+159
+00:07:24,916 --> 00:07:25,906
+we're going to send our network
+
+160
+00:07:25,906 --> 00:07:27,406
+over the best available
+
+161
+00:07:27,506 --> 00:07:29,866
+If your watch is
+
+162
+00:07:30,036 --> 00:07:31,936
+we'll send traffic
+
+163
+00:07:32,146 --> 00:07:34,696
+But the watch is also
+
+164
+00:07:34,696 --> 00:07:36,936
+to CloudKit servers
+
+165
+00:07:39,026 --> 00:07:42,026
+Now, we are presenting
+
+166
+00:07:42,216 --> 00:07:43,436
+of the CloudKit API.
+
+167
+00:07:44,986 --> 00:07:47,186
+With the introduction of
+
+168
+00:07:47,186 --> 00:07:49,106
+on watchOS, you now
+
+169
+00:07:49,106 --> 00:07:51,696
+to write similar application
+
+170
+00:07:51,896 --> 00:07:53,596
+across all of Apple's platforms.
+
+171
+00:07:54,366 --> 00:07:57,306
+The Activity App for
+
+172
+00:07:57,406 --> 00:08:00,896
+to write similar CloudKit
+
+173
+00:07:57,406 --> 00:08:00,896
+to write similar CloudKit
+
+174
+00:08:01,206 --> 00:08:02,936
+to provide the activity
+
+175
+00:08:03,806 --> 00:08:07,516
+Now, notice I said similar
+
+176
+00:08:07,516 --> 00:08:09,426
+As you write code and
+
+177
+00:08:09,426 --> 00:08:11,676
+of Apple's platforms,
+
+178
+00:08:11,676 --> 00:08:13,846
+that the strengths and
+
+179
+00:08:14,816 --> 00:08:15,726
+In other words, you're going
+
+180
+00:08:15,726 --> 00:08:17,596
+to hit limited resources
+
+181
+00:08:18,456 --> 00:08:20,646
+You need to keep in mind
+
+182
+00:08:20,856 --> 00:08:23,726
+the storage capacities and
+
+183
+00:08:23,756 --> 00:08:25,226
+such as latency and throughput.
+
+184
+00:08:26,016 --> 00:08:29,496
+You can use this in determining
+
+185
+00:08:29,496 --> 00:08:31,406
+to the servers and how
+
+186
+00:08:31,406 --> 00:08:32,385
+to send over the wire.
+
+187
+00:08:33,736 --> 00:08:35,626
+As always, testing
+
+188
+00:08:35,626 --> 00:08:39,265
+to tune your App appropriately
+
+189
+00:08:39,265 --> 00:08:40,176
+that your users are going
+
+190
+00:08:40,176 --> 00:08:41,706
+to have the best
+
+191
+00:08:42,285 --> 00:08:47,636
+Now I'd like to change gears
+
+192
+00:08:48,046 --> 00:08:50,936
+Telemetry is a new
+
+193
+00:08:50,936 --> 00:08:52,596
+to visualize the behavior
+
+194
+00:08:52,596 --> 00:08:54,286
+of your CloudKit-backed
+
+195
+00:08:55,566 --> 00:08:58,596
+We surface Telemetry as a series
+
+196
+00:08:58,596 --> 00:08:59,696
+on the CloudKit Dashboard.
+
+197
+00:09:01,316 --> 00:09:03,466
+You can use these charts
+
+198
+00:09:03,526 --> 00:09:06,686
+in the public database or an
+
+199
+00:09:06,686 --> 00:09:08,556
+across all users'
+
+200
+00:09:09,866 --> 00:09:12,086
+You can scope these charts
+
+201
+00:09:12,086 --> 00:09:14,676
+on an hourly, daily,
+
+202
+00:09:15,686 --> 00:09:18,446
+And you can choose to view the
+
+203
+00:09:18,856 --> 00:09:21,646
+or scope these charts down
+
+204
+00:09:22,356 --> 00:09:24,686
+So, let's go and see
+
+205
+00:09:26,166 --> 00:09:28,146
+Here we have the
+
+206
+00:09:28,146 --> 00:09:29,276
+which you're probably
+
+207
+00:09:29,716 --> 00:09:32,316
+And I want to call your
+
+208
+00:09:32,316 --> 00:09:34,226
+in the lower left,
+
+209
+00:09:35,386 --> 00:09:37,996
+When you select the Performance
+
+210
+00:09:37,996 --> 00:09:40,076
+to a series of charts
+
+211
+00:09:40,076 --> 00:09:41,306
+about how your clients
+
+212
+00:09:41,786 --> 00:09:43,326
+They fall into two categories.
+
+213
+00:09:44,026 --> 00:09:47,486
+The first is performance charts
+
+214
+00:09:47,486 --> 00:09:50,216
+such as the number of
+
+215
+00:09:50,606 --> 00:09:52,556
+and the average size
+
+216
+00:09:53,376 --> 00:09:55,696
+And again, you can scope this
+
+217
+00:09:55,696 --> 00:09:58,246
+in the public or private
+
+218
+00:09:58,246 --> 00:10:01,986
+of timescales and potentially
+
+219
+00:09:58,246 --> 00:10:01,986
+of timescales and potentially
+
+220
+00:10:03,436 --> 00:10:05,636
+The other type of chart that
+
+221
+00:10:05,636 --> 00:10:06,406
+Correctness chart.
+
+222
+00:10:07,206 --> 00:10:10,106
+And the one I want to call
+
+223
+00:10:10,966 --> 00:10:14,216
+This tells you what percentage
+
+224
+00:10:14,216 --> 00:10:16,046
+that have resulted
+
+225
+00:10:17,136 --> 00:10:19,916
+Now, a client error is
+
+226
+00:10:19,916 --> 00:10:21,656
+that you might receive
+
+227
+00:10:21,816 --> 00:10:25,406
+And it is that subset which we
+
+228
+00:10:25,406 --> 00:10:26,916
+able to resolve and
+
+229
+00:10:27,346 --> 00:10:30,546
+So for example, maybe you
+
+230
+00:10:30,546 --> 00:10:32,626
+and there was a conflicting
+
+231
+00:10:33,626 --> 00:10:36,176
+Or perhaps you attempted to
+
+232
+00:10:36,266 --> 00:10:37,426
+that the server doesn't
+
+233
+00:10:38,226 --> 00:10:39,906
+Both of these would be
+
+234
+00:10:39,906 --> 00:10:41,016
+and would be surfaced
+
+235
+00:10:42,896 --> 00:10:45,466
+By being able to
+
+236
+00:10:45,876 --> 00:10:47,906
+we hope that you can
+
+237
+00:10:47,906 --> 00:10:49,226
+when your client's, situations
+
+238
+00:10:49,226 --> 00:10:51,776
+when your clients are seeing
+
+239
+00:10:51,776 --> 00:10:52,346
+of errors.
+
+240
+00:10:53,326 --> 00:10:56,776
+Now, we've said in the past
+
+241
+00:10:56,776 --> 00:10:58,216
+for a CloudKit-backed
+
+242
+00:10:59,116 --> 00:11:00,736
+The difference between
+
+243
+00:10:59,116 --> 00:11:00,736
+The difference between
+
+244
+00:11:00,736 --> 00:11:02,766
+that handles errors
+
+245
+00:11:02,766 --> 00:11:04,946
+that handles errors
+
+246
+00:11:04,946 --> 00:11:07,346
+between a functioning App
+
+247
+00:11:07,976 --> 00:11:08,766
+It's that serious.
+
+248
+00:11:08,766 --> 00:11:11,316
+It's an integral part in writing
+
+249
+00:11:11,816 --> 00:11:14,366
+So, we hope that you can
+
+250
+00:11:14,366 --> 00:11:15,876
+out situations in which you need
+
+251
+00:11:15,876 --> 00:11:18,216
+to go examine how your clients
+
+252
+00:11:18,696 --> 00:11:21,696
+For more information on
+
+253
+00:11:21,696 --> 00:11:23,886
+I want to invite you
+
+254
+00:11:23,936 --> 00:11:25,236
+CloudKit Best Practices.
+
+255
+00:11:25,486 --> 00:11:28,336
+We'll spend some time diving
+
+256
+00:11:28,926 --> 00:11:33,746
+Next, I'd like to talk to
+
+257
+00:11:33,746 --> 00:11:36,006
+to our APIs, all of which
+
+258
+00:11:36,036 --> 00:11:39,726
+And really, there's four that I
+
+259
+00:11:40,336 --> 00:11:42,466
+Starting with Long-Lived
+
+260
+00:11:43,726 --> 00:11:45,906
+Long-Lived Operations
+
+261
+00:11:46,186 --> 00:11:47,886
+by which you don't
+
+262
+00:11:47,886 --> 00:11:49,276
+that you've already
+
+263
+00:11:50,046 --> 00:11:53,876
+So, as it stands now, when your
+
+264
+00:11:54,226 --> 00:11:55,916
+Any operations that
+
+265
+00:11:55,916 --> 00:11:57,526
+on behalf of it are torn down.
+
+266
+00:11:57,946 --> 00:12:00,406
+Even if that operation was
+
+267
+00:11:57,946 --> 00:12:00,406
+Even if that operation was
+
+268
+00:12:01,716 --> 00:12:04,296
+By making your operations
+
+269
+00:12:04,296 --> 00:12:07,016
+your operations can outlive the
+
+270
+00:12:08,226 --> 00:12:10,816
+They will continue running
+
+271
+00:12:10,816 --> 00:12:14,016
+to cache responses from the
+
+272
+00:12:14,946 --> 00:12:16,766
+When your Application
+
+273
+00:12:16,766 --> 00:12:18,006
+you've resumed the operation.
+
+274
+00:12:18,156 --> 00:12:20,766
+And we're just going to go
+
+275
+00:12:20,766 --> 00:12:22,186
+out of our local cache.
+
+276
+00:12:22,756 --> 00:12:25,636
+In many cases, this can
+
+277
+00:12:25,636 --> 00:12:26,866
+for another network round trip.
+
+278
+00:12:27,566 --> 00:12:29,506
+We're going to talk about
+
+279
+00:12:29,506 --> 00:12:32,366
+in more detail at tomorrow's
+
+280
+00:12:32,366 --> 00:12:34,406
+I hope you can join us.
+
+281
+00:12:35,176 --> 00:12:37,436
+Next I want to touch on
+
+282
+00:12:37,436 --> 00:12:39,826
+of from our developers
+
+283
+00:12:39,826 --> 00:12:42,476
+with CKOperation
+
+284
+00:12:43,186 --> 00:12:44,056
+And the picture I want to paint
+
+285
+00:12:44,056 --> 00:12:46,076
+for you here is we've
+
+286
+00:12:46,416 --> 00:12:48,216
+The device has network
+
+287
+00:12:48,216 --> 00:12:49,886
+but we're not getting
+
+288
+00:12:49,886 --> 00:12:50,866
+over in either direction.
+
+289
+00:12:50,866 --> 00:12:53,616
+And as a side note, you
+
+290
+00:12:53,616 --> 00:12:56,096
+and replicate the scenario
+
+291
+00:12:56,096 --> 00:12:57,756
+conditioner, a great
+
+292
+00:12:57,756 --> 00:13:00,106
+for replicating behavior
+
+293
+00:12:57,756 --> 00:13:00,106
+for replicating behavior
+
+294
+00:13:01,676 --> 00:13:04,516
+Now, a CKOperation is a
+
+295
+00:13:04,746 --> 00:13:06,636
+And as such, as a
+
+296
+00:13:07,256 --> 00:13:10,016
+If your operation is
+
+297
+00:13:10,016 --> 00:13:13,306
+or user initiated, then on a bad
+
+298
+00:13:13,306 --> 00:13:15,586
+down after 1 minute and give
+
+299
+00:13:16,226 --> 00:13:18,996
+If your operation has any of
+
+300
+00:13:18,996 --> 00:13:19,586
+we're going to go ahead
+
+301
+00:13:19,586 --> 00:13:21,696
+and continue attempting
+
+302
+00:13:22,226 --> 00:13:23,526
+It might not be what
+
+303
+00:13:24,516 --> 00:13:25,786
+What's more, if you choose not
+
+304
+00:13:25,786 --> 00:13:27,576
+to set an explicit
+
+305
+00:13:27,626 --> 00:13:29,886
+on your CKOperation, we
+
+306
+00:13:30,166 --> 00:13:31,126
+and we choose utility.
+
+307
+00:13:31,856 --> 00:13:33,836
+So, if you add all
+
+308
+00:13:33,836 --> 00:13:36,536
+of developer reports saying,
+
+309
+00:13:36,536 --> 00:13:38,186
+why is my operation
+
+310
+00:13:38,706 --> 00:13:40,736
+So, we want to address
+
+311
+00:13:40,736 --> 00:13:43,056
+to address this with
+
+312
+00:13:44,086 --> 00:13:47,276
+The first covers network
+
+313
+00:13:47,276 --> 00:13:48,286
+as the timeout interval
+
+314
+00:13:48,286 --> 00:13:50,636
+for request property
+
+315
+00:13:51,086 --> 00:13:54,146
+It defaults to 1 minute
+
+316
+00:13:54,146 --> 00:13:56,766
+that we're willing to wait for
+
+317
+00:13:57,556 --> 00:13:59,946
+If we don't hear any traffic
+
+318
+00:13:59,946 --> 00:14:02,206
+of time, we're going to tear
+
+319
+00:13:59,946 --> 00:14:02,206
+of time, we're going to tear
+
+320
+00:14:02,206 --> 00:14:03,166
+that the network timed out.
+
+321
+00:14:04,076 --> 00:14:07,346
+We're also going to expose
+
+322
+00:14:07,636 --> 00:14:09,256
+and we expose this as
+
+323
+00:14:09,256 --> 00:14:11,666
+for resource property
+
+324
+00:14:12,566 --> 00:14:15,126
+This defaults to seven days and
+
+325
+00:14:15,126 --> 00:14:17,456
+that we're willing to wait for
+
+326
+00:14:17,496 --> 00:14:18,816
+from your device to
+
+327
+00:14:18,906 --> 00:14:20,666
+and its completion
+
+328
+00:14:20,666 --> 00:14:22,806
+Now, I want to make note
+
+329
+00:14:22,806 --> 00:14:25,896
+that a CKOperation may issue
+
+330
+00:14:25,896 --> 00:14:27,586
+as it's going about its job.
+
+331
+00:14:27,856 --> 00:14:31,166
+So, a CKOperation may take more
+
+332
+00:14:31,166 --> 00:14:32,936
+as you are making
+
+333
+00:14:33,666 --> 00:14:39,336
+Next, I want to talk about how
+
+334
+00:14:39,336 --> 00:14:41,456
+of record changes when
+
+335
+00:14:41,546 --> 00:14:42,266
+up on the server.
+
+336
+00:14:42,936 --> 00:14:44,446
+As we'll learn when
+
+337
+00:14:44,656 --> 00:14:47,316
+your client may see more
+
+338
+00:14:47,316 --> 00:14:47,936
+in the past.
+
+339
+00:14:49,076 --> 00:14:51,696
+So, our answer to this
+
+340
+00:14:51,696 --> 00:14:53,386
+to fetch the entire
+
+341
+00:14:53,386 --> 00:14:56,776
+from a database using a
+
+342
+00:14:58,006 --> 00:14:59,046
+There's a couple
+
+343
+00:14:59,046 --> 00:15:00,866
+We don't want you to poll
+
+344
+00:14:59,046 --> 00:15:00,866
+We don't want you to poll
+
+345
+00:15:00,866 --> 00:15:03,296
+to fetch the entire list of
+
+346
+00:15:03,826 --> 00:15:06,126
+So, we're no longer going to
+
+347
+00:15:06,426 --> 00:15:08,536
+and we're going to replace
+
+348
+00:15:09,296 --> 00:15:11,646
+The first,
+
+349
+00:15:12,536 --> 00:15:13,766
+This is a new subscription type
+
+350
+00:15:13,766 --> 00:15:15,926
+that will fire whenever
+
+351
+00:15:15,926 --> 00:15:16,626
+of a database.
+
+352
+00:15:17,146 --> 00:15:19,546
+Even in a Record Zone that
+
+353
+00:15:20,346 --> 00:15:21,326
+And we're going to couple
+
+354
+00:15:21,326 --> 00:15:23,386
+that with a
+
+355
+00:15:23,386 --> 00:15:23,906
+operation.
+
+356
+00:15:24,416 --> 00:15:27,566
+This is an operation that allows
+
+357
+00:15:27,566 --> 00:15:29,746
+of Record Zones that
+
+358
+00:15:29,746 --> 00:15:33,116
+since some point in
+
+359
+00:15:34,046 --> 00:15:36,056
+Okay, so now you have a list
+
+360
+00:15:36,056 --> 00:15:37,116
+to go fetch changes for.
+
+361
+00:15:37,266 --> 00:15:38,776
+How are you going to do that?
+
+362
+00:15:39,196 --> 00:15:41,276
+Well, the old way was
+
+363
+00:15:41,276 --> 00:15:42,916
+CKFetchRecordChanges operation.
+
+364
+00:15:43,356 --> 00:15:45,326
+You'd pass in a single Record
+
+365
+00:15:45,326 --> 00:15:46,346
+for that single Record Zone.
+
+366
+00:15:47,186 --> 00:15:49,366
+We don't want you to have
+
+367
+00:15:49,366 --> 00:15:52,036
+sequentially through all these
+
+368
+00:15:52,036 --> 00:15:53,596
+and deprecated this
+
+369
+00:15:54,466 --> 00:15:56,326
+And we've replaced it
+
+370
+00:15:56,326 --> 00:15:57,956
+with a very similar
+
+371
+00:15:58,446 --> 00:16:00,746
+the CKFetchRecordZone
+
+372
+00:15:58,446 --> 00:16:00,746
+the CKFetchRecordZone
+
+373
+00:16:02,036 --> 00:16:06,376
+This is essentially a batch
+
+374
+00:16:06,376 --> 00:16:09,296
+and it gives you the ability
+
+375
+00:16:09,296 --> 00:16:11,946
+across multiple Record Zones
+
+376
+00:16:12,616 --> 00:16:14,476
+So, let's go ahead
+
+377
+00:16:16,056 --> 00:16:18,636
+Here we have a database,
+
+378
+00:16:18,636 --> 00:16:20,496
+each Record Zone has
+
+379
+00:16:20,876 --> 00:16:22,076
+And the client, which
+
+380
+00:16:22,076 --> 00:16:23,386
+with all of these changes.
+
+381
+00:16:23,956 --> 00:16:26,246
+Now, along come a
+
+382
+00:16:27,266 --> 00:16:29,966
+Your client, by virtue of
+
+383
+00:16:29,966 --> 00:16:33,166
+CKDatabaseSubscription, will
+
+384
+00:16:33,166 --> 00:16:35,296
+on the server and
+
+385
+00:16:36,266 --> 00:16:38,916
+Next, using a
+
+386
+00:16:38,916 --> 00:16:41,376
+operation, you can ask
+
+387
+00:16:41,376 --> 00:16:43,166
+of Record Zones that
+
+388
+00:16:43,346 --> 00:16:45,036
+In this case, the
+
+389
+00:16:46,796 --> 00:16:48,656
+Now, armed with that
+
+390
+00:16:49,136 --> 00:16:51,306
+you can issue a
+
+391
+00:16:51,306 --> 00:16:54,166
+operation requesting all
+
+392
+00:16:54,166 --> 00:16:57,386
+of the change Record Zones in
+
+393
+00:17:00,646 --> 00:17:02,646
+And lastly, I'd like to talk
+
+394
+00:17:02,646 --> 00:17:04,786
+about how do you
+
+395
+00:17:04,896 --> 00:17:06,455
+when there are many
+
+396
+00:17:06,455 --> 00:17:07,935
+in a Record Zone
+
+397
+00:17:08,455 --> 00:17:12,205
+If you've used CloudKit
+
+398
+00:17:12,596 --> 00:17:15,435
+then you're familiar with the
+
+399
+00:17:15,435 --> 00:17:18,576
+on a CKFetchRecordChanges
+
+400
+00:17:18,685 --> 00:17:21,496
+that not only have we given you
+
+401
+00:17:21,496 --> 00:17:23,195
+up on the server that
+
+402
+00:17:23,396 --> 00:17:25,886
+with a subsequent
+
+403
+00:17:25,965 --> 00:17:29,106
+Now, there's a couple
+
+404
+00:17:29,386 --> 00:17:32,086
+The first is that we've
+
+405
+00:17:32,086 --> 00:17:34,486
+of check the flag and
+
+406
+00:17:34,666 --> 00:17:35,656
+to all of our clients.
+
+407
+00:17:36,116 --> 00:17:37,516
+It's another potential
+
+408
+00:17:38,326 --> 00:17:40,866
+And secondly, while you're
+
+409
+00:17:40,866 --> 00:17:43,896
+to fetch and cue a new operation
+
+410
+00:17:44,356 --> 00:17:45,646
+CloudKit is sitting around idle.
+
+411
+00:17:45,646 --> 00:17:49,426
+We want to address both of those
+
+412
+00:17:49,426 --> 00:17:51,106
+that we made a brand-new
+
+413
+00:17:51,306 --> 00:17:54,206
+CKFetchRecordChanges
+
+414
+00:17:55,046 --> 00:17:56,256
+Instead of us telling you
+
+415
+00:17:56,256 --> 00:17:57,756
+when there are more
+
+416
+00:17:58,106 --> 00:18:00,606
+you tell us what your
+
+417
+00:17:58,106 --> 00:18:00,606
+you tell us what your
+
+418
+00:18:00,806 --> 00:18:02,676
+fetchAllChanges property.
+
+419
+00:18:03,936 --> 00:18:07,296
+When this is set to true, then
+
+420
+00:18:07,296 --> 00:18:09,476
+of changes from the server,
+
+421
+00:18:09,756 --> 00:18:11,256
+and then immediately
+
+422
+00:18:11,256 --> 00:18:12,526
+for the next batch of changes.
+
+423
+00:18:13,276 --> 00:18:15,366
+This allows us to keep
+
+424
+00:18:15,456 --> 00:18:17,966
+pulling network data over the
+
+425
+00:18:19,046 --> 00:18:21,826
+Now, we think that this is going
+
+426
+00:18:22,006 --> 00:18:24,086
+that we've gone ahead and we've
+
+427
+00:18:24,086 --> 00:18:25,026
+for this new class.
+
+428
+00:18:26,286 --> 00:18:29,276
+So, new CKFetchRecordZoneChanges
+
+429
+00:18:29,606 --> 00:18:31,776
+by default will fetch
+
+430
+00:18:31,776 --> 00:18:33,336
+down from a particular
+
+431
+00:18:34,876 --> 00:18:39,286
+As you might imagine, if you've
+
+432
+00:18:39,366 --> 00:18:41,546
+your user's iCloud Photo
+
+433
+00:18:42,016 --> 00:18:45,236
+this means that the subsequent
+
+434
+00:18:45,236 --> 00:18:46,156
+in the Record Zone is going
+
+435
+00:18:46,156 --> 00:18:47,486
+to take a very long
+
+436
+00:18:47,486 --> 00:18:50,966
+We want to make sure that
+
+437
+00:18:50,966 --> 00:18:52,716
+of operations that
+
+438
+00:18:52,716 --> 00:18:55,006
+We don't want to have to go
+
+439
+00:18:55,006 --> 00:18:56,276
+that we've already
+
+440
+00:18:57,206 --> 00:18:59,506
+So, we've added a new
+
+441
+00:19:00,146 --> 00:19:02,686
+RecordZoneChangeTokens
+
+442
+00:19:03,566 --> 00:19:05,876
+And after we hand you a batch of
+
+443
+00:19:05,876 --> 00:19:08,146
+and tell you about an
+
+444
+00:19:08,646 --> 00:19:10,456
+And your code is going
+
+445
+00:19:10,456 --> 00:19:12,426
+for doing two different things.
+
+446
+00:19:12,616 --> 00:19:14,216
+First, you're going to go ahead
+
+447
+00:19:14,216 --> 00:19:16,246
+and commit all the
+
+448
+00:19:16,246 --> 00:19:17,976
+that you've received
+
+449
+00:19:18,986 --> 00:19:21,496
+And secondly, you're going to go
+
+450
+00:19:21,496 --> 00:19:22,566
+that server change token.
+
+451
+00:19:23,556 --> 00:19:25,966
+If the operation fails at
+
+452
+00:19:26,126 --> 00:19:29,106
+you can issue a brand-new
+
+453
+00:19:29,106 --> 00:19:32,536
+operation, pass in this locally
+
+454
+00:19:32,626 --> 00:19:35,146
+and essentially pick back
+
+455
+00:19:35,266 --> 00:19:37,316
+No need to re-download
+
+456
+00:19:37,376 --> 00:19:38,896
+that you've already
+
+457
+00:19:40,086 --> 00:19:43,126
+And so these are just 4 of the
+
+458
+00:19:43,126 --> 00:19:45,956
+that you can take advantage of
+
+459
+00:19:45,956 --> 00:19:47,676
+by iCloud, backed by CloudKit.
+
+460
+00:19:48,106 --> 00:19:50,626
+And with that, I'd like to
+
+461
+00:19:50,626 --> 00:19:53,176
+and invite up Jacob Farkas to
+
+462
+00:19:55,516 --> 00:19:59,976
+[ Applause ]
+
+463
+00:20:00,476 --> 00:20:01,496
+&gt;&gt; Thanks Paul.
+
+464
+00:20:02,546 --> 00:20:05,096
+My name is Jacob Farkas
+
+465
+00:20:05,096 --> 00:20:06,076
+on the CloudKit team.
+
+466
+00:20:06,076 --> 00:20:07,586
+And today I'm going
+
+467
+00:20:07,586 --> 00:20:10,666
+about how you can add CloudKit
+
+468
+00:20:10,666 --> 00:20:13,756
+by only writing a
+
+469
+00:20:15,486 --> 00:20:18,476
+We've introduced a new class
+
+470
+00:20:18,846 --> 00:20:21,896
+It's a subclass of CKRecord
+
+471
+00:20:21,896 --> 00:20:24,056
+for storing two important
+
+472
+00:20:24,666 --> 00:20:27,556
+One, what is shared, and two,
+
+473
+00:20:28,136 --> 00:20:30,266
+what that record is
+
+474
+00:20:31,646 --> 00:20:33,136
+So, let's look at
+
+475
+00:20:33,456 --> 00:20:35,836
+We've got our private database
+
+476
+00:20:35,836 --> 00:20:38,226
+in the private database
+
+477
+00:20:39,906 --> 00:20:43,606
+To do that, we're going
+
+478
+00:20:43,606 --> 00:20:46,266
+and initialize it using
+
+479
+00:20:47,296 --> 00:20:49,626
+You always need to create
+
+480
+00:20:49,936 --> 00:20:51,736
+so there's always
+
+481
+00:20:52,206 --> 00:20:56,556
+Next, we're going to save
+
+482
+00:20:56,556 --> 00:20:57,986
+to the server at the same time.
+
+483
+00:20:58,796 --> 00:21:01,066
+You want to do that because
+
+484
+00:20:58,796 --> 00:21:01,066
+You want to do that because
+
+485
+00:21:01,066 --> 00:21:03,196
+on CKRecord that's a reference
+
+486
+00:21:03,196 --> 00:21:04,366
+to the Share that
+
+487
+00:21:04,946 --> 00:21:07,516
+By saving the root record and
+
+488
+00:21:08,086 --> 00:21:13,866
+that reference will be set to
+
+489
+00:21:14,296 --> 00:21:17,236
+So, now we've defined what
+
+490
+00:21:17,236 --> 00:21:19,156
+to define who we want
+
+491
+00:21:20,166 --> 00:21:23,076
+To do that, we've created a
+
+492
+00:21:24,336 --> 00:21:28,776
+This lookup service takes a
+
+493
+00:21:28,776 --> 00:21:30,786
+into a CKShare participant.
+
+494
+00:21:31,196 --> 00:21:33,376
+You can set the Share
+
+495
+00:21:33,906 --> 00:21:35,926
+save that Share to
+
+496
+00:21:35,926 --> 00:21:40,156
+that person's iCloud account
+
+497
+00:21:40,666 --> 00:21:43,286
+We also support looking
+
+498
+00:21:43,346 --> 00:21:48,176
+or CloudKit user record IDs.
+
+499
+00:21:48,406 --> 00:21:51,526
+Now, we want to let users
+
+500
+00:21:51,526 --> 00:21:53,906
+in their shared database so
+
+501
+00:21:53,906 --> 00:21:55,136
+to just instantly appear.
+
+502
+00:21:55,856 --> 00:21:59,086
+The user should have control so
+
+503
+00:21:59,126 --> 00:22:00,206
+that Share and join it.
+
+504
+00:21:59,126 --> 00:22:00,206
+that Share and join it.
+
+505
+00:22:01,116 --> 00:22:03,556
+But that means we need a way
+
+506
+00:22:03,556 --> 00:22:05,586
+that we've made a share
+
+507
+00:22:05,586 --> 00:22:06,586
+and that they need to join it.
+
+508
+00:22:07,546 --> 00:22:09,196
+And we do that via URLs.
+
+509
+00:22:10,696 --> 00:22:14,216
+Every share has a URL which
+
+510
+00:22:14,876 --> 00:22:19,376
+If the user taps on this URL in
+
+511
+00:22:19,376 --> 00:22:21,726
+we're going to show
+
+512
+00:22:21,726 --> 00:22:24,286
+We're going to ask them if
+
+513
+00:22:25,106 --> 00:22:27,116
+And if they do, they'll
+
+514
+00:22:27,116 --> 00:22:28,976
+and shown the items
+
+515
+00:22:30,506 --> 00:22:33,286
+The great thing about a
+
+516
+00:22:33,286 --> 00:22:35,436
+on an older platform
+
+517
+00:22:35,436 --> 00:22:36,606
+that doesn't support sharing,
+
+518
+00:22:37,076 --> 00:22:38,736
+this will take them
+
+519
+00:22:38,736 --> 00:22:40,776
+And we can show them
+
+520
+00:22:41,236 --> 00:22:43,516
+and tell them how they can
+
+521
+00:22:45,376 --> 00:22:49,766
+So, let's put this URL into
+
+522
+00:22:49,766 --> 00:22:51,336
+to the other participant
+
+523
+00:22:52,576 --> 00:22:56,366
+They're going to receive the
+
+524
+00:22:56,366 --> 00:22:59,046
+in their Shared Database they
+
+525
+00:22:59,046 --> 00:23:00,496
+that we created and
+
+526
+00:22:59,046 --> 00:23:00,496
+that we created and
+
+527
+00:23:01,896 --> 00:23:05,756
+The great thing here is that the
+
+528
+00:23:05,756 --> 00:23:08,016
+a view into the owner's
+
+529
+00:23:08,366 --> 00:23:11,566
+So, if this other user has
+
+530
+00:23:12,066 --> 00:23:14,286
+if they update that
+
+531
+00:23:14,286 --> 00:23:16,836
+that same change happen
+
+532
+00:23:18,036 --> 00:23:20,246
+So, let's take a look at what
+
+533
+00:23:23,926 --> 00:23:31,806
+All right, we've got Notes
+
+534
+00:23:31,806 --> 00:23:35,016
+to Notes in macOS X Sierra.
+
+535
+00:23:35,786 --> 00:23:37,906
+By using the same
+
+536
+00:23:37,906 --> 00:23:39,986
+that we're making available
+
+537
+00:23:40,876 --> 00:23:43,986
+So, you'll see that there's
+
+538
+00:23:43,986 --> 00:23:44,326
+up here.
+
+539
+00:23:44,756 --> 00:23:48,286
+And if we tap on that,
+
+540
+00:23:48,286 --> 00:23:50,696
+that lets us choose how
+
+541
+00:23:52,336 --> 00:23:56,586
+When we hit Share, the system
+
+542
+00:23:56,646 --> 00:23:59,916
+and telling Notes that it
+
+543
+00:23:59,916 --> 00:24:01,376
+and the root record
+
+544
+00:23:59,916 --> 00:24:01,376
+and the root record
+
+545
+00:24:02,456 --> 00:24:05,406
+Once it's done that, the system
+
+546
+00:24:05,596 --> 00:24:07,146
+We can invite the other user.
+
+547
+00:24:08,236 --> 00:24:09,286
+We hit Send.
+
+548
+00:24:09,916 --> 00:24:12,846
+And the system UI is actually
+
+549
+00:24:12,846 --> 00:24:14,196
+looking up the participants
+
+550
+00:24:14,646 --> 00:24:16,606
+and sending the email
+
+551
+00:24:17,136 --> 00:24:20,766
+So, if we switch over to our
+
+552
+00:24:20,916 --> 00:24:22,296
+we see the email we just sent.
+
+553
+00:24:23,226 --> 00:24:24,686
+We can tap on that URL.
+
+554
+00:24:24,686 --> 00:24:27,626
+And we'll be asked if we
+
+555
+00:24:29,356 --> 00:24:31,506
+When we do that, we're
+
+556
+00:24:31,746 --> 00:24:34,626
+The Share shows up, the Note
+
+557
+00:24:34,626 --> 00:24:35,726
+that Note with the other user.
+
+558
+00:24:37,376 --> 00:24:39,716
+If I make changes on the
+
+559
+00:24:40,066 --> 00:24:43,756
+let's say I check off avocados
+
+560
+00:24:43,756 --> 00:24:44,756
+as something else to pick up.
+
+561
+00:24:45,686 --> 00:24:48,286
+We'll see those happen in the
+
+562
+00:24:56,276 --> 00:25:00,976
+So, let's look at
+
+563
+00:24:56,276 --> 00:25:00,976
+So, let's look at
+
+564
+00:25:01,826 --> 00:25:02,716
+You're probably all familiar
+
+565
+00:25:02,716 --> 00:25:05,656
+with the CloudKit framework
+
+566
+00:25:05,656 --> 00:25:07,516
+and the new CKShare object live.
+
+567
+00:25:08,316 --> 00:25:10,986
+If you want to use this new
+
+568
+00:25:10,986 --> 00:25:15,936
+to find that on macOS in
+
+569
+00:25:16,426 --> 00:25:23,636
+We'll start by looking
+
+570
+00:25:24,216 --> 00:25:27,086
+Before we create a Share,
+
+571
+00:25:27,086 --> 00:25:28,416
+we need to create
+
+572
+00:25:28,416 --> 00:25:30,536
+So, we'll create a Share
+
+573
+00:25:31,586 --> 00:25:34,986
+We will set a couple properties
+
+574
+00:25:35,636 --> 00:25:37,416
+title and a thumbnail.
+
+575
+00:25:37,476 --> 00:25:41,536
+And then we move on
+
+576
+00:25:41,586 --> 00:25:43,036
+a UI cloud-sharing controller.
+
+577
+00:25:44,436 --> 00:25:46,366
+We initialize that with
+
+578
+00:25:46,366 --> 00:25:48,026
+and we pass it a
+
+579
+00:25:49,106 --> 00:25:51,266
+This preparation handler
+
+580
+00:25:51,326 --> 00:25:52,746
+when it's time to
+
+581
+00:25:52,746 --> 00:25:53,836
+in the record to the server.
+
+582
+00:25:54,366 --> 00:25:57,626
+So, our handler here will create
+
+583
+00:25:58,226 --> 00:26:01,406
+Save the record and Share to
+
+584
+00:25:58,226 --> 00:26:01,406
+Save the record and Share to
+
+585
+00:26:01,406 --> 00:26:03,096
+it will call the
+
+586
+00:26:03,586 --> 00:26:08,816
+Next, we might want
+
+587
+00:26:08,816 --> 00:26:10,726
+on this UI cloud
+
+588
+00:26:11,816 --> 00:26:14,576
+One of the properties we can set
+
+589
+00:26:14,696 --> 00:26:17,826
+We can say whether we want that
+
+590
+00:26:17,826 --> 00:26:19,846
+or maybe we only want
+
+591
+00:26:19,846 --> 00:26:20,756
+read/write permissions.
+
+592
+00:26:21,096 --> 00:26:24,016
+We also want to set the present,
+
+593
+00:26:24,286 --> 00:26:27,636
+presentation controller source
+
+594
+00:26:27,636 --> 00:26:30,236
+in the same place as the button
+
+595
+00:26:30,236 --> 00:26:33,326
+We'll want to set
+
+596
+00:26:33,476 --> 00:26:35,716
+so that we get callbacks about
+
+597
+00:26:35,926 --> 00:26:38,256
+And finally we call Present.
+
+598
+00:26:38,406 --> 00:26:40,536
+And when we do that, we're
+
+599
+00:26:40,536 --> 00:26:43,336
+that looks something like this.
+
+600
+00:26:43,546 --> 00:26:45,766
+Now, if you've already saved
+
+601
+00:26:46,136 --> 00:26:49,106
+you can call UI cloud sharing
+
+602
+00:26:49,766 --> 00:26:51,936
+And it will present a
+
+603
+00:26:51,976 --> 00:26:54,106
+and let them manage
+
+604
+00:26:54,106 --> 00:26:55,786
+and stop sharing if they'd like.
+
+605
+00:26:55,986 --> 00:27:01,286
+Everything is taken care of
+
+606
+00:26:55,986 --> 00:27:01,286
+Everything is taken care of
+
+607
+00:27:01,976 --> 00:27:05,176
+The macOS sharing API is really
+
+608
+00:27:05,176 --> 00:27:07,156
+to go very quickly and
+
+609
+00:27:09,156 --> 00:27:11,416
+First off, you create
+
+610
+00:27:11,746 --> 00:27:14,066
+and you register your
+
+611
+00:27:14,766 --> 00:27:16,876
+This handler looks the
+
+612
+00:27:16,876 --> 00:27:18,786
+You save the Share in
+
+613
+00:27:19,136 --> 00:27:21,026
+and when you're done, you
+
+614
+00:27:22,936 --> 00:27:25,486
+Next, you're going to
+
+615
+00:27:26,276 --> 00:27:28,236
+That sharing service is
+
+616
+00:27:28,236 --> 00:27:30,796
+that you set yourself
+
+617
+00:27:30,796 --> 00:27:32,976
+with the NSItem provider
+
+618
+00:27:36,316 --> 00:27:39,986
+Finally, NSSharingService
+
+619
+00:27:39,986 --> 00:27:43,436
+So, if you want to set options
+
+620
+00:27:43,776 --> 00:27:46,526
+you'll do that with callback
+
+621
+00:27:47,106 --> 00:27:52,106
+On macOS, the Share create
+
+622
+00:27:52,526 --> 00:27:54,656
+And if you want to
+
+623
+00:27:54,656 --> 00:27:58,406
+on a Share, it'll
+
+624
+00:27:59,396 --> 00:28:02,456
+Next, if a user accepts a
+
+625
+00:27:59,396 --> 00:28:02,456
+Next, if a user accepts a
+
+626
+00:28:02,926 --> 00:28:04,556
+your Application is
+
+627
+00:28:04,626 --> 00:28:07,816
+and it'll receive this callback
+
+628
+00:28:07,816 --> 00:28:08,606
+CloudKit Share.
+
+629
+00:28:09,556 --> 00:28:11,936
+That callback will contain
+
+630
+00:28:11,936 --> 00:28:13,516
+about the Share in
+
+631
+00:28:13,516 --> 00:28:14,716
+that the user just accepted.
+
+632
+00:28:15,776 --> 00:28:18,136
+It looks really similar
+
+633
+00:28:18,136 --> 00:28:20,826
+of using UIApplication
+
+634
+00:28:21,356 --> 00:28:25,456
+And finally, you need
+
+635
+00:28:25,456 --> 00:28:27,706
+that your Application
+
+636
+00:28:28,076 --> 00:28:30,686
+And you do this via the
+
+637
+00:28:30,686 --> 00:28:31,746
+in your info P list.
+
+638
+00:28:34,076 --> 00:28:35,566
+We're also happy to announce
+
+639
+00:28:35,566 --> 00:28:37,346
+that we've added
+
+640
+00:28:37,346 --> 00:28:40,436
+to our CloudKit JavaScript
+
+641
+00:28:40,696 --> 00:28:44,656
+you can create Shares, accept
+
+642
+00:28:44,656 --> 00:28:47,186
+that you can use to
+
+643
+00:28:47,966 --> 00:28:50,736
+You can try this all out right
+
+644
+00:28:51,616 --> 00:28:54,316
+So, I'm going to hand things off
+
+645
+00:28:54,316 --> 00:28:55,776
+who is going to tell
+
+646
+00:28:55,776 --> 00:28:57,746
+about sharing in depth.
+
+647
+00:28:58,516 --> 00:29:01,796
+[ Applause ]
+
+648
+00:28:58,516 --> 00:29:01,796
+[ Applause ]
+
+649
+00:29:02,296 --> 00:29:02,966
+&gt;&gt; Thank you, Jacob.
+
+650
+00:29:04,236 --> 00:29:05,606
+Hi. And good afternoon.
+
+651
+00:29:06,526 --> 00:29:08,656
+My name is Vanessa Hong
+
+652
+00:29:08,866 --> 00:29:09,956
+on the CloudKit server team.
+
+653
+00:29:10,626 --> 00:29:14,346
+So, today we will deep dive
+
+654
+00:29:14,346 --> 00:29:15,766
+at some common use cases.
+
+655
+00:29:16,476 --> 00:29:20,066
+We'll start with the
+
+656
+00:29:20,066 --> 00:29:22,016
+and then we'll go
+
+657
+00:29:22,016 --> 00:29:24,186
+down into the internals
+
+658
+00:29:25,196 --> 00:29:27,846
+Then I'll talk about how you
+
+659
+00:29:28,046 --> 00:29:29,956
+if you want to create
+
+660
+00:29:31,016 --> 00:29:33,676
+And then finally we'll close
+
+661
+00:29:34,336 --> 00:29:38,216
+So, let's get started.
+
+662
+00:29:38,656 --> 00:29:40,686
+Jacob showed how to
+
+663
+00:29:41,186 --> 00:29:44,206
+But the item the owner wants
+
+664
+00:29:44,206 --> 00:29:45,716
+to share may not
+
+665
+00:29:46,106 --> 00:29:47,976
+It may consist of many records.
+
+666
+00:29:48,706 --> 00:29:50,866
+Possibly already
+
+667
+00:29:52,536 --> 00:29:54,656
+And your application
+
+668
+00:29:54,656 --> 00:29:56,686
+to see only a subset
+
+669
+00:29:57,936 --> 00:29:59,656
+This is why we introduced
+
+670
+00:29:59,846 --> 00:30:02,556
+on the CKRecord called
+
+671
+00:29:59,846 --> 00:30:02,556
+on the CKRecord called
+
+672
+00:30:03,726 --> 00:30:06,446
+Set the Parent Reference on
+
+673
+00:30:06,446 --> 00:30:08,396
+to be included in
+
+674
+00:30:09,176 --> 00:30:12,006
+And you can set this up
+
+675
+00:30:12,006 --> 00:30:12,436
+to share.
+
+676
+00:30:13,126 --> 00:30:17,256
+When the user does share,
+
+677
+00:30:17,406 --> 00:30:19,956
+you will create the CKShare
+
+678
+00:30:19,956 --> 00:30:22,256
+Then, all of the all
+
+679
+00:30:22,456 --> 00:30:25,506
+that are linked to the root
+
+680
+00:30:25,916 --> 00:30:28,206
+are automatically included
+
+681
+00:30:28,866 --> 00:30:31,496
+So, let's see what this looks
+
+682
+00:30:32,306 --> 00:30:36,216
+A shared database is only a view
+
+683
+00:30:36,216 --> 00:30:37,936
+into the owner's
+
+684
+00:30:38,466 --> 00:30:40,816
+So, it doesn't contain
+
+685
+00:30:41,886 --> 00:30:44,436
+When a participant
+
+686
+00:30:45,086 --> 00:30:47,396
+they only see what
+
+687
+00:30:47,666 --> 00:30:49,076
+So, they see the
+
+688
+00:30:50,496 --> 00:30:54,156
+This means there's no two
+
+689
+00:30:54,186 --> 00:30:56,096
+There's only one copy
+
+690
+00:30:56,096 --> 00:30:57,416
+in the owner's private DB.
+
+691
+00:30:57,726 --> 00:31:02,226
+So, this means the owner and all
+
+692
+00:30:57,726 --> 00:31:02,226
+So, this means the owner and all
+
+693
+00:31:02,226 --> 00:31:03,846
+with the same set of records.
+
+694
+00:31:04,276 --> 00:31:07,726
+This kind of contention may
+
+695
+00:31:09,126 --> 00:31:11,826
+To learn how to deal with
+
+696
+00:31:12,176 --> 00:31:15,966
+to a past WWDC talk called
+
+697
+00:31:15,966 --> 00:31:20,376
+Now, a read/write
+
+698
+00:31:20,636 --> 00:31:22,446
+remove and add records.
+
+699
+00:31:23,026 --> 00:31:26,156
+But we don't want
+
+700
+00:31:26,156 --> 00:31:30,196
+to add just anything they
+
+701
+00:31:30,196 --> 00:31:33,026
+For instance, they cannot
+
+702
+00:31:34,306 --> 00:31:37,636
+They also cannot add a record
+
+703
+00:31:37,806 --> 00:31:40,476
+even if it's somehow linked
+
+704
+00:31:41,166 --> 00:31:47,236
+So, the correct way to add a new
+
+705
+00:31:48,456 --> 00:31:52,266
+is to set a Parent Reference and
+
+706
+00:31:53,516 --> 00:31:56,486
+So, even though you're
+
+707
+00:31:57,046 --> 00:31:59,756
+for the participant via
+
+708
+00:32:00,276 --> 00:32:03,006
+that new record lives in
+
+709
+00:32:03,576 --> 00:32:06,886
+So, what this means is
+
+710
+00:32:06,886 --> 00:32:09,676
+by the participant are counted
+
+711
+00:32:10,286 --> 00:32:12,456
+So, the producement's
+
+712
+00:32:13,036 --> 00:32:17,296
+and your developer
+
+713
+00:32:17,296 --> 00:32:19,616
+The owner's private
+
+714
+00:32:19,966 --> 00:32:22,076
+that we store these records
+
+715
+00:32:22,076 --> 00:32:23,006
+against the owner's quota.
+
+716
+00:32:23,646 --> 00:32:26,146
+And that's how you
+
+717
+00:32:26,826 --> 00:32:30,726
+Let's take a closer look
+
+718
+00:32:31,486 --> 00:32:37,736
+So, here we have two Shares
+
+719
+00:32:38,246 --> 00:32:39,416
+but the Shares have
+
+720
+00:32:39,456 --> 00:32:40,886
+so how do you tell
+
+721
+00:32:42,056 --> 00:32:45,066
+Well, we glossed over a very
+
+722
+00:32:45,066 --> 00:32:48,146
+that all records in
+
+723
+00:32:48,516 --> 00:32:52,706
+And a Zone is identified
+
+724
+00:32:54,056 --> 00:32:57,926
+The Zone name is the name of
+
+725
+00:32:58,506 --> 00:33:00,576
+in the owner's private DB.
+
+726
+00:32:58,506 --> 00:33:00,576
+in the owner's private DB.
+
+727
+00:33:00,926 --> 00:33:03,806
+An owner name is the
+
+728
+00:33:04,496 --> 00:33:07,246
+So, in our example, the two
+
+729
+00:33:07,246 --> 00:33:08,206
+but different owners.
+
+730
+00:33:08,526 --> 00:33:11,366
+So, let's say the first
+
+731
+00:33:11,516 --> 00:33:12,506
+but in a different Zone.
+
+732
+00:33:12,866 --> 00:33:15,726
+So when you call the
+
+733
+00:33:16,216 --> 00:33:17,616
+you will see this
+
+734
+00:33:17,856 --> 00:33:20,696
+And then when you call
+
+735
+00:33:21,166 --> 00:33:24,126
+you'll see the new
+
+736
+00:33:24,676 --> 00:33:27,536
+Now, let's say the second
+
+737
+00:33:27,586 --> 00:33:28,736
+but in the existing Zone.
+
+738
+00:33:28,736 --> 00:33:32,216
+Well, this Zone already exists
+
+739
+00:33:32,216 --> 00:33:33,946
+We'll just reuse it.
+
+740
+00:33:34,056 --> 00:33:36,046
+When you call the
+
+741
+00:33:36,046 --> 00:33:38,916
+that this Zone has changed and
+
+742
+00:33:40,076 --> 00:33:41,996
+And that is our shared database.
+
+743
+00:33:43,086 --> 00:33:45,316
+So, let's take this
+
+744
+00:33:45,386 --> 00:33:46,616
+at the CKShare object.
+
+745
+00:33:49,056 --> 00:33:52,056
+So, before the owner
+
+746
+00:33:52,136 --> 00:33:53,446
+they must do something to Share.
+
+747
+00:33:53,806 --> 00:33:56,326
+So, the records describe
+
+748
+00:33:56,996 --> 00:34:01,196
+And the CKShare describes how
+
+749
+00:33:56,996 --> 00:34:01,196
+And the CKShare describes how
+
+750
+00:34:01,876 --> 00:34:05,436
+So, we're going to be
+
+751
+00:34:05,436 --> 00:34:09,255
+So, as Jacob mentioned,
+
+752
+00:34:09,255 --> 00:34:10,856
+but it has some additional
+
+753
+00:34:11,906 --> 00:34:14,656
+And we've been looking at
+
+754
+00:34:14,656 --> 00:34:16,116
+to the lifecycle of a Share.
+
+755
+00:34:16,315 --> 00:34:17,835
+So, we're going to
+
+756
+00:34:18,525 --> 00:34:19,866
+and the owner will
+
+757
+00:34:20,525 --> 00:34:24,606
+And the owner has to decide
+
+758
+00:34:24,606 --> 00:34:25,096
+for the Share.
+
+759
+00:34:25,545 --> 00:34:27,726
+So, in this case the owner
+
+760
+00:34:27,906 --> 00:34:29,795
+because he wants to
+
+761
+00:34:30,746 --> 00:34:32,456
+And let's say he
+
+762
+00:34:33,255 --> 00:34:35,335
+Their status is automatically
+
+763
+00:34:35,846 --> 00:34:38,286
+And then the owner
+
+764
+00:34:38,286 --> 00:34:39,636
+to give to each participant.
+
+765
+00:34:41,456 --> 00:34:42,946
+Then, the owner saves the Share
+
+766
+00:34:43,176 --> 00:34:45,065
+and then he gets a
+
+767
+00:34:45,636 --> 00:34:47,696
+So, there are two
+
+768
+00:34:48,045 --> 00:34:50,485
+One is that the Share
+
+769
+00:34:50,646 --> 00:34:54,376
+And the State says only these
+
+770
+00:34:54,376 --> 00:34:54,646
+the Share.
+
+771
+00:34:55,626 --> 00:34:59,046
+The owner is the one with the
+
+772
+00:34:59,046 --> 00:35:00,726
+to tell people about this URL.
+
+773
+00:34:59,046 --> 00:35:00,726
+to tell people about this URL.
+
+774
+00:35:01,876 --> 00:35:04,026
+So, even if he tells 100
+
+775
+00:35:04,026 --> 00:35:06,786
+only these two participants
+
+776
+00:35:08,126 --> 00:35:09,716
+So, when a participant
+
+777
+00:35:10,296 --> 00:35:11,286
+they accept via the URL.
+
+778
+00:35:11,286 --> 00:35:15,616
+And after that accept,
+
+779
+00:35:15,756 --> 00:35:18,276
+their acceptance
+
+780
+00:35:18,636 --> 00:35:20,266
+And then the permission
+
+781
+00:35:20,266 --> 00:35:22,296
+in the Share is exactly
+
+782
+00:35:23,216 --> 00:35:25,696
+So, now let's say
+
+783
+00:35:25,696 --> 00:35:27,096
+to create a more open share.
+
+784
+00:35:27,586 --> 00:35:28,616
+So, let's start over.
+
+785
+00:35:30,836 --> 00:35:36,036
+The owner sets up a
+
+786
+00:35:36,036 --> 00:35:37,766
+that the public permission
+
+787
+00:35:37,766 --> 00:35:38,246
+or read/write.
+
+788
+00:35:39,786 --> 00:35:41,116
+He doesn't add any participants.
+
+789
+00:35:41,116 --> 00:35:42,156
+He just saves the Share.
+
+790
+00:35:42,426 --> 00:35:44,846
+And then he gets a
+
+791
+00:35:45,596 --> 00:35:47,396
+So, there's still
+
+792
+00:35:47,396 --> 00:35:49,386
+One is that the Share
+
+793
+00:35:50,116 --> 00:35:51,826
+and it says anyone can join.
+
+794
+00:35:52,336 --> 00:35:53,866
+And the owner has a URL.
+
+795
+00:35:54,816 --> 00:35:57,006
+And it's his responsibility
+
+796
+00:35:57,556 --> 00:36:00,796
+So, if he tells 100 people,
+
+797
+00:35:57,556 --> 00:36:00,796
+So, if he tells 100 people,
+
+798
+00:36:01,256 --> 00:36:04,606
+So, when they join, they
+
+799
+00:36:04,606 --> 00:36:06,546
+and then that participant
+
+800
+00:36:06,546 --> 00:36:08,576
+in the Share and accepted state.
+
+801
+00:36:09,686 --> 00:36:11,486
+Their permission is inherited
+
+802
+00:36:11,666 --> 00:36:13,276
+from the Share's
+
+803
+00:36:13,706 --> 00:36:17,956
+And that's how you set up the
+
+804
+00:36:19,216 --> 00:36:22,326
+So, the next phase of
+
+805
+00:36:22,326 --> 00:36:23,366
+when a participant leaves.
+
+806
+00:36:24,086 --> 00:36:27,736
+And a participant
+
+807
+00:36:28,136 --> 00:36:32,406
+by deleting the CKShare
+
+808
+00:36:33,236 --> 00:36:36,826
+This will also remove the shared
+
+809
+00:36:37,016 --> 00:36:39,446
+So, to be clear, the
+
+810
+00:36:39,716 --> 00:36:42,146
+It exists in the
+
+811
+00:36:42,146 --> 00:36:45,376
+It's just that this
+
+812
+00:36:45,376 --> 00:36:46,756
+in the Share in accepted state.
+
+813
+00:36:47,446 --> 00:36:51,736
+And the owner has full
+
+814
+00:36:52,686 --> 00:36:54,246
+so he can remove
+
+815
+00:36:56,066 --> 00:36:57,466
+Let's say he wants
+
+816
+00:36:57,466 --> 00:37:01,886
+He would do that by
+
+817
+00:36:57,466 --> 00:37:01,886
+He would do that by
+
+818
+00:37:01,886 --> 00:37:03,006
+from his private database.
+
+819
+00:37:03,736 --> 00:37:05,596
+This will also remove
+
+820
+00:37:05,596 --> 00:37:06,826
+from the root record
+
+821
+00:37:09,136 --> 00:37:12,496
+And now the owner is back in the
+
+822
+00:37:14,716 --> 00:37:18,916
+So, let's move on and talk about
+
+823
+00:37:19,626 --> 00:37:21,696
+So, if you've seen this object
+
+824
+00:37:21,936 --> 00:37:23,886
+you saw the acceptance
+
+825
+00:37:24,216 --> 00:37:26,476
+But now let's look at
+
+826
+00:37:27,716 --> 00:37:28,986
+This has a look up info.
+
+827
+00:37:28,986 --> 00:37:32,486
+And the look up info is how
+
+828
+00:37:32,486 --> 00:37:33,026
+to the share.
+
+829
+00:37:33,196 --> 00:37:36,916
+So, it will have their email,
+
+830
+00:37:37,976 --> 00:37:40,186
+And the name components
+
+831
+00:37:40,186 --> 00:37:43,476
+and this is populated with
+
+832
+00:37:44,056 --> 00:37:46,056
+the Share.
+
+833
+00:37:46,606 --> 00:37:49,396
+Every CKShareParticipant is
+
+834
+00:37:50,026 --> 00:37:53,986
+So, let's say the owner invites
+
+835
+00:37:53,986 --> 00:37:58,136
+to find iCloud accounts for
+
+836
+00:37:58,136 --> 00:37:59,386
+for participant 3 and 4.
+
+837
+00:37:59,706 --> 00:38:01,076
+This is perfectly okay.
+
+838
+00:37:59,706 --> 00:38:01,076
+This is perfectly okay.
+
+839
+00:38:01,496 --> 00:38:04,186
+CloudKit will create a
+
+840
+00:38:04,306 --> 00:38:05,476
+for participant 3 and 4.
+
+841
+00:38:05,476 --> 00:38:09,306
+And the only people who can
+
+842
+00:38:09,306 --> 00:38:11,506
+and 4 are the ones who can prove
+
+843
+00:38:11,656 --> 00:38:13,666
+that they owned the email
+
+844
+00:38:14,406 --> 00:38:15,456
+that the owner invited
+
+845
+00:38:15,916 --> 00:38:17,586
+This is called the
+
+846
+00:38:18,136 --> 00:38:21,626
+This will link the email
+
+847
+00:38:21,736 --> 00:38:23,286
+so that they never have to go
+
+848
+00:38:23,286 --> 00:38:24,646
+through the verification
+
+849
+00:38:25,186 --> 00:38:29,396
+And that's all the objects
+
+850
+00:38:29,796 --> 00:38:33,166
+So, now let's move on and
+
+851
+00:38:33,956 --> 00:38:36,746
+So, if you want to
+
+852
+00:38:36,916 --> 00:38:38,206
+you can call our APIs.
+
+853
+00:38:38,556 --> 00:38:40,126
+And there are two
+
+854
+00:38:40,616 --> 00:38:42,146
+So, on the behalf of the owner,
+
+855
+00:38:42,766 --> 00:38:43,936
+you can help them
+
+856
+00:38:44,756 --> 00:38:46,036
+On behalf of the participant,
+
+857
+00:38:46,416 --> 00:38:47,776
+you can help them
+
+858
+00:38:48,956 --> 00:38:51,996
+On watchOS and tvOS, there's
+
+859
+00:38:53,226 --> 00:38:56,176
+So, you can ask your user to go
+
+860
+00:38:56,176 --> 00:38:57,476
+up a Share and accept the Share.
+
+861
+00:38:57,866 --> 00:39:01,276
+And then the Share data is
+
+862
+00:38:57,866 --> 00:39:01,276
+And then the Share data is
+
+863
+00:39:02,376 --> 00:39:05,096
+Alternatively, you can
+
+864
+00:39:05,216 --> 00:39:07,346
+And this is how you do it.
+
+865
+00:39:09,116 --> 00:39:12,426
+On behalf of the owner, you
+
+866
+00:39:12,426 --> 00:39:16,766
+You would have to look up by
+
+867
+00:39:17,346 --> 00:39:21,606
+and then translate that to
+
+868
+00:39:21,746 --> 00:39:23,836
+Once you have the
+
+869
+00:39:24,016 --> 00:39:25,326
+add those to the share.
+
+870
+00:39:25,326 --> 00:39:30,146
+And then call CKModifyRecords
+
+871
+00:39:30,966 --> 00:39:34,146
+Now your application
+
+872
+00:39:35,126 --> 00:39:38,516
+And it is up to you, the
+
+873
+00:39:38,836 --> 00:39:41,926
+to tell people about the URL.
+
+874
+00:39:41,926 --> 00:39:43,376
+When a participant
+
+875
+00:39:43,376 --> 00:39:44,916
+we always start with the URL.
+
+876
+00:39:45,596 --> 00:39:50,576
+You first have to convert the
+
+877
+00:39:50,996 --> 00:39:53,196
+and then pass that
+
+878
+00:39:53,436 --> 00:39:55,096
+to the CKAcceptShares operation.
+
+879
+00:39:55,836 --> 00:39:59,466
+Now, the participant will show
+
+880
+00:40:00,136 --> 00:40:04,196
+Now, there are some
+
+881
+00:40:05,726 --> 00:40:07,576
+For privacy reasons,
+
+882
+00:40:07,576 --> 00:40:08,936
+to you their name components.
+
+883
+00:40:09,376 --> 00:40:11,356
+And the verification
+
+884
+00:40:11,916 --> 00:40:13,106
+So, if you get this error
+
+885
+00:40:13,856 --> 00:40:16,656
+or if it has iCloud
+
+886
+00:40:17,616 --> 00:40:20,306
+then you can ask your user to
+
+887
+00:40:20,506 --> 00:40:24,656
+This will trigger the system
+
+888
+00:40:24,656 --> 00:40:25,756
+through the verification flow.
+
+889
+00:40:26,386 --> 00:40:29,376
+And that's our sharing APIs.
+
+890
+00:40:30,356 --> 00:40:32,616
+So, now let's talk
+
+891
+00:40:34,956 --> 00:40:40,836
+A user of your application can
+
+892
+00:40:40,836 --> 00:40:42,556
+email or any phone number.
+
+893
+00:40:43,276 --> 00:40:46,496
+Now, what this means is
+
+894
+00:40:46,496 --> 00:40:48,636
+for your application
+
+895
+00:40:48,856 --> 00:40:49,886
+than your current user base.
+
+896
+00:40:50,806 --> 00:40:53,626
+So, these MIT's may not
+
+897
+00:40:53,626 --> 00:40:54,426
+operating system.
+
+898
+00:40:54,426 --> 00:40:56,286
+They might not even
+
+899
+00:40:56,356 --> 00:41:01,276
+So, when they click on the
+
+900
+00:40:56,356 --> 00:41:01,276
+So, when they click on the
+
+901
+00:41:01,596 --> 00:41:04,316
+And in the example for Notes,
+
+902
+00:41:04,396 --> 00:41:06,756
+They will be asked
+
+903
+00:41:07,226 --> 00:41:09,426
+after which they'll
+
+904
+00:41:10,076 --> 00:41:12,866
+And they can interact
+
+905
+00:41:12,866 --> 00:41:13,796
+like they would on a device.
+
+906
+00:41:15,206 --> 00:41:17,336
+But this is the Notes
+
+907
+00:41:17,336 --> 00:41:18,926
+that lives on iCloud.com.
+
+908
+00:41:19,106 --> 00:41:21,026
+What about your Application?
+
+909
+00:41:21,766 --> 00:41:24,856
+Well, by default, your users
+
+910
+00:41:25,656 --> 00:41:27,416
+It has your App icon
+
+911
+00:41:27,416 --> 00:41:28,896
+to go on the latest device.
+
+912
+00:41:29,706 --> 00:41:32,436
+Which is not the
+
+913
+00:41:33,306 --> 00:41:35,226
+So, I do have some
+
+914
+00:41:35,796 --> 00:41:38,376
+You can go to your
+
+915
+00:41:38,376 --> 00:41:40,446
+and configure a fallback URL.
+
+916
+00:41:41,286 --> 00:41:45,326
+So, when an invitee clicks on
+
+917
+00:41:46,166 --> 00:41:48,816
+we redirect them to
+
+918
+00:41:49,866 --> 00:41:52,676
+We'll append the token
+
+919
+00:41:52,676 --> 00:41:55,926
+for the Share so that you
+
+920
+00:41:56,056 --> 00:42:00,216
+to accept the Share and then
+
+921
+00:41:56,056 --> 00:42:00,216
+to accept the Share and then
+
+922
+00:42:00,366 --> 00:42:02,876
+Now, I hope you're excited
+
+923
+00:42:03,586 --> 00:42:05,366
+There is just one last
+
+924
+00:42:06,346 --> 00:42:09,486
+A CKShare is of this
+
+925
+00:42:09,686 --> 00:42:12,346
+and this record type
+
+926
+00:42:12,346 --> 00:42:13,816
+like any other record
+
+927
+00:42:14,786 --> 00:42:16,556
+You can create custom
+
+928
+00:42:16,556 --> 00:42:17,456
+You can run queries.
+
+929
+00:42:18,426 --> 00:42:22,246
+You also have the first created
+
+930
+00:42:22,986 --> 00:42:27,746
+And the easiest way to create
+
+931
+00:42:27,746 --> 00:42:29,556
+in your dev environment
+
+932
+00:42:29,896 --> 00:42:31,146
+from your private database.
+
+933
+00:42:32,126 --> 00:42:34,516
+This will trigger the
+
+934
+00:42:35,106 --> 00:42:36,676
+And then go to your
+
+935
+00:42:36,676 --> 00:42:38,106
+and deploy your scheme
+
+936
+00:42:38,266 --> 00:42:41,306
+If you don't do this, then users
+
+937
+00:42:41,306 --> 00:42:43,386
+in the production
+
+938
+00:42:43,386 --> 00:42:44,166
+when they create the Share
+
+939
+00:42:44,556 --> 00:42:46,766
+because the record
+
+940
+00:42:47,316 --> 00:42:50,496
+And that wraps it up.
+
+941
+00:42:51,506 --> 00:42:54,256
+So, you learned today that
+
+942
+00:42:54,256 --> 00:42:57,406
+of our platforms including
+
+943
+00:42:57,406 --> 00:43:00,896
+on the web via CloudKit JS.
+
+944
+00:42:57,406 --> 00:43:00,896
+on the web via CloudKit JS.
+
+945
+00:43:01,776 --> 00:43:05,296
+Telemetry is available on
+
+946
+00:43:05,296 --> 00:43:08,266
+It's a great way to visualize
+
+947
+00:43:08,266 --> 00:43:09,636
+including error trends.
+
+948
+00:43:10,106 --> 00:43:14,016
+There are many API improvements
+
+949
+00:43:14,816 --> 00:43:17,856
+[inaudible] and the
+
+950
+00:43:18,336 --> 00:43:20,986
+And now you know all about
+
+951
+00:43:21,616 --> 00:43:24,716
+You've seen this system
+
+952
+00:43:24,716 --> 00:43:28,466
+to create your own custom UI
+
+953
+00:43:28,526 --> 00:43:29,796
+And you've seen all the
+
+954
+00:43:29,796 --> 00:43:32,656
+in sharing including
+
+955
+00:43:33,496 --> 00:43:35,936
+And I bet you will go back and
+
+956
+00:43:36,716 --> 00:43:40,716
+So, I want to thank you for
+
+957
+00:43:41,056 --> 00:43:45,356
+I want to draw your attention
+
+958
+00:43:45,356 --> 00:43:46,746
+It's tomorrow at 9 AM.
+
+959
+00:43:46,816 --> 00:43:49,356
+It's a great session on how to
+
+960
+00:43:50,586 --> 00:43:54,926
+Thank you and enjoy the rest
+
+961
+00:43:55,016 --> 00:43:57,000
+[ Applause ]

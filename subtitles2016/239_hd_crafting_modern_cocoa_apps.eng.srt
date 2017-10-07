@@ -1,0 +1,4059 @@
+1
+00:00:07,516 --> 00:00:19,500
+[ Music ]
+
+2
+00:00:29,516 --> 00:00:34,816
+[ Applause ]
+
+3
+00:00:35,316 --> 00:00:38,116
+&gt;&gt; Hello, welcome to
+
+4
+00:00:38,516 --> 00:00:40,696
+My name's Corbin Dunn, and
+
+5
+00:00:40,696 --> 00:00:41,966
+with my colleague Jeff.
+
+6
+00:00:42,106 --> 00:00:43,686
+We're both AppKit
+
+7
+00:00:44,626 --> 00:00:45,826
+So let's jump right into it.
+
+8
+00:00:46,046 --> 00:00:47,176
+What are we going
+
+9
+00:00:47,176 --> 00:00:48,876
+We have a whole bunch
+
+10
+00:00:49,216 --> 00:00:50,906
+We're going to talk about
+
+11
+00:00:51,406 --> 00:00:53,466
+drag and drop and how
+
+12
+00:00:53,466 --> 00:00:55,466
+container view controls,
+
+13
+00:00:56,066 --> 00:00:59,316
+using some system appearances,
+
+14
+00:00:59,456 --> 00:01:01,106
+and some other cool
+
+15
+00:00:59,456 --> 00:01:01,106
+and some other cool
+
+16
+00:01:01,416 --> 00:01:03,616
+Tons of stuff which
+
+17
+00:01:03,616 --> 00:01:05,176
+with a quick demo
+
+18
+00:01:05,266 --> 00:01:06,566
+that we see in this screen shot.
+
+19
+00:01:07,306 --> 00:01:08,656
+How it's alive in new features
+
+20
+00:01:08,656 --> 00:01:10,206
+or existing features
+
+21
+00:01:11,846 --> 00:01:16,446
+And all these technologies, most
+
+22
+00:01:16,446 --> 00:01:19,386
+on Mac OS 10.10 or
+
+23
+00:01:19,386 --> 00:01:22,546
+to 10.12 we will specifically
+
+24
+00:01:23,216 --> 00:01:25,656
+And this demo app we
+
+25
+00:01:25,656 --> 00:01:27,966
+It's not quite available
+
+26
+00:01:27,966 --> 00:01:30,956
+and it will be associated
+
+27
+00:01:31,156 --> 00:01:33,796
+So let's jump right
+
+28
+00:01:33,796 --> 00:01:37,226
+about creating a modern
+
+29
+00:01:37,226 --> 00:01:39,646
+and what you can do there.
+
+30
+00:01:39,816 --> 00:01:43,566
+So modern look means a modern
+
+31
+00:01:43,896 --> 00:01:45,606
+such as shown in
+
+32
+00:01:46,696 --> 00:01:49,836
+One thing you want to be
+
+33
+00:01:49,896 --> 00:01:50,776
+content view.
+
+34
+00:01:51,416 --> 00:01:54,616
+The full size content view
+
+35
+00:01:54,616 --> 00:01:57,436
+to extend underneath
+
+36
+00:01:57,586 --> 00:01:59,156
+that I'm highlighting
+
+37
+00:01:59,686 --> 00:02:03,346
+And that means that full size
+
+38
+00:01:59,686 --> 00:02:03,346
+And that means that full size
+
+39
+00:02:03,406 --> 00:02:06,106
+automatically blurred by the
+
+40
+00:02:06,296 --> 00:02:07,746
+without you having
+
+41
+00:02:08,205 --> 00:02:11,846
+Using a full size content
+
+42
+00:02:12,106 --> 00:02:13,586
+It's just a window style mask.
+
+43
+00:02:13,756 --> 00:02:16,206
+You can use the
+
+44
+00:02:16,206 --> 00:02:17,126
+on it to include it.
+
+45
+00:02:18,096 --> 00:02:20,746
+Or if you're using Interface
+
+46
+00:02:20,746 --> 00:02:23,626
+check box, full size
+
+47
+00:02:24,676 --> 00:02:28,536
+So if you're using the full
+
+48
+00:02:28,536 --> 00:02:31,566
+to offset your content
+
+49
+00:02:32,246 --> 00:02:34,916
+For instance, let's say
+
+50
+00:02:34,916 --> 00:02:37,536
+that we want underneath
+
+51
+00:02:38,366 --> 00:02:42,426
+We might want to put like
+
+52
+00:02:43,806 --> 00:02:45,896
+If we put that label
+
+53
+00:02:45,896 --> 00:02:48,996
+under that titlebar/toolbar
+
+54
+00:02:48,996 --> 00:02:52,626
+a dynamic height that would
+
+55
+00:02:52,626 --> 00:02:55,176
+to not have a hard
+
+56
+00:02:55,176 --> 00:02:56,966
+because hard coding
+
+57
+00:02:57,546 --> 00:03:01,766
+So what we have is we have the
+
+58
+00:02:57,546 --> 00:03:01,766
+So what we have is we have the
+
+59
+00:03:01,766 --> 00:03:02,616
+on NSWindow.
+
+60
+00:03:03,116 --> 00:03:06,596
+This is a key value observable,
+
+61
+00:03:07,016 --> 00:03:07,996
+which you can use to find
+
+62
+00:03:07,996 --> 00:03:10,316
+out whenever the
+
+63
+00:03:10,316 --> 00:03:11,616
+in turquoise changes.
+
+64
+00:03:12,156 --> 00:03:14,186
+So you can go and place your
+
+65
+00:03:14,296 --> 00:03:16,666
+titlebar/toolbar based on that.
+
+66
+00:03:17,836 --> 00:03:20,516
+But we also encourage you
+
+67
+00:03:20,616 --> 00:03:23,326
+And if you're using auto
+
+68
+00:03:23,326 --> 00:03:26,446
+contentLayoutGuide which
+
+69
+00:03:27,526 --> 00:03:31,106
+For instance, inside of your
+
+70
+00:03:31,106 --> 00:03:33,726
+might be overriding
+
+71
+00:03:34,206 --> 00:03:35,456
+and you want to create
+
+72
+00:03:36,026 --> 00:03:38,296
+You grab the window's
+
+73
+00:03:39,196 --> 00:03:42,286
+tick the top anchor for it,
+
+74
+00:03:42,776 --> 00:03:45,416
+and you create a constraint
+
+75
+00:03:45,566 --> 00:03:49,066
+to that text field's top
+
+76
+00:03:49,066 --> 00:03:53,076
+And if you do that, that text
+
+77
+00:03:53,076 --> 00:03:54,646
+that titlebar/toolbar area
+
+78
+00:03:54,896 --> 00:03:56,336
+without you having
+
+79
+00:03:56,686 --> 00:03:59,526
+It's very simple to do.
+
+80
+00:03:59,766 --> 00:04:02,566
+Next for a modern app
+
+81
+00:03:59,766 --> 00:04:02,566
+Next for a modern app
+
+82
+00:04:02,566 --> 00:04:04,596
+to use a streamlined toolbar.
+
+83
+00:04:05,116 --> 00:04:07,656
+So here's a screen shot
+
+84
+00:04:08,136 --> 00:04:11,436
+The things to notice here is
+
+85
+00:04:11,626 --> 00:04:14,396
+or, sorry, it's got
+
+86
+00:04:14,846 --> 00:04:16,565
+and you would have an icon there
+
+87
+00:04:16,565 --> 00:04:18,565
+if the app actually had
+
+88
+00:04:19,586 --> 00:04:23,516
+If I go to using a streamlined
+
+89
+00:04:24,436 --> 00:04:26,486
+the toolbar is pushed
+
+90
+00:04:27,186 --> 00:04:29,856
+and the window buttons,
+
+91
+00:04:30,726 --> 00:04:33,266
+are directly in line with
+
+92
+00:04:34,666 --> 00:04:37,016
+To do this it's really simple.
+
+93
+00:04:37,266 --> 00:04:40,646
+And all you have to do is set
+
+94
+00:04:40,956 --> 00:04:43,826
+to .hidden, and that
+
+95
+00:04:43,826 --> 00:04:46,236
+the toolbar will be pushed up,
+
+96
+00:04:46,236 --> 00:04:47,996
+When do you want to do this?
+
+97
+00:04:47,996 --> 00:04:49,776
+You probably want to do this
+
+98
+00:04:49,776 --> 00:04:53,766
+of like shoebox applications,
+
+99
+00:04:54,226 --> 00:04:56,826
+system preferences, things
+
+100
+00:04:56,826 --> 00:05:03,456
+of like one window applications
+
+101
+00:04:56,826 --> 00:05:03,456
+of like one window applications
+
+102
+00:05:03,676 --> 00:05:06,116
+So what other things
+
+103
+00:05:06,116 --> 00:05:08,736
+Well, you might want
+
+104
+00:05:08,906 --> 00:05:12,666
+that titlebar/toolbar area with
+
+105
+00:05:13,306 --> 00:05:15,176
+For instance, you might want
+
+106
+00:05:15,176 --> 00:05:18,056
+to have an accessory view
+
+107
+00:05:18,056 --> 00:05:21,426
+the titlebar, and by
+
+108
+00:05:21,496 --> 00:05:22,666
+to automatically be blurred
+
+109
+00:05:22,666 --> 00:05:24,066
+without you having
+
+110
+00:05:24,706 --> 00:05:26,686
+The size to be automatically
+
+111
+00:05:26,686 --> 00:05:29,656
+as the window is resized without
+
+112
+00:05:30,166 --> 00:05:30,976
+So how do you do this?
+
+113
+00:05:32,106 --> 00:05:32,886
+It's really simple.
+
+114
+00:05:33,006 --> 00:05:35,016
+We have a view controller
+
+115
+00:05:35,156 --> 00:05:38,526
+called NSTitlebar
+
+116
+00:05:38,526 --> 00:05:40,076
+set the view to that
+
+117
+00:05:40,796 --> 00:05:43,046
+In addition, it exposes
+
+118
+00:05:43,046 --> 00:05:46,836
+So the layout attribute could be
+
+119
+00:05:46,836 --> 00:05:50,096
+this accessory is going to be on
+
+120
+00:05:50,096 --> 00:05:53,596
+And notice the text appeared
+
+121
+00:05:53,596 --> 00:05:56,186
+we're using the proper
+
+122
+00:05:56,186 --> 00:05:58,466
+in content layout guide
+
+123
+00:05:59,016 --> 00:06:03,636
+In addition to the bottom, the
+
+124
+00:05:59,016 --> 00:06:03,636
+In addition to the bottom, the
+
+125
+00:06:03,636 --> 00:06:05,586
+to leading or trailing.
+
+126
+00:06:05,726 --> 00:06:09,276
+And this means you get a
+
+127
+00:06:09,276 --> 00:06:13,216
+up in your titlebar area
+
+128
+00:06:13,216 --> 00:06:14,896
+or something else that
+
+129
+00:06:15,936 --> 00:06:19,106
+New to macOs 10.12 is the
+
+130
+00:06:19,106 --> 00:06:22,096
+and trailing as opposed
+
+131
+00:06:22,166 --> 00:06:23,316
+which were published before.
+
+132
+00:06:24,106 --> 00:06:25,626
+We prefer you to use
+
+133
+00:06:25,626 --> 00:06:27,926
+because it allows your
+
+134
+00:06:28,226 --> 00:06:30,746
+when you're using a right
+
+135
+00:06:31,176 --> 00:06:34,126
+So, for instance, if I'm just
+
+136
+00:06:34,126 --> 00:06:35,686
+to left mode you can see
+
+137
+00:06:35,686 --> 00:06:38,936
+that that accessory view
+
+138
+00:06:38,936 --> 00:06:43,636
+to the other side without
+
+139
+00:06:43,736 --> 00:06:45,736
+Next we, the system,
+
+140
+00:06:45,736 --> 00:06:48,466
+may actually be adding our
+
+141
+00:06:48,566 --> 00:06:49,426
+to your window.
+
+142
+00:06:49,596 --> 00:06:53,146
+For instance, we might be using
+
+143
+00:06:53,146 --> 00:06:54,876
+where we aggregate
+
+144
+00:06:55,156 --> 00:06:56,976
+into one sort of virtual window.
+
+145
+00:06:58,286 --> 00:07:01,426
+So how do we do tab windows, and
+
+146
+00:06:58,286 --> 00:07:01,426
+So how do we do tab windows, and
+
+147
+00:07:01,976 --> 00:07:03,246
+You don't really
+
+148
+00:07:03,506 --> 00:07:07,106
+If you order a window front what
+
+149
+00:07:07,106 --> 00:07:08,716
+that are similar to that window.
+
+150
+00:07:09,366 --> 00:07:10,846
+And by similar I mean we look
+
+151
+00:07:10,846 --> 00:07:12,856
+for the tabbing identifier
+
+152
+00:07:13,116 --> 00:07:16,136
+If it has the same tabbing
+
+153
+00:07:16,136 --> 00:07:19,226
+to aggregate those windows
+
+154
+00:07:20,316 --> 00:07:22,526
+The windows themselves are all
+
+155
+00:07:22,526 --> 00:07:23,616
+it might be in a hidden tab.
+
+156
+00:07:24,366 --> 00:07:26,596
+But we actually hide them
+
+157
+00:07:27,076 --> 00:07:29,556
+If you're using NSDocument,
+
+158
+00:07:29,556 --> 00:07:32,856
+such as the plus button inside
+
+159
+00:07:32,856 --> 00:07:34,226
+without you having
+
+160
+00:07:34,906 --> 00:07:37,026
+But if you aren't using
+
+161
+00:07:37,026 --> 00:07:39,406
+responder chain method
+
+162
+00:07:39,476 --> 00:07:42,516
+to create a new document or a
+
+163
+00:07:42,996 --> 00:07:46,356
+For more information check out
+
+164
+00:07:46,976 --> 00:07:51,606
+to see more details on this.
+
+165
+00:07:51,856 --> 00:07:53,626
+For more information
+
+166
+00:07:53,796 --> 00:07:56,426
+the accessory view controllers
+
+167
+00:07:56,426 --> 00:07:59,066
+with full screen, I highly
+
+168
+00:07:59,066 --> 00:08:02,306
+from 2015 on improving the
+
+169
+00:07:59,066 --> 00:08:02,306
+from 2015 on improving the
+
+170
+00:08:02,306 --> 00:08:08,436
+Next let's talk a little
+
+171
+00:08:09,176 --> 00:08:10,636
+So what is core animation?
+
+172
+00:08:10,726 --> 00:08:14,266
+Well, it's a graphics
+
+173
+00:08:14,266 --> 00:08:17,416
+of the work on the
+
+174
+00:08:17,836 --> 00:08:21,576
+So everything can be
+
+175
+00:08:22,256 --> 00:08:24,416
+We can do very fast
+
+176
+00:08:25,446 --> 00:08:27,876
+And the base component
+
+177
+00:08:28,476 --> 00:08:32,635
+How we actually create
+
+178
+00:08:32,635 --> 00:08:35,635
+and your views using
+
+179
+00:08:35,635 --> 00:08:38,716
+So this is an example
+
+180
+00:08:38,716 --> 00:08:41,525
+like a background
+
+181
+00:08:41,525 --> 00:08:43,676
+and then a front layer
+
+182
+00:08:44,226 --> 00:08:47,166
+So you want to compose your
+
+183
+00:08:47,696 --> 00:08:48,816
+to create the final look.
+
+184
+00:08:49,376 --> 00:08:53,406
+Let's take a look at some of
+
+185
+00:08:53,406 --> 00:08:56,896
+or CALayer that allow
+
+186
+00:08:56,896 --> 00:08:58,046
+of what you see on screen.
+
+187
+00:08:59,486 --> 00:09:02,006
+Speaking of contents, CALayer
+
+188
+00:08:59,486 --> 00:09:02,006
+Speaking of contents, CALayer
+
+189
+00:09:02,346 --> 00:09:05,796
+The contents property can be
+
+190
+00:09:05,936 --> 00:09:07,906
+that actually represents
+
+191
+00:09:08,326 --> 00:09:09,626
+for that layer's contents.
+
+192
+00:09:10,326 --> 00:09:12,676
+But you could also set
+
+193
+00:09:12,676 --> 00:09:15,666
+such as the background
+
+194
+00:09:15,666 --> 00:09:18,126
+the border width,
+
+195
+00:09:18,456 --> 00:09:20,896
+There are more properties you
+
+196
+00:09:20,896 --> 00:09:23,816
+to see the other things that are
+
+197
+00:09:24,086 --> 00:09:25,986
+So these are some of
+
+198
+00:09:26,036 --> 00:09:29,616
+to actually set how
+
+199
+00:09:29,826 --> 00:09:34,376
+And we're going to talk a little
+
+200
+00:09:34,486 --> 00:09:36,906
+But what you should be doing
+
+201
+00:09:36,906 --> 00:09:37,886
+backed view.
+
+202
+00:09:38,556 --> 00:09:42,686
+So you're going to be using
+
+203
+00:09:43,066 --> 00:09:44,706
+which I'll show in a
+
+204
+00:09:45,366 --> 00:09:47,556
+and that will implicitly
+
+205
+00:09:48,286 --> 00:09:51,046
+And that means that you can
+
+206
+00:09:51,046 --> 00:09:51,746
+draw method.
+
+207
+00:09:52,736 --> 00:09:55,786
+But if you're using layers we'll
+
+208
+00:09:55,786 --> 00:09:58,366
+methods, updateLayer
+
+209
+00:09:59,066 --> 00:10:01,366
+And in just a second I'm going
+
+210
+00:09:59,066 --> 00:10:01,366
+And in just a second I'm going
+
+211
+00:10:01,366 --> 00:10:02,826
+and when you'll want
+
+212
+00:10:03,466 --> 00:10:07,206
+So what do we actually recommend
+
+213
+00:10:07,206 --> 00:10:09,236
+or when should you use core
+
+214
+00:10:09,856 --> 00:10:11,826
+Well, we recommend that
+
+215
+00:10:12,036 --> 00:10:13,016
+content view.
+
+216
+00:10:13,896 --> 00:10:17,446
+And when you layer back one
+
+217
+00:10:17,446 --> 00:10:19,476
+will automatically get
+
+218
+00:10:19,736 --> 00:10:21,736
+without you have
+
+219
+00:10:21,736 --> 00:10:23,796
+for every individual child view.
+
+220
+00:10:25,056 --> 00:10:26,996
+We recommend that
+
+221
+00:10:27,546 --> 00:10:30,896
+and you not use CALayers
+
+222
+00:10:31,246 --> 00:10:34,026
+because that takes care of some
+
+223
+00:10:34,536 --> 00:10:38,456
+such as when a layer is
+
+224
+00:10:38,756 --> 00:10:44,296
+We'll do some more setup
+
+225
+00:10:44,446 --> 00:10:46,106
+Turning on layer
+
+226
+00:10:46,176 --> 00:10:49,286
+On the content view of your
+
+227
+00:10:49,286 --> 00:10:50,106
+to true and code.
+
+228
+00:10:50,106 --> 00:10:53,996
+Or, of course, you can just go
+
+229
+00:10:53,996 --> 00:10:56,446
+and check the checkbox
+
+230
+00:10:56,726 --> 00:11:00,196
+on a top most view.
+
+231
+00:10:56,726 --> 00:11:00,196
+on a top most view.
+
+232
+00:11:00,386 --> 00:11:02,606
+So an important property
+
+233
+00:11:02,856 --> 00:11:07,046
+on layer backed views is the
+
+234
+00:11:07,836 --> 00:11:11,236
+You want to set this
+
+235
+00:11:11,806 --> 00:11:14,196
+which is not the
+
+236
+00:11:15,096 --> 00:11:16,306
+What this means is you
+
+237
+00:11:16,306 --> 00:11:19,736
+as a developer whenever you
+
+238
+00:11:19,736 --> 00:11:23,266
+or the view to change you
+
+239
+00:11:24,156 --> 00:11:25,736
+This is slightly
+
+240
+00:11:25,736 --> 00:11:27,436
+in the way normal
+
+241
+00:11:27,656 --> 00:11:30,016
+where they might actually
+
+242
+00:11:30,016 --> 00:11:32,966
+across changing a frame origin.
+
+243
+00:11:33,056 --> 00:11:36,496
+So it's something you need
+
+244
+00:11:36,496 --> 00:11:39,166
+and it's better for performance
+
+245
+00:11:39,216 --> 00:11:44,026
+So how do you actually get
+
+246
+00:11:44,876 --> 00:11:46,046
+So let's say your view is dirty.
+
+247
+00:11:46,336 --> 00:11:47,546
+You mark SetNeedsDisplay.
+
+248
+00:11:48,246 --> 00:11:52,116
+And what we do is we
+
+249
+00:11:52,556 --> 00:11:54,176
+what do you do for
+
+250
+00:11:54,466 --> 00:11:56,186
+What's your answer
+
+251
+00:11:56,186 --> 00:11:57,736
+And here we fork.
+
+252
+00:11:57,976 --> 00:11:58,726
+If you say yes
+
+253
+00:11:58,726 --> 00:12:01,846
+for wantsUpdateLayer then we're
+
+254
+00:11:58,726 --> 00:12:01,846
+for wantsUpdateLayer then we're
+
+255
+00:12:03,326 --> 00:12:05,776
+If you say no we're
+
+256
+00:12:06,146 --> 00:12:07,436
+So this is a complete fork.
+
+257
+00:12:07,726 --> 00:12:08,566
+It's an either/or.
+
+258
+00:12:10,256 --> 00:12:12,936
+Then you may be wondering, well,
+
+259
+00:12:12,936 --> 00:12:15,876
+when should I use
+
+260
+00:12:17,386 --> 00:12:19,706
+This gets back to what I was
+
+261
+00:12:19,896 --> 00:12:21,236
+and NSLayer properties.
+
+262
+00:12:22,016 --> 00:12:26,836
+So if you can represent your
+
+263
+00:12:26,836 --> 00:12:30,106
+by setting CALayer properties
+
+264
+00:12:30,106 --> 00:12:31,136
+to use updateLayer.
+
+265
+00:12:31,546 --> 00:12:32,896
+It's going to be more efficient.
+
+266
+00:12:33,436 --> 00:12:35,236
+So if you can set
+
+267
+00:12:35,556 --> 00:12:37,716
+layer background color,
+
+268
+00:12:38,376 --> 00:12:40,566
+If you can't, then that's
+
+269
+00:12:40,566 --> 00:12:42,946
+to override draw or drawRect
+
+270
+00:12:43,766 --> 00:12:47,676
+and actually do your manual
+
+271
+00:12:48,186 --> 00:12:50,426
+The thing about doing
+
+272
+00:12:50,426 --> 00:12:53,056
+which implements drawRect
+
+273
+00:12:53,056 --> 00:12:55,246
+backing score which you
+
+274
+00:12:55,416 --> 00:12:58,146
+And so if you have a lot of
+
+275
+00:12:58,456 --> 00:12:59,416
+in particular for memory.
+
+276
+00:12:59,926 --> 00:13:05,796
+Let's take a quick look at an
+
+277
+00:12:59,926 --> 00:13:05,796
+Let's take a quick look at an
+
+278
+00:13:05,796 --> 00:13:06,816
+and how you would use it.
+
+279
+00:13:07,736 --> 00:13:09,896
+So first of all you'll
+
+280
+00:13:10,366 --> 00:13:12,916
+say that you want to get
+
+281
+00:13:12,916 --> 00:13:14,536
+by responding with a true.
+
+282
+00:13:15,326 --> 00:13:17,316
+And then you're going to get
+
+283
+00:13:17,316 --> 00:13:18,906
+where you can actually
+
+284
+00:13:19,176 --> 00:13:22,266
+So we access the view's
+
+285
+00:13:22,686 --> 00:13:24,106
+and the self.layer
+
+286
+00:13:24,106 --> 00:13:25,896
+or whatever other
+
+287
+00:13:25,896 --> 00:13:27,386
+and you set it at this time.
+
+288
+00:13:27,966 --> 00:13:34,826
+So that was talking about modern
+
+289
+00:13:34,826 --> 00:13:35,836
+for the titlebar/toolbar.
+
+290
+00:13:36,186 --> 00:13:39,426
+Let's talk about drag and drop
+
+291
+00:13:40,576 --> 00:13:42,426
+So modern drag and drop,
+
+292
+00:13:43,346 --> 00:13:46,646
+what you should be doing is
+
+293
+00:13:46,646 --> 00:13:47,666
+in this video right here.
+
+294
+00:13:48,256 --> 00:13:51,636
+Drag flocking is where each
+
+295
+00:13:51,636 --> 00:13:55,046
+independently and flock
+
+296
+00:13:55,046 --> 00:13:58,326
+And when you let go of the mouse
+
+297
+00:13:58,396 --> 00:14:00,036
+to where their original
+
+298
+00:13:58,396 --> 00:14:00,036
+to where their original
+
+299
+00:14:01,396 --> 00:14:05,146
+To use drag flocking you
+
+300
+00:14:05,416 --> 00:14:08,366
+beginDraggingSession,
+
+301
+00:14:08,726 --> 00:14:11,816
+of the actual items that you
+
+302
+00:14:12,566 --> 00:14:14,256
+It's very simple to do.
+
+303
+00:14:15,466 --> 00:14:18,446
+For more complex
+
+304
+00:14:18,756 --> 00:14:21,316
+or collection view we
+
+305
+00:14:21,316 --> 00:14:22,456
+for you to adopt these.
+
+306
+00:14:22,816 --> 00:14:25,236
+So for table view you should
+
+307
+00:14:25,236 --> 00:14:25,916
+delegate method.
+
+308
+00:14:26,446 --> 00:14:28,466
+tableView pasteboardWriter
+
+309
+00:14:28,936 --> 00:14:32,036
+where it can provide an
+
+310
+00:14:32,036 --> 00:14:35,196
+item for every item in a table
+
+311
+00:14:35,686 --> 00:14:39,266
+As opposed to the older
+
+312
+00:14:39,636 --> 00:14:42,066
+to a pasteboard where you
+
+313
+00:14:42,066 --> 00:14:43,596
+in one go to the pasteboard.
+
+314
+00:14:45,516 --> 00:14:50,426
+Similarly, collection view
+
+315
+00:14:50,426 --> 00:14:51,766
+that look very similar to that.
+
+316
+00:14:52,096 --> 00:14:54,096
+And for collection view
+
+317
+00:14:54,096 --> 00:14:56,566
+pasteboardWriter
+
+318
+00:14:56,566 --> 00:14:57,966
+as opposed to the other version.
+
+319
+00:14:58,546 --> 00:15:03,926
+So with drag flocking new to
+
+320
+00:14:58,546 --> 00:15:03,926
+So with drag flocking new to
+
+321
+00:15:03,926 --> 00:15:05,616
+for drag file promises.
+
+322
+00:15:06,076 --> 00:15:08,176
+This may be a reason why you
+
+323
+00:15:08,396 --> 00:15:09,266
+up until this point.
+
+324
+00:15:10,016 --> 00:15:12,036
+And you can use NSFile
+
+325
+00:15:12,036 --> 00:15:14,736
+and NSFile PromiseProvider
+
+326
+00:15:14,736 --> 00:15:16,066
+and writing of file promises.
+
+327
+00:15:16,766 --> 00:15:18,586
+Take a look at the talk,
+
+328
+00:15:18,586 --> 00:15:23,376
+for more information and
+
+329
+00:15:23,586 --> 00:15:25,826
+So let's take a look
+
+330
+00:15:25,916 --> 00:15:27,516
+And let's say you
+
+331
+00:15:27,976 --> 00:15:30,006
+And let's say it has a
+
+332
+00:15:30,006 --> 00:15:31,896
+So you have this button.
+
+333
+00:15:32,326 --> 00:15:35,566
+And what you want to happen
+
+334
+00:15:35,566 --> 00:15:38,736
+on that button down and up it
+
+335
+00:15:38,786 --> 00:15:41,266
+You will do some action
+
+336
+00:15:42,606 --> 00:15:45,866
+But you also want to be aware
+
+337
+00:15:46,146 --> 00:15:49,336
+and if you actually drag the
+
+338
+00:15:49,996 --> 00:15:52,956
+So how to get both those
+
+339
+00:15:52,956 --> 00:15:55,976
+modern way that works well
+
+340
+00:15:56,366 --> 00:15:59,626
+Well, first of all let's
+
+341
+00:15:59,626 --> 00:16:01,226
+and how you'll track
+
+342
+00:15:59,626 --> 00:16:01,226
+and how you'll track
+
+343
+00:16:01,876 --> 00:16:04,986
+And this window has a method
+
+344
+00:16:05,106 --> 00:16:06,646
+with a timeout mode handler.
+
+345
+00:16:07,106 --> 00:16:09,106
+And the handler is
+
+346
+00:16:10,066 --> 00:16:12,826
+We prefer that you use this
+
+347
+00:16:12,886 --> 00:16:16,776
+on NSApplication which was
+
+348
+00:16:17,576 --> 00:16:19,616
+With the older method you
+
+349
+00:16:20,316 --> 00:16:22,776
+With the newer method you
+
+350
+00:16:22,776 --> 00:16:24,166
+to do your work.
+
+351
+00:16:25,836 --> 00:16:28,306
+Taking a look at a
+
+352
+00:16:28,306 --> 00:16:31,456
+in that button we subclass
+
+353
+00:16:33,076 --> 00:16:34,196
+The first thing we're going
+
+354
+00:16:34,196 --> 00:16:38,076
+to do inside this mouseDown
+
+355
+00:16:38,146 --> 00:16:39,596
+We want to track
+
+356
+00:16:39,596 --> 00:16:41,776
+for the drag and
+
+357
+00:16:42,476 --> 00:16:46,676
+If the user did a click,
+
+358
+00:16:47,146 --> 00:16:49,546
+then we're going to just be
+
+359
+00:16:49,876 --> 00:16:52,406
+and we're going to say,
+
+360
+00:16:52,406 --> 00:16:55,076
+for super because that way
+
+361
+00:16:55,076 --> 00:16:55,996
+like an NS button.
+
+362
+00:16:56,916 --> 00:16:58,226
+But here's the extra part.
+
+363
+00:16:58,506 --> 00:17:01,396
+Let's say you click and
+
+364
+00:16:58,506 --> 00:17:01,396
+Let's say you click and
+
+365
+00:17:01,396 --> 00:17:03,626
+and drag inside this
+
+366
+00:17:03,626 --> 00:17:07,626
+out if you went far enough, if
+
+367
+00:17:07,705 --> 00:17:10,626
+to pass off to the window
+
+368
+00:17:12,346 --> 00:17:16,266
+And so what that means is when
+
+369
+00:17:16,266 --> 00:17:19,266
+of the window the window and
+
+370
+00:17:19,266 --> 00:17:20,925
+over dragging the
+
+371
+00:17:21,945 --> 00:17:24,256
+You should not be dragging
+
+372
+00:17:24,256 --> 00:17:26,646
+by calling set frame again
+
+373
+00:17:27,646 --> 00:17:30,676
+If you pass off to the system
+
+374
+00:17:30,896 --> 00:17:35,036
+if your application hangs,
+
+375
+00:17:35,036 --> 00:17:37,936
+to be moveable even if your
+
+376
+00:17:38,546 --> 00:17:40,866
+In addition, other
+
+377
+00:17:41,366 --> 00:17:44,426
+such as space switching,
+
+378
+00:17:44,476 --> 00:17:46,156
+down when you move to
+
+379
+00:17:46,666 --> 00:17:48,086
+window snapping,
+
+380
+00:17:48,746 --> 00:17:50,256
+Any other new system
+
+381
+00:17:50,256 --> 00:17:52,306
+with window movement
+
+382
+00:17:52,476 --> 00:17:53,636
+without you having
+
+383
+00:17:54,366 --> 00:17:57,386
+So we encourage you to
+
+384
+00:17:57,386 --> 00:17:58,366
+by calling performDrag.
+
+385
+00:17:59,016 --> 00:18:03,286
+So that was talking
+
+386
+00:17:59,016 --> 00:18:03,286
+So that was talking
+
+387
+00:18:03,286 --> 00:18:04,576
+a little bit about
+
+388
+00:18:04,816 --> 00:18:07,846
+Let's talk about container
+
+389
+00:18:07,846 --> 00:18:08,976
+to handle those properly.
+
+390
+00:18:09,976 --> 00:18:12,586
+So container view controls we
+
+391
+00:18:12,586 --> 00:18:13,656
+table view at this point.
+
+392
+00:18:14,146 --> 00:18:16,486
+And you do that by using the
+
+393
+00:18:16,486 --> 00:18:20,586
+40, or inside of an interface
+
+394
+00:18:21,126 --> 00:18:23,116
+up directly in interface
+
+395
+00:18:23,646 --> 00:18:27,306
+And why you want to do it is
+
+396
+00:18:27,306 --> 00:18:30,336
+on that video new features
+
+397
+00:18:30,606 --> 00:18:32,786
+which only exists in the
+
+398
+00:18:33,376 --> 00:18:36,196
+To do the swipe to
+
+399
+00:18:36,616 --> 00:18:39,486
+There's a table view
+
+400
+00:18:39,486 --> 00:18:42,516
+on a particular edge, the left
+
+401
+00:18:42,586 --> 00:18:43,776
+leading or trailing edge.
+
+402
+00:18:44,006 --> 00:18:46,706
+And you can return an
+
+403
+00:18:46,706 --> 00:18:48,506
+or a zero or more row actions.
+
+404
+00:18:49,026 --> 00:18:52,476
+In the NSTableView
+
+405
+00:18:52,476 --> 00:18:56,586
+to create a string value for
+
+406
+00:18:57,236 --> 00:19:00,776
+and a handler to actually
+
+407
+00:18:57,236 --> 00:19:00,776
+and a handler to actually
+
+408
+00:19:00,776 --> 00:19:03,516
+when the user clicks on the
+
+409
+00:19:03,516 --> 00:19:07,426
+to actually invoke it.
+
+410
+00:19:07,706 --> 00:19:11,516
+Next let's talk about ScrollView
+
+411
+00:19:11,996 --> 00:19:14,106
+So for using all these
+
+412
+00:19:14,106 --> 00:19:17,306
+about let's say that we
+
+413
+00:19:17,306 --> 00:19:21,076
+or let's say we take the window
+
+414
+00:19:21,216 --> 00:19:22,926
+titlebar appears transparent
+
+415
+00:19:23,216 --> 00:19:24,926
+which makes the titlebar
+
+416
+00:19:25,436 --> 00:19:27,506
+Applications like Messages
+
+417
+00:19:28,476 --> 00:19:29,886
+to allow the contents
+
+418
+00:19:30,256 --> 00:19:32,356
+So here we can see
+
+419
+00:19:32,356 --> 00:19:38,026
+That ScrollView on the side is
+
+420
+00:19:38,026 --> 00:19:39,136
+the titlebar/toolbar area
+
+421
+00:19:39,136 --> 00:19:40,666
+and would automatically
+
+422
+00:19:41,286 --> 00:19:42,706
+But this presents a dilemma.
+
+423
+00:19:43,336 --> 00:19:46,756
+How do you get that ScrollView
+
+424
+00:19:46,756 --> 00:19:49,666
+so that you don't have to add
+
+425
+00:19:49,666 --> 00:19:50,916
+or anything really weird?
+
+426
+00:19:51,596 --> 00:19:54,056
+And it's very convenient
+
+427
+00:19:54,256 --> 00:19:57,976
+ScrollView has a method or a
+
+428
+00:19:58,376 --> 00:20:01,976
+that allows you to drop the
+
+429
+00:19:58,376 --> 00:20:01,976
+that allows you to drop the
+
+430
+00:20:02,046 --> 00:20:03,766
+In fact, we can do
+
+431
+00:20:03,826 --> 00:20:05,586
+so we have a property
+
+432
+00:20:05,586 --> 00:20:06,506
+ContentInsets.
+
+433
+00:20:07,216 --> 00:20:09,426
+And if you set that to
+
+434
+00:20:09,426 --> 00:20:11,486
+to do is ScrollView
+
+435
+00:20:11,556 --> 00:20:14,386
+to track the contentLayoutRect
+
+436
+00:20:14,826 --> 00:20:16,766
+and automatically set
+
+437
+00:20:16,926 --> 00:20:18,506
+to be the appropriate
+
+438
+00:20:19,076 --> 00:20:23,356
+But you as a developer may
+
+439
+00:20:23,356 --> 00:20:24,326
+of the content insets.
+
+440
+00:20:24,616 --> 00:20:26,446
+You might want to drop
+
+441
+00:20:26,806 --> 00:20:28,836
+and add some other
+
+442
+00:20:28,836 --> 00:20:30,726
+like a search field
+
+443
+00:20:31,616 --> 00:20:35,236
+And an example of where we do
+
+444
+00:20:35,236 --> 00:20:37,666
+down a little bit and adds
+
+445
+00:20:38,536 --> 00:20:40,296
+That's how we accomplish
+
+446
+00:20:40,296 --> 00:20:41,456
+in our system applications.
+
+447
+00:20:41,936 --> 00:20:45,916
+Next let's talk about
+
+448
+00:20:46,786 --> 00:20:47,966
+You should be using auto layout,
+
+449
+00:20:48,586 --> 00:20:50,546
+and you should be using
+
+450
+00:20:51,386 --> 00:20:54,526
+Which means that all your nymphs
+
+451
+00:20:54,526 --> 00:20:57,136
+of multiple copies
+
+452
+00:20:57,136 --> 00:20:58,326
+and different localizations.
+
+453
+00:20:58,906 --> 00:21:01,006
+You shouldn't use fixed
+
+454
+00:20:58,906 --> 00:21:01,006
+You shouldn't use fixed
+
+455
+00:21:01,386 --> 00:21:05,686
+You want to use controls to have
+
+456
+00:21:05,686 --> 00:21:06,856
+of hard coding sizes.
+
+457
+00:21:07,576 --> 00:21:08,886
+Prefer to use StackView.
+
+458
+00:21:09,366 --> 00:21:10,756
+Use leading and trailing
+
+459
+00:21:10,756 --> 00:21:11,566
+All these things are right
+
+460
+00:21:11,756 --> 00:21:14,426
+for creating a properly
+
+461
+00:21:15,696 --> 00:21:18,186
+But let's take a look at some of
+
+462
+00:21:18,186 --> 00:21:21,096
+In particular let's look
+
+463
+00:21:21,196 --> 00:21:22,546
+Layout and Mirror section.
+
+464
+00:21:23,716 --> 00:21:26,276
+So the text direction
+
+465
+00:21:26,636 --> 00:21:29,326
+It has natural, left to
+
+466
+00:21:30,036 --> 00:21:33,726
+Natural means that the actual
+
+467
+00:21:33,726 --> 00:21:35,976
+at the string value that
+
+468
+00:21:35,976 --> 00:21:38,126
+like a text field, look
+
+469
+00:21:38,656 --> 00:21:40,096
+And if that string is a right
+
+470
+00:21:40,096 --> 00:21:43,776
+to left string then
+
+471
+00:21:43,776 --> 00:21:45,196
+in the direction right to left.
+
+472
+00:21:45,566 --> 00:21:49,046
+If it's a left to right string
+
+473
+00:21:49,256 --> 00:21:51,716
+Or you can manually control
+
+474
+00:21:51,716 --> 00:21:52,816
+to right or right to left.
+
+475
+00:21:53,606 --> 00:21:57,166
+The next property is the
+
+476
+00:21:58,056 --> 00:21:59,466
+which is key to layout.
+
+477
+00:21:59,556 --> 00:22:02,436
+And it has either left to
+
+478
+00:21:59,556 --> 00:22:02,436
+And it has either left to
+
+479
+00:22:03,686 --> 00:22:06,426
+System controls such as table
+
+480
+00:22:06,426 --> 00:22:07,186
+and may do things
+
+481
+00:22:07,186 --> 00:22:09,226
+like automatically
+
+482
+00:22:09,296 --> 00:22:10,466
+when it's set to right to left.
+
+483
+00:22:11,296 --> 00:22:13,866
+The default here is
+
+484
+00:22:14,906 --> 00:22:18,066
+But the interesting thing
+
+485
+00:22:18,146 --> 00:22:19,626
+because it's a little confusing.
+
+486
+00:22:19,936 --> 00:22:22,476
+So if mirroring is set
+
+487
+00:22:22,476 --> 00:22:24,076
+that userInterface
+
+488
+00:22:24,296 --> 00:22:27,296
+the last property we just
+
+489
+00:22:27,296 --> 00:22:30,426
+from left to right to right
+
+490
+00:22:30,426 --> 00:22:33,026
+to left localization
+
+491
+00:22:33,576 --> 00:22:38,206
+And it will also flip other
+
+492
+00:22:38,206 --> 00:22:39,806
+like the cell image
+
+493
+00:22:40,066 --> 00:22:42,806
+So the button's image is on
+
+494
+00:22:42,806 --> 00:22:44,636
+and put it on the right
+
+495
+00:22:45,986 --> 00:22:49,046
+But one property that we won't
+
+496
+00:22:49,546 --> 00:22:51,016
+If you have it set
+
+497
+00:22:51,016 --> 00:22:52,936
+or natural those don't
+
+498
+00:22:52,936 --> 00:22:55,256
+so we won't flip them.
+
+499
+00:22:55,466 --> 00:22:57,516
+So then you might
+
+500
+00:22:57,516 --> 00:22:59,556
+when do I actually not
+
+501
+00:23:00,086 --> 00:23:02,906
+Well, you might want to
+
+502
+00:23:03,206 --> 00:23:06,516
+when you want a control that has
+
+503
+00:23:06,516 --> 00:23:07,316
+like a play button,
+
+504
+00:23:07,316 --> 00:23:09,086
+a fast forward button
+
+505
+00:23:09,616 --> 00:23:13,796
+And then these are all
+
+506
+00:23:13,876 --> 00:23:15,636
+so how do you actually
+
+507
+00:23:16,516 --> 00:23:19,676
+So in code you actually have
+
+508
+00:23:19,676 --> 00:23:21,256
+for the user interface
+
+509
+00:23:21,656 --> 00:23:23,906
+If it's set to left to right
+
+510
+00:23:23,936 --> 00:23:27,006
+to say, hey button, I want
+
+511
+00:23:27,316 --> 00:23:29,146
+when it's in a left
+
+512
+00:23:29,496 --> 00:23:31,256
+And I want that image to
+
+513
+00:23:31,256 --> 00:23:32,666
+in a right to left localization.
+
+514
+00:23:32,986 --> 00:23:34,546
+You have to manually do this.
+
+515
+00:23:35,126 --> 00:23:37,726
+But to make it a
+
+516
+00:23:37,726 --> 00:23:40,776
+in 10.12 we added a
+
+517
+00:23:41,116 --> 00:23:45,136
+and an init method which allows
+
+518
+00:23:45,136 --> 00:23:48,886
+a target and an action and
+
+519
+00:23:48,886 --> 00:23:49,526
+happen for you.
+
+520
+00:23:50,086 --> 00:23:54,916
+So that's it for
+
+521
+00:23:55,096 --> 00:23:57,016
+I'm going to bring up Jeff
+
+522
+00:23:57,016 --> 00:23:58,686
+storyboards and some
+
+523
+00:23:59,166 --> 00:23:59,476
+Thank you.
+
+524
+00:24:00,516 --> 00:24:04,636
+[ Applause ]
+
+525
+00:24:05,136 --> 00:24:05,776
+&gt;&gt; All right, thanks, Corbin.
+
+526
+00:24:06,076 --> 00:24:09,176
+We got an absolute ton of
+
+527
+00:24:09,176 --> 00:24:11,606
+so I'm going to dive right
+
+528
+00:24:12,976 --> 00:24:14,416
+So here's our app.
+
+529
+00:24:14,416 --> 00:24:16,266
+We've been looking at
+
+530
+00:24:16,266 --> 00:24:19,776
+And we're trying to
+
+531
+00:24:20,166 --> 00:24:21,376
+And we've decided that we want
+
+532
+00:24:21,376 --> 00:24:23,776
+to adopt this really
+
+533
+00:24:23,776 --> 00:24:27,416
+This is kind of characteristic
+
+534
+00:24:27,746 --> 00:24:29,506
+And we're nothing
+
+535
+00:24:29,506 --> 00:24:30,746
+with our little demo app here.
+
+536
+00:24:32,186 --> 00:24:34,416
+But look at this, this
+
+537
+00:24:34,416 --> 00:24:37,816
+We have an entirely different
+
+538
+00:24:38,146 --> 00:24:40,216
+we need all our control
+
+539
+00:24:40,296 --> 00:24:42,546
+segmented controls,
+
+540
+00:24:43,086 --> 00:24:46,386
+And all of our text
+
+541
+00:24:46,386 --> 00:24:48,216
+from dark text to light text.
+
+542
+00:24:49,076 --> 00:24:52,016
+Which seems like an awful lot of
+
+543
+00:24:52,016 --> 00:24:54,296
+in one line of code
+
+544
+00:24:55,046 --> 00:24:58,086
+All we've got to do is create
+
+545
+00:24:58,266 --> 00:24:59,236
+assign it to the window,
+
+546
+00:24:59,236 --> 00:25:01,266
+and it's automatically
+
+547
+00:24:59,236 --> 00:25:01,266
+and it's automatically
+
+548
+00:25:02,146 --> 00:25:04,896
+You can think of an appearance
+
+549
+00:25:04,896 --> 00:25:08,386
+and artwork that we use
+
+550
+00:25:08,386 --> 00:25:09,966
+of our standard system controls
+
+551
+00:25:09,966 --> 00:25:12,266
+and also all of our
+
+552
+00:25:12,266 --> 00:25:14,626
+These are things like
+
+553
+00:25:14,626 --> 00:25:16,956
+And for that reason
+
+554
+00:25:16,956 --> 00:25:18,896
+that you use these
+
+555
+00:25:19,116 --> 00:25:22,276
+Not only do you fit in better
+
+556
+00:25:22,646 --> 00:25:25,276
+but you'll continue to fit in if
+
+557
+00:25:25,276 --> 00:25:27,216
+or if you change your
+
+558
+00:25:28,036 --> 00:25:29,376
+So let's take a closer look.
+
+559
+00:25:30,076 --> 00:25:30,796
+Here we've got a panel.
+
+560
+00:25:30,836 --> 00:25:33,656
+It's got tons of nice labels,
+
+561
+00:25:34,546 --> 00:25:36,556
+And all we have to do is
+
+562
+00:25:36,846 --> 00:25:38,716
+and we see a pretty
+
+563
+00:25:38,916 --> 00:25:41,626
+Our control artwork has changed,
+
+564
+00:25:41,626 --> 00:25:43,196
+of course, inverted
+
+565
+00:25:43,196 --> 00:25:45,926
+We can actually take
+
+566
+00:25:46,286 --> 00:25:48,996
+and apply this cool
+
+567
+00:25:48,996 --> 00:25:51,336
+You may have noticed a slide
+
+568
+00:25:51,336 --> 00:25:52,906
+that we applied is
+
+569
+00:25:53,116 --> 00:25:55,516
+That doesn't mean that you're
+
+570
+00:25:55,516 --> 00:25:57,186
+but it does mean that
+
+571
+00:25:57,226 --> 00:25:58,536
+in a vibrant context.
+
+572
+00:25:59,036 --> 00:26:01,976
+And to get this appearance
+
+573
+00:25:59,036 --> 00:26:01,976
+And to get this appearance
+
+574
+00:26:01,976 --> 00:26:04,786
+of your controls as a subview
+
+575
+00:26:05,166 --> 00:26:07,126
+And you'll automatically
+
+576
+00:26:07,126 --> 00:26:09,186
+blurring and also
+
+577
+00:26:09,326 --> 00:26:10,176
+for everything on top.
+
+578
+00:26:10,176 --> 00:26:13,256
+Now, you might be thinking
+
+579
+00:26:13,596 --> 00:26:17,146
+but my designer has this
+
+580
+00:26:17,146 --> 00:26:18,666
+that they want for
+
+581
+00:26:18,976 --> 00:26:20,886
+and so I'm not going
+
+582
+00:26:20,886 --> 00:26:23,646
+I think that I'm not planning
+
+583
+00:26:23,646 --> 00:26:26,276
+or vice versa so I'm
+
+584
+00:26:26,896 --> 00:26:30,716
+Well, let's have some
+
+585
+00:26:31,046 --> 00:26:33,756
+Let's check in with
+
+586
+00:26:33,756 --> 00:26:34,716
+and we're going to
+
+587
+00:26:34,716 --> 00:26:36,676
+in the middle here
+
+588
+00:26:36,676 --> 00:26:38,246
+And let's see what
+
+589
+00:26:38,246 --> 00:26:42,076
+On the left we again
+
+590
+00:26:42,636 --> 00:26:44,576
+But on the right
+
+591
+00:26:44,576 --> 00:26:46,156
+with Increase contrast
+
+592
+00:26:46,736 --> 00:26:49,336
+And although we haven't
+
+593
+00:26:49,336 --> 00:26:51,506
+this transformation is
+
+594
+00:26:51,886 --> 00:26:53,836
+as the transformation
+
+595
+00:26:54,266 --> 00:26:56,606
+You can see that the window
+
+596
+00:26:56,606 --> 00:26:59,066
+lighter, our text is
+
+597
+00:26:59,066 --> 00:27:00,906
+and all of our controls have
+
+598
+00:26:59,066 --> 00:27:00,906
+and all of our controls have
+
+599
+00:27:00,906 --> 00:27:01,916
+bold outline.
+
+600
+00:27:02,116 --> 00:27:04,036
+It makes it really pop
+
+601
+00:27:04,946 --> 00:27:07,906
+Now, when you provide a
+
+602
+00:27:07,906 --> 00:27:09,126
+really second guess that.
+
+603
+00:27:09,126 --> 00:27:11,046
+We can't adjust for
+
+604
+00:27:11,486 --> 00:27:16,086
+And so if you don't supply
+
+605
+00:27:16,086 --> 00:27:18,826
+secondary label color, you
+
+606
+00:27:18,826 --> 00:27:21,266
+to people who need settings
+
+607
+00:27:21,266 --> 00:27:23,816
+to get the most out
+
+608
+00:27:24,136 --> 00:27:27,356
+Now I hinted a moment ago at
+
+609
+00:27:27,356 --> 00:27:29,956
+We're not going to go into
+
+610
+00:27:29,956 --> 00:27:31,826
+but I would refer
+
+611
+00:27:31,826 --> 00:27:34,526
+in 2014 that's Adopting
+
+612
+00:27:34,526 --> 00:27:36,396
+of the new UI of OS X Yosemite.
+
+613
+00:27:36,866 --> 00:27:38,446
+And that's appearances.
+
+614
+00:27:38,676 --> 00:27:41,626
+It's a real simple way to theme
+
+615
+00:27:41,626 --> 00:27:43,976
+harmonious with the overall
+
+616
+00:27:44,426 --> 00:27:46,606
+Next up storyboards.
+
+617
+00:27:48,266 --> 00:27:49,886
+Storyboards are a
+
+618
+00:27:49,886 --> 00:27:52,746
+to design not only the
+
+619
+00:27:52,746 --> 00:27:54,756
+and the views that comprise
+
+620
+00:27:55,116 --> 00:27:56,906
+but also visually
+
+621
+00:27:56,906 --> 00:27:58,256
+between those components.
+
+622
+00:27:59,126 --> 00:28:01,796
+In this case when I say
+
+623
+00:27:59,126 --> 00:28:01,796
+In this case when I say
+
+624
+00:28:01,796 --> 00:28:03,976
+in terms of controllers,
+
+625
+00:28:03,976 --> 00:28:04,956
+and view controllers.
+
+626
+00:28:05,596 --> 00:28:07,796
+And we connect them together
+
+627
+00:28:07,796 --> 00:28:09,706
+those are the arrows up
+
+628
+00:28:09,706 --> 00:28:12,986
+And segues abstract away
+
+629
+00:28:13,526 --> 00:28:15,056
+of putting these
+
+630
+00:28:15,296 --> 00:28:18,236
+Those are things like adding
+
+631
+00:28:18,346 --> 00:28:20,796
+creating popovers,
+
+632
+00:28:20,796 --> 00:28:29,536
+Now, one thing that we need to
+
+633
+00:28:30,226 --> 00:28:32,156
+when we have separable
+
+634
+00:28:32,156 --> 00:28:33,626
+you can see I've got
+
+635
+00:28:33,766 --> 00:28:35,276
+and you can see the
+
+636
+00:28:35,276 --> 00:28:37,076
+all these new little components
+
+637
+00:28:37,786 --> 00:28:40,926
+that every piece of UI
+
+638
+00:28:40,926 --> 00:28:43,416
+that it wants to
+
+639
+00:28:43,896 --> 00:28:47,516
+And we can't necessarily
+
+640
+00:28:47,516 --> 00:28:48,606
+from one scene to another.
+
+641
+00:28:48,606 --> 00:28:51,136
+Of course, if we did that
+
+642
+00:28:51,136 --> 00:28:53,866
+components anymore, and then
+
+643
+00:28:53,866 --> 00:28:54,456
+of this whole thing.
+
+644
+00:28:55,036 --> 00:28:57,486
+But sometimes this
+
+645
+00:28:57,486 --> 00:29:01,046
+on doesn't really live conically
+
+646
+00:28:57,486 --> 00:29:01,046
+on doesn't really live conically
+
+647
+00:29:01,046 --> 00:29:02,076
+in down in our leaf node.
+
+648
+00:29:02,396 --> 00:29:03,516
+Sometimes it might
+
+649
+00:29:03,516 --> 00:29:04,976
+up on the window
+
+650
+00:29:05,486 --> 00:29:07,856
+So how do we propagate
+
+651
+00:29:07,856 --> 00:29:11,316
+up from the top level
+
+652
+00:29:11,996 --> 00:29:14,786
+Well, we have a couple of
+
+653
+00:29:14,786 --> 00:29:17,056
+and fast rules but
+
+654
+00:29:17,056 --> 00:29:19,306
+that we think are good
+
+655
+00:29:20,216 --> 00:29:23,816
+For one, dependencies should
+
+656
+00:29:24,236 --> 00:29:26,466
+If you're wondering, if you
+
+657
+00:29:26,466 --> 00:29:29,606
+for this just follow the
+
+658
+00:29:30,526 --> 00:29:33,306
+If nothing else this gives you a
+
+659
+00:29:33,306 --> 00:29:34,486
+flow in your application,
+
+660
+00:29:34,826 --> 00:29:36,646
+and that makes it a lot
+
+661
+00:29:37,246 --> 00:29:40,586
+Next try to reduce the
+
+662
+00:29:40,586 --> 00:29:43,816
+about your UI structure that
+
+663
+00:29:43,816 --> 00:29:47,816
+Now, you just got done designing
+
+664
+00:29:47,816 --> 00:29:50,266
+And if you hardcode
+
+665
+00:29:50,266 --> 00:29:53,226
+that structure is put together
+
+666
+00:29:53,226 --> 00:29:55,616
+to make a change to your
+
+667
+00:29:55,616 --> 00:29:56,016
+and forth.
+
+668
+00:29:56,016 --> 00:29:57,676
+You've got to change your
+
+669
+00:29:57,676 --> 00:29:58,876
+and now you're fighting
+
+670
+00:29:59,406 --> 00:29:59,976
+Let's not do that.
+
+671
+00:30:00,236 --> 00:30:03,326
+Let's have our code focus
+
+672
+00:30:03,326 --> 00:30:05,446
+on designing our interface
+
+673
+00:30:06,486 --> 00:30:09,396
+And one technique that we
+
+674
+00:30:09,396 --> 00:30:10,806
+to use protocol conformances
+
+675
+00:30:10,806 --> 00:30:12,626
+to work really generically
+
+676
+00:30:12,626 --> 00:30:15,106
+So here's an example.
+
+677
+00:30:15,816 --> 00:30:16,946
+Let's say we have
+
+678
+00:30:16,946 --> 00:30:18,396
+it's up on our window
+
+679
+00:30:18,676 --> 00:30:20,896
+and we want to automatically
+
+680
+00:30:21,096 --> 00:30:23,386
+to anything in our view
+
+681
+00:30:23,996 --> 00:30:25,976
+So in our didSet we're
+
+682
+00:30:25,976 --> 00:30:27,216
+and call this propagate method.
+
+683
+00:30:27,976 --> 00:30:29,026
+And we've got this protocol
+
+684
+00:30:29,026 --> 00:30:31,596
+that we've defined off screen
+
+685
+00:30:32,196 --> 00:30:34,396
+And this just says I
+
+686
+00:30:34,396 --> 00:30:35,346
+with a photoController.
+
+687
+00:30:36,066 --> 00:30:39,336
+And so if we look at a
+
+688
+00:30:39,336 --> 00:30:41,166
+that it conforms to
+
+689
+00:30:41,166 --> 00:30:41,736
+the property.
+
+690
+00:30:41,926 --> 00:30:45,306
+And then we also automatically
+
+691
+00:30:45,306 --> 00:30:46,536
+to all of its children.
+
+692
+00:30:49,276 --> 00:30:54,696
+But what about things like
+
+693
+00:30:54,696 --> 00:30:56,046
+things that are kind
+
+694
+00:30:56,636 --> 00:30:58,086
+These probably don't exist
+
+695
+00:30:58,086 --> 00:30:59,596
+when you're setting
+
+696
+00:31:00,136 --> 00:31:01,996
+And we need to be able
+
+697
+00:31:02,076 --> 00:31:04,326
+on demand before they
+
+698
+00:31:05,026 --> 00:31:07,516
+And that's exactly what the
+
+699
+00:31:08,436 --> 00:31:10,446
+This is called on the
+
+700
+00:31:10,486 --> 00:31:13,716
+or window controller at the time
+
+701
+00:31:14,136 --> 00:31:17,976
+And in this case instead of
+
+702
+00:31:17,976 --> 00:31:21,846
+or segue identifier forcibly
+
+703
+00:31:21,846 --> 00:31:23,746
+that we expect it to be
+
+704
+00:31:23,746 --> 00:31:26,796
+of specific setup, here we're
+
+705
+00:31:27,376 --> 00:31:29,376
+We're checking out what
+
+706
+00:31:29,716 --> 00:31:31,366
+and then setting the
+
+707
+00:31:31,936 --> 00:31:34,976
+And what this does is
+
+708
+00:31:34,976 --> 00:31:39,296
+from focusing really strictly
+
+709
+00:31:39,296 --> 00:31:41,026
+We're saying I have
+
+710
+00:31:41,296 --> 00:31:43,926
+and anything that's presented
+
+711
+00:31:43,926 --> 00:31:46,886
+that knowledge automatically
+
+712
+00:31:47,106 --> 00:31:47,786
+It's really handy.
+
+713
+00:31:48,316 --> 00:31:50,506
+More about actions.
+
+714
+00:31:51,246 --> 00:31:54,146
+It's really frequent
+
+715
+00:31:54,146 --> 00:31:57,496
+to handle an action that's
+
+716
+00:31:57,496 --> 00:32:00,686
+in the same scene that
+
+717
+00:31:57,496 --> 00:32:00,686
+in the same scene that
+
+718
+00:32:00,686 --> 00:32:03,386
+And this is exemplified
+
+719
+00:32:03,386 --> 00:32:06,066
+in their own little scene
+
+720
+00:32:06,066 --> 00:32:06,616
+from your UI.
+
+721
+00:32:07,886 --> 00:32:10,316
+And luckily we have a
+
+722
+00:32:10,316 --> 00:32:12,916
+for handling this case, and
+
+723
+00:32:13,626 --> 00:32:15,686
+If you're coming from
+
+724
+00:32:15,686 --> 00:32:17,716
+where maybe you don't use
+
+725
+00:32:17,716 --> 00:32:21,806
+so heavily, that is that little
+
+726
+00:32:21,806 --> 00:32:23,246
+of every storyboard scene.
+
+727
+00:32:23,246 --> 00:32:25,006
+That's a proxy for
+
+728
+00:32:25,596 --> 00:32:28,156
+And so if you hook up
+
+729
+00:32:28,156 --> 00:32:31,046
+to that proxy it will
+
+730
+00:32:31,046 --> 00:32:33,286
+up the responder chain when
+
+731
+00:32:34,486 --> 00:32:36,486
+But what if there's no
+
+732
+00:32:36,486 --> 00:32:37,306
+that handles your method?
+
+733
+00:32:38,316 --> 00:32:40,436
+Or what if in the case of zoom
+
+734
+00:32:40,436 --> 00:32:43,216
+in it's not always
+
+735
+00:32:43,666 --> 00:32:46,086
+For example, we might be
+
+736
+00:32:46,086 --> 00:32:49,006
+and so we don't want our zoom
+
+737
+00:32:49,406 --> 00:32:51,796
+We should be able to look
+
+738
+00:32:51,796 --> 00:32:54,196
+And that's what UI
+
+739
+00:32:55,056 --> 00:32:57,466
+So let's take a look
+
+740
+00:32:57,466 --> 00:33:00,756
+that would inspect UI
+
+741
+00:32:57,466 --> 00:33:00,756
+that would inspect UI
+
+742
+00:33:00,756 --> 00:33:01,976
+if a control is actionable.
+
+743
+00:33:01,976 --> 00:33:05,226
+The first thing that we're
+
+744
+00:33:05,536 --> 00:33:08,476
+for the target for an
+
+745
+00:33:09,376 --> 00:33:11,106
+And what that does is it
+
+746
+00:33:11,106 --> 00:33:13,326
+responder chain and
+
+747
+00:33:13,326 --> 00:33:14,956
+that implements that action.
+
+748
+00:33:15,356 --> 00:33:16,966
+Or it might not find any action,
+
+749
+00:33:17,006 --> 00:33:18,546
+or it might not find
+
+750
+00:33:20,596 --> 00:33:21,856
+The first case we want to look
+
+751
+00:33:21,856 --> 00:33:24,236
+at for the results
+
+752
+00:33:24,236 --> 00:33:26,196
+that implements the
+
+753
+00:33:26,196 --> 00:33:27,366
+validations protocol.
+
+754
+00:33:27,516 --> 00:33:30,146
+And this just means you
+
+755
+00:33:30,416 --> 00:33:31,476
+if a control is valid.
+
+756
+00:33:31,996 --> 00:33:33,946
+And so if you're on the
+
+757
+00:33:33,986 --> 00:33:37,556
+and you have a control that
+
+758
+00:33:37,556 --> 00:33:38,466
+implement this method.
+
+759
+00:33:39,046 --> 00:33:40,736
+And controls like NSMenuItem
+
+760
+00:33:40,736 --> 00:33:42,626
+and toolbar item will
+
+761
+00:33:42,626 --> 00:33:43,396
+against that method.
+
+762
+00:33:43,806 --> 00:33:45,396
+So we can ask that method.
+
+763
+00:33:45,796 --> 00:33:48,736
+And then, of course, we also
+
+764
+00:33:48,736 --> 00:33:51,966
+that just handles the method
+
+765
+00:33:51,966 --> 00:33:52,996
+at all which clearly means
+
+766
+00:33:52,996 --> 00:33:54,606
+that we're not prepared
+
+767
+00:33:55,256 --> 00:33:58,426
+And there's just some techniques
+
+768
+00:33:59,046 --> 00:34:02,076
+So now we've been talking
+
+769
+00:33:59,046 --> 00:34:02,076
+So now we've been talking
+
+770
+00:34:02,326 --> 00:34:05,676
+of design time facets
+
+771
+00:34:06,116 --> 00:34:07,986
+Let's look at some more
+
+772
+00:34:07,986 --> 00:34:10,126
+that really help you make
+
+773
+00:34:11,065 --> 00:34:13,585
+And the first of those
+
+774
+00:34:14,025 --> 00:34:18,496
+NSUserActivity is this
+
+775
+00:34:18,496 --> 00:34:21,946
+of what your app is doing
+
+776
+00:34:21,946 --> 00:34:23,686
+what is it editing, etcetera.
+
+777
+00:34:24,576 --> 00:34:27,396
+And this is the object
+
+778
+00:34:27,396 --> 00:34:29,536
+to move those activities
+
+779
+00:34:29,536 --> 00:34:32,386
+It kind of takes your whole
+
+780
+00:34:32,806 --> 00:34:37,656
+I won't have time to go into the
+
+781
+00:34:37,656 --> 00:34:38,985
+but I do want to
+
+782
+00:34:38,985 --> 00:34:40,206
+of an object this really is.
+
+783
+00:34:41,346 --> 00:34:42,735
+You construct it
+
+784
+00:34:43,246 --> 00:34:44,585
+and that is a unique identifier
+
+785
+00:34:44,585 --> 00:34:46,106
+that describes the
+
+786
+00:34:46,846 --> 00:34:49,866
+And this is also a key that you
+
+787
+00:34:49,866 --> 00:34:51,775
+to declare I'm a
+
+788
+00:34:51,775 --> 00:34:53,576
+up this activity
+
+789
+00:34:54,186 --> 00:34:57,486
+And then you just fill in
+
+790
+00:34:57,486 --> 00:35:01,436
+to describe your activity,
+
+791
+00:34:57,486 --> 00:35:01,436
+to describe your activity,
+
+792
+00:35:01,436 --> 00:35:02,636
+and also some user info.
+
+793
+00:35:03,046 --> 00:35:07,006
+Basically just the most basic
+
+794
+00:35:07,116 --> 00:35:09,656
+to jump back into that
+
+795
+00:35:10,326 --> 00:35:11,906
+We want to keep this
+
+796
+00:35:11,906 --> 00:35:13,756
+because it's often
+
+797
+00:35:13,756 --> 00:35:16,536
+and we definitely want our
+
+798
+00:35:17,876 --> 00:35:19,616
+We also get an opportunity
+
+799
+00:35:20,056 --> 00:35:22,676
+to add the absolute
+
+800
+00:35:22,676 --> 00:35:24,516
+about our context right before
+
+801
+00:35:24,516 --> 00:35:27,116
+or at some point before
+
+802
+00:35:27,686 --> 00:35:30,566
+And this is called at some
+
+803
+00:35:30,566 --> 00:35:31,656
+as needing to be saved.
+
+804
+00:35:31,656 --> 00:35:33,046
+And we'll call this
+
+805
+00:35:33,176 --> 00:35:34,696
+so you can fill in
+
+806
+00:35:35,076 --> 00:35:39,566
+Now, how do we decide
+
+807
+00:35:39,566 --> 00:35:40,326
+current activity?
+
+808
+00:35:40,326 --> 00:35:41,186
+Because, of course, we need
+
+809
+00:35:41,186 --> 00:35:44,556
+to certainly determine what
+
+810
+00:35:45,026 --> 00:35:47,626
+Well, you can manually manage
+
+811
+00:35:47,626 --> 00:35:49,946
+and resign current
+
+812
+00:35:50,476 --> 00:35:52,156
+That means that you're
+
+813
+00:35:52,156 --> 00:35:54,726
+to follow your user around
+
+814
+00:35:54,726 --> 00:35:56,846
+out what they clicked
+
+815
+00:35:56,846 --> 00:35:57,586
+out what they're doing.
+
+816
+00:35:58,256 --> 00:36:01,226
+AppKit can make this a
+
+817
+00:35:58,256 --> 00:36:01,226
+AppKit can make this a
+
+818
+00:36:01,226 --> 00:36:03,756
+to attach activities
+
+819
+00:36:03,756 --> 00:36:05,006
+for automatic management.
+
+820
+00:36:06,436 --> 00:36:08,776
+For an example of this let's say
+
+821
+00:36:09,146 --> 00:36:11,166
+which looks a lot
+
+822
+00:36:11,786 --> 00:36:14,436
+And we have two activities
+
+823
+00:36:14,436 --> 00:36:15,356
+into our responder chain.
+
+824
+00:36:15,796 --> 00:36:18,706
+We've got a higher level
+
+825
+00:36:18,706 --> 00:36:20,626
+that we're looking at,
+
+826
+00:36:20,626 --> 00:36:22,986
+that we have here, and then
+
+827
+00:36:22,986 --> 00:36:24,816
+activity for the specific event
+
+828
+00:36:24,946 --> 00:36:27,796
+that we want to view
+
+829
+00:36:27,796 --> 00:36:31,856
+And by attaching these to the
+
+830
+00:36:31,856 --> 00:36:33,576
+that event and make it
+
+831
+00:36:34,116 --> 00:36:36,196
+that activity becomes
+
+832
+00:36:36,196 --> 00:36:38,346
+in the responder chain
+
+833
+00:36:38,346 --> 00:36:40,486
+And it becomes current
+
+834
+00:36:42,116 --> 00:36:44,836
+Now, you may not have
+
+835
+00:36:44,836 --> 00:36:47,716
+or the NSUserActivity
+
+836
+00:36:47,996 --> 00:36:50,206
+maybe you don't have
+
+837
+00:36:50,206 --> 00:36:51,176
+or you just haven't
+
+838
+00:36:51,176 --> 00:36:54,816
+that Handoff is especially
+
+839
+00:36:54,816 --> 00:36:55,836
+and your specific needs.
+
+840
+00:36:56,206 --> 00:36:58,656
+But activities are
+
+841
+00:36:59,316 --> 00:37:01,286
+New in Sierra we
+
+842
+00:36:59,316 --> 00:37:01,286
+New in Sierra we
+
+843
+00:37:01,636 --> 00:37:03,276
+and Siri uses the
+
+844
+00:37:03,276 --> 00:37:05,316
+to provide context to commands.
+
+845
+00:37:06,076 --> 00:37:08,686
+So, for example, if you
+
+846
+00:37:08,766 --> 00:37:11,386
+at some date, Siri is
+
+847
+00:37:11,386 --> 00:37:12,636
+to mean your current activity.
+
+848
+00:37:12,636 --> 00:37:14,746
+And it will actually
+
+849
+00:37:14,746 --> 00:37:16,876
+and embed it inside
+
+850
+00:37:16,876 --> 00:37:18,696
+so that you can pick
+
+851
+00:37:19,196 --> 00:37:21,496
+So we see activities as
+
+852
+00:37:21,496 --> 00:37:23,036
+for describing this
+
+853
+00:37:23,266 --> 00:37:24,466
+It's not just for Handoff.
+
+854
+00:37:25,046 --> 00:37:27,026
+Now, for full information
+
+855
+00:37:27,026 --> 00:37:29,156
+about the Handoff API I
+
+856
+00:37:29,156 --> 00:37:33,676
+from 2014, Adopting
+
+857
+00:37:33,806 --> 00:37:35,816
+That covers a lot more
+
+858
+00:37:35,816 --> 00:37:38,456
+like continuation streams
+
+859
+00:37:38,456 --> 00:37:39,566
+of data between devices.
+
+860
+00:37:42,356 --> 00:37:44,346
+The next feature, resume,
+
+861
+00:37:44,496 --> 00:37:46,256
+which we sometimes
+
+862
+00:37:46,906 --> 00:37:48,566
+It's one of the best
+
+863
+00:37:48,566 --> 00:37:50,046
+that when you quit
+
+864
+00:37:50,046 --> 00:37:52,976
+and then relaunch it, it
+
+865
+00:37:52,976 --> 00:37:53,376
+left it.
+
+866
+00:37:53,426 --> 00:37:56,696
+In fact, that happens if
+
+867
+00:37:56,696 --> 00:37:57,746
+or even reboot your machine.
+
+868
+00:37:57,746 --> 00:37:59,926
+Everything just comes back
+
+869
+00:38:00,926 --> 00:38:06,766
+Now, clearly to accomplish
+
+870
+00:38:06,766 --> 00:38:10,676
+of the UI state that builds up
+
+871
+00:38:10,676 --> 00:38:11,766
+when the app relaunches.
+
+872
+00:38:12,826 --> 00:38:14,986
+But clearly we don't want to
+
+873
+00:38:14,986 --> 00:38:17,036
+It doesn't really belong there.
+
+874
+00:38:17,566 --> 00:38:21,346
+So a state restoration API gives
+
+875
+00:38:21,346 --> 00:38:24,186
+that UI state separately,
+
+876
+00:38:24,186 --> 00:38:26,386
+to restore that state
+
+877
+00:38:26,656 --> 00:38:28,686
+but before your UI
+
+878
+00:38:29,776 --> 00:38:31,316
+You enable it on a
+
+879
+00:38:31,656 --> 00:38:32,326
+It's pretty simple.
+
+880
+00:38:32,326 --> 00:38:33,836
+You just say isRestorable
+
+881
+00:38:33,896 --> 00:38:36,706
+And then you may provide
+
+882
+00:38:37,046 --> 00:38:40,896
+that just handles the act
+
+883
+00:38:41,146 --> 00:38:42,486
+from the encoded data.
+
+884
+00:38:42,926 --> 00:38:44,716
+And good news if
+
+885
+00:38:44,916 --> 00:38:46,586
+NSDocument handles
+
+886
+00:38:47,496 --> 00:38:49,616
+Now, what kind of state
+
+887
+00:38:50,586 --> 00:38:54,316
+Well, we might choose
+
+888
+00:38:54,316 --> 00:38:55,536
+that we have active in our app.
+
+889
+00:38:56,446 --> 00:38:59,466
+We might also want to save
+
+890
+00:38:59,466 --> 00:39:01,956
+what's selected, what
+
+891
+00:38:59,466 --> 00:39:01,956
+what's selected, what
+
+892
+00:39:03,106 --> 00:39:03,956
+How do we do that?
+
+893
+00:39:04,976 --> 00:39:07,776
+Well, if you've used
+
+894
+00:39:07,776 --> 00:39:08,366
+really simple.
+
+895
+00:39:09,506 --> 00:39:12,676
+The first method
+
+896
+00:39:12,806 --> 00:39:13,376
+with coder.
+
+897
+00:39:14,216 --> 00:39:16,066
+You implement this on
+
+898
+00:39:16,066 --> 00:39:18,206
+and then it's just
+
+899
+00:39:18,206 --> 00:39:19,726
+but for your controllers
+
+900
+00:39:20,186 --> 00:39:25,566
+Another important call is
+
+901
+00:39:25,566 --> 00:39:29,206
+And this just says
+
+902
+00:39:29,446 --> 00:39:32,396
+for encodeFestorableState
+
+903
+00:39:33,046 --> 00:39:34,646
+And we'll schedule to
+
+904
+00:39:34,646 --> 00:39:36,526
+that state again
+
+905
+00:39:37,066 --> 00:39:40,316
+And then finally
+
+906
+00:39:40,346 --> 00:39:42,036
+It's exactly like you'd expect.
+
+907
+00:39:42,036 --> 00:39:43,186
+It's a lot like a
+
+908
+00:39:43,896 --> 00:39:47,276
+All you have to do is call
+
+909
+00:39:47,276 --> 00:39:50,246
+that you've encoded before,
+
+910
+00:39:50,246 --> 00:39:51,776
+on that information
+
+911
+00:39:52,486 --> 00:39:55,376
+Now, that's pretty easy,
+
+912
+00:39:55,376 --> 00:39:57,326
+but we can actually
+
+913
+00:39:57,996 --> 00:40:00,086
+All you have to do is
+
+914
+00:39:57,996 --> 00:40:00,086
+All you have to do is
+
+915
+00:40:00,086 --> 00:40:01,726
+restorableState KeyPaths.
+
+916
+00:40:02,226 --> 00:40:03,496
+Of course, we're
+
+917
+00:40:03,496 --> 00:40:04,696
+because that's the
+
+918
+00:40:04,696 --> 00:40:06,986
+but then we also append
+
+919
+00:40:07,426 --> 00:40:08,796
+And these are the
+
+920
+00:40:08,796 --> 00:40:11,186
+to have automatically
+
+921
+00:40:11,186 --> 00:40:13,306
+and restored by the system.
+
+922
+00:40:13,706 --> 00:40:15,416
+These properties need to be KVC,
+
+923
+00:40:15,416 --> 00:40:16,906
+that's key value
+
+924
+00:40:16,906 --> 00:40:19,186
+because we access them by
+
+925
+00:40:19,186 --> 00:40:22,576
+to be observable so that we
+
+926
+00:40:22,576 --> 00:40:23,656
+or state when they change.
+
+927
+00:40:25,036 --> 00:40:26,776
+And that's state restoration.
+
+928
+00:40:27,276 --> 00:40:29,856
+The third and final technology
+
+929
+00:40:29,926 --> 00:40:30,966
+documents in the cloud.
+
+930
+00:40:32,186 --> 00:40:35,196
+So once upon a time
+
+931
+00:40:35,196 --> 00:40:37,596
+in the cloud you actually
+
+932
+00:40:37,596 --> 00:40:38,486
+and create a container.
+
+933
+00:40:39,096 --> 00:40:40,406
+But these days with iCloud Drive
+
+934
+00:40:40,406 --> 00:40:42,316
+and now especially
+
+935
+00:40:42,316 --> 00:40:45,086
+and Documents it's
+
+936
+00:40:45,086 --> 00:40:47,636
+that your app is working with
+
+937
+00:40:48,416 --> 00:40:51,756
+Now, this is important because
+
+938
+00:40:51,756 --> 00:40:54,346
+of documents might be
+
+939
+00:40:54,536 --> 00:40:56,516
+And this means that you might
+
+940
+00:40:56,876 --> 00:40:59,496
+that aren't actually
+
+941
+00:41:00,676 --> 00:41:01,826
+So how do we handle this?
+
+942
+00:41:01,826 --> 00:41:02,826
+That seems pretty scary.
+
+943
+00:41:03,706 --> 00:41:06,986
+Luckily, first off if you're
+
+944
+00:41:06,986 --> 00:41:08,886
+everything for you so
+
+945
+00:41:09,726 --> 00:41:10,846
+But if not you need to make sure
+
+946
+00:41:10,846 --> 00:41:12,466
+that you're using
+
+947
+00:41:13,176 --> 00:41:15,706
+If you register yourself
+
+948
+00:41:15,776 --> 00:41:18,016
+with the file coordination
+
+949
+00:41:18,016 --> 00:41:20,456
+that your document is not
+
+950
+00:41:20,916 --> 00:41:21,676
+which is a good thing.
+
+951
+00:41:22,406 --> 00:41:24,646
+And then next if you
+
+952
+00:41:24,716 --> 00:41:28,266
+to coordination your IO on
+
+953
+00:41:28,266 --> 00:41:31,526
+that we schedule
+
+954
+00:41:31,666 --> 00:41:33,926
+after the entire file
+
+955
+00:41:34,756 --> 00:41:36,736
+And that's documents
+
+956
+00:41:37,596 --> 00:41:39,186
+Now, there are a
+
+957
+00:41:39,186 --> 00:41:40,976
+that we didn't have time
+
+958
+00:41:40,976 --> 00:41:42,286
+to give an honorable mention to.
+
+959
+00:41:42,626 --> 00:41:46,006
+The first is asset
+
+960
+00:41:46,006 --> 00:41:47,576
+than having loose
+
+961
+00:41:47,636 --> 00:41:48,986
+And they can also
+
+962
+00:41:48,986 --> 00:41:50,716
+like wide gamut and
+
+963
+00:41:51,756 --> 00:41:54,206
+Accessibility, extremely
+
+964
+00:41:54,566 --> 00:41:57,306
+Cocoa puts really powerful
+
+965
+00:41:57,346 --> 00:41:59,106
+within an arm's reach
+
+966
+00:41:59,666 --> 00:42:01,736
+And it's extremely
+
+967
+00:41:59,666 --> 00:42:01,736
+And it's extremely
+
+968
+00:42:01,736 --> 00:42:04,486
+that you learn to use voice
+
+969
+00:42:04,486 --> 00:42:06,106
+of these accessible
+
+970
+00:42:06,106 --> 00:42:07,356
+that your app is
+
+971
+00:42:07,856 --> 00:42:11,166
+You would never ship an app with
+
+972
+00:42:11,246 --> 00:42:14,176
+so don't ship an app that
+
+973
+00:42:14,176 --> 00:42:15,016
+to accessibility.
+
+974
+00:42:16,766 --> 00:42:20,976
+Sandboxing and also XPC
+
+975
+00:42:20,976 --> 00:42:22,426
+but somewhat related
+
+976
+00:42:22,756 --> 00:42:25,486
+in that they help you isolate
+
+977
+00:42:25,486 --> 00:42:26,626
+and from other processes.
+
+978
+00:42:27,106 --> 00:42:29,896
+Sandboxing is, of course,
+
+979
+00:42:29,896 --> 00:42:31,486
+but it's appropriate
+
+980
+00:42:32,076 --> 00:42:35,376
+And XPC services can help
+
+981
+00:42:35,556 --> 00:42:36,986
+into separate processes.
+
+982
+00:42:38,216 --> 00:42:40,606
+This is really great
+
+983
+00:42:40,996 --> 00:42:43,526
+code that's handling
+
+984
+00:42:43,526 --> 00:42:45,406
+or doing some kind
+
+985
+00:42:45,626 --> 00:42:48,946
+We all like to think that our
+
+986
+00:42:49,446 --> 00:42:52,496
+we also wear seatbelts in our
+
+987
+00:42:52,496 --> 00:42:56,736
+that it's there if
+
+988
+00:42:56,946 --> 00:43:00,056
+So we have covered an
+
+989
+00:42:56,946 --> 00:43:00,056
+So we have covered an
+
+990
+00:43:00,056 --> 00:43:01,276
+in a very short amount of time.
+
+991
+00:43:01,276 --> 00:43:03,146
+So I want to rewind
+
+992
+00:43:03,146 --> 00:43:06,266
+that we all remember what
+
+993
+00:43:06,426 --> 00:43:09,556
+And we started off by looking
+
+994
+00:43:10,306 --> 00:43:13,066
+with our modern view and window
+
+995
+00:43:13,066 --> 00:43:14,476
+great animation performance.
+
+996
+00:43:15,116 --> 00:43:17,716
+Then we talked about drag
+
+997
+00:43:17,816 --> 00:43:20,436
+making sure that you get the
+
+998
+00:43:20,436 --> 00:43:22,506
+effect, modern drag
+
+999
+00:43:23,456 --> 00:43:26,096
+Then we covered container views
+
+1000
+00:43:26,416 --> 00:43:28,176
+and making sure that we
+
+1001
+00:43:29,656 --> 00:43:32,686
+Then we walked into system
+
+1002
+00:43:33,086 --> 00:43:35,126
+and also a couple of
+
+1003
+00:43:35,126 --> 00:43:36,936
+that really make
+
+1004
+00:43:36,936 --> 00:43:38,626
+and really take advantage of it.
+
+1005
+00:43:39,296 --> 00:43:40,436
+Here's the permalink
+
+1006
+00:43:40,826 --> 00:43:44,216
+You should find related
+
+1007
+00:43:44,216 --> 00:43:46,096
+download for our demo
+
+1008
+00:43:46,096 --> 00:43:47,156
+as it becomes available.
+
+1009
+00:43:47,386 --> 00:43:50,196
+All of our related
+
+1010
+00:43:50,196 --> 00:43:51,486
+I hope you were able
+
+1011
+00:43:51,486 --> 00:43:53,076
+If not, then you
+
+1012
+00:43:53,076 --> 00:43:54,386
+out the videos online.
+
+1013
+00:43:55,296 --> 00:43:56,296
+And that's a wrap.
+
+1014
+00:43:56,296 --> 00:43:56,976
+Thank you for attending.
+
+1015
+00:43:57,516 --> 00:44:01,500
+[ Applause ]

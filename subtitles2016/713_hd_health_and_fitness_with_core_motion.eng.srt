@@ -1,0 +1,2963 @@
+1
+00:00:07,516 --> 00:00:17,500
+[ Music ]
+
+2
+00:00:21,516 --> 00:00:27,076
+[ Applause ]
+
+3
+00:00:27,576 --> 00:00:28,096
+&gt;&gt; Thank you.
+
+4
+00:00:29,076 --> 00:00:29,856
+Hello everyone.
+
+5
+00:00:30,446 --> 00:00:32,665
+A very good afternoon
+
+6
+00:00:33,376 --> 00:00:34,616
+My name is Bharath Rao.
+
+7
+00:00:34,616 --> 00:00:36,796
+I'm an engineer with
+
+8
+00:00:37,136 --> 00:00:39,496
+and today I'm really
+
+9
+00:00:39,496 --> 00:00:41,596
+about health and fitness.
+
+10
+00:00:42,506 --> 00:00:45,516
+In this talk, I'll be showing
+
+11
+00:00:45,516 --> 00:00:49,716
+framework to add some
+
+12
+00:00:49,716 --> 00:00:53,236
+and fitness features
+
+13
+00:00:53,296 --> 00:00:55,876
+Before we get started, for
+
+14
+00:00:55,876 --> 00:00:58,106
+to Core Motion, I'd like
+
+15
+00:00:58,106 --> 00:00:59,676
+out some of our past sessions.
+
+16
+00:01:00,006 --> 00:01:01,786
+They have some excellent
+
+17
+00:01:01,786 --> 00:01:06,426
+about how sensors work, and
+
+18
+00:01:06,426 --> 00:01:08,736
+those sensors to provide APIs
+
+19
+00:01:09,186 --> 00:01:13,936
+that help your apps
+
+20
+00:01:13,936 --> 00:01:16,256
+and Device Motion,
+
+21
+00:01:16,706 --> 00:01:17,376
+Go check them out.
+
+22
+00:01:18,796 --> 00:01:20,876
+So with that, let's get started.
+
+23
+00:01:21,606 --> 00:01:23,416
+Here's what we have in
+
+24
+00:01:23,996 --> 00:01:26,326
+I have an update to the
+
+25
+00:01:26,326 --> 00:01:27,606
+that I would like
+
+26
+00:01:29,046 --> 00:01:31,766
+We have a new pedometer
+
+27
+00:01:31,766 --> 00:01:34,396
+both for the iPhone
+
+28
+00:01:35,596 --> 00:01:38,996
+And finally, we are also
+
+29
+00:01:39,136 --> 00:01:41,526
+to Apple Watch, with watchOS 3.
+
+30
+00:01:43,426 --> 00:01:45,296
+Thank you.
+
+31
+00:01:46,696 --> 00:01:51,366
+First up is Historical
+
+32
+00:01:54,256 --> 00:01:57,826
+Last year, we introduced
+
+33
+00:01:58,246 --> 00:02:01,226
+With this API, now
+
+34
+00:01:58,246 --> 00:02:01,226
+With this API, now
+
+35
+00:02:01,226 --> 00:02:04,816
+to raw accelerometer samples,
+
+36
+00:02:05,236 --> 00:02:09,175
+And you can also get this
+
+37
+00:02:09,175 --> 00:02:11,406
+After your apps have
+
+38
+00:02:11,406 --> 00:02:14,076
+to start recording these
+
+39
+00:02:14,076 --> 00:02:16,826
+And the OS will offer
+
+40
+00:02:16,826 --> 00:02:18,356
+even across device sleeps.
+
+41
+00:02:18,466 --> 00:02:21,536
+And when your app is ready to
+
+42
+00:02:21,716 --> 00:02:24,466
+and make a query,
+
+43
+00:02:24,466 --> 00:02:26,276
+of those buffered samples.
+
+44
+00:02:28,766 --> 00:02:32,436
+In watchOS 3, we have a
+
+45
+00:02:32,516 --> 00:02:34,926
+First of which is
+
+46
+00:02:35,936 --> 00:02:40,206
+Now, your apps have a 36-hour
+
+47
+00:02:40,286 --> 00:02:42,656
+and get access to all
+
+48
+00:02:42,656 --> 00:02:44,016
+Accelerometer samples.
+
+49
+00:02:45,716 --> 00:02:48,346
+The second update should not
+
+50
+00:02:48,346 --> 00:02:51,696
+this is one of the most
+
+51
+00:02:52,306 --> 00:02:54,656
+So I'm happy to announce
+
+52
+00:02:54,656 --> 00:02:57,736
+now the sample delay is
+
+53
+00:02:58,376 --> 00:03:03,586
+With these updates, now you
+
+54
+00:02:58,376 --> 00:03:03,586
+With these updates, now you
+
+55
+00:03:03,586 --> 00:03:07,596
+not only to observe user
+
+56
+00:03:07,596 --> 00:03:10,086
+but there are some
+
+57
+00:03:10,086 --> 00:03:13,246
+for which you can use the
+
+58
+00:03:13,246 --> 00:03:18,656
+to track sports activities or
+
+59
+00:03:18,856 --> 00:03:20,196
+or even health diagnosis.
+
+60
+00:03:20,786 --> 00:03:23,176
+Imagine an app on
+
+61
+00:03:23,176 --> 00:03:24,746
+that can detect hand tremors.
+
+62
+00:03:24,876 --> 00:03:28,476
+So now, whenever the user
+
+63
+00:03:28,786 --> 00:03:29,876
+they can launch the app.
+
+64
+00:03:30,316 --> 00:03:31,926
+Your app will be
+
+65
+00:03:31,926 --> 00:03:35,306
+of the historical accelerometer
+
+66
+00:03:35,306 --> 00:03:41,146
+on them and get a report that
+
+67
+00:03:41,146 --> 00:03:44,436
+and what kind of tremor it
+
+68
+00:03:44,436 --> 00:03:46,616
+and maybe even with the
+
+69
+00:03:46,946 --> 00:03:49,226
+so that it can speed
+
+70
+00:03:49,296 --> 00:03:51,576
+and the treatment
+
+71
+00:03:53,156 --> 00:03:54,766
+So that was a great update
+
+72
+00:03:54,806 --> 00:03:57,306
+to Historical Accelerometer
+
+73
+00:03:57,926 --> 00:03:59,916
+Next up is pedometer.
+
+74
+00:04:06,236 --> 00:04:09,036
+CMPedometer is a versatile API.
+
+75
+00:04:09,776 --> 00:04:14,066
+It records stats and
+
+76
+00:04:14,066 --> 00:04:16,315
+that the users climb
+
+77
+00:04:16,565 --> 00:04:19,736
+So you could use it to build
+
+78
+00:04:19,736 --> 00:04:23,086
+where you set some interesting
+
+79
+00:04:23,136 --> 00:04:25,016
+And that way you
+
+80
+00:04:25,096 --> 00:04:26,416
+to lead a healthier lifestyle.
+
+81
+00:04:27,446 --> 00:04:31,446
+But where CMPedometer
+
+82
+00:04:31,446 --> 00:04:33,086
+in the context of workouts.
+
+83
+00:04:34,236 --> 00:04:36,656
+Take for example,
+
+84
+00:04:36,656 --> 00:04:39,346
+We have stride estimation
+
+85
+00:04:39,346 --> 00:04:42,786
+on the iPhone and Apple
+
+86
+00:04:43,046 --> 00:04:45,786
+we are able to provide
+
+87
+00:04:45,786 --> 00:04:47,246
+and distance metrics, even
+
+88
+00:04:47,246 --> 00:04:49,196
+when the phone doesn't
+
+89
+00:04:49,286 --> 00:04:51,356
+Or when you go run
+
+90
+00:04:51,356 --> 00:04:53,826
+and you leave the phone
+
+91
+00:04:54,066 --> 00:04:55,986
+the users get very
+
+92
+00:04:57,126 --> 00:05:01,846
+The pedometer events API that
+
+93
+00:04:57,126 --> 00:05:01,846
+The pedometer events API that
+
+94
+00:05:01,846 --> 00:05:05,446
+going to help you make those
+
+95
+00:05:05,446 --> 00:05:07,016
+engaging and accurate.
+
+96
+00:05:09,596 --> 00:05:13,496
+Let's consider a typical
+
+97
+00:05:13,496 --> 00:05:16,796
+As third packet [inaudible],
+
+98
+00:05:16,796 --> 00:05:19,656
+that you'll face with this
+
+99
+00:05:19,656 --> 00:05:22,396
+all those starts and stops
+
+100
+00:05:22,396 --> 00:05:24,966
+at intersections while
+
+101
+00:05:25,546 --> 00:05:27,936
+So the user comes to a
+
+102
+00:05:28,176 --> 00:05:32,256
+and your app will continue to
+
+103
+00:05:32,256 --> 00:05:33,396
+that they're just
+
+104
+00:05:34,236 --> 00:05:36,626
+So by the time they get
+
+105
+00:05:37,086 --> 00:05:39,136
+now you have accumulated
+
+106
+00:05:39,246 --> 00:05:42,356
+if you try to compute
+
+107
+00:05:42,356 --> 00:05:45,116
+over their entire run, you'll
+
+108
+00:05:45,116 --> 00:05:47,566
+that will resemble
+
+109
+00:05:49,606 --> 00:05:53,536
+Or maybe granddad's gone faster
+
+110
+00:05:53,836 --> 00:05:56,376
+So what I mean to say is,
+
+111
+00:05:56,376 --> 00:05:59,186
+you'll end up with
+
+112
+00:05:59,316 --> 00:06:01,676
+which is probably much lower
+
+113
+00:05:59,316 --> 00:06:01,676
+which is probably much lower
+
+114
+00:06:02,506 --> 00:06:07,016
+So one probable solution is you
+
+115
+00:06:07,016 --> 00:06:07,846
+and resume option.
+
+116
+00:06:08,436 --> 00:06:12,006
+But now, once they have paused,
+
+117
+00:06:12,006 --> 00:06:14,196
+to resume the workout
+
+118
+00:06:14,666 --> 00:06:16,076
+And if they don't, now all
+
+119
+00:06:16,076 --> 00:06:18,916
+of the running they do
+
+120
+00:06:19,016 --> 00:06:21,696
+is going to be not recorded
+
+121
+00:06:21,696 --> 00:06:25,886
+So if they forget to pause,
+
+122
+00:06:25,886 --> 00:06:29,466
+If they forget to resume,
+
+123
+00:06:30,686 --> 00:06:35,776
+So clearly, you need some auto
+
+124
+00:06:35,776 --> 00:06:38,916
+that is not only accurate, but
+
+125
+00:06:38,916 --> 00:06:41,526
+It has to feel like your
+
+126
+00:06:41,976 --> 00:06:44,506
+of detecting those
+
+127
+00:06:45,836 --> 00:06:47,536
+At this point, you
+
+128
+00:06:47,536 --> 00:06:49,196
+why not just use GPS and steps.
+
+129
+00:06:49,196 --> 00:06:51,706
+After all, you have access
+
+130
+00:06:52,856 --> 00:06:55,626
+If you have ever used GPS
+
+131
+00:06:55,626 --> 00:06:57,716
+to do a considerable
+
+132
+00:06:57,716 --> 00:06:59,296
+so that you can remove
+
+133
+00:06:59,866 --> 00:07:02,806
+Which means that it is going
+
+134
+00:06:59,866 --> 00:07:02,806
+Which means that it is going
+
+135
+00:07:03,656 --> 00:07:06,616
+And with the steps that you
+
+136
+00:07:06,616 --> 00:07:07,706
+it has a built in delay.
+
+137
+00:07:08,136 --> 00:07:11,336
+And we do that because we
+
+138
+00:07:11,796 --> 00:07:13,926
+We use steps to estimate stride.
+
+139
+00:07:14,326 --> 00:07:16,486
+And from that we compute
+
+140
+00:07:16,486 --> 00:07:18,266
+So it's very important for us
+
+141
+00:07:18,266 --> 00:07:25,506
+to have accurate step
+
+142
+00:07:25,566 --> 00:07:28,696
+So in this release, we are
+
+143
+00:07:28,876 --> 00:07:31,916
+that is going to help you
+
+144
+00:07:31,916 --> 00:07:35,196
+not only with good accuracy,
+
+145
+00:07:36,356 --> 00:07:39,536
+Our pedometer events
+
+146
+00:07:39,606 --> 00:07:42,566
+and resume solution uses
+
+147
+00:07:43,086 --> 00:07:45,616
+This predictive algorithm
+
+148
+00:07:45,846 --> 00:07:48,146
+so that we can improve
+
+149
+00:07:48,146 --> 00:07:49,836
+of whether the user is moving,
+
+150
+00:07:50,096 --> 00:07:52,116
+or have they come
+
+151
+00:07:52,646 --> 00:07:54,576
+Of course, all in a
+
+152
+00:07:55,716 --> 00:07:59,276
+By doing this, now we are able
+
+153
+00:07:59,276 --> 00:08:02,046
+that is associated with the
+
+154
+00:07:59,276 --> 00:08:02,046
+that is associated with the
+
+155
+00:08:02,416 --> 00:08:05,296
+But we are able to do so
+
+156
+00:08:07,486 --> 00:08:09,096
+I would also like to point out,
+
+157
+00:08:09,096 --> 00:08:11,816
+because the predictive
+
+158
+00:08:11,816 --> 00:08:15,136
+of whether the user is moving,
+
+159
+00:08:15,346 --> 00:08:17,766
+we can also support walk base.
+
+160
+00:08:17,886 --> 00:08:21,096
+So when you are -- when
+
+161
+00:08:21,856 --> 00:08:24,886
+whether from a walk or a run,
+
+162
+00:08:25,136 --> 00:08:27,926
+And as soon as the user
+
+163
+00:08:28,226 --> 00:08:30,426
+you'll get a resume
+
+164
+00:08:32,236 --> 00:08:35,275
+Pedometer Events API,
+
+165
+00:08:35,275 --> 00:08:37,076
+on iOS 10 and watchOS 3.
+
+166
+00:08:38,686 --> 00:08:42,946
+Let's take a look
+
+167
+00:08:42,946 --> 00:08:44,696
+You have the pause
+
+168
+00:08:45,346 --> 00:08:47,616
+Each event is timestamped
+
+169
+00:08:47,616 --> 00:08:50,326
+when the algorithm detected
+
+170
+00:08:50,386 --> 00:08:52,586
+to not moving state,
+
+171
+00:08:53,356 --> 00:08:57,626
+And you had to start and stop a
+
+172
+00:08:57,626 --> 00:08:59,086
+and deregister for these events.
+
+173
+00:08:59,536 --> 00:09:07,006
+I've been talking about how
+
+174
+00:08:59,536 --> 00:09:07,006
+I've been talking about how
+
+175
+00:09:07,006 --> 00:09:10,886
+to clearly demarcate just
+
+176
+00:09:10,956 --> 00:09:14,516
+complete running workout
+
+177
+00:09:14,516 --> 00:09:16,016
+derive accurate metrics.
+
+178
+00:09:16,816 --> 00:09:19,096
+But you can also
+
+179
+00:09:19,096 --> 00:09:21,036
+in some other interesting ways.
+
+180
+00:09:21,246 --> 00:09:22,926
+Let's take a look at an example.
+
+181
+00:09:24,316 --> 00:09:26,746
+This is a trail-running
+
+182
+00:09:27,076 --> 00:09:29,866
+So here we are going to use
+
+183
+00:09:30,686 --> 00:09:34,236
+to figure out when we can engage
+
+184
+00:09:34,586 --> 00:09:35,716
+how we can present them
+
+185
+00:09:35,716 --> 00:09:38,186
+with some interesting
+
+186
+00:09:38,186 --> 00:09:41,406
+to make them respond
+
+187
+00:09:42,136 --> 00:09:44,216
+And because this is
+
+188
+00:09:44,216 --> 00:09:46,216
+there is going to be an
+
+189
+00:09:46,216 --> 00:09:47,476
+run so we are going to see
+
+190
+00:09:47,476 --> 00:09:49,356
+if there is some
+
+191
+00:09:54,316 --> 00:09:57,286
+We are going to use the
+
+192
+00:09:57,286 --> 00:09:58,756
+for the pause and resume events.
+
+193
+00:09:58,886 --> 00:10:01,376
+And we are going to get the
+
+194
+00:09:58,886 --> 00:10:01,376
+And we are going to get the
+
+195
+00:10:01,436 --> 00:10:04,916
+or the elevation changes
+
+196
+00:10:06,686 --> 00:10:09,456
+If you want to continue to
+
+197
+00:10:09,456 --> 00:10:11,746
+within your app, even
+
+198
+00:10:11,906 --> 00:10:13,586
+your app has to stay running.
+
+199
+00:10:14,736 --> 00:10:17,906
+And one way of doing that on
+
+200
+00:10:18,006 --> 00:10:19,996
+to continuous background
+
+201
+00:10:20,286 --> 00:10:22,276
+If you are interested in
+
+202
+00:10:22,596 --> 00:10:24,146
+I suggest that you go check
+
+203
+00:10:24,146 --> 00:10:26,326
+out the Core Location
+
+204
+00:10:26,596 --> 00:10:28,516
+that is happening at WWDC today.
+
+205
+00:10:30,416 --> 00:10:31,566
+Next, we are going to register
+
+206
+00:10:31,566 --> 00:10:33,416
+for the relative
+
+207
+00:10:33,696 --> 00:10:35,236
+availability check.
+
+208
+00:10:35,236 --> 00:10:37,756
+And then we provide
+
+209
+00:10:37,756 --> 00:10:39,706
+and provide a callback handler
+
+210
+00:10:39,796 --> 00:10:41,226
+to start receiving
+
+211
+00:10:42,006 --> 00:10:45,446
+In this example, I'm
+
+212
+00:10:45,446 --> 00:10:46,896
+of the most recent update.
+
+213
+00:10:46,896 --> 00:10:50,776
+But potentially in your app, you
+
+214
+00:10:51,006 --> 00:10:53,906
+And at the end of the workout
+
+215
+00:10:53,906 --> 00:10:56,826
+nice elevation profile
+
+216
+00:10:59,216 --> 00:11:01,926
+Next, we'll register for the
+
+217
+00:10:59,216 --> 00:11:01,926
+Next, we'll register for the
+
+218
+00:11:02,176 --> 00:11:03,996
+So first an availability check.
+
+219
+00:11:03,996 --> 00:11:07,066
+And then register by
+
+220
+00:11:08,476 --> 00:11:12,076
+This is just a quick tip to
+
+221
+00:11:12,076 --> 00:11:15,106
+into any concurrence issues,
+
+222
+00:11:15,106 --> 00:11:17,116
+of the handlers on the
+
+223
+00:11:19,546 --> 00:11:23,196
+So now that the app is
+
+224
+00:11:23,196 --> 00:11:25,056
+out when the user
+
+225
+00:11:25,056 --> 00:11:26,436
+and when they have
+
+226
+00:11:26,436 --> 00:11:29,586
+We are ready to see
+
+227
+00:11:29,586 --> 00:11:31,196
+that in a very contextual
+
+228
+00:11:31,926 --> 00:11:33,806
+As soon as they start
+
+229
+00:11:33,806 --> 00:11:36,316
+to get the resume
+
+230
+00:11:36,316 --> 00:11:40,556
+At this time you could make
+
+231
+00:11:40,556 --> 00:11:43,036
+when we got the resume
+
+232
+00:11:43,036 --> 00:11:45,726
+of the workout, you can
+
+233
+00:11:45,726 --> 00:11:47,046
+of those running times
+
+234
+00:11:47,606 --> 00:11:51,446
+to compute very accurate
+
+235
+00:11:52,006 --> 00:11:53,996
+In this example, I'm
+
+236
+00:11:53,996 --> 00:11:56,996
+of the most recent
+
+237
+00:11:56,996 --> 00:11:59,586
+so that I know exactly
+
+238
+00:11:59,586 --> 00:12:00,436
+when they started running.
+
+239
+00:11:59,586 --> 00:12:00,436
+when they started running.
+
+240
+00:12:01,876 --> 00:12:03,696
+And when the user
+
+241
+00:12:03,696 --> 00:12:05,806
+now this is a very
+
+242
+00:12:05,806 --> 00:12:08,566
+to figure out, because we
+
+243
+00:12:08,566 --> 00:12:10,036
+out if they have run up a hill.
+
+244
+00:12:10,866 --> 00:12:11,966
+And if they have done so,
+
+245
+00:12:11,966 --> 00:12:13,836
+this might be their
+
+246
+00:12:13,836 --> 00:12:16,606
+So why not just give them
+
+247
+00:12:17,366 --> 00:12:20,256
+Or if they have been doing that
+
+248
+00:12:20,256 --> 00:12:24,436
+because we have exact, accurate
+
+249
+00:12:24,756 --> 00:12:27,586
+now we can compare those
+
+250
+00:12:27,586 --> 00:12:29,756
+of how well they are doing
+
+251
+00:12:30,976 --> 00:12:35,286
+So that was an example where we
+
+252
+00:12:35,286 --> 00:12:37,596
+to arrive as very
+
+253
+00:12:37,596 --> 00:12:39,226
+and demarcate those
+
+254
+00:12:39,226 --> 00:12:42,746
+But it's also an example
+
+255
+00:12:42,746 --> 00:12:45,026
+do something interesting
+
+256
+00:12:46,496 --> 00:12:49,386
+At the end of the run, of
+
+257
+00:12:49,386 --> 00:12:53,106
+down the registrations and this
+
+258
+00:12:53,106 --> 00:12:55,116
+handlers that have been
+
+259
+00:12:56,916 --> 00:13:00,846
+Pedometer events are available
+
+260
+00:12:56,916 --> 00:13:00,846
+Pedometer events are available
+
+261
+00:13:00,946 --> 00:13:02,346
+and of course the Apple Watch.
+
+262
+00:13:03,186 --> 00:13:07,296
+So that's pedometer in
+
+263
+00:13:08,556 --> 00:13:10,226
+Next, let's talk
+
+264
+00:13:12,676 --> 00:13:16,086
+As you're all aware,
+
+265
+00:13:16,086 --> 00:13:18,146
+on the iPhone since iOS 5.
+
+266
+00:13:18,976 --> 00:13:22,166
+With watchOS 3, now we are
+
+267
+00:13:22,366 --> 00:13:23,786
+to the Apple Watch.
+
+268
+00:13:26,176 --> 00:13:30,126
+With the Apple Watch, we have
+
+269
+00:13:30,126 --> 00:13:32,396
+that is at a fixed
+
+270
+00:13:32,766 --> 00:13:34,386
+and we use it throughout
+
+271
+00:13:34,806 --> 00:13:37,686
+And because we use our
+
+272
+00:13:37,686 --> 00:13:41,096
+that we do throughout the day,
+
+273
+00:13:41,096 --> 00:13:43,016
+to observe all of
+
+274
+00:13:44,006 --> 00:13:46,876
+And what Device Motion does
+
+275
+00:13:46,876 --> 00:13:49,806
+from the accelerometer and
+
+276
+00:13:49,806 --> 00:13:53,396
+to give you a very clear picture
+
+277
+00:13:53,526 --> 00:13:55,506
+and all of this right
+
+278
+00:13:57,086 --> 00:14:00,616
+All of that motion at wrist
+
+279
+00:13:57,086 --> 00:14:00,616
+All of that motion at wrist
+
+280
+00:14:00,706 --> 00:14:04,446
+using four distinct
+
+281
+00:14:04,766 --> 00:14:07,516
+rotation rate, and
+
+282
+00:14:09,756 --> 00:14:14,276
+If you want to know in depth how
+
+283
+00:14:14,276 --> 00:14:16,816
+and how they behave, I
+
+284
+00:14:16,816 --> 00:14:19,636
+out these sessions
+
+285
+00:14:20,716 --> 00:14:23,916
+In this talk though, I'll be
+
+286
+00:14:23,916 --> 00:14:27,246
+of this property so that we can
+
+287
+00:14:27,246 --> 00:14:31,156
+at some examples of how you
+
+288
+00:14:31,156 --> 00:14:33,226
+and fitness apps in
+
+289
+00:14:34,386 --> 00:14:36,396
+The first property is attitude.
+
+290
+00:14:37,746 --> 00:14:42,336
+Using attitude in your apps,
+
+291
+00:14:42,386 --> 00:14:44,686
+of the orientation
+
+292
+00:14:44,956 --> 00:14:46,986
+And when you use CMDeviceMotion,
+
+293
+00:14:46,986 --> 00:14:49,796
+you get these three
+
+294
+00:14:50,576 --> 00:14:54,476
+As Quaternion, rotation
+
+295
+00:14:55,486 --> 00:14:57,856
+Whenever you are using
+
+296
+00:14:57,856 --> 00:15:01,796
+one thing to note is every
+
+297
+00:14:57,856 --> 00:15:01,796
+one thing to note is every
+
+298
+00:15:01,796 --> 00:15:04,856
+going to be relative to
+
+299
+00:15:06,056 --> 00:15:10,246
+What this means is every single
+
+300
+00:15:10,246 --> 00:15:11,756
+to be observed from a point
+
+301
+00:15:11,756 --> 00:15:13,606
+that is not fixed to
+
+302
+00:15:13,606 --> 00:15:17,106
+So the reference frame remains
+
+303
+00:15:17,106 --> 00:15:19,466
+around, and that's
+
+304
+00:15:19,466 --> 00:15:20,996
+orientation-using attitude.
+
+305
+00:15:21,486 --> 00:15:26,286
+And furthermore, when
+
+306
+00:15:26,356 --> 00:15:27,876
+to start receiving the updates,
+
+307
+00:15:28,006 --> 00:15:30,976
+that is when the
+
+308
+00:15:30,976 --> 00:15:33,436
+And so every subsequent
+
+309
+00:15:33,486 --> 00:15:36,356
+within your app is going
+
+310
+00:15:36,646 --> 00:15:39,296
+that relative reference
+
+311
+00:15:39,296 --> 00:15:40,496
+at the start of updates.
+
+312
+00:15:40,856 --> 00:15:43,836
+So this is something that
+
+313
+00:15:43,836 --> 00:15:46,226
+of when you use attitude
+
+314
+00:15:46,656 --> 00:15:48,986
+And so that you don't
+
+315
+00:15:49,026 --> 00:15:52,546
+about where the device is
+
+316
+00:15:53,926 --> 00:15:56,076
+The next property is gravity.
+
+317
+00:15:57,436 --> 00:16:00,656
+Gravity is -- well,
+
+318
+00:15:57,436 --> 00:16:00,656
+Gravity is -- well,
+
+319
+00:16:00,656 --> 00:16:02,426
+It is the force that
+
+320
+00:16:02,426 --> 00:16:04,496
+down to the center of the Earth.
+
+321
+00:16:04,496 --> 00:16:06,786
+And within Device
+
+322
+00:16:06,786 --> 00:16:08,716
+as a unit vector in
+
+323
+00:16:09,766 --> 00:16:13,436
+Using gravity, you
+
+324
+00:16:14,186 --> 00:16:15,796
+and the tilt of the device.
+
+325
+00:16:17,106 --> 00:16:18,086
+But you might be wondering,
+
+326
+00:16:18,086 --> 00:16:20,786
+isn't different tilt also the
+
+327
+00:16:21,116 --> 00:16:24,276
+But one key difference is,
+
+328
+00:16:24,276 --> 00:16:26,846
+of this orientation
+
+329
+00:16:27,186 --> 00:16:29,146
+So take for example, if I were
+
+330
+00:16:29,146 --> 00:16:31,436
+to hold my hand perfectly
+
+331
+00:16:31,436 --> 00:16:35,536
+to my side, and then I move it
+
+332
+00:16:35,536 --> 00:16:36,816
+to observe this using gravity.
+
+333
+00:16:36,816 --> 00:16:39,336
+Because the x, y, z
+
+334
+00:16:39,336 --> 00:16:42,136
+to remain exactly same
+
+335
+00:16:42,136 --> 00:16:45,526
+To observe something like this,
+
+336
+00:16:45,526 --> 00:16:49,416
+that is external or fixed
+
+337
+00:16:49,416 --> 00:16:50,586
+Which is basically attitude.
+
+338
+00:16:50,586 --> 00:16:53,876
+So you could use gravity
+
+339
+00:16:53,876 --> 00:16:55,776
+but only in a limited form.
+
+340
+00:16:56,166 --> 00:16:59,096
+But it might work just
+
+341
+00:16:59,096 --> 00:17:01,476
+that you are thinking of.
+
+342
+00:16:59,096 --> 00:17:01,476
+that you are thinking of.
+
+343
+00:17:01,656 --> 00:17:03,596
+One other thing about gravity is
+
+344
+00:17:03,596 --> 00:17:05,766
+when you hold the
+
+345
+00:17:05,876 --> 00:17:08,036
+you can observe it
+
+346
+00:17:08,036 --> 00:17:09,636
+It's a constant acceleration
+
+347
+00:17:09,636 --> 00:17:11,106
+that the accelerometer
+
+348
+00:17:11,566 --> 00:17:14,516
+and you can read it right
+
+349
+00:17:15,215 --> 00:17:17,945
+But as soon as you
+
+350
+00:17:17,945 --> 00:17:19,406
+now the accelerometer is picking
+
+351
+00:17:19,406 --> 00:17:21,866
+up not just the gravity
+
+352
+00:17:21,866 --> 00:17:24,276
+up all of the user-generated
+
+353
+00:17:24,736 --> 00:17:26,195
+So it becomes harder and harder
+
+354
+00:17:26,296 --> 00:17:27,955
+to just get the gravity
+
+355
+00:17:28,626 --> 00:17:31,686
+What Device Motion does, is
+
+356
+00:17:31,786 --> 00:17:33,436
+we switch over to the gyroscope
+
+357
+00:17:33,596 --> 00:17:40,346
+to start tracking the
+
+358
+00:17:40,346 --> 00:17:42,886
+Next property is rotation rate.
+
+359
+00:17:43,546 --> 00:17:45,436
+As the name suggests,
+
+360
+00:17:45,436 --> 00:17:47,216
+of change of angular motion.
+
+361
+00:17:47,726 --> 00:17:50,716
+It's very good for observing
+
+362
+00:17:50,716 --> 00:17:52,486
+When you are rotating
+
+363
+00:17:52,486 --> 00:17:55,266
+there is a rotational motion
+
+364
+00:17:55,266 --> 00:17:57,586
+and you can observe that
+
+365
+00:17:58,346 --> 00:18:01,216
+You can also observe any
+
+366
+00:17:58,346 --> 00:18:01,216
+You can also observe any
+
+367
+00:18:01,506 --> 00:18:05,626
+Because most of us, we fix
+
+368
+00:18:05,766 --> 00:18:08,946
+so there is going to be some
+
+369
+00:18:08,946 --> 00:18:13,086
+So there is rotation and you can
+
+370
+00:18:13,086 --> 00:18:14,706
+rate property of Device Motion.
+
+371
+00:18:17,176 --> 00:18:20,036
+The last of the properties
+
+372
+00:18:20,036 --> 00:18:22,476
+And the user acceleration
+
+373
+00:18:22,476 --> 00:18:24,776
+through Device Motion is
+
+374
+00:18:25,286 --> 00:18:28,096
+Recall how I mentioned
+
+375
+00:18:28,096 --> 00:18:29,486
+up both the gravity component
+
+376
+00:18:29,486 --> 00:18:30,976
+and the user-generated
+
+377
+00:18:31,056 --> 00:18:33,276
+So this is just the
+
+378
+00:18:33,746 --> 00:18:36,006
+But it has been compensated
+
+379
+00:18:36,006 --> 00:18:39,626
+that was derived using
+
+380
+00:18:40,106 --> 00:18:44,496
+So that was a very quick
+
+381
+00:18:44,756 --> 00:18:46,936
+Now let's take a look
+
+382
+00:18:46,936 --> 00:18:48,836
+of how you can use
+
+383
+00:18:49,366 --> 00:18:52,856
+The first property is attitude.
+
+384
+00:18:53,206 --> 00:18:55,176
+Attitude is very good
+
+385
+00:18:55,176 --> 00:18:57,756
+for observing any kind
+
+386
+00:18:57,986 --> 00:18:59,606
+Like rep counting
+
+387
+00:18:59,606 --> 00:19:03,606
+So when you are lifting
+
+388
+00:18:59,606 --> 00:19:03,606
+So when you are lifting
+
+389
+00:19:03,606 --> 00:19:05,686
+through a set of
+
+390
+00:19:05,826 --> 00:19:10,066
+So just by looking at how
+
+391
+00:19:10,066 --> 00:19:12,076
+repeating, you can
+
+392
+00:19:12,366 --> 00:19:14,396
+And the best part about
+
+393
+00:19:14,396 --> 00:19:16,716
+that is now they might
+
+394
+00:19:16,716 --> 00:19:19,916
+where they're pulling
+
+395
+00:19:19,916 --> 00:19:22,646
+and you can observe all of
+
+396
+00:19:24,516 --> 00:19:26,796
+Gravity, as I already
+
+397
+00:19:26,876 --> 00:19:28,396
+for measuring tip and tilt.
+
+398
+00:19:28,936 --> 00:19:31,716
+Which basically means you
+
+399
+00:19:32,506 --> 00:19:37,876
+So if they're doing a downward
+
+400
+00:19:37,876 --> 00:19:40,736
+then you can figure out whether
+
+401
+00:19:41,146 --> 00:19:43,976
+And when they're also going
+
+402
+00:19:43,976 --> 00:19:46,576
+you can figure out whether
+
+403
+00:19:46,576 --> 00:19:49,066
+in a graceful way, or just
+
+404
+00:19:52,756 --> 00:19:57,336
+One of the most useful ways
+
+405
+00:19:57,336 --> 00:19:59,646
+to observe the speed
+
+406
+00:20:00,016 --> 00:20:02,016
+Take, for example,
+
+407
+00:20:02,056 --> 00:20:04,126
+So when you are swinging
+
+408
+00:20:04,516 --> 00:20:06,926
+you're not only rotating
+
+409
+00:20:06,926 --> 00:20:08,836
+but there is also the
+
+410
+00:20:09,216 --> 00:20:12,246
+So you could use both of those
+
+411
+00:20:12,246 --> 00:20:13,946
+to estimate the bat speed.
+
+412
+00:20:14,266 --> 00:20:17,146
+Of course you'll need to
+
+413
+00:20:17,146 --> 00:20:19,876
+and at what point on the bat
+
+414
+00:20:22,506 --> 00:20:24,756
+User acceleration is best used
+
+415
+00:20:24,756 --> 00:20:26,376
+when there is some
+
+416
+00:20:26,786 --> 00:20:30,116
+Because accelerometer
+
+417
+00:20:30,116 --> 00:20:34,016
+that the user is doing, if
+
+418
+00:20:34,066 --> 00:20:35,616
+where you're using
+
+419
+00:20:35,616 --> 00:20:37,036
+to measure some small movements,
+
+420
+00:20:37,036 --> 00:20:38,916
+it might get drowned
+
+421
+00:20:39,296 --> 00:20:42,796
+So wherever there is a very
+
+422
+00:20:42,796 --> 00:20:44,166
+to use user acceleration.
+
+423
+00:20:44,526 --> 00:20:46,266
+So something like
+
+424
+00:20:46,266 --> 00:20:49,716
+You can tell how much
+
+425
+00:20:49,966 --> 00:20:52,786
+on that sandbag,
+
+426
+00:20:52,786 --> 00:20:54,246
+that is hopefully
+
+427
+00:20:56,536 --> 00:21:00,006
+So those were only a
+
+428
+00:20:56,536 --> 00:21:00,006
+So those were only a
+
+429
+00:21:00,006 --> 00:21:02,586
+of how you can use Device
+
+430
+00:21:03,236 --> 00:21:04,886
+By -- after going through this,
+
+431
+00:21:04,886 --> 00:21:06,796
+if you feel that
+
+432
+00:21:06,796 --> 00:21:09,456
+that could use Device Motion
+
+433
+00:21:09,456 --> 00:21:12,436
+about how you can apply
+
+434
+00:21:12,436 --> 00:21:14,626
+by our lab tomorrow,
+
+435
+00:21:14,626 --> 00:21:16,566
+than happy to help you.
+
+436
+00:21:16,566 --> 00:21:20,476
+Now let's take a look
+
+437
+00:21:20,476 --> 00:21:21,676
+You have the four properties.
+
+438
+00:21:22,056 --> 00:21:24,226
+Attitude and gravity,
+
+439
+00:21:24,226 --> 00:21:25,316
+Gravity's the uniflector.
+
+440
+00:21:26,076 --> 00:21:29,526
+User acceleration is in
+
+441
+00:21:29,526 --> 00:21:30,756
+in radians per second.
+
+442
+00:21:32,716 --> 00:21:35,696
+Before you can start
+
+443
+00:21:35,696 --> 00:21:38,296
+within your app, you have
+
+444
+00:21:38,946 --> 00:21:41,366
+You can set sample
+
+445
+00:21:41,786 --> 00:21:44,336
+And once you have set that
+
+446
+00:21:44,336 --> 00:21:47,596
+and register for updates
+
+447
+00:21:48,856 --> 00:21:51,306
+From this point onwards,
+
+448
+00:21:51,306 --> 00:21:53,746
+to poll the Device Motion
+
+449
+00:21:53,746 --> 00:21:55,536
+to receive the most
+
+450
+00:21:56,086 --> 00:21:58,156
+Or you could provide
+
+451
+00:21:58,186 --> 00:22:01,256
+on which you can get every
+
+452
+00:21:58,186 --> 00:22:01,256
+on which you can get every
+
+453
+00:22:01,256 --> 00:22:02,276
+is generating for you.
+
+454
+00:22:02,796 --> 00:22:06,556
+And of course, once you
+
+455
+00:22:06,556 --> 00:22:08,766
+listening to the Device Motion
+
+456
+00:22:08,766 --> 00:22:12,026
+and deregister using the
+
+457
+00:22:13,296 --> 00:22:15,986
+That brings me to the end
+
+458
+00:22:16,216 --> 00:22:19,106
+Now I'll be handing it forward
+
+459
+00:22:19,106 --> 00:22:21,776
+through an example
+
+460
+00:22:21,896 --> 00:22:24,236
+that uses Device Motion
+
+461
+00:22:24,756 --> 00:22:25,526
+Thank you very much.
+
+462
+00:22:25,526 --> 00:22:25,976
+Over to you Paul.
+
+463
+00:22:26,516 --> 00:22:33,576
+[ Applause ]
+
+464
+00:22:34,076 --> 00:22:36,176
+&gt;&gt; Thank you Bharath.
+
+465
+00:22:36,296 --> 00:22:36,806
+Hello everyone.
+
+466
+00:22:37,776 --> 00:22:38,766
+My name is Paul Thompson,
+
+467
+00:22:39,046 --> 00:22:40,146
+and I'm an engineer
+
+468
+00:22:41,576 --> 00:22:42,896
+So Bharath just talked
+
+469
+00:22:42,896 --> 00:22:43,786
+with Core Motion APIs.
+
+470
+00:22:44,626 --> 00:22:47,446
+What I'd like to do is show
+
+471
+00:22:47,446 --> 00:22:50,246
+in an Apple Watch fitness app.
+
+472
+00:22:50,516 --> 00:22:52,206
+So in this app, what we'd
+
+473
+00:22:52,206 --> 00:22:54,196
+like to do is create a
+
+474
+00:22:54,676 --> 00:22:56,146
+Then we'll do -- we'll subscribe
+
+475
+00:22:56,146 --> 00:22:58,106
+to sensor updates
+
+476
+00:22:59,286 --> 00:23:02,336
+Finally, we'll detect
+
+477
+00:22:59,286 --> 00:23:02,336
+Finally, we'll detect
+
+478
+00:23:02,336 --> 00:23:04,206
+between a forehand
+
+479
+00:23:04,206 --> 00:23:09,196
+Now to do this, what we'll need
+
+480
+00:23:09,196 --> 00:23:11,006
+from Core Motion, as well
+
+481
+00:23:11,006 --> 00:23:14,486
+as some new capabilities
+
+482
+00:23:14,576 --> 00:23:18,746
+Now as you may remember,
+
+483
+00:23:18,746 --> 00:23:21,356
+on HealthKit and Core Motion
+
+484
+00:23:21,356 --> 00:23:23,646
+and sensor output and
+
+485
+00:23:23,646 --> 00:23:29,126
+such as step count, flights,
+
+486
+00:23:29,126 --> 00:23:32,806
+Now, during a workout session,
+
+487
+00:23:33,536 --> 00:23:36,766
+and process Device Motion
+
+488
+00:23:36,766 --> 00:23:38,366
+directly engaged in your app.
+
+489
+00:23:40,036 --> 00:23:43,346
+But of course, this ability
+
+490
+00:23:44,516 --> 00:23:47,176
+To begin with, you must have
+
+491
+00:23:47,176 --> 00:23:48,986
+entitlement in your
+
+492
+00:23:50,476 --> 00:23:54,446
+Further, this background work
+
+493
+00:23:54,446 --> 00:23:55,396
+active workout session.
+
+494
+00:23:55,856 --> 00:24:00,836
+And in addition,
+
+495
+00:23:55,856 --> 00:24:00,836
+And in addition,
+
+496
+00:24:00,836 --> 00:24:03,126
+you must minimize
+
+497
+00:24:04,176 --> 00:24:05,876
+If you do not minimize
+
+498
+00:24:06,186 --> 00:24:07,266
+your app will be suspended
+
+499
+00:24:07,646 --> 00:24:13,236
+until the user explicitly
+
+500
+00:24:13,456 --> 00:24:15,406
+Now since this background
+
+501
+00:24:15,406 --> 00:24:18,356
+by HealthKit, I encourage you
+
+502
+00:24:18,356 --> 00:24:22,116
+to learn more in
+
+503
+00:24:22,346 --> 00:24:24,096
+With that in mind, let's think
+
+504
+00:24:24,096 --> 00:24:25,166
+about what our app
+
+505
+00:24:26,626 --> 00:24:29,646
+Well with app, you would
+
+506
+00:24:29,646 --> 00:24:31,276
+to the tennis courts
+
+507
+00:24:31,436 --> 00:24:32,696
+and practicing volleying
+
+508
+00:24:33,996 --> 00:24:35,596
+There, you simply
+
+509
+00:24:36,036 --> 00:24:37,866
+and hit the ball back and forth.
+
+510
+00:24:39,436 --> 00:24:43,226
+Then, you'd expect that at any
+
+511
+00:24:43,226 --> 00:24:44,966
+at your watch, and get some
+
+512
+00:24:53,436 --> 00:24:54,196
+So with that in mind,
+
+513
+00:24:54,866 --> 00:24:56,216
+let's think about the
+
+514
+00:24:57,196 --> 00:24:59,296
+Here, there'll be three layers
+
+515
+00:24:59,756 --> 00:25:03,216
+First is the UI, where
+
+516
+00:24:59,756 --> 00:25:03,216
+First is the UI, where
+
+517
+00:25:03,216 --> 00:25:05,596
+to the user what we've done.
+
+518
+00:25:05,826 --> 00:25:08,036
+Then, we'll have
+
+519
+00:25:08,896 --> 00:25:11,916
+We'll interact with
+
+520
+00:25:11,916 --> 00:25:13,326
+and stop our workout sessions
+
+521
+00:25:13,666 --> 00:25:15,066
+and enable our background
+
+522
+00:25:17,016 --> 00:25:19,646
+Then we'll enable our -- then
+
+523
+00:25:20,236 --> 00:25:23,386
+Here we'll interact with
+
+524
+00:25:23,426 --> 00:25:25,676
+and implement our
+
+525
+00:25:27,136 --> 00:25:29,646
+There we'll respond to 50
+
+526
+00:25:29,976 --> 00:25:31,746
+and add the resulting
+
+527
+00:25:33,176 --> 00:25:34,786
+Afterwards, on every update,
+
+528
+00:25:35,416 --> 00:25:37,516
+we'll assess whether a
+
+529
+00:25:37,636 --> 00:25:38,356
+we'll implement the UI.
+
+530
+00:25:43,116 --> 00:25:45,476
+So how do we want to -- how
+
+531
+00:25:45,476 --> 00:25:48,406
+that we wish to detect?
+
+532
+00:25:48,486 --> 00:25:49,946
+Well, tennis is a
+
+533
+00:25:50,716 --> 00:25:52,876
+So in this case, all
+
+534
+00:25:52,876 --> 00:25:54,476
+at the essence of two gestures.
+
+535
+00:25:55,186 --> 00:25:57,066
+A full forehand and
+
+536
+00:25:58,326 --> 00:26:01,436
+We'll do this using the
+
+537
+00:25:58,326 --> 00:26:01,436
+We'll do this using the
+
+538
+00:26:01,436 --> 00:26:04,626
+as provided by Device Motion.
+
+539
+00:26:04,746 --> 00:26:08,266
+So if you expect the watch
+
+540
+00:26:09,006 --> 00:26:10,626
+then you would expect
+
+541
+00:26:10,626 --> 00:26:14,416
+to include a simple
+
+542
+00:26:14,416 --> 00:26:18,136
+So if we take the dot
+
+543
+00:26:18,136 --> 00:26:20,806
+from a potential swing with
+
+544
+00:26:21,576 --> 00:26:24,486
+we can isolate this movement
+
+545
+00:26:24,486 --> 00:26:25,146
+of the device.
+
+546
+00:26:25,716 --> 00:26:27,626
+And also ignoring some
+
+547
+00:26:29,576 --> 00:26:33,966
+Then, once we've got
+
+548
+00:26:34,386 --> 00:26:35,816
+we'll see if we've
+
+549
+00:26:36,306 --> 00:26:40,806
+and fast enough to
+
+550
+00:26:41,016 --> 00:26:41,946
+So now that we know what to do,
+
+551
+00:26:41,946 --> 00:26:44,266
+let's take a look
+
+552
+00:26:46,176 --> 00:26:48,736
+To begin, we'll envision
+
+553
+00:26:49,256 --> 00:26:54,166
+We'll display our
+
+554
+00:26:54,166 --> 00:26:56,896
+Here we'll have three watch kit
+
+555
+00:26:56,896 --> 00:26:57,736
+to update during runtime.
+
+556
+00:26:58,976 --> 00:27:00,836
+These will include
+
+557
+00:26:58,976 --> 00:27:00,836
+These will include
+
+558
+00:27:01,726 --> 00:27:03,146
+The forehand count label.
+
+559
+00:27:03,276 --> 00:27:05,056
+And the backhand count label.
+
+560
+00:27:05,606 --> 00:27:08,016
+And what the workout label will
+
+561
+00:27:08,016 --> 00:27:10,376
+when we've started and
+
+562
+00:27:11,276 --> 00:27:14,416
+And the forehand and backhand
+
+563
+00:27:14,616 --> 00:27:16,906
+how many times we've
+
+564
+00:27:18,136 --> 00:27:20,646
+Here we'll also have a
+
+565
+00:27:20,646 --> 00:27:21,786
+and stop the workout session.
+
+566
+00:27:25,616 --> 00:27:29,996
+So now that we know what the
+
+567
+00:27:29,996 --> 00:27:30,856
+at our workout manager.
+
+568
+00:27:32,136 --> 00:27:36,046
+Here, we'll handle our
+
+569
+00:27:36,046 --> 00:27:37,906
+as well as create
+
+570
+00:27:39,316 --> 00:27:42,336
+We'll also direct our motion
+
+571
+00:27:42,336 --> 00:27:43,536
+and stop sensor updates.
+
+572
+00:27:44,096 --> 00:27:50,816
+So here, in our workout manager,
+
+573
+00:27:51,376 --> 00:27:55,136
+So to begin, we'll create
+
+574
+00:27:55,386 --> 00:27:57,216
+which we'll use to initiate
+
+575
+00:27:57,686 --> 00:27:59,946
+Since we're creating
+
+576
+00:28:00,426 --> 00:28:02,006
+let's use tennis as
+
+577
+00:28:02,606 --> 00:28:03,826
+And outdoors as the location.
+
+578
+00:28:05,236 --> 00:28:07,616
+Then, after initialization,
+
+579
+00:28:08,376 --> 00:28:11,386
+we'll have HealthKit start the
+
+580
+00:28:11,386 --> 00:28:12,486
+to Device Motion updates.
+
+581
+00:28:13,556 --> 00:28:15,056
+At this point, we'll now be able
+
+582
+00:28:15,056 --> 00:28:16,796
+to do work while
+
+583
+00:28:20,636 --> 00:28:23,016
+In addition, we'll also
+
+584
+00:28:24,316 --> 00:28:27,986
+Here, we'll simply do the
+
+585
+00:28:27,986 --> 00:28:30,186
+from sensor updates,
+
+586
+00:28:30,186 --> 00:28:31,226
+to end the workout session.
+
+587
+00:28:32,046 --> 00:28:38,236
+At this point, normal
+
+588
+00:28:38,446 --> 00:28:40,776
+So now, let's take a look
+
+589
+00:28:41,326 --> 00:28:43,686
+He will interface with
+
+590
+00:28:43,686 --> 00:28:44,936
+and implement our
+
+591
+00:28:50,156 --> 00:28:54,096
+So to begin, what we'll do
+
+592
+00:28:54,186 --> 00:28:55,156
+to the CM motion manager.
+
+593
+00:28:55,686 --> 00:28:58,256
+As well as create an
+
+594
+00:28:58,256 --> 00:28:59,306
+or samples to do work on.
+
+595
+00:28:59,786 --> 00:29:03,206
+At this point, we'll
+
+596
+00:28:59,786 --> 00:29:03,206
+At this point, we'll
+
+597
+00:29:03,206 --> 00:29:04,786
+on the left or the right wrist.
+
+598
+00:29:05,146 --> 00:29:06,946
+There's a difference
+
+599
+00:29:06,946 --> 00:29:09,326
+and the backhand swing
+
+600
+00:29:09,326 --> 00:29:09,986
+on this perspective.
+
+601
+00:29:10,356 --> 00:29:16,056
+We'll also keep a local count of
+
+602
+00:29:16,786 --> 00:29:22,686
+as well as mark as whether
+
+603
+00:29:22,826 --> 00:29:24,736
+We'll also choose 50
+
+604
+00:29:25,346 --> 00:29:26,236
+And create a running buffer
+
+605
+00:29:26,236 --> 00:29:27,856
+that should hold no more
+
+606
+00:29:27,856 --> 00:29:31,916
+Now as Bharath mentioned
+
+607
+00:29:32,546 --> 00:29:34,286
+Device Motion samples
+
+608
+00:29:34,286 --> 00:29:35,576
+at a rate up to 100 hertz.
+
+609
+00:29:36,196 --> 00:29:38,906
+While you generally want to pick
+
+610
+00:29:38,906 --> 00:29:40,716
+as you can get away with,
+
+611
+00:29:40,716 --> 00:29:42,406
+with fidelity that you need.
+
+612
+00:29:44,756 --> 00:29:48,346
+In addition, we'll set three
+
+613
+00:29:48,346 --> 00:29:49,236
+in our detection algorithm.
+
+614
+00:29:50,286 --> 00:29:52,916
+These will include the minimum
+
+615
+00:29:53,026 --> 00:29:55,826
+the lower bound on the peak
+
+616
+00:29:56,986 --> 00:29:58,936
+and an upper bound on the
+
+617
+00:29:59,466 --> 00:30:03,456
+Now we chose these values
+
+618
+00:29:59,466 --> 00:30:03,456
+Now we chose these values
+
+619
+00:30:03,456 --> 00:30:04,646
+and sample data that
+
+620
+00:30:05,596 --> 00:30:08,186
+But generally, you'll find
+
+621
+00:30:08,186 --> 00:30:12,486
+and picking these values will
+
+622
+00:30:12,726 --> 00:30:15,246
+Finally, we'll create this
+
+623
+00:30:15,386 --> 00:30:20,776
+which we'll use to
+
+624
+00:30:21,026 --> 00:30:23,536
+So now, after we set
+
+625
+00:30:24,186 --> 00:30:27,196
+we'll adjust the operation queue
+
+626
+00:30:27,636 --> 00:30:29,946
+that we'll use to handle all
+
+627
+00:30:31,266 --> 00:30:33,816
+I'd like to emphasize
+
+628
+00:30:34,036 --> 00:30:36,736
+we created this operation
+
+629
+00:30:36,736 --> 00:30:38,956
+of our data processing
+
+630
+00:30:39,556 --> 00:30:44,806
+So now we'll also create
+
+631
+00:30:44,806 --> 00:30:46,366
+to reset all the
+
+632
+00:30:46,786 --> 00:30:50,916
+as well as zero out the UI.
+
+633
+00:30:50,916 --> 00:30:53,676
+And then, as a final set
+
+634
+00:30:54,336 --> 00:30:56,946
+we'll create some complementary
+
+635
+00:30:58,336 --> 00:31:01,346
+Here, we'll simply implement
+
+636
+00:30:58,336 --> 00:31:01,346
+Here, we'll simply implement
+
+637
+00:31:02,226 --> 00:31:03,636
+mark that we've recently
+
+638
+00:31:03,636 --> 00:31:06,066
+and then let the UI know it.
+
+639
+00:31:09,536 --> 00:31:12,596
+So let's start interfacing
+
+640
+00:31:14,056 --> 00:31:17,956
+So as always, the first thing
+
+641
+00:31:17,956 --> 00:31:20,386
+API's supported on the
+
+642
+00:31:21,556 --> 00:31:25,756
+Then, we'll tell Core Motion to
+
+643
+00:31:26,456 --> 00:31:30,236
+And finally, we'll subscribe
+
+644
+00:31:30,756 --> 00:31:33,456
+by passing our operation
+
+645
+00:31:33,456 --> 00:31:36,366
+that we'll use to respond to all
+
+646
+00:31:37,756 --> 00:31:40,236
+All this block will do
+
+647
+00:31:40,236 --> 00:31:43,086
+if there are any errors with
+
+648
+00:31:43,086 --> 00:31:44,036
+to our detection function.
+
+649
+00:31:44,036 --> 00:31:50,876
+So let's take a look at what
+
+650
+00:31:50,876 --> 00:31:51,796
+to do.
+
+651
+00:31:52,636 --> 00:31:54,106
+So as Bharath mentioned earlier,
+
+652
+00:31:54,516 --> 00:31:56,136
+Device Motion gives
+
+653
+00:31:56,796 --> 00:31:59,176
+But in this example, we're only
+
+654
+00:31:59,306 --> 00:32:00,556
+and rotation rate vectors.
+
+655
+00:31:59,306 --> 00:32:00,556
+and rotation rate vectors.
+
+656
+00:32:00,556 --> 00:32:03,336
+Now, as you may remember,
+
+657
+00:32:03,796 --> 00:32:06,166
+the gravity vector is simply
+
+658
+00:32:06,536 --> 00:32:07,556
+The gravity univector,
+
+659
+00:32:07,906 --> 00:32:09,416
+regardless of how much
+
+660
+00:32:10,346 --> 00:32:12,966
+And the rotation rate is
+
+661
+00:32:12,966 --> 00:32:16,826
+for the device, giving
+
+662
+00:32:16,956 --> 00:32:21,356
+So now, what our [inaudible]
+
+663
+00:32:21,356 --> 00:32:24,356
+product -- will take the dot
+
+664
+00:32:24,396 --> 00:32:26,966
+from a potential swing
+
+665
+00:32:27,676 --> 00:32:29,016
+So we only analyzed
+
+666
+00:32:29,016 --> 00:32:29,966
+of motion about gravity.
+
+667
+00:32:31,736 --> 00:32:34,406
+Then, we'll add the
+
+668
+00:32:34,486 --> 00:32:36,816
+to a running buffer holding
+
+669
+00:32:37,326 --> 00:32:40,796
+Once we have enough
+
+670
+00:32:40,796 --> 00:32:44,196
+in the content within.
+
+671
+00:32:44,326 --> 00:32:46,666
+So the two metrics we'll use
+
+672
+00:32:46,666 --> 00:32:49,656
+to analyze the swing are the
+
+673
+00:32:50,306 --> 00:32:51,426
+and the peak speed of the swing.
+
+674
+00:32:51,966 --> 00:32:56,876
+Here, to get the accumulating
+
+675
+00:32:56,876 --> 00:32:58,996
+the accumulated samples that
+
+676
+00:33:00,026 --> 00:33:02,396
+over the second that
+
+677
+00:33:02,396 --> 00:33:05,266
+Then you have peak rate, you
+
+678
+00:33:05,596 --> 00:33:06,956
+depending on the
+
+679
+00:33:07,406 --> 00:33:12,886
+Further down our
+
+680
+00:33:13,276 --> 00:33:17,696
+if we subtended far enough and
+
+681
+00:33:17,896 --> 00:33:22,026
+If so, we'll choose forehand or
+
+682
+00:33:22,026 --> 00:33:24,266
+of the Apple Watch and
+
+683
+00:33:24,796 --> 00:33:31,386
+And finally, to end the
+
+684
+00:33:31,386 --> 00:33:32,506
+to see that the swing
+
+685
+00:33:33,416 --> 00:33:35,546
+This way we can reject
+
+686
+00:33:35,756 --> 00:33:39,866
+as the user's arm moves back in
+
+687
+00:33:40,016 --> 00:33:42,116
+And finally, to finish
+
+688
+00:33:42,526 --> 00:33:44,026
+we'll have the stopUpdates
+
+689
+00:33:44,556 --> 00:33:46,996
+Which we'll use to unsubscribe
+
+690
+00:33:47,336 --> 00:33:48,286
+when the workout has ended.
+
+691
+00:33:48,846 --> 00:33:54,136
+And that concludes the
+
+692
+00:33:54,486 --> 00:33:56,426
+We simply described a
+
+693
+00:33:57,186 --> 00:33:58,816
+We then created a
+
+694
+00:33:59,136 --> 00:34:00,356
+Handle interfacing
+
+695
+00:33:59,136 --> 00:34:00,356
+Handle interfacing
+
+696
+00:34:00,356 --> 00:34:04,536
+And then we created our motion
+
+697
+00:34:04,536 --> 00:34:06,386
+as well as implement
+
+698
+00:34:06,936 --> 00:34:10,966
+So I hope you all have
+
+699
+00:34:10,966 --> 00:34:13,666
+to use Device Motion as newly
+
+700
+00:34:17,596 --> 00:34:20,846
+So before I wrap up, I'd like
+
+701
+00:34:20,846 --> 00:34:21,815
+on the use of this API.
+
+702
+00:34:22,556 --> 00:34:26,646
+So now while you may expect
+
+703
+00:34:26,716 --> 00:34:29,446
+and predictable location,
+
+704
+00:34:29,696 --> 00:34:32,795
+which wrist the device
+
+705
+00:34:32,795 --> 00:34:35,186
+of position can have significant
+
+706
+00:34:35,706 --> 00:34:40,446
+Further, when using
+
+707
+00:34:40,735 --> 00:34:41,686
+always try to remember --
+
+708
+00:34:42,406 --> 00:34:44,416
+try to understand what
+
+709
+00:34:44,416 --> 00:34:45,456
+operating in.
+
+710
+00:34:46,835 --> 00:34:50,815
+And further, as we said earlier,
+
+711
+00:34:50,815 --> 00:34:52,706
+with samples at a
+
+712
+00:34:53,616 --> 00:34:54,976
+We always want to
+
+713
+00:34:55,436 --> 00:34:57,726
+between the resources required
+
+714
+00:34:58,026 --> 00:35:00,066
+and the fidelity demanded
+
+715
+00:34:58,026 --> 00:35:00,066
+and the fidelity demanded
+
+716
+00:35:01,156 --> 00:35:02,286
+This is especially important,
+
+717
+00:35:02,636 --> 00:35:04,446
+given the restrictions
+
+718
+00:35:04,516 --> 00:35:05,346
+of a workout session.
+
+719
+00:35:05,896 --> 00:35:11,746
+And so to summarize the talk
+
+720
+00:35:11,746 --> 00:35:13,096
+about the performance
+
+721
+00:35:13,096 --> 00:35:14,836
+to historical accelerometer.
+
+722
+00:35:15,436 --> 00:35:17,816
+Then we demonstrated how
+
+723
+00:35:18,126 --> 00:35:20,446
+to precisely tag
+
+724
+00:35:20,446 --> 00:35:24,236
+contextual feedback to users,
+
+725
+00:35:24,236 --> 00:35:26,126
+to Device Motion
+
+726
+00:35:26,766 --> 00:35:28,546
+And walked you through
+
+727
+00:35:28,596 --> 00:35:30,976
+and backhand swings
+
+728
+00:35:32,956 --> 00:35:35,766
+So now if you'd like to
+
+729
+00:35:36,206 --> 00:35:37,846
+such as documentation
+
+730
+00:35:38,696 --> 00:35:40,166
+please check out this link.
+
+731
+00:35:42,356 --> 00:35:46,056
+And further, as you saw, this
+
+732
+00:35:46,056 --> 00:35:47,886
+from HealthKit so
+
+733
+00:35:47,886 --> 00:35:49,956
+to view this HealthKit
+
+734
+00:35:49,956 --> 00:35:52,296
+in detail what's
+
+735
+00:35:53,276 --> 00:35:56,216
+In addition, Core Location has
+
+736
+00:35:56,216 --> 00:35:58,456
+to review, and encourage you
+
+737
+00:35:59,016 --> 00:36:03,036
+And finally, I also recommend
+
+738
+00:35:59,016 --> 00:36:03,036
+And finally, I also recommend
+
+739
+00:36:03,036 --> 00:36:04,546
+in store in watchOS 3.
+
+740
+00:36:05,776 --> 00:36:05,976
+Thank you.
+
+741
+00:36:06,516 --> 00:36:09,500
+[ Applause ]

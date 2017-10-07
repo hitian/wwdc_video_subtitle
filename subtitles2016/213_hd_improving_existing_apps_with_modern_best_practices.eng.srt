@@ -1,0 +1,3379 @@
+1
+00:00:08,516 --> 00:00:17,500
+[ Music ]
+
+2
+00:00:25,756 --> 00:00:26,386
+&gt;&gt; Hello, everyone.
+
+3
+00:00:27,181 --> 00:00:29,181
+[ Applause ]
+
+4
+00:00:29,346 --> 00:00:29,966
+&gt;&gt; Oh, please.
+
+5
+00:00:30,386 --> 00:00:32,735
+My name's Woody.
+
+6
+00:00:32,735 --> 00:00:34,466
+I work in software
+
+7
+00:00:34,466 --> 00:00:35,996
+I'd like to welcome
+
+8
+00:00:36,076 --> 00:00:38,376
+both those of you here in
+
+9
+00:00:38,376 --> 00:00:40,386
+who are watching from
+
+10
+00:00:41,976 --> 00:00:44,036
+There's a couple things I'd
+
+11
+00:00:44,036 --> 00:00:45,276
+in the next 40 minutes.
+
+12
+00:00:45,646 --> 00:00:46,916
+We're going to take
+
+13
+00:00:47,056 --> 00:00:49,456
+that you can today start
+
+14
+00:00:50,086 --> 00:00:51,646
+Then, we'll take a
+
+15
+00:00:52,516 --> 00:00:54,226
+We'll take a look at
+
+16
+00:00:54,226 --> 00:00:56,646
+Well, it's not really new but
+
+17
+00:00:56,646 --> 00:00:59,176
+to start using called
+
+18
+00:00:59,746 --> 00:01:01,886
+And in the latter half of the
+
+19
+00:00:59,746 --> 00:01:01,886
+And in the latter half of the
+
+20
+00:01:01,886 --> 00:01:05,396
+from my presentation last
+
+21
+00:01:06,106 --> 00:01:06,786
+So, let's get going.
+
+22
+00:01:08,126 --> 00:01:11,366
+Last year in the session at one
+
+23
+00:01:11,656 --> 00:01:13,486
+that was describing a scenario.
+
+24
+00:01:13,486 --> 00:01:15,326
+You were describing something
+
+25
+00:01:15,326 --> 00:01:18,316
+to be quite familiar
+
+26
+00:01:19,016 --> 00:01:22,076
+You've got your boss that's
+
+27
+00:01:22,076 --> 00:01:25,746
+for features and the features
+
+28
+00:01:25,746 --> 00:01:27,036
+to get paid, so you do that.
+
+29
+00:01:27,826 --> 00:01:29,506
+Then you've got your
+
+30
+00:01:29,506 --> 00:01:31,206
+to fix the bugs that
+
+31
+00:01:31,736 --> 00:01:34,396
+And you take pride in your work
+
+32
+00:01:34,706 --> 00:01:36,666
+Some technical debt that
+
+33
+00:01:36,916 --> 00:01:39,546
+Sometimes I think about building
+
+34
+00:01:39,546 --> 00:01:40,896
+up a pile of Jenga blocks.
+
+35
+00:01:41,036 --> 00:01:42,446
+In the first version,
+
+36
+00:01:42,446 --> 00:01:44,136
+and you start piling
+
+37
+00:01:44,136 --> 00:01:47,416
+and then it becomes unstable and
+
+38
+00:01:47,416 --> 00:01:49,896
+So, you want to take a step
+
+39
+00:01:49,896 --> 00:01:51,116
+of the lower-level issues.
+
+40
+00:01:52,756 --> 00:01:57,886
+With all these things,
+
+41
+00:01:58,256 --> 00:01:59,686
+And we pile on new API.
+
+42
+00:02:00,566 --> 00:02:04,656
+And then we give you
+
+43
+00:02:04,656 --> 00:02:06,366
+and it breaks source
+
+44
+00:02:06,526 --> 00:02:07,976
+but introduces some
+
+45
+00:02:08,386 --> 00:02:11,966
+And you were warned, so
+
+46
+00:02:13,026 --> 00:02:15,566
+And then we introduced
+
+47
+00:02:15,736 --> 00:02:18,336
+and new extension points and
+
+48
+00:02:18,336 --> 00:02:19,766
+like Siri and Messages.
+
+49
+00:02:20,296 --> 00:02:23,366
+And if you want to think of your
+
+50
+00:02:23,366 --> 00:02:25,796
+of a run loop with all these
+
+51
+00:02:26,146 --> 00:02:27,206
+well, you know what
+
+52
+00:02:27,206 --> 00:02:28,026
+There's too much stuff.
+
+53
+00:02:28,686 --> 00:02:30,496
+So, what you do?
+
+54
+00:02:30,496 --> 00:02:32,476
+What are some things
+
+55
+00:02:32,806 --> 00:02:34,366
+to get ready for the fall?
+
+56
+00:02:35,036 --> 00:02:37,526
+First of all, if you were to
+
+57
+00:02:37,526 --> 00:02:42,726
+of iOS 8 and 9, you would
+
+58
+00:02:42,876 --> 00:02:44,436
+So, there's really no
+
+59
+00:02:44,436 --> 00:02:46,126
+of those deployment
+
+60
+00:02:46,666 --> 00:02:47,426
+Let's get rid of that.
+
+61
+00:02:47,806 --> 00:02:49,896
+In fact, the general idea is
+
+62
+00:02:49,896 --> 00:02:53,256
+that you take the current
+
+63
+00:02:53,766 --> 00:02:55,376
+and then set your
+
+64
+00:02:55,376 --> 00:02:57,916
+to one version back, maybe 8.4.
+
+65
+00:02:58,436 --> 00:03:01,416
+But don't go to 8.3 or 8.2
+
+66
+00:02:58,436 --> 00:03:01,416
+But don't go to 8.3 or 8.2
+
+67
+00:03:01,416 --> 00:03:03,366
+and your customers don't
+
+68
+00:03:03,366 --> 00:03:06,646
+that we've implemented under
+
+69
+00:03:07,566 --> 00:03:09,766
+When we come out with iOS 10
+
+70
+00:03:10,926 --> 00:03:14,876
+set your deployment
+
+71
+00:03:15,106 --> 00:03:17,486
+Next, Issue Navigator.
+
+72
+00:03:18,036 --> 00:03:20,456
+Resolve those issues.
+
+73
+00:03:20,836 --> 00:03:22,146
+Take a look at them
+
+74
+00:03:23,096 --> 00:03:26,566
+When we tell you that
+
+75
+00:03:26,566 --> 00:03:29,646
+that there is a deprecated API,
+
+76
+00:03:29,646 --> 00:03:32,426
+of reasons, including to
+
+77
+00:03:32,686 --> 00:03:34,686
+or to better, have
+
+78
+00:03:34,686 --> 00:03:37,966
+or to permit more performance
+
+79
+00:03:37,966 --> 00:03:39,556
+in the arguments return values.
+
+80
+00:03:39,766 --> 00:03:44,366
+And there's really no excuse
+
+81
+00:03:44,526 --> 00:03:45,926
+because we tell you right there.
+
+82
+00:03:45,926 --> 00:03:47,066
+It tells you what to use.
+
+83
+00:03:47,336 --> 00:03:48,046
+So, just use that.
+
+84
+00:03:48,156 --> 00:03:48,896
+Switch over those.
+
+85
+00:03:50,116 --> 00:03:52,726
+Next, you might decide that you
+
+86
+00:03:53,316 --> 00:03:55,606
+and we've had that for a
+
+87
+00:03:55,996 --> 00:04:00,366
+But now we also have it
+
+88
+00:03:55,996 --> 00:04:00,366
+But now we also have it
+
+89
+00:04:00,366 --> 00:04:00,736
+I know.
+
+90
+00:04:01,036 --> 00:04:03,036
+[ Applause ]
+
+91
+00:04:03,056 --> 00:04:04,606
+I think I'm the first
+
+92
+00:04:06,146 --> 00:04:07,216
+I really like this idea.
+
+93
+00:04:07,216 --> 00:04:09,046
+I think it's fantastic,
+
+94
+00:04:09,046 --> 00:04:11,876
+because it forces you and your
+
+95
+00:04:12,096 --> 00:04:14,666
+It's far too easy to
+
+96
+00:04:14,666 --> 00:04:16,866
+and think you'll come back to
+
+97
+00:04:17,076 --> 00:04:20,255
+and that's the whole
+
+98
+00:04:20,486 --> 00:04:26,266
+Also, do you think this would
+
+99
+00:04:26,266 --> 00:04:28,886
+of a new project, a new
+
+100
+00:04:29,016 --> 00:04:30,736
+we're going to ship
+
+101
+00:04:30,736 --> 00:04:32,256
+to have any art work in
+
+102
+00:04:32,546 --> 00:04:33,936
+We're not going to
+
+103
+00:04:34,056 --> 00:04:35,166
+We'll ship it and
+
+104
+00:04:35,166 --> 00:04:36,626
+up in the .1 release.
+
+105
+00:04:37,126 --> 00:04:37,826
+That would never fly.
+
+106
+00:04:37,826 --> 00:04:38,556
+No one's going to do that,
+
+107
+00:04:38,556 --> 00:04:40,296
+because this is how users
+
+108
+00:04:41,796 --> 00:04:44,076
+Well, actually it's how
+
+109
+00:04:44,076 --> 00:04:45,076
+of them interact with your app.
+
+110
+00:04:45,536 --> 00:04:48,276
+Many of them interact with your
+
+111
+00:04:48,276 --> 00:04:50,576
+features that we have built
+
+112
+00:04:51,106 --> 00:04:54,946
+So, why would ship your app with
+
+113
+00:04:54,946 --> 00:04:56,926
+or want it or use it but then
+
+114
+00:04:56,926 --> 00:04:57,636
+features in there?
+
+115
+00:04:57,636 --> 00:04:58,716
+That's not fair.
+
+116
+00:04:59,496 --> 00:05:01,016
+So, resolve some of
+
+117
+00:04:59,496 --> 00:05:01,016
+So, resolve some of
+
+118
+00:05:01,016 --> 00:05:02,156
+that comes to accessibility.
+
+119
+00:05:02,286 --> 00:05:03,106
+Add support for that.
+
+120
+00:05:03,106 --> 00:05:05,876
+We think that the accessibility
+
+121
+00:05:05,876 --> 00:05:08,156
+of your user interface
+
+122
+00:05:12,236 --> 00:05:13,476
+It's built into Xcode,
+
+123
+00:05:13,756 --> 00:05:15,316
+so you can use Interface
+
+124
+00:05:15,646 --> 00:05:17,156
+It's also easy to
+
+125
+00:05:17,736 --> 00:05:21,566
+We have a lot of
+
+126
+00:05:22,576 --> 00:05:24,206
+You should be using those
+
+127
+00:05:24,206 --> 00:05:24,936
+that you have to write.
+
+128
+00:05:25,576 --> 00:05:26,906
+That generally isn't
+
+129
+00:05:27,606 --> 00:05:28,676
+But these are.
+
+130
+00:05:29,856 --> 00:05:31,216
+Dimensions and measurement
+
+131
+00:05:31,396 --> 00:05:33,106
+If you've got recipe
+
+132
+00:05:33,106 --> 00:05:35,296
+and you've been converting
+
+133
+00:05:35,666 --> 00:05:37,606
+on your own code,
+
+134
+00:05:37,606 --> 00:05:39,946
+and use our code that's now
+
+135
+00:05:41,286 --> 00:05:46,226
+We'd like you to support
+
+136
+00:05:46,616 --> 00:05:49,416
+Right? You know, if you
+
+137
+00:05:50,696 --> 00:05:53,356
+you're probably accustomed
+
+138
+00:05:53,356 --> 00:05:54,226
+and see if it does anything.
+
+139
+00:05:54,386 --> 00:05:54,926
+No, nothing.
+
+140
+00:05:55,036 --> 00:05:56,656
+So, let's push hard on that
+
+141
+00:05:56,796 --> 00:05:57,636
+Well, that one does something.
+
+142
+00:05:57,876 --> 00:05:58,986
+It's hard to discover.
+
+143
+00:05:58,986 --> 00:06:00,476
+How awesome would
+
+144
+00:05:58,986 --> 00:06:00,476
+How awesome would
+
+145
+00:06:00,476 --> 00:06:03,326
+that we had already
+
+146
+00:06:03,326 --> 00:06:04,666
+Pop and Push and the 3-D touch?
+
+147
+00:06:05,896 --> 00:06:14,826
+Next. We want you to run
+
+148
+00:06:14,826 --> 00:06:16,116
+developer preview of Xcode 8.
+
+149
+00:06:16,116 --> 00:06:19,956
+If it doesn't migrate your code,
+
+150
+00:06:20,416 --> 00:06:22,386
+Then we have an opportunity
+
+151
+00:06:22,386 --> 00:06:24,556
+that when you run migrator
+
+152
+00:06:24,846 --> 00:06:27,876
+on the final release of
+
+153
+00:06:27,876 --> 00:06:31,376
+If it doesn't work,
+
+154
+00:06:31,376 --> 00:06:32,626
+of our own technical
+
+155
+00:06:32,666 --> 00:06:34,186
+The public interface is the same
+
+156
+00:06:34,346 --> 00:06:36,436
+but the implementation might
+
+157
+00:06:36,816 --> 00:06:42,166
+And it could be that the way
+
+158
+00:06:42,166 --> 00:06:43,036
+that we didn't expect.
+
+159
+00:06:43,926 --> 00:06:44,966
+So, you have an edge case.
+
+160
+00:06:45,596 --> 00:06:46,566
+So, tell us about that too.
+
+161
+00:06:46,736 --> 00:06:48,346
+This is why we do
+
+162
+00:06:48,866 --> 00:06:52,326
+We want you to file bug reports.
+
+163
+00:06:52,866 --> 00:06:55,456
+The report isn't just
+
+164
+00:06:55,566 --> 00:06:57,846
+And it's not just
+
+165
+00:06:58,276 --> 00:07:00,206
+and is not just sending
+
+166
+00:06:58,276 --> 00:07:00,206
+and is not just sending
+
+167
+00:07:01,006 --> 00:07:04,006
+The proper way to file
+
+168
+00:07:04,106 --> 00:07:05,486
+BugReport.Apple.com.
+
+169
+00:07:05,926 --> 00:07:06,566
+Fill in the blanks.
+
+170
+00:07:07,066 --> 00:07:09,896
+And then once you do
+
+171
+00:07:09,896 --> 00:07:11,136
+and then that's the
+
+172
+00:07:11,306 --> 00:07:12,696
+and post back into
+
+173
+00:07:12,826 --> 00:07:15,116
+There's a lot of Apple engineers
+
+174
+00:07:15,306 --> 00:07:18,076
+We like to hear what you are
+
+175
+00:07:18,076 --> 00:07:20,546
+or when you report an
+
+176
+00:07:20,626 --> 00:07:23,946
+and you don't include the bug
+
+177
+00:07:23,946 --> 00:07:25,416
+for us internally to
+
+178
+00:07:25,416 --> 00:07:25,926
+and get traction on it.
+
+179
+00:07:26,046 --> 00:07:26,976
+So, do that.
+
+180
+00:07:30,136 --> 00:07:36,276
+Next, you're probably
+
+181
+00:07:36,276 --> 00:07:38,386
+of filing bug reports with us.
+
+182
+00:07:39,376 --> 00:07:41,996
+Because you've filed
+
+183
+00:07:41,996 --> 00:07:43,306
+and nothing seems to happen.
+
+184
+00:07:43,846 --> 00:07:44,756
+You get nothing back.
+
+185
+00:07:45,486 --> 00:07:48,596
+In the words of Whitney Houston,
+
+186
+00:07:49,266 --> 00:07:51,386
+Well, they seem to go in
+
+187
+00:07:51,386 --> 00:07:52,676
+because you never
+
+188
+00:07:53,506 --> 00:07:56,826
+Or you think maybe you get
+
+189
+00:07:56,826 --> 00:07:59,866
+and the engineer kind of
+
+190
+00:08:01,296 --> 00:08:04,246
+I want to just assure
+
+191
+00:08:04,606 --> 00:08:05,426
+One of the first things I did
+
+192
+00:08:05,426 --> 00:08:07,016
+when I joined Apple
+
+193
+00:08:07,336 --> 00:08:10,526
+in the bug tracking system,
+
+194
+00:08:10,856 --> 00:08:14,386
+to find all the issues that I
+
+195
+00:08:14,386 --> 00:08:15,366
+And a lot of them had traction.
+
+196
+00:08:15,566 --> 00:08:17,256
+I just didn't have any
+
+197
+00:08:17,706 --> 00:08:19,406
+So, I wanted to show you
+
+198
+00:08:19,526 --> 00:08:20,306
+we do look at them.
+
+199
+00:08:21,666 --> 00:08:23,546
+The other thing that I find
+
+200
+00:08:23,546 --> 00:08:24,336
+of time filing a bug.
+
+201
+00:08:25,376 --> 00:08:27,126
+A lot of time maybe you're
+
+202
+00:08:27,126 --> 00:08:29,606
+You're trying a couple
+
+203
+00:08:29,606 --> 00:08:30,666
+You're checking for regression.
+
+204
+00:08:30,666 --> 00:08:31,806
+Like, that's great stuff to do.
+
+205
+00:08:32,066 --> 00:08:33,976
+It takes you maybe half
+
+206
+00:08:34,015 --> 00:08:36,385
+and then you file
+
+207
+00:08:36,385 --> 00:08:37,116
+and it says it's a dupe.
+
+208
+00:08:37,895 --> 00:08:39,525
+And you're like, oh, I
+
+209
+00:08:39,525 --> 00:08:42,486
+hour my life for something
+
+210
+00:08:43,476 --> 00:08:45,136
+So, I just want to
+
+211
+00:08:46,516 --> 00:08:49,596
+Because dupes first of all
+
+212
+00:08:49,596 --> 00:08:51,956
+It's not like if you copy
+
+213
+00:08:52,146 --> 00:08:54,256
+and you file a new bug with
+
+214
+00:08:54,476 --> 00:08:55,876
+we're going to say oh,
+
+215
+00:08:55,876 --> 00:08:56,716
+we should fix that first.
+
+216
+00:08:56,716 --> 00:08:57,846
+It's not quite like that.
+
+217
+00:08:58,946 --> 00:09:01,026
+What we do do with them though,
+
+218
+00:08:58,946 --> 00:09:01,026
+What we do do with them though,
+
+219
+00:09:01,376 --> 00:09:02,666
+it just means these
+
+220
+00:09:03,546 --> 00:09:06,116
+We need dupes too, not
+
+221
+00:09:06,426 --> 00:09:09,906
+but because we can have five
+
+222
+00:09:10,046 --> 00:09:10,736
+same root issue.
+
+223
+00:09:11,706 --> 00:09:15,646
+The first four don't give
+
+224
+00:09:15,646 --> 00:09:16,326
+to be able to find it.
+
+225
+00:09:17,026 --> 00:09:20,436
+But maybe it's your report,
+
+226
+00:09:20,436 --> 00:09:23,476
+albeit, is a dupe, but
+
+227
+00:09:23,476 --> 00:09:24,926
+that we need to find the issue.
+
+228
+00:09:26,386 --> 00:09:29,726
+In fact, an Apple engineer
+
+229
+00:09:29,726 --> 00:09:36,316
+for gosh, a couple decades,
+
+230
+00:09:36,826 --> 00:09:41,316
+Paul had said that each bug
+
+231
+00:09:42,406 --> 00:09:42,776
+All right.
+
+232
+00:09:43,236 --> 00:09:44,626
+So, in summary, things
+
+233
+00:09:44,976 --> 00:09:45,646
+Fix your warnings.
+
+234
+00:09:45,646 --> 00:09:46,806
+Replace your deprecated API.
+
+235
+00:09:47,366 --> 00:09:50,106
+Localize your App if
+
+236
+00:09:50,106 --> 00:09:51,306
+Use accessibility.
+
+237
+00:09:52,286 --> 00:09:53,756
+Or support accessibility rather.
+
+238
+00:09:53,756 --> 00:09:54,706
+Get Peek and Pop in there.
+
+239
+00:09:54,986 --> 00:09:56,956
+And then take a look at
+
+240
+00:09:57,186 --> 00:09:58,586
+and give us some
+
+241
+00:09:59,736 --> 00:10:01,366
+With that, let's move
+
+242
+00:09:59,736 --> 00:10:01,366
+With that, let's move
+
+243
+00:10:03,706 --> 00:10:06,436
+It's time to move
+
+244
+00:10:07,366 --> 00:10:09,726
+For you. So, if you still have
+
+245
+00:10:09,726 --> 00:10:14,366
+like this, go ahead and get them
+
+246
+00:10:15,926 --> 00:10:20,396
+The approach is you add a
+
+247
+00:10:21,036 --> 00:10:24,026
+By the way, you don't have
+
+248
+00:10:24,026 --> 00:10:26,026
+You can have as many catalogs
+
+249
+00:10:26,606 --> 00:10:31,646
+Maybe you're working on an app
+
+250
+00:10:31,836 --> 00:10:34,666
+So, you have a catalog for
+
+251
+00:10:34,666 --> 00:10:36,736
+and a second catalog for the
+
+252
+00:10:36,866 --> 00:10:37,296
+We can do that.
+
+253
+00:10:38,296 --> 00:10:41,226
+Another example, you might have
+
+254
+00:10:41,226 --> 00:10:42,686
+Xcode for free from
+
+255
+00:10:44,236 --> 00:10:45,636
+and create the Asset
+
+256
+00:10:46,606 --> 00:10:49,626
+And then send it to you or
+
+257
+00:10:49,826 --> 00:10:50,416
+We could do that too.
+
+258
+00:10:51,716 --> 00:10:54,646
+When we copy files into an Asset
+
+259
+00:10:54,646 --> 00:10:55,256
+They are copies.
+
+260
+00:10:55,456 --> 00:10:57,426
+We don't reference the
+
+261
+00:10:57,766 --> 00:10:59,196
+So, they do participate
+
+262
+00:11:02,436 --> 00:11:05,086
+To migrate your project,
+
+263
+00:11:05,866 --> 00:11:07,056
+Choose Import From Project.
+
+264
+00:11:07,456 --> 00:11:10,976
+We're going to give you
+
+265
+00:11:10,976 --> 00:11:14,286
+that are eligible to be
+
+266
+00:11:14,286 --> 00:11:15,526
+into the Asset Catalog.
+
+267
+00:11:18,256 --> 00:11:18,866
+There you go.
+
+268
+00:11:19,286 --> 00:11:20,736
+You migrated your image Assets.
+
+269
+00:11:22,016 --> 00:11:25,516
+If you previously used
+
+270
+00:11:25,876 --> 00:11:28,176
+pathForResource etc.,
+
+271
+00:11:28,176 --> 00:11:29,496
+because once we compile the app,
+
+272
+00:11:29,766 --> 00:11:31,286
+the images aren't
+
+273
+00:11:31,426 --> 00:11:33,626
+So you won't find anything.
+
+274
+00:11:34,306 --> 00:11:38,556
+But if you're using image named,
+
+275
+00:11:38,556 --> 00:11:40,676
+in an Asset Catalog
+
+276
+00:11:40,676 --> 00:11:43,876
+if they're just free-floating
+
+277
+00:11:44,286 --> 00:11:45,446
+This API has been
+
+278
+00:11:45,646 --> 00:11:48,616
+This API Image Name has
+
+279
+00:11:48,616 --> 00:11:50,506
+and beyond just being
+
+280
+00:11:50,506 --> 00:11:51,326
+from an image catalog.
+
+281
+00:11:52,136 --> 00:11:52,836
+Asset Catalog.
+
+282
+00:11:53,506 --> 00:11:55,796
+For example, it internally
+
+283
+00:11:55,796 --> 00:11:57,156
+that you asked for
+
+284
+00:11:57,326 --> 00:11:58,846
+We load it up, we give
+
+285
+00:11:58,846 --> 00:12:00,616
+The second time you ask
+
+286
+00:11:58,846 --> 00:12:00,616
+The second time you ask
+
+287
+00:12:00,616 --> 00:12:02,436
+we just return another
+
+288
+00:12:03,366 --> 00:12:06,036
+That's not how the
+
+289
+00:12:06,186 --> 00:12:08,066
+Contents of file loads
+
+290
+00:12:08,596 --> 00:12:10,566
+So, it's much more perform an,
+
+291
+00:12:10,566 --> 00:12:12,406
+through a table,
+
+292
+00:12:12,856 --> 00:12:16,816
+We support multiple
+
+293
+00:12:17,166 --> 00:12:21,286
+So, with image names, you'd
+
+294
+00:12:22,206 --> 00:12:24,076
+You'd let the framework
+
+295
+00:12:24,076 --> 00:12:25,496
+that you're running on.
+
+296
+00:12:26,076 --> 00:12:29,526
+Consider the resolution of the
+
+297
+00:12:29,526 --> 00:12:30,806
+retina on a Plus device.
+
+298
+00:12:31,366 --> 00:12:36,036
+And possibly other
+
+299
+00:12:36,136 --> 00:12:39,196
+for the media assets such as the
+
+300
+00:12:39,556 --> 00:12:42,736
+or the version of Metal that
+
+301
+00:12:43,266 --> 00:12:45,866
+And you get an image back.
+
+302
+00:12:47,286 --> 00:12:49,866
+There's two broad kinds
+
+303
+00:12:49,866 --> 00:12:50,936
+that you can consider.
+
+304
+00:12:50,936 --> 00:12:52,086
+We have scaled images.
+
+305
+00:12:52,286 --> 00:12:55,096
+Those are like PNG's, JPEG's.
+
+306
+00:12:55,096 --> 00:12:58,226
+And then we have
+
+307
+00:12:58,226 --> 00:13:01,316
+or just vector-based
+
+308
+00:12:58,226 --> 00:13:01,316
+or just vector-based
+
+309
+00:13:01,316 --> 00:13:05,476
+We treat them a little
+
+310
+00:13:06,056 --> 00:13:08,636
+On an asset by asset basis,
+
+311
+00:13:08,636 --> 00:13:11,066
+to be vector-based and that
+
+312
+00:13:12,256 --> 00:13:14,156
+You do that by specifying
+
+313
+00:13:14,726 --> 00:13:18,356
+So, I'm going to talk first
+
+314
+00:13:18,596 --> 00:13:20,616
+and then move onto the
+
+315
+00:13:21,346 --> 00:13:24,656
+For scaled images, in this
+
+316
+00:13:24,656 --> 00:13:26,876
+to provide three different
+
+317
+00:13:26,876 --> 00:13:30,306
+from 1X devices,
+
+318
+00:13:31,126 --> 00:13:33,516
+If we don't find, because
+
+319
+00:13:34,446 --> 00:13:37,626
+the 2X and 3X, we'll take the 1X
+
+320
+00:13:37,626 --> 00:13:40,186
+that it becomes, well,
+
+321
+00:13:40,186 --> 00:13:46,316
+on the higher end devices or
+
+322
+00:13:46,416 --> 00:13:49,746
+Likewise, if you just
+
+323
+00:13:49,746 --> 00:13:51,116
+we'd scale it down at runtime.
+
+324
+00:13:52,286 --> 00:13:54,416
+These two scenarios
+
+325
+00:13:54,656 --> 00:13:56,916
+In this scenario, if I take
+
+326
+00:13:56,916 --> 00:14:00,366
+up for an iPhone 6S Plus, it's
+
+327
+00:13:56,916 --> 00:14:00,366
+up for an iPhone 6S Plus, it's
+
+328
+00:14:00,366 --> 00:14:02,186
+It's going to have a visual
+
+329
+00:14:02,216 --> 00:14:04,546
+It's not very desirable
+
+330
+00:14:04,546 --> 00:14:05,946
+your customers aren't
+
+331
+00:14:07,496 --> 00:14:09,606
+This one, at first
+
+332
+00:14:09,606 --> 00:14:11,706
+I'll just provide the 3X artwork
+
+333
+00:14:12,876 --> 00:14:15,136
+But there's a huge problem
+
+334
+00:14:15,136 --> 00:14:17,766
+down a 3X image, we
+
+335
+00:14:18,136 --> 00:14:18,896
+And it's really big.
+
+336
+00:14:19,746 --> 00:14:23,156
+And then we take an
+
+337
+00:14:23,156 --> 00:14:25,266
+and create a scaled-down
+
+338
+00:14:26,466 --> 00:14:29,356
+It's an order, two orders of
+
+339
+00:14:30,466 --> 00:14:31,186
+So, consider this.
+
+340
+00:14:32,456 --> 00:14:35,536
+You're on a device
+
+341
+00:14:36,296 --> 00:14:38,026
+There's no need for
+
+342
+00:14:38,636 --> 00:14:40,086
+but you only provide 3X images.
+
+343
+00:14:40,846 --> 00:14:42,776
+So, we start off with the
+
+344
+00:14:43,776 --> 00:14:47,026
+That's fine, but then we
+
+345
+00:14:47,266 --> 00:14:48,876
+down convert it, get
+
+346
+00:14:49,056 --> 00:14:50,836
+and keep this scaled-down
+
+347
+00:14:51,276 --> 00:14:53,186
+which just temporarily
+
+348
+00:14:53,186 --> 00:14:56,166
+And if you're good, it's
+
+349
+00:14:56,166 --> 00:14:57,236
+But if you good, I mean
+
+350
+00:14:57,236 --> 00:15:01,556
+if you're lucky it's
+
+351
+00:14:57,236 --> 00:15:01,556
+if you're lucky it's
+
+352
+00:15:01,616 --> 00:15:03,466
+But let's say you're
+
+353
+00:15:03,656 --> 00:15:05,526
+and as you're scrolling,
+
+354
+00:15:05,846 --> 00:15:07,286
+All of a sudden the
+
+355
+00:15:07,286 --> 00:15:09,496
+for your app balloons
+
+356
+00:15:09,496 --> 00:15:10,356
+when you use too much memory?
+
+357
+00:15:11,086 --> 00:15:13,656
+Anybody know, just
+
+358
+00:15:13,956 --> 00:15:14,576
+Yeah, right.
+
+359
+00:15:14,576 --> 00:15:15,616
+We terminate it.
+
+360
+00:15:15,616 --> 00:15:18,336
+It's terminated because you
+
+361
+00:15:18,536 --> 00:15:19,696
+So, provide the artwork.
+
+362
+00:15:20,136 --> 00:15:22,896
+In fact, you can do this
+
+363
+00:15:23,116 --> 00:15:25,256
+not a task but with
+
+364
+00:15:25,816 --> 00:15:28,526
+You give it a 3X image, let it
+
+365
+00:15:28,526 --> 00:15:29,686
+Scale it down, give it a name.
+
+366
+00:15:29,776 --> 00:15:31,666
+Great, throw those all
+
+367
+00:15:32,016 --> 00:15:33,776
+And if you wanted to, you could,
+
+368
+00:15:34,316 --> 00:15:36,986
+and this is another
+
+369
+00:15:36,986 --> 00:15:38,176
+Use this naming convention,
+
+370
+00:15:38,586 --> 00:15:41,316
+the non-retina ones is
+
+371
+00:15:41,316 --> 00:15:44,336
+And then add 2X and
+
+372
+00:15:45,016 --> 00:15:46,556
+And then when you drag
+
+373
+00:15:46,556 --> 00:15:49,506
+into an Asset Catalog, we
+
+374
+00:15:49,506 --> 00:15:51,856
+We create one asset with the
+
+375
+00:15:52,316 --> 00:15:53,886
+as opposed to three
+
+376
+00:15:55,096 --> 00:15:57,426
+For Vector Assets,
+
+377
+00:15:57,426 --> 00:15:59,926
+because the file contains a
+
+378
+00:15:59,926 --> 00:16:03,366
+to draw the image as opposed
+
+379
+00:15:59,926 --> 00:16:03,366
+to draw the image as opposed
+
+380
+00:16:04,246 --> 00:16:06,326
+This is the same image, not
+
+381
+00:16:06,406 --> 00:16:09,376
+Same image scaled
+
+382
+00:16:09,546 --> 00:16:10,616
+When you specify
+
+383
+00:16:10,616 --> 00:16:12,406
+to use single vector scaling,
+
+384
+00:16:12,476 --> 00:16:14,096
+you're providing one
+
+385
+00:16:14,276 --> 00:16:16,256
+And at build time,
+
+386
+00:16:16,256 --> 00:16:17,626
+into the different
+
+387
+00:16:18,706 --> 00:16:19,866
+It's much simpler for you.
+
+388
+00:16:19,866 --> 00:16:22,946
+This is the kind of thing you'd
+
+389
+00:16:22,946 --> 00:16:24,366
+and navigation bar images.
+
+390
+00:16:25,696 --> 00:16:27,456
+There you go, scale
+
+391
+00:16:28,516 --> 00:16:30,576
+It's also possible
+
+392
+00:16:31,826 --> 00:16:36,046
+You can set the scale factor
+
+393
+00:16:36,546 --> 00:16:38,486
+And what you do is you provide
+
+394
+00:16:38,486 --> 00:16:40,606
+like the limits in
+
+395
+00:16:41,686 --> 00:16:43,776
+Then, if you want
+
+396
+00:16:43,776 --> 00:16:46,476
+for the other scale factors,
+
+397
+00:16:46,476 --> 00:16:50,836
+as either other vector images
+
+398
+00:16:52,276 --> 00:16:54,946
+Then when we build it, if we see
+
+399
+00:16:55,086 --> 00:16:57,756
+we'll just rasterize those
+
+400
+00:16:57,756 --> 00:17:00,046
+in the All truck well or target.
+
+401
+00:16:57,756 --> 00:17:00,046
+in the All truck well or target.
+
+402
+00:17:01,076 --> 00:17:02,846
+Otherwise, we'll use the
+
+403
+00:17:03,376 --> 00:17:08,376
+New in Xcode 8, you can
+
+404
+00:17:10,955 --> 00:17:11,616
+Come on, you.
+
+405
+00:17:12,226 --> 00:17:13,116
+You can adjust the compression.
+
+406
+00:17:13,496 --> 00:17:15,356
+So, we can say for a
+
+407
+00:17:15,356 --> 00:17:17,246
+to use glossy compression
+
+408
+00:17:17,246 --> 00:17:19,046
+for a PNG we don't want
+
+409
+00:17:19,046 --> 00:17:21,106
+because it's going to be
+
+410
+00:17:21,185 --> 00:17:22,685
+We don't want to see
+
+411
+00:17:24,096 --> 00:17:26,195
+Another issue you can resolve
+
+412
+00:17:26,336 --> 00:17:27,896
+just in case the pitch
+
+413
+00:17:28,546 --> 00:17:31,946
+is to fix the issue or
+
+414
+00:17:31,946 --> 00:17:35,236
+We're referring to
+
+415
+00:17:36,596 --> 00:17:39,266
+The issue with rounded
+
+416
+00:17:39,896 --> 00:17:43,486
+So, your button might
+
+417
+00:17:43,486 --> 00:17:46,746
+that fits perfectly well
+
+418
+00:17:46,746 --> 00:17:49,096
+in a different language and
+
+419
+00:17:49,626 --> 00:17:51,386
+And when we change the size
+
+420
+00:17:51,386 --> 00:17:54,206
+to preserve the beautiful
+
+421
+00:17:55,456 --> 00:17:57,206
+The way you would even
+
+422
+00:17:57,206 --> 00:17:58,596
+in the first place is
+
+423
+00:17:58,596 --> 00:18:00,346
+in Interface Builder
+
+424
+00:17:58,596 --> 00:18:00,346
+in Interface Builder
+
+425
+00:18:00,346 --> 00:18:02,216
+and specify a background image.
+
+426
+00:18:03,006 --> 00:18:04,356
+And then we apply that
+
+427
+00:18:04,936 --> 00:18:11,066
+In this example, I have an
+
+428
+00:18:12,576 --> 00:18:14,766
+and I apply that as my
+
+429
+00:18:14,766 --> 00:18:16,516
+but you can see in the
+
+430
+00:18:16,516 --> 00:18:20,066
+when it's stretched out it's
+
+431
+00:18:22,356 --> 00:18:24,516
+So, one way you can
+
+432
+00:18:24,516 --> 00:18:25,796
+that you've been
+
+433
+00:18:25,796 --> 00:18:27,156
+which is using Stretchable
+
+434
+00:18:28,186 --> 00:18:29,796
+And you say well, I want
+
+435
+00:18:29,796 --> 00:18:30,756
+of pixels on both sides.
+
+436
+00:18:32,136 --> 00:18:33,866
+And that's fine but
+
+437
+00:18:33,866 --> 00:18:36,426
+of this presentation is
+
+438
+00:18:36,426 --> 00:18:38,616
+and rely more on the frameworks
+
+439
+00:18:39,586 --> 00:18:42,446
+So, instead this is built
+
+440
+00:18:42,726 --> 00:18:43,636
+It's called Asset Slicer.
+
+441
+00:18:44,536 --> 00:18:47,686
+And you can use it to
+
+442
+00:18:47,686 --> 00:18:49,436
+in red, don't stretch these.
+
+443
+00:18:50,066 --> 00:18:51,416
+Don't distort them.
+
+444
+00:18:52,076 --> 00:18:54,986
+The portion that's illuminated,
+
+445
+00:18:55,996 --> 00:18:58,436
+And by doing that, you get
+
+446
+00:18:58,436 --> 00:18:59,636
+and you don't have to
+
+447
+00:19:00,696 --> 00:19:03,006
+This is also something you could
+
+448
+00:19:03,006 --> 00:19:04,296
+because it's part
+
+449
+00:19:04,296 --> 00:19:06,966
+All right, next up, let's talk
+
+450
+00:19:06,966 --> 00:19:09,686
+about a design pattern
+
+451
+00:19:10,566 --> 00:19:13,026
+Let's first of all talk about
+
+452
+00:19:13,026 --> 00:19:16,206
+or trying to change
+
+453
+00:19:16,406 --> 00:19:18,736
+So, we have UITextField and
+
+454
+00:19:18,736 --> 00:19:21,096
+and the delegate is called
+
+455
+00:19:21,226 --> 00:19:23,336
+Fine. And in it, it
+
+456
+00:19:23,336 --> 00:19:25,506
+to text fields, like
+
+457
+00:19:26,266 --> 00:19:30,046
+Okay? We have WCSession.
+
+458
+00:19:30,516 --> 00:19:31,636
+And WCSession delegate.
+
+459
+00:19:31,636 --> 00:19:32,456
+What's inside the delegate?
+
+460
+00:19:32,566 --> 00:19:34,126
+Methods that relate
+
+461
+00:19:34,666 --> 00:19:35,636
+You can see the pattern here.
+
+462
+00:19:36,146 --> 00:19:38,716
+Which we break with this one.
+
+463
+00:19:39,356 --> 00:19:43,036
+We have the app delegate
+
+464
+00:19:43,036 --> 00:19:44,676
+that relate to the
+
+465
+00:19:45,346 --> 00:19:48,706
+But then we stick other stuff
+
+466
+00:19:48,706 --> 00:19:50,826
+and essentially eventually
+
+467
+00:19:50,826 --> 00:19:53,096
+in there including the
+
+468
+00:19:53,366 --> 00:19:56,196
+And we do it because it's
+
+469
+00:19:56,576 --> 00:19:58,446
+through the Application
+
+470
+00:19:58,446 --> 00:19:59,756
+cast it and retrieve it.
+
+471
+00:19:59,916 --> 00:20:03,486
+But it's such a strong coupling
+
+472
+00:19:59,916 --> 00:20:03,486
+But it's such a strong coupling
+
+473
+00:20:03,826 --> 00:20:06,466
+and your app delegate and your
+
+474
+00:20:06,466 --> 00:20:07,796
+to be the place where that goes.
+
+475
+00:20:08,286 --> 00:20:11,726
+Instead of a pattern like this
+
+476
+00:20:12,026 --> 00:20:13,456
+where each view controller
+
+477
+00:20:13,456 --> 00:20:15,276
+to some common object,
+
+478
+00:20:15,276 --> 00:20:17,756
+in your app delegate,
+
+479
+00:20:19,136 --> 00:20:21,936
+Using Dependency Injection,
+
+480
+00:20:22,186 --> 00:20:24,246
+that one view controller
+
+481
+00:20:24,246 --> 00:20:25,696
+to the next view
+
+482
+00:20:25,696 --> 00:20:26,916
+that view controller
+
+483
+00:20:27,556 --> 00:20:29,706
+The idea is you give the
+
+484
+00:20:29,706 --> 00:20:31,776
+that it needs to do its job.
+
+485
+00:20:33,716 --> 00:20:36,396
+So, for mail, you'd have
+
+486
+00:20:36,966 --> 00:20:38,176
+A view controller
+
+487
+00:20:38,176 --> 00:20:40,566
+of mailboxes would have a model
+
+488
+00:20:40,566 --> 00:20:41,406
+of mailboxes.
+
+489
+00:20:41,796 --> 00:20:43,466
+You tap on one of the mailboxes.
+
+490
+00:20:43,906 --> 00:20:46,716
+Another view controller's
+
+491
+00:20:46,716 --> 00:20:48,226
+to show the messages
+
+492
+00:20:48,786 --> 00:20:49,276
+The middle one.
+
+493
+00:20:49,536 --> 00:20:51,936
+And you pass forward the one
+
+494
+00:20:51,936 --> 00:20:52,936
+and you keep passing it forward.
+
+495
+00:20:53,496 --> 00:20:58,646
+The way you would do that in
+
+496
+00:20:58,646 --> 00:21:00,006
+for segue and pass
+
+497
+00:20:58,646 --> 00:21:00,006
+for segue and pass
+
+498
+00:21:00,556 --> 00:21:02,176
+The way you would do it
+
+499
+00:21:02,176 --> 00:21:04,806
+if you were programmatically
+
+500
+00:21:04,806 --> 00:21:06,576
+for the button viewed
+
+501
+00:21:06,576 --> 00:21:08,886
+The view controller,
+
+502
+00:21:10,496 --> 00:21:14,556
+The benefit of this technique
+
+503
+00:21:14,556 --> 00:21:15,706
+standalone now.
+
+504
+00:21:15,706 --> 00:21:17,826
+They don't have these strong
+
+505
+00:21:18,026 --> 00:21:19,176
+You can reuse them more.
+
+506
+00:21:23,036 --> 00:21:24,856
+Coming back, you've
+
+507
+00:21:25,236 --> 00:21:27,946
+You can do what we do, which
+
+508
+00:21:27,946 --> 00:21:30,346
+and have you implement it
+
+509
+00:21:30,346 --> 00:21:31,546
+to say the view controller's
+
+510
+00:21:31,546 --> 00:21:32,906
+and maybe update
+
+511
+00:21:33,046 --> 00:21:34,346
+You can pass in a closure.
+
+512
+00:21:34,796 --> 00:21:36,976
+You can pass object
+
+513
+00:21:37,336 --> 00:21:40,236
+Or, you can, if you're
+
+514
+00:21:40,236 --> 00:21:42,446
+it's exactly the same as
+
+515
+00:21:42,446 --> 00:21:43,936
+because it happens in both ways,
+
+516
+00:21:44,126 --> 00:21:45,556
+forward directions
+
+517
+00:21:46,996 --> 00:21:49,526
+Another reason why
+
+518
+00:21:49,526 --> 00:21:51,986
+because view controllers are
+
+519
+00:21:52,876 --> 00:21:55,486
+They should be able to be
+
+520
+00:21:55,486 --> 00:21:57,436
+of each other to
+
+521
+00:21:57,786 --> 00:22:01,826
+In this case, an iPhone SE's
+
+522
+00:21:57,786 --> 00:22:01,826
+In this case, an iPhone SE's
+
+523
+00:22:01,826 --> 00:22:03,716
+to be different for your
+
+524
+00:22:03,716 --> 00:22:07,136
+on an iPad 12 inch,
+
+525
+00:22:08,126 --> 00:22:09,646
+If your view controllers
+
+526
+00:22:09,646 --> 00:22:12,236
+it's easy to do that.
+
+527
+00:22:12,236 --> 00:22:12,556
+All right.
+
+528
+00:22:13,076 --> 00:22:17,266
+Now, last year at WWDC,
+
+529
+00:22:17,766 --> 00:22:22,436
+on topics including playgrounds
+
+530
+00:22:23,516 --> 00:22:26,426
+And interoperability with
+
+531
+00:22:26,996 --> 00:22:31,426
+And since then, we've added
+
+532
+00:22:31,626 --> 00:22:32,886
+things that we couldn't
+
+533
+00:22:32,886 --> 00:22:34,706
+So, I want to show you
+
+534
+00:22:35,376 --> 00:22:39,166
+With that, we're going
+
+535
+00:22:39,536 --> 00:22:42,416
+So, this is the periodic
+
+536
+00:22:42,416 --> 00:22:43,296
+that I showed you last year.
+
+537
+00:22:43,506 --> 00:22:45,366
+Since then, it's been
+
+538
+00:22:45,366 --> 00:22:49,196
+For example, the colors
+
+539
+00:22:49,346 --> 00:22:51,786
+Instead of using states
+
+540
+00:22:51,786 --> 00:22:55,166
+now it's the kind of object
+
+541
+00:22:55,166 --> 00:22:57,436
+halogen, that kind of thing.
+
+542
+00:22:57,436 --> 00:22:59,006
+We've also added
+
+543
+00:22:59,006 --> 00:23:01,826
+out so it actually looks like
+
+544
+00:22:59,006 --> 00:23:01,826
+out so it actually looks like
+
+545
+00:23:02,136 --> 00:23:04,146
+and that's a collection
+
+546
+00:23:06,056 --> 00:23:13,426
+I want to show you
+
+547
+00:23:13,636 --> 00:23:15,476
+One of the things that
+
+548
+00:23:15,476 --> 00:23:17,656
+since the last time
+
+549
+00:23:17,656 --> 00:23:19,796
+that the data model has
+
+550
+00:23:20,756 --> 00:23:24,566
+So now I have a class the
+
+551
+00:23:24,866 --> 00:23:26,526
+like nitrogen or oxygen.
+
+552
+00:23:27,206 --> 00:23:29,796
+And I have a class that
+
+553
+00:23:30,266 --> 00:23:33,056
+of those called, excuse
+
+554
+00:23:34,356 --> 00:23:37,456
+This class instantiates
+
+555
+00:23:37,456 --> 00:23:40,636
+the individual atomic elements,
+
+556
+00:23:41,556 --> 00:23:43,826
+Which I've also stored
+
+557
+00:23:44,396 --> 00:23:48,376
+But now that I've moved
+
+558
+00:23:48,746 --> 00:23:50,596
+I can show you the data
+
+559
+00:23:51,176 --> 00:23:53,326
+Last year when I did
+
+560
+00:23:53,326 --> 00:23:54,646
+to make a new playground first.
+
+561
+00:23:55,566 --> 00:23:56,736
+New file, playground.
+
+562
+00:23:57,576 --> 00:24:01,836
+Last year when I did
+
+563
+00:23:57,576 --> 00:24:01,836
+Last year when I did
+
+564
+00:24:01,836 --> 00:24:04,616
+pasting between my
+
+565
+00:24:05,186 --> 00:24:08,976
+And when you do this a lot, your
+
+566
+00:24:08,976 --> 00:24:09,976
+with a lot of code in it.
+
+567
+00:24:09,976 --> 00:24:13,136
+So, instead our playgrounds
+
+568
+00:24:14,206 --> 00:24:15,816
+for source code and resources.
+
+569
+00:24:16,366 --> 00:24:20,996
+I can take my model
+
+570
+00:24:20,996 --> 00:24:22,006
+into the sources folder.
+
+571
+00:24:22,586 --> 00:24:26,196
+And then we compile
+
+572
+00:24:26,746 --> 00:24:29,386
+and we implicitly import
+
+573
+00:24:29,386 --> 00:24:31,976
+into the playground to make
+
+574
+00:24:33,556 --> 00:24:37,796
+Which means if I take this
+
+575
+00:24:37,846 --> 00:24:39,666
+and include that in
+
+576
+00:24:39,906 --> 00:24:41,726
+which makes it accessible
+
+577
+00:24:42,336 --> 00:24:48,486
+I can come over to
+
+578
+00:24:48,486 --> 00:24:51,806
+and instantiate an instance
+
+579
+00:24:53,086 --> 00:24:54,036
+Here's Californium.
+
+580
+00:24:54,906 --> 00:24:57,236
+Like that.
+
+581
+00:24:58,416 --> 00:25:01,676
+So, the ability to
+
+582
+00:24:58,416 --> 00:25:01,676
+So, the ability to
+
+583
+00:25:02,086 --> 00:25:04,956
+and have them automatically
+
+584
+00:25:05,636 --> 00:25:07,076
+when they're in the
+
+585
+00:25:07,076 --> 00:25:09,756
+or the resources folder is a
+
+586
+00:25:10,186 --> 00:25:12,336
+to keep your playgrounds
+
+587
+00:25:12,336 --> 00:25:16,666
+and concise while also having
+
+588
+00:25:16,866 --> 00:25:18,816
+Now, above and beyond that,
+
+589
+00:25:18,816 --> 00:25:23,926
+since last year that affects
+
+590
+00:25:24,306 --> 00:25:27,056
+The International Union of Pure
+
+591
+00:25:27,056 --> 00:25:31,056
+and Applied Chemistry
+
+592
+00:25:31,056 --> 00:25:32,846
+of 4 additional elements.
+
+593
+00:25:33,736 --> 00:25:35,606
+So, now all of a sudden
+
+594
+00:25:35,606 --> 00:25:37,516
+that I've got embedded
+
+595
+00:25:37,516 --> 00:25:38,836
+like such good idea anymore.
+
+596
+00:25:39,436 --> 00:25:42,756
+So, I thought well,
+
+597
+00:25:42,756 --> 00:25:43,676
+We'll just put it online.
+
+598
+00:25:44,896 --> 00:25:48,746
+So I set up a little Web
+
+599
+00:25:48,746 --> 00:25:49,946
+at this time with
+
+600
+00:25:51,186 --> 00:25:53,746
+And then the idea is that
+
+601
+00:25:54,266 --> 00:25:56,576
+initially it'll use the
+
+602
+00:25:57,246 --> 00:25:58,956
+That way if there's no
+
+603
+00:25:58,956 --> 00:26:00,556
+there's still something
+
+604
+00:25:58,956 --> 00:26:00,556
+there's still something
+
+605
+00:26:00,556 --> 00:26:03,716
+And this is also a pattern
+
+606
+00:26:04,676 --> 00:26:06,286
+Then we'll do a background
+
+607
+00:26:06,666 --> 00:26:07,936
+and in the background
+
+608
+00:26:07,936 --> 00:26:09,326
+if there's an update
+
+609
+00:26:09,326 --> 00:26:10,906
+And if so, we'll put
+
+610
+00:26:10,906 --> 00:26:13,726
+and we'll reference
+
+611
+00:26:14,496 --> 00:26:16,576
+So, I want to do the network
+
+612
+00:26:17,196 --> 00:26:21,416
+And for that, we have the class
+
+613
+00:26:21,416 --> 00:26:23,196
+and now known as URL Session.
+
+614
+00:26:24,056 --> 00:26:26,346
+Which is shown here.
+
+615
+00:26:26,956 --> 00:26:32,356
+We grabbed the Session and the
+
+616
+00:26:32,356 --> 00:26:35,136
+when I call it out on line 24,
+
+617
+00:26:36,326 --> 00:26:37,936
+is I give it a completion
+
+618
+00:26:38,666 --> 00:26:40,676
+Because this runs asynchronously
+
+619
+00:26:41,426 --> 00:26:43,586
+Go to the Network Request,
+
+620
+00:26:44,826 --> 00:26:48,996
+When the request either times
+
+621
+00:26:48,996 --> 00:26:50,766
+it gives us call back.
+
+622
+00:26:50,766 --> 00:26:52,486
+And in the call back on line 28,
+
+623
+00:26:53,646 --> 00:26:55,976
+you can see I'm printing
+
+624
+00:26:56,526 --> 00:27:01,176
+But you actually don't
+
+625
+00:26:56,526 --> 00:27:01,176
+But you actually don't
+
+626
+00:27:02,356 --> 00:27:02,976
+That's a problem.
+
+627
+00:27:08,756 --> 00:27:10,336
+So, just think about
+
+628
+00:27:10,956 --> 00:27:11,966
+We have a playground
+
+629
+00:27:12,506 --> 00:27:14,146
+We asked it to do a
+
+630
+00:27:14,806 --> 00:27:16,816
+At some indeterminate
+
+631
+00:27:17,316 --> 00:27:19,546
+we get a call back saying
+
+632
+00:27:20,006 --> 00:27:22,206
+But playgrounds typically
+
+633
+00:27:22,256 --> 00:27:23,486
+The first line all the way
+
+634
+00:27:23,486 --> 00:27:24,846
+through to the end
+
+635
+00:27:26,116 --> 00:27:27,156
+Key word being typically.
+
+636
+00:27:27,156 --> 00:27:28,366
+But they don't have to.
+
+637
+00:27:28,916 --> 00:27:31,546
+We can get a runloop and
+
+638
+00:27:31,546 --> 00:27:32,336
+in our playgrounds.
+
+639
+00:27:33,316 --> 00:27:35,416
+To do that we import
+
+640
+00:27:35,656 --> 00:27:36,306
+playground support.
+
+641
+00:27:37,426 --> 00:27:42,826
+And then you ask the playground
+
+642
+00:27:42,826 --> 00:27:45,896
+And then it never stops,
+
+643
+00:27:46,466 --> 00:27:49,706
+So, now if I scroll
+
+644
+00:27:49,706 --> 00:27:52,506
+you can see I'm getting
+
+645
+00:27:53,196 --> 00:27:53,856
+There's cadmium.
+
+646
+00:27:53,946 --> 00:27:54,486
+All right.
+
+647
+00:27:57,076 --> 00:28:02,426
+Next I want to expand
+
+648
+00:27:57,076 --> 00:28:02,426
+Next I want to expand
+
+649
+00:28:02,516 --> 00:28:04,636
+Last I showed a drawing,
+
+650
+00:28:04,636 --> 00:28:07,846
+a rounded corner
+
+651
+00:28:08,956 --> 00:28:10,776
+This time I don't just want to
+
+652
+00:28:10,776 --> 00:28:13,276
+I want to do a whole table view
+
+653
+00:28:13,746 --> 00:28:17,476
+And we have some new features
+
+654
+00:28:17,476 --> 00:28:19,166
+in the playgrounds
+
+655
+00:28:19,896 --> 00:28:24,366
+Let me just open up
+
+656
+00:28:25,076 --> 00:28:27,716
+Call it View.
+
+657
+00:28:28,286 --> 00:28:33,406
+So, I'm going to make a subclass
+
+658
+00:28:34,986 --> 00:28:40,826
+This is all that it
+
+659
+00:28:41,106 --> 00:28:43,086
+I'm implementing the 2
+
+660
+00:28:43,086 --> 00:28:44,896
+or Table View Controller
+
+661
+00:28:45,306 --> 00:28:49,036
+Number of objects, sorry,
+
+662
+00:28:49,296 --> 00:28:51,996
+self-wrote index that and
+
+663
+00:28:52,526 --> 00:28:55,146
+And I'd like to see that live.
+
+664
+00:28:56,356 --> 00:28:59,696
+So, this time what we do is we
+
+665
+00:29:00,626 --> 00:29:02,896
+and then using that
+
+666
+00:29:03,066 --> 00:29:06,066
+that I've already imported, the
+
+667
+00:29:06,706 --> 00:29:11,416
+I grab the playground's
+
+668
+00:29:12,006 --> 00:29:16,956
+And then we take that
+
+669
+00:29:16,956 --> 00:29:19,746
+into the assistant editor who's
+
+670
+00:29:20,836 --> 00:29:22,226
+but rather our Live View.
+
+671
+00:29:29,446 --> 00:29:31,076
+See? It's a Live Table View.
+
+672
+00:29:31,556 --> 00:29:32,926
+It scrolls, it's active.
+
+673
+00:29:34,501 --> 00:29:36,501
+[ Applause ]
+
+674
+00:29:36,986 --> 00:29:37,266
+Thank you.
+
+675
+00:29:37,566 --> 00:29:38,816
+Is not just a static image.
+
+676
+00:29:39,296 --> 00:29:40,436
+It's a real interactive
+
+677
+00:29:40,436 --> 00:29:42,946
+If you wanted to try some
+
+678
+00:29:42,946 --> 00:29:44,836
+or even the existent delegate
+
+679
+00:29:44,836 --> 00:29:46,366
+into the playground and
+
+680
+00:29:46,856 --> 00:29:50,476
+No need to put this into
+
+681
+00:29:51,746 --> 00:29:53,476
+So, now I want to take the two
+
+682
+00:29:54,606 --> 00:29:57,016
+Specifically, I have this
+
+683
+00:29:57,016 --> 00:29:57,636
+that's happening.
+
+684
+00:29:58,046 --> 00:30:00,606
+And after I retrieve the data,
+
+685
+00:29:58,046 --> 00:30:00,606
+And after I retrieve the data,
+
+686
+00:30:00,806 --> 00:30:09,226
+So, let me show you that.
+
+687
+00:30:09,396 --> 00:30:11,386
+First of all, comment this.
+
+688
+00:30:12,046 --> 00:30:15,386
+And just to prove to you that
+
+689
+00:30:15,446 --> 00:30:19,216
+from that site, I'm
+
+690
+00:30:19,686 --> 00:30:21,796
+so I have an empty
+
+691
+00:30:21,796 --> 00:30:22,506
+All right.
+
+692
+00:30:26,556 --> 00:30:28,916
+So, I have an empty
+
+693
+00:30:28,916 --> 00:30:30,066
+I do the network request.
+
+694
+00:30:30,836 --> 00:30:32,126
+When the network
+
+695
+00:30:32,126 --> 00:30:35,006
+and it's call back, it's a sign.
+
+696
+00:30:35,566 --> 00:30:37,946
+The new array of elements
+
+697
+00:30:38,546 --> 00:30:39,516
+And then we reload
+
+698
+00:30:40,096 --> 00:30:41,926
+All right.
+
+699
+00:30:51,126 --> 00:30:51,856
+Is that what you would expect?
+
+700
+00:30:51,856 --> 00:30:54,546
+It's not what I expected the
+
+701
+00:30:55,036 --> 00:30:56,256
+Oh, that must be a bug in Xcode.
+
+702
+00:30:56,256 --> 00:30:58,066
+I'll just go file a bug
+
+703
+00:30:58,066 --> 00:30:59,496
+But it's actually not.
+
+704
+00:31:00,986 --> 00:31:03,186
+It's a bug in my code,
+
+705
+00:31:03,426 --> 00:31:06,006
+It's a bug in my code and
+
+706
+00:31:06,976 --> 00:31:09,706
+We have this background
+
+707
+00:31:10,526 --> 00:31:12,516
+The background operation
+
+708
+00:31:12,766 --> 00:31:13,576
+It's not on the main thread.
+
+709
+00:31:14,246 --> 00:31:15,236
+UI is in the main thread.
+
+710
+00:31:16,096 --> 00:31:19,926
+So, in my closure, the
+
+711
+00:31:19,926 --> 00:31:21,716
+I can't be updating the
+
+712
+00:31:22,136 --> 00:31:25,206
+which is what I'm trying to do
+
+713
+00:31:26,536 --> 00:31:31,136
+When I tap on the cells,
+
+714
+00:31:31,136 --> 00:31:32,266
+and that's why they do refresh
+
+715
+00:31:32,266 --> 00:31:36,086
+and you can see them
+
+716
+00:31:36,296 --> 00:31:37,476
+This is also something
+
+717
+00:31:37,476 --> 00:31:40,316
+We have something new in
+
+718
+00:31:40,596 --> 00:31:42,096
+for Grand Central Dispatch.
+
+719
+00:31:43,936 --> 00:31:47,776
+So, instead of that
+
+720
+00:31:48,386 --> 00:31:53,266
+I can now say a dispatch
+
+721
+00:31:53,546 --> 00:31:54,376
+What kind of operation?
+
+722
+00:31:54,376 --> 00:31:55,296
+An asynchronous one.
+
+723
+00:31:55,726 --> 00:31:56,556
+We don't need that anymore.
+
+724
+00:31:57,186 --> 00:31:58,776
+And here's what I wanted
+
+725
+00:31:58,776 --> 00:32:04,176
+Now it bounces back to the
+
+726
+00:31:58,776 --> 00:32:04,176
+Now it bounces back to the
+
+727
+00:32:06,676 --> 00:32:11,086
+Dispatch cue, thank you,
+
+728
+00:32:11,676 --> 00:32:14,496
+Live Views in Swift and
+
+729
+00:32:15,846 --> 00:32:17,726
+Let's switch back to the slides.
+
+730
+00:32:18,516 --> 00:32:20,566
+[ Applause ]
+
+731
+00:32:21,066 --> 00:32:21,446
+Thank you.
+
+732
+00:32:21,746 --> 00:32:24,546
+So, just as a point of
+
+733
+00:32:24,546 --> 00:32:27,066
+from the previous presentation,
+
+734
+00:32:27,616 --> 00:32:30,266
+Some other tips.
+
+735
+00:32:30,746 --> 00:32:32,876
+When I dragged those files
+
+736
+00:32:32,876 --> 00:32:34,576
+or the resources
+
+737
+00:32:34,636 --> 00:32:37,176
+They are not referenced.
+
+738
+00:32:37,176 --> 00:32:40,796
+Also, only methods that are
+
+739
+00:32:40,796 --> 00:32:42,316
+properties, and datatypes,
+
+740
+00:32:42,316 --> 00:32:43,706
+as public are going
+
+741
+00:32:44,036 --> 00:32:44,976
+to you in the playground.
+
+742
+00:32:44,976 --> 00:32:46,866
+So, you might have to go
+
+743
+00:32:46,866 --> 00:32:48,716
+because the default
+
+744
+00:32:48,716 --> 00:32:50,676
+in Swift is internal,
+
+745
+00:32:53,256 --> 00:32:55,586
+I mentioned using
+
+746
+00:32:56,626 --> 00:32:58,816
+Now, we still have
+
+747
+00:32:58,816 --> 00:33:01,046
+that are constrained
+
+748
+00:32:58,816 --> 00:33:01,046
+that are constrained
+
+749
+00:33:01,646 --> 00:33:03,706
+And those customers try
+
+750
+00:33:03,706 --> 00:33:05,116
+of the operating
+
+751
+00:33:05,116 --> 00:33:06,226
+out there's not enough space.
+
+752
+00:33:07,116 --> 00:33:08,876
+So, what we do when that
+
+753
+00:33:08,876 --> 00:33:11,576
+under storage pressure, is we
+
+754
+00:33:11,576 --> 00:33:12,876
+and we delete everything
+
+755
+00:33:12,876 --> 00:33:14,436
+in all the applications
+
+756
+00:33:14,696 --> 00:33:15,966
+This way we free up space.
+
+757
+00:33:17,036 --> 00:33:18,326
+We need your help with this.
+
+758
+00:33:18,456 --> 00:33:20,376
+If you are temporarily
+
+759
+00:33:20,376 --> 00:33:22,346
+and you're not putting
+
+760
+00:33:22,656 --> 00:33:23,766
+put it in the caches folder.
+
+761
+00:33:24,246 --> 00:33:29,756
+Next. I thought it'd
+
+762
+00:33:30,416 --> 00:33:33,826
+it's doing that again.
+
+763
+00:33:34,466 --> 00:33:39,336
+To take the view controllers
+
+764
+00:33:39,336 --> 00:33:42,536
+and rearrange them in a way that
+
+765
+00:33:43,166 --> 00:33:45,696
+So, I'm going switch
+
+766
+00:33:48,276 --> 00:33:49,526
+Turn on my Bluetooth.
+
+767
+00:33:55,396 --> 00:33:58,866
+And take the view controllers
+
+768
+00:34:14,656 --> 00:34:19,516
+Well, there we go.
+
+769
+00:34:19,746 --> 00:34:21,856
+I have paired my
+
+770
+00:34:21,856 --> 00:34:23,275
+so I can use it with
+
+771
+00:34:24,806 --> 00:34:27,255
+It's exactly the same code
+
+772
+00:34:27,255 --> 00:34:29,036
+same table view, all
+
+773
+00:34:29,746 --> 00:34:35,275
+I can go over and I can see
+
+774
+00:34:35,516 --> 00:34:38,025
+And I get that neat TV effect
+
+775
+00:34:38,025 --> 00:34:38,826
+and its collection view.
+
+776
+00:34:39,315 --> 00:34:40,485
+It's the same layout code.
+
+777
+00:34:40,485 --> 00:34:41,545
+It's the same view controller.
+
+778
+00:34:41,545 --> 00:34:43,246
+It's all the same as
+
+779
+00:34:44,686 --> 00:34:47,156
+Well, almost.
+
+780
+00:34:55,956 --> 00:34:57,506
+I added this line
+
+781
+00:34:57,506 --> 00:34:59,746
+when I selected a
+
+782
+00:34:59,746 --> 00:35:02,006
+you would get that focused item.
+
+783
+00:34:59,746 --> 00:35:02,006
+you would get that focused item.
+
+784
+00:35:02,706 --> 00:35:05,846
+And I used the OS
+
+785
+00:35:06,196 --> 00:35:07,596
+to say this is only for tvOS.
+
+786
+00:35:08,396 --> 00:35:09,416
+Other than that,
+
+787
+00:35:10,286 --> 00:35:11,606
+Which kind of brings
+
+788
+00:35:11,606 --> 00:35:14,956
+that if you ever think you are
+
+789
+00:35:14,956 --> 00:35:16,466
+and just dropping it
+
+790
+00:35:16,916 --> 00:35:18,536
+with no real other changes,
+
+791
+00:35:18,536 --> 00:35:21,516
+you're possibly doing something
+
+792
+00:35:21,516 --> 00:35:23,216
+out the human interface
+
+793
+00:35:23,216 --> 00:35:25,456
+to see how you can make
+
+794
+00:35:25,456 --> 00:35:30,666
+on that platform more native and
+
+795
+00:35:31,286 --> 00:35:34,546
+Let me give you an example.
+
+796
+00:35:34,546 --> 00:35:36,776
+Let's say that you made
+
+797
+00:35:36,776 --> 00:35:38,006
+of like cloud-based accounting.
+
+798
+00:35:38,756 --> 00:35:41,726
+And maybe you have an iPad
+
+799
+00:35:41,726 --> 00:35:42,806
+people fill out invoices.
+
+800
+00:35:43,546 --> 00:35:44,726
+Makes sense.
+
+801
+00:35:45,646 --> 00:35:48,566
+It makes no sense,
+
+802
+00:35:49,446 --> 00:35:52,426
+to fill out invoices
+
+803
+00:35:52,456 --> 00:35:53,746
+You just wouldn't do it.
+
+804
+00:35:53,746 --> 00:35:54,386
+Why would you do that?
+
+805
+00:35:54,986 --> 00:35:56,816
+This is not an app you
+
+806
+00:35:56,816 --> 00:35:58,656
+and launch it on tvOS.
+
+807
+00:35:59,286 --> 00:36:02,646
+But, the iPad version of your
+
+808
+00:35:59,286 --> 00:36:02,646
+But, the iPad version of your
+
+809
+00:36:02,646 --> 00:36:04,646
+visualization about how
+
+810
+00:36:04,646 --> 00:36:06,256
+Maybe you've got some
+
+811
+00:36:07,516 --> 00:36:08,786
+Those would be awesome on a TV.
+
+812
+00:36:09,076 --> 00:36:13,876
+You could have a version of your
+
+813
+00:36:13,876 --> 00:36:14,886
+of how the company's doing.
+
+814
+00:36:15,306 --> 00:36:17,716
+And maybe in the company's
+
+815
+00:36:17,716 --> 00:36:19,666
+on and it just animates
+
+816
+00:36:19,826 --> 00:36:21,016
+It's the same data model.
+
+817
+00:36:21,116 --> 00:36:22,436
+It's the same data access.
+
+818
+00:36:22,926 --> 00:36:24,606
+But you pivoted that
+
+819
+00:36:24,606 --> 00:36:26,856
+that makes it more
+
+820
+00:36:26,856 --> 00:36:27,516
+in which it's running.
+
+821
+00:36:27,696 --> 00:36:29,236
+And that's an idea I
+
+822
+00:36:29,236 --> 00:36:31,246
+How can we take the same data
+
+823
+00:36:31,466 --> 00:36:36,606
+in a way that works
+
+824
+00:36:36,606 --> 00:36:40,606
+In summary, modernizing your
+
+825
+00:36:40,606 --> 00:36:42,876
+We want you to rely on the
+
+826
+00:36:44,156 --> 00:36:46,286
+If you can get rid of
+
+827
+00:36:46,286 --> 00:36:48,376
+and instead use code that
+
+828
+00:36:48,376 --> 00:36:49,746
+that's code let's code
+
+829
+00:36:50,476 --> 00:36:51,166
+We'd like you to do that.
+
+830
+00:36:52,166 --> 00:36:54,676
+We want you to get started today
+
+831
+00:36:54,676 --> 00:36:56,156
+with the Swift converter.
+
+832
+00:36:56,826 --> 00:36:58,566
+We want you to architect
+
+833
+00:36:58,566 --> 00:37:00,776
+with fewer inter-object
+
+834
+00:36:58,566 --> 00:37:00,776
+with fewer inter-object
+
+835
+00:37:00,776 --> 00:37:03,206
+for you to rearrange your app.
+
+836
+00:37:04,496 --> 00:37:07,226
+Finally, we want you to
+
+837
+00:37:07,226 --> 00:37:09,696
+to other platforms
+
+838
+00:37:14,436 --> 00:37:15,406
+by pivoting your data model.
+
+839
+00:37:16,276 --> 00:37:18,216
+There are some related
+
+840
+00:37:18,856 --> 00:37:19,426
+There you go.
+
+841
+00:37:20,196 --> 00:37:25,426
+And other than that, you
+
+842
+00:37:25,426 --> 00:37:26,526
+for this particular session.
+
+843
+00:37:26,776 --> 00:37:28,006
+And that is it for me.
+
+844
+00:37:28,256 --> 00:37:28,866
+Thanks, everyone.
+
+845
+00:37:29,516 --> 00:37:33,500
+[ Applause ]

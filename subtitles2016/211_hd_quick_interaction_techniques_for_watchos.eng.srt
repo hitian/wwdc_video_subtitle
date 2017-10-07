@@ -1,0 +1,3131 @@
+1
+00:00:07,516 --> 00:00:18,500
+[ Music ]
+
+2
+00:00:28,516 --> 00:00:30,576
+[ Applause ]
+
+3
+00:00:31,076 --> 00:00:32,006
+&gt;&gt; So, good morning, everyone.
+
+4
+00:00:33,966 --> 00:00:35,016
+So, my name is Tom Witkin,
+
+5
+00:00:35,016 --> 00:00:37,136
+and I'm an Engineer here
+
+6
+00:00:37,486 --> 00:00:39,006
+And this morning, we're
+
+7
+00:00:39,006 --> 00:00:40,316
+about building quick
+
+8
+00:00:40,316 --> 00:00:41,736
+into your Apple Watch apps.
+
+9
+00:00:42,336 --> 00:00:44,186
+And first off, we'd like to
+
+10
+00:00:44,946 --> 00:00:46,936
+what do we even mean
+
+11
+00:00:47,676 --> 00:00:49,656
+So I'm sure that many of
+
+12
+00:00:49,656 --> 00:00:51,636
+for iOS or for Mac OS.
+
+13
+00:00:52,176 --> 00:00:54,786
+And on those platforms, we're
+
+14
+00:00:54,786 --> 00:00:57,416
+of time a user is spending
+
+15
+00:00:57,416 --> 00:00:59,056
+of minutes or even hours.
+
+16
+00:00:59,456 --> 00:01:01,476
+But in watchOS, it's
+
+17
+00:00:59,456 --> 00:01:01,476
+But in watchOS, it's
+
+18
+00:01:01,476 --> 00:01:04,296
+A user wants to be able to raise
+
+19
+00:01:04,336 --> 00:01:07,036
+to specific information or
+
+20
+00:01:07,336 --> 00:01:08,606
+and then drop their
+
+21
+00:01:08,606 --> 00:01:09,506
+to whatever they were doing.
+
+22
+00:01:09,736 --> 00:01:12,076
+And so the interaction
+
+23
+00:01:12,746 --> 00:01:13,626
+So here are some examples
+
+24
+00:01:13,626 --> 00:01:15,536
+of what a quick interaction
+
+25
+00:01:17,216 --> 00:01:23,516
+So, for example, starting a
+
+26
+00:01:27,396 --> 00:01:29,576
+or marking an item
+
+27
+00:01:30,156 --> 00:01:33,366
+And so we think that these are
+
+28
+00:01:33,366 --> 00:01:34,886
+of interactions on Apple Watch,
+
+29
+00:01:34,886 --> 00:01:36,766
+and there are some key
+
+30
+00:01:36,766 --> 00:01:37,806
+that you've probably
+
+31
+00:01:38,816 --> 00:01:40,686
+So, first off, apps
+
+32
+00:01:40,826 --> 00:01:41,796
+they need to be glanceable.
+
+33
+00:01:41,906 --> 00:01:43,406
+Which means that,
+
+34
+00:01:43,696 --> 00:01:46,046
+your users should be able to get
+
+35
+00:01:46,676 --> 00:01:48,546
+Apps need to be actionable,
+
+36
+00:01:48,846 --> 00:01:51,296
+which means that your users
+
+37
+00:01:51,536 --> 00:01:52,816
+and well-informed decisions.
+
+38
+00:01:53,196 --> 00:01:55,226
+And lastly, they
+
+39
+00:01:55,286 --> 00:01:57,066
+You should never be
+
+40
+00:01:57,066 --> 00:01:59,866
+And if you're interested in
+
+41
+00:01:59,866 --> 00:02:01,166
+I highly recommend
+
+42
+00:01:59,866 --> 00:02:01,166
+I highly recommend
+
+43
+00:02:01,166 --> 00:02:03,716
+out the Designing Great Apple
+
+44
+00:02:03,716 --> 00:02:05,466
+afternoon, or watch the video
+
+45
+00:02:05,466 --> 00:02:08,726
+of the What's New in
+
+46
+00:02:09,746 --> 00:02:11,996
+And so now we know a
+
+47
+00:02:11,996 --> 00:02:12,936
+by a quick interaction.
+
+48
+00:02:13,356 --> 00:02:17,116
+But how long is a quick
+
+49
+00:02:17,986 --> 00:02:19,896
+And so we think that
+
+50
+00:02:19,896 --> 00:02:23,586
+of interaction is
+
+51
+00:02:23,946 --> 00:02:24,666
+So, 2 seconds.
+
+52
+00:02:24,666 --> 00:02:25,816
+That's not very long at all.
+
+53
+00:02:25,816 --> 00:02:29,186
+And so you have to be very
+
+54
+00:02:29,246 --> 00:02:30,626
+and build your applications.
+
+55
+00:02:30,926 --> 00:02:32,896
+But we think that it's
+
+56
+00:02:32,896 --> 00:02:35,236
+especially with all the
+
+57
+00:02:35,436 --> 00:02:37,276
+that we've added in watchOS 3.
+
+58
+00:02:37,946 --> 00:02:39,236
+And so that's how we're
+
+59
+00:02:39,236 --> 00:02:41,476
+is by talking about these
+
+60
+00:02:41,476 --> 00:02:43,506
+And then afterward,
+
+61
+00:02:43,506 --> 00:02:46,036
+at some practical techniques
+
+62
+00:02:46,236 --> 00:02:48,206
+to build these types
+
+63
+00:02:48,846 --> 00:02:51,046
+And with that, I'd like to hand
+
+64
+00:02:51,266 --> 00:02:52,836
+to talk through the
+
+65
+00:02:53,031 --> 00:02:55,031
+[ Applause ]
+
+66
+00:02:55,046 --> 00:02:55,546
+&gt;&gt; Thanks, Tom.
+
+67
+00:02:56,216 --> 00:02:56,896
+Hi, everybody.
+
+68
+00:02:57,046 --> 00:02:57,786
+My name is Miguel.
+
+69
+00:02:58,536 --> 00:03:01,246
+I'll be giving you a quick
+
+70
+00:02:58,536 --> 00:03:01,246
+I'll be giving you a quick
+
+71
+00:03:01,246 --> 00:03:03,956
+that we're introducing
+
+72
+00:03:03,956 --> 00:03:05,406
+to implement quick interactions.
+
+73
+00:03:05,906 --> 00:03:10,296
+I'll be talking about five
+
+74
+00:03:10,296 --> 00:03:12,836
+to make your apps glanceable,
+
+75
+00:03:13,976 --> 00:03:17,266
+The first has to do with
+
+76
+00:03:17,266 --> 00:03:18,336
+to new kinds of input.
+
+77
+00:03:19,116 --> 00:03:20,436
+You can now do gestures
+
+78
+00:03:20,436 --> 00:03:22,176
+with gesture recognizers
+
+79
+00:03:23,686 --> 00:03:24,806
+We are giving you access
+
+80
+00:03:24,806 --> 00:03:27,036
+to the rotation events
+
+81
+00:03:28,696 --> 00:03:31,796
+And we're also having
+
+82
+00:03:32,366 --> 00:03:35,006
+One is for improved
+
+83
+00:03:35,546 --> 00:03:38,456
+the support for the new
+
+84
+00:03:38,816 --> 00:03:41,526
+as well as integration with
+
+85
+00:03:42,446 --> 00:03:43,496
+So let's jump right in.
+
+86
+00:03:44,196 --> 00:03:46,376
+I'll be giving you an
+
+87
+00:03:46,376 --> 00:03:49,326
+and then Tom will come back
+
+88
+00:03:49,326 --> 00:03:51,526
+of how he combines
+
+89
+00:03:52,536 --> 00:03:56,236
+So if you have used
+
+90
+00:03:56,236 --> 00:03:58,876
+you pretty much already
+
+91
+00:03:58,876 --> 00:04:01,246
+for gesture recognition
+
+92
+00:03:58,876 --> 00:04:01,246
+for gesture recognition
+
+93
+00:04:01,246 --> 00:04:04,546
+If you haven't, gesture
+
+94
+00:04:05,086 --> 00:04:07,596
+that help you parse the
+
+95
+00:04:07,656 --> 00:04:09,886
+into recognizable gestures.
+
+96
+00:04:10,516 --> 00:04:13,246
+We're writing support
+
+97
+00:04:13,276 --> 00:04:18,736
+Two discretes -- the
+
+98
+00:04:18,926 --> 00:04:20,995
+And two continuous
+
+99
+00:04:22,996 --> 00:04:27,786
+the PanGesture, and
+
+100
+00:04:29,106 --> 00:04:32,286
+So the way you use this, like
+
+101
+00:04:32,286 --> 00:04:35,316
+in WatchKit, is an interface
+
+102
+00:04:36,106 --> 00:04:38,826
+You are dragging the
+
+103
+00:04:39,406 --> 00:04:40,836
+So if you look at the library,
+
+104
+00:04:40,836 --> 00:04:43,546
+you can now see four
+
+105
+00:04:43,926 --> 00:04:46,316
+These are dragged into
+
+106
+00:04:46,716 --> 00:04:48,336
+to have gestures
+
+107
+00:04:48,996 --> 00:04:51,226
+And you do the configuration
+
+108
+00:04:51,226 --> 00:04:52,086
+in the inspector.
+
+109
+00:04:53,376 --> 00:04:56,426
+The last thing you do is drag
+
+110
+00:04:56,426 --> 00:04:58,726
+into a function within
+
+111
+00:04:59,186 --> 00:05:00,686
+This is a function
+
+112
+00:04:59,186 --> 00:05:00,686
+This is a function
+
+113
+00:05:00,686 --> 00:05:02,766
+when the gesture is
+
+114
+00:05:03,436 --> 00:05:04,256
+As you can see, one
+
+115
+00:05:04,256 --> 00:05:07,066
+of the parameters is the
+
+116
+00:05:07,916 --> 00:05:10,586
+From it, you can
+
+117
+00:05:11,256 --> 00:05:13,286
+where the gesture
+
+118
+00:05:13,286 --> 00:05:15,476
+the bounds of the object,
+
+119
+00:05:15,476 --> 00:05:16,646
+that the gesture is in.
+
+120
+00:05:18,076 --> 00:05:20,686
+So, a few words about
+
+121
+00:05:21,826 --> 00:05:25,366
+Gestures begin in the possible
+
+122
+00:05:25,366 --> 00:05:26,506
+and they can transition either
+
+123
+00:05:26,506 --> 00:05:28,476
+to a recognized or
+
+124
+00:05:28,986 --> 00:05:30,836
+When you're dealing
+
+125
+00:05:30,886 --> 00:05:33,256
+you really don't think too
+
+126
+00:05:33,606 --> 00:05:36,616
+All you need to know is that
+
+127
+00:05:36,616 --> 00:05:37,996
+your action method is called.
+
+128
+00:05:39,186 --> 00:05:42,066
+This is slightly different
+
+129
+00:05:42,796 --> 00:05:44,806
+They also begin in
+
+130
+00:05:45,006 --> 00:05:48,766
+But as their name
+
+131
+00:05:48,766 --> 00:05:51,456
+over multiple updates
+
+132
+00:05:51,456 --> 00:05:54,986
+So just assume that your action
+
+133
+00:05:54,986 --> 00:05:58,526
+times as your gesture is
+
+134
+00:05:58,526 --> 00:06:00,116
+to update your user interface.
+
+135
+00:05:58,526 --> 00:06:00,116
+to update your user interface.
+
+136
+00:06:01,616 --> 00:06:04,836
+Some tips for using
+
+137
+00:06:05,966 --> 00:06:09,016
+We recommend that
+
+138
+00:06:09,016 --> 00:06:11,236
+to the group elements
+
+139
+00:06:11,236 --> 00:06:13,196
+You can do that, but you
+
+140
+00:06:13,196 --> 00:06:15,516
+of the gestures that are
+
+141
+00:06:16,366 --> 00:06:19,126
+And remember that you have
+
+142
+00:06:19,126 --> 00:06:21,606
+in the Watch app,
+
+143
+00:06:21,606 --> 00:06:24,226
+to be the bigger interface
+
+144
+00:06:25,866 --> 00:06:29,086
+You can still set dependency
+
+145
+00:06:29,826 --> 00:06:33,026
+But for watchOS, this is only
+
+146
+00:06:33,026 --> 00:06:35,656
+and interface builder.
+
+147
+00:06:35,806 --> 00:06:37,596
+And be mindful that some
+
+148
+00:06:37,596 --> 00:06:39,726
+of the system gestures
+
+149
+00:06:39,726 --> 00:06:41,266
+over the gestures
+
+150
+00:06:42,326 --> 00:06:45,236
+For example, if you
+
+151
+00:06:45,236 --> 00:06:48,876
+that already has scrolling
+
+152
+00:06:48,876 --> 00:06:51,976
+to attach a SwipeDown gesture,
+
+153
+00:06:51,976 --> 00:06:53,336
+The scrolling will
+
+154
+00:06:53,886 --> 00:06:56,276
+The same thing for the
+
+155
+00:06:58,226 --> 00:07:00,166
+Now let's move onto our
+
+156
+00:06:58,226 --> 00:07:00,166
+Now let's move onto our
+
+157
+00:07:00,166 --> 00:07:01,416
+the Digital Crown.
+
+158
+00:07:02,346 --> 00:07:05,596
+This is a unique element
+
+159
+00:07:05,736 --> 00:07:09,726
+that allows your users quick and
+
+160
+00:07:10,166 --> 00:07:12,976
+You've had access to the
+
+161
+00:07:13,356 --> 00:07:15,466
+through the WKInterfacePicker
+
+162
+00:07:16,856 --> 00:07:19,176
+To use that, you
+
+163
+00:07:19,176 --> 00:07:21,406
+of picker items and
+
+164
+00:07:22,866 --> 00:07:25,246
+And WatchKit takes care of
+
+165
+00:07:25,246 --> 00:07:26,526
+Here is the list style.
+
+166
+00:07:26,656 --> 00:07:31,676
+You have the stacks style
+
+167
+00:07:32,266 --> 00:07:36,676
+But for this element,
+
+168
+00:07:36,676 --> 00:07:38,216
+of a lot of stuff for you.
+
+169
+00:07:38,216 --> 00:07:40,416
+We're drawing the
+
+170
+00:07:40,416 --> 00:07:42,786
+of interpreting the
+
+171
+00:07:42,786 --> 00:07:45,836
+and we're simply calling your
+
+172
+00:07:46,956 --> 00:07:50,036
+So, in watchOS 3, we are
+
+173
+00:07:50,036 --> 00:07:53,456
+to the rotation events so
+
+174
+00:07:53,456 --> 00:07:56,106
+elements and drive them
+
+175
+00:07:58,016 --> 00:08:00,346
+This is achieved
+
+176
+00:07:58,016 --> 00:08:00,346
+This is achieved
+
+177
+00:08:00,406 --> 00:08:03,446
+through new classes we're
+
+178
+00:08:03,446 --> 00:08:05,666
+which gives you access
+
+179
+00:08:06,596 --> 00:08:08,076
+I'm sorry, the rotations
+
+180
+00:08:08,346 --> 00:08:11,216
+And the new delegate
+
+181
+00:08:11,606 --> 00:08:13,626
+with callbacks on
+
+182
+00:08:14,326 --> 00:08:16,706
+So you have two kinds of
+
+183
+00:08:16,706 --> 00:08:19,326
+rotations per second
+
+184
+00:08:19,986 --> 00:08:22,496
+What do you do with each one of
+
+185
+00:08:23,286 --> 00:08:26,016
+If you're interested in
+
+186
+00:08:26,676 --> 00:08:29,056
+you want to access the
+
+187
+00:08:29,056 --> 00:08:30,376
+which is now present in all
+
+188
+00:08:30,376 --> 00:08:32,135
+of the interface
+
+189
+00:08:33,256 --> 00:08:36,996
+And you query its rotations
+
+190
+00:08:37,366 --> 00:08:39,066
+This is probably something
+
+191
+00:08:39,066 --> 00:08:41,686
+when you're interested in the
+
+192
+00:08:41,856 --> 00:08:43,816
+in maybe a physics-based
+
+193
+00:08:43,816 --> 00:08:47,796
+a game, something like that.
+
+194
+00:08:47,796 --> 00:08:50,456
+Rotational deltas are
+
+195
+00:08:50,456 --> 00:08:51,786
+through the delegate protocol.
+
+196
+00:08:52,346 --> 00:08:55,936
+This is how you're able to
+
+197
+00:08:55,936 --> 00:08:56,806
+has rotated.
+
+198
+00:08:57,736 --> 00:09:00,466
+So you will get a callback
+
+199
+00:08:57,736 --> 00:09:00,466
+So you will get a callback
+
+200
+00:09:00,696 --> 00:09:02,276
+You will have the
+
+201
+00:09:02,276 --> 00:09:03,626
+as one of its arguments.
+
+202
+00:09:05,536 --> 00:09:07,746
+And what you want to do
+
+203
+00:09:07,746 --> 00:09:09,646
+to maintain an accumulator
+
+204
+00:09:09,736 --> 00:09:12,296
+where you add the deltas
+
+205
+00:09:13,186 --> 00:09:17,256
+The math you want to use
+
+206
+00:09:17,256 --> 00:09:19,066
+to accumulated deltas of 1.
+
+207
+00:09:20,786 --> 00:09:22,726
+Another example is if
+
+208
+00:09:22,726 --> 00:09:26,326
+in detecting half rotations, you
+
+209
+00:09:26,636 --> 00:09:28,906
+So you're adding the deltas
+
+210
+00:09:28,906 --> 00:09:30,646
+And when they cross
+
+211
+00:09:30,646 --> 00:09:32,426
+you know that a rotation
+
+212
+00:09:33,966 --> 00:09:35,806
+It's really up to you to figure
+
+213
+00:09:35,806 --> 00:09:39,196
+out how these rotation counts
+
+214
+00:09:39,196 --> 00:09:40,736
+of the content that
+
+215
+00:09:43,836 --> 00:09:47,126
+When we're communicating values
+
+216
+00:09:47,276 --> 00:09:48,566
+either positive or negative.
+
+217
+00:09:49,346 --> 00:09:51,986
+When your users are
+
+218
+00:09:51,986 --> 00:09:53,316
+of moving their content up,
+
+219
+00:09:53,316 --> 00:09:55,586
+we will be giving
+
+220
+00:09:56,106 --> 00:09:57,506
+And when they're
+
+221
+00:09:57,506 --> 00:09:58,646
+to moving the content down,
+
+222
+00:09:58,646 --> 00:09:59,976
+we're giving you
+
+223
+00:10:00,416 --> 00:10:03,756
+And these values are orientation
+
+224
+00:10:03,796 --> 00:10:05,556
+to worry about what
+
+225
+00:10:05,556 --> 00:10:06,486
+or clockwise means.
+
+226
+00:10:06,486 --> 00:10:12,376
+If your users change their Crown
+
+227
+00:10:12,376 --> 00:10:15,946
+to give you a positive value
+
+228
+00:10:15,946 --> 00:10:19,216
+and down, so you don't
+
+229
+00:10:19,336 --> 00:10:21,766
+Finally, there's a concept
+
+230
+00:10:22,246 --> 00:10:25,666
+The focus can be taken away
+
+231
+00:10:25,666 --> 00:10:29,116
+for example, a picker, a
+
+232
+00:10:29,486 --> 00:10:31,426
+So it's up to you to determine
+
+233
+00:10:31,426 --> 00:10:33,746
+when your interface
+
+234
+00:10:33,746 --> 00:10:35,026
+to be the focus of the Crown.
+
+235
+00:10:35,496 --> 00:10:38,436
+This is a great place to
+
+236
+00:10:40,006 --> 00:10:44,246
+And once you determine that
+
+237
+00:10:44,246 --> 00:10:47,286
+in focus again, please
+
+238
+00:10:47,356 --> 00:10:49,336
+And don't forget to
+
+239
+00:10:49,336 --> 00:10:54,366
+when your interface
+
+240
+00:10:55,606 --> 00:10:59,046
+Now let's put aside the input
+
+241
+00:10:59,046 --> 00:11:01,466
+about the vertical paging
+
+242
+00:10:59,046 --> 00:11:01,466
+about the vertical paging
+
+243
+00:11:03,156 --> 00:11:08,216
+The typical way that your users
+
+244
+00:11:08,216 --> 00:11:10,626
+by selecting a row
+
+245
+00:11:10,626 --> 00:11:12,576
+for that particular row
+
+246
+00:11:13,376 --> 00:11:15,986
+They need to navigate
+
+247
+00:11:16,296 --> 00:11:21,056
+to select another row before
+
+248
+00:11:21,226 --> 00:11:24,876
+In watchOS 3, we have the
+
+249
+00:11:25,286 --> 00:11:28,976
+So when you enable this in
+
+250
+00:11:28,976 --> 00:11:33,246
+into their first detail, they're
+
+251
+00:11:33,246 --> 00:11:35,176
+or with the Crown up and down
+
+252
+00:11:35,176 --> 00:11:37,286
+and see the subsequent
+
+253
+00:11:38,256 --> 00:11:42,126
+So this eliminates their need to
+
+254
+00:11:42,746 --> 00:11:44,936
+making your app seem
+
+255
+00:11:46,376 --> 00:11:48,086
+So how do you opt
+
+256
+00:11:48,366 --> 00:11:49,866
+It's actually pretty
+
+257
+00:11:49,866 --> 00:11:53,786
+All you need to do is enable
+
+258
+00:11:53,826 --> 00:11:56,266
+in your table inspector.
+
+259
+00:11:56,266 --> 00:11:57,946
+But you also need to make sure
+
+260
+00:11:57,946 --> 00:12:01,306
+that your table is
+
+261
+00:11:57,946 --> 00:12:01,306
+that your table is
+
+262
+00:12:02,016 --> 00:12:04,456
+That's where you're giving
+
+263
+00:12:04,456 --> 00:12:06,916
+to instantiate a controller
+
+264
+00:12:06,916 --> 00:12:07,846
+with the given context.
+
+265
+00:12:07,846 --> 00:12:09,586
+You're probably already
+
+266
+00:12:10,856 --> 00:12:13,426
+So the API itself
+
+267
+00:12:13,426 --> 00:12:15,116
+There's a couple of changes.
+
+268
+00:12:15,196 --> 00:12:17,726
+There's a single method
+
+269
+00:12:17,726 --> 00:12:19,686
+into the segue mode from code.
+
+270
+00:12:20,376 --> 00:12:22,716
+This is useful when you're
+
+271
+00:12:22,716 --> 00:12:26,686
+from tapping on a complication
+
+272
+00:12:26,686 --> 00:12:28,366
+and you want to directly go
+
+273
+00:12:28,366 --> 00:12:31,146
+into a specific row
+
+274
+00:12:32,736 --> 00:12:36,676
+The second thing you need to be
+
+275
+00:12:36,676 --> 00:12:37,806
+to be smart and help you
+
+276
+00:12:37,806 --> 00:12:39,356
+out with the speed
+
+277
+00:12:39,356 --> 00:12:41,396
+So we're doing preheating
+
+278
+00:12:41,396 --> 00:12:43,586
+anticipating what the
+
+279
+00:12:43,586 --> 00:12:44,696
+of scrolling up and down.
+
+280
+00:12:45,256 --> 00:12:47,006
+So some of the lifecycle methods
+
+281
+00:12:47,006 --> 00:12:50,466
+for your controllers will be
+
+282
+00:12:50,466 --> 00:12:51,066
+on screen.
+
+283
+00:12:51,936 --> 00:12:54,206
+I won't be going too much
+
+284
+00:12:54,206 --> 00:12:57,506
+But we have a whole new session,
+
+285
+00:12:57,506 --> 00:12:59,416
+where they give a
+
+286
+00:12:59,506 --> 00:13:01,976
+on all the badging of
+
+287
+00:12:59,506 --> 00:13:01,976
+on all the badging of
+
+288
+00:13:03,486 --> 00:13:05,646
+Now let's talk about
+
+289
+00:13:05,646 --> 00:13:09,186
+These are the ultimate
+
+290
+00:13:09,186 --> 00:13:10,986
+that we've introduced
+
+291
+00:13:11,086 --> 00:13:12,506
+of the Apple Watch product.
+
+292
+00:13:14,276 --> 00:13:17,696
+So from a user's point of view,
+
+293
+00:13:18,696 --> 00:13:22,526
+the way they interact with
+
+294
+00:13:22,526 --> 00:13:24,446
+by feeling the haptic
+
+295
+00:13:25,316 --> 00:13:28,766
+They raise their wrist and
+
+296
+00:13:28,766 --> 00:13:31,176
+short-look interface
+
+297
+00:13:31,936 --> 00:13:36,036
+If they keep their hand
+
+298
+00:13:36,036 --> 00:13:38,296
+into the long-look
+
+299
+00:13:41,236 --> 00:13:44,016
+The way they respond to
+
+300
+00:13:44,256 --> 00:13:46,586
+I'm going to walk through
+
+301
+00:13:46,586 --> 00:13:48,456
+which is the one that
+
+302
+00:13:49,776 --> 00:13:52,286
+So if you've done
+
+303
+00:13:52,286 --> 00:13:55,226
+of communicating the
+
+304
+00:13:55,226 --> 00:13:57,866
+through the text,
+
+305
+00:13:57,866 --> 00:13:59,266
+than dismiss the notification.
+
+306
+00:13:59,266 --> 00:14:01,006
+That is the shortest
+
+307
+00:13:59,266 --> 00:14:01,006
+That is the shortest
+
+308
+00:14:02,356 --> 00:14:08,226
+They could also tap on the
+
+309
+00:14:08,486 --> 00:14:13,106
+Or, remember that notifications
+
+310
+00:14:13,106 --> 00:14:14,166
+associated with them.
+
+311
+00:14:14,716 --> 00:14:16,236
+In this case, I'm
+
+312
+00:14:16,346 --> 00:14:18,426
+the Accept, Maybe,
+
+313
+00:14:18,726 --> 00:14:20,456
+You can have up to
+
+314
+00:14:21,456 --> 00:14:24,016
+When you're associating
+
+315
+00:14:24,656 --> 00:14:26,896
+they can either be
+
+316
+00:14:27,266 --> 00:14:29,536
+meaning that if the
+
+317
+00:14:29,536 --> 00:14:33,246
+your application will become
+
+318
+00:14:34,306 --> 00:14:38,426
+Background actions in watchOS
+
+319
+00:14:38,426 --> 00:14:39,056
+to your phone.
+
+320
+00:14:41,756 --> 00:14:45,756
+The big change in watchOS
+
+321
+00:14:45,756 --> 00:14:49,086
+that there's a whole new
+
+322
+00:14:50,786 --> 00:14:53,776
+Please go to the Introduction
+
+323
+00:14:53,776 --> 00:14:57,206
+to learn all of the details
+
+324
+00:14:57,206 --> 00:15:00,036
+But the high-level
+
+325
+00:14:57,206 --> 00:15:00,036
+But the high-level
+
+326
+00:15:00,036 --> 00:15:01,936
+as WatchKit developers
+
+327
+00:15:04,256 --> 00:15:08,366
+You now have a set of
+
+328
+00:15:08,366 --> 00:15:11,716
+across platforms --
+
+329
+00:15:13,456 --> 00:15:16,826
+You can now schedule local
+
+330
+00:15:18,996 --> 00:15:20,916
+And notifications
+
+331
+00:15:20,916 --> 00:15:24,106
+with background actions will now
+
+332
+00:15:24,666 --> 00:15:26,936
+as long as they were
+
+333
+00:15:30,116 --> 00:15:33,246
+Let's look at the API.
+
+334
+00:15:33,246 --> 00:15:35,806
+The new object,
+
+335
+00:15:36,056 --> 00:15:38,816
+you want to become the
+
+336
+00:15:38,816 --> 00:15:40,356
+when your application
+
+337
+00:15:40,356 --> 00:15:42,126
+in the
+
+338
+00:15:42,126 --> 00:15:42,506
+method.
+
+339
+00:15:43,536 --> 00:15:44,586
+And you want to indicate
+
+340
+00:15:44,586 --> 00:15:47,526
+that you are adopting
+
+341
+00:15:47,526 --> 00:15:48,526
+delegate protocol.
+
+342
+00:15:49,296 --> 00:15:50,746
+There are two methods
+
+343
+00:15:50,746 --> 00:15:51,906
+to you in this protocol.
+
+344
+00:15:52,256 --> 00:15:54,206
+The first is the
+
+345
+00:15:54,986 --> 00:15:57,666
+This is called when your
+
+346
+00:15:58,546 --> 00:16:03,216
+on the watch face and the system
+
+347
+00:15:58,546 --> 00:16:03,216
+on the watch face and the system
+
+348
+00:16:03,216 --> 00:16:05,936
+to tell it how you want it
+
+349
+00:16:06,746 --> 00:16:09,166
+So, depending on the
+
+350
+00:16:09,166 --> 00:16:10,736
+in the completion handler there,
+
+351
+00:16:11,276 --> 00:16:13,206
+the system will do
+
+352
+00:16:14,446 --> 00:16:17,026
+If you say that you want
+
+353
+00:16:17,756 --> 00:16:21,406
+we will revert back to the
+
+354
+00:16:21,406 --> 00:16:25,186
+for the notification and it will
+
+355
+00:16:25,546 --> 00:16:27,716
+If you say that you
+
+356
+00:16:27,716 --> 00:16:29,916
+that means that system
+
+357
+00:16:30,616 --> 00:16:32,196
+Since your app is
+
+358
+00:16:32,336 --> 00:16:33,736
+you are the ones taking care
+
+359
+00:16:33,736 --> 00:16:36,236
+of displaying the
+
+360
+00:16:36,236 --> 00:16:37,446
+in your application.
+
+361
+00:16:38,766 --> 00:16:41,666
+The second method is
+
+362
+00:16:42,486 --> 00:16:44,996
+This is when your users
+
+363
+00:16:45,906 --> 00:16:48,806
+So this is the callback when
+
+364
+00:16:48,806 --> 00:16:50,336
+because the user
+
+365
+00:16:50,606 --> 00:16:54,406
+And this is also the new
+
+366
+00:16:54,406 --> 00:16:57,306
+where you're getting a
+
+367
+00:16:57,786 --> 00:16:59,806
+But, remember, this is
+
+368
+00:16:59,806 --> 00:17:01,836
+that are scheduled
+
+369
+00:16:59,806 --> 00:17:01,836
+that are scheduled
+
+370
+00:17:03,736 --> 00:17:06,906
+This is a good moment to make a
+
+371
+00:17:06,906 --> 00:17:10,026
+and delivery of notifications
+
+372
+00:17:11,106 --> 00:17:15,526
+Anytime a notification fires
+
+373
+00:17:15,526 --> 00:17:18,606
+to the Watch if the
+
+374
+00:17:18,606 --> 00:17:21,175
+and you have your Watch on
+
+375
+00:17:21,806 --> 00:17:23,675
+That's always been the behavior.
+
+376
+00:17:25,076 --> 00:17:27,656
+But now in watchOS 3,
+
+377
+00:17:27,656 --> 00:17:29,416
+to schedule your
+
+378
+00:17:29,416 --> 00:17:30,426
+on the Apple Watch.
+
+379
+00:17:31,316 --> 00:17:34,236
+So keep in mind that these are
+
+380
+00:17:34,646 --> 00:17:36,206
+And if your application needs
+
+381
+00:17:36,206 --> 00:17:40,126
+to also have a corresponding
+
+382
+00:17:40,496 --> 00:17:42,626
+it's up to you to
+
+383
+00:17:42,956 --> 00:17:44,706
+and schedule your
+
+384
+00:17:45,566 --> 00:17:46,586
+Now you might be wondering,
+
+385
+00:17:46,586 --> 00:17:48,526
+"If I schedule multiple
+
+386
+00:17:48,526 --> 00:17:50,036
+what happens when
+
+387
+00:17:51,326 --> 00:17:55,476
+Well, you have the ability to
+
+388
+00:17:55,476 --> 00:17:58,416
+as you use the same identifier
+
+389
+00:17:58,416 --> 00:18:00,386
+and on the iPhone side
+
+390
+00:17:58,416 --> 00:18:00,386
+and on the iPhone side
+
+391
+00:18:01,166 --> 00:18:02,966
+So if we're in a situation
+
+392
+00:18:02,966 --> 00:18:05,696
+where we're forwarding the
+
+393
+00:18:06,816 --> 00:18:08,246
+we look at the ID first.
+
+394
+00:18:08,796 --> 00:18:11,746
+And if there's a similar
+
+395
+00:18:11,746 --> 00:18:14,176
+at that moment on the Watch,
+
+396
+00:18:14,176 --> 00:18:15,286
+and that's the one
+
+397
+00:18:15,286 --> 00:18:18,106
+so your users don't see two
+
+398
+00:18:21,536 --> 00:18:25,646
+Finally, let's talk about the
+
+399
+00:18:27,276 --> 00:18:30,886
+So SpriteKit and SceneKit are
+
+400
+00:18:30,966 --> 00:18:34,196
+to do the 2D and 3D
+
+401
+00:18:34,196 --> 00:18:36,876
+to expand significantly
+
+402
+00:18:36,876 --> 00:18:38,006
+of your applications.
+
+403
+00:18:39,256 --> 00:18:42,246
+We have two new classes
+
+404
+00:18:42,856 --> 00:18:48,246
+that support these frameworks --
+
+405
+00:18:48,986 --> 00:18:53,646
+and WKInterfaceSCNScene
+
+406
+00:18:54,176 --> 00:18:57,406
+Again, you do all of the
+
+407
+00:18:57,406 --> 00:18:58,336
+and interface builder.
+
+408
+00:18:59,476 --> 00:19:02,486
+You will now see the two
+
+409
+00:18:59,476 --> 00:19:02,486
+You will now see the two
+
+410
+00:19:02,576 --> 00:19:06,646
+All you do is drag them
+
+411
+00:19:06,646 --> 00:19:08,836
+and they really pretty
+
+412
+00:19:08,836 --> 00:19:10,166
+where you're going to
+
+413
+00:19:10,636 --> 00:19:13,706
+And the configuration
+
+414
+00:19:13,706 --> 00:19:14,586
+and interface builder.
+
+415
+00:19:17,496 --> 00:19:19,906
+Once you're ready to
+
+416
+00:19:20,786 --> 00:19:22,056
+all of your SpriteKit
+
+417
+00:19:22,056 --> 00:19:24,156
+and SceneKit code
+
+418
+00:19:24,316 --> 00:19:26,316
+You continue to use the APIs.
+
+419
+00:19:26,316 --> 00:19:29,196
+I won't be going into the APIs
+
+420
+00:19:29,196 --> 00:19:32,866
+But once you have your
+
+421
+00:19:33,446 --> 00:19:35,176
+the integration with
+
+422
+00:19:35,176 --> 00:19:36,366
+in the presenting of the scene.
+
+423
+00:19:37,106 --> 00:19:39,276
+So if you're dealing
+
+424
+00:19:39,336 --> 00:19:43,056
+you call the percent function
+
+425
+00:19:43,056 --> 00:19:44,436
+on whether you have
+
+426
+00:19:45,576 --> 00:19:47,456
+And if you have a
+
+427
+00:19:47,896 --> 00:19:52,026
+all you do is set the scene
+
+428
+00:19:52,026 --> 00:19:56,506
+And that's all there is in
+
+429
+00:19:58,316 --> 00:20:00,526
+So I've given you
+
+430
+00:19:58,316 --> 00:20:00,526
+So I've given you
+
+431
+00:20:00,526 --> 00:20:02,856
+of the new ToolKit
+
+432
+00:20:03,586 --> 00:20:05,516
+for creating glanceable,
+
+433
+00:20:05,516 --> 00:20:07,856
+and responsive applications.
+
+434
+00:20:08,376 --> 00:20:11,236
+Now Tom will come back and
+
+435
+00:20:11,236 --> 00:20:13,806
+of how he combines
+
+436
+00:20:14,526 --> 00:20:15,916
+to make your app
+
+437
+00:20:16,216 --> 00:20:16,596
+Thank you.
+
+438
+00:20:17,516 --> 00:20:22,936
+[ Applause ]
+
+439
+00:20:23,436 --> 00:20:23,726
+&gt;&gt; All right.
+
+440
+00:20:23,726 --> 00:20:25,946
+And so now we have that
+
+441
+00:20:25,946 --> 00:20:28,556
+at some practical techniques
+
+442
+00:20:28,556 --> 00:20:29,476
+of quick interactions.
+
+443
+00:20:30,196 --> 00:20:32,896
+So we're going to talk
+
+444
+00:20:33,026 --> 00:20:34,306
+and notifications in your app.
+
+445
+00:20:34,476 --> 00:20:37,196
+And now these are not new, but
+
+446
+00:20:37,196 --> 00:20:38,406
+in some unique and new ways.
+
+447
+00:20:38,476 --> 00:20:40,986
+Then afterward, we're
+
+448
+00:20:40,986 --> 00:20:43,756
+about having a simple navigation
+
+449
+00:20:44,666 --> 00:20:46,016
+And then lastly,
+
+450
+00:20:46,016 --> 00:20:48,516
+about giving your users the
+
+451
+00:20:48,736 --> 00:20:50,486
+as soon as they're
+
+452
+00:20:50,486 --> 00:20:51,266
+your applications.
+
+453
+00:20:52,036 --> 00:20:54,666
+And so we'll start off with
+
+454
+00:20:55,046 --> 00:20:57,606
+And so we introduced
+
+455
+00:20:57,606 --> 00:20:59,326
+for third-party apps
+
+456
+00:20:59,686 --> 00:21:02,146
+And now in watchOS 3, they're
+
+457
+00:20:59,686 --> 00:21:02,146
+And now in watchOS 3, they're
+
+458
+00:21:02,716 --> 00:21:05,636
+And now there are more faces
+
+459
+00:21:06,076 --> 00:21:07,686
+and there's some of
+
+460
+00:21:07,686 --> 00:21:09,416
+that have even more
+
+461
+00:21:10,356 --> 00:21:13,506
+So, also, now you have the
+
+462
+00:21:13,846 --> 00:21:17,606
+across your faces to see
+
+463
+00:21:17,926 --> 00:21:20,456
+So because of this, we
+
+464
+00:21:20,456 --> 00:21:22,636
+on Apple Watch should
+
+465
+00:21:22,986 --> 00:21:25,736
+And you'll now see that all the
+
+466
+00:21:25,736 --> 00:21:27,696
+as well, as you can see
+
+467
+00:21:27,696 --> 00:21:29,836
+or the Heartrate app.
+
+468
+00:21:29,836 --> 00:21:30,796
+So why complications?
+
+469
+00:21:31,446 --> 00:21:32,586
+They're extremely glanceable.
+
+470
+00:21:32,586 --> 00:21:33,976
+They're on their
+
+471
+00:21:33,976 --> 00:21:35,516
+And with just a glance,
+
+472
+00:21:35,516 --> 00:21:36,876
+of really important information.
+
+473
+00:21:38,266 --> 00:21:39,696
+They are frequently updated.
+
+474
+00:21:39,696 --> 00:21:42,276
+If your app has a complication
+
+475
+00:21:42,606 --> 00:21:44,466
+it's updated at least
+
+476
+00:21:44,726 --> 00:21:46,836
+And so you can always ensure
+
+477
+00:21:46,836 --> 00:21:49,446
+and current data always
+
+478
+00:21:50,826 --> 00:21:52,176
+Your app is kept in memory.
+
+479
+00:21:52,176 --> 00:21:55,086
+And this is really important
+
+480
+00:21:55,086 --> 00:21:58,146
+of your app extremely fast
+
+481
+00:21:58,146 --> 00:22:00,476
+within your applications
+
+482
+00:21:58,146 --> 00:22:00,476
+within your applications
+
+483
+00:22:01,986 --> 00:22:03,766
+And complications
+
+484
+00:22:03,766 --> 00:22:05,996
+to accelerate your
+
+485
+00:22:06,296 --> 00:22:08,416
+to perform specific
+
+486
+00:22:09,366 --> 00:22:12,366
+So, for example, if we look
+
+487
+00:22:12,886 --> 00:22:14,626
+I tap on that and
+
+488
+00:22:14,626 --> 00:22:15,646
+to the Now Playing screen
+
+489
+00:22:15,646 --> 00:22:16,996
+because that's what's
+
+490
+00:22:16,996 --> 00:22:18,416
+to me if I'm playing music.
+
+491
+00:22:18,676 --> 00:22:21,016
+I can play and pause the
+
+492
+00:22:21,396 --> 00:22:23,626
+And it makes the whole
+
+493
+00:22:24,016 --> 00:22:26,076
+because I'm sent
+
+494
+00:22:27,596 --> 00:22:31,796
+Also new in watchOS 3 and
+
+495
+00:22:31,796 --> 00:22:33,326
+in the Apple Watch
+
+496
+00:22:34,026 --> 00:22:35,196
+This is great because
+
+497
+00:22:35,196 --> 00:22:37,126
+to add new faces to
+
+498
+00:22:37,716 --> 00:22:40,006
+But it also allows you
+
+499
+00:22:40,356 --> 00:22:42,226
+and choose among all
+
+500
+00:22:42,226 --> 00:22:44,696
+And third-party complications
+
+501
+00:22:44,946 --> 00:22:46,456
+so it's a great way
+
+502
+00:22:46,456 --> 00:22:47,946
+to discover your complications
+
+503
+00:22:48,156 --> 00:22:49,956
+and add them directly
+
+504
+00:22:50,046 --> 00:22:53,306
+And if you want to be part
+
+505
+00:22:53,306 --> 00:22:54,826
+you create a complication
+
+506
+00:22:54,956 --> 00:22:57,376
+And there's documentation for
+
+507
+00:22:57,716 --> 00:22:59,546
+So I highly recommend
+
+508
+00:23:00,386 --> 00:23:03,396
+So complications on Apple Watch
+
+509
+00:23:03,396 --> 00:23:05,326
+mechanism to get your
+
+510
+00:23:05,486 --> 00:23:07,686
+and really provide a lot
+
+511
+00:23:07,926 --> 00:23:10,256
+So if you don't have a
+
+512
+00:23:10,566 --> 00:23:14,566
+or you're building a new app,
+
+513
+00:23:14,776 --> 00:23:17,666
+Next up, we're going to move
+
+514
+00:23:18,076 --> 00:23:20,206
+And so we all know
+
+515
+00:23:20,206 --> 00:23:22,166
+on Apple Watch are
+
+516
+00:23:22,526 --> 00:23:23,946
+and one of the main reasons is
+
+517
+00:23:23,946 --> 00:23:26,036
+that they're entirely
+
+518
+00:23:26,286 --> 00:23:29,066
+And so you can make them
+
+519
+00:23:29,166 --> 00:23:30,916
+But also, it allows you
+
+520
+00:23:30,996 --> 00:23:34,366
+to display really valuable
+
+521
+00:23:34,366 --> 00:23:35,336
+in the notification.
+
+522
+00:23:35,696 --> 00:23:37,996
+So, for example, here in
+
+523
+00:23:37,996 --> 00:23:40,966
+I can see the name of the event
+
+524
+00:23:41,496 --> 00:23:44,706
+And ultimately, this can often
+
+525
+00:23:44,706 --> 00:23:46,366
+to even go and launch
+
+526
+00:23:46,366 --> 00:23:49,406
+because all the important
+
+527
+00:23:49,506 --> 00:23:50,496
+in the notification.
+
+528
+00:23:51,276 --> 00:23:54,816
+And now in watchOS 3, all
+
+529
+00:23:54,816 --> 00:23:57,056
+and SceneKit, and inline video.
+
+530
+00:23:57,056 --> 00:23:59,996
+And so you can provide even
+
+531
+00:23:59,996 --> 00:24:00,756
+of your notifications.
+
+532
+00:23:59,996 --> 00:24:00,756
+of your notifications.
+
+533
+00:24:01,916 --> 00:24:03,456
+So, SpriteKit and SceneKit --
+
+534
+00:24:03,646 --> 00:24:06,056
+I'm sure a lot of you think
+
+535
+00:24:06,206 --> 00:24:07,266
+And they're great for gaming.
+
+536
+00:24:07,546 --> 00:24:08,846
+And there's a session on Friday
+
+537
+00:24:08,846 --> 00:24:10,476
+about game technologies
+
+538
+00:24:11,156 --> 00:24:13,046
+But here, we'd like to
+
+539
+00:24:13,046 --> 00:24:15,176
+of nongaming types
+
+540
+00:24:15,376 --> 00:24:17,686
+And so why are they
+
+541
+00:24:18,356 --> 00:24:22,246
+They allow you entire
+
+542
+00:24:22,336 --> 00:24:25,226
+and the layout, and the
+
+543
+00:24:25,446 --> 00:24:28,916
+And so it allows you to create
+
+544
+00:24:29,326 --> 00:24:30,706
+And so, here, we're
+
+545
+00:24:30,706 --> 00:24:32,536
+at an example of a Photos app.
+
+546
+00:24:32,916 --> 00:24:35,256
+So, here, you can see I got a
+
+547
+00:24:35,256 --> 00:24:37,506
+Ivy, and she has shared
+
+548
+00:24:38,226 --> 00:24:40,346
+But this does not include
+
+549
+00:24:40,346 --> 00:24:41,896
+I have no idea what
+
+550
+00:24:42,086 --> 00:24:44,436
+I have to read the text in order
+
+551
+00:24:44,886 --> 00:24:48,056
+And so we can definitely
+
+552
+00:24:48,056 --> 00:24:49,916
+of the customization
+
+553
+00:24:50,146 --> 00:24:51,046
+in our notification.
+
+554
+00:24:52,076 --> 00:24:52,946
+So here's an alternative
+
+555
+00:24:53,246 --> 00:24:55,406
+which is now using
+
+556
+00:24:55,666 --> 00:24:57,886
+It actually has the photos
+
+557
+00:24:58,156 --> 00:24:59,826
+It has the photo
+
+558
+00:25:00,176 --> 00:25:02,756
+And with just a glance, I can
+
+559
+00:25:02,846 --> 00:25:05,836
+And ultimately, I can make a
+
+560
+00:25:05,836 --> 00:25:08,606
+on whether I want to go launch
+
+561
+00:25:08,606 --> 00:25:10,796
+and grab my iPhone and
+
+562
+00:25:12,006 --> 00:25:14,116
+And if we look at
+
+563
+00:25:14,116 --> 00:25:17,506
+across the top we have the
+
+564
+00:25:18,026 --> 00:25:20,496
+And then below that, we
+
+565
+00:25:20,626 --> 00:25:22,586
+And the key thing I want
+
+566
+00:25:22,586 --> 00:25:25,116
+that you can mix and
+
+567
+00:25:25,116 --> 00:25:26,836
+and your WatchKit user
+
+568
+00:25:27,256 --> 00:25:29,986
+And so maybe you already
+
+569
+00:25:29,986 --> 00:25:31,396
+or the view animation API.
+
+570
+00:25:31,946 --> 00:25:34,226
+You can swap those
+
+571
+00:25:34,226 --> 00:25:36,096
+Or if you just have an
+
+572
+00:25:36,096 --> 00:25:38,396
+to add animation, you don't
+
+573
+00:25:38,396 --> 00:25:39,516
+in order to adopt SpriteKit.
+
+574
+00:25:39,956 --> 00:25:42,686
+So it provides a really powerful
+
+575
+00:25:42,776 --> 00:25:45,536
+to your interfaces without
+
+576
+00:25:45,536 --> 00:25:48,696
+and start over, which
+
+577
+00:25:48,776 --> 00:25:50,736
+And so if you have
+
+578
+00:25:50,736 --> 00:25:53,356
+make sure to take full advantage
+
+579
+00:25:53,466 --> 00:25:55,506
+If you just kind of have
+
+580
+00:25:55,866 --> 00:25:58,476
+think about what information
+
+581
+00:25:58,476 --> 00:26:03,966
+notification and add a custom
+
+582
+00:25:58,476 --> 00:26:03,966
+notification and add a custom
+
+583
+00:26:03,966 --> 00:26:05,246
+OK. So, next up, we're moving
+
+584
+00:26:05,246 --> 00:26:09,716
+on to a simple navigation
+
+585
+00:26:09,796 --> 00:26:13,126
+Earlier, we talked about the new
+
+586
+00:26:13,126 --> 00:26:15,336
+And that's great for
+
+587
+00:26:15,796 --> 00:26:18,226
+But here, we'd like to talk
+
+588
+00:26:18,226 --> 00:26:20,486
+of two other of the technologies
+
+589
+00:26:20,906 --> 00:26:23,386
+and those are Gestures
+
+590
+00:26:23,716 --> 00:26:26,736
+And so the Digital Crown
+
+591
+00:26:26,736 --> 00:26:29,136
+and it's a really
+
+592
+00:26:29,646 --> 00:26:30,786
+It allows you to quickly
+
+593
+00:26:30,786 --> 00:26:32,556
+and precisely interact
+
+594
+00:26:32,886 --> 00:26:35,436
+And it can be used in
+
+595
+00:26:36,116 --> 00:26:38,956
+So, for example, in the Timer
+
+596
+00:26:38,956 --> 00:26:41,416
+to scrub through durations
+
+597
+00:26:42,526 --> 00:26:45,476
+Or in the Photos application,
+
+598
+00:26:45,476 --> 00:26:46,846
+in and out of the photo.
+
+599
+00:26:47,616 --> 00:26:49,266
+So you can get really creative
+
+600
+00:26:49,266 --> 00:26:51,396
+with how you use the Digital
+
+601
+00:26:51,396 --> 00:26:53,866
+and we're really excited to
+
+602
+00:26:53,936 --> 00:26:55,896
+And here, though, we'd like
+
+603
+00:26:55,896 --> 00:26:59,276
+of a running app that puts both
+
+604
+00:26:59,366 --> 00:27:01,026
+to use to simplify
+
+605
+00:26:59,366 --> 00:27:01,026
+to use to simplify
+
+606
+00:27:02,276 --> 00:27:04,136
+So, here, we have one
+
+607
+00:27:04,346 --> 00:27:07,316
+The goal is to show my
+
+608
+00:27:07,316 --> 00:27:10,386
+of the average time, and
+
+609
+00:27:11,076 --> 00:27:13,946
+So one version is just to kind
+
+610
+00:27:14,046 --> 00:27:16,546
+And maybe I can tap in on the
+
+611
+00:27:16,986 --> 00:27:19,376
+or I can scroll the list
+
+612
+00:27:19,536 --> 00:27:22,336
+And while this version
+
+613
+00:27:22,336 --> 00:27:25,126
+that I would need, you kind of
+
+614
+00:27:25,126 --> 00:27:26,296
+to find what you're looking for.
+
+615
+00:27:26,526 --> 00:27:28,616
+You have to tap in on rows,
+
+616
+00:27:28,826 --> 00:27:31,356
+and the information just isn't
+
+617
+00:27:31,356 --> 00:27:34,026
+And so it can definitely be
+
+618
+00:27:35,346 --> 00:27:37,886
+So here's an alternative
+
+619
+00:27:37,886 --> 00:27:40,836
+to have a graph at the top,
+
+620
+00:27:40,836 --> 00:27:41,846
+And so with just a glance,
+
+621
+00:27:41,846 --> 00:27:43,886
+I can actually see a lot
+
+622
+00:27:44,526 --> 00:27:47,066
+And now with the use of
+
+623
+00:27:47,366 --> 00:27:50,306
+and it will animate between
+
+624
+00:27:51,136 --> 00:27:53,266
+And then I can also use
+
+625
+00:27:53,266 --> 00:27:55,826
+through the graph to
+
+626
+00:27:56,146 --> 00:27:59,436
+So even though there's a lot
+
+627
+00:27:59,436 --> 00:28:01,316
+it's actually a lot
+
+628
+00:27:59,436 --> 00:28:01,316
+it's actually a lot
+
+629
+00:28:01,316 --> 00:28:03,876
+to the specific information
+
+630
+00:28:04,066 --> 00:28:06,886
+and it makes the overall
+
+631
+00:28:07,506 --> 00:28:09,516
+And so, as you can see
+
+632
+00:28:09,516 --> 00:28:11,916
+and match all the technologies
+
+633
+00:28:11,916 --> 00:28:14,586
+so Gestures, and the Digital
+
+634
+00:28:14,936 --> 00:28:17,136
+and they create some really
+
+635
+00:28:17,606 --> 00:28:19,746
+So as you're building
+
+636
+00:28:19,746 --> 00:28:20,886
+you should make sure to take
+
+637
+00:28:21,066 --> 00:28:22,896
+into account all
+
+638
+00:28:23,126 --> 00:28:24,256
+and see how they can help
+
+639
+00:28:24,256 --> 00:28:26,216
+to simplify the navigation
+
+640
+00:28:26,586 --> 00:28:31,116
+A lot of focus has gone into
+
+641
+00:28:31,116 --> 00:28:32,776
+and we really want to
+
+642
+00:28:32,776 --> 00:28:35,106
+through to all of
+
+643
+00:28:35,106 --> 00:28:42,006
+And so, last up, we're going
+
+644
+00:28:42,496 --> 00:28:45,406
+that allows your users to
+
+645
+00:28:45,406 --> 00:28:46,436
+as they're done interacting.
+
+646
+00:28:47,216 --> 00:28:49,516
+And so a key aspect in
+
+647
+00:28:49,516 --> 00:28:53,146
+on Apple Watch is that your app
+
+648
+00:28:53,486 --> 00:28:56,116
+And this is especially true
+
+649
+00:28:56,116 --> 00:28:59,156
+of networking or communicating
+
+650
+00:28:59,686 --> 00:29:01,386
+Because often times,
+
+651
+00:28:59,686 --> 00:29:01,386
+Because often times,
+
+652
+00:29:01,386 --> 00:29:03,726
+to loading indicators,
+
+653
+00:29:04,446 --> 00:29:05,966
+And one aspect of this is
+
+654
+00:29:05,966 --> 00:29:08,126
+if you're updating the
+
+655
+00:29:08,126 --> 00:29:09,646
+And that's a large enough topic
+
+656
+00:29:09,646 --> 00:29:11,016
+that there's actually
+
+657
+00:29:11,016 --> 00:29:12,756
+on keeping your Watch
+
+658
+00:29:13,056 --> 00:29:14,256
+So make sure and check that out.
+
+659
+00:29:15,016 --> 00:29:17,196
+But here, we'd like to talk
+
+660
+00:29:17,196 --> 00:29:19,066
+of responding to user action.
+
+661
+00:29:19,646 --> 00:29:23,086
+So, for example, you have a
+
+662
+00:29:23,086 --> 00:29:25,026
+to buy some food and
+
+663
+00:29:25,346 --> 00:29:27,896
+How does your app respond
+
+664
+00:29:29,316 --> 00:29:32,856
+And we want to recommend that
+
+665
+00:29:32,856 --> 00:29:35,436
+to your users rather than
+
+666
+00:29:35,936 --> 00:29:37,906
+So we'll walk through an
+
+667
+00:29:38,506 --> 00:29:40,426
+So, here, we have that
+
+668
+00:29:40,426 --> 00:29:40,986
+talking about.
+
+669
+00:29:40,986 --> 00:29:43,396
+I can tap on one of
+
+670
+00:29:43,396 --> 00:29:45,466
+and there's a big Buy button,
+
+671
+00:29:45,466 --> 00:29:47,176
+to be a really fast
+
+672
+00:29:47,726 --> 00:29:50,816
+And I tap on Buy and I
+
+673
+00:29:51,036 --> 00:29:54,606
+And that's because the app has
+
+674
+00:29:54,606 --> 00:29:57,536
+it has to process the order, it
+
+675
+00:29:57,536 --> 00:30:01,346
+And then once it's done that, it
+
+676
+00:29:57,536 --> 00:30:01,346
+And then once it's done that, it
+
+677
+00:30:01,346 --> 00:30:04,696
+And only then is it going to
+
+678
+00:30:04,866 --> 00:30:06,276
+and say, "Hey, your
+
+679
+00:30:07,336 --> 00:30:08,686
+And if we look at
+
+680
+00:30:08,686 --> 00:30:09,766
+it really shows the problem.
+
+681
+00:30:10,076 --> 00:30:11,466
+Right? We start with
+
+682
+00:30:11,466 --> 00:30:12,806
+We tap Buy.
+
+683
+00:30:13,826 --> 00:30:15,276
+And then we show the
+
+684
+00:30:15,846 --> 00:30:18,076
+And during this time, the
+
+685
+00:30:18,076 --> 00:30:21,396
+and stares at your app until
+
+686
+00:30:21,856 --> 00:30:24,356
+And so the user is only
+
+687
+00:30:24,356 --> 00:30:25,546
+at the beginning and the end,
+
+688
+00:30:25,546 --> 00:30:28,226
+and so most of the time
+
+689
+00:30:28,756 --> 00:30:31,756
+So we can definitely improve
+
+690
+00:30:33,036 --> 00:30:36,356
+So, alternatively, if we
+
+691
+00:30:36,356 --> 00:30:40,016
+and now we tap the Buy button,
+
+692
+00:30:40,556 --> 00:30:42,496
+The key thing here is
+
+693
+00:30:42,496 --> 00:30:44,086
+because we haven't
+
+694
+00:30:44,406 --> 00:30:46,156
+We can't actually say
+
+695
+00:30:46,156 --> 00:30:47,196
+because we have no idea.
+
+696
+00:30:47,536 --> 00:30:49,346
+But we want to provide
+
+697
+00:30:49,346 --> 00:30:51,356
+and ultimately give
+
+698
+00:30:51,696 --> 00:30:53,556
+that the app is taking
+
+699
+00:30:54,036 --> 00:30:56,616
+And this allows the user then
+
+700
+00:30:56,616 --> 00:30:58,786
+and not have to wait
+
+701
+00:30:59,336 --> 00:31:00,796
+And now, in the background,
+
+702
+00:30:59,336 --> 00:31:00,796
+And now, in the background,
+
+703
+00:31:00,796 --> 00:31:05,376
+the app will use a background
+
+704
+00:31:05,376 --> 00:31:08,076
+with the server, and then
+
+705
+00:31:08,676 --> 00:31:10,906
+And then, in the background,
+
+706
+00:31:11,336 --> 00:31:14,706
+and it can use the new local
+
+707
+00:31:14,706 --> 00:31:16,506
+"OK, now your order
+
+708
+00:31:16,506 --> 00:31:17,246
+It's on its way."
+
+709
+00:31:17,796 --> 00:31:20,516
+And then you have all the same
+
+710
+00:31:21,636 --> 00:31:22,946
+And looking at a
+
+711
+00:31:22,946 --> 00:31:25,976
+it really shows how much it
+
+712
+00:31:26,326 --> 00:31:27,706
+So we choose an item,
+
+713
+00:31:27,706 --> 00:31:28,866
+and so we start out
+
+714
+00:31:30,036 --> 00:31:32,236
+And then instead of showing
+
+715
+00:31:32,236 --> 00:31:33,166
+we show the feedback.
+
+716
+00:31:33,946 --> 00:31:35,476
+And then after we
+
+717
+00:31:35,776 --> 00:31:36,756
+we show the notification.
+
+718
+00:31:37,726 --> 00:31:39,546
+And so as far as the
+
+719
+00:31:39,546 --> 00:31:41,836
+the overall interaction
+
+720
+00:31:41,836 --> 00:31:43,746
+as it was in the first example.
+
+721
+00:31:44,506 --> 00:31:47,976
+But from the user's point
+
+722
+00:31:47,976 --> 00:31:49,476
+and far more responsive.
+
+723
+00:31:49,746 --> 00:31:51,886
+And so it's just a better
+
+724
+00:31:51,966 --> 00:31:54,956
+I do want to point out here
+
+725
+00:31:54,956 --> 00:31:57,436
+that processing after the
+
+726
+00:31:57,666 --> 00:31:58,556
+If you're doing networking,
+
+727
+00:31:58,556 --> 00:32:02,196
+you can use a background
+
+728
+00:31:58,556 --> 00:32:02,196
+you can use a background
+
+729
+00:32:02,196 --> 00:32:03,836
+And make sure to
+
+730
+00:32:03,836 --> 00:32:05,566
+because that will enable
+
+731
+00:32:05,566 --> 00:32:07,556
+up in the background
+
+732
+00:32:07,636 --> 00:32:10,056
+And then at that point, you
+
+733
+00:32:10,056 --> 00:32:11,526
+that makes sense in
+
+734
+00:32:12,856 --> 00:32:16,196
+Or if you have to do
+
+735
+00:32:16,196 --> 00:32:18,166
+you can take out a
+
+736
+00:32:18,166 --> 00:32:19,796
+We had a great walkthrough
+
+737
+00:32:19,796 --> 00:32:22,066
+in a session last year called
+
+738
+00:32:22,336 --> 00:32:24,396
+so make sure to check that
+
+739
+00:32:24,396 --> 00:32:26,406
+of processing on
+
+740
+00:32:27,146 --> 00:32:29,906
+So 2 seconds is a very
+
+741
+00:32:29,906 --> 00:32:32,586
+of how fast interactions
+
+742
+00:32:32,966 --> 00:32:34,776
+But we really think that
+
+743
+00:32:34,776 --> 00:32:36,176
+as you're building
+
+744
+00:32:36,176 --> 00:32:39,956
+because it can really inform
+
+745
+00:32:40,786 --> 00:32:43,756
+So as you're going about
+
+746
+00:32:43,756 --> 00:32:46,796
+or thinking about your existing
+
+747
+00:32:46,796 --> 00:32:48,796
+on quick interactions right
+
+748
+00:32:48,976 --> 00:32:50,876
+And think about what
+
+749
+00:32:50,876 --> 00:32:52,836
+that your users are
+
+750
+00:32:52,836 --> 00:32:55,566
+in your applications, and make
+
+751
+00:32:55,566 --> 00:32:58,436
+to the very front and are
+
+752
+00:32:59,816 --> 00:33:01,846
+Use complications
+
+753
+00:32:59,816 --> 00:33:01,846
+Use complications
+
+754
+00:33:01,846 --> 00:33:04,736
+because they just create really
+
+755
+00:33:05,236 --> 00:33:09,306
+and they just provide a lot
+
+756
+00:33:09,306 --> 00:33:10,266
+for your applications.
+
+757
+00:33:12,236 --> 00:33:15,976
+Use SceneKit and SpriteKit
+
+758
+00:33:16,106 --> 00:33:18,126
+but also interactive
+
+759
+00:33:18,426 --> 00:33:20,456
+And they can add a lot of power
+
+760
+00:33:20,456 --> 00:33:23,106
+to your existing
+
+761
+00:33:23,106 --> 00:33:24,596
+And so we're really excited
+
+762
+00:33:24,596 --> 00:33:26,786
+to be doing with those.
+
+763
+00:33:27,166 --> 00:33:28,496
+Simplify the navigation.
+
+764
+00:33:28,496 --> 00:33:31,486
+Again, a lot of work
+
+765
+00:33:31,676 --> 00:33:34,236
+to simplify the navigation
+
+766
+00:33:34,236 --> 00:33:36,686
+But we also want that to
+
+767
+00:33:36,686 --> 00:33:37,996
+of our applications as well.
+
+768
+00:33:39,456 --> 00:33:41,666
+And, again, never
+
+769
+00:33:41,666 --> 00:33:43,536
+If you're showing a
+
+770
+00:33:43,716 --> 00:33:45,246
+try and reorganize your app
+
+771
+00:33:45,336 --> 00:33:47,336
+to allow the user
+
+772
+00:33:47,636 --> 00:33:49,006
+Provide the instant
+
+773
+00:33:49,006 --> 00:33:50,546
+and just give the
+
+774
+00:33:50,546 --> 00:33:53,426
+that your app is
+
+775
+00:33:53,426 --> 00:33:55,876
+And so for more information on
+
+776
+00:33:56,236 --> 00:33:57,606
+go and check out the
+
+777
+00:33:57,606 --> 00:33:59,976
+And there are tons
+
+778
+00:33:59,976 --> 00:34:02,496
+I highly recommend the Designing
+
+779
+00:33:59,976 --> 00:34:02,496
+I highly recommend the Designing
+
+780
+00:34:02,496 --> 00:34:06,156
+talk this afternoon or the
+
+781
+00:34:06,156 --> 00:34:08,706
+With that, I want to
+
+782
+00:34:08,706 --> 00:34:09,976
+And enjoy the rest of the
+
+783
+00:34:10,507 --> 00:34:12,507
+[ Applause ]

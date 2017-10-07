@@ -1,0 +1,3367 @@
+1
+00:00:07,516 --> 00:00:18,500
+[ Music ]
+
+2
+00:00:27,016 --> 00:00:27,236
+[ Applause ]
+
+3
+00:00:27,236 --> 00:00:30,866
+&gt;&gt; Good afternoon, everyone.
+
+4
+00:00:31,776 --> 00:00:34,206
+And welcome to Visual
+
+5
+00:00:35,226 --> 00:00:38,106
+I'm Chris, and I work
+
+6
+00:00:39,426 --> 00:00:43,136
+You know, debugging tools
+
+7
+00:00:44,676 --> 00:00:46,076
+It wasn't all that long ago
+
+8
+00:00:46,306 --> 00:00:48,766
+when our debugging tools
+
+9
+00:00:50,436 --> 00:00:53,356
+A little while later,
+
+10
+00:00:53,356 --> 00:00:56,826
+our debugging tools began
+
+11
+00:00:58,976 --> 00:01:00,386
+But fast-forward to today,
+
+12
+00:00:58,976 --> 00:01:00,386
+But fast-forward to today,
+
+13
+00:01:00,386 --> 00:01:03,866
+and our debugging tools have
+
+14
+00:01:03,866 --> 00:01:06,136
+at the same time becoming
+
+15
+00:01:06,626 --> 00:01:08,876
+A big part of this is because
+
+16
+00:01:08,876 --> 00:01:11,626
+visual, which helps us
+
+17
+00:01:11,976 --> 00:01:12,936
+and more intuitively.
+
+18
+00:01:13,966 --> 00:01:16,196
+Today, my colleagues and
+
+19
+00:01:16,196 --> 00:01:18,866
+about the latest in Xcode's
+
+20
+00:01:21,496 --> 00:01:24,156
+First, a quick overview
+
+21
+00:01:24,926 --> 00:01:27,746
+We're going to tell you about a
+
+22
+00:01:27,746 --> 00:01:31,396
+to report on issues detected
+
+23
+00:01:32,226 --> 00:01:35,356
+We're going to tell you
+
+24
+00:01:35,356 --> 00:01:36,926
+that we've made to
+
+25
+00:01:37,256 --> 00:01:39,746
+and how we've made auto
+
+26
+00:01:39,746 --> 00:01:40,486
+than ever before.
+
+27
+00:01:41,366 --> 00:01:43,706
+We're going to tell you about
+
+28
+00:01:43,706 --> 00:01:47,816
+to visually debug state machines
+
+29
+00:01:47,816 --> 00:01:51,896
+to the FPS performance gauge to
+
+30
+00:01:51,956 --> 00:01:53,586
+and SceneKit frame rate issues.
+
+31
+00:01:54,606 --> 00:01:58,076
+Finally, we're going to tell you
+
+32
+00:01:58,306 --> 00:01:59,826
+a visual memory graph debugger.
+
+33
+00:02:03,916 --> 00:02:05,936
+Let's get started by
+
+34
+00:02:08,936 --> 00:02:10,765
+We all know that
+
+35
+00:02:10,765 --> 00:02:12,456
+such as compiler
+
+36
+00:02:12,456 --> 00:02:15,456
+and static analysis
+
+37
+00:02:15,606 --> 00:02:18,086
+by Xcode's user interface
+
+38
+00:02:18,246 --> 00:02:20,286
+for our issues detected
+
+39
+00:02:21,466 --> 00:02:24,216
+However, the same can't be
+
+40
+00:02:24,216 --> 00:02:25,596
+by our expanding suite
+
+41
+00:02:25,596 --> 00:02:27,756
+of runtime debugging
+
+42
+00:02:28,406 --> 00:02:32,256
+These tools have
+
+43
+00:02:32,596 --> 00:02:36,836
+with their best option being to
+
+44
+00:02:37,176 --> 00:02:38,346
+Not the best experience.
+
+45
+00:02:38,856 --> 00:02:40,506
+We thought we could
+
+46
+00:02:42,446 --> 00:02:45,126
+In Xcode 8, we're
+
+47
+00:02:46,516 --> 00:02:51,796
+[ Applause ]
+
+48
+00:02:52,296 --> 00:02:55,316
+Runtime issues elevates the
+
+49
+00:02:55,316 --> 00:02:58,276
+at runtime to the
+
+50
+00:02:58,276 --> 00:03:00,576
+as traditional build
+
+51
+00:02:58,276 --> 00:03:00,576
+as traditional build
+
+52
+00:03:03,016 --> 00:03:05,346
+The Activity Viewer will
+
+53
+00:03:05,346 --> 00:03:07,356
+when any runtime
+
+54
+00:03:07,686 --> 00:03:09,586
+along with the number
+
+55
+00:03:10,836 --> 00:03:13,496
+We've enhanced the
+
+56
+00:03:13,496 --> 00:03:15,146
+with a new runtime scope.
+
+57
+00:03:15,426 --> 00:03:17,726
+This separates the
+
+58
+00:03:17,786 --> 00:03:19,546
+from the traditional
+
+59
+00:03:19,676 --> 00:03:21,216
+such as compiler
+
+60
+00:03:21,216 --> 00:03:22,696
+and static analysis issues.
+
+61
+00:03:26,496 --> 00:03:29,876
+So what issues will you expect
+
+62
+00:03:30,546 --> 00:03:33,026
+In Xcode 8, we're
+
+63
+00:03:33,656 --> 00:03:36,396
+The first -- threading issues.
+
+64
+00:03:37,096 --> 00:03:39,466
+Our brand-new Thread
+
+65
+00:03:39,466 --> 00:03:43,316
+to detect threading issues in
+
+66
+00:03:45,756 --> 00:03:46,946
+UI layout issues.
+
+67
+00:03:47,046 --> 00:03:49,516
+We've expanded Xcode's
+
+68
+00:03:49,516 --> 00:03:52,166
+to automatically detect
+
+69
+00:03:52,346 --> 00:03:53,606
+in your app at runtime.
+
+70
+00:03:55,966 --> 00:03:56,616
+And memory.
+
+71
+00:03:57,316 --> 00:03:59,256
+Our brand-new memory
+
+72
+00:03:59,256 --> 00:04:01,146
+which we'll talk a lot more
+
+73
+00:03:59,256 --> 00:04:01,146
+which we'll talk a lot more
+
+74
+00:04:01,146 --> 00:04:03,916
+is able to automatically
+
+75
+00:04:04,126 --> 00:04:05,446
+in your application at runtime.
+
+76
+00:04:10,046 --> 00:04:11,286
+So, as you heard
+
+77
+00:04:11,286 --> 00:04:14,486
+Xcode's latest runtime sanitizer
+
+78
+00:04:15,486 --> 00:04:17,906
+Thread Sanitizer
+
+79
+00:04:17,906 --> 00:04:19,986
+and better understand
+
+80
+00:04:20,026 --> 00:04:21,676
+in your applications at runtime.
+
+81
+00:04:22,696 --> 00:04:24,776
+It can detect such
+
+82
+00:04:25,176 --> 00:04:28,426
+uses of uninitialized mutexes,
+
+83
+00:04:28,896 --> 00:04:31,286
+thread leaks, and unsafe
+
+84
+00:04:32,226 --> 00:04:33,736
+If any of these issues
+
+85
+00:04:33,966 --> 00:04:36,076
+they'll be reported
+
+86
+00:04:37,336 --> 00:04:39,906
+Thread Sanitizer is a powerful
+
+87
+00:04:40,316 --> 00:04:43,096
+You can learn all about it by
+
+88
+00:04:43,186 --> 00:04:44,606
+and Static Analysis session.
+
+89
+00:04:51,056 --> 00:04:52,686
+View debugging is
+
+90
+00:04:52,686 --> 00:04:55,476
+of Xcode's debugging tools
+
+91
+00:04:56,146 --> 00:05:01,046
+Only in the last couple of
+
+92
+00:04:56,146 --> 00:05:01,046
+Only in the last couple of
+
+93
+00:05:01,046 --> 00:05:04,196
+we've gone from having
+
+94
+00:05:04,196 --> 00:05:07,676
+in a console like this to this.
+
+95
+00:05:08,086 --> 00:05:11,296
+Xcode's visual view debugger
+
+96
+00:05:11,526 --> 00:05:14,496
+for debugging and
+
+97
+00:05:15,506 --> 00:05:16,866
+If you haven't used it before,
+
+98
+00:05:17,546 --> 00:05:19,176
+while Xcode is running
+
+99
+00:05:20,106 --> 00:05:22,616
+just tap the Debug
+
+100
+00:05:22,946 --> 00:05:24,466
+down in the Debug Bar.
+
+101
+00:05:25,486 --> 00:05:27,506
+Xcode will snapshot
+
+102
+00:05:28,356 --> 00:05:30,676
+snapshot your view
+
+103
+00:05:30,676 --> 00:05:32,826
+out in an interactive 3D scene.
+
+104
+00:05:33,656 --> 00:05:36,926
+From there, you can inspect the
+
+105
+00:05:36,986 --> 00:05:40,556
+in the 3D canvas and
+
+106
+00:05:40,906 --> 00:05:43,506
+And you can inspect the
+
+107
+00:05:43,506 --> 00:05:45,746
+and constraints using
+
+108
+00:05:48,966 --> 00:05:54,316
+In Xcode 8, we've made view
+
+109
+00:05:54,316 --> 00:05:54,756
+Better than ever.
+
+110
+00:05:55,516 --> 00:06:02,546
+[ Applause ]
+
+111
+00:05:55,516 --> 00:06:02,546
+[ Applause ]
+
+112
+00:06:03,046 --> 00:06:05,226
+Snapshots are now
+
+113
+00:06:05,226 --> 00:06:07,086
+So you can go from
+
+114
+00:06:07,376 --> 00:06:08,976
+to debugging UI issues
+
+115
+00:06:09,516 --> 00:06:14,656
+[ Applause ]
+
+116
+00:06:15,156 --> 00:06:17,246
+The rendering of complex layouts
+
+117
+00:06:17,246 --> 00:06:20,256
+and transformed views is much
+
+118
+00:06:20,256 --> 00:06:24,316
+And speaking of accuracy, Xcode
+
+119
+00:06:24,316 --> 00:06:27,066
+such as visual effect views with
+
+120
+00:06:27,696 --> 00:06:30,506
+So what you see in Xcode's
+
+121
+00:06:30,506 --> 00:06:32,786
+reflects what you see on device.
+
+122
+00:06:33,106 --> 00:06:35,206
+You'll see the blur rendering
+
+123
+00:06:36,986 --> 00:06:39,266
+We've added conveniences, such
+
+124
+00:06:39,266 --> 00:06:40,906
+to the source code
+
+125
+00:06:40,906 --> 00:06:43,576
+Just tap the Jump button
+
+126
+00:06:44,496 --> 00:06:48,506
+And navigator filtering is
+
+127
+00:06:48,916 --> 00:06:50,936
+You can filter by
+
+128
+00:06:51,336 --> 00:06:53,586
+or text in a button's title.
+
+129
+00:06:54,506 --> 00:06:56,656
+Or you can filter
+
+130
+00:06:56,656 --> 00:06:58,786
+and that will include
+
+131
+00:06:58,916 --> 00:07:02,796
+For example, if you filter by
+
+132
+00:06:58,916 --> 00:07:02,796
+For example, if you filter by
+
+133
+00:07:02,796 --> 00:07:05,616
+of the subclasses of UI
+
+134
+00:07:06,296 --> 00:07:07,856
+You can even filter
+
+135
+00:07:08,146 --> 00:07:10,576
+So you can quickly find
+
+136
+00:07:10,576 --> 00:07:11,936
+by knowing its address
+
+137
+00:07:17,316 --> 00:07:18,586
+We've got some great
+
+138
+00:07:18,586 --> 00:07:20,236
+for auto layout debugging
+
+139
+00:07:20,806 --> 00:07:23,486
+We show many more properties
+
+140
+00:07:23,486 --> 00:07:24,366
+in the inspectors,
+
+141
+00:07:25,146 --> 00:07:27,906
+and constraints are better
+
+142
+00:07:28,656 --> 00:07:30,596
+We now render badges
+
+143
+00:07:30,626 --> 00:07:33,716
+to represent inequality or
+
+144
+00:07:34,096 --> 00:07:36,936
+And we render non-required
+
+145
+00:07:36,936 --> 00:07:39,246
+so you can easily
+
+146
+00:07:39,406 --> 00:07:41,256
+and non-required
+
+147
+00:07:42,776 --> 00:07:45,716
+But my favorite new feature
+
+148
+00:07:45,716 --> 00:07:47,546
+in conjunction with
+
+149
+00:07:49,506 --> 00:07:50,556
+Xcode is now able
+
+150
+00:07:50,556 --> 00:07:52,916
+to automatically detect
+
+151
+00:07:52,916 --> 00:07:54,876
+in your view hierarchy
+
+152
+00:07:57,516 --> 00:08:01,636
+[ Applause ]
+
+153
+00:07:57,516 --> 00:08:01,636
+[ Applause ]
+
+154
+00:08:02,136 --> 00:08:03,266
+So how does this work?
+
+155
+00:08:03,266 --> 00:08:05,156
+While snapshotting
+
+156
+00:08:05,156 --> 00:08:07,576
+Xcode will inspect every
+
+157
+00:08:07,576 --> 00:08:09,846
+to accurately determine if any
+
+158
+00:08:09,846 --> 00:08:11,736
+of those views have
+
+159
+00:08:11,896 --> 00:08:13,816
+along with the reason
+
+160
+00:08:14,666 --> 00:08:16,846
+If any layout issues
+
+161
+00:08:16,846 --> 00:08:20,496
+they'll be reported
+
+162
+00:08:21,186 --> 00:08:23,056
+So you'll see them indicated
+
+163
+00:08:23,186 --> 00:08:24,636
+and you'll see them listed
+
+164
+00:08:24,636 --> 00:08:26,436
+in the Issue Navigator
+
+165
+00:08:28,156 --> 00:08:31,716
+Furthermore, the view hierarchy
+
+166
+00:08:31,766 --> 00:08:34,926
+that have layout issues,
+
+167
+00:08:34,966 --> 00:08:36,996
+in the context of the
+
+168
+00:08:39,376 --> 00:08:43,096
+For a selected view, the Size
+
+169
+00:08:43,096 --> 00:08:46,456
+of any layout issues, along
+
+170
+00:08:46,456 --> 00:08:48,586
+that participated in the
+
+171
+00:08:49,906 --> 00:08:52,126
+We're really excited about
+
+172
+00:08:52,126 --> 00:08:54,366
+to automatically detect
+
+173
+00:08:54,366 --> 00:08:54,776
+at runtime.
+
+174
+00:08:54,776 --> 00:08:56,266
+And I'd love to give you a demo.
+
+175
+00:08:59,416 --> 00:09:00,636
+So I have an iPhone here,
+
+176
+00:08:59,416 --> 00:09:00,636
+So I have an iPhone here,
+
+177
+00:09:00,876 --> 00:09:02,386
+and I've got it connected
+
+178
+00:09:02,386 --> 00:09:05,736
+We've got Xcode up and running
+
+179
+00:09:06,176 --> 00:09:07,816
+That's one of our
+
+180
+00:09:07,816 --> 00:09:10,456
+that we've updated
+
+181
+00:09:11,456 --> 00:09:13,186
+On the right, I'm just
+
+182
+00:09:13,436 --> 00:09:14,946
+to stream the device's
+
+183
+00:09:14,946 --> 00:09:16,246
+to the desktop so
+
+184
+00:09:16,246 --> 00:09:20,146
+Our team was tasked with adding
+
+185
+00:09:20,146 --> 00:09:22,696
+to DemoBots, so we implemented
+
+186
+00:09:23,276 --> 00:09:26,366
+However, we had some issues that
+
+187
+00:09:26,456 --> 00:09:28,926
+So now is a great opportunity
+
+188
+00:09:29,686 --> 00:09:30,456
+I'll tap How To Play.
+
+189
+00:09:30,496 --> 00:09:32,246
+And this is our How
+
+190
+00:09:32,886 --> 00:09:33,686
+Not so great is it?
+
+191
+00:09:34,426 --> 00:09:36,726
+Obviously, we have some
+
+192
+00:09:36,726 --> 00:09:40,196
+We can see the DemoBots logo at
+
+193
+00:09:40,196 --> 00:09:41,666
+of mangled text rendered on top.
+
+194
+00:09:42,056 --> 00:09:43,616
+So we need to debug this.
+
+195
+00:09:43,616 --> 00:09:44,246
+Where do we start?
+
+196
+00:09:44,246 --> 00:09:46,196
+I'll give you some clues.
+
+197
+00:09:46,936 --> 00:09:49,806
+DemoBots is a little arcade
+
+198
+00:09:49,806 --> 00:09:53,326
+but this screen has been laid
+
+199
+00:09:53,726 --> 00:09:56,226
+So a good place to start
+
+200
+00:09:56,226 --> 00:09:59,896
+at the structure of the view
+
+201
+00:09:59,986 --> 00:10:00,826
+So let's do that now.
+
+202
+00:09:59,986 --> 00:10:00,826
+So let's do that now.
+
+203
+00:10:01,916 --> 00:10:05,226
+If I return to Xcode,
+
+204
+00:10:05,476 --> 00:10:08,056
+we can use the Debug
+
+205
+00:10:08,626 --> 00:10:10,446
+which I'll click now.
+
+206
+00:10:10,526 --> 00:10:12,116
+And that pauses the application
+
+207
+00:10:12,236 --> 00:10:13,916
+and snapshots the
+
+208
+00:10:15,006 --> 00:10:18,556
+In the editor, we now get back
+
+209
+00:10:18,556 --> 00:10:19,716
+of what we were seeing
+
+210
+00:10:20,776 --> 00:10:23,016
+And then to look under
+
+211
+00:10:23,076 --> 00:10:24,776
+all we need to do is
+
+212
+00:10:24,776 --> 00:10:27,046
+and we get the whole
+
+213
+00:10:27,046 --> 00:10:28,796
+out for us in the 3D view.
+
+214
+00:10:29,516 --> 00:10:33,546
+[ Applause ]
+
+215
+00:10:34,046 --> 00:10:35,886
+Here, we can see all
+
+216
+00:10:35,886 --> 00:10:38,776
+up this particular screen
+
+217
+00:10:38,776 --> 00:10:41,566
+container views, visual
+
+218
+00:10:41,566 --> 00:10:43,536
+that make up the How
+
+219
+00:10:44,016 --> 00:10:44,966
+Let's zoom in on those.
+
+220
+00:10:45,736 --> 00:10:47,396
+We see the DemoBots
+
+221
+00:10:47,396 --> 00:10:49,256
+and then a bunch of
+
+222
+00:10:49,786 --> 00:10:53,226
+And we quickly get some insight
+
+223
+00:10:53,266 --> 00:10:55,036
+for the mess we see on screen.
+
+224
+00:10:55,436 --> 00:10:56,466
+All of these views
+
+225
+00:10:56,466 --> 00:10:58,026
+out one on top of the other.
+
+226
+00:10:58,336 --> 00:10:59,296
+So we've got a layout issue.
+
+227
+00:10:59,796 --> 00:11:03,106
+Now our traditional workflow
+
+228
+00:10:59,796 --> 00:11:03,106
+Now our traditional workflow
+
+229
+00:11:03,106 --> 00:11:05,006
+of these views and their
+
+230
+00:11:05,006 --> 00:11:06,836
+and determine the reason
+
+231
+00:11:06,836 --> 00:11:09,226
+But in Xcode 8, we
+
+232
+00:11:09,226 --> 00:11:10,166
+information available.
+
+233
+00:11:10,976 --> 00:11:14,046
+Notice up here in the Activity
+
+234
+00:11:14,046 --> 00:11:15,656
+that we have some
+
+235
+00:11:16,666 --> 00:11:20,396
+We could click on that
+
+236
+00:11:20,426 --> 00:11:21,396
+to the issue navigator.
+
+237
+00:11:22,076 --> 00:11:25,126
+But you may also notice
+
+238
+00:11:25,126 --> 00:11:27,606
+in the Debug Navigator,
+
+239
+00:11:27,606 --> 00:11:29,466
+Xcode has badged some
+
+240
+00:11:29,736 --> 00:11:31,966
+And that's telling us that
+
+241
+00:11:31,966 --> 00:11:32,996
+So let's go straight to here.
+
+242
+00:11:34,296 --> 00:11:35,736
+If I select the first view,
+
+243
+00:11:36,316 --> 00:11:38,356
+that highlights the view
+
+244
+00:11:38,356 --> 00:11:40,776
+And let's open the Size
+
+245
+00:11:40,776 --> 00:11:41,586
+over here on the right.
+
+246
+00:11:43,066 --> 00:11:43,756
+Here, we can see
+
+247
+00:11:43,756 --> 00:11:46,136
+under constraints the
+
+248
+00:11:46,546 --> 00:11:49,396
+This view has an
+
+249
+00:11:50,136 --> 00:11:52,526
+Now that means that auto layout
+
+250
+00:11:52,716 --> 00:11:54,746
+to be able to unambiguously
+
+251
+00:11:54,906 --> 00:11:56,136
+in the vertical dimension.
+
+252
+00:11:57,036 --> 00:11:58,566
+Typically, constraints
+
+253
+00:11:59,456 --> 00:12:01,496
+Let's have a look
+
+254
+00:11:59,456 --> 00:12:01,496
+Let's have a look
+
+255
+00:12:02,306 --> 00:12:04,656
+That has the same issue --
+
+256
+00:12:05,356 --> 00:12:06,966
+And so does the next one.
+
+257
+00:12:06,966 --> 00:12:08,226
+If I randomly click
+
+258
+00:12:08,226 --> 00:12:09,626
+it looks like they all
+
+259
+00:12:10,396 --> 00:12:12,556
+What I find curious is
+
+260
+00:12:12,826 --> 00:12:15,066
+in this list is not
+
+261
+00:12:15,246 --> 00:12:17,206
+So that could be a clue when
+
+262
+00:12:17,966 --> 00:12:18,746
+Let's go to that now.
+
+263
+00:12:19,306 --> 00:12:22,316
+If I select the Parent
+
+264
+00:12:22,316 --> 00:12:25,006
+of InstructionsLayoutView,
+
+265
+00:12:25,006 --> 00:12:26,636
+for laying out this
+
+266
+00:12:27,696 --> 00:12:29,676
+So let's jump to the
+
+267
+00:12:29,936 --> 00:12:32,816
+An easy way to do that
+
+268
+00:12:32,816 --> 00:12:34,936
+And over here on the
+
+269
+00:12:35,026 --> 00:12:38,246
+in the Object Inspector a button
+
+270
+00:12:38,246 --> 00:12:39,996
+to the source code
+
+271
+00:12:40,686 --> 00:12:41,396
+So we'll do that now.
+
+272
+00:12:41,546 --> 00:12:43,546
+We'll close the Inspector
+
+273
+00:12:44,096 --> 00:12:45,246
+And let's take a
+
+274
+00:12:45,246 --> 00:12:46,456
+for InstructionsLayoutView.
+
+275
+00:12:48,256 --> 00:12:50,976
+It starts by iterating
+
+276
+00:12:50,976 --> 00:12:53,156
+of the instructions, which
+
+277
+00:12:53,276 --> 00:12:57,746
+which describe section headers,
+
+278
+00:12:58,286 --> 00:13:00,996
+And the code lays these
+
+279
+00:12:58,286 --> 00:13:00,996
+And the code lays these
+
+280
+00:13:01,576 --> 00:13:03,896
+So for each part, we fix
+
+281
+00:13:03,896 --> 00:13:04,716
+to the view hierarchy.
+
+282
+00:13:05,256 --> 00:13:07,066
+Then we have some code
+
+283
+00:13:07,096 --> 00:13:09,446
+But we didn't notice any
+
+284
+00:13:09,446 --> 00:13:11,716
+so let's skip over that
+
+285
+00:13:12,606 --> 00:13:13,566
+Here, we have two paths.
+
+286
+00:13:13,566 --> 00:13:17,276
+The first is for the very
+
+287
+00:13:17,276 --> 00:13:18,276
+to the top of the container.
+
+288
+00:13:18,926 --> 00:13:22,866
+Well, we already noted that the
+
+289
+00:13:22,866 --> 00:13:23,816
+as having any issues.
+
+290
+00:13:24,156 --> 00:13:26,566
+So, that constraint we
+
+291
+00:13:26,566 --> 00:13:28,456
+So let's jump to the other
+
+292
+00:13:28,956 --> 00:13:32,616
+Here, we're evaluating an
+
+293
+00:13:32,656 --> 00:13:35,906
+And if we have it, we assign it
+
+294
+00:13:36,476 --> 00:13:39,966
+And then we can constrain each
+
+295
+00:13:40,106 --> 00:13:41,736
+It looks like this is the
+
+296
+00:13:42,486 --> 00:13:44,556
+So let's have a look at
+
+297
+00:13:44,966 --> 00:13:46,986
+becoming true.
+
+298
+00:13:47,556 --> 00:13:50,596
+If we select previousPartView
+
+299
+00:13:50,596 --> 00:13:53,356
+I'll use Command-A to
+
+300
+00:13:53,646 --> 00:13:55,286
+and Command-F to
+
+301
+00:13:56,156 --> 00:13:57,706
+Let's look for instances
+
+302
+00:13:58,366 --> 00:13:59,996
+We see it's defined at the top.
+
+303
+00:14:00,206 --> 00:14:02,606
+It's set to "nil" before
+
+304
+00:14:02,956 --> 00:14:04,186
+We evaluate it down here,
+
+305
+00:14:04,756 --> 00:14:06,826
+and then we evaluate it
+
+306
+00:14:06,876 --> 00:14:08,596
+to handle the bottom constraint.
+
+307
+00:14:08,636 --> 00:14:10,836
+But it looks like we're
+
+308
+00:14:11,026 --> 00:14:11,836
+So let's quickly fix that.
+
+309
+00:14:11,836 --> 00:14:15,356
+So at the end of the loop,
+
+310
+00:14:16,136 --> 00:14:16,986
+to the current partView.
+
+311
+00:14:17,066 --> 00:14:18,976
+And then on each iteration,
+
+312
+00:14:19,426 --> 00:14:21,206
+we'll have the previous
+
+313
+00:14:21,206 --> 00:14:23,676
+which will be assigned
+
+314
+00:14:23,676 --> 00:14:27,036
+And we'll set up the constraint
+
+315
+00:14:27,336 --> 00:14:29,016
+Let's stop and rerun
+
+316
+00:14:29,016 --> 00:14:31,286
+And I'll bring QuickTime
+
+317
+00:14:32,206 --> 00:14:34,416
+Just note how much
+
+318
+00:14:34,416 --> 00:14:36,476
+to give us before
+
+319
+00:14:37,066 --> 00:14:39,436
+We use view debugger to look
+
+320
+00:14:39,436 --> 00:14:40,876
+and get some insight
+
+321
+00:14:41,266 --> 00:14:43,526
+But more than that,
+
+322
+00:14:43,526 --> 00:14:46,466
+about some layout issues
+
+323
+00:14:46,916 --> 00:14:47,946
+which views had issues,
+
+324
+00:14:47,946 --> 00:14:50,116
+and specifically what
+
+325
+00:14:50,586 --> 00:14:53,186
+So that gave us a lot of insight
+
+326
+00:14:53,186 --> 00:14:55,406
+so we could quickly
+
+327
+00:14:55,406 --> 00:14:56,386
+of the code that we needed to.
+
+328
+00:14:57,796 --> 00:14:59,916
+Now that our application is
+
+329
+00:15:00,006 --> 00:15:02,076
+And there, it looks much better.
+
+330
+00:15:02,386 --> 00:15:03,806
+We have a nice-looking
+
+331
+00:15:05,516 --> 00:15:10,796
+[ Applause ]
+
+332
+00:15:11,296 --> 00:15:15,256
+So Xcode is now able to
+
+333
+00:15:15,256 --> 00:15:19,366
+at runtime using the same UI as
+
+334
+00:15:20,636 --> 00:15:23,376
+Xcode's view debugger has
+
+335
+00:15:23,876 --> 00:15:27,636
+including faster snapshotting
+
+336
+00:15:27,676 --> 00:15:30,296
+of complex layouts
+
+337
+00:15:31,696 --> 00:15:32,946
+We've got some great enhancement
+
+338
+00:15:32,946 --> 00:15:34,396
+for auto layout debugging
+
+339
+00:15:34,676 --> 00:15:36,536
+In particular, Xcode is now able
+
+340
+00:15:36,536 --> 00:15:39,046
+to automatically detect
+
+341
+00:15:39,276 --> 00:15:39,956
+at runtime.
+
+342
+00:15:40,716 --> 00:15:43,146
+Xcode's view debugger
+
+343
+00:15:43,146 --> 00:15:45,486
+on Mac OS, iOS, and tvOS.
+
+344
+00:15:46,186 --> 00:15:47,816
+Give it a try with your
+
+345
+00:15:47,816 --> 00:15:49,286
+to hear feedback
+
+346
+00:15:49,286 --> 00:15:50,836
+with your debugging workflow.
+
+347
+00:15:51,866 --> 00:15:55,476
+And with that, I'd like to
+
+348
+00:15:55,476 --> 00:15:58,676
+to tell us about debugging state
+
+349
+00:15:59,006 --> 00:15:59,256
+Thanks.
+
+350
+00:16:00,516 --> 00:16:04,546
+[ Applause ]
+
+351
+00:16:05,046 --> 00:16:05,696
+&gt;&gt; Thanks, Chris.
+
+352
+00:16:06,566 --> 00:16:08,356
+Today, I'll be showing you a
+
+353
+00:16:08,356 --> 00:16:10,636
+debugging experience with
+
+354
+00:16:10,886 --> 00:16:13,476
+as well as some additions made
+
+355
+00:16:13,566 --> 00:16:14,326
+for Xcode 8.
+
+356
+00:16:15,976 --> 00:16:16,716
+Today, we have a number
+
+357
+00:16:16,716 --> 00:16:19,436
+of useful Quick Looks already
+
+358
+00:16:19,436 --> 00:16:22,246
+and these provide you the
+
+359
+00:16:22,246 --> 00:16:24,116
+of objects live during
+
+360
+00:16:24,116 --> 00:16:26,746
+And you can even provide
+
+361
+00:16:27,146 --> 00:16:28,946
+to view objects within your app.
+
+362
+00:16:29,736 --> 00:16:30,856
+And now in Xcode 8,
+
+363
+00:16:31,136 --> 00:16:32,876
+we're extending our
+
+364
+00:16:32,876 --> 00:16:34,196
+to include state machines.
+
+365
+00:16:34,646 --> 00:16:37,536
+So let's first dive into what
+
+366
+00:16:37,536 --> 00:16:40,246
+and how you could use
+
+367
+00:16:41,246 --> 00:16:43,886
+So, many of you may already be
+
+368
+00:16:43,886 --> 00:16:46,106
+which was part of our release
+
+369
+00:16:46,246 --> 00:16:49,066
+And it's available on
+
+370
+00:16:50,376 --> 00:16:53,276
+State machines allow you to more
+
+371
+00:16:53,276 --> 00:16:55,966
+by structuring it
+
+372
+00:16:55,966 --> 00:16:57,146
+And within a state machine,
+
+373
+00:16:57,146 --> 00:16:59,566
+you provide discrete
+
+374
+00:17:00,276 --> 00:17:02,866
+This could be something
+
+375
+00:17:02,866 --> 00:17:05,406
+that will play, or something
+
+376
+00:17:06,536 --> 00:17:09,046
+And then for each state,
+
+377
+00:17:09,046 --> 00:17:10,886
+by which the state
+
+378
+00:17:10,886 --> 00:17:12,276
+from one state to another.
+
+379
+00:17:13,915 --> 00:17:16,336
+Once assembled, state
+
+380
+00:17:16,336 --> 00:17:17,556
+sophisticated behavior.
+
+381
+00:17:17,806 --> 00:17:21,205
+However, they can quickly become
+
+382
+00:17:21,455 --> 00:17:22,996
+as they expand in complexity.
+
+383
+00:17:23,455 --> 00:17:25,546
+And simple state machines
+
+384
+00:17:25,546 --> 00:17:26,986
+into far more elaborate ones.
+
+385
+00:17:27,546 --> 00:17:30,036
+In Xcode 7.3, our support
+
+386
+00:17:30,036 --> 00:17:32,706
+for debugging state machines was
+
+387
+00:17:32,706 --> 00:17:34,096
+as well as its transitions.
+
+388
+00:17:34,506 --> 00:17:36,086
+However, now in Xcode 8,
+
+389
+00:17:36,256 --> 00:17:38,546
+we're able to visualize
+
+390
+00:17:38,546 --> 00:17:40,476
+so that you can see
+
+391
+00:17:41,506 --> 00:17:43,906
+This is incredibly useful
+
+392
+00:17:43,906 --> 00:17:46,896
+with very simple state machines
+
+393
+00:17:46,896 --> 00:17:49,436
+with much more complex
+
+394
+00:17:50,056 --> 00:17:53,176
+With Quick Look, you're able to
+
+395
+00:17:53,446 --> 00:17:55,116
+and evaluate exactly
+
+396
+00:17:55,206 --> 00:17:56,356
+within your state machines.
+
+397
+00:17:56,926 --> 00:18:01,446
+So, now, let's shift our
+
+398
+00:17:56,926 --> 00:18:01,446
+So, now, let's shift our
+
+399
+00:18:02,336 --> 00:18:04,806
+Any time you're creating any
+
+400
+00:18:04,936 --> 00:18:06,546
+maintaining good
+
+401
+00:18:07,056 --> 00:18:09,836
+And in Xcode 8, we've expanded
+
+402
+00:18:09,836 --> 00:18:12,356
+to help you with this.
+
+403
+00:18:12,586 --> 00:18:14,156
+Many of you may already
+
+404
+00:18:14,156 --> 00:18:16,596
+of the FPS performance
+
+405
+00:18:16,906 --> 00:18:19,216
+And at the top of the report,
+
+406
+00:18:19,216 --> 00:18:20,566
+of real-time statistics.
+
+407
+00:18:21,586 --> 00:18:23,726
+This includes your frame rate,
+
+408
+00:18:23,726 --> 00:18:25,146
+of frames being rendered
+
+409
+00:18:26,076 --> 00:18:28,496
+as well as your GPU
+
+410
+00:18:28,496 --> 00:18:31,626
+of your GPU are being used
+
+411
+00:18:31,626 --> 00:18:33,486
+for both the CPU and the GPU.
+
+412
+00:18:34,226 --> 00:18:35,026
+This helps indicate
+
+413
+00:18:35,026 --> 00:18:37,586
+to you whether you may be
+
+414
+00:18:40,016 --> 00:18:41,976
+Now, in addition to
+
+415
+00:18:42,056 --> 00:18:44,676
+Xcode 8 now provides
+
+416
+00:18:44,936 --> 00:18:47,326
+of your SpriteKit and
+
+417
+00:18:47,416 --> 00:18:49,076
+for both the CPU and the GPU.
+
+418
+00:18:49,076 --> 00:18:51,586
+This is available
+
+419
+00:18:52,216 --> 00:18:53,276
+And what's great about this is
+
+420
+00:18:53,276 --> 00:18:56,496
+that we breakdown your CPU frame
+
+421
+00:18:56,496 --> 00:18:59,086
+so you're able to see
+
+422
+00:18:59,086 --> 00:19:01,276
+rendering, or running
+
+423
+00:18:59,086 --> 00:19:01,276
+rendering, or running
+
+424
+00:19:01,276 --> 00:19:02,926
+or evaluating actions
+
+425
+00:19:03,076 --> 00:19:04,576
+and even how much
+
+426
+00:19:05,126 --> 00:19:08,576
+And when your app is
+
+427
+00:19:08,576 --> 00:19:10,316
+through the history of
+
+428
+00:19:10,316 --> 00:19:11,766
+so that you can see
+
+429
+00:19:11,766 --> 00:19:13,006
+as you progress through
+
+430
+00:19:13,006 --> 00:19:15,976
+And if there's a particular
+
+431
+00:19:16,256 --> 00:19:18,916
+you can dive deeper to
+
+432
+00:19:19,486 --> 00:19:21,256
+and get some exact timings.
+
+433
+00:19:21,446 --> 00:19:25,976
+So let's take a look at how we
+
+434
+00:19:43,186 --> 00:19:45,906
+So now that we've addressed the
+
+435
+00:19:46,026 --> 00:19:47,626
+In our How To Play
+
+436
+00:19:47,626 --> 00:19:48,946
+and dive into the game itself.
+
+437
+00:19:51,136 --> 00:19:53,246
+The objective of our
+
+438
+00:19:53,246 --> 00:19:56,916
+of the corrupted robots within
+
+439
+00:19:57,136 --> 00:19:59,616
+And to do this, I have
+
+440
+00:19:59,616 --> 00:20:02,096
+and reconfigure them
+
+441
+00:19:59,616 --> 00:20:02,096
+and reconfigure them
+
+442
+00:20:02,266 --> 00:20:04,906
+Now we see here I've already
+
+443
+00:20:04,906 --> 00:20:06,976
+after me, so I'll use
+
+444
+00:20:11,236 --> 00:20:12,756
+So you see he's been converted
+
+445
+00:20:12,756 --> 00:20:14,686
+to a good robot --
+
+446
+00:20:15,496 --> 00:20:18,346
+But I see that we still have
+
+447
+00:20:18,346 --> 00:20:20,726
+above our character, and
+
+448
+00:20:21,466 --> 00:20:23,986
+Now since we're using a state
+
+449
+00:20:23,986 --> 00:20:26,766
+of our beam, this
+
+450
+00:20:26,766 --> 00:20:28,666
+to use the State Machine
+
+451
+00:20:28,666 --> 00:20:29,606
+out what's going on here.
+
+452
+00:20:30,476 --> 00:20:34,176
+So I'll go ahead and pause
+
+453
+00:20:34,176 --> 00:20:35,226
+to our BeamComponent.
+
+454
+00:20:36,276 --> 00:20:38,186
+Now our BeamComponent
+
+455
+00:20:38,186 --> 00:20:39,616
+and update our state machine
+
+456
+00:20:39,616 --> 00:20:41,586
+that manages the
+
+457
+00:20:42,036 --> 00:20:44,156
+And I'll add a breakpoint
+
+458
+00:20:44,406 --> 00:20:45,746
+and resume our game
+
+459
+00:20:45,746 --> 00:20:46,906
+that break point immediately.
+
+460
+00:20:47,446 --> 00:20:50,596
+So now that we're paused,
+
+461
+00:20:50,596 --> 00:20:52,626
+and find our instance
+
+462
+00:20:53,026 --> 00:20:53,986
+and we can Quick Look it.
+
+463
+00:20:54,196 --> 00:20:57,396
+And from here, we can see
+
+464
+00:20:58,126 --> 00:21:00,416
+In blue, we see the
+
+465
+00:20:58,126 --> 00:21:00,416
+In blue, we see the
+
+466
+00:21:00,466 --> 00:21:01,956
+which is the BeamFiringState.
+
+467
+00:21:02,016 --> 00:21:04,436
+And in gray, we see all
+
+468
+00:21:04,436 --> 00:21:05,916
+that comprise our state machine.
+
+469
+00:21:06,836 --> 00:21:09,486
+Now we also see the transitions
+
+470
+00:21:09,646 --> 00:21:11,346
+And one thing that I've
+
+471
+00:21:11,346 --> 00:21:12,876
+that we have a number
+
+472
+00:21:12,876 --> 00:21:16,206
+into our BeamFiringState but we
+
+473
+00:21:16,206 --> 00:21:18,736
+So this means, as soon as we
+
+474
+00:21:18,736 --> 00:21:19,886
+we have no way of leaving it.
+
+475
+00:21:20,186 --> 00:21:22,856
+So let's go ahead and take a
+
+476
+00:21:22,856 --> 00:21:23,876
+to see what's going on here.
+
+477
+00:21:24,406 --> 00:21:27,766
+So I'll remove our breakpoint
+
+478
+00:21:27,866 --> 00:21:29,506
+and switch to our
+
+479
+00:21:30,246 --> 00:21:33,256
+Now we'll take a look
+
+480
+00:21:33,256 --> 00:21:36,246
+And I see here we have some
+
+481
+00:21:36,246 --> 00:21:38,666
+into the CoolingState as
+
+482
+00:21:39,586 --> 00:21:40,806
+But down here in our method
+
+483
+00:21:40,806 --> 00:21:42,896
+where we're checking whether the
+
+484
+00:21:42,896 --> 00:21:45,806
+to is valid, we're
+
+485
+00:21:45,946 --> 00:21:48,056
+which shouldn't be the case
+
+486
+00:21:48,056 --> 00:21:49,256
+to either cooling or idle.
+
+487
+00:21:50,256 --> 00:21:52,656
+So I'll go ahead and fix that by
+
+488
+00:21:52,656 --> 00:21:55,466
+trying to transition to is
+
+489
+00:21:55,886 --> 00:21:57,296
+And we'll go ahead
+
+490
+00:21:57,336 --> 00:21:58,876
+and check whether this
+
+491
+00:21:58,876 --> 00:21:59,556
+that we were seeing.
+
+492
+00:22:00,816 --> 00:22:02,866
+Now when we transition
+
+493
+00:22:02,866 --> 00:22:05,856
+and meet the conditions to exit
+
+494
+00:22:05,856 --> 00:22:07,886
+to transition back
+
+495
+00:22:09,236 --> 00:22:12,566
+So I'll jump back into the
+
+496
+00:22:12,566 --> 00:22:15,776
+at the corrupted robot to
+
+497
+00:22:16,186 --> 00:22:19,996
+And we'll see the beam is no
+
+498
+00:22:20,116 --> 00:22:21,706
+so it looks like we've
+
+499
+00:22:22,526 --> 00:22:24,936
+So now we've also noticed
+
+500
+00:22:24,936 --> 00:22:26,086
+within our game.
+
+501
+00:22:26,086 --> 00:22:28,686
+We have a number of ground
+
+502
+00:22:28,686 --> 00:22:30,836
+And I notice that when
+
+503
+00:22:31,096 --> 00:22:32,906
+our performance drops
+
+504
+00:22:33,966 --> 00:22:35,896
+So I'll switch to our
+
+505
+00:22:35,896 --> 00:22:38,426
+so that we can see our
+
+506
+00:22:38,426 --> 00:22:39,116
+we're running.
+
+507
+00:22:39,746 --> 00:22:41,406
+And you can see on the
+
+508
+00:22:41,406 --> 00:22:43,016
+to you your target frame time.
+
+509
+00:22:43,346 --> 00:22:47,006
+And in our case, it's 16.6
+
+510
+00:22:47,006 --> 00:22:49,376
+to maintaining a frame rate
+
+511
+00:22:50,306 --> 00:22:52,226
+We can also see that
+
+512
+00:22:52,226 --> 00:22:53,796
+of our time is spent rendering,
+
+513
+00:22:53,796 --> 00:22:55,506
+as well as running
+
+514
+00:22:55,856 --> 00:22:58,426
+and we've got a good amount of
+
+515
+00:22:58,986 --> 00:23:02,236
+So I'll go into our game
+
+516
+00:22:58,986 --> 00:23:02,236
+So I'll go into our game
+
+517
+00:23:02,236 --> 00:23:04,996
+where we have an enemy robot,
+
+518
+00:23:04,996 --> 00:23:07,036
+so that we can try to reproduce
+
+519
+00:23:07,286 --> 00:23:09,996
+So now I'll switch back
+
+520
+00:23:09,996 --> 00:23:11,806
+to see what's going on
+
+521
+00:23:12,386 --> 00:23:13,706
+And I'm noticing
+
+522
+00:23:13,706 --> 00:23:15,536
+of time is spent
+
+523
+00:23:15,536 --> 00:23:18,196
+In fact, now our frame rate is
+
+524
+00:23:18,976 --> 00:23:20,516
+So I'll go ahead
+
+525
+00:23:20,516 --> 00:23:22,616
+so that we can take a closer
+
+526
+00:23:23,306 --> 00:23:26,446
+Now that we're paused, I
+
+527
+00:23:26,446 --> 00:23:27,956
+within our frame breakdown
+
+528
+00:23:27,956 --> 00:23:30,316
+to see our frame time
+
+529
+00:23:30,776 --> 00:23:32,356
+In fact, here we can see
+
+530
+00:23:32,356 --> 00:23:35,246
+in the main menu where we spent
+
+531
+00:23:35,246 --> 00:23:36,566
+but most of it was spent idle,
+
+532
+00:23:36,596 --> 00:23:39,056
+as well as the breakdown we
+
+533
+00:23:39,666 --> 00:23:42,406
+And now when we are seeing
+
+534
+00:23:42,406 --> 00:23:44,246
+and hold to examine details
+
+535
+00:23:44,246 --> 00:23:46,676
+for the performance
+
+536
+00:23:47,306 --> 00:23:51,286
+Here, I see we're getting
+
+537
+00:23:51,286 --> 00:23:54,676
+and 71% of that is spent
+
+538
+00:23:54,676 --> 00:23:57,196
+So what that tells me
+
+539
+00:23:57,196 --> 00:23:58,906
+of two issues present
+
+540
+00:23:59,526 --> 00:24:00,746
+We could have a single action
+
+541
+00:23:59,526 --> 00:24:00,746
+We could have a single action
+
+542
+00:24:00,746 --> 00:24:03,426
+within our scene that's taking
+
+543
+00:24:03,426 --> 00:24:05,926
+of time to evaluate, or we
+
+544
+00:24:05,926 --> 00:24:08,026
+of actions that's
+
+545
+00:24:08,226 --> 00:24:12,306
+So now I know where within our
+
+546
+00:24:15,816 --> 00:24:18,276
+So we've seen how we can use
+
+547
+00:24:18,336 --> 00:24:20,696
+to debug an issue we were
+
+548
+00:24:21,046 --> 00:24:23,206
+as well as how the FPS
+
+549
+00:24:23,206 --> 00:24:25,936
+where exactly within our update
+
+550
+00:24:26,856 --> 00:24:28,756
+I'd like to now invite
+
+551
+00:24:28,756 --> 00:24:31,686
+who will show you a new memory
+
+552
+00:24:31,686 --> 00:24:34,336
+to determine where our issue
+
+553
+00:24:34,336 --> 00:24:35,866
+from so we can fix it.
+
+554
+00:24:36,516 --> 00:24:42,966
+[ Applause ]
+
+555
+00:24:43,466 --> 00:24:43,986
+&gt;&gt; Thank you, Tyler.
+
+556
+00:24:45,066 --> 00:24:46,216
+So I'm very excited to tell you
+
+557
+00:24:46,216 --> 00:24:48,536
+about the new memory
+
+558
+00:24:48,846 --> 00:24:51,466
+And like the view debugger,
+
+559
+00:24:51,696 --> 00:24:54,036
+it's a tool for understanding
+
+560
+00:24:54,186 --> 00:24:57,216
+So just as the view debugger
+
+561
+00:24:57,216 --> 00:25:00,496
+the memory graph debugger helps
+
+562
+00:24:57,216 --> 00:25:00,496
+the memory graph debugger helps
+
+563
+00:25:00,496 --> 00:25:02,006
+and how it's referencing
+
+564
+00:25:02,576 --> 00:25:05,976
+The core question though that
+
+565
+00:25:06,396 --> 00:25:09,126
+why does a certain object
+
+566
+00:25:10,096 --> 00:25:12,296
+Now objects reference
+
+567
+00:25:12,296 --> 00:25:16,726
+And, you know, this is more and
+
+568
+00:25:16,726 --> 00:25:17,956
+and annotation these days
+
+569
+00:25:18,306 --> 00:25:19,896
+in an automatic
+
+570
+00:25:20,686 --> 00:25:24,936
+So where can we go from
+
+571
+00:25:24,936 --> 00:25:27,356
+that we don't want, objects
+
+572
+00:25:28,266 --> 00:25:29,346
+Well, there's some
+
+573
+00:25:29,346 --> 00:25:31,466
+that can help, such as Heap.
+
+574
+00:25:32,146 --> 00:25:34,916
+And what Heap does is it
+
+575
+00:25:35,256 --> 00:25:37,876
+looks through it for a
+
+576
+00:25:37,946 --> 00:25:41,256
+and the counts of objects
+
+577
+00:25:41,256 --> 00:25:43,816
+And you can even use the
+
+578
+00:25:43,816 --> 00:25:45,706
+for a specific type of object
+
+579
+00:25:45,706 --> 00:25:47,806
+and get a list of
+
+580
+00:25:48,366 --> 00:25:50,736
+Once you have an instance
+
+581
+00:25:51,316 --> 00:25:53,366
+leaks is where you go
+
+582
+00:25:53,366 --> 00:25:55,746
+of information of, well,
+
+583
+00:25:55,746 --> 00:25:56,346
+Is it leaked?
+
+584
+00:25:56,846 --> 00:25:59,956
+Or is there some path
+
+585
+00:25:59,996 --> 00:26:03,906
+in your application that goes
+
+586
+00:25:59,996 --> 00:26:03,906
+in your application that goes
+
+587
+00:26:05,136 --> 00:26:07,156
+Now, at any point in
+
+588
+00:26:07,156 --> 00:26:08,946
+you might need some
+
+589
+00:26:08,946 --> 00:26:10,496
+such as the allocation
+
+590
+00:26:10,856 --> 00:26:12,176
+And, that, you can get
+
+591
+00:26:12,986 --> 00:26:15,586
+And this is all not a
+
+592
+00:26:15,586 --> 00:26:18,006
+and that's why we pulled all of
+
+593
+00:26:18,006 --> 00:26:20,066
+for the memory graph debugger.
+
+594
+00:26:20,066 --> 00:26:24,146
+And so just a quick overview of,
+
+595
+00:26:24,646 --> 00:26:26,986
+On the left, the Navigator is
+
+596
+00:26:26,986 --> 00:26:29,306
+of information to
+
+597
+00:26:30,036 --> 00:26:31,476
+The center editor area is
+
+598
+00:26:31,476 --> 00:26:33,786
+where the connectivity
+
+599
+00:26:34,406 --> 00:26:37,526
+And on the right -- that's
+
+600
+00:26:37,606 --> 00:26:40,446
+the allocation stack
+
+601
+00:26:40,976 --> 00:26:43,396
+So with that, I'd just like to
+
+602
+00:26:44,156 --> 00:26:46,646
+where Tyler left off and
+
+603
+00:26:46,646 --> 00:26:48,466
+at those action problems
+
+604
+00:26:48,916 --> 00:26:49,306
+All right.
+
+605
+00:26:49,506 --> 00:26:55,456
+So here we are with the FPS
+
+606
+00:26:55,696 --> 00:26:57,236
+you know, actions
+
+607
+00:26:57,236 --> 00:26:59,576
+at fault here in
+
+608
+00:27:00,036 --> 00:27:01,446
+So I'm just going to jump right
+
+609
+00:27:01,446 --> 00:27:04,646
+in by choosing the Memory
+
+610
+00:27:05,136 --> 00:27:07,506
+in the Debug Menu Bar.
+
+611
+00:27:08,136 --> 00:27:09,806
+And on the left here,
+
+612
+00:27:10,006 --> 00:27:14,386
+the Navigator shows me
+
+613
+00:27:14,386 --> 00:27:17,086
+of the different types
+
+614
+00:27:17,316 --> 00:27:20,206
+And so they're broken
+
+615
+00:27:20,206 --> 00:27:21,896
+of module and then type.
+
+616
+00:27:21,896 --> 00:27:24,256
+And then under each of
+
+617
+00:27:25,136 --> 00:27:28,266
+And so, in this case, I'm kind
+
+618
+00:27:28,266 --> 00:27:30,056
+of interested in
+
+619
+00:27:30,256 --> 00:27:31,386
+And it's very easy to do.
+
+620
+00:27:31,386 --> 00:27:34,616
+I can just type into the filter,
+
+621
+00:27:35,906 --> 00:27:36,976
+So here we are.
+
+622
+00:27:37,036 --> 00:27:38,946
+We've got types in SpriteKit.
+
+623
+00:27:38,946 --> 00:27:42,846
+And we see that, yeah, we
+
+624
+00:27:43,336 --> 00:27:46,296
+So it's probably that we
+
+625
+00:27:46,296 --> 00:27:49,086
+that we have some
+
+626
+00:27:50,776 --> 00:27:52,666
+So let me select one
+
+627
+00:27:53,116 --> 00:27:57,566
+And the editor changes to show
+
+628
+00:27:57,566 --> 00:27:59,696
+of why this object
+
+629
+00:28:00,116 --> 00:28:02,296
+In this case, it's showing
+
+630
+00:28:02,296 --> 00:28:07,146
+which allows me to trace the
+
+631
+00:28:07,186 --> 00:28:09,416
+to the left, back to the
+
+632
+00:28:09,946 --> 00:28:11,316
+So I can see that
+
+633
+00:28:11,316 --> 00:28:14,136
+by an SKC sequence by repeat.
+
+634
+00:28:14,196 --> 00:28:15,776
+There's an array
+
+635
+00:28:15,876 --> 00:28:19,346
+And I can even disclose
+
+636
+00:28:19,346 --> 00:28:22,046
+that here we've got an
+
+637
+00:28:22,356 --> 00:28:25,086
+So, OK, it's part of
+
+638
+00:28:25,516 --> 00:28:29,346
+I can click on this and
+
+639
+00:28:29,346 --> 00:28:33,886
+If I want to take some
+
+640
+00:28:34,316 --> 00:28:37,056
+I can select it and
+
+641
+00:28:38,186 --> 00:28:41,036
+Now the Inspector shows
+
+642
+00:28:41,036 --> 00:28:44,746
+such as the class name,
+
+643
+00:28:44,746 --> 00:28:47,786
+if it is a sub-class
+
+644
+00:28:48,306 --> 00:28:50,736
+What I'm interested in is
+
+645
+00:28:50,736 --> 00:28:51,976
+so I can jump to there.
+
+646
+00:28:52,446 --> 00:28:57,876
+I can go ahead and collapse this
+
+647
+00:28:58,016 --> 00:29:02,036
+And here, we see I've got this
+
+648
+00:28:58,016 --> 00:29:02,036
+And here, we see I've got this
+
+649
+00:29:03,066 --> 00:29:06,166
+All right, so it's
+
+650
+00:29:06,346 --> 00:29:11,696
+I can use the Quick Help to
+
+651
+00:29:11,696 --> 00:29:13,986
+to the list of actions
+
+652
+00:29:14,816 --> 00:29:18,616
+But I actually wanted to only
+
+653
+00:29:18,616 --> 00:29:20,916
+and make sure that this was
+
+654
+00:29:21,376 --> 00:29:22,676
+So it's a pretty simple fix.
+
+655
+00:29:22,676 --> 00:29:25,406
+I'm just going to use
+
+656
+00:29:25,506 --> 00:29:27,886
+and replace the player action.
+
+657
+00:29:28,526 --> 00:29:33,206
+And the Quick Help
+
+658
+00:29:33,286 --> 00:29:35,036
+this is actually the
+
+659
+00:29:35,166 --> 00:29:37,296
+If an action using the same
+
+660
+00:29:37,296 --> 00:29:38,766
+it is removed before
+
+661
+00:29:39,066 --> 00:29:44,926
+Great. So that's a pretty simple
+
+662
+00:29:44,926 --> 00:29:46,286
+about a specific type.
+
+663
+00:29:46,346 --> 00:29:48,006
+But one of the other
+
+664
+00:29:48,006 --> 00:29:51,106
+when I hit the Memory
+
+665
+00:29:51,106 --> 00:29:54,416
+that the Runtime Issues
+
+666
+00:29:54,416 --> 00:29:55,116
+to some issues.
+
+667
+00:29:55,376 --> 00:29:56,606
+So I can click on that.
+
+668
+00:29:56,606 --> 00:30:00,336
+And now I'm taken to the
+
+669
+00:29:56,606 --> 00:30:00,336
+And now I'm taken to the
+
+670
+00:30:00,926 --> 00:30:04,226
+which has a bunch of leaks that
+
+671
+00:30:05,256 --> 00:30:09,226
+So I'll start out with a type
+
+672
+00:30:09,336 --> 00:30:11,266
+say, this LoadSceneOperation.
+
+673
+00:30:12,626 --> 00:30:15,096
+If I select it, now the
+
+674
+00:30:15,096 --> 00:30:16,166
+that same style.
+
+675
+00:30:16,396 --> 00:30:18,666
+It's showing me a
+
+676
+00:30:19,296 --> 00:30:22,006
+which is because this
+
+677
+00:30:22,006 --> 00:30:25,166
+It's not reachable from those
+
+678
+00:30:25,426 --> 00:30:28,116
+And I need to find
+
+679
+00:30:28,186 --> 00:30:30,806
+in the leaked set are
+
+680
+00:30:31,846 --> 00:30:35,546
+So looking at this
+
+681
+00:30:35,546 --> 00:30:36,876
+with some internal state.
+
+682
+00:30:37,156 --> 00:30:39,186
+It's referencing a
+
+683
+00:30:39,676 --> 00:30:44,026
+And then this has some
+
+684
+00:30:44,086 --> 00:30:46,196
+that strongly referenced
+
+685
+00:30:46,746 --> 00:30:47,086
+Interesting.
+
+686
+00:30:48,366 --> 00:30:51,546
+So if I click on the block,
+
+687
+00:30:51,546 --> 00:30:54,686
+and go immediately there.
+
+688
+00:30:54,916 --> 00:30:56,706
+And here we are --
+
+689
+00:30:56,706 --> 00:30:58,596
+my LoadSceneOperation
+
+690
+00:30:58,596 --> 00:31:01,516
+I'm even using a capture
+
+691
+00:30:58,596 --> 00:31:01,516
+I'm even using a capture
+
+692
+00:31:02,096 --> 00:31:04,756
+But the graph showed me that
+
+693
+00:31:04,756 --> 00:31:08,806
+It was the LoadSceneOperation
+
+694
+00:31:09,036 --> 00:31:09,836
+within the block.
+
+695
+00:31:11,536 --> 00:31:13,486
+So it's a pretty
+
+696
+00:31:13,736 --> 00:31:17,466
+I just need to capture
+
+697
+00:31:18,296 --> 00:31:21,826
+and I can get going again.
+
+698
+00:31:23,296 --> 00:31:26,626
+But, unfortunately, that's
+
+699
+00:31:27,056 --> 00:31:28,756
+Because, since it's
+
+700
+00:31:28,756 --> 00:31:31,166
+my LoadSceneOperation
+
+701
+00:31:31,616 --> 00:31:33,836
+And so once it executes
+
+702
+00:31:34,266 --> 00:31:36,816
+the LoadSceneOperation is
+
+703
+00:31:36,956 --> 00:31:38,556
+and it won't be around
+
+704
+00:31:39,036 --> 00:31:41,366
+This means that when I dispatch
+
+705
+00:31:42,616 --> 00:31:45,106
+this LoadSceneOperation
+
+706
+00:31:45,106 --> 00:31:46,066
+and I'm going to get a crash.
+
+707
+00:31:46,876 --> 00:31:50,466
+So it just goes to show that
+
+708
+00:31:50,466 --> 00:31:54,266
+at times and require a
+
+709
+00:31:54,636 --> 00:31:57,166
+And hopefully the memory
+
+710
+00:31:57,736 --> 00:31:58,836
+in your investigations as well.
+
+711
+00:31:59,516 --> 00:32:05,996
+[ Applause ]
+
+712
+00:31:59,516 --> 00:32:05,996
+[ Applause ]
+
+713
+00:32:06,496 --> 00:32:08,436
+So, let's talk a little bit more
+
+714
+00:32:08,436 --> 00:32:10,936
+about leaked and
+
+715
+00:32:11,146 --> 00:32:15,606
+The memory graph debugger is a
+
+716
+00:32:15,606 --> 00:32:17,466
+to inspect your target
+
+717
+00:32:17,826 --> 00:32:19,526
+This is so your application
+
+718
+00:32:19,526 --> 00:32:22,026
+and changing its state, and
+
+719
+00:32:22,026 --> 00:32:22,586
+of the world.
+
+720
+00:32:22,986 --> 00:32:24,696
+It also lets you do
+
+721
+00:32:24,696 --> 00:32:27,686
+or PO different objects as you
+
+722
+00:32:27,776 --> 00:32:30,226
+and it's available on
+
+723
+00:32:31,146 --> 00:32:32,516
+Now, as I showed in the demo,
+
+724
+00:32:32,516 --> 00:32:33,596
+there's two different
+
+725
+00:32:34,136 --> 00:32:37,266
+And the first one is that
+
+726
+00:32:37,646 --> 00:32:39,276
+which shows you for
+
+727
+00:32:39,566 --> 00:32:40,496
+maybe you've abandoned it --
+
+728
+00:32:41,116 --> 00:32:45,416
+how are different roots in
+
+729
+00:32:45,456 --> 00:32:47,806
+and currently-running threads
+
+730
+00:32:48,606 --> 00:32:50,286
+Now with the progressive
+
+731
+00:32:50,286 --> 00:32:52,506
+it lets you work back
+
+732
+00:32:52,636 --> 00:32:55,846
+to different intermediate
+
+733
+00:32:55,926 --> 00:32:57,356
+that should no longer be there.
+
+734
+00:32:58,466 --> 00:33:00,806
+For unreferenced
+
+735
+00:32:58,466 --> 00:33:00,806
+For unreferenced
+
+736
+00:33:01,196 --> 00:33:02,586
+that's when you see
+
+737
+00:33:02,896 --> 00:33:07,716
+And the goal there is to help
+
+738
+00:33:07,716 --> 00:33:09,146
+referencing itself.
+
+739
+00:33:09,146 --> 00:33:11,986
+And it'll let you figure out,
+
+740
+00:33:13,826 --> 00:33:17,156
+So, for stack logging
+
+741
+00:33:17,156 --> 00:33:22,486
+in the Inspector, it's not
+
+742
+00:33:22,486 --> 00:33:24,356
+of the mallocs and frees
+
+743
+00:33:24,606 --> 00:33:26,916
+And so this is a diagnostic
+
+744
+00:33:27,706 --> 00:33:32,036
+Just going to the Scheme Editor
+
+745
+00:33:32,036 --> 00:33:34,906
+in the Diagnostics Tab
+
+746
+00:33:34,906 --> 00:33:38,006
+And it will record, again, all
+
+747
+00:33:38,286 --> 00:33:39,596
+so you can look them up later.
+
+748
+00:33:40,626 --> 00:33:43,576
+But for memory graph debugging,
+
+749
+00:33:43,576 --> 00:33:44,766
+of the malloc and frees.
+
+750
+00:33:44,766 --> 00:33:46,306
+And previous lifetimes
+
+751
+00:33:46,306 --> 00:33:49,336
+of a malloc block just
+
+752
+00:33:49,886 --> 00:33:56,206
+So, new in our current OSs is
+
+753
+00:33:56,246 --> 00:34:00,986
+And so this has a lower
+
+754
+00:33:56,246 --> 00:34:00,986
+And so this has a lower
+
+755
+00:34:01,056 --> 00:34:03,616
+to get this rich information
+
+756
+00:34:03,616 --> 00:34:04,226
+graph debugging.
+
+757
+00:34:04,736 --> 00:34:09,116
+So this will set the "lite"
+
+758
+00:34:09,525 --> 00:34:10,985
+in target environment.
+
+759
+00:34:13,436 --> 00:34:17,005
+So one other thing
+
+760
+00:34:17,005 --> 00:34:18,906
+about memory graph debugging is
+
+761
+00:34:18,956 --> 00:34:21,386
+that we've introduced a
+
+762
+00:34:21,876 --> 00:34:24,005
+Now, sometimes you'll
+
+763
+00:34:24,005 --> 00:34:26,956
+and you won't have the time
+
+764
+00:34:27,326 --> 00:34:30,056
+And so you may want to save
+
+765
+00:34:30,056 --> 00:34:31,545
+on your team take
+
+766
+00:34:31,826 --> 00:34:35,116
+So, from Xcode, you can
+
+767
+00:34:35,286 --> 00:34:37,376
+and select Export Memory Graph.
+
+768
+00:34:37,806 --> 00:34:39,406
+And what it'll do
+
+769
+00:34:39,406 --> 00:34:41,786
+of the connectivity information
+
+770
+00:34:42,005 --> 00:34:43,496
+as well as some VM statistics
+
+771
+00:34:43,496 --> 00:34:45,686
+about your application
+
+772
+00:34:45,956 --> 00:34:47,976
+Then at some later time,
+
+773
+00:34:48,116 --> 00:34:52,366
+load that file in the Xcode, and
+
+774
+00:34:53,056 --> 00:34:55,216
+Now this does mean that there's
+
+775
+00:34:55,216 --> 00:34:59,326
+So you can't get back traces,
+
+776
+00:34:59,326 --> 00:35:00,996
+But it's still a very
+
+777
+00:34:59,326 --> 00:35:00,996
+But it's still a very
+
+778
+00:35:00,996 --> 00:35:03,506
+for an app analyzing
+
+779
+00:35:04,736 --> 00:35:06,466
+Now if you want to build this
+
+780
+00:35:06,466 --> 00:35:08,576
+into your continuous
+
+781
+00:35:09,546 --> 00:35:11,656
+we've actually got some
+
+782
+00:35:12,366 --> 00:35:16,216
+So you can just run
+
+783
+00:35:16,516 --> 00:35:18,826
+and save out a .memgraph
+
+784
+00:35:20,106 --> 00:35:23,896
+So leaks, vmmap, and heap have
+
+785
+00:35:24,516 --> 00:35:31,006
+[ Applause ]
+
+786
+00:35:31,506 --> 00:35:33,346
+All right, now the fun part.
+
+787
+00:35:33,346 --> 00:35:36,006
+Let's talk about some usage tips
+
+788
+00:35:36,006 --> 00:35:37,786
+on the leaks infrastructure.
+
+789
+00:35:38,446 --> 00:35:40,526
+Now what this means is
+
+790
+00:35:41,286 --> 00:35:45,356
+We're trying very, very
+
+791
+00:35:45,356 --> 00:35:46,366
+as leaked when they're not.
+
+792
+00:35:46,366 --> 00:35:50,266
+And so in that attempt
+
+793
+00:35:51,026 --> 00:35:52,566
+there may be some
+
+794
+00:35:52,606 --> 00:35:53,476
+that you see in the graph.
+
+795
+00:35:54,486 --> 00:35:59,136
+Now these references will show
+
+796
+00:35:59,206 --> 00:36:01,156
+They may be valid
+
+797
+00:35:59,206 --> 00:36:01,156
+They may be valid
+
+798
+00:36:01,476 --> 00:36:04,456
+We may not just have metadata
+
+799
+00:36:04,846 --> 00:36:08,986
+And so take them
+
+800
+00:36:08,986 --> 00:36:10,276
+as you're reading these graphs.
+
+801
+00:36:10,786 --> 00:36:13,486
+Now one thing you can do
+
+802
+00:36:13,486 --> 00:36:14,456
+to enable Malloc Scribble,
+
+803
+00:36:14,586 --> 00:36:16,926
+which is another
+
+804
+00:36:17,406 --> 00:36:20,456
+And this will mean that
+
+805
+00:36:20,816 --> 00:36:23,716
+it will write over the
+
+806
+00:36:23,976 --> 00:36:27,766
+that uninitialized
+
+807
+00:36:29,156 --> 00:36:32,146
+So for references that are known
+
+808
+00:36:32,146 --> 00:36:33,526
+up as bold in the graph.
+
+809
+00:36:33,626 --> 00:36:37,736
+And Swift 3 actually has
+
+810
+00:36:37,736 --> 00:36:39,206
+metadata available.
+
+811
+00:36:39,686 --> 00:36:43,896
+And so I encourage
+
+812
+00:36:43,996 --> 00:36:47,436
+because it definitely is a
+
+813
+00:36:47,436 --> 00:36:49,566
+of understanding
+
+814
+00:36:50,616 --> 00:36:51,986
+And finally, I should put
+
+815
+00:36:51,986 --> 00:36:53,636
+out that the memory
+
+816
+00:36:53,636 --> 00:36:55,736
+that you temporarily
+
+817
+00:36:55,886 --> 00:36:58,426
+like Address Sanitizer
+
+818
+00:36:59,716 --> 00:37:01,516
+So this is a lot of information.
+
+819
+00:36:59,716 --> 00:37:01,516
+So this is a lot of information.
+
+820
+00:37:02,316 --> 00:37:04,386
+Where is a great place to get
+
+821
+00:37:05,186 --> 00:37:07,146
+Well, validate your
+
+822
+00:37:07,326 --> 00:37:10,676
+Are there more objects of a
+
+823
+00:37:11,266 --> 00:37:13,896
+Are objects being
+
+824
+00:37:14,506 --> 00:37:18,016
+Are there any leaks
+
+825
+00:37:18,766 --> 00:37:20,546
+Once you find an object
+
+826
+00:37:20,546 --> 00:37:23,176
+in investigating, then
+
+827
+00:37:23,506 --> 00:37:25,646
+that shouldn't be there
+
+828
+00:37:26,166 --> 00:37:29,076
+And two very common patterns
+
+829
+00:37:29,076 --> 00:37:32,036
+that you'll find are
+
+830
+00:37:32,036 --> 00:37:37,396
+and closures, or potentially
+
+831
+00:37:37,436 --> 00:37:41,246
+in your graph that need to be
+
+832
+00:37:42,496 --> 00:37:45,426
+So, that's a lot of information.
+
+833
+00:37:46,056 --> 00:37:50,886
+But I just want to thank
+
+834
+00:37:50,886 --> 00:37:52,266
+to our information about new
+
+835
+00:37:52,266 --> 00:37:54,746
+and improved visual
+
+836
+00:37:54,926 --> 00:37:56,256
+We're really excited
+
+837
+00:37:56,306 --> 00:38:00,146
+like the better visual debugging
+
+838
+00:37:56,306 --> 00:38:00,146
+like the better visual debugging
+
+839
+00:38:00,416 --> 00:38:03,746
+with FPS gauge, and
+
+840
+00:38:04,126 --> 00:38:06,736
+So go out, try them
+
+841
+00:38:06,736 --> 00:38:08,396
+and solve a lot of issues.
+
+842
+00:38:09,516 --> 00:38:12,500
+[ Applause ]

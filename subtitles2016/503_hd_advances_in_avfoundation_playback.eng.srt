@@ -1,0 +1,3375 @@
+1
+00:00:07,516 --> 00:00:17,500
+[ Music ]
+
+2
+00:00:21,136 --> 00:00:21,586
+&gt;&gt; Good morning.
+
+3
+00:00:22,516 --> 00:00:26,676
+[ Applause ]
+
+4
+00:00:27,176 --> 00:00:29,166
+Welcome to our session
+
+5
+00:00:29,166 --> 00:00:30,596
+in AVFoundation Playback.
+
+6
+00:00:32,445 --> 00:00:33,246
+My name is Sam Bushell.
+
+7
+00:00:34,566 --> 00:00:38,206
+Today we're going to talk
+
+8
+00:00:38,376 --> 00:00:41,326
+that we've added to try and
+
+9
+00:00:41,326 --> 00:00:43,036
+that some developers
+
+10
+00:00:43,816 --> 00:00:46,316
+So AVFoundation provides APIs
+
+11
+00:00:46,316 --> 00:00:49,506
+of multimedia activities,
+
+12
+00:00:49,506 --> 00:00:51,236
+export, and many
+
+13
+00:00:51,236 --> 00:00:53,276
+I'll be focusing
+
+14
+00:00:54,476 --> 00:00:57,746
+AVFoundation supports playback
+
+15
+00:00:57,746 --> 00:01:01,016
+of media formats
+
+16
+00:00:57,746 --> 00:01:01,016
+of media formats
+
+17
+00:01:01,516 --> 00:01:03,596
+And in most cases you
+
+18
+00:01:03,786 --> 00:01:05,016
+and you can put it
+
+19
+00:01:05,586 --> 00:01:08,866
+and then AVFoundation can
+
+20
+00:01:09,106 --> 00:01:10,916
+The file format in
+
+21
+00:01:11,096 --> 00:01:12,456
+but the IO is over the network.
+
+22
+00:01:13,336 --> 00:01:15,886
+We call this progressive
+
+23
+00:01:16,866 --> 00:01:18,586
+Once we start downloading
+
+24
+00:01:18,996 --> 00:01:21,286
+even if the network
+
+25
+00:01:21,316 --> 00:01:22,846
+we will continue
+
+26
+00:01:24,266 --> 00:01:26,926
+HTTP Live Streaming
+
+27
+00:01:27,906 --> 00:01:30,956
+Generally, the base URL
+
+28
+00:01:31,656 --> 00:01:34,256
+which introduces multiple
+
+29
+00:01:34,496 --> 00:01:37,666
+but varying in bit rate and
+
+30
+00:01:39,116 --> 00:01:42,956
+And each of these playlists
+
+31
+00:01:42,956 --> 00:01:44,056
+the actual compressed media.
+
+32
+00:01:44,516 --> 00:01:47,736
+So let's talk about what we're
+
+33
+00:01:48,696 --> 00:01:52,216
+We're going to discuss
+
+34
+00:01:52,216 --> 00:01:54,076
+with the pre-playback
+
+35
+00:01:54,796 --> 00:01:56,266
+We're going to introduce
+
+36
+00:01:57,056 --> 00:01:59,066
+to simplify looping
+
+37
+00:01:59,936 --> 00:02:02,206
+We're going to discuss some
+
+38
+00:01:59,936 --> 00:02:02,206
+We're going to discuss some
+
+39
+00:02:02,316 --> 00:02:05,366
+under the hood.
+
+40
+00:02:05,576 --> 00:02:07,586
+We're going to discuss
+
+41
+00:02:07,586 --> 00:02:08,795
+for wide color video.
+
+42
+00:02:09,756 --> 00:02:10,675
+And then we'll spend the rest
+
+43
+00:02:10,675 --> 00:02:13,346
+of our time discussing a
+
+44
+00:02:13,346 --> 00:02:15,466
+of static time in playback apps.
+
+45
+00:02:16,566 --> 00:02:18,996
+Let's start by waiting
+
+46
+00:02:20,006 --> 00:02:23,036
+Because when we play media
+
+47
+00:02:23,326 --> 00:02:24,576
+we're at the mercy
+
+48
+00:02:24,816 --> 00:02:27,176
+We don't want to start too
+
+49
+00:02:27,176 --> 00:02:29,986
+We don't want to start too late
+
+50
+00:02:30,476 --> 00:02:32,846
+We want to start at
+
+51
+00:02:33,096 --> 00:02:35,726
+and start playback when we have
+
+52
+00:02:35,726 --> 00:02:37,496
+to play consistently
+
+53
+00:02:38,396 --> 00:02:40,036
+Here is the existing API.
+
+54
+00:02:40,606 --> 00:02:43,796
+AVPlayerItem provides
+
+55
+00:02:44,646 --> 00:02:47,256
+playbackLikelyToKeepUp,
+
+56
+00:02:47,466 --> 00:02:48,646
+and playbackBufferEmpty.
+
+57
+00:02:49,636 --> 00:02:53,226
+playbackBuffer -- sorry --
+
+58
+00:02:53,226 --> 00:02:56,146
+if AVFoundation's algorithm
+
+59
+00:02:56,146 --> 00:02:59,136
+to stop playing now, you could
+
+60
+00:02:59,136 --> 00:03:00,016
+until you got to the end.
+
+61
+00:02:59,136 --> 00:03:00,016
+until you got to the end.
+
+62
+00:03:01,026 --> 00:03:04,196
+playbackBufferFull is
+
+63
+00:03:04,196 --> 00:03:06,256
+as much as it's going to.
+
+64
+00:03:06,256 --> 00:03:07,886
+So if you haven't
+
+65
+00:03:07,886 --> 00:03:08,616
+you might as well.
+
+66
+00:03:09,586 --> 00:03:11,896
+playbackBufferEmpty means
+
+67
+00:03:12,216 --> 00:03:13,316
+or you're about to stall.
+
+68
+00:03:13,806 --> 00:03:19,466
+So for progressive download
+
+69
+00:03:19,886 --> 00:03:22,936
+AVFoundation clients must
+
+70
+00:03:22,936 --> 00:03:26,656
+themselves and wait until
+
+71
+00:03:26,716 --> 00:03:30,706
+or playbackBufferFull is true
+
+72
+00:03:30,706 --> 00:03:31,796
+rate property to 1.
+
+73
+00:03:32,906 --> 00:03:35,226
+For HTTP Live Streaming,
+
+74
+00:03:35,776 --> 00:03:38,856
+You can set AVPlayer's
+
+75
+00:03:38,856 --> 00:03:42,196
+as the user chooses to play,
+
+76
+00:03:42,876 --> 00:03:45,366
+to buffer sufficient media
+
+77
+00:03:45,896 --> 00:03:49,436
+We are streamlining the
+
+78
+00:03:49,436 --> 00:03:51,906
+in the 2016 iOS releases.
+
+79
+00:03:51,956 --> 00:03:54,236
+iOS, Mac OS, tvOS.
+
+80
+00:03:54,996 --> 00:03:59,316
+For apps linked on or after
+
+81
+00:04:00,356 --> 00:04:02,616
+the same rules for
+
+82
+00:04:02,616 --> 00:04:04,046
+to progressive download
+
+83
+00:04:04,796 --> 00:04:06,126
+When the user clicks play,
+
+84
+00:04:06,126 --> 00:04:09,466
+you can immediately set
+
+85
+00:04:09,636 --> 00:04:11,656
+or call the play method,
+
+86
+00:04:12,456 --> 00:04:14,376
+And AVFoundation will
+
+87
+00:04:14,376 --> 00:04:16,185
+to buffer enough
+
+88
+00:04:17,255 --> 00:04:20,116
+If the network drops out during
+
+89
+00:04:20,676 --> 00:04:23,486
+the rate property
+
+90
+00:04:23,936 --> 00:04:27,006
+And so it will again buffer
+
+91
+00:04:27,046 --> 00:04:28,526
+when sufficiently buffered.
+
+92
+00:04:29,116 --> 00:04:34,376
+If you're using the AVKit
+
+93
+00:04:34,796 --> 00:04:36,696
+to present your playback UI,
+
+94
+00:04:37,536 --> 00:04:40,886
+it already supports automatic
+
+95
+00:04:40,886 --> 00:04:41,856
+and it will continue to.
+
+96
+00:04:42,616 --> 00:04:45,106
+If your application uses
+
+97
+00:04:45,416 --> 00:04:47,506
+and you build your own
+
+98
+00:04:47,506 --> 00:04:48,596
+to make some adjustments.
+
+99
+00:04:49,416 --> 00:04:51,526
+So what should we
+
+100
+00:04:52,136 --> 00:04:56,966
+Well, the word Autoplay has
+
+101
+00:04:56,966 --> 00:04:59,586
+in HTML 5, but we
+
+102
+00:04:59,586 --> 00:05:02,556
+that from the perspective
+
+103
+00:04:59,586 --> 00:05:02,556
+that from the perspective
+
+104
+00:05:03,136 --> 00:05:05,436
+the playback is not
+
+105
+00:05:05,846 --> 00:05:06,476
+It's the waiting.
+
+106
+00:05:07,726 --> 00:05:10,876
+So the formal name for
+
+107
+00:05:10,876 --> 00:05:12,376
+WaitsToMinimizeStalling.
+
+108
+00:05:12,646 --> 00:05:14,116
+But you can call it
+
+109
+00:05:15,936 --> 00:05:17,616
+The network playback now looks
+
+110
+00:05:17,616 --> 00:05:19,286
+like a state machine
+
+111
+00:05:20,236 --> 00:05:22,196
+Paused, waiting, and playing.
+
+112
+00:05:23,036 --> 00:05:25,596
+We start in the pause state
+
+113
+00:05:25,976 --> 00:05:28,876
+And then the app calls play, and
+
+114
+00:05:29,346 --> 00:05:32,856
+When the playback likelyToKeepUp
+
+115
+00:05:33,276 --> 00:05:35,146
+the player progresses
+
+116
+00:05:35,946 --> 00:05:37,746
+Now, if the buffer
+
+117
+00:05:38,426 --> 00:05:40,116
+the player will switch
+
+118
+00:05:40,166 --> 00:05:41,366
+until we're likely
+
+119
+00:05:42,196 --> 00:05:45,316
+Should the user pause, we'll
+
+120
+00:05:45,936 --> 00:05:47,716
+Now there's one further
+
+121
+00:05:48,296 --> 00:05:51,596
+Recall that in iOS 9 and
+
+122
+00:05:51,936 --> 00:05:55,056
+you could call play before
+
+123
+00:05:55,286 --> 00:05:57,706
+and playback would
+
+124
+00:05:57,706 --> 00:05:58,456
+if it might stall.
+
+125
+00:05:58,826 --> 00:06:01,956
+So we preserved this semantic
+
+126
+00:05:58,826 --> 00:06:01,956
+So we preserved this semantic
+
+127
+00:06:02,256 --> 00:06:04,896
+playImmediately (atRate:)
+
+128
+00:06:04,896 --> 00:06:07,136
+into the playing state
+
+129
+00:06:07,136 --> 00:06:08,156
+or the waiting states.
+
+130
+00:06:09,106 --> 00:06:11,406
+Be aware that this
+
+131
+00:06:11,606 --> 00:06:14,606
+that the patient waiting
+
+132
+00:06:15,266 --> 00:06:17,866
+So be careful.
+
+133
+00:06:18,156 --> 00:06:20,756
+AVPlayer's rate property might
+
+134
+00:06:20,756 --> 00:06:21,106
+it meant.
+
+135
+00:06:21,476 --> 00:06:22,966
+Let's recap so everyone's clear.
+
+136
+00:06:24,136 --> 00:06:28,146
+The player's rate property
+
+137
+00:06:28,146 --> 00:06:28,806
+playback rate.
+
+138
+00:06:29,436 --> 00:06:31,526
+Not to be confused with
+
+139
+00:06:31,776 --> 00:06:33,466
+of the player item
+
+140
+00:06:33,466 --> 00:06:35,056
+at which playback is
+
+141
+00:06:35,646 --> 00:06:42,256
+We've added two new
+
+142
+00:06:43,476 --> 00:06:44,376
+to give you more detail.
+
+143
+00:06:44,686 --> 00:06:47,316
+One is the timeControlStatus,
+
+144
+00:06:47,316 --> 00:06:49,986
+which of these states you're
+
+145
+00:06:50,386 --> 00:06:51,876
+And if you're in
+
+146
+00:06:52,896 --> 00:06:55,726
+the reasonForWaitingToPlay
+
+147
+00:06:56,476 --> 00:06:59,226
+For example, you could
+
+148
+00:06:59,226 --> 00:07:03,146
+so the AVPlayer's rate
+
+149
+00:06:59,226 --> 00:07:03,146
+so the AVPlayer's rate
+
+150
+00:07:03,806 --> 00:07:06,746
+The timebased.rate would be
+
+151
+00:07:06,876 --> 00:07:08,956
+The timeControlStatus
+
+152
+00:07:08,956 --> 00:07:10,366
+WaitingToPlayAtSpcifiedRate.
+
+153
+00:07:10,876 --> 00:07:12,436
+And the reasonForWaitingToPlay
+
+154
+00:07:12,756 --> 00:07:14,146
+WaitingToMinimizeStallsReason.
+
+155
+00:07:15,556 --> 00:07:16,446
+So with that background,
+
+156
+00:07:16,756 --> 00:07:18,926
+I'd like to introduce my
+
+157
+00:07:18,926 --> 00:07:20,996
+who is much braver
+
+158
+00:07:20,996 --> 00:07:24,856
+to attempt a network
+
+159
+00:07:24,856 --> 00:07:26,446
+So everyone cross your
+
+160
+00:07:27,516 --> 00:07:30,546
+[ Applause ]
+
+161
+00:07:31,046 --> 00:07:32,516
+&gt;&gt; Well, good morning everyone.
+
+162
+00:07:32,516 --> 00:07:36,166
+I want to start by
+
+163
+00:07:36,306 --> 00:07:37,826
+of the setup we have
+
+164
+00:07:38,126 --> 00:07:40,476
+And I have my iPad which
+
+165
+00:07:40,476 --> 00:07:41,326
+on the screen there.
+
+166
+00:07:41,886 --> 00:07:44,096
+And that iPad is
+
+167
+00:07:44,096 --> 00:07:45,316
+that is hosted by my Mac.
+
+168
+00:07:45,316 --> 00:07:48,846
+And what that allows me to do
+
+169
+00:07:48,846 --> 00:07:51,666
+conditioner to actually
+
+170
+00:07:51,666 --> 00:07:53,096
+that this iPad has available.
+
+171
+00:07:53,766 --> 00:07:55,526
+Can do that using the
+
+172
+00:07:55,526 --> 00:07:56,166
+preference pane.
+
+173
+00:07:56,166 --> 00:07:58,556
+Sam will tell you in a
+
+174
+00:07:58,556 --> 00:08:02,596
+And I've set up a profile called
+
+175
+00:07:58,556 --> 00:08:02,596
+And I've set up a profile called
+
+176
+00:08:02,596 --> 00:08:05,826
+to a mediocre network connection
+
+177
+00:08:05,826 --> 00:08:09,276
+than the media bitrate that
+
+178
+00:08:09,396 --> 00:08:11,196
+It's currently turned off.
+
+179
+00:08:11,396 --> 00:08:14,156
+And we'll leave it off, and
+
+180
+00:08:14,716 --> 00:08:16,796
+in a decent network situation.
+
+181
+00:08:17,426 --> 00:08:20,036
+So what I have here
+
+182
+00:08:20,036 --> 00:08:21,766
+and I can just select one video.
+
+183
+00:08:21,946 --> 00:08:22,616
+Let me do that.
+
+184
+00:08:22,616 --> 00:08:26,296
+And what you see is that
+
+185
+00:08:26,586 --> 00:08:32,015
+and we see that we're
+
+186
+00:08:32,336 --> 00:08:34,645
+You see this wonderful
+
+187
+00:08:34,645 --> 00:08:37,405
+that gives us all the properties
+
+188
+00:08:37,405 --> 00:08:39,535
+and functionality involved
+
+189
+00:08:39,956 --> 00:08:43,346
+This is really just taken from
+
+190
+00:08:43,346 --> 00:08:46,796
+So these are the properties that
+
+191
+00:08:46,796 --> 00:08:48,726
+to know what automatic
+
+192
+00:08:49,326 --> 00:08:51,826
+So right now we are paused,
+
+193
+00:08:51,826 --> 00:08:52,836
+Current time is at zero.
+
+194
+00:08:52,836 --> 00:08:56,436
+But the interesting thing is
+
+195
+00:08:56,436 --> 00:08:58,486
+we've loaded 39 seconds
+
+196
+00:08:58,526 --> 00:08:59,856
+which is actually
+
+197
+00:08:59,856 --> 00:09:02,746
+And we're currently
+
+198
+00:08:59,856 --> 00:09:02,746
+And we're currently
+
+199
+00:09:03,056 --> 00:09:06,046
+What that means is that
+
+200
+00:09:06,516 --> 00:09:09,756
+the video just starts
+
+201
+00:09:10,516 --> 00:09:12,556
+Now we wanted to
+
+202
+00:09:12,636 --> 00:09:14,806
+in a bad network situation.
+
+203
+00:09:14,806 --> 00:09:17,476
+So let's turn on the network
+
+204
+00:09:18,496 --> 00:09:19,126
+Here we go.
+
+205
+00:09:19,126 --> 00:09:22,076
+And now not much
+
+206
+00:09:22,076 --> 00:09:24,346
+Because as I said, it
+
+207
+00:09:24,586 --> 00:09:26,326
+It had already buffered
+
+208
+00:09:26,966 --> 00:09:29,956
+So when I go back
+
+209
+00:09:29,956 --> 00:09:32,346
+I want you to pay
+
+210
+00:09:32,346 --> 00:09:34,186
+and isPlaybackLIkelyToKeepUp
+
+211
+00:09:34,826 --> 00:09:35,536
+So let's do it.
+
+212
+00:09:36,616 --> 00:09:37,426
+Relaod the video.
+
+213
+00:09:37,426 --> 00:09:39,816
+And now what we see is
+
+214
+00:09:39,816 --> 00:09:42,406
+that loadedTimeRange is
+
+215
+00:09:42,656 --> 00:09:45,126
+And isPlaybackLIkelyToKeepUp
+
+216
+00:09:45,236 --> 00:09:47,636
+Eventually it will become true.
+
+217
+00:09:47,806 --> 00:09:50,876
+And at that moment we're at the
+
+218
+00:09:50,876 --> 00:09:55,656
+where now ready to play and
+
+219
+00:09:55,656 --> 00:09:57,706
+Now let's try this
+
+220
+00:09:57,706 --> 00:10:00,546
+and this time I will hit play
+
+221
+00:09:57,706 --> 00:10:00,546
+and this time I will hit play
+
+222
+00:10:01,026 --> 00:10:03,926
+So this time we don't
+
+223
+00:10:03,926 --> 00:10:05,606
+and we go into this
+
+224
+00:10:05,606 --> 00:10:07,466
+And you see the spinner
+
+225
+00:10:07,466 --> 00:10:08,986
+that playback is waiting.
+
+226
+00:10:08,986 --> 00:10:10,866
+Eventually we will
+
+227
+00:10:10,866 --> 00:10:11,886
+and playback just starts.
+
+228
+00:10:12,516 --> 00:10:14,266
+There's one more
+
+229
+00:10:14,566 --> 00:10:16,056
+And that is immediate playback.
+
+230
+00:10:16,286 --> 00:10:17,196
+So let's also try this.
+
+231
+00:10:17,936 --> 00:10:20,416
+I go into the video
+
+232
+00:10:20,416 --> 00:10:22,606
+and immediately click
+
+233
+00:10:22,966 --> 00:10:25,926
+And we see that playback
+
+234
+00:10:25,926 --> 00:10:28,216
+into a stall because we
+
+235
+00:10:28,216 --> 00:10:28,966
+to play to the end.
+
+236
+00:10:29,366 --> 00:10:32,926
+In that case, we'll go into
+
+237
+00:10:32,926 --> 00:10:35,566
+until we have enough
+
+238
+00:10:35,566 --> 00:10:39,836
+And with that, it was a short
+
+239
+00:10:40,656 --> 00:10:41,846
+Go back to Sam and the slides.
+
+240
+00:10:42,516 --> 00:10:48,036
+[ Applause ]
+
+241
+00:10:48,536 --> 00:10:49,106
+Thanks, Moritz.
+
+242
+00:10:49,766 --> 00:10:51,496
+Let's recap what was
+
+243
+00:10:52,156 --> 00:10:55,596
+So when we set a slower network
+
+244
+00:10:55,596 --> 00:10:58,636
+of the movie, the movie
+
+245
+00:10:59,356 --> 00:11:03,206
+When he hit play, it went
+
+246
+00:10:59,356 --> 00:11:03,206
+When he hit play, it went
+
+247
+00:11:04,646 --> 00:11:07,456
+Because playback was not
+
+248
+00:11:08,396 --> 00:11:11,346
+Notice that at this time,
+
+249
+00:11:11,346 --> 00:11:12,786
+but the timebase rate was 0.
+
+250
+00:11:13,806 --> 00:11:16,676
+After a few seconds,
+
+251
+00:11:17,476 --> 00:11:19,566
+that playback was
+
+252
+00:11:19,686 --> 00:11:21,986
+and so it set the
+
+253
+00:11:22,446 --> 00:11:26,186
+it set the state into
+
+254
+00:11:26,186 --> 00:11:28,426
+that the player rate and the
+
+255
+00:11:29,616 --> 00:11:32,156
+It may have occurred to you
+
+256
+00:11:32,156 --> 00:11:34,176
+that there's a little
+
+257
+00:11:34,176 --> 00:11:36,696
+in the timeControlStatus than
+
+258
+00:11:37,276 --> 00:11:39,556
+Remember the player's rate
+
+259
+00:11:39,556 --> 00:11:40,606
+desired playback rate.
+
+260
+00:11:40,846 --> 00:11:42,406
+The timeControlStatus also takes
+
+261
+00:11:42,406 --> 00:11:43,676
+into account what's
+
+262
+00:11:44,056 --> 00:11:45,826
+So that might be something
+
+263
+00:11:45,826 --> 00:11:46,806
+when you build a playback UI.
+
+264
+00:11:47,576 --> 00:11:51,336
+In case you want to try this at
+
+265
+00:11:51,336 --> 00:11:52,726
+to find the network
+
+266
+00:11:52,726 --> 00:11:55,506
+It's not something we
+
+267
+00:11:55,946 --> 00:11:59,816
+It is part of the
+
+268
+00:12:00,316 --> 00:12:03,466
+To get it, the easiest way
+
+269
+00:12:03,466 --> 00:12:04,856
+to More Developer Tools.
+
+270
+00:12:05,456 --> 00:12:07,756
+And after you log in, you'll
+
+271
+00:12:09,066 --> 00:12:15,686
+Okay, so on the 2016 SDKs if
+
+272
+00:12:16,206 --> 00:12:19,056
+your app will act as though
+
+273
+00:12:19,176 --> 00:12:21,366
+automatically
+
+274
+00:12:21,896 --> 00:12:24,856
+You can set that property
+
+275
+00:12:24,856 --> 00:12:25,806
+to go back to the old behavior.
+
+276
+00:12:25,906 --> 00:12:27,566
+And there's a few reasons why
+
+277
+00:12:27,896 --> 00:12:33,276
+In particular, if you use the
+
+278
+00:12:33,566 --> 00:12:36,286
+to synchronize playback
+
+279
+00:12:36,816 --> 00:12:39,476
+then you must opt out by
+
+280
+00:12:39,476 --> 00:12:41,406
+WaitsToMinimizeStalling
+
+281
+00:12:41,796 --> 00:12:43,576
+Otherwise, you will meet
+
+282
+00:12:44,386 --> 00:12:45,136
+Your helpful reminder.
+
+283
+00:12:46,776 --> 00:12:49,826
+Finally, a reminder never
+
+284
+00:12:49,826 --> 00:12:51,896
+to extrapolate current
+
+285
+00:12:52,436 --> 00:12:54,976
+If you want to do that, use
+
+286
+00:12:54,976 --> 00:12:55,676
+for that instead.
+
+287
+00:12:56,016 --> 00:12:57,816
+Or use the other APIs
+
+288
+00:12:57,816 --> 00:12:58,486
+That's what they're for.
+
+289
+00:12:59,356 --> 00:13:00,766
+All right, that's
+
+290
+00:12:59,356 --> 00:13:00,766
+All right, that's
+
+291
+00:13:01,136 --> 00:13:02,566
+Let's move along to
+
+292
+00:13:02,976 --> 00:13:03,976
+I have a question for you.
+
+293
+00:13:04,846 --> 00:13:07,406
+What's the best way to loop
+
+294
+00:13:07,946 --> 00:13:09,646
+Well, one idea would
+
+295
+00:13:09,646 --> 00:13:11,056
+for the notification that fires
+
+296
+00:13:11,256 --> 00:13:12,616
+when playback has
+
+297
+00:13:12,916 --> 00:13:13,876
+And when you get called,
+
+298
+00:13:14,256 --> 00:13:16,176
+seek back to the
+
+299
+00:13:16,846 --> 00:13:18,906
+Well, this idea is a good start.
+
+300
+00:13:19,166 --> 00:13:21,176
+But unfortunately,
+
+301
+00:13:21,216 --> 00:13:22,876
+between the playbacks
+
+302
+00:13:23,416 --> 00:13:25,196
+The first reason is that
+
+303
+00:13:25,396 --> 00:13:27,246
+to the time it takes
+
+304
+00:13:27,246 --> 00:13:30,506
+to reach your program and for
+
+305
+00:13:30,506 --> 00:13:31,916
+to get back to the
+
+306
+00:13:32,706 --> 00:13:35,746
+The second more significant
+
+307
+00:13:35,926 --> 00:13:36,846
+for prerolling.
+
+308
+00:13:37,536 --> 00:13:38,506
+It's not actually possible
+
+309
+00:13:38,506 --> 00:13:40,976
+to start media playback
+
+310
+00:13:40,976 --> 00:13:41,946
+without some preparation.
+
+311
+00:13:42,386 --> 00:13:45,696
+It's necessary to load
+
+312
+00:13:45,696 --> 00:13:47,686
+of it before you can
+
+313
+00:13:48,276 --> 00:13:49,526
+This process of filling
+
+314
+00:13:49,526 --> 00:13:52,496
+up the playback pipelines
+
+315
+00:13:52,496 --> 00:13:53,256
+called preroll.
+
+316
+00:13:54,666 --> 00:13:57,766
+So what we'd like to
+
+317
+00:13:57,766 --> 00:14:00,136
+to have AVFoundation
+
+318
+00:13:57,766 --> 00:14:00,136
+to have AVFoundation
+
+319
+00:14:00,796 --> 00:14:03,616
+If AVFoundation knows
+
+320
+00:14:03,876 --> 00:14:07,276
+but early enough, then
+
+321
+00:14:07,446 --> 00:14:10,436
+and decoding before item A
+
+322
+00:14:10,716 --> 00:14:13,196
+And so it can optimize the
+
+323
+00:14:14,126 --> 00:14:18,056
+If item B is super short, then
+
+324
+00:14:18,056 --> 00:14:19,466
+on the transition to item C.
+
+325
+00:14:20,986 --> 00:14:24,586
+AVFoundation's tool for
+
+326
+00:14:25,326 --> 00:14:28,856
+AVQueuePlayer is a subclass of
+
+327
+00:14:28,856 --> 00:14:30,836
+of AVPlayer items
+
+328
+00:14:31,526 --> 00:14:34,586
+The current item is the one in
+
+329
+00:14:36,036 --> 00:14:38,296
+Now you can use AVQueuePlayer
+
+330
+00:14:38,296 --> 00:14:40,416
+between items that are
+
+331
+00:14:40,416 --> 00:14:43,106
+of looping, you can create
+
+332
+00:14:43,106 --> 00:14:44,656
+from the same AVAsset.
+
+333
+00:14:45,016 --> 00:14:46,496
+This is just another
+
+334
+00:14:46,826 --> 00:14:48,746
+since AVFoundation
+
+335
+00:14:48,746 --> 00:14:51,126
+and pause the media
+
+336
+00:14:52,146 --> 00:14:56,516
+And just a reminder, the
+
+337
+00:14:57,116 --> 00:14:59,786
+Please do not load
+
+338
+00:14:59,786 --> 00:15:02,426
+that you think you might like
+
+339
+00:14:59,786 --> 00:15:02,426
+that you think you might like
+
+340
+00:15:02,426 --> 00:15:03,516
+That's not going
+
+341
+00:15:03,896 --> 00:15:06,456
+The purpose of the play queue
+
+342
+00:15:06,456 --> 00:15:08,366
+about items to be
+
+343
+00:15:08,366 --> 00:15:11,406
+so that AVFoundation can
+
+344
+00:15:12,656 --> 00:15:15,106
+The design patent when you want
+
+345
+00:15:15,106 --> 00:15:17,666
+to loop a single media
+
+346
+00:15:17,666 --> 00:15:20,706
+to make a small number of
+
+347
+00:15:20,706 --> 00:15:21,966
+in the AVQueuePlayer's queue
+
+348
+00:15:22,286 --> 00:15:25,046
+with the action item end
+
+349
+00:15:26,566 --> 00:15:29,816
+When playback reaches the end
+
+350
+00:15:29,816 --> 00:15:32,586
+from the play queue as playback
+
+351
+00:15:33,426 --> 00:15:34,716
+And when you get
+
+352
+00:15:34,716 --> 00:15:36,986
+that that has happened, you
+
+353
+00:15:37,306 --> 00:15:40,066
+set its current time back to
+
+354
+00:15:40,066 --> 00:15:41,616
+of the play queue to reuse it.
+
+355
+00:15:42,656 --> 00:15:44,276
+We call this patent
+
+356
+00:15:45,906 --> 00:15:48,216
+And you can implement the
+
+357
+00:15:48,216 --> 00:15:49,116
+using AVQueuePlayer.
+
+358
+00:15:49,246 --> 00:15:50,506
+We have sample code to help.
+
+359
+00:15:51,046 --> 00:15:53,166
+The slightly tricky detail
+
+360
+00:15:53,166 --> 00:15:56,396
+up key value observing to
+
+361
+00:15:56,866 --> 00:15:58,236
+and then seek it
+
+362
+00:15:58,706 --> 00:16:01,866
+And then add it to the end
+
+363
+00:15:58,706 --> 00:16:01,866
+And then add it to the end
+
+364
+00:16:02,866 --> 00:16:07,076
+As you can see, in this code
+
+365
+00:16:07,076 --> 00:16:08,866
+observer while we
+
+366
+00:16:09,206 --> 00:16:10,626
+to avoid any chance
+
+367
+00:16:11,346 --> 00:16:12,716
+So this is clearly doable.
+
+368
+00:16:12,716 --> 00:16:13,976
+It's just a little fiddley.
+
+369
+00:16:14,946 --> 00:16:16,326
+And the feedback
+
+370
+00:16:16,366 --> 00:16:20,886
+that it would be awful swell
+
+371
+00:16:20,976 --> 00:16:22,856
+So we're introducing
+
+372
+00:16:23,126 --> 00:16:24,816
+which implements the
+
+373
+00:16:25,286 --> 00:16:26,556
+You give it an AVQueuePlayer.
+
+374
+00:16:27,516 --> 00:16:30,596
+[ Applause ]
+
+375
+00:16:31,096 --> 00:16:33,726
+You give it an AVQueue Player
+
+376
+00:16:33,916 --> 00:16:36,476
+and it constructs a small number
+
+377
+00:16:36,706 --> 00:16:38,306
+which it then cycles
+
+378
+00:16:38,306 --> 00:16:41,866
+until you tell it to stop.
+
+379
+00:16:41,866 --> 00:16:43,036
+Adopting AVPlayerLooper,
+
+380
+00:16:43,036 --> 00:16:45,856
+the code for the symbol
+
+381
+00:16:47,006 --> 00:16:48,446
+So I want to give
+
+382
+00:16:49,286 --> 00:16:50,556
+on an iPad I have over here.
+
+383
+00:16:51,016 --> 00:16:52,586
+So here's a piece
+
+384
+00:16:52,986 --> 00:16:54,576
+Video Looper, I'm
+
+385
+00:16:54,946 --> 00:16:57,776
+And I have added a media file
+
+386
+00:16:57,776 --> 00:16:58,946
+to play it with AVPlayerLooper.
+
+387
+00:16:59,516 --> 00:17:07,546
+[ Music ]
+
+388
+00:16:59,516 --> 00:17:07,546
+[ Music ]
+
+389
+00:17:08,046 --> 00:17:09,726
+Don't you feel mellow?
+
+390
+00:17:09,836 --> 00:17:12,646
+Okay, this is clearly looping,
+
+391
+00:17:12,646 --> 00:17:15,306
+and the code is pretty
+
+392
+00:17:15,306 --> 00:17:16,226
+It's fairly simple.
+
+393
+00:17:16,726 --> 00:17:19,415
+This would be an appropriate
+
+394
+00:17:19,746 --> 00:17:21,776
+if you have a tvOS app and you'd
+
+395
+00:17:21,776 --> 00:17:24,806
+like to loop background
+
+396
+00:17:25,256 --> 00:17:32,686
+All right, let's
+
+397
+00:17:33,396 --> 00:17:37,546
+We've talked a bit
+
+398
+00:17:37,686 --> 00:17:41,706
+I want to spend a
+
+399
+00:17:42,916 --> 00:17:45,636
+Ideally, if you have both
+
+400
+00:17:45,956 --> 00:17:47,556
+they should be precisely
+
+401
+00:17:48,046 --> 00:17:52,366
+Why? Well, if the audio track
+
+402
+00:17:52,366 --> 00:17:54,236
+that near the end
+
+403
+00:17:54,236 --> 00:17:56,496
+when audio should be
+
+404
+00:17:57,426 --> 00:17:59,096
+We have an empty
+
+405
+00:17:59,176 --> 00:18:00,546
+so what should the video do?
+
+406
+00:17:59,176 --> 00:18:00,546
+so what should the video do?
+
+407
+00:18:00,546 --> 00:18:01,656
+Should it go away?
+
+408
+00:18:01,756 --> 00:18:03,256
+Should you freeze on one frame?
+
+409
+00:18:04,206 --> 00:18:06,996
+Conversely, if the video track
+
+410
+00:18:06,996 --> 00:18:08,986
+of time when the audio
+
+411
+00:18:09,936 --> 00:18:13,466
+So when you build media assets
+
+412
+00:18:13,466 --> 00:18:15,316
+to make sure that the
+
+413
+00:18:15,676 --> 00:18:16,796
+In QuickTime Movie files,
+
+414
+00:18:17,006 --> 00:18:18,956
+the track duration is
+
+415
+00:18:19,546 --> 00:18:22,616
+Now if the media asset
+
+416
+00:18:22,616 --> 00:18:24,836
+under your control,
+
+417
+00:18:24,836 --> 00:18:27,216
+that you could set the
+
+418
+00:18:27,216 --> 00:18:30,176
+end time to the length
+
+419
+00:18:30,726 --> 00:18:31,606
+This will have the effect
+
+420
+00:18:31,606 --> 00:18:33,176
+of trimming back the
+
+421
+00:18:35,756 --> 00:18:38,826
+All right, next look at an
+
+422
+00:18:39,086 --> 00:18:40,186
+in the playback pipeline
+
+423
+00:18:40,446 --> 00:18:42,516
+that may have an impact
+
+424
+00:18:43,716 --> 00:18:46,636
+Suppose that we are currently
+
+425
+00:18:46,636 --> 00:18:48,386
+of playing tracks changes.
+
+426
+00:18:48,756 --> 00:18:52,786
+For example, we could
+
+427
+00:18:53,136 --> 00:18:54,146
+or the audio language.
+
+428
+00:18:54,666 --> 00:18:55,936
+Audio from English to French.
+
+429
+00:18:56,436 --> 00:18:57,766
+Here I'll change the
+
+430
+00:18:57,766 --> 00:18:58,826
+from English to Spanish.
+
+431
+00:18:59,396 --> 00:19:02,646
+Or we could remove
+
+432
+00:18:59,396 --> 00:19:02,646
+Or we could remove
+
+433
+00:19:02,646 --> 00:19:03,706
+that was displaying the video.
+
+434
+00:19:05,716 --> 00:19:08,926
+Or we could add an AVPlayerLayer
+
+435
+00:19:09,486 --> 00:19:13,716
+Well, in all of these
+
+436
+00:19:14,036 --> 00:19:16,216
+AVFoundation will
+
+437
+00:19:16,496 --> 00:19:19,616
+adjust the playback pipelines to
+
+438
+00:19:19,866 --> 00:19:20,946
+and then resume playback.
+
+439
+00:19:21,426 --> 00:19:23,546
+In some cases, this
+
+440
+00:19:23,546 --> 00:19:24,846
+to snap back to a key frame.
+
+441
+00:19:25,366 --> 00:19:28,666
+Well, I will say we have
+
+442
+00:19:28,786 --> 00:19:30,416
+from users and developers
+
+443
+00:19:31,346 --> 00:19:37,066
+And so I'm happy to
+
+444
+00:19:37,066 --> 00:19:38,746
+and its other 2016 siblings,
+
+445
+00:19:38,996 --> 00:19:41,946
+these changes will no longer
+
+446
+00:19:42,326 --> 00:19:44,806
+Adding or removing
+
+447
+00:19:44,806 --> 00:19:47,986
+on a playing AVPlayer,
+
+448
+00:19:47,986 --> 00:19:49,956
+or the audio language
+
+449
+00:19:49,956 --> 00:19:52,376
+or manually disabling
+
+450
+00:19:52,996 --> 00:19:56,626
+We think that this
+
+451
+00:19:56,626 --> 00:19:57,786
+for users and developers.
+
+452
+00:19:57,786 --> 00:20:00,796
+However, it's a significant
+
+453
+00:19:57,786 --> 00:20:00,796
+However, it's a significant
+
+454
+00:20:00,916 --> 00:20:06,436
+and so I would ask you please
+
+455
+00:20:06,436 --> 00:20:08,656
+if it leads to any
+
+456
+00:20:09,026 --> 00:20:11,286
+If you find an issue with this
+
+457
+00:20:11,286 --> 00:20:13,416
+on our side, then
+
+458
+00:20:13,416 --> 00:20:15,556
+by filing a bug using the
+
+459
+00:20:15,866 --> 00:20:17,506
+And as always when filing a bug,
+
+460
+00:20:17,806 --> 00:20:19,956
+please try to give us
+
+461
+00:20:19,956 --> 00:20:21,376
+to reproduce the
+
+462
+00:20:25,296 --> 00:20:30,116
+Our industry is undergoing a
+
+463
+00:20:30,416 --> 00:20:32,366
+for digital photography
+
+464
+00:20:32,856 --> 00:20:36,846
+Many developers on iOS have
+
+465
+00:20:36,846 --> 00:20:40,186
+that wasn't using the standard
+
+466
+00:20:40,486 --> 00:20:42,686
+Since that's the standard
+
+467
+00:20:42,686 --> 00:20:45,016
+and that's what we've been
+
+468
+00:20:45,646 --> 00:20:47,846
+But wider gamut color
+
+469
+00:20:48,766 --> 00:20:51,486
+As you may have seen
+
+470
+00:20:51,746 --> 00:20:56,976
+when running iOS 10, you can
+
+471
+00:20:57,296 --> 00:20:58,986
+in the P3 color space.
+
+472
+00:20:59,716 --> 00:21:03,236
+Some third party products are
+
+473
+00:20:59,716 --> 00:21:03,236
+Some third party products are
+
+474
+00:21:03,886 --> 00:21:07,046
+So I wanted to give you pointers
+
+475
+00:21:07,046 --> 00:21:09,086
+in your apps to be prepared
+
+476
+00:21:09,086 --> 00:21:11,896
+for making your apps
+
+477
+00:21:12,716 --> 00:21:16,056
+But I need to give you a
+
+478
+00:21:16,236 --> 00:21:18,966
+In media files, color
+
+479
+00:21:18,966 --> 00:21:20,806
+of the metadata of video tracks.
+
+480
+00:21:21,176 --> 00:21:23,996
+In QuickTime Movie files, it's
+
+481
+00:21:24,276 --> 00:21:27,266
+In several Codecs also store
+
+482
+00:21:27,706 --> 00:21:29,716
+There are three principle
+
+483
+00:21:30,466 --> 00:21:33,906
+Color Primaries, which specific
+
+484
+00:21:33,906 --> 00:21:36,686
+100 percent green, and 100
+
+485
+00:21:36,836 --> 00:21:37,826
+and also the white point.
+
+486
+00:21:39,016 --> 00:21:40,236
+Transfer Characteristics,
+
+487
+00:21:40,736 --> 00:21:42,356
+which you may have heard
+
+488
+00:21:42,756 --> 00:21:43,616
+or transfer function.
+
+489
+00:21:44,586 --> 00:21:48,506
+These define the mapping from
+
+490
+00:21:49,206 --> 00:21:52,966
+and answer the question is that
+
+491
+00:21:52,966 --> 00:21:55,126
+that gives you more
+
+492
+00:21:55,126 --> 00:21:56,276
+where our eyes are
+
+493
+00:21:57,166 --> 00:22:00,446
+And the YCbCr Matrix,
+
+494
+00:21:57,166 --> 00:22:00,446
+And the YCbCr Matrix,
+
+495
+00:22:00,676 --> 00:22:03,246
+from their RGB space
+
+496
+00:22:03,246 --> 00:22:04,836
+for efficient compression.
+
+497
+00:22:06,376 --> 00:22:08,306
+So up here I have some examples.
+
+498
+00:22:08,726 --> 00:22:11,166
+Now if you haven't heard of
+
+499
+00:22:11,166 --> 00:22:12,826
+like the video equivalent
+
+500
+00:22:12,826 --> 00:22:14,636
+SIGB is actually based on Rec.
+
+501
+00:22:14,636 --> 00:22:17,426
+709. Wide color can be achieved
+
+502
+00:22:17,816 --> 00:22:19,996
+by using a different
+
+503
+00:22:20,596 --> 00:22:26,216
+The P3 color primaries specify
+
+504
+00:22:26,216 --> 00:22:28,466
+100 percent green,
+
+505
+00:22:28,636 --> 00:22:31,326
+that are more vivid then
+
+506
+00:22:31,876 --> 00:22:35,536
+One more point I want to make.
+
+507
+00:22:36,306 --> 00:22:39,346
+In our APIs, we generally
+
+508
+00:22:39,916 --> 00:22:42,076
+through the use of enumerated
+
+509
+00:22:42,076 --> 00:22:43,596
+to print and display and debug.
+
+510
+00:22:44,086 --> 00:22:47,266
+But in media files, these
+
+511
+00:22:47,576 --> 00:22:49,476
+And these standard tag
+
+512
+00:22:49,476 --> 00:22:52,576
+in an MPEG specification called
+
+513
+00:22:52,966 --> 00:22:54,296
+That sounds like a
+
+514
+00:22:54,326 --> 00:22:56,486
+How can you be coding
+
+515
+00:22:56,486 --> 00:22:59,996
+Well, it's less than a
+
+516
+00:22:59,996 --> 00:23:01,886
+as Codec independent
+
+517
+00:22:59,996 --> 00:23:01,886
+as Codec independent
+
+518
+00:23:02,376 --> 00:23:04,856
+The job of the spec is to
+
+519
+00:23:04,856 --> 00:23:06,226
+of these tag numbers
+
+520
+00:23:06,226 --> 00:23:08,976
+that is harmonious all
+
+521
+00:23:09,246 --> 00:23:11,056
+So the interpretation of
+
+522
+00:23:11,276 --> 00:23:14,296
+in QuickTime Movie,
+
+523
+00:23:14,296 --> 00:23:17,546
+All right, with that background,
+
+524
+00:23:18,346 --> 00:23:21,596
+We have introduced a new media
+
+525
+00:23:21,596 --> 00:23:24,076
+that at video track is tagged
+
+526
+00:23:24,076 --> 00:23:24,986
+something wider than the Rec.
+
+527
+00:23:24,986 --> 00:23:25,936
+709 primaries.
+
+528
+00:23:26,486 --> 00:23:28,796
+If your app finds that
+
+529
+00:23:29,256 --> 00:23:30,946
+it might be appropriate
+
+530
+00:23:30,946 --> 00:23:33,986
+to preserve it, so it isn't
+
+531
+00:23:34,936 --> 00:23:37,326
+If not, it's actually generally
+
+532
+00:23:37,326 --> 00:23:38,916
+709 for processing.
+
+533
+00:23:39,466 --> 00:23:43,196
+So you can specify a working
+
+534
+00:23:43,196 --> 00:23:46,356
+up an AVPlayerItemVideoOutput
+
+535
+00:23:47,266 --> 00:23:49,236
+And you will then receive
+
+536
+00:23:49,236 --> 00:23:50,346
+into that color space.
+
+537
+00:23:50,876 --> 00:23:53,776
+You can also specify a target
+
+538
+00:23:53,776 --> 00:23:55,156
+up an AVAssetWriterInput,
+
+539
+00:23:55,536 --> 00:23:56,856
+in which case the
+
+540
+00:23:56,856 --> 00:23:58,576
+that you provide
+
+541
+00:23:58,576 --> 00:24:00,196
+into that color space
+
+542
+00:23:58,576 --> 00:24:00,196
+into that color space
+
+543
+00:24:00,716 --> 00:24:05,936
+With AVPlayerItemVideoOutput
+
+544
+00:24:06,266 --> 00:24:08,336
+if you don't want image
+
+545
+00:24:08,336 --> 00:24:09,626
+into a common color space,
+
+546
+00:24:09,886 --> 00:24:13,076
+then you should set the
+
+547
+00:24:13,706 --> 00:24:16,016
+and then you'll receive buffers
+
+548
+00:24:16,336 --> 00:24:19,626
+This is effectively a promise
+
+549
+00:24:19,626 --> 00:24:22,326
+and processes those buffers,
+
+550
+00:24:22,576 --> 00:24:24,686
+it will examine and honor
+
+551
+00:24:25,186 --> 00:24:27,776
+There are analogous properties
+
+552
+00:24:27,836 --> 00:24:29,626
+for configuring video
+
+553
+00:24:29,936 --> 00:24:32,366
+First, you can specify
+
+554
+00:24:32,366 --> 00:24:33,896
+for entire video compositions.
+
+555
+00:24:34,766 --> 00:24:36,866
+Alternatively, if you have
+
+556
+00:24:37,086 --> 00:24:38,756
+you may choose to make
+
+557
+00:24:39,286 --> 00:24:42,436
+You can declare that your custom
+
+558
+00:24:42,436 --> 00:24:45,376
+aware and that it examines
+
+559
+00:24:45,376 --> 00:24:47,026
+on every single source
+
+560
+00:24:47,376 --> 00:24:50,186
+by implementing the optional
+
+561
+00:24:50,186 --> 00:24:51,456
+property and returning true.
+
+562
+00:24:51,556 --> 00:24:54,926
+Running it out with a reminder,
+
+563
+00:24:56,386 --> 00:24:58,556
+if you create picture
+
+564
+00:24:58,556 --> 00:24:59,926
+using a pixel buffer
+
+565
+00:25:00,376 --> 00:25:02,476
+then you should explicitly
+
+566
+00:25:02,476 --> 00:25:04,626
+on every buffer by
+
+567
+00:25:05,176 --> 00:25:06,706
+Most developers won't
+
+568
+00:25:06,936 --> 00:25:09,446
+In most cases when you're
+
+569
+00:25:09,446 --> 00:25:12,366
+for source buffers, that'll take
+
+570
+00:25:12,666 --> 00:25:14,206
+By popular request, I'm
+
+571
+00:25:14,206 --> 00:25:16,696
+of our time discussing
+
+572
+00:25:16,696 --> 00:25:18,576
+for optimizing playback
+
+573
+00:25:18,966 --> 00:25:21,886
+I'll talk about local
+
+574
+00:25:21,986 --> 00:25:23,696
+And then we'll move on
+
+575
+00:25:24,586 --> 00:25:26,916
+Now some of these
+
+576
+00:25:26,916 --> 00:25:28,206
+counterintuitive at first.
+
+577
+00:25:28,486 --> 00:25:29,976
+They require you
+
+578
+00:25:29,976 --> 00:25:32,326
+from the perspective
+
+579
+00:25:32,796 --> 00:25:35,526
+And to think about when it
+
+580
+00:25:35,666 --> 00:25:37,286
+to do what your app
+
+581
+00:25:37,656 --> 00:25:40,446
+For example, here is a
+
+582
+00:25:40,586 --> 00:25:42,446
+for setting up playback
+
+583
+00:25:43,086 --> 00:25:44,536
+We start with the
+
+584
+00:25:44,536 --> 00:25:47,796
+We create an AVURLAsset
+
+585
+00:25:47,796 --> 00:25:48,756
+depositing that file.
+
+586
+00:25:49,476 --> 00:25:52,266
+We then create an AVPlayerItem
+
+587
+00:25:52,266 --> 00:25:54,706
+for playback, and an AVPlayer
+
+588
+00:25:55,126 --> 00:25:56,646
+And then we create
+
+589
+00:25:57,056 --> 00:25:59,206
+to connect video playback
+
+590
+00:25:59,766 --> 00:26:02,476
+Now this code is correct,
+
+591
+00:25:59,766 --> 00:26:02,476
+Now this code is correct,
+
+592
+00:26:02,476 --> 00:26:04,316
+which maybe you may
+
+593
+00:26:05,066 --> 00:26:06,456
+As soon as the player
+
+594
+00:26:06,456 --> 00:26:09,106
+as the player's current item,
+
+595
+00:26:09,106 --> 00:26:10,046
+up the playback pipeline.
+
+596
+00:26:10,076 --> 00:26:11,396
+Now it doesn't know the future.
+
+597
+00:26:11,396 --> 00:26:12,546
+It doesn't know that
+
+598
+00:26:12,546 --> 00:26:14,676
+to set an AVPlayerLayout later.
+
+599
+00:26:15,706 --> 00:26:18,286
+So it sets things up
+
+600
+00:26:18,586 --> 00:26:22,326
+And then when the AVPlayerLayer
+
+601
+00:26:22,356 --> 00:26:23,916
+that the video needs
+
+602
+00:26:23,916 --> 00:26:25,746
+And so now it can
+
+603
+00:26:25,946 --> 00:26:27,246
+for audio and video playback.
+
+604
+00:26:28,616 --> 00:26:33,026
+Now, as I said earlier,
+
+605
+00:26:33,026 --> 00:26:38,386
+in this year's OS releases
+
+606
+00:26:38,516 --> 00:26:40,176
+to the list of playback
+
+607
+00:26:40,176 --> 00:26:42,396
+of enabled tracks do
+
+608
+00:26:42,396 --> 00:26:43,166
+an interruption.
+
+609
+00:26:43,656 --> 00:26:46,976
+But it still ideal to
+
+610
+00:26:46,976 --> 00:26:49,596
+that AVFoundation needs in order
+
+611
+00:26:49,596 --> 00:26:51,366
+So I'm going to change
+
+612
+00:26:51,366 --> 00:26:53,776
+I'm going to watch where the
+
+613
+00:26:54,166 --> 00:26:55,066
+to the AVPlayer.
+
+614
+00:26:57,346 --> 00:27:00,176
+So now the player is
+
+615
+00:26:57,346 --> 00:27:00,176
+So now the player is
+
+616
+00:27:00,176 --> 00:27:02,696
+which means it has no reason to
+
+617
+00:27:03,106 --> 00:27:05,436
+And that doesn't change when
+
+618
+00:27:06,296 --> 00:27:07,686
+Playback pipelines
+
+619
+00:27:07,846 --> 00:27:09,586
+until the player item
+
+620
+00:27:09,736 --> 00:27:12,246
+And by that point, the
+
+621
+00:27:12,246 --> 00:27:14,026
+to get things right first time.
+
+622
+00:27:14,966 --> 00:27:15,936
+We can generalize this.
+
+623
+00:27:16,226 --> 00:27:19,316
+First, create the AVPlayerLayer,
+
+624
+00:27:19,316 --> 00:27:20,746
+and AVPlayerItem objects.
+
+625
+00:27:20,966 --> 00:27:22,396
+And set whatever
+
+626
+00:27:22,396 --> 00:27:25,966
+to on them including connecting
+
+627
+00:27:25,966 --> 00:27:28,826
+or an AVPlayerItem to an
+
+628
+00:27:30,846 --> 00:27:33,106
+Now this might seem crazy,
+
+629
+00:27:33,326 --> 00:27:34,946
+to start right away,
+
+630
+00:27:34,946 --> 00:27:36,776
+to play before you give
+
+631
+00:27:37,236 --> 00:27:37,986
+Why would you do this?
+
+632
+00:27:38,656 --> 00:27:39,806
+Well, if you do it
+
+633
+00:27:40,086 --> 00:27:41,486
+the player initially
+
+634
+00:27:41,486 --> 00:27:43,436
+to display the still frame
+
+635
+00:27:43,936 --> 00:27:46,566
+And it might waste some time on
+
+636
+00:27:46,566 --> 00:27:48,066
+that actually you
+
+637
+00:27:48,536 --> 00:27:50,746
+Again, starting with the
+
+638
+00:27:50,746 --> 00:27:51,536
+few milliseconds.
+
+639
+00:27:51,606 --> 00:27:53,476
+Let's move on to HLS.
+
+640
+00:27:53,476 --> 00:27:57,576
+The timeframes we're trying to
+
+641
+00:27:57,876 --> 00:28:00,216
+because they're donated by
+
+642
+00:27:57,876 --> 00:28:00,216
+because they're donated by
+
+643
+00:28:00,216 --> 00:28:01,436
+than local file storage.
+
+644
+00:28:01,906 --> 00:28:02,846
+So the potential benefits
+
+645
+00:28:02,846 --> 00:28:04,926
+of optimizations are
+
+646
+00:28:05,726 --> 00:28:07,576
+The network IO breaks
+
+647
+00:28:07,786 --> 00:28:10,096
+Retrieving the master playlist
+
+648
+00:28:10,096 --> 00:28:10,826
+to AVURLAsset.
+
+649
+00:28:11,326 --> 00:28:13,256
+If the content is protected
+
+650
+00:28:13,646 --> 00:28:15,186
+retrieving content keys,
+
+651
+00:28:15,886 --> 00:28:17,556
+retrieving the selected
+
+652
+00:28:17,556 --> 00:28:20,636
+for the appropriate bitrate
+
+653
+00:28:21,066 --> 00:28:22,566
+and retrieving some
+
+654
+00:28:22,826 --> 00:28:23,976
+that are referenced
+
+655
+00:28:24,226 --> 00:28:25,986
+Now the media segments
+
+656
+00:28:25,986 --> 00:28:28,636
+of actual data transfer but
+
+657
+00:28:28,636 --> 00:28:29,716
+about round-trip latency.
+
+658
+00:28:30,506 --> 00:28:32,086
+Some of these stages
+
+659
+00:28:32,636 --> 00:28:35,226
+You can't download
+
+660
+00:28:35,576 --> 00:28:37,256
+until you've received
+
+661
+00:28:38,836 --> 00:28:42,196
+So a thing to think about
+
+662
+00:28:42,196 --> 00:28:44,326
+of these things before
+
+663
+00:28:44,866 --> 00:28:49,356
+For example, maybe in your
+
+664
+00:28:49,356 --> 00:28:52,516
+when content is first selected,
+
+665
+00:28:52,516 --> 00:28:53,946
+is this actually the
+
+666
+00:28:53,946 --> 00:28:55,286
+Or do I want to read some
+
+667
+00:28:56,036 --> 00:28:59,456
+So the question is, could
+
+668
+00:28:59,456 --> 00:29:00,956
+of network IO speculatively
+
+669
+00:28:59,456 --> 00:29:00,956
+of network IO speculatively
+
+670
+00:29:01,826 --> 00:29:04,326
+when the user has identified
+
+671
+00:29:04,326 --> 00:29:05,556
+to play before they
+
+672
+00:29:06,476 --> 00:29:09,676
+Well, AVURLAsset is a lazy API.
+
+673
+00:29:10,256 --> 00:29:11,946
+It doesn't begin loading
+
+674
+00:29:11,946 --> 00:29:13,026
+until someone asks it to.
+
+675
+00:29:13,026 --> 00:29:15,996
+To trigger it to load data
+
+676
+00:29:16,046 --> 00:29:18,576
+we need to ask it to load a
+
+677
+00:29:18,626 --> 00:29:22,256
+like duration or available
+
+678
+00:29:22,256 --> 00:29:23,376
+with media selection options.
+
+679
+00:29:23,786 --> 00:29:24,936
+Duration is easy to type.
+
+680
+00:29:25,706 --> 00:29:27,606
+You don't have to provide a
+
+681
+00:29:27,746 --> 00:29:31,136
+you're actually going to do
+
+682
+00:29:31,136 --> 00:29:33,506
+Speaking of playlists, they
+
+683
+00:29:33,506 --> 00:29:36,206
+and we've supported compressing
+
+684
+00:29:36,596 --> 00:29:37,626
+So make sure you're doing that.
+
+685
+00:29:38,066 --> 00:29:40,556
+Possibly it's just a matter
+
+686
+00:29:41,196 --> 00:29:43,796
+If your content is protected
+
+687
+00:29:43,796 --> 00:29:44,836
+then there's round-trip involved
+
+688
+00:29:44,836 --> 00:29:47,116
+in negotiating content
+
+689
+00:29:47,456 --> 00:29:48,766
+And you can trigger
+
+690
+00:29:48,986 --> 00:29:51,346
+by setting the
+
+691
+00:29:51,346 --> 00:29:53,636
+property of the
+
+692
+00:29:53,866 --> 00:29:56,256
+For this to work, the
+
+693
+00:29:56,256 --> 00:29:57,496
+SESSION-KEY declarations.
+
+694
+00:29:58,046 --> 00:30:00,106
+So how are we doing so far?
+
+695
+00:29:58,046 --> 00:30:00,106
+So how are we doing so far?
+
+696
+00:30:00,286 --> 00:30:02,186
+With these techniques,
+
+697
+00:30:02,296 --> 00:30:05,176
+they can get the master playlist
+
+698
+00:30:05,476 --> 00:30:06,746
+while we're still
+
+699
+00:30:06,746 --> 00:30:07,486
+Now that's pretty cool.
+
+700
+00:30:08,036 --> 00:30:10,046
+The variant playlists
+
+701
+00:30:10,046 --> 00:30:12,146
+of data will still
+
+702
+00:30:12,656 --> 00:30:13,836
+So you might be asking
+
+703
+00:30:14,076 --> 00:30:16,426
+can we push this
+
+704
+00:30:17,146 --> 00:30:19,456
+Well, there is a new
+
+705
+00:30:19,456 --> 00:30:20,946
+preferredForwardBufferDuration.
+
+706
+00:30:21,626 --> 00:30:23,076
+Setting it to something low
+
+707
+00:30:23,076 --> 00:30:25,296
+like five seconds will
+
+708
+00:30:25,296 --> 00:30:27,796
+that AVFoundation thinks
+
+709
+00:30:28,436 --> 00:30:31,516
+But once playback begins,
+
+710
+00:30:31,696 --> 00:30:34,546
+to allow normal buffering
+
+711
+00:30:35,016 --> 00:30:38,666
+Here's a list of video variance
+
+712
+00:30:38,766 --> 00:30:40,326
+that might be in
+
+713
+00:30:40,826 --> 00:30:42,576
+They vary in dimensions
+
+714
+00:30:43,156 --> 00:30:46,156
+For an Apple TV on a fast
+
+715
+00:30:46,156 --> 00:30:47,846
+the 1080p variant
+
+716
+00:30:48,516 --> 00:30:52,706
+For an iPhone SE, even with
+
+717
+00:30:52,706 --> 00:30:54,756
+the 720p variant
+
+718
+00:30:54,966 --> 00:30:57,596
+It's already higher resolution
+
+719
+00:30:57,816 --> 00:30:59,756
+so going bigger probably
+
+720
+00:31:00,636 --> 00:31:03,996
+On a giant iPad Pro, there are
+
+721
+00:31:03,996 --> 00:31:05,936
+up to a big variant
+
+722
+00:31:06,336 --> 00:31:07,576
+But if we play
+
+723
+00:31:07,916 --> 00:31:09,606
+we don't need such a
+
+724
+00:31:09,796 --> 00:31:13,076
+And a lower bitrate variant
+
+725
+00:31:13,076 --> 00:31:15,466
+of our cache and help us
+
+726
+00:31:15,466 --> 00:31:16,256
+for other apps.
+
+727
+00:31:17,266 --> 00:31:19,506
+If the network connection
+
+728
+00:31:19,736 --> 00:31:20,926
+then that's going to
+
+729
+00:31:21,386 --> 00:31:23,566
+So what this means is that
+
+730
+00:31:23,566 --> 00:31:25,516
+into account both the
+
+731
+00:31:25,756 --> 00:31:27,826
+and the network bitrate
+
+732
+00:31:28,846 --> 00:31:31,846
+AVFoundation uses the
+
+733
+00:31:31,846 --> 00:31:32,906
+to evaluate the dimensions.
+
+734
+00:31:33,366 --> 00:31:36,826
+So set up your AVPlayerLayer at
+
+735
+00:31:36,826 --> 00:31:38,386
+to the AVPlayer as
+
+736
+00:31:38,966 --> 00:31:40,436
+It can be hidden behind other UI
+
+737
+00:31:40,526 --> 00:31:41,876
+if you're not ready
+
+738
+00:31:42,636 --> 00:31:45,436
+On a retina iOS device,
+
+739
+00:31:45,436 --> 00:31:47,076
+to set contentsScale manually.
+
+740
+00:31:47,436 --> 00:31:51,866
+As for bitrate, well
+
+741
+00:31:51,866 --> 00:31:53,556
+of a chicken and egg
+
+742
+00:31:54,006 --> 00:31:55,426
+to playback first beginning.
+
+743
+00:31:56,066 --> 00:31:57,336
+It has to choose some variant,
+
+744
+00:31:57,876 --> 00:31:59,976
+but it does not know what
+
+745
+00:32:00,926 --> 00:32:02,636
+Once it's begun downloading
+
+746
+00:32:02,716 --> 00:32:04,846
+it can use the statistics
+
+747
+00:32:04,846 --> 00:32:06,066
+to adjust the choice of variant.
+
+748
+00:32:06,586 --> 00:32:07,816
+But for that first variant,
+
+749
+00:32:08,056 --> 00:32:09,536
+it hasn't gathered
+
+750
+00:32:10,416 --> 00:32:12,676
+So AVFoundation's
+
+751
+00:32:12,676 --> 00:32:15,676
+to pick the first applicable
+
+752
+00:32:16,056 --> 00:32:18,286
+If that's a low bitrate
+
+753
+00:32:18,286 --> 00:32:19,346
+out seeing something blurry,
+
+754
+00:32:19,746 --> 00:32:22,056
+but AVFoundation will soon
+
+755
+00:32:22,056 --> 00:32:24,126
+bitrate is and switch up
+
+756
+00:32:24,546 --> 00:32:27,706
+Well, the question is, what
+
+757
+00:32:27,706 --> 00:32:29,426
+to improve that initial choice?
+
+758
+00:32:29,966 --> 00:32:33,426
+Well, remember, there is a
+
+759
+00:32:33,426 --> 00:32:35,586
+between initial quality
+
+760
+00:32:36,216 --> 00:32:39,246
+A higher bitrate first segment
+
+761
+00:32:39,616 --> 00:32:41,186
+And that means it will
+
+762
+00:32:41,706 --> 00:32:43,906
+You might decide that
+
+763
+00:32:44,076 --> 00:32:47,166
+with a lower bitrate variant
+
+764
+00:32:47,876 --> 00:32:49,866
+Well one way to make the
+
+765
+00:32:49,866 --> 00:32:52,486
+out a minimum acceptable
+
+766
+00:32:52,736 --> 00:32:55,236
+on a particular size of
+
+767
+00:32:55,886 --> 00:32:58,356
+Then AVFoundation will
+
+768
+00:32:58,646 --> 00:33:01,196
+after playback begins
+
+769
+00:32:58,646 --> 00:33:01,196
+after playback begins
+
+770
+00:33:01,496 --> 00:33:04,906
+And maybe you know one thing
+
+771
+00:33:05,406 --> 00:33:07,966
+Maybe your app just played a
+
+772
+00:33:08,546 --> 00:33:10,926
+And maybe you can use
+
+773
+00:33:11,286 --> 00:33:13,126
+to make a better guess
+
+774
+00:33:13,126 --> 00:33:16,416
+that the next playback
+
+775
+00:33:16,636 --> 00:33:18,866
+So let's suppose that you come
+
+776
+00:33:18,866 --> 00:33:21,256
+on startup quality and
+
+777
+00:33:21,656 --> 00:33:23,756
+And you decide on
+
+778
+00:33:23,806 --> 00:33:25,466
+which variant you
+
+779
+00:33:25,716 --> 00:33:28,296
+Well, how do we plug that
+
+780
+00:33:28,546 --> 00:33:30,726
+There are two techniques
+
+781
+00:33:31,186 --> 00:33:32,036
+Here's the first technique.
+
+782
+00:33:32,646 --> 00:33:35,106
+On the server, you have
+
+783
+00:33:35,266 --> 00:33:36,496
+from highest to lowest.
+
+784
+00:33:37,086 --> 00:33:39,146
+Like that.
+
+785
+00:33:39,146 --> 00:33:42,066
+And then in your app, you need
+
+786
+00:33:42,066 --> 00:33:45,036
+to set the player items
+
+787
+00:33:46,156 --> 00:33:47,006
+to you bitrate guess.
+
+788
+00:33:47,956 --> 00:33:50,536
+This will eliminate the
+
+789
+00:33:50,536 --> 00:33:51,836
+from initial selection.
+
+790
+00:33:52,506 --> 00:33:54,756
+Shortly after playback
+
+791
+00:33:54,756 --> 00:33:58,306
+that control back to zero, which
+
+792
+00:33:58,306 --> 00:34:00,626
+up to a higher bitrate variance
+
+793
+00:33:58,306 --> 00:34:00,626
+up to a higher bitrate variance
+
+794
+00:34:02,686 --> 00:34:04,236
+The second technique is
+
+795
+00:34:04,236 --> 00:34:06,556
+to dynamically rewrite the
+
+796
+00:34:07,046 --> 00:34:09,016
+and move your preferred
+
+797
+00:34:10,235 --> 00:34:14,585
+To do this, use a custom URL
+
+798
+00:34:15,716 --> 00:34:19,335
+and implement the AV asset
+
+799
+00:34:19,335 --> 00:34:23,206
+protocol in which you can
+
+800
+00:34:23,206 --> 00:34:25,866
+in response to the load request
+
+801
+00:34:26,936 --> 00:34:29,786
+I want to remind you to
+
+802
+00:34:30,156 --> 00:34:32,636
+Look for any delays before
+
+803
+00:34:33,126 --> 00:34:36,616
+In particular, you do not need
+
+804
+00:34:36,775 --> 00:34:39,085
+to become true before
+
+805
+00:34:39,616 --> 00:34:43,076
+You don't need to now, and in
+
+806
+00:34:44,246 --> 00:34:46,746
+Make sure that you release
+
+807
+00:34:46,746 --> 00:34:47,996
+from old playback sessions
+
+808
+00:34:48,386 --> 00:34:50,646
+so that they do not waste
+
+809
+00:34:51,005 --> 00:34:53,676
+You can use the Allocations
+
+810
+00:34:53,946 --> 00:34:55,576
+to check the lifespans
+
+811
+00:34:55,576 --> 00:34:57,256
+and AVPlayerItem objects.
+
+812
+00:34:57,866 --> 00:34:59,136
+And if you have an application
+
+813
+00:34:59,136 --> 00:35:00,336
+that does other network
+
+814
+00:34:59,136 --> 00:35:00,336
+that does other network
+
+815
+00:35:00,636 --> 00:35:02,996
+consider whether you should
+
+816
+00:35:02,996 --> 00:35:05,476
+playback so that the user
+
+817
+00:35:05,626 --> 00:35:07,496
+of available bandwidth
+
+818
+00:35:09,316 --> 00:35:14,226
+All right, in conclusion,
+
+819
+00:35:14,336 --> 00:35:17,396
+to minimize stalling,
+
+820
+00:35:17,756 --> 00:35:20,966
+It's set to true by default
+
+821
+00:35:21,076 --> 00:35:22,376
+or after this year's SDKs.
+
+822
+00:35:22,376 --> 00:35:25,386
+And it provides uniform
+
+823
+00:35:25,666 --> 00:35:28,346
+for progressive download
+
+824
+00:35:28,936 --> 00:35:32,756
+We've introduced a new
+
+825
+00:35:33,206 --> 00:35:34,996
+to simplify using
+
+826
+00:35:35,246 --> 00:35:36,966
+to loop playback
+
+827
+00:35:38,816 --> 00:35:42,486
+Changing the set of enable
+
+828
+00:35:42,486 --> 00:35:44,076
+always causes a brief pause.
+
+829
+00:35:44,956 --> 00:35:47,306
+And we've looked at
+
+830
+00:35:47,386 --> 00:35:50,126
+that you can use to prepare
+
+831
+00:35:51,416 --> 00:35:54,566
+Finally, we talked about
+
+832
+00:35:54,566 --> 00:35:57,036
+for local files and for HLS.
+
+833
+00:35:57,186 --> 00:36:00,346
+In short, avoid accidentally
+
+834
+00:35:57,186 --> 00:36:00,346
+In short, avoid accidentally
+
+835
+00:36:00,746 --> 00:36:04,476
+And for the work you do need,
+
+836
+00:36:04,696 --> 00:36:07,466
+We'll have more information at
+
+837
+00:36:07,756 --> 00:36:09,336
+including sample code
+
+838
+00:36:10,706 --> 00:36:13,186
+We have some related sessions
+
+839
+00:36:13,186 --> 00:36:16,066
+up to see in person
+
+840
+00:36:16,396 --> 00:36:18,536
+The bottom one is an
+
+841
+00:36:18,536 --> 00:36:19,486
+that you can watch in the app.
+
+842
+00:36:20,186 --> 00:36:21,046
+Thank you for attention.
+
+843
+00:36:21,046 --> 00:36:21,626
+It's been a pleasure.
+
+844
+00:36:21,626 --> 00:36:23,926
+I hope you have a great week.
