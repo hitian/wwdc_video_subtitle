@@ -1,0 +1,6595 @@
+1
+00:00:23,516 --> 00:00:27,776
+[ Applause ]
+
+2
+00:00:28,276 --> 00:00:29,306
+&gt;&gt; I'm happy -- my name is
+
+3
+00:00:29,306 --> 00:00:29,576
+Etienne.
+
+4
+00:00:29,576 --> 00:00:30,966
+And I'm happy to be here today
+
+5
+00:00:31,176 --> 00:00:33,526
+to show you how you can use
+
+6
+00:00:33,586 --> 00:00:35,166
+depth to apply new kind of
+
+7
+00:00:35,226 --> 00:00:36,696
+effects to your images.
+
+8
+00:00:38,666 --> 00:00:40,866
+First, we're going to see what
+
+9
+00:00:40,936 --> 00:00:42,726
+depth is and what it looks like.
+
+10
+00:00:43,316 --> 00:00:44,936
+Then we're going to see how to
+
+11
+00:00:44,936 --> 00:00:46,536
+load it and read it from our
+
+12
+00:00:46,536 --> 00:00:47,256
+image files.
+
+13
+00:00:48,356 --> 00:00:49,826
+And then we're going to show you
+
+14
+00:00:50,156 --> 00:00:52,546
+several examples of effects you
+
+15
+00:00:52,546 --> 00:00:53,866
+can achieve with depth.
+
+16
+00:00:54,486 --> 00:00:56,456
+And we'll conclude with how to
+
+17
+00:00:56,456 --> 00:00:57,286
+save depth data.
+
+18
+00:00:58,746 --> 00:00:59,006
+All right.
+
+19
+00:00:59,266 --> 00:00:59,966
+So let's get started.
+
+20
+00:01:01,536 --> 00:01:03,306
+What is depth?
+
+21
+00:01:03,956 --> 00:01:05,296
+So, to answer that question,
+
+22
+00:01:05,626 --> 00:01:07,486
+let's start with how we capture
+
+23
+00:01:07,486 --> 00:01:07,796
+depth.
+
+24
+00:01:10,806 --> 00:01:13,396
+Depth can be captured only on
+
+25
+00:01:14,026 --> 00:01:17,066
+iPhone 7+ and only on iOS 11.
+
+26
+00:01:18,106 --> 00:01:22,006
+iPhone 7+ has a dual camera
+
+27
+00:01:22,006 --> 00:01:24,116
+system that can be set to
+
+28
+00:01:24,116 --> 00:01:25,856
+capture two images of the same
+
+29
+00:01:25,856 --> 00:01:27,846
+scene at the same time and at
+
+30
+00:01:27,846 --> 00:01:28,756
+the same focal length.
+
+31
+00:01:29,476 --> 00:01:32,046
+The differences between those
+
+32
+00:01:32,046 --> 00:01:34,236
+two images is called disparity.
+
+33
+00:01:35,766 --> 00:01:38,146
+So disparity is a measure of the
+
+34
+00:01:38,146 --> 00:01:39,006
+parallax effect.
+
+35
+00:01:39,416 --> 00:01:41,596
+It measures how objects that are
+
+36
+00:01:41,596 --> 00:01:43,496
+closer to the camera tends to
+
+37
+00:01:43,496 --> 00:01:47,646
+move, to shift more from one
+
+38
+00:01:47,646 --> 00:01:49,516
+image to the other.
+
+39
+00:01:49,796 --> 00:01:51,636
+Once we know disparity, we can
+
+40
+00:01:51,636 --> 00:01:53,826
+compute depth with a simple
+
+41
+00:01:54,056 --> 00:01:54,446
+formula.
+
+42
+00:01:55,476 --> 00:01:57,326
+Depth is 1 over disparity.
+
+43
+00:01:59,536 --> 00:02:01,506
+So, in the remaining of this
+
+44
+00:01:59,536 --> 00:02:01,506
+So, in the remaining of this
+
+45
+00:02:01,506 --> 00:02:02,626
+session we're going to talk
+
+46
+00:02:02,626 --> 00:02:04,676
+about depth or disparity under
+
+47
+00:02:04,676 --> 00:02:06,476
+the broad term of depth data.
+
+48
+00:02:06,966 --> 00:02:09,145
+But remember, they're pretty
+
+49
+00:02:09,145 --> 00:02:11,806
+similar and one is the inverse
+
+50
+00:02:11,806 --> 00:02:13,686
+of the other.
+
+51
+00:02:14,656 --> 00:02:16,216
+For more information about how
+
+52
+00:02:16,216 --> 00:02:18,106
+we capture depth I would refer
+
+53
+00:02:18,106 --> 00:02:20,626
+you to the session on capturing
+
+54
+00:02:20,626 --> 00:02:22,146
+depth in iPhone photography that
+
+55
+00:02:22,146 --> 00:02:22,896
+took place yesterday.
+
+56
+00:02:23,996 --> 00:02:25,016
+All right.
+
+57
+00:02:26,986 --> 00:02:28,516
+So now that we know what depth
+
+58
+00:02:28,516 --> 00:02:30,666
+and disparity looks like --
+
+59
+00:02:30,666 --> 00:02:32,306
+sorry -- now that we know what
+
+60
+00:02:32,306 --> 00:02:33,446
+depth and disparity is, let's
+
+61
+00:02:33,446 --> 00:02:34,566
+take a look at what it looks
+
+62
+00:02:34,566 --> 00:02:35,396
+like in practice.
+
+63
+00:02:35,796 --> 00:02:36,966
+And for that, I'm going to call
+
+64
+00:02:36,966 --> 00:02:38,376
+my colleague Craig to show you
+
+65
+00:02:38,686 --> 00:02:39,376
+what it looks like.
+
+66
+00:02:39,876 --> 00:02:40,076
+Craig.
+
+67
+00:02:42,516 --> 00:02:46,556
+[ Applause ]
+
+68
+00:02:47,056 --> 00:02:48,206
+&gt;&gt; Thank you, Etienne.
+
+69
+00:02:49,036 --> 00:02:50,586
+What we're seeing here is an
+
+70
+00:02:50,586 --> 00:02:51,916
+image that was captured by the
+
+71
+00:02:51,916 --> 00:02:53,106
+iPhone 7+.
+
+72
+00:02:55,336 --> 00:02:56,806
+And here is its disparity map.
+
+73
+00:02:57,096 --> 00:02:59,816
+And as we've learned, disparity
+
+74
+00:03:00,776 --> 00:03:03,126
+refers to the distance between
+
+75
+00:03:03,126 --> 00:03:04,576
+two corresponding points that
+
+76
+00:03:04,576 --> 00:03:06,396
+were captured by the iPhone 7+'s
+
+77
+00:03:06,396 --> 00:03:07,576
+dual camera system.
+
+78
+00:03:09,116 --> 00:03:11,286
+Bright areas are closer to the
+
+79
+00:03:11,286 --> 00:03:14,226
+camera and correspond to higher
+
+80
+00:03:14,226 --> 00:03:15,286
+disparity values.
+
+81
+00:03:15,706 --> 00:03:18,196
+Where dark values are farther
+
+82
+00:03:18,196 --> 00:03:19,166
+away from the camera and
+
+83
+00:03:19,166 --> 00:03:20,446
+correspond to low disparity
+
+84
+00:03:20,446 --> 00:03:20,956
+values.
+
+85
+00:03:22,926 --> 00:03:24,206
+So, let's go back to the image
+
+86
+00:03:24,726 --> 00:03:26,476
+and look at the disparity map
+
+87
+00:03:26,476 --> 00:03:26,926
+again.
+
+88
+00:03:27,876 --> 00:03:29,666
+We can pinch in to zoom in on an
+
+89
+00:03:29,666 --> 00:03:30,046
+area.
+
+90
+00:03:30,046 --> 00:03:31,636
+But we have one more trick we
+
+91
+00:03:31,636 --> 00:03:32,946
+can do with this application.
+
+92
+00:03:34,796 --> 00:03:36,586
+If I drag my finger across, we
+
+93
+00:03:36,586 --> 00:03:38,656
+can view the data in 3-D.
+
+94
+00:03:39,516 --> 00:03:42,826
+[ Applause ]
+
+95
+00:03:43,326 --> 00:03:45,146
+We can zoom in and really get a
+
+96
+00:03:45,146 --> 00:03:47,896
+good look at the range of data
+
+97
+00:03:47,896 --> 00:03:49,096
+that's available to us.
+
+98
+00:03:49,096 --> 00:03:50,536
+We can rotate all the way around
+
+99
+00:03:50,786 --> 00:03:51,806
+and look at that again.
+
+100
+00:03:52,116 --> 00:03:54,706
+And even switch back to the
+
+101
+00:03:54,706 --> 00:03:56,316
+image data overlaid over top of
+
+102
+00:03:56,956 --> 00:03:57,026
+it.
+
+103
+00:03:57,736 --> 00:04:00,946
+So let's look at another image.
+
+104
+00:03:57,736 --> 00:04:00,946
+So let's look at another image.
+
+105
+00:04:02,416 --> 00:04:04,966
+Here are some beautiful flowers.
+
+106
+00:04:06,316 --> 00:04:08,446
+When I zoom in and rotate
+
+107
+00:04:08,446 --> 00:04:11,516
+around, you see that we need to
+
+108
+00:04:11,516 --> 00:04:13,466
+fill in those polygons with some
+
+109
+00:04:13,466 --> 00:04:13,856
+data.
+
+110
+00:04:13,856 --> 00:04:15,486
+So we just take the image values
+
+111
+00:04:15,486 --> 00:04:16,696
+and stretch them along there.
+
+112
+00:04:17,946 --> 00:04:19,846
+This goes to the fact that the
+
+113
+00:04:19,846 --> 00:04:21,616
+depth data is not a good
+
+114
+00:04:21,616 --> 00:04:23,816
+representation for recreating a
+
+115
+00:04:23,816 --> 00:04:24,886
+full 3-D scene.
+
+116
+00:04:25,346 --> 00:04:26,716
+But this view is still
+
+117
+00:04:26,716 --> 00:04:29,246
+interesting to look at.
+
+118
+00:04:29,486 --> 00:04:30,696
+Also, it's important to note
+
+119
+00:04:30,786 --> 00:04:32,496
+that the disparity map is a
+
+120
+00:04:32,496 --> 00:04:34,356
+lower resolution than the full
+
+121
+00:04:34,356 --> 00:04:36,156
+image, roughly a half a
+
+122
+00:04:36,156 --> 00:04:38,116
+megapixel for the disparity map
+
+123
+00:04:38,116 --> 00:04:39,446
+versus 12 megapixels for the
+
+124
+00:04:39,446 --> 00:04:39,886
+image.
+
+125
+00:04:41,836 --> 00:04:43,216
+This application we built with
+
+126
+00:04:43,216 --> 00:04:43,806
+SceneKit.
+
+127
+00:04:43,946 --> 00:04:45,186
+So it made it really easy to
+
+128
+00:04:45,186 --> 00:04:45,696
+implement.
+
+129
+00:04:46,186 --> 00:04:48,066
+We took a mesh and then we
+
+130
+00:04:48,066 --> 00:04:50,376
+transformed the z positions of
+
+131
+00:04:50,376 --> 00:04:52,176
+the vertices so that the
+
+132
+00:04:52,176 --> 00:04:53,496
+brighter pixel values were
+
+133
+00:04:53,496 --> 00:04:54,576
+closer to the camera.
+
+134
+00:04:55,886 --> 00:04:57,526
+Also, we normalized and remapped
+
+135
+00:04:57,526 --> 00:04:58,936
+the data so that it made sense
+
+136
+00:04:58,936 --> 00:05:00,096
+when we viewed it in 3-D.
+
+137
+00:04:58,936 --> 00:05:00,096
+when we viewed it in 3-D.
+
+138
+00:05:00,516 --> 00:05:03,746
+We'll look at one more image.
+
+139
+00:05:04,936 --> 00:05:06,576
+On this image, it's interesting
+
+140
+00:05:06,576 --> 00:05:08,066
+if we look at the disparity map.
+
+141
+00:05:08,706 --> 00:05:11,106
+And we zoom in and move around a
+
+142
+00:05:11,106 --> 00:05:12,316
+little bit, we see that we have
+
+143
+00:05:12,316 --> 00:05:13,866
+a few distinct planes to work
+
+144
+00:05:13,866 --> 00:05:14,336
+with here.
+
+145
+00:05:15,666 --> 00:05:17,166
+So, with that, we might get the
+
+146
+00:05:17,166 --> 00:05:18,316
+idea that maybe it would be a
+
+147
+00:05:18,316 --> 00:05:19,696
+good idea to quantize or
+
+148
+00:05:19,696 --> 00:05:21,376
+threshold this depth data before
+
+149
+00:05:21,376 --> 00:05:22,836
+we filter it for a more dramatic
+
+150
+00:05:22,836 --> 00:05:23,156
+effect.
+
+151
+00:05:24,346 --> 00:05:26,106
+So with that, I'd like to turn
+
+152
+00:05:26,106 --> 00:05:27,256
+it back over to Etienne.
+
+153
+00:05:30,516 --> 00:05:34,026
+[ Applause ]
+
+154
+00:05:34,526 --> 00:05:35,046
+&gt;&gt; Thank you, Craig.
+
+155
+00:05:35,766 --> 00:05:38,446
+All right.
+
+156
+00:05:38,446 --> 00:05:39,606
+So now that we've seen what
+
+157
+00:05:39,606 --> 00:05:40,846
+depth and disparity looks like,
+
+158
+00:05:41,336 --> 00:05:42,896
+what kind of effects can we
+
+159
+00:05:42,896 --> 00:05:44,606
+apply with that data?
+
+160
+00:05:45,246 --> 00:05:46,116
+So let's take a look.
+
+161
+00:05:47,016 --> 00:05:49,226
+Here's an example image and its
+
+162
+00:05:49,276 --> 00:05:49,986
+disparity map.
+
+163
+00:05:52,706 --> 00:05:54,426
+One effect we can apply is a
+
+164
+00:05:54,426 --> 00:05:55,286
+depth blur effect.
+
+165
+00:05:55,616 --> 00:05:57,376
+And this is the effect that you
+
+166
+00:05:57,376 --> 00:05:59,606
+can achieve by capturing using
+
+167
+00:05:59,606 --> 00:06:00,916
+camera in portrait mode.
+
+168
+00:05:59,606 --> 00:06:00,916
+camera in portrait mode.
+
+169
+00:06:03,746 --> 00:06:05,246
+We can get a bit more creative.
+
+170
+00:06:05,316 --> 00:06:06,856
+And here's an example where we
+
+171
+00:06:06,856 --> 00:06:08,556
+apply a different effect to the
+
+172
+00:06:08,556 --> 00:06:09,896
+background and the foreground.
+
+173
+00:06:10,526 --> 00:06:12,466
+Here we dissipate the background
+
+174
+00:06:12,806 --> 00:06:14,256
+while increasing the saturation
+
+175
+00:06:14,256 --> 00:06:15,956
+of the foreground to make those
+
+176
+00:06:15,956 --> 00:06:16,796
+flowers stand out.
+
+177
+00:06:19,356 --> 00:06:20,886
+We can go even further than
+
+178
+00:06:20,886 --> 00:06:21,176
+this.
+
+179
+00:06:21,516 --> 00:06:23,356
+And here we are actually the
+
+180
+00:06:23,356 --> 00:06:24,676
+deeming the pixels in the
+
+181
+00:06:24,676 --> 00:06:26,686
+background proportionally to the
+
+182
+00:06:26,686 --> 00:06:27,176
+depth.
+
+183
+00:06:28,366 --> 00:06:30,716
+And so this is just a couple of
+
+184
+00:06:30,716 --> 00:06:32,366
+examples to give you a taste of
+
+185
+00:06:32,366 --> 00:06:34,056
+what you can do with that data.
+
+186
+00:06:34,886 --> 00:06:35,936
+And we're going to show you how
+
+187
+00:06:35,936 --> 00:06:37,686
+to do this and more later in the
+
+188
+00:06:37,686 --> 00:06:38,006
+talk.
+
+189
+00:06:40,256 --> 00:06:41,906
+Now let's see who could use that
+
+190
+00:06:42,326 --> 00:06:42,446
+depth.
+
+191
+00:06:42,646 --> 00:06:44,096
+Well of course, if you are
+
+192
+00:06:44,096 --> 00:06:46,586
+editing an application, you can
+
+193
+00:06:46,586 --> 00:06:48,536
+now use depth to create new
+
+194
+00:06:48,536 --> 00:06:50,116
+kinds of effects and to apply
+
+195
+00:06:50,116 --> 00:06:51,226
+new kinds of effects to your
+
+196
+00:06:51,226 --> 00:06:51,706
+images.
+
+197
+00:06:52,906 --> 00:06:53,686
+But if you're a camera
+
+198
+00:06:53,756 --> 00:06:55,746
+application, you can also opt in
+
+199
+00:06:55,746 --> 00:06:58,646
+to capture depth and be the very
+
+200
+00:06:58,646 --> 00:07:00,226
+first -- apply the very first
+
+201
+00:06:58,646 --> 00:07:00,226
+first -- apply the very first
+
+202
+00:07:00,226 --> 00:07:01,896
+depth effect to the images such
+
+203
+00:07:01,896 --> 00:07:03,246
+as your own depth blur effects,
+
+204
+00:07:03,246 --> 00:07:03,776
+for example.
+
+205
+00:07:05,026 --> 00:07:06,286
+If you are a sharing
+
+206
+00:07:06,286 --> 00:07:07,656
+application, you may also want
+
+207
+00:07:07,656 --> 00:07:09,706
+to take advantage of depth to
+
+208
+00:07:09,706 --> 00:07:11,906
+apply cool effects before
+
+209
+00:07:12,216 --> 00:07:13,156
+sharing images.
+
+210
+00:07:14,246 --> 00:07:15,076
+All right.
+
+211
+00:07:15,916 --> 00:07:17,256
+But before we can apply any
+
+212
+00:07:17,256 --> 00:07:18,556
+effects, let's take a look at
+
+213
+00:07:18,556 --> 00:07:20,696
+how to read depth data and load
+
+214
+00:07:20,696 --> 00:07:21,386
+it into memory.
+
+215
+00:07:23,806 --> 00:07:24,706
+So let's take a look.
+
+216
+00:07:25,916 --> 00:07:27,996
+Depth data is stored in image
+
+217
+00:07:27,996 --> 00:07:30,506
+files alongside image data in a
+
+218
+00:07:30,506 --> 00:07:34,166
+section called Auxiliary Data.
+
+219
+00:07:34,856 --> 00:07:37,826
+Beware that the values image
+
+220
+00:07:37,826 --> 00:07:39,346
+[inaudible] in the system such
+
+221
+00:07:39,346 --> 00:07:40,556
+as UI image and [inaudible]
+
+222
+00:07:40,586 --> 00:07:41,546
+image or [inaudible] image do
+
+223
+00:07:41,736 --> 00:07:43,256
+not contain depth information.
+
+224
+00:07:44,136 --> 00:07:45,496
+You need to access the image
+
+225
+00:07:45,496 --> 00:07:47,056
+file in order to read the depth
+
+226
+00:07:47,056 --> 00:07:47,326
+data.
+
+227
+00:07:48,026 --> 00:07:49,196
+So let's see how to do that.
+
+228
+00:07:50,116 --> 00:07:51,306
+If you're using PhotoKit,
+
+229
+00:07:52,336 --> 00:07:53,406
+there's a couple of ways to can
+
+230
+00:07:53,406 --> 00:07:54,516
+access the image file.
+
+231
+00:07:55,096 --> 00:07:57,116
+You may be using PH Content
+
+232
+00:07:57,116 --> 00:08:00,036
+Editing input, for instance.
+
+233
+00:07:57,116 --> 00:08:00,036
+Editing input, for instance.
+
+234
+00:08:00,396 --> 00:08:02,196
+Here's how you can request the
+
+235
+00:08:02,196 --> 00:08:03,316
+Content Editing input for a
+
+236
+00:08:03,316 --> 00:08:04,586
+particular PHAsset.
+
+237
+00:08:05,856 --> 00:08:07,556
+And you can access the image
+
+238
+00:08:07,656 --> 00:08:09,186
+file URL from the Content
+
+239
+00:08:09,186 --> 00:08:10,186
+Editing input that way.
+
+240
+00:08:12,966 --> 00:08:14,406
+You may also use PH Image
+
+241
+00:08:14,406 --> 00:08:14,886
+Manager.
+
+242
+00:08:15,206 --> 00:08:18,776
+You can ask the PH Image Manager
+
+243
+00:08:18,916 --> 00:08:20,366
+to request image data for a
+
+244
+00:08:20,366 --> 00:08:21,306
+particular asset.
+
+245
+00:08:21,666 --> 00:08:22,996
+And that will give you back a
+
+246
+00:08:22,996 --> 00:08:25,256
+data object that contains the
+
+247
+00:08:25,256 --> 00:08:25,836
+file data.
+
+248
+00:08:27,826 --> 00:08:28,286
+All right.
+
+249
+00:08:29,276 --> 00:08:30,716
+So now that we have access to a
+
+250
+00:08:30,716 --> 00:08:32,426
+file, let's see if it contained
+
+251
+00:08:32,426 --> 00:08:32,905
+depth data.
+
+252
+00:08:33,246 --> 00:08:34,025
+And so we're going to use
+
+253
+00:08:34,025 --> 00:08:34,976
+ImageIO for this.
+
+254
+00:08:37,436 --> 00:08:38,816
+We start from an image source
+
+255
+00:08:38,816 --> 00:08:40,216
+that we create from our image
+
+256
+00:08:40,216 --> 00:08:40,576
+file.
+
+257
+00:08:41,936 --> 00:08:45,786
+And then we copy the image
+
+258
+00:08:45,786 --> 00:08:46,626
+source properties.
+
+259
+00:08:47,576 --> 00:08:48,706
+This will give you back a
+
+260
+00:08:48,706 --> 00:08:50,706
+dictionary that looks like this
+
+261
+00:08:50,706 --> 00:08:50,996
+one.
+
+262
+00:08:52,526 --> 00:08:54,086
+You want to look for the
+
+263
+00:08:54,086 --> 00:08:56,276
+kCKImage Property Auxiliary data
+
+264
+00:08:56,796 --> 00:08:58,106
+key in that dictionary.
+
+265
+00:08:58,416 --> 00:09:00,146
+The presence of that key will
+
+266
+00:08:58,416 --> 00:09:00,146
+The presence of that key will
+
+267
+00:09:00,146 --> 00:09:02,086
+tell you that image file that
+
+268
+00:09:02,086 --> 00:09:03,266
+you're working with contained
+
+269
+00:09:03,266 --> 00:09:03,966
+auxiliary data.
+
+270
+00:09:05,296 --> 00:09:06,916
+You can look at the type of the
+
+271
+00:09:06,916 --> 00:09:07,276
+data.
+
+272
+00:09:07,276 --> 00:09:08,586
+And here you can see its
+
+273
+00:09:08,586 --> 00:09:09,156
+disparity.
+
+274
+00:09:09,596 --> 00:09:10,486
+Could also be depth.
+
+275
+00:09:11,606 --> 00:09:13,556
+One thing to note here is that
+
+276
+00:09:13,556 --> 00:09:15,016
+the dimension of the depth data
+
+277
+00:09:15,696 --> 00:09:17,686
+are smaller than the dimension
+
+278
+00:09:17,896 --> 00:09:19,036
+of the full size image.
+
+279
+00:09:20,176 --> 00:09:21,476
+This is an image captured by
+
+280
+00:09:21,476 --> 00:09:22,406
+iPhone 7+.
+
+281
+00:09:22,556 --> 00:09:24,036
+The full size image is 12
+
+282
+00:09:24,036 --> 00:09:24,716
+megapixel.
+
+283
+00:09:25,206 --> 00:09:27,946
+And the depth data is about less
+
+284
+00:09:28,176 --> 00:09:29,706
+than a megapixel.
+
+285
+00:09:31,316 --> 00:09:32,836
+All right.
+
+286
+00:09:34,126 --> 00:09:35,666
+So now that we know that we have
+
+287
+00:09:35,666 --> 00:09:37,186
+a file with depth data, let's
+
+288
+00:09:37,186 --> 00:09:42,026
+see how we can read it
+
+289
+00:09:42,026 --> 00:09:43,516
+[inaudible].
+
+290
+00:09:43,516 --> 00:09:44,826
+So, it goes like this.
+
+291
+00:09:44,826 --> 00:09:46,186
+We start with the auxiliary data
+
+292
+00:09:46,186 --> 00:09:46,846
+from the file.
+
+293
+00:09:48,026 --> 00:09:49,516
+And then we create an AV Depth
+
+294
+00:09:49,516 --> 00:09:50,736
+Data object, which is a
+
+295
+00:09:50,736 --> 00:09:51,276
+[inaudible] memory
+
+296
+00:09:51,276 --> 00:09:52,856
+representation for the depth
+
+297
+00:09:52,856 --> 00:09:53,146
+data.
+
+298
+00:09:54,346 --> 00:09:56,736
+From that object we can access a
+
+299
+00:09:56,736 --> 00:09:58,956
+CV pixel buffer that contains
+
+300
+00:09:58,956 --> 00:09:59,626
+the depth data.
+
+301
+00:10:01,276 --> 00:10:02,676
+The pixel buffer will be a
+
+302
+00:10:02,676 --> 00:10:04,146
+single channel of data
+
+303
+00:10:05,046 --> 00:10:06,786
+containing either depth or
+
+304
+00:10:06,786 --> 00:10:09,486
+disparity and in 16-bit or
+
+305
+00:10:09,486 --> 00:10:10,786
+32-bit floating [inaudible]
+
+306
+00:10:10,786 --> 00:10:11,336
+values.
+
+307
+00:10:11,806 --> 00:10:11,966
+All right.
+
+308
+00:10:12,676 --> 00:10:16,046
+So let's see how to do that in
+
+309
+00:10:16,046 --> 00:10:16,376
+code.
+
+310
+00:10:18,246 --> 00:10:19,686
+Again we start from [inaudible].
+
+311
+00:10:21,426 --> 00:10:23,806
+And next we ask to copy the
+
+312
+00:10:23,806 --> 00:10:25,646
+auxiliary data out of the image
+
+313
+00:10:25,646 --> 00:10:25,713
+[inaudible].
+
+314
+00:10:25,713 --> 00:10:27,636
+So for that we request a
+
+315
+00:10:27,636 --> 00:10:29,846
+particular auxiliary data type.
+
+316
+00:10:30,276 --> 00:10:31,306
+Here we are requesting
+
+317
+00:10:31,306 --> 00:10:31,886
+disparity.
+
+318
+00:10:32,856 --> 00:10:34,096
+And this give us back a
+
+319
+00:10:34,096 --> 00:10:35,826
+dictionary that contains the
+
+320
+00:10:35,826 --> 00:10:36,606
+auxiliary data.
+
+321
+00:10:38,026 --> 00:10:39,156
+It can also return the
+
+322
+00:10:39,736 --> 00:10:40,256
+[inaudible], and that will
+
+323
+00:10:40,256 --> 00:10:41,956
+indicate that the image file
+
+324
+00:10:41,956 --> 00:10:44,006
+does not contain the disparity
+
+325
+00:10:44,006 --> 00:10:45,896
+-- sorry, the auxiliary data of
+
+326
+00:10:45,896 --> 00:10:46,766
+that particular type.
+
+327
+00:10:46,896 --> 00:10:48,436
+So that's another way you can
+
+328
+00:10:48,436 --> 00:10:50,486
+check if a file contains depth
+
+329
+00:10:50,486 --> 00:10:50,756
+data.
+
+330
+00:10:53,536 --> 00:10:55,746
+Next, we can create an AVDepth
+
+331
+00:10:55,746 --> 00:10:57,416
+Data object from the auxiliary
+
+332
+00:10:57,416 --> 00:10:59,466
+data, the representation that we
+
+333
+00:10:59,466 --> 00:11:00,486
+got from ImageIO.
+
+334
+00:10:59,466 --> 00:11:00,486
+got from ImageIO.
+
+335
+00:11:02,006 --> 00:11:03,516
+And that AVDepth Data contains a
+
+336
+00:11:03,516 --> 00:11:04,676
+couple of properties that you
+
+337
+00:11:04,676 --> 00:11:05,196
+can ask.
+
+338
+00:11:05,196 --> 00:11:06,966
+For example, you can check for
+
+339
+00:11:06,966 --> 00:11:09,016
+its native data type.
+
+340
+00:11:09,526 --> 00:11:11,616
+And that's a pixel format that
+
+341
+00:11:11,616 --> 00:11:12,306
+you can check.
+
+342
+00:11:12,306 --> 00:11:13,956
+And if it's not the one you
+
+343
+00:11:13,956 --> 00:11:16,906
+want, you can also convert it to
+
+344
+00:11:16,906 --> 00:11:19,016
+a new pixel format.
+
+345
+00:11:19,046 --> 00:11:22,156
+So for example, here we ask for
+
+346
+00:11:22,156 --> 00:11:23,486
+disparity float 16.
+
+347
+00:11:23,486 --> 00:11:24,866
+Because maybe we're going to use
+
+348
+00:11:24,866 --> 00:11:26,436
+a disparity map on the GPU, for
+
+349
+00:11:26,436 --> 00:11:26,856
+example.
+
+350
+00:11:27,776 --> 00:11:30,216
+And this will return a new AV
+
+351
+00:11:30,216 --> 00:11:31,506
+Depth Data object of the right
+
+352
+00:11:31,506 --> 00:11:31,926
+format.
+
+353
+00:11:32,706 --> 00:11:34,376
+So once you have a depth data
+
+354
+00:11:34,376 --> 00:11:35,626
+object that you're happy with,
+
+355
+00:11:35,656 --> 00:11:37,886
+you can access a CV pixel buffer
+
+356
+00:11:38,226 --> 00:11:39,416
+using the depth data map
+
+357
+00:11:39,416 --> 00:11:39,836
+property.
+
+358
+00:11:41,326 --> 00:11:42,366
+Once you have the CV pixel
+
+359
+00:11:42,366 --> 00:11:43,906
+buffer you can use it directly.
+
+360
+00:11:43,906 --> 00:11:45,726
+Or you can use it using Metal or
+
+361
+00:11:45,726 --> 00:11:46,246
+Core Image.
+
+362
+00:11:47,526 --> 00:11:48,566
+If you're working with Core
+
+363
+00:11:48,566 --> 00:11:50,626
+Image, there's a convenient way
+
+364
+00:11:50,766 --> 00:11:52,476
+you can load the depth data
+
+365
+00:11:52,476 --> 00:11:53,856
+directly into a CI Image.
+
+366
+00:11:54,076 --> 00:11:54,976
+Here's how to do it.
+
+367
+00:11:55,976 --> 00:11:57,986
+When you create a CI Image from
+
+368
+00:11:57,986 --> 00:11:59,556
+the contents of a file, you can
+
+369
+00:11:59,556 --> 00:12:01,596
+now specify a new option such as
+
+370
+00:11:59,556 --> 00:12:01,596
+now specify a new option such as
+
+371
+00:12:01,986 --> 00:12:05,566
+kCGIImage auxiliary depth or
+
+372
+00:12:05,566 --> 00:12:09,246
+disparity to indicate to CI to
+
+373
+00:12:09,246 --> 00:12:10,856
+load the depth data -- the depth
+
+374
+00:12:10,856 --> 00:12:12,116
+image instead of the regular
+
+375
+00:12:12,166 --> 00:12:12,526
+image.
+
+376
+00:12:14,106 --> 00:12:16,806
+Once you have a depth image, you
+
+377
+00:12:16,806 --> 00:12:18,286
+can always go back to the AV
+
+378
+00:12:18,286 --> 00:12:20,266
+Depth data object by call its
+
+379
+00:12:20,266 --> 00:12:21,266
+depth data property.
+
+380
+00:12:23,286 --> 00:12:24,416
+And keep in mind that you can
+
+381
+00:12:24,416 --> 00:12:26,326
+always convert back and forth
+
+382
+00:12:26,326 --> 00:12:27,706
+between disparity and depth
+
+383
+00:12:27,856 --> 00:12:29,776
+using convenient UCI filters
+
+384
+00:12:30,016 --> 00:12:33,476
+such as CI depth to disparity.
+
+385
+00:12:34,776 --> 00:12:35,136
+All right.
+
+386
+00:12:35,306 --> 00:12:37,196
+So now that we've read the depth
+
+387
+00:12:37,336 --> 00:12:39,796
+data out of a file and into an
+
+388
+00:12:39,796 --> 00:12:42,096
+image, let's see -- we still
+
+389
+00:12:42,236 --> 00:12:44,436
+need to take a couple more step
+
+390
+00:12:44,436 --> 00:12:45,726
+before we can start editing with
+
+391
+00:12:45,726 --> 00:12:45,906
+it.
+
+392
+00:12:46,086 --> 00:12:49,276
+If you remember, the depth data
+
+393
+00:12:49,276 --> 00:12:50,706
+is lower resolution than the
+
+394
+00:12:50,706 --> 00:12:51,196
+image.
+
+395
+00:12:51,616 --> 00:12:53,606
+So, the very first thing that
+
+396
+00:12:53,606 --> 00:12:55,166
+you want to do is to scale it up
+
+397
+00:12:55,816 --> 00:12:57,196
+to the resolution of the image
+
+398
+00:12:57,196 --> 00:12:57,966
+that you're working with.
+
+399
+00:12:58,536 --> 00:12:59,596
+There's a couple ways to do
+
+400
+00:12:59,596 --> 00:12:59,826
+that.
+
+401
+00:12:59,826 --> 00:13:01,866
+So, let's take a look.
+
+402
+00:12:59,826 --> 00:13:01,866
+So, let's take a look.
+
+403
+00:13:02,556 --> 00:13:04,846
+Here's our example image and its
+
+404
+00:13:04,846 --> 00:13:05,766
+disparity map.
+
+405
+00:13:06,526 --> 00:13:08,436
+So, if we scale up, let's say
+
+406
+00:13:08,436 --> 00:13:10,726
+this small, tiny portion there,
+
+407
+00:13:10,816 --> 00:13:12,826
+using narrow sampling, you can
+
+408
+00:13:12,826 --> 00:13:13,716
+see that it's very, very
+
+409
+00:13:13,716 --> 00:13:14,336
+pixelated.
+
+410
+00:13:14,716 --> 00:13:16,006
+So at the very least you would
+
+411
+00:13:16,006 --> 00:13:17,496
+want to apply linear sampling to
+
+412
+00:13:17,496 --> 00:13:18,636
+get the smoother result.
+
+413
+00:13:19,926 --> 00:13:22,096
+You can also use a new CI filter
+
+414
+00:13:22,446 --> 00:13:25,236
+to CI BiCubicScale Transform to
+
+415
+00:13:25,236 --> 00:13:27,936
+get an even smoother result.
+
+416
+00:13:28,946 --> 00:13:31,326
+However, beware that depth data
+
+417
+00:13:31,326 --> 00:13:32,206
+is not color data.
+
+418
+00:13:32,886 --> 00:13:34,896
+And so, instead of smoothing,
+
+419
+00:13:34,896 --> 00:13:36,476
+maybe what you want is actually
+
+420
+00:13:36,476 --> 00:13:38,686
+preserve as much as possible the
+
+421
+00:13:38,686 --> 00:13:41,216
+details of the image so that the
+
+422
+00:13:41,216 --> 00:13:42,786
+depth data matches the image
+
+423
+00:13:42,786 --> 00:13:43,436
+more closely.
+
+424
+00:13:43,836 --> 00:13:44,796
+And you can do this with a
+
+425
+00:13:44,796 --> 00:13:46,926
+convenient CI filter called CI
+
+426
+00:13:46,926 --> 00:13:48,636
+Edge Preserve Upsample Filter.
+
+427
+00:13:49,966 --> 00:13:52,206
+This filter will upsample the
+
+428
+00:13:52,206 --> 00:13:54,226
+depth data and will try to
+
+429
+00:13:54,226 --> 00:13:56,686
+preserve the edges from the
+
+430
+00:13:56,926 --> 00:13:58,156
+color image.
+
+431
+00:13:59,576 --> 00:14:00,506
+All right.
+
+432
+00:13:59,576 --> 00:14:00,506
+All right.
+
+433
+00:14:01,786 --> 00:14:04,106
+Oh, also another thing that you
+
+434
+00:14:04,106 --> 00:14:05,836
+need to be careful of.
+
+435
+00:14:06,026 --> 00:14:07,466
+For all of those resampling
+
+436
+00:14:07,466 --> 00:14:09,456
+operation, we recommend that you
+
+437
+00:14:09,456 --> 00:14:11,336
+use disparity over depth because
+
+438
+00:14:11,336 --> 00:14:12,736
+it gives you -- it will give you
+
+439
+00:14:12,736 --> 00:14:13,546
+better results.
+
+440
+00:14:15,056 --> 00:14:17,826
+Okay. A couple thing that you
+
+441
+00:14:17,826 --> 00:14:18,886
+may want to do as well.
+
+442
+00:14:20,166 --> 00:14:21,836
+You may want to compute the
+
+443
+00:14:21,836 --> 00:14:23,786
+minimum and maximum value for
+
+444
+00:14:23,786 --> 00:14:24,446
+the depth data.
+
+445
+00:14:26,056 --> 00:14:28,186
+Because there are many cases
+
+446
+00:14:28,186 --> 00:14:29,116
+where you need to know those
+
+447
+00:14:29,116 --> 00:14:30,486
+values for the particular
+
+448
+00:14:30,486 --> 00:14:32,346
+effects that you want to apply.
+
+449
+00:14:34,806 --> 00:14:36,066
+Also keep in mind that the depth
+
+450
+00:14:36,066 --> 00:14:37,996
+data is not normalized between 0
+
+451
+00:14:37,996 --> 00:14:39,016
+and 1.
+
+452
+00:14:39,016 --> 00:14:41,296
+For example, disparity values
+
+453
+00:14:41,296 --> 00:14:43,326
+can range from 0, which means
+
+454
+00:14:43,676 --> 00:14:48,906
+infinity, to greater than 1 for
+
+455
+00:14:48,906 --> 00:14:51,016
+objects that are closer than one
+
+456
+00:14:51,016 --> 00:14:51,706
+meter away.
+
+457
+00:14:53,166 --> 00:14:58,056
+Okay. Another thing you can do
+
+458
+00:14:58,056 --> 00:14:59,346
+is to normalize the depth data.
+
+459
+00:14:59,346 --> 00:15:00,546
+So once you know the min and max
+
+460
+00:14:59,346 --> 00:15:00,546
+So once you know the min and max
+
+461
+00:15:00,546 --> 00:15:02,316
+you can normalize the depth or
+
+462
+00:15:02,316 --> 00:15:03,786
+disparity between 0 and 1.
+
+463
+00:15:04,086 --> 00:15:05,246
+And that's pretty convenient
+
+464
+00:15:05,466 --> 00:15:07,446
+first to visualize it.
+
+465
+00:15:07,836 --> 00:15:10,426
+But also if you want to apply
+
+466
+00:15:10,426 --> 00:15:12,396
+your depth effects consistently
+
+467
+00:15:12,396 --> 00:15:14,036
+across various different scenes.
+
+468
+00:15:14,886 --> 00:15:15,226
+All right.
+
+469
+00:15:15,226 --> 00:15:17,276
+So now that we've read our depth
+
+470
+00:15:17,276 --> 00:15:18,886
+data, and prepared it for
+
+471
+00:15:18,886 --> 00:15:20,396
+editing we are ready to start
+
+472
+00:15:20,396 --> 00:15:21,126
+filtering with it.
+
+473
+00:15:23,096 --> 00:15:24,546
+So in this section we're going
+
+474
+00:15:24,546 --> 00:15:26,546
+to show you several example of
+
+475
+00:15:26,706 --> 00:15:28,406
+depth effects you can apply.
+
+476
+00:15:29,236 --> 00:15:30,696
+We're going to start with simple
+
+477
+00:15:30,696 --> 00:15:31,956
+background effects that you can
+
+478
+00:15:31,956 --> 00:15:34,106
+achieve using built in Core
+
+479
+00:15:34,106 --> 00:15:34,926
+Image filters.
+
+480
+00:15:35,736 --> 00:15:37,996
+Then we're going to show you a
+
+481
+00:15:37,996 --> 00:15:39,486
+custom depth effect that you can
+
+482
+00:15:39,486 --> 00:15:41,446
+achieve using a custom CI
+
+483
+00:15:41,696 --> 00:15:42,116
+[inaudible] code.
+
+484
+00:15:43,526 --> 00:15:45,396
+Then we're going to show you how
+
+485
+00:15:45,396 --> 00:15:46,546
+you can apply your own depth
+
+486
+00:15:46,546 --> 00:15:48,216
+blur effect using a brand new CI
+
+487
+00:15:48,216 --> 00:15:48,506
+Filter.
+
+488
+00:15:49,726 --> 00:15:51,196
+And finally, we're going to show
+
+489
+00:15:51,196 --> 00:15:52,996
+you how to create a brand new
+
+490
+00:15:52,996 --> 00:15:54,966
+3-D effect using depth.
+
+491
+00:15:55,376 --> 00:15:56,516
+So let's get started with the
+
+492
+00:15:56,516 --> 00:15:57,026
+first one.
+
+493
+00:15:57,596 --> 00:15:58,696
+And for that I'm going to call
+
+494
+00:15:58,696 --> 00:16:00,276
+my colleague Stephen on stage
+
+495
+00:15:58,696 --> 00:16:00,276
+my colleague Stephen on stage
+
+496
+00:16:00,276 --> 00:16:00,736
+for that demo.
+
+497
+00:16:01,416 --> 00:16:01,746
+Stephen.
+
+498
+00:16:03,516 --> 00:16:06,686
+[ Applause ]
+
+499
+00:16:07,186 --> 00:16:07,836
+&gt;&gt; Thank you, Etienne.
+
+500
+00:16:08,626 --> 00:16:09,396
+Good morning everybody.
+
+501
+00:16:09,396 --> 00:16:10,296
+My name is Stephen.
+
+502
+00:16:10,296 --> 00:16:12,176
+And now that Etienne has shown
+
+503
+00:16:12,176 --> 00:16:14,006
+you how to load and prepare your
+
+504
+00:16:14,006 --> 00:16:16,566
+depth data, it's my pleasure to
+
+505
+00:16:16,566 --> 00:16:18,106
+be here to show you a couple of
+
+506
+00:16:18,106 --> 00:16:20,136
+ways that you can use depth now
+
+507
+00:16:20,136 --> 00:16:22,356
+to achieve some new and
+
+508
+00:16:22,356 --> 00:16:23,746
+interesting effects on your
+
+509
+00:16:23,746 --> 00:16:24,206
+images.
+
+510
+00:16:24,946 --> 00:16:26,386
+So we're going to jump right in
+
+511
+00:16:26,386 --> 00:16:29,596
+with a demo.
+
+512
+00:16:29,966 --> 00:16:32,846
+Okay. What we're looking at here
+
+513
+00:16:32,846 --> 00:16:35,366
+is -- I'm in the Photos app.
+
+514
+00:16:36,336 --> 00:16:37,666
+And I'm going to enter Edit here
+
+515
+00:16:37,666 --> 00:16:38,306
+on this image.
+
+516
+00:16:38,596 --> 00:16:42,546
+So, this effect is implemented
+
+517
+00:16:42,546 --> 00:16:43,546
+here in a photo editing
+
+518
+00:16:43,546 --> 00:16:44,156
+extension.
+
+519
+00:16:44,746 --> 00:16:48,986
+And now that we got the rough
+
+520
+00:16:48,986 --> 00:16:51,026
+parts out of the way, we're
+
+521
+00:16:51,026 --> 00:16:52,116
+looking at the original image
+
+522
+00:16:52,116 --> 00:16:52,336
+here.
+
+523
+00:16:53,346 --> 00:16:54,206
+No edits applied.
+
+524
+00:16:54,506 --> 00:16:55,456
+And I'm going to go ahead and
+
+525
+00:16:55,456 --> 00:16:56,296
+turn on the effect now.
+
+526
+00:16:57,696 --> 00:16:58,476
+What you see is that I've
+
+527
+00:16:58,476 --> 00:17:00,056
+applied a de-saturating effect
+
+528
+00:16:58,476 --> 00:17:00,056
+applied a de-saturating effect
+
+529
+00:17:00,276 --> 00:17:01,706
+to the image, but only to the
+
+530
+00:17:01,706 --> 00:17:02,536
+back ground region.
+
+531
+00:17:03,596 --> 00:17:05,195
+And I can pick a different
+
+532
+00:17:05,435 --> 00:17:07,406
+background effect to apply.
+
+533
+00:17:07,406 --> 00:17:08,516
+In this case I've picked just a
+
+534
+00:17:08,516 --> 00:17:09,445
+flat white image.
+
+535
+00:17:10,256 --> 00:17:13,376
+And maybe I'm not terribly
+
+536
+00:17:13,376 --> 00:17:14,516
+satisfied with where that
+
+537
+00:17:14,516 --> 00:17:15,955
+threshold is between background
+
+538
+00:17:15,955 --> 00:17:18,185
+and foreground, so I can pick a
+
+539
+00:17:18,185 --> 00:17:19,496
+new threshold by tapping.
+
+540
+00:17:20,646 --> 00:17:21,866
+And this is all based on the
+
+541
+00:17:22,076 --> 00:17:22,626
+depth data.
+
+542
+00:17:24,006 --> 00:17:25,586
+So let me bring it back here to
+
+543
+00:17:25,586 --> 00:17:25,986
+the front.
+
+544
+00:17:25,986 --> 00:17:27,215
+And you can clearly see there's
+
+545
+00:17:27,536 --> 00:17:29,706
+a pretty sharp boundary between
+
+546
+00:17:29,916 --> 00:17:31,066
+what's considered background and
+
+547
+00:17:31,066 --> 00:17:31,596
+foreground.
+
+548
+00:17:32,106 --> 00:17:33,386
+There's actually a narrow region
+
+549
+00:17:33,386 --> 00:17:34,726
+in between where we're doing a
+
+550
+00:17:34,726 --> 00:17:35,906
+little bit of blending between
+
+551
+00:17:35,906 --> 00:17:36,306
+the two.
+
+552
+00:17:36,856 --> 00:17:38,436
+And I have control over the size
+
+553
+00:17:38,436 --> 00:17:39,286
+of that blend region.
+
+554
+00:17:40,346 --> 00:17:42,986
+I can adjust that by pinching.
+
+555
+00:17:43,376 --> 00:17:44,556
+And there you can see it looks
+
+556
+00:17:44,936 --> 00:17:46,776
+like a pretty nice white fog
+
+557
+00:17:48,366 --> 00:17:48,536
+effect.
+
+558
+00:17:49,186 --> 00:17:51,206
+We've implemented this effect by
+
+559
+00:17:51,206 --> 00:17:53,306
+making use of a blend mask.
+
+560
+00:17:54,006 --> 00:17:54,736
+So let me show you what our
+
+561
+00:17:54,736 --> 00:17:55,896
+blend mask looks like here.
+
+562
+00:17:57,536 --> 00:17:59,096
+The black regions of the blend
+
+563
+00:17:59,096 --> 00:18:00,016
+mask correspond to the
+
+564
+00:17:59,096 --> 00:18:00,016
+mask correspond to the
+
+565
+00:18:00,016 --> 00:18:00,846
+background image.
+
+566
+00:18:01,266 --> 00:18:02,656
+Solid white is foreground.
+
+567
+00:18:02,656 --> 00:18:03,946
+And then everything in between
+
+568
+00:18:04,036 --> 00:18:05,146
+is where we blend between the
+
+569
+00:18:05,146 --> 00:18:05,386
+two.
+
+570
+00:18:06,146 --> 00:18:07,766
+So, this is what that blend mask
+
+571
+00:18:07,766 --> 00:18:08,996
+looks like as I pinch.
+
+572
+00:18:09,656 --> 00:18:10,876
+We're adjusting the size and
+
+573
+00:18:10,876 --> 00:18:11,966
+slope of that blend.
+
+574
+00:18:13,556 --> 00:18:14,506
+Okay, back to the original
+
+575
+00:18:14,506 --> 00:18:14,826
+image.
+
+576
+00:18:15,356 --> 00:18:16,506
+As many of you know, there are
+
+577
+00:18:16,506 --> 00:18:18,266
+so many built in interesting
+
+578
+00:18:18,266 --> 00:18:19,626
+Core Image filters we could
+
+579
+00:18:19,626 --> 00:18:20,466
+choose to apply.
+
+580
+00:18:21,036 --> 00:18:22,376
+I'm going to show you a couple
+
+581
+00:18:22,376 --> 00:18:22,756
+of others.
+
+582
+00:18:22,756 --> 00:18:24,596
+This one is a hexagonal pixelate
+
+583
+00:18:24,596 --> 00:18:24,986
+filter.
+
+584
+00:18:25,636 --> 00:18:27,796
+And a motion blur.
+
+585
+00:18:29,636 --> 00:18:30,836
+Let's say I'm happy with this.
+
+586
+00:18:30,836 --> 00:18:32,086
+And I'll save it back to my
+
+587
+00:18:32,766 --> 00:18:33,616
+photo library.
+
+588
+00:18:34,476 --> 00:18:36,226
+Okay, now let's talk about how
+
+589
+00:18:36,226 --> 00:18:36,786
+we did this.
+
+590
+00:18:40,806 --> 00:18:44,996
+As I mentioned, we accomplished
+
+591
+00:18:44,996 --> 00:18:46,506
+this effect by building a blend
+
+592
+00:18:46,506 --> 00:18:46,896
+mask.
+
+593
+00:18:47,446 --> 00:18:48,396
+And so I'll talk to you now
+
+594
+00:18:48,396 --> 00:18:49,376
+about how we build that blend
+
+595
+00:18:49,376 --> 00:18:49,716
+mask.
+
+596
+00:18:50,086 --> 00:18:51,216
+The basic idea is that we're
+
+597
+00:18:51,216 --> 00:18:52,626
+going to map our normalized
+
+598
+00:18:52,656 --> 00:18:55,106
+disparity values into values
+
+599
+00:18:55,106 --> 00:18:57,056
+between 0 and 1 for the mask.
+
+600
+00:18:58,556 --> 00:19:00,796
+And so we want some high region
+
+601
+00:18:58,556 --> 00:19:00,796
+And so we want some high region
+
+602
+00:19:00,796 --> 00:19:03,006
+of disparity values to map to 1
+
+603
+00:19:03,106 --> 00:19:04,276
+in our blend mask corresponding
+
+604
+00:19:04,276 --> 00:19:04,946
+to the foreground.
+
+605
+00:19:06,416 --> 00:19:07,736
+Some region of low disparity
+
+606
+00:19:07,736 --> 00:19:08,936
+values to map to 0.
+
+607
+00:19:08,936 --> 00:19:10,736
+And that will be the background
+
+608
+00:19:10,736 --> 00:19:11,106
+region.
+
+609
+00:19:11,216 --> 00:19:12,576
+And then all disparity values in
+
+610
+00:19:12,576 --> 00:19:14,366
+between will blend with the
+
+611
+00:19:14,366 --> 00:19:14,946
+linear ramp.
+
+612
+00:19:16,986 --> 00:19:18,126
+The first part of building this
+
+613
+00:19:18,126 --> 00:19:20,446
+blend mask is to pick the
+
+614
+00:19:20,716 --> 00:19:23,056
+threshold between background and
+
+615
+00:19:23,056 --> 00:19:23,526
+foreground.
+
+616
+00:19:24,446 --> 00:19:25,506
+So when the user taps on the
+
+617
+00:19:25,506 --> 00:19:29,196
+image what we do is to sample
+
+618
+00:19:29,196 --> 00:19:30,816
+the normalized disparity map at
+
+619
+00:19:30,816 --> 00:19:33,136
+that same location and set that
+
+620
+00:19:33,136 --> 00:19:34,806
+as our threshold between
+
+621
+00:19:35,146 --> 00:19:36,006
+background and foreground.
+
+622
+00:19:36,646 --> 00:19:39,126
+Now I'll show you the code for
+
+623
+00:19:39,126 --> 00:19:39,766
+what that looks like.
+
+624
+00:19:41,786 --> 00:19:43,006
+This is all accomplished using
+
+625
+00:19:43,166 --> 00:19:44,466
+built in Core Image filters.
+
+626
+00:19:44,466 --> 00:19:45,836
+So the first of which I'd like
+
+627
+00:19:45,836 --> 00:19:47,496
+to show you here is the CI Area
+
+628
+00:19:47,496 --> 00:19:48,796
+Min Max Red filter.
+
+629
+00:19:49,926 --> 00:19:51,466
+This filter, when you render it
+
+630
+00:19:51,466 --> 00:19:54,136
+into a single pixel will return
+
+631
+00:19:54,136 --> 00:19:55,676
+the minimum and maximum values
+
+632
+00:19:55,676 --> 00:19:57,136
+of the image within the region
+
+633
+00:19:57,136 --> 00:19:58,036
+that you specify.
+
+634
+00:19:58,386 --> 00:20:00,116
+Here we're passing in the small
+
+635
+00:19:58,386 --> 00:20:00,116
+Here we're passing in the small
+
+636
+00:20:00,116 --> 00:20:01,536
+rect that the user tapped on.
+
+637
+00:20:02,786 --> 00:20:04,226
+The other thing to note about
+
+638
+00:20:04,226 --> 00:20:05,496
+this line is that before we
+
+639
+00:20:05,496 --> 00:20:07,466
+apply the effect we're clamping
+
+640
+00:20:07,466 --> 00:20:08,896
+the disparity image so as to
+
+641
+00:20:08,896 --> 00:20:10,526
+image that if the user taps near
+
+642
+00:20:10,526 --> 00:20:11,856
+the boundary of the image we
+
+643
+00:20:11,856 --> 00:20:13,236
+won't sample any clear pixels
+
+644
+00:20:13,236 --> 00:20:14,056
+outside the boundary.
+
+645
+00:20:15,866 --> 00:20:18,046
+On this line we're simply
+
+646
+00:20:18,046 --> 00:20:20,176
+allocating a 4-byte buffer large
+
+647
+00:20:20,176 --> 00:20:21,426
+enough to store a single pixel.
+
+648
+00:20:22,606 --> 00:20:24,086
+And we render into that pixel on
+
+649
+00:20:24,086 --> 00:20:24,556
+this line.
+
+650
+00:20:25,346 --> 00:20:26,846
+Note that we're passing in nil
+
+651
+00:20:26,966 --> 00:20:27,876
+as our color space.
+
+652
+00:20:27,876 --> 00:20:29,696
+And this tells Core Image that
+
+653
+00:20:29,696 --> 00:20:31,196
+we don't want it to do any color
+
+654
+00:20:31,196 --> 00:20:32,076
+management for us.
+
+655
+00:20:34,256 --> 00:20:36,226
+Finally we read the maximum
+
+656
+00:20:36,226 --> 00:20:37,346
+disparity value out of the
+
+657
+00:20:37,346 --> 00:20:39,476
+pixel's green channel and then
+
+658
+00:20:39,476 --> 00:20:41,326
+remap it to the range of 0 and 1
+
+659
+00:20:41,366 --> 00:20:43,066
+by dividing by 255.
+
+660
+00:20:43,716 --> 00:20:47,946
+The other input the user has
+
+661
+00:20:47,946 --> 00:20:49,286
+control over is the size and
+
+662
+00:20:49,286 --> 00:20:50,416
+slope of the blend region.
+
+663
+00:20:50,566 --> 00:20:52,496
+So as the user is pinching on
+
+664
+00:20:52,496 --> 00:20:54,596
+the view, we're adjusting the
+
+665
+00:20:54,596 --> 00:20:56,066
+size and slope accordingly.
+
+666
+00:20:58,306 --> 00:21:00,056
+And this is the result of a
+
+667
+00:20:58,306 --> 00:21:00,056
+And this is the result of a
+
+668
+00:21:00,056 --> 00:21:01,606
+mapping -- sorry, this mapping
+
+669
+00:21:01,606 --> 00:21:03,756
+is the result of applying a CI
+
+670
+00:21:03,756 --> 00:21:04,866
+Color Matrix filter.
+
+671
+00:21:05,236 --> 00:21:06,236
+So I'll show you in a second.
+
+672
+00:21:06,776 --> 00:21:08,676
+But then we also apply a CI
+
+673
+00:21:08,676 --> 00:21:10,456
+Color Clamp to ensure that the
+
+674
+00:21:10,456 --> 00:21:11,926
+values remain within the region
+
+675
+00:21:12,026 --> 00:21:13,866
+of 0 to 1, the range of 0 to 1.
+
+676
+00:21:15,126 --> 00:21:15,956
+So here's the code.
+
+677
+00:21:16,446 --> 00:21:17,966
+First we apply our CR Color
+
+678
+00:21:17,966 --> 00:21:19,026
+Matrix filter.
+
+679
+00:21:19,706 --> 00:21:22,236
+Its inputs are essentially the
+
+680
+00:21:22,706 --> 00:21:24,496
+slope and the bias that were
+
+681
+00:21:24,496 --> 00:21:26,016
+selected by the user by tapping
+
+682
+00:21:26,016 --> 00:21:26,486
+and pinching.
+
+683
+00:21:27,486 --> 00:21:29,346
+And then on a single line we
+
+684
+00:21:29,346 --> 00:21:31,386
+apply the CI Color Clamp filter.
+
+685
+00:21:32,816 --> 00:21:36,116
+Now that we've build the blend
+
+686
+00:21:36,116 --> 00:21:37,136
+mask, the rest is
+
+687
+00:21:37,136 --> 00:21:37,766
+straightforward.
+
+688
+00:21:37,856 --> 00:21:39,586
+What you see on the left is the
+
+689
+00:21:39,586 --> 00:21:40,456
+original image.
+
+690
+00:21:40,746 --> 00:21:42,016
+And on the right you see that
+
+691
+00:21:42,016 --> 00:21:43,556
+image with the background effect
+
+692
+00:21:43,556 --> 00:21:43,926
+applied.
+
+693
+00:21:45,836 --> 00:21:47,156
+When we apply the blend mask to
+
+694
+00:21:47,156 --> 00:21:49,216
+the original image, the
+
+695
+00:21:49,216 --> 00:21:50,596
+background region disappears.
+
+696
+00:21:50,716 --> 00:21:51,956
+And when we blend that together
+
+697
+00:21:52,606 --> 00:21:53,866
+with the background image, we
+
+698
+00:21:53,866 --> 00:21:54,676
+get our final effect.
+
+699
+00:21:55,666 --> 00:21:58,226
+One more slide of code.
+
+700
+00:21:59,396 --> 00:22:00,356
+Here's where we apply our
+
+701
+00:21:59,396 --> 00:22:00,356
+Here's where we apply our
+
+702
+00:22:00,356 --> 00:22:01,146
+background filter.
+
+703
+00:22:02,166 --> 00:22:03,676
+This could be any filter you
+
+704
+00:22:03,676 --> 00:22:04,156
+choose.
+
+705
+00:22:04,436 --> 00:22:05,636
+There are many built into Core
+
+706
+00:22:05,636 --> 00:22:05,956
+Image.
+
+707
+00:22:05,956 --> 00:22:06,756
+You could write your own.
+
+708
+00:22:08,326 --> 00:22:09,886
+And then we apply the CI Blend
+
+709
+00:22:09,886 --> 00:22:12,426
+With Mask filter, passing in
+
+710
+00:22:12,516 --> 00:22:14,326
+both the background image and
+
+711
+00:22:16,576 --> 00:22:17,296
+the mask.
+
+712
+00:22:18,086 --> 00:22:19,076
+And that's it.
+
+713
+00:22:19,316 --> 00:22:20,406
+That's how we accomplish this
+
+714
+00:22:20,406 --> 00:22:24,096
+effect using a suite of built in
+
+715
+00:22:24,096 --> 00:22:25,026
+Core Image filters.
+
+716
+00:22:25,586 --> 00:22:27,846
+And next I'd like to jump in and
+
+717
+00:22:27,846 --> 00:22:28,956
+show you another demo.
+
+718
+00:22:30,656 --> 00:22:33,206
+For this one -- the previous one
+
+719
+00:22:33,696 --> 00:22:36,266
+we used disparity -- depth data
+
+720
+00:22:36,576 --> 00:22:37,966
+indirectly, right?
+
+721
+00:22:38,156 --> 00:22:40,086
+We used it to build a blend
+
+722
+00:22:40,086 --> 00:22:40,546
+mask.
+
+723
+00:22:41,326 --> 00:22:42,316
+For this one we're going to use
+
+724
+00:22:42,316 --> 00:22:44,736
+disparity a little bit in more
+
+725
+00:22:44,736 --> 00:22:45,706
+of a direct fashion.
+
+726
+00:22:46,306 --> 00:22:50,226
+And I'm going to pull up this
+
+727
+00:22:50,226 --> 00:22:51,566
+other editing extension here to
+
+728
+00:22:51,566 --> 00:22:52,036
+show it to you.
+
+729
+00:22:52,746 --> 00:22:53,846
+Okay. Here we are in photos
+
+730
+00:22:53,846 --> 00:22:54,116
+again.
+
+731
+00:22:55,086 --> 00:22:56,886
+Let's pick this next extension.
+
+732
+00:22:58,216 --> 00:22:58,966
+There we go.
+
+733
+00:22:59,946 --> 00:23:00,666
+Original image.
+
+734
+00:22:59,946 --> 00:23:00,666
+Original image.
+
+735
+00:23:00,916 --> 00:23:02,176
+No edits applied just yet.
+
+736
+00:23:02,176 --> 00:23:04,386
+I have a slider at the bottom,
+
+737
+00:23:04,386 --> 00:23:04,646
+though.
+
+738
+00:23:04,886 --> 00:23:06,726
+And I'll start to move that now.
+
+739
+00:23:06,726 --> 00:23:09,706
+And you can see that the
+
+740
+00:23:09,706 --> 00:23:11,676
+background fades to black,
+
+741
+00:23:11,926 --> 00:23:13,226
+leaving us just this prominent
+
+742
+00:23:13,226 --> 00:23:13,956
+foreground figure.
+
+743
+00:23:14,526 --> 00:23:15,446
+That's a really nice effect,
+
+744
+00:23:17,056 --> 00:23:17,566
+wouldn't you say?
+
+745
+00:23:18,466 --> 00:23:20,766
+Let's save that back to the
+
+746
+00:23:21,026 --> 00:23:22,496
+library and show you how this
+
+747
+00:23:22,496 --> 00:23:22,916
+one's done.
+
+748
+00:23:23,596 --> 00:23:24,376
+What we're doing is we're
+
+749
+00:23:24,376 --> 00:23:25,686
+mapping our normalized disparity
+
+750
+00:23:25,686 --> 00:23:28,086
+values into a scale value, which
+
+751
+00:23:28,086 --> 00:23:29,406
+we then apply directly to our
+
+752
+00:23:29,406 --> 00:23:29,916
+pixels.
+
+753
+00:23:31,216 --> 00:23:33,286
+And for this particular effect
+
+754
+00:23:33,726 --> 00:23:36,066
+we're mapping our disparity
+
+755
+00:23:36,066 --> 00:23:37,736
+values through an exponential
+
+756
+00:23:37,736 --> 00:23:39,426
+function, which when we start
+
+757
+00:23:39,426 --> 00:23:41,656
+off, we raise our normalized
+
+758
+00:23:41,656 --> 00:23:44,136
+disparity values to the power of
+
+759
+00:23:44,136 --> 00:23:44,656
+0.
+
+760
+00:23:44,806 --> 00:23:47,186
+And that maps all of our scale
+
+761
+00:23:47,186 --> 00:23:49,556
+factors into one, producing no
+
+762
+00:23:49,556 --> 00:23:50,636
+effect on the output image.
+
+763
+00:23:51,186 --> 00:23:53,606
+When we raise the power to 1 as
+
+764
+00:23:53,606 --> 00:23:55,356
+we move the slider over, this is
+
+765
+00:23:55,356 --> 00:23:57,956
+effectively the same thing as
+
+766
+00:23:58,426 --> 00:24:00,926
+scaling our pixel intensities by
+
+767
+00:23:58,426 --> 00:24:00,926
+scaling our pixel intensities by
+
+768
+00:24:01,166 --> 00:24:03,686
+the inverse of the depth.
+
+769
+00:24:03,686 --> 00:24:04,746
+Because we're scaling by
+
+770
+00:24:04,966 --> 00:24:05,926
+disparity directly.
+
+771
+00:24:06,846 --> 00:24:08,866
+The effect becomes more
+
+772
+00:24:08,866 --> 00:24:10,106
+interesting as we start to raise
+
+773
+00:24:10,106 --> 00:24:11,476
+it to higher and higher powers.
+
+774
+00:24:12,146 --> 00:24:14,236
+As you can see, the shape of the
+
+775
+00:24:14,236 --> 00:24:15,476
+curve becomes such that there's
+
+776
+00:24:15,476 --> 00:24:16,746
+a sharper distinction between
+
+777
+00:24:16,746 --> 00:24:18,786
+background and foreground with
+
+778
+00:24:18,786 --> 00:24:19,836
+the background quickly going to
+
+779
+00:24:19,836 --> 00:24:20,156
+black.
+
+780
+00:24:20,596 --> 00:24:24,566
+So I'm going to show you the
+
+781
+00:24:24,566 --> 00:24:25,886
+code for this effect in just one
+
+782
+00:24:25,886 --> 00:24:26,236
+slide.
+
+783
+00:24:26,386 --> 00:24:28,506
+We've implemented this effect as
+
+784
+00:24:28,506 --> 00:24:29,936
+a custom CI Color Kernel.
+
+785
+00:24:29,996 --> 00:24:31,076
+And there are a couple of
+
+786
+00:24:31,076 --> 00:24:32,826
+notable advantages to using a
+
+787
+00:24:32,826 --> 00:24:33,916
+customer CI Color Kernel.
+
+788
+00:24:34,446 --> 00:24:35,976
+One of which is performance.
+
+789
+00:24:35,976 --> 00:24:37,446
+If you are able to express your
+
+790
+00:24:37,446 --> 00:24:39,076
+effect in terms of a custom CI
+
+791
+00:24:39,076 --> 00:24:40,766
+Color Kernel, Core Image is able
+
+792
+00:24:40,766 --> 00:24:42,196
+to optimize that by
+
+793
+00:24:42,196 --> 00:24:43,726
+concatenating your kernel into
+
+794
+00:24:43,726 --> 00:24:46,086
+its render graph, thereby
+
+795
+00:24:46,346 --> 00:24:49,596
+skipping any potentially costly
+
+796
+00:24:49,596 --> 00:24:50,916
+intermediate images along the
+
+797
+00:24:50,916 --> 00:24:51,116
+way.
+
+798
+00:24:51,976 --> 00:24:54,406
+The other nice thing about this
+
+799
+00:24:54,406 --> 00:24:56,376
+is that Core Image allows us to
+
+800
+00:24:56,376 --> 00:24:59,486
+pass in multiple input images.
+
+801
+00:24:59,486 --> 00:25:00,136
+And Core Image will
+
+802
+00:24:59,486 --> 00:25:00,136
+And Core Image will
+
+803
+00:25:00,136 --> 00:25:01,626
+automatically sample those for
+
+804
+00:25:01,626 --> 00:25:03,006
+us and passing in those sample
+
+805
+00:25:03,006 --> 00:25:04,456
+values to us as parameters to
+
+806
+00:25:04,456 --> 00:25:05,786
+our kernel function, which you
+
+807
+00:25:05,786 --> 00:25:06,346
+see here.
+
+808
+00:25:06,766 --> 00:25:08,606
+The first parameter is a sample
+
+809
+00:25:08,606 --> 00:25:09,676
+from the original image.
+
+810
+00:25:09,926 --> 00:25:11,126
+The second is a sample from the
+
+811
+00:25:11,126 --> 00:25:12,236
+normalized disparity map.
+
+812
+00:25:12,476 --> 00:25:14,096
+And then third is the power
+
+813
+00:25:14,096 --> 00:25:15,296
+selected by the user moving the
+
+814
+00:25:15,296 --> 00:25:15,706
+slider.
+
+815
+00:25:17,356 --> 00:25:18,306
+The first thing we do with a
+
+816
+00:25:18,306 --> 00:25:19,946
+normalized disparity is to raise
+
+817
+00:25:19,946 --> 00:25:21,266
+it to a power, as I mentioned.
+
+818
+00:25:22,056 --> 00:25:23,366
+That gives us our scale factor.
+
+819
+00:25:24,556 --> 00:25:25,706
+Then we take our scale factor
+
+820
+00:25:25,706 --> 00:25:27,446
+and apply it to the intensity of
+
+821
+00:25:27,446 --> 00:25:28,926
+the pixel while preserving the
+
+822
+00:25:28,926 --> 00:25:29,946
+original alpha value.
+
+823
+00:25:32,096 --> 00:25:33,616
+This last line is a line of
+
+824
+00:25:33,616 --> 00:25:36,156
+Swift code illustrating how we
+
+825
+00:25:36,156 --> 00:25:37,706
+can apply our custom kernel to
+
+826
+00:25:37,706 --> 00:25:39,106
+our original image once it's
+
+827
+00:25:39,106 --> 00:25:40,386
+been constructed from the source
+
+828
+00:25:40,386 --> 00:25:41,096
+code you see above.
+
+829
+00:25:41,496 --> 00:25:43,576
+We pass in our image extent as
+
+830
+00:25:43,576 --> 00:25:45,266
+well as a list of arguments.
+
+831
+00:25:45,356 --> 00:25:46,986
+Here these are the original
+
+832
+00:25:46,986 --> 00:25:48,416
+image, the normalized disparity
+
+833
+00:25:48,416 --> 00:25:49,976
+map, and the power selected by
+
+834
+00:25:49,976 --> 00:25:50,466
+the user.
+
+835
+00:25:50,566 --> 00:25:52,046
+Note that these arguments
+
+836
+00:25:52,046 --> 00:25:53,576
+correspond one to one with the
+
+837
+00:25:53,576 --> 00:25:55,266
+parameters defined in our kernel
+
+838
+00:25:55,266 --> 00:25:55,706
+signature.
+
+839
+00:25:57,666 --> 00:25:58,886
+Okay. So that's it.
+
+840
+00:25:58,886 --> 00:26:00,016
+I've just shown you how to use a
+
+841
+00:25:58,886 --> 00:26:00,016
+I've just shown you how to use a
+
+842
+00:26:00,016 --> 00:26:02,006
+custom CI Color Kernel to
+
+843
+00:26:02,006 --> 00:26:03,466
+produce this really nice
+
+844
+00:26:03,546 --> 00:26:04,826
+darkening background effect.
+
+845
+00:26:05,476 --> 00:26:06,666
+And hopefully it gives you some
+
+846
+00:26:06,666 --> 00:26:08,076
+ideas of other things you can do
+
+847
+00:26:08,076 --> 00:26:09,766
+with custom CI Color Kernels
+
+848
+00:26:09,766 --> 00:26:10,916
+combined with depth to produce
+
+849
+00:26:10,916 --> 00:26:11,686
+some nice effects.
+
+850
+00:26:11,686 --> 00:26:13,036
+So now I'm going to invite my
+
+851
+00:26:13,036 --> 00:26:15,256
+colleague Alex up onto the stage
+
+852
+00:26:15,256 --> 00:26:16,786
+to show you something brand new
+
+853
+00:26:16,786 --> 00:26:17,576
+in Core Image.
+
+854
+00:26:18,306 --> 00:26:18,766
+Alex.
+
+855
+00:26:20,516 --> 00:26:24,106
+[ Applause ]
+
+856
+00:26:24,606 --> 00:26:25,186
+&gt;&gt; Thank you, Stephen.
+
+857
+00:26:26,336 --> 00:26:27,076
+Good morning everyone.
+
+858
+00:26:27,876 --> 00:26:29,146
+May name is Alexandre Naaman.
+
+859
+00:26:29,146 --> 00:26:30,906
+And today I'm really excited to
+
+860
+00:26:30,906 --> 00:26:31,126
+be here.
+
+861
+00:26:31,126 --> 00:26:31,866
+And today I'm going to talk to
+
+862
+00:26:31,866 --> 00:26:32,886
+you about a new Core Image
+
+863
+00:26:32,886 --> 00:26:33,456
+filter we have.
+
+864
+00:26:34,266 --> 00:26:37,526
+So as you know, in iOS 10 using
+
+865
+00:26:37,526 --> 00:26:38,556
+the iPhone 7+.
+
+866
+00:26:39,106 --> 00:26:41,126
+You could capture images using
+
+867
+00:26:41,126 --> 00:26:43,316
+with depth capabilities using
+
+868
+00:26:43,316 --> 00:26:44,866
+the camera app and the portrait
+
+869
+00:26:44,866 --> 00:26:45,056
+mode.
+
+870
+00:26:46,536 --> 00:26:49,616
+Now, with iOS 11, and Mac OS
+
+871
+00:26:49,616 --> 00:26:51,676
+High Sierra, we're enhancing
+
+872
+00:26:51,676 --> 00:26:53,796
+those capabilities by allowing
+
+873
+00:26:53,796 --> 00:26:54,996
+you to use those exact same
+
+874
+00:26:54,996 --> 00:26:56,856
+algorithms via a new Core Image
+
+875
+00:26:56,856 --> 00:26:58,406
+filter called the CI Depth Blur
+
+876
+00:26:58,406 --> 00:26:58,726
+Effect.
+
+877
+00:26:59,806 --> 00:27:02,256
+So, now let's try and switch
+
+878
+00:26:59,806 --> 00:27:02,256
+So, now let's try and switch
+
+879
+00:27:02,256 --> 00:27:04,176
+over to a demo and see how that
+
+880
+00:27:04,176 --> 00:27:04,936
+works in real life.
+
+881
+00:27:07,576 --> 00:27:09,976
+Yay! All right.
+
+882
+00:27:09,976 --> 00:27:10,856
+So here we have an asset, a
+
+883
+00:27:10,856 --> 00:27:12,046
+photo that was taken with depth.
+
+884
+00:27:12,046 --> 00:27:13,616
+And we're just viewing the image
+
+885
+00:27:13,926 --> 00:27:14,836
+without having applied any
+
+886
+00:27:14,836 --> 00:27:16,566
+filters to it.
+
+887
+00:27:18,416 --> 00:27:20,536
+If I tap on this once, we can
+
+888
+00:27:20,536 --> 00:27:22,196
+see what the disparity data
+
+889
+00:27:22,196 --> 00:27:22,656
+looks like.
+
+890
+00:27:23,516 --> 00:27:24,676
+I'm going to tap on it once more
+
+891
+00:27:24,676 --> 00:27:25,456
+and we'll back to the main
+
+892
+00:27:25,456 --> 00:27:25,846
+image.
+
+893
+00:27:25,846 --> 00:27:27,606
+And if I tap once more, we're
+
+894
+00:27:28,046 --> 00:27:28,976
+going to see what happens when
+
+895
+00:27:28,976 --> 00:27:30,366
+we use those two images together
+
+896
+00:27:30,706 --> 00:27:32,166
+along with the new CI Depth Blur
+
+897
+00:27:32,166 --> 00:27:33,746
+Effect filter to create a new
+
+898
+00:27:33,866 --> 00:27:34,496
+rendered result.
+
+899
+00:27:34,926 --> 00:27:35,846
+We should see the background get
+
+900
+00:27:35,846 --> 00:27:36,146
+blurry.
+
+901
+00:27:36,926 --> 00:27:41,476
+Yay. So now, in addition to just
+
+902
+00:27:41,476 --> 00:27:44,156
+applying the filter as is, there
+
+903
+00:27:44,156 --> 00:27:45,906
+are many tunable parameters that
+
+904
+00:27:45,906 --> 00:27:46,376
+we can set.
+
+905
+00:27:46,376 --> 00:27:48,076
+And inside of this application
+
+906
+00:27:48,586 --> 00:27:49,846
+I've set things up such that it
+
+907
+00:27:49,906 --> 00:27:51,316
+will respond to a few gestures.
+
+908
+00:27:51,546 --> 00:27:53,646
+So, if I now, for example,
+
+909
+00:27:53,646 --> 00:27:56,016
+pinch, we can dynamically change
+
+910
+00:27:56,016 --> 00:27:58,056
+the aperture and get a new
+
+911
+00:27:58,056 --> 00:27:58,816
+simulated look.
+
+912
+00:27:58,816 --> 00:28:00,506
+And so we can simulate any lens
+
+913
+00:27:58,816 --> 00:28:00,506
+And so we can simulate any lens
+
+914
+00:28:00,976 --> 00:28:02,396
+opening that we would like quite
+
+915
+00:28:02,396 --> 00:28:02,806
+simply.
+
+916
+00:28:05,796 --> 00:28:06,906
+Another gesture I've set up in
+
+917
+00:28:06,906 --> 00:28:08,466
+this application is such that
+
+918
+00:28:08,796 --> 00:28:10,156
+when we tap at a different
+
+919
+00:28:10,156 --> 00:28:11,256
+location it's going to change
+
+920
+00:28:11,256 --> 00:28:12,296
+the focus rectangle.
+
+921
+00:28:12,586 --> 00:28:14,376
+And so we can see right now the
+
+922
+00:28:14,376 --> 00:28:15,766
+aperture is quite wide open.
+
+923
+00:28:16,136 --> 00:28:17,746
+And only the lady in the front
+
+924
+00:28:17,746 --> 00:28:18,306
+is in focus.
+
+925
+00:28:18,306 --> 00:28:19,626
+But if I tap on the lady on the
+
+926
+00:28:19,626 --> 00:28:20,886
+left, all of a sudden now she's
+
+927
+00:28:20,886 --> 00:28:21,426
+in focus.
+
+928
+00:28:21,426 --> 00:28:22,756
+The background is a little less
+
+929
+00:28:22,756 --> 00:28:23,176
+blurry.
+
+930
+00:28:23,626 --> 00:28:24,496
+And the gentleman on the right
+
+931
+00:28:24,496 --> 00:28:25,996
+is still a little blurry.
+
+932
+00:28:25,996 --> 00:28:27,336
+And I can tap on him now and
+
+933
+00:28:27,336 --> 00:28:28,336
+change the focus rect once
+
+934
+00:28:28,336 --> 00:28:28,676
+again.
+
+935
+00:28:29,366 --> 00:28:32,686
+And now they're all three in
+
+936
+00:28:32,686 --> 00:28:33,716
+focus and the background still
+
+937
+00:28:33,716 --> 00:28:34,246
+remains blurry.
+
+938
+00:28:35,866 --> 00:28:37,056
+Now that we're done with our
+
+939
+00:28:37,056 --> 00:28:38,656
+demo, let's go and look at how
+
+940
+00:28:38,656 --> 00:28:38,976
+this happens --
+
+941
+00:28:39,516 --> 00:28:42,216
+[ Applause ]
+
+942
+00:28:42,716 --> 00:28:45,096
+-- in terms of code.
+
+943
+00:28:50,696 --> 00:28:52,996
+Okay. So as I was mentioning, at
+
+944
+00:28:52,996 --> 00:28:54,476
+its base the CI Depth Blur
+
+945
+00:28:54,476 --> 00:28:55,706
+Effect really just has two
+
+946
+00:28:55,706 --> 00:28:57,586
+inputs: the input image and the
+
+947
+00:28:57,586 --> 00:28:58,796
+input disparity image.
+
+948
+00:28:59,106 --> 00:29:00,376
+And with those two, Core Image
+
+949
+00:28:59,106 --> 00:29:00,376
+And with those two, Core Image
+
+950
+00:29:00,376 --> 00:29:01,296
+is going to extract a lot of
+
+951
+00:29:01,296 --> 00:29:04,186
+metadata for you and apply the
+
+952
+00:29:04,186 --> 00:29:09,446
+effect in order to render a new
+
+953
+00:29:09,606 --> 00:29:09,746
+image.
+
+954
+00:29:12,056 --> 00:29:13,156
+Internally, however, there are
+
+955
+00:29:13,156 --> 00:29:14,096
+many parameters that you can
+
+956
+00:29:14,096 --> 00:29:15,086
+set, as I was mentioning
+
+957
+00:29:15,086 --> 00:29:15,476
+earlier.
+
+958
+00:29:16,066 --> 00:29:17,156
+We already know that you can set
+
+959
+00:29:17,156 --> 00:29:18,056
+the input image and the input
+
+960
+00:29:18,056 --> 00:29:18,916
+disparity image.
+
+961
+00:29:19,266 --> 00:29:19,976
+And in the case of the
+
+962
+00:29:19,976 --> 00:29:21,056
+application that we were looking
+
+963
+00:29:21,056 --> 00:29:23,846
+at earlier, when we were
+
+964
+00:29:23,846 --> 00:29:25,856
+tapping, we were setting the
+
+965
+00:29:25,856 --> 00:29:26,856
+input focus rect.
+
+966
+00:29:28,236 --> 00:29:31,536
+And then as we were pinching, we
+
+967
+00:29:31,536 --> 00:29:32,466
+were setting the aperture.
+
+968
+00:29:33,456 --> 00:29:35,076
+So now that we have an idea of
+
+969
+00:29:35,076 --> 00:29:35,906
+how we want to do this from a
+
+970
+00:29:35,906 --> 00:29:37,366
+conceptual standpoint, let's
+
+971
+00:29:37,366 --> 00:29:38,896
+take a look at how this will be
+
+972
+00:29:38,896 --> 00:29:39,946
+done in terms of code.
+
+973
+00:29:41,356 --> 00:29:44,176
+And this is effectively my only
+
+974
+00:29:44,176 --> 00:29:45,256
+slide that has any code on it,
+
+975
+00:29:45,256 --> 00:29:46,286
+so you can see how simple it is
+
+976
+00:29:46,286 --> 00:29:46,676
+to use.
+
+977
+00:29:47,586 --> 00:29:49,766
+As we saw earlier, you can load
+
+978
+00:29:49,766 --> 00:29:51,706
+a CI Image via URL, quite
+
+979
+00:29:51,706 --> 00:29:51,966
+simply.
+
+980
+00:29:51,966 --> 00:29:53,106
+This gives us the main image.
+
+981
+00:29:53,106 --> 00:29:54,466
+And then in order to get the
+
+982
+00:29:54,466 --> 00:29:56,036
+disparity image, all you need to
+
+983
+00:29:56,036 --> 00:29:58,386
+do is use that same URL and ask
+
+984
+00:29:58,966 --> 00:30:01,986
+for the auxiliary disparity
+
+985
+00:29:58,966 --> 00:30:01,986
+for the auxiliary disparity
+
+986
+00:30:01,986 --> 00:30:03,156
+information via the Options
+
+987
+00:30:03,156 --> 00:30:04,796
+dictionary as Etienne mentioned.
+
+988
+00:30:06,276 --> 00:30:08,926
+Once we have our two images, we
+
+989
+00:30:08,926 --> 00:30:10,446
+can create a filter.
+
+990
+00:30:10,886 --> 00:30:13,336
+And we do that by name, CI Depth
+
+991
+00:30:13,336 --> 00:30:13,766
+Blur Effect.
+
+992
+00:30:13,766 --> 00:30:14,796
+And then we specify our two
+
+993
+00:30:14,796 --> 00:30:15,206
+images.
+
+994
+00:30:15,646 --> 00:30:18,726
+Once that's done, we can then
+
+995
+00:30:18,726 --> 00:30:21,286
+ask for the output image via
+
+996
+00:30:21,286 --> 00:30:21,876
+.outputImage.
+
+997
+00:30:21,876 --> 00:30:23,656
+And we have a new CI Image that
+
+998
+00:30:23,656 --> 00:30:24,996
+we can then render in any number
+
+999
+00:30:24,996 --> 00:30:25,406
+of ways.
+
+1000
+00:30:26,026 --> 00:30:27,246
+And it's important to remember
+
+1001
+00:30:27,246 --> 00:30:29,046
+that a CI Image is really just a
+
+1002
+00:30:29,046 --> 00:30:30,016
+recipe for how to render.
+
+1003
+00:30:30,016 --> 00:30:31,006
+So this is actually a quite
+
+1004
+00:30:31,006 --> 00:30:31,776
+lightweight object.
+
+1005
+00:30:34,366 --> 00:30:35,556
+In the case of the application
+
+1006
+00:30:35,556 --> 00:30:36,606
+that we were looking at earlier,
+
+1007
+00:30:37,476 --> 00:30:38,656
+all we had to do in order to
+
+1008
+00:30:38,656 --> 00:30:40,016
+render a new effect with a new
+
+1009
+00:30:40,016 --> 00:30:42,076
+look was to change two values.
+
+1010
+00:30:42,246 --> 00:30:43,886
+So in this case, we changed the
+
+1011
+00:30:43,886 --> 00:30:44,626
+input aperture.
+
+1012
+00:30:44,626 --> 00:30:45,876
+And we do that by calling filter
+
+1013
+00:30:45,876 --> 00:30:48,966
+setValue forKey and specifying a
+
+1014
+00:30:48,966 --> 00:30:51,206
+float value between 1 and 22 to
+
+1015
+00:30:51,206 --> 00:30:52,446
+create a new simulated aperture.
+
+1016
+00:30:53,376 --> 00:30:55,356
+And we specified a new rectangle
+
+1017
+00:30:55,556 --> 00:30:56,826
+where we wanted to focus on via
+
+1018
+00:30:57,116 --> 00:30:58,906
+the input focus rec key, which
+
+1019
+00:30:58,906 --> 00:31:00,826
+corresponds to a lower left
+
+1020
+00:30:58,906 --> 00:31:00,826
+corresponds to a lower left
+
+1021
+00:31:01,256 --> 00:31:03,906
+based rectangle in normalized
+
+1022
+00:31:03,906 --> 00:31:04,436
+coordinates.
+
+1023
+00:31:06,216 --> 00:31:07,316
+Once those two things are done,
+
+1024
+00:31:07,436 --> 00:31:08,846
+we can ask that filter for a new
+
+1025
+00:31:08,846 --> 00:31:12,826
+output image and then render as
+
+1026
+00:31:12,826 --> 00:31:13,456
+we wish.
+
+1027
+00:31:14,976 --> 00:31:17,066
+Now as I was mentioning, Core
+
+1028
+00:31:17,066 --> 00:31:18,286
+Image does a lot of things for
+
+1029
+00:31:18,286 --> 00:31:20,096
+you automatically by examining
+
+1030
+00:31:20,096 --> 00:31:21,086
+the metadata.
+
+1031
+00:31:21,516 --> 00:31:22,506
+There are, however, a few things
+
+1032
+00:31:22,506 --> 00:31:25,006
+you can do in order to further
+
+1033
+00:31:25,006 --> 00:31:26,996
+enhance the render that we don't
+
+1034
+00:31:26,996 --> 00:31:28,026
+do for you automatically.
+
+1035
+00:31:28,906 --> 00:31:31,286
+And those relate to finding
+
+1036
+00:31:31,286 --> 00:31:32,146
+facial landmarks.
+
+1037
+00:31:33,236 --> 00:31:35,286
+And you can use the new vision
+
+1038
+00:31:35,286 --> 00:31:37,046
+framework that we have in order
+
+1039
+00:31:37,046 --> 00:31:37,526
+to do this.
+
+1040
+00:31:37,796 --> 00:31:39,226
+So, via the vision framework you
+
+1041
+00:31:39,226 --> 00:31:41,286
+can get the left eye positions,
+
+1042
+00:31:41,526 --> 00:31:43,846
+right eye positions, nose
+
+1043
+00:31:43,846 --> 00:31:45,646
+positions and chin positions.
+
+1044
+00:31:45,786 --> 00:31:48,526
+And you can specify up to four
+
+1045
+00:31:48,526 --> 00:31:50,696
+faces to be used inside of the
+
+1046
+00:31:50,696 --> 00:31:51,826
+CI Depth Blur Effect.
+
+1047
+00:31:52,726 --> 00:31:53,806
+In the case of this image,
+
+1048
+00:31:54,086 --> 00:31:55,306
+because there are three faces,
+
+1049
+00:31:55,776 --> 00:31:57,806
+we would actually specify six
+
+1050
+00:31:58,046 --> 00:32:00,456
+floating point values into a CI
+
+1051
+00:31:58,046 --> 00:32:00,456
+floating point values into a CI
+
+1052
+00:32:00,456 --> 00:32:02,166
+vector and set that for each
+
+1053
+00:32:02,166 --> 00:32:03,206
+landmark that we found.
+
+1054
+00:32:04,396 --> 00:32:05,836
+And there are [inaudible], so it
+
+1055
+00:32:05,836 --> 00:32:09,106
+would be xy, xy, xy.
+
+1056
+00:32:12,216 --> 00:32:13,436
+The next thing I'd like to talk
+
+1057
+00:32:13,436 --> 00:32:14,536
+to you a little bit about is
+
+1058
+00:32:14,626 --> 00:32:17,646
+dealing with rendering outputs
+
+1059
+00:32:17,646 --> 00:32:20,576
+of different sizes.
+
+1060
+00:32:21,766 --> 00:32:23,606
+Although the inputs are quite
+
+1061
+00:32:23,606 --> 00:32:25,576
+large, 12 megapixels, chances
+
+1062
+00:32:25,576 --> 00:32:26,876
+are you won't often be rendering
+
+1063
+00:32:26,876 --> 00:32:27,656
+the entire image.
+
+1064
+00:32:27,926 --> 00:32:29,106
+And you may want to down sample
+
+1065
+00:32:29,106 --> 00:32:29,546
+the output.
+
+1066
+00:32:30,546 --> 00:32:32,266
+Your initial reflex may be to
+
+1067
+00:32:32,266 --> 00:32:34,306
+just down sample it, the result
+
+1068
+00:32:34,306 --> 00:32:35,716
+of the CI Depth Blur Effect.
+
+1069
+00:32:35,716 --> 00:32:37,186
+But that's actually not very
+
+1070
+00:32:37,186 --> 00:32:38,386
+efficient because the CI Depth
+
+1071
+00:32:38,386 --> 00:32:39,396
+Blur Effect is actually quite
+
+1072
+00:32:39,396 --> 00:32:40,466
+computationally expensive.
+
+1073
+00:32:40,466 --> 00:32:43,356
+It makes more sense to, instead,
+
+1074
+00:32:43,356 --> 00:32:44,646
+down sample the input.
+
+1075
+00:32:44,866 --> 00:32:47,736
+And if you do this, we can then
+
+1076
+00:32:48,106 --> 00:32:49,186
+take advantage of the fact that
+
+1077
+00:32:49,186 --> 00:32:50,986
+the input image is smaller and
+
+1078
+00:32:50,986 --> 00:32:52,126
+perform some optimizations.
+
+1079
+00:32:53,406 --> 00:32:54,346
+In order to do this, however,
+
+1080
+00:32:54,346 --> 00:32:55,416
+you do have to set one more
+
+1081
+00:32:55,416 --> 00:32:56,806
+parameter, which is called the
+
+1082
+00:32:56,806 --> 00:32:57,876
+Input Scale Factor.
+
+1083
+00:32:58,756 --> 00:33:00,406
+So in this case if we wanted to
+
+1084
+00:32:58,756 --> 00:33:00,406
+So in this case if we wanted to
+
+1085
+00:33:00,406 --> 00:33:02,066
+down sample the image by 2, we
+
+1086
+00:33:02,066 --> 00:33:03,366
+would set the input scale factor
+
+1087
+00:33:03,366 --> 00:33:04,166
+to 0.5.
+
+1088
+00:33:04,526 --> 00:33:06,306
+And doing so ensures that we
+
+1089
+00:33:06,686 --> 00:33:07,816
+sample appropriately from the
+
+1090
+00:33:07,816 --> 00:33:09,136
+image and also take into account
+
+1091
+00:33:09,136 --> 00:33:10,886
+other effects such as the noise
+
+1092
+00:33:10,886 --> 00:33:11,296
+in the image.
+
+1093
+00:33:13,846 --> 00:33:16,116
+There are a few additional
+
+1094
+00:33:16,116 --> 00:33:17,286
+things that I'd like to mention
+
+1095
+00:33:17,776 --> 00:33:19,136
+about using the CI Depth Blue
+
+1096
+00:33:19,136 --> 00:33:20,036
+Effect which are important to
+
+1097
+00:33:20,036 --> 00:33:20,576
+keep in mind.
+
+1098
+00:33:21,496 --> 00:33:23,756
+The first and foremost is that
+
+1099
+00:33:23,756 --> 00:33:25,526
+when you create your CI context
+
+1100
+00:33:26,306 --> 00:33:27,356
+where you'll be using these
+
+1101
+00:33:27,356 --> 00:33:28,786
+filters, you're going to want to
+
+1102
+00:33:28,786 --> 00:33:30,086
+make sure that you're using half
+
+1103
+00:33:30,086 --> 00:33:31,016
+float intermediates.
+
+1104
+00:33:31,326 --> 00:33:32,256
+And you can do this by
+
+1105
+00:33:32,256 --> 00:33:34,006
+specifying the kCI Context
+
+1106
+00:33:34,006 --> 00:33:36,926
+Working Format to be RWAH.
+
+1107
+00:33:38,286 --> 00:33:39,756
+On MacOS this is the default.
+
+1108
+00:33:39,756 --> 00:33:41,736
+But on iOS, by default we use
+
+1109
+00:33:41,736 --> 00:33:42,096
+8-bit.
+
+1110
+00:33:42,096 --> 00:33:43,596
+And if you don't, you will see
+
+1111
+00:33:43,596 --> 00:33:45,206
+that the data will be clipped
+
+1112
+00:33:45,206 --> 00:33:47,166
+because disparity data comes in
+
+1113
+00:33:47,166 --> 00:33:47,936
+extended range.
+
+1114
+00:33:48,326 --> 00:33:49,776
+And without specifying this, it
+
+1115
+00:33:49,776 --> 00:33:50,786
+will get clipped and the result
+
+1116
+00:33:50,786 --> 00:33:51,626
+won't look very good.
+
+1117
+00:33:51,626 --> 00:33:52,646
+So it's really important to
+
+1118
+00:33:52,646 --> 00:33:53,766
+remember to keep doing this when
+
+1119
+00:33:53,766 --> 00:33:54,756
+you use this filter.
+
+1120
+00:33:57,466 --> 00:33:59,956
+Also as I mentioned earlier, the
+
+1121
+00:34:00,186 --> 00:34:02,506
+CI Depth Blur Effect will
+
+1122
+00:34:02,506 --> 00:34:03,946
+automatically set many
+
+1123
+00:34:03,946 --> 00:34:05,546
+properties for you on the
+
+1124
+00:34:05,546 --> 00:34:05,926
+filter.
+
+1125
+00:34:05,926 --> 00:34:07,986
+In order to do so, it will
+
+1126
+00:34:07,986 --> 00:34:09,186
+examine the metadata from the
+
+1127
+00:34:09,186 --> 00:34:13,406
+main image as well the data that
+
+1128
+00:34:13,406 --> 00:34:16,315
+exists inside of the auxiliary
+
+1129
+00:34:16,315 --> 00:34:16,576
+image.
+
+1130
+00:34:16,735 --> 00:34:18,156
+And so it's important to try to
+
+1131
+00:34:18,476 --> 00:34:19,565
+preserve that throughout your
+
+1132
+00:34:19,565 --> 00:34:20,085
+pipeline.
+
+1133
+00:34:20,446 --> 00:34:22,216
+Core Image will do its best in
+
+1134
+00:34:22,216 --> 00:34:23,056
+order to ensure that this
+
+1135
+00:34:23,056 --> 00:34:23,485
+happens.
+
+1136
+00:34:23,846 --> 00:34:24,626
+But it's something you're going
+
+1137
+00:34:24,626 --> 00:34:25,456
+to want to keep in mind as
+
+1138
+00:34:25,456 --> 00:34:26,275
+you're using this filter.
+
+1139
+00:34:26,326 --> 00:34:27,636
+And Etienne's going to talk to
+
+1140
+00:34:27,636 --> 00:34:28,656
+you a little bit later about how
+
+1141
+00:34:28,656 --> 00:34:29,966
+to ensure that you do this when
+
+1142
+00:34:29,966 --> 00:34:30,795
+you save images.
+
+1143
+00:34:31,525 --> 00:34:31,746
+All right.
+
+1144
+00:34:33,335 --> 00:34:36,306
+Well, the last thing I'd like to
+
+1145
+00:34:36,306 --> 00:34:37,896
+talk to you about today has to
+
+1146
+00:34:37,896 --> 00:34:40,576
+do with some internals of the CI
+
+1147
+00:34:40,576 --> 00:34:41,266
+Depth Blur Effect.
+
+1148
+00:34:42,456 --> 00:34:43,596
+It's been mentioned many times
+
+1149
+00:34:43,596 --> 00:34:46,286
+so far already today, the main
+
+1150
+00:34:46,286 --> 00:34:47,426
+image and the disparity image
+
+1151
+00:34:47,426 --> 00:34:49,235
+are of very different
+
+1152
+00:34:49,235 --> 00:34:49,806
+resolutions.
+
+1153
+00:34:49,806 --> 00:34:52,806
+And now internally, Core Image
+
+1154
+00:34:52,806 --> 00:34:54,356
+is going to up sample the
+
+1155
+00:34:54,356 --> 00:34:56,156
+disparity image up to a certain
+
+1156
+00:34:56,156 --> 00:34:58,216
+point in order to achieve the
+
+1157
+00:34:58,216 --> 00:34:58,906
+final result.
+
+1158
+00:35:00,116 --> 00:35:02,006
+And this is an area where we
+
+1159
+00:35:02,006 --> 00:35:03,036
+feel like if you have additional
+
+1160
+00:35:03,036 --> 00:35:04,366
+processing time you could
+
+1161
+00:35:04,366 --> 00:35:05,866
+perhaps do something a little
+
+1162
+00:35:05,866 --> 00:35:06,246
+different.
+
+1163
+00:35:06,826 --> 00:35:08,046
+Maybe some of the methods that
+
+1164
+00:35:08,196 --> 00:35:09,366
+Etienne spoke of earlier.
+
+1165
+00:35:10,936 --> 00:35:12,836
+And that concludes pretty much
+
+1166
+00:35:12,836 --> 00:35:13,736
+everything I wanted to tell you
+
+1167
+00:35:13,736 --> 00:35:15,106
+about using the CI Depth Blur
+
+1168
+00:35:15,106 --> 00:35:15,406
+Effect.
+
+1169
+00:35:15,726 --> 00:35:16,996
+And I hope you all go and start
+
+1170
+00:35:16,996 --> 00:35:18,146
+adding it to your apps.
+
+1171
+00:35:18,466 --> 00:35:19,546
+And on that, I'm going to hand
+
+1172
+00:35:19,546 --> 00:35:20,406
+it back over to Etienne.
+
+1173
+00:35:20,406 --> 00:35:21,126
+Thank you very much.
+
+1174
+00:35:22,016 --> 00:35:23,626
+[ Applause ]
+
+1175
+00:35:23,626 --> 00:35:24,186
+&gt;&gt; Thank you, Alex.
+
+1176
+00:35:26,536 --> 00:35:27,526
+All right.
+
+1177
+00:35:27,856 --> 00:35:28,976
+So, so far we've seen
+
+1178
+00:35:28,976 --> 00:35:30,576
+interesting cool new effects
+
+1179
+00:35:30,576 --> 00:35:32,026
+that you can do using depth
+
+1180
+00:35:32,026 --> 00:35:32,166
+data.
+
+1181
+00:35:32,316 --> 00:35:34,606
+But the depth data was really
+
+1182
+00:35:34,606 --> 00:35:36,716
+used as a mask to apply
+
+1183
+00:35:36,716 --> 00:35:38,426
+different effects to different
+
+1184
+00:35:38,426 --> 00:35:39,646
+part of the image.
+
+1185
+00:35:40,356 --> 00:35:42,106
+And so now we want to show you
+
+1186
+00:35:42,106 --> 00:35:42,846
+something different.
+
+1187
+00:35:44,366 --> 00:35:45,676
+Something that actually uses
+
+1188
+00:35:45,676 --> 00:35:47,296
+depth as a third dimension.
+
+1189
+00:35:48,376 --> 00:35:49,766
+And this will give you a taste
+
+1190
+00:35:49,766 --> 00:35:51,006
+of what kind of new creative
+
+1191
+00:35:51,006 --> 00:35:52,246
+effects you could apply using
+
+1192
+00:35:52,246 --> 00:35:52,916
+this data.
+
+1193
+00:35:53,956 --> 00:35:55,656
+And to tell you all about it,
+
+1194
+00:35:55,656 --> 00:35:57,036
+I'm going to invite Stephen back
+
+1195
+00:35:57,036 --> 00:35:57,466
+on stage.
+
+1196
+00:35:57,926 --> 00:35:58,776
+Stephen.
+
+1197
+00:36:00,516 --> 00:36:02,956
+[ Applause ]
+
+1198
+00:36:03,456 --> 00:36:04,176
+&gt;&gt; Thank you, Etienne.
+
+1199
+00:36:05,196 --> 00:36:06,346
+It's good to be back with you.
+
+1200
+00:36:06,346 --> 00:36:07,826
+What I'm going to show you now
+
+1201
+00:36:09,426 --> 00:36:11,026
+is a true 3-D effect.
+
+1202
+00:36:12,946 --> 00:36:14,276
+And this particular effect that
+
+1203
+00:36:14,276 --> 00:36:15,266
+we're going to show you is
+
+1204
+00:36:15,266 --> 00:36:16,116
+called dolly zoom.
+
+1205
+00:36:16,406 --> 00:36:17,436
+Many of you are probably already
+
+1206
+00:36:17,436 --> 00:36:18,856
+familiar with what dolly zoom
+
+1207
+00:36:18,856 --> 00:36:20,076
+is, especially if you've ever
+
+1208
+00:36:20,076 --> 00:36:20,956
+seen a scary movie.
+
+1209
+00:36:21,536 --> 00:36:23,886
+But to get everybody up to speed
+
+1210
+00:36:23,886 --> 00:36:24,766
+a little bit, I'm going to show
+
+1211
+00:36:24,766 --> 00:36:26,386
+you a little animation of what's
+
+1212
+00:36:26,386 --> 00:36:27,466
+going on with dolly zoom.
+
+1213
+00:36:28,136 --> 00:36:29,226
+So what you're looking at here
+
+1214
+00:36:30,476 --> 00:36:32,116
+is a scene consisting of three
+
+1215
+00:36:32,116 --> 00:36:32,696
+spheres.
+
+1216
+00:36:33,716 --> 00:36:35,446
+While the camera is dollying
+
+1217
+00:36:35,606 --> 00:36:37,686
+back and forth, it's also doing
+
+1218
+00:36:37,686 --> 00:36:39,596
+it so in such a way that the
+
+1219
+00:36:39,596 --> 00:36:40,716
+field of view is also
+
+1220
+00:36:40,976 --> 00:36:43,016
+simultaneously constrained so
+
+1221
+00:36:43,016 --> 00:36:44,696
+that the gray sphere in the
+
+1222
+00:36:44,696 --> 00:36:46,686
+center on the focal plane
+
+1223
+00:36:47,316 --> 00:36:49,776
+remains at roughly the same size
+
+1224
+00:36:49,986 --> 00:36:51,016
+throughout the effect in the
+
+1225
+00:36:51,016 --> 00:36:52,626
+output image, which you see on
+
+1226
+00:36:52,626 --> 00:36:52,896
+the right.
+
+1227
+00:36:53,286 --> 00:36:54,286
+Everything else in the scene
+
+1228
+00:36:54,286 --> 00:36:56,106
+will move around due to
+
+1229
+00:36:56,106 --> 00:36:57,046
+perspective effects.
+
+1230
+00:36:58,786 --> 00:36:59,706
+So let's take a look.
+
+1231
+00:37:00,886 --> 00:37:02,016
+Let's switch over here to the
+
+1232
+00:37:02,016 --> 00:37:02,576
+device.
+
+1233
+00:37:03,556 --> 00:37:06,356
+Perfect. All right.
+
+1234
+00:37:09,176 --> 00:37:10,876
+Let me pull up the dolly zoom
+
+1235
+00:37:10,876 --> 00:37:11,896
+editing extension.
+
+1236
+00:37:14,406 --> 00:37:15,816
+And I'll draw your attention now
+
+1237
+00:37:15,816 --> 00:37:17,676
+to the group of flowers in the
+
+1238
+00:37:17,676 --> 00:37:18,666
+center of the image.
+
+1239
+00:37:18,766 --> 00:37:20,566
+Those are on the focal plane.
+
+1240
+00:37:21,506 --> 00:37:23,686
+So as I begin to move the
+
+1241
+00:37:24,416 --> 00:37:27,236
+camera, there you see the dolly
+
+1242
+00:37:27,236 --> 00:37:29,296
+zoom effect in its full glory.
+
+1243
+00:37:30,206 --> 00:37:31,676
+When I pull the camera in this
+
+1244
+00:37:31,676 --> 00:37:32,946
+direction in particular you can
+
+1245
+00:37:32,946 --> 00:37:34,456
+really see the true 3-D nature
+
+1246
+00:37:34,456 --> 00:37:36,306
+of this effect with the
+
+1247
+00:37:36,396 --> 00:37:37,606
+foreground flowers really
+
+1248
+00:37:37,936 --> 00:37:39,456
+popping out and the background
+
+1249
+00:37:39,456 --> 00:37:41,456
+sort of fading or pulling away
+
+1250
+00:37:41,456 --> 00:37:41,996
+from the camera.
+
+1251
+00:37:42,956 --> 00:37:44,156
+You do also see a couple of
+
+1252
+00:37:44,156 --> 00:37:45,296
+artifacts, of course.
+
+1253
+00:37:45,676 --> 00:37:47,516
+One of which are the black
+
+1254
+00:37:47,516 --> 00:37:49,286
+pixels that you see coming into
+
+1255
+00:37:49,286 --> 00:37:50,556
+view around the background.
+
+1256
+00:37:51,316 --> 00:37:53,106
+This is due to the fact that in
+
+1257
+00:37:53,106 --> 00:37:54,046
+the camera's current
+
+1258
+00:37:54,116 --> 00:37:55,376
+configuration, the virtual
+
+1259
+00:37:55,376 --> 00:37:57,346
+camera, its field of view is
+
+1260
+00:37:57,346 --> 00:38:00,096
+wider than the iPhone that
+
+1261
+00:37:57,346 --> 00:38:00,096
+wider than the iPhone that
+
+1262
+00:38:00,096 --> 00:38:00,876
+captured the image.
+
+1263
+00:38:01,926 --> 00:38:03,996
+And so the virtual camera sees
+
+1264
+00:38:03,996 --> 00:38:05,356
+more of the scene than the
+
+1265
+00:38:05,506 --> 00:38:06,616
+iPhone did at the time of
+
+1266
+00:38:06,616 --> 00:38:07,116
+capture.
+
+1267
+00:38:07,656 --> 00:38:08,866
+So we're just filling those
+
+1268
+00:38:08,866 --> 00:38:09,866
+pixels in with black.
+
+1269
+00:38:10,886 --> 00:38:12,936
+Similarly, the stretching you
+
+1270
+00:38:12,936 --> 00:38:14,286
+see in between the foreground
+
+1271
+00:38:14,286 --> 00:38:15,796
+flowers and the green leaves
+
+1272
+00:38:15,796 --> 00:38:17,046
+behind them is due to the fact
+
+1273
+00:38:17,046 --> 00:38:18,216
+that this camera, the virtual
+
+1274
+00:38:18,216 --> 00:38:19,146
+camera, has exposed some
+
+1275
+00:38:19,146 --> 00:38:20,416
+portions of the scene that
+
+1276
+00:38:20,416 --> 00:38:22,376
+weren't visible to the iPhone at
+
+1277
+00:38:22,526 --> 00:38:24,406
+the time of capture.
+
+1278
+00:38:24,406 --> 00:38:26,256
+One strategy you might take to
+
+1279
+00:38:26,256 --> 00:38:27,926
+work around some of these issues
+
+1280
+00:38:28,676 --> 00:38:30,576
+is to set a new focal plane.
+
+1281
+00:38:31,256 --> 00:38:33,376
+So, now I've tapped on the
+
+1282
+00:38:33,376 --> 00:38:35,016
+yellow flower in the foreground,
+
+1283
+00:38:35,016 --> 00:38:35,986
+which is in the bottom right
+
+1284
+00:38:35,986 --> 00:38:38,086
+corner of the image to set that
+
+1285
+00:38:38,316 --> 00:38:39,356
+as the focal plane.
+
+1286
+00:38:39,846 --> 00:38:41,266
+And as I move the camera now in
+
+1287
+00:38:41,266 --> 00:38:42,636
+this direction you can see that
+
+1288
+00:38:43,176 --> 00:38:44,806
+none of the black pixels are
+
+1289
+00:38:44,806 --> 00:38:45,546
+coming into view.
+
+1290
+00:38:45,876 --> 00:38:47,486
+Of course if I move the camera
+
+1291
+00:38:47,486 --> 00:38:49,406
+again in this direction, they
+
+1292
+00:38:49,406 --> 00:38:50,076
+show up again.
+
+1293
+00:38:50,586 --> 00:38:51,946
+And really, that 3-D effect is
+
+1294
+00:38:51,946 --> 00:38:54,646
+quite strong here.
+
+1295
+00:38:55,266 --> 00:38:57,426
+Correspondingly, I can tap on a
+
+1296
+00:38:57,426 --> 00:38:58,496
+background region of the image,
+
+1297
+00:38:58,496 --> 00:39:00,026
+such as the trees you see in the
+
+1298
+00:38:58,496 --> 00:39:00,026
+such as the trees you see in the
+
+1299
+00:39:00,026 --> 00:39:00,776
+upper left corner.
+
+1300
+00:39:01,746 --> 00:39:03,646
+And when I pull the camera now
+
+1301
+00:39:03,646 --> 00:39:06,506
+in this direction, it really
+
+1302
+00:39:07,566 --> 00:39:09,056
+produces a pleasing sort of
+
+1303
+00:39:09,056 --> 00:39:11,066
+prominent effect on that central
+
+1304
+00:39:11,106 --> 00:39:11,956
+group of flowers.
+
+1305
+00:39:12,746 --> 00:39:14,246
+So let's take a look now at how
+
+1306
+00:39:14,436 --> 00:39:15,046
+we implemented this.
+
+1307
+00:39:15,046 --> 00:39:16,396
+Because of the true 3-D nature
+
+1308
+00:39:16,396 --> 00:39:19,166
+of this problem, we turned to
+
+1309
+00:39:19,166 --> 00:39:22,046
+Metal as a true 3-D tool to
+
+1310
+00:39:22,656 --> 00:39:24,546
+solve this effect, to produce
+
+1311
+00:39:24,546 --> 00:39:24,996
+the effect.
+
+1312
+00:39:25,436 --> 00:39:27,216
+We were able to get our system
+
+1313
+00:39:27,216 --> 00:39:28,636
+up and running quite quickly in
+
+1314
+00:39:28,636 --> 00:39:30,116
+Metal because of all the work
+
+1315
+00:39:30,116 --> 00:39:31,816
+that it does for us.
+
+1316
+00:39:32,106 --> 00:39:34,876
+Basically all we had to do to
+
+1317
+00:39:34,876 --> 00:39:36,686
+start off with was to construct
+
+1318
+00:39:36,686 --> 00:39:38,526
+a triangular mesh that we mapped
+
+1319
+00:39:38,646 --> 00:39:40,696
+onto the image, much like what
+
+1320
+00:39:40,696 --> 00:39:42,136
+you saw in Craig's Depth
+
+1321
+00:39:42,136 --> 00:39:43,926
+Explorer demo at the beginning
+
+1322
+00:39:43,926 --> 00:39:44,496
+of the session.
+
+1323
+00:39:45,156 --> 00:39:47,496
+And we mapped the -- excuse me
+
+1324
+00:39:47,496 --> 00:39:49,036
+-- we mapped the image -- we
+
+1325
+00:39:49,036 --> 00:39:50,126
+center the image around the
+
+1326
+00:39:50,126 --> 00:39:50,576
+origin.
+
+1327
+00:39:52,396 --> 00:39:54,106
+Metal also gives us the
+
+1328
+00:39:54,106 --> 00:39:55,686
+opportunity to program a couple
+
+1329
+00:39:55,686 --> 00:39:57,446
+of stages of its pipeline, one
+
+1330
+00:39:57,446 --> 00:39:58,776
+of which is the vertex shader.
+
+1331
+00:39:59,166 --> 00:40:00,156
+And the job of the vertex
+
+1332
+00:39:59,166 --> 00:40:00,156
+And the job of the vertex
+
+1333
+00:40:00,156 --> 00:40:01,726
+shader, it gives us the
+
+1334
+00:40:01,726 --> 00:40:03,056
+opportunity to process the
+
+1335
+00:40:03,056 --> 00:40:04,626
+geometry of the scene in some
+
+1336
+00:40:04,626 --> 00:40:04,846
+way.
+
+1337
+00:40:06,326 --> 00:40:07,786
+And we can also program the
+
+1338
+00:40:07,786 --> 00:40:09,456
+fragment shader, which gives us
+
+1339
+00:40:09,456 --> 00:40:11,226
+the opportunity to produce a
+
+1340
+00:40:11,536 --> 00:40:13,246
+color for each pixel in the
+
+1341
+00:40:13,246 --> 00:40:13,656
+output.
+
+1342
+00:40:14,636 --> 00:40:17,106
+We were able to reintegrate all
+
+1343
+00:40:17,106 --> 00:40:18,746
+of this 3-D Metal rendering back
+
+1344
+00:40:18,746 --> 00:40:20,556
+into our Core Image pipeline by
+
+1345
+00:40:20,556 --> 00:40:22,176
+using a CI Image Processor
+
+1346
+00:40:22,176 --> 00:40:22,586
+Kernel.
+
+1347
+00:40:23,796 --> 00:40:26,866
+So here's the code for the
+
+1348
+00:40:26,866 --> 00:40:27,606
+vertex shader.
+
+1349
+00:40:30,166 --> 00:40:31,436
+Again, the job of the vertex
+
+1350
+00:40:31,436 --> 00:40:32,446
+shader is to process the
+
+1351
+00:40:32,446 --> 00:40:33,146
+geometry.
+
+1352
+00:40:33,236 --> 00:40:34,576
+And it does so one vertex at a
+
+1353
+00:40:34,576 --> 00:40:34,956
+time.
+
+1354
+00:40:35,336 --> 00:40:36,836
+So we get one vertex of the
+
+1355
+00:40:36,836 --> 00:40:38,116
+original mesh as input.
+
+1356
+00:40:38,866 --> 00:40:39,956
+And then we'll produce something
+
+1357
+00:40:39,956 --> 00:40:40,756
+new on the output.
+
+1358
+00:40:41,076 --> 00:40:42,546
+The first thing we do in the
+
+1359
+00:40:42,546 --> 00:40:45,166
+vertex shader is sample the
+
+1360
+00:40:45,166 --> 00:40:46,936
+depth at that vertex.
+
+1361
+00:40:47,756 --> 00:40:48,906
+That's this line you see here.
+
+1362
+00:40:48,906 --> 00:40:50,296
+We're storing it in a variable
+
+1363
+00:40:50,296 --> 00:40:51,846
+called z, which will get used in
+
+1364
+00:40:51,846 --> 00:40:52,856
+a couple of places in this
+
+1365
+00:40:52,856 --> 00:40:53,206
+shader.
+
+1366
+00:40:54,246 --> 00:40:56,286
+The first of which is this
+
+1367
+00:40:56,286 --> 00:40:57,526
+magical line right here.
+
+1368
+00:40:57,946 --> 00:40:59,586
+This line is the line that every
+
+1369
+00:40:59,586 --> 00:41:01,136
+young engineer grows up dreaming
+
+1370
+00:40:59,586 --> 00:41:01,136
+young engineer grows up dreaming
+
+1371
+00:41:01,136 --> 00:41:02,156
+that they'll write some day.
+
+1372
+00:41:02,296 --> 00:41:03,796
+Because this is where we do the
+
+1373
+00:41:03,796 --> 00:41:03,926
+math.
+
+1374
+00:41:05,576 --> 00:41:07,136
+There are three variables as
+
+1375
+00:41:07,136 --> 00:41:09,796
+input to this equation.
+
+1376
+00:41:10,776 --> 00:41:12,066
+One is the depth, which we just
+
+1377
+00:41:12,066 --> 00:41:12,746
+sampled above.
+
+1378
+00:41:13,136 --> 00:41:14,416
+And the others correspond to the
+
+1379
+00:41:14,416 --> 00:41:17,146
+user inputs of the focal plane
+
+1380
+00:41:17,146 --> 00:41:18,696
+and the camera's configuration.
+
+1381
+00:41:20,386 --> 00:41:22,816
+This produces a scale factor,
+
+1382
+00:41:23,076 --> 00:41:24,896
+which we can apply to our
+
+1383
+00:41:25,616 --> 00:41:28,466
+vertices, which we do on this
+
+1384
+00:41:28,466 --> 00:41:29,106
+line right here.
+
+1385
+00:41:29,106 --> 00:41:31,236
+And we can apply a scale factor
+
+1386
+00:41:31,236 --> 00:41:33,466
+to it because the vertices are
+
+1387
+00:41:33,466 --> 00:41:35,446
+centered around the origin.
+
+1388
+00:41:35,976 --> 00:41:37,976
+So this scale factor serves to
+
+1389
+00:41:38,286 --> 00:41:40,376
+move vertices either radially
+
+1390
+00:41:40,376 --> 00:41:41,766
+away from the center or toward
+
+1391
+00:41:41,766 --> 00:41:42,676
+the center of the image.
+
+1392
+00:41:43,346 --> 00:41:44,736
+And this is what produces the
+
+1393
+00:41:44,736 --> 00:41:46,516
+illusion of three dimensions.
+
+1394
+00:41:47,526 --> 00:41:49,316
+Once we have transformed our
+
+1395
+00:41:49,316 --> 00:41:51,206
+vertex position, we output it
+
+1396
+00:41:51,206 --> 00:41:52,826
+here in the new output vertex
+
+1397
+00:41:53,446 --> 00:41:54,586
+while preserving the original
+
+1398
+00:41:54,586 --> 00:41:55,916
+depth value, z.
+
+1399
+00:41:56,306 --> 00:41:57,846
+And this is important because it
+
+1400
+00:41:57,846 --> 00:41:59,316
+will get passed into the z
+
+1401
+00:41:59,316 --> 00:42:01,016
+buffer machinery of Metal, which
+
+1402
+00:41:59,316 --> 00:42:01,016
+buffer machinery of Metal, which
+
+1403
+00:42:01,016 --> 00:42:02,146
+will then just do the right
+
+1404
+00:42:02,146 --> 00:42:03,596
+thing for us as pixels move
+
+1405
+00:42:03,596 --> 00:42:04,756
+around in the output and start
+
+1406
+00:42:04,756 --> 00:42:05,686
+to overlap each other.
+
+1407
+00:42:07,846 --> 00:42:09,726
+Also, we output the texture
+
+1408
+00:42:09,726 --> 00:42:10,886
+coordinate of the original
+
+1409
+00:42:10,886 --> 00:42:11,426
+vertex.
+
+1410
+00:42:12,206 --> 00:42:13,046
+This will get used by the
+
+1411
+00:42:13,046 --> 00:42:14,976
+fragment shader, which I'll show
+
+1412
+00:42:14,976 --> 00:42:16,556
+you now.
+
+1413
+00:42:17,886 --> 00:42:18,936
+Remember, the fragment shader's
+
+1414
+00:42:18,936 --> 00:42:21,516
+job is to produce a color pixel
+
+1415
+00:42:21,516 --> 00:42:21,946
+output.
+
+1416
+00:42:24,386 --> 00:42:26,566
+And since Metal interpolates all
+
+1417
+00:42:26,566 --> 00:42:28,476
+of these texture coordinates for
+
+1418
+00:42:28,476 --> 00:42:30,316
+us, all we have to do in our
+
+1419
+00:42:30,316 --> 00:42:32,206
+fragment shader is to sample the
+
+1420
+00:42:32,206 --> 00:42:33,586
+original image at the
+
+1421
+00:42:33,586 --> 00:42:34,846
+interpolated texture coordinate.
+
+1422
+00:42:35,456 --> 00:42:36,346
+And that's it.
+
+1423
+00:42:36,346 --> 00:42:37,516
+That's really all the code you
+
+1424
+00:42:37,516 --> 00:42:39,476
+need to see to implement the
+
+1425
+00:42:39,476 --> 00:42:40,336
+dolly zoom effect.
+
+1426
+00:42:40,646 --> 00:42:41,796
+And hopefully it's given you
+
+1427
+00:42:41,796 --> 00:42:44,296
+some ideas of new directions you
+
+1428
+00:42:44,296 --> 00:42:45,916
+can take this in to produce your
+
+1429
+00:42:45,916 --> 00:42:47,586
+own brand new custom 3-D
+
+1430
+00:42:47,586 --> 00:42:48,086
+effects.
+
+1431
+00:42:48,446 --> 00:42:49,696
+We're really excited to see what
+
+1432
+00:42:49,696 --> 00:42:50,236
+you come up with.
+
+1433
+00:42:51,016 --> 00:42:53,486
+And now, I'll hand the stage
+
+1434
+00:42:53,486 --> 00:42:55,976
+back over to Etienne to finish
+
+1435
+00:42:55,976 --> 00:42:56,116
+up.
+
+1436
+00:42:57,516 --> 00:43:01,426
+[ Applause ]
+
+1437
+00:42:57,516 --> 00:43:01,426
+[ Applause ]
+
+1438
+00:43:01,926 --> 00:43:02,776
+&gt;&gt; Thank you, Stephen.
+
+1439
+00:43:03,766 --> 00:43:04,506
+All right.
+
+1440
+00:43:05,086 --> 00:43:06,666
+So now that we've applied
+
+1441
+00:43:06,666 --> 00:43:08,396
+various new effects to our
+
+1442
+00:43:08,396 --> 00:43:10,346
+images, there's one more step
+
+1443
+00:43:10,346 --> 00:43:11,056
+that we need to take.
+
+1444
+00:43:11,636 --> 00:43:16,346
+And that's save your depth data.
+
+1445
+00:43:16,446 --> 00:43:18,576
+So, you should always preserve
+
+1446
+00:43:18,576 --> 00:43:19,456
+the depth data.
+
+1447
+00:43:19,456 --> 00:43:20,756
+All right?
+
+1448
+00:43:20,986 --> 00:43:23,196
+That way your users will be able
+
+1449
+00:43:23,196 --> 00:43:25,126
+to use other apps like yours to
+
+1450
+00:43:25,126 --> 00:43:26,686
+apply their own depth effects on
+
+1451
+00:43:26,686 --> 00:43:27,456
+top of yours.
+
+1452
+00:43:28,636 --> 00:43:29,966
+Even if you don't use the depth
+
+1453
+00:43:29,966 --> 00:43:31,736
+data, you should always preserve
+
+1454
+00:43:31,736 --> 00:43:33,116
+it if it was present in your
+
+1455
+00:43:33,116 --> 00:43:33,926
+original image.
+
+1456
+00:43:35,696 --> 00:43:37,256
+This will really ensure the best
+
+1457
+00:43:37,256 --> 00:43:38,546
+possible experience for your
+
+1458
+00:43:38,546 --> 00:43:39,046
+users.
+
+1459
+00:43:39,736 --> 00:43:41,546
+However, when you store the
+
+1460
+00:43:41,546 --> 00:43:43,406
+depth data, be sure to match the
+
+1461
+00:43:43,406 --> 00:43:45,466
+geometry of image data.
+
+1462
+00:43:46,666 --> 00:43:47,916
+If you don't apply geometry
+
+1463
+00:43:47,916 --> 00:43:50,086
+correctly, the depth data will
+
+1464
+00:43:50,086 --> 00:43:51,496
+no longer match the image data.
+
+1465
+00:43:51,866 --> 00:43:53,486
+And so further depth effect
+
+1466
+00:43:53,486 --> 00:43:55,056
+applied on top of that will no
+
+1467
+00:43:55,056 --> 00:43:55,896
+longer work properly.
+
+1468
+00:43:56,756 --> 00:43:59,046
+So let's take a look at how the
+
+1469
+00:43:59,046 --> 00:44:00,286
+kind of geometry transforming
+
+1470
+00:43:59,046 --> 00:44:00,286
+kind of geometry transforming
+
+1471
+00:44:00,286 --> 00:44:02,386
+might apply to depth data.
+
+1472
+00:44:03,656 --> 00:44:06,426
+A very common operation is
+
+1473
+00:44:06,426 --> 00:44:07,016
+orientation.
+
+1474
+00:44:07,556 --> 00:44:09,206
+Often times you get to work with
+
+1475
+00:44:09,206 --> 00:44:10,436
+a portrait image that was
+
+1476
+00:44:10,436 --> 00:44:11,976
+actually shot in landscape and
+
+1477
+00:44:11,976 --> 00:44:13,576
+has an [inaudible] orientation.
+
+1478
+00:44:14,996 --> 00:44:16,816
+So, the depth data may look like
+
+1479
+00:44:16,816 --> 00:44:17,156
+this.
+
+1480
+00:44:17,476 --> 00:44:19,606
+And so you want to make sure to
+
+1481
+00:44:19,606 --> 00:44:21,136
+orient the depth as well.
+
+1482
+00:44:21,466 --> 00:44:22,346
+So make sure to apply
+
+1483
+00:44:22,346 --> 00:44:22,946
+orientation.
+
+1484
+00:44:23,956 --> 00:44:26,136
+Another very common operation is
+
+1485
+00:44:26,136 --> 00:44:26,476
+crop.
+
+1486
+00:44:27,036 --> 00:44:29,306
+Right? And so again, make sure
+
+1487
+00:44:29,306 --> 00:44:31,436
+you crop the depth data to
+
+1488
+00:44:31,436 --> 00:44:31,896
+match.
+
+1489
+00:44:33,546 --> 00:44:34,936
+Now, you may have a more
+
+1490
+00:44:34,936 --> 00:44:36,246
+advanced transform that you also
+
+1491
+00:44:36,246 --> 00:44:38,076
+apply to your image such as
+
+1492
+00:44:38,266 --> 00:44:39,536
+[inaudible] transform like this
+
+1493
+00:44:39,536 --> 00:44:39,666
+one.
+
+1494
+00:44:40,826 --> 00:44:42,086
+Right? Or maybe you have a
+
+1495
+00:44:42,086 --> 00:44:43,306
+custom [inaudible] transform
+
+1496
+00:44:43,516 --> 00:44:45,276
+such as a perspective transform.
+
+1497
+00:44:45,526 --> 00:44:47,196
+Or maybe even a 3-D transform
+
+1498
+00:44:47,196 --> 00:44:48,786
+like the one we saw in the dolly
+
+1499
+00:44:48,786 --> 00:44:49,256
+zoom demo.
+
+1500
+00:44:50,926 --> 00:44:52,566
+In any case, you want to also
+
+1501
+00:44:52,566 --> 00:44:53,926
+apply the same transform to the
+
+1502
+00:44:53,926 --> 00:44:55,486
+depth data so that it matches
+
+1503
+00:44:55,486 --> 00:44:56,476
+the image perfectly.
+
+1504
+00:44:59,556 --> 00:45:01,486
+Okay. So the key thing to
+
+1505
+00:44:59,556 --> 00:45:01,486
+Okay. So the key thing to
+
+1506
+00:45:01,486 --> 00:45:03,156
+remember here is to apply your
+
+1507
+00:45:03,156 --> 00:45:04,506
+transform at the native
+
+1508
+00:45:04,506 --> 00:45:06,096
+resolution of the depth data.
+
+1509
+00:45:06,966 --> 00:45:08,576
+So you want to scale your
+
+1510
+00:45:08,576 --> 00:45:09,746
+transform parameter from the
+
+1511
+00:45:09,746 --> 00:45:12,286
+full size image to that size of
+
+1512
+00:45:12,326 --> 00:45:16,566
+the depth image.
+
+1513
+00:45:17,116 --> 00:45:19,526
+Otherwise, right, your transform
+
+1514
+00:45:19,566 --> 00:45:20,836
+will be applied incorrectly.
+
+1515
+00:45:20,836 --> 00:45:22,366
+And then the depth image will no
+
+1516
+00:45:22,366 --> 00:45:25,076
+longer match the image, the
+
+1517
+00:45:25,076 --> 00:45:25,706
+output image.
+
+1518
+00:45:27,266 --> 00:45:28,556
+Another thing to note is that
+
+1519
+00:45:28,776 --> 00:45:30,216
+depth data is not color data.
+
+1520
+00:45:30,216 --> 00:45:31,756
+So when you are rending a new
+
+1521
+00:45:31,756 --> 00:45:33,576
+depth image, make sure you don't
+
+1522
+00:45:33,896 --> 00:45:35,126
+apply any kind of color match
+
+1523
+00:45:35,126 --> 00:45:38,296
+into it.
+
+1524
+00:45:38,296 --> 00:45:38,546
+All right.
+
+1525
+00:45:39,816 --> 00:45:41,456
+So now that we've seen what kind
+
+1526
+00:45:41,456 --> 00:45:43,116
+of transform we may apply to
+
+1527
+00:45:43,116 --> 00:45:45,286
+depth data we can render it into
+
+1528
+00:45:45,286 --> 00:45:46,496
+a new CV pixel buffer.
+
+1529
+00:45:47,336 --> 00:45:48,856
+Once we have a new CV pixel
+
+1530
+00:45:48,856 --> 00:45:50,966
+buffer we can create a new AV
+
+1531
+00:45:50,966 --> 00:45:52,056
+depth data object from it.
+
+1532
+00:45:52,326 --> 00:45:52,776
+Here's how.
+
+1533
+00:45:53,466 --> 00:45:54,856
+We start from our original depth
+
+1534
+00:45:54,856 --> 00:45:56,696
+data object and then we call
+
+1535
+00:45:56,696 --> 00:45:58,266
+Depth Data by replacing Depth
+
+1536
+00:45:58,266 --> 00:45:58,726
+Data Map.
+
+1537
+00:45:59,046 --> 00:46:00,166
+And we pass in all newly
+
+1538
+00:45:59,046 --> 00:46:00,166
+And we pass in all newly
+
+1539
+00:46:00,166 --> 00:46:01,306
+rendered depth buffer.
+
+1540
+00:46:02,346 --> 00:46:04,836
+Now returns a new AV depth data
+
+1541
+00:46:04,836 --> 00:46:05,356
+object.
+
+1542
+00:46:05,356 --> 00:46:07,096
+And we can then save into our
+
+1543
+00:46:07,176 --> 00:46:08,376
+output image.
+
+1544
+00:46:09,256 --> 00:46:10,326
+Let's a take a look at how to
+
+1545
+00:46:10,326 --> 00:46:12,186
+write depth data using Image IO.
+
+1546
+00:46:14,176 --> 00:46:16,676
+We start from an image
+
+1547
+00:46:16,676 --> 00:46:18,356
+destination that we create for
+
+1548
+00:46:18,356 --> 00:46:19,076
+our output file.
+
+1549
+00:46:20,776 --> 00:46:22,116
+And here we ask for a JPEG
+
+1550
+00:46:22,116 --> 00:46:22,596
+format.
+
+1551
+00:46:22,906 --> 00:46:24,306
+So please note that not all
+
+1552
+00:46:24,306 --> 00:46:25,396
+image from that [inaudible]
+
+1553
+00:46:25,396 --> 00:46:27,196
+depth, but JPEG does.
+
+1554
+00:46:28,496 --> 00:46:30,196
+Next we add our output image to
+
+1555
+00:46:30,196 --> 00:46:31,226
+the image destination.
+
+1556
+00:46:33,756 --> 00:46:35,526
+And then we ask all depth data
+
+1557
+00:46:35,526 --> 00:46:36,756
+object that we want to store
+
+1558
+00:46:36,756 --> 00:46:38,856
+into the image for a dictionary
+
+1559
+00:46:38,856 --> 00:46:40,336
+representation for the auxiliary
+
+1560
+00:46:40,336 --> 00:46:41,606
+data to store in the file.
+
+1561
+00:46:42,376 --> 00:46:43,286
+So this is will return the
+
+1562
+00:46:43,286 --> 00:46:44,966
+dictionary for the auxiliary
+
+1563
+00:46:44,966 --> 00:46:46,816
+data as well as by reference the
+
+1564
+00:46:46,816 --> 00:46:48,266
+type of the auxiliary data to
+
+1565
+00:46:48,266 --> 00:46:48,636
+store.
+
+1566
+00:46:49,906 --> 00:46:51,786
+Then we ask the CG image
+
+1567
+00:46:51,786 --> 00:46:52,866
+destination to add that
+
+1568
+00:46:52,866 --> 00:46:54,546
+auxiliary data, passing in the
+
+1569
+00:46:54,546 --> 00:46:55,756
+type and the dictionary.
+
+1570
+00:46:56,866 --> 00:46:58,436
+And finally, all we have to do
+
+1571
+00:46:58,436 --> 00:46:59,886
+is to call CG image destination
+
+1572
+00:46:59,886 --> 00:47:01,206
+finalized to write everything
+
+1573
+00:46:59,886 --> 00:47:01,206
+finalized to write everything
+
+1574
+00:47:01,206 --> 00:47:01,786
+down to disk.
+
+1575
+00:47:03,676 --> 00:47:04,896
+If you're working with Core
+
+1576
+00:47:04,896 --> 00:47:07,116
+Image, there's a new very
+
+1577
+00:47:07,116 --> 00:47:09,256
+convenient way you can do this
+
+1578
+00:47:10,086 --> 00:47:10,576
+as well.
+
+1579
+00:47:10,826 --> 00:47:13,096
+So, if you are using CI context
+
+1580
+00:47:13,096 --> 00:47:14,316
+[inaudible] with image
+
+1581
+00:47:14,436 --> 00:47:16,936
+representation for a particular
+
+1582
+00:47:16,936 --> 00:47:18,996
+CI image directly in order to
+
+1583
+00:47:18,996 --> 00:47:20,996
+render and save to a JPEG file,
+
+1584
+00:47:21,566 --> 00:47:24,746
+you may now pass in using an
+
+1585
+00:47:24,746 --> 00:47:26,806
+option key a depth data object
+
+1586
+00:47:26,806 --> 00:47:28,116
+that you want to store as part
+
+1587
+00:47:28,116 --> 00:47:28,646
+of that file.
+
+1588
+00:47:30,626 --> 00:47:33,566
+Even better, if you have an
+
+1589
+00:47:33,566 --> 00:47:35,926
+image, a depth image that you
+
+1590
+00:47:35,926 --> 00:47:36,796
+have -- let's say you have
+
+1591
+00:47:36,796 --> 00:47:37,926
+applied a transform to it or
+
+1592
+00:47:37,926 --> 00:47:38,336
+something.
+
+1593
+00:47:38,826 --> 00:47:42,516
+You can also specify it as an
+
+1594
+00:47:42,516 --> 00:47:44,926
+option to that method so that
+
+1595
+00:47:45,836 --> 00:47:47,526
+Core Image will render both the
+
+1596
+00:47:47,526 --> 00:47:48,926
+regular image and the depth
+
+1597
+00:47:48,926 --> 00:47:50,636
+image and save everything down
+
+1598
+00:47:51,156 --> 00:47:52,966
+to the file in one call.
+
+1599
+00:47:53,296 --> 00:47:54,036
+Very convenient.
+
+1600
+00:47:55,566 --> 00:47:56,106
+And so that's it.
+
+1601
+00:47:56,106 --> 00:47:57,636
+That concludes our session on
+
+1602
+00:47:57,786 --> 00:47:59,116
+editing images with depth.
+
+1603
+00:48:00,106 --> 00:48:01,156
+So, let's recap what we've
+
+1604
+00:48:01,156 --> 00:48:01,656
+learned today.
+
+1605
+00:48:03,116 --> 00:48:05,216
+We've learned what depth is and
+
+1606
+00:48:05,216 --> 00:48:06,496
+what depth and disparity looks
+
+1607
+00:48:06,496 --> 00:48:06,766
+like.
+
+1608
+00:48:09,086 --> 00:48:10,686
+We've learned how to read and
+
+1609
+00:48:10,686 --> 00:48:12,236
+prepare depth data for editing.
+
+1610
+00:48:13,096 --> 00:48:16,366
+And then we saw several ways,
+
+1611
+00:48:16,366 --> 00:48:17,426
+and we showed you several ways
+
+1612
+00:48:17,426 --> 00:48:19,546
+to apply new depth effects to
+
+1613
+00:48:19,546 --> 00:48:20,206
+your images.
+
+1614
+00:48:20,556 --> 00:48:21,786
+The first one was background
+
+1615
+00:48:21,786 --> 00:48:23,946
+effects using a built in Core
+
+1616
+00:48:23,946 --> 00:48:24,626
+Image filter.
+
+1617
+00:48:25,286 --> 00:48:26,706
+Then we had a custom darkness
+
+1618
+00:48:26,706 --> 00:48:28,626
+effect using a custom Core Image
+
+1619
+00:48:28,626 --> 00:48:29,006
+kernel.
+
+1620
+00:48:29,956 --> 00:48:31,226
+And then we showed you how you
+
+1621
+00:48:31,226 --> 00:48:33,186
+can apply your depth effect
+
+1622
+00:48:33,486 --> 00:48:35,356
+using a new CI filter.
+
+1623
+00:48:36,546 --> 00:48:37,946
+And then we saw how you can
+
+1624
+00:48:37,946 --> 00:48:40,416
+create a brand new 3-D effect
+
+1625
+00:48:40,626 --> 00:48:41,256
+using depth.
+
+1626
+00:48:42,026 --> 00:48:43,616
+I hope that this session will
+
+1627
+00:48:43,616 --> 00:48:45,306
+inspire you to use depth data
+
+1628
+00:48:45,346 --> 00:48:46,626
+into your own applications.
+
+1629
+00:48:46,856 --> 00:48:47,926
+And I can't wait to see what
+
+1630
+00:48:47,926 --> 00:48:48,816
+cool effects you'll come up
+
+1631
+00:48:48,816 --> 00:48:48,996
+with.
+
+1632
+00:48:49,616 --> 00:48:51,586
+For more information, please go
+
+1633
+00:48:51,586 --> 00:48:52,936
+to the [inaudible] at Apple.com.
+
+1634
+00:48:54,556 --> 00:48:55,776
+We have a couple related
+
+1635
+00:48:55,776 --> 00:48:56,356
+sessions.
+
+1636
+00:48:56,696 --> 00:48:58,916
+There's a session on Advances in
+
+1637
+00:48:58,916 --> 00:49:00,286
+Core Image that's going to take
+
+1638
+00:48:58,916 --> 00:49:00,286
+Core Image that's going to take
+
+1639
+00:49:00,286 --> 00:49:01,316
+place later today.
+
+1640
+00:49:01,366 --> 00:49:02,886
+So we strongly encourage you to
+
+1641
+00:49:02,956 --> 00:49:03,366
+go there.
+
+1642
+00:49:03,906 --> 00:49:04,456
+Check it out.
+
+1643
+00:49:04,456 --> 00:49:06,696
+And there was a couple of
+
+1644
+00:49:06,696 --> 00:49:08,676
+session yesterday was doing
+
+1645
+00:49:08,676 --> 00:49:11,196
+Photo Kit and also how to
+
+1646
+00:49:11,196 --> 00:49:12,826
+capture depth with iPhone.
+
+1647
+00:49:13,486 --> 00:49:15,376
+And with that, I hope that you
+
+1648
+00:49:15,376 --> 00:49:17,256
+have a good rest of the WWDC.
+
+1649
+00:49:17,516 --> 00:49:18,266
+Thank you very much.

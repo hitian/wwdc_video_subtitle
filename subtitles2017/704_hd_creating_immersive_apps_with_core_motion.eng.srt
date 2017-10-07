@@ -1,0 +1,4635 @@
+1
+00:00:20,516 --> 00:00:21,686
+&gt;&gt; Hello, everyone.
+
+2
+00:00:22,276 --> 00:00:23,606
+My name is John Blackwell, and
+
+3
+00:00:23,606 --> 00:00:24,676
+I'm an engineer on the Core
+
+4
+00:00:24,676 --> 00:00:25,426
+Motion framework.
+
+5
+00:00:25,956 --> 00:00:27,336
+Today, we're going to be talking
+
+6
+00:00:27,416 --> 00:00:28,496
+about creating immersive
+
+7
+00:00:28,496 --> 00:00:29,776
+applications with the Core
+
+8
+00:00:29,776 --> 00:00:31,306
+Motion framework; and we're also
+
+9
+00:00:31,306 --> 00:00:32,485
+going to discuss a number of
+
+10
+00:00:32,485 --> 00:00:33,886
+best practices along the way.
+
+11
+00:00:35,366 --> 00:00:37,376
+So today, we're going to be
+
+12
+00:00:37,376 --> 00:00:38,386
+covering a number of things.
+
+13
+00:00:38,896 --> 00:00:40,746
+The first is a brief overview of
+
+14
+00:00:40,746 --> 00:00:42,116
+what Core Motion provides.
+
+15
+00:00:42,536 --> 00:00:43,816
+Next, we're going to talk about
+
+16
+00:00:43,816 --> 00:00:45,816
+authorization, a frequent pain
+
+17
+00:00:45,816 --> 00:00:46,526
+point for many of our
+
+18
+00:00:46,526 --> 00:00:47,096
+developers.
+
+19
+00:00:47,676 --> 00:00:48,606
+Then, we're going to look at
+
+20
+00:00:48,606 --> 00:00:50,116
+some new additions to Historic
+
+21
+00:00:50,116 --> 00:00:52,336
+Accelerometer; and then, we're
+
+22
+00:00:52,336 --> 00:00:53,926
+going to dig into DeviceMotion,
+
+23
+00:00:54,166 --> 00:00:55,526
+the sensor fusion that we
+
+24
+00:00:55,526 --> 00:00:56,916
+provide in Core Motion.
+
+25
+00:00:57,346 --> 00:00:58,526
+And finally, we're going to look
+
+26
+00:00:58,526 --> 00:01:00,556
+at Badger with Attitude, a game
+
+27
+00:00:58,526 --> 00:01:00,556
+at Badger with Attitude, a game
+
+28
+00:01:00,556 --> 00:01:01,536
+where we'll take some of the
+
+29
+00:01:01,536 --> 00:01:03,116
+concepts that we've talked about
+
+30
+00:01:03,116 --> 00:01:04,796
+in DeviceMotion and put them
+
+31
+00:01:04,885 --> 00:01:05,556
+into practice.
+
+32
+00:01:06,686 --> 00:01:08,376
+And with that, let's take a
+
+33
+00:01:08,376 --> 00:01:09,836
+closer look at the Core Motion
+
+34
+00:01:09,836 --> 00:01:10,356
+framework.
+
+35
+00:01:13,656 --> 00:01:15,266
+The Core Motion framework
+
+36
+00:01:15,476 --> 00:01:16,686
+provides access to the
+
+37
+00:01:16,686 --> 00:01:18,186
+accelerometer, the gyroscope,
+
+38
+00:01:18,436 --> 00:01:19,556
+the magnetometer and the
+
+39
+00:01:19,556 --> 00:01:20,896
+altimeter; and through the
+
+40
+00:01:20,896 --> 00:01:22,476
+framework, you can access raw
+
+41
+00:01:22,476 --> 00:01:23,586
+forms of the sensor data, as
+
+42
+00:01:23,586 --> 00:01:25,576
+well as process forms and use
+
+43
+00:01:25,576 --> 00:01:26,886
+these in your applications.
+
+44
+00:01:28,206 --> 00:01:29,546
+Now, there are a number of
+
+45
+00:01:29,546 --> 00:01:30,996
+interfaces available through
+
+46
+00:01:30,996 --> 00:01:31,626
+Core Motion.
+
+47
+00:01:32,166 --> 00:01:35,446
+The first is CMMotionManager,
+
+48
+00:01:35,726 --> 00:01:37,406
+which provides access to the raw
+
+49
+00:01:37,486 --> 00:01:38,806
+sensor data, as well as the
+
+50
+00:01:38,806 --> 00:01:40,116
+sensor fusion in the form of
+
+51
+00:01:40,116 --> 00:01:40,916
+DeviceMotion.
+
+52
+00:01:42,226 --> 00:01:44,156
+CMAltimeter provides access to
+
+53
+00:01:44,156 --> 00:01:45,606
+relative altitude updates for
+
+54
+00:01:45,606 --> 00:01:45,976
+the device.
+
+55
+00:01:47,456 --> 00:01:49,216
+CMPedometer provides access to
+
+56
+00:01:49,216 --> 00:01:50,836
+step counts as step-related
+
+57
+00:01:50,836 --> 00:01:52,156
+information, as well as
+
+58
+00:01:52,156 --> 00:01:53,616
+work-out, pause and resume
+
+59
+00:01:53,616 --> 00:01:53,996
+events.
+
+60
+00:01:55,396 --> 00:01:56,996
+MotionActivityManager provides
+
+61
+00:01:56,996 --> 00:01:58,696
+access to the activity context
+
+62
+00:01:58,696 --> 00:02:00,006
+of the device; for example,
+
+63
+00:01:58,696 --> 00:02:00,006
+of the device; for example,
+
+64
+00:02:00,006 --> 00:02:02,106
+walking, running or automotive,
+
+65
+00:02:02,296 --> 00:02:06,276
+etc. And CMSensorRecorder
+
+66
+00:02:06,416 --> 00:02:07,976
+provides access to historic
+
+67
+00:02:07,976 --> 00:02:08,826
+accelerometer data.
+
+68
+00:02:09,496 --> 00:02:13,576
+So that's a brief overview of
+
+69
+00:02:13,576 --> 00:02:14,616
+what the Core Motion framework
+
+70
+00:02:14,616 --> 00:02:15,156
+provides.
+
+71
+00:02:15,696 --> 00:02:17,166
+Next, let's take a closer look
+
+72
+00:02:17,166 --> 00:02:18,196
+at authorization.
+
+73
+00:02:19,426 --> 00:02:21,456
+So of the APIs that I just
+
+74
+00:02:21,456 --> 00:02:23,906
+mentioned, these following four
+
+75
+00:02:23,906 --> 00:02:25,636
+are sensitive due to the nature
+
+76
+00:02:25,636 --> 00:02:26,846
+of the private information that
+
+77
+00:02:26,846 --> 00:02:28,106
+they expose about the user.
+
+78
+00:02:29,376 --> 00:02:31,936
+So to handle this, we have a
+
+79
+00:02:31,936 --> 00:02:33,426
+prompt that appears the first
+
+80
+00:02:33,426 --> 00:02:34,806
+time you invoke one of the
+
+81
+00:02:34,806 --> 00:02:35,746
+sensitive APIs.
+
+82
+00:02:37,056 --> 00:02:39,056
+Keep in mind that the first time
+
+83
+00:02:39,056 --> 00:02:40,966
+you invoke the sensitive APIs, a
+
+84
+00:02:40,966 --> 00:02:42,336
+prompt will appear for users;
+
+85
+00:02:42,626 --> 00:02:44,056
+but after that first time, your
+
+86
+00:02:44,056 --> 00:02:45,106
+users will need to go into
+
+87
+00:02:45,106 --> 00:02:46,006
+Settings to change the
+
+88
+00:02:46,006 --> 00:02:47,216
+authorization state for your
+
+89
+00:02:47,216 --> 00:02:47,986
+applications.
+
+90
+00:02:49,306 --> 00:02:50,916
+Now, let's take a look at what
+
+91
+00:02:50,916 --> 00:02:51,996
+it looks like the first time you
+
+92
+00:02:51,996 --> 00:02:53,036
+call one of these APIs.
+
+93
+00:02:53,816 --> 00:02:55,406
+At this point, your users will
+
+94
+00:02:55,406 --> 00:02:56,346
+need to decide if they want to
+
+95
+00:02:56,346 --> 00:02:57,766
+grant access to the Motion
+
+96
+00:02:57,766 --> 00:02:59,576
+Fitness data; or deny access.
+
+97
+00:03:00,016 --> 00:03:01,566
+And as a developer, you're going
+
+98
+00:03:01,566 --> 00:03:02,676
+to want to handle the case where
+
+99
+00:03:02,676 --> 00:03:05,166
+they deny access.
+
+100
+00:03:05,286 --> 00:03:07,376
+Now, in the past, we've asked
+
+101
+00:03:07,376 --> 00:03:08,406
+you to do something like this
+
+102
+00:03:09,056 --> 00:03:10,596
+where you call any of our APIs
+
+103
+00:03:10,596 --> 00:03:12,046
+that are sensitive.
+
+104
+00:03:12,696 --> 00:03:13,826
+In this case we're calling
+
+105
+00:03:13,826 --> 00:03:15,756
+queryPedometerData; and then you
+
+106
+00:03:15,756 --> 00:03:17,346
+ignore the result that you get
+
+107
+00:03:17,346 --> 00:03:19,336
+back from the API and only look
+
+108
+00:03:19,336 --> 00:03:20,146
+at the error code.
+
+109
+00:03:21,026 --> 00:03:22,536
+And if the error code is not
+
+110
+00:03:22,536 --> 00:03:24,376
+authorized, at this point, you
+
+111
+00:03:24,376 --> 00:03:25,536
+know your application's been
+
+112
+00:03:25,536 --> 00:03:26,886
+denied access to that motion and
+
+113
+00:03:26,886 --> 00:03:27,476
+fitness data.
+
+114
+00:03:28,646 --> 00:03:30,126
+Now, we realize that this is
+
+115
+00:03:30,126 --> 00:03:30,846
+less than ideal.
+
+116
+00:03:32,166 --> 00:03:33,196
+You need to jump through hoops
+
+117
+00:03:33,266 --> 00:03:34,816
+to get access to your
+
+118
+00:03:34,816 --> 00:03:36,386
+authorization state, and once
+
+119
+00:03:36,426 --> 00:03:37,656
+you get it, you can't tell
+
+120
+00:03:37,656 --> 00:03:39,316
+exactly why your app has been
+
+121
+00:03:39,316 --> 00:03:40,296
+denied access.
+
+122
+00:03:40,936 --> 00:03:43,326
+And that's why this year, we're
+
+123
+00:03:43,326 --> 00:03:44,636
+providing an Authorization
+
+124
+00:03:44,636 --> 00:03:45,326
+Status API.
+
+125
+00:03:46,226 --> 00:03:47,606
+This API is available in the
+
+126
+00:03:47,686 --> 00:03:48,816
+same four classes that I
+
+127
+00:03:48,816 --> 00:03:50,086
+mentioned before, and it's
+
+128
+00:03:50,086 --> 00:03:52,076
+available on iOS and watchOS.
+
+129
+00:03:52,886 --> 00:03:54,366
+Let's take a closer look at the
+
+130
+00:03:54,366 --> 00:03:56,226
+CMAuthorizationStatus value that
+
+131
+00:03:56,226 --> 00:03:57,666
+you'll get back from this API.
+
+132
+00:03:59,386 --> 00:04:01,596
+The first state, notDetermined,
+
+133
+00:03:59,386 --> 00:04:01,596
+The first state, notDetermined,
+
+134
+00:04:01,866 --> 00:04:03,566
+represents the state before the
+
+135
+00:04:03,566 --> 00:04:04,866
+user has been asked about
+
+136
+00:04:04,866 --> 00:04:05,856
+authorization in your
+
+137
+00:04:05,856 --> 00:04:06,466
+application.
+
+138
+00:04:07,026 --> 00:04:08,806
+Restricted represents the state
+
+139
+00:04:09,126 --> 00:04:11,386
+where the user is unable to
+
+140
+00:04:11,386 --> 00:04:12,756
+change the authorization state
+
+141
+00:04:12,916 --> 00:04:13,826
+for your application
+
+142
+00:04:13,826 --> 00:04:15,426
+specifically; and this can
+
+143
+00:04:15,426 --> 00:04:17,086
+happen when motion and fitness
+
+144
+00:04:17,156 --> 00:04:18,546
+is disabled in privacy.
+
+145
+00:04:19,406 --> 00:04:20,495
+The next state -- denied --
+
+146
+00:04:20,656 --> 00:04:21,596
+means what it sounds like.
+
+147
+00:04:21,776 --> 00:04:22,526
+Your application's been
+
+148
+00:04:22,526 --> 00:04:24,256
+specifically denied access by
+
+149
+00:04:24,256 --> 00:04:24,746
+the users.
+
+150
+00:04:25,156 --> 00:04:26,906
+And authorized means your app is
+
+151
+00:04:26,906 --> 00:04:28,026
+ready to access the user's
+
+152
+00:04:28,026 --> 00:04:29,006
+motion and fitness data.
+
+153
+00:04:30,586 --> 00:04:32,746
+Now, let's come back to the
+
+154
+00:04:32,746 --> 00:04:33,836
+authorization check that we were
+
+155
+00:04:33,836 --> 00:04:34,606
+looking at before.
+
+156
+00:04:34,856 --> 00:04:37,176
+One of the first best practices
+
+157
+00:04:37,176 --> 00:04:38,796
+that I want to talk about is
+
+158
+00:04:39,126 --> 00:04:40,266
+making sure that you check for
+
+159
+00:04:40,266 --> 00:04:42,006
+the availability of a given API
+
+160
+00:04:42,006 --> 00:04:44,006
+first before you ask for the
+
+161
+00:04:44,006 --> 00:04:44,946
+authorization status.
+
+162
+00:04:45,656 --> 00:04:47,036
+In this case, we're asking for a
+
+163
+00:04:47,036 --> 00:04:47,896
+StepCountingAvailable.
+
+164
+00:04:48,816 --> 00:04:50,136
+And the next thing that you're
+
+165
+00:04:50,136 --> 00:04:51,476
+going to want to do is query for
+
+166
+00:04:51,476 --> 00:04:52,496
+the authorization status.
+
+167
+00:04:53,106 --> 00:04:54,446
+And at this point, it's up to
+
+168
+00:04:54,446 --> 00:04:56,436
+you as a developer to decide how
+
+169
+00:04:56,506 --> 00:04:57,566
+you want to handle the
+
+170
+00:04:57,566 --> 00:04:59,196
+authorization that you get back
+
+171
+00:04:59,396 --> 00:05:00,176
+from the framework.
+
+172
+00:04:59,396 --> 00:05:00,176
+from the framework.
+
+173
+00:05:00,596 --> 00:05:01,966
+You now have a simple mechanism
+
+174
+00:05:01,966 --> 00:05:04,256
+for doing this on both iOS and
+
+175
+00:05:04,366 --> 00:05:04,876
+watchOS.
+
+176
+00:05:06,336 --> 00:05:08,896
+I encourage you to consider how
+
+177
+00:05:08,896 --> 00:05:09,956
+you can use the authorization
+
+178
+00:05:09,956 --> 00:05:11,776
+status app -- authorization
+
+179
+00:05:11,776 --> 00:05:13,266
+status API in your applications
+
+180
+00:05:13,486 --> 00:05:14,586
+-- and you should definitely use
+
+181
+00:05:14,586 --> 00:05:14,716
+it.
+
+182
+00:05:15,516 --> 00:05:16,836
+Next, we're going to talk about
+
+183
+00:05:16,836 --> 00:05:18,066
+Historical Accelerometer.
+
+184
+00:05:19,056 --> 00:05:20,756
+Historical Accelerometer, also
+
+185
+00:05:20,756 --> 00:05:22,196
+known as CMSensorRecorder,
+
+186
+00:05:22,536 --> 00:05:24,336
+provide 50 hertz accelerometer
+
+187
+00:05:24,336 --> 00:05:25,926
+data; and we can record this for
+
+188
+00:05:25,926 --> 00:05:27,256
+your applications while your
+
+189
+00:05:27,256 --> 00:05:28,356
+apps are in the background.
+
+190
+00:05:29,556 --> 00:05:31,426
+You can request up to 36 hours
+
+191
+00:05:31,426 --> 00:05:33,406
+of accelerometer data, and this
+
+192
+00:05:33,406 --> 00:05:34,716
+data will be stored on your
+
+193
+00:05:34,716 --> 00:05:36,386
+behalf for up to three days.
+
+194
+00:05:37,786 --> 00:05:39,696
+Now, Historical Accelerometer is
+
+195
+00:05:39,696 --> 00:05:41,176
+currently available on Apple
+
+196
+00:05:41,176 --> 00:05:43,476
+Watch, and today, I'm excited to
+
+197
+00:05:43,476 --> 00:05:45,126
+announce that it's now available
+
+198
+00:05:45,126 --> 00:05:46,826
+on iPhone 7 and 7 Plus.
+
+199
+00:05:47,886 --> 00:05:49,406
+This opens up a whole new set of
+
+200
+00:05:49,406 --> 00:05:50,996
+use cases for your applications,
+
+201
+00:05:51,216 --> 00:05:52,206
+and to get you thinking about
+
+202
+00:05:52,206 --> 00:05:53,626
+how you can use Historical
+
+203
+00:05:53,626 --> 00:05:55,376
+Accelerometer on iPhone, let's
+
+204
+00:05:55,376 --> 00:05:56,316
+walk through one sample
+
+205
+00:05:56,316 --> 00:05:58,646
+application now.
+
+206
+00:05:59,056 --> 00:06:00,496
+So let's say you're a big
+
+207
+00:05:59,056 --> 00:06:00,496
+So let's say you're a big
+
+208
+00:06:00,496 --> 00:06:02,366
+automotive enthusiast, and you
+
+209
+00:06:02,366 --> 00:06:03,726
+want to build an application to
+
+210
+00:06:03,726 --> 00:06:05,096
+enable you to track your car's
+
+211
+00:06:05,096 --> 00:06:06,736
+performance over a long-track
+
+212
+00:06:06,736 --> 00:06:06,926
+day.
+
+213
+00:06:07,736 --> 00:06:09,086
+How would we go about building
+
+214
+00:06:09,086 --> 00:06:09,306
+this?
+
+215
+00:06:09,746 --> 00:06:10,986
+Well, the first thing that we
+
+216
+00:06:10,986 --> 00:06:12,256
+want to figure out is when the
+
+217
+00:06:12,256 --> 00:06:14,526
+user is driving, and for that,
+
+218
+00:06:14,526 --> 00:06:15,726
+we can use Motion Activity.
+
+219
+00:06:16,266 --> 00:06:17,476
+Motion Activity provides an
+
+220
+00:06:17,476 --> 00:06:19,436
+automotive state, and we can use
+
+221
+00:06:19,436 --> 00:06:20,566
+this to determine the periods in
+
+222
+00:06:20,566 --> 00:06:21,576
+which the user is driving.
+
+223
+00:06:22,996 --> 00:06:24,316
+Now, I want to take a brief
+
+224
+00:06:24,316 --> 00:06:25,636
+minute to talk about the
+
+225
+00:06:25,636 --> 00:06:26,706
+automotive detection.
+
+226
+00:06:27,336 --> 00:06:29,566
+In iOS 11, the automotive
+
+227
+00:06:29,566 --> 00:06:31,036
+detection has received special
+
+228
+00:06:31,036 --> 00:06:32,156
+attention to ensure
+
+229
+00:06:32,156 --> 00:06:33,626
+best-in-class performance.
+
+230
+00:06:34,166 --> 00:06:35,956
+This automotive state in Motion
+
+231
+00:06:35,956 --> 00:06:37,746
+Activity is the same state
+
+232
+00:06:37,746 --> 00:06:39,016
+that's being used to power Do
+
+233
+00:06:39,016 --> 00:06:40,386
+Not Disturb While Driving; and
+
+234
+00:06:40,386 --> 00:06:41,826
+it's also available for you to
+
+235
+00:06:41,826 --> 00:06:43,186
+use in your applications.
+
+236
+00:06:43,456 --> 00:06:44,496
+If, say, you wanted to
+
+237
+00:06:44,496 --> 00:06:46,066
+personalize your application's
+
+238
+00:06:46,066 --> 00:06:47,406
+UI while the user is driving.
+
+239
+00:06:48,426 --> 00:06:49,766
+Now, coming back to our
+
+240
+00:06:49,766 --> 00:06:51,156
+automotive performance tracking
+
+241
+00:06:51,156 --> 00:06:52,666
+application, the next thing we
+
+242
+00:06:52,666 --> 00:06:54,526
+want to do, is we want to gather
+
+243
+00:06:54,766 --> 00:06:55,776
+the accelerometer data.
+
+244
+00:06:56,256 --> 00:06:57,876
+And for that, we can use
+
+245
+00:06:57,876 --> 00:06:58,546
+SensorRecorder.
+
+246
+00:06:58,846 --> 00:07:00,566
+We can gather the accelerometer
+
+247
+00:06:58,846 --> 00:07:00,566
+We can gather the accelerometer
+
+248
+00:07:00,566 --> 00:07:02,056
+data for the periods in which
+
+249
+00:07:02,106 --> 00:07:03,336
+the user is driving, and
+
+250
+00:07:03,336 --> 00:07:05,276
+translate that into metrics for
+
+251
+00:07:05,276 --> 00:07:07,066
+the user, such as how many Gs
+
+252
+00:07:07,066 --> 00:07:07,946
+they were pulling through a
+
+253
+00:07:07,946 --> 00:07:10,376
+turn, or maximum lateral Gs or
+
+254
+00:07:10,376 --> 00:07:11,366
+longitudinal Gs.
+
+255
+00:07:12,006 --> 00:07:14,236
+Now, there are many different
+
+256
+00:07:14,236 --> 00:07:16,036
+ways you could consider building
+
+257
+00:07:16,256 --> 00:07:17,956
+this kind of application, but by
+
+258
+00:07:18,066 --> 00:07:19,816
+using the Motion APIs, you can
+
+259
+00:07:19,816 --> 00:07:20,786
+provide your users with a
+
+260
+00:07:20,786 --> 00:07:22,796
+low-power, all-day experience.
+
+261
+00:07:23,516 --> 00:07:26,206
+Now, there are a number of best
+
+262
+00:07:26,206 --> 00:07:28,036
+practices to keep in mind with
+
+263
+00:07:28,036 --> 00:07:29,196
+Historical Accelerometer.
+
+264
+00:07:29,766 --> 00:07:31,216
+The first is that you want to
+
+265
+00:07:31,216 --> 00:07:32,926
+choose the minimum duration that
+
+266
+00:07:32,926 --> 00:07:34,096
+makes sense for your
+
+267
+00:07:34,096 --> 00:07:34,836
+applications.
+
+268
+00:07:35,536 --> 00:07:37,046
+So for automotive performance
+
+269
+00:07:37,046 --> 00:07:38,786
+tracking application, we may not
+
+270
+00:07:38,786 --> 00:07:41,116
+need the full 36 hours of data
+
+271
+00:07:41,986 --> 00:07:43,546
+-- something more like 8 to 12
+
+272
+00:07:43,546 --> 00:07:44,706
+hours would make more sense.
+
+273
+00:07:45,896 --> 00:07:47,326
+And the next best practice to
+
+274
+00:07:47,326 --> 00:07:48,516
+keep in mind is to consider
+
+275
+00:07:48,516 --> 00:07:50,506
+decimating or dropping samples
+
+276
+00:07:50,506 --> 00:07:52,386
+if you don't need the full 50
+
+277
+00:07:52,386 --> 00:07:53,626
+hertz accelerometer data.
+
+278
+00:07:54,326 --> 00:07:56,176
+These two suggestions, these two
+
+279
+00:07:56,176 --> 00:07:58,206
+best practices, will reduce the
+
+280
+00:07:58,206 --> 00:07:59,316
+amount of processing that your
+
+281
+00:07:59,316 --> 00:08:00,906
+application is doing, and in
+
+282
+00:07:59,316 --> 00:08:00,906
+application is doing, and in
+
+283
+00:08:00,906 --> 00:08:02,256
+turn, save the user's battery
+
+284
+00:08:02,256 --> 00:08:02,666
+life.
+
+285
+00:08:03,656 --> 00:08:05,836
+Now, I encourage you to consider
+
+286
+00:08:06,086 --> 00:08:07,736
+how you can use Historical
+
+287
+00:08:07,736 --> 00:08:09,546
+Accelerometer on iPhone.
+
+288
+00:08:10,046 --> 00:08:13,636
+Next, let's talk about
+
+289
+00:08:13,636 --> 00:08:14,566
+DeviceMotion.
+
+290
+00:08:15,126 --> 00:08:16,686
+DeviceMotion is the name for the
+
+291
+00:08:16,766 --> 00:08:18,536
+sensor fusion algorithm that we
+
+292
+00:08:18,536 --> 00:08:19,826
+provide in the Core Motion
+
+293
+00:08:19,826 --> 00:08:20,306
+framework.
+
+294
+00:08:21,146 --> 00:08:23,106
+Now, there are a number of
+
+295
+00:08:23,106 --> 00:08:23,846
+things that go into
+
+296
+00:08:23,846 --> 00:08:24,686
+DeviceMotion.
+
+297
+00:08:25,966 --> 00:08:27,396
+The first sensor that we use in
+
+298
+00:08:27,396 --> 00:08:28,176
+DeviceMotion is the
+
+299
+00:08:28,176 --> 00:08:29,446
+accelerometer, and the
+
+300
+00:08:29,446 --> 00:08:30,806
+accelerometer enables us to
+
+301
+00:08:30,806 --> 00:08:31,776
+measure the accelerations
+
+302
+00:08:31,776 --> 00:08:33,336
+imparted by the user, as well as
+
+303
+00:08:33,336 --> 00:08:34,535
+the acceleration imparted by
+
+304
+00:08:34,535 --> 00:08:35,025
+gravity.
+
+305
+00:08:36,176 --> 00:08:37,466
+The gyroscope enables us to
+
+306
+00:08:37,466 --> 00:08:38,885
+precisely measure the rotation
+
+307
+00:08:38,885 --> 00:08:39,716
+rate of the device.
+
+308
+00:08:40,236 --> 00:08:41,946
+And the magnetometer allows us
+
+309
+00:08:41,946 --> 00:08:43,566
+to measure local fields around
+
+310
+00:08:43,566 --> 00:08:44,876
+the device as well as the
+
+311
+00:08:44,876 --> 00:08:45,906
+Earth's magnetic field.
+
+312
+00:08:47,226 --> 00:08:48,886
+Now, when dealing with the raw
+
+313
+00:08:48,886 --> 00:08:49,866
+sensors, there's a number of
+
+314
+00:08:49,866 --> 00:08:51,096
+challenges to keep in mind.
+
+315
+00:08:51,956 --> 00:08:53,176
+With the accelerometer, it can
+
+316
+00:08:53,176 --> 00:08:54,916
+be difficult to distinguish from
+
+317
+00:08:54,916 --> 00:08:55,996
+the accelerations imparted by
+
+318
+00:08:55,996 --> 00:08:57,826
+the user; and from those
+
+319
+00:08:58,386 --> 00:09:00,166
+imparted by the force of
+
+320
+00:08:58,386 --> 00:09:00,166
+imparted by the force of
+
+321
+00:09:01,836 --> 00:09:02,276
+gravity.
+
+322
+00:09:02,376 --> 00:09:03,566
+With the gyroscope, we can have
+
+323
+00:09:03,566 --> 00:09:04,706
+bias in the measurements over
+
+324
+00:09:04,706 --> 00:09:06,986
+time, and with the magnetometer,
+
+325
+00:09:06,986 --> 00:09:07,756
+it can be difficult to
+
+326
+00:09:07,756 --> 00:09:09,256
+distinguish between the local
+
+327
+00:09:09,256 --> 00:09:10,586
+fields and the Earth's magnetic
+
+328
+00:09:10,586 --> 00:09:10,936
+field.
+
+329
+00:09:11,326 --> 00:09:13,346
+And this is where DeviceMotion
+
+330
+00:09:13,346 --> 00:09:13,876
+comes in.
+
+331
+00:09:14,566 --> 00:09:16,306
+DeviceMotion provides 3D
+
+332
+00:09:16,306 --> 00:09:17,716
+attitude tracking while the
+
+333
+00:09:17,716 --> 00:09:19,236
+device is undergoing free-space
+
+334
+00:09:19,336 --> 00:09:19,846
+motion.
+
+335
+00:09:20,636 --> 00:09:22,156
+And it does this by fusing
+
+336
+00:09:22,156 --> 00:09:23,826
+together all of the sensors to
+
+337
+00:09:23,826 --> 00:09:25,546
+relay the advantages of each,
+
+338
+00:09:25,676 --> 00:09:26,476
+while minimizing the
+
+339
+00:09:26,476 --> 00:09:27,286
+disadvantages.
+
+340
+00:09:28,246 --> 00:09:30,026
+And as a developer, what this
+
+341
+00:09:30,026 --> 00:09:31,856
+really means is it enables you
+
+342
+00:09:32,126 --> 00:09:34,066
+to focus on how you want to use
+
+343
+00:09:34,066 --> 00:09:35,466
+the motion data rather than the
+
+344
+00:09:35,466 --> 00:09:36,766
+mechanics of trying to get the
+
+345
+00:09:36,766 --> 00:09:38,036
+best from the sensors.
+
+346
+00:09:39,776 --> 00:09:41,016
+Now, we've talked about
+
+347
+00:09:41,016 --> 00:09:42,496
+DeviceMotion in a number of
+
+348
+00:09:42,496 --> 00:09:43,376
+previous sessions.
+
+349
+00:09:43,626 --> 00:09:44,796
+I encourage you to check them
+
+350
+00:09:44,796 --> 00:09:45,116
+out.
+
+351
+00:09:45,436 --> 00:09:46,606
+We go into details about the
+
+352
+00:09:46,636 --> 00:09:48,116
+sensors and the DeviceMotion
+
+353
+00:09:48,116 --> 00:09:48,756
+algorithms.
+
+354
+00:09:49,216 --> 00:09:51,036
+But today, we're going to think
+
+355
+00:09:51,036 --> 00:09:52,886
+about how we can use certain
+
+356
+00:09:52,886 --> 00:09:54,426
+aspects of DeviceMotion to
+
+357
+00:09:54,426 --> 00:09:55,696
+create immersive applications
+
+358
+00:09:55,696 --> 00:09:56,386
+for your users.
+
+359
+00:09:56,386 --> 00:10:00,666
+So as a developer, when you're
+
+360
+00:09:56,386 --> 00:10:00,666
+So as a developer, when you're
+
+361
+00:10:00,666 --> 00:10:01,616
+first getting started with
+
+362
+00:10:01,616 --> 00:10:03,136
+DeviceMotion, the first thing
+
+363
+00:10:03,136 --> 00:10:04,256
+that you need to consider are
+
+364
+00:10:04,256 --> 00:10:05,186
+the reference frames.
+
+365
+00:10:05,416 --> 00:10:07,076
+The reference frames determine
+
+366
+00:10:07,396 --> 00:10:08,906
+which sensors are used in the
+
+367
+00:10:08,906 --> 00:10:11,006
+fusion, and how attitude is
+
+368
+00:10:11,006 --> 00:10:11,886
+calculated for your
+
+369
+00:10:11,886 --> 00:10:12,656
+applications.
+
+370
+00:10:13,616 --> 00:10:14,786
+The first reference frame,
+
+371
+00:10:14,956 --> 00:10:17,046
+xArbitraryZVertical, fuses
+
+372
+00:10:17,046 --> 00:10:18,166
+together the accelerometer and
+
+373
+00:10:18,166 --> 00:10:19,406
+the gyroscope but does not use
+
+374
+00:10:19,406 --> 00:10:19,976
+the magnetometer.
+
+375
+00:10:20,716 --> 00:10:21,886
+And the last three reference
+
+376
+00:10:21,886 --> 00:10:23,536
+frames, xArbitraryCorrected,
+
+377
+00:10:23,856 --> 00:10:25,076
+xMagneticNorth, and
+
+378
+00:10:25,076 --> 00:10:26,936
+xTrueNorthZVertical, use all
+
+379
+00:10:26,936 --> 00:10:27,626
+three sensors.
+
+380
+00:10:28,776 --> 00:10:30,216
+Now, let's talk about the first
+
+381
+00:10:30,216 --> 00:10:31,846
+reference frame in more detail.
+
+382
+00:10:33,166 --> 00:10:34,786
+Let's say you've got an awesome
+
+383
+00:10:34,786 --> 00:10:35,876
+racing game where you're
+
+384
+00:10:35,876 --> 00:10:37,376
+currently using touch controls
+
+385
+00:10:37,596 --> 00:10:39,176
+to allow your users to steer in
+
+386
+00:10:39,176 --> 00:10:39,646
+the game.
+
+387
+00:10:40,306 --> 00:10:41,556
+This is great, but we could
+
+388
+00:10:41,556 --> 00:10:42,716
+provide a more immersive
+
+389
+00:10:42,716 --> 00:10:44,526
+experience using motion.
+
+390
+00:10:45,926 --> 00:10:47,956
+What we want to do is we want to
+
+391
+00:10:47,956 --> 00:10:50,146
+enable users to steer using
+
+392
+00:10:50,146 --> 00:10:51,526
+their device; so when they tilt
+
+393
+00:10:51,526 --> 00:10:52,836
+their car -- tilt their device
+
+394
+00:10:52,836 --> 00:10:54,276
+to the left, the car will turn
+
+395
+00:10:55,836 --> 00:10:55,996
+left.
+
+396
+00:10:56,206 --> 00:10:57,496
+Now, as long as the device is
+
+397
+00:10:57,496 --> 00:10:59,466
+relatively static, we can use
+
+398
+00:10:59,466 --> 00:11:01,226
+the accelerometer to estimate
+
+399
+00:10:59,466 --> 00:11:01,226
+the accelerometer to estimate
+
+400
+00:11:01,306 --> 00:11:03,556
+the force of gravity; and once
+
+401
+00:11:03,556 --> 00:11:05,186
+we have gravity, we can use that
+
+402
+00:11:05,186 --> 00:11:06,466
+to determine the tilt, or the
+
+403
+00:11:06,466 --> 00:11:07,966
+angle offset from gravity.
+
+404
+00:11:08,616 --> 00:11:11,656
+One thing to keep in mind,
+
+405
+00:11:11,656 --> 00:11:13,126
+though, is that if you were
+
+406
+00:11:13,126 --> 00:11:14,776
+using the accelerometer on its
+
+407
+00:11:14,776 --> 00:11:17,126
+own, certain gestures can be
+
+408
+00:11:17,126 --> 00:11:17,786
+ambiguous.
+
+409
+00:11:18,846 --> 00:11:20,476
+Tilting the device to the right
+
+410
+00:11:20,856 --> 00:11:21,896
+can look the same to the
+
+411
+00:11:21,896 --> 00:11:23,506
+accelerometer as sliding the
+
+412
+00:11:23,506 --> 00:11:24,536
+device to the left.
+
+413
+00:11:25,306 --> 00:11:26,636
+Now, one way you could consider
+
+414
+00:11:26,636 --> 00:11:28,106
+dealing with this is by
+
+415
+00:11:28,106 --> 00:11:29,846
+averaging over the accelerometer
+
+416
+00:11:29,916 --> 00:11:30,236
+signal.
+
+417
+00:11:31,276 --> 00:11:32,886
+In doing so, you would reduce
+
+418
+00:11:32,936 --> 00:11:34,446
+the short-term effects from the
+
+419
+00:11:34,446 --> 00:11:35,916
+user and leave only the
+
+420
+00:11:35,916 --> 00:11:37,506
+long-term effects, such as the
+
+421
+00:11:37,506 --> 00:11:38,226
+force of gravity.
+
+422
+00:11:38,906 --> 00:11:40,786
+However, in doing this, you
+
+423
+00:11:40,786 --> 00:11:41,836
+would notice your application
+
+424
+00:11:41,836 --> 00:11:43,196
+would now respond more slowly.
+
+425
+00:11:43,336 --> 00:11:45,396
+And this is where DeviceMotion
+
+426
+00:11:45,396 --> 00:11:45,916
+comes in.
+
+427
+00:11:46,736 --> 00:11:48,516
+DeviceMotion means that your
+
+428
+00:11:48,516 --> 00:11:49,816
+application doesn't need to
+
+429
+00:11:49,816 --> 00:11:51,316
+build up filtering logic to get
+
+430
+00:11:51,316 --> 00:11:53,036
+great performance from sensors.
+
+431
+00:11:55,276 --> 00:11:57,846
+With the xArbitraryZVertical
+
+432
+00:11:57,846 --> 00:11:59,706
+reference frame, this is the
+
+433
+00:11:59,706 --> 00:12:00,786
+default reference frame that
+
+434
+00:11:59,706 --> 00:12:00,786
+default reference frame that
+
+435
+00:12:00,786 --> 00:12:02,276
+your application will receive if
+
+436
+00:12:02,276 --> 00:12:03,886
+you don't explicitly specify one
+
+437
+00:12:04,116 --> 00:12:05,616
+when you start DeviceMotion
+
+438
+00:12:05,616 --> 00:12:06,106
+updates.
+
+439
+00:12:06,476 --> 00:12:08,136
+And this reference frame is
+
+440
+00:12:08,136 --> 00:12:09,646
+great for use cases where you
+
+441
+00:12:09,646 --> 00:12:10,936
+want to track the tip and the
+
+442
+00:12:10,936 --> 00:12:13,706
+tilt of the device.
+
+443
+00:12:13,706 --> 00:12:15,516
+And for our use case in the
+
+444
+00:12:15,516 --> 00:12:17,306
+game, the accelerometer and the
+
+445
+00:12:17,306 --> 00:12:18,596
+gyroscope are going to fuse
+
+446
+00:12:18,596 --> 00:12:19,976
+together to allow us to more
+
+447
+00:12:19,976 --> 00:12:21,486
+quickly and precisely track
+
+448
+00:12:21,486 --> 00:12:21,936
+gravity.
+
+449
+00:12:22,526 --> 00:12:24,256
+And once we have gravity, we can
+
+450
+00:12:24,256 --> 00:12:25,726
+translate that into tilt for our
+
+451
+00:12:25,726 --> 00:12:26,076
+game.
+
+452
+00:12:27,326 --> 00:12:28,926
+Now, to walk through exactly how
+
+453
+00:12:28,926 --> 00:12:30,596
+to do this, my co-worker Ahmad
+
+454
+00:12:30,596 --> 00:12:31,456
+is going to come to the stage a
+
+455
+00:12:31,456 --> 00:12:33,386
+bit later and show us.
+
+456
+00:12:33,936 --> 00:12:36,146
+This reference frame is also
+
+457
+00:12:36,146 --> 00:12:37,816
+great for use cases where you
+
+458
+00:12:37,816 --> 00:12:39,576
+want to track gestures from the
+
+459
+00:12:39,576 --> 00:12:39,976
+user.
+
+460
+00:12:40,546 --> 00:12:41,926
+I encourage you to check out our
+
+461
+00:12:41,926 --> 00:12:43,646
+sample application, SwingWatch.
+
+462
+00:12:44,356 --> 00:12:46,166
+SwingWatch is an app that runs
+
+463
+00:12:46,436 --> 00:12:47,906
+on the watch that uses
+
+464
+00:12:48,066 --> 00:12:49,696
+DeviceMotion to track when
+
+465
+00:12:49,696 --> 00:12:51,416
+you've made a forehand or a
+
+466
+00:12:51,416 --> 00:12:53,116
+backhand gesture during a tennis
+
+467
+00:12:53,156 --> 00:12:53,486
+game.
+
+468
+00:12:54,236 --> 00:12:55,336
+Both the sample code and the
+
+469
+00:12:55,336 --> 00:12:56,336
+session are online, and I
+
+470
+00:12:56,336 --> 00:12:58,146
+encourage you to check them out.
+
+471
+00:12:58,956 --> 00:13:00,936
+So, let's say you've got another
+
+472
+00:12:58,956 --> 00:13:00,936
+So, let's say you've got another
+
+473
+00:13:00,936 --> 00:13:01,346
+game.
+
+474
+00:13:02,096 --> 00:13:03,386
+Let's say it's a shooter game
+
+475
+00:13:03,586 --> 00:13:05,666
+where you allow the user to aim
+
+476
+00:13:05,736 --> 00:13:07,066
+using virtual thumb-sticks.
+
+477
+00:13:07,486 --> 00:13:09,496
+This is great, but we could
+
+478
+00:13:09,496 --> 00:13:10,446
+provide a more immersive
+
+479
+00:13:10,446 --> 00:13:12,156
+experience using motion.
+
+480
+00:13:15,936 --> 00:13:17,976
+And what we want to do is we
+
+481
+00:13:17,976 --> 00:13:19,776
+want to determine where the user
+
+482
+00:13:19,776 --> 00:13:21,386
+is pointing their device and
+
+483
+00:13:21,386 --> 00:13:23,566
+have that translate into aiming
+
+484
+00:13:23,656 --> 00:13:25,306
+in the game; and for that, we
+
+485
+00:13:25,306 --> 00:13:26,346
+want to use attitude.
+
+486
+00:13:27,686 --> 00:13:29,496
+Attitude provides the rotation
+
+487
+00:13:29,496 --> 00:13:31,306
+from the reference frame, fixed
+
+488
+00:13:31,306 --> 00:13:32,186
+when you first start
+
+489
+00:13:32,186 --> 00:13:34,086
+DeviceMotion updates, to where
+
+490
+00:13:34,086 --> 00:13:35,406
+the user is currently holding
+
+491
+00:13:35,406 --> 00:13:38,346
+the device in 3D space.
+
+492
+00:13:38,556 --> 00:13:39,946
+Now, one way you could consider
+
+493
+00:13:39,946 --> 00:13:41,966
+getting attitude is by taking
+
+494
+00:13:41,966 --> 00:13:43,826
+the integral of a raw gyroscope
+
+495
+00:13:43,826 --> 00:13:44,226
+signal.
+
+496
+00:13:44,846 --> 00:13:47,256
+Your sway would determine the
+
+497
+00:13:47,256 --> 00:13:47,746
+attitude.
+
+498
+00:13:48,236 --> 00:13:50,106
+However, this method for
+
+499
+00:13:50,106 --> 00:13:51,966
+determining attitude would drift
+
+500
+00:13:51,966 --> 00:13:53,926
+over time due to bias in the
+
+501
+00:13:53,926 --> 00:13:56,936
+gyroscope, and that's where the
+
+502
+00:13:56,936 --> 00:13:58,616
+xArbitraryCorrectedZVertical
+
+503
+00:13:58,616 --> 00:13:59,606
+reference frame comes in.
+
+504
+00:14:00,196 --> 00:14:01,376
+This reference frame uses the
+
+505
+00:14:01,376 --> 00:14:03,076
+magnetometer to improve the
+
+506
+00:14:03,076 --> 00:14:04,686
+horizontal attitude estimation
+
+507
+00:14:04,956 --> 00:14:07,236
+that we provide; and as a
+
+508
+00:14:07,236 --> 00:14:08,626
+developer, what this reference
+
+509
+00:14:08,626 --> 00:14:09,886
+frame means to you is it
+
+510
+00:14:09,886 --> 00:14:11,546
+provides reliable attitude
+
+511
+00:14:11,546 --> 00:14:13,386
+performance with a fixed center
+
+512
+00:14:13,386 --> 00:14:13,916
+reference.
+
+513
+00:14:14,286 --> 00:14:16,206
+So in the game, your users can
+
+514
+00:14:16,206 --> 00:14:17,706
+move the device around and then
+
+515
+00:14:17,746 --> 00:14:19,046
+come back to a known center
+
+516
+00:14:19,046 --> 00:14:19,666
+location.
+
+517
+00:14:21,166 --> 00:14:22,546
+Now, there are many other ways
+
+518
+00:14:22,546 --> 00:14:23,756
+you could consider using this
+
+519
+00:14:23,756 --> 00:14:24,426
+reference frame.
+
+520
+00:14:25,046 --> 00:14:26,176
+Let's say you wanted to build a
+
+521
+00:14:26,176 --> 00:14:28,356
+360-degree photo and video
+
+522
+00:14:28,356 --> 00:14:29,236
+player application.
+
+523
+00:14:29,236 --> 00:14:30,906
+Your users would be able to move
+
+524
+00:14:30,906 --> 00:14:32,356
+their device around and then
+
+525
+00:14:32,356 --> 00:14:33,966
+bring it back towards the center
+
+526
+00:14:34,126 --> 00:14:35,276
+-- towards the dock overlooking
+
+527
+00:14:35,276 --> 00:14:35,646
+the lake.
+
+528
+00:14:37,286 --> 00:14:38,296
+Now, another way you could
+
+529
+00:14:38,296 --> 00:14:39,736
+consider using this reference
+
+530
+00:14:39,736 --> 00:14:41,366
+frame is for something like a
+
+531
+00:14:41,366 --> 00:14:42,766
+virtual-reality real estate
+
+532
+00:14:42,766 --> 00:14:44,646
+application where you want to
+
+533
+00:14:44,646 --> 00:14:46,636
+allow your users to look around
+
+534
+00:14:46,636 --> 00:14:47,656
+at different parts of a room
+
+535
+00:14:47,886 --> 00:14:48,866
+just by moving their device.
+
+536
+00:14:50,486 --> 00:14:51,596
+Now, let's say you build this
+
+537
+00:14:51,596 --> 00:14:53,046
+application out, and your users
+
+538
+00:14:53,116 --> 00:14:55,066
+love it; but they want to get a
+
+539
+00:14:55,066 --> 00:14:56,356
+better sense of in which
+
+540
+00:14:56,356 --> 00:14:58,646
+direction the windows face, or
+
+541
+00:14:58,746 --> 00:14:59,736
+in which direction they can
+
+542
+00:14:59,736 --> 00:15:00,766
+expect the sun to rise.
+
+543
+00:14:59,736 --> 00:15:00,766
+expect the sun to rise.
+
+544
+00:15:01,096 --> 00:15:03,226
+And for that, we want a world
+
+545
+00:15:03,226 --> 00:15:03,676
+reference.
+
+546
+00:15:05,366 --> 00:15:07,076
+Now, you could consider using
+
+547
+00:15:07,076 --> 00:15:08,136
+the magnetometer for this.
+
+548
+00:15:08,136 --> 00:15:09,466
+This would provide a world
+
+549
+00:15:09,466 --> 00:15:10,556
+reference and enable your
+
+550
+00:15:10,556 --> 00:15:11,906
+applications to orient with
+
+551
+00:15:11,906 --> 00:15:12,806
+respect to the world.
+
+552
+00:15:13,646 --> 00:15:14,966
+However, using the raw
+
+553
+00:15:14,966 --> 00:15:16,846
+magnetometer, you would find the
+
+554
+00:15:16,846 --> 00:15:17,946
+output susceptible to
+
+555
+00:15:17,946 --> 00:15:18,626
+disturbances.
+
+556
+00:15:19,556 --> 00:15:21,406
+Some of these are inherent to
+
+557
+00:15:21,406 --> 00:15:23,306
+the device, and some of these
+
+558
+00:15:23,306 --> 00:15:24,346
+are external to the device.
+
+559
+00:15:25,706 --> 00:15:26,936
+This is where the final two
+
+560
+00:15:26,936 --> 00:15:28,026
+reference frames come in.
+
+561
+00:15:28,566 --> 00:15:30,706
+These reference frames use the
+
+562
+00:15:30,706 --> 00:15:32,586
+magnetometer to orient the
+
+563
+00:15:32,586 --> 00:15:34,616
+device with respect to the
+
+564
+00:15:34,736 --> 00:15:36,956
+world, and these reference
+
+565
+00:15:36,956 --> 00:15:38,606
+frames handle magnetic
+
+566
+00:15:38,746 --> 00:15:40,966
+device-level effects; as well as
+
+567
+00:15:40,966 --> 00:15:42,396
+in challenging magnetometer
+
+568
+00:15:42,396 --> 00:15:44,266
+situations, we can stabilize the
+
+569
+00:15:44,266 --> 00:15:44,696
+output.
+
+570
+00:15:46,176 --> 00:15:48,046
+Now, choosing between these two
+
+571
+00:15:48,046 --> 00:15:49,656
+reference frames is going to be
+
+572
+00:15:49,656 --> 00:15:50,576
+based on the needs of your
+
+573
+00:15:50,576 --> 00:15:51,206
+application.
+
+574
+00:15:51,646 --> 00:15:52,886
+If you've already got data
+
+575
+00:15:53,076 --> 00:15:54,276
+that's referencing true north --
+
+576
+00:15:54,486 --> 00:15:55,796
+for example, map data -- it
+
+577
+00:15:55,796 --> 00:15:57,166
+would make sense to use the
+
+578
+00:15:57,166 --> 00:15:58,786
+xTrueNorthZVertical reference
+
+579
+00:15:58,786 --> 00:15:59,106
+frame.
+
+580
+00:16:00,326 --> 00:16:03,356
+Now, how could we consider using
+
+581
+00:16:03,356 --> 00:16:04,326
+these reference frames?
+
+582
+00:16:04,916 --> 00:16:07,106
+Well, one example is things like
+
+583
+00:16:07,106 --> 00:16:08,816
+stargazing applications, where
+
+584
+00:16:08,816 --> 00:16:09,846
+you want to allow your users to
+
+585
+00:16:09,846 --> 00:16:11,506
+point their device at a star in
+
+586
+00:16:11,506 --> 00:16:14,056
+the sky and identify it.
+
+587
+00:16:14,316 --> 00:16:14,896
+Another way you could
+
+588
+00:16:14,896 --> 00:16:15,636
+considering using these
+
+589
+00:16:15,636 --> 00:16:17,106
+reference frames are for things
+
+590
+00:16:17,106 --> 00:16:18,076
+like augmented reality
+
+591
+00:16:18,076 --> 00:16:19,756
+applications where you want to
+
+592
+00:16:19,756 --> 00:16:21,736
+fuse the camera data with a
+
+593
+00:16:21,736 --> 00:16:22,546
+world reference.
+
+594
+00:16:22,906 --> 00:16:24,196
+And for that, we encourage you
+
+595
+00:16:24,196 --> 00:16:25,106
+to check out ARKit.
+
+596
+00:16:25,496 --> 00:16:26,746
+ARKit's session follows
+
+597
+00:16:26,746 --> 00:16:27,876
+immediately after this one.
+
+598
+00:16:27,876 --> 00:16:32,196
+Now, let's come back to our
+
+599
+00:16:32,196 --> 00:16:33,516
+virtual-reality real estate
+
+600
+00:16:33,516 --> 00:16:34,116
+application.
+
+601
+00:16:35,286 --> 00:16:35,886
+Let's say you built the
+
+602
+00:16:35,886 --> 00:16:37,276
+application out, and your users
+
+603
+00:16:37,276 --> 00:16:39,306
+love it, but you want to provide
+
+604
+00:16:39,306 --> 00:16:40,696
+them with more features.
+
+605
+00:16:41,186 --> 00:16:42,416
+Let's say you want to put
+
+606
+00:16:42,416 --> 00:16:44,166
+landmarks on the horizon in the
+
+607
+00:16:44,166 --> 00:16:45,296
+direction that they actually
+
+608
+00:16:45,296 --> 00:16:45,576
+are.
+
+609
+00:16:46,506 --> 00:16:48,166
+How would we go about doing
+
+610
+00:16:48,166 --> 00:16:48,346
+this?
+
+611
+00:16:49,096 --> 00:16:51,006
+Well, what we want is heading.
+
+612
+00:16:52,376 --> 00:16:54,266
+Heading gives us the direction
+
+613
+00:16:54,266 --> 00:16:55,376
+the device is pointing with
+
+614
+00:16:55,376 --> 00:16:56,346
+respect to north.
+
+615
+00:16:56,786 --> 00:16:58,226
+So when the device is pointing
+
+616
+00:16:58,306 --> 00:17:00,086
+straight towards north, heading
+
+617
+00:16:58,306 --> 00:17:00,086
+straight towards north, heading
+
+618
+00:17:00,086 --> 00:17:03,076
+would return 0 degrees and as
+
+619
+00:17:03,076 --> 00:17:04,486
+the user rotates their device
+
+620
+00:17:04,546 --> 00:17:06,205
+around, the heading angle would
+
+621
+00:17:06,205 --> 00:17:06,586
+update.
+
+622
+00:17:08,106 --> 00:17:09,556
+Now, one way you could consider
+
+623
+00:17:09,556 --> 00:17:11,086
+getting heading is by using
+
+624
+00:17:11,086 --> 00:17:11,846
+CoreLocation.
+
+625
+00:17:12,316 --> 00:17:14,306
+CoreLocation provides a start
+
+626
+00:17:14,306 --> 00:17:17,006
+updating heading API that you
+
+627
+00:17:17,006 --> 00:17:18,796
+could then use the heading from
+
+628
+00:17:18,796 --> 00:17:20,445
+and fuse that in with the data
+
+629
+00:17:20,445 --> 00:17:21,476
+that you're already getting from
+
+630
+00:17:21,476 --> 00:17:22,236
+DeviceMotion.
+
+631
+00:17:24,366 --> 00:17:25,256
+One thing to keep in mind,
+
+632
+00:17:25,256 --> 00:17:26,965
+though, is that CoreLocation's
+
+633
+00:17:26,965 --> 00:17:28,926
+heading can fuse course.
+
+634
+00:17:29,846 --> 00:17:31,216
+Course is the direction of
+
+635
+00:17:31,216 --> 00:17:32,066
+travel for the device.
+
+636
+00:17:32,896 --> 00:17:34,646
+Now, this may make sense for
+
+637
+00:17:34,646 --> 00:17:35,746
+things like turn-by-turn
+
+638
+00:17:35,746 --> 00:17:37,886
+navigation applications, but for
+
+639
+00:17:37,886 --> 00:17:39,226
+things like augmented reality,
+
+640
+00:17:39,436 --> 00:17:40,496
+this may make less sense.
+
+641
+00:17:40,846 --> 00:17:42,296
+I encourage you to check out
+
+642
+00:17:42,296 --> 00:17:43,666
+CoreLocation's section on
+
+643
+00:17:43,666 --> 00:17:45,266
+Thursday for more details.
+
+644
+00:17:46,596 --> 00:17:48,126
+Now, another way you could
+
+645
+00:17:48,126 --> 00:17:49,806
+consider getting heading is by
+
+646
+00:17:49,806 --> 00:17:51,376
+calculating it from the attitude
+
+647
+00:17:51,376 --> 00:17:53,276
+estimation that we provide in
+
+648
+00:17:53,276 --> 00:17:54,066
+DeviceMotion.
+
+649
+00:17:54,586 --> 00:17:56,266
+However, getting this right in
+
+650
+00:17:56,266 --> 00:17:57,476
+all circumstances is
+
+651
+00:17:57,476 --> 00:17:59,946
+non-trivial; and this is why
+
+652
+00:18:00,336 --> 00:18:01,876
+this year, we're adding heading
+
+653
+00:18:01,876 --> 00:18:03,716
+as a first-class property in
+
+654
+00:18:03,716 --> 00:18:04,546
+DeviceMotion.
+
+655
+00:18:05,896 --> 00:18:07,716
+Heading fuses together the
+
+656
+00:18:07,716 --> 00:18:09,276
+accelerometer, the gyroscope and
+
+657
+00:18:09,276 --> 00:18:09,896
+most importantly, the
+
+658
+00:18:09,896 --> 00:18:11,306
+magnetometer, to give us the
+
+659
+00:18:11,306 --> 00:18:12,736
+direction the device is pointing
+
+660
+00:18:12,736 --> 00:18:13,656
+with respect to north.
+
+661
+00:18:15,366 --> 00:18:16,746
+Keep in mind that heading is
+
+662
+00:18:16,746 --> 00:18:19,026
+only available on iOS, where the
+
+663
+00:18:19,026 --> 00:18:20,206
+magnetic field property is
+
+664
+00:18:20,206 --> 00:18:20,606
+available.
+
+665
+00:18:22,156 --> 00:18:23,576
+Now, let's take a closer look at
+
+666
+00:18:23,576 --> 00:18:23,976
+the API.
+
+667
+00:18:25,386 --> 00:18:27,066
+Heading is only valid for the
+
+668
+00:18:27,066 --> 00:18:28,986
+xMagneticNorth and xTrueNorth
+
+669
+00:18:28,986 --> 00:18:29,766
+reference frames.
+
+670
+00:18:30,126 --> 00:18:31,106
+For the other two reference
+
+671
+00:18:31,106 --> 00:18:32,146
+frames, you'll receive a
+
+672
+00:18:32,146 --> 00:18:33,326
+negative value back from
+
+673
+00:18:33,326 --> 00:18:36,426
+heading, and heading will give
+
+674
+00:18:36,426 --> 00:18:39,586
+you from 0 to 359 degrees from
+
+675
+00:18:39,586 --> 00:18:41,546
+the X axis that you've chosen in
+
+676
+00:18:41,546 --> 00:18:42,856
+your application, either
+
+677
+00:18:42,856 --> 00:18:44,356
+MagneticNorth or TrueNorth.
+
+678
+00:18:44,986 --> 00:18:48,016
+Now that we have heading, we
+
+679
+00:18:48,016 --> 00:18:49,776
+could use that to overlay the
+
+680
+00:18:49,776 --> 00:18:50,936
+Golden Gate Bridge on the
+
+681
+00:18:50,936 --> 00:18:52,606
+horizon in the direction that it
+
+682
+00:18:52,606 --> 00:18:52,916
+actually is.
+
+683
+00:18:55,946 --> 00:18:57,496
+Now, with DeviceMotion, there
+
+684
+00:18:57,496 --> 00:18:58,686
+are a number of best practices
+
+685
+00:18:58,686 --> 00:18:59,446
+to keep in mind.
+
+686
+00:19:00,266 --> 00:19:02,226
+The first is that you want to
+
+687
+00:19:02,226 --> 00:19:03,456
+make sure that you check for the
+
+688
+00:19:03,456 --> 00:19:04,546
+availability of a given
+
+689
+00:19:04,546 --> 00:19:06,196
+reference frame before you start
+
+690
+00:19:06,196 --> 00:19:06,746
+updates.
+
+691
+00:19:07,566 --> 00:19:09,646
+And to do that, you can use the
+
+692
+00:19:09,646 --> 00:19:10,966
+availableAttitudeReference
+
+693
+00:19:10,966 --> 00:19:11,586
+Frame's API.
+
+694
+00:19:12,216 --> 00:19:13,176
+This will return you a
+
+695
+00:19:13,336 --> 00:19:15,356
+CMAttitudeReferenceFrame bitmask
+
+696
+00:19:15,586 --> 00:19:17,016
+that you can then and, with the
+
+697
+00:19:17,016 --> 00:19:17,856
+reference frame that you are
+
+698
+00:19:17,856 --> 00:19:19,136
+interested in, to determine
+
+699
+00:19:19,136 --> 00:19:19,756
+availability.
+
+700
+00:19:21,086 --> 00:19:22,736
+And the next thing to keep in
+
+701
+00:19:22,736 --> 00:19:23,866
+mind is that the choice of
+
+702
+00:19:23,866 --> 00:19:25,556
+reference frame is key for your
+
+703
+00:19:25,556 --> 00:19:26,326
+applications.
+
+704
+00:19:26,506 --> 00:19:28,416
+This is going to determine how
+
+705
+00:19:28,416 --> 00:19:29,876
+attitude is calculated in your
+
+706
+00:19:29,876 --> 00:19:32,246
+applications, as well as which
+
+707
+00:19:32,246 --> 00:19:34,056
+sensors go into the sensor
+
+708
+00:19:34,056 --> 00:19:34,686
+fusion.
+
+709
+00:19:36,286 --> 00:19:37,806
+Now, we've talked about a number
+
+710
+00:19:37,806 --> 00:19:39,686
+of things in DeviceMotion, but
+
+711
+00:19:39,686 --> 00:19:40,596
+let's get a little bit more
+
+712
+00:19:40,596 --> 00:19:41,146
+practical.
+
+713
+00:19:41,806 --> 00:19:45,126
+Let's take some of the concepts
+
+714
+00:19:45,266 --> 00:19:46,296
+that we've talked about in
+
+715
+00:19:46,296 --> 00:19:48,686
+DeviceMotion and put them into
+
+716
+00:19:48,686 --> 00:19:50,516
+practice using a game.
+
+717
+00:19:51,466 --> 00:19:53,076
+Badger with Attitude is a game
+
+718
+00:19:53,256 --> 00:19:54,246
+where we're going to apply
+
+719
+00:19:54,536 --> 00:19:56,776
+DeviceMotion to translate into
+
+720
+00:19:56,776 --> 00:19:58,616
+controls for the game, and for
+
+721
+00:19:58,616 --> 00:19:59,806
+that, I'd like to invite my
+
+722
+00:19:59,806 --> 00:20:01,516
+co-worker, Ahmad to the stage to
+
+723
+00:19:59,806 --> 00:20:01,516
+co-worker, Ahmad to the stage to
+
+724
+00:20:01,516 --> 00:20:02,326
+walk us through this.
+
+725
+00:20:03,516 --> 00:20:07,500
+[ Applause ]
+
+726
+00:20:14,396 --> 00:20:15,186
+&gt;&gt; Thank you, John.
+
+727
+00:20:16,676 --> 00:20:17,576
+Hello, and welcome.
+
+728
+00:20:18,346 --> 00:20:19,406
+Today, I'm going to be taking
+
+729
+00:20:19,406 --> 00:20:21,246
+some of those concepts that John
+
+730
+00:20:21,246 --> 00:20:22,606
+just talked about and help you
+
+731
+00:20:22,606 --> 00:20:23,656
+put them through a practical
+
+732
+00:20:23,656 --> 00:20:24,126
+example.
+
+733
+00:20:24,876 --> 00:20:26,106
+My name is Ahmad, and I'm an
+
+734
+00:20:26,106 --> 00:20:27,256
+engineer on the Core Motion
+
+735
+00:20:27,256 --> 00:20:27,536
+team.
+
+736
+00:20:29,036 --> 00:20:30,296
+I'll be using the Badger app,
+
+737
+00:20:30,446 --> 00:20:31,666
+which has been developed by our
+
+738
+00:20:31,666 --> 00:20:32,946
+colleagues over at SceneKit.
+
+739
+00:20:33,546 --> 00:20:34,626
+You may have seen this app in
+
+740
+00:20:34,626 --> 00:20:35,456
+last year's session.
+
+741
+00:20:36,096 --> 00:20:37,476
+In it, you play a cute little
+
+742
+00:20:37,476 --> 00:20:38,686
+badger called Bob.
+
+743
+00:20:39,106 --> 00:20:41,156
+He sits in a mining cart rolling
+
+744
+00:20:41,156 --> 00:20:42,766
+down some tracks, selecting gems
+
+745
+00:20:42,766 --> 00:20:43,876
+and power-ups along the way.
+
+746
+00:20:44,466 --> 00:20:46,566
+So we're going to take this app
+
+747
+00:20:46,566 --> 00:20:48,886
+with existing swipe controls and
+
+748
+00:20:49,046 --> 00:20:50,946
+use DeviceMotion to transform it
+
+749
+00:20:51,376 --> 00:20:52,806
+to motion-based gestures.
+
+750
+00:20:53,236 --> 00:20:58,546
+Here's what we've got in store
+
+751
+00:20:58,546 --> 00:21:00,396
+for you today: First, we're
+
+752
+00:20:58,546 --> 00:21:00,396
+for you today: First, we're
+
+753
+00:21:00,396 --> 00:21:01,556
+going to talk about the existing
+
+754
+00:21:01,556 --> 00:21:03,186
+controls and what we're trying
+
+755
+00:21:03,186 --> 00:21:03,926
+to accomplish.
+
+756
+00:21:04,816 --> 00:21:06,446
+Then we'll show you some of the
+
+757
+00:21:06,446 --> 00:21:08,126
+basics of using DeviceMotion.
+
+758
+00:21:08,906 --> 00:21:10,456
+And finally, the algorithms we
+
+759
+00:21:10,456 --> 00:21:12,046
+use to detect those gestures.
+
+760
+00:21:12,586 --> 00:21:16,206
+So the Badger app allows you to
+
+761
+00:21:16,206 --> 00:21:17,746
+swipe your finger up across the
+
+762
+00:21:17,746 --> 00:21:19,206
+screen to make the badger jump,
+
+763
+00:21:20,186 --> 00:21:21,166
+and if you swipe your finger
+
+764
+00:21:21,166 --> 00:21:22,956
+down, the badger ducks and hides
+
+765
+00:21:22,956 --> 00:21:24,226
+inside the card to avoid the
+
+766
+00:21:24,226 --> 00:21:24,746
+obstacles.
+
+767
+00:21:25,876 --> 00:21:27,366
+And swiping left or right will
+
+768
+00:21:27,366 --> 00:21:29,306
+make the badger swing to reach
+
+769
+00:21:29,306 --> 00:21:30,196
+out for those gems.
+
+770
+00:21:31,406 --> 00:21:33,176
+If you've worked on beautiful
+
+771
+00:21:33,176 --> 00:21:34,346
+graphics like these, it's a
+
+772
+00:21:34,346 --> 00:21:35,356
+shame to have to hide them
+
+773
+00:21:35,356 --> 00:21:36,516
+behind your finger while you
+
+774
+00:21:36,516 --> 00:21:37,086
+play the game.
+
+775
+00:21:38,516 --> 00:21:39,596
+So let's use the phone as our
+
+776
+00:21:39,596 --> 00:21:42,456
+controller here and have the
+
+777
+00:21:42,456 --> 00:21:43,806
+user fully immersed in the
+
+778
+00:21:43,806 --> 00:21:45,156
+experience that we've built for
+
+779
+00:21:47,136 --> 00:21:47,266
+them.
+
+780
+00:21:47,456 --> 00:21:48,806
+So first, we'll detect if the
+
+781
+00:21:48,806 --> 00:21:50,656
+user has rotated the device
+
+782
+00:21:50,686 --> 00:21:52,226
+towards them to make the badger
+
+783
+00:21:52,226 --> 00:21:52,636
+jump up.
+
+784
+00:21:54,456 --> 00:21:55,856
+A slight bump in the device
+
+785
+00:21:55,856 --> 00:21:57,336
+downwards will make the badger
+
+786
+00:21:57,336 --> 00:21:58,906
+squat and hide in the cart.
+
+787
+00:21:59,796 --> 00:22:02,346
+And tilting the device left or
+
+788
+00:21:59,796 --> 00:22:02,346
+And tilting the device left or
+
+789
+00:22:02,346 --> 00:22:04,226
+right will make the badger lean
+
+790
+00:22:04,226 --> 00:22:04,786
+either way.
+
+791
+00:22:05,336 --> 00:22:09,256
+Now I want you to focus on those
+
+792
+00:22:09,256 --> 00:22:11,646
+couple of points and think about
+
+793
+00:22:11,646 --> 00:22:12,966
+them when you're looking at the
+
+794
+00:22:12,966 --> 00:22:15,126
+sample code later, or thinking
+
+795
+00:22:15,126 --> 00:22:16,556
+about incorporating motion into
+
+796
+00:22:16,556 --> 00:22:17,366
+your application.
+
+797
+00:22:17,876 --> 00:22:20,646
+As John has mentioned earlier,
+
+798
+00:22:20,726 --> 00:22:22,236
+Core Motion allows you to
+
+799
+00:22:22,316 --> 00:22:23,386
+interact directly with the
+
+800
+00:22:23,386 --> 00:22:23,896
+sensors.
+
+801
+00:22:24,776 --> 00:22:25,966
+Let's take the accelerometer,
+
+802
+00:22:25,966 --> 00:22:26,636
+for example.
+
+803
+00:22:27,926 --> 00:22:29,616
+That input may look fine as long
+
+804
+00:22:29,616 --> 00:22:31,246
+as the user is semi-stationary,
+
+805
+00:22:31,506 --> 00:22:32,946
+but if you start walking around
+
+806
+00:22:32,946 --> 00:22:34,846
+or get on a bus, then you're
+
+807
+00:22:34,846 --> 00:22:35,776
+going to have to account for
+
+808
+00:22:35,776 --> 00:22:37,236
+these additional accelerations.
+
+809
+00:22:38,286 --> 00:22:39,756
+So with DeviceMotion, we've
+
+810
+00:22:39,756 --> 00:22:41,216
+taken other sensors like the
+
+811
+00:22:41,216 --> 00:22:43,046
+gyro and the magnetometer that
+
+812
+00:22:43,046 --> 00:22:44,296
+complement the accelerometer
+
+813
+00:22:44,296 --> 00:22:46,346
+really well, and we fuse those
+
+814
+00:22:46,346 --> 00:22:48,576
+inputs for you so we can
+
+815
+00:22:48,576 --> 00:22:50,016
+minimize those environmental
+
+816
+00:22:50,016 --> 00:22:51,876
+factors and let you focus on
+
+817
+00:22:51,876 --> 00:22:53,746
+capturing those motion controls
+
+818
+00:22:54,206 --> 00:22:56,446
+rather than how to process the
+
+819
+00:22:57,606 --> 00:22:58,286
+sensor input.
+
+820
+00:22:58,896 --> 00:23:01,276
+The DeviceMotion APIs allow you
+
+821
+00:22:58,896 --> 00:23:01,276
+The DeviceMotion APIs allow you
+
+822
+00:23:01,276 --> 00:23:03,336
+to query for samples in two
+
+823
+00:23:03,336 --> 00:23:06,126
+different ways, the push and the
+
+824
+00:23:06,126 --> 00:23:06,996
+pull mechanisms.
+
+825
+00:23:07,376 --> 00:23:09,396
+Let's take a close look at those
+
+826
+00:23:10,106 --> 00:23:10,176
+two.
+
+827
+00:23:12,196 --> 00:23:13,886
+The push mechanism is a great
+
+828
+00:23:13,886 --> 00:23:15,576
+way for you to detect a discrete
+
+829
+00:23:15,576 --> 00:23:17,336
+gesture across a small window of
+
+830
+00:23:17,336 --> 00:23:17,656
+time.
+
+831
+00:23:19,046 --> 00:23:21,216
+In the SwingWatch app from last
+
+832
+00:23:21,216 --> 00:23:23,716
+year's session, we used the push
+
+833
+00:23:23,716 --> 00:23:25,376
+mechanism so that the framework
+
+834
+00:23:25,376 --> 00:23:27,226
+will push to us updates as they
+
+835
+00:23:27,226 --> 00:23:28,906
+are available at a fixed
+
+836
+00:23:29,206 --> 00:23:29,666
+interval.
+
+837
+00:23:31,026 --> 00:23:32,056
+Then we would capture those
+
+838
+00:23:32,056 --> 00:23:34,256
+updates and detect if the user
+
+839
+00:23:34,256 --> 00:23:35,746
+swung their arm to perform a
+
+840
+00:23:35,746 --> 00:23:36,906
+backhand or a forehand.
+
+841
+00:23:38,936 --> 00:23:40,696
+This is what the API looks like.
+
+842
+00:23:41,286 --> 00:23:43,076
+You use the CMMotionManager's
+
+843
+00:23:43,436 --> 00:23:44,746
+start DeviceMotion updates
+
+844
+00:23:44,746 --> 00:23:46,626
+function; you provide a
+
+845
+00:23:46,626 --> 00:23:48,076
+reference frame of interest,
+
+846
+00:23:49,466 --> 00:23:51,606
+provide an operation cue for
+
+847
+00:23:51,606 --> 00:23:53,206
+your motionHandler to run on as
+
+848
+00:23:53,206 --> 00:23:54,556
+soon as those samples are ready.
+
+849
+00:23:57,156 --> 00:24:00,416
+However, if you want to know
+
+850
+00:23:57,156 --> 00:24:00,416
+However, if you want to know
+
+851
+00:24:00,416 --> 00:24:01,486
+what the current state of the
+
+852
+00:24:01,486 --> 00:24:04,126
+device is, then you want to use
+
+853
+00:24:04,126 --> 00:24:05,226
+the pull mechanism here.
+
+854
+00:24:05,836 --> 00:24:07,266
+As we'll show you later on in
+
+855
+00:24:07,266 --> 00:24:09,086
+the Badger app for the tilt
+
+856
+00:24:09,156 --> 00:24:11,366
+gesture, we want to make the
+
+857
+00:24:11,366 --> 00:24:13,366
+Badger lean at the same angle
+
+858
+00:24:13,366 --> 00:24:14,406
+that the phone is in.
+
+859
+00:24:15,316 --> 00:24:17,526
+So we ensure we provide the
+
+860
+00:24:17,526 --> 00:24:19,386
+responsive and smooth experience
+
+861
+00:24:20,016 --> 00:24:21,426
+for our graphical application.
+
+862
+00:24:23,056 --> 00:24:24,996
+The API for the pull mechanism
+
+863
+00:24:24,996 --> 00:24:25,826
+is a bit simpler.
+
+864
+00:24:26,416 --> 00:24:26,836
+You call
+
+865
+00:24:26,836 --> 00:24:28,756
+startDeviceMotionUpdates, and
+
+866
+00:24:28,756 --> 00:24:30,036
+you provide the reference frame;
+
+867
+00:24:31,006 --> 00:24:32,156
+and whenever you're ready, you
+
+868
+00:24:32,156 --> 00:24:33,376
+can pull for the latest
+
+869
+00:24:33,376 --> 00:24:34,916
+DeviceMotion sample from the
+
+870
+00:24:34,916 --> 00:24:35,366
+framework.
+
+871
+00:24:35,856 --> 00:24:39,226
+We'll be releasing the sample
+
+872
+00:24:39,226 --> 00:24:40,446
+code for use, so you'll be able
+
+873
+00:24:40,446 --> 00:24:42,516
+to take a look at it later, but
+
+874
+00:24:42,516 --> 00:24:43,736
+let's focus on the Core Motion
+
+875
+00:24:43,736 --> 00:24:44,336
+parts for now.
+
+876
+00:24:44,956 --> 00:24:47,376
+So to get start with them for
+
+877
+00:24:47,376 --> 00:24:49,216
+the Core Motion framework and
+
+878
+00:24:49,216 --> 00:24:50,616
+then instantiate an instance of
+
+879
+00:24:50,616 --> 00:24:51,696
+the CMMotionManager.
+
+880
+00:24:52,936 --> 00:24:54,796
+Then we'll check if DeviceMotion
+
+881
+00:24:54,796 --> 00:24:56,236
+updates are available on this
+
+882
+00:24:56,236 --> 00:24:56,756
+platform.
+
+883
+00:24:57,266 --> 00:25:00,026
+And if you recall from John's
+
+884
+00:24:57,266 --> 00:25:00,026
+And if you recall from John's
+
+885
+00:25:00,026 --> 00:25:02,126
+talk, the tip and tilt gestures
+
+886
+00:25:02,126 --> 00:25:03,806
+that we're interested in track
+
+887
+00:25:03,806 --> 00:25:05,406
+where gravity is in the device
+
+888
+00:25:05,406 --> 00:25:05,656
+frame.
+
+889
+00:25:06,386 --> 00:25:08,116
+So we'll be using the
+
+890
+00:25:08,116 --> 00:25:09,896
+xArbitraryZVertical reference
+
+891
+00:25:09,896 --> 00:25:11,626
+frame, and we'll check if it's
+
+892
+00:25:11,626 --> 00:25:12,646
+available on the platform.
+
+893
+00:25:13,606 --> 00:25:15,616
+You may have noticed I did not
+
+894
+00:25:15,906 --> 00:25:17,526
+check for the authorization
+
+895
+00:25:17,526 --> 00:25:18,686
+here, and that's because I'm
+
+896
+00:25:18,686 --> 00:25:20,096
+using the MotionManager API,
+
+897
+00:25:20,416 --> 00:25:22,506
+which does not access sensitive
+
+898
+00:25:22,506 --> 00:25:22,796
+data.
+
+899
+00:25:24,766 --> 00:25:27,896
+For the rest of the talk, we'll
+
+900
+00:25:27,896 --> 00:25:29,866
+assume the device is in the
+
+901
+00:25:29,906 --> 00:25:31,116
+[inaudible] orientation, but in
+
+902
+00:25:31,116 --> 00:25:32,246
+the sample code, we'll show you
+
+903
+00:25:32,246 --> 00:25:34,306
+how to detect and handle other
+
+904
+00:25:34,306 --> 00:25:35,406
+device orientations.
+
+905
+00:25:38,956 --> 00:25:41,126
+For the first gesture, when
+
+906
+00:25:41,336 --> 00:25:42,976
+rotating the device towards you
+
+907
+00:25:43,186 --> 00:25:45,296
+makes the badger jump up, we
+
+908
+00:25:45,296 --> 00:25:47,366
+want to capture the magnitude of
+
+909
+00:25:47,366 --> 00:25:49,156
+that rotation rate along the
+
+910
+00:25:49,156 --> 00:25:50,986
+horizontal axis of the phone.
+
+911
+00:25:51,736 --> 00:25:53,206
+In this case, it's the Y-axis.
+
+912
+00:25:55,816 --> 00:25:57,286
+So we'll be looking at the
+
+913
+00:25:57,286 --> 00:25:59,836
+rotation rate property from the
+
+914
+00:25:59,836 --> 00:26:00,906
+DeviceMotion object.
+
+915
+00:25:59,836 --> 00:26:00,906
+DeviceMotion object.
+
+916
+00:26:01,486 --> 00:26:02,946
+And we chose that specifically
+
+917
+00:26:02,946 --> 00:26:04,736
+because we're not interested in
+
+918
+00:26:04,736 --> 00:26:06,376
+the current angle the device is
+
+919
+00:26:06,376 --> 00:26:08,056
+making, but rather a quick
+
+920
+00:26:08,056 --> 00:26:09,006
+change in that angle.
+
+921
+00:26:10,286 --> 00:26:12,046
+So if we use the rotation rate,
+
+922
+00:26:12,096 --> 00:26:14,246
+we'll be able to detect a quick
+
+923
+00:26:14,316 --> 00:26:16,036
+pulse and make the badger jump
+
+924
+00:26:16,036 --> 00:26:16,646
+accordingly.
+
+925
+00:26:17,136 --> 00:26:19,676
+This is a gesture that we're
+
+926
+00:26:19,676 --> 00:26:21,786
+detecting across a small period
+
+927
+00:26:21,786 --> 00:26:23,156
+of time, so we're going to be
+
+928
+00:26:23,156 --> 00:26:26,346
+using the push mechanism for it.
+
+929
+00:26:26,616 --> 00:26:27,606
+Let's see how that will look in
+
+930
+00:26:27,606 --> 00:26:27,976
+the code.
+
+931
+00:26:28,606 --> 00:26:31,106
+To start off, we'll set the
+
+932
+00:26:31,106 --> 00:26:32,666
+update interval to 50 hertz.
+
+933
+00:26:33,176 --> 00:26:34,176
+And you want to be careful when
+
+934
+00:26:34,176 --> 00:26:34,736
+you set that.
+
+935
+00:26:35,466 --> 00:26:36,496
+You want the samples to be
+
+936
+00:26:36,496 --> 00:26:38,006
+coming in fast enough so that
+
+937
+00:26:38,006 --> 00:26:39,406
+you can capture that gesture;
+
+938
+00:26:39,876 --> 00:26:41,126
+but not too fast that you're
+
+939
+00:26:41,126 --> 00:26:42,626
+increasing your computational
+
+940
+00:26:42,976 --> 00:26:44,206
+and memory requirements.
+
+941
+00:26:45,656 --> 00:26:47,716
+Then we'll start DeviceMotion
+
+942
+00:26:47,716 --> 00:26:49,696
+updates using the push
+
+943
+00:26:49,696 --> 00:26:51,416
+mechanism, provide our
+
+944
+00:26:51,416 --> 00:26:53,166
+xArbitraryZVertical reference
+
+945
+00:26:53,166 --> 00:26:56,216
+frame, a queue, and I'm using a
+
+946
+00:26:56,216 --> 00:26:58,586
+standard operation cue here, and
+
+947
+00:26:58,586 --> 00:26:59,796
+finally, our motionHandler.
+
+948
+00:27:02,636 --> 00:27:04,186
+This is what our motionHandler
+
+949
+00:27:04,186 --> 00:27:04,686
+will look like.
+
+950
+00:27:04,946 --> 00:27:06,426
+It will get called as soon as
+
+951
+00:27:06,426 --> 00:27:07,206
+samples are ready.
+
+952
+00:27:07,926 --> 00:27:08,966
+The first thing we'll do is
+
+953
+00:27:08,966 --> 00:27:11,606
+check for any errors and then
+
+954
+00:27:11,606 --> 00:27:13,076
+grab that rotation rate from the
+
+955
+00:27:13,076 --> 00:27:15,426
+DeviceMotion object, and look at
+
+956
+00:27:15,696 --> 00:27:17,516
+the Y-component that we were
+
+957
+00:27:17,516 --> 00:27:18,776
+interested in.
+
+958
+00:27:19,336 --> 00:27:21,016
+Then we store that in a buffer,
+
+959
+00:27:21,416 --> 00:27:22,436
+and I'm using the circular
+
+960
+00:27:22,436 --> 00:27:24,296
+buffer here, so as soon as the
+
+961
+00:27:24,296 --> 00:27:25,656
+samples are coming in, we'll
+
+962
+00:27:25,656 --> 00:27:29,566
+accumulate more of them.
+
+963
+00:27:29,966 --> 00:27:31,226
+Since we're using the SceneKit
+
+964
+00:27:31,226 --> 00:27:33,266
+renderer for this application, I
+
+965
+00:27:33,266 --> 00:27:34,126
+chose the renderer's
+
+966
+00:27:34,126 --> 00:27:35,336
+updateAtTime function.
+
+967
+00:27:35,826 --> 00:27:37,256
+This will get called just before
+
+968
+00:27:37,296 --> 00:27:40,046
+you render a new scene, and this
+
+969
+00:27:40,046 --> 00:27:41,286
+is the ideal place for me to
+
+970
+00:27:41,286 --> 00:27:42,396
+check for the state of that
+
+971
+00:27:42,396 --> 00:27:44,576
+buffer and then update the game.
+
+972
+00:27:45,106 --> 00:27:47,986
+And I'll leave it up to you to
+
+973
+00:27:47,986 --> 00:27:48,746
+find out where in the
+
+974
+00:27:48,746 --> 00:27:50,136
+application is the best place to
+
+975
+00:27:50,136 --> 00:27:51,126
+do that.
+
+976
+00:27:52,766 --> 00:27:54,426
+And then I simply check if the
+
+977
+00:27:54,426 --> 00:27:55,816
+mean of that buffer has crossed
+
+978
+00:27:55,816 --> 00:27:57,336
+a certain threshold and make the
+
+979
+00:27:57,336 --> 00:27:58,306
+badger jump.
+
+980
+00:27:59,676 --> 00:28:01,286
+Keep in mind this threshold is
+
+981
+00:27:59,676 --> 00:28:01,286
+Keep in mind this threshold is
+
+982
+00:28:01,336 --> 00:28:03,216
+tunable and adjustable to your
+
+983
+00:28:03,216 --> 00:28:04,256
+app's specific needs.
+
+984
+00:28:08,316 --> 00:28:10,446
+Next, we'll take a look at the
+
+985
+00:28:10,446 --> 00:28:12,166
+second control, where bumping
+
+986
+00:28:12,166 --> 00:28:13,746
+the device downwards will make
+
+987
+00:28:13,746 --> 00:28:14,976
+the badger duck.
+
+988
+00:28:16,386 --> 00:28:18,216
+For this one, we want to measure
+
+989
+00:28:18,216 --> 00:28:20,996
+the user acceleration along the
+
+990
+00:28:20,996 --> 00:28:22,136
+gravity vector.
+
+991
+00:28:25,076 --> 00:28:26,636
+So we'll be looking at the user
+
+992
+00:28:26,636 --> 00:28:29,116
+acceleration property, and here
+
+993
+00:28:29,116 --> 00:28:31,526
+we chose that because even if
+
+994
+00:28:31,526 --> 00:28:33,326
+the device is slightly tilted or
+
+995
+00:28:33,326 --> 00:28:35,166
+rotated at an angle, the user
+
+996
+00:28:35,166 --> 00:28:36,536
+acceleration is going to still
+
+997
+00:28:36,536 --> 00:28:38,436
+look the same regardless of the
+
+998
+00:28:38,436 --> 00:28:39,036
+attitude.
+
+999
+00:28:43,316 --> 00:28:45,546
+So this is one of the gestures
+
+1000
+00:28:45,546 --> 00:28:47,126
+again that we're detecting over
+
+1001
+00:28:47,126 --> 00:28:48,446
+a window of time, so we'll use
+
+1002
+00:28:48,446 --> 00:28:49,706
+the push mechanism as well.
+
+1003
+00:28:51,386 --> 00:28:52,546
+Since we're already set up for
+
+1004
+00:28:52,546 --> 00:28:54,576
+the push mechanism, we'll head
+
+1005
+00:28:54,576 --> 00:28:56,246
+back to our motionHandler, where
+
+1006
+00:28:56,246 --> 00:28:57,646
+we were storing those rotation
+
+1007
+00:28:57,646 --> 00:28:58,496
+rates previously.
+
+1008
+00:28:59,006 --> 00:29:02,106
+But this time, we'll put out the
+
+1009
+00:28:59,006 --> 00:29:02,106
+But this time, we'll put out the
+
+1010
+00:29:02,106 --> 00:29:03,806
+gravity property out of the
+
+1011
+00:29:03,806 --> 00:29:07,116
+DeviceMotion object and the user
+
+1012
+00:29:07,116 --> 00:29:08,146
+acceleration as well.
+
+1013
+00:29:08,686 --> 00:29:11,916
+We compute the magnitude of that
+
+1014
+00:29:11,916 --> 00:29:13,716
+user acceleration along the
+
+1015
+00:29:13,716 --> 00:29:17,536
+gravity vector and store that in
+
+1016
+00:29:17,536 --> 00:29:17,896
+a buffer.
+
+1017
+00:29:18,626 --> 00:29:21,306
+And once the mean of that buffer
+
+1018
+00:29:21,306 --> 00:29:22,666
+crosses a certain threshold,
+
+1019
+00:29:23,236 --> 00:29:24,696
+then we'll make the badger duck
+
+1020
+00:29:24,696 --> 00:29:27,366
+down and hide in the cart.
+
+1021
+00:29:28,136 --> 00:29:29,826
+So we've taken a look at two
+
+1022
+00:29:29,826 --> 00:29:31,886
+controls where we were
+
+1023
+00:29:31,886 --> 00:29:33,506
+monitoring motion across a small
+
+1024
+00:29:33,506 --> 00:29:35,266
+window of time and we used the
+
+1025
+00:29:35,266 --> 00:29:36,346
+push mechanism for that.
+
+1026
+00:29:37,216 --> 00:29:38,716
+Let's take a look at our final
+
+1027
+00:29:38,766 --> 00:29:40,976
+control, where our requirements
+
+1028
+00:29:40,976 --> 00:29:43,816
+are slightly different.
+
+1029
+00:29:44,826 --> 00:29:48,046
+For the tilt control, in the
+
+1030
+00:29:48,046 --> 00:29:49,686
+simple case where the device is
+
+1031
+00:29:49,686 --> 00:29:52,976
+held in a vertical position, you
+
+1032
+00:29:52,976 --> 00:29:54,206
+can break down the gravity
+
+1033
+00:29:54,206 --> 00:29:56,236
+vector into its x-component and
+
+1034
+00:29:56,236 --> 00:29:59,236
+its y-component; and by applying
+
+1035
+00:29:59,236 --> 00:30:00,816
+simple trigonometry, you can
+
+1036
+00:29:59,236 --> 00:30:00,816
+simple trigonometry, you can
+
+1037
+00:30:00,816 --> 00:30:01,646
+arrive at the tilt.
+
+1038
+00:30:03,006 --> 00:30:05,086
+But since we want this gesture
+
+1039
+00:30:05,086 --> 00:30:06,476
+to be slightly more flexible,
+
+1040
+00:30:07,186 --> 00:30:08,636
+we're going to break gravity
+
+1041
+00:30:08,636 --> 00:30:10,306
+into its y-component; and its
+
+1042
+00:30:10,306 --> 00:30:12,586
+component in the x-z plane of
+
+1043
+00:30:12,586 --> 00:30:13,216
+the device.
+
+1044
+00:30:14,066 --> 00:30:15,386
+This will allow us to tilt the
+
+1045
+00:30:15,386 --> 00:30:19,826
+phone even if the device is
+
+1046
+00:30:19,826 --> 00:30:21,286
+slightly rotated at an angle.
+
+1047
+00:30:22,576 --> 00:30:23,856
+What's different about this
+
+1048
+00:30:23,856 --> 00:30:25,326
+control is that we want to know
+
+1049
+00:30:25,766 --> 00:30:27,296
+the current state of the device
+
+1050
+00:30:27,366 --> 00:30:28,766
+and not a discrete motion that
+
+1051
+00:30:28,766 --> 00:30:29,156
+occurred.
+
+1052
+00:30:30,536 --> 00:30:33,486
+This will allow us to make the
+
+1053
+00:30:33,486 --> 00:30:35,416
+badger lean at the same angle
+
+1054
+00:30:35,416 --> 00:30:37,166
+the device is leaning in and
+
+1055
+00:30:37,166 --> 00:30:38,616
+provide a very responsive
+
+1056
+00:30:38,616 --> 00:30:39,286
+experience.
+
+1057
+00:30:39,786 --> 00:30:42,416
+And for those reasons, we'll be
+
+1058
+00:30:42,416 --> 00:30:44,546
+using the pull mechanism for
+
+1059
+00:30:45,026 --> 00:30:47,076
+this control.
+
+1060
+00:30:47,146 --> 00:30:48,366
+Since we're already set up for
+
+1061
+00:30:48,366 --> 00:30:50,656
+the push mechanism, the
+
+1062
+00:30:50,656 --> 00:30:51,996
+framework is ready for us to
+
+1063
+00:30:51,996 --> 00:30:54,396
+pull for samples at any point in
+
+1064
+00:30:54,396 --> 00:30:54,716
+time.
+
+1065
+00:30:56,716 --> 00:30:58,606
+So we'll go back to our renderer
+
+1066
+00:30:58,606 --> 00:30:59,226
+function.
+
+1067
+00:30:59,456 --> 00:31:00,626
+If you recall, this is getting
+
+1068
+00:30:59,456 --> 00:31:00,626
+If you recall, this is getting
+
+1069
+00:31:00,626 --> 00:31:02,356
+called just before you render a
+
+1070
+00:31:02,356 --> 00:31:02,886
+new scene.
+
+1071
+00:31:03,616 --> 00:31:05,406
+That makes it a perfect place
+
+1072
+00:31:05,406 --> 00:31:06,926
+for me to pull for the latest
+
+1073
+00:31:06,926 --> 00:31:09,076
+sample, make a calculation, and
+
+1074
+00:31:09,076 --> 00:31:12,516
+then update the graphics.
+
+1075
+00:31:12,516 --> 00:31:13,756
+So we'll ask the MotionManager
+
+1076
+00:31:13,756 --> 00:31:14,986
+for the latest DeviceMotion
+
+1077
+00:31:14,986 --> 00:31:18,016
+sample, grab the gravity
+
+1078
+00:31:18,016 --> 00:31:22,096
+property out of it, compute the
+
+1079
+00:31:22,096 --> 00:31:23,546
+vector and the x-z plane, and
+
+1080
+00:31:23,976 --> 00:31:28,446
+arrive at the tilt as the atan
+
+1081
+00:31:28,446 --> 00:31:30,246
+between that x-z-component and
+
+1082
+00:31:30,246 --> 00:31:31,056
+the y-component.
+
+1083
+00:31:31,546 --> 00:31:34,686
+Don't forget to let the
+
+1084
+00:31:34,686 --> 00:31:36,176
+framework know that you're no
+
+1085
+00:31:36,176 --> 00:31:37,076
+longer interested in
+
+1086
+00:31:37,076 --> 00:31:39,106
+DeviceMotion updates if they
+
+1087
+00:31:39,106 --> 00:31:40,186
+were previously active.
+
+1088
+00:31:41,266 --> 00:31:42,556
+This is a great thing to do when
+
+1089
+00:31:42,556 --> 00:31:44,166
+your game is paused or has ended
+
+1090
+00:31:45,126 --> 00:31:46,786
+to make sure you're not wasting
+
+1091
+00:31:46,786 --> 00:31:47,856
+more battery than you need.
+
+1092
+00:31:48,846 --> 00:31:50,246
+So here you see the results.
+
+1093
+00:31:50,866 --> 00:31:52,426
+The user is able to play the
+
+1094
+00:31:52,426 --> 00:31:54,766
+game by tilting the device from
+
+1095
+00:31:54,766 --> 00:31:57,326
+side to side to make the badger
+
+1096
+00:31:57,326 --> 00:32:00,036
+lean either way, and tipping the
+
+1097
+00:31:57,326 --> 00:32:00,036
+lean either way, and tipping the
+
+1098
+00:32:00,036 --> 00:32:01,436
+device towards them makes the
+
+1099
+00:32:01,436 --> 00:32:05,936
+badger jump up, and finally, a
+
+1100
+00:32:05,936 --> 00:32:07,086
+small push of the device
+
+1101
+00:32:07,086 --> 00:32:08,446
+downwards will make the badger
+
+1102
+00:32:08,446 --> 00:32:10,026
+squat and hide inside the cart.
+
+1103
+00:32:10,496 --> 00:32:13,546
+It's pretty cool, we've taken an
+
+1104
+00:32:13,606 --> 00:32:15,576
+app with swipe controls and used
+
+1105
+00:32:15,576 --> 00:32:17,926
+DeviceMotion to replace them
+
+1106
+00:32:17,926 --> 00:32:18,856
+with motion-based ones.
+
+1107
+00:32:27,386 --> 00:32:29,126
+I'm excited to see how far you
+
+1108
+00:32:29,126 --> 00:32:30,636
+can push the DeviceMotion APIs.
+
+1109
+00:32:35,516 --> 00:32:44,576
+[ Applause ]
+
+1110
+00:32:45,076 --> 00:32:46,196
+So to wrap up some of the key
+
+1111
+00:32:46,196 --> 00:32:47,246
+points that we talked about
+
+1112
+00:32:47,306 --> 00:32:50,276
+today, we encourage you to look
+
+1113
+00:32:50,276 --> 00:32:52,356
+at the authorization API and
+
+1114
+00:32:52,356 --> 00:32:53,106
+check for your app's
+
+1115
+00:32:53,106 --> 00:32:55,616
+authorization if you're using
+
+1116
+00:32:55,616 --> 00:32:57,226
+one of the sensitive APIs.
+
+1117
+00:32:59,666 --> 00:33:00,986
+While you might have your use
+
+1118
+00:32:59,666 --> 00:33:00,986
+While you might have your use
+
+1119
+00:33:00,986 --> 00:33:02,926
+case for using the sensor data
+
+1120
+00:33:02,926 --> 00:33:05,166
+directly, we encourage you to
+
+1121
+00:33:05,166 --> 00:33:07,626
+look at the DeviceMotion APIs,
+
+1122
+00:33:08,016 --> 00:33:09,176
+because our sensor fusion
+
+1123
+00:33:09,176 --> 00:33:10,916
+algorithms handle the most
+
+1124
+00:33:10,916 --> 00:33:11,526
+common case.
+
+1125
+00:33:11,936 --> 00:33:13,026
+It eliminates those
+
+1126
+00:33:13,026 --> 00:33:14,966
+environmental factors so that
+
+1127
+00:33:14,966 --> 00:33:17,126
+you are able to focus on the
+
+1128
+00:33:17,126 --> 00:33:18,496
+motion controls of your user.
+
+1129
+00:33:20,546 --> 00:33:23,346
+The APIs provide you a smooth
+
+1130
+00:33:23,346 --> 00:33:24,936
+and consistent experience across
+
+1131
+00:33:24,936 --> 00:33:26,826
+all our supported devices, and
+
+1132
+00:33:28,056 --> 00:33:29,806
+we've made enhancements this
+
+1133
+00:33:29,806 --> 00:33:31,566
+release to make sure that when
+
+1134
+00:33:31,566 --> 00:33:33,136
+you query for those updates, you
+
+1135
+00:33:33,136 --> 00:33:33,896
+do that in a very
+
+1136
+00:33:33,896 --> 00:33:34,796
+power-efficient manner.
+
+1137
+00:33:34,796 --> 00:33:40,566
+Remember the two different ways
+
+1138
+00:33:41,076 --> 00:33:43,466
+to query for updates: Use the
+
+1139
+00:33:43,466 --> 00:33:45,226
+push when you want to detect a
+
+1140
+00:33:45,226 --> 00:33:46,846
+gesture across a small window of
+
+1141
+00:33:46,916 --> 00:33:49,786
+time, and use the pull when
+
+1142
+00:33:49,786 --> 00:33:51,816
+responsiveness is key and you
+
+1143
+00:33:51,816 --> 00:33:52,756
+want to know what the current
+
+1144
+00:33:52,756 --> 00:33:57,436
+state of the device is.
+
+1145
+00:33:58,116 --> 00:33:59,196
+Here are a couple of the
+
+1146
+00:33:59,196 --> 00:34:00,356
+sessions that we think you might
+
+1147
+00:33:59,196 --> 00:34:00,356
+sessions that we think you might
+
+1148
+00:34:00,356 --> 00:34:01,196
+be interested in.
+
+1149
+00:34:02,256 --> 00:34:04,436
+Please check them out, and if
+
+1150
+00:34:04,436 --> 00:34:05,366
+you're interested in learning
+
+1151
+00:34:05,366 --> 00:34:06,796
+more about the Badger app, check
+
+1152
+00:34:06,796 --> 00:34:07,826
+out last year's SceneKit
+
+1153
+00:34:07,826 --> 00:34:08,246
+session.
+
+1154
+00:34:09,676 --> 00:34:11,085
+If you follow this link, you'll
+
+1155
+00:34:11,085 --> 00:34:13,446
+be able to get at the sample
+
+1156
+00:34:13,446 --> 00:34:14,496
+code and other Core Motion
+
+1157
+00:34:14,496 --> 00:34:15,286
+documentation.
+
+1158
+00:34:15,815 --> 00:34:19,476
+We thank you all for being here,
+
+1159
+00:34:19,476 --> 00:34:20,596
+and have a wonderful evening.

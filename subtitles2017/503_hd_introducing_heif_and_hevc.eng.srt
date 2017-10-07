@@ -1,0 +1,4239 @@
+1
+00:00:06,516 --> 00:00:16,500
+[ Crowd Sounds ]
+
+2
+00:00:25,796 --> 00:00:27,616
+&gt;&gt; Welcome everyone and thank
+
+3
+00:00:27,616 --> 00:00:29,046
+you for coming to this session.
+
+4
+00:00:29,996 --> 00:00:31,276
+My name is Athar Shah.
+
+5
+00:00:31,276 --> 00:00:33,016
+And I'm a manager here at Apple
+
+6
+00:00:33,016 --> 00:00:34,356
+in the core media software team.
+
+7
+00:00:34,356 --> 00:00:36,336
+And we at Apple are really
+
+8
+00:00:36,336 --> 00:00:37,756
+excited to talk to you today
+
+9
+00:00:37,756 --> 00:00:39,456
+about two new media
+
+10
+00:00:39,456 --> 00:00:40,216
+technologies.
+
+11
+00:00:41,226 --> 00:00:42,386
+In particular, we're going to be
+
+12
+00:00:42,386 --> 00:00:44,816
+talking about a new codec for
+
+13
+00:00:44,816 --> 00:00:46,266
+video and image compression
+
+14
+00:00:46,826 --> 00:00:50,076
+called HEVC and a file format
+
+15
+00:00:50,076 --> 00:00:51,646
+for images that we're adopting
+
+16
+00:00:52,186 --> 00:00:52,866
+called HEIF.
+
+17
+00:00:54,206 --> 00:00:55,276
+But before we get into the
+
+18
+00:00:55,276 --> 00:00:57,566
+details, if you've downloaded
+
+19
+00:00:57,806 --> 00:00:59,666
+the developer seed, the latest
+
+20
+00:00:59,696 --> 00:01:01,566
+build, then on certain iOS
+
+21
+00:00:59,696 --> 00:01:01,566
+build, then on certain iOS
+
+22
+00:01:01,606 --> 00:01:03,956
+devices you are already
+
+23
+00:01:03,956 --> 00:01:06,226
+capturing and using these new
+
+24
+00:01:06,226 --> 00:01:08,056
+technologies and file formats.
+
+25
+00:01:08,836 --> 00:01:10,356
+And if you pay close attention,
+
+26
+00:01:10,356 --> 00:01:13,036
+you'll notice that these files
+
+27
+00:01:13,036 --> 00:01:15,036
+are a lot smaller than they used
+
+28
+00:01:15,036 --> 00:01:15,916
+to be.
+
+29
+00:01:16,026 --> 00:01:17,596
+Later on in the presentation,
+
+30
+00:01:17,596 --> 00:01:18,886
+Gavin will talk to you about the
+
+31
+00:01:18,886 --> 00:01:22,406
+specifics of our platforms and
+
+32
+00:01:22,406 --> 00:01:23,916
+how we support these
+
+33
+00:01:23,916 --> 00:01:25,636
+technologies in hardware and in
+
+34
+00:01:25,636 --> 00:01:26,196
+software.
+
+35
+00:01:29,756 --> 00:01:32,106
+So we're going to be going over
+
+36
+00:01:32,976 --> 00:01:34,516
+the landscape of media as it is
+
+37
+00:01:34,576 --> 00:01:36,406
+today, why we need to change.
+
+38
+00:01:36,896 --> 00:01:38,956
+We'll talk about what are HEVC
+
+39
+00:01:38,956 --> 00:01:41,716
+and HEIF and why we decided to
+
+40
+00:01:41,716 --> 00:01:43,036
+adopt them here at Apple.
+
+41
+00:01:43,476 --> 00:01:45,676
+And then finally, we'll give an
+
+42
+00:01:45,676 --> 00:01:48,506
+overview of how we've adopted
+
+43
+00:01:48,506 --> 00:01:49,696
+these technologies within the
+
+44
+00:01:49,696 --> 00:01:52,216
+Apple ecosystem and then also
+
+45
+00:01:52,396 --> 00:01:54,006
+provide some guidance on how you
+
+46
+00:01:54,006 --> 00:01:55,286
+can take advantage of these
+
+47
+00:01:55,366 --> 00:01:57,176
+within your apps for your use
+
+48
+00:01:57,176 --> 00:01:57,556
+cases.
+
+49
+00:02:01,236 --> 00:02:03,356
+So let's talk about media today.
+
+50
+00:02:04,046 --> 00:02:06,546
+The world is becoming more and
+
+51
+00:02:06,546 --> 00:02:07,396
+more visual.
+
+52
+00:02:07,846 --> 00:02:10,406
+And both consumers and producers
+
+53
+00:02:10,586 --> 00:02:12,836
+are generating more and more
+
+54
+00:02:13,336 --> 00:02:15,116
+video and media related content.
+
+55
+00:02:15,996 --> 00:02:17,966
+Not only that, the content is
+
+56
+00:02:18,026 --> 00:02:20,176
+taking new forms like high
+
+57
+00:02:20,176 --> 00:02:23,926
+resolution 4K video, HDR video,
+
+58
+00:02:24,246 --> 00:02:26,346
+wide color or wide gamut video
+
+59
+00:02:26,346 --> 00:02:26,936
+and so on.
+
+60
+00:02:28,336 --> 00:02:29,686
+The nature of media is also
+
+61
+00:02:29,686 --> 00:02:32,966
+changing with, you know, our
+
+62
+00:02:32,966 --> 00:02:34,096
+personal favorite being live
+
+63
+00:02:34,096 --> 00:02:35,396
+photos but there's lots of
+
+64
+00:02:35,396 --> 00:02:36,806
+content out there, short-form
+
+65
+00:02:36,806 --> 00:02:38,436
+video and so one.
+
+66
+00:02:39,436 --> 00:02:41,156
+Bandwidth continues to be at a
+
+67
+00:02:41,156 --> 00:02:41,786
+premium.
+
+68
+00:02:42,046 --> 00:02:43,836
+And certain applications and use
+
+69
+00:02:43,876 --> 00:02:45,726
+cases like over-the-top video
+
+70
+00:02:45,726 --> 00:02:48,146
+delivery and wireless networks
+
+71
+00:02:49,016 --> 00:02:50,556
+place a premium on the amount of
+
+72
+00:02:50,556 --> 00:02:51,106
+bandwidth.
+
+73
+00:02:51,106 --> 00:02:53,016
+And anything we can do to reduce
+
+74
+00:02:53,016 --> 00:02:54,086
+the bandwidth requirements
+
+75
+00:02:54,086 --> 00:02:55,236
+really helps out those use
+
+76
+00:02:55,236 --> 00:02:55,726
+cases.
+
+77
+00:02:57,166 --> 00:03:00,236
+So we've been using H.264 and
+
+78
+00:02:57,166 --> 00:03:00,236
+So we've been using H.264 and
+
+79
+00:03:00,236 --> 00:03:01,506
+JPEG for a while.
+
+80
+00:03:01,916 --> 00:03:03,406
+There are limits to what these
+
+81
+00:03:03,506 --> 00:03:06,246
+codecs can do in this evolving
+
+82
+00:03:06,246 --> 00:03:07,376
+landscape with these new
+
+83
+00:03:07,376 --> 00:03:08,086
+challenges.
+
+84
+00:03:08,596 --> 00:03:11,156
+And that leads us to HEVC.
+
+85
+00:03:12,006 --> 00:03:13,016
+We were looking for a
+
+86
+00:03:13,016 --> 00:03:15,146
+next-generation codec that we
+
+87
+00:03:15,146 --> 00:03:18,076
+could use both for movies and
+
+88
+00:03:18,076 --> 00:03:19,396
+for photos or images.
+
+89
+00:03:19,966 --> 00:03:20,926
+And we were looking for
+
+90
+00:03:20,926 --> 00:03:22,056
+something that was going to give
+
+91
+00:03:22,056 --> 00:03:24,476
+us significant benefits over
+
+92
+00:03:24,476 --> 00:03:27,826
+what exists today.
+
+93
+00:03:27,986 --> 00:03:30,896
+So having evaluated our options,
+
+94
+00:03:31,016 --> 00:03:32,986
+we decided to select HEVC.
+
+95
+00:03:32,986 --> 00:03:36,956
+HEVC stands for High Efficiency
+
+96
+00:03:36,956 --> 00:03:37,756
+Video Coding.
+
+97
+00:03:38,376 --> 00:03:39,626
+It is a state-of-the-art
+
+98
+00:03:40,326 --> 00:03:41,846
+industry standard that was
+
+99
+00:03:41,846 --> 00:03:43,986
+adopted and approved in 2013.
+
+100
+00:03:45,056 --> 00:03:48,046
+It was ratified by ISO as MPEG-H
+
+101
+00:03:48,046 --> 00:03:52,556
+part 2 and by ITU as H.265.
+
+102
+00:03:53,676 --> 00:03:55,026
+We're going to be calling it and
+
+103
+00:03:55,276 --> 00:03:57,266
+referring to it as HEVC.
+
+104
+00:03:57,336 --> 00:04:00,296
+And Apple is adopting it as its
+
+105
+00:03:57,336 --> 00:04:00,296
+And Apple is adopting it as its
+
+106
+00:04:00,296 --> 00:04:02,406
+next-generation codec.
+
+107
+00:04:03,736 --> 00:04:05,146
+So we'll spend a couple of
+
+108
+00:04:05,146 --> 00:04:07,496
+minutes talking about what makes
+
+109
+00:04:07,496 --> 00:04:09,356
+HEVC such a great codec.
+
+110
+00:04:09,506 --> 00:04:13,376
+Now HEVC is similar to H.264 in
+
+111
+00:04:13,376 --> 00:04:14,886
+that it is a codec that
+
+112
+00:04:15,116 --> 00:04:18,536
+processes videos and frames in
+
+113
+00:04:18,536 --> 00:04:19,146
+blocks.
+
+114
+00:04:19,976 --> 00:04:22,976
+And it uses temporal and spatial
+
+115
+00:04:22,976 --> 00:04:24,826
+compression techniques to get
+
+116
+00:04:24,826 --> 00:04:26,006
+the compression benefits.
+
+117
+00:04:26,266 --> 00:04:29,596
+Now H.264 has a notion of macro
+
+118
+00:04:29,596 --> 00:04:32,696
+blocks, which are 16 x 16 size
+
+119
+00:04:32,696 --> 00:04:34,576
+blocks that are used within the
+
+120
+00:04:34,576 --> 00:04:36,046
+codec for processing.
+
+121
+00:04:36,746 --> 00:04:40,396
+HEVC introduces notion of CTUs
+
+122
+00:04:40,396 --> 00:04:41,486
+or coding tree units.
+
+123
+00:04:41,926 --> 00:04:43,736
+And these it start down at 4 x 4
+
+124
+00:04:44,396 --> 00:04:48,116
+and go all the way up to 64 x
+
+125
+00:04:48,116 --> 00:04:48,756
+64.
+
+126
+00:04:49,716 --> 00:04:51,646
+And it's when you can use these
+
+127
+00:04:51,766 --> 00:04:54,996
+larger sizes is when you realize
+
+128
+00:04:55,056 --> 00:04:56,346
+the greater compression benefit.
+
+129
+00:04:57,446 --> 00:04:59,936
+And this is especially true when
+
+130
+00:04:59,936 --> 00:05:00,956
+you're dealing with high
+
+131
+00:04:59,936 --> 00:05:00,956
+you're dealing with high
+
+132
+00:05:00,956 --> 00:05:03,826
+resolution videos and images.
+
+133
+00:05:03,826 --> 00:05:05,196
+You can really take advantage of
+
+134
+00:05:05,846 --> 00:05:05,966
+this.
+
+135
+00:05:07,116 --> 00:05:10,636
+Similarly, H.264 had 4 x 4 and 8
+
+136
+00:05:10,636 --> 00:05:13,736
+x 8 DCT or discrete cosine
+
+137
+00:05:13,736 --> 00:05:18,476
+transform, whereas HEVC not only
+
+138
+00:05:18,476 --> 00:05:19,806
+uses a discrete cosine
+
+139
+00:05:19,806 --> 00:05:21,486
+transform, it also uses a DST,
+
+140
+00:05:21,486 --> 00:05:23,066
+distribute sine transform.
+
+141
+00:05:23,576 --> 00:05:25,076
+And similarly, with the coding
+
+142
+00:05:25,076 --> 00:05:27,276
+block sizes for the transform
+
+143
+00:05:27,276 --> 00:05:30,226
+blocks, it also goes up to 32 x
+
+144
+00:05:30,226 --> 00:05:30,736
+32.
+
+145
+00:05:32,436 --> 00:05:34,096
+To get better spatial
+
+146
+00:05:34,096 --> 00:05:36,696
+compression, HEVC introduces
+
+147
+00:05:36,696 --> 00:05:38,256
+additional directional modes.
+
+148
+00:05:38,256 --> 00:05:41,456
+While H.264 had up to nine, HEVC
+
+149
+00:05:41,456 --> 00:05:43,346
+has up to 35.
+
+150
+00:05:45,456 --> 00:05:48,316
+A key part of being able to do a
+
+151
+00:05:48,506 --> 00:05:49,866
+high degree of compression
+
+152
+00:05:49,866 --> 00:05:51,526
+involves motion estimation or
+
+153
+00:05:51,526 --> 00:05:53,126
+motion compensation.
+
+154
+00:05:53,866 --> 00:05:56,616
+And this is where you try to
+
+155
+00:05:56,616 --> 00:05:58,756
+find -- you basically have a
+
+156
+00:05:58,756 --> 00:06:01,136
+block in your current image that
+
+157
+00:05:58,756 --> 00:06:01,136
+block in your current image that
+
+158
+00:06:01,136 --> 00:06:02,896
+you're trying to predict from a
+
+159
+00:06:02,956 --> 00:06:03,926
+previous image.
+
+160
+00:06:03,926 --> 00:06:05,086
+And what you can do is say, you
+
+161
+00:06:05,086 --> 00:06:05,426
+know what?
+
+162
+00:06:05,786 --> 00:06:07,756
+This block is that same block
+
+163
+00:06:07,756 --> 00:06:09,376
+from the past but moved over by
+
+164
+00:06:09,376 --> 00:06:10,576
+a certain number of pixels.
+
+165
+00:06:11,566 --> 00:06:14,906
+Sometimes you don't always land
+
+166
+00:06:14,906 --> 00:06:15,836
+in a pixel's boundary.
+
+167
+00:06:15,836 --> 00:06:17,046
+For example, you know, something
+
+168
+00:06:17,046 --> 00:06:18,236
+could have moved five pixels
+
+169
+00:06:18,236 --> 00:06:18,996
+over but it could have moved
+
+170
+00:06:19,036 --> 00:06:20,436
+five-and-a-half pixels over or
+
+171
+00:06:20,436 --> 00:06:21,906
+five-and-a-quarter pixels over.
+
+172
+00:06:22,976 --> 00:06:23,986
+When you need to do motion
+
+173
+00:06:23,986 --> 00:06:26,266
+estimation at that half pixel or
+
+174
+00:06:26,266 --> 00:06:28,206
+quarter pixel boundary, you need
+
+175
+00:06:28,206 --> 00:06:29,356
+to be able to generate those
+
+176
+00:06:29,356 --> 00:06:30,686
+pixels with accuracy and
+
+177
+00:06:30,686 --> 00:06:32,216
+precision because those don't
+
+178
+00:06:32,216 --> 00:06:32,566
+exist.
+
+179
+00:06:32,566 --> 00:06:33,586
+You just have to pixels at the
+
+180
+00:06:33,586 --> 00:06:34,206
+boundaries.
+
+181
+00:06:34,756 --> 00:06:37,616
+And so as you can see, HEVC has
+
+182
+00:06:37,616 --> 00:06:40,306
+advanced filtering which can be
+
+183
+00:06:40,306 --> 00:06:42,756
+used to generate those sub-pel
+
+184
+00:06:42,756 --> 00:06:44,806
+and quarter-pel pixels with much
+
+185
+00:06:44,806 --> 00:06:46,226
+more accuracy and precision.
+
+186
+00:06:46,496 --> 00:06:47,646
+And that leads to better motion
+
+187
+00:06:47,646 --> 00:06:49,566
+estimation compensation and,
+
+188
+00:06:49,566 --> 00:06:51,646
+hence, better compression.
+
+189
+00:06:52,806 --> 00:06:54,456
+Finally, if you're familiar with
+
+190
+00:06:54,816 --> 00:06:56,796
+block-based codecs, we talked
+
+191
+00:06:56,796 --> 00:06:59,656
+about H.264 having macro blocks,
+
+192
+00:07:00,046 --> 00:07:01,576
+sometimes you can actually see
+
+193
+00:07:01,576 --> 00:07:04,486
+in the coded video, artifacts
+
+194
+00:07:04,486 --> 00:07:06,646
+around the edges of that block.
+
+195
+00:07:06,646 --> 00:07:07,456
+We call those blocking
+
+196
+00:07:07,456 --> 00:07:07,966
+artifacts.
+
+197
+00:07:07,966 --> 00:07:12,136
+H.264 introduced a loop filter
+
+198
+00:07:12,576 --> 00:07:14,986
+called the deblocking filter
+
+199
+00:07:15,316 --> 00:07:16,666
+that helps get rid of a lot of
+
+200
+00:07:16,666 --> 00:07:17,606
+those artifacts.
+
+201
+00:07:18,036 --> 00:07:19,676
+Now HEVC improves upon that
+
+202
+00:07:19,736 --> 00:07:21,916
+filter, but it takes it a step
+
+203
+00:07:21,976 --> 00:07:23,546
+further and introduces a second
+
+204
+00:07:23,576 --> 00:07:25,746
+sequential step where we run a
+
+205
+00:07:25,796 --> 00:07:27,636
+sample adaptive offset filter
+
+206
+00:07:27,886 --> 00:07:28,866
+which gives us even better
+
+207
+00:07:28,866 --> 00:07:29,376
+results.
+
+208
+00:07:29,936 --> 00:07:30,856
+So now these are some of the
+
+209
+00:07:30,856 --> 00:07:32,926
+highlights that give us a better
+
+210
+00:07:32,926 --> 00:07:35,446
+compression in HEVC.
+
+211
+00:07:35,446 --> 00:07:36,246
+And there is more.
+
+212
+00:07:37,056 --> 00:07:38,496
+So having said that, how much
+
+213
+00:07:38,496 --> 00:07:39,846
+improvement are we talking
+
+214
+00:07:39,846 --> 00:07:40,176
+about?
+
+215
+00:07:40,446 --> 00:07:42,606
+And this is why we're excited
+
+216
+00:07:42,606 --> 00:07:44,136
+about introducing this next
+
+217
+00:07:44,136 --> 00:07:45,386
+generation codec at Apple.
+
+218
+00:07:46,186 --> 00:07:47,576
+In the case of general video
+
+219
+00:07:47,576 --> 00:07:49,666
+content, we're seeing an up to
+
+220
+00:07:49,666 --> 00:07:51,836
+40 percent compression
+
+221
+00:07:51,836 --> 00:07:53,816
+improvement over H.264.
+
+222
+00:07:54,506 --> 00:07:55,966
+So you can generate the same
+
+223
+00:07:55,966 --> 00:07:57,446
+quality video as you were doing
+
+224
+00:07:57,446 --> 00:07:59,276
+previously but reduced 40
+
+225
+00:07:59,276 --> 00:08:00,396
+percent less bandwidth.
+
+226
+00:07:59,276 --> 00:08:00,396
+percent less bandwidth.
+
+227
+00:08:00,876 --> 00:08:01,966
+Or you could keep the same
+
+228
+00:08:01,966 --> 00:08:03,306
+bandwidth and significantly
+
+229
+00:08:03,306 --> 00:08:05,256
+improve the video quality.
+
+230
+00:08:05,716 --> 00:08:07,056
+And we've done quite a bit of
+
+231
+00:08:07,056 --> 00:08:08,976
+subjective and objective testing
+
+232
+00:08:09,336 --> 00:08:10,646
+to fine-tune the video to
+
+233
+00:08:10,646 --> 00:08:11,796
+realize these benefits.
+
+234
+00:08:12,906 --> 00:08:14,616
+In some use cases, we're seeing
+
+235
+00:08:14,616 --> 00:08:15,806
+an even greater benefit.
+
+236
+00:08:16,436 --> 00:08:18,186
+So we've really optimized our
+
+237
+00:08:18,186 --> 00:08:19,936
+end-to-end pipeline with the iOS
+
+238
+00:08:20,066 --> 00:08:20,866
+Camera Capture.
+
+239
+00:08:21,306 --> 00:08:22,886
+And in this use case, we're
+
+240
+00:08:22,886 --> 00:08:25,276
+seeing an up to 2x improvement
+
+241
+00:08:25,276 --> 00:08:26,736
+over H.264.
+
+242
+00:08:27,496 --> 00:08:28,736
+What this means is you're able
+
+243
+00:08:28,736 --> 00:08:30,386
+to now store twice as many
+
+244
+00:08:30,386 --> 00:08:32,926
+movies as you could previously
+
+245
+00:08:32,926 --> 00:08:34,135
+with H.264.
+
+246
+00:08:36,676 --> 00:08:38,466
+Let's talk a little bit about
+
+247
+00:08:38,556 --> 00:08:40,336
+the specifics of what we are
+
+248
+00:08:40,336 --> 00:08:40,916
+supporting.
+
+249
+00:08:41,576 --> 00:08:45,556
+Like H.264, HEVC also has the
+
+250
+00:08:45,556 --> 00:08:46,666
+notion of profiles.
+
+251
+00:08:47,396 --> 00:08:49,476
+And in HEVC, we're supporting
+
+252
+00:08:49,476 --> 00:08:52,336
+the Main profile, the Main Still
+
+253
+00:08:52,336 --> 00:08:54,266
+Picture profile, and finally the
+
+254
+00:08:54,266 --> 00:08:55,636
+Main 10 profile.
+
+255
+00:08:56,226 --> 00:08:58,566
+So with the Main 10 profile, we
+
+256
+00:08:58,566 --> 00:09:00,716
+are now able to encode and
+
+257
+00:08:58,566 --> 00:09:00,716
+are now able to encode and
+
+258
+00:09:00,716 --> 00:09:02,976
+decode video with 10-bit
+
+259
+00:09:03,026 --> 00:09:03,626
+precision.
+
+260
+00:09:04,246 --> 00:09:05,176
+This means that you can
+
+261
+00:09:05,176 --> 00:09:06,966
+represent more gray scales and
+
+262
+00:09:06,966 --> 00:09:08,876
+more colors and increase the
+
+263
+00:09:08,876 --> 00:09:10,656
+overall quality of the video
+
+264
+00:09:11,026 --> 00:09:12,746
+end-to-end across our pipeline.
+
+265
+00:09:13,216 --> 00:09:18,836
+With HEVC, we are requiring the
+
+266
+00:09:18,836 --> 00:09:22,126
+hvc1 codec type for playback.
+
+267
+00:09:23,046 --> 00:09:24,576
+This means that the parameter
+
+268
+00:09:24,576 --> 00:09:26,096
+sets have to be stored in the
+
+269
+00:09:26,096 --> 00:09:28,486
+decoder configuration record as
+
+270
+00:09:28,486 --> 00:09:29,956
+opposed to within the samples or
+
+271
+00:09:29,956 --> 00:09:31,516
+the payload itself.
+
+272
+00:09:32,046 --> 00:09:33,426
+So make sure when you are
+
+273
+00:09:33,426 --> 00:09:35,936
+creating HEVC assets that they
+
+274
+00:09:35,936 --> 00:09:38,776
+are the hvc1 codec type to
+
+275
+00:09:38,776 --> 00:09:40,426
+enable playback within the Apple
+
+276
+00:09:40,426 --> 00:09:41,056
+ecosystem.
+
+277
+00:09:44,796 --> 00:09:47,426
+Finally, we're lucky in that we
+
+278
+00:09:47,426 --> 00:09:48,996
+can take advantage of the fact
+
+279
+00:09:48,996 --> 00:09:51,236
+that HEVC naturally fits into
+
+280
+00:09:51,236 --> 00:09:53,266
+the existing file formats.
+
+281
+00:09:53,676 --> 00:09:55,206
+So it fits nicely within the
+
+282
+00:09:55,206 --> 00:09:57,116
+QuickTime movie file format as
+
+283
+00:09:57,116 --> 00:09:59,586
+well as the ISO MPEG-4 file
+
+284
+00:09:59,636 --> 00:10:00,066
+format.
+
+285
+00:09:59,636 --> 00:10:00,066
+format.
+
+286
+00:10:02,776 --> 00:10:05,086
+So we picked a technology that
+
+287
+00:10:05,086 --> 00:10:06,536
+is well supported within the
+
+288
+00:10:06,536 --> 00:10:08,416
+industry and within Apple's
+
+289
+00:10:08,416 --> 00:10:09,066
+ecosystem.
+
+290
+00:10:09,966 --> 00:10:10,946
+It has both hardware and
+
+291
+00:10:10,946 --> 00:10:11,826
+software support.
+
+292
+00:10:12,306 --> 00:10:13,086
+And later on in the
+
+293
+00:10:13,086 --> 00:10:14,786
+presentation, Gavin will go into
+
+294
+00:10:14,786 --> 00:10:18,186
+the details about where and how
+
+295
+00:10:18,186 --> 00:10:18,886
+that's supported.
+
+296
+00:10:21,936 --> 00:10:24,096
+It works already with the file
+
+297
+00:10:24,096 --> 00:10:25,616
+formats that we've talked about.
+
+298
+00:10:25,616 --> 00:10:27,036
+So it's supporting the QuickTime
+
+299
+00:10:27,036 --> 00:10:28,766
+movie file format and within the
+
+300
+00:10:28,766 --> 00:10:30,046
+MPEG-4 file format.
+
+301
+00:10:30,766 --> 00:10:32,656
+And finally, it's an ideal codec
+
+302
+00:10:33,086 --> 00:10:35,686
+for both movies as well as still
+
+303
+00:10:35,686 --> 00:10:37,926
+images, allowing us to use it in
+
+304
+00:10:37,926 --> 00:10:40,896
+place of H.264 and JPEG.
+
+305
+00:10:41,496 --> 00:10:43,216
+Now as I've mentioned, HEVC can
+
+306
+00:10:43,216 --> 00:10:45,126
+use the existing movie file
+
+307
+00:10:45,126 --> 00:10:45,736
+formats.
+
+308
+00:10:46,216 --> 00:10:48,466
+That's not the case for when we
+
+309
+00:10:48,466 --> 00:10:49,836
+want to use it for photos or
+
+310
+00:10:49,836 --> 00:10:50,376
+images.
+
+311
+00:10:50,786 --> 00:10:52,866
+So we needed to find a different
+
+312
+00:10:52,896 --> 00:10:54,246
+file format that we could use
+
+313
+00:10:54,246 --> 00:10:56,416
+for images that would allow us
+
+314
+00:10:56,496 --> 00:10:58,746
+to use HEVC as the codec and
+
+315
+00:10:59,066 --> 00:11:01,276
+that's where HEIF comes in.
+
+316
+00:10:59,066 --> 00:11:01,276
+that's where HEIF comes in.
+
+317
+00:11:02,776 --> 00:11:05,096
+So before we get into HEIF,
+
+318
+00:11:05,226 --> 00:11:06,496
+let's talk a little bit about
+
+319
+00:11:06,496 --> 00:11:08,466
+the requirements that we wanted
+
+320
+00:11:08,576 --> 00:11:11,496
+satisfied when adopting a new
+
+321
+00:11:11,496 --> 00:11:13,406
+file format for images.
+
+322
+00:11:14,606 --> 00:11:15,616
+We wanted support for
+
+323
+00:11:15,616 --> 00:11:17,236
+state-of-the-art compression
+
+324
+00:11:17,236 --> 00:11:19,206
+technology with HEVC being the
+
+325
+00:11:19,206 --> 00:11:20,576
+primary consideration.
+
+326
+00:11:21,866 --> 00:11:24,086
+We wanted explicit support for
+
+327
+00:11:24,086 --> 00:11:25,806
+alpha and depth channels as
+
+328
+00:11:25,856 --> 00:11:27,396
+primary asset types.
+
+329
+00:11:28,436 --> 00:11:30,756
+We needed support for animation
+
+330
+00:11:31,136 --> 00:11:33,976
+with animated GIF or JIF and
+
+331
+00:11:33,976 --> 00:11:34,926
+Live Photo.
+
+332
+00:11:35,296 --> 00:11:38,766
+In addition to just still image
+
+333
+00:11:38,766 --> 00:11:41,096
+support, we wanted support for
+
+334
+00:11:41,096 --> 00:11:43,356
+image sequences, to be able to
+
+335
+00:11:43,356 --> 00:11:44,856
+compress and represent those in
+
+336
+00:11:44,856 --> 00:11:46,886
+a file format such as what
+
+337
+00:11:47,036 --> 00:11:48,476
+happens when you're dealing with
+
+338
+00:11:48,476 --> 00:11:49,986
+bursts of photos.
+
+339
+00:11:51,286 --> 00:11:52,926
+And finally, with images getting
+
+340
+00:11:52,926 --> 00:11:55,026
+larger and larger in size, it
+
+341
+00:11:55,026 --> 00:11:57,376
+was important for us to be able
+
+342
+00:11:57,376 --> 00:11:59,106
+to process these efficiently
+
+343
+00:11:59,496 --> 00:12:00,606
+with low latency and a
+
+344
+00:11:59,496 --> 00:12:00,606
+with low latency and a
+
+345
+00:12:00,606 --> 00:12:02,026
+reasonable amount of
+
+346
+00:12:02,506 --> 00:12:03,386
+performance.
+
+347
+00:12:03,616 --> 00:12:04,756
+So when you've got a massive
+
+348
+00:12:04,756 --> 00:12:06,566
+image, you want to be able to
+
+349
+00:12:06,866 --> 00:12:08,986
+download it and start to preview
+
+350
+00:12:08,986 --> 00:12:09,966
+it immediately.
+
+351
+00:12:10,306 --> 00:12:11,666
+And if you're interested in a
+
+352
+00:12:11,706 --> 00:12:13,366
+particular smaller region in a
+
+353
+00:12:13,366 --> 00:12:15,726
+much wider image, you want to be
+
+354
+00:12:15,726 --> 00:12:18,006
+able to just decode and process
+
+355
+00:12:18,046 --> 00:12:19,676
+the relevant tiles.
+
+356
+00:12:20,196 --> 00:12:21,006
+And so we were looking for
+
+357
+00:12:21,006 --> 00:12:22,376
+something that would allow us to
+
+358
+00:12:22,376 --> 00:12:25,676
+take advantage of this kind of a
+
+359
+00:12:26,436 --> 00:12:27,296
+pipeline.
+
+360
+00:12:27,596 --> 00:12:29,246
+So with these requirements in
+
+361
+00:12:29,246 --> 00:12:30,826
+mind, we looked at a few options
+
+362
+00:12:31,106 --> 00:12:32,346
+and we selected HEIF.
+
+363
+00:12:33,456 --> 00:12:35,086
+HEIF stands for High Efficiency
+
+364
+00:12:35,126 --> 00:12:36,056
+Image File Format.
+
+365
+00:12:36,986 --> 00:12:39,906
+And like HEVC, it is also an
+
+366
+00:12:39,906 --> 00:12:41,626
+industry standard that was
+
+367
+00:12:41,626 --> 00:12:44,476
+ratified by ISO in 2015.
+
+368
+00:12:45,056 --> 00:12:48,406
+It's based on the familiar ISO
+
+369
+00:12:48,406 --> 00:12:49,956
+Base Media File Format.
+
+370
+00:12:50,696 --> 00:12:53,716
+It is extremely feature-rich.
+
+371
+00:12:54,836 --> 00:12:56,786
+And it supports both individual
+
+372
+00:12:56,786 --> 00:12:58,286
+images and sequences.
+
+373
+00:12:59,436 --> 00:13:01,446
+There are many use cases in
+
+374
+00:12:59,436 --> 00:13:01,446
+There are many use cases in
+
+375
+00:13:01,446 --> 00:13:02,836
+addition to that, that are
+
+376
+00:13:02,836 --> 00:13:04,196
+supported by this file format
+
+377
+00:13:04,726 --> 00:13:05,756
+which allows for future
+
+378
+00:13:05,756 --> 00:13:06,656
+extensibility.
+
+379
+00:13:07,216 --> 00:13:12,316
+It typically uses HEVC for
+
+380
+00:13:12,316 --> 00:13:13,106
+compression.
+
+381
+00:13:13,156 --> 00:13:14,426
+It has the option where you can
+
+382
+00:13:14,426 --> 00:13:15,746
+use other encoders.
+
+383
+00:13:16,046 --> 00:13:17,606
+But at Apple, when we're
+
+384
+00:13:17,606 --> 00:13:20,066
+generating HEIF assets, they
+
+385
+00:13:20,066 --> 00:13:23,566
+will only be using the HEVC
+
+386
+00:13:24,476 --> 00:13:24,706
+encoder.
+
+387
+00:13:24,796 --> 00:13:26,236
+So why do all this for images?
+
+388
+00:13:27,506 --> 00:13:29,216
+We saw the benefits for movies
+
+389
+00:13:29,216 --> 00:13:30,076
+and videos.
+
+390
+00:13:30,596 --> 00:13:32,366
+And for images, we're also
+
+391
+00:13:32,366 --> 00:13:33,746
+seeing tremendous gains over
+
+392
+00:13:33,746 --> 00:13:34,236
+JPEG.
+
+393
+00:13:34,656 --> 00:13:37,706
+So now using HEVC within HEIF,
+
+394
+00:13:38,496 --> 00:13:40,456
+you're able to capture and store
+
+395
+00:13:40,546 --> 00:13:43,456
+twice as many images as you were
+
+396
+00:13:43,456 --> 00:13:45,496
+able to previously with JPEG.
+
+397
+00:13:47,696 --> 00:13:49,296
+Let's talk a little bit about
+
+398
+00:13:49,386 --> 00:13:51,986
+the different formats of HEIF
+
+399
+00:13:51,986 --> 00:13:52,896
+that we are supporting.
+
+400
+00:13:53,486 --> 00:13:56,346
+So as I mentioned from an encode
+
+401
+00:13:56,346 --> 00:13:58,076
+or asset creation perspective,
+
+402
+00:13:58,546 --> 00:14:00,496
+we're going to be using the HEVC
+
+403
+00:13:58,546 --> 00:14:00,496
+we're going to be using the HEVC
+
+404
+00:14:00,496 --> 00:14:02,706
+encoder, which means we're going
+
+405
+00:14:02,706 --> 00:14:05,346
+to be generating the .heic file
+
+406
+00:14:05,346 --> 00:14:06,416
+extension or .heic.
+
+407
+00:14:06,416 --> 00:14:09,246
+So that's what we're doing from
+
+408
+00:14:09,296 --> 00:14:10,736
+asset generation perspective.
+
+409
+00:14:10,736 --> 00:14:12,836
+So we'll be able to create and
+
+410
+00:14:12,836 --> 00:14:13,906
+play back those files.
+
+411
+00:14:14,556 --> 00:14:16,586
+In terms of playback, we're also
+
+412
+00:14:16,586 --> 00:14:19,816
+going to support decoding H.264
+
+413
+00:14:19,986 --> 00:14:23,846
+HEIF images and, more generally,
+
+414
+00:14:24,196 --> 00:14:25,356
+if there's another codec that's
+
+415
+00:14:25,356 --> 00:14:26,846
+supported within our system,
+
+416
+00:14:27,206 --> 00:14:29,106
+we'll also be able to decode and
+
+417
+00:14:29,106 --> 00:14:31,246
+display those HEIF files.
+
+418
+00:14:35,976 --> 00:14:38,056
+There is a great video that one
+
+419
+00:14:38,136 --> 00:14:38,976
+of our colleagues [inaudible]
+
+420
+00:14:38,976 --> 00:14:41,276
+has done which will provide more
+
+421
+00:14:41,276 --> 00:14:43,896
+information into the HEIF file
+
+422
+00:14:43,896 --> 00:14:44,426
+format.
+
+423
+00:14:44,426 --> 00:14:45,456
+So -- and I think he'll be
+
+424
+00:14:45,456 --> 00:14:47,366
+posted sometime later today or
+
+425
+00:14:47,366 --> 00:14:47,886
+tomorrow.
+
+426
+00:14:48,266 --> 00:14:49,976
+So please be sure to check that
+
+427
+00:14:49,976 --> 00:14:52,026
+out if you want more details
+
+428
+00:14:52,426 --> 00:14:55,526
+about the HEIF file format, the
+
+429
+00:14:55,526 --> 00:14:57,056
+different atom types, and how to
+
+430
+00:14:57,056 --> 00:14:58,986
+parse the file and process it.
+
+431
+00:15:00,636 --> 00:15:02,026
+So now that we've talked about
+
+432
+00:15:02,026 --> 00:15:03,496
+these new technologies, what
+
+433
+00:15:03,566 --> 00:15:05,776
+they are and why we decided to
+
+434
+00:15:05,776 --> 00:15:08,016
+select them at Apple, we'd like
+
+435
+00:15:08,016 --> 00:15:09,936
+to talk to you about how we are
+
+436
+00:15:09,936 --> 00:15:11,546
+using them within the Apple
+
+437
+00:15:11,546 --> 00:15:13,636
+ecosystem and then also provide
+
+438
+00:15:13,686 --> 00:15:15,856
+some guidance on what you can do
+
+439
+00:15:15,856 --> 00:15:16,696
+with these fantastic
+
+440
+00:15:16,696 --> 00:15:18,286
+technologies in your apps and
+
+441
+00:15:18,286 --> 00:15:18,886
+use cases.
+
+442
+00:15:19,866 --> 00:15:21,426
+And to talk you through that,
+
+443
+00:15:21,426 --> 00:15:23,106
+I'd like to hand things over to
+
+444
+00:15:23,106 --> 00:15:23,806
+Gavin Thomson.
+
+445
+00:15:24,516 --> 00:15:30,486
+[ Applause ]
+
+446
+00:15:30,986 --> 00:15:31,376
+&gt;&gt; Thanks Athar.
+
+447
+00:15:31,866 --> 00:15:33,386
+So my name is Gavin Thomson.
+
+448
+00:15:33,386 --> 00:15:34,676
+I'm one of the engineering
+
+449
+00:15:34,756 --> 00:15:36,096
+managers for the camera and
+
+450
+00:15:36,096 --> 00:15:37,386
+photo organization at Apple.
+
+451
+00:15:39,656 --> 00:15:46,146
+OK. So with -- we just learned a
+
+452
+00:15:46,366 --> 00:15:47,726
+lot of the great benefits of
+
+453
+00:15:47,726 --> 00:15:48,956
+HEIF and HEVC.
+
+454
+00:15:48,956 --> 00:15:50,446
+But what are the ecosystem
+
+455
+00:15:50,446 --> 00:15:51,196
+implications?
+
+456
+00:15:51,866 --> 00:15:53,796
+So at Apple, we've been working
+
+457
+00:15:53,796 --> 00:15:55,836
+over the last year to adopt HEIF
+
+458
+00:15:55,836 --> 00:15:57,146
+and HEVC into the Apple
+
+459
+00:15:57,146 --> 00:15:57,866
+ecosystem.
+
+460
+00:15:58,256 --> 00:16:01,036
+So today I would like to share,
+
+461
+00:15:58,256 --> 00:16:01,036
+So today I would like to share,
+
+462
+00:16:01,106 --> 00:16:02,336
+talk about that adoption and
+
+463
+00:16:02,336 --> 00:16:03,536
+share the changes that were made
+
+464
+00:16:03,536 --> 00:16:04,966
+to help with that transition.
+
+465
+00:16:05,996 --> 00:16:07,146
+Our goal is to make the
+
+466
+00:16:07,146 --> 00:16:08,396
+introduction of these new
+
+467
+00:16:08,396 --> 00:16:10,056
+formats as transparent as
+
+468
+00:16:10,096 --> 00:16:10,516
+possible.
+
+469
+00:16:11,146 --> 00:16:13,146
+So there are three topics that I
+
+470
+00:16:13,146 --> 00:16:14,326
+would like to talk about.
+
+471
+00:16:15,526 --> 00:16:17,866
+First is creation: how and where
+
+472
+00:16:17,866 --> 00:16:19,256
+we can create HEIF image and
+
+473
+00:16:19,256 --> 00:16:20,266
+HEVC movie content.
+
+474
+00:16:21,696 --> 00:16:24,396
+There is access: how and where
+
+475
+00:16:24,396 --> 00:16:26,526
+to access HEIF and HEVC movie
+
+476
+00:16:26,526 --> 00:16:27,036
+content.
+
+477
+00:16:27,796 --> 00:16:30,406
+And finally transfer: so what
+
+478
+00:16:30,406 --> 00:16:31,386
+strategies do you need to
+
+479
+00:16:31,386 --> 00:16:33,106
+consider when you want to move
+
+480
+00:16:33,106 --> 00:16:34,816
+HEIF or HEVC content off a
+
+481
+00:16:34,816 --> 00:16:35,976
+capture or supported device?
+
+482
+00:16:42,046 --> 00:16:43,436
+So first I'd like to start with
+
+483
+00:16:43,436 --> 00:16:44,006
+access.
+
+484
+00:16:44,246 --> 00:16:45,956
+So we've discussed the
+
+485
+00:16:45,956 --> 00:16:47,576
+extensibility of the HEIF format
+
+486
+00:16:47,576 --> 00:16:48,206
+for images.
+
+487
+00:16:48,686 --> 00:16:49,176
+What are some of the
+
+488
+00:16:49,176 --> 00:16:50,536
+characteristics of the Apple
+
+489
+00:16:50,536 --> 00:16:51,716
+generated HEIF images?
+
+490
+00:16:53,456 --> 00:16:55,786
+So as we heard, the file format
+
+491
+00:16:55,786 --> 00:16:57,346
+is an ISO Based Media format.
+
+492
+00:16:58,046 --> 00:16:59,356
+So those of you that have look
+
+493
+00:16:59,356 --> 00:17:01,496
+at the internals of the MP4 or a
+
+494
+00:16:59,356 --> 00:17:01,496
+at the internals of the MP4 or a
+
+495
+00:17:01,496 --> 00:17:03,286
+QuickTime movie file, be very
+
+496
+00:17:03,286 --> 00:17:04,195
+familiar with the internal
+
+497
+00:17:04,195 --> 00:17:05,496
+structure as they're based on
+
+498
+00:17:05,496 --> 00:17:06,336
+the same standard.
+
+499
+00:17:06,906 --> 00:17:08,236
+So I want to reiterate here,
+
+500
+00:17:08,536 --> 00:17:10,246
+HEIF is a container format.
+
+501
+00:17:11,036 --> 00:17:12,205
+Not too similar to the QuickTime
+
+502
+00:17:12,205 --> 00:17:13,425
+movie file format.
+
+503
+00:17:14,106 --> 00:17:15,465
+It's got many more options and a
+
+504
+00:17:15,465 --> 00:17:17,856
+lot more flexibility than a JPEG
+
+505
+00:17:17,915 --> 00:17:18,646
+file format.
+
+506
+00:17:20,816 --> 00:17:23,056
+Now, our image payload is
+
+507
+00:17:23,056 --> 00:17:24,675
+encoded using HEVC.
+
+508
+00:17:25,376 --> 00:17:26,346
+And as we've learned, that
+
+509
+00:17:26,346 --> 00:17:27,806
+provides great compression
+
+510
+00:17:27,806 --> 00:17:29,426
+improvements over JPEG, up to
+
+511
+00:17:29,426 --> 00:17:29,956
+2X.
+
+512
+00:17:32,276 --> 00:17:34,446
+We also encode the image payload
+
+513
+00:17:34,446 --> 00:17:37,286
+as 512 x 512 tiles.
+
+514
+00:17:37,286 --> 00:17:38,576
+And amongst other advantages,
+
+515
+00:17:38,576 --> 00:17:40,106
+that provides great flexibility
+
+516
+00:17:40,226 --> 00:17:41,946
+for fast incremental loading of
+
+517
+00:17:41,946 --> 00:17:45,646
+high resolution content.
+
+518
+00:17:46,256 --> 00:17:48,436
+We also have a 320 x 240
+
+519
+00:17:48,436 --> 00:17:50,596
+embedded thumbnail, which is
+
+520
+00:17:50,666 --> 00:17:52,446
+four times the resolution but
+
+521
+00:17:52,446 --> 00:17:54,436
+only twice the size of our
+
+522
+00:17:54,436 --> 00:17:57,406
+current 160 x 120 JPEG embedded
+
+523
+00:17:57,406 --> 00:17:57,966
+thumbnail.
+
+524
+00:17:58,446 --> 00:17:59,266
+Why can we do this?
+
+525
+00:17:59,266 --> 00:18:00,666
+Because the thumbnail was also
+
+526
+00:17:59,266 --> 00:18:00,666
+Because the thumbnail was also
+
+527
+00:18:00,846 --> 00:18:04,066
+encoded using HEVC.
+
+528
+00:18:04,776 --> 00:18:07,356
+We still support an image, EXIF
+
+529
+00:18:07,356 --> 00:18:09,766
+metadata payload compatible with
+
+530
+00:18:09,826 --> 00:18:10,976
+the payload that we capture in
+
+531
+00:18:10,976 --> 00:18:11,916
+our JPEG format.
+
+532
+00:18:15,506 --> 00:18:17,996
+So HEIF with the HEVC encoded
+
+533
+00:18:17,996 --> 00:18:19,336
+image will be identified in the
+
+534
+00:18:19,336 --> 00:18:21,486
+file system with a new extension
+
+535
+00:18:21,816 --> 00:18:24,596
+.heic or .heic as we call it.
+
+536
+00:18:25,136 --> 00:18:26,636
+So some will know this is a
+
+537
+00:18:26,636 --> 00:18:29,296
+breakaway from the DCF 8.3
+
+538
+00:18:29,666 --> 00:18:30,766
+filenaming convention.
+
+539
+00:18:31,296 --> 00:18:32,496
+So if you have any assumptions
+
+540
+00:18:32,526 --> 00:18:34,026
+with your file name parsers, a
+
+541
+00:18:34,026 --> 00:18:34,926
+variant three character
+
+542
+00:18:34,926 --> 00:18:36,596
+extension, we now have the
+
+543
+00:18:36,596 --> 00:18:38,426
+default still capture format
+
+544
+00:18:38,426 --> 00:18:39,486
+that has four characters.
+
+545
+00:18:43,676 --> 00:18:44,986
+So where is HEIF decode
+
+546
+00:18:44,986 --> 00:18:45,566
+supported?
+
+547
+00:18:45,896 --> 00:18:48,016
+It's supported on all of our --
+
+548
+00:18:48,016 --> 00:18:50,106
+it's available on all of our
+
+549
+00:18:50,106 --> 00:18:51,816
+supported platforms that have
+
+550
+00:18:51,816 --> 00:18:54,656
+macOS 10.3 or iOS 11 installed
+
+551
+00:18:55,166 --> 00:18:55,946
+but there's a variety of
+
+552
+00:18:55,946 --> 00:18:58,676
+hardware and software support.
+
+553
+00:18:58,756 --> 00:19:01,026
+For iOS, we have hardware decode
+
+554
+00:18:58,756 --> 00:19:01,026
+For iOS, we have hardware decode
+
+555
+00:19:01,026 --> 00:19:02,876
+on the minimum config of the A9
+
+556
+00:19:02,876 --> 00:19:03,156
+chip.
+
+557
+00:19:03,726 --> 00:19:04,836
+An example, of which, is the
+
+558
+00:19:04,836 --> 00:19:06,876
+iPhone 6S or the iPad Pro.
+
+559
+00:19:08,116 --> 00:19:09,656
+On macOS, we have hardware
+
+560
+00:19:09,656 --> 00:19:10,616
+decode support on the
+
+561
+00:19:10,616 --> 00:19:12,376
+sixth-generation Intel Core,
+
+562
+00:19:12,376 --> 00:19:13,746
+which is the Skylake family of
+
+563
+00:19:13,746 --> 00:19:14,456
+processors.
+
+564
+00:19:15,186 --> 00:19:17,836
+An example of that machine is
+
+565
+00:19:17,836 --> 00:19:18,696
+the new MacBook with the
+
+566
+00:19:18,696 --> 00:19:21,396
+touchbar, but we have software
+
+567
+00:19:21,396 --> 00:19:22,896
+decode support on all of our
+
+568
+00:19:22,896 --> 00:19:25,196
+supported iOS and macOS devices.
+
+569
+00:19:28,236 --> 00:19:30,026
+So where do we have HEIF image
+
+570
+00:19:30,026 --> 00:19:30,546
+support?
+
+571
+00:19:32,136 --> 00:19:34,446
+ImageIO was Apple's lowest level
+
+572
+00:19:35,036 --> 00:19:35,896
+image framework.
+
+573
+00:19:36,066 --> 00:19:37,826
+And it supports HEIF as a source
+
+574
+00:19:37,826 --> 00:19:40,146
+for decode, incremental loading,
+
+575
+00:19:40,176 --> 00:19:41,726
+metadata, and thumbnail
+
+576
+00:19:41,726 --> 00:19:42,376
+abstraction.
+
+577
+00:19:42,806 --> 00:19:44,156
+This is in line for their other
+
+578
+00:19:44,156 --> 00:19:46,396
+supported image formats using
+
+579
+00:19:46,396 --> 00:19:49,886
+exactly the same APIs.
+
+580
+00:19:50,226 --> 00:19:51,926
+Core Image also supports HEIF as
+
+581
+00:19:51,926 --> 00:19:53,256
+a source for real-time image
+
+582
+00:19:53,256 --> 00:19:54,006
+manipulation.
+
+583
+00:19:56,256 --> 00:19:57,666
+And the PhotoKit APIs which
+
+584
+00:19:57,666 --> 00:19:59,186
+allow access to assets in the
+
+585
+00:19:59,186 --> 00:20:00,576
+photo library also supports
+
+586
+00:19:59,186 --> 00:20:00,576
+photo library also supports
+
+587
+00:20:00,576 --> 00:20:02,256
+direct access to HEIF, but I'll
+
+588
+00:20:02,256 --> 00:20:03,906
+talk about this framework in a
+
+589
+00:20:03,906 --> 00:20:05,006
+little more detail in the coming
+
+590
+00:20:05,006 --> 00:20:05,546
+slides.
+
+591
+00:20:08,336 --> 00:20:10,206
+Many of Apple's many based
+
+592
+00:20:10,206 --> 00:20:11,686
+applications will also natively
+
+593
+00:20:11,686 --> 00:20:12,506
+work with HEIF.
+
+594
+00:20:12,626 --> 00:20:14,536
+Notable amongst those is photos,
+
+595
+00:20:14,596 --> 00:20:16,576
+preview, Quick Look but there
+
+596
+00:20:16,576 --> 00:20:17,436
+are also many others.
+
+597
+00:20:19,806 --> 00:20:21,246
+OK. Let's move to our movie
+
+598
+00:20:21,246 --> 00:20:22,496
+format and talk a little bit
+
+599
+00:20:22,496 --> 00:20:24,626
+about Apple captured HEVC
+
+600
+00:20:24,716 --> 00:20:25,346
+movies.
+
+601
+00:20:27,796 --> 00:20:28,906
+So the changes here aren't as
+
+602
+00:20:28,906 --> 00:20:30,816
+drastic as our newly supported
+
+603
+00:20:30,816 --> 00:20:31,536
+image format.
+
+604
+00:20:32,076 --> 00:20:33,526
+We're still capturing using the
+
+605
+00:20:33,526 --> 00:20:36,446
+QuickTime file format but with
+
+606
+00:20:36,486 --> 00:20:38,336
+HEVC coded video frames.
+
+607
+00:20:38,826 --> 00:20:40,116
+As we've learned for Apple
+
+608
+00:20:40,446 --> 00:20:41,796
+captured video, we're getting
+
+609
+00:20:41,836 --> 00:20:42,946
+twice the compression that we're
+
+610
+00:20:42,946 --> 00:20:44,686
+getting from H.264.
+
+611
+00:20:44,686 --> 00:20:46,346
+And, once again, just to call
+
+612
+00:20:46,346 --> 00:20:48,126
+out again, we're using HEVC to
+
+613
+00:20:48,306 --> 00:20:50,096
+encode both our images and our
+
+614
+00:20:50,096 --> 00:20:50,966
+video formats.
+
+615
+00:20:55,996 --> 00:20:58,846
+We also support both an 8- and a
+
+616
+00:20:58,846 --> 00:20:59,826
+10-bit encoding.
+
+617
+00:21:00,226 --> 00:21:01,626
+So those of you that really care
+
+618
+00:21:01,626 --> 00:21:03,156
+about image quality or deep
+
+619
+00:21:03,156 --> 00:21:05,376
+color, we have a non-real-time,
+
+620
+00:21:05,426 --> 00:21:06,996
+a 10-bit software encoder on
+
+621
+00:21:06,996 --> 00:21:08,606
+macOS to satisfy your needs.
+
+622
+00:21:11,786 --> 00:21:13,076
+You'll be happy to learn, with
+
+623
+00:21:13,176 --> 00:21:14,166
+this new format, we have
+
+624
+00:21:14,166 --> 00:21:15,776
+retained the three character
+
+625
+00:21:15,776 --> 00:21:17,476
+.mov extensions, so you won't
+
+626
+00:21:17,476 --> 00:21:18,576
+have to update any of your
+
+627
+00:21:18,856 --> 00:21:20,896
+filename parsers for this media
+
+628
+00:21:23,656 --> 00:21:24,056
+format.
+
+629
+00:21:24,636 --> 00:21:27,066
+OK. So where do we have decode
+
+630
+00:21:27,316 --> 00:21:29,636
+support for HEVC movies?
+
+631
+00:21:29,926 --> 00:21:31,496
+So we have both 8- and 10-bit
+
+632
+00:21:31,646 --> 00:21:33,606
+decode which is available on all
+
+633
+00:21:33,606 --> 00:21:34,896
+our supported platforms with,
+
+634
+00:21:34,896 --> 00:21:37,286
+once again, macOS 10.13 and iOS
+
+635
+00:21:37,286 --> 00:21:38,996
+11, but there's a variety of
+
+636
+00:21:38,996 --> 00:21:41,366
+hardware and software support.
+
+637
+00:21:41,366 --> 00:21:43,606
+So in iOS, we have both 8- and
+
+638
+00:21:43,606 --> 00:21:45,086
+10-bit hardware decode on the
+
+639
+00:21:45,086 --> 00:21:46,546
+minimum config of the A9 chip.
+
+640
+00:21:47,396 --> 00:21:49,516
+Once again, the iPhone 6S is an
+
+641
+00:21:49,516 --> 00:21:50,326
+example there.
+
+642
+00:21:51,286 --> 00:21:52,816
+For macOS, we have 8-bit
+
+643
+00:21:52,816 --> 00:21:53,936
+hardware decode in
+
+644
+00:21:53,936 --> 00:21:55,376
+sixth-generation Intel Core
+
+645
+00:21:55,376 --> 00:21:56,916
+processor which is the Skylake
+
+646
+00:21:56,916 --> 00:21:58,066
+family of processors.
+
+647
+00:21:58,486 --> 00:22:00,346
+And we have 10-bit hardware
+
+648
+00:21:58,486 --> 00:22:00,346
+And we have 10-bit hardware
+
+649
+00:22:00,346 --> 00:22:01,696
+decode support on the
+
+650
+00:22:01,736 --> 00:22:03,326
+seventh-generation Intel Core
+
+651
+00:22:03,326 --> 00:22:05,046
+processors or the Kaby Lake
+
+652
+00:22:05,046 --> 00:22:06,276
+family of processors.
+
+653
+00:22:06,966 --> 00:22:09,176
+And we have both 8- and 10-bit
+
+654
+00:22:09,176 --> 00:22:10,946
+software decode across all of
+
+655
+00:22:10,946 --> 00:22:13,756
+our supported macOS and iOS
+
+656
+00:22:13,796 --> 00:22:14,306
+platforms.
+
+657
+00:22:18,296 --> 00:22:20,236
+OK. So where do we support HEVC
+
+658
+00:22:20,236 --> 00:22:21,076
+movies?
+
+659
+00:22:24,066 --> 00:22:25,946
+AVFoundation is the primal
+
+660
+00:22:25,946 --> 00:22:27,666
+framework to manage movies.
+
+661
+00:22:27,886 --> 00:22:29,416
+And it supports play, create,
+
+662
+00:22:29,416 --> 00:22:30,996
+and edit workflows for HEVC
+
+663
+00:22:30,996 --> 00:22:31,576
+content.
+
+664
+00:22:32,086 --> 00:22:35,366
+Once again, PhotoKit will vend
+
+665
+00:22:35,366 --> 00:22:38,066
+original HEVC movies.
+
+666
+00:22:38,186 --> 00:22:40,386
+WebKit will also playback HEVC
+
+667
+00:22:40,386 --> 00:22:43,976
+movies but only on devices that
+
+668
+00:22:43,976 --> 00:22:45,576
+have hardware acceleration and
+
+669
+00:22:45,576 --> 00:22:47,746
+all macOS desktops.
+
+670
+00:22:48,456 --> 00:22:50,426
+There's also support to
+
+671
+00:22:50,546 --> 00:22:52,706
+encourage HLS streams using
+
+672
+00:22:52,706 --> 00:22:53,816
+HEVC.
+
+673
+00:22:54,766 --> 00:22:55,796
+This represents a great
+
+674
+00:22:55,796 --> 00:22:58,536
+opportunity to improve network
+
+675
+00:22:59,076 --> 00:22:59,696
+throughput.
+
+676
+00:23:00,506 --> 00:23:01,706
+And, in fact, the session
+
+677
+00:23:01,706 --> 00:23:03,026
+directly after this is going to
+
+678
+00:23:03,026 --> 00:23:05,046
+talk about this initiative in
+
+679
+00:23:05,046 --> 00:23:06,026
+much more detail.
+
+680
+00:23:08,336 --> 00:23:10,426
+Also, we have many Apple
+
+681
+00:23:10,426 --> 00:23:11,656
+applications that will natively
+
+682
+00:23:11,656 --> 00:23:13,546
+work with HEVC movies, you know,
+
+683
+00:23:13,546 --> 00:23:14,736
+QuickTime player, Quick Look
+
+684
+00:23:14,736 --> 00:23:17,096
+photos but also FaceTime.
+
+685
+00:23:17,256 --> 00:23:19,096
+This is a great example of HEVC
+
+686
+00:23:19,156 --> 00:23:21,046
+usage to greatly improve network
+
+687
+00:23:21,046 --> 00:23:21,556
+throughput.
+
+688
+00:23:22,336 --> 00:23:25,646
+So we have decode support for
+
+689
+00:23:25,736 --> 00:23:28,536
+HEVC across all of our devices.
+
+690
+00:23:28,996 --> 00:23:30,036
+What about playback?
+
+691
+00:23:30,596 --> 00:23:32,176
+This is where the distinction
+
+692
+00:23:32,176 --> 00:23:33,736
+between decodable and playable
+
+693
+00:23:33,736 --> 00:23:35,446
+is very important and
+
+694
+00:23:35,556 --> 00:23:37,486
+particularly so with HEVC.
+
+695
+00:23:38,176 --> 00:23:40,306
+This is unfamiliar territory for
+
+696
+00:23:40,306 --> 00:23:41,016
+many of us.
+
+697
+00:23:41,166 --> 00:23:42,456
+We don't have hardware
+
+698
+00:23:42,456 --> 00:23:43,996
+acceleration across all
+
+699
+00:23:43,996 --> 00:23:46,116
+supported devices for default
+
+700
+00:23:46,116 --> 00:23:46,856
+capture format.
+
+701
+00:23:47,646 --> 00:23:48,826
+And this is a problem we haven't
+
+702
+00:23:48,826 --> 00:23:50,436
+had to deal with for a long time
+
+703
+00:23:50,436 --> 00:23:53,736
+as H.264 hardware decode is
+
+704
+00:23:53,736 --> 00:23:57,506
+fairly ubiquitous at this point.
+
+705
+00:23:57,556 --> 00:23:58,946
+So all of our movie formats are
+
+706
+00:23:58,946 --> 00:24:01,026
+decodable but on some software
+
+707
+00:23:58,946 --> 00:24:01,026
+decodable but on some software
+
+708
+00:24:01,026 --> 00:24:02,466
+systems, there will be formats
+
+709
+00:24:02,466 --> 00:24:03,346
+that are much slower than
+
+710
+00:24:03,346 --> 00:24:04,636
+real-time and really only
+
+711
+00:24:04,636 --> 00:24:06,106
+supported for export or
+
+712
+00:24:06,106 --> 00:24:07,276
+transcode workflows.
+
+713
+00:24:07,276 --> 00:24:08,716
+So how do you make the
+
+714
+00:24:08,716 --> 00:24:11,176
+determination that a format is
+
+715
+00:24:11,866 --> 00:24:13,396
+suitable for playback on a given
+
+716
+00:24:13,396 --> 00:24:13,896
+device?
+
+717
+00:24:15,576 --> 00:24:18,026
+So AVFoundation, through its
+
+718
+00:24:18,026 --> 00:24:19,646
+API, supports the notion of
+
+719
+00:24:19,736 --> 00:24:20,466
+"isPlayable."
+
+720
+00:24:21,246 --> 00:24:22,346
+And this indicates whether a
+
+721
+00:24:22,346 --> 00:24:24,106
+device's video level supports
+
+722
+00:24:24,326 --> 00:24:26,136
+the movie for playback.
+
+723
+00:24:26,946 --> 00:24:28,336
+If true, you should experience
+
+724
+00:24:28,336 --> 00:24:29,936
+smooth playback without
+
+725
+00:24:29,936 --> 00:24:31,426
+incurring any significant power
+
+726
+00:24:31,536 --> 00:24:33,146
+or [inaudible] cost for videos
+
+727
+00:24:33,146 --> 00:24:34,466
+of extended durations.
+
+728
+00:24:36,856 --> 00:24:39,416
+For example, even though Apple
+
+729
+00:24:39,416 --> 00:24:41,236
+captured 4K30 is decodable
+
+730
+00:24:41,236 --> 00:24:42,296
+across all of our supported
+
+731
+00:24:42,296 --> 00:24:44,166
+systems, it's unlikely to be
+
+732
+00:24:44,166 --> 00:24:45,296
+marked as playable on some of
+
+733
+00:24:45,296 --> 00:24:46,746
+our older hardware like the
+
+734
+00:24:46,746 --> 00:24:47,606
+iPhone 5S.
+
+735
+00:24:47,666 --> 00:24:49,226
+So this is a call out to
+
+736
+00:24:49,226 --> 00:24:49,906
+developers.
+
+737
+00:24:49,906 --> 00:24:51,306
+It's really, really important,
+
+738
+00:24:51,306 --> 00:24:52,726
+at this junction, for you to be
+
+739
+00:24:53,036 --> 00:24:54,656
+observing these playable state
+
+740
+00:24:55,086 --> 00:24:56,876
+to ensure we provide the best
+
+741
+00:24:56,876 --> 00:24:58,246
+possible user experience.
+
+742
+00:25:01,936 --> 00:25:04,276
+OK. For many developers, their
+
+743
+00:25:04,276 --> 00:25:05,686
+first interaction with original
+
+744
+00:25:05,686 --> 00:25:07,366
+HEIF and HEVC content will be
+
+745
+00:25:07,366 --> 00:25:09,376
+through one of the public photo
+
+746
+00:25:10,196 --> 00:25:10,346
+APIs.
+
+747
+00:25:11,576 --> 00:25:13,466
+PhotoKit is the widely used
+
+748
+00:25:13,466 --> 00:25:14,956
+photos API on iOS.
+
+749
+00:25:15,666 --> 00:25:16,726
+And during his conference,
+
+750
+00:25:16,726 --> 00:25:17,756
+they'll be some announcements
+
+751
+00:25:17,756 --> 00:25:19,896
+about its availability on macOS.
+
+752
+00:25:19,896 --> 00:25:21,866
+So look to the what's new photo
+
+753
+00:25:21,866 --> 00:25:22,866
+session tomorrow for more
+
+754
+00:25:22,866 --> 00:25:24,826
+details on that, but it will
+
+755
+00:25:24,826 --> 00:25:26,796
+vend original HEIF and HEVC
+
+756
+00:25:27,496 --> 00:25:28,546
+movie content.
+
+757
+00:25:28,886 --> 00:25:30,226
+Also, the deprecated
+
+758
+00:25:30,276 --> 00:25:31,966
+AssetLibrary framework is still
+
+759
+00:25:31,966 --> 00:25:33,836
+very popular in the development
+
+760
+00:25:33,836 --> 00:25:34,226
+community.
+
+761
+00:25:34,226 --> 00:25:36,946
+And it will also vend HEIF and
+
+762
+00:25:37,866 --> 00:25:39,536
+HEVC content.
+
+763
+00:25:40,116 --> 00:25:41,586
+On macOS, there is also the
+
+764
+00:25:41,586 --> 00:25:42,626
+Media Library API.
+
+765
+00:25:43,286 --> 00:25:45,406
+For this release, it will only
+
+766
+00:25:45,406 --> 00:25:46,616
+be vending transcoded
+
+767
+00:25:46,616 --> 00:25:48,556
+representations of HEIF and HEVC
+
+768
+00:25:48,556 --> 00:25:51,366
+as JPEG and H.264 have been an
+
+769
+00:25:51,366 --> 00:25:52,406
+equivalent resolution.
+
+770
+00:25:55,796 --> 00:25:56,886
+Because of the popularity of
+
+771
+00:25:56,886 --> 00:25:58,386
+PhotoKit to access media on
+
+772
+00:25:58,386 --> 00:25:59,766
+Apple platforms, I wanted to
+
+773
+00:25:59,766 --> 00:26:01,116
+highlight some of the classes
+
+774
+00:25:59,766 --> 00:26:01,116
+highlight some of the classes
+
+775
+00:26:01,496 --> 00:26:02,606
+through which you can access
+
+776
+00:26:02,606 --> 00:26:04,276
+HEIF and HEVC content.
+
+777
+00:26:05,916 --> 00:26:07,986
+When requesting images, you use
+
+778
+00:26:07,986 --> 00:26:09,066
+the PHImageManager.
+
+779
+00:26:09,766 --> 00:26:11,136
+Through this class, you can
+
+780
+00:26:11,136 --> 00:26:13,136
+request original HEIF images.
+
+781
+00:26:14,056 --> 00:26:15,216
+Also, remember requesting video
+
+782
+00:26:15,216 --> 00:26:17,166
+objects, you can also use the
+
+783
+00:26:17,166 --> 00:26:19,506
+PHImageManager to request HEVC
+
+784
+00:26:19,506 --> 00:26:20,396
+movies.
+
+785
+00:26:22,176 --> 00:26:25,676
+For managing resources, we have
+
+786
+00:26:25,676 --> 00:26:28,126
+the PHAssetResourceManager which
+
+787
+00:26:28,126 --> 00:26:29,696
+allows you to manage all the
+
+788
+00:26:29,696 --> 00:26:31,006
+discrete resources in the photo
+
+789
+00:26:31,006 --> 00:26:31,496
+library.
+
+790
+00:26:31,776 --> 00:26:33,296
+Amongst those could be HEIF and
+
+791
+00:26:33,296 --> 00:26:34,246
+HEVC content.
+
+792
+00:26:37,416 --> 00:26:39,026
+And for edit workflows, we have
+
+793
+00:26:39,026 --> 00:26:41,066
+the PHContentEditinginput.
+
+794
+00:26:41,066 --> 00:26:43,226
+And it will support HEIF image
+
+795
+00:26:43,276 --> 00:26:45,466
+or HEVC movies as input to an
+
+796
+00:26:45,466 --> 00:26:46,146
+edit session.
+
+797
+00:26:46,726 --> 00:26:50,716
+So a point that I really want to
+
+798
+00:26:50,716 --> 00:26:51,966
+stress here is that if you're
+
+799
+00:26:51,966 --> 00:26:53,386
+already using Apple frameworks
+
+800
+00:26:53,416 --> 00:26:55,326
+to manage media, the transition
+
+801
+00:26:55,326 --> 00:26:57,256
+to HEIF or HEVC should be
+
+802
+00:26:57,256 --> 00:26:58,266
+transparent.
+
+803
+00:26:58,656 --> 00:26:59,956
+On the other hand, if you
+
+804
+00:26:59,956 --> 00:27:01,596
+[inaudible] image or video
+
+805
+00:26:59,956 --> 00:27:01,596
+[inaudible] image or video
+
+806
+00:27:01,596 --> 00:27:03,686
+stack, you might need to revisit
+
+807
+00:27:03,686 --> 00:27:05,426
+that integration and possibly
+
+808
+00:27:05,426 --> 00:27:06,626
+consider adopting one of the
+
+809
+00:27:06,626 --> 00:27:08,356
+appropriate Apple frameworks.
+
+810
+00:27:08,986 --> 00:27:11,466
+Amongst those are ImageIO for
+
+811
+00:27:11,466 --> 00:27:14,376
+images, AVFoundation for videos,
+
+812
+00:27:15,786 --> 00:27:18,206
+Core Image for video frame or
+
+813
+00:27:18,366 --> 00:27:19,386
+image manipulation.
+
+814
+00:27:20,396 --> 00:27:22,366
+We have UIKit for presentation.
+
+815
+00:27:24,236 --> 00:27:26,556
+We have PhotoKit to access the
+
+816
+00:27:26,556 --> 00:27:27,746
+resources within the photo
+
+817
+00:27:27,746 --> 00:27:28,236
+library.
+
+818
+00:27:29,086 --> 00:27:30,776
+So usage of HEIF and HEVC
+
+819
+00:27:30,776 --> 00:27:32,466
+through these frameworks will be
+
+820
+00:27:32,466 --> 00:27:33,176
+transparent.
+
+821
+00:27:35,546 --> 00:27:36,896
+I'm going to make a second call
+
+822
+00:27:36,896 --> 00:27:38,166
+out to the session that we have
+
+823
+00:27:38,246 --> 00:27:40,236
+Friday at 11:00 a.m. working
+
+824
+00:27:40,236 --> 00:27:41,116
+with HEIF and HEVC.
+
+825
+00:27:41,206 --> 00:27:42,996
+There are lots of great code
+
+826
+00:27:42,996 --> 00:27:45,226
+examples of using HEIF and HEVC
+
+827
+00:27:45,326 --> 00:27:46,996
+with these frameworks.
+
+828
+00:27:47,606 --> 00:27:49,166
+I highly recommend it.
+
+829
+00:27:50,446 --> 00:27:52,546
+OK. That was access.
+
+830
+00:27:52,796 --> 00:27:54,256
+Let's move on to creation.
+
+831
+00:27:55,406 --> 00:27:57,646
+So where and how can we create
+
+832
+00:27:57,646 --> 00:27:59,546
+HEIF image and HEVC movie
+
+833
+00:27:59,546 --> 00:28:00,076
+content?
+
+834
+00:27:59,546 --> 00:28:00,076
+content?
+
+835
+00:28:01,356 --> 00:28:03,236
+So, as you can see, we currently
+
+836
+00:28:03,236 --> 00:28:05,586
+only have HEIF encode support
+
+837
+00:28:05,586 --> 00:28:08,096
+and hardware on iOS with minimum
+
+838
+00:28:08,096 --> 00:28:09,556
+configuration being the A10
+
+839
+00:28:09,556 --> 00:28:11,316
+Fusion chip, an example, of
+
+840
+00:28:11,316 --> 00:28:13,026
+which, is the iPhone 7 and the
+
+841
+00:28:13,026 --> 00:28:13,956
+iPhone 7 Plus.
+
+842
+00:28:14,516 --> 00:28:15,816
+So the notable exception at this
+
+843
+00:28:15,816 --> 00:28:17,256
+point in time is HEIF encode
+
+844
+00:28:17,256 --> 00:28:21,036
+support on macOS.
+
+845
+00:28:21,636 --> 00:28:23,856
+How do we create HEIF images?
+
+846
+00:28:24,766 --> 00:28:26,726
+ImageIO supports HEIF as a
+
+847
+00:28:26,726 --> 00:28:27,476
+destination.
+
+848
+00:28:28,046 --> 00:28:28,816
+So you could consider
+
+849
+00:28:28,816 --> 00:28:31,456
+transcoding your JPEG resources
+
+850
+00:28:31,456 --> 00:28:33,546
+to HEIF for great storage or
+
+851
+00:28:33,666 --> 00:28:34,726
+network benefits.
+
+852
+00:28:35,206 --> 00:28:38,596
+Also, the AVFoundation capture
+
+853
+00:28:38,596 --> 00:28:40,616
+APIs will support HEIF captured
+
+854
+00:28:40,616 --> 00:28:43,906
+directly from the camera.
+
+855
+00:28:44,846 --> 00:28:47,516
+As Athar said, so all the Apple
+
+856
+00:28:47,516 --> 00:28:48,786
+camera modes will default to
+
+857
+00:28:48,786 --> 00:28:50,146
+HEIF with the bursts being the
+
+858
+00:28:50,146 --> 00:28:51,026
+only exception.
+
+859
+00:28:51,346 --> 00:28:52,306
+So if you have installed the
+
+860
+00:28:52,366 --> 00:28:53,746
+seed builds on supported
+
+861
+00:28:53,746 --> 00:28:55,136
+hardware and you're taking
+
+862
+00:28:55,136 --> 00:28:57,576
+photos, you're capturing them in
+
+863
+00:28:57,576 --> 00:28:58,306
+the HEIF format.
+
+864
+00:28:59,746 --> 00:29:01,576
+It's also worth reemphasizing
+
+865
+00:28:59,746 --> 00:29:01,576
+It's also worth reemphasizing
+
+866
+00:29:01,776 --> 00:29:03,506
+that only the HEIC variation of
+
+867
+00:29:03,506 --> 00:29:05,126
+HEIF is supported from code
+
+868
+00:29:05,126 --> 00:29:06,146
+through Apple frameworks.
+
+869
+00:29:06,586 --> 00:29:08,116
+So HEIF images with the .hvc
+
+870
+00:29:08,206 --> 00:29:09,436
+encoded image.
+
+871
+00:29:09,986 --> 00:29:14,206
+Let's move to movie creation.
+
+872
+00:29:14,486 --> 00:29:16,316
+Here are at the table showing
+
+873
+00:29:16,556 --> 00:29:18,116
+where we have HEVC encode
+
+874
+00:29:18,116 --> 00:29:18,586
+support.
+
+875
+00:29:19,466 --> 00:29:21,276
+So in iOS, we have 8-bit encode
+
+876
+00:29:21,276 --> 00:29:22,876
+support with minimum
+
+877
+00:29:22,876 --> 00:29:24,626
+configuration of the A10 Fusion
+
+878
+00:29:24,626 --> 00:29:26,296
+chip, the iPhone 7 for example.
+
+879
+00:29:27,076 --> 00:29:29,316
+On macOS, we have 8-bit hardware
+
+880
+00:29:29,316 --> 00:29:30,816
+encode on the sixth-generation
+
+881
+00:29:30,816 --> 00:29:32,146
+Intel Core processor or the
+
+882
+00:29:32,146 --> 00:29:33,786
+Skylake family of processors.
+
+883
+00:29:34,706 --> 00:29:36,776
+And also on macOS in software we
+
+884
+00:29:36,776 --> 00:29:39,086
+have a 10-bit encode support.
+
+885
+00:29:39,916 --> 00:29:42,226
+How do we create HEVC movies?
+
+886
+00:29:43,756 --> 00:29:45,686
+So AVFoundation is a framework
+
+887
+00:29:45,686 --> 00:29:46,816
+for movie creation.
+
+888
+00:29:47,286 --> 00:29:49,016
+And HEVC movies can be created
+
+889
+00:29:49,016 --> 00:29:50,596
+through an AVFoundation export
+
+890
+00:29:50,596 --> 00:29:51,036
+session.
+
+891
+00:29:51,566 --> 00:29:55,536
+So you could export H.264 to
+
+892
+00:29:55,536 --> 00:29:56,676
+HEVC for great storage or
+
+893
+00:29:56,676 --> 00:29:57,866
+network optimizations.
+
+894
+00:29:58,496 --> 00:30:01,666
+You can also capture HEIF movies
+
+895
+00:29:58,496 --> 00:30:01,666
+You can also capture HEIF movies
+
+896
+00:30:01,666 --> 00:30:03,056
+directly through an AVFoundation
+
+897
+00:30:03,056 --> 00:30:06,776
+capture session with a camera.
+
+898
+00:30:07,066 --> 00:30:08,746
+Also, all the current movie
+
+899
+00:30:08,746 --> 00:30:10,766
+camera modes will default to
+
+900
+00:30:10,766 --> 00:30:12,456
+HEVC encoded movies.
+
+901
+00:30:12,456 --> 00:30:13,996
+So, once again, if you've
+
+902
+00:30:13,996 --> 00:30:15,846
+installed the seed builds and
+
+903
+00:30:15,846 --> 00:30:18,456
+you're taking movies, you're
+
+904
+00:30:18,456 --> 00:30:22,856
+capturing them as HEVC movies.
+
+905
+00:30:23,336 --> 00:30:24,246
+That was creation.
+
+906
+00:30:24,926 --> 00:30:26,486
+Next we come to transfer.
+
+907
+00:30:27,536 --> 00:30:29,256
+So what questions should we be
+
+908
+00:30:29,256 --> 00:30:30,186
+considering when we want to
+
+909
+00:30:30,186 --> 00:30:31,846
+transfer HEIF image of HEVC
+
+910
+00:30:31,846 --> 00:30:35,636
+movies from a creation device or
+
+911
+00:30:35,636 --> 00:30:36,996
+other supported devices?
+
+912
+00:30:39,556 --> 00:30:41,366
+When transferring HEIF or HEVC
+
+913
+00:30:41,366 --> 00:30:43,136
+off a supported device, you
+
+914
+00:30:43,136 --> 00:30:44,456
+don't have the same ecosystem to
+
+915
+00:30:44,456 --> 00:30:46,656
+code support that JPEG or H.264
+
+916
+00:30:46,656 --> 00:30:47,196
+provides.
+
+917
+00:30:47,806 --> 00:30:48,616
+You might want to consider
+
+918
+00:30:48,616 --> 00:30:49,426
+transcoding.
+
+919
+00:30:50,776 --> 00:30:52,336
+There are a few approaches you
+
+920
+00:30:52,336 --> 00:30:53,096
+might want to consider.
+
+921
+00:30:53,626 --> 00:30:55,346
+The first and the simplest would
+
+922
+00:30:55,346 --> 00:30:56,916
+be to always transcode.
+
+923
+00:30:58,056 --> 00:30:59,806
+Another option might be to
+
+924
+00:30:59,806 --> 00:31:02,036
+support a capabilities exchange.
+
+925
+00:30:59,806 --> 00:31:02,036
+support a capabilities exchange.
+
+926
+00:31:02,566 --> 00:31:05,766
+Let's start with looking at an
+
+927
+00:31:05,766 --> 00:31:07,226
+example for workflow where you
+
+928
+00:31:07,226 --> 00:31:08,476
+might always transcode.
+
+929
+00:31:10,816 --> 00:31:12,466
+In this example, you have your
+
+930
+00:31:12,466 --> 00:31:13,806
+own social networking client
+
+931
+00:31:13,926 --> 00:31:15,806
+that allows users to add HEIF or
+
+932
+00:31:15,806 --> 00:31:17,966
+HEVC content to a timeline.
+
+933
+00:31:19,336 --> 00:31:21,076
+So with this architecture, there
+
+934
+00:31:21,076 --> 00:31:22,266
+is really no opportunity to
+
+935
+00:31:22,266 --> 00:31:24,106
+evaluate the capabilities of all
+
+936
+00:31:24,106 --> 00:31:25,786
+the receiving devices and
+
+937
+00:31:25,786 --> 00:31:27,266
+possibly no server transcode
+
+938
+00:31:27,266 --> 00:31:27,716
+support.
+
+939
+00:31:29,016 --> 00:31:31,306
+So the option here is to always
+
+940
+00:31:31,306 --> 00:31:32,016
+transcode.
+
+941
+00:31:32,566 --> 00:31:37,326
+So for this scenario, both
+
+942
+00:31:37,526 --> 00:31:38,986
+supported and unsupported
+
+943
+00:31:38,986 --> 00:31:40,366
+devices would receive the
+
+944
+00:31:40,366 --> 00:31:42,226
+transcoded representation, for
+
+945
+00:31:42,226 --> 00:31:47,426
+example a JPEG or H.264.
+
+946
+00:31:47,426 --> 00:31:48,856
+Another approach that we might
+
+947
+00:31:48,856 --> 00:31:49,666
+want to consider is a
+
+948
+00:31:49,666 --> 00:31:51,106
+capabilities exchange.
+
+949
+00:31:52,046 --> 00:31:53,496
+Let's take a look at an example
+
+950
+00:31:53,546 --> 00:31:54,386
+of that workflow.
+
+951
+00:31:55,776 --> 00:31:56,866
+So here you might have a
+
+952
+00:31:57,426 --> 00:31:58,696
+application that is adopted,
+
+953
+00:31:58,696 --> 00:32:00,366
+Apple's Multipeer Connectivity
+
+954
+00:31:58,696 --> 00:32:00,366
+Apple's Multipeer Connectivity
+
+955
+00:32:00,366 --> 00:32:00,796
+APIs.
+
+956
+00:32:01,696 --> 00:32:03,246
+If you're exchanging media with
+
+957
+00:32:03,246 --> 00:32:04,986
+a supported device, you don't
+
+958
+00:32:04,986 --> 00:32:06,476
+want to incur the cost of
+
+959
+00:32:06,476 --> 00:32:07,966
+transcode and high network
+
+960
+00:32:07,966 --> 00:32:09,526
+latency of always sending a
+
+961
+00:32:09,526 --> 00:32:11,826
+transcoded JPEG or H.264.
+
+962
+00:32:12,356 --> 00:32:15,086
+So you could introduce your
+
+963
+00:32:15,086 --> 00:32:16,496
+capabilities exchange in the
+
+964
+00:32:16,496 --> 00:32:17,436
+initial handshake.
+
+965
+00:32:19,716 --> 00:32:21,736
+The sending device would
+
+966
+00:32:21,736 --> 00:32:23,336
+evaluate the capabilities of the
+
+967
+00:32:23,336 --> 00:32:24,976
+receiving device and decide
+
+968
+00:32:24,976 --> 00:32:26,276
+whether to transcode or not.
+
+969
+00:32:27,046 --> 00:32:29,196
+So the hope, over time, is that
+
+970
+00:32:29,196 --> 00:32:30,576
+as the support for these formats
+
+971
+00:32:30,746 --> 00:32:34,776
+grows, the amount of times that
+
+972
+00:32:34,776 --> 00:32:36,566
+we need to transcode decreases.
+
+973
+00:32:37,426 --> 00:32:38,916
+So this strategy is really
+
+974
+00:32:38,916 --> 00:32:40,646
+suitable for both P2P and in
+
+975
+00:32:40,646 --> 00:32:42,026
+client/server architectures.
+
+976
+00:32:44,676 --> 00:32:46,566
+So how is Apple handling many
+
+977
+00:32:46,566 --> 00:32:47,606
+similar workflows?
+
+978
+00:32:47,996 --> 00:32:51,616
+Here are a couple of examples.
+
+979
+00:32:51,876 --> 00:32:53,406
+So it's mail.
+
+980
+00:32:53,486 --> 00:32:54,796
+It's not really possible to
+
+981
+00:32:54,796 --> 00:32:56,306
+evaluate the capabilities of all
+
+982
+00:32:56,306 --> 00:32:57,286
+the receiving clients.
+
+983
+00:32:57,286 --> 00:32:58,536
+And we don't have server
+
+984
+00:32:58,536 --> 00:33:00,646
+transcode support so before
+
+985
+00:32:58,536 --> 00:33:00,646
+transcode support so before
+
+986
+00:33:00,646 --> 00:33:03,746
+sending HEIF or HEVC as a mail
+
+987
+00:33:03,816 --> 00:33:06,026
+attachment, we always transcode.
+
+988
+00:33:06,576 --> 00:33:08,956
+Now for those developers that
+
+989
+00:33:08,956 --> 00:33:11,066
+have share extensions, we'll
+
+990
+00:33:11,066 --> 00:33:14,016
+also transcode before handing
+
+991
+00:33:14,016 --> 00:33:16,556
+off a HEIF or HEVC.
+
+992
+00:33:16,686 --> 00:33:18,646
+This simplifies that integration
+
+993
+00:33:18,716 --> 00:33:20,576
+for the time being anyway.
+
+994
+00:33:22,796 --> 00:33:24,566
+We've also adopted the
+
+995
+00:33:24,566 --> 00:33:25,686
+capabilities exchange for a
+
+996
+00:33:25,686 --> 00:33:26,696
+number of workflows.
+
+997
+00:33:26,996 --> 00:33:29,466
+Example of those, P2P and
+
+998
+00:33:29,466 --> 00:33:29,896
+AirDrop.
+
+999
+00:33:30,596 --> 00:33:33,166
+So with these integrations, we
+
+1000
+00:33:33,166 --> 00:33:34,996
+always evaluate the capabilities
+
+1001
+00:33:34,996 --> 00:33:37,306
+of the receiver before deciding
+
+1002
+00:33:37,406 --> 00:33:39,546
+whether to transcode or not.
+
+1003
+00:33:42,976 --> 00:33:44,816
+So in summary, there are a few
+
+1004
+00:33:44,816 --> 00:33:46,736
+points with regards to HEIF and
+
+1005
+00:33:46,786 --> 00:33:48,136
+HEVC that I'd really like to
+
+1006
+00:33:48,806 --> 00:33:48,966
+highlight.
+
+1007
+00:33:50,256 --> 00:33:52,616
+HEVC is Apple's next-generation
+
+1008
+00:33:52,616 --> 00:33:54,306
+codec, which we're going to use
+
+1009
+00:33:54,576 --> 00:33:56,776
+for both encoding images and
+
+1010
+00:33:56,776 --> 00:33:58,506
+videos and is providing up to
+
+1011
+00:33:58,506 --> 00:33:59,606
+two times the compression
+
+1012
+00:33:59,606 --> 00:34:00,856
+improvement for Apple captured
+
+1013
+00:33:59,606 --> 00:34:00,856
+improvement for Apple captured
+
+1014
+00:34:00,856 --> 00:34:01,376
+content.
+
+1015
+00:34:01,896 --> 00:34:05,796
+We're adopting HEIF as our image
+
+1016
+00:34:05,796 --> 00:34:06,556
+file format.
+
+1017
+00:34:07,766 --> 00:34:09,295
+This image container provides us
+
+1018
+00:34:09,295 --> 00:34:10,916
+with a flexible format which we
+
+1019
+00:34:10,916 --> 00:34:14,255
+can use well into the future.
+
+1020
+00:34:14,826 --> 00:34:16,696
+If you're using Apple frameworks
+
+1021
+00:34:16,696 --> 00:34:18,726
+within the Apple ecosystem, the
+
+1022
+00:34:18,726 --> 00:34:20,966
+transition to HEIF and HEVC
+
+1023
+00:34:20,966 --> 00:34:22,295
+should be mostly transparent.
+
+1024
+00:34:22,956 --> 00:34:23,856
+But if you need to move that
+
+1025
+00:34:23,856 --> 00:34:25,016
+content outside of that
+
+1026
+00:34:25,016 --> 00:34:26,666
+ecosystem, you should consider
+
+1027
+00:34:27,136 --> 00:34:28,806
+your transcoding options to
+
+1028
+00:34:28,806 --> 00:34:30,646
+provide the best backwards
+
+1029
+00:34:30,985 --> 00:34:34,976
+compatibility for our users.
+
+1030
+00:34:35,096 --> 00:34:36,886
+And finally, we really want
+
+1031
+00:34:36,886 --> 00:34:39,835
+developers to embrace HEIF and
+
+1032
+00:34:39,835 --> 00:34:42,016
+HEVC for creation and access
+
+1033
+00:34:42,076 --> 00:34:43,966
+workflows as we believe this
+
+1034
+00:34:43,966 --> 00:34:45,565
+will provide great benefits to
+
+1035
+00:34:45,565 --> 00:34:47,275
+not only developers but all of
+
+1036
+00:34:47,275 --> 00:34:48,106
+our customers.
+
+1037
+00:34:48,755 --> 00:34:50,656
+So for more details on this
+
+1038
+00:34:50,656 --> 00:34:51,826
+particular session, you can go
+
+1039
+00:34:51,826 --> 00:34:58,376
+to the following website, but we
+
+1040
+00:34:58,376 --> 00:35:00,756
+also have a number of sessions
+
+1041
+00:34:58,376 --> 00:35:00,756
+also have a number of sessions
+
+1042
+00:35:00,756 --> 00:35:01,166
+and labs.
+
+1043
+00:35:01,306 --> 00:35:02,856
+We can learn more about HEIF and
+
+1044
+00:35:02,926 --> 00:35:03,216
+HEVC.
+
+1045
+00:35:03,586 --> 00:35:04,576
+Just a few to highlight.
+
+1046
+00:35:05,396 --> 00:35:06,586
+The session following this is
+
+1047
+00:35:06,586 --> 00:35:09,006
+advances in HTTP Live Streaming.
+
+1048
+00:35:11,936 --> 00:35:13,826
+We also have working with HEIF
+
+1049
+00:35:13,826 --> 00:35:15,206
+and HEVC at 11:00 a.m. on
+
+1050
+00:35:15,206 --> 00:35:15,746
+Friday.
+
+1051
+00:35:17,326 --> 00:35:19,486
+We have a great video, which you
+
+1052
+00:35:19,486 --> 00:35:21,206
+can learn more about the HEIF
+
+1053
+00:35:21,646 --> 00:35:22,406
+image format.
+
+1054
+00:35:23,366 --> 00:35:25,476
+Thanks for your time today.
+
+1055
+00:35:25,476 --> 00:35:26,676
+And we look forward to answering
+
+1056
+00:35:26,676 --> 00:35:28,226
+your questions at the labs and
+
+1057
+00:35:28,226 --> 00:35:29,156
+sessions for the rest of the
+
+1058
+00:35:29,156 --> 00:35:29,476
+week.
+
+1059
+00:35:29,736 --> 00:35:30,076
+Thank you.
+
+1060
+00:35:31,508 --> 00:35:33,508
+[ Applause ]

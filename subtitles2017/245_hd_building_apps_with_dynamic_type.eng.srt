@@ -1,0 +1,4511 @@
+1
+00:00:24,516 --> 00:00:27,846
+[ Applause ]
+
+2
+00:00:28,346 --> 00:00:30,126
+&gt;&gt; Hello everyone, and welcome
+
+3
+00:00:30,126 --> 00:00:31,566
+to Building Apps with Dynamic
+
+4
+00:00:31,566 --> 00:00:31,696
+Type.
+
+5
+00:00:32,426 --> 00:00:34,096
+My name is Clare, and together
+
+6
+00:00:34,096 --> 00:00:35,436
+with my colleague Nandini, I'm
+
+7
+00:00:35,436 --> 00:00:36,576
+excited to share with you how
+
+8
+00:00:36,576 --> 00:00:37,976
+you can make your apps work
+
+9
+00:00:38,026 --> 00:00:40,466
+great at any text size.
+
+10
+00:00:42,176 --> 00:00:43,876
+Today we'll first cover what
+
+11
+00:00:43,876 --> 00:00:45,706
+Dynamic Type is and why the
+
+12
+00:00:45,706 --> 00:00:46,446
+feature exists.
+
+13
+00:00:46,446 --> 00:00:48,526
+Next we'll look at what's new in
+
+14
+00:00:48,646 --> 00:00:50,046
+iOS 11 for Dynamic Type.
+
+15
+00:00:51,096 --> 00:00:52,136
+We'll follow that with some
+
+16
+00:00:52,136 --> 00:00:53,866
+guidelines and API you can apply
+
+17
+00:00:53,866 --> 00:00:55,856
+to your own apps, and finally
+
+18
+00:00:55,856 --> 00:00:57,306
+we'll show all of that hands-on
+
+19
+00:00:57,386 --> 00:00:58,906
+in a sample app.
+
+20
+00:01:01,416 --> 00:01:04,446
+So first what is Dynamic Type.
+
+21
+00:01:06,676 --> 00:01:08,606
+Dynamic Type is a feature that
+
+22
+00:01:08,606 --> 00:01:10,686
+allows users to customize the
+
+23
+00:01:10,686 --> 00:01:13,796
+size of text on screen.
+
+24
+00:01:13,936 --> 00:01:15,286
+For example, some users may
+
+25
+00:01:15,286 --> 00:01:17,626
+prefer a smaller text size so
+
+26
+00:01:17,626 --> 00:01:18,796
+they can fit more content on
+
+27
+00:01:18,796 --> 00:01:19,896
+screen.
+
+28
+00:01:22,166 --> 00:01:23,666
+Others may prefer a larger text
+
+29
+00:01:23,666 --> 00:01:24,596
+size because it's more
+
+30
+00:01:24,596 --> 00:01:26,086
+comfortable to read.
+
+31
+00:01:26,776 --> 00:01:28,926
+But Dynamic Type goes beyond a
+
+32
+00:01:29,016 --> 00:01:30,396
+user's preferences.
+
+33
+00:01:33,236 --> 00:01:34,946
+Some users may experience eye
+
+34
+00:01:34,946 --> 00:01:36,846
+strain when viewing text at the
+
+35
+00:01:36,846 --> 00:01:37,876
+default size for long periods of
+
+36
+00:01:37,876 --> 00:01:37,976
+time.
+
+37
+00:01:42,446 --> 00:01:43,716
+Others may simply have less
+
+38
+00:01:43,716 --> 00:01:45,756
+acute vision due to aging.
+
+39
+00:01:49,076 --> 00:01:51,026
+And yet others may have a low
+
+40
+00:01:51,026 --> 00:01:52,396
+vision condition which makes it
+
+41
+00:01:52,396 --> 00:01:53,776
+impossible for them to read text
+
+42
+00:01:54,276 --> 00:01:55,256
+at the default size.
+
+43
+00:01:56,456 --> 00:01:58,166
+So for these users Dynamic Type
+
+44
+00:01:58,166 --> 00:01:59,856
+isn't just a preference, it's an
+
+45
+00:01:59,856 --> 00:02:02,256
+actual need and by supporting
+
+46
+00:01:59,856 --> 00:02:02,256
+actual need and by supporting
+
+47
+00:02:02,256 --> 00:02:03,936
+Dynamic Type in your apps, you
+
+48
+00:02:03,936 --> 00:02:05,646
+can allow these users to use
+
+49
+00:02:05,646 --> 00:02:06,436
+your app and have a great
+
+50
+00:02:06,436 --> 00:02:06,976
+experience with it.
+
+51
+00:02:12,046 --> 00:02:13,416
+The Dynamic Type settings can be
+
+52
+00:02:13,466 --> 00:02:15,106
+found in the Settings app under
+
+53
+00:02:15,106 --> 00:02:15,996
+Display and Brightness.
+
+54
+00:02:16,736 --> 00:02:17,896
+It starts out with seven
+
+55
+00:02:17,896 --> 00:02:18,976
+different text sizes you can
+
+56
+00:02:18,976 --> 00:02:20,616
+choose from, and the default one
+
+57
+00:02:20,616 --> 00:02:21,236
+is in the middle.
+
+58
+00:02:24,116 --> 00:02:25,306
+You can also go into your
+
+59
+00:02:25,306 --> 00:02:26,986
+Accessibility settings and there
+
+60
+00:02:26,986 --> 00:02:29,816
+you can enable five even larger
+
+61
+00:02:29,816 --> 00:02:30,496
+sizes.
+
+62
+00:02:31,066 --> 00:02:32,596
+Those sizes are geared towards
+
+63
+00:02:32,756 --> 00:02:34,556
+users with low vision.
+
+64
+00:02:35,196 --> 00:02:37,306
+They range from somewhat larger
+
+65
+00:02:37,306 --> 00:02:40,796
+than default size to much
+
+66
+00:02:40,796 --> 00:02:41,166
+larger.
+
+67
+00:02:42,636 --> 00:02:43,746
+Now, looking at this you might
+
+68
+00:02:43,746 --> 00:02:45,686
+be wondering whether you really
+
+69
+00:02:45,686 --> 00:02:47,236
+need text to get that big.
+
+70
+00:02:47,236 --> 00:02:48,906
+Let's look in the example of why
+
+71
+00:02:48,906 --> 00:02:49,906
+this is useful.
+
+72
+00:02:54,316 --> 00:02:56,376
+So here's the phone app and on
+
+73
+00:02:56,376 --> 00:02:58,186
+the left we've got it at the
+
+74
+00:02:58,186 --> 00:03:00,076
+largest size, not including the
+
+75
+00:02:58,186 --> 00:03:00,076
+largest size, not including the
+
+76
+00:03:00,076 --> 00:03:01,166
+Accessibility sizes.
+
+77
+00:03:01,876 --> 00:03:03,726
+On the right we have it at the
+
+78
+00:03:03,726 --> 00:03:05,406
+larger size overall.
+
+79
+00:03:06,186 --> 00:03:06,946
+Now let's look at this through
+
+80
+00:03:06,946 --> 00:03:07,806
+the lens of a user with low
+
+81
+00:03:07,806 --> 00:03:07,976
+vision.
+
+82
+00:03:12,046 --> 00:03:13,216
+Someone with low vision might
+
+83
+00:03:13,216 --> 00:03:14,286
+see something closer to what we
+
+84
+00:03:14,286 --> 00:03:15,146
+see here.
+
+85
+00:03:15,466 --> 00:03:16,426
+Notice how the version on the
+
+86
+00:03:16,426 --> 00:03:18,646
+left is completely unreadable,
+
+87
+00:03:19,476 --> 00:03:20,786
+but the version on the right is
+
+88
+00:03:20,786 --> 00:03:22,126
+still fairly readable, even
+
+89
+00:03:22,126 --> 00:03:22,716
+though its blurry.
+
+90
+00:03:24,066 --> 00:03:25,706
+So text size makes a huge
+
+91
+00:03:25,706 --> 00:03:27,426
+difference for the legibility of
+
+92
+00:03:27,426 --> 00:03:28,726
+your apps and that's why it's
+
+93
+00:03:28,726 --> 00:03:29,626
+really important that you
+
+94
+00:03:29,626 --> 00:03:31,086
+support the full range of
+
+95
+00:03:31,086 --> 00:03:31,976
+Dynamic Type sizes.
+
+96
+00:03:38,216 --> 00:03:39,546
+So that's what Dynamic Type is,
+
+97
+00:03:39,546 --> 00:03:40,766
+and now let's look at what's new
+
+98
+00:03:40,766 --> 00:03:42,326
+in iOS 11 for Dynamic Type.
+
+99
+00:03:43,286 --> 00:03:44,596
+The biggest thing that's changed
+
+100
+00:03:44,596 --> 00:03:46,336
+is that Dynamic Type support is
+
+101
+00:03:46,336 --> 00:03:48,266
+vastly improved and expanded
+
+102
+00:03:48,266 --> 00:03:50,106
+across all of iOS.
+
+103
+00:03:51,016 --> 00:03:52,566
+When we started working on iOS
+
+104
+00:03:52,566 --> 00:03:56,776
+11, we had three goals in mind.
+
+105
+00:03:56,876 --> 00:03:58,716
+First, text should be large
+
+106
+00:03:58,716 --> 00:04:00,846
+enough for the user to read.
+
+107
+00:03:58,716 --> 00:04:00,846
+enough for the user to read.
+
+108
+00:04:00,846 --> 00:04:02,096
+In other words, text should
+
+109
+00:04:02,096 --> 00:04:03,526
+scale with Dynamic Type.
+
+110
+00:04:03,946 --> 00:04:07,926
+Second, the text should be fully
+
+111
+00:04:07,926 --> 00:04:08,416
+readable.
+
+112
+00:04:08,846 --> 00:04:09,976
+It shouldn't be truncated
+
+113
+00:04:09,976 --> 00:04:11,706
+unnecessarily and it shouldn't
+
+114
+00:04:11,706 --> 00:04:12,976
+be overlapped or clipping.
+
+115
+00:04:15,276 --> 00:04:17,766
+And third, we want an app UI to
+
+116
+00:04:17,766 --> 00:04:19,486
+look beautiful at all text
+
+117
+00:04:19,486 --> 00:04:19,956
+sizes.
+
+118
+00:04:20,706 --> 00:04:23,416
+Now, for more information on the
+
+119
+00:04:23,416 --> 00:04:25,436
+design thinking behind the iOS
+
+120
+00:04:25,436 --> 00:04:26,986
+11 Dynamic Type improvements,
+
+121
+00:04:27,046 --> 00:04:28,166
+please check out the Design for
+
+122
+00:04:28,166 --> 00:04:28,976
+Everyone talk from yesterday.
+
+123
+00:04:33,416 --> 00:04:34,906
+So now let's look at some
+
+124
+00:04:34,906 --> 00:04:36,076
+examples of what's changed.
+
+125
+00:04:36,526 --> 00:04:37,266
+Here's the Settings app.
+
+126
+00:04:37,846 --> 00:04:38,856
+Notice how it now adapts
+
+127
+00:04:38,856 --> 00:04:40,326
+beautifully for all the text
+
+128
+00:04:40,326 --> 00:04:40,916
+sizes.
+
+129
+00:04:43,566 --> 00:04:45,106
+Here's another example from
+
+130
+00:04:45,106 --> 00:04:45,566
+Calendar.
+
+131
+00:04:46,146 --> 00:04:47,546
+Notice how text everywhere is
+
+132
+00:04:47,546 --> 00:04:49,576
+scaling with Dynamic Type, and
+
+133
+00:04:49,576 --> 00:04:51,786
+some texts, like the event time,
+
+134
+00:04:52,406 --> 00:04:53,386
+is laid out differently to
+
+135
+00:04:53,386 --> 00:04:53,976
+accommodate larger text.
+
+136
+00:04:59,046 --> 00:05:00,356
+Now, there are some cases where
+
+137
+00:04:59,046 --> 00:05:00,356
+Now, there are some cases where
+
+138
+00:05:00,356 --> 00:05:01,626
+we don't scale for Dynamic Type.
+
+139
+00:05:01,976 --> 00:05:04,346
+For example, in tab bars, if we
+
+140
+00:05:04,346 --> 00:05:06,076
+were to scale a text here, the
+
+141
+00:05:06,076 --> 00:05:07,386
+tab bar would take away too much
+
+142
+00:05:07,386 --> 00:05:08,596
+room from the main content.
+
+143
+00:05:09,346 --> 00:05:12,226
+However, now, in iOS 11, if you
+
+144
+00:05:12,226 --> 00:05:13,646
+have one of the five largest
+
+145
+00:05:14,016 --> 00:05:16,106
+Dynamic Type settings chosen,
+
+146
+00:05:16,446 --> 00:05:18,516
+you can long press on one of the
+
+147
+00:05:18,516 --> 00:05:19,496
+items in the tab bar.
+
+148
+00:05:20,086 --> 00:05:21,476
+For example, the Voicemail tab,
+
+149
+00:05:22,026 --> 00:05:24,146
+and that will show a larger
+
+150
+00:05:24,146 --> 00:05:24,826
+version in the middle of the
+
+151
+00:05:24,826 --> 00:05:24,976
+screen.
+
+152
+00:05:31,126 --> 00:05:32,276
+So that's a sampling of what's
+
+153
+00:05:32,276 --> 00:05:33,256
+changed in iOS 11.
+
+154
+00:05:33,866 --> 00:05:34,866
+Now let's look at some
+
+155
+00:05:34,866 --> 00:05:36,266
+guidelines in API that you can
+
+156
+00:05:36,266 --> 00:05:39,036
+apply to your own apps.
+
+157
+00:05:39,216 --> 00:05:40,586
+We'll be covering this in four
+
+158
+00:05:40,586 --> 00:05:41,096
+areas.
+
+159
+00:05:41,866 --> 00:05:43,336
+First, we'll look at how you can
+
+160
+00:05:43,336 --> 00:05:44,656
+scale your font sizes for
+
+161
+00:05:44,656 --> 00:05:45,226
+Dynamic Type.
+
+162
+00:05:46,596 --> 00:05:48,356
+Second, we'll see how you can
+
+163
+00:05:48,356 --> 00:05:50,226
+accommodate larger text in your
+
+164
+00:05:50,226 --> 00:05:50,776
+app's layouts.
+
+165
+00:05:52,436 --> 00:05:53,746
+Third, we'll look at the
+
+166
+00:05:53,746 --> 00:05:55,456
+specific, very common case of
+
+167
+00:05:55,456 --> 00:05:56,296
+table views.
+
+168
+00:05:57,296 --> 00:05:58,726
+And then finally, we'll even see
+
+169
+00:05:58,726 --> 00:06:00,676
+how images can work well with
+
+170
+00:05:58,726 --> 00:06:00,676
+how images can work well with
+
+171
+00:06:00,676 --> 00:06:00,976
+Dynamic Type.
+
+172
+00:06:06,386 --> 00:06:08,616
+So first, let's scale font sizes
+
+173
+00:06:08,616 --> 00:06:10,166
+for Dynamic Type.
+
+174
+00:06:10,916 --> 00:06:12,666
+The easiest way to do this is to
+
+175
+00:06:12,666 --> 00:06:14,256
+use the built-in text styles
+
+176
+00:06:14,526 --> 00:06:15,226
+that come with iOS.
+
+177
+00:06:16,316 --> 00:06:17,646
+Here's a list of all of our text
+
+178
+00:06:17,646 --> 00:06:19,896
+styles, along with their font
+
+179
+00:06:19,896 --> 00:06:21,776
+sizes at the default text size.
+
+180
+00:06:22,746 --> 00:06:24,346
+If your user has a different
+
+181
+00:06:24,346 --> 00:06:26,216
+text size selected, these font
+
+182
+00:06:26,216 --> 00:06:26,856
+sizes will also change.
+
+183
+00:06:31,196 --> 00:06:32,456
+Now, for those of you who have
+
+184
+00:06:32,456 --> 00:06:33,796
+already be using text styles in
+
+185
+00:06:33,796 --> 00:06:36,626
+your app, first, thank you; and
+
+186
+00:06:36,626 --> 00:06:38,126
+second, there's one important
+
+187
+00:06:38,126 --> 00:06:39,456
+change in iOS 11 that you should
+
+188
+00:06:39,456 --> 00:06:39,986
+be aware of.
+
+189
+00:06:41,026 --> 00:06:43,476
+Prior to iOS 11 all the text
+
+190
+00:06:43,476 --> 00:06:45,166
+style adapted for the seven
+
+191
+00:06:45,166 --> 00:06:46,246
+standard sizes.
+
+192
+00:06:46,866 --> 00:06:49,336
+However, only the body style
+
+193
+00:06:49,636 --> 00:06:50,796
+adapted for the five
+
+194
+00:06:50,926 --> 00:06:52,296
+accessibility sizes.
+
+195
+00:06:52,836 --> 00:06:56,506
+In iOS 11 all of the text style
+
+196
+00:06:56,506 --> 00:06:58,506
+adapt for all 12 text sizes.
+
+197
+00:06:59,036 --> 00:07:00,116
+And so if you're using text
+
+198
+00:06:59,036 --> 00:07:00,116
+And so if you're using text
+
+199
+00:07:00,186 --> 00:07:01,246
+styles, you'll get support for
+
+200
+00:07:01,246 --> 00:07:01,966
+all 12 sizes for free.
+
+201
+00:07:07,046 --> 00:07:09,066
+To use text styles in Interface
+
+202
+00:07:09,116 --> 00:07:10,566
+Builder, go to the Attribute
+
+203
+00:07:10,756 --> 00:07:13,756
+Inspector and change the font on
+
+204
+00:07:13,756 --> 00:07:14,176
+your view.
+
+205
+00:07:15,256 --> 00:07:16,236
+By default this will be
+
+206
+00:07:16,236 --> 00:07:18,286
+something like System 17 point,
+
+207
+00:07:18,666 --> 00:07:19,706
+which means it's not going to
+
+208
+00:07:19,706 --> 00:07:20,806
+scale with Dynamic Type.
+
+209
+00:07:21,466 --> 00:07:22,946
+But if you click on that T icon,
+
+210
+00:07:23,186 --> 00:07:24,106
+you can choose one of the text
+
+211
+00:07:24,236 --> 00:07:25,436
+style fonts instead and those
+
+212
+00:07:25,666 --> 00:07:25,976
+will scale.
+
+213
+00:07:30,056 --> 00:07:31,986
+Also, new in iOS 11 you can
+
+214
+00:07:31,986 --> 00:07:33,656
+check the Automatically Adjust
+
+215
+00:07:33,656 --> 00:07:34,536
+Font checkbox.
+
+216
+00:07:35,186 --> 00:07:36,396
+This means that if the user
+
+217
+00:07:36,396 --> 00:07:38,226
+changes their text size while
+
+218
+00:07:38,226 --> 00:07:39,766
+your app is running, your view
+
+219
+00:07:39,766 --> 00:07:41,146
+will automatically update its
+
+220
+00:07:41,146 --> 00:07:42,476
+font for the new text size.
+
+221
+00:07:42,476 --> 00:07:43,456
+So we highly recommend you check
+
+222
+00:07:43,456 --> 00:07:43,976
+this on all of your views.
+
+223
+00:07:49,376 --> 00:07:51,296
+In code it's just as easy to use
+
+224
+00:07:51,296 --> 00:07:51,936
+text styles.
+
+225
+00:07:52,236 --> 00:07:52,756
+You can use the
+
+226
+00:07:52,756 --> 00:07:54,696
+preferredFont(forTextStyle) API
+
+227
+00:07:55,356 --> 00:07:56,906
+to get a font for the text
+
+228
+00:07:56,906 --> 00:07:59,296
+style, and then you can use the
+
+229
+00:07:59,296 --> 00:08:00,886
+adjustsFontForContentSize
+
+230
+00:07:59,296 --> 00:08:00,886
+adjustsFontForContentSize
+
+231
+00:08:00,926 --> 00:08:02,986
+Category property to make sure
+
+232
+00:08:02,986 --> 00:08:03,986
+that your views update their
+
+233
+00:08:03,986 --> 00:08:04,956
+fonts if the text size changes.
+
+234
+00:08:11,126 --> 00:08:12,496
+But what if you can't use text
+
+235
+00:08:12,546 --> 00:08:12,916
+styles?
+
+236
+00:08:13,756 --> 00:08:15,476
+Maybe you have a design that
+
+237
+00:08:15,476 --> 00:08:16,616
+requires custom fonts.
+
+238
+00:08:17,766 --> 00:08:19,676
+The great news is that in iOS 11
+
+239
+00:08:20,026 --> 00:08:21,796
+it's really easy to get those
+
+240
+00:08:21,796 --> 00:08:23,136
+fonts to work well with Dynamic
+
+241
+00:08:23,866 --> 00:08:23,956
+Type.
+
+242
+00:08:26,236 --> 00:08:27,676
+So let's say you have some code
+
+243
+00:08:27,786 --> 00:08:29,026
+that assigns the font property
+
+244
+00:08:29,026 --> 00:08:30,426
+of a label to a custom font of
+
+245
+00:08:30,426 --> 00:08:30,976
+your choosing.
+
+246
+00:08:34,285 --> 00:08:36,166
+In iOS 11 you can now use the
+
+247
+00:08:36,166 --> 00:08:39,106
+new UIFontMetrics class to scale
+
+248
+00:08:39,106 --> 00:08:40,395
+that font so that it will get
+
+249
+00:08:40,466 --> 00:08:42,316
+smaller or bigger, depending on
+
+250
+00:08:42,316 --> 00:08:42,976
+the user's text size.
+
+251
+00:08:43,515 --> 00:08:45,726
+[ Applause ]
+
+252
+00:08:46,226 --> 00:08:46,806
+Thanks.
+
+253
+00:08:47,516 --> 00:08:50,046
+[ Applause ]
+
+254
+00:08:50,546 --> 00:08:51,766
+In this example we're using the
+
+255
+00:08:51,766 --> 00:08:53,346
+default font metrics, which
+
+256
+00:08:53,346 --> 00:08:54,826
+means we're using the font
+
+257
+00:08:54,826 --> 00:08:56,346
+metrics of the body text style.
+
+258
+00:08:56,776 --> 00:08:58,626
+That means that if body text
+
+259
+00:08:58,836 --> 00:09:00,596
+would be 50 percent larger for a
+
+260
+00:08:58,836 --> 00:09:00,596
+would be 50 percent larger for a
+
+261
+00:09:00,596 --> 00:09:02,436
+particular user, your font will
+
+262
+00:09:02,436 --> 00:09:03,916
+also get 50 percent larger.
+
+263
+00:09:04,506 --> 00:09:07,256
+For better results, you can pick
+
+264
+00:09:07,256 --> 00:09:08,756
+a particular text style that you
+
+265
+00:09:08,756 --> 00:09:09,896
+want to scale your font with.
+
+266
+00:09:10,616 --> 00:09:11,766
+So, for example, if you have a
+
+267
+00:09:11,766 --> 00:09:13,286
+font that you're using for title
+
+268
+00:09:13,336 --> 00:09:14,906
+text in your app, you might
+
+269
+00:09:14,906 --> 00:09:16,466
+choose to scale it in the same
+
+270
+00:09:16,466 --> 00:09:17,696
+way that we've scaled title1
+
+271
+00:09:17,696 --> 00:09:17,976
+text.
+
+272
+00:09:23,196 --> 00:09:25,176
+Now, a final word on web views.
+
+273
+00:09:25,386 --> 00:09:26,906
+Many of you may have web views
+
+274
+00:09:26,906 --> 00:09:27,896
+that you're displaying in your
+
+275
+00:09:28,046 --> 00:09:29,096
+iOS app.
+
+276
+00:09:29,096 --> 00:09:30,586
+You should make those adapt for
+
+277
+00:09:30,586 --> 00:09:31,506
+Dynamic Type as well.
+
+278
+00:09:32,156 --> 00:09:33,776
+To do so, you can use the
+
+279
+00:09:33,776 --> 00:09:36,286
+-apple-system-body font and that
+
+280
+00:09:36,286 --> 00:09:37,786
+will get you the body text style
+
+281
+00:09:37,866 --> 00:09:39,636
+font and it will adapt for the
+
+282
+00:09:39,636 --> 00:09:41,056
+user's dynamic typesetting.
+
+283
+00:09:42,156 --> 00:09:44,186
+Now, note that this is only
+
+284
+00:09:44,186 --> 00:09:45,896
+available on Apple devices, so
+
+285
+00:09:45,896 --> 00:09:46,806
+if you're planning to use the
+
+286
+00:09:46,856 --> 00:09:47,866
+same web page for other
+
+287
+00:09:47,866 --> 00:09:49,716
+platforms, make sure you set an
+
+288
+00:09:49,746 --> 00:09:51,566
+appropriate fallback font.
+
+289
+00:09:52,776 --> 00:09:55,076
+Then for your other styles you
+
+290
+00:09:55,076 --> 00:09:56,626
+can define their font sizes in
+
+291
+00:09:56,626 --> 00:09:57,716
+terms of relative units, and
+
+292
+00:09:57,746 --> 00:09:58,536
+that way they'll scale
+
+293
+00:09:58,536 --> 00:09:58,976
+proportionately.
+
+294
+00:10:04,516 --> 00:10:06,096
+So that's how you can scale your
+
+295
+00:10:06,096 --> 00:10:07,486
+font sizes for Dynamic Type.
+
+296
+00:10:07,996 --> 00:10:09,246
+Now let's look at how you can
+
+297
+00:10:09,246 --> 00:10:10,476
+accommodate larger text in your
+
+298
+00:10:10,476 --> 00:10:10,976
+app layouts.
+
+299
+00:10:15,216 --> 00:10:16,316
+So let's say we've got some text
+
+300
+00:10:16,646 --> 00:10:18,586
+at the default text size, and
+
+301
+00:10:18,586 --> 00:10:19,736
+you can imagine that the white
+
+302
+00:10:19,736 --> 00:10:20,766
+border is the available area on
+
+303
+00:10:20,766 --> 00:10:20,976
+the screen.
+
+304
+00:10:23,356 --> 00:10:25,086
+So first step, let's scale the
+
+305
+00:10:25,086 --> 00:10:25,626
+font size.
+
+306
+00:10:29,166 --> 00:10:29,846
+We have a problem.
+
+307
+00:10:30,256 --> 00:10:31,286
+The text is now running off
+
+308
+00:10:31,286 --> 00:10:33,406
+screen and so your users are not
+
+309
+00:10:33,406 --> 00:10:35,346
+going to see anything outside of
+
+310
+00:10:35,346 --> 00:10:36,066
+the white box.
+
+311
+00:10:36,636 --> 00:10:38,556
+To prevent the label from
+
+312
+00:10:38,556 --> 00:10:39,396
+running off screen, we can add a
+
+313
+00:10:39,396 --> 00:10:39,976
+trailing constraint.
+
+314
+00:10:44,236 --> 00:10:45,916
+But now we still have a problem
+
+315
+00:10:45,916 --> 00:10:46,886
+because the text is getting
+
+316
+00:10:46,886 --> 00:10:47,376
+truncated.
+
+317
+00:10:47,676 --> 00:10:48,966
+The end result is that your
+
+318
+00:10:48,966 --> 00:10:50,366
+users aren't going to see all
+
+319
+00:10:50,366 --> 00:10:50,646
+the text.
+
+320
+00:10:52,296 --> 00:10:53,676
+To really fix this let's wrap
+
+321
+00:10:55,146 --> 00:10:57,236
+the text and that will allow the
+
+322
+00:10:57,306 --> 00:10:58,696
+text to grow as much as it needs
+
+323
+00:10:58,696 --> 00:10:59,506
+while still displaying all of
+
+324
+00:10:59,506 --> 00:10:59,936
+the text.
+
+325
+00:11:05,126 --> 00:11:06,316
+To wrap text in Interface
+
+326
+00:11:06,316 --> 00:11:07,606
+Builder you can use the
+
+327
+00:11:07,606 --> 00:11:09,416
+Attribute Inspector and adjust
+
+328
+00:11:09,506 --> 00:11:10,816
+the Lines property on your
+
+329
+00:11:10,816 --> 00:11:11,146
+label.
+
+330
+00:11:12,076 --> 00:11:13,306
+By default this is set to one
+
+331
+00:11:13,306 --> 00:11:15,236
+line, but if you change it to 0,
+
+332
+00:11:15,236 --> 00:11:16,716
+that will allow your label to
+
+333
+00:11:16,716 --> 00:11:18,196
+wrap to as many lines as it
+
+334
+00:11:18,196 --> 00:11:19,436
+needs for its content.
+
+335
+00:11:22,116 --> 00:11:23,346
+You can do the same thing in
+
+336
+00:11:23,346 --> 00:11:24,286
+code by setting the number of
+
+337
+00:11:24,286 --> 00:11:24,946
+lines property to 0.
+
+338
+00:11:31,266 --> 00:11:32,586
+Okay. Let's look at another
+
+339
+00:11:32,586 --> 00:11:33,966
+common scenario that can occur.
+
+340
+00:11:34,576 --> 00:11:37,036
+So when you're writing your app
+
+341
+00:11:37,036 --> 00:11:37,886
+and you're thinking about the
+
+342
+00:11:37,886 --> 00:11:40,496
+default text size, it's tempting
+
+343
+00:11:40,496 --> 00:11:42,126
+to use constant values for your
+
+344
+00:11:42,126 --> 00:11:42,726
+spacings.
+
+345
+00:11:43,326 --> 00:11:44,366
+So you might have something like
+
+346
+00:11:44,416 --> 00:11:46,606
+two labels here whose baselines
+
+347
+00:11:46,606 --> 00:11:48,886
+are separated by a constant 40
+
+348
+00:11:48,886 --> 00:11:49,146
+points.
+
+349
+00:11:49,806 --> 00:11:52,526
+Looks great at the default text
+
+350
+00:11:53,406 --> 00:11:55,646
+size, but once you start
+
+351
+00:11:55,646 --> 00:11:56,856
+adapting for Dynamic Type, you
+
+352
+00:11:56,856 --> 00:11:58,116
+can run into problems like this,
+
+353
+00:11:58,116 --> 00:11:59,156
+where the labels overlap.
+
+354
+00:12:00,876 --> 00:12:03,766
+What we really want here is a
+
+355
+00:12:03,766 --> 00:12:04,736
+spacing that's dynamic and that
+
+356
+00:12:04,736 --> 00:12:05,976
+accounts for the fonts involved.
+
+357
+00:12:11,086 --> 00:12:13,376
+In iOS 11 you can now do this
+
+358
+00:12:13,636 --> 00:12:15,076
+with new Auto Layout System
+
+359
+00:12:15,076 --> 00:12:15,976
+Spacing Constraints.
+
+360
+00:12:17,066 --> 00:12:18,586
+You can define the spacing
+
+361
+00:12:18,586 --> 00:12:20,566
+between two baselines and Auto
+
+362
+00:12:20,566 --> 00:12:21,876
+Layout will automatically figure
+
+363
+00:12:21,876 --> 00:12:23,616
+out the best spacing to use
+
+364
+00:12:24,026 --> 00:12:25,036
+based on the fonts of your
+
+365
+00:12:25,036 --> 00:12:25,456
+viewers.
+
+366
+00:12:26,976 --> 00:12:28,816
+Now, if you try this and you
+
+367
+00:12:28,816 --> 00:12:30,486
+decide that you want a slightly
+
+368
+00:12:30,486 --> 00:12:32,256
+larger or smaller spacing, you
+
+369
+00:12:32,426 --> 00:12:34,146
+can do that, too, by adjusting
+
+370
+00:12:34,146 --> 00:12:36,706
+the Multiplier property and that
+
+371
+00:12:36,706 --> 00:12:37,686
+will let you get the exact
+
+372
+00:12:37,766 --> 00:12:39,046
+results you want.
+
+373
+00:12:40,876 --> 00:12:42,546
+It's also possible to use these
+
+374
+00:12:42,546 --> 00:12:44,356
+new Auto Layout Constraints in
+
+375
+00:12:44,356 --> 00:12:45,626
+Interface Builder, and for more
+
+376
+00:12:45,626 --> 00:12:47,096
+information on that, please
+
+377
+00:12:47,096 --> 00:12:48,226
+check out the Auto Layout
+
+378
+00:12:48,226 --> 00:12:49,066
+Techniques and Interface Builder
+
+379
+00:12:49,066 --> 00:12:49,976
+talk that happened this morning.
+
+380
+00:12:56,156 --> 00:12:58,316
+Now, I know there are probably
+
+381
+00:12:58,316 --> 00:12:59,966
+some of you out there who have a
+
+382
+00:12:59,966 --> 00:13:00,826
+view in your app that was
+
+383
+00:12:59,966 --> 00:13:00,826
+view in your app that was
+
+384
+00:13:00,886 --> 00:13:02,546
+written eight or nine years ago
+
+385
+00:13:02,546 --> 00:13:03,806
+and it's just not using Auto
+
+386
+00:13:04,756 --> 00:13:04,886
+Layout.
+
+387
+00:13:05,536 --> 00:13:06,686
+Don't worry, we have you
+
+388
+00:13:06,686 --> 00:13:07,026
+covered.
+
+389
+00:13:07,846 --> 00:13:09,046
+So let's say you have some
+
+390
+00:13:09,046 --> 00:13:10,976
+layout code that sets a constant
+
+391
+00:13:10,976 --> 00:13:11,696
+value and ads that to a y
+
+392
+00:13:11,776 --> 00:13:11,976
+origin.
+
+393
+00:13:16,346 --> 00:13:17,476
+Using the same UIFontMetrics
+
+394
+00:13:17,476 --> 00:13:19,556
+class we saw earlier we can
+
+395
+00:13:19,556 --> 00:13:21,556
+scale that 40 point value, or
+
+396
+00:13:21,556 --> 00:13:24,616
+any CGFloat value, and that way
+
+397
+00:13:24,616 --> 00:13:25,886
+it will get smaller or larger,
+
+398
+00:13:25,976 --> 00:13:26,846
+depending on the user's text
+
+399
+00:13:26,846 --> 00:13:26,966
+size.
+
+400
+00:13:33,256 --> 00:13:34,516
+Now let's look at one final
+
+401
+00:13:34,666 --> 00:13:35,356
+common scenario.
+
+402
+00:13:36,366 --> 00:13:38,356
+Here we've got two labels that
+
+403
+00:13:38,356 --> 00:13:40,196
+are side-by-side at the default
+
+404
+00:13:40,196 --> 00:13:40,696
+text size.
+
+405
+00:13:41,476 --> 00:13:42,916
+Again, you can imagine that the
+
+406
+00:13:42,916 --> 00:13:44,406
+yellow border is the area
+
+407
+00:13:44,406 --> 00:13:45,336
+available on screen.
+
+408
+00:13:46,616 --> 00:13:48,226
+Now let's scale our font sizes.
+
+409
+00:13:51,526 --> 00:13:52,746
+As you can see, there's not
+
+410
+00:13:52,746 --> 00:13:53,756
+enough room for the text
+
+411
+00:13:53,756 --> 00:13:56,906
+anymore, so going back to what
+
+412
+00:13:56,906 --> 00:13:58,006
+we saw earlier, we could try to
+
+413
+00:13:58,076 --> 00:13:58,966
+wrap the text --
+
+414
+00:14:04,046 --> 00:14:04,736
+and we'll get something like
+
+415
+00:14:04,786 --> 00:14:05,156
+this.
+
+416
+00:14:06,326 --> 00:14:07,756
+So I'd like to step back for a
+
+417
+00:14:07,756 --> 00:14:09,626
+second and revisit those three
+
+418
+00:14:09,626 --> 00:14:10,486
+goals we mentioned at the
+
+419
+00:14:10,486 --> 00:14:11,216
+beginning of the talk.
+
+420
+00:14:12,346 --> 00:14:13,846
+First, all text should be large
+
+421
+00:14:13,846 --> 00:14:14,926
+enough to read.
+
+422
+00:14:15,546 --> 00:14:16,316
+We've got that covered.
+
+423
+00:14:17,586 --> 00:14:19,846
+Second, all text should be fully
+
+424
+00:14:19,846 --> 00:14:20,246
+readable.
+
+425
+00:14:20,926 --> 00:14:21,836
+That's true here.
+
+426
+00:14:22,256 --> 00:14:24,986
+None of the text is missing.
+
+427
+00:14:25,116 --> 00:14:27,286
+Third, app UI should look
+
+428
+00:14:27,336 --> 00:14:29,236
+beautiful at all text sizes.
+
+429
+00:14:30,456 --> 00:14:31,556
+And that's where we haven't
+
+430
+00:14:31,556 --> 00:14:32,506
+quite met our goals yet.
+
+431
+00:14:32,506 --> 00:14:34,366
+As you can see, on the righthand
+
+432
+00:14:34,396 --> 00:14:36,456
+side the d is being orphaned
+
+433
+00:14:36,456 --> 00:14:37,596
+from the rest of the word and it
+
+434
+00:14:37,596 --> 00:14:38,626
+just doesn't look right.
+
+435
+00:14:38,786 --> 00:14:42,476
+So for this scenario we
+
+436
+00:14:42,476 --> 00:14:44,026
+recommend that for larger font
+
+437
+00:14:44,066 --> 00:14:47,016
+sizes you change your layout to
+
+438
+00:14:47,016 --> 00:14:49,056
+use vertical stacking and that
+
+439
+00:14:49,056 --> 00:14:50,396
+way each label can grow to the
+
+440
+00:14:50,396 --> 00:14:51,676
+full width of the screen.
+
+441
+00:14:54,536 --> 00:14:56,306
+Now, this technique works not
+
+442
+00:14:56,306 --> 00:14:57,936
+just for text, but for anything
+
+443
+00:14:57,936 --> 00:14:59,346
+that might take room away from
+
+444
+00:14:59,346 --> 00:14:59,856
+text.
+
+445
+00:15:00,656 --> 00:15:02,106
+For example, here's the Siri
+
+446
+00:15:02,106 --> 00:15:04,176
+Help screen and notice how on
+
+447
+00:15:04,246 --> 00:15:06,296
+the left, at the default text
+
+448
+00:15:06,296 --> 00:15:08,326
+size, there's an icon that takes
+
+449
+00:15:08,326 --> 00:15:10,346
+up a horizontal column away from
+
+450
+00:15:10,346 --> 00:15:10,636
+the text.
+
+451
+00:15:11,966 --> 00:15:13,336
+So that's why for larger font
+
+452
+00:15:13,336 --> 00:15:14,936
+sizes we actually move that icon
+
+453
+00:15:14,936 --> 00:15:16,606
+above the text and allow the
+
+454
+00:15:16,606 --> 00:15:17,706
+text to grow to the full width
+
+455
+00:15:17,706 --> 00:15:17,976
+of the screen.
+
+456
+00:15:23,056 --> 00:15:24,786
+Now, to do an alternate layout
+
+457
+00:15:24,786 --> 00:15:26,086
+based on the user's text size
+
+458
+00:15:26,306 --> 00:15:27,316
+you'll need to know how to get
+
+459
+00:15:27,316 --> 00:15:27,426
+that.
+
+460
+00:15:28,506 --> 00:15:31,126
+You can do that by accessing the
+
+461
+00:15:31,226 --> 00:15:34,046
+preferredConstantSizeCategory
+
+462
+00:15:34,046 --> 00:15:36,166
+property on either your view's
+
+463
+00:15:36,166 --> 00:15:38,866
+traitCollection or on the
+
+464
+00:15:38,866 --> 00:15:39,966
+UIApplication object.
+
+465
+00:15:42,596 --> 00:15:44,356
+The default text size will
+
+466
+00:15:44,356 --> 00:15:46,246
+return large and the standard
+
+467
+00:15:46,246 --> 00:15:48,876
+sizes run from extra small to
+
+468
+00:15:48,916 --> 00:15:50,406
+extra, extra, extra large.
+
+469
+00:15:53,256 --> 00:15:55,606
+The Accessibility sizes are
+
+470
+00:15:55,606 --> 00:15:57,076
+prefixed with Accessibility to
+
+471
+00:15:57,076 --> 00:15:57,976
+avoid adding more extras.
+
+472
+00:16:03,356 --> 00:16:05,126
+Now, in iOS 11 we've added new
+
+473
+00:16:05,126 --> 00:16:06,376
+functions that you can use to
+
+474
+00:16:06,376 --> 00:16:07,676
+ask questions about the user's
+
+475
+00:16:07,676 --> 00:16:08,256
+text size.
+
+476
+00:16:09,786 --> 00:16:10,976
+So, for example, you can check
+
+477
+00:16:10,976 --> 00:16:12,136
+whether the user is using one of
+
+478
+00:16:12,136 --> 00:16:13,626
+the Accessibility text sizes,
+
+479
+00:16:13,716 --> 00:16:15,116
+and if so, you can do an
+
+480
+00:16:15,116 --> 00:16:16,326
+alternate layout like vertical
+
+481
+00:16:16,326 --> 00:16:16,706
+stacking,
+
+482
+00:16:19,286 --> 00:16:20,506
+or you can use any threshold you
+
+483
+00:16:20,506 --> 00:16:20,866
+want.
+
+484
+00:16:21,526 --> 00:16:22,746
+We now support compares in
+
+485
+00:16:22,746 --> 00:16:24,196
+operators so you can check
+
+486
+00:16:24,196 --> 00:16:25,636
+whether the user's text size is
+
+487
+00:16:25,636 --> 00:16:26,706
+larger than a particular
+
+488
+00:16:26,706 --> 00:16:26,976
+threshold.
+
+489
+00:16:33,276 --> 00:16:35,436
+So that covers some general
+
+490
+00:16:35,436 --> 00:16:36,616
+guidelines for adapting your
+
+491
+00:16:36,616 --> 00:16:38,316
+layouts for Dynamic Type.
+
+492
+00:16:38,966 --> 00:16:40,816
+Now let's look at the specific
+
+493
+00:16:40,816 --> 00:16:44,616
+case of table views.
+
+494
+00:16:44,616 --> 00:16:45,946
+Earlier we saw how the Settings
+
+495
+00:16:45,946 --> 00:16:47,516
+app adapts beautifully for all
+
+496
+00:16:47,516 --> 00:16:48,606
+Dynamic Type sizes.
+
+497
+00:16:49,096 --> 00:16:50,246
+The good news is that if you're
+
+498
+00:16:50,246 --> 00:16:51,456
+using a standard table view
+
+499
+00:16:51,456 --> 00:16:53,016
+styles, you will get this kind
+
+500
+00:16:53,016 --> 00:16:53,866
+of layout for free.
+
+501
+00:16:54,556 --> 00:16:56,166
+So your fonts will grow or
+
+502
+00:16:56,166 --> 00:16:57,526
+shrink, depending on the Dynamic
+
+503
+00:16:57,526 --> 00:16:59,316
+Type setting, and for larger
+
+504
+00:16:59,316 --> 00:17:01,436
+fonts the text will wrap so that
+
+505
+00:16:59,316 --> 00:17:01,436
+fonts the text will wrap so that
+
+506
+00:17:01,436 --> 00:17:04,705
+all of it is visible.
+
+507
+00:17:04,705 --> 00:17:06,066
+Also, for standard table views
+
+508
+00:17:06,066 --> 00:17:07,486
+that have a detail text label,
+
+509
+00:17:08,435 --> 00:17:09,656
+those will automatically lay out
+
+510
+00:17:09,656 --> 00:17:11,306
+with vertical stacking for
+
+511
+00:17:11,306 --> 00:17:12,746
+larger fonts.
+
+512
+00:17:15,266 --> 00:17:16,415
+So standard table views will
+
+513
+00:17:16,415 --> 00:17:17,596
+adapt their layout for Dynamic
+
+514
+00:17:17,685 --> 00:17:21,175
+Type, and cell heights are based
+
+515
+00:17:21,175 --> 00:17:21,906
+on their content.
+
+516
+00:17:22,695 --> 00:17:24,006
+This is particularly important
+
+517
+00:17:24,006 --> 00:17:25,556
+at larger font sizes where the
+
+518
+00:17:25,556 --> 00:17:27,636
+text wraps because a cell that
+
+519
+00:17:27,636 --> 00:17:29,116
+has more text may need to be
+
+520
+00:17:29,166 --> 00:17:31,066
+taller than a cell that has
+
+521
+00:17:32,216 --> 00:17:32,316
+less.
+
+522
+00:17:32,316 --> 00:17:34,026
+So how do we accomplish variable
+
+523
+00:17:34,026 --> 00:17:34,976
+cell heights in a table view?
+
+524
+00:17:38,096 --> 00:17:39,056
+We can do this through a
+
+525
+00:17:39,056 --> 00:17:40,346
+technique called self-sizing.
+
+526
+00:17:42,006 --> 00:17:43,346
+When self-sizing is enabled, the
+
+527
+00:17:43,346 --> 00:17:44,996
+table view will ask each cell to
+
+528
+00:17:44,996 --> 00:17:47,126
+provide its own size and the
+
+529
+00:17:47,176 --> 00:17:48,806
+cell can calculate that based on
+
+530
+00:17:48,806 --> 00:17:50,346
+its own content.
+
+531
+00:17:51,236 --> 00:17:53,196
+Then the table view client
+
+532
+00:17:53,196 --> 00:17:54,426
+simply needs to give the table
+
+533
+00:17:54,426 --> 00:17:55,736
+view an estimate for any cells
+
+534
+00:17:55,736 --> 00:17:56,836
+that are off screen.
+
+535
+00:18:03,076 --> 00:18:05,356
+In iOS 11 self-sizing is enabled
+
+536
+00:18:05,356 --> 00:18:06,026
+by default.
+
+537
+00:18:07,236 --> 00:18:09,226
+However, if you're using fixed
+
+538
+00:18:09,226 --> 00:18:11,496
+row heights or if you are using
+
+539
+00:18:11,496 --> 00:18:12,936
+Interface Builder, you may need
+
+540
+00:18:12,936 --> 00:18:14,206
+to enable self-sizing.
+
+541
+00:18:14,796 --> 00:18:17,846
+To do so set your row height of
+
+542
+00:18:17,846 --> 00:18:19,476
+a table view to be Automatic
+
+543
+00:18:19,516 --> 00:18:21,516
+Dimension and then set the
+
+544
+00:18:21,516 --> 00:18:23,166
+Estimated Row Height to a
+
+545
+00:18:23,166 --> 00:18:24,626
+reasonable estimate given your
+
+546
+00:18:24,626 --> 00:18:25,476
+table view.
+
+547
+00:18:27,016 --> 00:18:28,516
+If you have section headers and
+
+548
+00:18:28,516 --> 00:18:30,326
+footers, you can do the same
+
+549
+00:18:30,326 --> 00:18:31,556
+thing for those using very
+
+550
+00:18:31,556 --> 00:18:32,976
+similarly named properties.
+
+551
+00:18:38,346 --> 00:18:39,826
+So that's the story for standard
+
+552
+00:18:39,826 --> 00:18:40,486
+table view cells.
+
+553
+00:18:41,136 --> 00:18:42,616
+Now, if you're using custom
+
+554
+00:18:42,616 --> 00:18:44,526
+cells with Auto Layout, it's
+
+555
+00:18:44,526 --> 00:18:45,696
+really easy to get these to work
+
+556
+00:18:45,696 --> 00:18:46,366
+with self-sizing.
+
+557
+00:18:46,926 --> 00:18:49,436
+All you need to do is set up
+
+558
+00:18:49,476 --> 00:18:50,776
+your constraints so that they
+
+559
+00:18:50,776 --> 00:18:53,226
+define the size of the cell and
+
+560
+00:18:53,226 --> 00:18:54,906
+then Auto Layout will figure out
+
+561
+00:18:54,906 --> 00:18:55,686
+the size for you.
+
+562
+00:18:57,066 --> 00:18:57,996
+So let's look at how we could
+
+563
+00:18:58,026 --> 00:18:59,366
+set up the constraints for this
+
+564
+00:18:59,366 --> 00:19:01,126
+custom cell shown here, where we
+
+565
+00:18:59,366 --> 00:19:01,126
+custom cell shown here, where we
+
+566
+00:19:01,126 --> 00:19:02,766
+have two labels, one on top of
+
+567
+00:19:02,766 --> 00:19:02,966
+the other.
+
+568
+00:19:05,356 --> 00:19:06,906
+We'll definitely want leading
+
+569
+00:19:06,906 --> 00:19:08,046
+and trailing constraints for
+
+570
+00:19:08,046 --> 00:19:08,816
+those labels.
+
+571
+00:19:09,416 --> 00:19:12,026
+And we want to make sure that
+
+572
+00:19:12,026 --> 00:19:13,116
+the labels are separated
+
+573
+00:19:13,116 --> 00:19:15,086
+vertically by an appropriate
+
+574
+00:19:15,086 --> 00:19:16,006
+amount of space.
+
+575
+00:19:16,786 --> 00:19:18,186
+Again, you can use the new
+
+576
+00:19:18,186 --> 00:19:19,306
+System Spacing Constraints to
+
+577
+00:19:19,306 --> 00:19:20,836
+get a value that will work well
+
+578
+00:19:20,836 --> 00:19:21,896
+at all text sizes.
+
+579
+00:19:21,956 --> 00:19:23,976
+So are we done?
+
+580
+00:19:27,186 --> 00:19:27,696
+Not quite.
+
+581
+00:19:27,696 --> 00:19:29,296
+We still need to add constraints
+
+582
+00:19:29,296 --> 00:19:31,006
+relative to the top and bottom
+
+583
+00:19:31,006 --> 00:19:32,926
+of the cell and that will
+
+584
+00:19:32,926 --> 00:19:34,086
+complete the set of constraints
+
+585
+00:19:34,086 --> 00:19:35,516
+we need to define the size of
+
+586
+00:19:35,516 --> 00:19:35,886
+the cell.
+
+587
+00:19:37,436 --> 00:19:38,796
+Again, you can use the System
+
+588
+00:19:38,796 --> 00:19:40,216
+Spacing Constraints here to get
+
+589
+00:19:40,216 --> 00:19:41,036
+values that will look good
+
+590
+00:19:41,036 --> 00:19:41,946
+across all text sizes.
+
+591
+00:19:47,576 --> 00:19:49,236
+Now, if you're using Manual
+
+592
+00:19:49,236 --> 00:19:50,606
+Layout with your cells, you can
+
+593
+00:19:50,606 --> 00:19:51,766
+also use self-sizing.
+
+594
+00:19:52,626 --> 00:19:55,356
+To do so you'll want to override
+
+595
+00:19:55,356 --> 00:19:57,386
+the sizeThatFits method on your
+
+596
+00:19:57,386 --> 00:20:01,556
+cell, and then you can use the
+
+597
+00:19:57,386 --> 00:20:01,556
+cell, and then you can use the
+
+598
+00:20:01,556 --> 00:20:03,866
+contentView's width to figure
+
+599
+00:20:03,866 --> 00:20:04,726
+out the width available for your
+
+600
+00:20:04,726 --> 00:20:04,976
+subviews.
+
+601
+00:20:13,176 --> 00:20:14,676
+Now let's move on to our last
+
+602
+00:20:14,676 --> 00:20:15,856
+topic, images.
+
+603
+00:20:17,356 --> 00:20:18,926
+Why are images showing up in a
+
+604
+00:20:18,926 --> 00:20:19,936
+talk about Dynamic Type?
+
+605
+00:20:21,116 --> 00:20:22,226
+After all, they're not text.
+
+606
+00:20:22,866 --> 00:20:25,456
+But images are an integral part
+
+607
+00:20:25,456 --> 00:20:26,946
+of your app's UI and in some
+
+608
+00:20:26,946 --> 00:20:28,896
+cases they carry meaning that's
+
+609
+00:20:28,896 --> 00:20:30,266
+not communicated elsewhere.
+
+610
+00:20:31,106 --> 00:20:32,416
+So for the same reason it's
+
+611
+00:20:32,416 --> 00:20:34,036
+important for your text to be
+
+612
+00:20:34,036 --> 00:20:35,916
+readable by your users, it's
+
+613
+00:20:35,916 --> 00:20:37,436
+also important that your images
+
+614
+00:20:37,436 --> 00:20:38,276
+are distinguishable.
+
+615
+00:20:39,596 --> 00:20:40,636
+Let's look at an example.
+
+616
+00:20:43,136 --> 00:20:44,776
+So here's the Recents view in
+
+617
+00:20:44,776 --> 00:20:46,576
+the phone app.
+
+618
+00:20:46,576 --> 00:20:48,896
+Notice how in front of some of
+
+619
+00:20:48,896 --> 00:20:51,126
+the calls there's an image of a
+
+620
+00:20:51,236 --> 00:20:52,846
+phone with an arrow pointing out
+
+621
+00:20:52,846 --> 00:20:53,816
+of it.
+
+622
+00:20:54,476 --> 00:20:56,356
+This image means that this call
+
+623
+00:20:56,356 --> 00:20:58,856
+was made by you versus a call
+
+624
+00:20:59,946 --> 00:21:01,126
+that came in.
+
+625
+00:20:59,946 --> 00:21:01,126
+that came in.
+
+626
+00:21:01,126 --> 00:21:02,636
+Now let's turn up the text size.
+
+627
+00:21:05,486 --> 00:21:06,386
+For those of you who are
+
+628
+00:21:06,386 --> 00:21:08,136
+wondering, the image has moved
+
+629
+00:21:08,136 --> 00:21:10,526
+over here and notice how it is
+
+630
+00:21:10,526 --> 00:21:12,166
+tiny compared to the text.
+
+631
+00:21:12,166 --> 00:21:14,766
+If you need your text to be this
+
+632
+00:21:14,806 --> 00:21:16,826
+big so you can read it, you
+
+633
+00:21:16,826 --> 00:21:18,126
+probably can't see that image.
+
+634
+00:21:19,396 --> 00:21:22,056
+So what we really want to do
+
+635
+00:21:22,616 --> 00:21:24,316
+here is scale the image the same
+
+636
+00:21:24,316 --> 00:21:25,746
+way that we scale a text, and
+
+637
+00:21:26,376 --> 00:21:27,526
+that's exactly what we've done
+
+638
+00:21:27,576 --> 00:21:29,696
+in iOS 11, and better yet, we
+
+639
+00:21:29,696 --> 00:21:31,226
+made it easy for you to do so in
+
+640
+00:21:31,226 --> 00:21:31,756
+your own apps.
+
+641
+00:21:34,276 --> 00:21:35,896
+So to just allow your images to
+
+642
+00:21:36,016 --> 00:21:37,986
+scale for Dynamic Type you'll
+
+643
+00:21:37,986 --> 00:21:39,626
+first want to make sure that
+
+644
+00:21:39,626 --> 00:21:40,886
+your images are provided as
+
+645
+00:21:40,936 --> 00:21:42,476
+PDF's at 1x scale.
+
+646
+00:21:43,416 --> 00:21:44,846
+So this is a good idea anyways
+
+647
+00:21:44,846 --> 00:21:46,146
+because it allows you to use the
+
+648
+00:21:46,146 --> 00:21:48,826
+same image for both 2x and 3x
+
+649
+00:21:48,826 --> 00:21:49,896
+resolution devices.
+
+650
+00:21:50,376 --> 00:21:52,216
+In fact, your app might already
+
+651
+00:21:52,216 --> 00:21:53,756
+be doing this.
+
+652
+00:21:53,756 --> 00:21:55,026
+So just make sure you have a
+
+653
+00:21:55,026 --> 00:21:55,116
+PDF.
+
+654
+00:21:55,936 --> 00:21:58,946
+Next, go to the Asset Catalog
+
+655
+00:21:59,666 --> 00:22:01,526
+and check this new checkbox for
+
+656
+00:21:59,666 --> 00:22:01,526
+and check this new checkbox for
+
+657
+00:22:01,526 --> 00:22:02,556
+Preserving Vector Data.
+
+658
+00:22:03,316 --> 00:22:05,696
+If you don't check the checkbox,
+
+659
+00:22:06,086 --> 00:22:07,126
+when the Asset Catalog is
+
+660
+00:22:07,126 --> 00:22:09,516
+compiled, it's going to
+
+661
+00:22:09,516 --> 00:22:10,396
+rasterize all the PDF's.
+
+662
+00:22:11,656 --> 00:22:12,856
+But if you check the checkbox,
+
+663
+00:22:12,856 --> 00:22:14,636
+the original PDF gets preserved,
+
+664
+00:22:14,676 --> 00:22:17,316
+and the cool thing about that is
+
+665
+00:22:17,316 --> 00:22:18,896
+that now if you use this image
+
+666
+00:22:18,896 --> 00:22:20,456
+and put it into an image view of
+
+667
+00:22:20,456 --> 00:22:22,576
+any size, the image will get
+
+668
+00:22:22,576 --> 00:22:23,826
+drawn smoothly using PDF
+
+669
+00:22:23,826 --> 00:22:23,976
+Drawing.
+
+670
+00:22:24,516 --> 00:22:32,576
+[ Applause ]
+
+671
+00:22:33,076 --> 00:22:34,436
+Now, the final step is to make
+
+672
+00:22:34,436 --> 00:22:35,996
+sure that your view resizes for
+
+673
+00:22:35,996 --> 00:22:36,596
+Dynamic Type.
+
+674
+00:22:37,166 --> 00:22:38,796
+To do this in Interface Builder
+
+675
+00:22:39,426 --> 00:22:41,846
+you can select any image view or
+
+676
+00:22:41,846 --> 00:22:44,226
+button and you can check the new
+
+677
+00:22:44,226 --> 00:22:46,056
+Adjusts Image Size property.
+
+678
+00:22:47,756 --> 00:22:49,076
+This means that your image
+
+679
+00:22:49,076 --> 00:22:51,356
+viewer button will scale up for
+
+680
+00:22:51,356 --> 00:22:52,806
+the five largest Dynamic Type
+
+681
+00:22:52,806 --> 00:22:53,266
+sizes.
+
+682
+00:22:56,116 --> 00:22:57,276
+And you can do the same thing in
+
+683
+00:22:57,276 --> 00:22:59,616
+code with the Adjusts Image Size
+
+684
+00:22:59,866 --> 00:22:59,986
+for
+
+685
+00:22:59,986 --> 00:23:01,646
+AccessibilityContentSizeCategory
+
+686
+00:22:59,986 --> 00:23:01,646
+AccessibilityContentSizeCategory
+
+687
+00:23:01,646 --> 00:23:01,946
+property.
+
+688
+00:23:08,236 --> 00:23:09,786
+There's one more place where
+
+689
+00:23:09,786 --> 00:23:11,586
+image scaling comes in handy,
+
+690
+00:23:12,046 --> 00:23:14,246
+and that's when the user long
+
+691
+00:23:14,246 --> 00:23:16,186
+presses on a bar item.
+
+692
+00:23:16,606 --> 00:23:18,366
+So earlier we saw how you can
+
+693
+00:23:18,366 --> 00:23:19,746
+long press on the Voicemail tab
+
+694
+00:23:19,896 --> 00:23:21,136
+to show a larger version in the
+
+695
+00:23:21,136 --> 00:23:21,876
+middle of the screen.
+
+696
+00:23:22,426 --> 00:23:23,936
+Notice that both the text is
+
+697
+00:23:23,936 --> 00:23:25,146
+scaling and also the image.
+
+698
+00:23:25,146 --> 00:23:26,406
+So we want to make sure that
+
+699
+00:23:26,406 --> 00:23:27,526
+that image looks as good as
+
+700
+00:23:27,526 --> 00:23:27,946
+possible.
+
+701
+00:23:32,536 --> 00:23:34,746
+If your bar item is using a PDF
+
+702
+00:23:34,796 --> 00:23:36,666
+image, all you need to do is
+
+703
+00:23:36,666 --> 00:23:37,946
+check the Preserve Vector Data
+
+704
+00:23:37,946 --> 00:23:39,656
+checkbox that we saw earlier.
+
+705
+00:23:40,156 --> 00:23:42,216
+That will allow UIKit to scale
+
+706
+00:23:42,216 --> 00:23:42,976
+it up smoothly.
+
+707
+00:23:45,276 --> 00:23:46,066
+If you're not using a PDF,
+
+708
+00:23:46,066 --> 00:23:48,236
+you'll want to provide a larger
+
+709
+00:23:48,236 --> 00:23:49,226
+version that we can show when
+
+710
+00:23:49,226 --> 00:23:50,856
+the user long presses on that
+
+711
+00:23:50,856 --> 00:23:51,146
+image.
+
+712
+00:23:52,196 --> 00:23:55,596
+To do that in Interface Builder
+
+713
+00:23:55,826 --> 00:23:56,896
+you can go to the Attributes
+
+714
+00:23:56,896 --> 00:23:58,726
+Inspector and set the
+
+715
+00:23:58,726 --> 00:24:00,206
+Accessibility property of your
+
+716
+00:23:58,726 --> 00:24:00,206
+Accessibility property of your
+
+717
+00:24:00,206 --> 00:24:01,976
+bar item to be the larger
+
+718
+00:24:02,726 --> 00:24:02,886
+version.
+
+719
+00:24:05,046 --> 00:24:06,466
+Or in code you can simply set
+
+720
+00:24:06,466 --> 00:24:08,006
+the largeContentSizeImage
+
+721
+00:24:08,006 --> 00:24:08,976
+property to that larger version.
+
+722
+00:24:14,536 --> 00:24:16,246
+So we've just covered a variety
+
+723
+00:24:16,246 --> 00:24:17,616
+of tips and tricks you can use
+
+724
+00:24:17,936 --> 00:24:19,116
+to adapt your apps for Dynamic
+
+725
+00:24:19,166 --> 00:24:19,346
+Type.
+
+726
+00:24:19,916 --> 00:24:20,886
+And now I'd like to invite
+
+727
+00:24:20,886 --> 00:24:22,466
+Nandini to the stage to show all
+
+728
+00:24:22,466 --> 00:24:22,976
+of that in a sample app.
+
+729
+00:24:23,516 --> 00:24:30,586
+[ Applause ]
+
+730
+00:24:31,086 --> 00:24:31,746
+&gt;&gt; Hi everyone.
+
+731
+00:24:32,456 --> 00:24:33,346
+I'm Nandini.
+
+732
+00:24:33,346 --> 00:24:34,696
+I'm a software engineer in the
+
+733
+00:24:34,696 --> 00:24:36,126
+Accessibility Team at Apple.
+
+734
+00:24:37,376 --> 00:24:39,366
+Today, using a sample app, I'll
+
+735
+00:24:39,466 --> 00:24:41,176
+show you how you can fix your
+
+736
+00:24:41,446 --> 00:24:43,066
+app in very little time with
+
+737
+00:24:43,066 --> 00:24:43,386
+[inaudible] font sizes.
+
+738
+00:24:43,386 --> 00:24:46,366
+First, I will open the app in
+
+739
+00:24:46,366 --> 00:24:48,016
+the default text size, and later
+
+740
+00:24:48,096 --> 00:24:51,056
+I'll open the app in the largest
+
+741
+00:24:51,056 --> 00:24:52,286
+of the Dynamic Type font size
+
+742
+00:24:52,286 --> 00:24:54,926
+and fix issues along the way.
+
+743
+00:24:55,226 --> 00:24:56,206
+Let's start the app.
+
+744
+00:24:56,206 --> 00:24:56,626
+We cleared it.
+
+745
+00:24:56,626 --> 00:24:58,676
+It's called Cute Battle Pets.
+
+746
+00:24:58,676 --> 00:25:00,256
+In this app you can choose among
+
+747
+00:24:58,676 --> 00:25:00,256
+In this app you can choose among
+
+748
+00:25:00,256 --> 00:25:01,546
+two pets to battle with each
+
+749
+00:25:01,546 --> 00:25:01,716
+other.
+
+750
+00:25:02,396 --> 00:25:06,116
+Let me open the app now.
+
+751
+00:25:06,116 --> 00:25:08,346
+In this tab, Opponents, you see
+
+752
+00:25:08,346 --> 00:25:10,096
+a list of pets you can choose to
+
+753
+00:25:10,096 --> 00:25:12,396
+battle among each other, and the
+
+754
+00:25:12,396 --> 00:25:14,716
+next tab, Achievements, you see
+
+755
+00:25:14,716 --> 00:25:16,666
+a list of badges of honors these
+
+756
+00:25:16,666 --> 00:25:17,586
+pets can earn.
+
+757
+00:25:18,986 --> 00:25:20,476
+Before auditing our app for the
+
+758
+00:25:20,476 --> 00:25:22,466
+largest of the Dynamic Type font
+
+759
+00:25:22,526 --> 00:25:23,866
+size, if we switch back to the
+
+760
+00:25:23,866 --> 00:25:26,726
+Opponents tab, you can audit
+
+761
+00:25:26,726 --> 00:25:28,386
+your app for the largest of the
+
+762
+00:25:28,386 --> 00:25:30,196
+Dynamic Font size using a very
+
+763
+00:25:30,196 --> 00:25:32,096
+handy tool in Xcode called
+
+764
+00:25:32,096 --> 00:25:33,406
+Accessibility Inspector.
+
+765
+00:25:33,956 --> 00:25:36,646
+This tool is very handy because
+
+766
+00:25:37,016 --> 00:25:38,556
+you can audit your app before
+
+767
+00:25:38,556 --> 00:25:39,456
+going to the Settings app on
+
+768
+00:25:39,456 --> 00:25:40,056
+your device.
+
+769
+00:25:41,356 --> 00:25:43,636
+You can open this tool by going
+
+770
+00:25:43,636 --> 00:25:45,976
+to Xcode in the menu bar, choose
+
+771
+00:25:45,976 --> 00:25:47,386
+Open Developer Tool and then
+
+772
+00:25:47,446 --> 00:25:48,576
+click on Accessibility
+
+773
+00:25:48,576 --> 00:25:48,976
+Inspector.
+
+774
+00:25:55,206 --> 00:25:56,896
+This tool can be used to audit
+
+775
+00:25:57,006 --> 00:25:59,326
+apps in all macOS and iOS
+
+776
+00:25:59,556 --> 00:26:01,006
+iPhones, including the
+
+777
+00:25:59,556 --> 00:26:01,006
+iPhones, including the
+
+778
+00:26:01,006 --> 00:26:01,456
+Simulators.
+
+779
+00:26:01,516 --> 00:26:05,836
+As our app is running on the
+
+780
+00:26:05,836 --> 00:26:07,226
+iPhone Simulator, I'll choose
+
+781
+00:26:07,226 --> 00:26:09,286
+Start from the dropdown menu.
+
+782
+00:26:09,886 --> 00:26:11,156
+I'll go to the Settings tab in
+
+783
+00:26:11,246 --> 00:26:12,576
+the Accessibility Inspector.
+
+784
+00:26:12,676 --> 00:26:15,376
+Here you see a font size slider.
+
+785
+00:26:16,576 --> 00:26:17,856
+The font size is currently the
+
+786
+00:26:17,856 --> 00:26:18,726
+default text size.
+
+787
+00:26:19,456 --> 00:26:20,766
+I'm going to move the slider's
+
+788
+00:26:20,826 --> 00:26:22,276
+knob to the last notch on the
+
+789
+00:26:22,326 --> 00:26:22,666
+slider.
+
+790
+00:26:23,006 --> 00:26:24,106
+That is the largest of the
+
+791
+00:26:24,106 --> 00:26:26,846
+Dynamic Type font size.
+
+792
+00:26:27,006 --> 00:26:29,276
+Let's go back to our app now to
+
+793
+00:26:29,366 --> 00:26:32,716
+see the effect of this change.
+
+794
+00:26:32,956 --> 00:26:34,516
+The font size of these labels
+
+795
+00:26:34,516 --> 00:26:35,396
+has not changed yet.
+
+796
+00:26:35,396 --> 00:26:37,576
+Any idea why this is happening?
+
+797
+00:26:38,076 --> 00:26:39,346
+This is happening because of two
+
+798
+00:26:39,346 --> 00:26:39,776
+reasons.
+
+799
+00:26:39,926 --> 00:26:42,416
+The labels here are not yet set
+
+800
+00:26:42,416 --> 00:26:44,956
+to automatically adjust to the
+
+801
+00:26:44,956 --> 00:26:46,706
+user's ContentSizeCategory, and
+
+802
+00:26:47,046 --> 00:26:49,456
+the petName and petDescription
+
+803
+00:26:49,456 --> 00:26:50,876
+labels here are using custom
+
+804
+00:26:50,876 --> 00:26:51,236
+fonts.
+
+805
+00:26:52,456 --> 00:26:53,986
+Let's go to a project now to fix
+
+806
+00:26:53,986 --> 00:26:54,486
+these issues.
+
+807
+00:26:55,256 --> 00:26:57,286
+I'll minimize Accessibility
+
+808
+00:26:57,286 --> 00:26:58,196
+Inspector for now.
+
+809
+00:26:58,196 --> 00:27:03,206
+I'll go to BattleCell zip file.
+
+810
+00:26:58,196 --> 00:27:03,206
+I'll go to BattleCell zip file.
+
+811
+00:27:03,426 --> 00:27:05,366
+Here, using the jump bar, I'll
+
+812
+00:27:05,366 --> 00:27:06,346
+move to Set Up Labels and
+
+813
+00:27:06,346 --> 00:27:07,336
+Buttons Method.
+
+814
+00:27:08,686 --> 00:27:12,976
+Here for petName, petDescription
+
+815
+00:27:12,976 --> 00:27:15,216
+and battleButton's titleLabel,
+
+816
+00:27:15,876 --> 00:27:17,526
+I'll set the property at this
+
+817
+00:27:17,726 --> 00:27:19,446
+font for ContentSizeCategory and
+
+818
+00:27:19,446 --> 00:27:19,976
+I'll set it to True.
+
+819
+00:27:27,246 --> 00:27:29,616
+As petName and petDescription
+
+820
+00:27:29,616 --> 00:27:32,766
+are using custom fonts, we can
+
+821
+00:27:32,766 --> 00:27:35,076
+use UIFont, make it API, scan
+
+822
+00:27:35,146 --> 00:27:36,246
+font for font metric.
+
+823
+00:27:37,036 --> 00:27:37,986
+For petName I'll be using the
+
+824
+00:27:38,126 --> 00:27:38,976
+headline TextStyle.
+
+825
+00:27:43,276 --> 00:27:45,316
+For petDescription I'll be using
+
+826
+00:27:45,316 --> 00:27:46,576
+the sub headline TextStyle.
+
+827
+00:27:50,376 --> 00:27:51,246
+Let's run the app again and see
+
+828
+00:27:51,246 --> 00:27:51,936
+the effect of these changes.
+
+829
+00:28:01,516 --> 00:28:03,636
+Now, after these labels are
+
+830
+00:28:03,636 --> 00:28:04,886
+adjusted to the user's
+
+831
+00:28:04,886 --> 00:28:07,276
+ContentSizeCategory, we see that
+
+832
+00:28:07,276 --> 00:28:08,736
+these labels have really less
+
+833
+00:28:08,736 --> 00:28:09,846
+horizontal room to grow.
+
+834
+00:28:09,846 --> 00:28:12,236
+With the menu on the left and
+
+835
+00:28:12,316 --> 00:28:14,106
+the button on the right, these
+
+836
+00:28:14,396 --> 00:28:15,686
+labels have really less
+
+837
+00:28:15,686 --> 00:28:17,576
+horizontal room to grow and the
+
+838
+00:28:17,576 --> 00:28:20,516
+labels either truncate or wrap
+
+839
+00:28:20,516 --> 00:28:21,226
+in multiple lines.
+
+840
+00:28:22,076 --> 00:28:25,776
+We can fix this by having an
+
+841
+00:28:25,826 --> 00:28:27,796
+alternate adopt layout for
+
+842
+00:28:27,796 --> 00:28:28,746
+larger text constraints.
+
+843
+00:28:30,206 --> 00:28:32,136
+We can achieve this by moving
+
+844
+00:28:32,136 --> 00:28:34,036
+the image above the text and the
+
+845
+00:28:34,036 --> 00:28:35,866
+button below the text.
+
+846
+00:28:36,556 --> 00:28:38,376
+This will ensure that the labels
+
+847
+00:28:38,376 --> 00:28:40,136
+are less of wrap and truncated.
+
+848
+00:28:40,136 --> 00:28:41,766
+Let's go fix this in our project
+
+849
+00:28:41,766 --> 00:28:41,916
+now.
+
+850
+00:28:47,076 --> 00:28:48,966
+First, before adding this
+
+851
+00:28:48,966 --> 00:28:50,246
+adoptLayoutConstraints for
+
+852
+00:28:50,246 --> 00:28:52,356
+larger text constraints, let me
+
+853
+00:28:52,356 --> 00:28:53,946
+add a private variable for that.
+
+854
+00:28:58,116 --> 00:28:59,756
+Next let me go to
+
+855
+00:28:59,756 --> 00:29:01,576
+setupLayoutConstraints method.
+
+856
+00:28:59,756 --> 00:29:01,576
+setupLayoutConstraints method.
+
+857
+00:29:01,576 --> 00:29:04,916
+Here you see that you already
+
+858
+00:29:04,916 --> 00:29:06,426
+have a set of layout constraints
+
+859
+00:29:06,426 --> 00:29:07,596
+for default text size.
+
+860
+00:29:08,626 --> 00:29:10,066
+Now I'll be placing a set of
+
+861
+00:29:10,146 --> 00:29:11,446
+constraints for larger Dynamic
+
+862
+00:29:11,446 --> 00:29:11,976
+Type font sizes.
+
+863
+00:29:18,046 --> 00:29:19,736
+These set of constraints pasted
+
+864
+00:29:19,736 --> 00:29:20,896
+here will be available in the
+
+865
+00:29:20,896 --> 00:29:22,386
+sample app code attached along
+
+866
+00:29:22,386 --> 00:29:23,176
+the session website.
+
+867
+00:29:23,666 --> 00:29:25,366
+You can go and review this after
+
+868
+00:29:25,366 --> 00:29:27,216
+the session, but I give a short
+
+869
+00:29:27,216 --> 00:29:28,726
+overview of what this actually
+
+870
+00:29:28,726 --> 00:29:29,406
+do.
+
+871
+00:29:29,406 --> 00:29:32,636
+These constraints ensure that
+
+872
+00:29:32,636 --> 00:29:34,436
+the image labels and the button
+
+873
+00:29:34,436 --> 00:29:35,596
+are vertically stacked, and
+
+874
+00:29:35,946 --> 00:29:37,816
+these constraints also get them
+
+875
+00:29:37,816 --> 00:29:40,396
+in the height of the cell.
+
+876
+00:29:40,586 --> 00:29:42,106
+Okay. Let's go to our
+
+877
+00:29:42,106 --> 00:29:43,616
+developerLayoutConstraints
+
+878
+00:29:43,616 --> 00:29:43,936
+method.
+
+879
+00:29:45,026 --> 00:29:46,356
+Here we see that one of the
+
+880
+00:29:46,356 --> 00:29:48,046
+developer constraints aren't
+
+881
+00:29:48,346 --> 00:29:49,386
+activated.
+
+882
+00:29:49,386 --> 00:29:50,106
+We need the larger [inaudible],
+
+883
+00:29:50,106 --> 00:29:50,246
+right.
+
+884
+00:29:50,246 --> 00:29:50,976
+Let's fix that.
+
+885
+00:29:57,046 --> 00:29:59,176
+Here, based on user's
+
+886
+00:29:59,216 --> 00:30:00,676
+preferredContentSizeCategory,
+
+887
+00:29:59,216 --> 00:30:00,676
+preferredContentSizeCategory,
+
+888
+00:30:00,916 --> 00:30:01,976
+they put in the five largest
+
+889
+00:30:01,976 --> 00:30:03,606
+Dynamic Type font sizes.
+
+890
+00:30:03,776 --> 00:30:05,746
+With the app you will be able to
+
+891
+00:30:05,746 --> 00:30:06,876
+look at its constraints and
+
+892
+00:30:06,876 --> 00:30:08,526
+activateLargeTextConstraints.
+
+893
+00:30:09,246 --> 00:30:10,496
+Otherwise, do the reverse
+
+894
+00:30:10,496 --> 00:30:11,086
+operation.
+
+895
+00:30:11,286 --> 00:30:14,956
+To ensure that these layout
+
+896
+00:30:14,956 --> 00:30:17,066
+constraints are up-to-date based
+
+897
+00:30:17,066 --> 00:30:18,056
+on the change in trait
+
+898
+00:30:18,056 --> 00:30:20,906
+collection, we call this method
+
+899
+00:30:20,906 --> 00:30:22,166
+if trait collection did change.
+
+900
+00:30:27,076 --> 00:30:27,746
+If the user's
+
+901
+00:30:27,746 --> 00:30:29,966
+preferredContentSizeCategory
+
+902
+00:30:29,966 --> 00:30:31,256
+shifts from the five largest
+
+903
+00:30:31,256 --> 00:30:33,156
+Dynamic Type font sizes to the
+
+904
+00:30:33,156 --> 00:30:34,586
+smaller Dynamic Type font sizes,
+
+905
+00:30:34,796 --> 00:30:37,016
+or visa-versa, these layout
+
+906
+00:30:37,016 --> 00:30:37,976
+constraints will be updated.
+
+907
+00:30:40,536 --> 00:30:41,226
+Let's run the app again to see
+
+908
+00:30:41,226 --> 00:30:41,956
+the effect of these changes.
+
+909
+00:30:51,266 --> 00:30:53,346
+Great. After vertically stacking
+
+910
+00:30:53,346 --> 00:30:55,396
+the content the labels are less
+
+911
+00:30:55,396 --> 00:30:57,256
+of wrapped and there's no
+
+912
+00:30:57,256 --> 00:30:58,006
+truncation at all.
+
+913
+00:30:58,566 --> 00:31:00,056
+Let's go the next step,
+
+914
+00:30:58,566 --> 00:31:00,056
+Let's go the next step,
+
+915
+00:31:00,056 --> 00:31:00,926
+Achievements.
+
+916
+00:31:03,356 --> 00:31:04,806
+When we run the app in the
+
+917
+00:31:04,806 --> 00:31:06,526
+default text size, you will
+
+918
+00:31:06,526 --> 00:31:08,086
+notice that these cells here
+
+919
+00:31:08,086 --> 00:31:10,226
+have multiple lines of text, but
+
+920
+00:31:10,316 --> 00:31:12,166
+currently only one line of text
+
+921
+00:31:12,166 --> 00:31:13,056
+is visible on screen.
+
+922
+00:31:14,366 --> 00:31:15,646
+Let's go to Achievements View
+
+923
+00:31:15,646 --> 00:31:17,336
+Controller in Swift check on why
+
+924
+00:31:17,336 --> 00:31:17,976
+this is happening.
+
+925
+00:31:20,176 --> 00:31:22,266
+This is happening because the
+
+926
+00:31:22,266 --> 00:31:23,826
+table view's row height is set
+
+927
+00:31:23,826 --> 00:31:25,036
+to a constant value, hundred.
+
+928
+00:31:25,036 --> 00:31:27,426
+This makes that these cells do
+
+929
+00:31:27,516 --> 00:31:29,256
+not have cell size at all.
+
+930
+00:31:30,096 --> 00:31:31,766
+To fix this and make this cells
+
+931
+00:31:31,766 --> 00:31:34,156
+have size we have to set the
+
+932
+00:31:34,156 --> 00:31:35,976
+table view's row height to use
+
+933
+00:31:35,976 --> 00:31:37,756
+UITableViewAutomaticDimension,
+
+934
+00:31:37,756 --> 00:31:39,686
+and TableView's
+
+935
+00:31:39,686 --> 00:31:42,206
+estimatedRowHeight to a constant
+
+936
+00:31:42,206 --> 00:31:43,976
+value, and I'll choose hundred.
+
+937
+00:31:49,116 --> 00:31:49,916
+Let's run the app again.
+
+938
+00:31:58,136 --> 00:31:59,846
+Let me go to Achievements tab.
+
+939
+00:31:59,846 --> 00:32:03,936
+Now we see that we have more
+
+940
+00:31:59,846 --> 00:32:03,936
+Now we see that we have more
+
+941
+00:32:03,936 --> 00:32:05,426
+lines of text in each of these
+
+942
+00:32:05,476 --> 00:32:07,736
+cells, and the cells, they're
+
+943
+00:32:07,826 --> 00:32:09,696
+sized to fit content, but let's
+
+944
+00:32:09,986 --> 00:32:11,036
+take a look at the [inaudible].
+
+945
+00:32:11,036 --> 00:32:16,046
+Unlike the labels the images do
+
+946
+00:32:16,046 --> 00:32:17,106
+not grow, according to the
+
+947
+00:32:17,106 --> 00:32:18,186
+user's ContentSizeCategory.
+
+948
+00:32:18,926 --> 00:32:21,126
+To fix this let's go to
+
+949
+00:32:21,126 --> 00:32:21,806
+Achievements [inaudible] file.
+
+950
+00:32:27,256 --> 00:32:29,376
+And set the label and image view
+
+951
+00:32:29,426 --> 00:32:29,976
+method.
+
+952
+00:32:30,746 --> 00:32:32,866
+For the badgeImageView I set the
+
+953
+00:32:32,866 --> 00:32:34,966
+property adjustsImageSize for
+
+954
+00:32:34,966 --> 00:32:36,106
+accessibilityContentSize
+
+955
+00:32:36,146 --> 00:32:37,936
+Category, and I set it to two.
+
+956
+00:32:38,826 --> 00:32:40,636
+This will ensure that the image
+
+957
+00:32:40,636 --> 00:32:42,096
+is scaled for the five largest
+
+958
+00:32:42,096 --> 00:32:42,976
+Dynamic Type font sizes.
+
+959
+00:32:47,056 --> 00:32:48,016
+Let's run the app again to see
+
+960
+00:32:48,016 --> 00:32:48,946
+the effect of this change.
+
+961
+00:32:56,516 --> 00:33:00,016
+Let me move to Achievements tab.
+
+962
+00:32:56,516 --> 00:33:00,016
+Let me move to Achievements tab.
+
+963
+00:33:00,216 --> 00:33:02,896
+Great. Both the labels and the
+
+964
+00:33:02,896 --> 00:33:04,806
+image have sizes largest Dynamic
+
+965
+00:33:04,806 --> 00:33:08,156
+Type font size, but let's take a
+
+966
+00:33:08,156 --> 00:33:09,346
+closer look at the image in
+
+967
+00:33:09,406 --> 00:33:09,966
+these cells.
+
+968
+00:33:15,236 --> 00:33:17,156
+Let's also take a look at the
+
+969
+00:33:17,156 --> 00:33:19,236
+large text only that comes up in
+
+970
+00:33:19,236 --> 00:33:20,426
+a long press on the tab bar
+
+971
+00:33:20,426 --> 00:33:20,906
+icons.
+
+972
+00:33:29,376 --> 00:33:31,256
+Based on that, the images in
+
+973
+00:33:31,256 --> 00:33:33,306
+these cells and also in the tab
+
+974
+00:33:33,306 --> 00:33:35,386
+bar icons were not smooth.
+
+975
+00:33:35,856 --> 00:33:37,556
+To fix that we have to go to
+
+976
+00:33:37,556 --> 00:33:39,396
+Assets Catalog, choose our
+
+977
+00:33:40,596 --> 00:33:43,996
+images, those are PDF images, go
+
+978
+00:33:44,546 --> 00:33:49,636
+to the Attributes Inspector and
+
+979
+00:33:49,636 --> 00:33:53,596
+click on the Preserve Vector
+
+980
+00:33:53,596 --> 00:33:54,946
+Data checkbox.
+
+981
+00:34:00,356 --> 00:34:02,256
+If we do this, what happens is
+
+982
+00:34:02,256 --> 00:34:03,926
+the PDF vector data is preserved
+
+983
+00:34:03,926 --> 00:34:05,806
+and the images are rendered
+
+984
+00:34:05,846 --> 00:34:07,376
+smooth in different Dynamic Type
+
+985
+00:34:07,376 --> 00:34:07,926
+font sizes.
+
+986
+00:34:09,446 --> 00:34:10,396
+Let's run the app again to see
+
+987
+00:34:10,396 --> 00:34:10,936
+the effect of this change.
+
+988
+00:34:21,126 --> 00:34:22,576
+Let me go to Achievements tab.
+
+989
+00:34:23,335 --> 00:34:24,795
+For confirmation, let me zoom in
+
+990
+00:34:24,795 --> 00:34:24,946
+again.
+
+991
+00:34:31,166 --> 00:34:33,996
+Now we see that the images here
+
+992
+00:34:33,996 --> 00:34:36,846
+are rendered smooth, right.
+
+993
+00:34:39,386 --> 00:34:41,766
+Finally, using the Accessibility
+
+994
+00:34:41,766 --> 00:34:43,286
+Inspector, I'm going to run
+
+995
+00:34:43,286 --> 00:34:44,916
+through a quick audit of this
+
+996
+00:34:45,246 --> 00:34:46,926
+app and different Dynamic Type
+
+997
+00:34:46,926 --> 00:34:47,466
+font sizes.
+
+998
+00:34:47,896 --> 00:34:49,356
+For that let me minimize Xcode.
+
+999
+00:34:49,356 --> 00:34:50,126
+Let me bring up the
+
+1000
+00:34:50,755 --> 00:34:51,976
+Accessibility Inspector.
+
+1001
+00:34:56,166 --> 00:34:57,666
+Let me move the first tab,
+
+1002
+00:34:57,666 --> 00:34:58,236
+Opponents.
+
+1003
+00:34:59,006 --> 00:35:01,786
+Let me switch the font size
+
+1004
+00:34:59,006 --> 00:35:01,786
+Let me switch the font size
+
+1005
+00:35:01,836 --> 00:35:03,086
+slider to default text size.
+
+1006
+00:35:04,186 --> 00:35:05,496
+Now I'm going to increase the
+
+1007
+00:35:05,536 --> 00:35:07,386
+font size one-by-one and you'll
+
+1008
+00:35:07,386 --> 00:35:09,966
+notice that the labels in these
+
+1009
+00:35:09,966 --> 00:35:11,436
+cells increase according to the
+
+1010
+00:35:11,436 --> 00:35:12,696
+user's ContentSizeCategory.
+
+1011
+00:35:12,696 --> 00:35:13,976
+When I move to the five larger
+
+1012
+00:35:14,056 --> 00:35:16,246
+Dynamic Type font sizes, the
+
+1013
+00:35:17,046 --> 00:35:18,766
+layout of these cells change.
+
+1014
+00:35:19,726 --> 00:35:22,306
+The labels have more horizontal
+
+1015
+00:35:22,306 --> 00:35:24,496
+room to grow and the cell says
+
+1016
+00:35:24,496 --> 00:35:25,436
+sizeToFitContent.
+
+1017
+00:35:28,196 --> 00:35:30,436
+Next move on to Achievements to
+
+1018
+00:35:30,436 --> 00:35:31,466
+do the same audit.
+
+1019
+00:35:34,436 --> 00:35:37,246
+I'll switch back to default text
+
+1020
+00:35:38,876 --> 00:35:39,006
+size.
+
+1021
+00:35:39,216 --> 00:35:40,496
+I'll increase the font size
+
+1022
+00:35:40,646 --> 00:35:41,706
+one-by-one.
+
+1023
+00:35:42,736 --> 00:35:44,666
+Now, you see that the labels
+
+1024
+00:35:44,666 --> 00:35:45,686
+wrap in multiple lines.
+
+1025
+00:35:46,346 --> 00:35:48,186
+The cell says sizeToFitContent,
+
+1026
+00:35:48,756 --> 00:35:51,186
+and also the image scales in the
+
+1027
+00:35:51,256 --> 00:35:52,966
+five larger Dynamic Type font
+
+1028
+00:35:53,616 --> 00:35:53,806
+sizes.
+
+1029
+00:35:55,256 --> 00:35:56,226
+So there you have it.
+
+1030
+00:35:56,226 --> 00:35:58,376
+Our app looks pretty great in
+
+1031
+00:35:58,376 --> 00:36:00,386
+all the Dynamic Type font sizes.
+
+1032
+00:35:58,376 --> 00:36:00,386
+all the Dynamic Type font sizes.
+
+1033
+00:36:00,676 --> 00:36:03,606
+So using the new API's available
+
+1034
+00:36:03,606 --> 00:36:05,076
+in iOS 11, you can make your
+
+1035
+00:36:05,136 --> 00:36:06,366
+apps, too, work for all Dynamic
+
+1036
+00:36:06,366 --> 00:36:07,046
+Type font sizes.
+
+1037
+00:36:07,946 --> 00:36:09,546
+Now I welcome Clare back on
+
+1038
+00:36:09,546 --> 00:36:10,306
+stage to conclude the
+
+1039
+00:36:10,306 --> 00:36:10,756
+presentation.
+
+1040
+00:36:10,756 --> 00:36:10,946
+Thank you.
+
+1041
+00:36:11,516 --> 00:36:17,606
+[ Applause ]
+
+1042
+00:36:18,106 --> 00:36:19,366
+&gt;&gt; Thanks, Nandini.
+
+1043
+00:36:19,916 --> 00:36:21,666
+So all of that sample code is
+
+1044
+00:36:21,666 --> 00:36:23,186
+available on our session
+
+1045
+00:36:23,186 --> 00:36:26,436
+website, but the version we have
+
+1046
+00:36:26,436 --> 00:36:27,366
+on the session website is
+
+1047
+00:36:27,366 --> 00:36:28,676
+actually expanded to include
+
+1048
+00:36:28,676 --> 00:36:29,686
+even more examples.
+
+1049
+00:36:29,686 --> 00:36:31,706
+So you can see how we do this in
+
+1050
+00:36:31,706 --> 00:36:32,766
+Interface Builder.
+
+1051
+00:36:32,986 --> 00:36:34,396
+You can see an example where we
+
+1052
+00:36:34,396 --> 00:36:36,196
+wrap text around images.
+
+1053
+00:36:36,556 --> 00:36:38,056
+You can find a case where we
+
+1054
+00:36:38,056 --> 00:36:39,376
+allow scrolling only when
+
+1055
+00:36:39,376 --> 00:36:41,296
+necessary for larger fonts, and
+
+1056
+00:36:41,296 --> 00:36:41,546
+more.
+
+1057
+00:36:42,276 --> 00:36:43,566
+Think of it as a recipe book for
+
+1058
+00:36:43,666 --> 00:36:44,816
+things you might encounter in
+
+1059
+00:36:44,816 --> 00:36:45,466
+your own apps.
+
+1060
+00:36:45,966 --> 00:36:47,376
+So we highly encourage you to
+
+1061
+00:36:47,376 --> 00:36:47,976
+check it out after the session.
+
+1062
+00:36:52,566 --> 00:36:53,506
+To summarize what we covered
+
+1063
+00:36:53,506 --> 00:36:55,556
+today, it's easy to support
+
+1064
+00:36:55,556 --> 00:36:57,836
+Dynamic Type with new API in iOS
+
+1065
+00:36:57,836 --> 00:36:58,126
+11.
+
+1066
+00:36:59,136 --> 00:37:00,526
+If you have an app that doesn't
+
+1067
+00:36:59,136 --> 00:37:00,526
+If you have an app that doesn't
+
+1068
+00:37:00,526 --> 00:37:02,376
+support Dynamic Type, now is a
+
+1069
+00:37:02,376 --> 00:37:04,196
+great time to do so, and you
+
+1070
+00:37:04,196 --> 00:37:06,456
+should because supporting
+
+1071
+00:37:06,456 --> 00:37:08,046
+Dynamic Type is good for your
+
+1072
+00:37:08,046 --> 00:37:08,666
+users.
+
+1073
+00:37:09,596 --> 00:37:10,716
+It's good for the users who
+
+1074
+00:37:10,716 --> 00:37:12,616
+prefer smaller text because it
+
+1075
+00:37:12,616 --> 00:37:13,726
+allows them to see more on
+
+1076
+00:37:13,726 --> 00:37:14,126
+screen.
+
+1077
+00:37:15,086 --> 00:37:15,996
+It's good for the users who
+
+1078
+00:37:15,996 --> 00:37:17,576
+prefer larger text because it's
+
+1079
+00:37:17,576 --> 00:37:19,886
+more comfortable to read, and
+
+1080
+00:37:19,886 --> 00:37:21,826
+it's especially beneficial for
+
+1081
+00:37:21,826 --> 00:37:23,846
+users who need larger text in
+
+1082
+00:37:23,846 --> 00:37:26,286
+order to be able to read it.
+
+1083
+00:37:26,546 --> 00:37:29,226
+When more apps are usable by
+
+1084
+00:37:29,226 --> 00:37:30,766
+people with a disability, such
+
+1085
+00:37:30,766 --> 00:37:33,116
+as low vision, it really helps
+
+1086
+00:37:33,256 --> 00:37:35,006
+to level the playing field for
+
+1087
+00:37:35,006 --> 00:37:35,796
+those users.
+
+1088
+00:37:36,456 --> 00:37:37,836
+And so by supporting Dynamic
+
+1089
+00:37:37,886 --> 00:37:39,306
+Type in your app, you're
+
+1090
+00:37:39,306 --> 00:37:40,256
+actually making the world a
+
+1091
+00:37:40,256 --> 00:37:40,736
+better place.
+
+1092
+00:37:41,696 --> 00:37:43,356
+So we really hope you take what
+
+1093
+00:37:43,356 --> 00:37:45,126
+you saw today in today's session
+
+1094
+00:37:45,476 --> 00:37:47,376
+and go back and make apps that
+
+1095
+00:37:47,376 --> 00:37:48,976
+work well with Dynamic Type and
+
+1096
+00:37:49,036 --> 00:37:50,606
+include more users so that more
+
+1097
+00:37:50,606 --> 00:37:51,606
+users can benefit from the great
+
+1098
+00:37:51,606 --> 00:37:51,976
+work you've done.
+
+1099
+00:37:56,286 --> 00:37:58,406
+For more information, including
+
+1100
+00:37:58,406 --> 00:37:59,386
+the sample code we showed,
+
+1101
+00:37:59,866 --> 00:38:00,746
+please go to our session
+
+1102
+00:37:59,866 --> 00:38:00,746
+please go to our session
+
+1103
+00:38:00,746 --> 00:38:00,976
+website.
+
+1104
+00:38:04,396 --> 00:38:05,476
+Now, there have been several
+
+1105
+00:38:05,476 --> 00:38:06,916
+sessions at this conference
+
+1106
+00:38:06,916 --> 00:38:08,146
+related to the one we just gave.
+
+1107
+00:38:08,806 --> 00:38:10,076
+As we mentioned earlier, the
+
+1108
+00:38:10,076 --> 00:38:11,426
+Design for Everyone talk from
+
+1109
+00:38:11,426 --> 00:38:13,086
+yesterday covers the design
+
+1110
+00:38:13,086 --> 00:38:14,646
+thinking behind the iOS 11
+
+1111
+00:38:14,646 --> 00:38:15,886
+Dynamic Type improvements.
+
+1112
+00:38:16,536 --> 00:38:18,056
+There are also two sessions on
+
+1113
+00:38:18,056 --> 00:38:19,556
+accessibility, What's New in
+
+1114
+00:38:19,556 --> 00:38:21,406
+Accessibility and Media and
+
+1115
+00:38:21,406 --> 00:38:22,406
+Gaming Accessibility.
+
+1116
+00:38:22,406 --> 00:38:24,546
+Both of these sessions cover how
+
+1117
+00:38:24,546 --> 00:38:26,126
+you can widen your user base and
+
+1118
+00:38:26,126 --> 00:38:27,196
+include more users.
+
+1119
+00:38:28,296 --> 00:38:30,296
+And finally, as we mentioned
+
+1120
+00:38:30,296 --> 00:38:31,926
+earlier, to learn more about the
+
+1121
+00:38:31,926 --> 00:38:33,486
+System Spacing Constraints in
+
+1122
+00:38:33,486 --> 00:38:35,116
+Interface Builder, check out the
+
+1123
+00:38:35,116 --> 00:38:36,226
+Auto Layout Techniques in
+
+1124
+00:38:36,226 --> 00:38:37,226
+Interface Builder talk.
+
+1125
+00:38:37,756 --> 00:38:38,706
+Thank you all for coming, and I
+
+1126
+00:38:38,706 --> 00:38:39,416
+hope you enjoy the rest of the
+
+1127
+00:38:39,416 --> 00:38:39,956
+conference.
+
+1128
+00:38:40,516 --> 00:38:46,940
+[ Applause ]
