@@ -36,7 +36,7 @@ func main() {
 
 	fmt.Println("fetch session list for year ", year)
 
-	sessionURLs := getSessionURLsByMainPage("2017")
+	sessionURLs := getSessionURLsByMainPage(year)
 	if len(sessionURLs) < 1 {
 		panic("can not found any session's URL")
 	}
@@ -46,6 +46,7 @@ func main() {
 
 	i := 1
 	videoURLs := make([]string, 0)
+	pdfURLs := make([]string, 0)
 	for _, sessionURL := range sessionURLs {
 		fmt.Printf("fetching session page (%d/%d)\n", i, sessionTotalCount)
 		sessionDetail := getSessionDetailPage(sessionURL)
@@ -57,11 +58,15 @@ func main() {
 		if len(targetVideoURL) > 5 {
 			videoURLs = append(videoURLs, targetVideoURL)
 		}
+		if len(sessionDetail.pdfURL) > 5 {
+			pdfURLs = append(pdfURLs, sessionDetail.pdfURL)
+		}
 		i++
 	}
 
 	//write video url to file
 	ioutil.WriteFile("videoURLs"+year+".txt", []byte(strings.Join(videoURLs, "\n")), 0755)
+	ioutil.WriteFile("pdfURLs"+year+".txt", []byte(strings.Join(pdfURLs, "\n")), 0755)
 
 	fmt.Println("done!")
 }
@@ -117,8 +122,8 @@ func getSessionDetailPage(URL string) sessionDetails {
 	defer resp.Body.Close()
 
 	page := html.NewTokenizer(resp.Body)
-	videoURLRegex := regexp.MustCompile(`https://devstreaming-cdn.apple.com/videos/wwdc/([0-9]{4})/(.+)/(\d+)/(.+).mp4\?dl=1`)
-	pdfURLRegex := regexp.MustCompile(`https://devstreaming-cdn.apple.com/videos/wwdc/([0-9]{4})/(.+)/(\d+)/(.+).pdf`)
+	videoURLRegex := regexp.MustCompile(`http(.+).apple.com/videos/wwdc/([0-9]{4})/(.+)/(\d+)/(.+).mp4\?dl=1`)
+	pdfURLRegex := regexp.MustCompile(`http(.+).apple.com/videos/wwdc/([0-9]{4})/(.+)/(\d+)/(.+).pdf`)
 
 	var details = sessionDetails{}
 
@@ -136,8 +141,8 @@ func getSessionDetailPage(URL string) sessionDetails {
 				if v.Key == "href" {
 					matched := videoURLRegex.FindStringSubmatch(v.Val)
 					if len(matched) > 0 {
-						details.id = matched[3]
-						filename := matched[4]
+						details.id = matched[4]
+						filename := matched[5]
 						if strings.HasPrefix(filename, details.id+"_hd_") {
 							details.hdURL = matched[0]
 							details.hdName = filename
@@ -150,9 +155,9 @@ func getSessionDetailPage(URL string) sessionDetails {
 					matchedPDF := pdfURLRegex.FindStringSubmatch(v.Val)
 					if len(matchedPDF) > 0 {
 						if details.id == "" {
-							details.id = matchedPDF[3]
+							details.id = matchedPDF[4]
 						}
-						details.pdfName = matchedPDF[4]
+						details.pdfName = matchedPDF[5]
 						details.pdfURL = matchedPDF[0]
 					}
 				}
