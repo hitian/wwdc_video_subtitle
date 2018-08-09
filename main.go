@@ -210,7 +210,7 @@ func getSubtitle(videoURL, year, lang string) {
 	//start get content.
 	var text = []string{}
 	var count = 1
-	timeRegex := regexp.MustCompile(`([0-9]+):([0-9]+):([0-9]+)\.([0-9]+) --> ([0-9]+):([0-9]+):([0-9]+)\.([0-9]+)`)
+	timeRegex := regexp.MustCompile(`([0-9]+):([0-9]+):([0-9]+)\.([0-9]+).+([0-9]+):([0-9]+):([0-9]+)\.([0-9]+).*`)
 	for _, fileSequence := range webvttFiles {
 		sequenceURL := subtitleBaseURL + fileSequence
 		sequenceContent := getURLContent(sequenceURL)
