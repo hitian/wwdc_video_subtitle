@@ -3,43 +3,48 @@ package main
 import (
 	"flag"
 	"fmt"
-	"golang.org/x/net/html"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"regexp"
+	"sort"
 	"strings"
+
+	"golang.org/x/net/html"
 )
 
 const (
 	baseURL = "https://developer.apple.com"
 )
 
-var langList = []string{"zho", "eng"}
-var videoQuality = []string{"hd", "sd"}
+var (
+	langList     = []string{"zho", "eng"}
+	videoQuality = []string{"hd", "sd"}
+	year         = flag.String("year", "2019", "year")
+	quality      = flag.String("quality", "hd", "video quality: "+strings.Join(videoQuality, ", "))
+	subtitle     = flag.String("subtitle", "", "subtitle language: "+strings.Join(langList, ", "))
+)
 
 var client = &http.Client{}
 
 func main() {
-	var year, lang, quality string
-	flag.StringVar(&year, "year", "2017", "year")
-	flag.StringVar(&lang, "lang", "eng", "language: "+strings.Join(langList, ", "))
-	flag.StringVar(&quality, "quality", "hd", "video quality: "+strings.Join(videoQuality, ", "))
 	flag.Parse()
 
-	if year == "" {
+	if *year == "" {
 		panic("year required")
 	}
-	if index(langList, lang) == -1 {
+	if *subtitle != "" && index(langList, *subtitle) == -1 {
 		panic("lang error")
 	}
 
-	fmt.Println("fetch session list for year ", year)
+	fmt.Println("fetch session list for year ", *year)
 
-	sessionURLs := getSessionURLsByMainPage(year)
+	sessionURLs := getSessionURLsByMainPage(*year)
 	if len(sessionURLs) < 1 {
 		panic("can not found any session's URL")
 	}
+
+	sort.Strings(sessionURLs)
 
 	sessionTotalCount := len(sessionURLs)
 	fmt.Println("found session total number: ", sessionTotalCount)
@@ -51,10 +56,13 @@ func main() {
 		fmt.Printf("fetching session page (%d/%d)\n", i, sessionTotalCount)
 		sessionDetail := getSessionDetailPage(sessionURL)
 		targetVideoURL := sessionDetail.hdURL
-		if quality == "sd" {
+		if *quality == "sd" {
 			targetVideoURL = sessionDetail.sdURL
 		}
-		getSubtitle(targetVideoURL, year, lang)
+		if *subtitle != "" {
+			getSubtitle(targetVideoURL, *year, *subtitle)
+		}
+
 		if len(targetVideoURL) > 5 {
 			videoURLs = append(videoURLs, targetVideoURL)
 		}
@@ -65,8 +73,8 @@ func main() {
 	}
 
 	//write video url to file
-	ioutil.WriteFile("videoURLs"+year+".txt", []byte(strings.Join(videoURLs, "\n")), 0755)
-	ioutil.WriteFile("pdfURLs"+year+".txt", []byte(strings.Join(pdfURLs, "\n")), 0755)
+	ioutil.WriteFile("videoURLs"+*year+".txt", []byte(strings.Join(videoURLs, "\n")), 0755)
+	ioutil.WriteFile("pdfURLs"+*year+".txt", []byte(strings.Join(pdfURLs, "\n")), 0755)
 
 	fmt.Println("done!")
 }
