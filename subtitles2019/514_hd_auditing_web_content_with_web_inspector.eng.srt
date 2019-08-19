@@ -1,0 +1,1091 @@
+1
+00:00:01,516 --> 0:00:06,696
+[ Music ]
+
+2
+00:00:07,196 --> 0:00:08,806
+&gt;&gt; Hello. I'm Jonathan Davis,
+
+3
+00:00:08,806 --> 0:00:10,536
+web technologies evangelist for
+
+4
+00:00:10,536 --> 0:00:12,006
+the Safari and WebKit teams.
+
+5
+00:00:12,596 --> 0:00:14,236
+Welcome to Auditing Web Content
+
+6
+00:00:14,236 --> 0:00:15,236
+with Web Inspector.
+
+7
+00:00:16,006 --> 0:00:17,246
+In the process of building web
+
+8
+00:00:17,246 --> 0:00:18,946
+content, developers have a lot
+
+9
+00:00:18,946 --> 0:00:19,956
+of details to check.
+
+10
+00:00:20,966 --> 0:00:22,676
+Maybe it's following a CSS class
+
+11
+00:00:22,676 --> 0:00:24,446
+name convention or ensuring good
+
+12
+00:00:24,446 --> 0:00:25,796
+accessibility on the page.
+
+13
+00:00:25,876 --> 0:00:27,886
+There can be so many details
+
+14
+00:00:27,886 --> 0:00:29,126
+that they're easy to forget and
+
+15
+00:00:29,126 --> 0:00:30,556
+tedious to find the issues.
+
+16
+00:00:31,296 --> 0:00:32,656
+A built-in checklist would be
+
+17
+00:00:32,656 --> 0:00:33,066
+ideal.
+
+18
+00:00:33,776 --> 0:00:35,196
+Some teams set up automated
+
+19
+00:00:35,196 --> 0:00:36,546
+testing in a continuous
+
+20
+00:00:36,546 --> 0:00:37,916
+integration system using
+
+21
+00:00:37,916 --> 0:00:39,736
+technologies like Safari's
+
+22
+00:00:39,736 --> 0:00:41,886
+WebDriver, available for macOS
+
+23
+00:00:41,886 --> 0:00:43,066
+and now iOS.
+
+24
+00:00:43,696 --> 0:00:45,066
+WebDriver is a great tool for
+
+25
+00:00:45,066 --> 0:00:46,596
+catching code changes that break
+
+26
+00:00:46,596 --> 0:00:47,966
+expected functionality for
+
+27
+00:00:47,966 --> 0:00:48,516
+users.
+
+28
+00:00:48,726 --> 0:00:50,736
+But for web developers who want
+
+29
+00:00:50,736 --> 0:00:51,956
+to check that their in-progress
+
+30
+00:00:51,956 --> 0:00:53,586
+work meets code expectations,
+
+31
+00:00:54,066 --> 0:00:55,946
+Web Inspector now includes a new
+
+32
+00:00:55,946 --> 0:00:57,676
+audit system available with
+
+33
+00:00:57,676 --> 0:01:00,136
+Safari 13 on macOS that provides
+
+34
+00:00:57,676 --> 0:01:00,136
+Safari 13 on macOS that provides
+
+35
+00:01:00,136 --> 0:01:01,736
+a quick, easy and more
+
+36
+00:01:01,736 --> 0:01:03,076
+convenient way to check web
+
+37
+00:01:03,076 --> 0:01:03,506
+content.
+
+38
+00:01:04,016 --> 0:01:07,106
+In this video, I'll show you how
+
+39
+00:01:07,106 --> 0:01:08,626
+to use audits in Web Inspector,
+
+40
+00:01:08,956 --> 0:01:10,666
+how to work with tests and
+
+41
+00:01:10,666 --> 0:01:12,606
+understand their results, and
+
+42
+00:01:12,606 --> 0:01:14,266
+finally I'll cover how to create
+
+43
+00:01:14,266 --> 0:01:16,196
+custom audits for your projects.
+
+44
+00:01:17,346 --> 0:01:18,746
+To get started, you'll need to
+
+45
+00:01:18,746 --> 0:01:19,966
+enable the Develop menu to
+
+46
+00:01:19,966 --> 0:01:21,046
+access Web Inspector.
+
+47
+00:01:22,436 --> 0:01:24,126
+Just load up Safari Preferences,
+
+48
+00:01:24,706 --> 0:01:27,066
+click on Advanced and click to
+
+49
+00:01:27,066 --> 0:01:29,066
+enable the Show Develop Menu in
+
+50
+00:01:29,066 --> 0:01:29,976
+Menu Bar option.
+
+51
+00:01:31,816 --> 0:01:34,216
+Now just load up a web page and
+
+52
+00:01:34,216 --> 0:01:35,306
+open Web Inspector from the
+
+53
+00:01:35,306 --> 0:01:35,986
+Develop menu.
+
+54
+00:01:36,826 --> 0:01:38,196
+Or use the keyboard shortcut
+
+55
+00:01:38,196 --> 0:01:39,096
+Command-Option-I.
+
+56
+00:01:40,866 --> 0:01:42,706
+Let's take a look at WebKit.org
+
+57
+00:01:42,706 --> 0:01:43,516
+as an example.
+
+58
+00:01:44,016 --> 0:01:45,416
+Click over to the audit tab.
+
+59
+00:01:48,266 --> 0:01:49,696
+And in the left sidebar is a
+
+60
+00:01:49,696 --> 0:01:50,736
+list of audits.
+
+61
+00:01:51,416 --> 0:01:52,966
+Click the arrow to the left of
+
+62
+00:01:52,966 --> 0:01:54,286
+an audit to expand it.
+
+63
+00:01:55,166 --> 0:01:56,896
+An audit is a collection of test
+
+64
+00:01:56,896 --> 0:01:58,126
+groups and tests.
+
+65
+00:01:59,106 --> 0:02:00,216
+Test groups don't have any
+
+66
+00:01:59,106 --> 0:02:00,216
+Test groups don't have any
+
+67
+00:02:00,216 --> 0:02:01,676
+functionality except to act as
+
+68
+00:02:01,676 --> 0:02:03,156
+organizational containers for a
+
+69
+00:02:03,156 --> 0:02:04,976
+collection of individual tests.
+
+70
+00:02:05,566 --> 0:02:07,426
+It's easy to run audits.
+
+71
+00:02:07,706 --> 0:02:08,876
+Click the Start button to run
+
+72
+00:02:08,876 --> 0:02:10,265
+all of the available audits.
+
+73
+00:02:11,226 --> 0:02:12,426
+Or you can right click on an
+
+74
+00:02:12,426 --> 0:02:14,046
+audit for a contextual menu with
+
+75
+00:02:14,076 --> 0:02:14,876
+more actions.
+
+76
+00:02:15,756 --> 0:02:17,406
+To run a single audit, right
+
+77
+00:02:17,406 --> 0:02:18,736
+click on the audit and select
+
+78
+00:02:18,736 --> 0:02:19,126
+Start.
+
+79
+00:02:19,766 --> 0:02:21,166
+Or you can hover over the right
+
+80
+00:02:21,166 --> 0:02:22,856
+area of the side bar and a play
+
+81
+00:02:22,856 --> 0:02:23,586
+button will appear.
+
+82
+00:02:24,156 --> 0:02:25,956
+Or click to select it and press
+
+83
+00:02:25,956 --> 0:02:26,576
+the space bar.
+
+84
+00:02:27,266 --> 0:02:28,706
+Audits are fast and update in
+
+85
+00:02:28,706 --> 0:02:29,766
+real time as tests are
+
+86
+00:02:29,766 --> 0:02:30,316
+completed.
+
+87
+00:02:32,196 --> 0:02:33,436
+Another way to control which
+
+88
+00:02:33,436 --> 0:02:35,546
+audits are run is to click the
+
+89
+00:02:35,546 --> 0:02:37,306
+Edit button at the bottom of the
+
+90
+00:02:37,306 --> 0:02:38,436
+navigation sidebar.
+
+91
+00:02:41,356 --> 0:02:42,326
+Here you can toggle the
+
+92
+00:02:42,326 --> 0:02:44,066
+checkboxes on the row next to
+
+93
+00:02:44,066 --> 0:02:48,196
+individual tests, test groups or
+
+94
+00:02:48,196 --> 0:02:49,876
+entire audits to selectively
+
+95
+00:02:49,876 --> 0:02:54,116
+enable or disable them.
+
+96
+00:02:54,236 --> 0:02:55,216
+Click the done button at the
+
+97
+00:02:55,216 --> 0:02:56,146
+bottom when you're finished
+
+98
+00:02:56,146 --> 0:02:56,486
+editing.
+
+99
+00:02:57,116 --> 0:03:00,726
+A list of any collected results
+
+100
+00:02:57,116 --> 0:03:00,726
+A list of any collected results
+
+101
+00:03:00,726 --> 0:03:02,436
+will appear below the audits in
+
+102
+00:03:02,436 --> 0:03:04,316
+a results folder with each of
+
+103
+00:03:04,316 --> 0:03:05,976
+the results collected into Run
+
+104
+00:03:05,976 --> 0:03:06,596
+folders.
+
+105
+00:03:08,466 --> 0:03:10,346
+Expand the Run folder to access
+
+106
+00:03:10,346 --> 0:03:11,596
+the results of the audit for
+
+107
+00:03:11,596 --> 0:03:12,056
+that run.
+
+108
+00:03:13,076 --> 0:03:14,446
+The result runs are kept
+
+109
+00:03:14,446 --> 0:03:15,896
+available across reloads of the
+
+110
+00:03:15,896 --> 0:03:17,686
+page so you can modify the
+
+111
+00:03:17,686 --> 0:03:19,786
+webpage and rerun the audit for
+
+112
+00:03:19,786 --> 0:03:20,766
+updated results.
+
+113
+00:03:21,016 --> 0:03:22,576
+That way you can compare the
+
+114
+00:03:22,576 --> 0:03:23,746
+pass rate for example.
+
+115
+00:03:24,236 --> 0:03:25,686
+Results will be cleared when Web
+
+116
+00:03:25,686 --> 0:03:26,806
+Inspector is closed.
+
+117
+00:03:30,136 --> 0:03:31,256
+Clicking on the results of the
+
+118
+00:03:31,256 --> 0:03:33,616
+demo audit run displays a report
+
+119
+00:03:33,616 --> 0:03:35,386
+that shows example result levels
+
+120
+00:03:35,386 --> 0:03:36,246
+and result data.
+
+121
+00:03:38,506 --> 0:03:39,816
+The first three result levels
+
+122
+00:03:39,816 --> 0:03:40,936
+should be familiar if you've
+
+123
+00:03:40,936 --> 0:03:41,966
+ever used XCode.
+
+124
+00:03:42,586 --> 0:03:43,836
+The passed level shows a test
+
+125
+00:03:43,836 --> 0:03:45,466
+that's passed, meaning the code
+
+126
+00:03:45,466 --> 0:03:46,546
+met the expectations of the
+
+127
+00:03:46,546 --> 0:03:47,096
+test.
+
+128
+00:03:47,706 --> 0:03:48,886
+Warning is a soft pass.
+
+129
+00:03:49,246 --> 0:03:50,486
+It says even though the code
+
+130
+00:03:50,486 --> 0:03:51,496
+passed the test, there are
+
+131
+00:03:51,496 --> 0:03:52,536
+things that could be changed.
+
+132
+00:03:53,376 --> 0:03:54,556
+Failed tells you the code did
+
+133
+00:03:54,556 --> 0:03:55,856
+not pass the test.
+
+134
+00:03:58,046 --> 0:03:59,246
+The other two result levels are
+
+135
+00:03:59,246 --> 0:04:00,656
+special to audits in Web
+
+136
+00:03:59,246 --> 0:04:00,656
+special to audits in Web
+
+137
+00:04:00,656 --> 0:04:01,196
+Inspector.
+
+138
+00:04:01,666 --> 0:04:03,456
+An error result occurs when the
+
+139
+00:04:03,456 --> 0:04:04,686
+JavaScript being run for the
+
+140
+00:04:04,686 --> 0:04:05,776
+test throws an error.
+
+141
+00:04:06,446 --> 0:04:08,286
+Unsupported is a special case
+
+142
+00:04:08,286 --> 0:04:09,496
+that can be used to indicate
+
+143
+00:04:09,496 --> 0:04:11,026
+when the data being tested isn't
+
+144
+00:04:11,026 --> 0:04:12,356
+supported by the current page,
+
+145
+00:04:12,766 --> 0:04:13,576
+such as when there's some
+
+146
+00:04:13,576 --> 0:04:14,206
+missing API.
+
+147
+00:04:14,786 --> 0:04:17,386
+Test results can also include
+
+148
+00:04:17,386 --> 0:04:18,976
+data from the test in the form
+
+149
+00:04:18,976 --> 0:04:20,815
+of DOM nodes or error messages.
+
+150
+00:04:23,626 --> 0:04:24,896
+Web Inspector includes some
+
+151
+00:04:24,896 --> 0:04:26,466
+built-in audits by default which
+
+152
+00:04:26,466 --> 0:04:28,186
+can be disabled but not deleted.
+
+153
+00:04:29,126 --> 0:04:30,366
+One of the default audits
+
+154
+00:04:30,366 --> 0:04:31,896
+provides tests that check a
+
+155
+00:04:31,896 --> 0:04:33,406
+webpage for mark-up that meets
+
+156
+00:04:33,406 --> 0:04:35,086
+some common guidelines for good
+
+157
+00:04:35,086 --> 0:04:35,946
+accessibility.
+
+158
+00:04:37,666 --> 0:04:38,956
+Let's dig into the results of
+
+159
+00:04:38,956 --> 0:04:40,366
+running the accessibility audit
+
+160
+00:04:40,556 --> 0:04:41,546
+on WebKit.org.
+
+161
+00:04:43,086 --> 0:04:44,606
+The overall score shows that
+
+162
+00:04:44,606 --> 0:04:45,886
+WebKit does fairly well.
+
+163
+00:04:45,886 --> 0:04:47,296
+But there's room for
+
+164
+00:04:47,296 --> 0:04:47,946
+improvement.
+
+165
+00:04:49,656 --> 0:04:51,006
+In the failure cases shown in
+
+166
+00:04:51,006 --> 0:04:52,676
+the results, the DOM node where
+
+167
+00:04:52,676 --> 0:04:54,386
+the failure was detected is
+
+168
+00:04:54,386 --> 0:04:55,976
+shown as an interactive DOM
+
+169
+00:04:55,976 --> 0:04:56,276
+tree.
+
+170
+00:04:57,206 --> 0:04:58,486
+Expanding the DOM tree for the
+
+171
+00:04:58,486 --> 0:05:00,306
+node allows you to access child
+
+172
+00:04:58,486 --> 0:05:00,306
+node allows you to access child
+
+173
+00:05:00,306 --> 0:05:00,796
+nodes.
+
+174
+00:05:01,006 --> 0:05:02,476
+And hovering over them will
+
+175
+00:05:02,476 --> 0:05:03,986
+highlight the specific elements
+
+176
+00:05:03,986 --> 0:05:05,666
+on the page, just like using the
+
+177
+00:05:05,666 --> 0:05:06,446
+elements tab.
+
+178
+00:05:11,206 --> 0:05:12,946
+This makes it trivially easy to
+
+179
+00:05:12,946 --> 0:05:14,536
+understand what code in your web
+
+180
+00:05:14,536 --> 0:05:15,986
+content needs improvement.
+
+181
+00:05:17,296 --> 0:05:19,486
+To fix this, I can simply click
+
+182
+00:05:19,486 --> 0:05:20,876
+this arrow to go right to the
+
+183
+00:05:20,876 --> 0:05:22,166
+node in the elements tab.
+
+184
+00:05:22,466 --> 0:05:24,566
+The problem is elements with the
+
+185
+00:05:24,566 --> 0:05:26,246
+role of menu need their child
+
+186
+00:05:26,246 --> 0:05:27,996
+elements to have a role of menu
+
+187
+00:05:27,996 --> 0:05:28,426
+item.
+
+188
+00:05:29,696 --> 0:05:31,466
+So I simply need to add a new
+
+189
+00:05:31,466 --> 0:05:33,326
+role attribute with a value of
+
+190
+00:05:33,326 --> 0:05:35,296
+menu item to each of the child
+
+191
+00:05:35,296 --> 0:05:36,496
+elements of the menu.
+
+192
+00:05:37,426 --> 0:05:38,876
+I'm going to quickly add the
+
+193
+00:05:38,876 --> 0:05:40,196
+missing attribute to each of
+
+194
+00:05:40,196 --> 0:05:40,976
+these elements.
+
+195
+00:05:45,046 --> 0:05:45,586
+Just a couple more.
+
+196
+00:05:50,666 --> 0:05:51,026
+Okay.
+
+197
+00:05:51,906 --> 0:05:52,986
+Now I'll switch back to the
+
+198
+00:05:52,986 --> 0:05:54,666
+audit tab so I can rerun the
+
+199
+00:05:54,666 --> 0:05:56,456
+audit and see the new results
+
+200
+00:05:56,456 --> 0:05:57,686
+with these changes in the DOM.
+
+201
+00:06:01,366 --> 0:06:02,006
+Perfect.
+
+202
+00:06:02,086 --> 0:06:03,606
+The page now passes all of the
+
+203
+00:06:03,606 --> 0:06:04,126
+tests.
+
+204
+00:06:04,746 --> 0:06:06,046
+I simply need to incorporate
+
+205
+00:06:06,046 --> 0:06:07,626
+those changes into the actual
+
+206
+00:06:07,626 --> 0:06:08,616
+code for the site.
+
+207
+00:06:11,486 --> 0:06:12,906
+You can see how easy it is to
+
+208
+00:06:12,906 --> 0:06:14,606
+spot problems and fix them all
+
+209
+00:06:14,606 --> 0:06:15,826
+conveniently within Web
+
+210
+00:06:15,826 --> 0:06:16,336
+Inspector.
+
+211
+00:06:16,876 --> 0:06:19,196
+Audits and audit results can be
+
+212
+00:06:19,196 --> 0:06:20,976
+exported and re-imported.
+
+213
+00:06:21,586 --> 0:06:23,136
+Click the Export button to save
+
+214
+00:06:23,136 --> 0:06:25,006
+the results into a JSON file.
+
+215
+00:06:26,086 --> 0:06:27,576
+They can be re-imported into Web
+
+216
+00:06:27,576 --> 0:06:29,326
+Inspector with complete access
+
+217
+00:06:29,326 --> 0:06:30,476
+to the results, including
+
+218
+00:06:30,476 --> 0:06:32,106
+interactive DOM nodes, when
+
+219
+00:06:32,106 --> 0:06:33,876
+elements on the page match the
+
+220
+00:06:33,876 --> 0:06:35,036
+nodes in the report.
+
+221
+00:06:36,816 --> 0:06:38,366
+You can also export the built-in
+
+222
+00:06:38,366 --> 0:06:40,006
+audits to see an example of how
+
+223
+00:06:40,006 --> 0:06:41,316
+to write your own audits.
+
+224
+00:06:41,666 --> 0:06:42,996
+As most teams will have their
+
+225
+00:06:42,996 --> 0:06:44,586
+own unique code objectives,
+
+226
+00:06:44,886 --> 0:06:46,396
+writing your own custom audits
+
+227
+00:06:46,396 --> 0:06:47,676
+is one of the most powerful
+
+228
+00:06:47,676 --> 0:06:49,236
+aspects of using the audit
+
+229
+00:06:49,236 --> 0:06:50,636
+framework in Web Inspector.
+
+230
+00:06:51,956 --> 0:06:53,906
+They use a JSON format to make
+
+231
+00:06:53,906 --> 0:06:54,536
+them portable.
+
+232
+00:06:55,046 --> 0:06:56,376
+Each test is simply a
+
+233
+00:06:56,376 --> 0:06:58,006
+stringified JavaScript function
+
+234
+00:06:58,486 --> 0:06:59,876
+giving you a simple framework
+
+235
+00:06:59,986 --> 0:07:01,496
+with special access to more data
+
+236
+00:06:59,986 --> 0:07:01,496
+with special access to more data
+
+237
+00:07:01,496 --> 0:07:02,786
+than you can normally access in
+
+238
+00:07:02,786 --> 0:07:03,376
+JavaScript.
+
+239
+00:07:04,376 --> 0:07:06,206
+Being simple JSON, it's easy to
+
+240
+00:07:06,206 --> 0:07:07,856
+share your tests with your team
+
+241
+00:07:07,956 --> 0:07:08,996
+or other developers.
+
+242
+00:07:09,966 --> 0:07:12,046
+There's an example ESLint audit
+
+243
+00:07:12,046 --> 0:07:13,516
+available on the WebKit blog
+
+244
+00:07:13,516 --> 0:07:14,736
+post about creating Web
+
+245
+00:07:14,736 --> 0:07:15,616
+Inspector audits.
+
+246
+00:07:16,406 --> 0:07:18,046
+The blog post goes into detail
+
+247
+00:07:18,046 --> 0:07:19,156
+about how to write a custom
+
+248
+00:07:19,156 --> 0:07:20,896
+audit as well as other powerful
+
+249
+00:07:20,896 --> 0:07:22,526
+capabilities of using the audit
+
+250
+00:07:22,526 --> 0:07:23,036
+framework.
+
+251
+00:07:23,656 --> 0:07:25,886
+Simply download the ESLint JSON
+
+252
+00:07:25,886 --> 0:07:28,706
+file and you can easily drag and
+
+253
+00:07:28,706 --> 0:07:30,526
+drop the file onto Web Inspector
+
+254
+00:07:30,716 --> 0:07:31,926
+to import it.
+
+255
+00:07:34,116 --> 0:07:35,386
+Audits in Web Inspector are
+
+256
+00:07:35,386 --> 0:07:37,276
+quick and convenient, so I hope
+
+257
+00:07:37,276 --> 0:07:38,646
+you'll give them a try using the
+
+258
+00:07:38,646 --> 0:07:40,196
+built-in accessibility audit on
+
+259
+00:07:40,196 --> 0:07:41,336
+your own web pages.
+
+260
+00:07:42,746 --> 0:07:44,386
+Use the portable audit format to
+
+261
+00:07:44,386 --> 0:07:45,636
+create your own audits and
+
+262
+00:07:45,636 --> 0:07:47,636
+ensure in-progress code meets
+
+263
+00:07:47,636 --> 0:07:48,946
+your project standards.
+
+264
+00:07:49,546 --> 0:07:51,446
+And we love hearing from you and
+
+265
+00:07:51,446 --> 0:07:52,676
+hope you'll file bug reports for
+
+266
+00:07:52,676 --> 0:07:54,216
+any issues you find or feature
+
+267
+00:07:54,216 --> 0:07:56,006
+requests you might have.
+
+268
+00:07:56,146 --> 0:07:57,366
+For more information and
+
+269
+00:07:57,366 --> 0:07:58,716
+additional resources about what
+
+270
+00:07:58,716 --> 0:08:00,276
+I've covered, use the links in
+
+271
+00:07:58,716 --> 0:08:00,276
+I've covered, use the links in
+
+272
+00:08:00,276 --> 0:08:02,176
+the resources section associated
+
+273
+00:08:02,176 --> 0:08:02,846
+with this video.

@@ -1,0 +1,5199 @@
+1
+00:00:00,506 --> 0:00:05,500
+[ Music ]
+
+2
+00:00:10,976 --> 0:00:12,336
+[ Applause ]
+
+3
+00:00:12,336 --> 0:00:12,786
+&gt;&gt; Good morning.
+
+4
+00:00:14,756 --> 0:00:15,836
+Welcome to our session on
+
+5
+00:00:15,836 --> 0:00:17,266
+Drawing Classification and
+
+6
+00:00:17,266 --> 0:00:18,686
+One-Shot Object Detection in
+
+7
+00:00:18,686 --> 0:00:19,276
+Turi Create.
+
+8
+00:00:19,956 --> 0:00:21,416
+My name is Sam and I'll be
+
+9
+00:00:21,416 --> 0:00:22,406
+joined by my colleagues,
+
+10
+00:00:22,536 --> 0:00:24,306
+Shantanu and Abhishek to talk to
+
+11
+00:00:24,306 --> 0:00:25,166
+you about what we've been
+
+12
+00:00:25,166 --> 0:00:27,036
+building to enable even richer
+
+13
+00:00:27,036 --> 0:00:29,836
+experiences in your apps.
+
+14
+00:00:29,986 --> 0:00:30,746
+Let's dive right in.
+
+15
+00:00:32,206 --> 0:00:34,746
+First, a quick refresher on Turi
+
+16
+00:00:34,746 --> 0:00:35,546
+Create itself.
+
+17
+00:00:36,646 --> 0:00:38,656
+Turi Create is a Python library
+
+18
+00:00:38,986 --> 0:00:40,316
+used for creating Core ML
+
+19
+00:00:40,316 --> 0:00:40,846
+models.
+
+20
+00:00:41,406 --> 0:00:44,286
+It has a simple, easy to use
+
+21
+00:00:44,476 --> 0:00:45,826
+task-oriented API.
+
+22
+00:00:46,966 --> 0:00:49,136
+Now, tasks are our term for a
+
+23
+00:00:49,136 --> 0:00:50,756
+collection of complex, machine
+
+24
+00:00:50,756 --> 0:00:52,606
+learning algorithms abstracted
+
+25
+00:00:52,606 --> 0:00:55,056
+away into a simple, easy to use
+
+26
+00:00:55,056 --> 0:00:56,586
+solution for you to build your
+
+27
+00:00:56,586 --> 0:00:57,066
+models.
+
+28
+00:00:57,616 --> 0:01:00,326
+It's cross-platform, working on
+
+29
+00:00:57,616 --> 0:01:00,326
+It's cross-platform, working on
+
+30
+00:01:00,326 --> 0:01:02,966
+both Mac OS and Linux and we're
+
+31
+00:01:02,966 --> 0:01:04,296
+extremely proud to be open
+
+32
+00:01:04,355 --> 0:01:05,936
+source, working closely with our
+
+33
+00:01:05,936 --> 0:01:08,286
+community on features and fixes.
+
+34
+00:01:08,896 --> 0:01:12,246
+We built Turi Create to enable
+
+35
+00:01:12,246 --> 0:01:14,596
+you to create Core ML models for
+
+36
+00:01:14,596 --> 0:01:16,416
+your intelligent applications.
+
+37
+00:01:17,646 --> 0:01:19,946
+Now to build these models, we
+
+38
+00:01:19,946 --> 0:01:21,286
+integrate with a various of
+
+39
+00:01:21,286 --> 0:01:22,956
+system frameworks, accepting
+
+40
+00:01:22,956 --> 0:01:25,276
+data from frameworks like
+
+41
+00:01:25,366 --> 0:01:26,976
+PencilKit and Core Motion.
+
+42
+00:01:28,496 --> 0:01:30,476
+Once we've built our model, we
+
+43
+00:01:30,476 --> 0:01:31,756
+integrate with other system
+
+44
+00:01:31,756 --> 0:01:34,676
+frameworks like Vision and Sound
+
+45
+00:01:34,676 --> 0:01:36,526
+Analysis to create extremely
+
+46
+00:01:36,526 --> 0:01:38,196
+compelling app experiences.
+
+47
+00:01:39,956 --> 0:01:41,696
+So say you'd want to build an
+
+48
+00:01:41,696 --> 0:01:43,776
+application used to classify
+
+49
+00:01:43,976 --> 0:01:44,916
+musical instruments.
+
+50
+00:01:45,066 --> 0:01:47,066
+[ Guitar Sound ]
+
+51
+00:01:47,156 --> 0:01:49,156
+Using microphone data, you can
+
+52
+00:01:49,156 --> 0:01:50,576
+understand what instrument is
+
+53
+00:01:50,676 --> 0:01:53,476
+being played and attempt to tune
+
+54
+00:01:54,096 --> 0:01:55,176
+the instrument.
+
+55
+00:01:55,176 --> 0:01:57,036
+Or say you'd want to use raw
+
+56
+00:01:57,066 --> 0:01:58,876
+sensor data from the Apple Watch
+
+57
+00:01:59,276 --> 0:02:01,096
+to detect what activities a user
+
+58
+00:01:59,276 --> 0:02:01,096
+to detect what activities a user
+
+59
+00:02:01,096 --> 0:02:04,966
+may be performing in the gym.
+
+60
+00:02:05,166 --> 0:02:07,466
+Or say you'd want to use image
+
+61
+00:02:07,466 --> 0:02:09,996
+data to be able to detect what
+
+62
+00:02:09,996 --> 0:02:12,006
+ingredients a user may be
+
+63
+00:02:12,006 --> 0:02:13,996
+holding and to suggest recipes
+
+64
+00:02:14,326 --> 0:02:15,636
+using these ingredients.
+
+65
+00:02:16,096 --> 0:02:18,476
+All of these are possible
+
+66
+00:02:18,916 --> 0:02:20,256
+because we have built an
+
+67
+00:02:20,256 --> 0:02:22,126
+intelligent Core ML model.
+
+68
+00:02:23,196 --> 0:02:25,396
+And to build these models, we've
+
+69
+00:02:25,396 --> 0:02:27,476
+identified a five-step pipeline
+
+70
+00:02:27,616 --> 0:02:28,116
+to do so.
+
+71
+00:02:29,276 --> 0:02:31,246
+First up in our pipeline, we
+
+72
+00:02:31,246 --> 0:02:32,946
+need to identify the task or
+
+73
+00:02:32,946 --> 0:02:34,166
+what problem it is that we're
+
+74
+00:02:34,166 --> 0:02:34,926
+trying to solve.
+
+75
+00:02:35,476 --> 0:02:38,746
+Next, we need to collect data
+
+76
+00:02:38,746 --> 0:02:41,246
+and sometimes, lots of it.
+
+77
+00:02:42,136 --> 0:02:44,506
+After that, we train our model.
+
+78
+00:02:46,316 --> 0:02:48,656
+Next, we evaluate our model,
+
+79
+00:02:49,036 --> 0:02:50,386
+attempting to understand the
+
+80
+00:02:50,436 --> 0:02:51,516
+real-world performance
+
+81
+00:02:51,516 --> 0:02:52,776
+characteristics and to
+
+82
+00:02:52,776 --> 0:02:54,356
+potentially offer corrections.
+
+83
+00:02:56,726 --> 0:02:58,866
+After that, we deploy our model
+
+84
+00:02:59,116 --> 0:03:01,376
+for use within Core ML and your
+
+85
+00:02:59,116 --> 0:03:01,376
+for use within Core ML and your
+
+86
+00:03:01,376 --> 0:03:01,976
+application.
+
+87
+00:03:03,436 --> 0:03:04,806
+Now let's take a look at these
+
+88
+00:03:04,806 --> 0:03:06,966
+five steps in code.
+
+89
+00:03:07,816 --> 0:03:11,606
+After we import turicreate we
+
+90
+00:03:11,606 --> 0:03:14,006
+load our data from an SFrame on
+
+91
+00:03:14,966 --> 0:03:15,126
+disk.
+
+92
+00:03:15,126 --> 0:03:16,366
+An SFrame is something that
+
+93
+00:03:16,366 --> 0:03:17,986
+Shantanu will cover in a little
+
+94
+00:03:18,646 --> 0:03:18,746
+bit.
+
+95
+00:03:19,816 --> 0:03:23,036
+After this, we split our data
+
+96
+00:03:23,036 --> 0:03:25,036
+into two sets, one used for
+
+97
+00:03:25,036 --> 0:03:26,476
+testing and one used for
+
+98
+00:03:26,476 --> 0:03:27,426
+training our model.
+
+99
+00:03:28,966 --> 0:03:31,606
+Next, we create our model with
+
+100
+00:03:31,606 --> 0:03:33,486
+just a single line of code for
+
+101
+00:03:33,486 --> 0:03:34,866
+running complicated machine
+
+102
+00:03:34,866 --> 0:03:35,756
+learning algorithms.
+
+103
+00:03:38,536 --> 0:03:40,686
+Next, we gather metrics as to
+
+104
+00:03:40,686 --> 0:03:42,206
+the performance of this model.
+
+105
+00:03:42,246 --> 0:03:46,536
+And finally, we save it to disk
+
+106
+00:03:46,636 --> 0:03:49,336
+for use within XCode and your
+
+107
+00:03:49,646 --> 0:03:50,286
+app.
+
+108
+00:03:51,366 --> 0:03:53,366
+Now we think one of the great
+
+109
+00:03:53,366 --> 0:03:55,056
+things about Turi Create is its
+
+110
+00:03:55,056 --> 0:03:56,716
+simple and consistent API.
+
+111
+00:03:57,726 --> 0:03:58,536
+So no matter whether you're
+
+112
+00:03:58,536 --> 0:04:01,446
+using an object detector, a
+
+113
+00:03:58,536 --> 0:04:01,446
+using an object detector, a
+
+114
+00:04:01,446 --> 0:04:04,146
+sound classifier, an activity
+
+115
+00:04:04,146 --> 0:04:06,096
+classifier, or any of our other
+
+116
+00:04:06,096 --> 0:04:08,006
+tasks, the API remains
+
+117
+00:04:08,036 --> 0:04:11,516
+consistent and easy to use.
+
+118
+00:04:11,716 --> 0:04:13,246
+Now I've mentioned these tasks
+
+119
+00:04:13,296 --> 0:04:15,066
+multiple times and I'd like to
+
+120
+00:04:15,116 --> 0:04:16,375
+cover the full collection that
+
+121
+00:04:16,375 --> 0:04:17,456
+Turi Create offers.
+
+122
+00:04:17,606 --> 0:04:21,076
+We offer tasks that work with
+
+123
+00:04:21,185 --> 0:04:25,646
+images and sound as well as user
+
+124
+00:04:25,646 --> 0:04:29,636
+activities and text.
+
+125
+00:04:29,796 --> 0:04:31,266
+We offer tasks that work with
+
+126
+00:04:31,316 --> 0:04:33,746
+user preferences and numeric
+
+127
+00:04:33,746 --> 0:04:33,976
+data.
+
+128
+00:04:34,506 --> 0:04:37,276
+And today we're extremely
+
+129
+00:04:37,276 --> 0:04:39,106
+excited to share with you two
+
+130
+00:04:39,106 --> 0:04:42,306
+brand new tasks.
+
+131
+00:04:42,306 --> 0:04:44,446
+First, we have our One-Shot
+
+132
+00:04:44,566 --> 0:04:45,786
+Object Detection task.
+
+133
+00:04:46,356 --> 0:04:48,206
+Now you may already be familiar
+
+134
+00:04:48,206 --> 0:04:49,266
+with object detection.
+
+135
+00:04:50,626 --> 0:04:52,086
+Object detection is the ability
+
+136
+00:04:52,086 --> 0:04:54,076
+to detect the presence and
+
+137
+00:04:54,076 --> 0:04:56,156
+location of specific objects
+
+138
+00:04:56,206 --> 0:04:56,886
+within a frame.
+
+139
+00:04:58,176 --> 0:05:00,056
+One-Shot Object Detection is a
+
+140
+00:04:58,176 --> 0:05:00,056
+One-Shot Object Detection is a
+
+141
+00:05:00,056 --> 0:05:01,226
+twist on this existing
+
+142
+00:05:01,226 --> 0:05:03,366
+framework, which depending on
+
+143
+00:05:03,366 --> 0:05:04,806
+the type of data that you're
+
+144
+00:05:04,806 --> 0:05:06,526
+attempting to detect, can
+
+145
+00:05:06,526 --> 0:05:07,866
+dramatically reduce the amount
+
+146
+00:05:07,866 --> 0:05:09,776
+of data needed to train a model.
+
+147
+00:05:12,186 --> 0:05:13,516
+Next, we have our Drawing
+
+148
+00:05:13,516 --> 0:05:14,616
+Classification task.
+
+149
+00:05:15,656 --> 0:05:18,056
+Using user input in the form of
+
+150
+00:05:18,056 --> 0:05:20,816
+a finger on screen or the Apple
+
+151
+00:05:20,816 --> 0:05:23,616
+Pencil, you can now attempt to
+
+152
+00:05:23,616 --> 0:05:25,636
+classify and understand what
+
+153
+00:05:25,636 --> 0:05:27,496
+your users have drawn into your
+
+154
+00:05:27,706 --> 0:05:28,446
+app.
+
+155
+00:05:29,016 --> 0:05:31,436
+Now I'd like to take a deep dive
+
+156
+00:05:31,576 --> 0:05:32,816
+into the One-Shot Object
+
+157
+00:05:32,816 --> 0:05:34,426
+Detection task.
+
+158
+00:05:35,036 --> 0:05:36,296
+Say you'd want to build an
+
+159
+00:05:36,296 --> 0:05:38,936
+application to take an image of
+
+160
+00:05:38,936 --> 0:05:40,316
+a player's hand in a game of
+
+161
+00:05:40,356 --> 0:05:42,446
+poker and to offer probabilities
+
+162
+00:05:42,486 --> 0:05:43,566
+that this hand would occur.
+
+163
+00:05:45,246 --> 0:05:46,976
+Or say you'd want to build an
+
+164
+00:05:46,976 --> 0:05:49,046
+application to take a picture of
+
+165
+00:05:49,046 --> 0:05:50,386
+your car's dashboard and to
+
+166
+00:05:50,386 --> 0:05:52,156
+attempt to understand what those
+
+167
+00:05:52,156 --> 0:05:53,566
+obscure icons may mean.
+
+168
+00:05:54,176 --> 0:05:56,796
+Or say you'd want to build an
+
+169
+00:05:56,796 --> 0:05:58,946
+app to detect company logos to
+
+170
+00:05:58,946 --> 0:06:00,426
+provide your users with more
+
+171
+00:05:58,946 --> 0:06:00,426
+provide your users with more
+
+172
+00:06:00,426 --> 0:06:02,396
+information about this company.
+
+173
+00:06:03,516 --> 0:06:04,686
+What do all three of these
+
+174
+00:06:04,686 --> 0:06:06,146
+applications have in common?
+
+175
+00:06:07,106 --> 0:06:09,606
+They're all trying to detect 2D
+
+176
+00:06:09,976 --> 0:06:11,186
+regular images.
+
+177
+00:06:12,616 --> 0:06:14,356
+One-Shot Object Detection is
+
+178
+00:06:14,356 --> 0:06:15,776
+able to take advantage of these
+
+179
+00:06:15,776 --> 0:06:17,606
+characteristics of regularity
+
+180
+00:06:17,606 --> 0:06:19,666
+and consistency to dramatically
+
+181
+00:06:19,666 --> 0:06:21,536
+reduce the amount of data needed
+
+182
+00:06:21,536 --> 0:06:22,706
+to build an accurate model.
+
+183
+00:06:23,916 --> 0:06:25,586
+So let's use this card counting
+
+184
+00:06:25,586 --> 0:06:27,076
+app, which Shantanu will build
+
+185
+00:06:27,076 --> 0:06:28,886
+for us in just a minute, as a
+
+186
+00:06:28,886 --> 0:06:30,766
+case study into how this works.
+
+187
+00:06:32,626 --> 0:06:34,856
+Originally in order to build an
+
+188
+00:06:34,856 --> 0:06:36,736
+object detection model, you
+
+189
+00:06:36,736 --> 0:06:38,226
+would need to collect vast
+
+190
+00:06:38,226 --> 0:06:39,986
+amounts of data of your object
+
+191
+00:06:40,036 --> 0:06:40,846
+in the real world.
+
+192
+00:06:41,456 --> 0:06:44,566
+In addition to this, you would
+
+193
+00:06:44,566 --> 0:06:46,246
+also need to annotate each of
+
+194
+00:06:46,246 --> 0:06:48,066
+these images with the location
+
+195
+00:06:48,066 --> 0:06:50,586
+in the frame of your image.
+
+196
+00:06:51,136 --> 0:06:53,646
+As you can see, this is an
+
+197
+00:06:53,646 --> 0:06:55,556
+incredibly data intensive and
+
+198
+00:06:55,556 --> 0:06:58,636
+time-consuming task.
+
+199
+00:06:58,636 --> 0:07:00,916
+So we built a better way.
+
+200
+00:06:58,636 --> 0:07:00,916
+So we built a better way.
+
+201
+00:07:02,416 --> 0:07:04,096
+With One-Shot Object Detection,
+
+202
+00:07:04,366 --> 0:07:06,096
+you now need as little as one
+
+203
+00:07:06,096 --> 0:07:07,966
+image per class that you're
+
+204
+00:07:07,966 --> 0:07:08,896
+attempting to detect.
+
+205
+00:07:09,806 --> 0:07:11,606
+So instead of dozens of images
+
+206
+00:07:11,966 --> 0:07:14,046
+of the Ace of Clubs, you now
+
+207
+00:07:14,046 --> 0:07:16,036
+need a single image in order to
+
+208
+00:07:16,036 --> 0:07:17,686
+build a reliable and accurate
+
+209
+00:07:17,686 --> 0:07:17,976
+model.
+
+210
+00:07:18,196 --> 0:07:20,196
+[ Applause ]
+
+211
+00:07:20,376 --> 0:07:20,636
+Thank you.
+
+212
+00:07:21,466 --> 0:07:23,466
+[ Applause ]
+
+213
+00:07:23,916 --> 0:07:24,926
+So let's talk about how this
+
+214
+00:07:24,926 --> 0:07:26,066
+works behind the scenes.
+
+215
+00:07:26,966 --> 0:07:28,486
+This works with a process called
+
+216
+00:07:28,486 --> 0:07:30,356
+Synthetic Data Augmentation.
+
+217
+00:07:31,356 --> 0:07:32,566
+Turi Create ships with a
+
+218
+00:07:32,606 --> 0:07:34,606
+collection of images of the real
+
+219
+00:07:34,606 --> 0:07:34,976
+world.
+
+220
+00:07:35,906 --> 0:07:37,806
+We then take your source image
+
+221
+00:07:37,876 --> 0:07:39,566
+that you have supplied and
+
+222
+00:07:39,566 --> 0:07:41,616
+overlay onto these real-world
+
+223
+00:07:41,616 --> 0:07:43,676
+images along with various color
+
+224
+00:07:43,676 --> 0:07:45,876
+perturbations and distortions to
+
+225
+00:07:45,916 --> 0:07:47,736
+simulate real world effects.
+
+226
+00:07:49,186 --> 0:07:50,686
+In addition to this, there's
+
+227
+00:07:50,686 --> 0:07:52,846
+absolutely no need to annotate
+
+228
+00:07:53,046 --> 0:07:54,916
+these images as our algorithms
+
+229
+00:07:54,916 --> 0:07:56,456
+do that for you automatically.
+
+230
+00:07:58,936 --> 0:08:01,276
+Now One-Shot Object Detection
+
+231
+00:07:58,936 --> 0:08:01,276
+Now One-Shot Object Detection
+
+232
+00:08:01,516 --> 0:08:03,256
+works with 2D objects only.
+
+233
+00:08:04,076 --> 0:08:06,306
+It requires very little data and
+
+234
+00:08:06,306 --> 0:08:08,026
+absolutely no annotation.
+
+235
+00:08:08,846 --> 0:08:10,276
+However, if you're wanting to
+
+236
+00:08:10,276 --> 0:08:12,316
+detect an object that is
+
+237
+00:08:12,316 --> 0:08:14,036
+potentially 3D or more
+
+238
+00:08:14,036 --> 0:08:15,876
+irregular, you may be interested
+
+239
+00:08:15,876 --> 0:08:17,266
+in our more traditional object
+
+240
+00:08:17,356 --> 0:08:18,176
+detection framework.
+
+241
+00:08:18,686 --> 0:08:21,646
+Now let's take a look at this in
+
+242
+00:08:21,646 --> 0:08:21,986
+code.
+
+243
+00:08:22,886 --> 0:08:24,916
+As you'd expect, our API is
+
+244
+00:08:24,916 --> 0:08:26,776
+incredibly consistent with our
+
+245
+00:08:26,776 --> 0:08:29,286
+other tasks using just a single
+
+246
+00:08:29,286 --> 0:08:31,286
+line of code with our dot create
+
+247
+00:08:31,286 --> 0:08:33,346
+method to train an incredibly
+
+248
+00:08:33,346 --> 0:08:34,066
+accurate model.
+
+249
+00:08:34,066 --> 0:08:37,326
+And now with code up on the
+
+250
+00:08:37,366 --> 0:08:38,866
+screen, I'd like to invite my
+
+251
+00:08:38,866 --> 0:08:40,576
+colleague, Shantanu to talk to
+
+252
+00:08:40,576 --> 0:08:42,296
+you about our Three Card Poker
+
+253
+00:08:42,296 --> 0:08:43,166
+App and to give you a
+
+254
+00:08:43,166 --> 0:08:44,566
+demonstration of this in the
+
+255
+00:08:44,566 --> 0:08:45,086
+real world.
+
+256
+00:08:45,166 --> 0:08:45,976
+Shantanu.
+
+257
+00:08:46,516 --> 0:08:51,646
+[ Applause ]
+
+258
+00:08:52,146 --> 0:08:52,746
+&gt;&gt; Thanks Sam.
+
+259
+00:08:53,646 --> 0:08:54,606
+Good morning everyone.
+
+260
+00:08:54,736 --> 0:08:58,276
+Welcome to the last day of WWDC.
+
+261
+00:08:58,436 --> 0:09:02,336
+Now I'm super excited to give
+
+262
+00:08:58,436 --> 0:09:02,336
+Now I'm super excited to give
+
+263
+00:09:02,336 --> 0:09:03,466
+you a first look into the
+
+264
+00:09:03,466 --> 0:09:04,836
+One-Shot Object Detector.
+
+265
+00:09:05,966 --> 0:09:08,616
+The thing is, Sam and I play a
+
+266
+00:09:08,616 --> 0:09:10,206
+lot of three card poker at work.
+
+267
+00:09:11,106 --> 0:09:12,706
+And to be honest, I'm getting a
+
+268
+00:09:12,706 --> 0:09:14,096
+little too tired of winning all
+
+269
+00:09:14,096 --> 0:09:14,526
+the time.
+
+270
+00:09:15,126 --> 0:09:17,276
+So I thought, you know today on
+
+271
+00:09:17,276 --> 0:09:18,796
+stage, why don't we build an app
+
+272
+00:09:19,046 --> 0:09:21,486
+for Sam that helps him, that
+
+273
+00:09:21,486 --> 0:09:23,916
+tells him what his hand is, and
+
+274
+00:09:23,916 --> 0:09:24,736
+you know, helps him make a
+
+275
+00:09:24,736 --> 0:09:25,446
+better decision.
+
+276
+00:09:26,356 --> 0:09:28,326
+Now to build an app like that,
+
+277
+00:09:28,326 --> 0:09:30,126
+we'd need a Core ML model that
+
+278
+00:09:30,126 --> 0:09:32,136
+can detect all the cards in your
+
+279
+00:09:32,136 --> 0:09:32,696
+playing deck.
+
+280
+00:09:33,536 --> 0:09:35,076
+So why don't we just go ahead
+
+281
+00:09:35,076 --> 0:09:36,006
+and write some code to build
+
+282
+00:09:36,006 --> 0:09:36,786
+that?
+
+283
+00:09:37,406 --> 0:09:39,866
+Okay, so here I have a blank
+
+284
+00:09:39,866 --> 0:09:41,146
+Jupyter Notebook which is an
+
+285
+00:09:41,146 --> 0:09:42,756
+interactive Python environment
+
+286
+00:09:42,756 --> 0:09:44,286
+to write some code and
+
+287
+00:09:44,286 --> 0:09:45,966
+immediately see the output of
+
+288
+00:09:45,966 --> 0:09:47,786
+your code after that.
+
+289
+00:09:47,786 --> 0:09:49,166
+And we're going to use that to
+
+290
+00:09:49,166 --> 0:09:49,986
+write some code today.
+
+291
+00:09:50,866 --> 0:09:52,376
+Now the first line of code that
+
+292
+00:09:52,376 --> 0:09:54,096
+we write, and this is our
+
+293
+00:09:54,096 --> 0:09:55,926
+favorite line of code, it's
+
+294
+00:09:56,156 --> 0:09:59,586
+import turicreate as tc.
+
+295
+00:10:00,046 --> 0:10:01,206
+And I need to select the cell
+
+296
+00:10:01,206 --> 0:10:04,506
+before I write that.
+
+297
+00:10:04,506 --> 0:10:06,706
+And this will be your favorite
+
+298
+00:10:06,706 --> 0:10:09,236
+line too after this session.
+
+299
+00:10:09,236 --> 0:10:10,506
+Next, I'm going to switch to
+
+300
+00:10:10,616 --> 0:10:12,606
+Finder to take a look at all our
+
+301
+00:10:12,876 --> 0:10:15,846
+starter images and it looks like
+
+302
+00:10:15,846 --> 0:10:17,376
+we have a bunch of cards here
+
+303
+00:10:17,376 --> 0:10:19,026
+where the playing card spans the
+
+304
+00:10:19,026 --> 0:10:20,316
+entire frame of the image.
+
+305
+00:10:20,316 --> 0:10:22,226
+We have an Ace of Clubs, an Ace
+
+306
+00:10:22,226 --> 0:10:24,936
+of Diamonds, Ace of Hearts, Five
+
+307
+00:10:24,936 --> 0:10:27,386
+of Hearts, and we have a lot of
+
+308
+00:10:27,386 --> 0:10:27,916
+images here.
+
+309
+00:10:29,026 --> 0:10:30,916
+So why don't we go ahead and
+
+310
+00:10:30,916 --> 0:10:32,466
+load this up into an SFrame?
+
+311
+00:10:33,446 --> 0:10:35,506
+An SFrame is Turi Create's
+
+312
+00:10:35,706 --> 0:10:37,276
+scalable data structure.
+
+313
+00:10:37,276 --> 0:10:38,706
+It's tabular and it's to
+
+314
+00:10:38,806 --> 0:10:40,286
+represent all the data that you
+
+315
+00:10:40,286 --> 0:10:40,476
+have.
+
+316
+00:10:41,616 --> 0:10:42,766
+So we're going to create a
+
+317
+00:10:42,766 --> 0:10:44,486
+variable called starter images
+
+318
+00:10:44,806 --> 0:10:46,056
+and Turi Create has this
+
+319
+00:10:46,056 --> 0:10:47,646
+functionality to load images,
+
+320
+00:10:48,036 --> 0:10:49,846
+where you just pass in the --
+
+321
+00:10:50,096 --> 0:10:51,786
+directly that contains all your
+
+322
+00:10:51,786 --> 0:10:53,416
+images and it builds an SFrame
+
+323
+00:10:53,416 --> 0:10:54,466
+out of that on its own.
+
+324
+00:10:54,876 --> 0:10:57,556
+Now let's take a look at what
+
+325
+00:10:57,556 --> 0:10:59,066
+the starter image SFrame looks
+
+326
+00:10:59,066 --> 0:10:59,286
+like.
+
+327
+00:11:00,376 --> 0:11:01,716
+Alright, so there are two
+
+328
+00:11:01,716 --> 0:11:02,886
+columns in this SFrame.
+
+329
+00:11:02,886 --> 0:11:04,336
+There's a path column and an
+
+330
+00:11:04,336 --> 0:11:05,026
+image column.
+
+331
+00:11:05,026 --> 0:11:07,386
+The path column contains the
+
+332
+00:11:07,386 --> 0:11:08,876
+relative path to the image that
+
+333
+00:11:08,876 --> 0:11:09,986
+is in the image column.
+
+334
+00:11:10,986 --> 0:11:12,406
+Looks good but the path column
+
+335
+00:11:12,406 --> 0:11:13,906
+has this redundant .
+
+336
+00:11:14,616 --> 0:11:15,696
+/ and .png.
+
+337
+00:11:16,016 --> 0:11:18,126
+So let's write a quick code
+
+338
+00:11:18,126 --> 0:11:19,826
+snippet to get rid of that.
+
+339
+00:11:20,476 --> 0:11:22,576
+So we're going to create another
+
+340
+00:11:22,576 --> 0:11:24,436
+column in the starter image's
+
+341
+00:11:24,486 --> 0:11:26,236
+SFrame and call that label and
+
+342
+00:11:26,416 --> 0:11:27,736
+we're going to write some code
+
+343
+00:11:27,736 --> 0:11:30,706
+to extract the label out of the
+
+344
+00:11:31,376 --> 0:11:31,746
+path.
+
+345
+00:11:31,746 --> 0:11:33,296
+And we're going to use something
+
+346
+00:11:33,296 --> 0:11:35,206
+like a Python slice applied to
+
+347
+00:11:35,206 --> 0:11:36,806
+all the elements in the SFrame
+
+348
+00:11:37,106 --> 0:11:38,406
+-- in the column of the SFrame.
+
+349
+00:11:39,506 --> 0:11:41,306
+So we do an element slice from
+
+350
+00:11:41,306 --> 0:11:42,956
+the second index to the negative
+
+351
+00:11:42,956 --> 0:11:44,666
+four index similar to a Python
+
+352
+00:11:44,666 --> 0:11:45,016
+slice.
+
+353
+00:11:46,606 --> 0:11:48,606
+And next, let's explore this
+
+354
+00:11:48,606 --> 0:11:48,876
+SFrame.
+
+355
+00:11:49,826 --> 0:11:51,166
+Turi Create has an explore
+
+356
+00:11:51,166 --> 0:11:52,866
+functionality on the SFrame,
+
+357
+00:11:52,976 --> 0:11:54,126
+which we're going to take a look
+
+358
+00:11:54,126 --> 0:11:54,296
+at.
+
+359
+00:11:54,996 --> 0:11:56,216
+This pops up, a new
+
+360
+00:11:56,216 --> 0:11:57,866
+visualization window, which
+
+361
+00:11:57,866 --> 0:11:59,716
+gives us a way to interactively
+
+362
+00:11:59,716 --> 0:12:01,536
+explore all the data that is in
+
+363
+00:11:59,716 --> 0:12:01,536
+explore all the data that is in
+
+364
+00:12:01,536 --> 0:12:02,086
+our SFrame.
+
+365
+00:12:03,196 --> 0:12:05,126
+And as we can see, there's three
+
+366
+00:12:05,126 --> 0:12:05,726
+column here.
+
+367
+00:12:05,906 --> 0:12:07,326
+There's a path, image, and
+
+368
+00:12:07,326 --> 0:12:07,626
+label.
+
+369
+00:12:08,096 --> 0:12:09,046
+And it looks like we did
+
+370
+00:12:09,046 --> 0:12:10,736
+successfully extract the label
+
+371
+00:12:10,736 --> 0:12:11,746
+out of the path.
+
+372
+00:12:11,746 --> 0:12:13,306
+We did get rid of the .
+
+373
+00:12:13,306 --> 0:12:13,776
+/ and .png.
+
+374
+00:12:14,136 --> 0:12:15,336
+We can also take a look at all
+
+375
+00:12:15,336 --> 0:12:16,816
+the thumbnails of our images in
+
+376
+00:12:16,816 --> 0:12:18,116
+this SFrame which we one day
+
+377
+00:12:18,116 --> 0:12:19,136
+will do when we just printed it
+
+378
+00:12:19,136 --> 0:12:19,396
+out.
+
+379
+00:12:20,316 --> 0:12:23,496
+Great. How many rows are in this
+
+380
+00:12:23,536 --> 0:12:23,876
+SFrame?
+
+381
+00:12:24,276 --> 0:12:26,696
+Let's take a look at that.
+
+382
+00:12:26,696 --> 0:12:28,086
+So it looks like there are 52
+
+383
+00:12:28,086 --> 0:12:31,186
+rows and that's the number of
+
+384
+00:12:31,256 --> 0:12:32,546
+cards in our playing card deck.
+
+385
+00:12:32,546 --> 0:12:33,566
+So that looks good.
+
+386
+00:12:33,566 --> 0:12:36,486
+But the important thing to note
+
+387
+00:12:36,486 --> 0:12:39,646
+here is that it's one image per
+
+388
+00:12:39,646 --> 0:12:41,776
+class of the object that we're
+
+389
+00:12:41,776 --> 0:12:42,416
+trying to detect.
+
+390
+00:12:43,846 --> 0:12:45,476
+Now we looked at the data.
+
+391
+00:12:45,476 --> 0:12:46,516
+We've looked at the task.
+
+392
+00:12:46,516 --> 0:12:47,656
+We know the task is One-Shot
+
+393
+00:12:47,656 --> 0:12:48,446
+Object Detection.
+
+394
+00:12:49,006 --> 0:12:50,506
+The next step in our five-step
+
+395
+00:12:50,556 --> 0:12:52,326
+biplane is to take a look at the
+
+396
+00:12:52,326 --> 0:12:53,576
+model creation process.
+
+397
+00:12:54,696 --> 0:12:56,206
+And consistent with all our
+
+398
+00:12:56,206 --> 0:12:57,516
+other toolkits, the model
+
+399
+00:12:57,516 --> 0:12:59,166
+creation process looks something
+
+400
+00:12:59,166 --> 0:12:59,466
+like
+
+401
+00:12:59,976 --> 0:13:02,186
+tc.oneshotobjectdetector.create
+
+402
+00:12:59,976 --> 0:13:02,186
+tc.oneshotobjectdetector.create
+
+403
+00:13:03,656 --> 0:13:05,046
+and we pass in the starter
+
+404
+00:13:05,046 --> 0:13:07,336
+images SFrame as well as the
+
+405
+00:13:07,336 --> 0:13:08,576
+target column, which is in this
+
+406
+00:13:08,576 --> 0:13:09,436
+case, is label.
+
+407
+00:13:10,286 --> 0:13:11,336
+But I won't run this line of
+
+408
+00:13:11,336 --> 0:13:13,996
+code because this take a while
+
+409
+00:13:13,996 --> 0:13:15,566
+and what it does behind the
+
+410
+00:13:15,566 --> 0:13:17,776
+scenes is it not only generate
+
+411
+00:13:17,776 --> 0:13:19,596
+all the synthetic data by
+
+412
+00:13:19,596 --> 0:13:21,306
+applying different projections
+
+413
+00:13:21,306 --> 0:13:22,566
+on your starter images,
+
+414
+00:13:22,916 --> 0:13:24,326
+superimposing them on random
+
+415
+00:13:24,326 --> 0:13:25,586
+backgrounds and applying color
+
+416
+00:13:25,586 --> 0:13:27,296
+perturbations, but it also
+
+417
+00:13:27,296 --> 0:13:28,986
+trains a model after that.
+
+418
+00:13:29,576 --> 0:13:31,586
+So instead, we're going to
+
+419
+00:13:31,586 --> 0:13:33,256
+switch to a Cooking Show Mode,
+
+420
+00:13:33,366 --> 0:13:34,456
+where we're going to load a
+
+421
+00:13:34,456 --> 0:13:35,726
+model that we've already baked
+
+422
+00:13:35,726 --> 0:13:37,456
+in the oven sometime.
+
+423
+00:13:38,036 --> 0:13:39,696
+So let's use the load model
+
+424
+00:13:39,696 --> 0:13:42,606
+functionality and it's called
+
+425
+00:13:42,686 --> 0:13:43,996
+carddetector.model.
+
+426
+00:13:43,996 --> 0:13:46,896
+Let's see what this model looks
+
+427
+00:13:46,896 --> 0:13:47,186
+like.
+
+428
+00:13:48,276 --> 0:13:49,606
+So it looks like it's a One-Shot
+
+429
+00:13:49,606 --> 0:13:51,886
+Object Detector trained on 52
+
+430
+00:13:51,886 --> 0:13:52,406
+classes.
+
+431
+00:13:53,306 --> 0:13:54,246
+But hold on.
+
+432
+00:13:54,386 --> 0:13:55,626
+The number of synthetically
+
+433
+00:13:55,626 --> 0:13:58,616
+generated examples is 104,000.
+
+434
+00:13:58,616 --> 0:14:00,696
+That's strange.
+
+435
+00:13:58,616 --> 0:14:00,696
+That's strange.
+
+436
+00:14:00,846 --> 0:14:02,576
+We just provided 52 images.
+
+437
+00:14:04,056 --> 0:14:06,636
+The toolkit automatically
+
+438
+00:14:06,716 --> 0:14:08,876
+synthetically generated 2,000
+
+439
+00:14:08,876 --> 0:14:12,506
+images per class and created a
+
+440
+00:14:12,506 --> 0:14:14,836
+training set of 104,000.
+
+441
+00:14:14,836 --> 0:14:16,556
+And that's not it.
+
+442
+00:14:17,476 --> 0:14:19,466
+It also synthetically generated
+
+443
+00:14:19,466 --> 0:14:21,406
+bounding boxes for all the data
+
+444
+00:14:21,406 --> 0:14:22,876
+that it generated because the
+
+445
+00:14:22,876 --> 0:14:24,256
+toolkit generated the data
+
+446
+00:14:24,256 --> 0:14:24,616
+itself.
+
+447
+00:14:25,786 --> 0:14:26,796
+That's pretty insane.
+
+448
+00:14:27,516 --> 0:14:32,116
+[ Applause ]
+
+449
+00:14:32,616 --> 0:14:35,146
+So we've looked at our model.
+
+450
+00:14:35,296 --> 0:14:37,096
+The next step is let's small
+
+451
+00:14:37,096 --> 0:14:39,056
+test this model on an image that
+
+452
+00:14:39,056 --> 0:14:40,176
+the model hasn't seen before.
+
+453
+00:14:41,506 --> 0:14:42,856
+So I'm going to load up a test
+
+454
+00:14:42,856 --> 0:14:43,256
+image.
+
+455
+00:14:43,566 --> 0:14:47,266
+And I have a test directory
+
+456
+00:14:47,896 --> 0:14:49,316
+which contains a test image.
+
+457
+00:14:49,826 --> 0:14:51,846
+And it's definitely not Sam's
+
+458
+00:14:51,846 --> 0:14:53,146
+hand and you'll see why that it
+
+459
+00:14:53,146 --> 0:14:54,946
+is when I show you what this
+
+460
+00:14:54,946 --> 0:14:55,686
+test image is.
+
+461
+00:14:56,176 --> 0:14:59,906
+Yeah, Sam never gets this lucky.
+
+462
+00:14:59,906 --> 0:15:03,346
+This is probably my hand.
+
+463
+00:14:59,906 --> 0:15:03,346
+This is probably my hand.
+
+464
+00:15:03,666 --> 0:15:04,296
+It's a Flush.
+
+465
+00:15:04,646 --> 0:15:05,786
+So anyway, we can see that
+
+466
+00:15:05,786 --> 0:15:06,926
+there's an Eight of Clubs, a
+
+467
+00:15:06,926 --> 0:15:08,066
+Nine of Clubs, and a Ten of
+
+468
+00:15:08,116 --> 0:15:09,066
+Clubs in this image.
+
+469
+00:15:09,936 --> 0:15:12,546
+Let's see if the model agrees
+
+470
+00:15:12,546 --> 0:15:13,626
+with us.
+
+471
+00:15:14,776 --> 0:15:16,286
+So we're going to call the
+
+472
+00:15:16,286 --> 0:15:18,096
+predict method on the model and
+
+473
+00:15:18,096 --> 0:15:19,576
+pass in our test image.
+
+474
+00:15:19,756 --> 0:15:21,736
+And let's save this result in
+
+475
+00:15:21,736 --> 0:15:23,016
+variable called prediction.
+
+476
+00:15:25,106 --> 0:15:26,646
+And next, let's print this
+
+477
+00:15:26,646 --> 0:15:28,746
+prediction out.
+
+478
+00:15:29,016 --> 0:15:30,766
+Okay. Let's take that in.
+
+479
+00:15:31,456 --> 0:15:33,166
+So it looks like there are three
+
+480
+00:15:33,166 --> 0:15:35,326
+dictionaries in this list and
+
+481
+00:15:35,376 --> 0:15:37,136
+each dictionary represents a
+
+482
+00:15:37,136 --> 0:15:38,666
+bounding box that is part of the
+
+483
+00:15:38,666 --> 0:15:39,286
+prediction.
+
+484
+00:15:40,036 --> 0:15:41,096
+Let's go through the fields in
+
+485
+00:15:41,096 --> 0:15:41,716
+each prediction.
+
+486
+00:15:41,716 --> 0:15:42,376
+It looks like there's a
+
+487
+00:15:42,376 --> 0:15:43,526
+confidence, there's a
+
+488
+00:15:43,566 --> 0:15:45,996
+coordinates, a label, and a
+
+489
+00:15:45,996 --> 0:15:46,216
+type.
+
+490
+00:15:47,366 --> 0:15:49,116
+Confidence represents how
+
+491
+00:15:49,116 --> 0:15:51,766
+confident the model is in this
+
+492
+00:15:51,766 --> 0:15:52,416
+bounding box.
+
+493
+00:15:52,916 --> 0:15:54,036
+Coordinates represents the
+
+494
+00:15:54,036 --> 0:15:56,116
+coordinates of the bounding box.
+
+495
+00:15:56,766 --> 0:15:58,886
+Label is what class label
+
+496
+00:15:58,886 --> 0:16:00,366
+belongs to this bounding box.
+
+497
+00:15:58,886 --> 0:16:00,366
+belongs to this bounding box.
+
+498
+00:16:00,366 --> 0:16:01,366
+And type is what type of
+
+499
+00:16:01,366 --> 0:16:02,426
+bounding box it is, which it's
+
+500
+00:16:02,496 --> 0:16:02,996
+rectangle.
+
+501
+00:16:03,256 --> 0:16:05,126
+That looks great.
+
+502
+00:16:05,476 --> 0:16:07,286
+And we can see that the model
+
+503
+00:16:07,286 --> 0:16:08,606
+did detect the Ten of Clubs and
+
+504
+00:16:08,606 --> 0:16:09,606
+Eight of Clubs and the Nine of
+
+505
+00:16:09,656 --> 0:16:09,956
+Clubs.
+
+506
+00:16:10,676 --> 0:16:12,096
+But it doesn't really tell us
+
+507
+00:16:12,316 --> 0:16:14,486
+what location the model detected
+
+508
+00:16:14,486 --> 0:16:15,066
+it in.
+
+509
+00:16:15,786 --> 0:16:17,686
+So let's use a utility that the
+
+510
+00:16:17,686 --> 0:16:20,106
+One-Shot Object Detector has to
+
+511
+00:16:20,106 --> 0:16:22,646
+draw bounding boxes and we'll
+
+512
+00:16:22,646 --> 0:16:24,296
+pass in the test image along
+
+513
+00:16:24,296 --> 0:16:25,636
+with annotations, which in this
+
+514
+00:16:25,706 --> 0:16:26,716
+case, is the prediction.
+
+515
+00:16:28,366 --> 0:16:30,646
+And let's call this annotated
+
+516
+00:16:31,266 --> 0:16:31,766
+image.
+
+517
+00:16:34,566 --> 0:16:36,756
+And next, let's print this
+
+518
+00:16:36,756 --> 0:16:37,686
+annotated image out.
+
+519
+00:16:38,516 --> 0:16:40,956
+[ Applause ]
+
+520
+00:16:41,456 --> 0:16:42,546
+Yeah that looks pretty good.
+
+521
+00:16:43,406 --> 0:16:44,876
+On an image that the model has
+
+522
+00:16:44,876 --> 0:16:46,876
+never seen before, an Eight of
+
+523
+00:16:46,876 --> 0:16:48,036
+Clubs with 70 percent
+
+524
+00:16:48,036 --> 0:16:49,366
+confidence, a Ten of Clubs with
+
+525
+00:16:49,366 --> 0:16:50,836
+91 percent, and Nine of Clubs at
+
+526
+00:16:50,836 --> 0:16:51,676
+69 percent.
+
+527
+00:16:52,256 --> 0:16:54,036
+And notice how all the bounding
+
+528
+00:16:54,036 --> 0:16:57,016
+boxes perfectly capture all the
+
+529
+00:16:57,016 --> 0:16:57,406
+clubs.
+
+530
+00:17:00,146 --> 0:17:02,446
+So we've small tested this model
+
+531
+00:17:02,656 --> 0:17:04,146
+on a test image that the model
+
+532
+00:17:04,146 --> 0:17:05,066
+never saw before.
+
+533
+00:17:05,606 --> 0:17:07,526
+The last step is deployment on
+
+534
+00:17:07,526 --> 0:17:08,066
+device.
+
+535
+00:17:08,566 --> 0:17:10,506
+And like all our other toolkits,
+
+536
+00:17:10,566 --> 0:17:12,386
+the model has a method to export
+
+537
+00:17:12,386 --> 0:17:12,976
+Core ML.
+
+538
+00:17:13,516 --> 0:17:14,935
+And let's call this Core ML
+
+539
+00:17:14,935 --> 0:17:17,986
+model CardDetector.mlmodel.
+
+540
+00:17:20,316 --> 0:17:22,205
+And next, let's open this
+
+541
+00:17:22,286 --> 0:17:27,935
+CardDetector.mlmodel in XCode.
+
+542
+00:17:28,006 --> 0:17:30,496
+Alright. So we can see that we
+
+543
+00:17:30,496 --> 0:17:32,386
+have a CardDetector model which
+
+544
+00:17:32,386 --> 0:17:35,076
+is trained by Turi Create 5.6.
+
+545
+00:17:35,886 --> 0:17:37,436
+The inputs are image, which is a
+
+546
+00:17:37,436 --> 0:17:40,126
+416 x 416 color image and
+
+547
+00:17:40,126 --> 0:17:42,146
+confidence is representative of
+
+548
+00:17:42,146 --> 0:17:43,796
+how many classes the model was
+
+549
+00:17:43,796 --> 0:17:45,506
+trained on and coordinates
+
+550
+00:17:45,656 --> 0:17:46,776
+represents the coordinates of
+
+551
+00:17:46,776 --> 0:17:48,436
+the bounding box of the classes.
+
+552
+00:17:49,906 --> 0:17:50,526
+This looks good.
+
+553
+00:17:50,526 --> 0:17:52,606
+It looks like a very good Core
+
+554
+00:17:52,606 --> 0:17:53,326
+ML model.
+
+555
+00:17:54,006 --> 0:17:56,246
+But why don't we have some fun
+
+556
+00:17:56,306 --> 0:17:58,486
+and put this into action in an
+
+557
+00:17:58,756 --> 0:18:00,626
+app that Sam can use next time
+
+558
+00:17:58,756 --> 0:18:00,626
+app that Sam can use next time
+
+559
+00:18:00,626 --> 0:18:01,656
+he plays three card poker
+
+560
+00:18:01,656 --> 0:18:02,806
+against me.
+
+561
+00:18:03,976 --> 0:18:06,006
+Alright. And here's my Three
+
+562
+00:18:06,006 --> 0:18:07,106
+Card Poker app.
+
+563
+00:18:07,426 --> 0:18:08,946
+So it says add an image to
+
+564
+00:18:08,946 --> 0:18:09,746
+evaluate cards.
+
+565
+00:18:09,976 --> 0:18:11,246
+Here I have a deck of cards and
+
+566
+00:18:11,246 --> 0:18:12,396
+I'm just going to randomly draw
+
+567
+00:18:12,396 --> 0:18:12,836
+from this.
+
+568
+00:18:12,986 --> 0:18:17,706
+And this will be Sam's hand.
+
+569
+00:18:19,216 --> 0:18:20,876
+So let's take a photo right
+
+570
+00:18:20,876 --> 0:18:21,146
+here.
+
+571
+00:18:22,436 --> 0:18:24,776
+So it looks like there's -- this
+
+572
+00:18:24,776 --> 0:18:26,126
+looks like one of the best hands
+
+573
+00:18:26,126 --> 0:18:27,356
+Sam has gotten in a while.
+
+574
+00:18:31,656 --> 0:18:33,196
+Alright. So it looks like the
+
+575
+00:18:33,196 --> 0:18:34,426
+model thinks there's a Five of
+
+576
+00:18:34,486 --> 0:18:35,826
+Clubs, a Three of Hearts, and a
+
+577
+00:18:35,826 --> 0:18:36,426
+King of Hearts.
+
+578
+00:18:36,936 --> 0:18:38,206
+And it also detected it was a
+
+579
+00:18:38,206 --> 0:18:38,746
+hard card.
+
+580
+00:18:38,786 --> 0:18:39,786
+The probability of which is
+
+581
+00:18:39,786 --> 0:18:40,976
+74.39 percent.
+
+582
+00:18:41,391 --> 0:18:43,391
+[ Applause ]
+
+583
+00:18:43,766 --> 0:18:48,166
+Yeah. Now given that it's a high
+
+584
+00:18:48,166 --> 0:18:50,146
+card, Sam should probably fold
+
+585
+00:18:50,146 --> 0:18:51,396
+because it's pretty likely to
+
+586
+00:18:51,396 --> 0:18:52,036
+get a high card.
+
+587
+00:18:52,036 --> 0:18:53,526
+But just for fun, let's see what
+
+588
+00:18:53,526 --> 0:18:54,026
+I got.
+
+589
+00:18:59,056 --> 0:19:01,316
+Yeah, that's -- well let's take
+
+590
+00:18:59,056 --> 0:19:01,316
+Yeah, that's -- well let's take
+
+591
+00:19:01,316 --> 0:19:02,486
+a picture and then talk about my
+
+592
+00:19:02,516 --> 0:19:02,816
+hand.
+
+593
+00:19:07,316 --> 0:19:08,616
+I have a Flush.
+
+594
+00:19:08,686 --> 0:19:09,976
+Nine of Hearts, Six of Hearts,
+
+595
+00:19:09,976 --> 0:19:13,066
+and Four of Hearts.
+
+596
+00:19:13,066 --> 0:19:14,476
+So even though we built this app
+
+597
+00:19:14,586 --> 0:19:17,786
+for Sam, we do sort of -- I'm
+
+598
+00:19:17,786 --> 0:19:19,126
+still reaping the benefits of
+
+599
+00:19:19,936 --> 0:19:20,056
+it.
+
+600
+00:19:21,166 --> 0:19:22,746
+Alright. So that was it for the
+
+601
+00:19:22,746 --> 0:19:23,826
+Card Detector Demo.
+
+602
+00:19:23,826 --> 0:19:28,946
+And to sort of recap, we started
+
+603
+00:19:28,946 --> 0:19:32,766
+with one image per class.
+
+604
+00:19:33,976 --> 0:19:35,746
+We just called one line of code
+
+605
+00:19:36,466 --> 0:19:37,606
+that automatically,
+
+606
+00:19:37,696 --> 0:19:39,056
+synthetically generated a
+
+607
+00:19:39,056 --> 0:19:40,166
+training data set for us.
+
+608
+00:19:40,226 --> 0:19:41,006
+Trained a model.
+
+609
+00:19:41,916 --> 0:19:44,196
+We then small tested it on a
+
+610
+00:19:44,196 --> 0:19:45,456
+random image the model had never
+
+611
+00:19:45,526 --> 0:19:46,176
+seen before.
+
+612
+00:19:46,176 --> 0:19:49,346
+And we then saw it in an app.
+
+613
+00:19:49,346 --> 0:19:51,126
+And this is just one example of
+
+614
+00:19:51,126 --> 0:19:53,286
+the kind of user experience that
+
+615
+00:19:53,286 --> 0:19:53,846
+you can build.
+
+616
+00:19:54,966 --> 0:19:57,046
+We were thrilled with the sort
+
+617
+00:19:57,046 --> 0:19:58,316
+of stuff you built last year
+
+618
+00:19:58,316 --> 0:20:00,256
+with the Object Detector and
+
+619
+00:19:58,316 --> 0:20:00,256
+with the Object Detector and
+
+620
+00:20:00,496 --> 0:20:02,556
+that sort of led us to build
+
+621
+00:20:02,556 --> 0:20:04,716
+this toolkit because we wanted
+
+622
+00:20:04,716 --> 0:20:06,456
+to reduce your overhead on data
+
+623
+00:20:06,456 --> 0:20:07,866
+collection and annotation.
+
+624
+00:20:08,256 --> 0:20:09,316
+That time has gone down from
+
+625
+00:20:09,316 --> 0:20:10,436
+like, I don't know, a few days
+
+626
+00:20:10,436 --> 0:20:13,886
+to like five minutes and only
+
+627
+00:20:13,886 --> 0:20:14,926
+for 2D objects though.
+
+628
+00:20:15,916 --> 0:20:17,856
+And we can't wait to see what
+
+629
+00:20:17,856 --> 0:20:18,786
+you build with the One-Shot
+
+630
+00:20:18,786 --> 0:20:19,506
+Object Detector.
+
+631
+00:20:19,966 --> 0:20:21,636
+So feel free to come to our labs
+
+632
+00:20:21,666 --> 0:20:23,026
+and try this demo out live.
+
+633
+00:20:23,196 --> 0:20:24,886
+We will be really excited to
+
+634
+00:20:24,886 --> 0:20:25,936
+have you.
+
+635
+00:20:25,936 --> 0:20:29,066
+And with that, I'm going to move
+
+636
+00:20:29,066 --> 0:20:31,236
+onto to our next toolkit for
+
+637
+00:20:32,796 --> 0:20:32,936
+today.
+
+638
+00:20:33,106 --> 0:20:34,556
+I'm really excited to talk to
+
+639
+00:20:34,556 --> 0:20:35,126
+you about the Drawing
+
+640
+00:20:35,126 --> 0:20:35,656
+Classifier.
+
+641
+00:20:37,516 --> 0:20:40,836
+So far Turi Create has enabled
+
+642
+00:20:40,836 --> 0:20:42,726
+you to build apps with sound
+
+643
+00:20:42,726 --> 0:20:46,686
+input, raw sensor data input,
+
+644
+00:20:48,456 --> 0:20:49,456
+and images.
+
+645
+00:20:52,116 --> 0:20:55,046
+Today, we're adding a new form
+
+646
+00:20:55,046 --> 0:20:56,966
+of input, the Apple Pencil.
+
+647
+00:20:57,516 --> 0:21:00,566
+[ Applause ]
+
+648
+00:20:57,516 --> 0:21:00,566
+[ Applause ]
+
+649
+00:21:01,066 --> 0:21:03,076
+Imagine building an app that
+
+650
+00:21:03,076 --> 0:21:04,676
+let's your users create handsome
+
+651
+00:21:04,676 --> 0:21:06,656
+greeting cards by recognizing
+
+652
+00:21:06,656 --> 0:21:08,706
+their strokes and automatically
+
+653
+00:21:08,706 --> 0:21:10,156
+replacing them with professional
+
+654
+00:21:10,156 --> 0:21:10,586
+drawings.
+
+655
+00:21:11,876 --> 0:21:12,866
+Power to the user.
+
+656
+00:21:14,246 --> 0:21:15,556
+Or imagine building an app that
+
+657
+00:21:15,556 --> 0:21:17,826
+breaks ground in education by
+
+658
+00:21:18,216 --> 0:21:19,926
+helping professors grade their
+
+659
+00:21:19,926 --> 0:21:21,636
+student's exams much faster by
+
+660
+00:21:21,636 --> 0:21:22,896
+recognizing their strokes.
+
+661
+00:21:23,456 --> 0:21:25,436
+We're actually going to build
+
+662
+00:21:25,436 --> 0:21:25,836
+this app.
+
+663
+00:21:26,136 --> 0:21:28,396
+But before that, let's talk
+
+664
+00:21:28,396 --> 0:21:29,736
+about the data.
+
+665
+00:21:30,596 --> 0:21:32,556
+The Drawing Classification task
+
+666
+00:21:32,676 --> 0:21:34,116
+can accept bitmap-based
+
+667
+00:21:34,116 --> 0:21:36,336
+drawings, represented as Turi
+
+668
+00:21:36,336 --> 0:21:39,116
+Create images, but that's not
+
+669
+00:21:39,116 --> 0:21:39,326
+all.
+
+670
+00:21:39,326 --> 0:21:44,346
+The task can also accept
+
+671
+00:21:44,346 --> 0:21:45,996
+stroke-based drawings, where
+
+672
+00:21:45,996 --> 0:21:47,746
+every stroke is a time series
+
+673
+00:21:47,746 --> 0:21:50,336
+data of x and y coordinates.
+
+674
+00:21:51,546 --> 0:21:53,086
+We wanted to give you as much
+
+675
+00:21:53,126 --> 0:21:55,906
+flexibility in your data as
+
+676
+00:21:57,696 --> 0:21:58,196
+possible.
+
+677
+00:21:58,196 --> 0:21:59,776
+Model creation follows an API
+
+678
+00:21:59,776 --> 0:22:01,086
+consistent with all our other
+
+679
+00:21:59,776 --> 0:22:01,086
+consistent with all our other
+
+680
+00:22:01,086 --> 0:22:02,846
+toolkits, turicreate
+
+681
+00:22:02,846 --> 0:22:04,846
+drawingclassifier.create with
+
+682
+00:22:04,846 --> 0:22:06,376
+the training SFrame and the
+
+683
+00:22:06,416 --> 0:22:07,046
+target column.
+
+684
+00:22:07,046 --> 0:22:09,626
+The model that you get out of
+
+685
+00:22:09,626 --> 0:22:10,656
+here is state of the art.
+
+686
+00:22:11,386 --> 0:22:12,956
+The Core ML model that you get
+
+687
+00:22:12,956 --> 0:22:14,746
+is less than 500 kilobytes on
+
+688
+00:22:14,746 --> 0:22:15,156
+device.
+
+689
+00:22:15,556 --> 0:22:17,826
+And this is GPU accelerated.
+
+690
+00:22:18,516 --> 0:22:22,596
+[ Applause ]
+
+691
+00:22:23,096 --> 0:22:24,286
+But we didn't stop there.
+
+692
+00:22:25,556 --> 0:22:27,256
+We trained a model on millions
+
+693
+00:22:27,256 --> 0:22:29,216
+of drawings and published it to
+
+694
+00:22:29,216 --> 0:22:30,526
+automatically one start your
+
+695
+00:22:30,526 --> 0:22:30,886
+models.
+
+696
+00:22:31,136 --> 0:22:33,536
+And not only does this help you
+
+697
+00:22:33,536 --> 0:22:36,366
+create more accurate models, it
+
+698
+00:22:36,366 --> 0:22:38,126
+also helps you train on as few
+
+699
+00:22:38,126 --> 0:22:39,796
+as 30 drawings per class.
+
+700
+00:22:40,486 --> 0:22:42,236
+Thirty. Let that sink in.
+
+701
+00:22:42,236 --> 0:22:46,296
+So what does the code look like?
+
+702
+00:22:47,246 --> 0:22:48,826
+Five lines of code, five steps.
+
+703
+00:22:49,176 --> 0:22:50,166
+We start with importing
+
+704
+00:22:50,166 --> 0:22:50,986
+turicreate.
+
+705
+00:22:50,986 --> 0:22:52,816
+Looking at our data, calling
+
+706
+00:22:52,816 --> 0:22:54,796
+model creation, evaluating our
+
+707
+00:22:54,796 --> 0:22:56,216
+data, and then exploring to Core
+
+708
+00:22:56,216 --> 0:22:56,396
+ML.
+
+709
+00:22:56,626 --> 0:22:59,776
+And with that, remember that
+
+710
+00:22:59,776 --> 0:23:01,336
+grading app that we saw which
+
+711
+00:22:59,776 --> 0:23:01,336
+grading app that we saw which
+
+712
+00:23:01,336 --> 0:23:02,936
+was like recognizing checks and
+
+713
+00:23:02,936 --> 0:23:04,406
+crosses and doing some more
+
+714
+00:23:04,676 --> 0:23:05,736
+fancy stuff?
+
+715
+00:23:06,466 --> 0:23:07,456
+Why don't we go ahead and build
+
+716
+00:23:07,456 --> 0:23:07,926
+that?
+
+717
+00:23:08,056 --> 0:23:10,096
+So we're going to take a look at
+
+718
+00:23:10,686 --> 0:23:14,316
+this app on the iPad, which
+
+719
+00:23:15,016 --> 0:23:16,436
+helps us grade exams.
+
+720
+00:23:17,136 --> 0:23:18,806
+So let's say I'm a professor and
+
+721
+00:23:18,806 --> 0:23:20,806
+I have my Apple Pencil and I
+
+722
+00:23:20,806 --> 0:23:21,816
+want to grade my students'
+
+723
+00:23:21,816 --> 0:23:23,586
+exams, but I want to grade them
+
+724
+00:23:23,586 --> 0:23:24,246
+really quickly.
+
+725
+00:23:25,096 --> 0:23:26,706
+So let's add an image to begin
+
+726
+00:23:26,706 --> 0:23:27,086
+grading.
+
+727
+00:23:27,086 --> 0:23:29,276
+This is an exam of my student,
+
+728
+00:23:29,276 --> 0:23:31,366
+Jane Appleseed and it's Math
+
+729
+00:23:31,366 --> 0:23:32,806
+101, which is pretty hard.
+
+730
+00:23:35,886 --> 0:23:36,786
+So let's take a look at the
+
+731
+00:23:36,786 --> 0:23:38,386
+image and now let's start
+
+732
+00:23:38,386 --> 0:23:38,776
+grading.
+
+733
+00:23:39,646 --> 0:23:41,476
+So one plus one is two, right?
+
+734
+00:23:41,476 --> 0:23:42,546
+Last I checked that was still
+
+735
+00:23:42,546 --> 0:23:42,866
+true.
+
+736
+00:23:43,506 --> 0:23:44,706
+So let's mark that as correct.
+
+737
+00:23:44,836 --> 0:23:46,336
+And as you can see, the model
+
+738
+00:23:46,336 --> 0:23:48,416
+detected the check and recorded
+
+739
+00:23:48,416 --> 0:23:49,596
+ten points on the right-hand
+
+740
+00:23:49,596 --> 0:23:51,556
+side, giving the student ten out
+
+741
+00:23:51,556 --> 0:23:52,696
+of ten on this question.
+
+742
+00:23:53,766 --> 0:23:54,716
+One plus two is four.
+
+743
+00:23:54,716 --> 0:23:57,056
+That's correct too.
+
+744
+00:23:57,296 --> 0:23:58,246
+Oh I guess it's not.
+
+745
+00:23:58,326 --> 0:24:01,236
+So erase that.
+
+746
+00:23:58,326 --> 0:24:01,236
+So erase that.
+
+747
+00:24:01,236 --> 0:24:02,686
+I think I should go back to Math
+
+748
+00:24:02,686 --> 0:24:03,466
+101 maybe.
+
+749
+00:24:04,466 --> 0:24:05,806
+So let's mark that incorrect
+
+750
+00:24:06,456 --> 0:24:07,766
+because the model made a
+
+751
+00:24:07,766 --> 0:24:08,486
+mistake.
+
+752
+00:24:08,486 --> 0:24:09,666
+So let's erase that again.
+
+753
+00:24:10,186 --> 0:24:12,316
+And to give you a preview into
+
+754
+00:24:12,316 --> 0:24:13,886
+how you can improve your models,
+
+755
+00:24:13,886 --> 0:24:14,956
+Abhishek is going to be up on
+
+756
+00:24:14,956 --> 0:24:16,036
+stage in a few minutes.
+
+757
+00:24:16,616 --> 0:24:18,966
+And this app is also designed to
+
+758
+00:24:18,966 --> 0:24:20,246
+take care of models failing.
+
+759
+00:24:20,556 --> 0:24:21,676
+So if you want, you can check
+
+760
+00:24:21,676 --> 0:24:22,946
+out the 11:00 AM session on
+
+761
+00:24:22,946 --> 0:24:24,516
+Designing Apps for Machine
+
+762
+00:24:24,516 --> 0:24:24,726
+Learning.
+
+763
+00:24:25,266 --> 0:24:26,076
+So let's keep grading.
+
+764
+00:24:26,616 --> 0:24:27,646
+So one plus two is four.
+
+765
+00:24:27,646 --> 0:24:28,576
+That's incorrect.
+
+766
+00:24:28,576 --> 0:24:31,196
+And the model detected the cross
+
+767
+00:24:31,276 --> 0:24:31,976
+as incorrect.
+
+768
+00:24:31,976 --> 0:24:33,566
+And it's a pretty serious
+
+769
+00:24:33,566 --> 0:24:35,726
+mistake for Math 101 in college.
+
+770
+00:24:36,186 --> 0:24:37,346
+So let's give that a negative
+
+771
+00:24:37,446 --> 0:24:37,816
+seven.
+
+772
+00:24:37,816 --> 0:24:40,176
+And as you can see, the model
+
+773
+00:24:40,176 --> 0:24:41,766
+registered the negative seven
+
+774
+00:24:42,016 --> 0:24:43,406
+and gave the student three out
+
+775
+00:24:43,406 --> 0:24:44,766
+of ten points on the right-hand
+
+776
+00:24:44,766 --> 0:24:44,996
+side.
+
+777
+00:24:46,186 --> 0:24:47,126
+Three plus two is five.
+
+778
+00:24:47,126 --> 0:24:48,786
+That's correct.
+
+779
+00:24:49,646 --> 0:24:51,426
+To give you an insight into what
+
+780
+00:24:51,426 --> 0:24:53,216
+the model is that powers this
+
+781
+00:24:53,216 --> 0:24:55,386
+app, this model is trained on
+
+782
+00:24:55,386 --> 0:24:58,316
+check, cross, and ten negative
+
+783
+00:24:58,356 --> 0:24:59,796
+scored deductions from negative
+
+784
+00:24:59,796 --> 0:25:00,716
+one through negative ten.
+
+785
+00:24:59,796 --> 0:25:00,716
+one through negative ten.
+
+786
+00:25:01,466 --> 0:25:02,566
+So let's keep grading.
+
+787
+00:25:03,226 --> 0:25:04,856
+One plus 99 is.
+
+788
+00:25:06,686 --> 0:25:07,716
+It's a hundred, okay.
+
+789
+00:25:08,356 --> 0:25:09,266
+So that's incorrect.
+
+790
+00:25:09,266 --> 0:25:11,446
+And that's another mistake the
+
+791
+00:25:11,446 --> 0:25:11,966
+model made.
+
+792
+00:25:12,456 --> 0:25:14,496
+So let's correct that and mark
+
+793
+00:25:14,496 --> 0:25:15,086
+that incorrect.
+
+794
+00:25:16,126 --> 0:25:17,306
+So let's give that maybe a
+
+795
+00:25:17,306 --> 0:25:19,836
+negative five and the model
+
+796
+00:25:19,836 --> 0:25:21,376
+registered the negative five and
+
+797
+00:25:21,376 --> 0:25:22,916
+stored it on the right-hand
+
+798
+00:25:22,916 --> 0:25:23,146
+side.
+
+799
+00:25:23,146 --> 0:25:25,946
+And this last question is, it's
+
+800
+00:25:25,946 --> 0:25:29,926
+hard but I don't know how the
+
+801
+00:25:29,926 --> 0:25:31,856
+student this right, but they got
+
+802
+00:25:31,856 --> 0:25:32,886
+one plus two wrong.
+
+803
+00:25:33,626 --> 0:25:34,526
+Anyway, let's give them a
+
+804
+00:25:34,526 --> 0:25:35,346
+correct for this.
+
+805
+00:25:36,476 --> 0:25:39,286
+Okay. So this is the kind of
+
+806
+00:25:39,286 --> 0:25:41,146
+experience that you can build
+
+807
+00:25:41,786 --> 0:25:43,186
+with the Drawing Classifier.
+
+808
+00:25:43,186 --> 0:25:47,456
+And why don't we go ahead and
+
+809
+00:25:47,456 --> 0:25:48,996
+write some code to actually
+
+810
+00:25:48,996 --> 0:25:50,256
+build a Core ML model that
+
+811
+00:25:50,256 --> 0:25:51,726
+powered this app.
+
+812
+00:25:56,076 --> 0:25:58,096
+So here I have another blank
+
+813
+00:25:58,096 --> 0:26:00,516
+Jupyter Notebook and we're going
+
+814
+00:25:58,096 --> 0:26:00,516
+Jupyter Notebook and we're going
+
+815
+00:26:00,516 --> 0:26:01,516
+to go through that five-step
+
+816
+00:26:01,516 --> 0:26:02,416
+pipeline again.
+
+817
+00:26:03,136 --> 0:26:07,516
+The first step being, the task.
+
+818
+00:26:07,516 --> 0:26:08,446
+The task here is Drawing
+
+819
+00:26:08,446 --> 0:26:09,306
+Classification.
+
+820
+00:26:09,436 --> 0:26:11,636
+We've established that.
+
+821
+00:26:11,636 --> 0:26:13,196
+So the next step is the data.
+
+822
+00:26:14,396 --> 0:26:15,886
+But before that, let's write our
+
+823
+00:26:15,886 --> 0:26:19,096
+favorite line of code which is
+
+824
+00:26:19,096 --> 0:26:20,806
+import turicreate as tc.
+
+825
+00:26:22,026 --> 0:26:23,466
+Now to look at the data, we're
+
+826
+00:26:23,466 --> 0:26:25,136
+going to load up an SFrame of
+
+827
+00:26:25,346 --> 0:26:26,676
+some data that we've already
+
+828
+00:26:26,676 --> 0:26:27,286
+accumulated.
+
+829
+00:26:28,246 --> 0:26:32,006
+Let's call it train.
+
+830
+00:26:32,136 --> 0:26:34,256
+And it's called train.sframe.
+
+831
+00:26:34,726 --> 0:26:37,566
+Next, let's use the explore
+
+832
+00:26:37,596 --> 0:26:39,136
+functionality on the train
+
+833
+00:26:39,326 --> 0:26:41,636
+SFrame and see what it looks
+
+834
+00:26:42,876 --> 0:26:43,226
+like.
+
+835
+00:26:43,226 --> 0:26:44,876
+Great. So it looks like we have
+
+836
+00:26:44,876 --> 0:26:46,706
+a lot of data here.
+
+837
+00:26:46,706 --> 0:26:47,896
+We have a negative three.
+
+838
+00:26:48,096 --> 0:26:49,156
+That's labeled as a negative
+
+839
+00:26:49,156 --> 0:26:49,396
+three.
+
+840
+00:26:49,736 --> 0:26:51,026
+A check labeled as a check.
+
+841
+00:26:51,386 --> 0:26:52,816
+Again, this SFrame has two
+
+842
+00:26:52,816 --> 0:26:54,446
+columns, bitmap and label.
+
+843
+00:26:54,936 --> 0:26:56,216
+And for this demo, we're going
+
+844
+00:26:56,216 --> 0:26:57,536
+to be using bitmap-based
+
+845
+00:26:57,536 --> 0:26:58,916
+drawings, but you can also have
+
+846
+00:26:58,916 --> 0:27:00,326
+stroke-based drawings instead of
+
+847
+00:26:58,916 --> 0:27:00,326
+stroke-based drawings instead of
+
+848
+00:27:00,326 --> 0:27:01,026
+the bitmap column.
+
+849
+00:27:02,516 --> 0:27:03,746
+So we have a bunch of drawings
+
+850
+00:27:03,746 --> 0:27:04,086
+here.
+
+851
+00:27:04,286 --> 0:27:05,946
+If we scroll through it, we have
+
+852
+00:27:05,946 --> 0:27:07,526
+a cross, another check, some
+
+853
+00:27:07,526 --> 0:27:08,696
+negative score deductions.
+
+854
+00:27:09,096 --> 0:27:09,896
+Looks pretty good.
+
+855
+00:27:09,896 --> 0:27:11,206
+How many examples are there,
+
+856
+00:27:11,906 --> 0:27:13,466
+4,436?
+
+857
+00:27:13,846 --> 0:27:15,246
+Okay, that's quite a few
+
+858
+00:27:15,246 --> 0:27:16,666
+examples.
+
+859
+00:27:16,836 --> 0:27:17,826
+You might be wondering, "Well
+
+860
+00:27:17,826 --> 0:27:19,176
+how did you collect all that
+
+861
+00:27:19,216 --> 0:27:19,586
+data.
+
+862
+00:27:19,586 --> 0:27:20,966
+How did you get all that data?"
+
+863
+00:27:21,506 --> 0:27:23,386
+So three of us got into a
+
+864
+00:27:23,386 --> 0:27:25,226
+conference room with iPads and
+
+865
+00:27:25,226 --> 0:27:27,146
+Pencils and we just drew these
+
+866
+00:27:27,146 --> 0:27:28,676
+strokes on our iPads for about
+
+867
+00:27:28,676 --> 0:27:31,286
+an hour and then just converted
+
+868
+00:27:31,286 --> 0:27:32,146
+it to an SFrame.
+
+869
+00:27:32,666 --> 0:27:34,656
+So data collection overhead for
+
+870
+00:27:34,656 --> 0:27:36,376
+this toolkit is also pretty low.
+
+871
+00:27:38,936 --> 0:27:40,006
+So now that we've looked at our
+
+872
+00:27:40,006 --> 0:27:43,576
+data, let's go ahead and look at
+
+873
+00:27:43,576 --> 0:27:44,976
+what the model creation process
+
+874
+00:27:44,976 --> 0:27:46,026
+looks like.
+
+875
+00:27:47,236 --> 0:27:48,346
+So we have
+
+876
+00:27:48,716 --> 0:27:50,226
+drawingclassifier.create.
+
+877
+00:27:50,226 --> 0:27:53,066
+We pass in the training SFrame
+
+878
+00:27:53,066 --> 0:27:54,166
+and we pass in the target
+
+879
+00:27:54,166 --> 0:27:55,506
+column, which in this case, is
+
+880
+00:27:55,506 --> 0:27:55,826
+label.
+
+881
+00:27:56,216 --> 0:27:57,756
+And I'm also going to pass into
+
+882
+00:27:57,756 --> 0:27:59,586
+a max iterations perimeter of
+
+883
+00:27:59,586 --> 0:28:02,006
+one to just give you a feel of
+
+884
+00:27:59,586 --> 0:28:02,006
+one to just give you a feel of
+
+885
+00:28:02,006 --> 0:28:03,156
+what the training process looks
+
+886
+00:28:03,206 --> 0:28:03,396
+like.
+
+887
+00:28:04,876 --> 0:28:06,306
+Behind the scenes what this is
+
+888
+00:28:06,306 --> 0:28:08,426
+doing is it's resizing all our
+
+889
+00:28:08,426 --> 0:28:11,426
+images down to 28 x 28 and then
+
+890
+00:28:11,476 --> 0:28:12,616
+parsing them through the neural
+
+891
+00:28:12,616 --> 0:28:14,106
+network for one iteration.
+
+892
+00:28:16,036 --> 0:28:17,736
+And looks like that's done.
+
+893
+00:28:17,816 --> 0:28:19,066
+But this model is not going to
+
+894
+00:28:19,066 --> 0:28:20,966
+be good enough for our use case.
+
+895
+00:28:21,496 --> 0:28:24,096
+So again, let's switch to
+
+896
+00:28:24,096 --> 0:28:25,686
+Cooking Show Mode and open the
+
+897
+00:28:25,686 --> 0:28:26,926
+door of the oven and take out a
+
+898
+00:28:26,926 --> 0:28:28,166
+model from it.
+
+899
+00:28:29,276 --> 0:28:30,846
+So we have the load model
+
+900
+00:28:30,846 --> 0:28:33,846
+functionality and we load up the
+
+901
+00:28:33,906 --> 0:28:34,536
+grading model.
+
+902
+00:28:34,996 --> 0:28:38,066
+Alright. So if we take a look at
+
+903
+00:28:38,066 --> 0:28:40,106
+this model, we have a Drawing
+
+904
+00:28:40,106 --> 0:28:42,136
+Classifier model that's trained
+
+905
+00:28:42,136 --> 0:28:44,146
+on 12 classes with the feature
+
+906
+00:28:44,146 --> 0:28:45,516
+column being bitmap, the target
+
+907
+00:28:45,516 --> 0:28:47,036
+column being label, and it's
+
+908
+00:28:47,036 --> 0:28:48,756
+trained for 200 iterations and
+
+909
+00:28:48,756 --> 0:28:49,816
+only for 30 minutes.
+
+910
+00:28:50,936 --> 0:28:53,506
+So after training for only 30
+
+911
+00:28:53,506 --> 0:28:54,776
+minutes we got a model with a
+
+912
+00:28:54,776 --> 0:28:56,096
+pretty high training accuracy.
+
+913
+00:28:56,316 --> 0:28:56,976
+That's pretty good.
+
+914
+00:28:56,976 --> 0:29:00,516
+So now that we have the model,
+
+915
+00:28:56,976 --> 0:29:00,516
+So now that we have the model,
+
+916
+00:29:00,516 --> 0:29:03,746
+the next step is to evaluate
+
+917
+00:29:03,786 --> 0:29:04,276
+this model.
+
+918
+00:29:05,416 --> 0:29:07,316
+But I'm going to skip that
+
+919
+00:29:07,316 --> 0:29:08,426
+because my colleague, Abhishek
+
+920
+00:29:08,426 --> 0:29:09,706
+will be up here in a few minutes
+
+921
+00:29:10,126 --> 0:29:11,986
+and not only will he show us how
+
+922
+00:29:11,986 --> 0:29:13,356
+to visualize the model's
+
+923
+00:29:13,356 --> 0:29:15,726
+mistakes, but he'll also show us
+
+924
+00:29:15,836 --> 0:29:17,546
+how to establish a feedback loop
+
+925
+00:29:17,546 --> 0:29:19,576
+of the model and improve it.
+
+926
+00:29:20,066 --> 0:29:22,436
+So let's skip ahead to exporting
+
+927
+00:29:22,436 --> 0:29:23,716
+to Core ML.
+
+928
+00:29:25,576 --> 0:29:28,016
+And consistent with all our
+
+929
+00:29:28,016 --> 0:29:30,886
+other toolkits, we have an
+
+930
+00:29:30,886 --> 0:29:32,426
+export coreml method on the
+
+931
+00:29:32,426 --> 0:29:34,406
+model and it's not CardDetector,
+
+932
+00:29:34,406 --> 0:29:35,106
+it's Grading.
+
+933
+00:29:35,616 --> 0:29:37,506
+So let's call it Grading.mlmodel
+
+934
+00:29:37,966 --> 0:29:39,436
+and then let's take a look in
+
+935
+00:29:39,466 --> 0:29:39,796
+XCode.
+
+936
+00:29:44,466 --> 0:29:48,496
+Great. So this model has bitmap
+
+937
+00:29:48,596 --> 0:29:49,716
+as its input which is a
+
+938
+00:29:49,716 --> 0:29:51,816
+grayscale image of size 28 x 28
+
+939
+00:29:52,276 --> 0:29:53,346
+and the outputs are label
+
+940
+00:29:53,346 --> 0:29:55,126
+probabilities and class label.
+
+941
+00:29:55,486 --> 0:29:56,876
+Label probabilities being the
+
+942
+00:29:56,876 --> 0:29:58,736
+probabilities of all the classes
+
+943
+00:29:58,736 --> 0:30:00,056
+that the model was trained on
+
+944
+00:29:58,736 --> 0:30:00,056
+that the model was trained on
+
+945
+00:30:00,386 --> 0:30:01,976
+and class label being the class
+
+946
+00:30:01,976 --> 0:30:03,056
+label of the top prediction.
+
+947
+00:30:04,536 --> 0:30:05,276
+So this looks good.
+
+948
+00:30:06,766 --> 0:30:08,526
+We worked really hard to bring
+
+949
+00:30:08,526 --> 0:30:10,946
+the size of the Core ML down as
+
+950
+00:30:10,946 --> 0:30:12,496
+much as we could because we
+
+951
+00:30:12,496 --> 0:30:14,466
+wanted this model to be as
+
+952
+00:30:14,576 --> 0:30:15,826
+portable as possible for your
+
+953
+00:30:15,826 --> 0:30:16,486
+use case.
+
+954
+00:30:16,486 --> 0:30:20,316
+And we brought it down to 396
+
+955
+00:30:20,406 --> 0:30:20,876
+kilobytes.
+
+956
+00:30:20,876 --> 0:30:21,966
+That's kilobytes.
+
+957
+00:30:22,516 --> 0:30:27,596
+[ Applause ]
+
+958
+00:30:28,096 --> 0:30:29,716
+So now that we've taken a look
+
+959
+00:30:29,716 --> 0:30:31,916
+at the Core ML model and we've
+
+960
+00:30:31,916 --> 0:30:35,546
+taken a look at what the final
+
+961
+00:30:35,546 --> 0:30:37,616
+app that we had was, let's also
+
+962
+00:30:37,616 --> 0:30:39,306
+take a look at what the Swift
+
+963
+00:30:39,306 --> 0:30:40,386
+code you need to write to
+
+964
+00:30:40,386 --> 0:30:42,176
+integrate this model into your
+
+965
+00:30:42,176 --> 0:30:42,556
+apps.
+
+966
+00:30:43,806 --> 0:30:45,406
+PencilKit released their API
+
+967
+00:30:45,406 --> 0:30:47,036
+this past week and they have a
+
+968
+00:30:47,036 --> 0:30:49,076
+Peek at Canvas view, which has a
+
+969
+00:30:49,076 --> 0:30:50,136
+Peek at Drawing, which is the
+
+970
+00:30:50,136 --> 0:30:51,156
+drawing data model.
+
+971
+00:30:51,536 --> 0:30:53,436
+You can extract the drawing out
+
+972
+00:30:53,436 --> 0:30:55,816
+of the Canvas view as a UI image
+
+973
+00:30:56,056 --> 0:30:57,506
+using that line of code.
+
+974
+00:30:57,506 --> 0:31:02,176
+And next, you can crop it using
+
+975
+00:30:57,506 --> 0:31:02,176
+And next, you can crop it using
+
+976
+00:31:02,436 --> 0:31:04,386
+again, API from PencilKit to
+
+977
+00:31:04,386 --> 0:31:05,786
+crop it down to the bounds of
+
+978
+00:31:05,786 --> 0:31:06,946
+the drawing where the user drew
+
+979
+00:31:06,946 --> 0:31:07,666
+their strokes.
+
+980
+00:31:08,136 --> 0:31:09,526
+And now that you have this
+
+981
+00:31:09,656 --> 0:31:12,066
+cropped, your image that is
+
+982
+00:31:12,126 --> 0:31:14,156
+ready to be consumed by the Core
+
+983
+00:31:14,156 --> 0:31:16,406
+ML model, you can use the Vision
+
+984
+00:31:16,406 --> 0:31:18,946
+API and that's all you need.
+
+985
+00:31:19,876 --> 0:31:23,686
+To recap, we started with some
+
+986
+00:31:23,686 --> 0:31:25,186
+drawings and their labels.
+
+987
+00:31:25,876 --> 0:31:28,486
+We interactively explored our
+
+988
+00:31:28,486 --> 0:31:28,866
+data.
+
+989
+00:31:28,866 --> 0:31:30,226
+We saw what the data looked
+
+990
+00:31:30,226 --> 0:31:30,496
+like.
+
+991
+00:31:31,606 --> 0:31:33,016
+Then we trained a model or
+
+992
+00:31:33,016 --> 0:31:34,196
+loaded it from the oven,
+
+993
+00:31:35,676 --> 0:31:38,296
+exported it to Core ML, and then
+
+994
+00:31:38,296 --> 0:31:39,746
+deployed using PencilKit and
+
+995
+00:31:39,746 --> 0:31:40,016
+Vision.
+
+996
+00:31:41,486 --> 0:31:42,786
+But I did miss one thing.
+
+997
+00:31:43,096 --> 0:31:44,476
+I did skip it on purpose.
+
+998
+00:31:45,456 --> 0:31:47,086
+I did skip evaluation and that's
+
+999
+00:31:47,086 --> 0:31:49,576
+a pretty important part of your
+
+1000
+00:31:50,196 --> 0:31:50,786
+workflow.
+
+1001
+00:31:51,306 --> 0:31:52,576
+And if you actually evaluate
+
+1002
+00:31:52,576 --> 0:31:53,766
+your models and make them
+
+1003
+00:31:53,766 --> 0:31:55,146
+better, you won't see errors
+
+1004
+00:31:55,146 --> 0:31:56,216
+like you saw in the app today.
+
+1005
+00:31:57,006 --> 0:31:58,276
+So with that, I'm going to
+
+1006
+00:31:58,276 --> 0:31:59,986
+invite my colleague, Abhishek to
+
+1007
+00:31:59,986 --> 0:32:01,206
+take us through an exciting
+
+1008
+00:31:59,986 --> 0:32:01,206
+take us through an exciting
+
+1009
+00:32:01,206 --> 0:32:02,356
+model evaluation journey.
+
+1010
+00:32:02,496 --> 0:32:02,976
+Abhishek.
+
+1011
+00:32:03,516 --> 0:32:08,226
+[ Applause ]
+
+1012
+00:32:08,726 --> 0:32:11,136
+&gt;&gt; Thank you.
+
+1013
+00:32:11,136 --> 0:32:12,396
+So today I'd like to talk to you
+
+1014
+00:32:12,396 --> 0:32:15,216
+about Model Evaluation and why
+
+1015
+00:32:15,216 --> 0:32:16,636
+it's really important in
+
+1016
+00:32:16,636 --> 0:32:18,416
+building the best possible user
+
+1017
+00:32:18,416 --> 0:32:19,206
+experiences.
+
+1018
+00:32:19,826 --> 0:32:23,856
+But first, let's understand how
+
+1019
+00:32:23,856 --> 0:32:25,656
+evaluation works.
+
+1020
+00:32:27,046 --> 0:32:28,036
+Let's take the Drawing
+
+1021
+00:32:28,036 --> 0:32:29,446
+Classifier model we trained in
+
+1022
+00:32:29,446 --> 0:32:30,276
+the previous demo.
+
+1023
+00:32:31,076 --> 0:32:32,586
+And if we pass a drawing through
+
+1024
+00:32:32,586 --> 0:32:34,006
+it, we get a prediction.
+
+1025
+00:32:35,546 --> 0:32:38,086
+Using ground truth data, we can
+
+1026
+00:32:38,086 --> 0:32:39,706
+identify whether this prediction
+
+1027
+00:32:39,706 --> 0:32:41,906
+is correct or sometimes
+
+1028
+00:32:42,466 --> 0:32:43,196
+incorrect.
+
+1029
+00:32:43,876 --> 0:32:45,686
+But using a single data point to
+
+1030
+00:32:45,686 --> 0:32:48,186
+evaluate a model doesn't give us
+
+1031
+00:32:48,186 --> 0:32:49,716
+a full picture of what the model
+
+1032
+00:32:49,716 --> 0:32:50,136
+is doing.
+
+1033
+00:32:50,606 --> 0:32:51,606
+So what do we do?
+
+1034
+00:32:52,506 --> 0:32:54,146
+Well, we use more data.
+
+1035
+00:32:55,496 --> 0:32:57,046
+This is our test data set.
+
+1036
+00:32:58,276 --> 0:33:00,206
+We can run the model across the
+
+1037
+00:32:58,276 --> 0:33:00,206
+We can run the model across the
+
+1038
+00:33:00,206 --> 0:33:02,766
+data and get correct and
+
+1039
+00:33:02,766 --> 0:33:04,396
+incorrect predictions for each
+
+1040
+00:33:04,396 --> 0:33:05,116
+of the drawings.
+
+1041
+00:33:06,476 --> 0:33:07,776
+By grouping the drawings
+
+1042
+00:33:07,846 --> 0:33:09,156
+together in correct and
+
+1043
+00:33:09,156 --> 0:33:11,676
+incorrect groups we get a sense
+
+1044
+00:33:11,676 --> 0:33:12,786
+for how well the model is
+
+1045
+00:33:12,836 --> 0:33:13,296
+performing.
+
+1046
+00:33:14,716 --> 0:33:16,516
+This is analogous to the metric
+
+1047
+00:33:16,516 --> 0:33:18,436
+of accuracy, a measure of the
+
+1048
+00:33:18,436 --> 0:33:21,096
+correct predicted drawings over
+
+1049
+00:33:21,096 --> 0:33:22,406
+the total number of drawings in
+
+1050
+00:33:22,406 --> 0:33:22,936
+our data set.
+
+1051
+00:33:23,496 --> 0:33:25,906
+And there are other metrics we
+
+1052
+00:33:25,906 --> 0:33:27,746
+can use to help us quantify our
+
+1053
+00:33:27,746 --> 0:33:28,836
+model's performance.
+
+1054
+00:33:30,256 --> 0:33:32,226
+To access these in Turi Create,
+
+1055
+00:33:32,226 --> 0:33:33,996
+simply call the evaluate method
+
+1056
+00:33:34,586 --> 0:33:35,906
+available to use on the model
+
+1057
+00:33:35,906 --> 0:33:38,146
+object and pass in that test
+
+1058
+00:33:38,186 --> 0:33:39,326
+data set.
+
+1059
+00:33:39,996 --> 0:33:41,856
+A dictionary of these metrics
+
+1060
+00:33:41,896 --> 0:33:43,866
+will then be returned to now
+
+1061
+00:33:43,866 --> 0:33:47,976
+evaluate our model.
+
+1062
+00:33:48,256 --> 0:33:51,196
+But this actually doesn't tell
+
+1063
+00:33:51,196 --> 0:33:52,266
+us the whole story.
+
+1064
+00:33:53,426 --> 0:33:55,786
+For instance, take a model with
+
+1065
+00:33:55,786 --> 0:33:57,576
+an accuracy of 85 percent.
+
+1066
+00:33:58,366 --> 0:33:59,586
+Initially that seems pretty good
+
+1067
+00:33:59,586 --> 0:34:00,236
+to us, doesn't it?
+
+1068
+00:33:59,586 --> 0:34:00,236
+to us, doesn't it?
+
+1069
+00:34:01,486 --> 0:34:04,166
+Well, if we dig down into the
+
+1070
+00:34:04,246 --> 0:34:06,996
+per class accuracy, we see that
+
+1071
+00:34:06,996 --> 0:34:08,856
+the class of four has a much
+
+1072
+00:34:08,856 --> 0:34:10,606
+lower accuracy than the rest of
+
+1073
+00:34:10,606 --> 0:34:11,536
+the other classes.
+
+1074
+00:34:12,116 --> 0:34:14,656
+And this is a case that you
+
+1075
+00:34:14,656 --> 0:34:16,025
+usually might run into.
+
+1076
+00:34:17,485 --> 0:34:19,755
+Well, what's causing this low
+
+1077
+00:34:19,755 --> 0:34:20,335
+accuracy?
+
+1078
+00:34:20,946 --> 0:34:22,596
+One thing might be that there
+
+1079
+00:34:22,596 --> 0:34:24,436
+might be a low number of
+
+1080
+00:34:24,436 --> 0:34:26,206
+examples present for that
+
+1081
+00:34:26,206 --> 0:34:27,346
+particular class.
+
+1082
+00:34:28,295 --> 0:34:30,146
+To correct for this we may want
+
+1083
+00:34:30,146 --> 0:34:31,126
+to add more examples.
+
+1084
+00:34:31,766 --> 0:34:34,226
+But there are other things that
+
+1085
+00:34:34,226 --> 0:34:34,946
+can be going on.
+
+1086
+00:34:36,085 --> 0:34:38,376
+For instance, we've noticed that
+
+1087
+00:34:38,376 --> 0:34:40,186
+in some data sets the
+
+1088
+00:34:40,186 --> 0:34:41,466
+annotations are incorrect.
+
+1089
+00:34:42,116 --> 0:34:45,136
+In the drawing to your left, you
+
+1090
+00:34:45,136 --> 0:34:46,556
+see that the model has predicted
+
+1091
+00:34:46,876 --> 0:34:48,326
+this drawing to be one, but the
+
+1092
+00:34:48,326 --> 0:34:49,446
+annotation is seven.
+
+1093
+00:34:50,596 --> 0:34:52,016
+And when visually inspecting
+
+1094
+00:34:52,016 --> 0:34:53,926
+this drawing, we can see that
+
+1095
+00:34:53,926 --> 0:34:55,716
+the annotation probably should
+
+1096
+00:34:55,716 --> 0:34:56,166
+be one.
+
+1097
+00:34:57,276 --> 0:34:58,816
+So we can go and correct the
+
+1098
+00:34:58,906 --> 0:34:59,596
+annotation.
+
+1099
+00:35:00,666 --> 0:35:02,306
+But in other instances such as
+
+1100
+00:35:02,306 --> 0:35:04,466
+the one to your right, the model
+
+1101
+00:35:04,466 --> 0:35:05,906
+has predicted it to be four and
+
+1102
+00:35:05,906 --> 0:35:08,106
+the annotation is one but it's
+
+1103
+00:35:08,106 --> 0:35:10,386
+unclear whether the annotation
+
+1104
+00:35:10,476 --> 0:35:11,996
+or the model is incorrect.
+
+1105
+00:35:14,676 --> 0:35:16,256
+There also may be systematic
+
+1106
+00:35:16,256 --> 0:35:17,776
+biases present in your model.
+
+1107
+00:35:18,206 --> 0:35:19,886
+For instance, in this example,
+
+1108
+00:35:20,506 --> 0:35:22,026
+the model has predicted sevens
+
+1109
+00:35:22,026 --> 0:35:24,736
+with bars to be incorrect as
+
+1110
+00:35:24,866 --> 0:35:27,586
+three but correctly predicts the
+
+1111
+00:35:27,586 --> 0:35:28,646
+sevens without bars.
+
+1112
+00:35:28,716 --> 0:35:33,566
+And to help you identify these
+
+1113
+00:35:33,636 --> 0:35:35,766
+issues, we've created an
+
+1114
+00:35:35,766 --> 0:35:37,436
+interactive visualization tool.
+
+1115
+00:35:37,436 --> 0:35:40,546
+Let me show you how it works.
+
+1116
+00:35:40,706 --> 0:35:42,806
+Alright. So let's go back to the
+
+1117
+00:35:42,806 --> 0:35:44,266
+Jupyter Notebook that Shantanu
+
+1118
+00:35:44,266 --> 0:35:46,256
+was showing us and load in a
+
+1119
+00:35:46,366 --> 0:35:48,816
+test data set that we can use to
+
+1120
+00:35:48,816 --> 0:35:49,736
+evaluate our model.
+
+1121
+00:35:57,436 --> 0:35:58,846
+Now that we've loaded in our
+
+1122
+00:35:58,846 --> 0:36:00,546
+test data set, let's call that
+
+1123
+00:35:58,846 --> 0:36:00,546
+test data set, let's call that
+
+1124
+00:36:00,546 --> 0:36:06,816
+evaluate method passing in that
+
+1125
+00:36:06,936 --> 0:36:11,696
+test data set.
+
+1126
+00:36:11,916 --> 0:36:13,886
+So now that we have our metrics
+
+1127
+00:36:13,976 --> 0:36:16,776
+object, we can simply call the
+
+1128
+00:36:16,776 --> 0:36:18,856
+explorer method on that metric's
+
+1129
+00:36:18,936 --> 0:36:21,766
+object to now look at our
+
+1130
+00:36:21,766 --> 0:36:23,006
+interactive visualization.
+
+1131
+00:36:23,636 --> 0:36:27,356
+And as you can see, a window
+
+1132
+00:36:27,356 --> 0:36:30,736
+popped up and it has three
+
+1133
+00:36:30,736 --> 0:36:33,666
+distinct sections, an Overview
+
+1134
+00:36:33,666 --> 0:36:35,436
+section, which gives us the
+
+1135
+00:36:35,436 --> 0:36:37,346
+overall accuracy of the model as
+
+1136
+00:36:37,346 --> 0:36:38,916
+well as the number of iterations
+
+1137
+00:36:39,456 --> 0:36:40,756
+in the model that we've trained,
+
+1138
+00:36:40,856 --> 0:36:42,186
+the Drawing Classifier model.
+
+1139
+00:36:43,396 --> 0:36:45,426
+The second section is a Per
+
+1140
+00:36:45,426 --> 0:36:47,466
+Class breakdown of the metrics
+
+1141
+00:36:47,786 --> 0:36:49,216
+as well as a couple of example
+
+1142
+00:36:49,216 --> 0:36:51,396
+images that have been correctly
+
+1143
+00:36:51,396 --> 0:36:52,596
+been predicted by the model.
+
+1144
+00:36:53,596 --> 0:36:55,956
+And lastly, there's an Error
+
+1145
+00:36:55,956 --> 0:36:57,826
+section that shows us all of the
+
+1146
+00:36:57,826 --> 0:37:01,086
+errors that the model has made.
+
+1147
+00:36:57,826 --> 0:37:01,086
+errors that the model has made.
+
+1148
+00:37:01,286 --> 0:37:02,926
+So let's take a look at the
+
+1149
+00:37:03,016 --> 0:37:04,446
+first class, negative four.
+
+1150
+00:37:04,776 --> 0:37:06,816
+We see that class has an
+
+1151
+00:37:06,816 --> 0:37:08,466
+accuracy of 20 percent.
+
+1152
+00:37:09,646 --> 0:37:11,486
+If we click on it, we see that
+
+1153
+00:37:11,486 --> 0:37:13,286
+there are actually four errors
+
+1154
+00:37:13,476 --> 0:37:14,636
+that have been made by the
+
+1155
+00:37:14,636 --> 0:37:14,926
+model.
+
+1156
+00:37:15,966 --> 0:37:17,276
+But something else that we see
+
+1157
+00:37:17,276 --> 0:37:18,826
+is that the number of elements
+
+1158
+00:37:18,826 --> 0:37:20,366
+that we've tested is five.
+
+1159
+00:37:21,036 --> 0:37:22,706
+And that's a pretty low number.
+
+1160
+00:37:23,306 --> 0:37:25,676
+So to kind of determine whether
+
+1161
+00:37:25,676 --> 0:37:27,036
+the model is performing
+
+1162
+00:37:27,036 --> 0:37:29,006
+improperly on this class or
+
+1163
+00:37:29,006 --> 0:37:30,676
+simply we have a low number of
+
+1164
+00:37:30,676 --> 0:37:33,126
+examples that we're testing, we
+
+1165
+00:37:33,126 --> 0:37:34,466
+might want to go back and add
+
+1166
+00:37:34,516 --> 0:37:36,136
+more examples to this class to
+
+1167
+00:37:36,136 --> 0:37:38,026
+get a better determination of
+
+1168
+00:37:38,026 --> 0:37:39,636
+whether the model is performing
+
+1169
+00:37:39,636 --> 0:37:42,676
+incorrectly or simply we don't
+
+1170
+00:37:42,706 --> 0:37:43,766
+have enough examples.
+
+1171
+00:37:44,366 --> 0:37:48,006
+Let's go to class of negative
+
+1172
+00:37:49,696 --> 0:37:49,786
+two.
+
+1173
+00:37:50,006 --> 0:37:51,596
+We see something that stands out
+
+1174
+00:37:51,596 --> 0:37:53,106
+when we filter by this class.
+
+1175
+00:37:53,606 --> 0:37:55,506
+There are 11 incorrect
+
+1176
+00:37:55,506 --> 0:37:57,156
+predictions of the same type,
+
+1177
+00:37:58,176 --> 0:37:59,556
+meaning that the actual
+
+1178
+00:37:59,556 --> 0:38:01,046
+annotation is negative two, but
+
+1179
+00:37:59,556 --> 0:38:01,046
+annotation is negative two, but
+
+1180
+00:38:01,046 --> 0:38:02,566
+the model has predicted all of
+
+1181
+00:38:02,566 --> 0:38:04,026
+these examples to be negative
+
+1182
+00:38:04,026 --> 0:38:04,316
+seven.
+
+1183
+00:38:05,196 --> 0:38:06,396
+But when we look through these
+
+1184
+00:38:06,396 --> 0:38:07,396
+examples that have been
+
+1185
+00:38:07,396 --> 0:38:09,896
+misclassified, we see that some
+
+1186
+00:38:09,896 --> 0:38:11,536
+of these examples are, in fact,
+
+1187
+00:38:11,596 --> 0:38:12,216
+negative seven.
+
+1188
+00:38:12,736 --> 0:38:14,116
+And this is a case where the
+
+1189
+00:38:14,116 --> 0:38:16,006
+data set has some misannotated
+
+1190
+00:38:16,046 --> 0:38:16,576
+data points.
+
+1191
+00:38:17,306 --> 0:38:19,196
+So we might want to go back and
+
+1192
+00:38:19,196 --> 0:38:21,036
+correct those annotations to get
+
+1193
+00:38:21,036 --> 0:38:22,296
+a better indication of our
+
+1194
+00:38:22,296 --> 0:38:23,426
+model's performance.
+
+1195
+00:38:23,976 --> 0:38:27,956
+We've also included a number of
+
+1196
+00:38:27,956 --> 0:38:30,546
+other metrics such as F1 Score
+
+1197
+00:38:30,546 --> 0:38:32,266
+Precision and Recall which may
+
+1198
+00:38:32,266 --> 0:38:33,986
+be more relevant to your use
+
+1199
+00:38:33,986 --> 0:38:35,756
+cases when evaluating your
+
+1200
+00:38:35,756 --> 0:38:36,126
+models.
+
+1201
+00:38:38,536 --> 0:38:42,826
+So, a recap.
+
+1202
+00:38:44,556 --> 0:38:45,776
+We now allow you to
+
+1203
+00:38:45,776 --> 0:38:47,456
+interactively visualize model
+
+1204
+00:38:47,506 --> 0:38:47,946
+predictions.
+
+1205
+00:38:49,496 --> 0:38:51,256
+This can help us easily spot
+
+1206
+00:38:51,556 --> 0:38:53,346
+annotation errors as well as
+
+1207
+00:38:53,346 --> 0:38:55,336
+identify those systematic biases
+
+1208
+00:38:55,336 --> 0:38:56,646
+we talked about.
+
+1209
+00:38:57,936 --> 0:38:59,416
+But now that we've identified
+
+1210
+00:38:59,416 --> 0:39:01,516
+these issues, what steps can we
+
+1211
+00:38:59,416 --> 0:39:01,516
+these issues, what steps can we
+
+1212
+00:39:01,586 --> 0:39:03,816
+take to improve the model?
+
+1213
+00:39:03,816 --> 0:39:07,446
+Well, let's take a look at our
+
+1214
+00:39:07,446 --> 0:39:07,876
+pipeline.
+
+1215
+00:39:09,836 --> 0:39:12,336
+First, we have our test data
+
+1216
+00:39:12,336 --> 0:39:12,586
+set.
+
+1217
+00:39:14,006 --> 0:39:15,456
+We've passed it through the
+
+1218
+00:39:15,456 --> 0:39:17,006
+Drawing Classifier model and
+
+1219
+00:39:17,006 --> 0:39:18,586
+used our interactive
+
+1220
+00:39:18,586 --> 0:39:20,316
+visualization tool to identify
+
+1221
+00:39:20,406 --> 0:39:20,906
+some issues.
+
+1222
+00:39:22,746 --> 0:39:25,416
+And we may want to add more
+
+1223
+00:39:25,416 --> 0:39:27,426
+examples to correct for some of
+
+1224
+00:39:27,426 --> 0:39:28,096
+these issues.
+
+1225
+00:39:29,556 --> 0:39:31,136
+We also may want to remove
+
+1226
+00:39:31,136 --> 0:39:34,236
+incorrectly trained data as well
+
+1227
+00:39:34,236 --> 0:39:36,346
+as maybe update incorrect
+
+1228
+00:39:36,346 --> 0:39:37,056
+annotations.
+
+1229
+00:39:37,476 --> 0:39:39,856
+In Turi Create, we enable you to
+
+1230
+00:39:39,856 --> 0:39:42,806
+load data as well as sort and
+
+1231
+00:39:42,846 --> 0:39:44,576
+filter data if you want to
+
+1232
+00:39:44,576 --> 0:39:46,716
+remove incorrect training data.
+
+1233
+00:39:48,496 --> 0:39:50,196
+If you want to add more data,
+
+1234
+00:39:51,046 --> 0:39:52,616
+simply use the append command.
+
+1235
+00:39:53,266 --> 0:39:57,746
+And new in Turi Create 6.0 we've
+
+1236
+00:39:57,746 --> 0:40:00,976
+introduced an annotation tool.
+
+1237
+00:39:57,746 --> 0:40:00,976
+introduced an annotation tool.
+
+1238
+00:40:01,046 --> 0:40:03,176
+To use it, pass in the data set
+
+1239
+00:40:03,176 --> 0:40:05,646
+that you want to annotate, and a
+
+1240
+00:40:05,646 --> 0:40:07,426
+GUI pops up with two distinct
+
+1241
+00:40:07,426 --> 0:40:07,856
+sections.
+
+1242
+00:40:08,846 --> 0:40:10,576
+To your left, you can see the
+
+1243
+00:40:10,576 --> 0:40:11,756
+image that you want to annotate
+
+1244
+00:40:11,806 --> 0:40:13,336
+and to your right you see a
+
+1245
+00:40:13,336 --> 0:40:14,066
+labels column.
+
+1246
+00:40:15,466 --> 0:40:17,436
+You can add labels and annotate
+
+1247
+00:40:17,436 --> 0:40:18,286
+your data points.
+
+1248
+00:40:19,786 --> 0:40:21,576
+But we also recognize that if
+
+1249
+00:40:21,576 --> 0:40:22,976
+you're going through a large
+
+1250
+00:40:23,026 --> 0:40:25,796
+data set it may be annoying to
+
+1251
+00:40:25,866 --> 0:40:29,366
+kind of spend that time to go
+
+1252
+00:40:29,426 --> 0:40:30,546
+through the entire data set.
+
+1253
+00:40:30,546 --> 0:40:31,426
+So we've included image
+
+1254
+00:40:31,426 --> 0:40:32,366
+similarity and we're going to
+
+1255
+00:40:32,406 --> 0:40:34,066
+help you quickly go through your
+
+1256
+00:40:34,066 --> 0:40:34,526
+data set.
+
+1257
+00:40:35,776 --> 0:40:37,996
+We've also included a Table view
+
+1258
+00:40:38,066 --> 0:40:39,676
+that allows you to scroll
+
+1259
+00:40:39,676 --> 0:40:41,336
+through your data set, look at
+
+1260
+00:40:41,336 --> 0:40:43,376
+annotations, maybe identify
+
+1261
+00:40:43,376 --> 0:40:44,806
+those systematic biases we
+
+1262
+00:40:44,866 --> 0:40:47,076
+talked about, and add multiple
+
+1263
+00:40:47,076 --> 0:40:48,936
+annotations to multiple images.
+
+1264
+00:40:49,516 --> 0:40:57,546
+[ Applause ]
+
+1265
+00:40:58,046 --> 0:40:59,546
+So a summary of this session.
+
+1266
+00:41:00,206 --> 0:41:03,416
+Sam and Shantanu showed us the
+
+1267
+00:41:03,416 --> 0:41:05,616
+new One-Shot Object Detector
+
+1268
+00:41:05,616 --> 0:41:06,046
+Toolkit.
+
+1269
+00:41:06,946 --> 0:41:08,616
+Shantanu upped Sam's game with a
+
+1270
+00:41:08,616 --> 0:41:10,656
+Three Card Poker app and was
+
+1271
+00:41:10,656 --> 0:41:12,586
+able to build a robust model
+
+1272
+00:41:12,586 --> 0:41:16,566
+with only one example per class.
+
+1273
+00:41:16,736 --> 0:41:18,086
+Next, we looked at the new
+
+1274
+00:41:18,086 --> 0:41:19,896
+Drawing Classifier ToolKit.
+
+1275
+00:41:20,516 --> 0:41:22,716
+In it, we saw the new
+
+1276
+00:41:22,716 --> 0:41:24,076
+integration with the Apple
+
+1277
+00:41:24,206 --> 0:41:24,536
+Pencil.
+
+1278
+00:41:26,716 --> 0:41:28,986
+The interactive visualization
+
+1279
+00:41:29,296 --> 0:41:32,216
+tool showed us how to evaluate
+
+1280
+00:41:32,216 --> 0:41:34,886
+models interactively and
+
+1281
+00:41:34,946 --> 0:41:37,046
+hopefully showed us a process
+
+1282
+00:41:37,176 --> 0:41:38,966
+for building better experiences
+
+1283
+00:41:39,166 --> 0:41:39,816
+for our users.
+
+1284
+00:41:40,406 --> 0:41:43,326
+And finally, we introduced a new
+
+1285
+00:41:43,326 --> 0:41:45,136
+annotation tool that not only
+
+1286
+00:41:45,136 --> 0:41:46,876
+allows you to label data, but
+
+1287
+00:41:46,876 --> 0:41:48,006
+quickly go through your data
+
+1288
+00:41:48,006 --> 0:41:49,246
+sets with the use of image
+
+1289
+00:41:49,246 --> 0:41:49,796
+similarity.
+
+1290
+00:41:50,816 --> 0:41:52,656
+Please install Turicreate.
+
+1291
+00:41:52,946 --> 0:41:54,016
+We hope you've enjoyed this
+
+1292
+00:41:54,016 --> 0:41:56,156
+session and join us in the labs
+
+1293
+00:41:56,246 --> 0:41:57,366
+at 2:00 if you want to see any
+
+1294
+00:41:57,366 --> 0:41:58,776
+of the demos or have any
+
+1295
+00:41:58,836 --> 0:41:59,456
+questions.
+
+1296
+00:42:00,726 --> 0:42:01,886
+We encourage you to check out
+
+1297
+00:42:01,886 --> 0:42:03,066
+these related sessions.
+
+1298
+00:42:04,536 --> 0:42:05,426
+Thank you for coming to WWDC
+
+1299
+00:42:05,426 --> 0:42:05,976
+2019.
+
+1300
+00:42:06,516 --> 0:42:09,500
+[ Applause ]

@@ -1,0 +1,5091 @@
+1
+00:00:00,506 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:09,516 --> 0:00:13,766
+[ Applause ]
+
+3
+00:00:14,266 --> 0:00:16,026
+&gt;&gt; Good morning, and welcome to
+
+4
+00:00:16,026 --> 0:00:16,726
+Getting Started with
+
+5
+00:00:16,726 --> 0:00:17,326
+Instruments.
+
+6
+00:00:17,936 --> 0:00:19,356
+My name is Tibet Rooney-Rabdau
+
+7
+00:00:19,356 --> 0:00:20,296
+and with me today are my
+
+8
+00:00:20,436 --> 0:00:21,116
+teammates, Ben Mitchell and
+
+9
+00:00:21,116 --> 0:00:21,976
+Anand Subramanian.
+
+10
+00:00:25,926 --> 0:00:27,376
+When I think about delivering a
+
+11
+00:00:27,376 --> 0:00:29,266
+great user experience, I
+
+12
+00:00:29,266 --> 0:00:30,316
+immediately think about
+
+13
+00:00:30,316 --> 0:00:30,966
+performance.
+
+14
+00:00:32,106 --> 0:00:33,786
+Responsiveness builds trust
+
+15
+00:00:34,436 --> 0:00:37,466
+between the user and your app.
+
+16
+00:00:37,656 --> 0:00:39,056
+No matter how much I love the UI
+
+17
+00:00:39,056 --> 0:00:40,616
+of an app, when I encounter a
+
+18
+00:00:40,616 --> 0:00:43,126
+spinning gear, or a poor battery
+
+19
+00:00:43,126 --> 0:00:45,476
+life, my overall experience with
+
+20
+00:00:45,476 --> 0:00:46,616
+the app is diminished.
+
+21
+00:00:47,526 --> 0:00:49,156
+It is important to remember
+
+22
+00:00:49,156 --> 0:00:50,566
+these areas when trying to
+
+23
+00:00:50,566 --> 0:00:52,166
+create a great user experience
+
+24
+00:00:52,166 --> 0:00:54,206
+in your app.
+
+25
+00:00:54,206 --> 0:00:55,256
+In today's session, we will
+
+26
+00:00:55,256 --> 0:00:56,886
+share with you our favorite tool
+
+27
+00:00:56,886 --> 0:00:58,016
+to measure performance -
+
+28
+00:00:58,746 --> 0:00:59,366
+Instruments.
+
+29
+00:00:59,996 --> 0:01:01,956
+This is a great session for
+
+30
+00:00:59,996 --> 0:01:01,956
+This is a great session for
+
+31
+00:01:01,956 --> 0:01:03,226
+those who are new to Instruments
+
+32
+00:01:03,226 --> 0:01:04,096
+and are looking to better
+
+33
+00:01:04,096 --> 0:01:05,406
+integrate Instruments into their
+
+34
+00:01:05,446 --> 0:01:06,456
+engineering workflow.
+
+35
+00:01:07,786 --> 0:01:08,916
+It is important to measure
+
+36
+00:01:08,916 --> 0:01:10,836
+performance early and often,
+
+37
+00:01:11,046 --> 0:01:12,226
+because regressions can be
+
+38
+00:01:12,226 --> 0:01:13,166
+introduced anywhere in the
+
+39
+00:01:13,166 --> 0:01:14,486
+development cycle and can have a
+
+40
+00:01:14,486 --> 0:01:17,036
+compounded effect.
+
+41
+00:01:17,036 --> 0:01:18,046
+In fact, I like to think of
+
+42
+00:01:18,046 --> 0:01:19,616
+Xcoded Instruments as best
+
+43
+00:01:19,616 --> 0:01:21,396
+friends, so I keep instruments
+
+44
+00:01:21,396 --> 0:01:23,386
+in the dock beside Xcode as a
+
+45
+00:01:23,386 --> 0:01:25,076
+reminder to proof that early and
+
+46
+00:01:25,076 --> 0:01:26,666
+often throughout the engineering
+
+47
+00:01:27,576 --> 0:01:27,786
+process.
+
+48
+00:01:28,516 --> 0:01:30,336
+Today we'll start out with an
+
+49
+00:01:30,336 --> 0:01:32,216
+orientation of Instruments, its
+
+50
+00:01:32,216 --> 0:01:33,946
+features, and a tour of its user
+
+51
+00:01:33,946 --> 0:01:34,366
+interface.
+
+52
+00:01:35,286 --> 0:01:36,176
+Then we'll show you how to
+
+53
+00:01:36,176 --> 0:01:37,816
+profile your app to measure the
+
+54
+00:01:37,816 --> 0:01:39,016
+time taken by various
+
+55
+00:01:39,016 --> 0:01:39,836
+operations.
+
+56
+00:01:40,546 --> 0:01:41,786
+We'll figure out what kind of
+
+57
+00:01:41,786 --> 0:01:43,586
+work and how much work your app
+
+58
+00:01:43,586 --> 0:01:45,586
+is doing by using a tool called
+
+59
+00:01:45,586 --> 0:01:46,506
+Time Profiler.
+
+60
+00:01:46,506 --> 0:01:49,126
+In the last section, we'll talk
+
+61
+00:01:49,126 --> 0:01:50,576
+about adding Signposts to your
+
+62
+00:01:50,576 --> 0:01:52,546
+application to gain insight into
+
+63
+00:01:52,546 --> 0:01:53,486
+your app's behavior.
+
+64
+00:01:54,136 --> 0:01:55,556
+Let's get started with a
+
+65
+00:01:55,556 --> 0:01:57,146
+walkthrough of Instruments.
+
+66
+00:01:57,686 --> 0:02:00,596
+Instruments is a powerful
+
+67
+00:01:57,686 --> 0:02:00,596
+Instruments is a powerful
+
+68
+00:02:00,596 --> 0:02:02,336
+performance analysis and testing
+
+69
+00:02:02,336 --> 0:02:04,026
+tool that's part of Xcode
+
+70
+00:02:04,026 --> 0:02:04,596
+toolset.
+
+71
+00:02:05,306 --> 0:02:06,616
+Instruments can help you profile
+
+72
+00:02:06,616 --> 0:02:08,166
+your apps on all platforms -
+
+73
+00:02:08,566 --> 0:02:10,866
+iOS, macOS, watchOS, tvOS - in
+
+74
+00:02:11,516 --> 0:02:13,326
+order to better understand and
+
+75
+00:02:13,326 --> 0:02:14,586
+optimize their behavior and
+
+76
+00:02:14,586 --> 0:02:15,006
+performance.
+
+77
+00:02:16,156 --> 0:02:17,356
+You can use Instruments during
+
+78
+00:02:17,356 --> 0:02:18,806
+development, testing, and
+
+79
+00:02:18,806 --> 0:02:19,216
+debugging.
+
+80
+00:02:19,966 --> 0:02:21,176
+Also, I have good news.
+
+81
+00:02:21,646 --> 0:02:23,366
+If you have Xcode already, you
+
+82
+00:02:23,416 --> 0:02:24,816
+already have Instruments.
+
+83
+00:02:25,426 --> 0:02:27,296
+From Xcode's product menu,
+
+84
+00:02:27,296 --> 0:02:28,096
+choose Profile.
+
+85
+00:02:28,096 --> 0:02:30,406
+Although Instruments is embedded
+
+86
+00:02:30,436 --> 0:02:32,306
+within and is often used with
+
+87
+00:02:32,546 --> 0:02:33,856
+Xcode, Instruments is a separate
+
+88
+00:02:34,046 --> 0:02:34,756
+app which may be used
+
+89
+00:02:34,756 --> 0:02:35,956
+independently as needed.
+
+90
+00:02:36,496 --> 0:02:37,716
+You are free to choose how you
+
+91
+00:02:37,776 --> 0:02:39,096
+start your performance analysis
+
+92
+00:02:40,236 --> 0:02:40,586
+quest.
+
+93
+00:02:40,896 --> 0:02:43,196
+Now, I'll start using the word
+
+94
+00:02:43,376 --> 0:02:44,646
+Instruments in two different
+
+95
+00:02:44,646 --> 0:02:45,026
+ways.
+
+96
+00:02:45,886 --> 0:02:46,906
+We've already talked about the
+
+97
+00:02:46,936 --> 0:02:48,226
+Instruments app.
+
+98
+00:02:48,226 --> 0:02:49,706
+Why is it named that?
+
+99
+00:02:49,986 --> 0:02:51,576
+Because it provides tools called
+
+100
+00:02:51,576 --> 0:02:52,856
+Instruments that are used to
+
+101
+00:02:52,856 --> 0:02:54,016
+profile errors in your
+
+102
+00:02:54,016 --> 0:02:54,726
+application.
+
+103
+00:02:55,546 --> 0:02:56,826
+In areas where it might be hard
+
+104
+00:02:56,826 --> 0:02:58,046
+to understand what I'm referring
+
+105
+00:02:58,046 --> 0:02:59,516
+to, I'll refer to the
+
+106
+00:02:59,516 --> 0:03:01,156
+application as the Instruments
+
+107
+00:02:59,516 --> 0:03:01,156
+application as the Instruments
+
+108
+00:03:01,496 --> 0:03:01,563
+app.
+
+109
+00:03:02,486 --> 0:03:03,846
+An Instrument collects time
+
+110
+00:03:03,846 --> 0:03:05,356
+series trace data from
+
+111
+00:03:05,356 --> 0:03:06,656
+infrastructure that is inserted
+
+112
+00:03:06,656 --> 0:03:08,686
+into important parts of apps,
+
+113
+00:03:08,686 --> 0:03:10,206
+processes, and the operating
+
+114
+00:03:10,206 --> 0:03:10,596
+system.
+
+115
+00:03:11,466 --> 0:03:12,766
+We sometimes refer to the data
+
+116
+00:03:12,766 --> 0:03:14,166
+an Instrument collects as a
+
+117
+00:03:14,166 --> 0:03:14,606
+treat.
+
+118
+00:03:15,766 --> 0:03:16,936
+Here we have a couple of my
+
+119
+00:03:17,006 --> 0:03:17,836
+favorite Instruments.
+
+120
+00:03:18,436 --> 0:03:19,746
+The Time Profiler Instrument on
+
+121
+00:03:19,746 --> 0:03:21,506
+the left uses infrastructure
+
+122
+00:03:21,506 --> 0:03:23,156
+provided by the operating system
+
+123
+00:03:23,156 --> 0:03:24,656
+to collect call stacks of
+
+124
+00:03:24,656 --> 0:03:25,826
+relevant threads at a fixed
+
+125
+00:03:25,936 --> 0:03:26,406
+interval.
+
+126
+00:03:27,276 --> 0:03:28,186
+The Points of Interest
+
+127
+00:03:28,186 --> 0:03:29,656
+instrument on the right collects
+
+128
+00:03:29,686 --> 0:03:30,886
+data from important areas of
+
+129
+00:03:30,886 --> 0:03:32,406
+your app that you can highlight
+
+130
+00:03:32,766 --> 0:03:34,866
+using various APIs such as
+
+131
+00:03:34,866 --> 0:03:37,056
+Signpost API.
+
+132
+00:03:37,376 --> 0:03:38,986
+When you first open Instruments,
+
+133
+00:03:38,986 --> 0:03:40,196
+you're presented with a list of
+
+134
+00:03:40,196 --> 0:03:41,896
+templates similar to the
+
+135
+00:03:41,896 --> 0:03:43,726
+templates in a pages or numbers
+
+136
+00:03:43,726 --> 0:03:44,246
+document.
+
+137
+00:03:44,646 --> 0:03:46,086
+A template provides a
+
+138
+00:03:46,156 --> 0:03:47,526
+preconfigured collection of
+
+139
+00:03:47,526 --> 0:03:49,186
+Instruments to help you answer a
+
+140
+00:03:49,186 --> 0:03:51,536
+performance question, similar to
+
+141
+00:03:51,536 --> 0:03:52,826
+how the page's birthday card
+
+142
+00:03:52,826 --> 0:03:54,166
+template provides a document
+
+143
+00:03:54,166 --> 0:03:55,156
+structure to help you create a
+
+144
+00:03:55,156 --> 0:03:55,786
+birthday card.
+
+145
+00:03:56,106 --> 0:03:57,846
+There are too many templates to
+
+146
+00:03:57,846 --> 0:03:59,336
+cover in this short session, so
+
+147
+00:03:59,336 --> 0:04:00,446
+we will focus on the Time
+
+148
+00:03:59,336 --> 0:04:00,446
+we will focus on the Time
+
+149
+00:04:00,446 --> 0:04:01,986
+Profiler template which contains
+
+150
+00:04:01,986 --> 0:04:03,066
+the two Instruments I just
+
+151
+00:04:03,066 --> 0:04:04,666
+mentioned - Time Profiler and
+
+152
+00:04:04,666 --> 0:04:05,996
+Points of Interest, as well as
+
+153
+00:04:05,996 --> 0:04:06,216
+others.
+
+154
+00:04:07,296 --> 0:04:08,546
+These Instruments are great
+
+155
+00:04:08,546 --> 0:04:09,466
+tools for understanding
+
+156
+00:04:09,466 --> 0:04:11,626
+responsiveness and your app's
+
+157
+00:04:11,626 --> 0:04:12,476
+utilization.
+
+158
+00:04:12,476 --> 0:04:15,106
+When you first open the Time
+
+159
+00:04:15,106 --> 0:04:16,586
+Profiler template, you're
+
+160
+00:04:16,586 --> 0:04:17,916
+presented with this blank
+
+161
+00:04:17,916 --> 0:04:19,586
+document ready for Profiling.
+
+162
+00:04:19,646 --> 0:04:22,136
+So, the top right, you can add
+
+163
+00:04:22,136 --> 0:04:23,336
+additional Instruments to this
+
+164
+00:04:23,336 --> 0:04:24,846
+document by clicking the Add
+
+165
+00:04:25,016 --> 0:04:26,106
+Instruments button.
+
+166
+00:04:27,186 --> 0:04:28,286
+Then, the Instrument's app shows
+
+167
+00:04:28,286 --> 0:04:29,236
+the Instrument's library
+
+168
+00:04:29,236 --> 0:04:30,446
+palette, which contains a
+
+169
+00:04:30,446 --> 0:04:31,826
+complete list of available
+
+170
+00:04:31,826 --> 0:04:32,436
+Instruments.
+
+171
+00:04:33,706 --> 0:04:35,216
+From here, you can find new
+
+172
+00:04:35,216 --> 0:04:36,506
+Instruments and drag them into
+
+173
+00:04:36,506 --> 0:04:37,706
+the document to gather more
+
+174
+00:04:37,706 --> 0:04:37,976
+data.
+
+175
+00:04:39,356 --> 0:04:40,916
+So, the top left, we have the
+
+176
+00:04:40,916 --> 0:04:42,036
+Profiling Controls.
+
+177
+00:04:42,496 --> 0:04:43,816
+This allows you to record,
+
+178
+00:04:43,816 --> 0:04:45,746
+pause, and stop data collection.
+
+179
+00:04:46,516 --> 0:04:48,006
+Beside the Profiling Controls is
+
+180
+00:04:48,006 --> 0:04:48,746
+the Target Area.
+
+181
+00:04:49,416 --> 0:04:50,506
+The Target Device List on the
+
+182
+00:04:50,506 --> 0:04:52,166
+left allows you to select the
+
+183
+00:04:52,166 --> 0:04:53,196
+device on which you wish to
+
+184
+00:04:53,196 --> 0:04:53,716
+profile.
+
+185
+00:04:54,446 --> 0:04:56,216
+This is similar to the Xcode
+
+186
+00:04:56,216 --> 0:04:57,426
+Target Area where you choose the
+
+187
+00:04:57,426 --> 0:04:59,326
+device and the process to
+
+188
+00:04:59,326 --> 0:05:00,226
+Profile on the device.
+
+189
+00:04:59,326 --> 0:05:00,226
+Profile on the device.
+
+190
+00:05:01,316 --> 0:05:02,666
+Typically you will choose your
+
+191
+00:05:02,666 --> 0:05:04,046
+app's process as your Target
+
+192
+00:05:04,046 --> 0:05:05,846
+Process, but for instance, if
+
+193
+00:05:05,846 --> 0:05:06,836
+you're Profiling a shared
+
+194
+00:05:06,836 --> 0:05:08,236
+extension, you would choose your
+
+195
+00:05:08,236 --> 0:05:09,846
+extension Process, which will be
+
+196
+00:05:09,846 --> 0:05:12,146
+separate from your app.
+
+197
+00:05:12,406 --> 0:05:13,786
+When I start recording in the
+
+198
+00:05:13,786 --> 0:05:15,306
+Time Profiler template, the
+
+199
+00:05:15,306 --> 0:05:16,226
+document will start being
+
+200
+00:05:16,226 --> 0:05:18,326
+populated with trace data.
+
+201
+00:05:18,326 --> 0:05:20,036
+As an aside, recording with
+
+202
+00:05:20,036 --> 0:05:21,136
+Instruments uses System
+
+203
+00:05:21,136 --> 0:05:22,926
+Resources, just like your app
+
+204
+00:05:22,926 --> 0:05:23,086
+does.
+
+205
+00:05:23,826 --> 0:05:25,386
+To minimize its impact on your
+
+206
+00:05:25,696 --> 0:05:26,956
+app, Instruments also offers a
+
+207
+00:05:26,956 --> 0:05:28,346
+feature called Last Few Seconds
+
+208
+00:05:28,406 --> 0:05:30,286
+Mode, sometimes called Windowed
+
+209
+00:05:30,286 --> 0:05:30,586
+Mode.
+
+210
+00:05:31,836 --> 0:05:33,436
+Windowed Mode keeps Instruments
+
+211
+00:05:33,436 --> 0:05:34,886
+from analyzing or displaying
+
+212
+00:05:34,886 --> 0:05:36,566
+results until recording ends and
+
+213
+00:05:36,916 --> 0:05:38,326
+ignores events prior to the last
+
+214
+00:05:38,366 --> 0:05:39,466
+few seconds of recording.
+
+215
+00:05:40,256 --> 0:05:41,176
+This is helpful when you just
+
+216
+00:05:41,176 --> 0:05:42,416
+want to start recording and
+
+217
+00:05:42,466 --> 0:05:43,376
+select stop when you see a
+
+218
+00:05:43,376 --> 0:05:43,966
+problem.
+
+219
+00:05:44,676 --> 0:05:45,956
+Some templates use this mode by
+
+220
+00:05:45,956 --> 0:05:47,286
+default because they gather a
+
+221
+00:05:47,286 --> 0:05:49,296
+lot of data over a short period
+
+222
+00:05:49,296 --> 0:05:49,866
+of time.
+
+223
+00:05:51,426 --> 0:05:52,406
+Now that I've just finished
+
+224
+00:05:52,406 --> 0:05:53,576
+recording in the Time Profiler
+
+225
+00:05:53,676 --> 0:05:55,336
+template, a lot of trace data
+
+226
+00:05:55,336 --> 0:05:56,686
+has been populated into various
+
+227
+00:05:56,686 --> 0:05:57,416
+parts of this window.
+
+228
+00:05:58,096 --> 0:05:59,656
+This may look like a lot, so
+
+229
+00:05:59,656 --> 0:06:00,736
+let's go on a side quest to
+
+230
+00:05:59,656 --> 0:06:00,736
+let's go on a side quest to
+
+231
+00:06:00,736 --> 0:06:01,866
+learn what each part does.
+
+232
+00:06:03,226 --> 0:06:04,786
+The top portion of the window
+
+233
+00:06:04,786 --> 0:06:06,266
+contains the Track Viewer.
+
+234
+00:06:06,836 --> 0:06:08,516
+A Track shows time series trace
+
+235
+00:06:08,516 --> 0:06:10,166
+data corresponding to one source
+
+236
+00:06:10,166 --> 0:06:12,266
+of events, such as the process,
+
+237
+00:06:12,266 --> 0:06:13,496
+thread, or CPU core.
+
+238
+00:06:14,126 --> 0:06:15,696
+A single Instrument may
+
+239
+00:06:15,696 --> 0:06:16,716
+contribute trace data to
+
+240
+00:06:16,816 --> 0:06:17,896
+multiple Tracks.
+
+241
+00:06:18,396 --> 0:06:20,246
+In this example, three Tracks
+
+242
+00:06:20,246 --> 0:06:20,806
+are visible.
+
+243
+00:06:21,476 --> 0:06:22,846
+The top Track is a summary of
+
+244
+00:06:22,846 --> 0:06:23,846
+our application's CPU
+
+245
+00:06:23,846 --> 0:06:25,916
+utilization provided by the Time
+
+246
+00:06:25,916 --> 0:06:26,796
+Profiler Instrument.
+
+247
+00:06:27,626 --> 0:06:29,166
+The next Track shows data
+
+248
+00:06:29,166 --> 0:06:30,376
+collected from the Points of
+
+249
+00:06:30,456 --> 0:06:31,996
+Interest Instrument, which Anand
+
+250
+00:06:31,996 --> 0:06:32,956
+will show you later.
+
+251
+00:06:33,266 --> 0:06:34,406
+Additional Tracks follow
+
+252
+00:06:34,406 --> 0:06:35,726
+breaking things down in finer
+
+253
+00:06:35,726 --> 0:06:36,006
+detail.
+
+254
+00:06:36,726 --> 0:06:39,236
+A given Instrument's trace may
+
+255
+00:06:39,236 --> 0:06:40,466
+have dozens of Tracks.
+
+256
+00:06:41,326 --> 0:06:42,876
+You can use the Track Filter to
+
+257
+00:06:42,876 --> 0:06:44,296
+just show the Instruments or
+
+258
+00:06:44,296 --> 0:06:46,236
+break it up by thread, or by CPU
+
+259
+00:06:46,286 --> 0:06:46,576
+core.
+
+260
+00:06:47,356 --> 0:06:48,636
+You can also get more specific
+
+261
+00:06:48,636 --> 0:06:51,646
+and search for Tracks by name.
+
+262
+00:06:51,646 --> 0:06:52,886
+Lower down in the window, the
+
+263
+00:06:52,886 --> 0:06:54,186
+detail view allows you to
+
+264
+00:06:54,286 --> 0:06:55,736
+explore the trace data for the
+
+265
+00:06:55,736 --> 0:06:56,376
+selected Track.
+
+266
+00:06:56,896 --> 0:06:58,546
+In this example, with the Time
+
+267
+00:06:58,546 --> 0:07:00,436
+Profiler Track selected, we can
+
+268
+00:06:58,546 --> 0:07:00,436
+Profiler Track selected, we can
+
+269
+00:07:00,436 --> 0:07:01,826
+explore the functions called on
+
+270
+00:07:01,826 --> 0:07:02,986
+each thread during the trace.
+
+271
+00:07:03,726 --> 0:07:06,026
+To the right side of the Detail
+
+272
+00:07:06,026 --> 0:07:07,526
+View, you'll find the Extended
+
+273
+00:07:07,526 --> 0:07:08,456
+Detail View within the
+
+274
+00:07:08,456 --> 0:07:09,016
+Inspector.
+
+275
+00:07:09,836 --> 0:07:11,506
+This is a view that may provide
+
+276
+00:07:11,506 --> 0:07:12,586
+richer information from the
+
+277
+00:07:12,586 --> 0:07:14,186
+Instruments in use, depending on
+
+278
+00:07:14,186 --> 0:07:15,716
+current context and selection.
+
+279
+00:07:16,416 --> 0:07:17,886
+In this example, because I'm
+
+280
+00:07:17,886 --> 0:07:19,386
+using Time Profiler, I have a
+
+281
+00:07:19,386 --> 0:07:20,496
+summary showing the heaviest
+
+282
+00:07:20,496 --> 0:07:22,266
+call stack.
+
+283
+00:07:22,746 --> 0:07:24,046
+Another way to see what is
+
+284
+00:07:24,046 --> 0:07:25,806
+happening at a moment in time is
+
+285
+00:07:25,806 --> 0:07:26,886
+through the Inspection Head.
+
+286
+00:07:27,686 --> 0:07:28,586
+The Inspection Head is a
+
+287
+00:07:28,586 --> 0:07:30,416
+selector which can be placed at
+
+288
+00:07:30,556 --> 0:07:32,616
+a specific time in the trace in
+
+289
+00:07:32,616 --> 0:07:33,646
+order to select all traced
+
+290
+00:07:33,646 --> 0:07:35,466
+events or intervals occurring at
+
+291
+00:07:35,466 --> 0:07:36,916
+that time.
+
+292
+00:07:37,256 --> 0:07:38,486
+Additional details about the
+
+293
+00:07:38,486 --> 0:07:39,846
+selected events are displayed in
+
+294
+00:07:39,846 --> 0:07:40,686
+Hovering Labels.
+
+295
+00:07:41,116 --> 0:07:42,976
+The Detail and Extended Detail
+
+296
+00:07:42,976 --> 0:07:44,856
+views are updated to focus on
+
+297
+00:07:44,856 --> 0:07:46,156
+information about the selected
+
+298
+00:07:46,156 --> 0:07:47,406
+events where applicable.
+
+299
+00:07:48,566 --> 0:07:49,976
+We've finished our side quest
+
+300
+00:07:49,976 --> 0:07:51,296
+and now better understand the
+
+301
+00:07:51,296 --> 0:07:53,286
+Instruments' User Interface.
+
+302
+00:07:53,336 --> 0:07:54,866
+Everything shown in the window
+
+303
+00:07:55,116 --> 0:07:56,566
+is part of a trace document.
+
+304
+00:07:57,286 --> 0:07:59,046
+The trace document contains any
+
+305
+00:07:59,046 --> 0:08:00,196
+Instruments configured for
+
+306
+00:07:59,046 --> 0:08:00,196
+Instruments configured for
+
+307
+00:08:00,196 --> 0:08:01,786
+Profiling along with collected
+
+308
+00:08:01,786 --> 0:08:03,696
+data and views you're using to
+
+309
+00:08:03,696 --> 0:08:04,656
+analyze the results.
+
+310
+00:08:05,616 --> 0:08:07,746
+The Instruments app can save and
+
+311
+00:08:07,746 --> 0:08:08,976
+reopen these trace documents,
+
+312
+00:08:09,226 --> 0:08:10,536
+allowing you to explore old
+
+313
+00:08:10,536 --> 0:08:12,216
+results or share them with a
+
+314
+00:08:12,216 --> 0:08:13,446
+teammate for investigation.
+
+315
+00:08:13,446 --> 0:08:15,926
+With that, I would like to
+
+316
+00:08:15,926 --> 0:08:16,896
+welcome my teammate, Ben
+
+317
+00:08:16,896 --> 0:08:18,056
+Mitchell, to the stage, so he
+
+318
+00:08:18,056 --> 0:08:19,096
+can show some of these things in
+
+319
+00:08:19,096 --> 0:08:19,616
+action.
+
+320
+00:08:19,966 --> 0:08:20,506
+Thank you!
+
+321
+00:08:21,516 --> 0:08:25,416
+[ Applause ]
+
+322
+00:08:25,916 --> 0:08:26,446
+&gt;&gt; Thanks, Tibet.
+
+323
+00:08:26,946 --> 0:08:27,536
+Hello, World.
+
+324
+00:08:27,536 --> 0:08:29,036
+My name is Ben Mitchell and as
+
+325
+00:08:29,036 --> 0:08:29,926
+Tibet mentioned, I'm going to
+
+326
+00:08:29,926 --> 0:08:31,006
+show you how to Profile your
+
+327
+00:08:31,006 --> 0:08:32,405
+application using Instruments.
+
+328
+00:08:33,015 --> 0:08:33,686
+Let's get started.
+
+329
+00:08:37,275 --> 0:08:38,506
+For those of you who saw some
+
+330
+00:08:38,506 --> 0:08:39,666
+sessions at last year's
+
+331
+00:08:39,666 --> 0:08:42,176
+conference, WWDC2018, you might
+
+332
+00:08:42,176 --> 0:08:43,496
+recognize the Solar System app.
+
+333
+00:08:44,145 --> 0:08:45,286
+We shipped it about a year ago,
+
+334
+00:08:45,286 --> 0:08:46,036
+and we've gotten some good
+
+335
+00:08:46,036 --> 0:08:47,096
+feedback from our customers.
+
+336
+00:08:47,636 --> 0:08:49,356
+But, also some less-than-awesome
+
+337
+00:08:49,356 --> 0:08:50,676
+feedback; in particular, in
+
+338
+00:08:50,676 --> 0:08:51,606
+areas of performance.
+
+339
+00:08:51,916 --> 0:08:53,676
+Our customers have reported some
+
+340
+00:08:53,676 --> 0:08:54,716
+responsiveness issues,
+
+341
+00:08:55,436 --> 0:08:57,086
+particularly on older devices.
+
+342
+00:08:57,406 --> 0:08:59,036
+I was able to reproduce one of
+
+343
+00:08:59,036 --> 0:09:00,376
+these before the session and I'd
+
+344
+00:08:59,036 --> 0:09:00,376
+these before the session and I'd
+
+345
+00:09:00,376 --> 0:09:01,606
+like to demo it to you know with
+
+346
+00:09:01,606 --> 0:09:02,716
+Instruments attached so we can
+
+347
+00:09:02,756 --> 0:09:03,466
+see if we can fix it.
+
+348
+00:09:04,096 --> 0:09:04,846
+Let's dive right in.
+
+349
+00:09:06,266 --> 0:09:07,166
+With the application already
+
+350
+00:09:07,166 --> 0:09:08,126
+running, I'll just open
+
+351
+00:09:08,126 --> 0:09:08,676
+Instruments.
+
+352
+00:09:10,616 --> 0:09:11,756
+The Instruments Template
+
+353
+00:09:11,756 --> 0:09:13,056
+Selector already has Time
+
+354
+00:09:13,056 --> 0:09:14,606
+Profiler chosen, because I've
+
+355
+00:09:14,606 --> 0:09:15,406
+used it previously.
+
+356
+00:09:15,776 --> 0:09:17,006
+Time Profiler is a great tool
+
+357
+00:09:17,076 --> 0:09:18,336
+for looking at issues that occur
+
+358
+00:09:18,336 --> 0:09:19,666
+over a particular window of
+
+359
+00:09:20,026 --> 0:09:20,166
+time.
+
+360
+00:09:20,596 --> 0:09:22,476
+I'll select Time Profiler and
+
+361
+00:09:22,476 --> 0:09:23,916
+using the Choose button, will
+
+362
+00:09:23,916 --> 0:09:24,876
+open a new trace document.
+
+363
+00:09:25,406 --> 0:09:27,366
+Because I didn't launch this
+
+364
+00:09:27,366 --> 0:09:28,326
+from Xcode, the first thing I
+
+365
+00:09:28,326 --> 0:09:29,466
+need to do is select which
+
+366
+00:09:29,506 --> 0:09:30,826
+process I'm going to trace.
+
+367
+00:09:31,656 --> 0:09:32,906
+Using the target selection area,
+
+368
+00:09:33,436 --> 0:09:36,046
+I'll click All Processes and
+
+369
+00:09:36,046 --> 0:09:37,146
+select the Solar System Mac
+
+370
+00:09:37,146 --> 0:09:38,046
+application that's already
+
+371
+00:09:38,046 --> 0:09:38,286
+running.
+
+372
+00:09:39,076 --> 0:09:40,466
+To the right, you can see a
+
+373
+00:09:40,466 --> 0:09:40,796
+number.
+
+374
+00:09:40,796 --> 0:09:42,136
+That's the process identifier
+
+375
+00:09:42,136 --> 0:09:43,656
+and it appears in Activity
+
+376
+00:09:43,656 --> 0:09:44,006
+Monitoring.
+
+377
+00:09:44,176 --> 0:09:47,426
+We've selected the application,
+
+378
+00:09:47,426 --> 0:09:49,356
+and now we'll click Record in
+
+379
+00:09:49,356 --> 0:09:50,246
+the top left of the window.
+
+380
+00:09:52,336 --> 0:09:52,726
+There we go.
+
+381
+00:09:52,726 --> 0:09:53,586
+Instruments is recording.
+
+382
+00:09:54,606 --> 0:09:55,646
+I'll switch over to the app.
+
+383
+00:09:56,796 --> 0:09:58,566
+The Solar System app supports a
+
+384
+00:09:58,566 --> 0:10:00,266
+number of gestures on the Track
+
+385
+00:09:58,566 --> 0:10:00,266
+number of gestures on the Track
+
+386
+00:10:00,266 --> 0:10:00,516
+Pad.
+
+387
+00:10:00,606 --> 0:10:01,986
+It supports clicks and drags,
+
+388
+00:10:02,346 --> 0:10:04,076
+but also pans, pinch to zoom,
+
+389
+00:10:04,146 --> 0:10:04,676
+and so on.
+
+390
+00:10:04,676 --> 0:10:06,696
+And our customers have reported
+
+391
+00:10:06,696 --> 0:10:07,406
+that when they're performing
+
+392
+00:10:07,406 --> 0:10:09,156
+these operations and they press
+
+393
+00:10:09,156 --> 0:10:11,086
+command + R to reload data, the
+
+394
+00:10:11,286 --> 0:10:12,666
+user interface freezes and the
+
+395
+00:10:12,666 --> 0:10:13,946
+dreaded Spinning Wait Cursor
+
+396
+00:10:13,946 --> 0:10:14,436
+appears.
+
+397
+00:10:15,036 --> 0:10:15,936
+You may know it by some other
+
+398
+00:10:15,936 --> 0:10:16,316
+names.
+
+399
+00:10:16,646 --> 0:10:17,616
+That's not awesome.
+
+400
+00:10:18,126 --> 0:10:20,576
+We were able to reproduce it, so
+
+401
+00:10:20,576 --> 0:10:21,666
+let's switch back to Instruments
+
+402
+00:10:21,726 --> 0:10:22,566
+and see what we can find.
+
+403
+00:10:23,416 --> 0:10:24,686
+I'll quit the application and
+
+404
+00:10:24,686 --> 0:10:26,026
+Instruments automatically stops
+
+405
+00:10:26,026 --> 0:10:26,426
+recording.
+
+406
+00:10:26,656 --> 0:10:29,666
+So, we can see the populated
+
+407
+00:10:29,666 --> 0:10:30,416
+trace data here.
+
+408
+00:10:30,416 --> 0:10:31,576
+And the first thing I'm going to
+
+409
+00:10:31,576 --> 0:10:33,046
+do is make it a little larger so
+
+410
+00:10:33,046 --> 0:10:33,946
+we can see it in more detail.
+
+411
+00:10:35,236 --> 0:10:36,296
+With the mouse cursor over the
+
+412
+00:10:36,296 --> 0:10:37,816
+track area, a pinch to zoom
+
+413
+00:10:37,816 --> 0:10:39,736
+gesture makes it larger and
+
+414
+00:10:39,736 --> 0:10:40,926
+allows us to see things closer.
+
+415
+00:10:42,376 --> 0:10:43,786
+On the left-hand side in the
+
+416
+00:10:43,786 --> 0:10:45,386
+track area, we can see several
+
+417
+00:10:45,386 --> 0:10:47,106
+instruments have provided tracks
+
+418
+00:10:47,106 --> 0:10:47,546
+for us.
+
+419
+00:10:47,956 --> 0:10:49,046
+Time Profiler is showing us a
+
+420
+00:10:49,046 --> 0:10:50,626
+summary of the CPU utilization.
+
+421
+00:10:50,986 --> 0:10:51,716
+The Points of Interest
+
+422
+00:10:51,716 --> 0:10:53,076
+Instrument is currently empty.
+
+423
+00:10:53,246 --> 0:10:54,256
+Anand will show you that later.
+
+424
+00:10:54,366 --> 0:10:55,566
+And there are a number of
+
+425
+00:10:55,566 --> 0:10:56,796
+others, including thermal state,
+
+426
+00:10:56,796 --> 0:10:58,436
+and then breakdowns further on
+
+427
+00:10:58,436 --> 0:10:59,066
+down the scroll view.
+
+428
+00:11:00,426 --> 0:11:01,986
+If we move our mouse cursor over
+
+429
+00:11:01,986 --> 0:11:04,146
+the CPU Usage summary track, we
+
+430
+00:11:04,146 --> 0:11:05,566
+can see a hovering label that
+
+431
+00:11:05,566 --> 0:11:06,806
+shows what the utilization level
+
+432
+00:11:06,806 --> 0:11:07,126
+is.
+
+433
+00:11:08,196 --> 0:11:09,716
+And when I hit this large area
+
+434
+00:11:09,746 --> 0:11:11,836
+here, the utilization is above
+
+435
+00:11:11,836 --> 0:11:12,526
+100%.
+
+436
+00:11:13,206 --> 0:11:13,956
+So, this appears to be
+
+437
+00:11:13,956 --> 0:11:15,956
+suspicious and I suspect this is
+
+438
+00:11:15,956 --> 0:11:17,016
+around the time of that reload
+
+439
+00:11:17,016 --> 0:11:17,516
+operation.
+
+440
+00:11:18,076 --> 0:11:19,946
+I'd like to compare this to some
+
+441
+00:11:19,946 --> 0:11:20,806
+of the other tracks.
+
+442
+00:11:21,026 --> 0:11:21,976
+So, we're going to use a feature
+
+443
+00:11:21,976 --> 0:11:22,786
+called Track Pinning.
+
+444
+00:11:23,336 --> 0:11:25,956
+In the left-hand side of the
+
+445
+00:11:25,956 --> 0:11:27,436
+window, when I move my mouse
+
+446
+00:11:27,436 --> 0:11:29,516
+over one of the track entries, a
+
+447
+00:11:29,516 --> 0:11:30,666
+plus button appears.
+
+448
+00:11:31,956 --> 0:11:34,586
+Clicking it, pins that track to
+
+449
+00:11:34,586 --> 0:11:35,866
+the bottom of the track area.
+
+450
+00:11:36,646 --> 0:11:37,956
+And now we can scroll through
+
+451
+00:11:37,956 --> 0:11:39,536
+the other tracks and see the one
+
+452
+00:11:39,536 --> 0:11:40,696
+that was of interest side by
+
+453
+00:11:40,696 --> 0:11:41,016
+side.
+
+454
+00:11:41,496 --> 0:11:42,846
+You can pin multiple tracks.
+
+455
+00:11:44,246 --> 0:11:45,706
+As we scroll down, we can see
+
+456
+00:11:45,706 --> 0:11:46,956
+things broken out by each CPU
+
+457
+00:11:46,956 --> 0:11:47,746
+core on the system.
+
+458
+00:11:48,236 --> 0:11:50,716
+And now we have a track entry
+
+459
+00:11:51,046 --> 0:11:52,566
+for the process itself, Solar
+
+460
+00:11:52,566 --> 0:11:54,006
+System Mac.
+
+461
+00:11:54,006 --> 0:11:55,236
+In addition to a CPU usage
+
+462
+00:11:55,236 --> 0:11:56,576
+summary, this also shows us app
+
+463
+00:11:56,576 --> 0:11:57,486
+lifecycle events.
+
+464
+00:11:57,816 --> 0:11:58,616
+We can see here where the
+
+465
+00:11:58,616 --> 0:11:59,486
+application came into the
+
+466
+00:11:59,486 --> 0:12:00,766
+foreground when I clicked it on
+
+467
+00:11:59,486 --> 0:12:00,766
+foreground when I clicked it on
+
+468
+00:12:00,766 --> 0:12:01,646
+the dock.
+
+469
+00:12:02,516 --> 0:12:04,266
+There's also a suspicious red
+
+470
+00:12:04,266 --> 0:12:06,076
+area over here during the CPU
+
+471
+00:12:06,076 --> 0:12:06,926
+usage spike.
+
+472
+00:12:07,836 --> 0:12:09,026
+Moving the mouse over it, I can
+
+473
+00:12:09,026 --> 0:12:10,416
+see that the label is spinning.
+
+474
+00:12:11,756 --> 0:12:12,876
+Spinning is how Instruments
+
+475
+00:12:12,876 --> 0:12:14,506
+refers to your main thread being
+
+476
+00:12:14,506 --> 0:12:14,946
+blocked.
+
+477
+00:12:15,246 --> 0:12:16,266
+And on the Mac, that's what
+
+478
+00:12:16,266 --> 0:12:17,406
+causes the Spinning Wait Cursor.
+
+479
+00:12:17,726 --> 0:12:19,496
+The main thread has just a few
+
+480
+00:12:19,496 --> 0:12:20,626
+very specific uses.
+
+481
+00:12:20,886 --> 0:12:21,806
+It should be used for handling
+
+482
+00:12:21,806 --> 0:12:23,576
+user input or for updating the
+
+483
+00:12:23,576 --> 0:12:24,316
+user interface.
+
+484
+00:12:24,766 --> 0:12:25,736
+Clearly, something else is going
+
+485
+00:12:25,736 --> 0:12:25,946
+on here.
+
+486
+00:12:29,186 --> 0:12:30,626
+I'd like to look at the main
+
+487
+00:12:30,626 --> 0:12:30,896
+thread.
+
+488
+00:12:32,286 --> 0:12:33,806
+So, I will expand the Solar
+
+489
+00:12:33,806 --> 0:12:35,026
+System Mac process.
+
+490
+00:12:35,866 --> 0:12:37,036
+And now there are a number of
+
+491
+00:12:37,036 --> 0:12:38,846
+other tracks corresponding to
+
+492
+00:12:38,846 --> 0:12:40,346
+each thread in the application.
+
+493
+00:12:40,816 --> 0:12:42,776
+Scrolling all the way down,
+
+494
+00:12:43,406 --> 0:12:44,196
+here's the main thread.
+
+495
+00:12:44,196 --> 0:12:46,456
+And the main thread is showing a
+
+496
+00:12:46,456 --> 0:12:46,856
+spike.
+
+497
+00:12:47,466 --> 0:12:49,576
+So, this looks like the event
+
+498
+00:12:49,576 --> 0:12:51,746
+that I want to take a look at.
+
+499
+00:12:51,746 --> 0:12:52,886
+The next feature of Instruments
+
+500
+00:12:52,886 --> 0:12:54,296
+that we're going to use allows
+
+501
+00:12:54,296 --> 0:12:56,166
+us to filter events by clicking
+
+502
+00:12:56,166 --> 0:12:57,616
+and dragging in the track area.
+
+503
+00:12:58,726 --> 0:12:59,576
+Now, the Detail view at the
+
+504
+00:12:59,576 --> 0:13:00,826
+bottom is only showing events
+
+505
+00:12:59,576 --> 0:13:00,826
+bottom is only showing events
+
+506
+00:13:00,866 --> 0:13:01,796
+from the selected window of
+
+507
+00:13:01,796 --> 0:13:02,016
+time.
+
+508
+00:13:02,896 --> 0:13:03,936
+Let's look in the Detail view
+
+509
+00:13:04,066 --> 0:13:05,286
+and learn more.
+
+510
+00:13:05,856 --> 0:13:08,566
+The Detail view shows us a call
+
+511
+00:13:08,566 --> 0:13:09,186
+graph.
+
+512
+00:13:09,186 --> 0:13:10,266
+These are all the functions that
+
+513
+00:13:10,266 --> 0:13:11,926
+were invoked during the time of
+
+514
+00:13:11,926 --> 0:13:12,476
+our profile.
+
+515
+00:13:12,636 --> 0:13:13,586
+Or, in this case, during the
+
+516
+00:13:13,586 --> 0:13:14,806
+time we have selected in the
+
+517
+00:13:14,806 --> 0:13:15,106
+filter.
+
+518
+00:13:15,796 --> 0:13:17,766
+It's important to understand
+
+519
+00:13:17,766 --> 0:13:18,316
+what this is doing.
+
+520
+00:13:18,316 --> 0:13:21,326
+We're not actually tracking
+
+521
+00:13:21,326 --> 0:13:22,776
+every function entry and exit.
+
+522
+00:13:23,366 --> 0:13:24,946
+Instead, Time Profiler takes a
+
+523
+00:13:24,946 --> 0:13:26,526
+snapshot many times per second
+
+524
+00:13:26,706 --> 0:13:28,336
+and notes all of the functions
+
+525
+00:13:28,336 --> 0:13:29,156
+that are running in your
+
+526
+00:13:29,156 --> 0:13:29,726
+process.
+
+527
+00:13:30,886 --> 0:13:32,536
+So, on the left-hand side, we
+
+528
+00:13:32,536 --> 0:13:33,216
+have a wait column.
+
+529
+00:13:34,476 --> 0:13:36,716
+Solar System Mac appears 100% of
+
+530
+00:13:36,716 --> 0:13:37,126
+the time.
+
+531
+00:13:37,406 --> 0:13:38,726
+This means that in every sample,
+
+532
+00:13:38,726 --> 0:13:40,016
+Solar System Mac was present.
+
+533
+00:13:40,356 --> 0:13:41,276
+That's good, because that's the
+
+534
+00:13:41,276 --> 0:13:41,966
+application that we're
+
+535
+00:13:41,966 --> 0:13:42,406
+profiling.
+
+536
+00:13:43,266 --> 0:13:44,336
+As we move on down, the main
+
+537
+00:13:44,336 --> 0:13:47,006
+thread is present in 96.7% and
+
+538
+00:13:47,006 --> 0:13:47,376
+so on.
+
+539
+00:13:47,826 --> 0:13:49,126
+And we can begin disclosing
+
+540
+00:13:49,126 --> 0:13:50,476
+these threads to the deeper end
+
+541
+00:13:50,476 --> 0:13:51,176
+of the functions that were
+
+542
+00:13:51,176 --> 0:13:51,436
+called.
+
+543
+00:13:52,376 --> 0:13:53,356
+But there are a lot of them here
+
+544
+00:13:53,596 --> 0:13:54,966
+and I'd have to click a number
+
+545
+00:13:54,966 --> 0:13:55,816
+of times to find something
+
+546
+00:13:55,816 --> 0:13:56,186
+interesting.
+
+547
+00:13:56,726 --> 0:13:58,006
+So, Instruments provides another
+
+548
+00:13:58,006 --> 0:13:58,736
+useful trick.
+
+549
+00:13:58,736 --> 0:14:00,606
+If you hold down the Option key
+
+550
+00:13:58,736 --> 0:14:00,606
+If you hold down the Option key
+
+551
+00:14:00,846 --> 0:14:01,646
+and click the Disclosure
+
+552
+00:14:01,646 --> 0:14:03,096
+Triangle, Instruments
+
+553
+00:14:03,096 --> 0:14:04,696
+automatically expands the track
+
+554
+00:14:04,696 --> 0:14:06,166
+list until there is a control
+
+555
+00:14:06,236 --> 0:14:07,966
+flow branch, which might be an
+
+556
+00:14:07,966 --> 0:14:08,506
+interesting event.
+
+557
+00:14:08,506 --> 0:14:10,956
+As you can see, there's a lot
+
+558
+00:14:10,956 --> 0:14:12,696
+here, and it can be hard to dig
+
+559
+00:14:12,696 --> 0:14:14,056
+in and find exactly what your
+
+560
+00:14:14,056 --> 0:14:14,706
+problem is.
+
+561
+00:14:15,016 --> 0:14:16,866
+So, Instruments also provides
+
+562
+00:14:17,216 --> 0:14:18,676
+the heaviest stack trace in the
+
+563
+00:14:18,676 --> 0:14:20,036
+Extended Detail View for Time
+
+564
+00:14:20,036 --> 0:14:20,466
+Profiler.
+
+565
+00:14:21,746 --> 0:14:23,266
+The heaviest stack trace is the
+
+566
+00:14:23,676 --> 0:14:24,496
+set of functions that were
+
+567
+00:14:24,496 --> 0:14:26,276
+called most often during the
+
+568
+00:14:26,446 --> 0:14:26,836
+Profile.
+
+569
+00:14:27,706 --> 0:14:28,756
+So, up at the top, we can see
+
+570
+00:14:28,756 --> 0:14:30,396
+Solar System Mac appears, and
+
+571
+00:14:30,396 --> 0:14:31,536
+some of these frames are
+
+572
+00:14:31,536 --> 0:14:32,506
+highlighted in white.
+
+573
+00:14:33,466 --> 0:14:34,426
+These are the frames that are
+
+574
+00:14:34,476 --> 0:14:35,606
+from your own process.
+
+575
+00:14:37,636 --> 0:14:38,616
+Frames that come from System
+
+576
+00:14:38,616 --> 0:14:40,086
+Frameworks or Libraries are
+
+577
+00:14:40,086 --> 0:14:40,656
+shown in grey.
+
+578
+00:14:41,686 --> 0:14:43,186
+So, the main thread executes the
+
+579
+00:14:43,186 --> 0:14:44,506
+main function, and then there's
+
+580
+00:14:44,506 --> 0:14:45,816
+a block of System Framework
+
+581
+00:14:45,816 --> 0:14:46,706
+provided functions.
+
+582
+00:14:47,276 --> 0:14:50,356
+It's only further down that we
+
+583
+00:14:50,356 --> 0:14:52,166
+find another area of highlighted
+
+584
+00:14:52,166 --> 0:14:52,636
+functions.
+
+585
+00:14:53,656 --> 0:14:54,856
+The first one here is labeled as
+
+586
+00:14:54,856 --> 0:14:55,416
+a thunk.
+
+587
+00:14:56,526 --> 0:14:57,206
+What is a thunk?
+
+588
+00:14:58,136 --> 0:14:59,256
+This is a piece of helper code
+
+589
+00:14:59,256 --> 0:15:00,396
+generated by the compiler.
+
+590
+00:14:59,256 --> 0:15:00,396
+generated by the compiler.
+
+591
+00:15:00,706 --> 0:15:01,876
+It doesn't correspond directly
+
+592
+00:15:01,876 --> 0:15:02,726
+to any source code in your
+
+593
+00:15:02,726 --> 0:15:03,206
+application.
+
+594
+00:15:03,656 --> 0:15:05,266
+So in this case we'll ignore the
+
+595
+00:15:05,266 --> 0:15:05,536
+thunk.
+
+596
+00:15:06,036 --> 0:15:07,666
+What we want to focus in on is
+
+597
+00:15:07,666 --> 0:15:09,466
+this one, the first closure in a
+
+598
+00:15:09,466 --> 0:15:10,526
+method in the network request
+
+599
+00:15:10,526 --> 0:15:10,906
+scheduler.
+
+600
+00:15:12,346 --> 0:15:13,996
+If I click on this line, it is
+
+601
+00:15:13,996 --> 0:15:15,046
+selected in the Detail view.
+
+602
+00:15:15,966 --> 0:15:17,576
+Double clicking it displays the
+
+603
+00:15:17,576 --> 0:15:18,486
+source code right in line.
+
+604
+00:15:19,836 --> 0:15:20,586
+So, I can see that we have a
+
+605
+00:15:20,586 --> 0:15:21,826
+method called Schedule Parsing
+
+606
+00:15:21,826 --> 0:15:22,226
+Task.
+
+607
+00:15:22,766 --> 0:15:24,056
+And it's doing some work on the
+
+608
+00:15:24,056 --> 0:15:26,506
+main dispatch queue including
+
+609
+00:15:26,506 --> 0:15:27,976
+doing some data parsing, and
+
+610
+00:15:27,976 --> 0:15:29,506
+that seems problematic.
+
+611
+00:15:29,506 --> 0:15:30,576
+As mentioned earlier, the main
+
+612
+00:15:30,576 --> 0:15:31,516
+thread should really only be
+
+613
+00:15:31,516 --> 0:15:33,126
+used for user input and for user
+
+614
+00:15:33,126 --> 0:15:33,936
+interface updates.
+
+615
+00:15:34,366 --> 0:15:35,476
+So, I'd like to fix this.
+
+616
+00:15:36,006 --> 0:15:37,586
+In the top right of the detail
+
+617
+00:15:37,586 --> 0:15:39,136
+view, there's an Open File in
+
+618
+00:15:39,136 --> 0:15:39,636
+Xcode button.
+
+619
+00:15:40,286 --> 0:15:40,926
+I'll click it now.
+
+620
+00:15:45,576 --> 0:15:47,096
+And Xcode has come to the front.
+
+621
+00:15:48,126 --> 0:15:49,976
+So, I want to move this on to
+
+622
+00:15:49,976 --> 0:15:51,226
+its own dispatch queue so that
+
+623
+00:15:51,226 --> 0:15:52,026
+it's not blocking the main
+
+624
+00:15:52,026 --> 0:15:52,276
+thread.
+
+625
+00:15:53,276 --> 0:15:54,056
+The first thing we'll do is
+
+626
+00:15:54,056 --> 0:15:55,026
+we'll create this dispatch
+
+627
+00:15:55,056 --> 0:15:55,226
+queue.
+
+628
+00:15:55,766 --> 0:15:58,406
+We'll call it Parsing Queue.
+
+629
+00:15:58,616 --> 0:16:00,766
+Now, let's move the work onto
+
+630
+00:15:58,616 --> 0:16:00,766
+Now, let's move the work onto
+
+631
+00:16:00,766 --> 0:16:02,696
+Parsing Queue by using an
+
+632
+00:16:02,696 --> 0:16:04,106
+asynchronous closure.
+
+633
+00:16:05,226 --> 0:16:06,186
+We'll just move this work item
+
+634
+00:16:06,186 --> 0:16:06,646
+up there.
+
+635
+00:16:07,486 --> 0:16:08,536
+And we still want to notify the
+
+636
+00:16:08,536 --> 0:16:10,046
+user interface that parsing
+
+637
+00:16:10,046 --> 0:16:11,406
+completed after that is done.
+
+638
+00:16:11,886 --> 0:16:13,256
+So, we'll take this call onto
+
+639
+00:16:13,256 --> 0:16:15,376
+the dispatch main queue after
+
+640
+00:16:16,186 --> 0:16:16,286
+that.
+
+641
+00:16:16,836 --> 0:16:18,486
+We'll save, and now we're ready
+
+642
+00:16:18,486 --> 0:16:19,526
+to try to reproduce our bug
+
+643
+00:16:19,526 --> 0:16:19,766
+again.
+
+644
+00:16:20,606 --> 0:16:22,256
+This time, I'll use the Product
+
+645
+00:16:22,256 --> 0:16:23,706
+Menu and select Profile, as
+
+646
+00:16:23,706 --> 0:16:24,576
+Tibet showed you earlier.
+
+647
+00:16:25,136 --> 0:16:28,726
+Xcode builds the application and
+
+648
+00:16:28,726 --> 0:16:29,776
+brings Instruments to the front.
+
+649
+00:16:30,706 --> 0:16:31,466
+The Template Chooser has
+
+650
+00:16:31,466 --> 0:16:33,036
+appeared again because this time
+
+651
+00:16:33,066 --> 0:16:34,196
+we're not testing a downloaded
+
+652
+00:16:34,196 --> 0:16:35,636
+copy of this application - we're
+
+653
+00:16:35,636 --> 0:16:36,796
+testing the one that Xcode has
+
+654
+00:16:36,846 --> 0:16:38,226
+put in its Drive Data directory.
+
+655
+00:16:39,526 --> 0:16:41,176
+Time Profiler is selected and
+
+656
+00:16:41,326 --> 0:16:42,076
+we'll click Choose.
+
+657
+00:16:42,586 --> 0:16:45,956
+This time, we don't need to
+
+658
+00:16:45,956 --> 0:16:47,536
+select a target because Xcode
+
+659
+00:16:47,536 --> 0:16:48,696
+has already informed Instruments
+
+660
+00:16:48,696 --> 0:16:49,696
+of the application we want to
+
+661
+00:16:49,696 --> 0:16:50,116
+test.
+
+662
+00:16:51,306 --> 0:16:52,976
+And furthermore, clicking Record
+
+663
+00:16:52,976 --> 0:16:54,856
+at the top left launches it for
+
+664
+00:16:55,816 --> 0:16:58,756
+us automatically.
+
+665
+00:16:58,786 --> 0:17:00,426
+Switching to the app, let's try
+
+666
+00:16:58,786 --> 0:17:00,426
+Switching to the app, let's try
+
+667
+00:17:00,426 --> 0:17:02,266
+the problematic series of user
+
+668
+00:17:02,266 --> 0:17:02,856
+inputs again.
+
+669
+00:17:03,716 --> 0:17:05,476
+A bunch of clicking and dragging
+
+670
+00:17:05,616 --> 0:17:07,036
+and command + R.
+
+671
+00:17:07,386 --> 0:17:09,776
+And we can see no more Spinning
+
+672
+00:17:09,776 --> 0:17:10,226
+Wait Cursor.
+
+673
+00:17:10,945 --> 0:17:12,016
+Let's do that one more time just
+
+674
+00:17:12,016 --> 0:17:12,366
+to be sure.
+
+675
+00:17:13,356 --> 0:17:15,425
+Click, drag, command + R.
+
+676
+00:17:16,106 --> 0:17:17,996
+No Spinning Wait Cursor.
+
+677
+00:17:18,476 --> 0:17:19,486
+So, we've addressed our
+
+678
+00:17:19,486 --> 0:17:20,266
+responsiveness issue.
+
+679
+00:17:21,205 --> 0:17:23,986
+I'll stop recording and we'll
+
+680
+00:17:23,986 --> 0:17:25,126
+pinch to zoom again to expand
+
+681
+00:17:25,126 --> 0:17:25,626
+the track view.
+
+682
+00:17:26,376 --> 0:17:27,746
+I want to make sure that this
+
+683
+00:17:27,786 --> 0:17:28,766
+work has been moved off of the
+
+684
+00:17:28,766 --> 0:17:30,456
+main thread, so I'm going to use
+
+685
+00:17:30,456 --> 0:17:32,646
+the track filter area, top left.
+
+686
+00:17:33,306 --> 0:17:35,186
+And we'll search for the main
+
+687
+00:17:35,186 --> 0:17:35,436
+thread.
+
+688
+00:17:36,956 --> 0:17:37,896
+The only track that appears is
+
+689
+00:17:37,896 --> 0:17:39,346
+the Solar System Mac's track
+
+690
+00:17:39,346 --> 0:17:39,706
+entry.
+
+691
+00:17:39,706 --> 0:17:41,516
+And when I expand it, I can see
+
+692
+00:17:41,516 --> 0:17:42,366
+the main thread is visible.
+
+693
+00:17:43,836 --> 0:17:45,716
+Over here, where we have a spike
+
+694
+00:17:45,716 --> 0:17:47,486
+of CPU usage, the main thread is
+
+695
+00:17:47,486 --> 0:17:48,826
+doing relatively little work,
+
+696
+00:17:49,316 --> 0:17:51,466
+and the second time period is
+
+697
+00:17:51,466 --> 0:17:51,966
+showing the same.
+
+698
+00:17:52,806 --> 0:17:54,076
+So, it appears we have addressed
+
+699
+00:17:54,076 --> 0:17:55,206
+the responsiveness issue and
+
+700
+00:17:55,206 --> 0:17:56,236
+moved this work off of the main
+
+701
+00:17:56,236 --> 0:17:56,496
+thread.
+
+702
+00:17:57,516 --> 0:18:02,026
+[ Applause ]
+
+703
+00:17:57,516 --> 0:18:02,026
+[ Applause ]
+
+704
+00:18:02,526 --> 0:18:03,406
+I'd like to discuss a few
+
+705
+00:18:03,406 --> 0:18:04,956
+Profiling tips.
+
+706
+00:18:05,616 --> 0:18:07,086
+First off, Time Profiler is a
+
+707
+00:18:07,086 --> 0:18:08,376
+great tool for understanding how
+
+708
+00:18:08,376 --> 0:18:09,406
+your app is spending time.
+
+709
+00:18:10,456 --> 0:18:11,846
+This may be a responsiveness
+
+710
+00:18:11,846 --> 0:18:12,866
+issue, like Spinning Wait
+
+711
+00:18:12,866 --> 0:18:13,216
+Cursor.
+
+712
+00:18:13,486 --> 0:18:14,566
+This could also be when your
+
+713
+00:18:14,566 --> 0:18:15,756
+application launches, you want
+
+714
+00:18:15,806 --> 0:18:16,836
+to speed up its launch so that
+
+715
+00:18:16,836 --> 0:18:17,826
+it displays to your users
+
+716
+00:18:17,826 --> 0:18:18,156
+quickly.
+
+717
+00:18:18,756 --> 0:18:19,786
+Use Time Profiler for these
+
+718
+00:18:19,786 --> 0:18:20,266
+cases.
+
+719
+00:18:22,296 --> 0:18:23,386
+Next, if you have a
+
+720
+00:18:23,386 --> 0:18:24,536
+responsiveness issue, check the
+
+721
+00:18:24,536 --> 0:18:25,086
+main thread.
+
+722
+00:18:25,646 --> 0:18:26,636
+It should really only be used
+
+723
+00:18:26,636 --> 0:18:27,936
+for updating user interface or
+
+724
+00:18:27,936 --> 0:18:29,366
+for handling user input events,
+
+725
+00:18:29,616 --> 0:18:31,656
+like a mouse click on the Mac or
+
+726
+00:18:31,656 --> 0:18:32,996
+a touch on an iOS device.
+
+727
+00:18:34,516 --> 0:18:35,846
+Third, something I didn't
+
+728
+00:18:35,846 --> 0:18:36,566
+discuss before.
+
+729
+00:18:37,286 --> 0:18:38,516
+You should Profile in Release
+
+730
+00:18:38,516 --> 0:18:38,766
+Mode.
+
+731
+00:18:39,676 --> 0:18:40,846
+The Compiler supports a number
+
+732
+00:18:40,846 --> 0:18:42,156
+of different optimization levels
+
+733
+00:18:42,286 --> 0:18:43,116
+and when you're doing the
+
+734
+00:18:43,116 --> 0:18:45,436
+Build-Run cycle in Xcode, we use
+
+735
+00:18:45,436 --> 0:18:46,766
+a low-level of optimization to
+
+736
+00:18:46,766 --> 0:18:47,866
+allow that to occur quickly.
+
+737
+00:18:48,446 --> 0:18:49,666
+But this isn't the optimization
+
+738
+00:18:49,666 --> 0:18:50,686
+level that's used when you ship
+
+739
+00:18:50,686 --> 0:18:52,526
+code to your customers using the
+
+740
+00:18:52,526 --> 0:18:54,006
+App Store or Xcode's Archive
+
+741
+00:18:54,056 --> 0:18:54,316
+feature.
+
+742
+00:18:54,766 --> 0:18:57,736
+If you're using Xcode's default
+
+743
+00:18:57,736 --> 0:18:59,756
+configuration, the Profile
+
+744
+00:18:59,756 --> 0:19:01,046
+action in your scheme is set to
+
+745
+00:18:59,756 --> 0:19:01,046
+action in your scheme is set to
+
+746
+00:19:01,046 --> 0:19:02,646
+use Release configuration.
+
+747
+00:19:03,286 --> 0:19:04,316
+However, if you're using custom
+
+748
+00:19:04,316 --> 0:19:05,936
+Compiler flags, be sure that the
+
+749
+00:19:05,936 --> 0:19:07,476
+app you profile is using your
+
+750
+00:19:07,476 --> 0:19:08,916
+Release set of Compiler flags.
+
+751
+00:19:10,596 --> 0:19:12,116
+Finally, it's important to
+
+752
+00:19:12,116 --> 0:19:13,426
+Profile with difficult workloads
+
+753
+00:19:13,426 --> 0:19:14,416
+or on older devices.
+
+754
+00:19:14,876 --> 0:19:16,236
+In this case, we had a bug that
+
+755
+00:19:16,236 --> 0:19:18,566
+we didn't see at our desk, but
+
+756
+00:19:18,566 --> 0:19:19,766
+customers in the field who had
+
+757
+00:19:19,766 --> 0:19:20,526
+devices with different
+
+758
+00:19:20,526 --> 0:19:21,736
+performance characteristics did
+
+759
+00:19:21,736 --> 0:19:22,226
+encounter it.
+
+760
+00:19:22,866 --> 0:19:24,216
+So, if you have access to those
+
+761
+00:19:24,216 --> 0:19:26,026
+devices, be sure to test on
+
+762
+00:19:27,036 --> 0:19:27,226
+them.
+
+763
+00:19:27,916 --> 0:19:29,696
+As Tibet mentioned earlier,
+
+764
+00:19:29,816 --> 0:19:30,776
+Instruments supports all
+
+765
+00:19:30,776 --> 0:19:31,456
+platforms.
+
+766
+00:19:31,776 --> 0:19:33,396
+We demoed this on the Mac, but
+
+767
+00:19:33,396 --> 0:19:35,496
+it works equally well on iOS,
+
+768
+00:19:35,626 --> 0:19:37,016
+watchOS and tvOS.
+
+769
+00:19:37,766 --> 0:19:39,496
+It also supports the Simulator.
+
+770
+00:19:39,686 --> 0:19:41,116
+But there's an important caveat
+
+771
+00:19:41,116 --> 0:19:41,766
+to understand with the
+
+772
+00:19:41,766 --> 0:19:42,256
+Simulator.
+
+773
+00:19:43,266 --> 0:19:45,596
+It's running on your Mac.
+
+774
+00:19:45,596 --> 0:19:46,786
+That means that it has your
+
+775
+00:19:46,786 --> 0:19:47,906
+Mac's resource contention.
+
+776
+00:19:48,856 --> 0:19:50,346
+It has your Mac's CPU and memory
+
+777
+00:19:50,346 --> 0:19:51,636
+performance characteristics.
+
+778
+00:19:51,926 --> 0:19:53,536
+It has your Mac's file system
+
+779
+00:19:53,536 --> 0:19:54,876
+behavior and disc behavior.
+
+780
+00:19:55,216 --> 0:19:56,776
+And it has your Mac's thermal
+
+781
+00:19:57,046 --> 0:19:58,186
+limitations, which are
+
+782
+00:19:58,186 --> 0:19:59,326
+significantly different than
+
+783
+00:19:59,326 --> 0:20:00,536
+that of a smaller embedded
+
+784
+00:19:59,326 --> 0:20:00,536
+that of a smaller embedded
+
+785
+00:20:00,536 --> 0:20:00,996
+device.
+
+786
+00:20:01,956 --> 0:20:03,066
+Instruments in this case is
+
+787
+00:20:03,066 --> 0:20:04,276
+great for looking at trends.
+
+788
+00:20:04,366 --> 0:20:05,656
+Did something get faster or did
+
+789
+00:20:05,656 --> 0:20:06,256
+it get slower?
+
+790
+00:20:06,876 --> 0:20:08,306
+But it's not going to give you
+
+791
+00:20:08,306 --> 0:20:10,106
+second-by-second accurate
+
+792
+00:20:10,106 --> 0:20:10,996
+simulation of how the
+
+793
+00:20:10,996 --> 0:20:11,836
+application would run.
+
+794
+00:20:12,366 --> 0:20:13,626
+Be sure to test on real hardware
+
+795
+00:20:13,626 --> 0:20:14,376
+before shipping to your
+
+796
+00:20:14,376 --> 0:20:15,406
+customers.
+
+797
+00:20:16,516 --> 0:20:17,866
+So, we took care of a
+
+798
+00:20:17,866 --> 0:20:19,396
+responsiveness issue, but that's
+
+799
+00:20:19,396 --> 0:20:20,206
+not the whole story.
+
+800
+00:20:20,526 --> 0:20:21,646
+We still have a large spike of
+
+801
+00:20:21,686 --> 0:20:23,346
+CPU usage and it seems like we
+
+802
+00:20:23,346 --> 0:20:24,326
+should be able to reduce that.
+
+803
+00:20:25,536 --> 0:20:27,186
+CPU usage can drain the battery.
+
+804
+00:20:27,526 --> 0:20:29,106
+It can increase the temperature
+
+805
+00:20:29,106 --> 0:20:30,766
+of a device or on many Macs
+
+806
+00:20:30,766 --> 0:20:31,786
+it'll spin up fans and annoy
+
+807
+00:20:31,786 --> 0:20:32,406
+your users.
+
+808
+00:20:33,206 --> 0:20:34,856
+So, now I'd like to introduce
+
+809
+00:20:34,956 --> 0:20:36,836
+Anand to use the Signpost
+
+810
+00:20:36,836 --> 0:20:38,206
+feature to help dig into the
+
+811
+00:20:38,206 --> 0:20:39,136
+work that our application is
+
+812
+00:20:39,136 --> 0:20:39,326
+doing.
+
+813
+00:20:41,516 --> 0:20:44,376
+[ Applause ]
+
+814
+00:20:44,876 --> 0:20:45,376
+&gt;&gt; Thank you, Ben.
+
+815
+00:20:46,446 --> 0:20:47,186
+Good morning, everyone.
+
+816
+00:20:48,236 --> 0:20:49,786
+I'd like to show you how to use
+
+817
+00:20:49,786 --> 0:20:52,496
+Signpost in your code today to
+
+818
+00:20:52,496 --> 0:20:53,786
+augment the Instruments' traces
+
+819
+00:20:53,786 --> 0:20:55,706
+you collect from it and get a
+
+820
+00:20:55,816 --> 0:20:57,176
+finer understanding of how your
+
+821
+00:20:57,176 --> 0:20:58,626
+code uses system resources.
+
+822
+00:21:01,016 --> 0:21:03,206
+So, let's begin understanding
+
+823
+00:21:03,206 --> 0:21:05,776
+Signposts by contrasting with
+
+824
+00:21:05,806 --> 0:21:07,026
+what we've been doing so far
+
+825
+00:21:07,026 --> 0:21:07,916
+with Time Profiler.
+
+826
+00:21:08,836 --> 0:21:10,176
+Time Profiler builds a
+
+827
+00:21:10,506 --> 0:21:12,686
+statistical profile of your code
+
+828
+00:21:12,686 --> 0:21:15,396
+and it does so by observing all
+
+829
+00:21:15,396 --> 0:21:16,786
+the threads in your application
+
+830
+00:21:16,786 --> 0:21:18,756
+at a fixed interval and building
+
+831
+00:21:18,756 --> 0:21:19,986
+the correlation between call
+
+832
+00:21:19,986 --> 0:21:21,526
+stacks and time.
+
+833
+00:21:22,336 --> 0:21:23,796
+But a correlation is no
+
+834
+00:21:23,796 --> 0:21:25,636
+substitute for aa precise
+
+835
+00:21:25,746 --> 0:21:26,876
+measurement which can tell you
+
+836
+00:21:26,986 --> 0:21:28,436
+how or why your code is
+
+837
+00:21:28,436 --> 0:21:28,946
+executing.
+
+838
+00:21:30,116 --> 0:21:31,326
+There may be a block of code
+
+839
+00:21:31,636 --> 0:21:33,086
+that executes in several short
+
+840
+00:21:33,146 --> 0:21:33,746
+bursts.
+
+841
+00:21:34,456 --> 0:21:37,066
+Or, it might execute in a few
+
+842
+00:21:37,066 --> 0:21:37,916
+longer stretches.
+
+843
+00:21:38,736 --> 0:21:39,986
+There could be a function which
+
+844
+00:21:39,986 --> 0:21:41,636
+when called on certain arguments
+
+845
+00:21:42,056 --> 0:21:43,696
+can keep the CPU continuously
+
+846
+00:21:43,696 --> 0:21:44,096
+busy.
+
+847
+00:21:45,136 --> 0:21:46,386
+In order to distinguish these
+
+848
+00:21:46,386 --> 0:21:48,326
+kinds of execution patterns, you
+
+849
+00:21:48,326 --> 0:21:50,686
+need to log precise measurements
+
+850
+00:21:50,896 --> 0:21:52,836
+from your code and that begs the
+
+851
+00:21:52,836 --> 0:21:53,316
+question.
+
+852
+00:21:53,856 --> 0:21:55,276
+What is the best way to log
+
+853
+00:21:55,276 --> 0:21:56,466
+performance measurements from
+
+854
+00:21:56,466 --> 0:21:57,156
+your operations?
+
+855
+00:21:58,236 --> 0:21:59,946
+I'm pleased to tell you that you
+
+856
+00:21:59,946 --> 0:22:00,906
+don't have to worry about
+
+857
+00:21:59,946 --> 0:22:00,906
+don't have to worry about
+
+858
+00:22:00,906 --> 0:22:02,496
+printing from your code and
+
+859
+00:22:02,496 --> 0:22:03,456
+teaching Instruments how to read
+
+860
+00:22:03,456 --> 0:22:04,506
+your print statements.
+
+861
+00:22:05,096 --> 0:22:06,736
+Just use Signposts.
+
+862
+00:22:08,236 --> 0:22:10,036
+Signposts have numerous features
+
+863
+00:22:10,036 --> 0:22:11,666
+that make them ideal for this
+
+864
+00:22:11,666 --> 0:22:12,166
+use case.
+
+865
+00:22:12,646 --> 0:22:16,076
+It is purpose built for logging
+
+866
+00:22:16,076 --> 0:22:17,346
+structured performance data.
+
+867
+00:22:17,766 --> 0:22:19,286
+So, it is simpler and more
+
+868
+00:22:19,286 --> 0:22:20,656
+efficient for this purpose than
+
+869
+00:22:20,656 --> 0:22:21,136
+even printing.
+
+870
+00:22:21,716 --> 0:22:24,946
+It has built-in support for
+
+871
+00:22:24,946 --> 0:22:25,706
+measuring time.
+
+872
+00:22:26,036 --> 0:22:26,966
+So, you don't have to worry
+
+873
+00:22:26,966 --> 0:22:28,516
+about what clock source you're
+
+874
+00:22:28,516 --> 0:22:30,016
+reading from or what time base
+
+875
+00:22:30,016 --> 0:22:30,596
+you're measuring in.
+
+876
+00:22:31,546 --> 0:22:33,666
+My favorite part is that
+
+877
+00:22:33,776 --> 0:22:35,416
+Instruments already knows how to
+
+878
+00:22:35,416 --> 0:22:36,656
+trace Signposts.
+
+879
+00:22:37,056 --> 0:22:38,186
+In fact, let me give you a sneak
+
+880
+00:22:38,186 --> 0:22:39,706
+preview of an Instruments trace
+
+881
+00:22:39,706 --> 0:22:41,666
+that I collected after adding a
+
+882
+00:22:41,666 --> 0:22:44,756
+Signpost interval to my code.
+
+883
+00:22:44,946 --> 0:22:46,236
+Highlighted is the points of
+
+884
+00:22:46,236 --> 0:22:47,836
+interest track which shows a
+
+885
+00:22:47,836 --> 0:22:49,516
+region of interest that
+
+886
+00:22:49,516 --> 0:22:52,076
+corresponds to a Signpost
+
+887
+00:22:52,076 --> 0:22:52,986
+interval that I added to my
+
+888
+00:22:52,986 --> 0:22:53,226
+code.
+
+889
+00:22:54,226 --> 0:22:55,736
+So, let me take you to a demo
+
+890
+00:22:55,736 --> 0:22:57,996
+now where I'll resume Ben's
+
+891
+00:22:57,996 --> 0:22:59,196
+investigation of the Solar
+
+892
+00:22:59,196 --> 0:23:03,686
+System application.
+
+893
+00:22:59,196 --> 0:23:03,686
+System application.
+
+894
+00:23:04,056 --> 0:23:06,996
+So, we have the last Instruments
+
+895
+00:23:06,996 --> 0:23:11,036
+trace we were looking at, and we
+
+896
+00:23:14,176 --> 0:23:16,056
+see the familiar region of high
+
+897
+00:23:16,056 --> 0:23:17,086
+CPU utilization.
+
+898
+00:23:17,656 --> 0:23:20,536
+And we'd like to find out why
+
+899
+00:23:20,596 --> 0:23:22,566
+we're using so much CPU time and
+
+900
+00:23:22,566 --> 0:23:23,976
+we'd like to add some Signposts
+
+901
+00:23:24,056 --> 0:23:25,386
+to the code that is using most
+
+902
+00:23:25,386 --> 0:23:26,066
+of the CPU time.
+
+903
+00:23:26,856 --> 0:23:28,066
+Let me take a look at the heavy
+
+904
+00:23:28,066 --> 0:23:28,726
+stack trace.
+
+905
+00:23:32,576 --> 0:23:34,676
+Last time, Ben started looking
+
+906
+00:23:34,676 --> 0:23:36,676
+from the top of this heavy stack
+
+907
+00:23:36,676 --> 0:23:39,746
+so that we could find out how
+
+908
+00:23:39,746 --> 0:23:41,436
+the code began executing on the
+
+909
+00:23:41,436 --> 0:23:41,896
+main thread.
+
+910
+00:23:42,826 --> 0:23:44,276
+But this time, I'd like to start
+
+911
+00:23:44,276 --> 0:23:45,716
+looking from the Leaf Level
+
+912
+00:23:45,716 --> 0:23:48,536
+functions to get an idea of what
+
+913
+00:23:48,536 --> 0:23:51,046
+are the most expensive or
+
+914
+00:23:51,046 --> 0:23:52,856
+commonly called functions in
+
+915
+00:23:52,856 --> 0:23:53,416
+this workload.
+
+916
+00:23:54,366 --> 0:23:55,366
+There's something called Setup
+
+917
+00:23:55,366 --> 0:23:56,686
+Scene over here which appears to
+
+918
+00:23:56,686 --> 0:23:58,416
+be manipulating lots of arrays
+
+919
+00:23:58,736 --> 0:23:59,736
+as a part of this reload
+
+920
+00:23:59,736 --> 0:24:00,236
+operation.
+
+921
+00:23:59,736 --> 0:24:00,236
+operation.
+
+922
+00:24:00,566 --> 0:24:02,636
+And I'd like to find out how
+
+923
+00:24:02,636 --> 0:24:04,916
+much time precisely it is
+
+924
+00:24:04,916 --> 0:24:05,246
+taking.
+
+925
+00:24:05,926 --> 0:24:09,196
+So, let's go to Xcode and take a
+
+926
+00:24:09,196 --> 0:24:11,906
+look at this code.
+
+927
+00:24:12,086 --> 0:24:13,306
+Here's the Setup Scene function,
+
+928
+00:24:13,956 --> 0:24:15,466
+and you can see some vestiges of
+
+929
+00:24:15,466 --> 0:24:17,326
+my previous attempts to log some
+
+930
+00:24:17,326 --> 0:24:18,306
+performance measurements from
+
+931
+00:24:18,306 --> 0:24:18,456
+here.
+
+932
+00:24:18,786 --> 0:24:19,806
+There's a print statement
+
+933
+00:24:20,056 --> 0:24:21,606
+emitting the mock absolute time
+
+934
+00:24:21,606 --> 0:24:22,376
+right at the beginning of the
+
+935
+00:24:22,416 --> 0:24:22,816
+function.
+
+936
+00:24:23,376 --> 0:24:24,806
+And if we scroll all the way to
+
+937
+00:24:24,806 --> 0:24:25,796
+the bottom of the function,
+
+938
+00:24:26,546 --> 0:24:28,086
+there is another Print Statement
+
+939
+00:24:28,086 --> 0:24:29,776
+showing the mock absolute time
+
+940
+00:24:29,956 --> 0:24:30,836
+of when I ended this.
+
+941
+00:24:31,526 --> 0:24:32,726
+But as I previously mentioned,
+
+942
+00:24:33,416 --> 0:24:35,366
+Instruments doesn't know how to
+
+943
+00:24:35,366 --> 0:24:36,156
+read Print Statements.
+
+944
+00:24:36,346 --> 0:24:40,136
+So, we first need to create a
+
+945
+00:24:40,136 --> 0:24:41,226
+log handle that lets us
+
+946
+00:24:41,226 --> 0:24:42,386
+communicate what Instruments.
+
+947
+00:24:43,106 --> 0:24:45,046
+Let's do that.
+
+948
+00:24:46,316 --> 0:24:48,026
+I created this log handle with a
+
+949
+00:24:48,026 --> 0:24:49,326
+category called Points of
+
+950
+00:24:49,326 --> 0:24:49,726
+Interest.
+
+951
+00:24:50,186 --> 0:24:51,826
+That corresponds to the name of
+
+952
+00:24:51,826 --> 0:24:53,076
+the Points of Interest
+
+953
+00:24:53,076 --> 0:24:53,546
+Instrument.
+
+954
+00:24:55,166 --> 0:24:58,306
+We'll replace our first Print
+
+955
+00:24:58,306 --> 0:25:00,046
+Statement with a call to an OS
+
+956
+00:24:58,306 --> 0:25:00,046
+Statement with a call to an OS
+
+957
+00:25:00,046 --> 0:25:03,106
+Signpost API that begins an
+
+958
+00:25:03,106 --> 0:25:03,536
+interval.
+
+959
+00:25:04,556 --> 0:25:05,616
+Now, every time you begin an
+
+960
+00:25:05,616 --> 0:25:06,976
+interval you should also end
+
+961
+00:25:07,086 --> 0:25:07,686
+that interval.
+
+962
+00:25:08,876 --> 0:25:10,196
+Instead of scrolling all the way
+
+963
+00:25:10,196 --> 0:25:11,706
+to the bottom of the function,
+
+964
+00:25:11,986 --> 0:25:13,376
+I'm going to take advantage of
+
+965
+00:25:13,486 --> 0:25:15,806
+Swift Defer Blocks to end the
+
+966
+00:25:15,806 --> 0:25:16,166
+interval.
+
+967
+00:25:16,756 --> 0:25:17,876
+The contents of the Defer Block
+
+968
+00:25:17,876 --> 0:25:19,786
+will be executed at the end of
+
+969
+00:25:19,846 --> 0:25:23,026
+the current scope.
+
+970
+00:25:23,226 --> 0:25:24,716
+Let's build our application with
+
+971
+00:25:24,716 --> 0:25:26,196
+these changes and Profiler in
+
+972
+00:25:26,196 --> 0:25:27,606
+Instruments using the Profile
+
+973
+00:25:27,606 --> 0:25:28,466
+action in the menu.
+
+974
+00:25:33,056 --> 0:25:34,666
+Let's select the Time Profiler
+
+975
+00:25:34,666 --> 0:25:37,736
+template once again and the
+
+976
+00:25:37,896 --> 0:25:39,096
+target selection area has
+
+977
+00:25:39,096 --> 0:25:40,726
+already been populated by Xcode
+
+978
+00:25:40,726 --> 0:25:41,486
+with a currently built
+
+979
+00:25:41,486 --> 0:25:42,626
+conversion of the Solar System
+
+980
+00:25:42,626 --> 0:25:42,826
+app.
+
+981
+00:25:43,106 --> 0:25:43,966
+Let's start recording.
+
+982
+00:25:48,856 --> 0:25:51,256
+I'll interact with the app and
+
+983
+00:25:51,476 --> 0:25:52,716
+perform the troublesome sequence
+
+984
+00:25:52,716 --> 0:25:54,236
+of operations again, reload
+
+985
+00:25:54,236 --> 0:25:54,826
+operation.
+
+986
+00:25:57,766 --> 0:25:59,646
+And we've got some data.
+
+987
+00:25:59,686 --> 0:26:00,746
+So, I'll stop the recording.
+
+988
+00:25:59,686 --> 0:26:00,746
+So, I'll stop the recording.
+
+989
+00:26:01,266 --> 0:26:04,676
+Let's pinch to zoom into the
+
+990
+00:26:04,676 --> 0:26:06,856
+region of high CPU utilization.
+
+991
+00:26:10,186 --> 0:26:11,756
+Below the Time Profiler frack,
+
+992
+00:26:12,136 --> 0:26:13,656
+the Points of Interest track now
+
+993
+00:26:13,956 --> 0:26:16,156
+has been populated with the
+
+994
+00:26:16,156 --> 0:26:17,546
+regions of interest that we
+
+995
+00:26:17,546 --> 0:26:18,346
+added in our code.
+
+996
+00:26:18,856 --> 0:26:20,096
+There's a row called Setup Scene
+
+997
+00:26:20,096 --> 0:26:21,836
+corresponding to the name of our
+
+998
+00:26:21,836 --> 0:26:23,596
+Signpost interval, and there are
+
+999
+00:26:23,596 --> 0:26:25,976
+several adjacent regions of
+
+1000
+00:26:25,976 --> 0:26:28,286
+interest recorded in the track.
+
+1001
+00:26:29,486 --> 0:26:30,896
+I wasn't expecting many; I was
+
+1002
+00:26:30,896 --> 0:26:32,016
+only expecting a few.
+
+1003
+00:26:32,886 --> 0:26:34,926
+I could mouse over each of these
+
+1004
+00:26:34,926 --> 0:26:36,556
+and count the number of regions
+
+1005
+00:26:36,556 --> 0:26:37,086
+of interest.
+
+1006
+00:26:37,456 --> 0:26:38,686
+Or, I could take advantage of
+
+1007
+00:26:38,686 --> 0:26:39,486
+the detail view.
+
+1008
+00:26:40,876 --> 0:26:41,966
+So, let me click and drag to
+
+1009
+00:26:41,966 --> 0:26:43,836
+select this particular region
+
+1010
+00:26:44,656 --> 0:26:45,906
+and then click in the Points of
+
+1011
+00:26:45,906 --> 0:26:47,766
+Interest track to repopulate the
+
+1012
+00:26:47,766 --> 0:26:50,646
+Detail view with a summary of
+
+1013
+00:26:50,646 --> 0:26:54,186
+the Points of Interest track.
+
+1014
+00:26:54,376 --> 0:26:55,966
+Taking a closer look, I see that
+
+1015
+00:26:55,966 --> 0:26:57,406
+Setup Scene has occurred a total
+
+1016
+00:26:57,406 --> 0:26:59,596
+of eight times in this region,
+
+1017
+00:27:00,156 --> 0:27:02,276
+and it's averaging about 200
+
+1018
+00:27:02,276 --> 0:27:04,846
+milliseconds for each time it
+
+1019
+00:27:05,476 --> 0:27:05,606
+occurs.
+
+1020
+00:27:05,806 --> 0:27:07,186
+There are more Detail views
+
+1021
+00:27:07,186 --> 0:27:07,726
+available.
+
+1022
+00:27:08,006 --> 0:27:09,956
+Let's click on the Jump Bar and
+
+1023
+00:27:09,956 --> 0:27:12,226
+select a list of the regions of
+
+1024
+00:27:12,226 --> 0:27:13,946
+interest to see a full-time
+
+1025
+00:27:13,946 --> 0:27:15,706
+series list of every region of
+
+1026
+00:27:15,706 --> 0:27:16,946
+interest that was recorded in
+
+1027
+00:27:16,946 --> 0:27:17,466
+this trace.
+
+1028
+00:27:18,016 --> 0:27:21,446
+The duration column shows the
+
+1029
+00:27:21,446 --> 0:27:24,216
+duration of each of these and I
+
+1030
+00:27:24,216 --> 0:27:27,776
+can see that all of these
+
+1031
+00:27:27,776 --> 0:27:28,986
+intervals are taking a very
+
+1032
+00:27:28,986 --> 0:27:30,626
+similar amount of time to
+
+1033
+00:27:30,626 --> 0:27:34,086
+complete, about 210 to 220
+
+1034
+00:27:34,086 --> 0:27:34,756
+milliseconds.
+
+1035
+00:27:35,576 --> 0:27:37,046
+So that's a real headscratcher.
+
+1036
+00:27:37,196 --> 0:27:39,306
+Why are we doing a similar
+
+1037
+00:27:39,306 --> 0:27:41,086
+amount of work over and over
+
+1038
+00:27:43,216 --> 0:27:43,336
+again?
+
+1039
+00:27:43,526 --> 0:27:45,306
+Let's look at the caller of
+
+1040
+00:27:45,306 --> 0:27:46,596
+Setup Scene to find out if it's
+
+1041
+00:27:46,596 --> 0:27:47,796
+being called redundantly for
+
+1042
+00:27:47,796 --> 0:27:48,296
+some reason.
+
+1043
+00:27:48,436 --> 0:27:50,726
+And the best way to do that is
+
+1044
+00:27:50,726 --> 0:27:51,926
+to look at the call graph
+
+1045
+00:27:51,926 --> 0:27:53,216
+information recorded by Time
+
+1046
+00:27:53,216 --> 0:27:53,716
+Profiler.
+
+1047
+00:27:54,266 --> 0:27:57,216
+Let's take advantage of the
+
+1048
+00:27:57,216 --> 0:27:58,386
+heavy stack view again at the
+
+1049
+00:27:58,386 --> 0:27:59,476
+bottom right-hand corner of the
+
+1050
+00:27:59,476 --> 0:28:01,446
+window, and this time I'll look
+
+1051
+00:27:59,476 --> 0:28:01,446
+window, and this time I'll look
+
+1052
+00:28:01,446 --> 0:28:03,156
+at the caller of Setup Scene, a
+
+1053
+00:28:03,156 --> 0:28:04,476
+function called Prepare Scene.
+
+1054
+00:28:05,486 --> 0:28:06,766
+We can double click it to bring
+
+1055
+00:28:06,766 --> 0:28:07,536
+up the sources.
+
+1056
+00:28:08,946 --> 0:28:10,946
+And it appears that Prepare
+
+1057
+00:28:10,946 --> 0:28:12,776
+Scene called Setup Scene only
+
+1058
+00:28:12,776 --> 0:28:13,276
+once.
+
+1059
+00:28:13,476 --> 0:28:15,116
+So, this isn't the root cause of
+
+1060
+00:28:15,116 --> 0:28:15,786
+our repetition.
+
+1061
+00:28:16,626 --> 0:28:17,996
+To bring back the entire call
+
+1062
+00:28:17,996 --> 0:28:20,746
+graph, I'll click on Root in the
+
+1063
+00:28:20,746 --> 0:28:21,676
+Jump part and take us to the
+
+1064
+00:28:21,676 --> 0:28:22,956
+root of the call graph.
+
+1065
+00:28:24,326 --> 0:28:27,576
+Let's go further up on our quest
+
+1066
+00:28:27,576 --> 0:28:28,506
+in the heavy stack.
+
+1067
+00:28:29,096 --> 0:28:34,086
+I'll select the next caller and
+
+1068
+00:28:34,266 --> 0:28:35,766
+here we see a four loop, which
+
+1069
+00:28:35,766 --> 0:28:37,136
+is very plausible cause of the
+
+1070
+00:28:37,136 --> 0:28:38,336
+repetition that we're seeing.
+
+1071
+00:28:39,176 --> 0:28:40,296
+Let me bring up this code in
+
+1072
+00:28:40,326 --> 0:28:42,606
+Xcode so that we can take a
+
+1073
+00:28:42,606 --> 0:28:43,176
+closer look.
+
+1074
+00:28:43,526 --> 0:28:46,426
+And I'll use the Jump to File in
+
+1075
+00:28:46,426 --> 0:28:47,006
+Xcode button.
+
+1076
+00:28:51,716 --> 0:28:54,596
+Xcode comes up with the four
+
+1077
+00:28:54,596 --> 0:28:55,366
+loop displayed.
+
+1078
+00:28:56,486 --> 0:28:57,526
+I remember this function.
+
+1079
+00:28:58,116 --> 0:28:59,306
+The purpose of update with
+
+1080
+00:28:59,366 --> 0:29:01,946
+planets is to receive the data
+
+1081
+00:28:59,366 --> 0:29:01,946
+planets is to receive the data
+
+1082
+00:29:01,986 --> 0:29:03,166
+sent to us by the server, the
+
+1083
+00:29:03,166 --> 0:29:04,516
+part of the Reload operation.
+
+1084
+00:29:05,156 --> 0:29:07,516
+And then for each planet for
+
+1085
+00:29:07,516 --> 0:29:09,466
+which we have new data, update
+
+1086
+00:29:09,466 --> 0:29:10,726
+the internal model in the
+
+1087
+00:29:10,726 --> 0:29:12,246
+application of each of the
+
+1088
+00:29:12,246 --> 0:29:13,556
+planets wherever an update is
+
+1089
+00:29:13,556 --> 0:29:14,026
+required.
+
+1090
+00:29:15,486 --> 0:29:17,816
+However, we can receive a blob
+
+1091
+00:29:17,816 --> 0:29:19,246
+of data containing updated
+
+1092
+00:29:19,246 --> 0:29:20,526
+information for multiple
+
+1093
+00:29:20,526 --> 0:29:22,596
+planets, and we appear to be
+
+1094
+00:29:22,596 --> 0:29:24,266
+calling Prepare Scene and
+
+1095
+00:29:24,266 --> 0:29:26,156
+redrawing the entire view for
+
+1096
+00:29:26,156 --> 0:29:27,596
+every single planet that we need
+
+1097
+00:29:27,596 --> 0:29:28,726
+to update.
+
+1098
+00:29:30,256 --> 0:29:32,586
+The trace shows us that the cost
+
+1099
+00:29:32,776 --> 0:29:35,316
+of redrawing the scene vastly
+
+1100
+00:29:35,316 --> 0:29:39,326
+dwarfs the cost of just updating
+
+1101
+00:29:39,326 --> 0:29:40,196
+our internal model of the
+
+1102
+00:29:40,196 --> 0:29:40,576
+planet.
+
+1103
+00:29:40,986 --> 0:29:42,606
+So, the right thing to do here
+
+1104
+00:29:42,866 --> 0:29:44,316
+would be to batch up all of our
+
+1105
+00:29:44,316 --> 0:29:46,806
+updates to our internal model
+
+1106
+00:29:47,136 --> 0:29:49,016
+and just redraw the scene once
+
+1107
+00:29:49,206 --> 0:29:50,456
+after we've made all of our
+
+1108
+00:29:50,456 --> 0:29:50,846
+updates.
+
+1109
+00:29:51,976 --> 0:29:53,266
+This may seem like a very simple
+
+1110
+00:29:53,266 --> 0:29:56,076
+fix but in our experience, we've
+
+1111
+00:29:56,076 --> 0:29:57,616
+seen that numerous performance
+
+1112
+00:29:57,616 --> 0:29:59,166
+issues of this type can creep
+
+1113
+00:29:59,376 --> 0:30:01,166
+into our code as we add new
+
+1114
+00:29:59,376 --> 0:30:01,166
+into our code as we add new
+
+1115
+00:30:01,166 --> 0:30:03,146
+features or fix unrelated bugs.
+
+1116
+00:30:03,606 --> 0:30:05,536
+And a great way to prevent such
+
+1117
+00:30:05,536 --> 0:30:07,016
+bugs from getting out to our
+
+1118
+00:30:07,016 --> 0:30:09,156
+customers is to write tests that
+
+1119
+00:30:09,156 --> 0:30:10,186
+routinely exercise their
+
+1120
+00:30:10,186 --> 0:30:10,856
+functionality.
+
+1121
+00:30:11,846 --> 0:30:12,836
+To save us some time, I've
+
+1122
+00:30:12,836 --> 0:30:15,406
+already written an XC test which
+
+1123
+00:30:15,406 --> 0:30:16,586
+exercises the Reload
+
+1124
+00:30:16,586 --> 0:30:17,206
+functionality.
+
+1125
+00:30:18,666 --> 0:30:19,926
+If we click on this button to
+
+1126
+00:30:19,926 --> 0:30:21,386
+the left of the test, normally
+
+1127
+00:30:21,386 --> 0:30:23,296
+it would just run the test.
+
+1128
+00:30:23,416 --> 0:30:24,886
+But I will secondary click to
+
+1129
+00:30:24,886 --> 0:30:26,526
+reveal the Profile action.
+
+1130
+00:30:27,266 --> 0:30:29,106
+This instructs Xcode to build
+
+1131
+00:30:29,106 --> 0:30:30,756
+and launch the test under
+
+1132
+00:30:30,756 --> 0:30:31,326
+Instruments.
+
+1133
+00:30:36,256 --> 0:30:37,746
+Let's select the Time Profiler
+
+1134
+00:30:37,746 --> 0:30:39,936
+template and start recording a
+
+1135
+00:30:39,936 --> 0:30:40,456
+trace.
+
+1136
+00:30:41,016 --> 0:30:45,706
+In this test, I've placed the
+
+1137
+00:30:45,706 --> 0:30:48,006
+Reload operation inside a call
+
+1138
+00:30:48,006 --> 0:30:48,946
+to the Measure API.
+
+1139
+00:30:49,706 --> 0:30:51,566
+The Measure API runs the
+
+1140
+00:30:51,566 --> 0:30:53,586
+workload several times in order
+
+1141
+00:30:53,586 --> 0:30:54,786
+to collect several repeated
+
+1142
+00:30:54,786 --> 0:30:55,376
+measurements.
+
+1143
+00:30:56,186 --> 0:30:57,356
+That can be really helpful for
+
+1144
+00:30:57,356 --> 0:30:58,866
+you to learn whether your
+
+1145
+00:30:58,866 --> 0:31:00,296
+measurements are repeatable and
+
+1146
+00:30:58,866 --> 0:31:00,296
+measurements are repeatable and
+
+1147
+00:31:00,296 --> 0:31:01,546
+consistent, or whether there's a
+
+1148
+00:31:01,546 --> 0:31:02,996
+lot of run-to-run variation.
+
+1149
+00:31:04,466 --> 0:31:05,496
+It looks like all the
+
+1150
+00:31:05,496 --> 0:31:07,166
+repetitions have ended, so I can
+
+1151
+00:31:07,166 --> 0:31:08,396
+stop this trace.
+
+1152
+00:31:08,936 --> 0:31:11,926
+I'll pinch to zoom into the
+
+1153
+00:31:11,926 --> 0:31:12,936
+contents of the points of
+
+1154
+00:31:12,936 --> 0:31:13,616
+interest track.
+
+1155
+00:31:14,256 --> 0:31:16,836
+And we can see there's an extra
+
+1156
+00:31:16,836 --> 0:31:17,446
+row here.
+
+1157
+00:31:21,046 --> 0:31:21,976
+At the very bottom is a Setup
+
+1158
+00:31:21,976 --> 0:31:22,826
+Scene interval which I
+
+1159
+00:31:22,826 --> 0:31:24,056
+previously added to our code.
+
+1160
+00:31:24,106 --> 0:31:27,386
+And above it is another point of
+
+1161
+00:31:27,386 --> 0:31:28,516
+interest that is now being
+
+1162
+00:31:28,516 --> 0:31:29,756
+contributed to by the Measure
+
+1163
+00:31:29,756 --> 0:31:30,056
+API.
+
+1164
+00:31:30,676 --> 0:31:32,976
+That tells us the interval
+
+1165
+00:31:32,976 --> 0:31:34,526
+corresponding to each iteration
+
+1166
+00:31:34,906 --> 0:31:36,106
+that it ran your workload.
+
+1167
+00:31:38,146 --> 0:31:39,246
+Scrolling over this and just
+
+1168
+00:31:39,246 --> 0:31:41,606
+eyeballing it, I feel like the
+
+1169
+00:31:41,606 --> 0:31:42,976
+workload is behaving pretty
+
+1170
+00:31:42,976 --> 0:31:44,226
+consistently from run to run.
+
+1171
+00:31:44,626 --> 0:31:45,806
+So, I'd just like to find out
+
+1172
+00:31:45,806 --> 0:31:46,816
+what is happening within a
+
+1173
+00:31:46,816 --> 0:31:49,136
+single iteration of the test.
+
+1174
+00:31:50,146 --> 0:31:51,186
+Instead of clicking and
+
+1175
+00:31:51,186 --> 0:31:52,616
+dragging, there is a nice
+
+1176
+00:31:52,616 --> 0:31:53,746
+shortcut for you to select
+
+1177
+00:31:53,746 --> 0:31:55,606
+exactly the region corresponding
+
+1178
+00:31:55,606 --> 0:31:57,986
+to one event or interval in a
+
+1179
+00:31:57,986 --> 0:31:58,246
+track.
+
+1180
+00:31:58,716 --> 0:31:59,546
+I'll triple click.
+
+1181
+00:32:00,106 --> 0:32:02,456
+This populates the Detail view
+
+1182
+00:32:02,456 --> 0:32:03,846
+with information specific to
+
+1183
+00:32:03,846 --> 0:32:04,396
+that selection.
+
+1184
+00:32:06,156 --> 0:32:09,336
+And taking a closer look, there
+
+1185
+00:32:09,936 --> 0:32:11,756
+appears to be only one call to
+
+1186
+00:32:11,756 --> 0:32:13,566
+Setup Scene right now.
+
+1187
+00:32:13,566 --> 0:32:14,256
+Let that sink in.
+
+1188
+00:32:14,726 --> 0:32:16,206
+We used the information that we
+
+1189
+00:32:16,206 --> 0:32:19,276
+gained from Signposts to reduce
+
+1190
+00:32:19,276 --> 0:32:20,316
+the amount of CPU time we were
+
+1191
+00:32:20,316 --> 0:32:21,876
+using by an order of magnitude.
+
+1192
+00:32:23,516 --> 0:32:27,500
+[ Applause ]
+
+1193
+00:32:31,796 --> 0:32:32,926
+So, let's review some of the
+
+1194
+00:32:32,926 --> 0:32:34,176
+concepts we just encountered.
+
+1195
+00:32:34,766 --> 0:32:38,496
+A statistical profile such as
+
+1196
+00:32:38,496 --> 0:32:40,266
+that collected by Time Profiler
+
+1197
+00:32:40,266 --> 0:32:41,556
+can be really useful to show
+
+1198
+00:32:41,556 --> 0:32:43,336
+what code is most commonly
+
+1199
+00:32:43,336 --> 0:32:43,936
+executed.
+
+1200
+00:32:44,496 --> 0:32:46,286
+But that is not a substitute for
+
+1201
+00:32:46,286 --> 0:32:48,756
+a measurement such as that which
+
+1202
+00:32:48,756 --> 0:32:49,726
+can be recorded using the
+
+1203
+00:32:49,726 --> 0:32:51,746
+Signpost APIs that can show you
+
+1204
+00:32:51,746 --> 0:32:53,186
+how and why your code is
+
+1205
+00:32:53,186 --> 0:32:53,756
+executed.
+
+1206
+00:32:54,946 --> 0:32:56,546
+We've also seen how it can be
+
+1207
+00:32:56,546 --> 0:32:59,456
+really useful to run tests to
+
+1208
+00:32:59,456 --> 0:33:00,906
+reliably and repeatedly
+
+1209
+00:32:59,456 --> 0:33:00,906
+reliably and repeatedly
+
+1210
+00:33:00,906 --> 0:33:03,156
+reproduce our workloads and
+
+1211
+00:33:03,446 --> 0:33:04,646
+profile them early and often in
+
+1212
+00:33:04,646 --> 0:33:05,456
+our development cycle.
+
+1213
+00:33:07,256 --> 0:33:09,076
+Today, we've largely
+
+1214
+00:33:09,076 --> 0:33:10,656
+investigated the kinds of
+
+1215
+00:33:10,656 --> 0:33:12,036
+performance issues that arise
+
+1216
+00:33:12,036 --> 0:33:13,706
+from high or inappropriately
+
+1217
+00:33:13,706 --> 0:33:15,276
+placed CPU utilization.
+
+1218
+00:33:16,016 --> 0:33:17,506
+But Instruments has numerous
+
+1219
+00:33:17,506 --> 0:33:19,276
+templates which can help answer
+
+1220
+00:33:19,276 --> 0:33:20,516
+performance questions about
+
+1221
+00:33:20,516 --> 0:33:21,446
+other kinds of resource
+
+1222
+00:33:21,446 --> 0:33:22,016
+utilization.
+
+1223
+00:33:22,746 --> 0:33:24,466
+We've got a template for file
+
+1224
+00:33:24,496 --> 0:33:25,456
+and disc usage.
+
+1225
+00:33:26,286 --> 0:33:27,836
+We've got another template for
+
+1226
+00:33:27,836 --> 0:33:29,106
+network utilization.
+
+1227
+00:33:29,306 --> 0:33:30,336
+And there's another template
+
+1228
+00:33:30,826 --> 0:33:32,036
+that'll help you understand the
+
+1229
+00:33:32,036 --> 0:33:33,006
+interaction between your
+
+1230
+00:33:33,006 --> 0:33:34,506
+application and the operating
+
+1231
+00:33:34,506 --> 0:33:35,956
+system or other processes
+
+1232
+00:33:36,276 --> 0:33:37,136
+running on the OS.
+
+1233
+00:33:37,796 --> 0:33:38,876
+But that's not all.
+
+1234
+00:33:39,806 --> 0:33:40,776
+Instruments has some really
+
+1235
+00:33:40,776 --> 0:33:42,726
+advanced features such as Custom
+
+1236
+00:33:42,726 --> 0:33:43,176
+Instruments.
+
+1237
+00:33:43,426 --> 0:33:45,076
+If you're a framework author,
+
+1238
+00:33:45,076 --> 0:33:46,386
+for instance, and would like
+
+1239
+00:33:46,956 --> 0:33:49,006
+your clients of your APIs to be
+
+1240
+00:33:49,006 --> 0:33:50,116
+able to answer performance
+
+1241
+00:33:50,116 --> 0:33:51,126
+questions about how they're
+
+1242
+00:33:51,126 --> 0:33:53,946
+using your framework, then you
+
+1243
+00:33:53,946 --> 0:33:56,236
+can provide them with a Custom
+
+1244
+00:33:56,236 --> 0:33:57,176
+Instruments package.
+
+1245
+00:33:57,716 --> 0:34:00,566
+You could also create Custom
+
+1246
+00:33:57,716 --> 0:34:00,566
+You could also create Custom
+
+1247
+00:34:00,606 --> 0:34:02,226
+Instruments templates, which
+
+1248
+00:34:02,226 --> 0:34:03,806
+assemble together a different
+
+1249
+00:34:03,806 --> 0:34:06,396
+collection of the Instruments in
+
+1250
+00:34:06,396 --> 0:34:08,436
+the Instruments app to help
+
+1251
+00:34:08,436 --> 0:34:09,996
+answer a particular performance
+
+1252
+00:34:09,996 --> 0:34:10,326
+question.
+
+1253
+00:34:12,456 --> 0:34:13,966
+Coming out of this presentation,
+
+1254
+00:34:14,326 --> 0:34:15,556
+I'd really love for you all to
+
+1255
+00:34:15,556 --> 0:34:17,676
+start Profiling your code early
+
+1256
+00:34:17,676 --> 0:34:18,856
+and often in your development
+
+1257
+00:34:18,856 --> 0:34:19,176
+cycle.
+
+1258
+00:34:19,716 --> 0:34:21,466
+And please try to out
+
+1259
+00:34:21,466 --> 0:34:22,476
+Instruments 11 today.
+
+1260
+00:34:22,835 --> 0:34:24,235
+It's packed with some great new
+
+1261
+00:34:24,235 --> 0:34:26,496
+features such as Track Pinning
+
+1262
+00:34:26,775 --> 0:34:28,255
+and Hierarchical Views which I
+
+1263
+00:34:28,255 --> 0:34:29,525
+think will make it really fun to
+
+1264
+00:34:29,525 --> 0:34:29,835
+use.
+
+1265
+00:34:30,416 --> 0:34:33,306
+We've got comprehensive
+
+1266
+00:34:33,306 --> 0:34:34,516
+documentation of the advanced
+
+1267
+00:34:34,516 --> 0:34:36,025
+features and certain events
+
+1268
+00:34:36,025 --> 0:34:38,116
+workflows of Instruments in our
+
+1269
+00:34:38,116 --> 0:34:39,706
+session notes, and there's some
+
+1270
+00:34:39,706 --> 0:34:40,835
+great talks from the previous
+
+1271
+00:34:40,835 --> 0:34:41,496
+year's conference.
+
+1272
+00:34:42,056 --> 0:34:42,735
+Thank you very much.
+
+1273
+00:34:43,516 --> 0:34:49,505
+[ Applause ]

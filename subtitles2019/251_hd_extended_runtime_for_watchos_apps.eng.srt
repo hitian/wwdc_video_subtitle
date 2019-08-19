@@ -1,0 +1,1303 @@
+1
+00:00:01,516 --> 0:00:05,686
+[ Music ]
+
+2
+00:00:06,186 --> 0:00:07,966
+&gt;&gt; Hi, my name is Forest, and
+
+3
+00:00:07,966 --> 0:00:09,166
+I'm excited to talk to you about
+
+4
+00:00:09,166 --> 0:00:10,916
+new ways for apps to get runtime
+
+5
+00:00:10,916 --> 0:00:11,726
+on Apple Watch.
+
+6
+00:00:12,396 --> 0:00:13,406
+We'll review some of the
+
+7
+00:00:13,406 --> 0:00:15,166
+existing background modes as
+
+8
+00:00:15,166 --> 0:00:16,686
+well as the details of a new API
+
+9
+00:00:16,776 --> 0:00:18,506
+we've added in watchOS 6 to
+
+10
+00:00:18,506 --> 0:00:19,946
+enable more kinds of apps to get
+
+11
+00:00:19,946 --> 0:00:20,816
+extended runtime.
+
+12
+00:00:21,176 --> 0:00:22,756
+Brief interactions are what make
+
+13
+00:00:22,756 --> 0:00:23,796
+Apple Watch powerful.
+
+14
+00:00:24,636 --> 0:00:25,676
+You might raise your wrist to
+
+15
+00:00:25,676 --> 0:00:27,526
+check the time, the temperature,
+
+16
+00:00:27,766 --> 0:00:29,096
+your calendar or other
+
+17
+00:00:29,096 --> 0:00:30,156
+information that's clearly
+
+18
+00:00:30,156 --> 0:00:31,446
+visible on the watch face via
+
+19
+00:00:31,446 --> 0:00:32,415
+complication.
+
+20
+00:00:33,386 --> 0:00:34,656
+You might check a notification
+
+21
+00:00:34,656 --> 0:00:36,366
+from a language learning app.
+
+22
+00:00:36,856 --> 0:00:38,316
+Beyond that you might launch an
+
+23
+00:00:38,316 --> 0:00:39,896
+app to track a package, complete
+
+24
+00:00:39,896 --> 0:00:41,236
+a task or log a meal.
+
+25
+00:00:42,046 --> 0:00:43,216
+When you lower your wrist after
+
+26
+00:00:43,216 --> 0:00:44,716
+one of these activities, the app
+
+27
+00:00:44,716 --> 0:00:45,516
+becomes inactive.
+
+28
+00:00:46,016 --> 0:00:47,336
+After a short duration the
+
+29
+00:00:47,336 --> 0:00:48,866
+process is suspended but will
+
+30
+00:00:48,866 --> 0:00:50,426
+remain frontmost for some time
+
+31
+00:00:50,426 --> 0:00:51,926
+after meaning that it will
+
+32
+00:00:51,926 --> 0:00:53,286
+become active if you raise your
+
+33
+00:00:53,286 --> 0:00:54,626
+wrist during that time.
+
+34
+00:00:55,726 --> 0:00:56,876
+There are some use cases,
+
+35
+00:00:56,876 --> 0:00:58,566
+however, where you expect an app
+
+36
+00:00:58,566 --> 0:00:59,856
+to keep running after you lower
+
+37
+00:00:59,856 --> 0:01:00,646
+your wrist.
+
+38
+00:00:59,856 --> 0:01:00,646
+your wrist.
+
+39
+00:01:01,146 --> 0:01:02,596
+If you start a workout, you
+
+40
+00:01:02,596 --> 0:01:04,056
+expect Apple Watch to track the
+
+41
+00:01:04,056 --> 0:01:05,116
+time you've invested in that
+
+42
+00:01:05,116 --> 0:01:06,656
+workout and you might expect
+
+43
+00:01:06,656 --> 0:01:07,796
+other data to be collected as
+
+44
+00:01:07,796 --> 0:01:09,536
+well such as your current heart
+
+45
+00:01:09,536 --> 0:01:11,206
+rate, distance traveled,
+
+46
+00:01:11,206 --> 0:01:12,906
+elevation gained, steps per
+
+47
+00:01:12,906 --> 0:01:13,786
+minute and more.
+
+48
+00:01:14,666 --> 0:01:16,176
+As a developer, you can create
+
+49
+00:01:16,176 --> 0:01:17,486
+an app that tracks workouts
+
+50
+00:01:17,486 --> 0:01:18,936
+using the work API and
+
+51
+00:01:18,936 --> 0:01:19,456
+HealthKit.
+
+52
+00:01:20,136 --> 0:01:22,096
+Another obvious reason for an
+
+53
+00:01:22,096 --> 0:01:23,186
+app to continue running after
+
+54
+00:01:23,386 --> 0:01:24,896
+you lower your wrist is to play
+
+55
+00:01:24,896 --> 0:01:26,426
+audio via a connected Bluetooth
+
+56
+00:01:26,426 --> 0:01:26,926
+device.
+
+57
+00:01:27,646 --> 0:01:28,866
+You can start an audio session
+
+58
+00:01:28,866 --> 0:01:30,156
+by calling the background audio
+
+59
+00:01:30,156 --> 0:01:32,626
+APIs and in watchOS 6 you can
+
+60
+00:01:32,626 --> 0:01:34,446
+not only play local audio you
+
+61
+00:01:34,446 --> 0:01:36,416
+can also stream music, podcasts,
+
+62
+00:01:36,416 --> 0:01:37,666
+sporting events and more.
+
+63
+00:01:38,086 --> 0:01:39,416
+And, of course when you're
+
+64
+00:01:39,416 --> 0:01:40,996
+navigating, you need turn by
+
+65
+00:01:40,996 --> 0:01:42,506
+turn directions to be guided to
+
+66
+00:01:42,506 --> 0:01:43,656
+your next destination.
+
+67
+00:01:44,166 --> 0:01:45,246
+If you're building an app that
+
+68
+00:01:45,246 --> 0:01:46,726
+provides directions, you can
+
+69
+00:01:46,726 --> 0:01:48,046
+create a navigation session by
+
+70
+00:01:48,046 --> 0:01:49,486
+using core location APIs.
+
+71
+00:01:49,976 --> 0:01:52,126
+As we've built APIs around these
+
+72
+00:01:52,126 --> 0:01:53,586
+background modes over the past
+
+73
+00:01:53,586 --> 0:01:55,206
+few releases of watchOS, we've
+
+74
+00:01:55,206 --> 0:01:56,506
+noticed that some apps have
+
+75
+00:01:56,506 --> 0:01:57,996
+needs for additional runtime but
+
+76
+00:01:57,996 --> 0:01:59,546
+don't fall into any existing use
+
+77
+00:01:59,546 --> 0:02:00,036
+cases.
+
+78
+00:01:59,546 --> 0:02:00,036
+cases.
+
+79
+00:02:01,156 --> 0:02:02,416
+So now I'd like to hand this
+
+80
+00:02:02,416 --> 0:02:03,766
+over to Scott Daner to discuss a
+
+81
+00:02:03,766 --> 0:02:05,646
+new API in watchOS 6, which will
+
+82
+00:02:05,646 --> 0:02:07,196
+add support for new use cases.
+
+83
+00:02:08,966 --> 0:02:11,106
+&gt;&gt; Hi, I'm Scott Daner, and I'll
+
+84
+00:02:11,106 --> 0:02:12,436
+be walking you through the new
+
+85
+00:02:12,436 --> 0:02:13,636
+extended runtime API.
+
+86
+00:02:14,476 --> 0:02:18,356
+In watchOS 6, we're enabling new
+
+87
+00:02:18,356 --> 0:02:19,896
+scenarios through the extended
+
+88
+00:02:19,896 --> 0:02:20,716
+runtime API.
+
+89
+00:02:21,926 --> 0:02:23,486
+This API will provide enough
+
+90
+00:02:23,486 --> 0:02:24,906
+runtime to complete targeted
+
+91
+00:02:24,906 --> 0:02:26,836
+tasks even after the user lowers
+
+92
+00:02:26,836 --> 0:02:28,236
+a wrist while preserving
+
+93
+00:02:28,236 --> 0:02:28,716
+battery.
+
+94
+00:02:29,546 --> 0:02:30,786
+The extended runtime API
+
+95
+00:02:30,926 --> 0:02:33,816
+encompasses 5 use cases; self
+
+96
+00:02:33,816 --> 0:02:36,006
+care, mindfulness, physical
+
+97
+00:02:36,006 --> 0:02:38,416
+therapy, alarms and health
+
+98
+00:02:38,416 --> 0:02:38,946
+monitoring.
+
+99
+00:02:39,976 --> 0:02:41,626
+Each of these use cases has a
+
+100
+00:02:41,626 --> 0:02:42,906
+corresponding session type.
+
+101
+00:02:43,596 --> 0:02:45,226
+We've tailored these use cases
+
+102
+00:02:45,226 --> 0:02:46,986
+to meet the needs of each use
+
+103
+00:02:46,986 --> 0:02:47,326
+case.
+
+104
+00:02:48,296 --> 0:02:50,606
+This API is for scenarios that
+
+105
+00:02:50,606 --> 0:02:52,136
+are not workouts and, thus,
+
+106
+00:02:52,136 --> 0:02:53,366
+should not impact move and
+
+107
+00:02:53,366 --> 0:02:55,686
+exercise rings and while some
+
+108
+00:02:55,686 --> 0:02:57,636
+apps may benefit from monitoring
+
+109
+00:02:57,666 --> 0:02:59,066
+and reporting on the user's
+
+110
+00:02:59,066 --> 0:03:00,986
+heart rate, none of the session
+
+111
+00:02:59,066 --> 0:03:00,986
+heart rate, none of the session
+
+112
+00:03:00,986 --> 0:03:02,596
+types we're about to talk about
+
+113
+00:03:02,826 --> 0:03:04,336
+have heart rate monitoring on by
+
+114
+00:03:04,336 --> 0:03:05,746
+default as workouts do.
+
+115
+00:03:06,866 --> 0:03:07,996
+We'll go into this in more
+
+116
+00:03:07,996 --> 0:03:09,936
+detail in a bit but monitoring
+
+117
+00:03:09,936 --> 0:03:11,266
+user's heart rate is power
+
+118
+00:03:11,266 --> 0:03:13,296
+intensive so queries for heart
+
+119
+00:03:13,296 --> 0:03:14,536
+rate should be performed
+
+120
+00:03:14,736 --> 0:03:15,506
+judiciously.
+
+121
+00:03:16,056 --> 0:03:17,346
+The first session type we'll
+
+122
+00:03:17,346 --> 0:03:18,896
+talk about is self care.
+
+123
+00:03:19,726 --> 0:03:21,786
+Self care apps guide users
+
+124
+00:03:21,786 --> 0:03:23,466
+through brief activities focused
+
+125
+00:03:23,466 --> 0:03:24,906
+on the user's health such as
+
+126
+00:03:24,906 --> 0:03:25,516
+tooth brushing.
+
+127
+00:03:26,756 --> 0:03:28,496
+A self care session runs for up
+
+128
+00:03:28,496 --> 0:03:30,476
+to 10 minutes or until the user
+
+129
+00:03:30,476 --> 0:03:32,366
+exits the app by pressing the
+
+130
+00:03:32,366 --> 0:03:34,016
+digital crown or switching to
+
+131
+00:03:34,016 --> 0:03:34,576
+another app.
+
+132
+00:03:34,726 --> 0:03:37,386
+If the user lowers their wrist,
+
+133
+00:03:37,756 --> 0:03:39,216
+the screen will turn off, but
+
+134
+00:03:39,216 --> 0:03:40,226
+the session will continue
+
+135
+00:03:40,226 --> 0:03:41,866
+running and your process will
+
+136
+00:03:41,866 --> 0:03:42,746
+not be suspended.
+
+137
+00:03:43,656 --> 0:03:44,836
+This allows the app to play
+
+138
+00:03:44,836 --> 0:03:46,096
+sounds and haptics or
+
+139
+00:03:46,096 --> 0:03:46,796
+communicate with a Bluetooth
+
+140
+00:03:46,826 --> 0:03:46,976
+device.
+
+141
+00:03:47,046 --> 0:03:50,586
+Mindfulness apps guide users
+
+142
+00:03:50,586 --> 0:03:51,946
+through meditation sessions.
+
+143
+00:03:52,626 --> 0:03:54,026
+Some mindfulness apps are
+
+144
+00:03:54,026 --> 0:03:55,436
+already getting the runtime they
+
+145
+00:03:55,436 --> 0:03:57,086
+need by playing audio
+
+146
+00:03:57,086 --> 0:03:58,326
+continuously throughout the
+
+147
+00:03:58,326 --> 0:04:00,336
+session and that's fine.
+
+148
+00:03:58,326 --> 0:04:00,336
+session and that's fine.
+
+149
+00:04:01,216 --> 0:04:02,576
+The background audio API can be
+
+150
+00:04:02,576 --> 0:04:03,866
+used for those scenarios.
+
+151
+00:04:04,696 --> 0:04:06,356
+This use case provides runtime
+
+152
+00:04:06,356 --> 0:04:08,086
+for meditations where audio is
+
+153
+00:04:08,086 --> 0:04:09,336
+not played continuously.
+
+154
+00:04:10,926 --> 0:04:12,226
+Like self care sessions,
+
+155
+00:04:12,556 --> 0:04:14,426
+mindfulness sessions run until
+
+156
+00:04:14,426 --> 0:04:16,185
+the user exits the app or the
+
+157
+00:04:16,185 --> 0:04:17,336
+time limit expires.
+
+158
+00:04:18,185 --> 0:04:19,676
+For mindfulness sessions the
+
+159
+00:04:19,676 --> 0:04:21,146
+time limit is 1 hour.
+
+160
+00:04:21,755 --> 0:04:23,956
+Physical therapy apps guide
+
+161
+00:04:23,956 --> 0:04:25,216
+users through stretching,
+
+162
+00:04:25,416 --> 0:04:27,176
+strengthening or range of motion
+
+163
+00:04:27,176 --> 0:04:27,996
+exercises.
+
+164
+00:04:28,756 --> 0:04:30,286
+Physical therapy sessions are
+
+165
+00:04:30,286 --> 0:04:31,816
+designed to give you the runtime
+
+166
+00:04:31,816 --> 0:04:33,456
+you need to play haptics to
+
+167
+00:04:33,456 --> 0:04:35,026
+alert the user when it's time to
+
+168
+00:04:35,026 --> 0:04:36,986
+switch legs, change rotation
+
+169
+00:04:36,986 --> 0:04:38,166
+direction, et cetera.
+
+170
+00:04:39,706 --> 0:04:41,406
+These sessions continue to run
+
+171
+00:04:41,406 --> 0:04:42,806
+in the background if the user
+
+172
+00:04:42,806 --> 0:04:44,426
+presses the digital crown or
+
+173
+00:04:44,426 --> 0:04:46,526
+switches to another app to allow
+
+174
+00:04:46,526 --> 0:04:48,016
+for multitasking when doing
+
+175
+00:04:48,016 --> 0:04:49,196
+repetitive movements.
+
+176
+00:04:49,776 --> 0:04:51,066
+This is similar to how workout
+
+177
+00:04:51,066 --> 0:04:51,766
+sessions behave.
+
+178
+00:04:53,086 --> 0:04:54,616
+There's a one 1-time limit, but
+
+179
+00:04:54,616 --> 0:04:55,936
+you should end the session as
+
+180
+00:04:55,936 --> 0:04:57,496
+soon as the user has finished
+
+181
+00:04:57,496 --> 0:04:58,006
+the routine.
+
+182
+00:04:59,316 --> 0:05:00,746
+Remember that physical therapy
+
+183
+00:04:59,316 --> 0:05:00,746
+Remember that physical therapy
+
+184
+00:05:00,746 --> 0:05:01,916
+sessions are designed
+
+185
+00:05:01,916 --> 0:05:03,616
+specifically for activities that
+
+186
+00:05:03,616 --> 0:05:04,626
+are not workouts.
+
+187
+00:05:05,586 --> 0:05:06,986
+If your physical therapy app
+
+188
+00:05:06,986 --> 0:05:08,646
+offers a more strenuous activity
+
+189
+00:05:09,056 --> 0:05:10,706
+such as riding an exercise bike,
+
+190
+00:05:11,056 --> 0:05:12,566
+use a workout API for that
+
+191
+00:05:12,566 --> 0:05:13,056
+activity.
+
+192
+00:05:13,426 --> 0:05:14,936
+Health monitoring apps get
+
+193
+00:05:14,936 --> 0:05:16,756
+runtime to monitor the user's
+
+194
+00:05:16,756 --> 0:05:18,456
+health data such as heart rate
+
+195
+00:05:18,456 --> 0:05:19,066
+or motion.
+
+196
+00:05:19,716 --> 0:05:21,516
+Just like today the app must
+
+197
+00:05:21,516 --> 0:05:22,756
+query for heart rate through
+
+198
+00:05:22,756 --> 0:05:23,806
+HealthKit APIs.
+
+199
+00:05:24,596 --> 0:05:25,686
+This will turn on the heart rate
+
+200
+00:05:25,686 --> 0:05:26,706
+sensor, which will have an
+
+201
+00:05:26,706 --> 0:05:28,576
+impact on battery life, so
+
+202
+00:05:28,576 --> 0:05:30,516
+communicating that to your user
+
+203
+00:05:30,516 --> 0:05:31,236
+is critical.
+
+204
+00:05:31,876 --> 0:05:33,026
+Because of the potential for
+
+205
+00:05:33,026 --> 0:05:34,936
+heavy battery impact this type
+
+206
+00:05:34,936 --> 0:05:37,106
+requires an entitlement and
+
+207
+00:05:37,106 --> 0:05:38,216
+you'll need to be extra
+
+208
+00:05:38,216 --> 0:05:39,626
+respectful of the user's
+
+209
+00:05:39,626 --> 0:05:40,006
+battery.
+
+210
+00:05:41,006 --> 0:05:43,616
+In order to use this API, you'll
+
+211
+00:05:43,616 --> 0:05:45,036
+need to add the background modes
+
+212
+00:05:45,036 --> 0:05:46,386
+capability to your extension
+
+213
+00:05:46,386 --> 0:05:49,826
+target in Xcode and select an
+
+214
+00:05:49,826 --> 0:05:51,016
+appropriate session type.
+
+215
+00:05:51,686 --> 0:05:54,586
+To create a session first create
+
+216
+00:05:54,586 --> 0:05:56,376
+a WKExtendedRuntimeSession
+
+217
+00:05:56,376 --> 0:05:56,876
+object.
+
+218
+00:05:57,496 --> 0:05:58,836
+This will create a session, but
+
+219
+00:05:58,836 --> 0:05:59,836
+it won't start it yet.
+
+220
+00:06:00,836 --> 0:06:02,906
+To do that you must set a
+
+221
+00:06:02,906 --> 0:06:04,626
+delegate on the session and call
+
+222
+00:06:04,626 --> 0:06:05,156
+start.
+
+223
+00:06:05,816 --> 0:06:07,326
+Calling start must be done while
+
+224
+00:06:07,326 --> 0:06:08,256
+the app is active.
+
+225
+00:06:08,416 --> 0:06:10,456
+After calling start the session
+
+226
+00:06:10,456 --> 0:06:12,066
+will start immediately and you
+
+227
+00:06:12,066 --> 0:06:13,906
+will receive a call back noting
+
+228
+00:06:13,906 --> 0:06:15,266
+that it began successfully.
+
+229
+00:06:16,526 --> 0:06:18,166
+Finally, you can end the session
+
+230
+00:06:18,166 --> 0:06:19,276
+by calling invalidate.
+
+231
+00:06:21,276 --> 0:06:23,236
+And now to talk about alarms I'd
+
+232
+00:06:23,236 --> 0:06:23,976
+like to bring Forest back.
+
+233
+00:06:24,046 --> 0:06:26,786
+&gt;&gt; In most cases if an app needs
+
+234
+00:06:26,786 --> 0:06:28,246
+to alert a user at a specific
+
+235
+00:06:28,246 --> 0:06:29,876
+time, the best way to do this is
+
+236
+00:06:29,876 --> 0:06:30,776
+through a notification.
+
+237
+00:06:31,536 --> 0:06:33,066
+However, there are cases where a
+
+238
+00:06:33,066 --> 0:06:34,566
+notification is not sufficient
+
+239
+00:06:34,566 --> 0:06:35,736
+such as waking the user from
+
+240
+00:06:35,736 --> 0:06:36,066
+sleep.
+
+241
+00:06:36,996 --> 0:06:39,296
+In this case, the app might want
+
+242
+00:06:39,296 --> 0:06:40,576
+to get runtime to monitor the
+
+243
+00:06:40,576 --> 0:06:42,676
+user's heart rate or motion to
+
+244
+00:06:42,676 --> 0:06:43,936
+determine an optimal time to
+
+245
+00:06:43,936 --> 0:06:44,776
+play an alarm.
+
+246
+00:06:45,476 --> 0:06:46,756
+To enable this, we've added the
+
+247
+00:06:46,756 --> 0:06:47,776
+alarm session type.
+
+248
+00:06:48,586 --> 0:06:50,576
+Smart alarm sessions allow apps
+
+249
+00:06:50,576 --> 0:06:52,166
+to schedule a window in which to
+
+250
+00:06:52,166 --> 0:06:53,676
+begin monitoring for changes in
+
+251
+00:06:53,676 --> 0:06:54,766
+heart rate or movement.
+
+252
+00:06:55,516 --> 0:06:57,186
+Alarm sessions are the only type
+
+253
+00:06:57,186 --> 0:06:58,306
+of session that can be scheduled
+
+254
+00:06:58,306 --> 0:07:00,456
+in advance up to 36 hours and
+
+255
+00:06:58,306 --> 0:07:00,456
+in advance up to 36 hours and
+
+256
+00:07:00,456 --> 0:07:01,936
+can run for up to 30 minutes
+
+257
+00:07:02,046 --> 0:07:02,726
+once started.
+
+258
+00:07:03,426 --> 0:07:04,716
+You must play a haptic at least
+
+259
+00:07:04,716 --> 0:07:05,916
+one time during the course of
+
+260
+00:07:05,916 --> 0:07:07,246
+the session as your purpose is
+
+261
+00:07:07,246 --> 0:07:08,296
+to act as an alarm.
+
+262
+00:07:09,596 --> 0:07:11,066
+If your application is using the
+
+263
+00:07:11,066 --> 0:07:12,446
+alarm session type, there's one
+
+264
+00:07:12,446 --> 0:07:13,466
+key difference about how the
+
+265
+00:07:13,466 --> 0:07:14,226
+session works.
+
+266
+00:07:14,586 --> 0:07:15,826
+These sessions are scheduled in
+
+267
+00:07:15,826 --> 0:07:16,386
+advance.
+
+268
+00:07:17,196 --> 0:07:18,646
+To schedule an alarm session
+
+269
+00:07:18,726 --> 0:07:20,676
+instead of calling start, call
+
+270
+00:07:20,676 --> 0:07:21,376
+startAtDate.
+
+271
+00:07:22,066 --> 0:07:23,336
+This will schedule the alarm to
+
+272
+00:07:23,336 --> 0:07:24,746
+begin running at a later date.
+
+273
+00:07:25,496 --> 0:07:27,086
+Also, just as you must call
+
+274
+00:07:27,086 --> 0:07:28,206
+start when the application is
+
+275
+00:07:28,206 --> 0:07:30,076
+active startAtDate must also be
+
+276
+00:07:30,076 --> 0:07:31,046
+called while active.
+
+277
+00:07:31,846 --> 0:07:34,036
+Later at the time specified the
+
+278
+00:07:34,036 --> 0:07:36,246
+session will begin and the app
+
+279
+00:07:36,246 --> 0:07:37,246
+will be launched if it's not
+
+280
+00:07:37,246 --> 0:07:37,556
+running.
+
+281
+00:07:37,856 --> 0:07:40,196
+Upon launching the app will
+
+282
+00:07:40,196 --> 0:07:41,356
+receive a call back on the
+
+283
+00:07:41,356 --> 0:07:42,826
+extension delegate which passes
+
+284
+00:07:42,826 --> 0:07:43,966
+the app the running session.
+
+285
+00:07:44,616 --> 0:07:46,056
+The app must set a delegate on
+
+286
+00:07:46,056 --> 0:07:47,386
+the session before returning
+
+287
+00:07:47,386 --> 0:07:48,026
+from this function.
+
+288
+00:07:48,976 --> 0:07:50,516
+After doing this the app will
+
+289
+00:07:50,516 --> 0:07:51,646
+receive a call back on the
+
+290
+00:07:51,646 --> 0:07:53,196
+delegate object saying that the
+
+291
+00:07:53,196 --> 0:07:54,026
+session has started.
+
+292
+00:07:54,616 --> 0:07:55,956
+During the time the session is
+
+293
+00:07:55,956 --> 0:07:57,916
+actively running the app must
+
+294
+00:07:57,916 --> 0:07:58,616
+play a haptic.
+
+295
+00:07:59,516 --> 0:08:00,896
+When your app plays a haptic
+
+296
+00:07:59,516 --> 0:08:00,896
+When your app plays a haptic
+
+297
+00:08:00,896 --> 0:08:02,756
+during an alarm session if it is
+
+298
+00:08:02,756 --> 0:08:04,536
+not active, we will show a
+
+299
+00:08:04,536 --> 0:08:05,826
+system alert indicating that
+
+300
+00:08:05,826 --> 0:08:07,136
+your app is playing alarm.
+
+301
+00:08:07,736 --> 0:08:09,596
+If your app fails to play a
+
+302
+00:08:09,596 --> 0:08:10,926
+haptic during an alarm session,
+
+303
+00:08:10,926 --> 0:08:12,156
+we will warn the user with this
+
+304
+00:08:12,156 --> 0:08:13,646
+alert offering to disable the
+
+305
+00:08:13,646 --> 0:08:14,776
+app's ability to schedule
+
+306
+00:08:14,776 --> 0:08:15,726
+sessions in the future.
+
+307
+00:08:16,336 --> 0:08:17,556
+Make sure you're being a good
+
+308
+00:08:17,556 --> 0:08:18,796
+citizen on the platform.
+
+309
+00:08:19,606 --> 0:08:20,986
+If you are, your users will
+
+310
+00:08:20,986 --> 0:08:21,716
+never see this.
+
+311
+00:08:22,076 --> 0:08:23,246
+We've put a lot of thought into
+
+312
+00:08:23,246 --> 0:08:24,166
+the parameters of these use
+
+313
+00:08:24,166 --> 0:08:24,656
+cases.
+
+314
+00:08:24,756 --> 0:08:26,116
+So please pick a use case that's
+
+315
+00:08:26,116 --> 0:08:27,046
+appropriate for your app.
+
+316
+00:08:28,006 --> 0:08:29,036
+Be considerate of the user's
+
+317
+00:08:29,036 --> 0:08:29,696
+battery life.
+
+318
+00:08:30,136 --> 0:08:31,526
+End sessions as soon as the user
+
+319
+00:08:31,526 --> 0:08:33,155
+is done with the activity and be
+
+320
+00:08:33,155 --> 0:08:34,576
+judicious about querying heart
+
+321
+00:08:34,576 --> 0:08:34,826
+rate.
+
+322
+00:08:35,166 --> 0:08:36,385
+This will ensure great battery
+
+323
+00:08:36,385 --> 0:08:37,466
+life for your users.
+
+324
+00:08:38,426 --> 0:08:40,336
+For more information, check out
+
+325
+00:08:40,336 --> 0:08:41,206
+the documentation
+
+326
+00:08:41,366 --> 0:08:42,976
+@developer.apple.com.

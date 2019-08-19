@@ -1,0 +1,5123 @@
+1
+00:00:00,506 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:12,106 --> 0:00:13,536
+&gt;&gt; Good morning, everyone.
+
+3
+00:00:14,256 --> 0:00:16,175
+And thanks for joining us today.
+
+4
+00:00:17,616 --> 0:00:19,086
+My name is Garrett, and I work
+
+5
+00:00:19,086 --> 0:00:20,236
+on the security engineering and
+
+6
+00:00:20,236 --> 0:00:21,446
+architecture team here at Apple.
+
+7
+00:00:21,986 --> 0:00:22,876
+And today, we're here to talk
+
+8
+00:00:22,876 --> 0:00:23,926
+about some of the advances in
+
+9
+00:00:23,926 --> 0:00:25,646
+security coming in macOS
+
+10
+00:00:25,646 --> 0:00:26,056
+Catalina.
+
+11
+00:00:29,046 --> 0:00:29,896
+Here's a quick agenda for the
+
+12
+00:00:29,896 --> 0:00:30,226
+talk.
+
+13
+00:00:30,716 --> 0:00:31,606
+We're going to talk a little bit
+
+14
+00:00:31,606 --> 0:00:32,686
+about the security principle of
+
+15
+00:00:32,686 --> 0:00:34,156
+defense in depth and how it's
+
+16
+00:00:34,156 --> 0:00:35,256
+applied in macOS.
+
+17
+00:00:36,016 --> 0:00:37,666
+Then we'll dig into two very
+
+18
+00:00:37,666 --> 0:00:38,686
+different parts of the macOS
+
+19
+00:00:38,686 --> 0:00:40,926
+security model, Gatekeeper and
+
+20
+00:00:40,926 --> 0:00:42,146
+user privacy protection.
+
+21
+00:00:45,146 --> 0:00:45,966
+So let's get started with
+
+22
+00:00:45,966 --> 0:00:46,606
+Defense in Depth.
+
+23
+00:00:47,466 --> 0:00:50,356
+Now, with a product as complex
+
+24
+00:00:50,356 --> 0:00:51,906
+and with as many use cases as
+
+25
+00:00:51,906 --> 0:00:55,396
+macOS, it's-- there is no single
+
+26
+00:00:55,396 --> 0:00:57,056
+technology or feature that can
+
+27
+00:00:57,056 --> 0:00:58,526
+deliver perfect security alone.
+
+28
+00:00:59,776 --> 0:01:01,976
+So instead, macOS is designed
+
+29
+00:00:59,776 --> 0:01:01,976
+So instead, macOS is designed
+
+30
+00:01:01,976 --> 0:01:03,086
+with many different layers of
+
+31
+00:01:03,086 --> 0:01:03,706
+security.
+
+32
+00:01:04,366 --> 0:01:05,626
+Each designed with a specific
+
+33
+00:01:05,626 --> 0:01:06,886
+purpose or goal.
+
+34
+00:01:08,226 --> 0:01:10,656
+And every year, we improve the
+
+35
+00:01:10,656 --> 0:01:12,996
+technologies and policies at
+
+36
+00:01:12,996 --> 0:01:14,796
+each of these layers to help
+
+37
+00:01:14,796 --> 0:01:15,606
+keep you safe.
+
+38
+00:01:16,396 --> 0:01:19,606
+And this is an application of
+
+39
+00:01:19,606 --> 0:01:20,496
+the principle of Defense in
+
+40
+00:01:20,496 --> 0:01:20,686
+Depth.
+
+41
+00:01:20,686 --> 0:01:23,806
+And the goal is to ensure that
+
+42
+00:01:23,806 --> 0:01:25,356
+one layer of security failing
+
+43
+00:01:26,136 --> 0:01:27,736
+doesn't defeat the entire
+
+44
+00:01:27,736 --> 0:01:31,616
+security model of the system.
+
+45
+00:01:31,726 --> 0:01:33,666
+Instead, we rely on multiple
+
+46
+00:01:33,666 --> 0:01:35,196
+layers of protection with
+
+47
+00:01:35,196 --> 0:01:35,916
+different properties.
+
+48
+00:01:36,796 --> 0:01:38,706
+Some layers are designed to
+
+49
+00:01:38,706 --> 0:01:39,626
+delay the advance of an
+
+50
+00:01:39,626 --> 0:01:42,566
+attacker, others to reduce the
+
+51
+00:01:42,566 --> 0:01:43,686
+attack surface of a component,
+
+52
+00:01:44,576 --> 0:01:46,726
+and some to create choke points
+
+53
+00:01:46,976 --> 0:01:48,216
+that make it easier to defend a
+
+54
+00:01:48,216 --> 0:01:48,976
+specific asset.
+
+55
+00:01:52,546 --> 0:01:54,636
+And today, we're here to talk
+
+56
+00:01:54,636 --> 0:01:56,186
+about two very different layers
+
+57
+00:01:56,796 --> 0:01:57,836
+of security in macOS.
+
+58
+00:01:59,166 --> 0:02:00,806
+First, we'll talk a little bit
+
+59
+00:01:59,166 --> 0:02:00,806
+First, we'll talk a little bit
+
+60
+00:02:00,806 --> 0:02:02,676
+about Gatekeeper, which is an
+
+61
+00:02:02,676 --> 0:02:03,916
+important outer layer of
+
+62
+00:02:03,916 --> 0:02:05,886
+security, designed to prevent
+
+63
+00:02:05,886 --> 0:02:07,316
+malicious software from ever
+
+64
+00:02:07,316 --> 0:02:08,756
+running on your system in the
+
+65
+00:02:09,455 --> 0:02:10,916
+first place.
+
+66
+00:02:11,066 --> 0:02:12,856
+Then, we'll talk about user
+
+67
+00:02:12,896 --> 0:02:14,796
+privacy protection, which is
+
+68
+00:02:14,796 --> 0:02:16,236
+designed to ensure that even if
+
+69
+00:02:16,236 --> 0:02:17,686
+malicious software is able to
+
+70
+00:02:17,686 --> 0:02:19,376
+get around Gatekeeper, it
+
+71
+00:02:19,376 --> 0:02:20,896
+doesn't necessarily have access
+
+72
+00:02:20,896 --> 0:02:22,526
+to your most sensitive data and
+
+73
+00:02:22,526 --> 0:02:23,006
+resources.
+
+74
+00:02:23,006 --> 0:02:26,936
+So let's talk about Gatekeeper.
+
+75
+00:02:27,986 --> 0:02:29,186
+When Gatekeeper was originally
+
+76
+00:02:29,186 --> 0:02:30,876
+introduced, along with the
+
+77
+00:02:30,876 --> 0:02:33,136
+Developer ID program, its goal
+
+78
+00:02:33,136 --> 0:02:34,596
+was to prevent the widespread--
+
+79
+00:02:35,236 --> 0:02:36,676
+prevent the outbreak, a
+
+80
+00:02:36,676 --> 0:02:38,476
+widespread outbreak of malicious
+
+81
+00:02:38,476 --> 0:02:38,836
+software.
+
+82
+00:02:39,526 --> 0:02:41,426
+But over the years, its goals
+
+83
+00:02:41,686 --> 0:02:42,576
+have broadened a bit.
+
+84
+00:02:43,296 --> 0:02:45,126
+And now, it's designed to
+
+85
+00:02:45,126 --> 0:02:46,626
+protect users from running
+
+86
+00:02:46,626 --> 0:02:48,496
+malicious software while leaving
+
+87
+00:02:48,496 --> 0:02:50,516
+them in control of what they run
+
+88
+00:02:50,516 --> 0:02:51,946
+on their Mac.
+
+89
+00:02:53,006 --> 0:02:55,056
+Now, exactly how it does this
+
+90
+00:02:55,056 --> 0:02:56,676
+has changed over the years too.
+
+91
+00:02:56,986 --> 0:02:57,736
+And while there's a lot of
+
+92
+00:02:57,736 --> 0:03:00,316
+nuances, Gatekeeper's intent can
+
+93
+00:02:57,736 --> 0:03:00,316
+nuances, Gatekeeper's intent can
+
+94
+00:03:00,316 --> 0:03:02,256
+generally be boiled down to a
+
+95
+00:03:02,256 --> 0:03:03,516
+few simple questions.
+
+96
+00:03:04,426 --> 0:03:05,426
+So let's talk about how
+
+97
+00:03:05,426 --> 0:03:06,756
+Gatekeeper achieves this goal
+
+98
+00:03:07,176 --> 0:03:08,006
+today.
+
+99
+00:03:10,156 --> 0:03:11,456
+There's four things that we
+
+100
+00:03:11,456 --> 0:03:15,526
+think of as part of a Gatekeeper
+
+101
+00:03:17,436 --> 0:03:17,566
+scan.
+
+102
+00:03:19,096 --> 0:03:22,016
+The first is a malicious content
+
+103
+00:03:22,526 --> 0:03:24,476
+scan to ensure that there's
+
+104
+00:03:24,476 --> 0:03:26,436
+nothing known malicious in the
+
+105
+00:03:26,436 --> 0:03:27,726
+app it's about to run.
+
+106
+00:03:28,156 --> 0:03:32,156
+Second, there's a signature
+
+107
+00:03:32,156 --> 0:03:34,246
+validation, to ensure that the
+
+108
+00:03:34,246 --> 0:03:35,476
+app hasn't been tampered with
+
+109
+00:03:35,876 --> 0:03:37,006
+since it was signed by the
+
+110
+00:03:37,006 --> 0:03:37,626
+developer.
+
+111
+00:03:38,246 --> 0:03:42,276
+Third, there's an identity
+
+112
+00:03:42,276 --> 0:03:42,886
+validation.
+
+113
+00:03:43,456 --> 0:03:44,526
+And this is what we use to
+
+114
+00:03:44,526 --> 0:03:45,776
+enforce the computer's local
+
+115
+00:03:45,776 --> 0:03:46,586
+security policy.
+
+116
+00:03:46,586 --> 0:03:48,426
+If the user has selected that
+
+117
+00:03:48,426 --> 0:03:49,656
+they only want to run software
+
+118
+00:03:49,656 --> 0:03:51,506
+from the App Store or identify
+
+119
+00:03:51,506 --> 0:03:53,176
+developers, then we don't want
+
+120
+00:03:53,176 --> 0:03:54,116
+to allow something that's been
+
+121
+00:03:54,116 --> 0:03:55,986
+signed by anyone else, or that
+
+122
+00:03:55,986 --> 0:03:57,196
+doesn't have a signature at all.
+
+123
+00:03:57,196 --> 0:04:01,716
+And finally, there's a first
+
+124
+00:03:57,196 --> 0:04:01,716
+And finally, there's a first
+
+125
+00:04:01,716 --> 0:04:03,466
+launch prompt, which is meant to
+
+126
+00:04:03,466 --> 0:04:05,146
+ensure that the user actually
+
+127
+00:04:05,206 --> 0:04:09,246
+wants to run this application.
+
+128
+00:04:09,566 --> 0:04:10,936
+Now, we can't talk about what
+
+129
+00:04:10,936 --> 0:04:12,656
+Gatekeeper checks without
+
+130
+00:04:12,656 --> 0:04:14,046
+talking about when Gatekeeper
+
+131
+00:04:14,046 --> 0:04:14,486
+checks it.
+
+132
+00:04:14,486 --> 0:04:18,755
+And in macOS Mojave, Gatekeeper
+
+133
+00:04:18,755 --> 0:04:21,146
+runs its scans on the first
+
+134
+00:04:21,146 --> 0:04:23,726
+launch of quarantined software
+
+135
+00:04:24,226 --> 0:04:25,526
+launched via LaunchServices.
+
+136
+00:04:25,526 --> 0:04:28,506
+Now, to understand that a little
+
+137
+00:04:28,506 --> 0:04:30,046
+better, we need to dig in on
+
+138
+00:04:30,046 --> 0:04:31,936
+what quarantine means and what
+
+139
+00:04:31,936 --> 0:04:32,996
+it means to be launched by
+
+140
+00:04:32,996 --> 0:04:33,966
+LaunchServices.
+
+141
+00:04:34,616 --> 0:04:36,776
+So let's jump into that.
+
+142
+00:04:38,956 --> 0:04:41,426
+Quarantine is a technology built
+
+143
+00:04:41,426 --> 0:04:44,046
+into macOS to mark files that
+
+144
+00:04:44,046 --> 0:04:46,476
+have arrived from somewhere else
+
+145
+00:04:46,576 --> 0:04:47,416
+off of the device.
+
+146
+00:04:48,166 --> 0:04:49,446
+When you download a file in a
+
+147
+00:04:49,446 --> 0:04:51,646
+web browser or when someone
+
+148
+00:04:51,646 --> 0:04:52,996
+sends you something via
+
+149
+00:04:52,996 --> 0:04:55,546
+iMessages, or if you get an
+
+150
+00:04:55,546 --> 0:04:57,226
+AirDrop, those files all get
+
+151
+00:04:57,226 --> 0:04:57,816
+quarantined.
+
+152
+00:04:59,026 --> 0:05:01,046
+Additionally, macOS will add
+
+153
+00:04:59,026 --> 0:05:01,046
+Additionally, macOS will add
+
+154
+00:05:01,046 --> 0:05:03,506
+metadata to that file about
+
+155
+00:05:03,506 --> 0:05:04,236
+where it came from.
+
+156
+00:05:05,146 --> 0:05:06,146
+So when we present a first
+
+157
+00:05:06,146 --> 0:05:07,676
+launch prompt, we can give you
+
+158
+00:05:07,676 --> 0:05:10,146
+more contexts about where that
+
+159
+00:05:10,286 --> 0:05:10,966
+file came from.
+
+160
+00:05:12,406 --> 0:05:14,776
+Now, quarantine is an opt-in
+
+161
+00:05:14,776 --> 0:05:16,666
+model, which means that apps
+
+162
+00:05:16,986 --> 0:05:18,496
+have to opt in to quarantining
+
+163
+00:05:18,496 --> 0:05:19,496
+the files that they place on
+
+164
+00:05:19,496 --> 0:05:19,846
+disk.
+
+165
+00:05:19,846 --> 0:05:22,876
+And that generally means that
+
+166
+00:05:22,876 --> 0:05:24,756
+when an app downloads files in
+
+167
+00:05:24,756 --> 0:05:26,486
+the background as part of, for
+
+168
+00:05:26,486 --> 0:05:28,076
+example, a self-update, those
+
+169
+00:05:28,076 --> 0:05:29,406
+files generally never get
+
+170
+00:05:29,456 --> 0:05:30,016
+quarantined.
+
+171
+00:05:31,406 --> 0:05:33,336
+The exception there is if the
+
+172
+00:05:33,336 --> 0:05:34,416
+app is App Sandboxed.
+
+173
+00:05:35,116 --> 0:05:36,456
+Because quarantining files is
+
+174
+00:05:36,456 --> 0:05:37,826
+the default for Sandboxed
+
+175
+00:05:37,826 --> 0:05:38,436
+applications.
+
+176
+00:05:39,166 --> 0:05:42,126
+So that helps you understand a
+
+177
+00:05:42,126 --> 0:05:43,496
+little bit more about what files
+
+178
+00:05:43,496 --> 0:05:44,286
+on a system will get
+
+179
+00:05:44,286 --> 0:05:44,816
+quarantined.
+
+180
+00:05:45,556 --> 0:05:47,336
+Now, let's talk about Launch
+
+181
+00:05:47,336 --> 0:05:48,016
+Services.
+
+182
+00:05:49,976 --> 0:05:52,916
+Launch Services is a framework
+
+183
+00:05:52,916 --> 0:05:53,936
+for finding and launching
+
+184
+00:05:53,936 --> 0:05:54,696
+applications.
+
+185
+00:05:54,696 --> 0:05:57,226
+And it's generally responsible
+
+186
+00:05:57,226 --> 0:05:58,606
+for most of the ways that you
+
+187
+00:05:58,606 --> 0:05:59,836
+think of launching applications
+
+188
+00:05:59,836 --> 0:06:00,226
+on your Mac.
+
+189
+00:05:59,836 --> 0:06:00,226
+on your Mac.
+
+190
+00:06:01,286 --> 0:06:02,686
+For example, when you open an
+
+191
+00:06:02,966 --> 0:06:04,786
+app in Finder or the Dock that
+
+192
+00:06:04,786 --> 0:06:05,846
+will use Launch Services.
+
+193
+00:06:06,896 --> 0:06:08,906
+If you use the NSWorkspace APIs,
+
+194
+00:06:09,346 --> 0:06:10,416
+those generally go through
+
+195
+00:06:10,416 --> 0:06:11,366
+Launch Services also.
+
+196
+00:06:12,656 --> 0:06:13,656
+And when apps get open via
+
+197
+00:06:13,656 --> 0:06:15,266
+document handlers or directly
+
+198
+00:06:15,266 --> 0:06:16,976
+through URLs, that all goes
+
+199
+00:06:16,976 --> 0:06:17,846
+through Launch Services.
+
+200
+00:06:18,546 --> 0:06:21,396
+Now, for the rest of the
+
+201
+00:06:21,396 --> 0:06:23,056
+presentation, I'll use this
+
+202
+00:06:23,056 --> 0:06:24,396
+Finder icon when I'm
+
+203
+00:06:24,396 --> 0:06:25,476
+specifically talking about
+
+204
+00:06:25,476 --> 0:06:26,396
+something that goes through the
+
+205
+00:06:26,396 --> 0:06:27,976
+Launch Services path.
+
+206
+00:06:32,756 --> 0:06:34,556
+But there are also many ways of
+
+207
+00:06:34,556 --> 0:06:36,436
+loading code that don't go
+
+208
+00:06:36,436 --> 0:06:37,476
+through Launch Services.
+
+209
+00:06:38,436 --> 0:06:39,766
+Some examples that are not
+
+210
+00:06:39,766 --> 0:06:41,896
+exhaustive, include using NSTask
+
+211
+00:06:42,826 --> 0:06:45,336
+to start a process, or the exec
+
+212
+00:06:45,336 --> 0:06:48,126
+and posix spawn's calls or
+
+213
+00:06:48,126 --> 0:06:49,316
+loading a library into your
+
+214
+00:06:49,316 --> 0:06:50,966
+process using the NSBundle APIs
+
+215
+00:06:50,966 --> 0:06:52,916
+for loading or dlopen.
+
+216
+00:06:53,596 --> 0:06:55,616
+And for the rest of the
+
+217
+00:06:55,616 --> 0:06:58,166
+presentation, I'll use this
+
+218
+00:06:58,166 --> 0:07:00,296
+terminal icon when I want to
+
+219
+00:06:58,166 --> 0:07:00,296
+terminal icon when I want to
+
+220
+00:07:00,296 --> 0:07:02,326
+refer to loading code off of the
+
+221
+00:07:02,326 --> 0:07:04,046
+Launch Services path.
+
+222
+00:07:06,386 --> 0:07:07,856
+Now, let's quickly summarize
+
+223
+00:07:07,916 --> 0:07:08,916
+everything that we've learned
+
+224
+00:07:08,916 --> 0:07:10,686
+about Gatekeeper in a format
+
+225
+00:07:10,686 --> 0:07:12,026
+that will make it easier to talk
+
+226
+00:07:12,026 --> 0:07:13,636
+about what's changed this year.
+
+227
+00:07:14,306 --> 0:07:18,886
+So here, we can see Gatekeeper's
+
+228
+00:07:18,886 --> 0:07:21,286
+behavior and macOS Mojave that
+
+229
+00:07:21,286 --> 0:07:22,966
+on the first launch of
+
+230
+00:07:23,066 --> 0:07:25,096
+quarantine software on the
+
+231
+00:07:25,096 --> 0:07:27,536
+Launch Services path, Gatekeeper
+
+232
+00:07:27,536 --> 0:07:28,956
+will perform a malicious content
+
+233
+00:07:28,956 --> 0:07:30,956
+scan and a signature check to
+
+234
+00:07:30,956 --> 0:07:31,966
+ensure that there's no known
+
+235
+00:07:31,966 --> 0:07:33,056
+malicious content and that the
+
+236
+00:07:33,056 --> 0:07:34,396
+application hasn't been tampered
+
+237
+00:07:34,396 --> 0:07:34,586
+with.
+
+238
+00:07:35,206 --> 0:07:37,586
+Then it will perform a local
+
+239
+00:07:37,586 --> 0:07:39,576
+policy check where the default
+
+240
+00:07:39,576 --> 0:07:40,506
+is that it must be signed with
+
+241
+00:07:40,506 --> 0:07:42,556
+the Developer ID certificate or
+
+242
+00:07:42,556 --> 0:07:43,256
+by the App Store.
+
+243
+00:07:44,676 --> 0:07:45,746
+And finally, it will present the
+
+244
+00:07:45,746 --> 0:07:47,226
+first launch prompt to the user,
+
+245
+00:07:47,436 --> 0:07:48,986
+so that the user must approve
+
+246
+00:07:49,656 --> 0:07:50,776
+the application.
+
+247
+00:07:50,776 --> 0:07:52,556
+Now, starting with the latest
+
+248
+00:07:52,556 --> 0:07:56,366
+release of macOS Mojave 10.14.5,
+
+249
+00:07:57,306 --> 0:07:59,066
+the default policy was changed
+
+250
+00:07:59,066 --> 0:08:01,026
+slightly such that new Mac
+
+251
+00:07:59,066 --> 0:08:01,026
+slightly such that new Mac
+
+252
+00:08:01,116 --> 0:08:03,426
+developer certificates required
+
+253
+00:08:03,426 --> 0:08:04,836
+their software to be notarized
+
+254
+00:08:05,166 --> 0:08:09,166
+to pass Gatekeeper, which brings
+
+255
+00:08:09,166 --> 0:08:10,766
+us to the first improvement in
+
+256
+00:08:10,936 --> 0:08:11,636
+macOS Catalina.
+
+257
+00:08:12,586 --> 0:08:14,036
+We're expanding on this policy
+
+258
+00:08:14,546 --> 0:08:16,176
+such that all new software
+
+259
+00:08:16,586 --> 0:08:17,746
+requires notarization.
+
+260
+00:08:18,396 --> 0:08:22,326
+And in this case, new means that
+
+261
+00:08:22,326 --> 0:08:24,546
+the software was signed or built
+
+262
+00:08:24,546 --> 0:08:28,736
+after June 1st, 2019.
+
+263
+00:08:28,946 --> 0:08:30,476
+This means that all existing
+
+264
+00:08:30,476 --> 0:08:32,265
+software will continue to pass
+
+265
+00:08:32,265 --> 0:08:34,275
+through Gatekeeper as is, with
+
+266
+00:08:34,275 --> 0:08:35,816
+just a Developer ID certificate
+
+267
+00:08:35,816 --> 0:08:36,206
+signature.
+
+268
+00:08:37,035 --> 0:08:38,916
+But that all new software must
+
+269
+00:08:38,916 --> 0:08:40,246
+be notarized to pass Gatekeeper.
+
+270
+00:08:44,436 --> 0:08:47,406
+Now, the next improvement that
+
+271
+00:08:47,406 --> 0:08:49,716
+we've made in macOS Catalina is
+
+272
+00:08:49,716 --> 0:08:50,776
+that Gatekeeper is going to be
+
+273
+00:08:50,776 --> 0:08:53,486
+expanding to enforce the same
+
+274
+00:08:53,486 --> 0:08:56,096
+policy on all quarantine
+
+275
+00:08:56,096 --> 0:08:56,576
+software.
+
+276
+00:08:58,076 --> 0:08:59,586
+And that means that regardless
+
+277
+00:08:59,776 --> 0:09:01,256
+of how the software is loaded,
+
+278
+00:08:59,776 --> 0:09:01,256
+of how the software is loaded,
+
+279
+00:09:01,306 --> 0:09:04,376
+if it's quarantined, it must
+
+280
+00:09:04,876 --> 0:09:06,086
+contain no known malicious
+
+281
+00:09:06,086 --> 0:09:08,246
+content, it must not be tampered
+
+282
+00:09:08,246 --> 0:09:10,936
+with, new software will require
+
+283
+00:09:10,936 --> 0:09:11,636
+notarization.
+
+284
+00:09:11,636 --> 0:09:13,886
+And the first launch policy will
+
+285
+00:09:13,886 --> 0:09:15,416
+be slightly different, where we
+
+286
+00:09:15,416 --> 0:09:17,366
+won't be requiring first launch
+
+287
+00:09:17,506 --> 0:09:20,176
+user approval for standalone
+
+288
+00:09:20,246 --> 0:09:22,596
+executables or libraries, but
+
+289
+00:09:22,596 --> 0:09:24,566
+all bundled software will show
+
+290
+00:09:24,566 --> 0:09:26,046
+first launch prompt.
+
+291
+00:09:28,776 --> 0:09:30,106
+So now, Gatekeeper has been
+
+292
+00:09:30,106 --> 0:09:31,966
+expanded to scan and enforce
+
+293
+00:09:31,966 --> 0:09:33,826
+policy on all quarantine
+
+294
+00:09:33,826 --> 0:09:34,266
+software.
+
+295
+00:09:35,746 --> 0:09:36,906
+And that brings me to the final
+
+296
+00:09:36,906 --> 0:09:38,596
+improvement in macOS Catalina,
+
+297
+00:09:39,706 --> 0:09:41,236
+Gatekeeper will be further
+
+298
+00:09:41,236 --> 0:09:43,786
+protecting you by ensuring that
+
+299
+00:09:43,786 --> 0:09:45,966
+all software gets a malicious
+
+300
+00:09:45,966 --> 0:09:46,676
+content scan.
+
+301
+00:09:47,316 --> 0:09:50,696
+And that means that regardless
+
+302
+00:09:50,696 --> 0:09:51,516
+of whether software is
+
+303
+00:09:51,516 --> 0:09:53,666
+quarantined, and regardless of
+
+304
+00:09:53,666 --> 0:09:56,056
+how that code is loaded, if any
+
+305
+00:09:56,056 --> 0:09:57,136
+known malicious content is
+
+306
+00:09:57,136 --> 0:09:59,126
+found, it will be blocked and
+
+307
+00:10:00,156 --> 0:10:03,096
+the user will be alerted.
+
+308
+00:10:04,406 --> 0:10:06,276
+So this is a summary of all the
+
+309
+00:10:06,276 --> 0:10:08,196
+ways that Gatekeeper has been
+
+310
+00:10:08,196 --> 0:10:10,646
+expanded to help protect you in
+
+311
+00:10:10,786 --> 0:10:11,396
+macOS Catalina.
+
+312
+00:10:12,916 --> 0:10:14,816
+But it's important to keep one
+
+313
+00:10:14,816 --> 0:10:18,116
+thing in mind.
+
+314
+00:10:18,276 --> 0:10:19,866
+Our goal is to make every Mac
+
+315
+00:10:19,866 --> 0:10:23,106
+user safe by default, but not to
+
+316
+00:10:23,106 --> 0:10:24,216
+prevent you from running the
+
+317
+00:10:24,216 --> 0:10:26,126
+software that you want to run on
+
+318
+00:10:26,126 --> 0:10:26,436
+your Mac.
+
+319
+00:10:28,036 --> 0:10:29,586
+And that means that there will
+
+320
+00:10:29,586 --> 0:10:31,366
+always be a way to run a
+
+321
+00:10:31,366 --> 0:10:33,056
+specific piece of software that
+
+322
+00:10:33,056 --> 0:10:34,926
+you want to run on your system.
+
+323
+00:10:39,416 --> 0:10:41,346
+Now, I talked a little bit
+
+324
+00:10:41,346 --> 0:10:42,516
+earlier about how every year
+
+325
+00:10:42,516 --> 0:10:44,266
+we're continuously improving the
+
+326
+00:10:44,266 --> 0:10:46,056
+technologies and policies that
+
+327
+00:10:46,056 --> 0:10:46,946
+we have at every layer.
+
+328
+00:10:47,836 --> 0:10:49,186
+So I'd also like to take a
+
+329
+00:10:49,186 --> 0:10:50,106
+minute to talk a little bit
+
+330
+00:10:50,106 --> 0:10:52,436
+about what's next for
+
+331
+00:10:52,436 --> 0:10:52,886
+Gatekeeper.
+
+332
+00:10:53,586 --> 0:10:56,886
+Now, we have a really big goal
+
+333
+00:10:57,546 --> 0:10:58,356
+on the security engineering
+
+334
+00:10:58,356 --> 0:10:58,546
+team.
+
+335
+00:10:58,906 --> 0:11:01,216
+We want to make macOS just as
+
+336
+00:10:58,906 --> 0:11:01,216
+We want to make macOS just as
+
+337
+00:11:01,216 --> 0:11:04,496
+secure as iOS, while still
+
+338
+00:11:04,496 --> 0:11:06,126
+maintaining all the flexibility
+
+339
+00:11:06,126 --> 0:11:07,856
+that you've come to expect out
+
+340
+00:11:07,856 --> 0:11:08,256
+of your Mac.
+
+341
+00:11:09,566 --> 0:11:10,656
+And that presents some really
+
+342
+00:11:10,656 --> 0:11:11,626
+interesting challenges.
+
+343
+00:11:13,006 --> 0:11:14,176
+But one thing has become really
+
+344
+00:11:14,176 --> 0:11:16,956
+clear, the security of the
+
+345
+00:11:16,956 --> 0:11:18,556
+platform has become increasingly
+
+346
+00:11:18,556 --> 0:11:20,416
+reliant on the validity of code
+
+347
+00:11:20,416 --> 0:11:20,926
+signatures.
+
+348
+00:11:21,576 --> 0:11:26,416
+And this means that if an app
+
+349
+00:11:26,416 --> 0:11:29,456
+has no signature, it's
+
+350
+00:11:29,686 --> 0:11:31,516
+impossible to detect tampering.
+
+351
+00:11:32,256 --> 0:11:36,686
+And further, if a bundle
+
+352
+00:11:36,686 --> 0:11:39,466
+signature has become broken at
+
+353
+00:11:40,776 --> 0:11:42,366
+runtime, it's very difficult to
+
+354
+00:11:42,366 --> 0:11:44,006
+differentiate malicious
+
+355
+00:11:44,006 --> 0:11:46,356
+tampering from mundane tampering
+
+356
+00:11:46,546 --> 0:11:47,926
+when in out modifies itself at
+
+357
+00:11:47,926 --> 0:11:48,186
+runtime.
+
+358
+00:11:53,076 --> 0:11:54,376
+And in a future version of
+
+359
+00:11:54,376 --> 0:11:57,026
+macOS, unsigned code will not
+
+360
+00:11:57,026 --> 0:11:57,976
+run by default anymore.
+
+361
+00:12:02,056 --> 0:12:03,156
+And to get there, there's a
+
+362
+00:12:03,156 --> 0:12:04,566
+couple of things that you can do
+
+363
+00:12:04,566 --> 0:12:06,786
+to help improve the security of
+
+364
+00:12:06,786 --> 0:12:07,266
+the platform.
+
+365
+00:12:08,706 --> 0:12:12,256
+First, sign and notarize all the
+
+366
+00:12:12,256 --> 0:12:14,006
+software that you distribute,
+
+367
+00:12:14,516 --> 0:12:15,376
+even if it doesn't get
+
+368
+00:12:15,376 --> 0:12:15,976
+quarantined today.
+
+369
+00:12:20,616 --> 0:12:24,406
+Second, don't break application
+
+370
+00:12:24,406 --> 0:12:25,816
+or bundle signatures at runtime.
+
+371
+00:12:26,886 --> 0:12:28,176
+If you do need to update an
+
+372
+00:12:28,176 --> 0:12:29,616
+application, make sure that it
+
+373
+00:12:29,616 --> 0:12:31,136
+results in an application on
+
+374
+00:12:31,136 --> 0:12:33,016
+disk that is properly signed and
+
+375
+00:12:33,016 --> 0:12:34,546
+notarized still.
+
+376
+00:12:37,096 --> 0:12:39,636
+And finally, remember that
+
+377
+00:12:39,636 --> 0:12:41,126
+loading code can fail.
+
+378
+00:12:41,656 --> 0:12:43,036
+If you try to load a quarantine
+
+379
+00:12:43,036 --> 0:12:44,436
+library or process and the user
+
+380
+00:12:44,436 --> 0:12:46,626
+chooses not to run it, that will
+
+381
+00:12:46,626 --> 0:12:48,786
+fail and ensure that your apps
+
+382
+00:12:48,896 --> 0:12:50,006
+gracefully handle these
+
+383
+00:12:50,006 --> 0:12:50,486
+failures.
+
+384
+00:12:56,426 --> 0:12:57,846
+So these are all the ways that
+
+385
+00:12:57,846 --> 0:12:59,706
+Gatekeeper has been expanded to
+
+386
+00:12:59,706 --> 0:13:00,626
+try to prevent malicious
+
+387
+00:12:59,706 --> 0:13:00,626
+try to prevent malicious
+
+388
+00:13:00,626 --> 0:13:01,866
+software from ever running on
+
+389
+00:13:01,866 --> 0:13:02,116
+your Mac.
+
+390
+00:13:03,216 --> 0:13:04,686
+Now, let's bring up Kelly to
+
+391
+00:13:04,686 --> 0:13:06,246
+talk about advancements in user
+
+392
+00:13:06,286 --> 0:13:07,196
+privacy protection.
+
+393
+00:13:08,226 --> 0:13:08,536
+Kelly.
+
+394
+00:13:09,516 --> 0:13:13,376
+[ Applause ]
+
+395
+00:13:13,876 --> 0:13:14,666
+&gt;&gt; Well, thank you, Garrett.
+
+396
+00:13:15,046 --> 0:13:16,186
+Good morning, everyone.
+
+397
+00:13:16,386 --> 0:13:17,616
+My name is Kelly Yancey.
+
+398
+00:13:17,616 --> 0:13:18,756
+I work with Garrett in the
+
+399
+00:13:18,756 --> 0:13:19,606
+security engineering and
+
+400
+00:13:19,606 --> 0:13:20,726
+architecture team at Apple.
+
+401
+00:13:21,276 --> 0:13:24,746
+And last year at WWDC 2018, it
+
+402
+00:13:24,746 --> 0:13:26,596
+was my privilege to introduce
+
+403
+00:13:26,596 --> 0:13:28,306
+the new privacy protections in
+
+404
+00:13:28,306 --> 0:13:30,416
+macOS Mojave, broadly
+
+405
+00:13:30,416 --> 0:13:31,466
+characterized-- sorry.
+
+406
+00:13:31,466 --> 0:13:32,766
+Let's get to that.
+
+407
+00:13:32,766 --> 0:13:34,406
+These protections were designed
+
+408
+00:13:34,406 --> 0:13:36,476
+to improve user's transparency
+
+409
+00:13:36,476 --> 0:13:38,066
+over their-- how their data was
+
+410
+00:13:38,096 --> 0:13:39,476
+being accessed and give them
+
+411
+00:13:39,476 --> 0:13:40,966
+control over those accesses.
+
+412
+00:13:41,226 --> 0:13:42,096
+And I'm really excited to be
+
+413
+00:13:42,096 --> 0:13:43,606
+back here today to talk about
+
+414
+00:13:43,606 --> 0:13:44,686
+the improvements that we've made
+
+415
+00:13:44,926 --> 0:13:45,996
+in macOS Catalina.
+
+416
+00:13:47,446 --> 0:13:49,046
+Now, broadly characterized,
+
+417
+00:13:49,176 --> 0:13:51,496
+their privacy protections
+
+418
+00:13:51,496 --> 0:13:53,396
+require user consent to access
+
+419
+00:13:53,396 --> 0:13:54,646
+hardware that could record the
+
+420
+00:13:54,646 --> 0:13:56,336
+users, such as the camera or
+
+421
+00:13:56,336 --> 0:13:58,806
+microphone, or to access the
+
+422
+00:13:58,806 --> 0:14:00,566
+user's privacy sensitive files
+
+423
+00:13:58,806 --> 0:14:00,566
+user's privacy sensitive files
+
+424
+00:14:00,566 --> 0:14:03,056
+or folders, such as photos, mail
+
+425
+00:14:03,056 --> 0:14:03,746
+or messages.
+
+426
+00:14:04,916 --> 0:14:07,596
+In addition, they also protect
+
+427
+00:14:07,596 --> 0:14:08,896
+the ability to automate other
+
+428
+00:14:08,896 --> 0:14:10,986
+apps, so that the user is in
+
+429
+00:14:10,986 --> 0:14:12,456
+control over how their data is
+
+430
+00:14:12,456 --> 0:14:13,586
+being shared between apps.
+
+431
+00:14:14,666 --> 0:14:16,096
+I like to start today by looking
+
+432
+00:14:16,096 --> 0:14:17,276
+at the recording capabilities.
+
+433
+00:14:18,456 --> 0:14:20,766
+Beginning in macOS Mojave, users
+
+434
+00:14:20,766 --> 0:14:22,386
+have to consent before an app
+
+435
+00:14:22,386 --> 0:14:23,456
+can access the camera or
+
+436
+00:14:23,456 --> 0:14:24,026
+microphone.
+
+437
+00:14:24,796 --> 0:14:26,946
+And then macOS Catalina further
+
+438
+00:14:26,946 --> 0:14:29,106
+requires consent to record the
+
+439
+00:14:29,106 --> 0:14:31,166
+contents of your screen or the
+
+440
+00:14:31,166 --> 0:14:32,056
+keys that you type on your
+
+441
+00:14:32,056 --> 0:14:32,416
+keyboard.
+
+442
+00:14:32,486 --> 0:14:35,566
+And this is important because
+
+443
+00:14:35,666 --> 0:14:36,766
+just like we don't want people
+
+444
+00:14:36,766 --> 0:14:38,136
+shoulder surfing, looking over
+
+445
+00:14:38,136 --> 0:14:38,976
+our shoulder to see what we're
+
+446
+00:14:38,976 --> 0:14:41,746
+doing or are typing, we don't
+
+447
+00:14:41,746 --> 0:14:45,416
+want apps to eavesdrop on our
+
+448
+00:14:45,416 --> 0:14:47,206
+contact information, our bank
+
+449
+00:14:47,206 --> 0:14:49,746
+details or passwords and so on,
+
+450
+00:14:49,746 --> 0:14:50,956
+whether that's intentionally or
+
+451
+00:14:50,956 --> 0:14:51,606
+accidentally.
+
+452
+00:14:52,136 --> 0:14:54,246
+So how do we do that?
+
+453
+00:14:54,646 --> 0:14:55,796
+Let's start by looking at screen
+
+454
+00:14:55,796 --> 0:14:56,196
+recording.
+
+455
+00:14:56,636 --> 0:14:59,686
+Here's a simple example of using
+
+456
+00:14:59,736 --> 0:15:01,586
+CGDisplayStream to record the
+
+457
+00:14:59,736 --> 0:15:01,586
+CGDisplayStream to record the
+
+458
+00:15:01,586 --> 0:15:02,856
+contents of a display in real
+
+459
+00:15:02,856 --> 0:15:03,166
+time.
+
+460
+00:15:03,806 --> 0:15:05,636
+On macOS Catalina, the first
+
+461
+00:15:05,636 --> 0:15:09,456
+time this app runs and this call
+
+462
+00:15:09,626 --> 0:15:12,156
+to create the CGDisplayStream is
+
+463
+00:15:12,156 --> 0:15:14,776
+made that'll return nil, and a
+
+464
+00:15:14,776 --> 0:15:16,876
+dialogue is displayed directing
+
+465
+00:15:16,876 --> 0:15:17,876
+the user to the security and
+
+466
+00:15:17,876 --> 0:15:20,656
+privacy preference pane, where
+
+467
+00:15:20,656 --> 0:15:22,226
+the user can approve the app to
+
+468
+00:15:22,226 --> 0:15:24,076
+record the screen if that's what
+
+469
+00:15:24,076 --> 0:15:26,786
+they want to do.
+
+470
+00:15:26,986 --> 0:15:28,466
+The same is true when reading
+
+471
+00:15:28,466 --> 0:15:29,896
+the contents of other apps
+
+472
+00:15:29,896 --> 0:15:30,366
+windows.
+
+473
+00:15:30,796 --> 0:15:32,306
+For example, here's a function
+
+474
+00:15:32,596 --> 0:15:33,656
+that saves the contents of a
+
+475
+00:15:33,656 --> 0:15:35,326
+window to an image on disk.
+
+476
+00:15:36,786 --> 0:15:38,186
+Now, notably, the call to
+
+477
+00:15:38,246 --> 0:15:41,166
+CGWindowListCreateImage can
+
+478
+00:15:41,166 --> 0:15:43,136
+return nil, if passed the window
+
+479
+00:15:43,276 --> 0:15:46,056
+ID that does not belong to the
+
+480
+00:15:46,056 --> 0:15:48,846
+calling app, and doesn't belong
+
+481
+00:15:48,846 --> 0:15:50,766
+to the desktop background image
+
+482
+00:15:51,206 --> 0:15:52,146
+or to the menu bar.
+
+483
+00:15:52,146 --> 0:15:53,366
+And I like to emphasize, this is
+
+484
+00:15:53,366 --> 0:15:54,636
+the background image, it doesn't
+
+485
+00:15:54,636 --> 0:15:56,916
+include the icons or names of
+
+486
+00:15:56,916 --> 0:15:58,476
+any files on the desktop.
+
+487
+00:16:00,656 --> 0:16:03,056
+Again, an authorization dialog,
+
+488
+00:16:03,266 --> 0:16:04,816
+directing the user to approve
+
+489
+00:16:04,816 --> 0:16:06,946
+the app for screen recording,
+
+490
+00:16:06,946 --> 0:16:07,846
+may be displayed.
+
+491
+00:16:08,026 --> 0:16:09,446
+And I say may, because the
+
+492
+00:16:09,446 --> 0:16:10,746
+dialog is only displayed the
+
+493
+00:16:10,746 --> 0:16:11,606
+first time
+
+494
+00:16:11,606 --> 0:16:14,356
+CGWindowListCreateImage or
+
+495
+00:16:14,356 --> 0:16:16,336
+CGDisplayStream fails due to a
+
+496
+00:16:16,336 --> 0:16:17,946
+lack of approval for screen
+
+497
+00:16:17,946 --> 0:16:18,316
+recording.
+
+498
+00:16:18,786 --> 0:16:22,226
+Another topic I'd like to cover
+
+499
+00:16:22,306 --> 0:16:23,676
+that's peripherally related to
+
+500
+00:16:23,676 --> 0:16:25,096
+screen recording is window
+
+501
+00:16:25,096 --> 0:16:25,586
+metadata.
+
+502
+00:16:26,776 --> 0:16:28,376
+Apps can query metadata about
+
+503
+00:16:28,376 --> 0:16:29,666
+the windows that are on or off
+
+504
+00:16:29,666 --> 0:16:31,766
+screen using the core graphics
+
+505
+00:16:31,906 --> 0:16:33,946
+CGWindowListCopyWindowInfo
+
+506
+00:16:35,136 --> 0:16:35,796
+function.
+
+507
+00:16:36,696 --> 0:16:39,176
+The metadata returned includes
+
+508
+00:16:39,176 --> 0:16:40,806
+the size and position of the
+
+509
+00:16:40,806 --> 0:16:42,576
+window and the unique window
+
+510
+00:16:42,576 --> 0:16:44,036
+identifier, as well as the name
+
+511
+00:16:44,036 --> 0:16:45,896
+and process of identifier of the
+
+512
+00:16:45,896 --> 0:16:47,086
+app that owns the window.
+
+513
+00:16:47,536 --> 0:16:50,326
+However, the window name and
+
+514
+00:16:50,326 --> 0:16:52,176
+sharing state are not available,
+
+515
+00:16:52,456 --> 0:16:54,196
+unless the user has preapproved
+
+516
+00:16:54,196 --> 0:16:55,696
+the app for screen recording.
+
+517
+00:16:56,506 --> 0:16:57,706
+And this is because some apps
+
+518
+00:16:57,936 --> 0:16:59,166
+put sensitive data such as
+
+519
+00:16:59,166 --> 0:17:01,736
+account names or more likely web
+
+520
+00:16:59,166 --> 0:17:01,736
+account names or more likely web
+
+521
+00:17:01,736 --> 0:17:04,016
+page URLs in the window's name.
+
+522
+00:17:05,435 --> 0:17:08,465
+And CGWindowListCopyWindowInfo
+
+523
+00:17:08,986 --> 0:17:10,346
+never triggers an authorization
+
+524
+00:17:10,346 --> 0:17:11,766
+prompt, instead it filters the
+
+525
+00:17:11,766 --> 0:17:13,066
+set of metadata that it returns
+
+526
+00:17:13,066 --> 0:17:13,606
+to the caller.
+
+527
+00:17:14,136 --> 0:17:16,626
+So, if in your app you depend on
+
+528
+00:17:16,626 --> 0:17:17,816
+getting the window name, for
+
+529
+00:17:17,816 --> 0:17:19,896
+example, and you find that the
+
+530
+00:17:19,896 --> 0:17:20,976
+metadata that's being returned
+
+531
+00:17:20,976 --> 0:17:22,116
+doesn't include the window name,
+
+532
+00:17:22,415 --> 0:17:24,586
+you may want to alert the user
+
+533
+00:17:24,586 --> 0:17:26,536
+and direct them to the privacy--
+
+534
+00:17:26,776 --> 0:17:28,096
+security and privacy preference
+
+535
+00:17:28,596 --> 0:17:28,686
+pane.
+
+536
+00:17:29,716 --> 0:17:32,986
+So, here's an example of a
+
+537
+00:17:32,986 --> 0:17:34,216
+function that gets the unique
+
+538
+00:17:34,216 --> 0:17:36,086
+window identifiers for the
+
+539
+00:17:36,086 --> 0:17:37,426
+desktop background image for
+
+540
+00:17:37,426 --> 0:17:38,066
+each display.
+
+541
+00:17:38,066 --> 0:17:40,356
+And once again, the background
+
+542
+00:17:40,356 --> 0:17:42,696
+image doesn't include the icons
+
+543
+00:17:42,696 --> 0:17:43,426
+on the desktop.
+
+544
+00:17:46,136 --> 0:17:48,066
+This function first gets a list
+
+545
+00:17:48,066 --> 0:17:49,616
+of all of the windows on the
+
+546
+00:17:49,616 --> 0:17:50,606
+screen, using the
+
+547
+00:17:50,686 --> 0:17:52,876
+CGWindowListCopyWindowInfo
+
+548
+00:17:52,876 --> 0:17:53,206
+function.
+
+549
+00:17:54,436 --> 0:17:56,886
+But then, it gets the window
+
+550
+00:17:56,886 --> 0:17:58,496
+level or Z order that core
+
+551
+00:17:58,496 --> 0:17:59,876
+graphics uses for the desktop
+
+552
+00:17:59,876 --> 0:18:01,276
+background image window.
+
+553
+00:17:59,876 --> 0:18:01,276
+background image window.
+
+554
+00:18:02,856 --> 0:18:04,636
+Then it filters that whole
+
+555
+00:18:04,636 --> 0:18:06,626
+window list to just those
+
+556
+00:18:06,626 --> 0:18:07,946
+windows at the desktop
+
+557
+00:18:07,946 --> 0:18:09,126
+background window level.
+
+558
+00:18:10,106 --> 0:18:11,396
+So if you look on the internet,
+
+559
+00:18:11,396 --> 0:18:12,186
+you'll find a lot of code
+
+560
+00:18:12,186 --> 0:18:14,796
+samples filter by the kCG window
+
+561
+00:18:14,796 --> 0:18:16,806
+name which, since the window
+
+562
+00:18:16,806 --> 0:18:17,986
+names may contain privacy
+
+563
+00:18:17,986 --> 0:18:19,636
+sensitive information, would
+
+564
+00:18:19,636 --> 0:18:20,636
+require the app to be
+
+565
+00:18:20,636 --> 0:18:21,736
+preapproved for screen
+
+566
+00:18:21,736 --> 0:18:22,166
+recording.
+
+567
+00:18:23,146 --> 0:18:24,636
+However, by identifying the
+
+568
+00:18:24,636 --> 0:18:26,676
+desktop background windows by
+
+569
+00:18:26,676 --> 0:18:27,976
+their window level rather than
+
+570
+00:18:27,976 --> 0:18:30,206
+by the window name, this works
+
+571
+00:18:30,206 --> 0:18:31,536
+regardless of whether the user
+
+572
+00:18:31,536 --> 0:18:32,726
+has preapproved the app for
+
+573
+00:18:32,726 --> 0:18:33,416
+screen recording.
+
+574
+00:18:33,756 --> 0:18:34,846
+And this is an example of how a
+
+575
+00:18:34,846 --> 0:18:37,726
+small change in your-- the
+
+576
+00:18:37,726 --> 0:18:40,196
+design of your app can make a
+
+577
+00:18:40,196 --> 0:18:42,246
+big difference in the user
+
+578
+00:18:42,246 --> 0:18:42,796
+experience.
+
+579
+00:18:43,366 --> 0:18:46,916
+So that's how macOS Catalina
+
+580
+00:18:46,916 --> 0:18:48,836
+protects the contents of your
+
+581
+00:18:48,836 --> 0:18:50,026
+screen from being recorded
+
+582
+00:18:50,026 --> 0:18:50,856
+without your permission.
+
+583
+00:18:51,356 --> 0:18:52,606
+Apps can freely record the
+
+584
+00:18:52,606 --> 0:18:55,016
+contents of their own windows,
+
+585
+00:18:56,216 --> 0:18:57,786
+the menu bar and the desktop
+
+586
+00:18:57,786 --> 0:18:58,616
+background image.
+
+587
+00:18:59,746 --> 0:19:00,926
+But the user must use the
+
+588
+00:18:59,746 --> 0:19:00,926
+But the user must use the
+
+589
+00:19:00,926 --> 0:19:02,386
+security and privacy preference
+
+590
+00:19:02,386 --> 0:19:04,616
+pane to preapprove apps to
+
+591
+00:19:04,616 --> 0:19:07,746
+record the entire screen or the
+
+592
+00:19:07,746 --> 0:19:08,826
+contents of windows other than
+
+593
+00:19:08,826 --> 0:19:08,976
+their own.
+
+594
+00:19:12,066 --> 0:19:13,086
+Now, I'd like to present the
+
+595
+00:19:13,086 --> 0:19:14,316
+other recording capability now
+
+596
+00:19:14,316 --> 0:19:15,756
+protected in macOS Catalina,
+
+597
+00:19:15,996 --> 0:19:18,586
+your keyboard.
+
+598
+00:19:18,586 --> 0:19:20,266
+Most users have an expectation
+
+599
+00:19:20,636 --> 0:19:22,546
+that their keystrokes are only
+
+600
+00:19:22,546 --> 0:19:23,436
+going to the app that they're
+
+601
+00:19:23,436 --> 0:19:24,876
+interacting with, the front most
+
+602
+00:19:25,076 --> 0:19:27,566
+app, and most apps only require
+
+603
+00:19:27,566 --> 0:19:28,846
+a keyboard input when the user
+
+604
+00:19:28,846 --> 0:19:29,796
+is actively using them.
+
+605
+00:19:30,166 --> 0:19:31,736
+And in fact, if your app uses
+
+606
+00:19:31,776 --> 0:19:33,536
+the standard UI components, they
+
+607
+00:19:33,536 --> 0:19:34,586
+handle those keyboard events
+
+608
+00:19:34,586 --> 0:19:35,556
+that are being delivered to your
+
+609
+00:19:35,556 --> 0:19:36,426
+app automatically.
+
+610
+00:19:36,426 --> 0:19:38,896
+Now, some apps want to be able
+
+611
+00:19:38,896 --> 0:19:40,956
+to intercept those events as
+
+612
+00:19:40,956 --> 0:19:41,886
+they're being delivered to their
+
+613
+00:19:41,886 --> 0:19:42,126
+app.
+
+614
+00:19:42,126 --> 0:19:43,636
+And that's fine, they can
+
+615
+00:19:43,636 --> 0:19:46,436
+subclass NSApplication and
+
+616
+00:19:46,436 --> 0:19:47,916
+override the sendEvent method,
+
+617
+00:19:48,346 --> 0:19:50,346
+or as shown here, you can use
+
+618
+00:19:50,346 --> 0:19:51,066
+NSEvent's
+
+619
+00:19:51,066 --> 0:19:53,206
+addLocalMonitorForEvents
+
+620
+00:19:56,606 --> 0:19:56,836
+function.
+
+621
+00:19:56,936 --> 0:19:58,636
+Monitoring all keyboard events,
+
+622
+00:19:59,076 --> 0:20:00,346
+including those for other apps,
+
+623
+00:19:59,076 --> 0:20:00,346
+including those for other apps,
+
+624
+00:20:00,346 --> 0:20:02,076
+however, requires user approval.
+
+625
+00:20:03,156 --> 0:20:04,466
+And here you can see an example
+
+626
+00:20:04,466 --> 0:20:07,776
+of using CGEventTapCreate to
+
+627
+00:20:07,776 --> 0:20:09,856
+invoke a callback for key press
+
+628
+00:20:09,856 --> 0:20:10,596
+and release events.
+
+629
+00:20:11,706 --> 0:20:12,836
+Now, the first time this code
+
+630
+00:20:12,836 --> 0:20:14,556
+runs, this call, the
+
+631
+00:20:14,556 --> 0:20:18,136
+CGEventTapCreate will fail and
+
+632
+00:20:18,136 --> 0:20:21,776
+return nil.
+
+633
+00:20:22,006 --> 0:20:24,086
+Meanwhile, a dialog is displayed
+
+634
+00:20:24,086 --> 0:20:25,026
+directing the user to the
+
+635
+00:20:25,026 --> 0:20:26,226
+security and privacy preference
+
+636
+00:20:26,226 --> 0:20:28,416
+pane, where the user can approve
+
+637
+00:20:28,416 --> 0:20:29,816
+your app to monitor keyboard
+
+638
+00:20:29,816 --> 0:20:31,546
+events in the background, if
+
+639
+00:20:31,546 --> 0:20:32,556
+they so desire.
+
+640
+00:20:32,966 --> 0:20:35,906
+Now, apps may check the
+
+641
+00:20:35,906 --> 0:20:37,636
+authorization status without
+
+642
+00:20:37,636 --> 0:20:38,896
+triggering the approval prompt,
+
+643
+00:20:39,976 --> 0:20:42,366
+using the IOHIDCheckAccess
+
+644
+00:20:42,366 --> 0:20:42,946
+function with the
+
+645
+00:20:42,946 --> 0:20:45,516
+kIOHIDRequestTypeListenEvent
+
+646
+00:20:45,516 --> 0:20:45,936
+parameter.
+
+647
+00:20:46,486 --> 0:20:50,576
+And apps can request an approval
+
+648
+00:20:50,576 --> 0:20:51,986
+dialog to be displayed without
+
+649
+00:20:51,986 --> 0:20:54,466
+creating an event tab or trying
+
+650
+00:20:54,466 --> 0:20:56,796
+to post an event by using the
+
+651
+00:20:56,796 --> 0:20:58,776
+IOHIDRequestAccess function,
+
+652
+00:20:58,776 --> 0:20:59,816
+again with the same parameter.
+
+653
+00:21:00,406 --> 0:21:03,856
+So in summary, macOS Catalina
+
+654
+00:21:03,856 --> 0:21:05,436
+now requires user consent for
+
+655
+00:21:05,436 --> 0:21:07,176
+apps to record the contents of
+
+656
+00:21:07,176 --> 0:21:08,976
+your screen or the keys that you
+
+657
+00:21:08,976 --> 0:21:09,826
+type on your keyboard.
+
+658
+00:21:11,196 --> 0:21:12,186
+Now, I'd like to turn your
+
+659
+00:21:12,186 --> 0:21:15,116
+attention to how macOS protects
+
+660
+00:21:15,116 --> 0:21:16,776
+access to your privacy sensitive
+
+661
+00:21:16,776 --> 0:21:17,126
+files.
+
+662
+00:21:17,766 --> 0:21:20,776
+So continuing the approach in
+
+663
+00:21:20,776 --> 0:21:24,056
+Mojave, macOS Catalina offers
+
+664
+00:21:24,056 --> 0:21:25,606
+two broad levels of privacy
+
+665
+00:21:25,606 --> 0:21:27,426
+protection for the user's files
+
+666
+00:21:27,426 --> 0:21:27,976
+and folders.
+
+667
+00:21:28,756 --> 0:21:30,496
+First, user data that apps may
+
+668
+00:21:30,526 --> 0:21:31,696
+generally access such as
+
+669
+00:21:31,736 --> 0:21:33,456
+contacts or photos, and for
+
+670
+00:21:33,456 --> 0:21:35,146
+these, macOS will confirm that
+
+671
+00:21:35,146 --> 0:21:36,916
+the user consents before sharing
+
+672
+00:21:36,916 --> 0:21:38,476
+that data with apps.
+
+673
+00:21:39,756 --> 0:21:41,256
+But second, there's also user
+
+674
+00:21:41,256 --> 0:21:43,156
+data which-- for which the file
+
+675
+00:21:43,156 --> 0:21:43,936
+system is really just an
+
+676
+00:21:43,936 --> 0:21:45,496
+implementation detail, it's not
+
+677
+00:21:45,496 --> 0:21:46,086
+part of their API.
+
+678
+00:21:46,086 --> 0:21:47,896
+And these are things like mail
+
+679
+00:21:47,896 --> 0:21:49,906
+or messages and Safari browsing
+
+680
+00:21:49,906 --> 0:21:50,306
+history.
+
+681
+00:21:50,976 --> 0:21:52,306
+And these have a high barrier to
+
+682
+00:21:52,306 --> 0:21:53,656
+access because the files are
+
+683
+00:21:53,656 --> 0:21:55,306
+typically only accessed by
+
+684
+00:21:55,306 --> 0:21:56,666
+specialized apps such as disk
+
+685
+00:21:56,666 --> 0:21:58,326
+management or backup utilities.
+
+686
+00:21:59,716 --> 0:22:00,876
+But first, let's talk about
+
+687
+00:21:59,716 --> 0:22:00,876
+But first, let's talk about
+
+688
+00:22:00,876 --> 0:22:01,816
+those files and folders that
+
+689
+00:22:01,816 --> 0:22:05,036
+require user consent to access.
+
+690
+00:22:05,206 --> 0:22:06,696
+Now, macOS Mojave introduced
+
+691
+00:22:06,696 --> 0:22:08,636
+user consent requirements to
+
+692
+00:22:08,636 --> 0:22:10,766
+access your contacts, calendars,
+
+693
+00:22:10,766 --> 0:22:12,106
+reminders, or your photos
+
+694
+00:22:12,106 --> 0:22:13,746
+library via the file system.
+
+695
+00:22:14,636 --> 0:22:15,696
+And what that looks like is a
+
+696
+00:22:15,696 --> 0:22:18,186
+prompt like this, when an app
+
+697
+00:22:18,186 --> 0:22:19,586
+tries to access files in one of
+
+698
+00:22:19,586 --> 0:22:20,306
+these categories.
+
+699
+00:22:20,906 --> 0:22:23,616
+Now, this is different than the
+
+700
+00:22:23,616 --> 0:22:24,916
+authorization dialogs that we
+
+701
+00:22:24,916 --> 0:22:26,386
+just saw for screen recording
+
+702
+00:22:26,806 --> 0:22:28,426
+and keyboard event recording,
+
+703
+00:22:29,236 --> 0:22:30,896
+rather than denying the access
+
+704
+00:22:30,896 --> 0:22:31,956
+and displaying an alert to the
+
+705
+00:22:31,956 --> 0:22:34,876
+user, the calling thread is
+
+706
+00:22:34,876 --> 0:22:36,486
+actually blocked, waiting for
+
+707
+00:22:36,486 --> 0:22:37,946
+the user to approve or deny the
+
+708
+00:22:37,946 --> 0:22:39,156
+app access to files in the
+
+709
+00:22:39,156 --> 0:22:39,656
+category.
+
+710
+00:22:41,896 --> 0:22:43,776
+In macOS Catalina, we
+
+711
+00:22:43,776 --> 0:22:45,156
+complemented these categories
+
+712
+00:22:45,966 --> 0:22:47,876
+with these additional categories
+
+713
+00:22:48,016 --> 0:22:49,336
+for data where the file system
+
+714
+00:22:49,396 --> 0:22:49,966
+is API.
+
+715
+00:22:51,356 --> 0:22:52,266
+These represent various
+
+716
+00:22:52,266 --> 0:22:53,586
+locations where the users store
+
+717
+00:22:53,586 --> 0:22:54,386
+their documents.
+
+718
+00:22:55,696 --> 0:22:56,826
+They double click on them in
+
+719
+00:22:56,826 --> 0:22:57,296
+Finder.
+
+720
+00:22:58,256 --> 0:22:59,486
+They select them via Open or
+
+721
+00:22:59,486 --> 0:23:01,656
+Save panels, and so on.
+
+722
+00:22:59,486 --> 0:23:01,656
+Save panels, and so on.
+
+723
+00:23:02,536 --> 0:23:04,276
+The user's desktop and document
+
+724
+00:23:04,276 --> 0:23:05,366
+folders were prime candidates
+
+725
+00:23:05,366 --> 0:23:06,516
+for protection since that's the
+
+726
+00:23:06,516 --> 0:23:07,656
+default location where many
+
+727
+00:23:07,656 --> 0:23:08,716
+users store their files.
+
+728
+00:23:10,126 --> 0:23:12,176
+And downloads because some apps,
+
+729
+00:23:12,176 --> 0:23:13,756
+including Safari, save
+
+730
+00:23:13,756 --> 0:23:14,796
+downloaded files there by
+
+731
+00:23:14,796 --> 0:23:18,736
+default, also protecting
+
+732
+00:23:18,736 --> 0:23:20,776
+documents stored in iCloud Drive
+
+733
+00:23:20,906 --> 0:23:23,236
+or third-party cloud storage
+
+734
+00:23:23,236 --> 0:23:26,246
+providers or on removable volumes
+
+735
+00:23:26,246 --> 0:23:27,206
+and if you've been around as
+
+736
+00:23:27,206 --> 0:23:28,116
+long as I have, you may be
+
+737
+00:23:28,116 --> 0:23:29,276
+thinking floppy disks.
+
+738
+00:23:29,706 --> 0:23:31,906
+But here I mean any storage that
+
+739
+00:23:31,906 --> 0:23:33,186
+can be physically removed,
+
+740
+00:23:33,466 --> 0:23:35,276
+including USB thumb drives or
+
+741
+00:23:35,276 --> 0:23:36,136
+external disks.
+
+742
+00:23:37,846 --> 0:23:39,086
+And as I'm sure you
+
+743
+00:23:39,086 --> 0:23:40,066
+photographers out there can
+
+744
+00:23:40,066 --> 0:23:41,416
+attest, some people have their
+
+745
+00:23:41,416 --> 0:23:43,086
+entire lives chronicled on
+
+746
+00:23:43,156 --> 0:23:45,466
+external disks, or on
+
+747
+00:23:45,536 --> 0:23:46,666
+network-attached storage.
+
+748
+00:23:48,876 --> 0:23:50,886
+So, macOS Catalina is now
+
+749
+00:23:50,886 --> 0:23:52,876
+protecting many of the most
+
+750
+00:23:52,876 --> 0:23:54,306
+common locations where we store
+
+751
+00:23:54,306 --> 0:23:56,256
+our files.
+
+752
+00:23:56,986 --> 0:24:00,186
+Now, user consent is not
+
+753
+00:23:56,986 --> 0:24:00,186
+Now, user consent is not
+
+754
+00:24:00,186 --> 0:24:01,976
+required for an app to create
+
+755
+00:24:01,976 --> 0:24:03,276
+new documents in any of these
+
+756
+00:24:03,276 --> 0:24:05,956
+protected locations, just to
+
+757
+00:24:05,956 --> 0:24:08,086
+read existing contents, the
+
+758
+00:24:08,536 --> 0:24:09,776
+contents of files that are
+
+759
+00:24:09,776 --> 0:24:10,186
+already there.
+
+760
+00:24:10,456 --> 0:24:13,416
+So, for example, a file transfer
+
+761
+00:24:13,416 --> 0:24:15,806
+app can continue to save new
+
+762
+00:24:15,806 --> 0:24:17,506
+files to the user's downloads
+
+763
+00:24:17,506 --> 0:24:20,486
+folder without triggering a
+
+764
+00:24:21,156 --> 0:24:21,896
+consent prompt.
+
+765
+00:24:21,896 --> 0:24:23,446
+And user privacy protections in
+
+766
+00:24:23,446 --> 0:24:26,206
+macOS Catalina now support the
+
+767
+00:24:26,206 --> 0:24:29,126
+notion of user intent, when--
+
+768
+00:24:29,346 --> 0:24:31,936
+which is inferred when double
+
+769
+00:24:31,936 --> 0:24:33,336
+clicking on files in Finder,
+
+770
+00:24:33,986 --> 0:24:35,716
+when dragging and dropping from
+
+771
+00:24:35,716 --> 0:24:37,466
+another application or when
+
+772
+00:24:37,466 --> 0:24:39,276
+selecting files in an Open or
+
+773
+00:24:39,276 --> 0:24:39,806
+Save panel.
+
+774
+00:24:41,256 --> 0:24:42,486
+And when the user performs any
+
+775
+00:24:42,486 --> 0:24:44,656
+of these actions, the file--
+
+776
+00:24:44,866 --> 0:24:48,066
+performing any of these actions
+
+777
+00:24:48,066 --> 0:24:49,386
+on a file protected location,
+
+778
+00:24:50,336 --> 0:24:52,036
+your app gets access to the file
+
+779
+00:24:52,036 --> 0:24:54,146
+or files that the user selected
+
+780
+00:24:54,196 --> 0:24:55,816
+without the need for a consent
+
+781
+00:24:56,446 --> 0:24:56,626
+prompt.
+
+782
+00:24:57,356 --> 0:24:59,976
+So let's see how Catalina's
+
+783
+00:25:00,376 --> 0:25:02,106
+inference of user intent
+
+784
+00:25:02,286 --> 0:25:03,666
+compares with user consent.
+
+785
+00:25:05,536 --> 0:25:08,736
+Sorry. So, first of all, user
+
+786
+00:25:08,736 --> 0:25:10,166
+consent is reactive.
+
+787
+00:25:10,976 --> 0:25:13,216
+Access may be granted only after
+
+788
+00:25:13,556 --> 0:25:15,186
+your app tries to read or write
+
+789
+00:25:15,186 --> 0:25:17,016
+a file, whereas user intent is
+
+790
+00:25:17,136 --> 0:25:17,716
+proactive.
+
+791
+00:25:18,306 --> 0:25:19,696
+Access is granted before the
+
+792
+00:25:19,696 --> 0:25:22,766
+app, even tries to read or write
+
+793
+00:25:24,016 --> 0:25:24,326
+the file.
+
+794
+00:25:24,326 --> 0:25:26,736
+And user consent prompts to kind
+
+795
+00:25:26,736 --> 0:25:27,536
+of interrupt the user's
+
+796
+00:25:27,536 --> 0:25:30,286
+workflow, whereas user intent is
+
+797
+00:25:30,286 --> 0:25:31,526
+inferred from standard UI
+
+798
+00:25:31,526 --> 0:25:32,126
+interactions.
+
+799
+00:25:33,386 --> 0:25:34,346
+In order to minimize those
+
+800
+00:25:34,346 --> 0:25:36,066
+interruptions, user consent
+
+801
+00:25:36,066 --> 0:25:37,746
+applies to an entire class of
+
+802
+00:25:37,746 --> 0:25:39,456
+data, for example, all files on
+
+803
+00:25:39,456 --> 0:25:40,146
+your desktop.
+
+804
+00:25:40,576 --> 0:25:41,926
+Whereas user intent is inferred
+
+805
+00:25:41,926 --> 0:25:43,416
+for just the file or files that
+
+806
+00:25:43,416 --> 0:25:44,836
+the user is interacting with.
+
+807
+00:25:46,126 --> 0:25:47,456
+Now, that said, the two are not
+
+808
+00:25:47,456 --> 0:25:48,356
+mutually exclusive.
+
+809
+00:25:49,156 --> 0:25:50,426
+So long as your app is accessing
+
+810
+00:25:50,456 --> 0:25:52,176
+files it created or which the
+
+811
+00:25:52,176 --> 0:25:54,356
+user selected, no consent
+
+812
+00:25:54,356 --> 0:25:55,356
+prompts are necessary.
+
+813
+00:25:56,446 --> 0:25:57,766
+But if your app accesses files
+
+814
+00:25:57,766 --> 0:25:59,336
+in a privacy protected location,
+
+815
+00:25:59,756 --> 0:26:00,986
+other than ones that it created
+
+816
+00:25:59,756 --> 0:26:00,986
+other than ones that it created
+
+817
+00:26:00,986 --> 0:26:03,316
+itself or ones that the user has
+
+818
+00:26:03,316 --> 0:26:05,496
+selected, the user will need to
+
+819
+00:26:05,496 --> 0:26:07,326
+approve that access via consent
+
+820
+00:26:07,326 --> 0:26:07,586
+prompt.
+
+821
+00:26:08,816 --> 0:26:10,766
+Now, one common scenario where
+
+822
+00:26:10,766 --> 0:26:12,426
+an app might need to access a
+
+823
+00:26:12,426 --> 0:26:14,426
+file other than one that the
+
+824
+00:26:14,466 --> 0:26:16,686
+user selected are sidecar files.
+
+825
+00:26:17,746 --> 0:26:19,356
+For example, to automatically
+
+826
+00:26:19,356 --> 0:26:21,516
+open a subtitle file that's--
+
+827
+00:26:22,216 --> 0:26:23,706
+with-- of the same name but next
+
+828
+00:26:23,706 --> 0:26:25,656
+to a movie file.
+
+829
+00:26:26,816 --> 0:26:28,406
+So using the related items
+
+830
+00:26:28,506 --> 0:26:30,216
+support in NSFileCoordinator,
+
+831
+00:26:30,736 --> 0:26:33,646
+it's possible for the inferred
+
+832
+00:26:33,646 --> 0:26:35,176
+permissions for one file to be
+
+833
+00:26:35,176 --> 0:26:37,426
+extended to other files.
+
+834
+00:26:41,076 --> 0:26:43,116
+To use NSFileCoordinator to open
+
+835
+00:26:43,166 --> 0:26:44,806
+a sidecar file, you need to
+
+836
+00:26:44,806 --> 0:26:46,936
+first declare the extension of
+
+837
+00:26:46,936 --> 0:26:48,546
+the sidecar file in your apps,
+
+838
+00:26:49,546 --> 0:26:52,256
+CFBundleDocumentTypes Info.plist
+
+839
+00:26:52,326 --> 0:26:52,486
+key.
+
+840
+00:26:53,216 --> 0:26:57,726
+And, set the NSIsRelatedItemType
+
+841
+00:26:58,306 --> 0:26:59,046
+to Boolean true.
+
+842
+00:27:00,046 --> 0:27:03,146
+Then in your code, you subclass
+
+843
+00:27:03,146 --> 0:27:05,706
+NSFilePresenter, set the
+
+844
+00:27:05,706 --> 0:27:07,956
+primaryPresentedItemURL to the
+
+845
+00:27:07,956 --> 0:27:09,376
+file that the user selected.
+
+846
+00:27:09,486 --> 0:27:11,056
+So that's the one that your app
+
+847
+00:27:11,056 --> 0:27:12,116
+already has access to.
+
+848
+00:27:12,906 --> 0:27:14,526
+And the PresentedItemURL to the
+
+849
+00:27:14,526 --> 0:27:15,466
+sidecar file.
+
+850
+00:27:15,656 --> 0:27:16,596
+That's the one that you want to
+
+851
+00:27:16,596 --> 0:27:17,076
+access to.
+
+852
+00:27:18,316 --> 0:27:19,626
+And note that the sidecar file
+
+853
+00:27:19,626 --> 0:27:21,136
+may have a different extension
+
+854
+00:27:21,476 --> 0:27:23,026
+as the user selected file, but
+
+855
+00:27:23,026 --> 0:27:25,006
+all other path components must
+
+856
+00:27:25,006 --> 0:27:25,516
+be identical.
+
+857
+00:27:26,896 --> 0:27:29,996
+Finally, you create an
+
+858
+00:27:30,306 --> 0:27:32,446
+NSFileCoordinator referencing
+
+859
+00:27:32,446 --> 0:27:33,746
+the NSFilePresenter instance.
+
+860
+00:27:35,006 --> 0:27:36,206
+And when you call the
+
+861
+00:27:36,206 --> 0:27:37,876
+NSFileCoordinator's coordinate
+
+862
+00:27:37,906 --> 0:27:39,846
+method, your app gets access to
+
+863
+00:27:39,916 --> 0:27:42,026
+the sidecar file as well for the
+
+864
+00:27:42,026 --> 0:27:43,226
+duration of that block.
+
+865
+00:27:43,676 --> 0:27:46,756
+And that's a quick rundown of
+
+866
+00:27:46,756 --> 0:27:47,786
+how your apps can use
+
+867
+00:27:47,786 --> 0:27:49,706
+NSFileCoordinator to gain access
+
+868
+00:27:49,736 --> 0:27:51,336
+to files with the same name, but
+
+869
+00:27:51,336 --> 0:27:52,806
+a different filename extension
+
+870
+00:27:53,546 --> 0:27:54,646
+as ones that the user has
+
+871
+00:27:54,646 --> 0:27:56,276
+selected without triggering a
+
+872
+00:27:56,276 --> 0:27:57,236
+user consent prompt.
+
+873
+00:27:58,616 --> 0:28:00,386
+Now, to securely infer user
+
+874
+00:27:58,616 --> 0:28:00,386
+Now, to securely infer user
+
+875
+00:28:00,386 --> 0:28:02,176
+intent, the Open and Save panels
+
+876
+00:28:02,626 --> 0:28:04,426
+are now always hosted out of
+
+877
+00:28:04,426 --> 0:28:04,986
+process.
+
+878
+00:28:05,936 --> 0:28:07,186
+As a result, the class
+
+879
+00:28:07,186 --> 0:28:08,666
+inheritance and view hierarchies
+
+880
+00:28:08,966 --> 0:28:10,906
+have changed, which could affect
+
+881
+00:28:10,906 --> 0:28:12,436
+your app if you have subclass
+
+882
+00:28:12,436 --> 0:28:14,126
+NSOpenPanel or NSSavePanel.
+
+883
+00:28:14,696 --> 0:28:17,686
+And apps can no longer
+
+884
+00:28:17,976 --> 0:28:20,136
+programmatically accept the
+
+885
+00:28:20,136 --> 0:28:22,116
+panels by calling the OK method,
+
+886
+00:28:22,486 --> 0:28:23,476
+the user must do that
+
+887
+00:28:23,476 --> 0:28:23,986
+themselves.
+
+888
+00:28:25,656 --> 0:28:27,626
+There are also slight changes to
+
+889
+00:28:27,626 --> 0:28:29,856
+the NSOpenSavePanelDelegate
+
+890
+00:28:29,856 --> 0:28:30,766
+methods as well.
+
+891
+00:28:30,766 --> 0:28:33,536
+Apps can no longer rewrite the
+
+892
+00:28:33,536 --> 0:28:35,246
+user selection using this
+
+893
+00:28:35,246 --> 0:28:35,596
+method.
+
+894
+00:28:36,166 --> 0:28:39,446
+And accessing the files that
+
+895
+00:28:39,446 --> 0:28:41,126
+URLs provided to these methods
+
+896
+00:28:41,386 --> 0:28:42,736
+may trigger user consent
+
+897
+00:28:42,776 --> 0:28:44,416
+prompts, because these methods
+
+898
+00:28:44,416 --> 0:28:46,946
+are invoked by the panels while
+
+899
+00:28:46,946 --> 0:28:48,256
+the user is still interacting
+
+900
+00:28:48,256 --> 0:28:49,446
+with the panel, so they haven't
+
+901
+00:28:49,446 --> 0:28:50,796
+selected the file yet.
+
+902
+00:28:51,336 --> 0:28:52,466
+So therefore, your app has not
+
+903
+00:28:52,616 --> 0:28:53,706
+yet been granted access.
+
+904
+00:28:54,286 --> 0:28:56,976
+Now, apps can test whether a
+
+905
+00:28:56,976 --> 0:28:58,126
+given file is readable or
+
+906
+00:28:58,126 --> 0:28:59,696
+writable without triggering
+
+907
+00:28:59,696 --> 0:29:02,546
+consent prompts using these
+
+908
+00:28:59,696 --> 0:29:02,546
+consent prompts using these
+
+909
+00:29:03,966 --> 0:29:04,106
+APIs.
+
+910
+00:29:04,316 --> 0:29:06,256
+And, so long as your app only
+
+911
+00:29:06,576 --> 0:29:08,486
+accesses files that the-- that
+
+912
+00:29:08,486 --> 0:29:10,836
+in itself creates or that the
+
+913
+00:29:10,836 --> 0:29:13,366
+user-- that it receives via file
+
+914
+00:29:13,366 --> 0:29:16,256
+open events or drag and drop or
+
+915
+00:29:16,256 --> 0:29:17,446
+Open panel or Save panel
+
+916
+00:29:17,496 --> 0:29:19,036
+selections, your app's
+
+917
+00:29:19,036 --> 0:29:20,436
+permission to access those files
+
+918
+00:29:20,606 --> 0:29:22,416
+is inferred and no user consent
+
+919
+00:29:22,456 --> 0:29:23,786
+prompt is necessary.
+
+920
+00:29:24,616 --> 0:29:27,356
+However, if a consent prompt is
+
+921
+00:29:27,356 --> 0:29:29,196
+required, all of the new
+
+922
+00:29:29,196 --> 0:29:30,776
+protected file system locations
+
+923
+00:29:31,116 --> 0:29:32,146
+support purpose strings.
+
+924
+00:29:32,726 --> 0:29:33,626
+And purpose strings can be
+
+925
+00:29:33,626 --> 0:29:34,916
+specified in your Info.plist to
+
+926
+00:29:34,916 --> 0:29:36,866
+explain the context of the
+
+927
+00:29:36,866 --> 0:29:38,396
+access when a consent prompt is
+
+928
+00:29:38,446 --> 0:29:38,856
+displayed.
+
+929
+00:29:43,416 --> 0:29:45,066
+And while purpose strings for
+
+930
+00:29:45,066 --> 0:29:46,336
+these categories are optional,
+
+931
+00:29:46,996 --> 0:29:48,326
+if your app access is one of
+
+932
+00:29:48,326 --> 0:29:49,586
+these protected locations,
+
+933
+00:29:50,246 --> 0:29:52,786
+intentionally, a purpose string
+
+934
+00:29:52,866 --> 0:29:54,126
+for that location is highly
+
+935
+00:29:54,126 --> 0:29:55,466
+recommended so that the user
+
+936
+00:29:55,466 --> 0:29:56,946
+understands why your app is
+
+937
+00:29:56,946 --> 0:29:58,636
+accessing their documents.
+
+938
+00:29:59,296 --> 0:30:01,006
+Now, if you find in your testing
+
+939
+00:29:59,296 --> 0:30:01,006
+Now, if you find in your testing
+
+940
+00:30:01,196 --> 0:30:02,386
+your app is triggering consent
+
+941
+00:30:02,416 --> 0:30:03,726
+prompts that you don't expect,
+
+942
+00:30:04,246 --> 0:30:05,506
+you can click the Don't Allow
+
+943
+00:30:05,506 --> 0:30:07,236
+button and go to the console app
+
+944
+00:30:07,236 --> 0:30:08,206
+and look for the resulting
+
+945
+00:30:08,206 --> 0:30:09,806
+Sandbox violation, that'll tell
+
+946
+00:30:09,806 --> 0:30:11,266
+you the file that your app was
+
+947
+00:30:11,266 --> 0:30:13,396
+trying to access and the
+
+948
+00:30:13,396 --> 0:30:17,446
+backtrace that caused to require
+
+949
+00:30:18,706 --> 0:30:19,726
+the consent prompt.
+
+950
+00:30:20,286 --> 0:30:23,286
+So that's how macOS Catalina is
+
+951
+00:30:23,316 --> 0:30:25,406
+protecting user's documents and
+
+952
+00:30:25,406 --> 0:30:26,986
+how the standard UI and how it's
+
+953
+00:30:26,986 --> 0:30:28,316
+using standard UI interactions
+
+954
+00:30:28,356 --> 0:30:29,696
+to infer which documents they
+
+955
+00:30:29,696 --> 0:30:30,846
+expect apps to access.
+
+956
+00:30:32,186 --> 0:30:34,536
+So let's look at how macOS
+
+957
+00:30:34,536 --> 0:30:36,216
+protects user data that's
+
+958
+00:30:36,216 --> 0:30:37,706
+managed by the system and how
+
+959
+00:30:37,706 --> 0:30:39,126
+your apps can request access to
+
+960
+00:30:39,126 --> 0:30:40,076
+that data if necessary.
+
+961
+00:30:41,836 --> 0:30:43,306
+Here, we see the categories of
+
+962
+00:30:43,306 --> 0:30:45,616
+data protected starting in macOS
+
+963
+00:30:45,616 --> 0:30:46,036
+Mojave.
+
+964
+00:30:46,706 --> 0:30:49,666
+Now, some software such as disk
+
+965
+00:30:49,666 --> 0:30:51,196
+management or backup software
+
+966
+00:30:51,636 --> 0:30:53,086
+work with all files regardless
+
+967
+00:30:53,086 --> 0:30:53,806
+of their content.
+
+968
+00:30:54,636 --> 0:30:56,716
+And those software-- those apps
+
+969
+00:30:56,716 --> 0:30:58,366
+can use the same APIs that we
+
+970
+00:30:58,366 --> 0:31:00,986
+just saw a minute ago to
+
+971
+00:30:58,366 --> 0:31:00,986
+just saw a minute ago to
+
+972
+00:31:00,986 --> 0:31:02,276
+determine whether a given file
+
+973
+00:31:02,276 --> 0:31:03,176
+is readable or writable.
+
+974
+00:31:03,176 --> 0:31:04,516
+And then depending on what's
+
+975
+00:31:04,516 --> 0:31:05,516
+appropriate for the app, they
+
+976
+00:31:05,566 --> 0:31:07,216
+could skip inaccessible pass or
+
+977
+00:31:07,216 --> 0:31:08,736
+they could alert the user and
+
+978
+00:31:08,736 --> 0:31:10,286
+direct them to approve the app
+
+979
+00:31:10,286 --> 0:31:11,606
+in the security and privacy
+
+980
+00:31:11,606 --> 0:31:12,706
+preference pane to have full
+
+981
+00:31:12,706 --> 0:31:13,296
+functionality.
+
+982
+00:31:13,926 --> 0:31:17,646
+And here's where they would
+
+983
+00:31:17,646 --> 0:31:18,696
+approve that for Full Disk
+
+984
+00:31:18,696 --> 0:31:19,146
+Access.
+
+985
+00:31:19,786 --> 0:31:22,596
+And while we're here, I'd like
+
+986
+00:31:22,596 --> 0:31:23,776
+to talk about one of the
+
+987
+00:31:23,776 --> 0:31:25,076
+enhancements that we've made in
+
+988
+00:31:25,226 --> 0:31:29,296
+macOS Catalina to how apps are
+
+989
+00:31:29,296 --> 0:31:30,596
+approved for Full Disk Access,
+
+990
+00:31:30,906 --> 0:31:32,196
+while users can still manually
+
+991
+00:31:32,196 --> 0:31:34,076
+add apps to the list using the
+
+992
+00:31:34,546 --> 0:31:35,376
+plus button here.
+
+993
+00:31:36,616 --> 0:31:37,646
+One piece of feedback that we've
+
+994
+00:31:37,646 --> 0:31:39,386
+gotten from developers is that
+
+995
+00:31:39,386 --> 0:31:40,916
+it can be awkward for users to
+
+996
+00:31:40,916 --> 0:31:43,196
+locate their app's privileged
+
+997
+00:31:43,196 --> 0:31:43,646
+helpers.
+
+998
+00:31:44,486 --> 0:31:46,666
+So, now in macOS Catalina,
+
+999
+00:31:47,076 --> 0:31:48,466
+executables that are denied
+
+1000
+00:31:48,466 --> 0:31:50,156
+access to files due to a lack of
+
+1001
+00:31:50,226 --> 0:31:52,026
+Full Disk Access approval are
+
+1002
+00:31:52,026 --> 0:31:53,986
+now prepopulated unchecked.
+
+1003
+00:31:55,066 --> 0:31:56,266
+Here, we see one such helper
+
+1004
+00:31:56,556 --> 0:31:57,856
+identified by its executable
+
+1005
+00:31:57,856 --> 0:31:58,046
+name.
+
+1006
+00:31:58,656 --> 0:32:01,776
+If that helper were embedded in
+
+1007
+00:31:58,656 --> 0:32:01,776
+If that helper were embedded in
+
+1008
+00:32:01,776 --> 0:32:03,656
+a bundle, the display name in
+
+1009
+00:32:03,656 --> 0:32:06,356
+icon specifying the bundles
+
+1010
+00:32:06,356 --> 0:32:08,046
+Info.plist would be displayed
+
+1011
+00:32:08,046 --> 0:32:09,166
+instead.
+
+1012
+00:32:12,136 --> 0:32:13,586
+So, again, this data is
+
+1013
+00:32:13,586 --> 0:32:15,096
+accessible for apps that have
+
+1014
+00:32:15,096 --> 0:32:16,406
+been preapproved for Full Disk
+
+1015
+00:32:16,406 --> 0:32:18,546
+Access, apps can test for
+
+1016
+00:32:18,546 --> 0:32:20,316
+authorization using FileManager
+
+1017
+00:32:20,316 --> 0:32:23,306
+or POSIX level APIs, and if
+
+1018
+00:32:23,306 --> 0:32:25,136
+necessary, can guide the user to
+
+1019
+00:32:25,136 --> 0:32:25,996
+the security and privacy
+
+1020
+00:32:25,996 --> 0:32:28,246
+preference pane, where the user
+
+1021
+00:32:28,246 --> 0:32:30,226
+can then approve the app if
+
+1022
+00:32:30,226 --> 0:32:33,526
+that's what they want.
+
+1023
+00:32:33,526 --> 0:32:34,716
+Now, in Catalina, the universe
+
+1024
+00:32:34,716 --> 0:32:36,186
+of data that requires
+
+1025
+00:32:36,186 --> 0:32:37,966
+preapproval for Full Disk Access
+
+1026
+00:32:38,336 --> 0:32:40,406
+has been expanded to include
+
+1027
+00:32:40,946 --> 0:32:41,456
+trash.
+
+1028
+00:32:43,316 --> 0:32:44,776
+Now, a lot of people think of
+
+1029
+00:32:44,776 --> 0:32:46,656
+files as being gone when they
+
+1030
+00:32:46,656 --> 0:32:47,786
+move them to their trash.
+
+1031
+00:32:48,206 --> 0:32:49,386
+So the last thing they would
+
+1032
+00:32:49,386 --> 0:32:51,086
+expect is for something to go
+
+1033
+00:32:51,146 --> 0:32:52,056
+digging through their trash
+
+1034
+00:32:52,056 --> 0:32:52,456
+files.
+
+1035
+00:32:53,086 --> 0:32:54,926
+That's terrifying, at this size.
+
+1036
+00:32:59,106 --> 0:33:00,786
+As with these other categories,
+
+1037
+00:32:59,106 --> 0:33:00,786
+As with these other categories,
+
+1038
+00:33:01,166 --> 0:33:02,436
+trash may contain lots of
+
+1039
+00:33:02,436 --> 0:33:03,816
+privacy sensitive data.
+
+1040
+00:33:03,876 --> 0:33:04,956
+However, unlike these other
+
+1041
+00:33:04,956 --> 0:33:07,006
+categories, trash is file
+
+1042
+00:33:07,006 --> 0:33:08,706
+centric and does have API for
+
+1043
+00:33:08,776 --> 0:33:09,966
+manipulating those files.
+
+1044
+00:33:10,496 --> 0:33:13,006
+APIs like these, which move
+
+1045
+00:33:13,006 --> 0:33:14,296
+files into the user's trash.
+
+1046
+00:33:15,796 --> 0:33:17,216
+Now, I'd like to drill down on
+
+1047
+00:33:17,216 --> 0:33:19,216
+the FileManager trash item API a
+
+1048
+00:33:19,216 --> 0:33:19,616
+little.
+
+1049
+00:33:20,086 --> 0:33:23,076
+It takes a URL of the file to
+
+1050
+00:33:23,076 --> 0:33:23,996
+move to the trash as it's
+
+1051
+00:33:23,996 --> 0:33:24,446
+argument.
+
+1052
+00:33:25,046 --> 0:33:28,706
+Now, the caller needs to already
+
+1053
+00:33:28,706 --> 0:33:29,856
+have access to that file, you
+
+1054
+00:33:29,856 --> 0:33:31,236
+can't move files to the trash
+
+1055
+00:33:31,236 --> 0:33:32,176
+that you're-- you don't have
+
+1056
+00:33:32,176 --> 0:33:33,106
+access to yourself.
+
+1057
+00:33:34,396 --> 0:33:35,846
+But when successful, it
+
+1058
+00:33:35,846 --> 0:33:37,646
+populates the out resulting URL
+
+1059
+00:33:37,646 --> 0:33:39,336
+parameter, with an NSURL for the
+
+1060
+00:33:39,386 --> 0:33:41,866
+file at its new location in the
+
+1061
+00:33:41,866 --> 0:33:42,556
+user's trash.
+
+1062
+00:33:43,736 --> 0:33:45,656
+And it still has access to that
+
+1063
+00:33:45,656 --> 0:33:45,876
+URL.
+
+1064
+00:33:46,486 --> 0:33:47,616
+To make sense, it had access to
+
+1065
+00:33:47,616 --> 0:33:48,636
+the file before it moved it.
+
+1066
+00:33:48,746 --> 0:33:49,856
+It still has access to the file
+
+1067
+00:33:49,856 --> 0:33:50,546
+after it moved it.
+
+1068
+00:33:50,686 --> 0:33:51,696
+And this allows you to use
+
+1069
+00:33:51,936 --> 0:33:53,566
+FileManager APIs, for example,
+
+1070
+00:33:53,746 --> 0:33:55,826
+to move the file back out of the
+
+1071
+00:33:57,196 --> 0:33:57,326
+trash.
+
+1072
+00:33:57,516 --> 0:33:58,686
+So in summary, while apps
+
+1073
+00:33:58,686 --> 0:34:00,456
+require Full Disk Access to
+
+1074
+00:33:58,686 --> 0:34:00,456
+require Full Disk Access to
+
+1075
+00:34:00,456 --> 0:34:01,906
+enumerate the files in the trash
+
+1076
+00:34:02,326 --> 0:34:03,786
+or to see those files contents,
+
+1077
+00:34:04,416 --> 0:34:06,016
+no authorization is required to
+
+1078
+00:34:06,016 --> 0:34:08,246
+move files into the trash or to
+
+1079
+00:34:08,246 --> 0:34:09,466
+access files that they had
+
+1080
+00:34:09,516 --> 0:34:10,786
+previously put in the trash.
+
+1081
+00:34:12,936 --> 0:34:14,606
+Finally, I like to talk briefly
+
+1082
+00:34:14,606 --> 0:34:15,366
+about automation.
+
+1083
+00:34:16,716 --> 0:34:18,755
+macOS Mojave introduced consent
+
+1084
+00:34:18,755 --> 0:34:20,686
+requirements for automation of
+
+1085
+00:34:20,686 --> 0:34:22,606
+the system or of other apps.
+
+1086
+00:34:22,856 --> 0:34:23,966
+And this is important to prevent
+
+1087
+00:34:23,966 --> 0:34:25,366
+malware from abusing apps that
+
+1088
+00:34:25,366 --> 0:34:26,406
+you've trusted with your data.
+
+1089
+00:34:31,156 --> 0:34:32,545
+So, first, there's synthetic
+
+1090
+00:34:32,545 --> 0:34:33,056
+events.
+
+1091
+00:34:33,286 --> 0:34:34,835
+And synthetic input events are
+
+1092
+00:34:34,835 --> 0:34:36,706
+typically used by accessibility
+
+1093
+00:34:36,755 --> 0:34:39,116
+software in providing aid for
+
+1094
+00:34:39,616 --> 0:34:41,996
+keyboard or mouse input.
+
+1095
+00:34:42,565 --> 0:34:46,295
+But because user consent
+
+1096
+00:34:46,295 --> 0:34:48,576
+dialogs, user intent inference
+
+1097
+00:34:48,576 --> 0:34:49,896
+or various other security
+
+1098
+00:34:49,896 --> 0:34:53,005
+prompts all rely on user input,
+
+1099
+00:34:53,835 --> 0:34:54,906
+it's important that synthetic
+
+1100
+00:34:54,906 --> 0:34:56,716
+input events are only allowed
+
+1101
+00:34:56,876 --> 0:34:58,146
+from apps that the user has
+
+1102
+00:34:58,146 --> 0:35:00,356
+installed for the purpose of
+
+1103
+00:34:58,146 --> 0:35:00,356
+installed for the purpose of
+
+1104
+00:35:00,356 --> 0:35:01,356
+acting as their proxy.
+
+1105
+00:35:01,926 --> 0:35:05,396
+Here's a sample code-- Here's an
+
+1106
+00:35:05,486 --> 0:35:09,476
+example of code that simulates a
+
+1107
+00:35:09,476 --> 0:35:10,936
+key press and key release.
+
+1108
+00:35:11,496 --> 0:35:13,716
+The first time this code runs
+
+1109
+00:35:13,716 --> 0:35:16,856
+and tries to post these events
+
+1110
+00:35:16,856 --> 0:35:17,906
+as if they were actually typed
+
+1111
+00:35:17,906 --> 0:35:20,096
+by the user, the events are
+
+1112
+00:35:20,256 --> 0:35:20,756
+discarded.
+
+1113
+00:35:20,756 --> 0:35:23,156
+And a dialog like this one is
+
+1114
+00:35:23,216 --> 0:35:25,256
+displayed alerting the user that
+
+1115
+00:35:25,256 --> 0:35:25,996
+they will need to go to the
+
+1116
+00:35:25,996 --> 0:35:27,306
+security and privacy preference
+
+1117
+00:35:27,366 --> 0:35:29,446
+pane to authorize the app for
+
+1118
+00:35:29,446 --> 0:35:30,486
+accessibility features.
+
+1119
+00:35:32,556 --> 0:35:34,796
+Now, earlier, we looked at this
+
+1120
+00:35:34,796 --> 0:35:36,186
+sample code for listening to
+
+1121
+00:35:36,186 --> 0:35:37,636
+keyboard events.
+
+1122
+00:35:38,416 --> 0:35:40,646
+If I change the listenOnly
+
+1123
+00:35:41,946 --> 0:35:44,426
+parameter to defaultTap, like
+
+1124
+00:35:45,316 --> 0:35:49,516
+that, CGEventTapCreate now
+
+1125
+00:35:49,516 --> 0:35:51,636
+creates a modifying event tab,
+
+1126
+00:35:51,636 --> 0:35:53,456
+where the callback can alter the
+
+1127
+00:35:53,456 --> 0:35:54,066
+event stream.
+
+1128
+00:35:54,186 --> 0:35:55,796
+And this means now your app has
+
+1129
+00:35:56,006 --> 0:35:57,356
+a way to influence what events
+
+1130
+00:35:57,356 --> 0:35:58,186
+are delivered to the rest of the
+
+1131
+00:35:58,186 --> 0:36:01,306
+system, where a listen-only
+
+1132
+00:35:58,186 --> 0:36:01,306
+system, where a listen-only
+
+1133
+00:36:01,306 --> 0:36:03,026
+event requires authorization for
+
+1134
+00:36:03,026 --> 0:36:04,826
+input monitoring, a modifying
+
+1135
+00:36:04,826 --> 0:36:06,266
+event app requires authorization
+
+1136
+00:36:06,266 --> 0:36:07,456
+for accessibility features.
+
+1137
+00:36:08,086 --> 0:36:10,496
+Now, apps can test whether the
+
+1138
+00:36:10,496 --> 0:36:13,026
+user has approved the app to
+
+1139
+00:36:13,026 --> 0:36:15,516
+synthesize local-- synthesize
+
+1140
+00:36:15,516 --> 0:36:16,946
+input events using the
+
+1141
+00:36:16,946 --> 0:36:18,676
+IOHIDCheckAccess function.
+
+1142
+00:36:19,266 --> 0:36:20,646
+And this is the same API for
+
+1143
+00:36:20,646 --> 0:36:22,446
+checking authorization for
+
+1144
+00:36:22,616 --> 0:36:23,686
+keyboard input monitoring.
+
+1145
+00:36:24,236 --> 0:36:25,996
+But, here you can see that we're
+
+1146
+00:36:25,996 --> 0:36:27,206
+passing the
+
+1147
+00:36:27,206 --> 0:36:29,386
+kIOHIDRequestTypePostEvent
+
+1148
+00:36:29,386 --> 0:36:30,066
+instead.
+
+1149
+00:36:30,486 --> 0:36:33,766
+So, that was automation via
+
+1150
+00:36:33,806 --> 0:36:34,576
+synthetic events.
+
+1151
+00:36:35,306 --> 0:36:36,726
+Now, let's talk about automating
+
+1152
+00:36:36,726 --> 0:36:37,946
+apps via Apple Events.
+
+1153
+00:36:39,456 --> 0:36:41,016
+So, the user must consent before
+
+1154
+00:36:41,016 --> 0:36:43,156
+one app can use AppleScript or
+
+1155
+00:36:43,156 --> 0:36:44,646
+raw Apple Events to control the
+
+1156
+00:36:44,646 --> 0:36:46,876
+actions of another app.
+
+1157
+00:36:46,876 --> 0:36:47,986
+These consent prompts make it
+
+1158
+00:36:47,986 --> 0:36:49,706
+clear, which apps are acting
+
+1159
+00:36:49,706 --> 0:36:50,626
+under the influence of which
+
+1160
+00:36:50,626 --> 0:36:52,596
+other apps and give the user
+
+1161
+00:36:52,596 --> 0:36:53,926
+control over that automation.
+
+1162
+00:36:54,676 --> 0:36:57,226
+Now, there are exceptions for
+
+1163
+00:36:57,346 --> 0:37:02,206
+Apple Events that don't give the
+
+1164
+00:36:57,346 --> 0:37:02,206
+Apple Events that don't give the
+
+1165
+00:37:02,526 --> 0:37:03,806
+sending process access to
+
+1166
+00:37:03,846 --> 0:37:04,906
+privacy sensitive data.
+
+1167
+00:37:04,906 --> 0:37:07,406
+Many of these events are exposed
+
+1168
+00:37:07,406 --> 0:37:09,426
+via NSWorkspace APIs.
+
+1169
+00:37:10,876 --> 0:37:10,946
+The
+
+1170
+00:37:11,176 --> 0:37:13,766
+AEDeterminePermissionToAutomate
+
+1171
+00:37:13,766 --> 0:37:16,376
+Target function can be used to
+
+1172
+00:37:16,376 --> 0:37:17,626
+test whether authorization would
+
+1173
+00:37:17,626 --> 0:37:19,356
+be required to send Apple Events
+
+1174
+00:37:19,356 --> 0:37:20,636
+to a target application.
+
+1175
+00:37:21,526 --> 0:37:23,556
+And here's an example, testing
+
+1176
+00:37:23,556 --> 0:37:25,006
+whether the caller can send any
+
+1177
+00:37:25,006 --> 0:37:26,236
+Apple event to Keynote.
+
+1178
+00:37:26,756 --> 0:37:30,986
+And by passing Boolean true for
+
+1179
+00:37:30,986 --> 0:37:32,596
+the askUserIfNeeded parameter,
+
+1180
+00:37:33,066 --> 0:37:34,376
+you could ask that a approval
+
+1181
+00:37:34,376 --> 0:37:35,916
+prompt is triggered if
+
+1182
+00:37:35,916 --> 0:37:36,506
+necessary.
+
+1183
+00:37:37,606 --> 0:37:38,506
+But I will point out that if a
+
+1184
+00:37:38,506 --> 0:37:39,976
+prompt is displayed, the calling
+
+1185
+00:37:39,976 --> 0:37:41,156
+thread is blocked waiting for
+
+1186
+00:37:41,156 --> 0:37:42,786
+the user's interaction, so you
+
+1187
+00:37:42,786 --> 0:37:43,886
+wouldn't want to call this on
+
+1188
+00:37:43,886 --> 0:37:44,956
+your app's main thread.
+
+1189
+00:37:45,966 --> 0:37:47,956
+Now, this API is pretty low
+
+1190
+00:37:47,956 --> 0:37:49,146
+level, returning an OSStatus
+
+1191
+00:37:49,146 --> 0:37:50,156
+code indicating whether the
+
+1192
+00:37:50,156 --> 0:37:52,256
+caller is permitted to send the
+
+1193
+00:37:52,256 --> 0:37:55,256
+Apple event to the target or
+
+1194
+00:37:55,256 --> 0:37:58,126
+not, whether trying to send the
+
+1195
+00:37:58,126 --> 0:37:59,336
+Apple event would result in a
+
+1196
+00:37:59,336 --> 0:38:00,976
+prompt confirming the user's
+
+1197
+00:37:59,336 --> 0:38:00,976
+prompt confirming the user's
+
+1198
+00:38:00,976 --> 0:38:03,136
+consent, or whether the target
+
+1199
+00:38:03,136 --> 0:38:04,236
+is not running at the moment and
+
+1200
+00:38:04,236 --> 0:38:05,306
+that trying to send the Apple
+
+1201
+00:38:05,416 --> 0:38:06,726
+even would cause it to launch,
+
+1202
+00:38:07,826 --> 0:38:09,476
+or whether some error occurred.
+
+1203
+00:38:10,026 --> 0:38:12,296
+So that was a quick summary of
+
+1204
+00:38:12,296 --> 0:38:15,076
+how macOS captures user consent
+
+1205
+00:38:15,076 --> 0:38:16,376
+before allowing apps to automate
+
+1206
+00:38:16,376 --> 0:38:18,066
+other apps, and how your apps
+
+1207
+00:38:18,066 --> 0:38:19,226
+can determine whether consent
+
+1208
+00:38:19,226 --> 0:38:20,366
+was given and adjust
+
+1209
+00:38:20,366 --> 0:38:20,806
+accordingly.
+
+1210
+00:38:23,096 --> 0:38:25,486
+So, now, in macOS Catalina, user
+
+1211
+00:38:25,486 --> 0:38:27,256
+consent is required to record
+
+1212
+00:38:27,256 --> 0:38:29,146
+your screen or keyboard, that's
+
+1213
+00:38:29,146 --> 0:38:30,336
+an addition to the existing
+
+1214
+00:38:30,336 --> 0:38:31,256
+protections for camera and
+
+1215
+00:38:31,256 --> 0:38:31,816
+microphone.
+
+1216
+00:38:32,466 --> 0:38:34,036
+And now, a number of common
+
+1217
+00:38:34,036 --> 0:38:35,386
+location-- common document
+
+1218
+00:38:35,386 --> 0:38:37,016
+locations are also protected
+
+1219
+00:38:37,016 --> 0:38:39,116
+such as user's desktop documents
+
+1220
+00:38:39,556 --> 0:38:41,756
+downloads, their iCloud Drive or
+
+1221
+00:38:41,856 --> 0:38:43,866
+third-party storage, removable
+
+1222
+00:38:43,866 --> 0:38:45,346
+network volumes and, of course,
+
+1223
+00:38:45,416 --> 0:38:45,866
+trash.
+
+1224
+00:38:46,506 --> 0:38:49,586
+Now, the Privacy Preferences
+
+1225
+00:38:49,976 --> 0:38:52,386
+Policy Control MDM payload has
+
+1226
+00:38:52,386 --> 0:38:54,346
+also been extended with services
+
+1227
+00:38:54,526 --> 0:38:55,876
+for the new protected resources
+
+1228
+00:38:55,876 --> 0:38:56,846
+in macOS Catalina.
+
+1229
+00:38:57,586 --> 0:38:59,386
+And, I'd like to point out that
+
+1230
+00:38:59,386 --> 0:39:01,126
+during development, you may want
+
+1231
+00:38:59,386 --> 0:39:01,126
+during development, you may want
+
+1232
+00:39:01,126 --> 0:39:02,506
+to trigger-- be able to
+
+1233
+00:39:02,506 --> 0:39:03,666
+retrigger prompts while you're
+
+1234
+00:39:03,666 --> 0:39:04,766
+testing your app behavior.
+
+1235
+00:39:05,286 --> 0:39:06,346
+And you can use these same
+
+1236
+00:39:06,346 --> 0:39:07,936
+service names that you see on
+
+1237
+00:39:07,936 --> 0:39:11,046
+the left side, with a tccutil
+
+1238
+00:39:11,046 --> 0:39:12,786
+command line tool to reset the
+
+1239
+00:39:12,786 --> 0:39:13,956
+prompting status for the
+
+1240
+00:39:13,956 --> 0:39:15,356
+respective protected resources.
+
+1241
+00:39:17,356 --> 0:39:18,826
+So, earlier, we heard from
+
+1242
+00:39:18,826 --> 0:39:20,076
+Garrett about the enhancements
+
+1243
+00:39:20,076 --> 0:39:21,976
+in Gatekeeper, and we just
+
+1244
+00:39:21,976 --> 0:39:22,916
+discussed some of the
+
+1245
+00:39:22,916 --> 0:39:26,226
+improvements in the user privacy
+
+1246
+00:39:26,226 --> 0:39:28,676
+protections in macOS Catalina.
+
+1247
+00:39:29,346 --> 0:39:32,956
+I'd like to recap by saying,
+
+1248
+00:39:33,606 --> 0:39:35,016
+remember to sign and notarize
+
+1249
+00:39:35,096 --> 0:39:36,116
+all of the software that you
+
+1250
+00:39:36,116 --> 0:39:36,646
+distribute.
+
+1251
+00:39:37,326 --> 0:39:39,856
+And, don't modify those bundles
+
+1252
+00:39:39,856 --> 0:39:40,496
+once signed.
+
+1253
+00:39:40,836 --> 0:39:42,176
+If you do need to modify the
+
+1254
+00:39:42,176 --> 0:39:44,006
+bundles, be sure that you just
+
+1255
+00:39:44,006 --> 0:39:45,626
+transform them into another
+
+1256
+00:39:45,626 --> 0:39:51,566
+bundle that is also signed.
+
+1257
+00:39:51,746 --> 0:39:53,986
+And, for user privacy
+
+1258
+00:39:53,986 --> 0:39:55,756
+protections, try to leverage
+
+1259
+00:39:55,756 --> 0:39:57,326
+standard UI as much as possible.
+
+1260
+00:39:57,586 --> 0:39:59,356
+Be sure to handle errors and
+
+1261
+00:39:59,356 --> 0:40:01,746
+APIs that may return, if the
+
+1262
+00:39:59,356 --> 0:40:01,746
+APIs that may return, if the
+
+1263
+00:40:01,746 --> 0:40:04,136
+user-- sorry, handle any errors,
+
+1264
+00:40:04,136 --> 0:40:05,456
+APIs may return if the user
+
+1265
+00:40:05,456 --> 0:40:05,966
+declines consent.
+
+1266
+00:40:06,126 --> 0:40:08,136
+And remember that once users
+
+1267
+00:40:08,546 --> 0:40:10,066
+authorize your app to access
+
+1268
+00:40:10,066 --> 0:40:11,986
+their personal data, it's-- the
+
+1269
+00:40:11,986 --> 0:40:13,196
+responsibility to protect their
+
+1270
+00:40:13,196 --> 0:40:14,466
+privacy passes to you.
+
+1271
+00:40:14,816 --> 0:40:16,176
+So handle user's data with care.
+
+1272
+00:40:17,836 --> 0:40:18,936
+Thank you very much.
+
+1273
+00:40:18,936 --> 0:40:20,326
+I hope you enjoy the rest of the
+
+1274
+00:40:20,326 --> 0:40:21,336
+week here at WWDC.
+
+1275
+00:40:21,426 --> 0:40:22,466
+There's a security lab
+
+1276
+00:40:22,466 --> 0:40:23,636
+immediately afterwards if you
+
+1277
+00:40:23,636 --> 0:40:25,846
+have any questions about these
+
+1278
+00:40:25,846 --> 0:40:27,056
+or any other of the privacy or
+
+1279
+00:40:27,056 --> 0:40:28,626
+security protections in macOS.
+
+1280
+00:40:28,626 --> 0:40:29,726
+Thank you very much.
+
+1281
+00:40:30,516 --> 0:40:34,500
+[ Applause ]

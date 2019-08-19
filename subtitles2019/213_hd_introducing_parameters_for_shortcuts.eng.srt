@@ -1,0 +1,4123 @@
+1
+00:00:00,506 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:07,516 --> 0:00:15,546
+[ Applause ]
+
+3
+00:00:16,046 --> 0:00:16,606
+&gt;&gt; Hi everybody.
+
+4
+00:00:16,946 --> 0:00:18,546
+My name's Ari and I'm really
+
+5
+00:00:18,546 --> 0:00:20,046
+excited to be here to tell you
+
+6
+00:00:20,046 --> 0:00:21,866
+today about some new updates to
+
+7
+00:00:21,866 --> 0:00:23,466
+Shortcuts in iOS 13.
+
+8
+00:00:24,586 --> 0:00:28,256
+In iOS 12 we extended SiriKit by
+
+9
+00:00:28,256 --> 0:00:30,106
+introducing the Shortcuts APIs.
+
+10
+00:00:30,426 --> 0:00:31,836
+Which let you expose actions
+
+11
+00:00:31,836 --> 0:00:33,246
+from your apps to Siri.
+
+12
+00:00:35,136 --> 0:00:36,726
+Shortcut actions exposed from
+
+13
+00:00:36,726 --> 0:00:38,466
+your apps can be used in three
+
+14
+00:00:38,466 --> 0:00:39,216
+different ways.
+
+15
+00:00:39,796 --> 0:00:41,386
+They can be used as suggestions.
+
+16
+00:00:41,966 --> 0:00:43,196
+They can be used through voice.
+
+17
+00:00:43,456 --> 0:00:45,176
+And they can be used as part of
+
+18
+00:00:45,176 --> 0:00:46,376
+multi-step shortcuts.
+
+19
+00:00:47,066 --> 0:00:50,866
+Now, with suggestions, Siri will
+
+20
+00:00:50,866 --> 0:00:52,496
+suggest your Shortcuts to the
+
+21
+00:00:52,496 --> 0:00:54,856
+user as just the right time in
+
+22
+00:00:54,856 --> 0:00:56,616
+search and on the lock screen to
+
+23
+00:00:56,616 --> 0:00:58,096
+accelerate things they do with
+
+24
+00:00:58,096 --> 0:00:59,426
+your apps every day.
+
+25
+00:01:00,536 --> 0:01:03,236
+With voice, customers can use
+
+26
+00:01:03,336 --> 0:01:05,126
+any capability of your apps just
+
+27
+00:01:05,126 --> 0:01:06,176
+by asking Siri.
+
+28
+00:01:07,866 --> 0:01:09,936
+This is really powerful, because
+
+29
+00:01:10,066 --> 0:01:11,446
+Shortcuts makes it super easy to
+
+30
+00:01:11,446 --> 0:01:13,336
+voice enable your app, which
+
+31
+00:01:13,336 --> 0:01:14,556
+lets people use your app in
+
+32
+00:01:14,556 --> 0:01:15,566
+totally new ways.
+
+33
+00:01:16,266 --> 0:01:17,436
+Whether they're on the go with
+
+34
+00:01:17,436 --> 0:01:19,856
+AirPods, in the car with CarPlay
+
+35
+00:01:20,166 --> 0:01:22,016
+or at home with HomePod, or just
+
+36
+00:01:22,016 --> 0:01:24,136
+from across the room with "Hey
+
+37
+00:01:24,976 --> 0:01:25,186
+Siri".
+
+38
+00:01:25,856 --> 0:01:27,626
+Lastly, users can build their
+
+39
+00:01:27,626 --> 0:01:29,466
+own shortcuts in the Shortcuts
+
+40
+00:01:29,466 --> 0:01:31,316
+app, which include multiple
+
+41
+00:01:31,316 --> 0:01:32,736
+actions, including those from
+
+42
+00:01:32,736 --> 0:01:33,466
+your apps.
+
+43
+00:01:34,006 --> 0:01:37,136
+Now, this year we're talking
+
+44
+00:01:37,136 --> 0:01:39,786
+Shortcuts APIs even further and
+
+45
+00:01:39,786 --> 0:01:41,206
+we have some really exciting API
+
+46
+00:01:41,206 --> 0:01:43,356
+updates to share that take voice
+
+47
+00:01:43,356 --> 0:01:44,936
+and multi-step shortcuts to the
+
+48
+00:01:44,936 --> 0:01:45,566
+next level.
+
+49
+00:01:46,566 --> 0:01:47,736
+So let's dive into what's new.
+
+50
+00:01:50,736 --> 0:01:53,726
+In iOS 13 the Shortcuts app is
+
+51
+00:01:53,886 --> 0:01:55,746
+redesigned, and it's built into
+
+52
+00:01:55,836 --> 0:01:57,516
+iOS, so it's easier than ever
+
+53
+00:01:57,516 --> 0:01:59,216
+for people to discover and use
+
+54
+00:01:59,216 --> 0:01:59,796
+Shortcuts.
+
+55
+00:02:01,556 --> 0:02:02,816
+Now, after we announced
+
+56
+00:02:02,816 --> 0:02:04,506
+Shortcuts last year, the biggest
+
+57
+00:02:04,506 --> 0:02:05,986
+request we heard from developers
+
+58
+00:02:06,256 --> 0:02:07,666
+was to add parameters.
+
+59
+00:02:08,386 --> 0:02:10,145
+So we're really excited to share
+
+60
+00:02:10,145 --> 0:02:12,106
+that in iOS 13 we're introducing
+
+61
+00:02:12,106 --> 0:02:13,686
+support for parameters and it
+
+62
+00:02:13,686 --> 0:02:15,116
+enabled something we call
+
+63
+00:02:15,116 --> 0:02:16,476
+conversational shortcuts.
+
+64
+00:02:17,326 --> 0:02:19,016
+This basically allows users to
+
+65
+00:02:19,016 --> 0:02:20,436
+have a conversation with your
+
+66
+00:02:20,676 --> 0:02:22,416
+app and you control the
+
+67
+00:02:22,416 --> 0:02:23,186
+conversation.
+
+68
+00:02:23,446 --> 0:02:26,176
+So you can prompt the user for
+
+69
+00:02:26,176 --> 0:02:27,896
+information you need and respond
+
+70
+00:02:27,896 --> 0:02:29,416
+dynamically based on the users
+
+71
+00:02:29,416 --> 0:02:31,506
+input and their current context.
+
+72
+00:02:32,246 --> 0:02:34,386
+This opens up really totally new
+
+73
+00:02:34,386 --> 0:02:36,356
+use cases for what people can do
+
+74
+00:02:36,426 --> 0:02:37,916
+with Siri and apps, and I'm
+
+75
+00:02:37,916 --> 0:02:39,116
+excited to tell you more about
+
+76
+00:02:39,116 --> 0:02:39,986
+it in just a second.
+
+77
+00:02:40,966 --> 0:02:43,446
+But next, we're adding new ways
+
+78
+00:02:43,486 --> 0:02:45,016
+for users to customize your
+
+79
+00:02:45,016 --> 0:02:46,736
+shortcut actions through a new
+
+80
+00:02:46,786 --> 0:02:48,886
+customization UI that acts on
+
+81
+00:02:48,886 --> 0:02:50,576
+the same parameters as the ones
+
+82
+00:02:50,576 --> 0:02:51,756
+that you define for the voice
+
+83
+00:02:51,756 --> 0:02:52,306
+interaction.
+
+84
+00:02:52,806 --> 0:02:55,806
+You can also enable advanced
+
+85
+00:02:55,806 --> 0:02:58,606
+scenarios like outputs and
+
+86
+00:02:59,416 --> 0:02:59,776
+variables.
+
+87
+00:03:00,626 --> 0:03:02,686
+Lastly, we have an updated Add
+
+88
+00:03:02,686 --> 0:03:04,906
+to Siri UI, which makes it easy
+
+89
+00:03:04,906 --> 0:03:06,116
+for people to get started with
+
+90
+00:03:06,116 --> 0:03:08,126
+Shortcuts inside of your app.
+
+91
+00:03:08,676 --> 0:03:11,126
+So, let's take a look at what
+
+92
+00:03:11,126 --> 0:03:12,486
+some of these new capabilities
+
+93
+00:03:12,486 --> 0:03:13,866
+mean to the voice experience
+
+94
+00:03:13,906 --> 0:03:14,856
+inside of Siri.
+
+95
+00:03:16,306 --> 0:03:18,106
+I have a great new Siri
+
+96
+00:03:18,106 --> 0:03:18,626
+shortcut.
+
+97
+00:03:18,626 --> 0:03:20,166
+It's called Add to Instacart,
+
+98
+00:03:20,166 --> 0:03:21,806
+and it adds items to my cart.
+
+99
+00:03:22,496 --> 0:03:23,836
+So, with conversational
+
+100
+00:03:23,836 --> 0:03:25,576
+shortcuts, when I say Add to
+
+101
+00:03:25,576 --> 0:03:27,726
+Instacart, Instacart can ask
+
+102
+00:03:27,726 --> 0:03:29,566
+what I want to add with custom
+
+103
+00:03:29,566 --> 0:03:30,136
+dialogue.
+
+104
+00:03:30,336 --> 0:03:32,076
+And I'll say bananas.
+
+105
+00:03:32,786 --> 0:03:36,026
+So, there are a few different
+
+106
+00:03:36,026 --> 0:03:37,056
+options for bananas.
+
+107
+00:03:37,616 --> 0:03:38,726
+Instacart will ask which
+
+108
+00:03:38,726 --> 0:03:40,896
+specific one I want by showing a
+
+109
+00:03:40,896 --> 0:03:42,256
+disambiguation.
+
+110
+00:03:42,506 --> 0:03:43,726
+I'll stay I want the organic
+
+111
+00:03:43,726 --> 0:03:44,216
+bananas.
+
+112
+00:03:44,886 --> 0:03:48,286
+So, if it's contextually
+
+113
+00:03:48,286 --> 0:03:49,796
+appropriate, the app can ask
+
+114
+00:03:49,796 --> 0:03:51,516
+additional questions based on
+
+115
+00:03:51,516 --> 0:03:52,526
+what I've said so far.
+
+116
+00:03:53,096 --> 0:03:55,356
+In this case, Instacart will ask
+
+117
+00:03:55,356 --> 0:03:57,166
+how many bananas I want, and
+
+118
+00:03:57,896 --> 0:03:59,746
+I'll say six.
+
+119
+00:04:00,066 --> 0:04:01,686
+Lastly, Siri can let me know
+
+120
+00:04:01,686 --> 0:04:03,416
+that the task is complete with
+
+121
+00:04:03,416 --> 0:04:05,056
+custom dialogue and custom
+
+122
+00:04:05,056 --> 0:04:06,886
+visuals from Instacart.
+
+123
+00:04:08,236 --> 0:04:10,176
+I also have another new
+
+124
+00:04:10,176 --> 0:04:10,576
+shortcut.
+
+125
+00:04:10,576 --> 0:04:12,266
+It's from the MLB At Bat app,
+
+126
+00:04:12,616 --> 0:04:13,626
+and it means that I can just
+
+127
+00:04:13,626 --> 0:04:15,276
+say, "Hey Siri, watch baseball."
+
+128
+00:04:15,276 --> 0:04:17,146
+and it will jump me right into
+
+129
+00:04:17,146 --> 0:04:18,555
+my favorite team's games.
+
+130
+00:04:19,836 --> 0:04:21,596
+So, the Philly's aren't actually
+
+131
+00:04:21,596 --> 0:04:22,796
+playing right now, but with
+
+132
+00:04:22,796 --> 0:04:24,816
+conversational shortcuts the MLB
+
+133
+00:04:24,816 --> 0:04:26,586
+app can detect that and recover
+
+134
+00:04:26,586 --> 0:04:27,166
+appropriately.
+
+135
+00:04:27,636 --> 0:04:28,716
+Letting me know that there isn't
+
+136
+00:04:28,716 --> 0:04:30,206
+a game on right now but giving
+
+137
+00:04:30,206 --> 0:04:31,696
+me some other options of things
+
+138
+00:04:31,696 --> 0:04:33,406
+I might want to watch instead.
+
+139
+00:04:34,456 --> 0:04:36,066
+So, that's just a glimpse of
+
+140
+00:04:36,066 --> 0:04:37,626
+what you can do in Siri, and in
+
+141
+00:04:37,626 --> 0:04:38,626
+a minute we'll dive into the
+
+142
+00:04:38,626 --> 0:04:39,446
+implementation.
+
+143
+00:04:39,976 --> 0:04:41,906
+But first, let's talk about some
+
+144
+00:04:41,906 --> 0:04:43,646
+updates to the Shortcuts app in
+
+145
+00:04:43,776 --> 0:04:45,116
+iOS 13.
+
+146
+00:04:47,016 --> 0:04:49,466
+The Shortcuts app is now built
+
+147
+00:04:49,466 --> 0:04:50,126
+in to iOS.
+
+148
+00:04:50,596 --> 0:04:52,196
+And you don't need to download
+
+149
+00:04:52,196 --> 0:04:52,996
+it from the App Store.
+
+150
+00:04:53,896 --> 0:04:56,416
+It's the one place where users
+
+151
+00:04:56,416 --> 0:04:57,506
+can manage all of their
+
+152
+00:04:57,506 --> 0:04:58,066
+shortcuts.
+
+153
+00:04:58,096 --> 0:04:59,656
+So everything that used to be in
+
+154
+00:04:59,656 --> 0:05:01,316
+settings in now here also.
+
+155
+00:04:59,656 --> 0:05:01,316
+settings in now here also.
+
+156
+00:05:01,896 --> 0:05:06,106
+In the My Shortcuts tab the user
+
+157
+00:05:06,106 --> 0:05:07,356
+can see all of the shortcuts
+
+158
+00:05:07,356 --> 0:05:08,576
+they have set up and they can
+
+159
+00:05:08,576 --> 0:05:10,566
+run them just by tapping on them
+
+160
+00:05:10,616 --> 0:05:12,726
+or by saying the name to Siri.
+
+161
+00:05:13,086 --> 0:05:14,406
+And there's no need to record a
+
+162
+00:05:14,406 --> 0:05:15,186
+phrase first.
+
+163
+00:05:15,716 --> 0:05:18,756
+In iOS 13 we also have a
+
+164
+00:05:18,756 --> 0:05:20,996
+brand-new Automation tab where
+
+165
+00:05:20,996 --> 0:05:22,456
+people can set up shortcuts that
+
+166
+00:05:22,456 --> 0:05:23,896
+show up or even run
+
+167
+00:05:23,896 --> 0:05:25,846
+automatically based on certain
+
+168
+00:05:25,846 --> 0:05:27,716
+criteria like when they arrive
+
+169
+00:05:27,716 --> 0:05:29,216
+at a particular location, when
+
+170
+00:05:29,216 --> 0:05:30,666
+they get in the car, or when
+
+171
+00:05:30,666 --> 0:05:32,646
+their alarm goes off in the
+
+172
+00:05:33,476 --> 0:05:33,736
+morning.
+
+173
+00:05:34,186 --> 0:05:35,966
+So, we all know Shortcuts is
+
+174
+00:05:36,006 --> 0:05:37,886
+really useful, but it can be
+
+175
+00:05:37,986 --> 0:05:39,136
+hard to start from a blank
+
+176
+00:05:39,136 --> 0:05:39,536
+slate.
+
+177
+00:05:40,246 --> 0:05:42,286
+So users can find hundreds of
+
+178
+00:05:42,526 --> 0:05:44,386
+pre-built shortcuts to get
+
+179
+00:05:44,386 --> 0:05:45,916
+started with in the Gallery tab.
+
+180
+00:05:46,786 --> 0:05:48,536
+And this year, we're updating
+
+181
+00:05:48,536 --> 0:05:50,286
+the gallery with a new section
+
+182
+00:05:50,286 --> 0:05:53,376
+called Shortcuts from Your Apps.
+
+183
+00:05:53,476 --> 0:05:55,476
+This section highlights relevant
+
+184
+00:05:55,476 --> 0:05:56,996
+actions from third-party apps
+
+185
+00:05:56,996 --> 0:05:58,216
+which includes your apps.
+
+186
+00:05:59,216 --> 0:06:00,936
+So this is a really great
+
+187
+00:05:59,216 --> 0:06:00,936
+So this is a really great
+
+188
+00:06:00,936 --> 0:06:02,726
+opportunity to get your apps
+
+189
+00:06:02,726 --> 0:06:04,166
+actions in front of the user
+
+190
+00:06:04,306 --> 0:06:05,476
+even when they're not using your
+
+191
+00:06:06,216 --> 0:06:06,476
+app.
+
+192
+00:06:07,456 --> 0:06:10,116
+The shortcut editor has been
+
+193
+00:06:10,156 --> 0:06:11,936
+updated also with a new natural
+
+194
+00:06:11,976 --> 0:06:12,826
+language format.
+
+195
+00:06:13,066 --> 0:06:15,076
+Here's what it looks like in the
+
+196
+00:06:15,076 --> 0:06:16,546
+editor when the user sets up a
+
+197
+00:06:16,546 --> 0:06:19,376
+shortcut with the Soup Chef app.
+
+198
+00:06:19,716 --> 0:06:21,536
+Note how my app has exposed this
+
+199
+00:06:21,536 --> 0:06:23,596
+description, Order 1 Clam
+
+200
+00:06:23,596 --> 0:06:23,996
+Chowder.
+
+201
+00:06:23,996 --> 0:06:25,556
+And the user can tweak those
+
+202
+00:06:25,586 --> 0:06:27,106
+parameters at any time just by
+
+203
+00:06:27,106 --> 0:06:28,386
+tapping on one of the buttons.
+
+204
+00:06:28,386 --> 0:06:30,086
+Like tapping on 1 or Clam
+
+205
+00:06:30,086 --> 0:06:30,446
+Chowder.
+
+206
+00:06:31,856 --> 0:06:34,246
+The editor also has a new action
+
+207
+00:06:34,246 --> 0:06:36,086
+pane which features actions from
+
+208
+00:06:36,086 --> 0:06:37,156
+third-party apps that you can
+
+209
+00:06:37,156 --> 0:06:39,626
+drag or tap to add to your
+
+210
+00:06:40,836 --> 0:06:41,176
+shortcut.
+
+211
+00:06:41,176 --> 0:06:43,106
+Lastly, your apps actions can
+
+212
+00:06:43,106 --> 0:06:45,026
+now provide outputs, which means
+
+213
+00:06:45,026 --> 0:06:46,436
+they can be hooked up to other
+
+214
+00:06:46,436 --> 0:06:48,156
+actions to create even more
+
+215
+00:06:48,156 --> 0:06:49,216
+powerful shortcuts.
+
+216
+00:06:50,086 --> 0:06:52,076
+For example, the Soup Chef app
+
+217
+00:06:52,506 --> 0:06:54,206
+can share an ETA.
+
+218
+00:06:54,406 --> 0:06:56,646
+So you can add it to an Add New
+
+219
+00:06:56,646 --> 0:06:58,336
+Reminder actions to make a
+
+220
+00:06:58,336 --> 0:06:59,646
+shortcut that adds a reminder to
+
+221
+00:06:59,646 --> 0:07:01,056
+pick up your soup exactly when
+
+222
+00:06:59,646 --> 0:07:01,056
+pick up your soup exactly when
+
+223
+00:07:01,056 --> 0:07:01,456
+it's ready.
+
+224
+00:07:02,046 --> 0:07:04,476
+So, that's what's new in the
+
+225
+00:07:04,476 --> 0:07:05,836
+Shortcuts app.
+
+226
+00:07:06,216 --> 0:07:07,716
+But we also have some updates to
+
+227
+00:07:07,716 --> 0:07:08,646
+Add to Siri.
+
+228
+00:07:09,936 --> 0:07:11,406
+Now, traditionally, voice
+
+229
+00:07:11,406 --> 0:07:13,006
+functionality can be hard for
+
+230
+00:07:13,006 --> 0:07:14,696
+users to discover, because they
+
+231
+00:07:14,696 --> 0:07:16,066
+don't know which features of
+
+232
+00:07:16,106 --> 0:07:18,166
+your app are available or what
+
+233
+00:07:18,166 --> 0:07:19,476
+to say in order to use them.
+
+234
+00:07:19,476 --> 0:07:21,766
+Add to Siri makes this easy
+
+235
+00:07:21,846 --> 0:07:23,376
+because people are already using
+
+236
+00:07:23,376 --> 0:07:23,776
+your app.
+
+237
+00:07:24,026 --> 0:07:25,936
+So you can add the Add to Siri
+
+238
+00:07:25,936 --> 0:07:27,816
+button in the relevant parts of
+
+239
+00:07:27,816 --> 0:07:30,206
+your app and it -- the user
+
+240
+00:07:30,206 --> 0:07:31,596
+actually wants to use it with
+
+241
+00:07:31,766 --> 0:07:32,366
+their voice.
+
+242
+00:07:33,076 --> 0:07:35,796
+In iOS 13 we've redesigned the
+
+243
+00:07:35,796 --> 0:07:36,766
+Add to Siri sheet.
+
+244
+00:07:37,176 --> 0:07:39,026
+The new UI lets the user set up
+
+245
+00:07:39,026 --> 0:07:40,186
+shortcuts without having to
+
+246
+00:07:40,186 --> 0:07:40,996
+record a phrase.
+
+247
+00:07:41,406 --> 0:07:43,366
+They can just type a phrase or
+
+248
+00:07:43,366 --> 0:07:44,386
+they can accept one that's
+
+249
+00:07:44,386 --> 0:07:45,376
+suggested by you.
+
+250
+00:07:46,816 --> 0:07:49,156
+Afterwards, saying the phrase to
+
+251
+00:07:49,156 --> 0:07:50,956
+Siri will run the shortcut.
+
+252
+00:07:50,956 --> 0:07:54,286
+And if you tap on the action
+
+253
+00:07:54,286 --> 0:07:56,806
+under Do, the user can tweak the
+
+254
+00:07:56,806 --> 0:07:58,216
+behavior of the shortcut just
+
+255
+00:07:58,216 --> 0:07:59,366
+like they can from inside the
+
+256
+00:07:59,366 --> 0:07:59,996
+Shortcuts app.
+
+257
+00:08:00,056 --> 0:08:03,596
+Now, let's dive into the
+
+258
+00:08:03,706 --> 0:08:04,606
+implementation.
+
+259
+00:08:04,996 --> 0:08:06,786
+First, we're going to talk about
+
+260
+00:08:06,786 --> 0:08:08,286
+how to enable your shortcuts to
+
+261
+00:08:08,286 --> 0:08:10,026
+be customized by the user and
+
+262
+00:08:10,526 --> 0:08:11,796
+then we'll cover parameter
+
+263
+00:08:11,796 --> 0:08:13,156
+resolution and how to use it to
+
+264
+00:08:13,156 --> 0:08:14,266
+implement a great voice
+
+265
+00:08:14,266 --> 0:08:14,886
+experience.
+
+266
+00:08:15,486 --> 0:08:17,736
+Then, we'll talk about how to
+
+267
+00:08:17,736 --> 0:08:19,226
+deal with parameters that have
+
+268
+00:08:19,226 --> 0:08:20,436
+dependencies on each other.
+
+269
+00:08:20,436 --> 0:08:23,056
+And lastly, we'll cover how
+
+270
+00:08:23,056 --> 0:08:25,186
+dynamic options and outputs can
+
+271
+00:08:25,186 --> 0:08:26,266
+help take your actions to the
+
+272
+00:08:26,266 --> 0:08:27,746
+next level in the shortcut
+
+273
+00:08:27,746 --> 0:08:27,976
+editor.
+
+274
+00:08:31,256 --> 0:08:32,895
+So, let's start by enabling
+
+275
+00:08:32,895 --> 0:08:34,606
+Shortcut Customization for an
+
+276
+00:08:34,606 --> 0:08:35,785
+app that I've been developing.
+
+277
+00:08:37,046 --> 0:08:40,126
+I'm really, really into soup and
+
+278
+00:08:40,126 --> 0:08:41,405
+so I've been working on an app
+
+279
+00:08:41,405 --> 0:08:42,885
+called Soup Chef, which lets
+
+280
+00:08:42,885 --> 0:08:43,976
+people order soups from their
+
+281
+00:08:43,976 --> 0:08:44,826
+favorite restaurants.
+
+282
+00:08:45,606 --> 0:08:47,396
+I want to enable shortcuts that
+
+283
+00:08:47,396 --> 0:08:48,676
+let the user order a soup and
+
+284
+00:08:48,676 --> 0:08:50,256
+choose how many soups they want
+
+285
+00:08:50,466 --> 0:08:51,856
+right from inside of the action.
+
+286
+00:08:53,216 --> 0:08:55,126
+So, in order to set this up
+
+287
+00:08:55,276 --> 0:08:57,046
+let's start in the Intent editor
+
+288
+00:08:57,046 --> 0:08:58,026
+in Xcode.
+
+289
+00:08:59,306 --> 0:09:01,856
+As you know, an Intent is a
+
+290
+00:08:59,306 --> 0:09:01,856
+As you know, an Intent is a
+
+291
+00:09:01,856 --> 0:09:03,376
+specification of a task that the
+
+292
+00:09:03,376 --> 0:09:05,696
+user can complete in your app.
+
+293
+00:09:06,006 --> 0:09:07,736
+In this case, ordering soup.
+
+294
+00:09:08,916 --> 0:09:10,846
+You should define parameters for
+
+295
+00:09:10,956 --> 0:09:12,616
+every piece of information that
+
+296
+00:09:12,616 --> 0:09:14,426
+you need from the user in order
+
+297
+00:09:14,426 --> 0:09:16,566
+to complete that task.
+
+298
+00:09:16,846 --> 0:09:18,056
+The set of parameters that you
+
+299
+00:09:18,056 --> 0:09:20,706
+define here is used for both the
+
+300
+00:09:21,036 --> 0:09:22,826
+set of questions that Siri will
+
+301
+00:09:22,826 --> 0:09:24,716
+ask in conversational shortcuts
+
+302
+00:09:25,046 --> 0:09:27,256
+as well as the set of parameters
+
+303
+00:09:27,406 --> 0:09:28,346
+that you can edit in the
+
+304
+00:09:28,346 --> 0:09:28,976
+shortcuts editor.
+
+305
+00:09:31,646 --> 0:09:33,626
+From each parameter that you add
+
+306
+00:09:33,626 --> 0:09:35,386
+to your Intent, you can choose
+
+307
+00:09:35,496 --> 0:09:37,236
+from the list of supported types
+
+308
+00:09:37,286 --> 0:09:38,556
+that are provided by the system
+
+309
+00:09:39,326 --> 0:09:42,136
+or you can create an Enum, or
+
+310
+00:09:42,136 --> 0:09:43,786
+you can even in iOS 13 create
+
+311
+00:09:43,786 --> 0:09:44,986
+your own custom types.
+
+312
+00:09:45,486 --> 0:09:48,706
+Once you pick a type, you'll see
+
+313
+00:09:48,706 --> 0:09:49,886
+some additional settings that
+
+314
+00:09:49,886 --> 0:09:51,296
+let you customize that parameter
+
+315
+00:09:51,296 --> 0:09:52,706
+which are specific to that type.
+
+316
+00:09:53,146 --> 0:09:54,956
+For example, if I pick String,
+
+317
+00:09:55,306 --> 0:09:56,666
+I'll see some new options for
+
+318
+00:09:56,666 --> 0:09:58,546
+capitalization and autocorrect
+
+319
+00:09:58,546 --> 0:09:59,036
+behavior.
+
+320
+00:10:01,236 --> 0:10:03,146
+For this parameter I'm going to
+
+321
+00:10:03,146 --> 0:10:04,846
+choose a soup enum type that I
+
+322
+00:10:04,846 --> 0:10:05,606
+already created.
+
+323
+00:10:06,146 --> 0:10:08,496
+Now, since I'm updating an
+
+324
+00:10:08,496 --> 0:10:10,156
+existing parameter, I need to
+
+325
+00:10:10,156 --> 0:10:12,396
+check the User Facing checkbox
+
+326
+00:10:12,546 --> 0:10:14,036
+so that this parameter can be
+
+327
+00:10:14,036 --> 0:10:15,266
+exposed to Siri and the
+
+328
+00:10:15,266 --> 0:10:16,446
+Shortcuts app.
+
+329
+00:10:17,276 --> 0:10:19,276
+For new parameters that I add,
+
+330
+00:10:19,276 --> 0:10:22,336
+this will be checked by default.
+
+331
+00:10:22,566 --> 0:10:23,826
+Next, I'll need to fill in some
+
+332
+00:10:23,826 --> 0:10:25,016
+new information for my
+
+333
+00:10:25,016 --> 0:10:25,476
+parameter.
+
+334
+00:10:25,476 --> 0:10:26,896
+I'm going to add this Display
+
+335
+00:10:26,896 --> 0:10:28,226
+Name, because that's used to
+
+336
+00:10:28,226 --> 0:10:29,776
+show the parameter inside of the
+
+337
+00:10:29,776 --> 0:10:30,446
+shortcut editor.
+
+338
+00:10:30,446 --> 0:10:33,196
+Then, because this is an
+
+339
+00:10:33,196 --> 0:10:35,836
+existing Intent, I also need to
+
+340
+00:10:35,836 --> 0:10:36,926
+check the Intent is
+
+341
+00:10:36,926 --> 0:10:38,696
+user-configurable checkbox,
+
+342
+00:10:38,896 --> 0:10:39,996
+which makes the Intent as a
+
+343
+00:10:39,996 --> 0:10:42,026
+whole available to both Siri and
+
+344
+00:10:42,026 --> 0:10:43,286
+the Shortcuts app.
+
+345
+00:10:44,056 --> 0:10:46,636
+Now, lastly, I need to fill in a
+
+346
+00:10:46,636 --> 0:10:47,736
+parameter summary.
+
+347
+00:10:48,576 --> 0:10:49,886
+I want to include the parameters
+
+348
+00:10:49,946 --> 0:10:51,866
+quantity and soup in the
+
+349
+00:10:51,866 --> 0:10:53,436
+parameter summary so that
+
+350
+00:10:53,436 --> 0:10:54,596
+they're really easy for the user
+
+351
+00:10:54,596 --> 0:10:55,896
+to tweak in the shortcut editor.
+
+352
+00:10:56,236 --> 0:10:58,826
+So, I'll add a string, order
+
+353
+00:10:58,826 --> 0:11:00,636
+quantity soup, and I'll let
+
+354
+00:10:58,826 --> 0:11:00,636
+quantity soup, and I'll let
+
+355
+00:11:00,636 --> 0:11:02,646
+Xcode turn quantity and soup
+
+356
+00:11:02,836 --> 0:11:06,886
+into variables for me in Xcode.
+
+357
+00:11:07,196 --> 0:11:07,896
+So that's it.
+
+358
+00:11:07,896 --> 0:11:09,196
+That's actually all you have to
+
+359
+00:11:09,196 --> 0:11:10,906
+do to get your shortcuts to be
+
+360
+00:11:10,906 --> 0:11:12,166
+exposed like this in the
+
+361
+00:11:12,166 --> 0:11:12,956
+shortcut editor.
+
+362
+00:11:13,036 --> 0:11:16,656
+Now that the Intent is
+
+363
+00:11:16,656 --> 0:11:18,786
+configurable, and it shows up in
+
+364
+00:11:18,786 --> 0:11:19,566
+the Shortcuts app, it's
+
+365
+00:11:19,656 --> 0:11:21,066
+ready-to-use parameters.
+
+366
+00:11:21,266 --> 0:11:23,036
+So, the next thing we need to be
+
+367
+00:11:23,036 --> 0:11:24,526
+able to do is resolve the
+
+368
+00:11:24,526 --> 0:11:25,806
+parameters of the Intent.
+
+369
+00:11:26,376 --> 0:11:28,306
+Let's talk about how to do that.
+
+370
+00:11:28,856 --> 0:11:32,166
+In iOS 12, when the user invokes
+
+371
+00:11:32,166 --> 0:11:33,306
+a shortcut through Siri it goes
+
+372
+00:11:33,306 --> 0:11:34,406
+through two phases.
+
+373
+00:11:34,726 --> 0:11:36,656
+First Confirm and then Handle.
+
+374
+00:11:38,316 --> 0:11:40,106
+This year we're adding a third
+
+375
+00:11:40,106 --> 0:11:41,446
+phase which is called Resolve.
+
+376
+00:11:41,686 --> 0:11:42,956
+And it should be familiar to you
+
+377
+00:11:42,956 --> 0:11:43,996
+if you've already worked with
+
+378
+00:11:43,996 --> 0:11:45,516
+SiriKit APIs in the past.
+
+379
+00:11:49,376 --> 0:11:52,216
+In the Resolve phase Siri goes
+
+380
+00:11:52,216 --> 0:11:53,576
+through each parameter that
+
+381
+00:11:53,576 --> 0:11:54,716
+you've defined on your Intent
+
+382
+00:11:54,986 --> 0:11:57,746
+and asks your Intent handler to
+
+383
+00:11:57,746 --> 0:11:58,786
+resolve that parameter.
+
+384
+00:11:58,786 --> 0:12:00,236
+To decide whether or not to ask
+
+385
+00:11:58,786 --> 0:12:00,236
+To decide whether or not to ask
+
+386
+00:12:00,416 --> 0:12:02,046
+the user a question.
+
+387
+00:12:02,756 --> 0:12:05,196
+For Soup Chef, Siri will first
+
+388
+00:12:05,196 --> 0:12:06,726
+call Resolve on the soup
+
+389
+00:12:06,726 --> 0:12:08,006
+parameter which might ask a
+
+390
+00:12:08,006 --> 0:12:09,226
+question like, "What soup do you
+
+391
+00:12:09,226 --> 0:12:09,526
+want?"
+
+392
+00:12:10,756 --> 0:12:12,496
+And then it will call Resolve on
+
+393
+00:12:12,496 --> 0:12:13,636
+quantity, which could ask a
+
+394
+00:12:13,636 --> 0:12:14,926
+question like, "How many soups
+
+395
+00:12:14,926 --> 0:12:15,416
+do you want?"
+
+396
+00:12:16,096 --> 0:12:17,736
+And lastly, it will ask it on
+
+397
+00:12:17,736 --> 0:12:19,196
+store location, which might say,
+
+398
+00:12:19,196 --> 0:12:20,726
+"Where do you want to order your
+
+399
+00:12:21,366 --> 0:12:23,056
+soup from?"
+
+400
+00:12:23,586 --> 0:12:24,776
+Once all the parameters are
+
+401
+00:12:24,776 --> 0:12:26,326
+resolved, Siri will invoke the
+
+402
+00:12:26,326 --> 0:12:28,076
+same Confirm and Handle methods
+
+403
+00:12:28,076 --> 0:12:29,756
+as the ones that we had in iOS
+
+404
+00:12:29,756 --> 0:12:29,996
+12.
+
+405
+00:12:29,996 --> 0:12:34,716
+So, let's take a look at what
+
+406
+00:12:34,716 --> 0:12:36,116
+this means in code.
+
+407
+00:12:36,716 --> 0:12:38,756
+Because Xcode automatically
+
+408
+00:12:38,756 --> 0:12:40,066
+generates an Intent handling
+
+409
+00:12:40,066 --> 0:12:41,666
+protocol for every Intent that
+
+410
+00:12:41,666 --> 0:12:42,156
+you define.
+
+411
+00:12:42,716 --> 0:12:44,986
+And you implement that protocol
+
+412
+00:12:44,986 --> 0:12:46,246
+in your Intent handler.
+
+413
+00:12:46,456 --> 0:12:49,726
+In iOS 12 Xcode generated these
+
+414
+00:12:49,726 --> 0:12:51,586
+two methods; Confirm and Handle,
+
+415
+00:12:52,306 --> 0:12:53,356
+which you would implement in
+
+416
+00:12:53,356 --> 0:12:54,566
+order to execute your Intent.
+
+417
+00:12:55,636 --> 0:12:57,166
+But this year, Xcode will also
+
+418
+00:12:57,166 --> 0:12:59,146
+generate Resolve methods for
+
+419
+00:12:59,146 --> 0:13:00,086
+each parameter that you've
+
+420
+00:12:59,146 --> 0:13:00,086
+each parameter that you've
+
+421
+00:13:00,086 --> 0:13:01,526
+marked as configurable.
+
+422
+00:13:02,006 --> 0:13:05,366
+Siri will call the resolve
+
+423
+00:13:05,366 --> 0:13:07,696
+methods and ask questions in the
+
+424
+00:13:07,696 --> 0:13:09,096
+order of the parameters that
+
+425
+00:13:09,096 --> 0:13:10,206
+you've defined in Xcode.
+
+426
+00:13:10,206 --> 0:13:12,016
+And you can drag and drop the
+
+427
+00:13:12,016 --> 0:13:13,676
+parameters in Xcode to change
+
+428
+00:13:13,676 --> 0:13:14,496
+the order of parameter
+
+429
+00:13:14,496 --> 0:13:14,946
+resolution.
+
+430
+00:13:18,806 --> 0:13:19,836
+When the Resolve method is
+
+431
+00:13:19,836 --> 0:13:22,206
+called, the Intent is passed as
+
+432
+00:13:22,306 --> 0:13:23,866
+input to the Resolve method,
+
+433
+00:13:24,176 --> 0:13:25,536
+including a value for the
+
+434
+00:13:25,536 --> 0:13:27,166
+parameter that's currently being
+
+435
+00:13:27,166 --> 0:13:27,536
+resolved.
+
+436
+00:13:28,056 --> 0:13:29,476
+So that value can come from a
+
+437
+00:13:29,476 --> 0:13:30,716
+couple of different places.
+
+438
+00:13:31,886 --> 0:13:33,476
+The first time the Resolve
+
+439
+00:13:33,476 --> 0:13:35,066
+method is called, when the
+
+440
+00:13:35,066 --> 0:13:37,096
+shortcut is being run, the value
+
+441
+00:13:37,096 --> 0:13:38,436
+is filled in from whatever the
+
+442
+00:13:38,436 --> 0:13:40,096
+user set on the shortcut when
+
+443
+00:13:40,096 --> 0:13:41,116
+they created it.
+
+444
+00:13:41,476 --> 0:13:43,206
+In this example, the soup field
+
+445
+00:13:43,206 --> 0:13:45,096
+is empty, maybe because the user
+
+446
+00:13:45,096 --> 0:13:46,526
+sometimes orders clam chowder
+
+447
+00:13:46,526 --> 0:13:47,946
+and sometimes orders tomato
+
+448
+00:13:47,946 --> 0:13:48,186
+soup.
+
+449
+00:13:48,786 --> 0:13:50,036
+And they want to set up a
+
+450
+00:13:50,036 --> 0:13:50,946
+shortcut that's going to ask
+
+451
+00:13:51,186 --> 0:13:52,436
+them every time they use it
+
+452
+00:13:52,436 --> 0:13:53,146
+which one they want.
+
+453
+00:13:54,406 --> 0:13:56,066
+So, when the Resolve method is
+
+454
+00:13:56,066 --> 0:13:57,606
+called the soup parameter will
+
+455
+00:13:57,606 --> 0:14:00,086
+be filled in as empty because
+
+456
+00:13:57,606 --> 0:14:00,086
+be filled in as empty because
+
+457
+00:14:00,086 --> 0:14:01,076
+there was nothing filled out in
+
+458
+00:14:01,076 --> 0:14:03,706
+the shortcut and that's going to
+
+459
+00:14:03,706 --> 0:14:05,566
+be passed to the Intent that's
+
+460
+00:14:06,026 --> 0:14:07,736
+passed to Resolve.
+
+461
+00:14:08,196 --> 0:14:09,566
+The responsibility of the
+
+462
+00:14:09,566 --> 0:14:11,446
+Resolve method is to provide a
+
+463
+00:14:11,496 --> 0:14:13,466
+Resolution Result which
+
+464
+00:14:13,466 --> 0:14:15,106
+determines what Siri will do
+
+465
+00:14:15,106 --> 0:14:15,696
+next.
+
+466
+00:14:16,206 --> 0:14:19,216
+Now again, because the field is
+
+467
+00:14:19,216 --> 0:14:20,896
+empty, the Soup Chef app might
+
+468
+00:14:20,966 --> 0:14:22,546
+want to ask the user for a value
+
+469
+00:14:22,916 --> 0:14:24,536
+by passing the Needs Value
+
+470
+00:14:24,536 --> 0:14:25,356
+Resolution Result.
+
+471
+00:14:27,276 --> 0:14:29,346
+Passing Needs Value will cause
+
+472
+00:14:29,346 --> 0:14:31,056
+Siri to ask a question for this
+
+473
+00:14:31,056 --> 0:14:32,546
+parameter which the user can
+
+474
+00:14:32,546 --> 0:14:34,156
+respond to with their voice.
+
+475
+00:14:35,256 --> 0:14:37,066
+So Soup Chef might say, "What
+
+476
+00:14:37,066 --> 0:14:38,066
+type of soup do you want?"
+
+477
+00:14:38,296 --> 0:14:39,746
+And the user can respond with
+
+478
+00:14:39,746 --> 0:14:41,106
+something like clam chowder.
+
+479
+00:14:41,726 --> 0:14:44,266
+Now, the input that the user
+
+480
+00:14:44,266 --> 0:14:46,366
+says, clam chowder, will be
+
+481
+00:14:46,496 --> 0:14:48,006
+filled in to the Intent and the
+
+482
+00:14:48,006 --> 0:14:49,386
+same Resolve method will be
+
+483
+00:14:49,386 --> 0:14:51,386
+invoked again with that input
+
+484
+00:14:51,416 --> 0:14:51,906
+this time.
+
+485
+00:14:52,136 --> 0:14:55,336
+So the app can decide what to do
+
+486
+00:14:55,496 --> 0:14:55,766
+next.
+
+487
+00:14:55,796 --> 0:14:57,456
+In this case, clam chowder is a
+
+488
+00:14:57,456 --> 0:14:59,026
+valid soup and we have it in
+
+489
+00:14:59,026 --> 0:14:59,416
+stock.
+
+490
+00:14:59,416 --> 0:15:00,936
+So the Resolve method should
+
+491
+00:14:59,416 --> 0:15:00,936
+So the Resolve method should
+
+492
+00:15:00,936 --> 0:15:02,516
+this time return success which
+
+493
+00:15:02,516 --> 0:15:03,706
+will cause Siri to move on to
+
+494
+00:15:03,706 --> 0:15:05,056
+the next parameter in the list.
+
+495
+00:15:05,526 --> 0:15:08,806
+Now, if the user had set up the
+
+496
+00:15:08,806 --> 0:15:10,176
+shortcut instead to have the
+
+497
+00:15:10,176 --> 0:15:11,976
+parameter preset to clam
+
+498
+00:15:11,976 --> 0:15:13,476
+chowder, because maybe they want
+
+499
+00:15:13,476 --> 0:15:14,346
+their shortcut to order clam
+
+500
+00:15:14,346 --> 0:15:15,426
+chowder every time without
+
+501
+00:15:15,426 --> 0:15:17,316
+asking them, then that would be
+
+502
+00:15:17,316 --> 0:15:19,336
+passed to Resolve instead of the
+
+503
+00:15:19,336 --> 0:15:21,186
+empty value and in this case,
+
+504
+00:15:21,486 --> 0:15:22,646
+the Resolve method can return
+
+505
+00:15:22,646 --> 0:15:24,616
+success right away and Siri
+
+506
+00:15:24,616 --> 0:15:25,686
+won't ask a question for that
+
+507
+00:15:25,686 --> 0:15:26,416
+parameter at all.
+
+508
+00:15:26,416 --> 0:15:30,466
+So, in the implementation of
+
+509
+00:15:30,466 --> 0:15:32,076
+your Resolve method, you need to
+
+510
+00:15:32,076 --> 0:15:33,606
+look at the current value of the
+
+511
+00:15:33,606 --> 0:15:34,766
+parameter on the Intent.
+
+512
+00:15:35,286 --> 0:15:36,786
+If there's no value, you might
+
+513
+00:15:36,786 --> 0:15:38,126
+need to ask the user for a value
+
+514
+00:15:38,126 --> 0:15:39,366
+by returning Needs Value.
+
+515
+00:15:39,746 --> 0:15:41,856
+And if the user has just -- has
+
+516
+00:15:41,856 --> 0:15:43,046
+filled out a value on the
+
+517
+00:15:43,046 --> 0:15:44,546
+shortcut when they set it up or
+
+518
+00:15:44,736 --> 0:15:45,896
+if they just said something to
+
+519
+00:15:45,896 --> 0:15:47,516
+Siri, there might be a value
+
+520
+00:15:47,516 --> 0:15:49,096
+there already which needs to be
+
+521
+00:15:49,096 --> 0:15:51,136
+validated and hopefully passed
+
+522
+00:15:51,136 --> 0:15:52,616
+as success.
+
+523
+00:15:52,876 --> 0:15:54,606
+So every time your Resolve
+
+524
+00:15:54,606 --> 0:15:56,056
+method is called, it needs to
+
+525
+00:15:56,056 --> 0:15:57,656
+supply this Resolution Result.
+
+526
+00:15:58,336 --> 0:15:59,586
+And I'm now going to hand it
+
+527
+00:15:59,586 --> 0:16:01,106
+over to Roman to tell you about
+
+528
+00:15:59,586 --> 0:16:01,106
+over to Roman to tell you about
+
+529
+00:16:01,106 --> 0:16:03,236
+how you can provide great
+
+530
+00:16:03,276 --> 0:16:05,106
+Resolution Results to provide
+
+531
+00:16:05,106 --> 0:16:06,956
+robust voice experience in Siri.
+
+532
+00:16:07,606 --> 0:16:07,776
+Roman.
+
+533
+00:16:08,516 --> 0:16:15,826
+[ Applause ]
+
+534
+00:16:16,326 --> 0:16:16,856
+&gt;&gt; Thanks Ari.
+
+535
+00:16:17,236 --> 0:16:19,426
+Hello. When I'm building a voice
+
+536
+00:16:19,426 --> 0:16:21,246
+experience I want to think about
+
+537
+00:16:21,456 --> 0:16:22,986
+all of which cases that the user
+
+538
+00:16:22,986 --> 0:16:24,906
+could say and how to handle them
+
+539
+00:16:24,906 --> 0:16:25,126
+well.
+
+540
+00:16:25,666 --> 0:16:28,586
+For example, if the user asks to
+
+541
+00:16:28,586 --> 0:16:29,686
+order more soups than we have in
+
+542
+00:16:29,686 --> 0:16:31,206
+stock we should tell them
+
+543
+00:16:31,206 --> 0:16:31,786
+appropriately.
+
+544
+00:16:32,376 --> 0:16:35,916
+If the user asks to order soup
+
+545
+00:16:35,916 --> 0:16:37,696
+from a store that's far away, we
+
+546
+00:16:37,696 --> 0:16:38,956
+can give them options of stores
+
+547
+00:16:38,956 --> 0:16:39,586
+that are closer.
+
+548
+00:16:40,156 --> 0:16:43,286
+On the Resolve step, this is
+
+549
+00:16:43,286 --> 0:16:44,736
+your opportunity to influence
+
+550
+00:16:44,736 --> 0:16:46,486
+Siri's behavior and decide
+
+551
+00:16:46,546 --> 0:16:47,976
+whether or not Siri asks a
+
+552
+00:16:47,976 --> 0:16:48,436
+question.
+
+553
+00:16:49,286 --> 0:16:50,746
+And this is where you handle all
+
+554
+00:16:50,746 --> 0:16:52,056
+which cases of the user input.
+
+555
+00:16:53,296 --> 0:16:54,766
+In order to do that, you need to
+
+556
+00:16:54,766 --> 0:16:55,876
+provide the Resolution Result.
+
+557
+00:16:57,406 --> 0:16:59,036
+There are six Resolution Result
+
+558
+00:16:59,036 --> 0:17:00,256
+types that you can choose from.
+
+559
+00:16:59,036 --> 0:17:00,256
+types that you can choose from.
+
+560
+00:17:00,966 --> 0:17:02,266
+Let's go through each one of
+
+561
+00:17:02,266 --> 0:17:03,836
+them starting with needsValue.
+
+562
+00:17:05,425 --> 0:17:06,915
+If the user didn't specify the
+
+563
+00:17:06,915 --> 0:17:08,026
+value at the shortcut
+
+564
+00:17:08,026 --> 0:17:09,675
+configuration time and you need
+
+565
+00:17:09,675 --> 0:17:11,356
+one in order to proceed, you can
+
+566
+00:17:11,356 --> 0:17:12,665
+tell Siri that you need a value.
+
+567
+00:17:13,886 --> 0:17:14,836
+You need to provide your own
+
+568
+00:17:15,076 --> 0:17:16,796
+custom prompt dialogue for each
+
+569
+00:17:16,796 --> 0:17:17,965
+parameter that you can resolve.
+
+570
+00:17:19,046 --> 0:17:20,586
+To do that, open the Intent
+
+571
+00:17:20,586 --> 0:17:20,896
+editor.
+
+572
+00:17:21,296 --> 0:17:22,455
+Select the parameter that you
+
+573
+00:17:22,455 --> 0:17:23,556
+would like to specify Siri
+
+574
+00:17:23,556 --> 0:17:25,425
+dialogue for and then type your
+
+575
+00:17:25,425 --> 0:17:26,856
+custom prompt in the prompt text
+
+576
+00:17:26,856 --> 0:17:26,976
+field.
+
+577
+00:17:30,426 --> 0:17:32,096
+If you return disambiguation
+
+578
+00:17:32,266 --> 0:17:34,046
+Siri will ask the user to pick
+
+579
+00:17:34,086 --> 0:17:35,066
+from a list of values.
+
+580
+00:17:35,846 --> 0:17:37,476
+This is a good idea if the value
+
+581
+00:17:37,476 --> 0:17:39,096
+in the parameter is ambiguous or
+
+582
+00:17:39,096 --> 0:17:40,276
+if you just have few possible
+
+583
+00:17:40,336 --> 0:17:41,496
+things for the user to choose
+
+584
+00:17:41,496 --> 0:17:41,746
+from.
+
+585
+00:17:45,576 --> 0:17:47,356
+You can customize the
+
+586
+00:17:47,586 --> 0:17:50,626
+disambiguation dialogue in the
+
+587
+00:17:51,236 --> 0:17:53,116
+Intent editor.
+
+588
+00:17:53,556 --> 0:17:55,076
+Return unsupported tells Siri
+
+589
+00:17:55,076 --> 0:17:56,576
+that your app doesn't support
+
+590
+00:17:56,576 --> 0:17:57,326
+the provided value.
+
+591
+00:17:58,466 --> 0:17:59,946
+For example, if customer tries
+
+592
+00:17:59,946 --> 0:18:01,616
+to order too many soups we can
+
+593
+00:17:59,946 --> 0:18:01,616
+to order too many soups we can
+
+594
+00:18:01,616 --> 0:18:02,906
+respond appropriately by saying
+
+595
+00:18:02,906 --> 0:18:05,046
+that we don't have enough in
+
+596
+00:18:05,656 --> 0:18:05,786
+stock.
+
+597
+00:18:06,006 --> 0:18:07,416
+And after that, Siri will
+
+598
+00:18:07,416 --> 0:18:08,156
+re-prompt the user.
+
+599
+00:18:08,766 --> 0:18:12,866
+We can define the error messages
+
+600
+00:18:13,066 --> 0:18:14,136
+that can be shown to the user
+
+601
+00:18:14,526 --> 0:18:15,646
+under the Validation Error
+
+602
+00:18:15,716 --> 0:18:16,616
+section in Xcode.
+
+603
+00:18:18,126 --> 0:18:19,556
+Xcode automatically providers
+
+604
+00:18:19,556 --> 0:18:21,076
+default behavior for medium and
+
+605
+00:18:21,076 --> 0:18:22,916
+maximum values that you specify
+
+606
+00:18:22,916 --> 0:18:27,006
+in the Intent editor.
+
+607
+00:18:27,226 --> 0:18:29,226
+Return confirmationRequired will
+
+608
+00:18:29,226 --> 0:18:30,786
+cause Siri to ask the user to
+
+609
+00:18:30,786 --> 0:18:31,966
+confirm the parameter value.
+
+610
+00:18:33,066 --> 0:18:34,586
+Use this if it's unclear whether
+
+611
+00:18:34,586 --> 0:18:35,756
+or not the user actually wants
+
+612
+00:18:35,756 --> 0:18:37,566
+this value or you have a strong
+
+613
+00:18:37,566 --> 0:18:38,846
+guess, but still would like to
+
+614
+00:18:38,846 --> 0:18:40,856
+confirm the value with the user.
+
+615
+00:18:44,736 --> 0:18:46,116
+Again, you can customize the
+
+616
+00:18:46,166 --> 0:18:47,826
+Parameter Confirmation prompt in
+
+617
+00:18:47,866 --> 0:18:51,066
+the Intent editor.
+
+618
+00:18:51,596 --> 0:18:53,146
+Return success means that we
+
+619
+00:18:53,146 --> 0:18:54,956
+have a valid parameter value and
+
+620
+00:18:54,956 --> 0:18:57,286
+Siri should move on to the next
+
+621
+00:18:58,656 --> 0:18:58,886
+parameter.
+
+622
+00:18:58,966 --> 0:19:00,626
+Return notRequired means that
+
+623
+00:18:58,966 --> 0:19:00,626
+Return notRequired means that
+
+624
+00:19:00,626 --> 0:19:02,976
+your app doesn't need a value
+
+625
+00:19:02,976 --> 0:19:04,376
+for this parameter at this time,
+
+626
+00:19:04,906 --> 0:19:06,376
+so Siri should skip it and move
+
+627
+00:19:06,376 --> 0:19:07,136
+on to the next one.
+
+628
+00:19:09,706 --> 0:19:10,846
+The Result methods will be
+
+629
+00:19:10,846 --> 0:19:11,676
+invoked at the shortcut
+
+630
+00:19:11,676 --> 0:19:14,486
+execution time in both Siri and
+
+631
+00:19:14,486 --> 0:19:15,186
+the Shortcuts app.
+
+632
+00:19:15,936 --> 0:19:17,186
+So you need to make sure you
+
+633
+00:19:17,186 --> 0:19:18,726
+implementation behaves correctly
+
+634
+00:19:18,946 --> 0:19:19,966
+in both environments.
+
+635
+00:19:22,496 --> 0:19:24,216
+So now let's take a look at what
+
+636
+00:19:24,216 --> 0:19:26,226
+the execution flow looks like.
+
+637
+00:19:27,056 --> 0:19:28,886
+This is the new Shortcuts app
+
+638
+00:19:29,356 --> 0:19:30,686
+and here in my Shortcuts app you
+
+639
+00:19:30,686 --> 0:19:31,826
+can see all of the shortcuts
+
+640
+00:19:31,826 --> 0:19:33,336
+that I created or added from the
+
+641
+00:19:33,336 --> 0:19:33,746
+Gallery.
+
+642
+00:19:34,176 --> 0:19:36,256
+To create a new shortcut, I'm
+
+643
+00:19:36,256 --> 0:19:37,286
+going to tap on the Create
+
+644
+00:19:37,286 --> 0:19:37,996
+Shortcut button.
+
+645
+00:19:38,606 --> 0:19:41,666
+In the shortcut editor I need to
+
+646
+00:19:41,666 --> 0:19:42,816
+add actions to my shortcut.
+
+647
+00:19:43,416 --> 0:19:44,716
+To do that, I'm going to tap on
+
+648
+00:19:44,716 --> 0:19:47,646
+the Add Action button.
+
+649
+00:19:48,126 --> 0:19:49,766
+I use the Soup Chef daily to
+
+650
+00:19:49,766 --> 0:19:51,486
+order delicious soups, so here's
+
+651
+00:19:51,486 --> 0:19:52,586
+already a suggestion for me to
+
+652
+00:19:52,586 --> 0:19:53,046
+order soup.
+
+653
+00:19:54,626 --> 0:19:56,276
+All I need to do is just give it
+
+654
+00:19:56,276 --> 0:19:56,876
+a name.
+
+655
+00:19:58,266 --> 0:19:59,236
+So here's my shortcut.
+
+656
+00:19:59,476 --> 0:20:00,436
+All I need to do is just give it
+
+657
+00:19:59,476 --> 0:20:00,436
+All I need to do is just give it
+
+658
+00:20:00,436 --> 0:20:01,996
+a name and save it to My
+
+659
+00:20:02,666 --> 0:20:02,976
+Shortcuts.
+
+660
+00:20:03,046 --> 0:20:04,156
+To do that, I'm going to tap on
+
+661
+00:20:04,326 --> 0:20:08,366
+the Next button.
+
+662
+00:20:08,506 --> 0:20:09,516
+Let's call this shortcut Order
+
+663
+00:20:09,516 --> 0:20:09,766
+Soup.
+
+664
+00:20:14,176 --> 0:20:15,156
+Now let's try invoking the
+
+665
+00:20:15,156 --> 0:20:16,506
+shortcut with voice and Siri.
+
+666
+00:20:17,096 --> 0:20:17,976
+"Hey Siri, order soup."
+
+667
+00:20:22,356 --> 0:20:23,236
+&gt;&gt; Which soup do you want?
+
+668
+00:20:23,776 --> 0:20:25,146
+We have three specials today.
+
+669
+00:20:25,626 --> 0:20:28,106
+Clam chowder, tomato soup, or
+
+670
+00:20:28,106 --> 0:20:29,716
+chicken noodle soup.
+
+671
+00:20:29,716 --> 0:20:30,256
+&gt;&gt; Clam chowder.
+
+672
+00:20:30,256 --> 0:20:33,706
+&gt;&gt; There are two restaurants
+
+673
+00:20:33,706 --> 0:20:34,346
+near you.
+
+674
+00:20:34,406 --> 0:20:35,536
+Which one do you want to order
+
+675
+00:20:35,536 --> 0:20:36,036
+from?
+
+676
+00:20:36,136 --> 0:20:40,086
+38801 S Sheridan Blvd or 7401 S
+
+677
+00:20:40,086 --> 0:20:40,976
+Lewis Ave?
+
+678
+00:20:41,046 --> 0:20:43,936
+&gt;&gt; The first one.
+
+679
+00:20:44,716 --> 0:20:45,966
+&gt;&gt; Ready to order?
+
+680
+00:20:46,206 --> 0:20:48,436
+&gt;&gt; Yes, please.
+
+681
+00:20:49,096 --> 0:20:51,126
+&gt;&gt; Okay, ordering.
+
+682
+00:20:51,126 --> 0:20:53,266
+Your total is $3.75.
+
+683
+00:20:54,066 --> 0:20:55,486
+Your clam chowder order will be
+
+684
+00:20:55,486 --> 0:20:56,266
+ready in 10 minutes.
+
+685
+00:20:57,066 --> 0:20:58,526
+&gt;&gt; And just like that, I ordered
+
+686
+00:20:58,526 --> 0:21:00,616
+soup with Shortcuts and Siri.
+
+687
+00:20:58,526 --> 0:21:00,616
+soup with Shortcuts and Siri.
+
+688
+00:21:01,516 --> 0:21:06,996
+[ Applause ]
+
+689
+00:21:07,496 --> 0:21:08,816
+Now, let's try writing the same
+
+690
+00:21:08,816 --> 0:21:10,176
+shortcut from the Shortcuts app.
+
+691
+00:21:10,666 --> 0:21:11,936
+But before I do that, I would
+
+692
+00:21:11,936 --> 0:21:13,086
+like to customize the shortcut.
+
+693
+00:21:16,216 --> 0:21:17,316
+I'm going to tap on the soup
+
+694
+00:21:17,316 --> 0:21:18,936
+field and select the soup that I
+
+695
+00:21:18,936 --> 0:21:20,176
+usually order from Soup Chef.
+
+696
+00:21:20,896 --> 0:21:24,776
+I'm going to select clam
+
+697
+00:21:24,776 --> 0:21:24,976
+chowder.
+
+698
+00:21:29,996 --> 0:21:31,146
+Now I'm going to tap on the Done
+
+699
+00:21:31,146 --> 0:21:32,156
+button to save the shortcut.
+
+700
+00:21:35,886 --> 0:21:37,076
+Let's try writing the shortcut
+
+701
+00:21:37,076 --> 0:21:38,596
+from the Shortcuts app by simply
+
+702
+00:21:38,596 --> 0:21:41,826
+tapping on it.
+
+703
+00:21:41,986 --> 0:21:43,256
+So here I get presented with the
+
+704
+00:21:43,256 --> 0:21:45,056
+same disambiguation prompt to
+
+705
+00:21:45,056 --> 0:21:46,386
+choose a store, just like in
+
+706
+00:21:46,386 --> 0:21:46,716
+Siri.
+
+707
+00:21:47,046 --> 0:21:48,386
+I'm going to select the first
+
+708
+00:21:48,386 --> 0:21:48,676
+option.
+
+709
+00:21:52,446 --> 0:21:53,796
+And done. I just ordered another
+
+710
+00:21:53,796 --> 0:21:54,046
+soup.
+
+711
+00:21:54,326 --> 0:21:56,566
+I guess I'm really hungry today.
+
+712
+00:22:02,746 --> 0:22:04,236
+Now, let's talk about a few ways
+
+713
+00:22:04,296 --> 0:22:06,006
+to take our shortcuts even
+
+714
+00:22:06,006 --> 0:22:06,566
+further.
+
+715
+00:22:08,286 --> 0:22:09,576
+Wouldn't it be great if I never
+
+716
+00:22:09,576 --> 0:22:10,656
+have to leave my home to have
+
+717
+00:22:10,656 --> 0:22:11,166
+some soup?
+
+718
+00:22:12,796 --> 0:22:14,166
+Yes. And that's why I'm adding
+
+719
+00:22:14,166 --> 0:22:15,056
+something new in soup shop
+
+720
+00:22:15,056 --> 0:22:15,776
+delivery.
+
+721
+00:22:16,426 --> 0:22:19,356
+In the shortcut editor, I want
+
+722
+00:22:19,356 --> 0:22:20,626
+the user to be able to choose
+
+723
+00:22:20,756 --> 0:22:22,136
+between delivery and pickup
+
+724
+00:22:22,136 --> 0:22:22,646
+options.
+
+725
+00:22:23,266 --> 0:22:26,026
+If they choose delivery, let's
+
+726
+00:22:26,026 --> 0:22:27,126
+just show them a field that lets
+
+727
+00:22:27,126 --> 0:22:28,976
+them decide where it should be
+
+728
+00:22:28,976 --> 0:22:29,566
+delivered to.
+
+729
+00:22:30,016 --> 0:22:31,276
+For example, to their current
+
+730
+00:22:31,276 --> 0:22:31,686
+location.
+
+731
+00:22:36,476 --> 0:22:37,966
+If they choose pickup, we should
+
+732
+00:22:37,966 --> 0:22:39,196
+show them a field that lets them
+
+733
+00:22:39,196 --> 0:22:40,756
+decide which store to order
+
+734
+00:22:41,456 --> 0:22:41,656
+from.
+
+735
+00:22:42,496 --> 0:22:44,216
+To make that work, we need to
+
+736
+00:22:44,216 --> 0:22:45,566
+express parameter relationships
+
+737
+00:22:45,566 --> 0:22:48,536
+in the Intent editor.
+
+738
+00:22:48,606 --> 0:22:49,926
+So let's start by taking a look
+
+739
+00:22:49,926 --> 0:22:50,836
+at all of the parameters
+
+740
+00:22:50,836 --> 0:22:51,516
+involved in this.
+
+741
+00:22:52,196 --> 0:22:53,416
+We have the orderType parameter
+
+742
+00:22:53,786 --> 0:22:55,056
+which has two possible values;
+
+743
+00:22:55,386 --> 0:22:56,766
+delivery and pickup.
+
+744
+00:22:57,696 --> 0:22:58,706
+We also have parameters for
+
+745
+00:22:58,706 --> 0:23:00,966
+deliverLocation and
+
+746
+00:22:58,706 --> 0:23:00,966
+deliverLocation and
+
+747
+00:23:01,696 --> 0:23:02,206
+storeLocation.
+
+748
+00:23:02,326 --> 0:23:03,296
+Now, let's take a look at the
+
+749
+00:23:03,296 --> 0:23:04,296
+Relationship section.
+
+750
+00:23:05,746 --> 0:23:07,216
+Here for my deliverLocation
+
+751
+00:23:07,216 --> 0:23:08,836
+parameter I'd like to specify
+
+752
+00:23:08,836 --> 0:23:10,166
+the Parent Parameter to be the
+
+753
+00:23:10,166 --> 0:23:11,046
+orderType parameter.
+
+754
+00:23:11,936 --> 0:23:13,226
+I only want to show my
+
+755
+00:23:13,226 --> 0:23:14,586
+deliveryLocation parameter if
+
+756
+00:23:14,586 --> 0:23:15,806
+the parent parameter has the
+
+757
+00:23:15,806 --> 0:23:17,886
+value of delivery.
+
+758
+00:23:17,966 --> 0:23:19,376
+And exactly the same thing for
+
+759
+00:23:19,376 --> 0:23:20,446
+the storeLocation parameter.
+
+760
+00:23:20,786 --> 0:23:22,066
+I only want to show it if the
+
+761
+00:23:22,116 --> 0:23:23,396
+parent orderType parameter has
+
+762
+00:23:23,396 --> 0:23:23,976
+the value of pickup.
+
+763
+00:23:27,696 --> 0:23:29,086
+So now my users are able to
+
+764
+00:23:29,086 --> 0:23:30,566
+easily switch between different
+
+765
+00:23:30,566 --> 0:23:30,956
+order types.
+
+766
+00:23:33,776 --> 0:23:34,496
+Let's see how to do this in
+
+767
+00:23:34,496 --> 0:23:34,976
+Xcode.
+
+768
+00:23:37,296 --> 0:23:38,986
+So I have the Soup Chef project
+
+769
+00:23:38,986 --> 0:23:39,486
+open here.
+
+770
+00:23:40,196 --> 0:23:41,336
+I'm going to select the Intent
+
+771
+00:23:41,336 --> 0:23:42,036
+definition file.
+
+772
+00:23:42,396 --> 0:23:43,596
+This is where I define all my
+
+773
+00:23:43,596 --> 0:23:44,066
+Intents.
+
+774
+00:23:45,566 --> 0:23:47,636
+I already have Intent for order
+
+775
+00:23:47,636 --> 0:23:47,916
+soup.
+
+776
+00:23:48,726 --> 0:23:49,406
+Let's take a look at the
+
+777
+00:23:49,406 --> 0:23:49,966
+parameters.
+
+778
+00:23:50,406 --> 0:23:51,956
+We have soup, quantity,
+
+779
+00:23:52,266 --> 0:23:53,606
+toppings, store location.
+
+780
+00:23:54,426 --> 0:23:55,576
+Now let's scroll down to a new
+
+781
+00:23:55,576 --> 0:23:56,846
+section in Xcode that we have
+
+782
+00:23:56,906 --> 0:23:57,756
+called Shortcuts app.
+
+783
+00:23:59,096 --> 0:24:00,556
+Here you can see the -- all the
+
+784
+00:23:59,096 --> 0:24:00,556
+Here you can see the -- all the
+
+785
+00:24:00,556 --> 0:24:01,806
+Support Parameter combinations
+
+786
+00:24:01,806 --> 0:24:03,246
+by the Shortcuts app and the
+
+787
+00:24:03,246 --> 0:24:04,286
+corresponding summaries.
+
+788
+00:24:04,966 --> 0:24:06,286
+You can also see the preview of
+
+789
+00:24:06,336 --> 0:24:07,256
+what it's going to look like in
+
+790
+00:24:07,256 --> 0:24:07,516
+the app.
+
+791
+00:24:09,116 --> 0:24:10,086
+So currently we have the
+
+792
+00:24:10,086 --> 0:24:12,146
+storeLocation and we have the
+
+793
+00:24:12,146 --> 0:24:13,566
+summary which says, order
+
+794
+00:24:13,566 --> 0:24:15,276
+quantity soup for pickup from
+
+795
+00:24:15,276 --> 0:24:15,996
+storeLocation.
+
+796
+00:24:16,926 --> 0:24:18,666
+I didn't put toppings in my
+
+797
+00:24:18,666 --> 0:24:21,196
+summary so it appears under More
+
+798
+00:24:21,196 --> 0:24:21,646
+Options.
+
+799
+00:24:22,766 --> 0:24:24,746
+Now, let's go up and add a
+
+800
+00:24:24,746 --> 0:24:25,816
+couple more parameters to
+
+801
+00:24:25,816 --> 0:24:26,516
+support delivery.
+
+802
+00:24:27,296 --> 0:24:28,306
+I'm going to click on the plus
+
+803
+00:24:28,306 --> 0:24:30,336
+(+) button and add a new
+
+804
+00:24:30,336 --> 0:24:31,426
+parameter called orderType.
+
+805
+00:24:31,426 --> 0:24:34,086
+I'm going to specify a display
+
+806
+00:24:34,086 --> 0:24:34,936
+name for this parameter.
+
+807
+00:24:43,716 --> 0:24:45,096
+So if I scroll down to the
+
+808
+00:24:45,096 --> 0:24:46,286
+Shortcuts app section you can
+
+809
+00:24:46,286 --> 0:24:47,076
+see that the Order Type
+
+810
+00:24:47,076 --> 0:24:48,266
+parameter now appears under More
+
+811
+00:24:48,266 --> 0:24:49,776
+Options and it was automatically
+
+812
+00:24:49,776 --> 0:24:51,086
+added to the Support Parameter
+
+813
+00:24:51,086 --> 0:24:51,526
+combination.
+
+814
+00:24:52,336 --> 0:24:52,796
+Let's scroll up.
+
+815
+00:24:53,756 --> 0:24:55,176
+Let's specify a new type for the
+
+816
+00:24:55,176 --> 0:24:55,936
+Order Type parameter.
+
+817
+00:24:56,496 --> 0:24:58,136
+I'm going to add a new enum.
+
+818
+00:24:59,316 --> 0:25:00,556
+Let's call this enum Order Type.
+
+819
+00:24:59,316 --> 0:25:00,556
+Let's call this enum Order Type.
+
+820
+00:25:04,046 --> 0:25:05,266
+I will also specify the display
+
+821
+00:25:05,266 --> 0:25:08,746
+name for this type.
+
+822
+00:25:08,956 --> 0:25:10,236
+Now we add to add two cases;
+
+823
+00:25:10,336 --> 0:25:11,276
+delivery and pickup.
+
+824
+00:25:11,776 --> 0:25:12,846
+Let's start with delivery.
+
+825
+00:25:12,956 --> 0:25:14,746
+I'm going to click on a plus (+)
+
+826
+00:25:14,746 --> 0:25:14,996
+button.
+
+827
+00:25:16,166 --> 0:25:16,796
+Type delivery.
+
+828
+00:25:17,566 --> 0:25:20,546
+I will also specify display
+
+829
+00:25:20,546 --> 0:25:20,776
+name.
+
+830
+00:25:21,386 --> 0:25:24,616
+Let's add another case for
+
+831
+00:25:24,686 --> 0:25:24,966
+pickup.
+
+832
+00:25:28,486 --> 0:25:29,376
+Also provide display name.
+
+833
+00:25:30,116 --> 0:25:33,926
+Since my users can refer to
+
+834
+00:25:33,966 --> 0:25:35,386
+pickup as take out when they
+
+835
+00:25:35,386 --> 0:25:37,216
+speak to Siri, we can add this
+
+836
+00:25:37,216 --> 0:25:38,016
+as a speakable match.
+
+837
+00:25:38,506 --> 0:25:39,526
+So I'm going to click on a plus
+
+838
+00:25:39,526 --> 0:25:40,906
+(+) button and add take out.
+
+839
+00:25:44,766 --> 0:25:49,186
+Now let's go back to the Intent.
+
+840
+00:25:49,256 --> 0:25:50,176
+Now we need to add another
+
+841
+00:25:50,216 --> 0:25:51,746
+parameter called Delivery
+
+842
+00:25:51,746 --> 0:25:51,976
+Location.
+
+843
+00:25:56,526 --> 0:25:57,936
+Let's also give it a display
+
+844
+00:25:57,936 --> 0:25:59,526
+name, Delivery Location.
+
+845
+00:26:04,936 --> 0:26:06,776
+So now let's scroll down and see
+
+846
+00:26:07,576 --> 0:26:08,106
+what we have there.
+
+847
+00:26:08,916 --> 0:26:09,766
+We still have the single
+
+848
+00:26:09,766 --> 0:26:10,816
+parameter combination which
+
+849
+00:26:10,926 --> 0:26:12,436
+contains all of the parameters.
+
+850
+00:26:13,656 --> 0:26:14,546
+But it doesn't make sense to
+
+851
+00:26:14,546 --> 0:26:15,876
+have both Store Location and
+
+852
+00:26:15,876 --> 0:26:17,036
+Delivery Location at the same
+
+853
+00:26:17,036 --> 0:26:17,266
+time.
+
+854
+00:26:17,586 --> 0:26:17,966
+Let's fix this.
+
+855
+00:26:21,046 --> 0:26:21,846
+We're going to scroll up to the
+
+856
+00:26:21,846 --> 0:26:22,606
+parameters section.
+
+857
+00:26:23,736 --> 0:26:24,636
+Select the Store Location
+
+858
+00:26:24,636 --> 0:26:26,566
+parameter, expand the
+
+859
+00:26:26,566 --> 0:26:28,376
+Relationship section, and select
+
+860
+00:26:28,376 --> 0:26:29,606
+the parent parameter to be the
+
+861
+00:26:29,606 --> 0:26:29,956
+orderType.
+
+862
+00:26:29,956 --> 0:26:32,506
+I only want to show my Store
+
+863
+00:26:32,506 --> 0:26:34,476
+Location parameter if the parent
+
+864
+00:26:34,476 --> 0:26:35,376
+orderType parameter has the
+
+865
+00:26:35,376 --> 0:26:36,386
+value of pick up.
+
+866
+00:26:37,856 --> 0:26:39,036
+Let's do exactly the same thing
+
+867
+00:26:39,036 --> 0:26:39,986
+for the Delivery Location
+
+868
+00:26:39,986 --> 0:26:40,346
+parameter.
+
+869
+00:26:41,196 --> 0:26:42,226
+Let's select the parent
+
+870
+00:26:42,226 --> 0:26:43,286
+parameter to be the orderType.
+
+871
+00:26:44,396 --> 0:26:45,736
+Show if parent has exact value
+
+872
+00:26:46,256 --> 0:26:46,816
+of delivery.
+
+873
+00:26:48,046 --> 0:26:49,046
+Now, let's go down to the
+
+874
+00:26:49,046 --> 0:26:50,366
+Shortcuts app section and take a
+
+875
+00:26:50,366 --> 0:26:51,036
+look what we have there.
+
+876
+00:26:51,696 --> 0:26:53,196
+Xcode automatically created two
+
+877
+00:26:53,266 --> 0:26:54,516
+more parameter combinations for
+
+878
+00:26:54,516 --> 0:26:54,706
+us.
+
+879
+00:26:55,226 --> 0:26:56,356
+Let's fill out summaries for
+
+880
+00:26:56,356 --> 0:26:58,506
+each of them.
+
+881
+00:26:58,506 --> 0:27:02,566
+So will be the Order quantity,
+
+882
+00:26:58,506 --> 0:27:02,566
+So will be the Order quantity,
+
+883
+00:27:04,126 --> 0:27:08,366
+soup for orderType.
+
+884
+00:27:09,296 --> 0:27:11,086
+Now let's imagine user taps on
+
+885
+00:27:11,086 --> 0:27:12,106
+the orderType field in the
+
+886
+00:27:12,106 --> 0:27:13,546
+Shortcuts app and they select
+
+887
+00:27:13,616 --> 0:27:13,906
+pickup.
+
+888
+00:27:14,406 --> 0:27:15,666
+In this case, they will see the
+
+889
+00:27:15,666 --> 0:27:16,556
+parameter combination that
+
+890
+00:27:16,596 --> 0:27:17,596
+contains storeLocation.
+
+891
+00:27:19,706 --> 0:27:21,066
+So I already have the summary
+
+892
+00:27:21,066 --> 0:27:22,186
+for this parameter combination,
+
+893
+00:27:22,826 --> 0:27:24,186
+but I had a hard coded value for
+
+894
+00:27:24,186 --> 0:27:24,856
+the pickup.
+
+895
+00:27:25,126 --> 0:27:26,326
+Let's change this to be a
+
+896
+00:27:26,376 --> 0:27:27,596
+parameter orderType.
+
+897
+00:27:28,716 --> 0:27:30,496
+And finally, we need to update
+
+898
+00:27:30,496 --> 0:27:31,576
+the last parameter combination,
+
+899
+00:27:32,296 --> 0:27:32,826
+which includes the
+
+900
+00:27:32,826 --> 0:27:34,036
+deliveryLocation parameter.
+
+901
+00:27:34,966 --> 0:27:36,056
+Let's add the summary.
+
+902
+00:27:36,386 --> 0:27:41,216
+Order quantity soup for
+
+903
+00:27:41,666 --> 0:27:46,126
+orderType to deliveryLocation.
+
+904
+00:27:47,366 --> 0:27:48,966
+Let's take a step back and take
+
+905
+00:27:48,966 --> 0:27:49,926
+a look at what we just did.
+
+906
+00:27:50,676 --> 0:27:52,286
+First, we identified parent and
+
+907
+00:27:52,286 --> 0:27:53,596
+child parameters in our Intent.
+
+908
+00:27:54,456 --> 0:27:55,296
+And then, we established
+
+909
+00:27:55,296 --> 0:27:56,796
+parameter relationship between
+
+910
+00:27:56,796 --> 0:27:57,886
+parent and child parameters.
+
+911
+00:27:58,616 --> 0:27:59,846
+And finally, we updated
+
+912
+00:27:59,916 --> 0:28:01,186
+summaries for each parameter
+
+913
+00:27:59,916 --> 0:28:01,186
+summaries for each parameter
+
+914
+00:28:01,186 --> 0:28:02,976
+combination so they look great
+
+915
+00:28:02,976 --> 0:28:03,696
+in the Shortcuts app.
+
+916
+00:28:07,016 --> 0:28:08,256
+Now, let's talk about Dynamic
+
+917
+00:28:08,256 --> 0:28:08,756
+Options.
+
+918
+00:28:10,926 --> 0:28:12,486
+Most parameters such as String
+
+919
+00:28:12,486 --> 0:28:14,116
+or Number have obvious input
+
+920
+00:28:14,116 --> 0:28:15,946
+mechanisms, an input field in
+
+921
+00:28:15,946 --> 0:28:16,576
+the Shortcuts app.
+
+922
+00:28:18,766 --> 0:28:20,226
+We're asking a user to specify
+
+923
+00:28:20,226 --> 0:28:21,236
+some values here.
+
+924
+00:28:25,006 --> 0:28:26,476
+For some parameters you may want
+
+925
+00:28:26,476 --> 0:28:28,176
+to allow the user to pick from a
+
+926
+00:28:28,276 --> 0:28:30,196
+fixed set of values and have
+
+927
+00:28:30,196 --> 0:28:31,426
+those values be dynamically
+
+928
+00:28:31,426 --> 0:28:33,036
+provided by your app when the
+
+929
+00:28:33,036 --> 0:28:34,286
+user is setting up the shortcut.
+
+930
+00:28:35,496 --> 0:28:36,826
+For my Store Location parameter
+
+931
+00:28:37,006 --> 0:28:38,196
+I wanted the user to be able to
+
+932
+00:28:38,196 --> 0:28:39,646
+choose from a list of stores
+
+933
+00:28:39,706 --> 0:28:40,256
+close to them.
+
+934
+00:28:42,756 --> 0:28:44,076
+In order to accomplish that I'm
+
+935
+00:28:44,076 --> 0:28:45,036
+going to check the Dynamic
+
+936
+00:28:45,036 --> 0:28:46,886
+Options checkbox for my Store
+
+937
+00:28:46,886 --> 0:28:47,666
+Location parameter.
+
+938
+00:28:50,226 --> 0:28:51,946
+Once I do that, Xcode will
+
+939
+00:28:52,016 --> 0:28:53,906
+cogenerate two additional
+
+940
+00:28:53,906 --> 0:28:55,106
+intent handling protocol methods.
+
+941
+00:28:56,056 --> 0:28:57,446
+The first one provides store
+
+942
+00:28:57,446 --> 0:28:58,256
+location options.
+
+943
+00:28:58,906 --> 0:29:00,476
+And another one for providing a
+
+944
+00:28:58,906 --> 0:29:00,476
+And another one for providing a
+
+945
+00:29:00,476 --> 0:29:01,446
+default value for this
+
+946
+00:29:01,446 --> 0:29:01,846
+parameter.
+
+947
+00:29:05,566 --> 0:29:06,916
+In your provide options method
+
+948
+00:29:07,226 --> 0:29:08,666
+you need to return the current
+
+949
+00:29:08,666 --> 0:29:10,336
+set of possible values I the
+
+950
+00:29:10,336 --> 0:29:11,146
+completion handler.
+
+951
+00:29:16,496 --> 0:29:17,306
+You will also have the
+
+952
+00:29:17,306 --> 0:29:18,496
+opportunity to provide default
+
+953
+00:29:18,496 --> 0:29:19,916
+values for parameters with
+
+954
+00:29:19,916 --> 0:29:20,956
+Dynamic Options enabled.
+
+955
+00:29:26,346 --> 0:29:27,676
+When your parameter of Dynamic
+
+956
+00:29:27,676 --> 0:29:29,726
+Options is being resolved during
+
+957
+00:29:29,726 --> 0:29:31,986
+the shortcut execution time and
+
+958
+00:29:31,986 --> 0:29:33,596
+your return needs value in the
+
+959
+00:29:33,596 --> 0:29:35,296
+completion handler of your
+
+960
+00:29:35,296 --> 0:29:37,376
+Resolve method, Siri will
+
+961
+00:29:37,376 --> 0:29:38,556
+automatically use the list of
+
+962
+00:29:38,556 --> 0:29:40,526
+options you provided in the form
+
+963
+00:29:40,526 --> 0:29:41,646
+of a disambiguation prompt.
+
+964
+00:29:46,136 --> 0:29:47,596
+Lastly, I want users to be able
+
+965
+00:29:47,596 --> 0:29:48,686
+to make more shortcuts work
+
+966
+00:29:48,686 --> 0:29:49,926
+together with other actions.
+
+967
+00:29:51,796 --> 0:29:53,096
+For example, a user could set up
+
+968
+00:29:53,096 --> 0:29:54,586
+a shortcut that places an order
+
+969
+00:29:54,586 --> 0:29:57,726
+and then sends a message with
+
+970
+00:29:57,726 --> 0:29:58,976
+order details to their friend
+
+971
+00:29:59,076 --> 0:29:59,836
+who usually picks up their
+
+972
+00:29:59,836 --> 0:29:59,976
+order.
+
+973
+00:30:02,806 --> 0:30:04,476
+In Xcode 11 we are introducing
+
+974
+00:30:04,476 --> 0:30:05,706
+the ability to define your own
+
+975
+00:30:05,706 --> 0:30:08,856
+custom tabs that you can use in
+
+976
+00:30:08,856 --> 0:30:09,866
+both Intent and Intent
+
+977
+00:30:09,866 --> 0:30:10,416
+responses.
+
+978
+00:30:10,986 --> 0:30:12,146
+So I'm going to define a new
+
+979
+00:30:12,146 --> 0:30:13,626
+custom type called Order
+
+980
+00:30:13,626 --> 0:30:15,906
+Details, which contains proper
+
+981
+00:30:15,906 --> 0:30:17,236
+sets of information that I want
+
+982
+00:30:17,236 --> 0:30:18,436
+to pass on to another action.
+
+983
+00:30:19,776 --> 0:30:20,996
+In this example I'm going to
+
+984
+00:30:20,996 --> 0:30:22,746
+define two properties; Order
+
+985
+00:30:22,746 --> 0:30:23,976
+Estimated Time and Total.
+
+986
+00:30:26,476 --> 0:30:27,876
+As you might know an in turn
+
+987
+00:30:27,876 --> 0:30:29,406
+response is a logical result of
+
+988
+00:30:29,406 --> 0:30:30,456
+an execution of an attempt.
+
+989
+00:30:31,306 --> 0:30:32,376
+It contains properties that
+
+990
+00:30:32,416 --> 0:30:33,646
+convey the result to the user.
+
+991
+00:30:35,096 --> 0:30:36,476
+To add an output, I need to
+
+992
+00:30:36,476 --> 0:30:37,986
+define a new property of my
+
+993
+00:30:38,066 --> 0:30:38,976
+custom orderDetails type.
+
+994
+00:30:42,046 --> 0:30:43,976
+And then, I need to designate
+
+995
+00:30:43,976 --> 0:30:45,176
+this property as the output.
+
+996
+00:30:50,106 --> 0:30:51,536
+When the user taps on the Order
+
+997
+00:30:51,536 --> 0:30:53,296
+Details variable in the shortcut
+
+998
+00:30:53,296 --> 0:30:55,216
+editor, they will get presented
+
+999
+00:30:55,266 --> 0:30:56,776
+with an option to choose one of
+
+1000
+00:30:56,776 --> 0:30:58,056
+the properties that I just
+
+1001
+00:30:58,056 --> 0:30:58,936
+defined in my custom type.
+
+1002
+00:31:03,226 --> 0:31:04,366
+It can also use custom members
+
+1003
+00:31:04,366 --> 0:31:06,056
+of your custom types in response
+
+1004
+00:31:06,396 --> 0:31:07,296
+templates for Siri.
+
+1005
+00:31:07,776 --> 0:31:09,056
+So the same data that is passed
+
+1006
+00:31:09,056 --> 0:31:10,856
+as the output can be spoken
+
+1007
+00:31:10,856 --> 0:31:11,416
+aloud.
+
+1008
+00:31:14,896 --> 0:31:15,906
+Today you learned how you can
+
+1009
+00:31:15,906 --> 0:31:17,186
+allow users to customize your
+
+1010
+00:31:17,186 --> 0:31:18,666
+shortcuts in the new built-in
+
+1011
+00:31:18,666 --> 0:31:19,726
+Shortcuts app.
+
+1012
+00:31:19,726 --> 0:31:20,836
+You also learned how you can
+
+1013
+00:31:20,836 --> 0:31:22,146
+provide conversational shortcuts
+
+1014
+00:31:22,146 --> 0:31:22,536
+in Siri.
+
+1015
+00:31:23,616 --> 0:31:24,806
+Choose the right parameters for
+
+1016
+00:31:24,806 --> 0:31:26,506
+each Intent so your app can
+
+1017
+00:31:26,556 --> 0:31:27,716
+correctly respond to the user
+
+1018
+00:31:27,876 --> 0:31:28,736
+each step of the way.
+
+1019
+00:31:29,966 --> 0:31:31,346
+You can extend the power of your
+
+1020
+00:31:31,346 --> 0:31:33,306
+shortcuts with other apps using
+
+1021
+00:31:33,306 --> 0:31:36,576
+Outputs in the Shortcuts app.
+
+1022
+00:31:36,936 --> 0:31:37,846
+We have another session on
+
+1023
+00:31:37,846 --> 0:31:39,026
+Friday where my colleagues will
+
+1024
+00:31:39,026 --> 0:31:40,476
+talk about design and building
+
+1025
+00:31:40,476 --> 0:31:41,256
+great shortcuts.
+
+1026
+00:31:41,816 --> 0:31:43,096
+You can also find us in the labs
+
+1027
+00:31:43,206 --> 0:31:43,736
+throughout the week.
+
+1028
+00:31:44,756 --> 0:31:46,226
+Thank you so much for coming and
+
+1029
+00:31:46,226 --> 0:31:46,916
+enjoy the rest of your
+
+1030
+00:31:46,916 --> 0:31:47,416
+conference.
+
+1031
+00:31:48,516 --> 0:31:58,500
+[ Applause ]

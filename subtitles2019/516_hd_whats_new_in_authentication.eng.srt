@@ -1,0 +1,2223 @@
+1
+00:00:00,506 --> 0:00:05,500
+[ Music ]
+
+2
+00:00:09,516 --> 0:00:13,500
+[ Applause ]
+
+3
+00:00:15,666 --> 0:00:16,796
+&gt;&gt; Hello, everyone.
+
+4
+00:00:17,466 --> 0:00:20,176
+My name is Ricky Mondello, and I
+
+5
+00:00:20,246 --> 0:00:22,016
+am so excited to be here to
+
+6
+00:00:22,016 --> 0:00:24,126
+today to tell you about What's
+
+7
+00:00:24,126 --> 0:00:25,926
+New in Authentication on Apple
+
+8
+00:00:25,926 --> 0:00:28,626
+platforms, including some very
+
+9
+00:00:28,626 --> 0:00:30,856
+exciting and new APIs in the
+
+10
+00:00:30,856 --> 0:00:32,156
+Authentication Services
+
+11
+00:00:32,156 --> 0:00:32,606
+framework.
+
+12
+00:00:33,596 --> 0:00:36,136
+My goal is to help you get your
+
+13
+00:00:36,136 --> 0:00:38,526
+users signed into your apps as
+
+14
+00:00:38,526 --> 0:00:40,706
+quickly and securely as
+
+15
+00:00:40,706 --> 0:00:41,196
+possible.
+
+16
+00:00:44,736 --> 0:00:47,086
+We're going to talk about five
+
+17
+00:00:47,126 --> 0:00:50,426
+topics today starting with Sign
+
+18
+00:00:50,426 --> 0:00:52,000
+In with Apple.
+
+19
+00:00:54,606 --> 0:00:56,736
+Sign In with Apple is an easy
+
+20
+00:00:56,736 --> 0:00:59,146
+and secure way for users to sign
+
+21
+00:00:59,146 --> 0:00:59,936
+into your apps.
+
+22
+00:01:00,936 --> 0:01:03,926
+Signing in is as quick as a few
+
+23
+00:01:03,926 --> 0:01:10,616
+taps and a face ID check.
+
+24
+00:01:10,836 --> 0:01:12,736
+Sign In with Apple is a private
+
+25
+00:01:12,736 --> 0:01:14,626
+alternative to other single
+
+26
+00:01:14,626 --> 0:01:16,466
+sign-on providers that you might
+
+27
+00:01:16,466 --> 0:01:16,986
+be aware of.
+
+28
+00:01:18,326 --> 0:01:19,746
+And you probably already get the
+
+29
+00:01:19,746 --> 0:01:21,266
+gist of what this capability is
+
+30
+00:01:21,266 --> 0:01:21,776
+about.
+
+31
+00:01:22,276 --> 0:01:23,716
+But what I want to do is
+
+32
+00:01:23,716 --> 0:01:25,616
+emphasize a few key points
+
+33
+00:01:25,616 --> 0:01:27,656
+related to how Authentication
+
+34
+00:01:27,656 --> 0:01:29,136
+works already in your apps.
+
+35
+00:01:30,366 --> 0:01:32,396
+And the first is that for your
+
+36
+00:01:32,396 --> 0:01:35,196
+users, Sign In with Apple is
+
+37
+00:01:35,196 --> 0:01:36,776
+easier to use than passwords.
+
+38
+00:01:37,986 --> 0:01:40,356
+People generally don't love
+
+39
+00:01:40,606 --> 0:01:41,626
+managing passwords.
+
+40
+00:01:42,516 --> 0:01:44,166
+And when users don't have a
+
+41
+00:01:44,166 --> 0:01:46,386
+password, that password can't be
+
+42
+00:01:46,386 --> 0:01:48,286
+a bad password, and it can't get
+
+43
+00:01:48,286 --> 0:01:50,136
+phished, which is good for your
+
+44
+00:01:50,136 --> 0:01:52,136
+users, but it's also good for
+
+45
+00:01:52,136 --> 0:01:52,446
+you.
+
+46
+00:01:53,786 --> 0:01:56,306
+And for you specifically, these
+
+47
+00:01:56,306 --> 0:01:58,526
+accounts are great accounts.
+
+48
+00:01:59,276 --> 0:02:00,776
+Every single one of the accounts
+
+49
+00:01:59,276 --> 0:02:00,776
+Every single one of the accounts
+
+50
+00:02:00,776 --> 0:02:01,926
+that can be used with Sign In
+
+51
+00:02:01,926 --> 0:02:04,616
+with Apple has strong two-factor
+
+52
+00:02:04,616 --> 0:02:06,466
+authentication that's already
+
+53
+00:02:06,466 --> 0:02:08,126
+used to protect their Apple ID.
+
+54
+00:02:09,006 --> 0:02:10,696
+This two-factor authentication
+
+55
+00:02:10,925 --> 0:02:12,286
+involves the user's circle of
+
+56
+00:02:12,286 --> 0:02:14,186
+trusted devices and strong
+
+57
+00:02:14,186 --> 0:02:14,946
+biometrics.
+
+58
+00:02:16,026 --> 0:02:17,796
+Having a user start off with
+
+59
+00:02:17,796 --> 0:02:19,706
+this much security is a lot
+
+60
+00:02:19,706 --> 0:02:21,266
+easier than trying to bolt it on
+
+61
+00:02:21,266 --> 0:02:22,496
+after the fact to a
+
+62
+00:02:22,496 --> 0:02:23,516
+password-based account.
+
+63
+00:02:24,026 --> 0:02:26,336
+And to help you with fraud,
+
+64
+00:02:26,666 --> 0:02:28,126
+there's information included in
+
+65
+00:02:28,126 --> 0:02:31,596
+the API about how Apple is
+
+66
+00:02:31,596 --> 0:02:32,836
+confident about the account
+
+67
+00:02:32,836 --> 0:02:34,416
+being from a real user, which
+
+68
+00:02:34,416 --> 0:02:34,986
+you're going to really
+
+69
+00:02:34,986 --> 0:02:36,106
+appreciate.
+
+70
+00:02:36,726 --> 0:02:38,286
+And the third point that I want
+
+71
+00:02:38,286 --> 0:02:39,696
+to emphasize about Sign In with
+
+72
+00:02:39,696 --> 0:02:42,636
+Apple is that it is across
+
+73
+00:02:42,836 --> 0:02:45,976
+platform experience, across all
+
+74
+00:02:45,976 --> 0:02:47,126
+of the user's devices.
+
+75
+00:02:47,476 --> 0:02:48,456
+If they're signed into their
+
+76
+00:02:48,456 --> 0:02:50,966
+Apple ID, signing into your app
+
+77
+00:02:51,206 --> 0:02:53,466
+is as easy as a quick face ID or
+
+78
+00:02:53,466 --> 0:02:54,266
+touch ID check.
+
+79
+00:02:54,746 --> 0:02:56,996
+And thanks to the web and web
+
+80
+00:02:56,996 --> 0:02:59,036
+technologies, Sign In with Apple
+
+81
+00:02:59,036 --> 0:02:59,926
+is available elsewhere.
+
+82
+00:03:01,956 --> 0:03:03,016
+And don't worry.
+
+83
+00:03:03,756 --> 0:03:05,246
+We're going to help your users
+
+84
+00:03:05,246 --> 0:03:07,776
+not create a second account for
+
+85
+00:03:07,776 --> 0:03:09,646
+your app if the user already has
+
+86
+00:03:09,646 --> 0:03:10,516
+one that works for them.
+
+87
+00:03:11,736 --> 0:03:13,636
+On app launch, your app can
+
+88
+00:03:13,636 --> 0:03:15,316
+check for an existing
+
+89
+00:03:15,316 --> 0:03:17,036
+password-based account saved to
+
+90
+00:03:17,036 --> 0:03:19,396
+the iCloud Keychain even before
+
+91
+00:03:19,396 --> 0:03:20,656
+you show your standard login
+
+92
+00:03:20,656 --> 0:03:22,636
+interface so that users do the
+
+93
+00:03:22,636 --> 0:03:24,000
+right thing.
+
+94
+00:03:26,296 --> 0:03:28,136
+If you have a service with user
+
+95
+00:03:28,136 --> 0:03:30,576
+accounts, you and your users can
+
+96
+00:03:30,576 --> 0:03:32,086
+benefit from Sign In with Apple.
+
+97
+00:03:33,266 --> 0:03:34,196
+To learn more about it,
+
+98
+00:03:34,616 --> 0:03:36,276
+including how to adopt it on the
+
+99
+00:03:36,276 --> 0:03:39,216
+web, watchOS, tvOS, the Mac,
+
+100
+00:03:40,326 --> 0:03:43,826
+iPadOS, and iOS, check out
+
+101
+00:03:43,956 --> 0:03:46,266
+Introducing Sign In with Apple
+
+102
+00:03:46,556 --> 0:03:47,846
+in the WWDC app.
+
+103
+00:03:52,156 --> 0:03:55,006
+And that's Sign In with Apple, a
+
+104
+00:03:55,006 --> 0:03:56,646
+convenient and private
+
+105
+00:03:56,646 --> 0:03:58,876
+alternative to password-based
+
+106
+00:03:58,876 --> 0:03:59,556
+authentication.
+
+107
+00:04:00,836 --> 0:04:01,576
+And password-based
+
+108
+00:04:01,576 --> 0:04:03,516
+authentication is actually my
+
+109
+00:04:03,516 --> 0:04:06,116
+next topic because even in a
+
+110
+00:04:06,116 --> 0:04:08,386
+world with a great, private
+
+111
+00:04:08,386 --> 0:04:10,816
+single sign-on option, passwords
+
+112
+00:04:10,816 --> 0:04:11,856
+are still going to be a part of
+
+113
+00:04:11,856 --> 0:04:12,196
+our lives.
+
+114
+00:04:13,296 --> 0:04:15,256
+And that's why iPhone has
+
+115
+00:04:15,346 --> 0:04:17,926
+Password AutoFill, which makes
+
+116
+00:04:17,926 --> 0:04:19,946
+it quick and easy for users to
+
+117
+00:04:19,946 --> 0:04:22,406
+sign in to your apps on the
+
+118
+00:04:22,406 --> 0:04:23,916
+existing login screens that you
+
+119
+00:04:23,916 --> 0:04:24,486
+already have.
+
+120
+00:04:25,946 --> 0:04:28,166
+Today, I am very excited to tell
+
+121
+00:04:28,166 --> 0:04:29,976
+you that Password AutoFill is
+
+122
+00:04:29,976 --> 0:04:32,106
+available for iPad apps for Mac
+
+123
+00:04:32,506 --> 0:04:33,926
+with an interface that is
+
+124
+00:04:33,926 --> 0:04:36,076
+specifically tailored to the
+
+125
+00:04:37,366 --> 0:04:37,476
+Mac.
+
+126
+00:04:37,686 --> 0:04:39,346
+Thanks. For users to get this
+
+127
+00:04:39,346 --> 0:04:40,706
+deluxe experience that you see
+
+128
+00:04:40,706 --> 0:04:42,496
+right here, where the exact
+
+129
+00:04:42,496 --> 0:04:43,886
+right credential that the user
+
+130
+00:04:43,886 --> 0:04:45,116
+wants to sign in with is in the
+
+131
+00:04:45,116 --> 0:04:47,146
+list, there's just one thing
+
+132
+00:04:47,386 --> 0:04:48,956
+that you have to do.
+
+133
+00:04:49,196 --> 0:04:50,286
+Once you've brought your app to
+
+134
+00:04:50,286 --> 0:04:52,166
+the Mac, it'll have a new app
+
+135
+00:04:52,166 --> 0:04:54,606
+ID, and that app ID has to be
+
+136
+00:04:54,606 --> 0:04:56,416
+listed on your server in order
+
+137
+00:04:56,416 --> 0:04:58,236
+to tie your app and your website
+
+138
+00:04:58,236 --> 0:04:59,216
+together.
+
+139
+00:05:00,936 --> 0:05:02,736
+If you're using webcredentials
+
+140
+00:05:02,736 --> 0:05:04,716
+to do this, your Apple app site
+
+141
+00:05:04,716 --> 0:05:06,556
+association file might look
+
+142
+00:05:06,556 --> 0:05:07,346
+something like this.
+
+143
+00:05:08,396 --> 0:05:10,016
+And all you're going to do is
+
+144
+00:05:10,016 --> 0:05:11,826
+add the app ID to this app's
+
+145
+00:05:11,826 --> 0:05:12,036
+array.
+
+146
+00:05:12,946 --> 0:05:13,576
+Super easy.
+
+147
+00:05:16,596 --> 0:05:18,346
+But if you're using universal
+
+148
+00:05:18,346 --> 0:05:21,066
+links, you'll add the new app ID
+
+149
+00:05:21,066 --> 0:05:24,526
+here as part of the new app ID's
+
+150
+00:05:24,526 --> 0:05:26,126
+key that can take a list.
+
+151
+00:05:27,106 --> 0:05:30,066
+This key is new to iOS 13 and
+
+152
+00:05:30,066 --> 0:05:31,116
+macOS Catalina.
+
+153
+00:05:32,756 --> 0:05:35,086
+To maintain compatibility with
+
+154
+00:05:35,086 --> 0:05:37,926
+iOS versions before 13, you'll
+
+155
+00:05:37,926 --> 0:05:40,086
+want to keep this apps key with
+
+156
+00:05:40,086 --> 0:05:42,896
+the value of an array and the
+
+157
+00:05:42,896 --> 0:05:44,636
+app ID key that lists your
+
+158
+00:05:44,636 --> 0:05:45,886
+existing iOS app.
+
+159
+00:05:46,836 --> 0:05:48,326
+You really want to do this in
+
+160
+00:05:48,326 --> 0:05:50,066
+order to ensure that universal
+
+161
+00:05:50,066 --> 0:05:51,356
+links keep working for your
+
+162
+00:05:51,356 --> 0:05:53,276
+users who are running iOS 12.
+
+163
+00:05:54,576 --> 0:05:56,306
+There are a bunch of new
+
+164
+00:05:56,306 --> 0:05:57,756
+features and universal links
+
+165
+00:05:57,756 --> 0:05:59,796
+this year, including more
+
+166
+00:05:59,796 --> 0:06:01,276
+powerful URL matching.
+
+167
+00:05:59,796 --> 0:06:01,276
+powerful URL matching.
+
+168
+00:06:01,676 --> 0:06:03,776
+And to learn more about those, I
+
+169
+00:06:03,776 --> 0:06:05,036
+encourage you to check out the
+
+170
+00:06:05,036 --> 0:06:06,856
+What's New in Universal Links
+
+171
+00:06:06,856 --> 0:06:09,946
+video in the WWDC app.
+
+172
+00:06:14,636 --> 0:06:18,416
+Whether on the Mac, iPad, Apple
+
+173
+00:06:18,416 --> 0:06:21,476
+TV, or iPhone, Password AutoFill
+
+174
+00:06:21,666 --> 0:06:23,296
+makes it easy for users to get
+
+175
+00:06:23,296 --> 0:06:24,946
+signed in to apps on your
+
+176
+00:06:24,946 --> 0:06:26,116
+existing login screens.
+
+177
+00:06:27,286 --> 0:06:30,176
+But let's take a closer look at
+
+178
+00:06:30,176 --> 0:06:31,346
+this screen right here.
+
+179
+00:06:32,246 --> 0:06:33,516
+The user's current task of
+
+180
+00:06:33,516 --> 0:06:34,656
+getting signed into your app?
+
+181
+00:06:35,336 --> 0:06:36,896
+The answer to the problem is
+
+182
+00:06:36,896 --> 0:06:37,096
+here.
+
+183
+00:06:37,746 --> 0:06:38,576
+It's a small part of the
+
+184
+00:06:38,576 --> 0:06:39,026
+keyboard.
+
+185
+00:06:39,026 --> 0:06:42,076
+And this is great, because
+
+186
+00:06:42,076 --> 0:06:43,896
+AutoFill is accommodating the
+
+187
+00:06:43,896 --> 0:06:45,996
+username and password field
+
+188
+00:06:45,996 --> 0:06:47,876
+combination pattern that we've
+
+189
+00:06:47,876 --> 0:06:50,036
+seen for even before when iPhone
+
+190
+00:06:50,246 --> 0:06:50,736
+existed.
+
+191
+00:06:52,046 --> 0:06:53,796
+But your app can have an even
+
+192
+00:06:53,796 --> 0:06:55,786
+more streamlined and intentional
+
+193
+00:06:55,786 --> 0:06:58,526
+experience, and with iOS 13,
+
+194
+00:06:58,996 --> 0:07:00,646
+it's easier to do this than ever
+
+195
+00:06:58,996 --> 0:07:00,646
+it's easier to do this than ever
+
+196
+00:07:00,646 --> 0:07:01,106
+before.
+
+197
+00:07:02,156 --> 0:07:03,956
+The same sign-in experience I
+
+198
+00:07:03,956 --> 0:07:05,476
+showed you earlier in the
+
+199
+00:07:05,476 --> 0:07:06,976
+context of Sign In with Apple,
+
+200
+00:07:07,646 --> 0:07:09,226
+is available to all apps that
+
+201
+00:07:09,226 --> 0:07:10,186
+use passwords.
+
+202
+00:07:10,596 --> 0:07:11,886
+And it's available through the
+
+203
+00:07:11,886 --> 0:07:13,086
+authentication services
+
+204
+00:07:13,086 --> 0:07:13,526
+framework.
+
+205
+00:07:14,776 --> 0:07:16,916
+The same API and functionality
+
+206
+00:07:17,466 --> 0:07:19,526
+is also available on macOS
+
+207
+00:07:19,526 --> 0:07:20,016
+Catalina.
+
+208
+00:07:23,516 --> 0:07:29,176
+[ Applause ]
+
+209
+00:07:29,676 --> 0:07:31,306
+Let's talk about how to add this
+
+210
+00:07:31,306 --> 0:07:33,286
+functionality to your apps.
+
+211
+00:07:34,336 --> 0:07:36,376
+The first step is to write some
+
+212
+00:07:36,376 --> 0:07:37,586
+code using the
+
+213
+00:07:37,586 --> 0:07:38,756
+AuthenticationServices
+
+214
+00:07:38,756 --> 0:07:39,156
+framework.
+
+215
+00:07:39,606 --> 0:07:41,786
+You'll create an
+
+216
+00:07:41,786 --> 0:07:44,296
+AuthorizationController using a
+
+217
+00:07:44,296 --> 0:07:45,406
+password request.
+
+218
+00:07:46,416 --> 0:07:48,006
+The AuthorizationController is
+
+219
+00:07:48,006 --> 0:07:49,486
+the same object that you'll use
+
+220
+00:07:49,486 --> 0:07:50,526
+for Sign In with Apple.
+
+221
+00:07:51,016 --> 0:07:52,466
+But here we're just using a
+
+222
+00:07:52,466 --> 0:07:54,186
+different kind of request.
+
+223
+00:07:55,456 --> 0:07:58,286
+Then you'll set up a delegate as
+
+224
+00:07:58,286 --> 0:07:59,886
+well as an object that will help
+
+225
+00:07:59,886 --> 0:08:01,366
+coordinate presentation of the
+
+226
+00:07:59,886 --> 0:08:01,366
+coordinate presentation of the
+
+227
+00:08:01,366 --> 0:08:01,976
+interface.
+
+228
+00:08:02,526 --> 0:08:04,796
+And then it'll tell the
+
+229
+00:08:04,796 --> 0:08:05,896
+controller to perform the
+
+230
+00:08:06,576 --> 0:08:06,826
+request.
+
+231
+00:08:08,296 --> 0:08:10,166
+When the user has selected the
+
+232
+00:08:10,166 --> 0:08:11,516
+account that they want to use,
+
+233
+00:08:12,586 --> 0:08:15,026
+the API will call the delegate,
+
+234
+00:08:15,476 --> 0:08:16,986
+and you can take it from there
+
+235
+00:08:16,986 --> 0:08:18,536
+to complete the sign-in.
+
+236
+00:08:19,576 --> 0:08:21,716
+If didCompleteWithError is
+
+237
+00:08:21,716 --> 0:08:23,626
+immediately called for you, it
+
+238
+00:08:23,626 --> 0:08:24,846
+might mean that your user
+
+239
+00:08:24,846 --> 0:08:26,406
+doesn't have any passwords saved
+
+240
+00:08:26,406 --> 0:08:28,016
+in their iCloud Keychain for
+
+241
+00:08:28,016 --> 0:08:28,926
+your app and website.
+
+242
+00:08:28,926 --> 0:08:31,256
+And then you should just
+
+243
+00:08:31,256 --> 0:08:32,446
+fallback to showing your normal
+
+244
+00:08:32,446 --> 0:08:33,166
+sign-in screen.
+
+245
+00:08:33,356 --> 0:08:34,395
+The user can take it from there.
+
+246
+00:08:35,846 --> 0:08:37,106
+But if you're sure that you have
+
+247
+00:08:37,106 --> 0:08:38,976
+credentials on a test device and
+
+248
+00:08:38,976 --> 0:08:40,366
+you're seeing the error handler
+
+249
+00:08:40,366 --> 0:08:42,196
+get called, you're going to want
+
+250
+00:08:42,196 --> 0:08:43,275
+to back to checking your
+
+251
+00:08:43,275 --> 0:08:44,326
+associated domains.
+
+252
+00:08:45,506 --> 0:08:46,746
+If you've never tied your app
+
+253
+00:08:46,746 --> 0:08:48,056
+and website together before
+
+254
+00:08:48,056 --> 0:08:49,366
+through associated domains,
+
+255
+00:08:50,056 --> 0:08:51,816
+Introducing Password AutoFill
+
+256
+00:08:51,816 --> 0:08:53,996
+for Apps has a step-by-step
+
+257
+00:08:53,996 --> 0:08:55,016
+tutorial that'll take you
+
+258
+00:08:55,016 --> 0:08:55,336
+through it.
+
+259
+00:08:55,336 --> 0:08:56,316
+It's pretty easy.
+
+260
+00:08:57,506 --> 0:08:59,386
+And for universal links, once
+
+261
+00:08:59,386 --> 0:09:00,656
+again, you're going to want to
+
+262
+00:08:59,386 --> 0:09:00,656
+again, you're going to want to
+
+263
+00:09:00,656 --> 0:09:02,466
+check out the Universal Links
+
+264
+00:09:02,466 --> 0:09:05,326
+video that's in the WWDC app.
+
+265
+00:09:07,776 --> 0:09:10,276
+Something about this API that is
+
+266
+00:09:10,276 --> 0:09:12,586
+really awesome is that you can
+
+267
+00:09:12,586 --> 0:09:14,076
+request multiple types of
+
+268
+00:09:14,076 --> 0:09:16,036
+accounts at the same time using
+
+269
+00:09:16,036 --> 0:09:17,256
+the AuthorizationController.
+
+270
+00:09:18,346 --> 0:09:20,206
+And this is super handy if you
+
+271
+00:09:20,206 --> 0:09:22,036
+want to check for both a
+
+272
+00:09:22,036 --> 0:09:24,176
+password-based account and Sign
+
+273
+00:09:24,176 --> 0:09:26,076
+In with Apple right around app
+
+274
+00:09:26,076 --> 0:09:26,396
+launch.
+
+275
+00:09:27,636 --> 0:09:29,336
+If you do this, you're going to
+
+276
+00:09:29,336 --> 0:09:30,196
+want to make sure that you
+
+277
+00:09:30,196 --> 0:09:32,166
+handle both types of credentials
+
+278
+00:09:32,796 --> 0:09:34,356
+in the CompleteWithAuthorization
+
+279
+00:09:34,356 --> 0:09:35,646
+delegate method.
+
+280
+00:09:37,506 --> 0:09:39,636
+And that's how easy it is to use
+
+281
+00:09:39,636 --> 0:09:41,586
+the new Authentication services
+
+282
+00:09:41,586 --> 0:09:44,286
+APIs to make the process of
+
+283
+00:09:44,286 --> 0:09:45,666
+getting signed into your apps
+
+284
+00:09:46,066 --> 0:09:47,516
+even more streamlined than
+
+285
+00:09:47,516 --> 0:09:48,846
+password AutoFill was able to.
+
+286
+00:09:54,336 --> 0:09:56,686
+As long as we have passwords,
+
+287
+00:09:57,956 --> 0:09:59,156
+there needs to be a healthy way
+
+288
+00:09:59,156 --> 0:10:01,806
+to use them, a safe way to use
+
+289
+00:09:59,156 --> 0:10:01,806
+to use them, a safe way to use
+
+290
+00:10:01,806 --> 0:10:01,976
+them.
+
+291
+00:10:02,906 --> 0:10:04,726
+And that's why iPhone has
+
+292
+00:10:04,886 --> 0:10:06,746
+Automatic Strong Passwords,
+
+293
+00:10:07,406 --> 0:10:09,466
+which encourages users to use a
+
+294
+00:10:09,466 --> 0:10:11,806
+strong, unique password for
+
+295
+00:10:11,806 --> 0:10:12,816
+every single one of their
+
+296
+00:10:12,816 --> 0:10:15,056
+accounts, which greatly improves
+
+297
+00:10:15,056 --> 0:10:17,436
+their security while also being
+
+298
+00:10:17,436 --> 0:10:18,746
+easier to do than making the
+
+299
+00:10:18,746 --> 0:10:20,316
+mistake of trying to create a
+
+300
+00:10:20,316 --> 0:10:21,206
+password by hand.
+
+301
+00:10:22,466 --> 0:10:23,746
+But what if one of your users
+
+302
+00:10:23,856 --> 0:10:25,206
+already has a password that's
+
+303
+00:10:25,206 --> 0:10:25,716
+kind of weak?
+
+304
+00:10:26,786 --> 0:10:30,096
+Now, in Safari 13 and iOS 13,
+
+305
+00:10:30,796 --> 0:10:32,796
+when a user signs into a website
+
+306
+00:10:33,136 --> 0:10:34,536
+and Safari notices that the
+
+307
+00:10:34,536 --> 0:10:35,966
+password they just used was
+
+308
+00:10:35,966 --> 0:10:38,536
+weak, Safari will prompt the
+
+309
+00:10:38,536 --> 0:10:40,706
+user to go and visit the website
+
+310
+00:10:40,766 --> 0:10:41,806
+to change the password.
+
+311
+00:10:42,546 --> 0:10:43,726
+And this is at the moment of
+
+312
+00:10:43,726 --> 0:10:45,246
+sign-in where the user might be
+
+313
+00:10:45,246 --> 0:10:46,696
+thinking about what the account
+
+314
+00:10:46,696 --> 0:10:47,266
+means to them.
+
+315
+00:10:47,836 --> 0:10:50,346
+If the user accepts Safari's
+
+316
+00:10:50,346 --> 0:10:51,826
+offer, they'll be taken over to
+
+317
+00:10:51,826 --> 0:10:54,266
+Settings where they can change
+
+318
+00:10:54,266 --> 0:10:54,886
+their password.
+
+319
+00:10:55,366 --> 0:10:56,546
+And with Automatic Strong
+
+320
+00:10:56,546 --> 0:10:58,806
+Passwords, it's just a few taps
+
+321
+00:10:58,806 --> 0:11:01,846
+to get upgraded.
+
+322
+00:10:58,806 --> 0:11:01,846
+to get upgraded.
+
+323
+00:11:02,516 --> 0:11:06,596
+[ Applause ]
+
+324
+00:11:07,096 --> 0:11:08,266
+And, of course, this feature is
+
+325
+00:11:08,266 --> 0:11:10,366
+on the Mac as well with Safari
+
+326
+00:11:10,846 --> 0:11:11,000
+13.
+
+327
+00:11:15,046 --> 0:11:18,066
+This flow is at its best when
+
+328
+00:11:18,066 --> 0:11:20,136
+your user is taken directly to
+
+329
+00:11:20,136 --> 0:11:22,166
+your website's Change Password
+
+330
+00:11:22,166 --> 0:11:24,186
+page rather than to the homepage
+
+331
+00:11:24,186 --> 0:11:24,596
+of the site.
+
+332
+00:11:25,806 --> 0:11:27,296
+And what's really cool is that
+
+333
+00:11:27,296 --> 0:11:28,566
+this is completely in your
+
+334
+00:11:28,566 --> 0:11:30,216
+control and super easy to
+
+335
+00:11:30,216 --> 0:11:30,656
+implement.
+
+336
+00:11:31,416 --> 0:11:33,826
+Websites like Twitter, GitHub,
+
+337
+00:11:33,826 --> 0:11:35,556
+and WordPress.com have already
+
+338
+00:11:35,556 --> 0:11:37,396
+adopted it.
+
+339
+00:11:37,396 --> 0:11:39,186
+All you have to do is put a
+
+340
+00:11:39,186 --> 0:11:41,056
+redirect at this path on your
+
+341
+00:11:41,056 --> 0:11:43,056
+server that takes the user to
+
+342
+00:11:43,056 --> 0:11:44,486
+your Change Password webpage,
+
+343
+00:11:44,966 --> 0:11:45,886
+and that's it.
+
+344
+00:11:46,766 --> 0:11:48,116
+The redirect can be implemented
+
+345
+00:11:48,246 --> 0:11:49,636
+either as a client-side redirect
+
+346
+00:11:50,056 --> 0:11:51,436
+or a server-side redirect.
+
+347
+00:11:52,096 --> 0:11:54,646
+You can learn more about the
+
+348
+00:11:54,646 --> 0:11:56,206
+well-known URL for changing
+
+349
+00:11:56,206 --> 0:11:58,586
+passwords, which is a proposed
+
+350
+00:11:58,586 --> 0:12:00,426
+standard at this URL.
+
+351
+00:11:58,586 --> 0:12:00,426
+standard at this URL.
+
+352
+00:12:01,736 --> 0:12:02,726
+You'll also find it pretty
+
+353
+00:12:02,726 --> 0:12:04,086
+easily if you search the web for
+
+354
+00:12:04,676 --> 0:12:04,746
+it.
+
+355
+00:12:08,406 --> 0:12:13,176
+And that is how iOS 13, iPadOS,
+
+356
+00:12:13,596 --> 0:12:16,536
+and Safari 13 help users upgrade
+
+357
+00:12:16,536 --> 0:12:17,426
+their weak passwords.
+
+358
+00:12:20,656 --> 0:12:22,236
+Some of your apps authenticate
+
+359
+00:12:22,236 --> 0:12:24,096
+using a third-party web service,
+
+360
+00:12:24,536 --> 0:12:25,936
+and if you're doing this, you're
+
+361
+00:12:25,936 --> 0:12:27,456
+probably using a standard like
+
+362
+00:12:27,456 --> 0:12:27,976
+OAuth.
+
+363
+00:12:29,196 --> 0:12:31,226
+The Authentication's Services
+
+364
+00:12:31,266 --> 0:12:31,866
+frameworks
+
+365
+00:12:32,246 --> 0:12:34,526
+ASWebAuthenticationSession is
+
+366
+00:12:34,526 --> 0:12:36,006
+the best way to do this kind of
+
+367
+00:12:36,006 --> 0:12:36,706
+authentication.
+
+368
+00:12:37,246 --> 0:12:39,976
+Once a user confirms that
+
+369
+00:12:39,976 --> 0:12:42,086
+they're OK with signing in, the
+
+370
+00:12:42,086 --> 0:12:43,916
+AuthenticationSession will use
+
+371
+00:12:44,306 --> 0:12:45,896
+existing signed-in accounts
+
+372
+00:12:45,896 --> 0:12:47,586
+through Safari's cookies and
+
+373
+00:12:47,586 --> 0:12:49,716
+data in order to let the user
+
+374
+00:12:49,716 --> 0:12:51,186
+sign-in even faster.
+
+375
+00:12:51,566 --> 0:12:54,836
+Sometimes the user will already
+
+376
+00:12:54,836 --> 0:12:56,356
+be signed in to the identity
+
+377
+00:12:56,356 --> 0:12:58,506
+provider, and all they have to
+
+378
+00:12:58,506 --> 0:13:00,566
+do is agree to signing into your
+
+379
+00:12:58,506 --> 0:13:00,566
+do is agree to signing into your
+
+380
+00:13:00,916 --> 0:13:01,006
+app.
+
+381
+00:13:01,736 --> 0:13:03,186
+And once they do that, they're
+
+382
+00:13:03,186 --> 0:13:03,666
+in.
+
+383
+00:13:03,756 --> 0:13:06,276
+Nice and easy.
+
+384
+00:13:06,456 --> 0:13:08,556
+I am so happy to be able to tell
+
+385
+00:13:08,556 --> 0:13:11,036
+you today that this API is now
+
+386
+00:13:11,036 --> 0:13:15,576
+available on macOS Catalina.
+
+387
+00:13:16,516 --> 0:13:19,366
+[ Applause ]
+
+388
+00:13:19,866 --> 0:13:23,616
+On macOS Catalina, this API uses
+
+389
+00:13:23,616 --> 0:13:25,446
+the user's preferred web browser
+
+390
+00:13:25,686 --> 0:13:27,386
+for signing in if that web
+
+391
+00:13:27,386 --> 0:13:28,326
+browser supports it.
+
+392
+00:13:28,376 --> 0:13:30,186
+And this is really great,
+
+393
+00:13:30,606 --> 0:13:31,936
+because it means that all of
+
+394
+00:13:31,936 --> 0:13:33,806
+your users will have their
+
+395
+00:13:33,806 --> 0:13:35,696
+browser's password manager or
+
+396
+00:13:35,696 --> 0:13:37,036
+password manager extension
+
+397
+00:13:37,036 --> 0:13:38,476
+available to them in order to
+
+398
+00:13:38,476 --> 0:13:40,266
+help get them signed in.
+
+399
+00:13:42,416 --> 0:13:43,816
+If you're using the
+
+400
+00:13:43,816 --> 0:13:46,156
+AuthenticationSession API, it
+
+401
+00:13:46,156 --> 0:13:47,456
+has a few new features for you
+
+402
+00:13:47,456 --> 0:13:48,216
+to use this year.
+
+403
+00:13:48,326 --> 0:13:51,546
+And the first is a more private
+
+404
+00:13:51,546 --> 0:13:53,136
+kind of sign-in.
+
+405
+00:13:54,576 --> 0:13:55,296
+Because the
+
+406
+00:13:55,296 --> 0:13:57,216
+AuthenticationSession shares
+
+407
+00:13:57,216 --> 0:13:58,726
+website data with Safari,
+
+408
+00:13:59,686 --> 0:14:01,586
+ASWebAuthenticationSession
+
+409
+00:13:59,686 --> 0:14:01,586
+ASWebAuthenticationSession
+
+410
+00:14:01,676 --> 0:14:03,686
+enables a single sign-on
+
+411
+00:14:03,686 --> 0:14:04,366
+experience.
+
+412
+00:14:05,496 --> 0:14:08,116
+New to iOS 13, your app can
+
+413
+00:14:08,116 --> 0:14:10,436
+choose to deliver a more private
+
+414
+00:14:10,436 --> 0:14:12,716
+experience, an experience that
+
+415
+00:14:12,716 --> 0:14:14,896
+won't leave users logged into
+
+416
+00:14:14,896 --> 0:14:16,446
+the identity provider in their
+
+417
+00:14:16,446 --> 0:14:18,306
+web browser after they've signed
+
+418
+00:14:18,306 --> 0:14:19,466
+into your app.
+
+419
+00:14:20,456 --> 0:14:22,036
+If your app asks for this
+
+420
+00:14:22,036 --> 0:14:24,546
+experience, users won't see this
+
+421
+00:14:24,546 --> 0:14:25,026
+dialog.
+
+422
+00:14:25,886 --> 0:14:27,726
+Instead, they'll be taken
+
+423
+00:14:27,726 --> 0:14:28,966
+directly to the identity
+
+424
+00:14:28,966 --> 0:14:30,826
+provider in order to get signed
+
+425
+00:14:31,416 --> 0:14:31,496
+in.
+
+426
+00:14:33,576 --> 0:14:35,266
+To do this, set the
+
+427
+00:14:35,266 --> 0:14:36,616
+prefersEphemeral
+
+428
+00:14:36,616 --> 0:14:38,836
+WebBrowserSession property on
+
+429
+00:14:38,836 --> 0:14:40,626
+the session to true before
+
+430
+00:14:40,626 --> 0:14:41,426
+starting the session.
+
+431
+00:14:42,696 --> 0:14:44,376
+By doing this, you give your
+
+432
+00:14:44,436 --> 0:14:47,396
+users more privacy and avoid
+
+433
+00:14:47,396 --> 0:14:49,486
+that confirmation dialog, which
+
+434
+00:14:49,486 --> 0:14:50,796
+overall might be a better
+
+435
+00:14:50,796 --> 0:14:52,426
+experience for your app.
+
+436
+00:14:54,296 --> 0:14:56,806
+Next, supporting multiple
+
+437
+00:14:56,806 --> 0:14:57,266
+windows.
+
+438
+00:14:58,706 --> 0:15:00,126
+In iOS 12, the
+
+439
+00:14:58,706 --> 0:15:00,126
+In iOS 12, the
+
+440
+00:15:00,126 --> 0:15:02,586
+AuthenticationSession API didn't
+
+441
+00:15:02,586 --> 0:15:05,146
+need any information about view
+
+442
+00:15:05,146 --> 0:15:07,186
+or windows from you in order to
+
+443
+00:15:07,186 --> 0:15:08,236
+display its interface.
+
+444
+00:15:09,236 --> 0:15:11,326
+This is because the API was iOS
+
+445
+00:15:11,326 --> 0:15:14,186
+only, and almost all apps drew
+
+446
+00:15:14,186 --> 0:15:15,236
+into a single window.
+
+447
+00:15:16,186 --> 0:15:19,136
+But now with iPadOS and macOS
+
+448
+00:15:19,136 --> 0:15:20,686
+support, you're going to have to
+
+449
+00:15:20,686 --> 0:15:22,076
+help us out a little bit to
+
+450
+00:15:22,076 --> 0:15:23,106
+figure out where to draw the
+
+451
+00:15:23,106 --> 0:15:23,686
+interface.
+
+452
+00:15:25,056 --> 0:15:28,726
+First, you'll give the session a
+
+453
+00:15:28,726 --> 0:15:30,746
+presentationContextProvider, and
+
+454
+00:15:31,496 --> 0:15:33,466
+that presentationContextProvider
+
+455
+00:15:33,796 --> 0:15:35,606
+will provide a window via the
+
+456
+00:15:35,606 --> 0:15:36,896
+PresentationAnchor method.
+
+457
+00:15:37,786 --> 0:15:39,316
+This is a really easy change and
+
+458
+00:15:39,316 --> 0:15:40,946
+one that you're definitely going
+
+459
+00:15:40,946 --> 0:15:43,926
+to want to make.
+
+460
+00:15:43,926 --> 0:15:45,026
+One more thing about OAuth.
+
+461
+00:15:46,096 --> 0:15:48,576
+ASWebAuthenticationSession has a
+
+462
+00:15:48,576 --> 0:15:50,936
+deprecated predecessor called
+
+463
+00:15:51,006 --> 0:15:52,226
+SFAuthenticationSession.
+
+464
+00:15:52,866 --> 0:15:54,116
+It's from the Safari Services
+
+465
+00:15:54,116 --> 0:15:54,526
+framework.
+
+466
+00:15:55,536 --> 0:15:57,046
+If you haven't already, you're
+
+467
+00:15:57,046 --> 0:15:58,076
+going to want to take a moment
+
+468
+00:15:58,076 --> 0:15:58,916
+to switch over.
+
+469
+00:16:00,066 --> 0:16:02,216
+ASWebAuthenticationSession has
+
+470
+00:16:02,216 --> 0:16:03,256
+the new features that we just
+
+471
+00:16:03,256 --> 0:16:05,556
+talked about, and it's available
+
+472
+00:16:05,556 --> 0:16:06,856
+on the Mac.
+
+473
+00:16:06,856 --> 0:16:07,786
+It's, basically, the
+
+474
+00:16:07,786 --> 0:16:09,636
+non-deprecated drop-in
+
+475
+00:16:09,636 --> 0:16:11,026
+replacement for the old API.
+
+476
+00:16:11,756 --> 0:16:15,936
+And that's it for OAuth.
+
+477
+00:16:20,836 --> 0:16:23,776
+This year, macOS supports USB
+
+478
+00:16:23,936 --> 0:16:26,906
+security keys in Safari through
+
+479
+00:16:26,906 --> 0:16:28,336
+the WebAuthentication standard.
+
+480
+00:16:29,156 --> 0:16:31,246
+I am really happy about this
+
+481
+00:16:31,246 --> 0:16:33,056
+support, especially because I
+
+482
+00:16:33,056 --> 0:16:34,096
+know that a number of you have
+
+483
+00:16:34,096 --> 0:16:35,586
+been asking for it.
+
+484
+00:16:36,736 --> 0:16:39,266
+Depending on who or what you're
+
+485
+00:16:39,266 --> 0:16:41,126
+protecting and the threat models
+
+486
+00:16:41,126 --> 0:16:42,986
+that you're concerned about, you
+
+487
+00:16:42,986 --> 0:16:45,066
+might consider tying user
+
+488
+00:16:45,066 --> 0:16:47,126
+authentication to the physical
+
+489
+00:16:47,126 --> 0:16:48,046
+presence of some kind of
+
+490
+00:16:48,046 --> 0:16:49,566
+hardware device.
+
+491
+00:16:50,696 --> 0:16:54,346
+Safari 13 supports USB-based
+
+492
+00:16:54,796 --> 0:16:57,246
+FIDO2-compliant devices with the
+
+493
+00:16:57,246 --> 0:16:58,436
+WebAuthentication standard.
+
+494
+00:16:59,566 --> 0:17:01,656
+It's available as an
+
+495
+00:16:59,566 --> 0:17:01,656
+It's available as an
+
+496
+00:17:02,426 --> 0:17:05,185
+experimental feature in Seed 1
+
+497
+00:17:05,185 --> 0:17:07,626
+of macOS Catalina, and it'll be
+
+498
+00:17:07,626 --> 0:17:09,236
+on by default in Seed 2.
+
+499
+00:17:10,175 --> 0:17:11,786
+You can also try it out right
+
+500
+00:17:11,786 --> 0:17:13,465
+now if you download Safari
+
+501
+00:17:13,465 --> 0:17:14,356
+Technology Preview.
+
+502
+00:17:14,955 --> 0:17:17,816
+If you're interested in
+
+503
+00:17:17,816 --> 0:17:19,976
+supporting USB security keys,
+
+504
+00:17:20,506 --> 0:17:22,445
+it's really important to offer a
+
+505
+00:17:22,445 --> 0:17:24,236
+great account recovery story,
+
+506
+00:17:25,435 --> 0:17:26,935
+just in case your user's key
+
+507
+00:17:27,205 --> 0:17:29,816
+gets lost, stolen, or broken.
+
+508
+00:17:31,276 --> 0:17:33,196
+And designing account recovery
+
+509
+00:17:33,336 --> 0:17:35,316
+systems when a hardware token is
+
+510
+00:17:35,316 --> 0:17:37,996
+involved is really important,
+
+511
+00:17:37,996 --> 0:17:38,706
+but it's not always
+
+512
+00:17:38,706 --> 0:17:39,336
+straightforward.
+
+513
+00:17:40,486 --> 0:17:42,286
+So unless you are already in
+
+514
+00:17:42,286 --> 0:17:44,246
+this business or were seriously
+
+515
+00:17:44,246 --> 0:17:46,106
+considering getting into it,
+
+516
+00:17:46,856 --> 0:17:48,546
+it's more likely that one or
+
+517
+00:17:48,546 --> 0:17:50,076
+more of the other areas that I
+
+518
+00:17:50,076 --> 0:17:51,816
+cover today will be more
+
+519
+00:17:51,816 --> 0:17:53,956
+relevant for your users, your
+
+520
+00:17:53,956 --> 0:17:54,976
+apps, and your websites.
+
+521
+00:18:00,266 --> 0:18:01,866
+If you develop an app with user
+
+522
+00:18:01,866 --> 0:18:04,386
+accounts, I have three takeaways
+
+523
+00:18:04,426 --> 0:18:05,286
+from what we've talked about
+
+524
+00:18:05,286 --> 0:18:05,506
+today.
+
+525
+00:18:06,936 --> 0:18:09,326
+First, strongly consider
+
+526
+00:18:09,326 --> 0:18:11,036
+adopting Sign In with Apple.
+
+527
+00:18:12,196 --> 0:18:13,946
+For your users, the best
+
+528
+00:18:13,946 --> 0:18:15,736
+password is no password,
+
+529
+00:18:16,306 --> 0:18:17,896
+especially when it's backed by
+
+530
+00:18:17,896 --> 0:18:19,666
+two-factor authentication and
+
+531
+00:18:19,666 --> 0:18:21,000
+great biometrics.
+
+532
+00:18:22,236 --> 0:18:25,126
+Two, make signing into your app
+
+533
+00:18:25,476 --> 0:18:28,086
+a one-tap experience using the
+
+534
+00:18:28,086 --> 0:18:29,676
+Authentication Services
+
+535
+00:18:29,766 --> 0:18:30,286
+framework.
+
+536
+00:18:31,056 --> 0:18:32,406
+Users don't even need to see a
+
+537
+00:18:32,406 --> 0:18:34,266
+keyboard anymore to get signed
+
+538
+00:18:34,706 --> 0:18:34,796
+in.
+
+539
+00:18:35,476 --> 0:18:37,446
+And finally, implement the
+
+540
+00:18:37,446 --> 0:18:39,036
+well-known URL for changing
+
+541
+00:18:39,036 --> 0:18:39,686
+passwords.
+
+542
+00:18:40,456 --> 0:18:42,076
+It's really easy to do, takes
+
+543
+00:18:42,076 --> 0:18:44,056
+just a moment, and it makes a
+
+544
+00:18:44,056 --> 0:18:46,146
+huge difference when Safari is
+
+545
+00:18:46,146 --> 0:18:47,586
+going to try to help your users
+
+546
+00:18:47,756 --> 0:18:48,906
+upgrade their passwords.
+
+547
+00:18:51,076 --> 0:18:52,686
+You'll find more information
+
+548
+00:18:52,686 --> 0:18:54,106
+about what I covered today and
+
+549
+00:18:54,196 --> 0:18:57,136
+more in the WWDC app or on the
+
+550
+00:18:57,136 --> 0:18:57,356
+web.
+
+551
+00:18:58,406 --> 0:18:59,796
+And that is it for me.
+
+552
+00:18:59,956 --> 0:19:01,066
+Thank you all so much.
+
+553
+00:18:59,956 --> 0:19:01,066
+Thank you all so much.
+
+554
+00:19:01,376 --> 0:19:02,556
+I really hope you've been having
+
+555
+00:19:02,556 --> 0:19:04,186
+a wonderful WWDC.
+
+556
+00:19:05,176 --> 0:19:07,500
+[ Applause ]

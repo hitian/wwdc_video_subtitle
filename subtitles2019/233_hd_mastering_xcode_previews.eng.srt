@@ -1,0 +1,5987 @@
+1
+00:00:00,506 --> 0:00:04,516
+[ Music ]
+
+2
+00:00:05,016 --> 0:00:07,016
+[ Silence ]
+
+3
+00:00:07,516 --> 0:00:13,416
+[ Applause ]
+
+4
+00:00:13,916 --> 0:00:14,696
+&gt;&gt; Good afternoon.
+
+5
+00:00:15,066 --> 0:00:16,946
+And welcome to Mastering Xcode
+
+6
+00:00:16,996 --> 0:00:17,466
+Previews.
+
+7
+00:00:17,636 --> 0:00:19,196
+You have probably seen Xcode
+
+8
+00:00:19,196 --> 0:00:21,626
+Previews in multiple places
+
+9
+00:00:21,626 --> 0:00:22,356
+through the week: in the
+
+10
+00:00:22,356 --> 0:00:23,556
+keynote, in the State of the
+
+11
+00:00:23,556 --> 0:00:24,686
+Union address, and multiple
+
+12
+00:00:24,686 --> 0:00:25,986
+sessions focusing on SwiftUI.
+
+13
+00:00:25,986 --> 0:00:27,916
+But today we are going to focus
+
+14
+00:00:27,916 --> 0:00:29,176
+on previewing - on Xcode
+
+15
+00:00:29,176 --> 0:00:30,016
+previews themselves.
+
+16
+00:00:30,946 --> 0:00:31,826
+My name is Anton.
+
+17
+00:00:31,826 --> 0:00:33,206
+And a little bit later I will be
+
+18
+00:00:33,206 --> 0:00:34,806
+joined onstage by my colleague
+
+19
+00:00:34,806 --> 0:00:36,496
+Nate to talk about what Xcode
+
+20
+00:00:36,496 --> 0:00:38,536
+previews are, how they work, and
+
+21
+00:00:38,536 --> 0:00:39,866
+how to configure them to take
+
+22
+00:00:39,866 --> 0:00:41,056
+advantage of them in your
+
+23
+00:00:41,056 --> 0:00:42,176
+workflow -- whether you are
+
+24
+00:00:42,176 --> 0:00:43,126
+working on a brand new
+
+25
+00:00:43,126 --> 0:00:44,536
+application using SwiftUI or an
+
+26
+00:00:45,096 --> 0:00:47,396
+existing app using UIKit or
+
+27
+00:00:47,396 --> 0:00:47,766
+AppKit.
+
+28
+00:00:48,826 --> 0:00:50,186
+So let me start with a little
+
+29
+00:00:50,186 --> 0:00:50,506
+story.
+
+30
+00:00:51,226 --> 0:00:53,326
+Let's say a designer comes to
+
+31
+00:00:53,326 --> 0:00:54,526
+you and brings a mockup for a
+
+32
+00:00:54,526 --> 0:00:56,246
+screen that they have been
+
+33
+00:00:56,246 --> 0:00:58,106
+working on for your Disney
+
+34
+00:00:58,106 --> 0:00:58,646
+[phonetic] application.
+
+35
+00:00:59,186 --> 0:01:00,766
+You take this mockup, and you
+
+36
+00:00:59,186 --> 0:01:00,766
+You take this mockup, and you
+
+37
+00:01:00,766 --> 0:01:01,686
+take it to your desk, and you
+
+38
+00:01:01,686 --> 0:01:02,146
+work on it.
+
+39
+00:01:02,146 --> 0:01:02,576
+You build it.
+
+40
+00:01:03,036 --> 0:01:04,936
+And you bring it back to show
+
+41
+00:01:04,936 --> 0:01:05,876
+your designer your work.
+
+42
+00:01:06,626 --> 0:01:07,676
+You run the code.
+
+43
+00:01:08,146 --> 0:01:09,416
+You navigate through a bunch of
+
+44
+00:01:09,416 --> 0:01:10,266
+screens that you have already
+
+45
+00:01:10,266 --> 0:01:11,836
+built before to this new screen,
+
+46
+00:01:12,256 --> 0:01:12,966
+show it to them.
+
+47
+00:01:13,076 --> 0:01:15,166
+And they say, "Hey that looks
+
+48
+00:01:15,166 --> 0:01:15,666
+pretty good.
+
+49
+00:01:15,976 --> 0:01:18,566
+But now that I see this thing in
+
+50
+00:01:18,566 --> 0:01:20,816
+the flesh, that button, that
+
+51
+00:01:20,856 --> 0:01:21,826
+could be a little bit more
+
+52
+00:01:21,826 --> 0:01:22,336
+blue."
+
+53
+00:01:23,256 --> 0:01:24,276
+That - that's no big deal.
+
+54
+00:01:24,276 --> 0:01:25,276
+You quit the app, you open
+
+55
+00:01:25,326 --> 0:01:26,456
+Xcode, you make the edit that
+
+56
+00:01:26,456 --> 0:01:27,296
+you want to make.
+
+57
+00:01:27,366 --> 0:01:29,326
+You run it again.
+
+58
+00:01:29,326 --> 0:01:30,916
+You navigate through a bunch of
+
+59
+00:01:30,916 --> 0:01:32,106
+screens to the new screen that
+
+60
+00:01:32,106 --> 0:01:32,756
+you have just built.
+
+61
+00:01:32,756 --> 0:01:33,956
+You show it to your designer.
+
+62
+00:01:33,956 --> 0:01:37,436
+And they go, "Hey, that's much
+
+63
+00:01:37,476 --> 0:01:37,746
+better.
+
+64
+00:01:38,086 --> 0:01:41,656
+But the padding on that text is
+
+65
+00:01:41,656 --> 0:01:42,786
+- it could be a little tighter,
+
+66
+00:01:42,786 --> 0:01:43,296
+don't you think?"
+
+67
+00:01:44,546 --> 0:01:45,616
+You get where I'm going with
+
+68
+00:01:45,616 --> 0:01:46,076
+this story.
+
+69
+00:01:46,076 --> 0:01:48,036
+This sort of iteration, this
+
+70
+00:01:48,036 --> 0:01:49,356
+back-and-forth, is a normal
+
+71
+00:01:49,356 --> 0:01:49,936
+process.
+
+72
+00:01:49,936 --> 0:01:51,556
+It happens to all of us.
+
+73
+00:01:51,556 --> 0:01:52,746
+And this is how we get
+
+74
+00:01:53,196 --> 0:01:54,376
+great-looking apps.
+
+75
+00:01:54,756 --> 0:01:55,706
+But this is something that's
+
+76
+00:01:55,706 --> 0:01:58,006
+also potentially time consuming.
+
+77
+00:01:58,006 --> 0:01:59,626
+And the time-consuming bit here
+
+78
+00:01:59,896 --> 0:02:01,816
+is not the iteration itself.
+
+79
+00:01:59,896 --> 0:02:01,816
+is not the iteration itself.
+
+80
+00:02:01,816 --> 0:02:03,066
+It's not the making of the small
+
+81
+00:02:03,066 --> 0:02:04,136
+changes here and there.
+
+82
+00:02:04,136 --> 0:02:05,236
+And it's not the getting of the
+
+83
+00:02:05,236 --> 0:02:05,756
+feedback.
+
+84
+00:02:06,126 --> 0:02:08,166
+It's the building and running
+
+85
+00:02:08,166 --> 0:02:10,145
+and configuring and navigating
+
+86
+00:02:10,455 --> 0:02:11,586
+and getting your app to the
+
+87
+00:02:11,586 --> 0:02:13,596
+state where you can verify that
+
+88
+00:02:13,596 --> 0:02:14,646
+the changes that you are making
+
+89
+00:02:14,646 --> 0:02:15,806
+have the results you expect.
+
+90
+00:02:17,796 --> 0:02:20,266
+So let me give you another
+
+91
+00:02:21,166 --> 0:02:21,406
+example.
+
+92
+00:02:22,296 --> 0:02:23,746
+So let's say your designer - you
+
+93
+00:02:23,786 --> 0:02:25,586
+and your designer are now done,
+
+94
+00:02:25,586 --> 0:02:28,656
+and you are happy with the view
+
+95
+00:02:28,656 --> 0:02:29,136
+that you got.
+
+96
+00:02:29,136 --> 0:02:30,496
+And you take it to your desk.
+
+97
+00:02:30,956 --> 0:02:32,936
+But your work as a developer
+
+98
+00:02:33,716 --> 0:02:36,276
+isn't done yet because, as
+
+99
+00:02:36,276 --> 0:02:38,036
+developers, we want to build
+
+100
+00:02:38,386 --> 0:02:39,386
+well-behaved apps.
+
+101
+00:02:39,546 --> 0:02:42,066
+And a well-behaved app means
+
+102
+00:02:42,066 --> 0:02:44,706
+that your new view, it needs to
+
+103
+00:02:44,706 --> 0:02:45,976
+look good no matter what
+
+104
+00:02:45,976 --> 0:02:47,206
+configuration your user is
+
+105
+00:02:47,206 --> 0:02:47,746
+running it in.
+
+106
+00:02:48,256 --> 0:02:49,406
+So for example, it needs to look
+
+107
+00:02:49,406 --> 0:02:52,786
+great in dark mode.
+
+108
+00:02:53,936 --> 0:02:56,016
+Or at a different dynamic
+
+109
+00:02:56,046 --> 0:02:56,876
+content size.
+
+110
+00:02:57,426 --> 0:03:00,366
+Or maybe even on a different
+
+111
+00:02:57,426 --> 0:03:00,366
+Or maybe even on a different
+
+112
+00:03:00,366 --> 0:03:00,786
+device.
+
+113
+00:03:02,256 --> 0:03:04,056
+And there is a real tension
+
+114
+00:03:04,566 --> 0:03:07,496
+between verifying that your UI
+
+115
+00:03:07,496 --> 0:03:08,996
+and your app looks as good as it
+
+116
+00:03:08,996 --> 0:03:11,056
+can possibly look under a
+
+117
+00:03:11,056 --> 0:03:12,396
+variety of circumstances.
+
+118
+00:03:12,736 --> 0:03:14,656
+And, you know, actually shipping
+
+119
+00:03:14,656 --> 0:03:16,576
+your app to the App Store that
+
+120
+00:03:16,576 --> 0:03:18,416
+we as developers are all
+
+121
+00:03:18,936 --> 0:03:19,586
+familiar with.
+
+122
+00:03:20,386 --> 0:03:22,416
+So the Xcode team has thought
+
+123
+00:03:22,416 --> 0:03:23,616
+about this problem for a while.
+
+124
+00:03:23,956 --> 0:03:25,346
+And the solution that we got -
+
+125
+00:03:25,386 --> 0:03:27,796
+came up with is Xcode Previews.
+
+126
+00:03:28,136 --> 0:03:29,426
+Now Xcode Previews is a new
+
+127
+00:03:29,486 --> 0:03:32,676
+feature of Xcode that allows you
+
+128
+00:03:33,076 --> 0:03:35,056
+to - that institute - minimize
+
+129
+00:03:35,056 --> 0:03:36,186
+the amount of time you spend
+
+130
+00:03:36,326 --> 0:03:37,196
+building and running and
+
+131
+00:03:37,196 --> 0:03:39,316
+configuring your views to verify
+
+132
+00:03:39,316 --> 0:03:40,336
+the changes that you are making.
+
+133
+00:03:40,716 --> 0:03:42,896
+And to - and lets you focus on
+
+134
+00:03:42,896 --> 0:03:44,586
+the things that you love doing
+
+135
+00:03:44,586 --> 0:03:46,566
+best, which is building great
+
+136
+00:03:47,306 --> 0:03:47,566
+apps.
+
+137
+00:03:48,636 --> 0:03:50,306
+But the question is, how?
+
+138
+00:03:50,306 --> 0:03:51,506
+How does this work?
+
+139
+00:03:51,506 --> 0:03:52,136
+How does it do it?
+
+140
+00:03:53,026 --> 0:03:54,616
+Well when you enable Previews in
+
+141
+00:03:54,616 --> 0:03:56,706
+your application, Xcode actually
+
+142
+00:03:56,786 --> 0:03:58,556
+builds your app in a special
+
+143
+00:03:59,456 --> 0:03:59,523
+way.
+
+144
+00:04:00,226 --> 0:04:03,166
+Since Xcode knows what view and
+
+145
+00:04:03,166 --> 0:04:04,356
+what file you are currently
+
+146
+00:04:04,356 --> 0:04:05,936
+working on at all times, it can
+
+147
+00:04:05,936 --> 0:04:08,466
+compile just that file, just
+
+148
+00:04:08,496 --> 0:04:09,906
+that view, separate from the
+
+149
+00:04:09,906 --> 0:04:12,336
+rest of your application -- and
+
+150
+00:04:12,336 --> 0:04:14,516
+then inject that implementation
+
+151
+00:04:15,096 --> 0:04:16,826
+back into your application using
+
+152
+00:04:16,826 --> 0:04:18,486
+Swift's dynamic replacement
+
+153
+00:04:18,486 --> 0:04:18,805
+feature.
+
+154
+00:04:20,255 --> 0:04:21,446
+And because the amount of code
+
+155
+00:04:21,446 --> 0:04:22,726
+that needs to be recompiled for
+
+156
+00:04:22,726 --> 0:04:24,126
+every change is significantly
+
+157
+00:04:24,126 --> 0:04:26,486
+smaller than the entirety of the
+
+158
+00:04:26,486 --> 0:04:27,936
+rest of your application, Xcode
+
+159
+00:04:27,936 --> 0:04:29,486
+can continuously and repeatedly
+
+160
+00:04:29,486 --> 0:04:31,236
+do this for every change that
+
+161
+00:04:31,236 --> 0:04:31,556
+you make.
+
+162
+00:04:32,576 --> 0:04:34,886
+And that means the feedback on
+
+163
+00:04:34,886 --> 0:04:37,056
+your changes is much, much
+
+164
+00:04:37,056 --> 0:04:37,416
+quicker.
+
+165
+00:04:38,306 --> 0:04:39,856
+But there is a whole class of
+
+166
+00:04:39,896 --> 0:04:42,026
+changes that Xcode can optimize
+
+167
+00:04:42,056 --> 0:04:42,596
+even further.
+
+168
+00:04:42,966 --> 0:04:45,686
+So for changes that involve only
+
+169
+00:04:45,686 --> 0:04:47,296
+the literal values, like strings
+
+170
+00:04:47,296 --> 0:04:49,296
+or numbers, no recompilation is
+
+171
+00:04:49,296 --> 0:04:49,976
+required at all.
+
+172
+00:04:51,216 --> 0:04:53,486
+That - Xcode just injects the
+
+173
+00:04:53,486 --> 0:04:54,526
+new value into the running
+
+174
+00:04:54,526 --> 0:04:56,896
+application, and you get instant
+
+175
+00:04:56,896 --> 0:04:58,646
+feedback much like you get from
+
+176
+00:04:58,646 --> 0:04:59,966
+a visual editing tool.
+
+177
+00:05:00,596 --> 0:05:04,066
+And it's important to note here
+
+178
+00:05:04,416 --> 0:05:08,456
+that the Xcode Previews is not a
+
+179
+00:05:08,456 --> 0:05:09,936
+representation of what Xcode
+
+180
+00:05:09,936 --> 0:05:12,196
+thinks your view will look like
+
+181
+00:05:12,266 --> 0:05:13,516
+when you run the application.
+
+182
+00:05:14,116 --> 0:05:16,256
+It is actually building and
+
+183
+00:05:16,256 --> 0:05:17,036
+running your code.
+
+184
+00:05:18,606 --> 0:05:20,446
+So all the context that is
+
+185
+00:05:20,446 --> 0:05:22,156
+normally available within your
+
+186
+00:05:22,156 --> 0:05:23,906
+running application is available
+
+187
+00:05:23,986 --> 0:05:25,616
+to the view under Previews.
+
+188
+00:05:25,616 --> 0:05:27,506
+If you have custom assets, you
+
+189
+00:05:27,506 --> 0:05:28,466
+can use those within your
+
+190
+00:05:28,466 --> 0:05:29,336
+preview and they will render.
+
+191
+00:05:29,606 --> 0:05:32,046
+If you have custom logic in your
+
+192
+00:05:32,046 --> 0:05:32,766
+app that you want to use --
+
+193
+00:05:32,766 --> 0:05:34,006
+which of course, you know, every
+
+194
+00:05:34,006 --> 0:05:35,836
+app would have custom logic --
+
+195
+00:05:36,236 --> 0:05:37,216
+you could use that as well.
+
+196
+00:05:37,216 --> 0:05:39,726
+And even runtime configuration,
+
+197
+00:05:39,726 --> 0:05:41,116
+something like "Set user
+
+198
+00:05:41,116 --> 0:05:42,696
+default," is available to your
+
+199
+00:05:42,696 --> 0:05:43,796
+views on your Previews as well.
+
+200
+00:05:45,756 --> 0:05:48,626
+So now the question is, how does
+
+201
+00:05:48,626 --> 0:05:49,976
+Xcode know what to show you?
+
+202
+00:05:52,826 --> 0:05:55,136
+Well it turns out all you need
+
+203
+00:05:55,136 --> 0:05:57,016
+to tell Xcode what view to
+
+204
+00:05:57,016 --> 0:05:58,446
+preview and how to configure the
+
+205
+00:05:58,446 --> 0:06:01,676
+data is a little bit of code.
+
+206
+00:05:58,446 --> 0:06:01,676
+data is a little bit of code.
+
+207
+00:06:01,676 --> 0:06:03,036
+And all you do is you implement
+
+208
+00:06:03,036 --> 0:06:05,496
+a small type that conforms to a
+
+209
+00:06:05,556 --> 0:06:07,716
+PreviewProvider protocol, which
+
+210
+00:06:07,966 --> 0:06:08,996
+is a part of a SwiftUI
+
+211
+00:06:08,996 --> 0:06:09,436
+framework.
+
+212
+00:06:10,016 --> 0:06:11,046
+And that particle has one
+
+213
+00:06:11,046 --> 0:06:12,926
+requirement, just a Previews
+
+214
+00:06:12,976 --> 0:06:14,026
+property that you implement.
+
+215
+00:06:14,396 --> 0:06:15,426
+And then you return some
+
+216
+00:06:15,426 --> 0:06:15,896
+content.
+
+217
+00:06:15,936 --> 0:06:17,796
+And really, what your return out
+
+218
+00:06:17,796 --> 0:06:20,616
+of here is completely up to you.
+
+219
+00:06:21,226 --> 0:06:24,956
+And because this code lives as a
+
+220
+00:06:25,036 --> 0:06:26,456
+part of your application as
+
+221
+00:06:26,456 --> 0:06:28,126
+well, it's compiled alongside
+
+222
+00:06:28,126 --> 0:06:29,086
+the rest of your application
+
+223
+00:06:29,086 --> 0:06:29,326
+code.
+
+224
+00:06:29,836 --> 0:06:33,076
+The same story applies for the
+
+225
+00:06:33,226 --> 0:06:34,786
+configuration code as it does
+
+226
+00:06:34,786 --> 0:06:35,166
+for the view.
+
+227
+00:06:35,166 --> 0:06:37,736
+So you also can use custom logic
+
+228
+00:06:37,736 --> 0:06:40,946
+in here and custom resources and
+
+229
+00:06:40,946 --> 0:06:42,256
+even runtime configuration.
+
+230
+00:06:42,646 --> 0:06:44,336
+There are several advantages
+
+231
+00:06:44,336 --> 0:06:46,616
+beyond that to using code to
+
+232
+00:06:46,616 --> 0:06:48,216
+configure your previews.
+
+233
+00:06:48,776 --> 0:06:50,626
+For instance, since this is just
+
+234
+00:06:50,626 --> 0:06:52,256
+SwiftUI code, this configuration
+
+235
+00:06:52,256 --> 0:06:53,436
+code is just SwiftUI.
+
+236
+00:06:53,436 --> 0:06:54,616
+If you know how to create
+
+237
+00:06:55,006 --> 0:06:56,366
+SwiftUIView, you already
+
+238
+00:06:56,366 --> 0:06:58,006
+automatically know how to
+
+239
+00:06:58,006 --> 0:07:00,816
+configure a preview for it.
+
+240
+00:06:58,006 --> 0:07:00,816
+configure a preview for it.
+
+241
+00:07:01,416 --> 0:07:03,136
+Also, you can write a preview
+
+242
+00:07:03,136 --> 0:07:04,716
+once, put it in your source
+
+243
+00:07:04,716 --> 0:07:05,806
+control, and share it with your
+
+244
+00:07:05,806 --> 0:07:06,076
+team.
+
+245
+00:07:06,076 --> 0:07:07,446
+So that means you write a
+
+246
+00:07:07,446 --> 0:07:08,876
+preview, and the rest of your
+
+247
+00:07:08,876 --> 0:07:09,736
+team can benefit.
+
+248
+00:07:10,576 --> 0:07:12,386
+And then finally, as you make
+
+249
+00:07:12,386 --> 0:07:13,516
+changes, the - our views are
+
+250
+00:07:13,516 --> 0:07:14,296
+always evolving.
+
+251
+00:07:14,386 --> 0:07:15,626
+Our apps are always evolving.
+
+252
+00:07:15,876 --> 0:07:18,346
+As the view changes, and its API
+
+253
+00:07:18,346 --> 0:07:20,356
+changes, the compiler can help
+
+254
+00:07:20,356 --> 0:07:21,426
+you make sure that your preview
+
+255
+00:07:21,426 --> 0:07:23,496
+stays in sync with the view so
+
+256
+00:07:23,496 --> 0:07:25,476
+that you always know that you
+
+257
+00:07:25,476 --> 0:07:28,606
+are previewing the right thing.
+
+258
+00:07:28,946 --> 0:07:31,006
+So that's a brief introduction
+
+259
+00:07:31,036 --> 0:07:32,556
+into how previews work.
+
+260
+00:07:33,196 --> 0:07:34,596
+To tell you more about how to
+
+261
+00:07:34,596 --> 0:07:36,506
+configure them to take advantage
+
+262
+00:07:36,506 --> 0:07:37,476
+of them to the fullest, please
+
+263
+00:07:37,476 --> 0:07:37,976
+welcome Nate.
+
+264
+00:07:38,516 --> 0:07:45,500
+[ Applause ]
+
+265
+00:07:48,506 --> 0:07:50,016
+&gt;&gt; Anton told you that previews
+
+266
+00:07:50,016 --> 0:07:50,516
+are code.
+
+267
+00:07:51,156 --> 0:07:52,066
+I would like to show you how to
+
+268
+00:07:52,066 --> 0:07:52,556
+write one.
+
+269
+00:07:53,116 --> 0:07:56,296
+The Xcode Previews team has
+
+270
+00:07:56,296 --> 0:07:57,906
+decided to take a trip to the
+
+271
+00:07:58,456 --> 0:07:58,526
+zoo.
+
+272
+00:08:00,116 --> 0:08:01,316
+There are a lot of animals at
+
+273
+00:08:01,316 --> 0:08:02,616
+the zoo, and we want to make
+
+274
+00:08:02,616 --> 0:08:04,376
+sure not to miss even one.
+
+275
+00:08:05,616 --> 0:08:06,526
+Naturally, being the app
+
+276
+00:08:06,526 --> 0:08:07,736
+developers that we are, we
+
+277
+00:08:07,736 --> 0:08:08,996
+couldn't help ourselves but had
+
+278
+00:08:08,996 --> 0:08:11,056
+to build an application to track
+
+279
+00:08:11,136 --> 0:08:12,066
+the animals at the zoo.
+
+280
+00:08:12,636 --> 0:08:14,886
+I have been working on that
+
+281
+00:08:14,886 --> 0:08:15,606
+application.
+
+282
+00:08:16,116 --> 0:08:17,846
+In particular, the main user
+
+283
+00:08:17,846 --> 0:08:20,136
+interface for it is a list of
+
+284
+00:08:20,136 --> 0:08:20,986
+animals at the zoo.
+
+285
+00:08:21,776 --> 0:08:24,276
+In that list is displayed a
+
+286
+00:08:24,276 --> 0:08:25,336
+number of animal cells.
+
+287
+00:08:26,006 --> 0:08:28,556
+Let me show you what I have got
+
+288
+00:08:28,556 --> 0:08:28,956
+so far.
+
+289
+00:08:32,456 --> 0:08:35,246
+In the canvas, you see a preview
+
+290
+00:08:35,246 --> 0:08:36,166
+of the animal cell.
+
+291
+00:08:36,645 --> 0:08:39,515
+Because the run destination of
+
+292
+00:08:39,515 --> 0:08:41,416
+iPhone 10S is selected, that's
+
+293
+00:08:41,416 --> 0:08:42,696
+the chrome we see around our
+
+294
+00:08:42,696 --> 0:08:43,476
+animal cell view.
+
+295
+00:08:43,816 --> 0:08:45,796
+But we want to make sure that
+
+296
+00:08:45,796 --> 0:08:47,196
+our app - that our view looks
+
+297
+00:08:47,196 --> 0:08:48,976
+great on all devices.
+
+298
+00:08:49,216 --> 0:08:51,046
+In particular, my daily carry is
+
+299
+00:08:51,046 --> 0:08:51,926
+an iPhone SE.
+
+300
+00:08:52,816 --> 0:08:54,776
+Now I could change the run
+
+301
+00:08:54,776 --> 0:08:56,686
+destination to iPhone SE, but
+
+302
+00:08:56,686 --> 0:08:57,706
+there is another mechanism
+
+303
+00:08:57,706 --> 0:08:59,026
+provided by the Previews API --
+
+304
+00:08:59,796 --> 0:09:02,026
+specifically the preview device.
+
+305
+00:08:59,796 --> 0:09:02,026
+specifically the preview device.
+
+306
+00:09:02,766 --> 0:09:05,746
+You pass to that method the name
+
+307
+00:09:05,746 --> 0:09:06,806
+of the device you want to see a
+
+308
+00:09:06,806 --> 0:09:07,416
+preview on.
+
+309
+00:09:08,206 --> 0:09:09,666
+And almost immediately in the
+
+310
+00:09:09,666 --> 0:09:11,966
+canvas, you see the device
+
+311
+00:09:11,966 --> 0:09:13,026
+displaying your view.
+
+312
+00:09:13,446 --> 0:09:15,826
+Now as I am looking at the
+
+313
+00:09:15,826 --> 0:09:17,716
+device, this iPhone SE showing
+
+314
+00:09:17,716 --> 0:09:18,756
+the animal cell, I am seeing a
+
+315
+00:09:18,756 --> 0:09:19,256
+problem.
+
+316
+00:09:19,816 --> 0:09:21,796
+The rightmost text is truncated.
+
+317
+00:09:22,116 --> 0:09:23,986
+Let's go ahead and fix that.
+
+318
+00:09:24,646 --> 0:09:26,106
+To do so, I'll change this
+
+319
+00:09:26,106 --> 0:09:28,246
+HStack into a VStack.
+
+320
+00:09:29,186 --> 0:09:31,196
+Immediately, the canvas updates,
+
+321
+00:09:31,346 --> 0:09:33,406
+showing us exactly what we want.
+
+322
+00:09:34,916 --> 0:09:36,386
+Now Anton's daily carry is an
+
+323
+00:09:36,386 --> 0:09:37,196
+iPhone 10r.
+
+324
+00:09:37,536 --> 0:09:38,926
+To make sure that his device
+
+325
+00:09:38,926 --> 0:09:40,966
+shows this cell well, we could
+
+326
+00:09:41,196 --> 0:09:42,326
+change the argument that we are
+
+327
+00:09:42,326 --> 0:09:43,626
+passing to previewDevice.
+
+328
+00:09:44,126 --> 0:09:45,116
+But there is an easier way.
+
+329
+00:09:45,686 --> 0:09:47,856
+Specifically, we can embed this
+
+330
+00:09:47,856 --> 0:09:48,876
+view in a group.
+
+331
+00:09:49,436 --> 0:09:51,056
+To do so, Command-click on the
+
+332
+00:09:51,056 --> 0:09:53,096
+AnimalCell and scroll down to
+
+333
+00:09:53,296 --> 0:09:53,986
+Embed in Group.
+
+334
+00:09:54,936 --> 0:09:57,486
+Then add a second instance of
+
+335
+00:09:57,486 --> 0:09:59,256
+the animal cells to it, this
+
+336
+00:09:59,256 --> 0:10:01,936
+time calling previewDevice with
+
+337
+00:09:59,256 --> 0:10:01,936
+time calling previewDevice with
+
+338
+00:10:01,936 --> 0:10:02,926
+iPhone 10r.
+
+339
+00:10:04,666 --> 0:10:06,666
+Now we see, in the canvas, a
+
+340
+00:10:06,666 --> 0:10:08,216
+preview for our cell running on
+
+341
+00:10:08,256 --> 0:10:09,016
+two devices.
+
+342
+00:10:10,436 --> 0:10:11,966
+Scientific names of animals are
+
+343
+00:10:11,966 --> 0:10:13,386
+often written in italics.
+
+344
+00:10:13,716 --> 0:10:14,596
+Let's go ahead and make that
+
+345
+00:10:14,596 --> 0:10:14,976
+change right now.
+
+346
+00:10:19,896 --> 0:10:21,186
+Now in the canvas we can
+
+347
+00:10:21,186 --> 0:10:22,936
+validate that our change looks
+
+348
+00:10:22,966 --> 0:10:25,086
+correct on both devices.
+
+349
+00:10:25,256 --> 0:10:25,976
+This is so easy.
+
+350
+00:10:26,516 --> 0:10:33,256
+[ Applause ]
+
+351
+00:10:33,756 --> 0:10:35,226
+It's great to be able to see our
+
+352
+00:10:35,226 --> 0:10:37,056
+views previewed on the devices
+
+353
+00:10:37,056 --> 0:10:38,096
+that our users are actually
+
+354
+00:10:38,096 --> 0:10:38,806
+using.
+
+355
+00:10:39,066 --> 0:10:40,256
+But for smaller views like a
+
+356
+00:10:40,256 --> 0:10:42,526
+cell, it's also great to be able
+
+357
+00:10:42,526 --> 0:10:43,906
+to focus in on the details we
+
+358
+00:10:43,906 --> 0:10:45,706
+really care about and to strip
+
+359
+00:10:45,706 --> 0:10:47,266
+away that extraneous chrome.
+
+360
+00:10:48,136 --> 0:10:49,716
+To do so, the Previews API
+
+361
+00:10:49,716 --> 0:10:51,056
+provides the method "Preview
+
+362
+00:10:51,056 --> 0:10:51,456
+Layout."
+
+363
+00:10:51,456 --> 0:10:53,986
+Now the Preview Layout method
+
+364
+00:10:55,226 --> 0:10:56,376
+can be passed three different
+
+365
+00:10:56,376 --> 0:10:56,986
+arguments.
+
+366
+00:10:57,196 --> 0:10:59,106
+First, you can specify the
+
+367
+00:10:59,106 --> 0:10:59,796
+device.
+
+368
+00:11:00,036 --> 0:11:00,896
+That's actually what's being
+
+369
+00:11:00,896 --> 0:11:02,316
+used by default and what's
+
+370
+00:11:02,316 --> 0:11:03,676
+displayed in the canvas right
+
+371
+00:11:03,676 --> 0:11:03,916
+now.
+
+372
+00:11:04,256 --> 0:11:07,646
+Secondly, you can use a specific
+
+373
+00:11:07,646 --> 0:11:09,076
+size that you want your preview
+
+374
+00:11:09,076 --> 0:11:09,776
+to be displayed as.
+
+375
+00:11:10,006 --> 0:11:11,636
+This is super useful if you know
+
+376
+00:11:11,636 --> 0:11:12,496
+that your view is going to be
+
+377
+00:11:12,496 --> 0:11:14,436
+embedded in some larger view at
+
+378
+00:11:14,436 --> 0:11:15,466
+a particular size.
+
+379
+00:11:15,976 --> 0:11:17,856
+And finally, you can use Size
+
+380
+00:11:17,856 --> 0:11:18,546
+That Fits.
+
+381
+00:11:18,926 --> 0:11:20,936
+This is useful if you want your
+
+382
+00:11:20,936 --> 0:11:23,016
+view to be able to determine the
+
+383
+00:11:23,016 --> 0:11:25,056
+size of the preview based on its
+
+384
+00:11:25,056 --> 0:11:25,586
+content.
+
+385
+00:11:26,226 --> 0:11:27,486
+Since an animal cell is going to
+
+386
+00:11:27,486 --> 0:11:29,366
+be embedded in a list, and a
+
+387
+00:11:29,366 --> 0:11:32,666
+list allows its entities -- the
+
+388
+00:11:32,666 --> 0:11:34,596
+cells displayed within it -- to
+
+389
+00:11:34,596 --> 0:11:36,536
+be resized vertically according
+
+390
+00:11:36,536 --> 0:11:37,546
+to their contents, we are going
+
+391
+00:11:37,546 --> 0:11:38,796
+to go ahead and use "Size That
+
+392
+00:11:39,486 --> 0:11:39,606
+Fits."
+
+393
+00:11:41,196 --> 0:11:42,776
+And immediately, the canvas
+
+394
+00:11:42,776 --> 0:11:44,596
+update, showing us just what we
+
+395
+00:11:44,596 --> 0:11:44,886
+want.
+
+396
+00:11:44,916 --> 0:11:47,556
+I am going to go ahead and zoom
+
+397
+00:11:47,556 --> 0:11:48,996
+in by clicking on the plus sign
+
+398
+00:11:48,996 --> 0:11:49,806
+in the bottom right of the
+
+399
+00:11:49,806 --> 0:11:50,386
+canvas.
+
+400
+00:11:51,936 --> 0:11:55,056
+You know, the two texts, the red
+
+401
+00:11:55,056 --> 0:11:56,706
+fox and the family name below
+
+402
+00:11:56,706 --> 0:12:00,236
+it, Canidae, are a little too
+
+403
+00:11:56,706 --> 0:12:00,236
+it, Canidae, are a little too
+
+404
+00:12:00,236 --> 0:12:00,986
+indistinct.
+
+405
+00:12:01,386 --> 0:12:02,866
+I want them to be visually
+
+406
+00:12:02,866 --> 0:12:04,116
+distinctive, one from the next.
+
+407
+00:12:04,116 --> 0:12:05,186
+So I am going to go ahead and
+
+408
+00:12:05,186 --> 0:12:06,656
+make the red fox be bold.
+
+409
+00:12:07,416 --> 0:12:09,016
+To do that, I'll Command-click
+
+410
+00:12:09,016 --> 0:12:11,056
+on the Text and scroll down to
+
+411
+00:12:11,056 --> 0:12:13,266
+the Inspect action, then change
+
+412
+00:12:13,306 --> 0:12:14,886
+the weight to Bold.
+
+413
+00:12:16,816 --> 0:12:18,796
+The source editor gets new code
+
+414
+00:12:18,796 --> 0:12:20,826
+added to it, and the previews
+
+415
+00:12:20,906 --> 0:12:22,186
+refresh in response.
+
+416
+00:12:23,096 --> 0:12:23,676
+This looks great.
+
+417
+00:12:24,366 --> 0:12:27,376
+A lot of users like to take
+
+418
+00:12:27,376 --> 0:12:29,116
+advantage of dynamic font sizes.
+
+419
+00:12:29,616 --> 0:12:31,196
+Let's take a look at what our
+
+420
+00:12:31,196 --> 0:12:32,956
+view will look like when the
+
+421
+00:12:32,956 --> 0:12:35,226
+user changes dynamic font size
+
+422
+00:12:35,286 --> 0:12:36,466
+to extra-large.
+
+423
+00:12:37,466 --> 0:12:39,596
+Because the preview of API is
+
+424
+00:12:39,596 --> 0:12:41,616
+part of SwiftUI, we can take
+
+425
+00:12:41,616 --> 0:12:43,626
+advantage of all of SwiftUI when
+
+426
+00:12:43,626 --> 0:12:44,776
+we are writing our previews.
+
+427
+00:12:45,186 --> 0:12:47,076
+In particular, in this case we
+
+428
+00:12:47,076 --> 0:12:48,586
+can use the environment modifier
+
+429
+00:12:48,586 --> 0:12:51,596
+and specify the value for the
+
+430
+00:12:51,596 --> 0:12:53,506
+Size category keypath to be
+
+431
+00:12:53,506 --> 0:12:54,246
+extra-large.
+
+432
+00:12:56,136 --> 0:12:57,726
+Now it's great to be able to so
+
+433
+00:12:57,726 --> 0:13:00,066
+easily change the size category
+
+434
+00:12:57,726 --> 0:13:00,066
+easily change the size category
+
+435
+00:13:00,066 --> 0:13:01,186
+that we are seeing our view at.
+
+436
+00:13:01,186 --> 0:13:03,086
+But what would be even better
+
+437
+00:13:03,356 --> 0:13:05,326
+would be to be able to see our
+
+438
+00:13:05,326 --> 0:13:07,146
+view displayed at every single
+
+439
+00:13:07,146 --> 0:13:08,866
+content size category at once.
+
+440
+00:13:08,866 --> 0:13:11,996
+What we could do is embed this
+
+441
+00:13:11,996 --> 0:13:13,296
+view in a group and, and for
+
+442
+00:13:13,296 --> 0:13:15,336
+each different one, create a
+
+443
+00:13:15,336 --> 0:13:16,456
+different animal cell.
+
+444
+00:13:16,676 --> 0:13:18,166
+But that's very repetitive, and
+
+445
+00:13:18,366 --> 0:13:19,226
+there is a better way.
+
+446
+00:13:20,436 --> 0:13:22,736
+SwiftUI has the for each
+
+447
+00:13:22,736 --> 0:13:23,106
+feature.
+
+448
+00:13:23,386 --> 0:13:24,296
+To use it, I am going to
+
+449
+00:13:24,296 --> 0:13:25,596
+Command-click on the animal
+
+450
+00:13:25,666 --> 0:13:27,876
+cell, scroll down to Repeat.
+
+451
+00:13:29,016 --> 0:13:30,466
+And now, for each of the
+
+452
+00:13:30,466 --> 0:13:32,566
+integers from 0 to 5, we get a
+
+453
+00:13:32,566 --> 0:13:33,186
+preview.
+
+454
+00:13:33,486 --> 0:13:35,936
+But what I actually want is for
+
+455
+00:13:35,936 --> 0:13:37,186
+each of the Content Size
+
+456
+00:13:37,186 --> 0:13:38,676
+category cases to have a
+
+457
+00:13:38,716 --> 0:13:41,056
+preview, and for each of those
+
+458
+00:13:41,056 --> 0:13:43,266
+cases to specify into the
+
+459
+00:13:43,266 --> 0:13:45,086
+environment the value for the
+
+460
+00:13:45,086 --> 0:13:47,176
+size category keypath to be that
+
+461
+00:13:47,176 --> 0:13:47,466
+case.
+
+462
+00:13:49,026 --> 0:13:51,426
+Just like that, you can see in
+
+463
+00:13:51,426 --> 0:13:53,256
+the canvas your view displayed
+
+464
+00:13:53,256 --> 0:13:54,976
+at every Content Size category.
+
+465
+00:13:55,516 --> 0:14:02,216
+[ Applause ]
+
+466
+00:13:55,516 --> 0:14:02,216
+[ Applause ]
+
+467
+00:14:02,716 --> 0:14:05,066
+Now that we have done this, one
+
+468
+00:14:05,096 --> 0:14:06,176
+problem I am noticing with the
+
+469
+00:14:06,176 --> 0:14:07,506
+extra-small content size
+
+470
+00:14:07,506 --> 0:14:09,666
+category is that the title --
+
+471
+00:14:09,736 --> 0:14:11,076
+the common name -- really isn't
+
+472
+00:14:11,076 --> 0:14:12,376
+popping out as much as I'd like.
+
+473
+00:14:12,896 --> 0:14:14,176
+Let's go ahead and bump that up
+
+474
+00:14:14,176 --> 0:14:14,686
+a notch.
+
+475
+00:14:15,236 --> 0:14:16,456
+I am going to Command-click on
+
+476
+00:14:16,456 --> 0:14:17,516
+the view, this time in the
+
+477
+00:14:17,676 --> 0:14:21,136
+canvas; again select the Inspect
+
+478
+00:14:21,136 --> 0:14:23,416
+action; and change the font to
+
+479
+00:14:23,416 --> 0:14:23,716
+Title.
+
+480
+00:14:24,446 --> 0:14:27,566
+Code is inserted in the source
+
+481
+00:14:27,596 --> 0:14:29,256
+editor, and we get an update in
+
+482
+00:14:29,256 --> 0:14:29,846
+the canvas.
+
+483
+00:14:30,296 --> 0:14:31,196
+This looks great.
+
+484
+00:14:32,086 --> 0:14:33,876
+One problem you may encounter
+
+485
+00:14:33,946 --> 0:14:35,036
+when you have a number of
+
+486
+00:14:35,036 --> 0:14:36,676
+previews in the canvas like this
+
+487
+00:14:37,066 --> 0:14:38,326
+is that it's difficult to
+
+488
+00:14:38,326 --> 0:14:39,556
+distinguish between the
+
+489
+00:14:39,556 --> 0:14:40,456
+different previews.
+
+490
+00:14:40,746 --> 0:14:42,416
+You need to know which
+
+491
+00:14:42,416 --> 0:14:44,216
+configuration in your code, in
+
+492
+00:14:44,216 --> 0:14:45,376
+your implementation of the
+
+493
+00:14:45,376 --> 0:14:46,656
+Previews static property
+
+494
+00:14:46,936 --> 0:14:49,436
+correspond to which preview in
+
+495
+00:14:49,436 --> 0:14:49,896
+the canvas.
+
+496
+00:14:51,336 --> 0:14:52,666
+To help out with that problem,
+
+497
+00:14:53,376 --> 0:14:54,876
+the Previews API provides the
+
+498
+00:14:54,876 --> 0:14:56,586
+method "Preview Display Name."
+
+499
+00:14:57,266 --> 0:14:58,536
+In this case we want to use the
+
+500
+00:14:58,536 --> 0:15:00,046
+name of the content size
+
+501
+00:14:58,536 --> 0:15:00,046
+name of the content size
+
+502
+00:15:00,046 --> 0:15:01,236
+category we are displaying.
+
+503
+00:15:01,926 --> 0:15:03,706
+And right below each preview, we
+
+504
+00:15:03,706 --> 0:15:04,976
+see the content size category.
+
+505
+00:15:05,516 --> 0:15:10,456
+[ Applause ]
+
+506
+00:15:10,956 --> 0:15:12,016
+Yeah. This is really great.
+
+507
+00:15:14,116 --> 0:15:16,746
+The Previews API is concise and
+
+508
+00:15:16,746 --> 0:15:17,836
+extremely powerful.
+
+509
+00:15:18,576 --> 0:15:19,826
+To tell you about how to use
+
+510
+00:15:19,866 --> 0:15:21,936
+Xcode features to make the most
+
+511
+00:15:21,936 --> 0:15:22,956
+of your previews, here's Anton.
+
+512
+00:15:23,516 --> 0:15:31,106
+[ Applause ]
+
+513
+00:15:31,606 --> 0:15:33,426
+&gt;&gt; So I am going to jump in into
+
+514
+00:15:33,426 --> 0:15:35,426
+this demo and finish building
+
+515
+00:15:35,586 --> 0:15:37,966
+the animal cell that Nate was
+
+516
+00:15:37,966 --> 0:15:38,416
+working on.
+
+517
+00:15:38,416 --> 0:15:39,656
+And the first thing I am going
+
+518
+00:15:39,656 --> 0:15:41,296
+to do is I am going to focus on
+
+519
+00:15:41,296 --> 0:15:43,596
+this Red fox image placeholder.
+
+520
+00:15:43,986 --> 0:15:45,236
+Now when we shipped this
+
+521
+00:15:45,236 --> 0:15:47,696
+application, we expected data to
+
+522
+00:15:47,696 --> 0:15:49,186
+come from a network service that
+
+523
+00:15:49,186 --> 0:15:49,926
+we are going to provide.
+
+524
+00:15:50,436 --> 0:15:51,656
+But we haven't built the
+
+525
+00:15:51,656 --> 0:15:53,236
+networking code yet, and so I
+
+526
+00:15:53,236 --> 0:15:54,786
+don't have the data to populate
+
+527
+00:15:54,816 --> 0:15:55,246
+my view.
+
+528
+00:15:55,456 --> 0:15:57,256
+And so I am using placeholder
+
+529
+00:15:57,256 --> 0:15:58,956
+data here, and it's easy enough
+
+530
+00:15:58,956 --> 0:16:00,866
+for strings like we do for fox
+
+531
+00:15:58,956 --> 0:16:00,866
+for strings like we do for fox
+
+532
+00:16:00,866 --> 0:16:01,036
+here.
+
+533
+00:16:01,336 --> 0:16:02,426
+But for images the story is a
+
+534
+00:16:02,426 --> 0:16:03,486
+little bit more complicated.
+
+535
+00:16:03,896 --> 0:16:05,396
+That's because I could add an
+
+536
+00:16:05,396 --> 0:16:06,976
+asset that's a placeholder asset
+
+537
+00:16:06,976 --> 0:16:08,356
+for use in my previews.
+
+538
+00:16:09,156 --> 0:16:11,276
+But that would mean that I would
+
+539
+00:16:11,276 --> 0:16:12,536
+have to then ship this asset
+
+540
+00:16:12,576 --> 0:16:13,816
+with my application to my
+
+541
+00:16:13,816 --> 0:16:14,706
+customers, and that's not
+
+542
+00:16:14,706 --> 0:16:15,876
+something I really want to do.
+
+543
+00:16:16,246 --> 0:16:17,706
+And I don't want to pollute my
+
+544
+00:16:17,706 --> 0:16:18,036
+buyer [phonetic].
+
+545
+00:16:18,556 --> 0:16:21,406
+And so this year Xcode has a new
+
+546
+00:16:21,406 --> 0:16:23,536
+feature that's going to help us
+
+547
+00:16:23,536 --> 0:16:23,986
+with this.
+
+548
+00:16:24,516 --> 0:16:25,826
+And it's called "Development
+
+549
+00:16:25,826 --> 0:16:26,406
+Assets."
+
+550
+00:16:26,786 --> 0:16:28,006
+And I'll show you this feature
+
+551
+00:16:28,006 --> 0:16:28,226
+now.
+
+552
+00:16:28,316 --> 0:16:30,386
+So I will open the Project
+
+553
+00:16:32,126 --> 0:16:32,286
+Editor.
+
+554
+00:16:32,476 --> 0:16:34,266
+And under Targets in general I
+
+555
+00:16:34,266 --> 0:16:35,506
+will scroll down to Development
+
+556
+00:16:35,506 --> 0:16:35,976
+Assets.
+
+557
+00:16:36,306 --> 0:16:37,266
+You will notice that I already
+
+558
+00:16:37,266 --> 0:16:39,636
+preconfigured Preview Assets as
+
+559
+00:16:39,636 --> 0:16:41,186
+a catalog here which will hold
+
+560
+00:16:41,186 --> 0:16:42,046
+all my images.
+
+561
+00:16:42,356 --> 0:16:43,596
+If you are starting from scratch
+
+562
+00:16:43,636 --> 0:16:45,666
+and you are using one of our new
+
+563
+00:16:45,666 --> 0:16:46,986
+templates, this will come
+
+564
+00:16:46,986 --> 0:16:47,956
+preconfigured for you.
+
+565
+00:16:48,326 --> 0:16:49,206
+But if you are working on an
+
+566
+00:16:49,206 --> 0:16:50,386
+existing applications, you can
+
+567
+00:16:50,386 --> 0:16:52,096
+easily add this here.
+
+568
+00:16:52,716 --> 0:16:54,256
+So now that we know that I have
+
+569
+00:16:54,316 --> 0:16:55,896
+these preview assets in an asset
+
+570
+00:16:55,896 --> 0:16:57,386
+catalog, I can show you that
+
+571
+00:16:57,796 --> 0:16:58,776
+under my Preview Data.
+
+572
+00:16:58,776 --> 0:16:59,846
+Here's my asset catalog.
+
+573
+00:16:59,906 --> 0:17:01,336
+And in it I already have an
+
+574
+00:16:59,906 --> 0:17:01,336
+And in it I already have an
+
+575
+00:17:01,336 --> 0:17:03,256
+image for the red fox that I was
+
+576
+00:17:03,256 --> 0:17:04,646
+going to use as a placeholder.
+
+577
+00:17:05,465 --> 0:17:09,705
+So I will open my animal cell
+
+578
+00:17:10,526 --> 0:17:13,796
+and - for us to preview.
+
+579
+00:17:14,326 --> 0:17:17,046
+And since the placeholder here
+
+580
+00:17:17,046 --> 0:17:19,955
+was using an image name already,
+
+581
+00:17:20,046 --> 0:17:21,826
+all I need to do is change this
+
+582
+00:17:21,826 --> 0:17:23,146
+text to Image.
+
+583
+00:17:23,685 --> 0:17:27,306
+And the image immediately shows
+
+584
+00:17:27,306 --> 0:17:28,425
+up in all my previews.
+
+585
+00:17:28,956 --> 0:17:29,756
+This is looking good.
+
+586
+00:17:30,296 --> 0:17:32,116
+But I would like to give it some
+
+587
+00:17:32,526 --> 0:17:33,866
+visual treatment to make it
+
+588
+00:17:33,956 --> 0:17:34,846
+stand out a little bit.
+
+589
+00:17:35,306 --> 0:17:36,786
+And I can do that with a little
+
+590
+00:17:36,786 --> 0:17:38,256
+bit of SwiftUI code.
+
+591
+00:17:38,966 --> 0:17:39,906
+OK, so this looks good.
+
+592
+00:17:39,906 --> 0:17:41,916
+There is some shadows and some
+
+593
+00:17:42,216 --> 0:17:42,786
+overlays.
+
+594
+00:17:43,116 --> 0:17:44,076
+This looks nice, but look what
+
+595
+00:17:44,076 --> 0:17:45,076
+happened to my code now.
+
+596
+00:17:45,396 --> 0:17:47,706
+Most of this view for the cell
+
+597
+00:17:47,706 --> 0:17:49,766
+is now sort of dominated by this
+
+598
+00:17:49,806 --> 0:17:50,806
+image treatment code.
+
+599
+00:17:51,406 --> 0:17:53,456
+I am probably done with this
+
+600
+00:17:53,456 --> 0:17:54,546
+treatment, and I don't really
+
+601
+00:17:54,546 --> 0:17:56,436
+want to lose the details here.
+
+602
+00:17:56,726 --> 0:17:59,046
+So I am going to extract this by
+
+603
+00:17:59,156 --> 0:18:00,436
+Command-clicking on the image.
+
+604
+00:17:59,156 --> 0:18:00,436
+Command-clicking on the image.
+
+605
+00:18:01,356 --> 0:18:03,056
+I am clicking on the image and
+
+606
+00:18:03,056 --> 0:18:04,306
+picking Extracted View.
+
+607
+00:18:04,966 --> 0:18:07,366
+And Xcode locates a new SwiftUI
+
+608
+00:18:07,366 --> 0:18:08,526
+view in the same file down
+
+609
+00:18:08,526 --> 0:18:09,866
+below, so let me rename it.
+
+610
+00:18:09,866 --> 0:18:12,016
+I will call it "Animal Image."
+
+611
+00:18:12,656 --> 0:18:14,546
+And I will give it some
+
+612
+00:18:14,546 --> 0:18:16,206
+argument, which is my image
+
+613
+00:18:16,206 --> 0:18:16,476
+name.
+
+614
+00:18:16,546 --> 0:18:17,636
+And if I scroll down here,
+
+615
+00:18:17,636 --> 0:18:18,666
+here's my animal image.
+
+616
+00:18:19,826 --> 0:18:20,336
+Easy enough.
+
+617
+00:18:20,336 --> 0:18:22,166
+I will wire in [phonetic] my
+
+618
+00:18:22,406 --> 0:18:22,726
+input.
+
+619
+00:18:23,236 --> 0:18:26,976
+And I have refreshed my preview.
+
+620
+00:18:27,516 --> 0:18:30,756
+[ Applause ]
+
+621
+00:18:31,256 --> 0:18:31,706
+Yes, thanks.
+
+622
+00:18:31,706 --> 0:18:32,916
+I think this looks pretty cool,
+
+623
+00:18:32,916 --> 0:18:32,983
+too.
+
+624
+00:18:33,576 --> 0:18:34,746
+So notice the preview really
+
+625
+00:18:34,746 --> 0:18:35,226
+didn't change.
+
+626
+00:18:35,226 --> 0:18:37,006
+But if I scroll back up and look
+
+627
+00:18:37,006 --> 0:18:38,176
+at my - what my animal cell
+
+628
+00:18:38,176 --> 0:18:39,776
+looks like, it's much clearer
+
+629
+00:18:39,776 --> 0:18:40,786
+now what's going on here and I
+
+630
+00:18:40,786 --> 0:18:42,886
+can focus on the details other
+
+631
+00:18:42,886 --> 0:18:44,926
+than the image treatment.
+
+632
+00:18:44,966 --> 0:18:46,296
+So now that this looks good,
+
+633
+00:18:46,566 --> 0:18:47,566
+notice that we have so far
+
+634
+00:18:47,566 --> 0:18:49,706
+focused on this view just by
+
+635
+00:18:49,706 --> 0:18:50,076
+itself.
+
+636
+00:18:50,076 --> 0:18:51,626
+But it never actually appears
+
+637
+00:18:52,126 --> 0:18:53,316
+this way to our customers.
+
+638
+00:18:53,646 --> 0:18:55,196
+The only way our customers will
+
+639
+00:18:55,196 --> 0:18:56,726
+ever see this is in the context
+
+640
+00:18:57,106 --> 0:18:58,746
+of the list that this will
+
+641
+00:18:58,746 --> 0:18:59,136
+appear in.
+
+642
+00:18:59,376 --> 0:19:00,516
+And so I would like to work on
+
+643
+00:18:59,376 --> 0:19:00,516
+And so I would like to work on
+
+644
+00:19:00,516 --> 0:19:01,036
+that now.
+
+645
+00:19:01,846 --> 0:19:03,476
+So I already started working on
+
+646
+00:19:04,076 --> 0:19:05,586
+that in this animal list file.
+
+647
+00:19:05,756 --> 0:19:06,796
+And we didn't have the animal
+
+648
+00:19:06,796 --> 0:19:07,426
+cell before.
+
+649
+00:19:07,696 --> 0:19:09,946
+So I just created a simple list
+
+650
+00:19:10,326 --> 0:19:12,736
+that accepts a - some animals --
+
+651
+00:19:12,736 --> 0:19:15,676
+and for each one displays a cell
+
+652
+00:19:15,676 --> 0:19:15,896
+here.
+
+653
+00:19:15,896 --> 0:19:16,966
+So I am just going to replace
+
+654
+00:19:17,006 --> 0:19:18,706
+this code with a new animal cell
+
+655
+00:19:18,706 --> 0:19:19,296
+that I just built.
+
+656
+00:19:19,296 --> 0:19:20,596
+And here it is; that shows up.
+
+657
+00:19:21,476 --> 0:19:22,636
+That's closer to what our
+
+658
+00:19:22,636 --> 0:19:23,546
+customers will see.
+
+659
+00:19:24,086 --> 0:19:26,756
+But there is really not a lot of
+
+660
+00:19:26,836 --> 0:19:28,036
+zoos around with one animal.
+
+661
+00:19:28,406 --> 0:19:31,326
+So I'd really like to populate
+
+662
+00:19:31,466 --> 0:19:34,766
+this list with some data that's
+
+663
+00:19:35,086 --> 0:19:37,106
+actually closer to what my
+
+664
+00:19:37,106 --> 0:19:37,886
+customers will see.
+
+665
+00:19:37,886 --> 0:19:39,596
+So how do I do that?
+
+666
+00:19:40,206 --> 0:19:42,146
+Well if I scroll down to my
+
+667
+00:19:42,146 --> 0:19:44,746
+Previews configuration code, you
+
+668
+00:19:44,746 --> 0:19:46,226
+will see that I am populating my
+
+669
+00:19:46,226 --> 0:19:47,876
+animal list with just an array
+
+670
+00:19:47,876 --> 0:19:48,786
+of the one element.
+
+671
+00:19:48,986 --> 0:19:50,326
+So, you know, one thing I have
+
+672
+00:19:50,326 --> 0:19:51,456
+to do is simply - you know, I
+
+673
+00:19:51,456 --> 0:19:52,226
+have this hard-coded [phonetic]
+
+674
+00:19:52,226 --> 0:19:52,606
+thing here.
+
+675
+00:19:52,606 --> 0:19:53,906
+I can just add a couple of
+
+676
+00:19:53,906 --> 0:19:54,156
+these.
+
+677
+00:19:54,626 --> 0:19:56,166
+And now three cells will show
+
+678
+00:19:56,166 --> 0:19:56,286
+up.
+
+679
+00:19:56,866 --> 0:19:57,496
+That's closer.
+
+680
+00:19:57,806 --> 0:19:59,406
+But then I can keep doing this
+
+681
+00:19:59,406 --> 0:19:59,976
+to fill it up.
+
+682
+00:20:00,216 --> 0:20:02,626
+But it's very uniform, and
+
+683
+00:20:02,626 --> 0:20:04,046
+that's still not exactly what it
+
+684
+00:20:04,046 --> 0:20:05,436
+will look like to my customers.
+
+685
+00:20:05,466 --> 0:20:07,306
+Some of the animals' names are
+
+686
+00:20:07,306 --> 0:20:08,496
+going to be longer and shorter,
+
+687
+00:20:08,496 --> 0:20:09,326
+and the colors are going to be
+
+688
+00:20:09,326 --> 0:20:09,676
+different.
+
+689
+00:20:09,676 --> 0:20:12,076
+I really want to get a good idea
+
+690
+00:20:12,076 --> 0:20:13,106
+of what it - it's going to look
+
+691
+00:20:13,106 --> 0:20:13,326
+like.
+
+692
+00:20:14,026 --> 0:20:15,236
+So what are my other options?
+
+693
+00:20:15,936 --> 0:20:17,156
+Well one thing I could do is I
+
+694
+00:20:17,156 --> 0:20:19,376
+could - since this preview code
+
+695
+00:20:19,766 --> 0:20:20,606
+runs as a part of my
+
+696
+00:20:20,606 --> 0:20:22,666
+application, I could actually
+
+697
+00:20:22,666 --> 0:20:24,236
+spin off my networking code, hit
+
+698
+00:20:24,286 --> 0:20:26,036
+my network, and get some data
+
+699
+00:20:26,036 --> 0:20:27,256
+and populate my preview.
+
+700
+00:20:27,256 --> 0:20:27,826
+I could do that.
+
+701
+00:20:28,286 --> 0:20:29,556
+There is a couple of problems
+
+702
+00:20:29,556 --> 0:20:30,216
+with that approach.
+
+703
+00:20:30,536 --> 0:20:32,766
+First, I didn't build the
+
+704
+00:20:32,766 --> 0:20:33,616
+networking code yet.
+
+705
+00:20:33,616 --> 0:20:34,616
+So I can't really do that.
+
+706
+00:20:35,106 --> 0:20:37,946
+Second, if I did, that - still
+
+707
+00:20:37,946 --> 0:20:39,016
+be a problem because that would
+
+708
+00:20:39,016 --> 0:20:40,656
+mean every time I work on this
+
+709
+00:20:40,656 --> 0:20:43,066
+view, I would have to be online
+
+710
+00:20:43,066 --> 0:20:44,236
+and my service would have to be
+
+711
+00:20:44,236 --> 0:20:44,956
+available to me.
+
+712
+00:20:45,706 --> 0:20:47,786
+And that's just not a good way
+
+713
+00:20:47,786 --> 0:20:48,246
+to work.
+
+714
+00:20:48,246 --> 0:20:49,676
+What, instead, I want to do is I
+
+715
+00:20:49,676 --> 0:20:53,506
+want to get some data and cache
+
+716
+00:20:53,506 --> 0:20:55,626
+it so I can visualize this
+
+717
+00:20:55,656 --> 0:20:57,076
+without requiring all the rest
+
+718
+00:20:57,076 --> 0:20:57,816
+of the components in my
+
+719
+00:20:57,816 --> 0:20:58,346
+application.
+
+720
+00:20:58,446 --> 0:20:59,696
+So I did this a little bit
+
+721
+00:20:59,696 --> 0:21:00,116
+earlier.
+
+722
+00:20:59,696 --> 0:21:00,116
+earlier.
+
+723
+00:21:00,546 --> 0:21:03,156
+And I created a cache which is
+
+724
+00:21:03,156 --> 0:21:04,136
+just a JSON file.
+
+725
+00:21:04,136 --> 0:21:04,676
+Let me show you.
+
+726
+00:21:05,146 --> 0:21:06,926
+Under Preview Data here is a
+
+727
+00:21:06,926 --> 0:21:08,356
+simple JSON file that just lists
+
+728
+00:21:08,456 --> 0:21:10,846
+some animals to populate this
+
+729
+00:21:10,846 --> 0:21:11,176
+data.
+
+730
+00:21:11,386 --> 0:21:13,096
+And so what I can do now - what
+
+731
+00:21:13,156 --> 0:21:14,406
+do I - I don't really want to
+
+732
+00:21:14,406 --> 0:21:15,506
+ship to the customers either.
+
+733
+00:21:15,506 --> 0:21:16,726
+So a little bit later I'll go
+
+734
+00:21:16,726 --> 0:21:19,386
+and add it to my development
+
+735
+00:21:19,386 --> 0:21:19,866
+assets.
+
+736
+00:21:20,156 --> 0:21:21,226
+But I'm going to skip that for
+
+737
+00:21:21,226 --> 0:21:21,406
+now.
+
+738
+00:21:21,406 --> 0:21:22,696
+So now that I can - that we know
+
+739
+00:21:22,696 --> 0:21:24,456
+that we - this is here, all I
+
+740
+00:21:24,456 --> 0:21:26,156
+need to do is just load this.
+
+741
+00:21:26,156 --> 0:21:27,416
+I am going to add a little bit
+
+742
+00:21:27,416 --> 0:21:28,476
+of code in my previewing
+
+743
+00:21:28,476 --> 0:21:29,626
+[phonetic] code to load this
+
+744
+00:21:29,626 --> 0:21:31,946
+JSON out of my main bundle, and
+
+745
+00:21:31,946 --> 0:21:34,696
+use a JSON decoder to parse out
+
+746
+00:21:34,696 --> 0:21:35,056
+my data.
+
+747
+00:21:35,226 --> 0:21:37,256
+So now I have an array of data
+
+748
+00:21:37,256 --> 0:21:38,596
+which I can -- let me close this
+
+749
+00:21:38,596 --> 0:21:40,386
+so you can see -- I can replace
+
+750
+00:21:41,716 --> 0:21:44,706
+with Self.sampleAnimals.
+
+751
+00:21:45,486 --> 0:21:48,056
+And when the previews refresh,
+
+752
+00:21:49,096 --> 0:21:50,586
+here's my UI populated with my
+
+753
+00:21:50,586 --> 0:21:50,976
+sample animals.
+
+754
+00:21:51,516 --> 0:21:54,946
+[ Applause ]
+
+755
+00:21:55,446 --> 0:21:58,756
+Thanks. So this is a lot closer
+
+756
+00:21:58,756 --> 0:21:59,986
+to what my customers will
+
+757
+00:21:59,986 --> 0:22:01,696
+actually see, and I immediately
+
+758
+00:21:59,986 --> 0:22:01,696
+actually see, and I immediately
+
+759
+00:22:01,696 --> 0:22:02,966
+see a couple of issues with this
+
+760
+00:22:02,966 --> 0:22:03,466
+layout here.
+
+761
+00:22:03,466 --> 0:22:04,716
+For instance, the "Snow Leopard"
+
+762
+00:22:04,716 --> 0:22:05,876
+here is very long, and it's
+
+763
+00:22:05,926 --> 0:22:07,476
+clear now that I probably should
+
+764
+00:22:07,476 --> 0:22:08,366
+realign this.
+
+765
+00:22:08,856 --> 0:22:11,316
+The other thing is, because
+
+766
+00:22:11,316 --> 0:22:12,626
+these titles are kind of large
+
+767
+00:22:12,626 --> 0:22:13,456
+-so you look now [inaudible] but
+
+768
+00:22:13,606 --> 0:22:15,226
+there - it could be a little bit
+
+769
+00:22:15,226 --> 0:22:15,636
+airier area here.
+
+770
+00:22:15,636 --> 0:22:16,806
+I want to add some padding on
+
+771
+00:22:16,806 --> 0:22:17,536
+the top and the bottom.
+
+772
+00:22:17,956 --> 0:22:19,746
+So all of those changes belong
+
+773
+00:22:19,746 --> 0:22:21,006
+in the animal cell.
+
+774
+00:22:21,006 --> 0:22:22,246
+So I am going to navigate there
+
+775
+00:22:22,246 --> 0:22:23,006
+to make those edits.
+
+776
+00:22:23,546 --> 0:22:25,636
+And look what happens.
+
+777
+00:22:26,766 --> 0:22:27,696
+My preview that I was just
+
+778
+00:22:27,696 --> 0:22:28,776
+looking at disappears.
+
+779
+00:22:29,106 --> 0:22:31,216
+I am back to the context of the
+
+780
+00:22:31,216 --> 0:22:31,606
+cell.
+
+781
+00:22:32,126 --> 0:22:34,126
+And so my list went away.
+
+782
+00:22:34,526 --> 0:22:35,896
+What I really want to do is I
+
+783
+00:22:35,896 --> 0:22:37,336
+want to make my edits to the
+
+784
+00:22:37,336 --> 0:22:39,226
+cell while looking at it in the
+
+785
+00:22:39,226 --> 0:22:40,176
+context in which it will
+
+786
+00:22:40,176 --> 0:22:41,026
+actually appear, which is the
+
+787
+00:22:41,026 --> 0:22:41,416
+list.
+
+788
+00:22:41,976 --> 0:22:43,006
+One thing I could do is I could
+
+789
+00:22:43,006 --> 0:22:44,546
+just add another preview here
+
+790
+00:22:44,546 --> 0:22:45,736
+that just previews the list.
+
+791
+00:22:45,736 --> 0:22:46,946
+Like I told you before, you
+
+792
+00:22:46,946 --> 0:22:48,976
+could really provide any content
+
+793
+00:22:48,976 --> 0:22:49,896
+as a part of your preview.
+
+794
+00:22:50,616 --> 0:22:52,106
+But that would mean anytime I am
+
+795
+00:22:52,106 --> 0:22:53,786
+looking at the - at anything
+
+796
+00:22:53,786 --> 0:22:54,576
+that has to do with this, I
+
+797
+00:22:54,576 --> 0:22:55,696
+would have to duplicate the same
+
+798
+00:22:55,696 --> 0:22:56,646
+code over and over again.
+
+799
+00:22:56,646 --> 0:22:57,476
+So there is a better way.
+
+800
+00:22:58,706 --> 0:23:00,596
+And let me show you what you can
+
+801
+00:22:58,706 --> 0:23:00,596
+And let me show you what you can
+
+802
+00:23:00,596 --> 0:23:00,666
+do.
+
+803
+00:23:00,666 --> 0:23:02,176
+I will navigate back to Animal
+
+804
+00:23:02,176 --> 0:23:03,346
+List, and I will see the preview
+
+805
+00:23:03,346 --> 0:23:04,576
+for my list like I saw before.
+
+806
+00:23:04,616 --> 0:23:06,636
+And it'll use this little Pin
+
+807
+00:23:06,636 --> 0:23:07,636
+button in the bottom left
+
+808
+00:23:07,636 --> 0:23:07,966
+corner.
+
+809
+00:23:08,366 --> 0:23:08,996
+And I'll click it.
+
+810
+00:23:09,046 --> 0:23:10,946
+And what this will do is it will
+
+811
+00:23:11,016 --> 0:23:14,896
+pin the current preview to this
+
+812
+00:23:14,896 --> 0:23:16,506
+preview; and as I navigate in a
+
+813
+00:23:16,506 --> 0:23:18,086
+different files, notice what
+
+814
+00:23:18,086 --> 0:23:18,446
+happens.
+
+815
+00:23:19,046 --> 0:23:20,966
+This preview stays up.
+
+816
+00:23:21,141 --> 0:23:23,141
+[ Applause ]
+
+817
+00:23:23,266 --> 0:23:23,586
+Thank you.
+
+818
+00:23:24,516 --> 0:23:26,736
+[ Applause ]
+
+819
+00:23:27,236 --> 0:23:28,376
+There is a little header here
+
+820
+00:23:28,376 --> 0:23:29,986
+that tells me "Hey, you are not
+
+821
+00:23:29,986 --> 0:23:31,536
+looking at exactly the preview
+
+822
+00:23:31,536 --> 0:23:32,446
+that you have from this file
+
+823
+00:23:32,446 --> 0:23:32,706
+before.
+
+824
+00:23:32,706 --> 0:23:33,906
+This comes from Animal List."
+
+825
+00:23:33,906 --> 0:23:35,256
+So just so you know.
+
+826
+00:23:35,466 --> 0:23:36,646
+And if I wanted to get to my
+
+827
+00:23:36,646 --> 0:23:37,706
+original previews from this
+
+828
+00:23:37,706 --> 0:23:39,626
+file, I can just scroll down and
+
+829
+00:23:39,626 --> 0:23:40,606
+all of them are still here.
+
+830
+00:23:40,606 --> 0:23:41,976
+So I didn't any context at all.
+
+831
+00:23:42,516 --> 0:23:46,506
+[ Applause ]
+
+832
+00:23:47,006 --> 0:23:48,456
+So now that I know what I need
+
+833
+00:23:48,456 --> 0:23:50,006
+to do, I can Command-click on my
+
+834
+00:23:50,006 --> 0:23:51,756
+VStack and call Inspect.
+
+835
+00:23:52,126 --> 0:23:54,016
+And it can inspect and change my
+
+836
+00:23:54,016 --> 0:23:56,106
+alignment here, give it some
+
+837
+00:23:56,106 --> 0:23:56,546
+padding.
+
+838
+00:23:57,766 --> 0:23:58,616
+Let's see what happens.
+
+839
+00:23:59,266 --> 0:24:03,926
+This - this is a little bit too
+
+840
+00:23:59,266 --> 0:24:03,926
+This - this is a little bit too
+
+841
+00:24:04,426 --> 0:24:04,896
+much.
+
+842
+00:24:04,926 --> 0:24:06,986
+So I am going to get back to
+
+843
+00:24:06,986 --> 0:24:08,466
+this and give it a little bit
+
+844
+00:24:08,466 --> 0:24:09,346
+less padding, maybe.
+
+845
+00:24:09,936 --> 0:24:11,906
+And it looks great.
+
+846
+00:24:11,906 --> 0:24:12,646
+I like how this looks.
+
+847
+00:24:12,646 --> 0:24:13,426
+So I am going to keep it this
+
+848
+00:24:13,426 --> 0:24:13,576
+way.
+
+849
+00:24:13,946 --> 0:24:15,776
+The next thing I want to work on
+
+850
+00:24:16,056 --> 0:24:17,856
+is a list of actions that you
+
+851
+00:24:17,856 --> 0:24:19,476
+can do - that you can use on
+
+852
+00:24:19,506 --> 0:24:21,496
+each cell when it's selected.
+
+853
+00:24:21,496 --> 0:24:23,596
+Now I already started working on
+
+854
+00:24:23,596 --> 0:24:25,096
+the selected cell implementation
+
+855
+00:24:25,096 --> 0:24:27,056
+in another file called
+
+856
+00:24:27,056 --> 0:24:28,246
+"SelectableAnimalCell."
+
+857
+00:24:29,146 --> 0:24:30,886
+Because I don't want to pollute
+
+858
+00:24:30,926 --> 0:24:32,386
+my data -- my animal cell model
+
+859
+00:24:32,386 --> 0:24:34,006
+data -- with something that
+
+860
+00:24:34,006 --> 0:24:35,056
+comes from the - something
+
+861
+00:24:35,056 --> 0:24:36,886
+that's transient from the UI, I
+
+862
+00:24:36,886 --> 0:24:39,146
+added a little wrapper that just
+
+863
+00:24:39,146 --> 0:24:41,536
+wraps any data and gets us - and
+
+864
+00:24:41,536 --> 0:24:42,766
+adds a selected fit to it.
+
+865
+00:24:42,996 --> 0:24:44,076
+And I am using this, and it's
+
+866
+00:24:44,076 --> 0:24:45,886
+another view called "Selected" -
+
+867
+00:24:45,886 --> 0:24:47,136
+"SelectableAnimalCell."
+
+868
+00:24:47,466 --> 0:24:48,656
+And all it does is it accepts a
+
+869
+00:24:48,656 --> 0:24:50,596
+model, displays my animal cell,
+
+870
+00:24:50,596 --> 0:24:51,686
+and then checks the selected
+
+871
+00:24:51,726 --> 0:24:54,076
+bits and shows my actions.
+
+872
+00:24:54,406 --> 0:24:55,336
+And those are, you know, little
+
+873
+00:24:55,336 --> 0:24:56,826
+icons that will let me get more
+
+874
+00:24:56,826 --> 0:24:58,796
+information and take a picture.
+
+875
+00:24:59,126 --> 0:25:00,796
+And if I unpin this preview, you
+
+876
+00:24:59,126 --> 0:25:00,796
+And if I unpin this preview, you
+
+877
+00:25:01,216 --> 0:25:02,306
+will see I have already built
+
+878
+00:25:02,396 --> 0:25:04,546
+two previews for this cell: one
+
+879
+00:25:04,546 --> 0:25:06,146
+for the selected state and one
+
+880
+00:25:06,146 --> 0:25:07,836
+for the unselected state - flip:
+
+881
+00:25:07,836 --> 0:25:09,396
+one for unselected, one for
+
+882
+00:25:09,396 --> 0:25:09,976
+selected.
+
+883
+00:25:10,886 --> 0:25:13,366
+So this is a great way to work.
+
+884
+00:25:13,466 --> 0:25:14,676
+But again, I want to see these
+
+885
+00:25:15,016 --> 0:25:16,066
+in the context of my list.
+
+886
+00:25:16,066 --> 0:25:18,406
+So I am going to add Selection
+
+887
+00:25:18,406 --> 0:25:19,826
+to my list now with - so I am
+
+888
+00:25:19,826 --> 0:25:20,826
+going to navigate to Animal
+
+889
+00:25:20,826 --> 0:25:21,046
+List.
+
+890
+00:25:22,806 --> 0:25:25,386
+And the way SwiftUI handles data
+
+891
+00:25:25,386 --> 0:25:27,756
+like this is with this - with a
+
+892
+00:25:27,756 --> 0:25:28,386
+State variable.
+
+893
+00:25:28,386 --> 0:25:29,686
+So I am just going to add a
+
+894
+00:25:29,686 --> 0:25:32,326
+space here that stores some data
+
+895
+00:25:32,326 --> 0:25:33,806
+about what's currently selected
+
+896
+00:25:33,806 --> 0:25:36,216
+in my table -- and then another
+
+897
+00:25:36,216 --> 0:25:39,406
+little bit of code to translate,
+
+898
+00:25:39,436 --> 0:25:42,006
+because this data is specifying
+
+899
+00:25:42,006 --> 0:25:43,626
+the selected model but each cell
+
+900
+00:25:43,626 --> 0:25:45,056
+takes a boolean whether that
+
+901
+00:25:45,056 --> 0:25:46,036
+cell is selected or not.
+
+902
+00:25:46,036 --> 0:25:47,636
+I am going to add that here as
+
+903
+00:25:47,666 --> 0:25:47,936
+well.
+
+904
+00:25:49,156 --> 0:25:51,186
+Now that I did these two things,
+
+905
+00:25:51,626 --> 0:25:52,956
+I am going to replace my animal
+
+906
+00:25:52,956 --> 0:25:55,656
+cell with this selectable animal
+
+907
+00:25:55,656 --> 0:25:55,906
+cell.
+
+908
+00:25:55,906 --> 0:25:58,836
+And that's really all I need.
+
+909
+00:25:58,836 --> 0:26:01,516
+I can refresh my previews, and
+
+910
+00:25:58,836 --> 0:26:01,516
+I can refresh my previews, and
+
+911
+00:26:01,896 --> 0:26:04,366
+you can see nothing really
+
+912
+00:26:04,366 --> 0:26:04,796
+changed.
+
+913
+00:26:05,356 --> 0:26:06,476
+Well why is that?
+
+914
+00:26:06,746 --> 0:26:09,356
+It's because the selection here
+
+915
+00:26:09,356 --> 0:26:10,116
+is optional.
+
+916
+00:26:10,366 --> 0:26:12,106
+By default nothing is selected
+
+917
+00:26:12,106 --> 0:26:14,296
+in my list, and I can't see the
+
+918
+00:26:14,296 --> 0:26:15,836
+things that I just did what I
+
+919
+00:26:15,836 --> 0:26:16,016
+did.
+
+920
+00:26:16,256 --> 0:26:17,396
+Now of course I can click the
+
+921
+00:26:17,726 --> 0:26:18,676
+Live Vote [phonetic] button,
+
+922
+00:26:20,076 --> 0:26:20,946
+take this UI.
+
+923
+00:26:21,556 --> 0:26:24,246
+And if I click around, the
+
+924
+00:26:24,246 --> 0:26:26,296
+selection will appear -- just
+
+925
+00:26:26,296 --> 0:26:27,146
+like I expect.
+
+926
+00:26:28,206 --> 0:26:29,386
+But what if I wanted to build a
+
+927
+00:26:29,456 --> 0:26:30,656
+static - thank you.
+
+928
+00:26:30,936 --> 0:26:32,816
+But what if I wanted to build
+
+929
+00:26:32,816 --> 0:26:35,286
+some static previews here that -
+
+930
+00:26:35,286 --> 0:26:36,336
+to remind me that there is such
+
+931
+00:26:36,336 --> 0:26:38,206
+a thing as a selected state for
+
+932
+00:26:38,206 --> 0:26:39,356
+the cell, so that when I make
+
+933
+00:26:39,356 --> 0:26:40,726
+changes to all of this I don't
+
+934
+00:26:40,726 --> 0:26:42,166
+forget to verify what my
+
+935
+00:26:42,166 --> 0:26:43,316
+selection looks like with my
+
+936
+00:26:43,316 --> 0:26:43,696
+changes?
+
+937
+00:26:43,966 --> 0:26:45,606
+So I could make a static preview
+
+938
+00:26:45,606 --> 0:26:46,856
+here, but this would require
+
+939
+00:26:46,856 --> 0:26:48,026
+some changes to my code.
+
+940
+00:26:48,026 --> 0:26:49,766
+And the reason is because this
+
+941
+00:26:49,766 --> 0:26:50,986
+bit of data is private.
+
+942
+00:26:51,316 --> 0:26:53,676
+I can't really modify it from my
+
+943
+00:26:53,676 --> 0:26:54,136
+preview.
+
+944
+00:26:54,446 --> 0:26:55,436
+So what can I do here to
+
+945
+00:26:55,436 --> 0:26:56,616
+actually display this preview?
+
+946
+00:26:56,616 --> 0:26:57,786
+Well what I am going to do is I
+
+947
+00:26:57,786 --> 0:26:58,796
+am going to promote this to a
+
+948
+00:26:58,796 --> 0:27:00,096
+binding that I can then set.
+
+949
+00:26:58,796 --> 0:27:00,096
+binding that I can then set.
+
+950
+00:27:00,096 --> 0:27:02,056
+And I am going to do this by
+
+951
+00:27:02,056 --> 0:27:03,316
+introducing a new view.
+
+952
+00:27:03,316 --> 0:27:04,336
+I am going to create a private
+
+953
+00:27:04,336 --> 0:27:05,966
+view inside this animal list.
+
+954
+00:27:05,966 --> 0:27:07,186
+It's just going to house all of
+
+955
+00:27:07,186 --> 0:27:07,966
+my implementations.
+
+956
+00:27:07,966 --> 0:27:09,156
+I am going to call it "Content"
+
+957
+00:27:09,596 --> 0:27:11,176
+because it's private and it's a
+
+958
+00:27:11,356 --> 0:27:12,746
+- only available inside this
+
+959
+00:27:12,776 --> 0:27:13,076
+file.
+
+960
+00:27:13,556 --> 0:27:16,156
+And then I am going to take all
+
+961
+00:27:16,156 --> 0:27:17,166
+of this implementation that I
+
+962
+00:27:17,166 --> 0:27:18,936
+just built, and I am going to
+
+963
+00:27:19,376 --> 0:27:21,416
+move it inside the view that I
+
+964
+00:27:21,416 --> 0:27:22,026
+just declared.
+
+965
+00:27:22,186 --> 0:27:23,986
+And then the final bit is I am
+
+966
+00:27:23,986 --> 0:27:25,766
+going to add the implementation
+
+967
+00:27:25,766 --> 0:27:27,636
+of body for my animal list in
+
+968
+00:27:27,636 --> 0:27:28,496
+terms of the content.
+
+969
+00:27:28,546 --> 0:27:29,436
+And what this does is just
+
+970
+00:27:29,436 --> 0:27:31,046
+substantiate the content view
+
+971
+00:27:31,046 --> 0:27:32,596
+that I just declared - that's
+
+972
+00:27:32,596 --> 0:27:34,136
+just the animal -- and creates a
+
+973
+00:27:34,136 --> 0:27:35,516
+binding to the selected state.
+
+974
+00:27:36,346 --> 0:27:37,546
+Now what I can do is I can
+
+975
+00:27:37,546 --> 0:27:39,236
+change my previews to instead of
+
+976
+00:27:39,326 --> 0:27:40,456
+previewing Animal List,
+
+977
+00:27:41,156 --> 0:27:42,836
+previewing Animal List content.
+
+978
+00:27:43,696 --> 0:27:47,956
+And when I refresh, you will see
+
+979
+00:27:47,956 --> 0:27:49,036
+that the selection actually
+
+980
+00:27:49,066 --> 0:27:50,066
+appears; and I get a static
+
+981
+00:27:50,136 --> 0:27:51,176
+preview with my selection.
+
+982
+00:27:51,466 --> 0:27:53,306
+Now I tapped Animal List
+
+983
+00:27:53,306 --> 0:27:54,776
+Selection - or Animal List
+
+984
+00:27:54,846 --> 0:27:57,126
+Preview here just so I can also
+
+985
+00:27:57,126 --> 0:27:58,336
+verify what my list looks like
+
+986
+00:27:58,536 --> 0:27:59,366
+without the selection.
+
+987
+00:27:59,656 --> 0:28:01,136
+And also I can still use Live
+
+988
+00:27:59,656 --> 0:28:01,136
+And also I can still use Live
+
+989
+00:28:01,136 --> 0:28:02,426
+Vote here to verify my
+
+990
+00:28:02,426 --> 0:28:04,236
+transitions and animations and
+
+991
+00:28:04,236 --> 0:28:04,976
+work with my previews that way.
+
+992
+00:28:05,266 --> 0:28:07,266
+[ Applause ]
+
+993
+00:28:07,516 --> 0:28:07,746
+Thank you.
+
+994
+00:28:08,516 --> 0:28:11,136
+[ Applause ]
+
+995
+00:28:11,636 --> 0:28:13,036
+So, so far we have been looking
+
+996
+00:28:13,036 --> 0:28:14,936
+at Xcode Previews and how they
+
+997
+00:28:14,936 --> 0:28:15,826
+work with SwiftUI.
+
+998
+00:28:15,826 --> 0:28:17,826
+But they can do a lot more for
+
+999
+00:28:17,826 --> 0:28:18,876
+you for your application.
+
+1000
+00:28:19,316 --> 0:28:21,166
+And to tell you more about that,
+
+1001
+00:28:21,166 --> 0:28:21,976
+please welcome Nate.
+
+1002
+00:28:22,516 --> 0:28:27,076
+[ Applause ]
+
+1003
+00:28:27,576 --> 0:28:27,976
+&gt;&gt; Thank you Anton.
+
+1004
+00:28:33,326 --> 0:28:34,396
+Not all of you are going to be
+
+1005
+00:28:34,396 --> 0:28:35,946
+writing brand new applications
+
+1006
+00:28:35,946 --> 0:28:37,076
+starting this week using
+
+1007
+00:28:37,076 --> 0:28:37,676
+SwiftUI.
+
+1008
+00:28:38,496 --> 0:28:39,866
+Many of you have apps in the App
+
+1009
+00:28:39,866 --> 0:28:40,906
+Store and apps you have been
+
+1010
+00:28:40,906 --> 0:28:41,916
+working on for years.
+
+1011
+00:28:42,926 --> 0:28:44,816
+Because SwiftUI has rich
+
+1012
+00:28:44,816 --> 0:28:46,936
+integration with UIKit, AppKit,
+
+1013
+00:28:46,936 --> 0:28:49,016
+and WatchKit, and because the
+
+1014
+00:28:49,016 --> 0:28:50,956
+Previews API is part of SwiftUI,
+
+1015
+00:28:52,036 --> 0:28:54,306
+Xcode Previews works great with
+
+1016
+00:28:54,306 --> 0:28:55,566
+all of those frameworks as well.
+
+1017
+00:28:56,206 --> 0:29:00,186
+In our zoo application, when you
+
+1018
+00:28:56,206 --> 0:29:00,186
+In our zoo application, when you
+
+1019
+00:29:00,186 --> 0:29:02,716
+tap on the Info button that
+
+1020
+00:29:02,716 --> 0:29:04,096
+Anton added to the bottom of a
+
+1021
+00:29:04,096 --> 0:29:06,206
+cell, we are going to display a
+
+1022
+00:29:06,206 --> 0:29:07,506
+detail screen for the animal
+
+1023
+00:29:07,506 --> 0:29:08,096
+that's selected.
+
+1024
+00:29:08,576 --> 0:29:11,226
+It turns out that that screen is
+
+1025
+00:29:11,226 --> 0:29:13,106
+written as a UIViewController
+
+1026
+00:29:14,766 --> 0:29:16,176
+called "Animal View Controller."
+
+1027
+00:29:16,176 --> 0:29:19,146
+Let me show you the code for it.
+
+1028
+00:29:19,396 --> 0:29:20,566
+First, I am going to go ahead
+
+1029
+00:29:20,566 --> 0:29:22,126
+and close the canvas by pressing
+
+1030
+00:29:22,126 --> 0:29:24,186
+Command-Return and then switch
+
+1031
+00:29:24,186 --> 0:29:25,116
+over to the Animal View
+
+1032
+00:29:25,116 --> 0:29:25,596
+Controller.
+
+1033
+00:29:26,176 --> 0:29:28,846
+I'd like to show you what this
+
+1034
+00:29:28,846 --> 0:29:29,886
+view controller looks like.
+
+1035
+00:29:30,276 --> 0:29:31,786
+But rather than building and
+
+1036
+00:29:31,786 --> 0:29:33,246
+running, I am going to go ahead
+
+1037
+00:29:33,246 --> 0:29:34,476
+and create a preview instead.
+
+1038
+00:29:35,496 --> 0:29:37,576
+Now previews are just code, so
+
+1039
+00:29:37,576 --> 0:29:39,516
+we absolutely could go ahead and
+
+1040
+00:29:39,516 --> 0:29:40,596
+create the preview right
+
+1041
+00:29:40,596 --> 0:29:42,346
+alongside this UIViewController
+
+1042
+00:29:42,346 --> 0:29:42,956
+in this file.
+
+1043
+00:29:43,686 --> 0:29:45,426
+In this case, though, I do want
+
+1044
+00:29:45,426 --> 0:29:46,296
+to create a new file.
+
+1045
+00:29:46,436 --> 0:29:48,186
+I am going to open the project
+
+1046
+00:29:48,186 --> 0:29:50,746
+navigator pressing Command-0 and
+
+1047
+00:29:50,746 --> 0:29:53,156
+then create a new file in the
+
+1048
+00:29:53,156 --> 0:29:53,876
+group that I want,
+
+1049
+00:29:54,666 --> 0:29:55,926
+right-clicking Selecting New
+
+1050
+00:29:55,926 --> 0:29:58,396
+File -- SwiftFile -- and
+
+1051
+00:29:58,396 --> 0:29:59,206
+entering the name I want:
+
+1052
+00:29:59,306 --> 0:30:00,856
+"AnimalViewControllerPreviews."
+
+1053
+00:29:59,306 --> 0:30:00,856
+"AnimalViewControllerPreviews."
+
+1054
+00:30:06,336 --> 0:30:08,206
+The Previews API is part of
+
+1055
+00:30:08,206 --> 0:30:08,806
+SwiftUI.
+
+1056
+00:30:08,976 --> 0:30:10,576
+So to write a preview, you will
+
+1057
+00:30:10,576 --> 0:30:11,836
+need to import that framework.
+
+1058
+00:30:12,386 --> 0:30:14,296
+To create a preview that's
+
+1059
+00:30:14,296 --> 0:30:15,826
+displayed in the canvas, you
+
+1060
+00:30:15,826 --> 0:30:17,186
+need to add a conformant to the
+
+1061
+00:30:17,186 --> 0:30:18,446
+preview provider protocol.
+
+1062
+00:30:19,176 --> 0:30:20,216
+In this case, I am going to
+
+1063
+00:30:20,246 --> 0:30:21,566
+create a brand new type to
+
+1064
+00:30:21,566 --> 0:30:22,676
+conform to that protocol,
+
+1065
+00:30:23,146 --> 0:30:23,746
+namely,
+
+1066
+00:30:23,846 --> 0:30:25,156
+"AnimalViewControllerPreview."
+
+1067
+00:30:25,956 --> 0:30:27,466
+Now the preview provider
+
+1068
+00:30:27,466 --> 0:30:28,956
+protocol has a single
+
+1069
+00:30:28,956 --> 0:30:30,146
+requirement that you must
+
+1070
+00:30:30,146 --> 0:30:32,046
+implement, namely, the Static
+
+1071
+00:30:32,156 --> 0:30:33,086
+Previews Property.
+
+1072
+00:30:33,646 --> 0:30:35,276
+From this property, we need to
+
+1073
+00:30:35,276 --> 0:30:36,476
+return some view.
+
+1074
+00:30:36,776 --> 0:30:37,986
+And in our case we want some
+
+1075
+00:30:37,986 --> 0:30:39,676
+view that embeds a - our
+
+1076
+00:30:39,676 --> 0:30:40,666
+AnimalViewController.
+
+1077
+00:30:42,006 --> 0:30:44,366
+SwiftUI has rich support for
+
+1078
+00:30:44,366 --> 0:30:47,596
+embedding UIViewControllers into
+
+1079
+00:30:48,216 --> 0:30:49,646
+SwiftViews in the form of
+
+1080
+00:30:49,646 --> 0:30:50,306
+Representables.
+
+1081
+00:30:50,746 --> 0:30:52,336
+To learn more about that, check
+
+1082
+00:30:52,336 --> 0:30:53,586
+out the session "Integrating
+
+1083
+00:30:53,586 --> 0:30:54,186
+SwiftUI."
+
+1084
+00:30:55,026 --> 0:30:56,906
+In our case, because we want to
+
+1085
+00:30:56,906 --> 0:30:59,406
+represent a UIViewController, we
+
+1086
+00:30:59,406 --> 0:31:01,176
+want to add a conformant to
+
+1087
+00:30:59,406 --> 0:31:01,176
+want to add a conformant to
+
+1088
+00:31:01,176 --> 0:31:02,786
+UIViewController representable.
+
+1089
+00:31:03,566 --> 0:31:05,106
+And for expediency, I am just
+
+1090
+00:31:05,106 --> 0:31:06,366
+going to go ahead and add that
+
+1091
+00:31:06,366 --> 0:31:08,516
+right alongside PreviewProvider
+
+1092
+00:31:08,616 --> 0:31:08,826
+to the
+
+1093
+00:31:08,826 --> 0:31:10,156
+AnimalViewControllerPreviews
+
+1094
+00:31:10,156 --> 0:31:10,386
+type.
+
+1095
+00:31:10,946 --> 0:31:13,976
+Now for our purposes, the
+
+1096
+00:31:13,976 --> 0:31:15,626
+UIViewController representable
+
+1097
+00:31:15,656 --> 0:31:17,386
+protocol has three requirements
+
+1098
+00:31:17,386 --> 0:31:18,976
+that we need to implement.
+
+1099
+00:31:19,376 --> 0:31:22,066
+The first is to specify the type
+
+1100
+00:31:22,116 --> 0:31:23,816
+of UIViewController that's being
+
+1101
+00:31:23,816 --> 0:31:24,466
+represented.
+
+1102
+00:31:25,026 --> 0:31:26,356
+In our case, that's the
+
+1103
+00:31:26,356 --> 0:31:27,316
+AnimalViewController.
+
+1104
+00:31:28,076 --> 0:31:29,976
+Secondly, we need to describe
+
+1105
+00:31:30,176 --> 0:31:31,986
+how to create one of these
+
+1106
+00:31:31,986 --> 0:31:33,336
+AnimalViewControllers from the
+
+1107
+00:31:33,336 --> 0:31:35,096
+context it exists inside.
+
+1108
+00:31:35,586 --> 0:31:37,056
+That context includes things
+
+1109
+00:31:37,336 --> 0:31:38,576
+like whether the user is running
+
+1110
+00:31:38,576 --> 0:31:40,106
+in light or dark mode and what
+
+1111
+00:31:40,106 --> 0:31:41,376
+the dynamic font size is.
+
+1112
+00:31:42,076 --> 0:31:44,996
+In this case, I have already
+
+1113
+00:31:44,996 --> 0:31:46,376
+added a little wrapper class
+
+1114
+00:31:46,376 --> 0:31:47,486
+[phonetic] around UIStoryBoard;
+
+1115
+00:31:47,676 --> 0:31:48,396
+and I am loading an
+
+1116
+00:31:48,396 --> 0:31:50,306
+AnimalViewController from it.
+
+1117
+00:31:51,086 --> 0:31:52,526
+The third requirement that we
+
+1118
+00:31:52,526 --> 0:31:53,916
+need to implement is
+
+1119
+00:31:53,916 --> 0:31:55,296
+updateUIViewController.
+
+1120
+00:31:55,886 --> 0:31:57,996
+This allows us to change the
+
+1121
+00:31:57,996 --> 0:31:58,756
+appearance of our view
+
+1122
+00:31:58,756 --> 0:32:00,796
+controller based on changes in
+
+1123
+00:31:58,756 --> 0:32:00,796
+controller based on changes in
+
+1124
+00:32:00,796 --> 0:32:02,186
+the environment, among other
+
+1125
+00:32:02,186 --> 0:32:02,486
+things.
+
+1126
+00:32:03,406 --> 0:32:04,876
+In our case, we just want to
+
+1127
+00:32:04,876 --> 0:32:05,546
+create a preview.
+
+1128
+00:32:06,146 --> 0:32:07,736
+So I am going to go ahead and
+
+1129
+00:32:07,736 --> 0:32:09,376
+leave this implementation blank.
+
+1130
+00:32:09,926 --> 0:32:12,766
+Now that we have a conformants
+
+1131
+00:32:12,966 --> 0:32:14,366
+to the UIViewController
+
+1132
+00:32:14,366 --> 0:32:15,736
+representable protocol, we are
+
+1133
+00:32:15,976 --> 0:32:18,096
+ready to implement that Previews
+
+1134
+00:32:18,096 --> 0:32:18,466
+method.
+
+1135
+00:32:19,916 --> 0:32:21,666
+Specifically, we'll return an
+
+1136
+00:32:21,666 --> 0:32:23,486
+instance of the type that
+
+1137
+00:32:23,486 --> 0:32:24,886
+conforms to UIViewController
+
+1138
+00:32:24,886 --> 0:32:26,166
+representable, namely,
+
+1139
+00:32:26,556 --> 0:32:28,086
+AnimalViewController Previews.
+
+1140
+00:32:28,986 --> 0:32:30,486
+With just those few lines of
+
+1141
+00:32:30,486 --> 0:32:33,066
+code, you can see a preview for
+
+1142
+00:32:33,066 --> 0:32:34,936
+your UIViewController in Xcode.
+
+1143
+00:32:35,226 --> 0:32:36,076
+Let's take a look at it.
+
+1144
+00:32:36,076 --> 0:32:38,546
+I am going to close the project
+
+1145
+00:32:38,546 --> 0:32:40,506
+navigator and open the canvas by
+
+1146
+00:32:40,506 --> 0:32:42,146
+pressing Command-Option-Return.
+
+1147
+00:32:43,376 --> 0:32:45,976
+Because we added new methods in
+
+1148
+00:32:45,976 --> 0:32:47,696
+the source editor, we will need
+
+1149
+00:32:47,696 --> 0:32:48,246
+to rebuild.
+
+1150
+00:32:48,866 --> 0:32:50,726
+And there, in the canvas, is a
+
+1151
+00:32:50,726 --> 0:32:52,746
+preview for our UIViewController
+
+1152
+00:32:52,826 --> 0:32:53,486
+written in Swift.
+
+1153
+00:32:53,486 --> 0:32:53,856
+Thank you.
+
+1154
+00:32:54,016 --> 0:32:55,096
+[ Applause ]
+
+1155
+00:32:55,096 --> 0:32:57,036
+Yes. This is really fantastic --
+
+1156
+00:32:57,926 --> 0:32:59,046
+a preview for our
+
+1157
+00:32:59,046 --> 0:33:00,506
+UIViewController written in
+
+1158
+00:32:59,046 --> 0:33:00,506
+UIViewController written in
+
+1159
+00:33:00,506 --> 0:33:02,496
+Swift against UIKit.
+
+1160
+00:33:03,046 --> 0:33:07,046
+But as I am looking at this
+
+1161
+00:33:07,046 --> 0:33:08,546
+ViewController, I am noticing a
+
+1162
+00:33:08,546 --> 0:33:09,086
+problem.
+
+1163
+00:33:09,486 --> 0:33:11,416
+This text is awfully difficult
+
+1164
+00:33:11,416 --> 0:33:11,866
+to read.
+
+1165
+00:33:13,046 --> 0:33:14,486
+There is an underlay view
+
+1166
+00:33:14,486 --> 0:33:16,246
+beneath the text above the
+
+1167
+00:33:16,246 --> 0:33:16,926
+image.
+
+1168
+00:33:17,206 --> 0:33:18,866
+It's semi-opaque, so that the
+
+1169
+00:33:18,866 --> 0:33:19,906
+text should be readable.
+
+1170
+00:33:20,376 --> 0:33:22,216
+But clearly it's not opaque
+
+1171
+00:33:22,216 --> 0:33:22,566
+enough.
+
+1172
+00:33:23,106 --> 0:33:25,316
+So let's go ahead and crank that
+
+1173
+00:33:25,316 --> 0:33:26,506
+opacity up enough.
+
+1174
+00:33:26,636 --> 0:33:28,336
+I am going to pin this preview
+
+1175
+00:33:28,726 --> 0:33:29,996
+so that we can keep looking at
+
+1176
+00:33:29,996 --> 0:33:32,126
+it as we make the change, and
+
+1177
+00:33:32,126 --> 0:33:32,876
+switch over to the
+
+1178
+00:33:32,876 --> 0:33:34,056
+AnimalViewController file.
+
+1179
+00:33:37,426 --> 0:33:39,026
+And in this file I'll change the
+
+1180
+00:33:39,026 --> 0:33:40,906
+alpha of that underlay view to
+
+1181
+00:33:40,906 --> 0:33:41,786
+0.5.
+
+1182
+00:33:42,646 --> 0:33:44,556
+Immediately, the canvas updates,
+
+1183
+00:33:44,936 --> 0:33:47,286
+showing us our preview for our
+
+1184
+00:33:47,286 --> 0:33:48,746
+ViewController with that change.
+
+1185
+00:33:49,766 --> 0:33:52,106
+Previews in Xcode work not just
+
+1186
+00:33:52,106 --> 0:33:54,776
+with SwiftUI but with all Swift
+
+1187
+00:33:54,776 --> 0:33:55,136
+code.
+
+1188
+00:33:55,306 --> 0:33:57,576
+And moreover, we get all of the
+
+1189
+00:33:57,576 --> 0:33:59,356
+hot swapping and incremental
+
+1190
+00:33:59,356 --> 0:34:00,916
+updates without recompilation
+
+1191
+00:33:59,356 --> 0:34:00,916
+updates without recompilation
+
+1192
+00:34:00,916 --> 0:34:02,406
+for literal values that Anton
+
+1193
+00:34:02,406 --> 0:34:03,756
+told you about -- whether you
+
+1194
+00:34:03,756 --> 0:34:04,796
+are working with SwiftUI or
+
+1195
+00:34:04,796 --> 0:34:05,976
+UIAppKit, or WatchKit.
+
+1196
+00:34:06,516 --> 0:34:11,005
+[ Applause ]
+
+1197
+00:34:11,505 --> 0:34:11,846
+Thank you.
+
+1198
+00:34:15,116 --> 0:34:15,976
+Anton showed you the
+
+1199
+00:34:15,976 --> 0:34:17,436
+AnimalActionViewController.
+
+1200
+00:34:17,616 --> 0:34:19,576
+I have been working on that, so
+
+1201
+00:34:19,576 --> 0:34:20,936
+I already added a preview for
+
+1202
+00:34:20,936 --> 0:34:21,003
+it.
+
+1203
+00:34:21,545 --> 0:34:22,346
+Let me show it to you.
+
+1204
+00:34:22,446 --> 0:34:24,686
+I am going to go ahead and unpin
+
+1205
+00:34:24,686 --> 0:34:26,076
+this AnimalViewController
+
+1206
+00:34:26,295 --> 0:34:28,056
+preview, clicking the Pin button
+
+1207
+00:34:28,056 --> 0:34:28,866
+in the bottom left of the
+
+1208
+00:34:28,866 --> 0:34:31,216
+canvas, and then switch over to
+
+1209
+00:34:31,216 --> 0:34:32,716
+the AnimalActionsViewController
+
+1210
+00:34:32,716 --> 0:34:33,286
+representable.
+
+1211
+00:34:34,266 --> 0:34:36,146
+And there is a preview for this
+
+1212
+00:34:36,146 --> 0:34:37,416
+AnimalActionViewController.
+
+1213
+00:34:38,295 --> 0:34:39,876
+The team is discussing the
+
+1214
+00:34:39,876 --> 0:34:41,146
+button on the far right there,
+
+1215
+00:34:41,565 --> 0:34:43,896
+and we feel that IImage is not
+
+1216
+00:34:43,985 --> 0:34:45,076
+quite appropriate.
+
+1217
+00:34:45,386 --> 0:34:46,886
+It's not quite consistent with
+
+1218
+00:34:46,886 --> 0:34:47,485
+the platform.
+
+1219
+00:34:47,856 --> 0:34:49,856
+Let's go ahead and fix that now.
+
+1220
+00:34:49,856 --> 0:34:51,686
+I am going to open the
+
+1221
+00:34:51,686 --> 0:34:53,456
+AnimalActionViewController file.
+
+1222
+00:34:54,216 --> 0:34:55,755
+And, you know, I was taking a
+
+1223
+00:34:55,755 --> 0:34:57,286
+trip down Memory Lane when wrote
+
+1224
+00:34:57,286 --> 0:34:58,476
+this, so I went ahead and did it
+
+1225
+00:34:58,476 --> 0:34:58,976
+in Objective-C.
+
+1226
+00:34:59,516 --> 0:35:02,446
+[ Laughter ]
+
+1227
+00:34:59,516 --> 0:35:02,446
+[ Laughter ]
+
+1228
+00:35:02,946 --> 0:35:03,456
+Thank you.
+
+1229
+00:35:03,546 --> 0:35:03,986
+Thank you.
+
+1230
+00:35:03,986 --> 0:35:06,026
+It's a great language.
+
+1231
+00:35:07,106 --> 0:35:09,286
+And I'll change the system image
+
+1232
+00:35:09,286 --> 0:35:10,946
+that we are populating the Info
+
+1233
+00:35:10,946 --> 0:35:12,796
+button with to info.circle.
+
+1234
+00:35:13,416 --> 0:35:16,966
+And I'll switch back to our
+
+1235
+00:35:16,966 --> 0:35:19,326
+preview and refresh the preview.
+
+1236
+00:35:19,796 --> 0:35:20,946
+Because this is written in
+
+1237
+00:35:20,946 --> 0:35:23,426
+Objective-C and not Swift, we
+
+1238
+00:35:23,426 --> 0:35:25,966
+will have to - Xcode will tell
+
+1239
+00:35:25,966 --> 0:35:27,596
+the build system to kick off a
+
+1240
+00:35:27,596 --> 0:35:29,306
+normal rebuild rather than using
+
+1241
+00:35:29,756 --> 0:35:31,166
+incremental updates or hot
+
+1242
+00:35:31,166 --> 0:35:31,616
+swapping.
+
+1243
+00:35:31,896 --> 0:35:33,456
+But still, that's usually very
+
+1244
+00:35:33,456 --> 0:35:33,976
+fast.
+
+1245
+00:35:34,206 --> 0:35:35,796
+And specifically, it's much
+
+1246
+00:35:35,796 --> 0:35:37,796
+faster than rebuilding and
+
+1247
+00:35:37,796 --> 0:35:39,426
+running and navigating into your
+
+1248
+00:35:39,426 --> 0:35:40,076
+application.
+
+1249
+00:35:41,186 --> 0:35:43,176
+Xcode Previews works not just
+
+1250
+00:35:43,176 --> 0:35:44,666
+with SwiftUI and not just with
+
+1251
+00:35:44,666 --> 0:35:46,696
+Swift files, but even with your
+
+1252
+00:35:46,696 --> 0:35:48,706
+Objective-C code written in
+
+1253
+00:35:48,706 --> 0:35:50,156
+UIKit, AppKit, and WatchKit.
+
+1254
+00:35:50,156 --> 0:35:51,786
+And moreover, it works with all
+
+1255
+00:35:51,786 --> 0:35:53,196
+of the source files that Xcode
+
+1256
+00:35:53,196 --> 0:35:53,856
+understands.
+
+1257
+00:35:54,516 --> 0:36:00,500
+[ Applause ]
+
+1258
+00:35:54,516 --> 0:36:00,500
+[ Applause ]
+
+1259
+00:36:04,636 --> 0:36:07,326
+You have seen how Xcode Previews
+
+1260
+00:36:07,326 --> 0:36:09,046
+can really accelerate your
+
+1261
+00:36:09,046 --> 0:36:09,466
+workflow.
+
+1262
+00:36:10,246 --> 0:36:11,116
+But I would like to talk to you
+
+1263
+00:36:11,116 --> 0:36:13,356
+now about how you could tweak
+
+1264
+00:36:13,716 --> 0:36:14,976
+the application - the
+
+1265
+00:36:14,976 --> 0:36:16,496
+architecture of your application
+
+1266
+00:36:17,426 --> 0:36:19,296
+to make Xcode Previews work even
+
+1267
+00:36:19,296 --> 0:36:20,026
+harder for you.
+
+1268
+00:36:20,636 --> 0:36:22,676
+Specifically, I would like to
+
+1269
+00:36:22,676 --> 0:36:24,106
+talk about one of the types that
+
+1270
+00:36:24,106 --> 0:36:25,446
+appeared in the zoo application,
+
+1271
+00:36:25,896 --> 0:36:27,886
+namely, AnimalCellModel.
+
+1272
+00:36:28,416 --> 0:36:30,046
+What were we doing with that
+
+1273
+00:36:30,046 --> 0:36:30,356
+thing?
+
+1274
+00:36:31,666 --> 0:36:33,696
+Well we were populating our
+
+1275
+00:36:33,696 --> 0:36:35,966
+AnimalView -- our AnimalCell.
+
+1276
+00:36:36,846 --> 0:36:39,156
+Because of SwiftUI's fluent API
+
+1277
+00:36:40,306 --> 0:36:44,266
+and - we are able to implement
+
+1278
+00:36:44,266 --> 0:36:46,316
+this body method very concisely.
+
+1279
+00:36:47,506 --> 0:36:49,786
+And thanks to using a cell
+
+1280
+00:36:50,306 --> 0:36:52,946
+model, it's extremely explicit
+
+1281
+00:36:53,216 --> 0:36:55,676
+what data is going into what
+
+1282
+00:36:55,886 --> 0:36:57,766
+field on the view.
+
+1283
+00:36:58,366 --> 0:37:02,576
+With that said, we could have
+
+1284
+00:36:58,366 --> 0:37:02,576
+With that said, we could have
+
+1285
+00:37:02,576 --> 0:37:04,346
+actually used an animal model
+
+1286
+00:37:04,346 --> 0:37:06,106
+object and passed that directly
+
+1287
+00:37:06,106 --> 0:37:06,696
+into the view.
+
+1288
+00:37:07,716 --> 0:37:09,536
+We didn't, for two big reasons.
+
+1289
+00:37:10,236 --> 0:37:14,376
+The first is that using a view
+
+1290
+00:37:14,376 --> 0:37:17,606
+model makes it way easier to add
+
+1291
+00:37:17,606 --> 0:37:18,556
+new previews.
+
+1292
+00:37:19,166 --> 0:37:21,396
+A good pattern to consider for
+
+1293
+00:37:21,396 --> 0:37:22,386
+your PreviewProvider
+
+1294
+00:37:22,386 --> 0:37:25,136
+implementation is to add a
+
+1295
+00:37:25,136 --> 0:37:26,806
+static array of view model.
+
+1296
+00:37:27,356 --> 0:37:29,686
+And in your implementation of
+
+1297
+00:37:29,686 --> 0:37:32,136
+the Static Previews property, to
+
+1298
+00:37:32,136 --> 0:37:33,966
+iterate over that array of view
+
+1299
+00:37:33,966 --> 0:37:35,816
+model and populate your view.
+
+1300
+00:37:36,546 --> 0:37:38,176
+This is useful when you
+
+1301
+00:37:38,176 --> 0:37:39,586
+encounter a new data
+
+1302
+00:37:39,586 --> 0:37:41,546
+configuration that will result
+
+1303
+00:37:41,546 --> 0:37:42,936
+in a different view layout.
+
+1304
+00:37:43,796 --> 0:37:45,496
+All you need to do is create a
+
+1305
+00:37:45,496 --> 0:37:47,556
+view model and add it to that
+
+1306
+00:37:47,556 --> 0:37:48,016
+array.
+
+1307
+00:37:49,196 --> 0:37:50,626
+Then you'll get a new preview in
+
+1308
+00:37:50,626 --> 0:37:52,696
+the canvas showing your new view
+
+1309
+00:37:52,696 --> 0:37:53,036
+layout.
+
+1310
+00:37:54,556 --> 0:37:56,506
+Before getting to the second big
+
+1311
+00:37:56,506 --> 0:37:58,586
+reason that we decided to use
+
+1312
+00:37:58,586 --> 0:37:59,496
+view models in the zoo
+
+1313
+00:37:59,496 --> 0:38:01,716
+application, I want to wax a
+
+1314
+00:37:59,496 --> 0:38:01,716
+application, I want to wax a
+
+1315
+00:38:01,746 --> 0:38:03,226
+little philosophical for a
+
+1316
+00:38:03,226 --> 0:38:06,356
+moment if you'll bear with me.
+
+1317
+00:38:07,876 --> 0:38:09,396
+The model layer of your
+
+1318
+00:38:09,396 --> 0:38:11,436
+application includes a rich
+
+1319
+00:38:11,556 --> 0:38:12,396
+object draft.
+
+1320
+00:38:13,456 --> 0:38:15,456
+Even in our zoo application, we
+
+1321
+00:38:15,456 --> 0:38:16,806
+have a zoo model object.
+
+1322
+00:38:17,556 --> 0:38:19,366
+And that zoo model object is
+
+1323
+00:38:19,366 --> 0:38:21,736
+only one among many of the
+
+1324
+00:38:21,736 --> 0:38:23,086
+animals in a clade.
+
+1325
+00:38:23,086 --> 0:38:26,256
+On the other side, that animal
+
+1326
+00:38:26,256 --> 0:38:28,486
+model object has within a
+
+1327
+00:38:28,486 --> 0:38:28,896
+genome.
+
+1328
+00:38:29,066 --> 0:38:32,006
+How are you going to display
+
+1329
+00:38:32,006 --> 0:38:33,616
+that information to your users?
+
+1330
+00:38:34,926 --> 0:38:40,296
+Well, not all at once.
+
+1331
+00:38:40,436 --> 0:38:41,586
+For example, you don't want to
+
+1332
+00:38:41,586 --> 0:38:44,226
+add a genome to your animal
+
+1333
+00:38:44,226 --> 0:38:44,506
+cell.
+
+1334
+00:38:44,776 --> 0:38:46,046
+That's too much information.
+
+1335
+00:38:47,016 --> 0:38:48,736
+Instead, you are going to
+
+1336
+00:38:48,736 --> 0:38:50,906
+extract just the most important
+
+1337
+00:38:50,906 --> 0:38:53,186
+pieces of information from your
+
+1338
+00:38:53,186 --> 0:38:55,916
+model object and create your
+
+1339
+00:38:55,916 --> 0:38:57,066
+view using them.
+
+1340
+00:38:57,786 --> 0:38:59,356
+And you won't just extract them
+
+1341
+00:38:59,356 --> 0:39:00,696
+in a one-to-one manner.
+
+1342
+00:38:59,356 --> 0:39:00,696
+in a one-to-one manner.
+
+1343
+00:39:01,346 --> 0:39:02,816
+Often, you'll perform some
+
+1344
+00:39:02,816 --> 0:39:04,416
+transformations on the data.
+
+1345
+00:39:05,266 --> 0:39:07,576
+Here we took two of the fields
+
+1346
+00:39:07,576 --> 0:39:09,566
+from the animal model object and
+
+1347
+00:39:09,566 --> 0:39:11,956
+combined them to create a single
+
+1348
+00:39:11,956 --> 0:39:13,646
+text containing the genus and
+
+1349
+00:39:13,646 --> 0:39:14,116
+species.
+
+1350
+00:39:15,226 --> 0:39:18,356
+That transformation and
+
+1351
+00:39:18,356 --> 0:39:20,496
+extraction process is error
+
+1352
+00:39:20,496 --> 0:39:20,806
+prone.
+
+1353
+00:39:21,656 --> 0:39:23,376
+But using a view model makes it
+
+1354
+00:39:23,376 --> 0:39:23,916
+explicit.
+
+1355
+00:39:25,516 --> 0:39:28,226
+Here is a view model -- our
+
+1356
+00:39:28,226 --> 0:39:29,796
+AnimalCellModel in particular --
+
+1357
+00:39:30,226 --> 0:39:32,046
+being constructed from a model
+
+1358
+00:39:32,046 --> 0:39:32,416
+object.
+
+1359
+00:39:33,156 --> 0:39:35,866
+We can clearly see the data
+
+1360
+00:39:35,866 --> 0:39:37,376
+being pulled out of the model
+
+1361
+00:39:37,376 --> 0:39:39,306
+object and combined so that we
+
+1362
+00:39:39,306 --> 0:39:40,896
+can show exactly what we want
+
+1363
+00:39:40,896 --> 0:39:42,276
+to, to our users.
+
+1364
+00:39:43,666 --> 0:39:45,716
+And having this be explicit is
+
+1365
+00:39:45,856 --> 0:39:48,396
+invaluable because it makes it
+
+1366
+00:39:48,396 --> 0:39:50,456
+so easy to test.
+
+1367
+00:39:50,946 --> 0:39:52,616
+Whenever we encounter a new
+
+1368
+00:39:52,706 --> 0:39:54,986
+flavor of model object that
+
+1369
+00:39:54,986 --> 0:39:56,606
+needs to be represented to our
+
+1370
+00:39:56,606 --> 0:39:58,856
+users in a different manner, all
+
+1371
+00:39:58,856 --> 0:39:59,716
+we need to do is leverage
+
+1372
+00:39:59,716 --> 0:39:59,976
+XCTest.
+
+1373
+00:40:00,066 --> 0:40:03,036
+Add a new test case, and in that
+
+1374
+00:40:03,226 --> 0:40:05,856
+test case create one of our
+
+1375
+00:40:05,856 --> 0:40:07,866
+model objects; create from it a
+
+1376
+00:40:07,866 --> 0:40:09,796
+view model; and validate that
+
+1377
+00:40:09,796 --> 0:40:11,756
+our view model has exactly the
+
+1378
+00:40:11,756 --> 0:40:13,176
+data that we want to show to our
+
+1379
+00:40:13,176 --> 0:40:15,196
+users to represent that model
+
+1380
+00:40:15,246 --> 0:40:15,666
+object.
+
+1381
+00:40:16,926 --> 0:40:18,596
+This is the second major reason
+
+1382
+00:40:18,886 --> 0:40:20,636
+we decided to use view models in
+
+1383
+00:40:20,636 --> 0:40:21,586
+our zoo application.
+
+1384
+00:40:23,696 --> 0:40:24,866
+What does this mean for your
+
+1385
+00:40:24,866 --> 0:40:26,226
+overarching application
+
+1386
+00:40:26,226 --> 0:40:26,816
+architecture?
+
+1387
+00:40:30,046 --> 0:40:31,836
+Well a big part of building
+
+1388
+00:40:31,836 --> 0:40:35,066
+great apps is to take this rich
+
+1389
+00:40:35,066 --> 0:40:38,876
+model object graph that exists
+
+1390
+00:40:38,876 --> 0:40:41,266
+in your model layer and to
+
+1391
+00:40:41,266 --> 0:40:43,116
+represent it to your users,
+
+1392
+00:40:43,336 --> 0:40:44,596
+pulling out just the most
+
+1393
+00:40:44,596 --> 0:40:46,196
+important pieces of information
+
+1394
+00:40:46,626 --> 0:40:47,786
+and showing it to them in a
+
+1395
+00:40:47,786 --> 0:40:48,836
+beautiful fashion.
+
+1396
+00:40:50,396 --> 0:40:52,526
+Using a view model can make this
+
+1397
+00:40:52,526 --> 0:40:53,906
+so much easier.
+
+1398
+00:40:55,036 --> 0:40:57,896
+The reason is that you can use
+
+1399
+00:40:57,896 --> 0:41:02,156
+the following flow: First, for
+
+1400
+00:40:57,896 --> 0:41:02,156
+the following flow: First, for
+
+1401
+00:41:02,156 --> 0:41:04,016
+your model objects construct
+
+1402
+00:41:04,196 --> 0:41:04,806
+view models.
+
+1403
+00:41:06,226 --> 0:41:09,116
+That process is error prone.
+
+1404
+00:41:09,326 --> 0:41:11,126
+So you test, and you test, and
+
+1405
+00:41:11,126 --> 0:41:13,456
+you test, and you make sure that
+
+1406
+00:41:13,456 --> 0:41:14,896
+your view models contain exactly
+
+1407
+00:41:14,896 --> 0:41:15,836
+the data you want to show to
+
+1408
+00:41:15,836 --> 0:41:16,576
+your users.
+
+1409
+00:41:16,986 --> 0:41:19,306
+Second, for each flavor of view
+
+1410
+00:41:19,306 --> 0:41:22,396
+model representing - resulting
+
+1411
+00:41:22,686 --> 0:41:24,716
+in a different view layout, you
+
+1412
+00:41:24,716 --> 0:41:25,526
+add a preview.
+
+1413
+00:41:25,966 --> 0:41:27,396
+And you can verify, just in a
+
+1414
+00:41:27,396 --> 0:41:29,306
+canvas, that your views are
+
+1415
+00:41:29,306 --> 0:41:31,146
+displaying exactly the data your
+
+1416
+00:41:31,146 --> 0:41:32,216
+users want to see.
+
+1417
+00:41:32,886 --> 0:41:35,146
+Finally, you can use XCUI
+
+1418
+00:41:35,146 --> 0:41:37,796
+testing to validate the way that
+
+1419
+00:41:37,796 --> 0:41:39,646
+your application works in
+
+1420
+00:41:39,646 --> 0:41:40,156
+production.
+
+1421
+00:41:40,156 --> 0:41:42,976
+I'd like to take a moment to
+
+1422
+00:41:42,976 --> 0:41:44,386
+talk about performance.
+
+1423
+00:41:44,896 --> 0:41:49,986
+We have told you that previews
+
+1424
+00:41:49,986 --> 0:41:50,706
+are just code.
+
+1425
+00:41:51,806 --> 0:41:53,516
+One consequence of this is that
+
+1426
+00:41:53,516 --> 0:41:55,146
+you don't want to run arbitrary
+
+1427
+00:41:55,146 --> 0:41:57,876
+operations when your previews
+
+1428
+00:41:57,876 --> 0:41:58,596
+are being rendered.
+
+1429
+00:41:59,076 --> 0:41:59,916
+You know, you don't want to
+
+1430
+00:41:59,916 --> 0:42:01,386
+calculate the millionth prime.
+
+1431
+00:41:59,916 --> 0:42:01,386
+calculate the millionth prime.
+
+1432
+00:42:02,396 --> 0:42:05,086
+Similarly, Xcode Previews will
+
+1433
+00:42:05,126 --> 0:42:06,496
+call Applicationdid
+
+1434
+00:42:06,496 --> 0:42:07,916
+/FinishLaunching /WithOptions.
+
+1435
+00:42:08,736 --> 0:42:10,276
+Consequently, you don't want to
+
+1436
+00:42:10,276 --> 0:42:11,746
+do a bunch of extraneous work
+
+1437
+00:42:11,786 --> 0:42:12,026
+there.
+
+1438
+00:42:12,516 --> 0:42:14,556
+And specifically, you don't want
+
+1439
+00:42:14,556 --> 0:42:16,816
+to set up your UI hierarchy when
+
+1440
+00:42:16,906 --> 0:42:19,386
+all you want is to see your - a
+
+1441
+00:42:19,386 --> 0:42:21,106
+preview of your view rendered in
+
+1442
+00:42:21,106 --> 0:42:21,606
+the canvas.
+
+1443
+00:42:22,436 --> 0:42:24,586
+Instead, make your application
+
+1444
+00:42:24,586 --> 0:42:26,526
+scene aware, conform to the
+
+1445
+00:42:26,526 --> 0:42:28,496
+UIWindowSceneDelegate, and
+
+1446
+00:42:28,496 --> 0:42:29,516
+implement the scene
+
+1447
+00:42:29,516 --> 0:42:32,216
+willConnectToOptions method and
+
+1448
+00:42:32,416 --> 0:42:34,326
+set up your UI hierarchy there.
+
+1449
+00:42:35,276 --> 0:42:36,676
+And look: This isn't just
+
+1450
+00:42:36,676 --> 0:42:37,676
+beneficial for you, the
+
+1451
+00:42:37,676 --> 0:42:39,386
+developer, OK, it's faster
+
+1452
+00:42:39,386 --> 0:42:40,376
+previews as a result.
+
+1453
+00:42:40,776 --> 0:42:42,256
+This is also a boon for your
+
+1454
+00:42:42,256 --> 0:42:42,876
+users.
+
+1455
+00:42:43,776 --> 0:42:45,006
+When your application launches
+
+1456
+00:42:45,006 --> 0:42:46,836
+into the background, it won't be
+
+1457
+00:42:46,836 --> 0:42:48,036
+doing a bunch of extra work.
+
+1458
+00:42:48,646 --> 0:42:49,956
+It'll just do exactly what it
+
+1459
+00:42:49,956 --> 0:42:51,566
+needs to and go back to sleep,
+
+1460
+00:42:52,136 --> 0:42:53,446
+avoiding wasting your user's
+
+1461
+00:42:53,446 --> 0:42:53,976
+battery life.
+
+1462
+00:42:54,516 --> 0:43:01,986
+[ Applause ]
+
+1463
+00:42:54,516 --> 0:43:01,986
+[ Applause ]
+
+1464
+00:43:02,486 --> 0:43:03,386
+Let's recap here.
+
+1465
+00:43:04,126 --> 0:43:05,456
+You have seen how to write a
+
+1466
+00:43:05,456 --> 0:43:05,936
+preview.
+
+1467
+00:43:06,076 --> 0:43:07,776
+The preview's API is part of
+
+1468
+00:43:07,776 --> 0:43:08,456
+SwiftUI.
+
+1469
+00:43:08,876 --> 0:43:09,976
+It's really powerful.
+
+1470
+00:43:10,546 --> 0:43:12,496
+And you can use all of SwiftUI
+
+1471
+00:43:12,496 --> 0:43:13,246
+when you are writing your
+
+1472
+00:43:13,246 --> 0:43:13,706
+previews.
+
+1473
+00:43:14,396 --> 0:43:16,506
+You have seen how to use
+
+1474
+00:43:16,596 --> 0:43:18,496
+advanced Xcode workflows, like
+
+1475
+00:43:18,566 --> 0:43:19,986
+preview pinning, to keep your
+
+1476
+00:43:19,986 --> 0:43:21,546
+state when you are switching
+
+1477
+00:43:21,546 --> 0:43:22,826
+between different files.
+
+1478
+00:43:23,526 --> 0:43:25,266
+And you have seen how to use
+
+1479
+00:43:25,336 --> 0:43:27,286
+development assets, allowing you
+
+1480
+00:43:27,286 --> 0:43:28,876
+to have rich and interesting
+
+1481
+00:43:28,876 --> 0:43:31,106
+previews without shipping them -
+
+1482
+00:43:31,616 --> 0:43:33,616
+without shipping test data to
+
+1483
+00:43:33,616 --> 0:43:34,386
+your users.
+
+1484
+00:43:35,066 --> 0:43:36,926
+Finally, you have seen how to
+
+1485
+00:43:36,926 --> 0:43:39,566
+use previews not just with
+
+1486
+00:43:39,566 --> 0:43:41,366
+SwiftUI and not just with Swift,
+
+1487
+00:43:41,886 --> 0:43:43,406
+but with all of the source files
+
+1488
+00:43:43,406 --> 0:43:45,026
+that Xcode understands written
+
+1489
+00:43:45,026 --> 0:43:46,706
+against UIKit, AppKit, and
+
+1490
+00:43:46,706 --> 0:43:46,976
+WatchKit.
+
+1491
+00:43:47,516 --> 0:43:54,546
+[ Applause ]
+
+1492
+00:43:55,046 --> 0:43:56,366
+Well that's Mastering Xcode
+
+1493
+00:43:56,366 --> 0:43:56,786
+Previews.
+
+1494
+00:43:57,116 --> 0:43:57,976
+Thank you all for coming.
+
+1495
+00:43:58,516 --> 0:44:01,716
+[ Applause ]
+
+1496
+00:43:58,516 --> 0:44:01,716
+[ Applause ]
+
+1497
+00:44:02,216 --> 0:44:02,976
+Come see us in the lab.

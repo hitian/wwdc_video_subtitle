@@ -1,0 +1,4967 @@
+1
+00:00:00,506 --> 0:00:05,500
+[ Music ]
+
+2
+00:00:08,125 --> 0:00:08,976
+&gt;&gt; Hello, everyone.
+
+3
+00:00:09,516 --> 0:00:13,896
+[ Applause ]
+
+4
+00:00:14,396 --> 0:00:15,866
+Welcome to making apps with Core
+
+5
+00:00:15,866 --> 0:00:16,386
+Data.
+
+6
+00:00:16,616 --> 0:00:17,426
+I'm Scott Perry.
+
+7
+00:00:17,426 --> 0:00:18,556
+I work on the Core Data team.
+
+8
+00:00:19,086 --> 0:00:21,576
+And today, we're going to have
+
+9
+00:00:21,576 --> 0:00:22,926
+an accelerated refresher with a
+
+10
+00:00:22,926 --> 0:00:24,466
+focus on best practices.
+
+11
+00:00:24,986 --> 0:00:25,966
+We'll talk about how to get up
+
+12
+00:00:25,966 --> 0:00:27,206
+and running with Core Data, how
+
+13
+00:00:27,206 --> 0:00:28,576
+to set up an app's controllers
+
+14
+00:00:28,576 --> 0:00:29,326
+for success.
+
+15
+00:00:29,976 --> 0:00:31,446
+And as well as how to use
+
+16
+00:00:31,446 --> 0:00:33,176
+multiple coordinators and
+
+17
+00:00:33,176 --> 0:00:34,396
+scaling involving that.
+
+18
+00:00:35,126 --> 0:00:36,386
+Then we'll wrap up with some
+
+19
+00:00:36,386 --> 0:00:37,476
+useful testing tips.
+
+20
+00:00:39,446 --> 0:00:40,296
+So let's get started.
+
+21
+00:00:40,656 --> 0:00:41,726
+This year, we released a new
+
+22
+00:00:41,726 --> 0:00:42,316
+sample app.
+
+23
+00:00:42,556 --> 0:00:43,766
+You may have already seen it in
+
+24
+00:00:43,766 --> 0:00:44,696
+Session 202.
+
+25
+00:00:44,696 --> 0:00:45,686
+It starts out with a list of
+
+26
+00:00:45,726 --> 0:00:45,976
+posts.
+
+27
+00:00:49,336 --> 0:00:50,736
+We can add a new post by tapping
+
+28
+00:00:50,736 --> 0:00:52,096
+on the Plus button at the top.
+
+29
+00:00:52,856 --> 0:00:54,416
+And have a closer look in
+
+30
+00:00:54,416 --> 0:00:55,486
+DetailViewController.
+
+31
+00:00:56,096 --> 0:00:57,256
+So you can here -- see here that
+
+32
+00:00:57,256 --> 0:00:58,476
+this is like a blogging app.
+
+33
+00:00:58,476 --> 0:00:59,616
+It's supposed to support a
+
+34
+00:00:59,676 --> 0:01:02,606
+title, content, multiple tags,
+
+35
+00:00:59,676 --> 0:01:02,606
+title, content, multiple tags,
+
+36
+00:01:02,906 --> 0:01:03,876
+as well as multiple media
+
+37
+00:01:03,876 --> 0:01:05,346
+attachments where you can see
+
+38
+00:01:05,346 --> 0:01:05,976
+the thumbnails down here.
+
+39
+00:01:08,226 --> 0:01:10,326
+Let's change the title and then
+
+40
+00:01:10,326 --> 0:01:10,956
+also add a tag.
+
+41
+00:01:14,216 --> 0:01:14,746
+Hello.
+
+42
+00:01:16,526 --> 0:01:16,836
+Great.
+
+43
+00:01:17,426 --> 0:01:19,496
+We'll save that and head back to
+
+44
+00:01:19,496 --> 0:01:20,046
+the ListView.
+
+45
+00:01:22,346 --> 0:01:22,796
+Now let's look at the
+
+46
+00:01:22,796 --> 0:01:23,486
+TagManager.
+
+47
+00:01:23,556 --> 0:01:24,786
+You can see here that we only
+
+48
+00:01:24,786 --> 0:01:26,396
+have one tag, called Demo, and
+
+49
+00:01:26,396 --> 0:01:27,546
+it has three posts.
+
+50
+00:01:27,836 --> 0:01:29,706
+So let's add two more, one named
+
+51
+00:01:29,756 --> 0:01:30,376
+Cats.
+
+52
+00:01:31,276 --> 0:01:33,906
+And another one named Dogs.
+
+53
+00:01:33,906 --> 0:01:36,136
+All right, we'll dismiss this
+
+54
+00:01:36,776 --> 0:01:38,266
+and then go back into our little
+
+55
+00:01:38,266 --> 0:01:39,806
+toolbar here and add 1000
+
+56
+00:01:39,806 --> 0:01:41,216
+randomly-generated posts.
+
+57
+00:01:42,396 --> 0:01:42,836
+Here we go.
+
+58
+00:01:44,396 --> 0:01:45,496
+And if we go back to our tag
+
+59
+00:01:45,496 --> 0:01:48,206
+list, we can see Dogs are more
+
+60
+00:01:48,206 --> 0:01:49,196
+popular than Cats.
+
+61
+00:01:49,196 --> 0:01:49,476
+It's science.
+
+62
+00:01:50,516 --> 0:01:54,056
+[ Chuckling ]
+
+63
+00:01:54,556 --> 0:01:55,736
+So now that we've seen our app,
+
+64
+00:01:55,816 --> 0:01:56,906
+let's think about the shape of
+
+65
+00:01:56,906 --> 0:01:57,486
+its data.
+
+66
+00:01:58,726 --> 0:02:00,366
+The most obvious type is posts.
+
+67
+00:01:58,726 --> 0:02:00,366
+The most obvious type is posts.
+
+68
+00:02:00,366 --> 0:02:01,486
+So we'll start with that.
+
+69
+00:02:02,586 --> 0:02:03,716
+But since we support multiple
+
+70
+00:02:03,716 --> 0:02:04,896
+media attachments, that's
+
+71
+00:02:04,896 --> 0:02:05,496
+another type.
+
+72
+00:02:05,496 --> 0:02:06,986
+And then we'll also need a tag
+
+73
+00:02:06,986 --> 0:02:08,156
+type for the same reason.
+
+74
+00:02:09,196 --> 0:02:10,936
+But since attachments might be
+
+75
+00:02:10,936 --> 0:02:12,276
+quite large, we'll want to store
+
+76
+00:02:12,276 --> 0:02:13,286
+that data separately.
+
+77
+00:02:13,836 --> 0:02:15,376
+After all, the list view only
+
+78
+00:02:15,376 --> 0:02:17,356
+needs to show thumbnails, so we
+
+79
+00:02:17,356 --> 0:02:18,176
+can keep the larger data
+
+80
+00:02:18,176 --> 0:02:18,626
+elsewhere.
+
+81
+00:02:20,096 --> 0:02:21,456
+Now that we've organized the
+
+82
+00:02:21,456 --> 0:02:23,036
+shape of our data, it's a pretty
+
+83
+00:02:23,036 --> 0:02:24,166
+straightforward process to
+
+84
+00:02:24,166 --> 0:02:25,976
+transliterate it into a Core
+
+85
+00:02:25,976 --> 0:02:27,276
+Data model using the Model
+
+86
+00:02:27,276 --> 0:02:28,126
+Editor and Xcode.
+
+87
+00:02:29,266 --> 0:02:31,386
+Here, we define the members of
+
+88
+00:02:31,386 --> 0:02:32,746
+our modeled types, as well as
+
+89
+00:02:32,746 --> 0:02:33,976
+the relationships between them.
+
+90
+00:02:36,046 --> 0:02:37,126
+For example, the relationship
+
+91
+00:02:37,126 --> 0:02:38,126
+between attachments and their
+
+92
+00:02:38,126 --> 0:02:39,756
+data is one-to-one.
+
+93
+00:02:40,636 --> 0:02:41,916
+That is, an attachment can only
+
+94
+00:02:41,916 --> 0:02:43,686
+be backed by one image data, and
+
+95
+00:02:43,686 --> 0:02:45,236
+an image data can only represent
+
+96
+00:02:45,236 --> 0:02:45,936
+one attachment.
+
+97
+00:02:47,376 --> 0:02:48,376
+We can also tell our Core Data
+
+98
+00:02:48,376 --> 0:02:49,586
+in the model that if the
+
+99
+00:02:49,586 --> 0:02:51,136
+attachment is deleted, then its
+
+100
+00:02:51,136 --> 0:02:52,406
+image data should be cleaned up
+
+101
+00:02:52,406 --> 0:02:53,056
+automatically.
+
+102
+00:02:53,406 --> 0:02:54,436
+This is called a cascade
+
+103
+00:02:54,436 --> 0:02:54,976
+deletion rule.
+
+104
+00:02:57,596 --> 0:02:58,746
+Meanwhile, the double arrow
+
+105
+00:02:58,746 --> 0:03:00,016
+heads signify a too-many
+
+106
+00:02:58,746 --> 0:03:00,016
+heads signify a too-many
+
+107
+00:03:00,016 --> 0:03:00,706
+relationship.
+
+108
+00:03:01,296 --> 0:03:02,576
+Here, a post may have many
+
+109
+00:03:02,576 --> 0:03:04,086
+attachments, but an attachment
+
+110
+00:03:04,516 --> 0:03:05,856
+will only ever belong to one
+
+111
+00:03:05,856 --> 0:03:05,976
+post.
+
+112
+00:03:08,056 --> 0:03:09,336
+And finally, the post may have
+
+113
+00:03:09,336 --> 0:03:10,046
+many tags.
+
+114
+00:03:10,516 --> 0:03:11,806
+Tags may be on many posts.
+
+115
+00:03:11,806 --> 0:03:12,676
+This is a many-too-many
+
+116
+00:03:12,676 --> 0:03:12,976
+relationship.
+
+117
+00:03:17,126 --> 0:03:18,516
+So now, we've defined a managed
+
+118
+00:03:18,516 --> 0:03:19,216
+object model.
+
+119
+00:03:19,216 --> 0:03:20,506
+But there are a few more Core
+
+120
+00:03:20,506 --> 0:03:21,706
+Data types that we need to get
+
+121
+00:03:21,706 --> 0:03:22,976
+familiar with before we're ready
+
+122
+00:03:22,976 --> 0:03:23,696
+to build our app.
+
+123
+00:03:25,036 --> 0:03:26,326
+The model is required by a
+
+124
+00:03:26,326 --> 0:03:27,636
+PersistentStoreCoordinator,
+
+125
+00:03:27,796 --> 0:03:29,516
+which as the name implies, is
+
+126
+00:03:29,516 --> 0:03:30,696
+responsible for managing our
+
+127
+00:03:30,696 --> 0:03:31,686
+persistent stores.
+
+128
+00:03:32,686 --> 0:03:33,786
+Most of the time, this is a
+
+129
+00:03:33,786 --> 0:03:34,936
+database that lives on the file
+
+130
+00:03:34,936 --> 0:03:36,316
+system, though it's possible to
+
+131
+00:03:36,316 --> 0:03:37,516
+have many stores at once,
+
+132
+00:03:37,516 --> 0:03:39,296
+including our own custom made
+
+133
+00:03:39,346 --> 0:03:40,406
+types that derive from
+
+134
+00:03:40,406 --> 0:03:41,336
+NSPersistentStore.
+
+135
+00:03:41,836 --> 0:03:44,626
+Finally, the type that we'll
+
+136
+00:03:44,626 --> 0:03:45,976
+spend the most time with is the
+
+137
+00:03:45,976 --> 0:03:47,246
+ManagedObjectContext.
+
+138
+00:03:48,266 --> 0:03:49,446
+Core Data uses the command
+
+139
+00:03:49,446 --> 0:03:51,156
+pattern, which is really a fancy
+
+140
+00:03:51,156 --> 0:03:52,166
+way of saying that you need a
+
+141
+00:03:52,166 --> 0:03:53,616
+context to get anything done.
+
+142
+00:03:54,236 --> 0:03:55,216
+If you want to execute a fetch
+
+143
+00:03:55,216 --> 0:03:56,986
+request, you need a context.
+
+144
+00:03:57,566 --> 0:03:59,246
+Dirty-to-managed object, the
+
+145
+00:03:59,246 --> 0:04:00,566
+context knows about it, and will
+
+146
+00:03:59,246 --> 0:04:00,566
+context knows about it, and will
+
+147
+00:04:00,566 --> 0:04:02,716
+save it on your command.
+
+148
+00:04:02,906 --> 0:04:04,066
+Contexts needs to know a
+
+149
+00:04:04,066 --> 0:04:05,276
+coordinator in order to do their
+
+150
+00:04:05,276 --> 0:04:05,556
+work.
+
+151
+00:04:05,816 --> 0:04:07,526
+And as I mentioned earlier, the
+
+152
+00:04:07,526 --> 0:04:08,696
+coordinator has to know about
+
+153
+00:04:08,696 --> 0:04:09,686
+the model to make sense of
+
+154
+00:04:09,686 --> 0:04:10,356
+stores.
+
+155
+00:04:11,346 --> 0:04:12,446
+The types are all sufficiently
+
+156
+00:04:12,446 --> 0:04:13,086
+interdependent.
+
+157
+00:04:13,126 --> 0:04:14,226
+But coordinator provides one
+
+158
+00:04:14,226 --> 0:04:15,586
+type that encapsulates them all
+
+159
+00:04:15,586 --> 0:04:16,986
+and represents the entire stack,
+
+160
+00:04:17,326 --> 0:04:18,755
+called a persistent container.
+
+161
+00:04:20,036 --> 0:04:21,606
+Using a persistent container, we
+
+162
+00:04:21,606 --> 0:04:23,106
+can set up a stack in just a few
+
+163
+00:04:23,106 --> 0:04:24,106
+lines of code, especially if the
+
+164
+00:04:24,106 --> 0:04:24,976
+model lives in our bundle.
+
+165
+00:04:28,186 --> 0:04:29,336
+All we need to do is refer to it
+
+166
+00:04:29,336 --> 0:04:30,926
+by name, and the persistent
+
+167
+00:04:30,926 --> 0:04:31,976
+container will load it for us.
+
+168
+00:04:34,566 --> 0:04:35,586
+If the model is generated in
+
+169
+00:04:35,586 --> 0:04:37,656
+code, or we need to use the same
+
+170
+00:04:37,656 --> 0:04:39,096
+model with multiple containers,
+
+171
+00:04:39,096 --> 0:04:40,126
+there's another initializer that
+
+172
+00:04:40,126 --> 0:04:40,976
+gives us the control we need.
+
+173
+00:04:45,056 --> 0:04:46,166
+Once we have a container, we
+
+174
+00:04:46,166 --> 0:04:47,296
+tell it to load our persistent
+
+175
+00:04:47,296 --> 0:04:47,756
+stores.
+
+176
+00:04:48,196 --> 0:04:49,576
+The completion block gets called
+
+177
+00:04:49,576 --> 0:04:51,686
+once per store with a nil error
+
+178
+00:04:51,686 --> 0:04:53,766
+parameter on success, after
+
+179
+00:04:53,766 --> 0:04:55,476
+which is time to shift our focus
+
+180
+00:04:55,516 --> 0:04:59,686
+to managed object contexts.
+
+181
+00:04:59,976 --> 0:05:01,096
+Contexts provide us with
+
+182
+00:04:59,976 --> 0:05:01,096
+Contexts provide us with
+
+183
+00:05:01,096 --> 0:05:02,686
+seamless access to managed data,
+
+184
+00:05:03,126 --> 0:05:04,386
+and they have a few options that
+
+185
+00:05:04,386 --> 0:05:05,816
+can make them even more useful
+
+186
+00:05:05,816 --> 0:05:07,556
+to certain use cases, such as
+
+187
+00:05:07,556 --> 0:05:07,976
+driving our views.
+
+188
+00:05:10,076 --> 0:05:12,086
+The first of these is support
+
+189
+00:05:12,086 --> 0:05:13,226
+for query generations.
+
+190
+00:05:14,146 --> 0:05:15,556
+Query generations provide a
+
+191
+00:05:15,556 --> 0:05:17,386
+stable view of the stores data,
+
+192
+00:05:17,386 --> 0:05:18,716
+allowing safe and consistent
+
+193
+00:05:18,716 --> 0:05:20,446
+access to objects, even if
+
+194
+00:05:20,446 --> 0:05:22,406
+they're changed or deleted by
+
+195
+00:05:22,406 --> 0:05:23,076
+another actor.
+
+196
+00:05:24,646 --> 0:05:25,976
+To enable this, set the
+
+197
+00:05:25,976 --> 0:05:27,436
+context's query generation to
+
+198
+00:05:27,466 --> 0:05:27,926
+current.
+
+199
+00:05:28,816 --> 0:05:30,166
+Current is a floating meta
+
+200
+00:05:30,166 --> 0:05:30,696
+version.
+
+201
+00:05:30,836 --> 0:05:32,136
+The context's query generation
+
+202
+00:05:32,136 --> 0:05:33,776
+will get pinned to a concrete
+
+203
+00:05:33,776 --> 0:05:35,736
+point in time on the next access
+
+204
+00:05:35,736 --> 0:05:35,976
+to the store.
+
+205
+00:05:36,476 --> 0:05:38,546
+[Chuckles]
+
+206
+00:05:39,046 --> 0:05:40,106
+Now the context has a stable
+
+207
+00:05:40,106 --> 0:05:41,416
+view of the data in the store.
+
+208
+00:05:41,596 --> 0:05:42,776
+What about keeping it up-to-date
+
+209
+00:05:42,776 --> 0:05:43,796
+with the latest changes?
+
+210
+00:05:44,606 --> 0:05:45,616
+Well, in the Stone Ages, we
+
+211
+00:05:45,616 --> 0:05:46,886
+would register for context and
+
+212
+00:05:46,886 --> 0:05:48,026
+save notifications.
+
+213
+00:05:48,156 --> 0:05:50,126
+But contexts can also be
+
+214
+00:05:50,126 --> 0:05:51,766
+configured to keep themselves
+
+215
+00:05:51,766 --> 0:05:53,456
+up-to-date as changes are saved
+
+216
+00:05:53,456 --> 0:05:54,256
+by their siblings.
+
+217
+00:05:55,996 --> 0:05:57,206
+Just that automatically emerges
+
+218
+00:05:57,206 --> 0:05:57,966
+changes from parent to true.
+
+219
+00:06:01,216 --> 0:06:02,646
+Okay, so now all of our stack
+
+220
+00:06:02,676 --> 0:06:03,566
+types are configured to our
+
+221
+00:06:03,566 --> 0:06:04,806
+liking, how do we use them in
+
+222
+00:06:04,806 --> 0:06:05,726
+our app?
+
+223
+00:06:06,746 --> 0:06:07,656
+The most important thing to
+
+224
+00:06:07,656 --> 0:06:09,406
+remember when using a context is
+
+225
+00:06:09,406 --> 0:06:10,866
+that all store requests and
+
+226
+00:06:10,866 --> 0:06:11,866
+interactions with managed
+
+227
+00:06:11,866 --> 0:06:13,146
+objects must be done in the
+
+228
+00:06:13,146 --> 0:06:14,076
+context queue.
+
+229
+00:06:15,116 --> 0:06:16,556
+Background contexts each have
+
+230
+00:06:16,556 --> 0:06:17,396
+their own queue.
+
+231
+00:06:18,386 --> 0:06:20,086
+So using them requires the
+
+232
+00:06:20,086 --> 0:06:21,016
+perform API's.
+
+233
+00:06:22,046 --> 0:06:23,086
+There's a blocking invariant, as
+
+234
+00:06:23,086 --> 0:06:24,356
+well as an asynchronous version.
+
+235
+00:06:24,686 --> 0:06:26,736
+But for truly asynchronous work,
+
+236
+00:06:26,736 --> 0:06:28,266
+the container offers a
+
+237
+00:06:28,266 --> 0:06:29,336
+convenience method for
+
+238
+00:06:29,336 --> 0:06:30,966
+performing background tasks that
+
+239
+00:06:30,966 --> 0:06:32,516
+creates a background context for
+
+240
+00:06:32,516 --> 0:06:34,016
+you, and disposes of it
+
+241
+00:06:34,016 --> 0:06:34,756
+automatically when your block
+
+242
+00:06:34,756 --> 0:06:34,976
+returns.
+
+243
+00:06:39,366 --> 0:06:40,596
+So now, how do we add data to
+
+244
+00:06:40,596 --> 0:06:40,906
+our app?
+
+245
+00:06:41,296 --> 0:06:42,636
+Well, if we only need a couple
+
+246
+00:06:42,636 --> 0:06:44,616
+of objects, it's easy to use the
+
+247
+00:06:44,616 --> 0:06:45,906
+initializer provided by the
+
+248
+00:06:45,906 --> 0:06:47,556
+managed object sub classes that
+
+249
+00:06:47,556 --> 0:06:48,856
+were generated for us from our
+
+250
+00:06:48,856 --> 0:06:50,006
+model by Xcode.
+
+251
+00:06:50,666 --> 0:06:52,616
+If the subclass is only used by
+
+252
+00:06:52,616 --> 0:06:54,336
+one model, then it already knows
+
+253
+00:06:54,336 --> 0:06:55,666
+which entity it represents.
+
+254
+00:06:55,916 --> 0:06:57,116
+So we can use in it with
+
+255
+00:06:57,116 --> 0:06:57,716
+context.
+
+256
+00:06:58,626 --> 0:06:59,516
+Once it's been registered with
+
+257
+00:06:59,516 --> 0:07:00,556
+the context, then we can
+
+258
+00:06:59,516 --> 0:07:00,556
+the context, then we can
+
+259
+00:07:00,556 --> 0:07:01,826
+configure it, treating it like
+
+260
+00:07:01,826 --> 0:07:03,016
+any other instance variable.
+
+261
+00:07:04,446 --> 0:07:05,666
+Once it's set up to our liking,
+
+262
+00:07:06,306 --> 0:07:08,016
+we call the contextSave method
+
+263
+00:07:08,016 --> 0:07:08,976
+to persist it to storage.
+
+264
+00:07:13,096 --> 0:07:14,516
+But what if we need more data?
+
+265
+00:07:14,986 --> 0:07:16,666
+Most apps aren't content with
+
+266
+00:07:16,666 --> 0:07:18,216
+inserting a handful of objects
+
+267
+00:07:18,216 --> 0:07:18,766
+at a time.
+
+268
+00:07:19,536 --> 0:07:20,456
+Chances are good, you've got a
+
+269
+00:07:20,456 --> 0:07:22,216
+server component that sends
+
+270
+00:07:22,216 --> 0:07:23,796
+objects back by the hundreds or
+
+271
+00:07:23,836 --> 0:07:24,486
+thousands.
+
+272
+00:07:25,206 --> 0:07:26,366
+We can save these to the store
+
+273
+00:07:26,366 --> 0:07:28,226
+one at a time, like we were just
+
+274
+00:07:28,266 --> 0:07:29,826
+doing for a couple objects.
+
+275
+00:07:29,826 --> 0:07:31,186
+But it's a lot of boilerplate to
+
+276
+00:07:31,186 --> 0:07:32,626
+write, not to mention a lot of
+
+277
+00:07:32,626 --> 0:07:33,386
+resource overhead, to have all
+
+278
+00:07:33,386 --> 0:07:33,976
+of those in-memory at once.
+
+279
+00:07:37,536 --> 0:07:39,246
+Enter batch insertions, the
+
+280
+00:07:39,246 --> 0:07:40,666
+first of many new features we'll
+
+281
+00:07:40,666 --> 0:07:41,816
+be talking about today.
+
+282
+00:07:43,026 --> 0:07:44,766
+This code fragment is worth 1000
+
+283
+00:07:44,766 --> 0:07:45,446
+objects.
+
+284
+00:07:45,776 --> 0:07:46,986
+And it all starts with your
+
+285
+00:07:46,986 --> 0:07:48,306
+de-serialized payload in the
+
+286
+00:07:48,306 --> 0:07:49,246
+form of an array of dictionaries
+
+287
+00:07:49,246 --> 0:07:49,976
+that have string keys.
+
+288
+00:07:53,246 --> 0:07:54,916
+These keys need to line up with
+
+289
+00:07:54,956 --> 0:07:56,356
+the names of your attributes in
+
+290
+00:07:56,356 --> 0:07:56,806
+the model.
+
+291
+00:07:57,646 --> 0:07:58,956
+It's okay to leave some out if
+
+292
+00:07:58,956 --> 0:07:59,736
+they're not required by
+
+293
+00:07:59,736 --> 0:08:00,766
+something like a unique
+
+294
+00:07:59,736 --> 0:08:00,766
+something like a unique
+
+295
+00:08:00,766 --> 0:08:01,356
+constraint.
+
+296
+00:08:01,996 --> 0:08:03,266
+If you've configured default
+
+297
+00:08:03,266 --> 0:08:04,536
+values in your model, then Core
+
+298
+00:08:04,536 --> 0:08:04,976
+Data will use those.
+
+299
+00:08:07,046 --> 0:08:08,026
+In this case, we have three
+
+300
+00:08:08,026 --> 0:08:09,256
+dictionaries that each cover a
+
+301
+00:08:09,256 --> 0:08:10,456
+different set of content and
+
+302
+00:08:10,456 --> 0:08:11,456
+title attributes.
+
+303
+00:08:13,096 --> 0:08:14,736
+Going back to our code, we
+
+304
+00:08:14,736 --> 0:08:16,206
+create a batch insert request
+
+305
+00:08:16,206 --> 0:08:17,346
+with our array of dictionaries,
+
+306
+00:08:17,346 --> 0:08:18,616
+as well as the objects model
+
+307
+00:08:18,616 --> 0:08:20,906
+entity, which is also available
+
+308
+00:08:20,906 --> 0:08:22,096
+through a method on the managed
+
+309
+00:08:22,096 --> 0:08:23,416
+object subclass that was
+
+310
+00:08:23,416 --> 0:08:24,926
+generated for us by Xcode.
+
+311
+00:08:27,276 --> 0:08:28,666
+Then we execute the request, and
+
+312
+00:08:28,846 --> 0:08:30,766
+the context returns a response,
+
+313
+00:08:30,766 --> 0:08:31,816
+which wraps a Boolean, that
+
+314
+00:08:31,816 --> 0:08:32,426
+tells us if the operation
+
+315
+00:08:32,426 --> 0:08:32,976
+succeeded.
+
+316
+00:08:35,385 --> 0:08:36,246
+We're getting a lot for free
+
+317
+00:08:36,246 --> 0:08:36,506
+here.
+
+318
+00:08:36,506 --> 0:08:38,126
+And I know you're thinking.
+
+319
+00:08:38,395 --> 0:08:39,126
+What's the catch?
+
+320
+00:08:40,056 --> 0:08:41,775
+Well, there's not really many
+
+321
+00:08:41,775 --> 0:08:42,696
+sharp edges here.
+
+322
+00:08:42,696 --> 0:08:44,076
+And a lot of this is going to
+
+323
+00:08:44,076 --> 0:08:45,196
+sound familiar if you've used
+
+324
+00:08:45,196 --> 0:08:46,556
+batch updates or batch
+
+325
+00:08:46,556 --> 0:08:47,216
+deletions.
+
+326
+00:08:47,646 --> 0:08:50,186
+If you have unique constraints
+
+327
+00:08:50,186 --> 0:08:51,706
+than any existing objects
+
+328
+00:08:51,706 --> 0:08:53,036
+matching the dictionary will be
+
+329
+00:08:53,036 --> 0:08:53,956
+pulled out of the database and
+
+330
+00:08:53,956 --> 0:08:55,746
+updated with new values instead.
+
+331
+00:08:56,276 --> 0:08:59,206
+Attributes that are optional or
+
+332
+00:08:59,206 --> 0:09:00,716
+configured with default values
+
+333
+00:08:59,206 --> 0:09:00,716
+configured with default values
+
+334
+00:09:00,716 --> 0:09:01,706
+can be omitted from the
+
+335
+00:09:01,706 --> 0:09:02,666
+dictionary as well.
+
+336
+00:09:03,496 --> 0:09:04,516
+In the case of updating an
+
+337
+00:09:04,516 --> 0:09:05,976
+object with unique constraint,
+
+338
+00:09:05,976 --> 0:09:06,796
+the existing values will not be
+
+339
+00:09:06,796 --> 0:09:06,976
+changed.
+
+340
+00:09:10,376 --> 0:09:11,666
+This goes for relationships as
+
+341
+00:09:11,666 --> 0:09:11,996
+well.
+
+342
+00:09:12,726 --> 0:09:14,056
+Batch insertions can't be used
+
+343
+00:09:14,056 --> 0:09:15,186
+to set relationships.
+
+344
+00:09:15,946 --> 0:09:17,336
+But if a batch insert updates an
+
+345
+00:09:17,336 --> 0:09:18,816
+existing object due to a unique
+
+346
+00:09:18,816 --> 0:09:20,186
+constraint, the existing
+
+347
+00:09:20,186 --> 0:09:21,246
+relationships will be left
+
+348
+00:09:21,246 --> 0:09:21,606
+alone.
+
+349
+00:09:22,906 --> 0:09:24,736
+And finally, like the other
+
+350
+00:09:24,736 --> 0:09:26,096
+batch operations, batch
+
+351
+00:09:26,096 --> 0:09:28,046
+insertions do not generate a
+
+352
+00:09:28,046 --> 0:09:29,796
+contextDidSaveNotification, so
+
+353
+00:09:29,796 --> 0:09:30,746
+you'll have to manage that on
+
+354
+00:09:30,746 --> 0:09:30,976
+your own.
+
+355
+00:09:31,096 --> 0:09:33,636
+Now that we have some data,
+
+356
+00:09:33,786 --> 0:09:35,216
+let's talk about how to satisfy
+
+357
+00:09:35,216 --> 0:09:36,406
+the needs of our controllers.
+
+358
+00:09:36,936 --> 0:09:38,916
+The first thing that a
+
+359
+00:09:38,916 --> 0:09:39,866
+controller needs to be able to
+
+360
+00:09:39,866 --> 0:09:41,706
+do, is fetch and present data.
+
+361
+00:09:41,936 --> 0:09:42,806
+So let's look at that.
+
+362
+00:09:44,576 --> 0:09:45,716
+We use a fetch request to get
+
+363
+00:09:45,716 --> 0:09:46,936
+objects out of the store.
+
+364
+00:09:47,646 --> 0:09:48,926
+And just like getting the entity
+
+365
+00:09:48,926 --> 0:09:50,286
+when we created new objects,
+
+366
+00:09:50,336 --> 0:09:51,376
+there's a method on the managed
+
+367
+00:09:51,376 --> 0:09:52,996
+object subclass type generated
+
+368
+00:09:52,996 --> 0:09:54,596
+by Xcode, that will give us a
+
+369
+00:09:54,596 --> 0:09:55,976
+preconfigured fetch request.
+
+370
+00:09:58,596 --> 0:09:59,666
+Adding a predicate to the
+
+371
+00:09:59,666 --> 0:10:01,306
+request allows us to refine our
+
+372
+00:09:59,666 --> 0:10:01,306
+request allows us to refine our
+
+373
+00:10:01,306 --> 0:10:03,296
+results, in this case, so we can
+
+374
+00:10:03,296 --> 0:10:03,836
+fetch a tag by its name.
+
+375
+00:10:07,686 --> 0:10:09,166
+Once we've executed the request,
+
+376
+00:10:09,326 --> 0:10:10,306
+you pluck the results out and
+
+377
+00:10:10,306 --> 0:10:10,976
+use it to configure our views.
+
+378
+00:10:14,476 --> 0:10:15,626
+This works well for immutable
+
+379
+00:10:15,626 --> 0:10:16,056
+data.
+
+380
+00:10:16,376 --> 0:10:17,576
+But what if the tag's name or
+
+381
+00:10:17,606 --> 0:10:19,136
+color changes while our view is
+
+382
+00:10:19,136 --> 0:10:19,376
+up?
+
+383
+00:10:20,006 --> 0:10:21,406
+Our managed object context will
+
+384
+00:10:21,406 --> 0:10:22,296
+make sure that the objects'
+
+385
+00:10:22,356 --> 0:10:23,366
+properties get updated.
+
+386
+00:10:23,986 --> 0:10:25,006
+But we haven't done any of the
+
+387
+00:10:25,006 --> 0:10:26,146
+plumbing here necessary to
+
+388
+00:10:26,146 --> 0:10:27,336
+observe those changes.
+
+389
+00:10:28,546 --> 0:10:30,256
+As many of you know, managed
+
+390
+00:10:30,256 --> 0:10:31,906
+objects have supported key value
+
+391
+00:10:31,906 --> 0:10:33,226
+observations since the dawn of
+
+392
+00:10:33,316 --> 0:10:33,636
+time.
+
+393
+00:10:34,276 --> 0:10:36,006
+But the combined framework,
+
+394
+00:10:36,086 --> 0:10:37,956
+announced this week, makes KVO
+
+395
+00:10:37,956 --> 0:10:39,576
+much easier to use in Swift.
+
+396
+00:10:40,296 --> 0:10:41,696
+We get a publisher out of the
+
+397
+00:10:41,696 --> 0:10:43,326
+object for each property we want
+
+398
+00:10:43,326 --> 0:10:45,916
+to wire up, and sync the data
+
+399
+00:10:45,916 --> 0:10:46,986
+flow into an assignment
+
+400
+00:10:46,986 --> 0:10:48,276
+subscriber on the view.
+
+401
+00:10:48,816 --> 0:10:50,656
+In the case of the tag's color,
+
+402
+00:10:50,656 --> 0:10:51,946
+we have an extra map step in the
+
+403
+00:10:51,946 --> 0:10:53,356
+middle to make the types lineup.
+
+404
+00:10:54,386 --> 0:10:56,116
+This is all the code we need to
+
+405
+00:10:56,116 --> 0:10:56,416
+write.
+
+406
+00:10:56,746 --> 0:10:57,816
+And our ViewsContents will
+
+407
+00:10:57,816 --> 0:10:59,206
+automatically get updated now
+
+408
+00:10:59,206 --> 0:11:00,476
+whenever the underlying object
+
+409
+00:10:59,206 --> 0:11:00,476
+whenever the underlying object
+
+410
+00:11:00,476 --> 0:11:00,976
+changes.
+
+411
+00:11:01,516 --> 0:11:06,156
+[ Cheering and Applause ]
+
+412
+00:11:06,656 --> 0:11:08,046
+Yeah, Combine is great.
+
+413
+00:11:08,046 --> 0:11:09,256
+And this is barely scratching
+
+414
+00:11:09,256 --> 0:11:10,496
+the surface of the framework.
+
+415
+00:11:10,736 --> 0:11:12,176
+It provides a lot more, very
+
+416
+00:11:12,176 --> 0:11:13,166
+powerful, data flow
+
+417
+00:11:13,166 --> 0:11:13,996
+functionality.
+
+418
+00:11:13,996 --> 0:11:15,216
+And to learn more, I encourage
+
+419
+00:11:15,216 --> 0:11:17,246
+you to check out Session 721.
+
+420
+00:11:18,096 --> 0:11:19,906
+Now there is a deceit you may
+
+421
+00:11:19,906 --> 0:11:21,046
+have noticed to this evolution
+
+422
+00:11:21,046 --> 0:11:22,626
+of our code, and it's that
+
+423
+00:11:22,626 --> 0:11:23,756
+DetailViews almost never
+
+424
+00:11:23,756 --> 0:11:24,956
+actually have to fetch the
+
+425
+00:11:24,956 --> 0:11:26,606
+object that they're presenting.
+
+426
+00:11:27,286 --> 0:11:28,546
+Usually this kind of view is
+
+427
+00:11:28,636 --> 0:11:29,926
+pushed from a parent that
+
+428
+00:11:29,926 --> 0:11:31,086
+configures it with a managed
+
+429
+00:11:31,086 --> 0:11:31,596
+object.
+
+430
+00:11:31,596 --> 0:11:33,366
+So normally, the code we'd write
+
+431
+00:11:33,366 --> 0:11:35,476
+would actually look like this.
+
+432
+00:11:36,926 --> 0:11:38,656
+The Parent to our DetailView is
+
+433
+00:11:38,706 --> 0:11:40,456
+usually some kind of list view,
+
+434
+00:11:40,456 --> 0:11:41,516
+like a Collection or a
+
+435
+00:11:41,516 --> 0:11:42,206
+TableView.
+
+436
+00:11:42,816 --> 0:11:44,476
+It also gets its objects from a
+
+437
+00:11:44,526 --> 0:11:45,186
+fetch request.
+
+438
+00:11:45,226 --> 0:11:46,206
+But there are a few more
+
+439
+00:11:46,206 --> 0:11:47,156
+properties that we haven't
+
+440
+00:11:47,156 --> 0:11:48,726
+talked about that are important
+
+441
+00:11:48,726 --> 0:11:49,646
+when fetching a bunch of
+
+442
+00:11:49,646 --> 0:11:49,976
+objects.
+
+443
+00:11:52,546 --> 0:11:53,236
+The first is the
+
+444
+00:11:53,236 --> 0:11:54,446
+requestSortDescriptors.
+
+445
+00:11:55,556 --> 0:11:56,936
+These define the order of the
+
+446
+00:11:56,936 --> 0:11:57,706
+results.
+
+447
+00:11:58,326 --> 0:11:59,366
+In this case, we're sorting our
+
+448
+00:11:59,366 --> 0:12:00,266
+tags by name.
+
+449
+00:11:59,366 --> 0:12:00,266
+tags by name.
+
+450
+00:12:00,486 --> 0:12:02,106
+But if names weren't unique
+
+451
+00:12:02,106 --> 0:12:03,416
+enough, we'd want to add another
+
+452
+00:12:03,416 --> 0:12:04,626
+descriptor to the end of the
+
+453
+00:12:04,626 --> 0:12:05,976
+array to break any ties.
+
+454
+00:12:08,456 --> 0:12:09,596
+Another useful option is
+
+455
+00:12:09,626 --> 0:12:10,116
+batching.
+
+456
+00:12:10,766 --> 0:12:11,996
+If our fetch request is going to
+
+457
+00:12:11,996 --> 0:12:14,266
+match 14 million objects, we
+
+458
+00:12:14,266 --> 0:12:15,536
+don't want them to all get
+
+459
+00:12:15,536 --> 0:12:16,686
+loaded into memory at the same
+
+460
+00:12:16,686 --> 0:12:17,146
+time.
+
+461
+00:12:17,976 --> 0:12:19,076
+Even if we had the memory for
+
+462
+00:12:19,076 --> 0:12:20,786
+that, which we probably don't,
+
+463
+00:12:21,116 --> 0:12:22,356
+it would take a long time.
+
+464
+00:12:22,866 --> 0:12:24,346
+Instead, we configure a fetch
+
+465
+00:12:24,346 --> 0:12:26,076
+batch size to tell the context
+
+466
+00:12:26,076 --> 0:12:27,036
+how many objects should be
+
+467
+00:12:27,036 --> 0:12:28,466
+loaded from the store at a time.
+
+468
+00:12:28,876 --> 0:12:30,516
+This makes a big difference on
+
+469
+00:12:30,516 --> 0:12:31,736
+our app's responsiveness.
+
+470
+00:12:31,976 --> 0:12:32,786
+But it only works when
+
+471
+00:12:32,786 --> 0:12:34,096
+interacting with the result as
+
+472
+00:12:34,096 --> 0:12:34,896
+an MS Array.
+
+473
+00:12:35,146 --> 0:12:37,026
+Swift's array bridging defeats
+
+474
+00:12:37,026 --> 0:12:38,016
+this optimization.
+
+475
+00:12:39,976 --> 0:12:41,416
+So with this knowledge, it's
+
+476
+00:12:41,416 --> 0:12:42,806
+pretty easy to set up a fetch
+
+477
+00:12:42,806 --> 0:12:46,396
+request that will fetch all the
+
+478
+00:12:46,396 --> 0:12:47,656
+tags that we want to see.
+
+479
+00:12:48,176 --> 0:12:49,836
+But what if one gets changed?
+
+480
+00:12:51,576 --> 0:12:52,956
+Just like with the properties of
+
+481
+00:12:52,956 --> 0:12:54,046
+an object that we're displaying
+
+482
+00:12:54,046 --> 0:12:55,666
+in a detailed view, we need some
+
+483
+00:12:55,666 --> 0:12:57,136
+way to keep up with the objects
+
+484
+00:12:57,136 --> 0:12:58,266
+as the career changes.
+
+485
+00:12:59,826 --> 0:13:01,386
+Luckily, Core Data supports live
+
+486
+00:12:59,826 --> 0:13:01,386
+Luckily, Core Data supports live
+
+487
+00:13:01,386 --> 0:13:02,786
+queries in the form of a Fetch
+
+488
+00:13:02,786 --> 0:13:03,596
+Results Controller.
+
+489
+00:13:04,846 --> 0:13:06,246
+Here we've configured a request
+
+490
+00:13:06,246 --> 0:13:07,876
+to fetch all posts ordered by
+
+491
+00:13:07,876 --> 0:13:09,336
+title, 50 at a time.
+
+492
+00:13:10,766 --> 0:13:12,046
+This fetch request is joined by
+
+493
+00:13:12,046 --> 0:13:13,856
+a context to configure a type we
+
+494
+00:13:13,856 --> 0:13:15,116
+haven't talked about yet called
+
+495
+00:13:15,116 --> 0:13:16,376
+a fetchedResults Controller.
+
+496
+00:13:17,226 --> 0:13:18,496
+It communicates changes to the
+
+497
+00:13:18,496 --> 0:13:20,046
+fetch requests through a
+
+498
+00:13:20,046 --> 0:13:21,546
+delegate protocaller and starts
+
+499
+00:13:21,546 --> 0:13:22,656
+working as soon as you tell it
+
+500
+00:13:22,656 --> 0:13:23,696
+to perform the fetch.
+
+501
+00:13:25,356 --> 0:13:26,976
+Now the Fetch Results Controller
+
+502
+00:13:26,976 --> 0:13:28,226
+is probably well known to many
+
+503
+00:13:28,226 --> 0:13:28,816
+of you already.
+
+504
+00:13:29,656 --> 0:13:30,716
+The delegate protocols change
+
+505
+00:13:30,716 --> 0:13:32,106
+reporting callbacks include a
+
+506
+00:13:32,106 --> 0:13:33,416
+method to tell you when changes
+
+507
+00:13:33,416 --> 0:13:34,846
+are going to begin coming in.
+
+508
+00:13:35,706 --> 0:13:37,566
+Another to tell you when a
+
+509
+00:13:37,566 --> 0:13:39,276
+section changed in some way.
+
+510
+00:13:40,286 --> 0:13:41,756
+And another tell you for each
+
+511
+00:13:41,756 --> 0:13:43,176
+object that changed, how it
+
+512
+00:13:43,176 --> 0:13:43,756
+changed.
+
+513
+00:13:44,126 --> 0:13:46,586
+And finally, a method to tell
+
+514
+00:13:46,586 --> 0:13:47,436
+you that we're done.
+
+515
+00:13:47,526 --> 0:13:48,386
+And you know everything.
+
+516
+00:13:49,746 --> 0:13:50,796
+These methods were originally
+
+517
+00:13:50,796 --> 0:13:52,426
+designed to line up closely with
+
+518
+00:13:52,426 --> 0:13:54,136
+UITableView's API, but there was
+
+519
+00:13:54,136 --> 0:13:55,546
+still a fair amount of glue code
+
+520
+00:13:55,546 --> 0:13:56,926
+to write matching the career
+
+521
+00:13:57,096 --> 0:13:58,486
+query results to the table
+
+522
+00:13:58,486 --> 0:13:59,146
+redrawing.
+
+523
+00:13:59,846 --> 0:14:01,346
+Furthermore, newer collection
+
+524
+00:13:59,846 --> 0:14:01,346
+Furthermore, newer collection
+
+525
+00:14:01,346 --> 0:14:02,766
+views don't support this change
+
+526
+00:14:02,766 --> 0:14:03,516
+callback pattern.
+
+527
+00:14:04,606 --> 0:14:06,616
+So I'm very happy to announce
+
+528
+00:14:06,616 --> 0:14:07,326
+that the Fetch Results
+
+529
+00:14:07,326 --> 0:14:08,386
+Controller has learned some new
+
+530
+00:14:08,386 --> 0:14:09,166
+tricks this year.
+
+531
+00:14:10,256 --> 0:14:11,656
+The first is a delegate method
+
+532
+00:14:11,656 --> 0:14:13,136
+that vends an instance of
+
+533
+00:14:13,136 --> 0:14:14,586
+NSDiffableData SourceSnapshot.
+
+534
+00:14:15,516 --> 0:14:18,726
+[ Applause ]
+
+535
+00:14:19,226 --> 0:14:20,216
+It sounds like a lot of you
+
+536
+00:14:20,216 --> 0:14:21,536
+already know what this type is.
+
+537
+00:14:21,786 --> 0:14:23,496
+But in case you don't, it's a
+
+538
+00:14:23,496 --> 0:14:25,106
+new type in UIKit MapKit that
+
+539
+00:14:25,106 --> 0:14:26,376
+represents the structure of a
+
+540
+00:14:26,376 --> 0:14:27,566
+collection or TableView.
+
+541
+00:14:27,956 --> 0:14:29,756
+To use one, you configure your
+
+542
+00:14:29,756 --> 0:14:31,106
+TableView's data source to be
+
+543
+00:14:31,106 --> 0:14:32,976
+one of the DiffableDataSource,
+
+544
+00:14:32,976 --> 0:14:34,646
+also new this year, and feed it
+
+545
+00:14:34,646 --> 0:14:35,406
+snapshots.
+
+546
+00:14:36,236 --> 0:14:37,536
+You can learn more about these
+
+547
+00:14:37,576 --> 0:14:38,876
+types in Session 220.
+
+548
+00:14:38,876 --> 0:14:41,196
+But for all our purposes, all
+
+549
+00:14:41,196 --> 0:14:42,576
+you need to know is that you can
+
+550
+00:14:42,576 --> 0:14:43,746
+use them to keep your collection
+
+551
+00:14:43,746 --> 0:14:44,916
+views up-to-date in a single
+
+552
+00:14:44,916 --> 0:14:45,686
+line of code.
+
+553
+00:14:46,356 --> 0:14:47,576
+And that code fits in the
+
+554
+00:14:47,576 --> 0:14:48,696
+remainder of the slide.
+
+555
+00:14:49,086 --> 0:14:49,966
+This used to be a lot of
+
+556
+00:14:49,966 --> 0:14:50,586
+boilerplate.
+
+557
+00:14:51,396 --> 0:14:53,236
+All we're doing here is feeding
+
+558
+00:14:53,236 --> 0:14:53,966
+the Snapshot to the
+
+559
+00:14:53,966 --> 0:14:55,166
+DiffableDataSource.
+
+560
+00:14:55,656 --> 0:14:56,906
+The data source diffs the
+
+561
+00:14:56,906 --> 0:14:58,336
+snapshot against the previous
+
+562
+00:14:58,336 --> 0:14:59,826
+view state that it has, which is
+
+563
+00:14:59,826 --> 0:15:00,346
+what makes it a
+
+564
+00:14:59,826 --> 0:15:00,346
+what makes it a
+
+565
+00:15:00,576 --> 0:15:02,446
+DiffableDataSource, and then
+
+566
+00:15:02,446 --> 0:15:04,046
+uses it -- uses the computer
+
+567
+00:15:04,046 --> 0:15:04,976
+difference to update the view.
+
+568
+00:15:05,516 --> 0:15:08,756
+[ Applause ]
+
+569
+00:15:09,256 --> 0:15:10,106
+This has been a long time
+
+570
+00:15:10,106 --> 0:15:10,466
+coming.
+
+571
+00:15:11,016 --> 0:15:12,106
+[Chuckles]
+
+572
+00:15:12,106 --> 0:15:13,486
+The DiffableDataSource Snapshot
+
+573
+00:15:13,486 --> 0:15:14,906
+works great for wholesale
+
+574
+00:15:14,906 --> 0:15:16,326
+control of the collection view.
+
+575
+00:15:16,326 --> 0:15:17,056
+But if you're looking for
+
+576
+00:15:17,056 --> 0:15:18,086
+something that allows more
+
+577
+00:15:18,086 --> 0:15:20,076
+customization, or you're
+
+578
+00:15:20,076 --> 0:15:21,376
+managing the state of types
+
+579
+00:15:21,376 --> 0:15:22,846
+other than Table and Collection
+
+580
+00:15:22,846 --> 0:15:25,136
+views, we have another delegate
+
+581
+00:15:25,136 --> 0:15:26,556
+method you may be interested in.
+
+582
+00:15:27,326 --> 0:15:29,106
+Like with Snapshots, this method
+
+583
+00:15:29,106 --> 0:15:30,476
+also gives you a summary of all
+
+584
+00:15:30,476 --> 0:15:31,506
+the changes to the Fetched
+
+585
+00:15:31,506 --> 0:15:32,646
+Results in one shot.
+
+586
+00:15:32,646 --> 0:15:34,496
+But it uses a different type,
+
+587
+00:15:34,576 --> 0:15:35,846
+also new this year, called
+
+588
+00:15:35,846 --> 0:15:36,866
+CollectionDifference.
+
+589
+00:15:37,186 --> 0:15:39,366
+Like the name implies, a
+
+590
+00:15:39,366 --> 0:15:40,516
+CollectionDifference encodes the
+
+591
+00:15:40,516 --> 0:15:42,026
+difference between, and can be
+
+592
+00:15:42,026 --> 0:15:43,916
+generated from, two collections.
+
+593
+00:15:45,636 --> 0:15:46,776
+Collection diffing in the Swift
+
+594
+00:15:46,776 --> 0:15:48,306
+standard library was introduced
+
+595
+00:15:48,306 --> 0:15:50,206
+in Swift Evolution Proposal 240.
+
+596
+00:15:50,706 --> 0:15:51,596
+But it also exists in
+
+597
+00:15:51,596 --> 0:15:52,196
+Foundation.
+
+598
+00:15:52,196 --> 0:15:53,036
+And you can learn more about
+
+599
+00:15:53,036 --> 0:15:53,946
+that in Session 711.
+
+600
+00:15:56,216 --> 0:15:57,226
+For our purposes, it's a
+
+601
+00:15:57,226 --> 0:15:58,236
+one-dimensional type.
+
+602
+00:15:58,236 --> 0:15:59,676
+So it's only supported when
+
+603
+00:15:59,676 --> 0:16:00,686
+you're not using section
+
+604
+00:15:59,676 --> 0:16:00,686
+you're not using section
+
+605
+00:16:00,686 --> 0:16:01,226
+fetching.
+
+606
+00:16:01,656 --> 0:16:03,416
+And like the SnapshotDelegate
+
+607
+00:16:03,416 --> 0:16:04,976
+method, it's mutually exclusive
+
+608
+00:16:04,976 --> 0:16:06,296
+with the legacy change reporting
+
+609
+00:16:06,296 --> 0:16:06,956
+methods.
+
+610
+00:16:06,956 --> 0:16:08,276
+So if you want to drive multiple
+
+611
+00:16:08,276 --> 0:16:09,416
+things from a Fetched Results
+
+612
+00:16:09,416 --> 0:16:10,936
+Controller, you should use
+
+613
+00:16:10,936 --> 0:16:11,526
+multiple Fetched Results
+
+614
+00:16:11,526 --> 0:16:11,956
+controllers.
+
+615
+00:16:14,756 --> 0:16:15,756
+So let's take a quick look at
+
+616
+00:16:15,756 --> 0:16:16,856
+how we can drive a single
+
+617
+00:16:16,856 --> 0:16:18,476
+section of a collection view
+
+618
+00:16:18,776 --> 0:16:20,276
+using these differences.
+
+619
+00:16:21,586 --> 0:16:22,496
+Here's our Delegate method.
+
+620
+00:16:23,086 --> 0:16:24,436
+And at the very top, we start by
+
+621
+00:16:24,436 --> 0:16:26,016
+kicking off a batch update, and
+
+622
+00:16:26,016 --> 0:16:27,286
+looping over the changes in the
+
+623
+00:16:27,286 --> 0:16:27,716
+diff.
+
+624
+00:16:29,606 --> 0:16:30,776
+CollectionDifferences support
+
+625
+00:16:30,776 --> 0:16:32,826
+two kinds of changes, Insert and
+
+626
+00:16:32,826 --> 0:16:33,406
+Remove.
+
+627
+00:16:33,716 --> 0:16:35,266
+And two changes of opposing
+
+628
+00:16:35,266 --> 0:16:36,676
+types may refer to each other
+
+629
+00:16:36,726 --> 0:16:37,856
+through association.
+
+630
+00:16:38,136 --> 0:16:40,196
+So in the first case, we have an
+
+631
+00:16:40,196 --> 0:16:41,756
+insertion that has an associated
+
+632
+00:16:41,756 --> 0:16:42,226
+removal.
+
+633
+00:16:42,976 --> 0:16:44,516
+This means the object has moved,
+
+634
+00:16:44,696 --> 0:16:46,006
+or at least changed.
+
+635
+00:16:46,196 --> 0:16:47,196
+It may not have actually moved
+
+636
+00:16:47,196 --> 0:16:48,146
+logical position.
+
+637
+00:16:48,576 --> 0:16:49,706
+But it doesn't matter, because
+
+638
+00:16:49,706 --> 0:16:50,916
+the CollectionView is smart
+
+639
+00:16:50,916 --> 0:16:52,216
+enough to tell the difference.
+
+640
+00:16:52,216 --> 0:16:53,066
+And as long as we give it the
+
+641
+00:16:53,066 --> 0:16:54,536
+right original and destination
+
+642
+00:16:54,536 --> 0:16:56,476
+IndexPaths, then it will do the
+
+643
+00:16:56,476 --> 0:16:56,976
+right thing.
+
+644
+00:16:58,206 --> 0:16:59,456
+In the second case, we have an
+
+645
+00:16:59,456 --> 0:17:00,816
+insert of an object that was not
+
+646
+00:16:59,456 --> 0:17:00,816
+insert of an object that was not
+
+647
+00:17:00,816 --> 0:17:01,986
+previously part of the Fetched
+
+648
+00:17:01,986 --> 0:17:02,546
+Results.
+
+649
+00:17:02,796 --> 0:17:03,876
+So we tell the CollectionView to
+
+650
+00:17:03,876 --> 0:17:04,886
+add it.
+
+651
+00:17:06,066 --> 0:17:07,846
+Finally, we match all removes
+
+652
+00:17:07,846 --> 0:17:09,106
+that weren't part of an
+
+653
+00:17:09,106 --> 0:17:11,386
+associated move by filtering for
+
+654
+00:17:11,386 --> 0:17:12,846
+new associations, and then
+
+655
+00:17:12,846 --> 0:17:13,556
+remove those from the
+
+656
+00:17:13,556 --> 0:17:14,205
+CollectionView.
+
+657
+00:17:14,646 --> 0:17:16,435
+And that's it.
+
+658
+00:17:17,246 --> 0:17:18,496
+And you'll notice that this code
+
+659
+00:17:18,496 --> 0:17:19,366
+composes well.
+
+660
+00:17:19,445 --> 0:17:20,816
+So it's a good candidate for
+
+661
+00:17:20,816 --> 0:17:22,866
+factoring into a function to
+
+662
+00:17:22,866 --> 0:17:24,165
+further reduce your boilerplate,
+
+663
+00:17:24,445 --> 0:17:25,486
+because all the state you need
+
+664
+00:17:26,356 --> 0:17:27,496
+is the CollectionView and the
+
+665
+00:17:27,496 --> 0:17:28,026
+difference.
+
+666
+00:17:28,566 --> 0:17:29,726
+So we think people are really
+
+667
+00:17:29,726 --> 0:17:30,786
+going to love these new delegate
+
+668
+00:17:30,786 --> 0:17:31,266
+methods.
+
+669
+00:17:31,816 --> 0:17:32,996
+But the old ones find new life
+
+670
+00:17:32,996 --> 0:17:33,706
+this year as well.
+
+671
+00:17:34,386 --> 0:17:35,436
+The Swift UI framework
+
+672
+00:17:35,436 --> 0:17:36,856
+introduces first-party support
+
+673
+00:17:36,856 --> 0:17:38,966
+for declarative interfaces, but
+
+674
+00:17:39,126 --> 0:17:39,896
+it can't be driven with
+
+675
+00:17:39,896 --> 0:17:40,956
+Snapshots or diffs.
+
+676
+00:17:41,496 --> 0:17:42,946
+But this model type can be
+
+677
+00:17:42,946 --> 0:17:45,136
+derived from our list of Fetched
+
+678
+00:17:45,136 --> 0:17:45,746
+Results.
+
+679
+00:17:46,676 --> 0:17:47,936
+Conveniently, the existing
+
+680
+00:17:47,936 --> 0:17:48,456
+controller,
+
+681
+00:17:48,456 --> 0:17:50,456
+didChangeContentDelegateMethod
+
+682
+00:17:50,766 --> 0:17:51,736
+will tell us every time an
+
+683
+00:17:51,736 --> 0:17:53,156
+updated set of Fetched Results
+
+684
+00:17:53,156 --> 0:17:53,946
+is ready to update our views.
+
+685
+00:17:57,076 --> 0:17:58,366
+So it's easy now to apply
+
+686
+00:17:58,366 --> 0:17:59,566
+Fetched Results to our views.
+
+687
+00:17:59,566 --> 0:18:00,396
+But what if the results
+
+688
+00:17:59,566 --> 0:18:00,396
+But what if the results
+
+689
+00:18:00,396 --> 0:18:01,836
+themselves were difficult to
+
+690
+00:18:01,836 --> 0:18:02,476
+fetch?
+
+691
+00:18:02,966 --> 0:18:04,826
+What if we wind up being unable
+
+692
+00:18:04,826 --> 0:18:05,916
+to build a fetch request to
+
+693
+00:18:05,916 --> 0:18:07,326
+fetch our data?
+
+694
+00:18:07,326 --> 0:18:09,296
+Or what if we wind up with
+
+695
+00:18:09,296 --> 0:18:11,056
+performance problems when we
+
+696
+00:18:11,056 --> 0:18:12,326
+execute our fetch requests?
+
+697
+00:18:13,196 --> 0:18:15,026
+At a certain point, the needs of
+
+698
+00:18:15,026 --> 0:18:15,776
+the controller outweigh the
+
+699
+00:18:15,776 --> 0:18:17,076
+needs of the model, and we have
+
+700
+00:18:17,076 --> 0:18:18,556
+to give up some modeling purity
+
+701
+00:18:19,416 --> 0:18:20,316
+in order to accomplish our
+
+702
+00:18:20,316 --> 0:18:20,876
+goals.
+
+703
+00:18:21,606 --> 0:18:23,116
+We do this with denormalization.
+
+704
+00:18:24,266 --> 0:18:25,486
+We talked a bit about
+
+705
+00:18:25,486 --> 0:18:28,206
+denormalization during WWDC 2018
+
+706
+00:18:28,206 --> 0:18:29,786
+in Session 224.
+
+707
+00:18:29,896 --> 0:18:32,296
+But to recap, denormalization is
+
+708
+00:18:32,296 --> 0:18:33,846
+when we keep copies of our data,
+
+709
+00:18:33,846 --> 0:18:35,276
+so access can be more efficient.
+
+710
+00:18:36,276 --> 0:18:37,226
+This comes with the price of
+
+711
+00:18:37,226 --> 0:18:38,106
+some additional overhead
+
+712
+00:18:38,106 --> 0:18:39,486
+maintaining that extra data.
+
+713
+00:18:39,776 --> 0:18:40,266
+But there are a lot of
+
+714
+00:18:40,266 --> 0:18:41,616
+circumstances where this
+
+715
+00:18:41,616 --> 0:18:42,766
+tradeoff is a no-brainer.
+
+716
+00:18:43,936 --> 0:18:45,546
+Databases indexes are a good
+
+717
+00:18:45,546 --> 0:18:46,556
+example of this.
+
+718
+00:18:46,786 --> 0:18:47,926
+In exchange for maintaining a
+
+719
+00:18:47,926 --> 0:18:49,526
+copy of all of our indexed
+
+720
+00:18:49,526 --> 0:18:51,196
+columns, were rewarded with
+
+721
+00:18:51,196 --> 0:18:53,566
+lightning-fast queries when they
+
+722
+00:18:53,566 --> 0:18:54,606
+depend on those columns.
+
+723
+00:18:55,966 --> 0:18:57,386
+Looking back at our app,
+
+724
+00:18:57,516 --> 0:18:59,016
+denormalization is also a useful
+
+725
+00:18:59,016 --> 0:19:00,266
+way for us to keep track how
+
+726
+00:18:59,016 --> 0:19:00,266
+way for us to keep track how
+
+727
+00:19:00,266 --> 0:19:02,076
+many posts are using each tag.
+
+728
+00:19:02,736 --> 0:19:05,546
+All we need to do is add an
+
+729
+00:19:05,546 --> 0:19:08,036
+integer attribute to the tag
+
+730
+00:19:08,436 --> 0:19:10,106
+type named postCount.
+
+731
+00:19:12,036 --> 0:19:13,256
+Now all we have to do is make
+
+732
+00:19:13,256 --> 0:19:14,386
+sure that this new postCount
+
+733
+00:19:14,386 --> 0:19:15,726
+attribute gets incremented every
+
+734
+00:19:15,726 --> 0:19:17,386
+time a post is tagged and
+
+735
+00:19:17,476 --> 0:19:19,566
+decremented every time a tag is
+
+736
+00:19:19,566 --> 0:19:20,516
+removed from a post.
+
+737
+00:19:21,406 --> 0:19:22,606
+Surely, this code will be bug
+
+738
+00:19:22,606 --> 0:19:23,676
+free, and our data consistent
+
+739
+00:19:23,676 --> 0:19:23,976
+forever, right?
+
+740
+00:19:24,266 --> 0:19:26,266
+[ Chuckling ]
+
+741
+00:19:26,516 --> 0:19:29,616
+Right? [Chuckles] No, enter
+
+742
+00:19:29,616 --> 0:19:30,846
+derived attributes.
+
+743
+00:19:32,156 --> 0:19:32,896
+[Chuckles] Derived attributes
+
+744
+00:19:32,896 --> 0:19:34,036
+are normalized metadata that's
+
+745
+00:19:34,036 --> 0:19:35,776
+maintained for you by Core Data.
+
+746
+00:19:35,776 --> 0:19:38,536
+And it's not just for counts.
+
+747
+00:19:38,916 --> 0:19:39,826
+There's a bunch of supported
+
+748
+00:19:39,866 --> 0:19:40,996
+functions that you can find in
+
+749
+00:19:40,996 --> 0:19:41,926
+the documentation.
+
+750
+00:19:43,906 --> 0:19:45,266
+Derived attributes are defined
+
+751
+00:19:45,346 --> 0:19:46,746
+in the managed object model.
+
+752
+00:19:47,156 --> 0:19:49,016
+The Model Editor in Xcode has a
+
+753
+00:19:49,016 --> 0:19:50,346
+new interface for this.
+
+754
+00:19:50,486 --> 0:19:51,786
+Or you can define derived
+
+755
+00:19:51,786 --> 0:19:53,636
+attributes in code using the new
+
+756
+00:19:53,636 --> 0:19:53,876
+type,
+
+757
+00:19:53,876 --> 0:19:56,486
+NSDerivedAttributeDescription.
+
+758
+00:19:57,916 --> 0:19:59,436
+And finally, derivation
+
+759
+00:19:59,436 --> 0:20:01,126
+expressions can refer to any of
+
+760
+00:19:59,436 --> 0:20:01,126
+expressions can refer to any of
+
+761
+00:20:01,126 --> 0:20:02,276
+the properties of an entity, one
+
+762
+00:20:02,656 --> 0:20:02,976
+level deep.
+
+763
+00:20:05,276 --> 0:20:06,106
+Derived attributes make
+
+764
+00:20:06,106 --> 0:20:07,736
+denormalization super easy.
+
+765
+00:20:08,026 --> 0:20:09,236
+And I'd love to take a moment
+
+766
+00:20:09,236 --> 0:20:10,866
+now to show you how to adopt
+
+767
+00:20:10,866 --> 0:20:10,956
+them.
+
+768
+00:20:13,736 --> 0:20:15,426
+Here we have our app, just as
+
+769
+00:20:15,426 --> 0:20:15,846
+before.
+
+770
+00:20:16,656 --> 0:20:19,196
+And if we look in our Tag
+
+771
+00:20:19,196 --> 0:20:21,406
+Manager here, we can see that we
+
+772
+00:20:21,406 --> 0:20:23,586
+have three tags and a whole
+
+773
+00:20:23,586 --> 0:20:24,486
+bunch of posts.
+
+774
+00:20:24,966 --> 0:20:26,316
+But the view code that's driving
+
+775
+00:20:26,316 --> 0:20:28,616
+this here is actually traversing
+
+776
+00:20:28,616 --> 0:20:30,346
+the relationship posts and
+
+777
+00:20:30,346 --> 0:20:32,026
+getting its count, which faults
+
+778
+00:20:32,026 --> 0:20:33,476
+in the relationship when we do
+
+779
+00:20:33,476 --> 0:20:33,636
+it.
+
+780
+00:20:33,876 --> 0:20:35,686
+So if we had many orders of
+
+781
+00:20:35,686 --> 0:20:37,156
+magnitude more data, this could
+
+782
+00:20:37,156 --> 0:20:38,146
+wind up being a performance
+
+783
+00:20:38,146 --> 0:20:39,066
+problem for us.
+
+784
+00:20:39,896 --> 0:20:41,506
+So let's fix that by using
+
+785
+00:20:41,506 --> 0:20:43,806
+derived attributes in our model.
+
+786
+00:20:45,536 --> 0:20:46,776
+Here's our model editor.
+
+787
+00:20:46,776 --> 0:20:48,186
+And we're looking at the tag
+
+788
+00:20:48,186 --> 0:20:48,926
+type right now.
+
+789
+00:20:49,466 --> 0:20:52,456
+So we're going to go in here and
+
+790
+00:20:52,856 --> 0:20:54,106
+add a new attribute called
+
+791
+00:20:54,936 --> 0:20:55,526
+postCount.
+
+792
+00:20:56,216 --> 0:20:57,336
+And we're going to make that an
+
+793
+00:20:57,336 --> 0:20:57,976
+integer type.
+
+794
+00:20:59,566 --> 0:21:01,156
+Now if we go over to the
+
+795
+00:20:59,566 --> 0:21:01,156
+Now if we go over to the
+
+796
+00:21:01,156 --> 0:21:03,916
+inspector here, we can see a new
+
+797
+00:21:03,916 --> 0:21:05,696
+checkbox that says derived.
+
+798
+00:21:06,126 --> 0:21:07,836
+And if we click it, we wind up
+
+799
+00:21:07,836 --> 0:21:09,226
+with a space for a derivation
+
+800
+00:21:09,226 --> 0:21:09,746
+expression.
+
+801
+00:21:10,346 --> 0:21:12,656
+So here, we're basically moving
+
+802
+00:21:12,656 --> 0:21:14,306
+our code from the view into
+
+803
+00:21:14,306 --> 0:21:14,716
+here.
+
+804
+00:21:14,716 --> 0:21:15,956
+Let's say posts.
+
+805
+00:21:15,956 --> 0:21:18,336
+@counts, since we're using an
+
+806
+00:21:18,336 --> 0:21:19,246
+aggregate function.
+
+807
+00:21:20,526 --> 0:21:22,976
+And then that's it.
+
+808
+00:21:23,456 --> 0:21:24,936
+If we rebuild, Xcode will
+
+809
+00:21:24,936 --> 0:21:26,446
+rebuild our managed object sub
+
+810
+00:21:26,446 --> 0:21:27,116
+classes.
+
+811
+00:21:27,506 --> 0:21:28,696
+And when we go back to the view,
+
+812
+00:21:28,696 --> 0:21:32,556
+here, we will find a new
+
+813
+00:21:32,856 --> 0:21:33,926
+instance variable called
+
+814
+00:21:33,956 --> 0:21:35,496
+postCount, but it's not
+
+815
+00:21:35,496 --> 0:21:35,936
+optional.
+
+816
+00:21:35,936 --> 0:21:37,266
+So we get to delete even more
+
+817
+00:21:37,316 --> 0:21:38,436
+code by getting rid of this
+
+818
+00:21:38,556 --> 0:21:39,086
+conditional.
+
+819
+00:21:39,786 --> 0:21:42,116
+If we build and run, we should
+
+820
+00:21:42,116 --> 0:21:42,976
+see that nothing changed.
+
+821
+00:21:43,286 --> 0:21:45,286
+[ Chuckling ]
+
+822
+00:21:45,556 --> 0:21:47,586
+Except it's way faster and
+
+823
+00:21:47,586 --> 0:21:47,836
+better.
+
+824
+00:21:47,836 --> 0:21:48,476
+And we don't have to keep
+
+825
+00:21:48,476 --> 0:21:49,216
+anything up-to-date.
+
+826
+00:21:49,756 --> 0:21:50,536
+And sure enough, there it is.
+
+827
+00:21:51,516 --> 0:21:54,886
+[ Applause ]
+
+828
+00:21:55,386 --> 0:21:57,006
+The complete set of supported
+
+829
+00:21:57,006 --> 0:21:58,446
+derivations is available in the
+
+830
+00:21:58,446 --> 0:21:59,386
+developer docs.
+
+831
+00:21:59,836 --> 0:22:01,286
+But generally speaking, they
+
+832
+00:21:59,836 --> 0:22:01,286
+But generally speaking, they
+
+833
+00:22:01,286 --> 0:22:02,506
+come in four classes.
+
+834
+00:22:03,446 --> 0:22:04,496
+The simplest is outright
+
+835
+00:22:04,556 --> 0:22:06,366
+duplication, like keeping a copy
+
+836
+00:22:06,396 --> 0:22:07,936
+of an attachments identifier and
+
+837
+00:22:07,936 --> 0:22:09,126
+the image data that backs it.
+
+838
+00:22:10,146 --> 0:22:11,696
+The other kind of derivation is
+
+839
+00:22:11,696 --> 0:22:13,116
+a simple transformation of the
+
+840
+00:22:13,116 --> 0:22:15,146
+fields, such as lower casing a
+
+841
+00:22:15,146 --> 0:22:16,426
+tag's name, or canonicalizing
+
+842
+00:22:16,426 --> 0:22:16,976
+some Unicode string.
+
+843
+00:22:20,466 --> 0:22:21,656
+We just saw an example of an
+
+844
+00:22:21,656 --> 0:22:23,056
+aggregate function across a too
+
+845
+00:22:23,056 --> 0:22:24,466
+many relationship in the demo.
+
+846
+00:22:25,656 --> 0:22:27,066
+And lastly, there are global
+
+847
+00:22:27,066 --> 0:22:29,716
+functions such as now that take
+
+848
+00:22:29,716 --> 0:22:31,306
+no parameters at all, which are
+
+849
+00:22:31,306 --> 0:22:33,026
+useful for things like keeping
+
+850
+00:22:33,026 --> 0:22:34,406
+track of when an object was last
+
+851
+00:22:34,406 --> 0:22:34,856
+updated.
+
+852
+00:22:34,886 --> 0:22:36,606
+So now that our controller is
+
+853
+00:22:36,606 --> 0:22:37,906
+want for nothing, it's time to
+
+854
+00:22:37,906 --> 0:22:39,166
+talk about some more advanced
+
+855
+00:22:39,166 --> 0:22:40,156
+topics and scaling.
+
+856
+00:22:40,426 --> 0:22:42,416
+PersistentHistory was introduced
+
+857
+00:22:42,416 --> 0:22:44,626
+in 2017 as a tool to help you do
+
+858
+00:22:44,626 --> 0:22:46,186
+things like process data added
+
+859
+00:22:46,186 --> 0:22:48,126
+by an importer, or maintain data
+
+860
+00:22:48,126 --> 0:22:49,866
+consistency across multiple
+
+861
+00:22:49,866 --> 0:22:51,376
+active coordinators that are
+
+862
+00:22:51,376 --> 0:22:52,346
+using the same store.
+
+863
+00:22:53,796 --> 0:22:55,126
+New this year, we've recruited
+
+864
+00:22:55,126 --> 0:22:56,956
+fetch requests to make it easier
+
+865
+00:22:56,956 --> 0:22:58,156
+to look up only the history
+
+866
+00:22:58,156 --> 0:22:58,936
+you're interested in.
+
+867
+00:23:00,836 --> 0:23:01,616
+Maybe you want to look up the
+
+868
+00:23:01,616 --> 0:23:04,076
+changes made by an extension, or
+
+869
+00:23:04,076 --> 0:23:06,176
+only changes that affect posts,
+
+870
+00:23:06,416 --> 0:23:08,236
+or only history within a certain
+
+871
+00:23:08,236 --> 0:23:09,106
+range of time.
+
+872
+00:23:09,386 --> 0:23:10,706
+I think what is the power of the
+
+873
+00:23:10,706 --> 0:23:12,096
+fetch request applied to your
+
+874
+00:23:12,096 --> 0:23:12,976
+PersistentHistory.
+
+875
+00:23:15,496 --> 0:23:16,036
+Now and
+
+876
+00:23:16,036 --> 0:23:17,626
+NSPersistentHistoryTransaction
+
+877
+00:23:17,626 --> 0:23:19,366
+and NSPersistentHistoryChange
+
+878
+00:23:19,676 --> 0:23:21,006
+are not modeled types, but
+
+879
+00:23:21,006 --> 0:23:22,286
+they've both sprouted some new
+
+880
+00:23:22,286 --> 0:23:24,336
+cross-methods to make them work
+
+881
+00:23:24,336 --> 0:23:25,786
+with fetch requests.
+
+882
+00:23:25,916 --> 0:23:27,416
+If you squint, the new methods
+
+883
+00:23:27,416 --> 0:23:28,316
+look similar to what you would
+
+884
+00:23:28,316 --> 0:23:30,056
+find generated by Xcode for your
+
+885
+00:23:30,056 --> 0:23:30,966
+managed object subclass types.
+
+886
+00:23:33,266 --> 0:23:34,256
+They include accessories for an
+
+887
+00:23:34,256 --> 0:23:35,756
+entity description corresponding
+
+888
+00:23:35,756 --> 0:23:37,926
+to the type, as well as a method
+
+889
+00:23:37,926 --> 0:23:38,936
+that produces a new
+
+890
+00:23:39,046 --> 0:23:40,296
+preconfigured fetch requests
+
+891
+00:23:40,296 --> 0:23:41,886
+that will return instances of
+
+892
+00:23:41,916 --> 0:23:42,856
+the type, either
+
+893
+00:23:43,046 --> 0:23:44,726
+NSPersistentHistoryTransaction
+
+894
+00:23:44,726 --> 0:23:46,606
+or NSPersistentHistoryChange
+
+895
+00:23:46,936 --> 0:23:47,666
+when executed.
+
+896
+00:23:49,046 --> 0:23:50,126
+You configure the fetch request
+
+897
+00:23:50,126 --> 0:23:51,256
+to the predicate, just like your
+
+898
+00:23:51,256 --> 0:23:52,646
+fetching managed objects.
+
+899
+00:23:52,646 --> 0:23:53,906
+But instead of executing the
+
+900
+00:23:53,906 --> 0:23:55,486
+fetch requests directly against
+
+901
+00:23:55,516 --> 0:23:57,516
+the context, the fetch request
+
+902
+00:23:57,516 --> 0:23:58,716
+gets used as part of a
+
+903
+00:23:58,716 --> 0:24:00,826
+PersistentHistoryRequest.
+
+904
+00:23:58,716 --> 0:24:00,826
+PersistentHistoryRequest.
+
+905
+00:24:02,566 --> 0:24:03,396
+There's a new convenience
+
+906
+00:24:03,396 --> 0:24:04,316
+initializer on
+
+907
+00:24:04,316 --> 0:24:05,416
+NSPersistentHistory
+
+908
+00:24:05,416 --> 0:24:07,296
+ChangeRequest for creating a new
+
+909
+00:24:07,296 --> 0:24:08,836
+instance with a fetch request,
+
+910
+00:24:08,836 --> 0:24:10,406
+as well as immutable property
+
+911
+00:24:10,406 --> 0:24:11,516
+you can use for post-talk
+
+912
+00:24:11,616 --> 0:24:12,396
+configuration.
+
+913
+00:24:14,196 --> 0:24:15,666
+Harnessing fetch requests for
+
+914
+00:24:15,666 --> 0:24:17,356
+PersistentHistory provides a lot
+
+915
+00:24:17,356 --> 0:24:18,366
+of granularity to our
+
+916
+00:24:18,366 --> 0:24:18,986
+application.
+
+917
+00:24:19,156 --> 0:24:20,346
+But there's still the question
+
+918
+00:24:20,346 --> 0:24:21,706
+of how do we know when history
+
+919
+00:24:21,706 --> 0:24:21,976
+gets made?
+
+920
+00:24:24,056 --> 0:24:25,636
+There are a lot of ways we could
+
+921
+00:24:25,636 --> 0:24:26,726
+do this, but they all have
+
+922
+00:24:26,726 --> 0:24:27,656
+drawbacks.
+
+923
+00:24:28,246 --> 0:24:29,626
+We could pull the store for
+
+924
+00:24:29,626 --> 0:24:30,886
+changes every so often.
+
+925
+00:24:30,946 --> 0:24:32,506
+But it's hard to tune that kind
+
+926
+00:24:32,506 --> 0:24:33,436
+of solution for the right
+
+927
+00:24:33,436 --> 0:24:35,626
+compromise between wasted effort
+
+928
+00:24:36,056 --> 0:24:37,526
+and delays before changes are
+
+929
+00:24:37,526 --> 0:24:38,226
+noticed.
+
+930
+00:24:38,556 --> 0:24:40,936
+File System monitoring systems
+
+931
+00:24:40,936 --> 0:24:42,566
+like Dispatch Sources, or
+
+932
+00:24:42,566 --> 0:24:44,676
+FSEvents, are useful, but they
+
+933
+00:24:44,676 --> 0:24:46,356
+only work with file back stores,
+
+934
+00:24:46,736 --> 0:24:48,066
+they're not trivial to adopt.
+
+935
+00:24:48,066 --> 0:24:49,096
+And it's likely that you'll get
+
+936
+00:24:49,096 --> 0:24:50,386
+a lot of notifications that
+
+937
+00:24:50,386 --> 0:24:51,626
+don't actually correspond to
+
+938
+00:24:51,626 --> 0:24:52,786
+changes being committed to the
+
+939
+00:24:52,786 --> 0:24:53,246
+store.
+
+940
+00:24:53,246 --> 0:24:54,556
+So there's still a lot of wasted
+
+941
+00:24:54,556 --> 0:24:54,976
+effort there.
+
+942
+00:24:57,046 --> 0:24:58,396
+While useful as Band-Aids, these
+
+943
+00:24:58,396 --> 0:24:59,516
+approaches are all imperfect
+
+944
+00:24:59,516 --> 0:25:00,846
+solutions to the problem of
+
+945
+00:24:59,516 --> 0:25:00,846
+solutions to the problem of
+
+946
+00:25:00,846 --> 0:25:02,556
+knowing when other coordinators
+
+947
+00:25:02,556 --> 0:25:02,976
+change the store.
+
+948
+00:25:05,586 --> 0:25:06,856
+This year, we're introducing a
+
+949
+00:25:06,856 --> 0:25:07,996
+new kind of notification.
+
+950
+00:25:08,616 --> 0:25:09,426
+You can think of it as a
+
+951
+00:25:09,426 --> 0:25:10,486
+cross-coordinator save
+
+952
+00:25:10,486 --> 0:25:12,546
+notification, but the events are
+
+953
+00:25:12,546 --> 0:25:13,666
+delivered asynchronously.
+
+954
+00:25:13,666 --> 0:25:14,776
+So the really like
+
+955
+00:25:14,876 --> 0:25:16,466
+cross-coordinator change
+
+956
+00:25:16,466 --> 0:25:18,196
+notifications, we call them
+
+957
+00:25:18,196 --> 0:25:18,976
+remote change notifications.
+
+958
+00:25:22,266 --> 0:25:23,326
+To turn on remote change
+
+959
+00:25:23,326 --> 0:25:24,886
+notifications, there's a new
+
+960
+00:25:24,886 --> 0:25:26,546
+PersistentStore option called
+
+961
+00:25:26,886 --> 0:25:27,986
+NSPersistentStore
+
+962
+00:25:27,986 --> 0:25:29,276
+RemoteChangeNotification
+
+963
+00:25:29,276 --> 0:25:30,256
+PostOptionKey.
+
+964
+00:25:31,746 --> 0:25:33,046
+[Chuckles] Set it in your store
+
+965
+00:25:33,046 --> 0:25:34,316
+description before loading the
+
+966
+00:25:34,316 --> 0:25:35,366
+PersistentStore into the
+
+967
+00:25:35,366 --> 0:25:36,896
+coordinator, and the coordinator
+
+968
+00:25:36,896 --> 0:25:38,656
+will listen for remote changes
+
+969
+00:25:38,656 --> 0:25:39,216
+to the store.
+
+970
+00:25:40,346 --> 0:25:41,416
+This option also tells the
+
+971
+00:25:41,416 --> 0:25:43,256
+coordinator that it should send
+
+972
+00:25:43,256 --> 0:25:44,646
+remote change notifications
+
+973
+00:25:44,646 --> 0:25:47,296
+whenever it makes any changes.
+
+974
+00:25:47,296 --> 0:25:48,556
+So if you want change
+
+975
+00:25:48,556 --> 0:25:50,446
+notifications, you want to use
+
+976
+00:25:50,646 --> 0:25:52,446
+NSPersistentStore RemoteChange
+
+977
+00:25:52,446 --> 0:25:55,046
+NotificationPostOptionKey on all
+
+978
+00:25:55,046 --> 0:25:57,026
+of your coordinators, not just
+
+979
+00:25:57,026 --> 0:25:58,256
+the ones that want to consume
+
+980
+00:25:58,256 --> 0:25:58,886
+changes.
+
+981
+00:25:59,526 --> 0:26:00,926
+You also probably want to be
+
+982
+00:25:59,526 --> 0:26:00,926
+You also probably want to be
+
+983
+00:26:00,926 --> 0:26:02,376
+turning on PersistentHistory,
+
+984
+00:26:02,376 --> 0:26:03,886
+because sure.
+
+985
+00:26:03,886 --> 0:26:05,276
+Remote change notifications can
+
+986
+00:26:05,276 --> 0:26:06,586
+tell you which store changed
+
+987
+00:26:06,586 --> 0:26:08,436
+with the NSPersistentStore URL
+
+988
+00:26:08,436 --> 0:26:10,036
+key in the notification's user
+
+989
+00:26:10,036 --> 0:26:11,016
+info dictionary.
+
+990
+00:26:11,156 --> 0:26:11,776
+But if you have
+
+991
+00:26:11,776 --> 0:26:12,966
+PersistentHistory enabled, it
+
+992
+00:26:12,966 --> 0:26:14,176
+also includes the new history
+
+993
+00:26:14,176 --> 0:26:15,126
+token created by that
+
+994
+00:26:15,126 --> 0:26:15,756
+transaction.
+
+995
+00:26:16,666 --> 0:26:17,956
+This is especially useful when
+
+996
+00:26:17,956 --> 0:26:18,816
+combined with the new
+
+997
+00:26:18,816 --> 0:26:20,246
+PersistentHistory fetching
+
+998
+00:26:20,376 --> 0:26:21,216
+features that we were just
+
+999
+00:26:21,216 --> 0:26:22,436
+talking about a second ago.
+
+1000
+00:26:23,796 --> 0:26:24,826
+Because remote change
+
+1001
+00:26:24,826 --> 0:26:26,896
+notifications work kind of like
+
+1002
+00:26:26,896 --> 0:26:28,976
+push notifications, sometimes
+
+1003
+00:26:29,596 --> 0:26:30,616
+changes make it collapse
+
+1004
+00:26:30,616 --> 0:26:32,146
+together if there are many at
+
+1005
+00:26:32,146 --> 0:26:32,616
+once.
+
+1006
+00:26:32,616 --> 0:26:33,616
+And only the last would get
+
+1007
+00:26:33,616 --> 0:26:34,026
+delivered.
+
+1008
+00:26:34,786 --> 0:26:36,796
+If we free launch our app, how
+
+1009
+00:26:36,796 --> 0:26:37,536
+do we know what the current
+
+1010
+00:26:37,576 --> 0:26:38,926
+PersistentHistory token is?
+
+1011
+00:26:39,426 --> 0:26:40,546
+Well, we can get it with a new
+
+1012
+00:26:40,546 --> 0:26:41,656
+method on the persistent store
+
+1013
+00:26:41,656 --> 0:26:44,366
+coordinator for -- called
+
+1014
+00:26:44,666 --> 0:26:46,106
+CurrentPersistent HistoryToken.
+
+1015
+00:26:46,496 --> 0:26:47,926
+All of these new pieces together
+
+1016
+00:26:47,926 --> 0:26:49,316
+can be used to solve puzzles
+
+1017
+00:26:49,926 --> 0:26:51,096
+that weren't possible before.
+
+1018
+00:26:51,776 --> 0:26:53,506
+Not only can we keep up a state
+
+1019
+00:26:53,616 --> 0:26:55,246
+in a timely manner, but
+
+1020
+00:26:55,246 --> 0:26:56,496
+PersistentHistory can also be
+
+1021
+00:26:56,496 --> 0:26:58,096
+pared down to only the changes
+
+1022
+00:26:58,096 --> 0:26:59,086
+that affect our work.
+
+1023
+00:26:59,436 --> 0:27:01,946
+Now I think the best way to show
+
+1024
+00:26:59,436 --> 0:27:01,946
+Now I think the best way to show
+
+1025
+00:27:01,946 --> 0:27:03,606
+that to you is with another
+
+1026
+00:27:03,606 --> 0:27:03,956
+demo.
+
+1027
+00:27:04,946 --> 0:27:05,686
+So let's see what that looks
+
+1028
+00:27:05,686 --> 0:27:05,976
+like in our app.
+
+1029
+00:27:09,396 --> 0:27:10,976
+So here, we have a controller
+
+1030
+00:27:11,476 --> 0:27:12,576
+that has the responsibility of
+
+1031
+00:27:12,576 --> 0:27:13,626
+keeping the view context
+
+1032
+00:27:13,626 --> 0:27:14,596
+up-to-date whenever a
+
+1033
+00:27:14,596 --> 0:27:15,696
+coordinator changes.
+
+1034
+00:27:16,216 --> 0:27:17,616
+So we've already registered this
+
+1035
+00:27:17,616 --> 0:27:20,326
+method, storeRemoteChange, to be
+
+1036
+00:27:20,326 --> 0:27:21,606
+called whenever we get a remote
+
+1037
+00:27:21,606 --> 0:27:22,626
+change notification.
+
+1038
+00:27:25,036 --> 0:27:26,256
+Once we're in it, we can pull
+
+1039
+00:27:26,256 --> 0:27:28,116
+out the new PersistentHistory
+
+1040
+00:27:28,116 --> 0:27:29,626
+token that was saved out of the
+
+1041
+00:27:29,626 --> 0:27:30,676
+user info dictionary.
+
+1042
+00:27:31,576 --> 0:27:32,746
+And we'll grab the context that
+
+1043
+00:27:32,746 --> 0:27:34,456
+we want to update and hop into
+
+1044
+00:27:34,456 --> 0:27:34,976
+perform block.
+
+1045
+00:27:38,296 --> 0:27:39,486
+The first thing we want to do to
+
+1046
+00:27:39,486 --> 0:27:40,956
+reduce the PersistentHistory to
+
+1047
+00:27:40,956 --> 0:27:42,416
+only what we're interested in,
+
+1048
+00:27:43,286 --> 0:27:45,876
+is to build predicates based on
+
+1049
+00:27:45,876 --> 0:27:47,556
+the last history token we saw,
+
+1050
+00:27:47,556 --> 0:27:48,786
+which in the case of what our
+
+1051
+00:27:48,786 --> 0:27:49,776
+app just launched, was the
+
+1052
+00:27:49,776 --> 0:27:51,376
+current PersistentHistory token.
+
+1053
+00:27:52,456 --> 0:27:55,486
+And get all transactions before
+
+1054
+00:27:55,486 --> 0:27:57,266
+or equal to the new history
+
+1055
+00:27:57,266 --> 0:27:58,396
+token that we just got in the
+
+1056
+00:27:58,396 --> 0:27:58,976
+notification.
+
+1057
+00:28:02,356 --> 0:28:03,706
+If we're using transaction
+
+1058
+00:28:03,706 --> 0:28:05,606
+authors, and we should, then we
+
+1059
+00:28:05,606 --> 0:28:07,206
+can also create a predicate that
+
+1060
+00:28:07,206 --> 0:28:08,406
+allows us to look at only
+
+1061
+00:28:08,406 --> 0:28:09,656
+transactions that were created
+
+1062
+00:28:09,656 --> 0:28:10,846
+by other coordinators other than
+
+1063
+00:28:10,846 --> 0:28:10,976
+our own.
+
+1064
+00:28:13,376 --> 0:28:14,796
+So then, we can build the
+
+1065
+00:28:14,956 --> 0:28:17,086
+history fetched requests to get
+
+1066
+00:28:17,086 --> 0:28:19,636
+transactions, and configure it
+
+1067
+00:28:19,636 --> 0:28:20,626
+with a predicate that's a
+
+1068
+00:28:20,626 --> 0:28:22,356
+compound and predicate of other
+
+1069
+00:28:22,356 --> 0:28:23,396
+predicates we just built.
+
+1070
+00:28:23,986 --> 0:28:25,436
+So now we're only going to get
+
+1071
+00:28:25,436 --> 0:28:27,496
+transactions authored by other
+
+1072
+00:28:27,496 --> 0:28:29,266
+coordinators between the last
+
+1073
+00:28:29,266 --> 0:28:31,376
+one we saw, and this new one
+
+1074
+00:28:31,376 --> 0:28:32,846
+that just got posted inclusive.
+
+1075
+00:28:35,286 --> 0:28:36,886
+We create an NSPersistentHistory
+
+1076
+00:28:36,886 --> 0:28:38,376
+ChangeRequest, and you configure
+
+1077
+00:28:38,376 --> 0:28:39,586
+it with this fetched requests
+
+1078
+00:28:39,586 --> 0:28:41,266
+you've just built, and then
+
+1079
+00:28:41,266 --> 0:28:43,606
+execute it against the context.
+
+1080
+00:28:44,156 --> 0:28:46,596
+The result is a list of
+
+1081
+00:28:46,596 --> 0:28:48,086
+transactions that we're not
+
+1082
+00:28:48,086 --> 0:28:48,746
+up-to-date on.
+
+1083
+00:28:49,136 --> 0:28:51,006
+So for each of them, we can pull
+
+1084
+00:28:51,006 --> 0:28:53,456
+out the objectIDNotification
+
+1085
+00:28:53,456 --> 0:28:55,626
+userInfo dictionary, and then
+
+1086
+00:28:55,626 --> 0:28:57,226
+pass that into the
+
+1087
+00:28:57,226 --> 0:28:58,956
+ManagedObjectContextMethod
+
+1088
+00:28:59,066 --> 0:28:59,846
+mergeChanges
+
+1089
+00:28:59,846 --> 0:29:02,646
+fromRemoteContextSave, that we
+
+1090
+00:28:59,846 --> 0:29:02,646
+fromRemoteContextSave, that we
+
+1091
+00:29:02,646 --> 0:29:03,886
+announced in 2017.
+
+1092
+00:29:05,556 --> 0:29:06,576
+Once all the transactions have
+
+1093
+00:29:06,576 --> 0:29:08,006
+been processed, our view is now
+
+1094
+00:29:08,006 --> 0:29:09,106
+up-to-date with the latest
+
+1095
+00:29:09,106 --> 0:29:11,016
+on-disk data in the store.
+
+1096
+00:29:12,196 --> 0:29:14,316
+And it's done in pretty close to
+
+1097
+00:29:14,316 --> 0:29:15,386
+real time since the push
+
+1098
+00:29:15,386 --> 0:29:16,766
+notifications locally are very
+
+1099
+00:29:16,766 --> 0:29:17,256
+fast.
+
+1100
+00:29:18,746 --> 0:29:20,266
+Finally, just to make sure we
+
+1101
+00:29:20,266 --> 0:29:21,656
+don't do any unnecessary work
+
+1102
+00:29:21,656 --> 0:29:23,526
+next time, we remember the last
+
+1103
+00:29:23,526 --> 0:29:24,936
+PersistentHistory token that we
+
+1104
+00:29:24,936 --> 0:29:25,636
+processed.
+
+1105
+00:29:26,676 --> 0:29:27,986
+And now, we're ready for another
+
+1106
+00:29:27,986 --> 0:29:28,946
+remote change notification.
+
+1107
+00:29:31,426 --> 0:29:32,286
+Alright, and that is
+
+1108
+00:29:33,346 --> 0:29:34,686
+PersistentHistory fetching and
+
+1109
+00:29:34,686 --> 0:29:35,926
+remote change notifications.
+
+1110
+00:29:36,516 --> 0:29:39,606
+[ Applause ]
+
+1111
+00:29:40,106 --> 0:29:42,286
+Ah, finally, I wanted to spend a
+
+1112
+00:29:42,286 --> 0:29:43,346
+bit of time talking about
+
+1113
+00:29:43,346 --> 0:29:43,796
+testing.
+
+1114
+00:29:45,496 --> 0:29:46,696
+While hopefully everyone here is
+
+1115
+00:29:46,696 --> 0:29:47,986
+running their tests in multiple
+
+1116
+00:29:47,986 --> 0:29:49,936
+configurations with desanitizers
+
+1117
+00:29:49,936 --> 0:29:51,536
+as well as in release, I wanted
+
+1118
+00:29:51,536 --> 0:29:52,586
+to start some advice that
+
+1119
+00:29:52,586 --> 0:29:53,936
+focuses a bit more on Core Data.
+
+1120
+00:29:56,226 --> 0:29:57,236
+Number one is to know what your
+
+1121
+00:29:57,236 --> 0:29:58,166
+performance goals are.
+
+1122
+00:29:58,726 --> 0:30:00,306
+A Contacts app should be testing
+
+1123
+00:29:58,726 --> 0:30:00,306
+A Contacts app should be testing
+
+1124
+00:30:00,306 --> 0:30:01,896
+with at least tens of thousands
+
+1125
+00:30:01,896 --> 0:30:02,626
+of objects.
+
+1126
+00:30:03,046 --> 0:30:03,976
+But with that kind of
+
+1127
+00:30:03,976 --> 0:30:05,136
+performance goal, a linear
+
+1128
+00:30:05,136 --> 0:30:06,276
+algorithm might actually be
+
+1129
+00:30:06,276 --> 0:30:07,776
+acceptable on desktop hardware
+
+1130
+00:30:07,776 --> 0:30:08,676
+some of the time.
+
+1131
+00:30:09,126 --> 0:30:10,826
+The Photos app, on the other
+
+1132
+00:30:10,826 --> 0:30:11,826
+hand, should have tested to
+
+1133
+00:30:11,826 --> 0:30:12,856
+validate everything works
+
+1134
+00:30:12,856 --> 0:30:13,496
+correctly when there are
+
+1135
+00:30:13,496 --> 0:30:14,966
+millions of objects.
+
+1136
+00:30:15,256 --> 0:30:16,806
+At that scale, anything slower
+
+1137
+00:30:16,806 --> 0:30:18,026
+than logarithmic time is enough
+
+1138
+00:30:18,026 --> 0:30:18,836
+to hang the app.
+
+1139
+00:30:19,456 --> 0:30:21,326
+And so it's really important to
+
+1140
+00:30:21,326 --> 0:30:23,236
+test like you fly by running all
+
+1141
+00:30:23,236 --> 0:30:24,136
+of your integration tests with
+
+1142
+00:30:24,136 --> 0:30:24,976
+the performance data set.
+
+1143
+00:30:28,056 --> 0:30:29,846
+But the integration tests should
+
+1144
+00:30:29,846 --> 0:30:31,266
+also get running configurations
+
+1145
+00:30:31,266 --> 0:30:32,576
+optimized for detecting and
+
+1146
+00:30:32,576 --> 0:30:34,096
+surfacing other kinds of issues
+
+1147
+00:30:34,096 --> 0:30:34,606
+as well.
+
+1148
+00:30:34,606 --> 0:30:36,406
+For applications using Core
+
+1149
+00:30:36,406 --> 0:30:37,676
+Data, that should include taking
+
+1150
+00:30:37,676 --> 0:30:38,596
+advantage of the Framework's
+
+1151
+00:30:38,596 --> 0:30:40,006
+built-in concurrency debugging.
+
+1152
+00:30:41,286 --> 0:30:43,206
+You can enable it by going into
+
+1153
+00:30:43,206 --> 0:30:44,546
+the Scheme Editor and setting
+
+1154
+00:30:44,546 --> 0:30:46,296
+com.apple.CoreData
+
+1155
+00:30:46,296 --> 0:30:48,316
+ConcurrencyDebugged1 in the
+
+1156
+00:30:48,316 --> 0:30:49,386
+process arguments list.
+
+1157
+00:30:52,076 --> 0:30:53,336
+Running integration tests in
+
+1158
+00:30:53,336 --> 0:30:54,856
+multiple configurations can take
+
+1159
+00:30:54,856 --> 0:30:55,776
+a lot of time.
+
+1160
+00:30:55,776 --> 0:30:57,426
+And likewise, unit tests need to
+
+1161
+00:30:57,426 --> 0:30:58,576
+be as fast as possible.
+
+1162
+00:30:58,996 --> 0:31:01,096
+So it's good idea to use
+
+1163
+00:30:58,996 --> 0:31:01,096
+So it's good idea to use
+
+1164
+00:31:01,096 --> 0:31:02,856
+in-memory stores when test
+
+1165
+00:31:02,856 --> 0:31:04,136
+runtime is important.
+
+1166
+00:31:05,136 --> 0:31:06,426
+In this case, I specifically
+
+1167
+00:31:06,426 --> 0:31:08,436
+mean the SqLightStores in-memory
+
+1168
+00:31:08,436 --> 0:31:08,786
+mode.
+
+1169
+00:31:10,436 --> 0:31:12,136
+SqLightStore has long supported
+
+1170
+00:31:12,136 --> 0:31:12,916
+in-memory mode.
+
+1171
+00:31:13,666 --> 0:31:14,866
+To take advantage of it, in
+
+1172
+00:31:14,866 --> 0:31:16,026
+between creating a persistent
+
+1173
+00:31:16,026 --> 0:31:16,976
+container and loading its
+
+1174
+00:31:16,976 --> 0:31:18,136
+stores, we can pull out the
+
+1175
+00:31:18,136 --> 0:31:19,516
+store description and set its
+
+1176
+00:31:19,516 --> 0:31:20,756
+URL property to point to
+
+1177
+00:31:20,756 --> 0:31:20,976
+dev/null.
+
+1178
+00:31:23,206 --> 0:31:24,356
+This creates an extremely
+
+1179
+00:31:24,356 --> 0:31:25,436
+performance stack.
+
+1180
+00:31:25,766 --> 0:31:27,186
+But this in-memory store can't
+
+1181
+00:31:27,186 --> 0:31:28,956
+be shared between coordinators.
+
+1182
+00:31:28,956 --> 0:31:31,066
+So to validate all that remote
+
+1183
+00:31:31,066 --> 0:31:32,506
+change notification work we just
+
+1184
+00:31:32,506 --> 0:31:34,296
+did, we want to take advantage
+
+1185
+00:31:34,296 --> 0:31:35,706
+of named in-memory stores
+
+1186
+00:31:35,706 --> 0:31:36,206
+instead.
+
+1187
+00:31:37,326 --> 0:31:38,676
+A named in-memory store is
+
+1188
+00:31:38,676 --> 0:31:39,836
+defined by adding a path
+
+1189
+00:31:39,836 --> 0:31:41,396
+component after dev/null.
+
+1190
+00:31:41,846 --> 0:31:43,826
+And any other SqLightStore with
+
+1191
+00:31:43,896 --> 0:31:45,906
+that URL in the same process
+
+1192
+00:31:45,906 --> 0:31:46,556
+will connect to the shared
+
+1193
+00:31:46,556 --> 0:31:46,976
+in-memory database.
+
+1194
+00:31:49,256 --> 0:31:51,106
+Different coordinators sharing
+
+1195
+00:31:51,106 --> 0:31:52,456
+the same in-memory store will
+
+1196
+00:31:52,586 --> 0:31:53,926
+also dispatch remote change
+
+1197
+00:31:53,926 --> 0:31:54,986
+notifications to each other,
+
+1198
+00:31:54,986 --> 0:31:55,686
+which allows us to test all of
+
+1199
+00:31:55,686 --> 0:31:55,976
+our logic.
+
+1200
+00:31:59,046 --> 0:32:01,066
+Finally, use the sanitizers.
+
+1201
+00:31:59,046 --> 0:32:01,066
+Finally, use the sanitizers.
+
+1202
+00:32:01,906 --> 0:32:02,866
+Each of these has saved me at
+
+1203
+00:32:02,866 --> 0:32:04,056
+least once.
+
+1204
+00:32:04,376 --> 0:32:05,786
+I've seen the trust sanitizer
+
+1205
+00:32:05,786 --> 0:32:07,256
+instantly identify a one byte
+
+1206
+00:32:07,476 --> 0:32:08,986
+buffer overflow that would have
+
+1207
+00:32:08,986 --> 0:32:10,206
+taken months to isolate.
+
+1208
+00:32:11,026 --> 0:32:12,696
+Similarly, thread sanitizer
+
+1209
+00:32:12,696 --> 0:32:14,296
+understands critical sections
+
+1210
+00:32:14,296 --> 0:32:15,726
+and can tell you about threading
+
+1211
+00:32:15,726 --> 0:32:17,056
+races that are impossible to
+
+1212
+00:32:17,056 --> 0:32:18,126
+reproduce in-house.
+
+1213
+00:32:18,666 --> 0:32:21,106
+And finally, UBSan lets you fix
+
+1214
+00:32:21,156 --> 0:32:22,326
+bugs before they happen by
+
+1215
+00:32:22,326 --> 0:32:24,276
+identifying undefined behavior
+
+1216
+00:32:24,276 --> 0:32:25,456
+that may change in the future.
+
+1217
+00:32:25,876 --> 0:32:27,656
+So today we've seen how to get
+
+1218
+00:32:27,656 --> 0:32:29,576
+set up with Core Data, about how
+
+1219
+00:32:29,576 --> 0:32:30,986
+to take advantage of new and
+
+1220
+00:32:30,986 --> 0:32:32,976
+existing APIs to write compact,
+
+1221
+00:32:33,116 --> 0:32:35,046
+seamless, and robust integration
+
+1222
+00:32:35,046 --> 0:32:36,236
+between the model and controller
+
+1223
+00:32:36,236 --> 0:32:36,736
+layers.
+
+1224
+00:32:37,376 --> 0:32:38,666
+We've explored keeping things in
+
+1225
+00:32:38,666 --> 0:32:39,666
+sync between multiple
+
+1226
+00:32:39,666 --> 0:32:41,186
+coordinators, and we've
+
+1227
+00:32:41,186 --> 0:32:42,336
+characterized our needs and
+
+1228
+00:32:42,336 --> 0:32:43,306
+written tests around them, so we
+
+1229
+00:32:43,306 --> 0:32:43,976
+can ship with more confidence.
+
+1230
+00:32:46,826 --> 0:32:47,946
+As always, we'd love to hear
+
+1231
+00:32:47,946 --> 0:32:49,266
+what you think, so please let us
+
+1232
+00:32:49,266 --> 0:32:50,496
+know using Feedback Assistant.
+
+1233
+00:32:51,576 --> 0:32:53,296
+For more information, please
+
+1234
+00:32:53,296 --> 0:32:54,546
+check out the developer website.
+
+1235
+00:32:55,376 --> 0:32:56,666
+This session's page will include
+
+1236
+00:32:56,666 --> 0:32:57,856
+links to the other sessions
+
+1237
+00:32:57,856 --> 0:32:58,746
+mentioned here today.
+
+1238
+00:32:59,826 --> 0:33:00,456
+We'll see you in the labs
+
+1239
+00:32:59,826 --> 0:33:00,456
+We'll see you in the labs
+
+1240
+00:33:00,456 --> 0:33:01,116
+tomorrow.
+
+1241
+00:33:01,376 --> 0:33:01,926
+Thanks for coming.
+
+1242
+00:33:02,516 --> 0:33:05,500
+[ Applause ]

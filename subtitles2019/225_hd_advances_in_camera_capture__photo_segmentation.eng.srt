@@ -1,0 +1,9043 @@
+1
+00:00:00,506 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:13,166 --> 0:00:13,866
+Good afternoon.
+
+3
+00:00:14,016 --> 0:00:15,216
+[ Applause ]
+
+4
+00:00:15,216 --> 0:00:16,826
+Welcome to session 225.
+
+5
+00:00:17,536 --> 0:00:18,696
+My name is Brad Ford.
+
+6
+00:00:18,966 --> 0:00:20,266
+I work on the Camera Software
+
+7
+00:00:20,266 --> 0:00:20,736
+Team.
+
+8
+00:00:21,396 --> 0:00:22,906
+Thank you for hanging in there
+
+9
+00:00:22,906 --> 0:00:23,946
+till the bitter end.
+
+10
+00:00:24,016 --> 0:00:25,216
+I know it's been a long day.
+
+11
+00:00:25,706 --> 0:00:26,826
+We appreciate you staying with
+
+12
+00:00:26,826 --> 0:00:28,126
+us for The Late, Late Show.
+
+13
+00:00:28,126 --> 0:00:30,026
+And as 5:00 o'clock sessions go,
+
+14
+00:00:30,296 --> 0:00:31,226
+this is a pretty good one.
+
+15
+00:00:32,726 --> 0:00:33,806
+We'll be introducing two
+
+16
+00:00:33,806 --> 0:00:35,196
+exciting additions to the iOS
+
+17
+00:00:35,196 --> 0:00:36,416
+Camera Stack today.
+
+18
+00:00:36,566 --> 0:00:37,896
+I'll spend the first 40 minutes
+
+19
+00:00:37,896 --> 0:00:39,996
+or so talking about Multi-Camera
+
+20
+00:00:39,996 --> 0:00:40,466
+capture.
+
+21
+00:00:40,786 --> 0:00:42,726
+And then I'll invite Jacob and
+
+22
+00:00:42,726 --> 0:00:44,386
+David up to talk about Semantic
+
+23
+00:00:44,386 --> 0:00:45,026
+Segmentation.
+
+24
+00:00:46,016 --> 0:00:47,936
+So first up, Multi-Camera
+
+25
+00:00:47,936 --> 0:00:49,906
+Capture, or as we like to call
+
+26
+00:00:49,906 --> 0:00:50,706
+it internally.
+
+27
+00:00:51,306 --> 0:00:53,086
+MultiCam.
+
+28
+00:00:54,096 --> 0:00:56,556
+MultiCam is our single-most
+
+29
+00:00:56,596 --> 0:00:58,176
+requested third-party feature.
+
+30
+00:00:58,176 --> 0:00:59,976
+We hear it year after year in
+
+31
+00:00:59,976 --> 0:01:00,446
+the labs.
+
+32
+00:00:59,976 --> 0:01:00,446
+the labs.
+
+33
+00:01:00,446 --> 0:01:02,086
+So what we're talking about here
+
+34
+00:01:02,086 --> 0:01:04,056
+is the ability to simultaneously
+
+35
+00:01:04,056 --> 0:01:07,746
+capture video, audio, Metadata,
+
+36
+00:01:08,026 --> 0:01:10,866
+depth, and photos from multiple
+
+37
+00:01:10,866 --> 0:01:11,986
+cameras and microphones
+
+38
+00:01:11,986 --> 0:01:12,886
+simultaneously.
+
+39
+00:01:13,436 --> 0:01:16,386
+Third parties aren't the only
+
+40
+00:01:16,386 --> 0:01:17,506
+ones who benefit from this,
+
+41
+00:01:17,506 --> 0:01:17,756
+though.
+
+42
+00:01:18,366 --> 0:01:20,616
+We've had many and repeated
+
+43
+00:01:20,616 --> 0:01:21,766
+requests from first-party
+
+44
+00:01:21,836 --> 0:01:23,626
+clients as well for MultiCam
+
+45
+00:01:23,666 --> 0:01:24,116
+Capture.
+
+46
+00:01:24,616 --> 0:01:26,296
+Chief among them is ARKit.
+
+47
+00:01:26,656 --> 0:01:28,166
+And if you heard the keynote,
+
+48
+00:01:28,716 --> 0:01:29,936
+you heard about the introduction
+
+49
+00:01:29,936 --> 0:01:31,136
+of ARKit 3.
+
+50
+00:01:31,786 --> 0:01:34,076
+These APIs use front camera for
+
+51
+00:01:34,166 --> 0:01:36,366
+face and pose tracking, while
+
+52
+00:01:36,366 --> 0:01:37,856
+also using the back camera for
+
+53
+00:01:37,856 --> 0:01:39,636
+World tracking, which helps them
+
+54
+00:01:39,636 --> 0:01:40,886
+know where to place virtual
+
+55
+00:01:40,886 --> 0:01:42,466
+characters in the scene by
+
+56
+00:01:42,466 --> 0:01:44,686
+knowing what you're gazing at.
+
+57
+00:01:45,076 --> 0:01:46,976
+So we've supported MultiCam on
+
+58
+00:01:46,976 --> 0:01:49,146
+the Mac since the very first
+
+59
+00:01:49,146 --> 0:01:51,366
+appearance of AVFoundation, way
+
+60
+00:01:51,366 --> 0:01:52,486
+the heck back in Lion.
+
+61
+00:01:53,326 --> 0:01:55,646
+But on iOS, AVFoundation still
+
+62
+00:01:55,646 --> 0:01:57,436
+limits clients to one active
+
+63
+00:01:57,486 --> 0:01:58,486
+camera at a time.
+
+64
+00:01:59,106 --> 0:02:00,926
+And it's not because we're mean.
+
+65
+00:01:59,106 --> 0:02:00,926
+And it's not because we're mean.
+
+66
+00:02:01,116 --> 0:02:02,576
+There were good reasons for it.
+
+67
+00:02:02,956 --> 0:02:04,206
+The first reason is hardware
+
+68
+00:02:04,206 --> 0:02:05,006
+limitations.
+
+69
+00:02:05,556 --> 0:02:06,996
+I'm talking about cameras
+
+70
+00:02:07,046 --> 0:02:08,386
+sharing power rails.
+
+71
+00:02:08,846 --> 0:02:10,746
+And not physically being able to
+
+72
+00:02:10,746 --> 0:02:12,266
+provide enough power to power
+
+73
+00:02:12,266 --> 0:02:13,926
+two cameras simultaneously full
+
+74
+00:02:13,926 --> 0:02:14,316
+bore.
+
+75
+00:02:14,316 --> 0:02:17,226
+And the second reason was our
+
+76
+00:02:17,226 --> 0:02:18,966
+desire to ship a responsible
+
+77
+00:02:18,966 --> 0:02:19,296
+API.
+
+78
+00:02:19,976 --> 0:02:21,596
+One that would help you not burn
+
+79
+00:02:21,596 --> 0:02:24,216
+the phone down when doing all of
+
+80
+00:02:24,216 --> 0:02:25,536
+this processing power with
+
+81
+00:02:25,596 --> 0:02:27,276
+multiple cameras simultaneously.
+
+82
+00:02:27,276 --> 0:02:28,346
+So we wanted to make sure that
+
+83
+00:02:28,346 --> 0:02:29,426
+we delivered something to you
+
+84
+00:02:29,426 --> 0:02:31,266
+that would help you deal with
+
+85
+00:02:31,266 --> 0:02:32,816
+the hardware, thermal, and
+
+86
+00:02:32,816 --> 0:02:34,496
+bandwidth constraints that are
+
+87
+00:02:34,496 --> 0:02:35,556
+reality in our world.
+
+88
+00:02:36,606 --> 0:02:36,946
+All right.
+
+89
+00:02:36,986 --> 0:02:38,836
+So great news in iOS 13.
+
+90
+00:02:38,836 --> 0:02:40,426
+We do finally support MultiCam
+
+91
+00:02:40,476 --> 0:02:40,976
+Capture.
+
+92
+00:02:41,316 --> 0:02:42,686
+And we do it on all recent
+
+93
+00:02:42,686 --> 0:02:47,076
+hardware, iPhone XS, XS Max, XR,
+
+94
+00:02:47,396 --> 0:02:48,946
+and the new iPad Pro.
+
+95
+00:02:49,326 --> 0:02:51,146
+On all of these platforms, the
+
+96
+00:02:51,146 --> 0:02:51,996
+aforementioned hardware
+
+97
+00:02:51,996 --> 0:02:53,366
+limitations have been solved,
+
+98
+00:02:53,566 --> 0:02:53,986
+thankfully.
+
+99
+00:02:55,376 --> 0:02:57,156
+So let's dive right into the fun
+
+100
+00:02:57,156 --> 0:02:57,616
+stuff.
+
+101
+00:02:57,766 --> 0:02:59,916
+We've got a new set of APIs for
+
+102
+00:02:59,916 --> 0:03:01,786
+building MultiCamSessions.
+
+103
+00:02:59,916 --> 0:03:01,786
+building MultiCamSessions.
+
+104
+00:03:03,126 --> 0:03:04,716
+Now, if you've used AVFoundation
+
+105
+00:03:04,716 --> 0:03:06,056
+before for Camera Capture, you
+
+106
+00:03:06,056 --> 0:03:07,546
+know that we have four main
+
+107
+00:03:07,546 --> 0:03:09,396
+groups of classes: Inputs,
+
+108
+00:03:09,856 --> 0:03:12,556
+outputs, the session, and
+
+109
+00:03:12,556 --> 0:03:13,246
+connections.
+
+110
+00:03:13,776 --> 0:03:16,656
+The AVCaptureSession is the
+
+111
+00:03:16,656 --> 0:03:17,716
+center of our world.
+
+112
+00:03:17,876 --> 0:03:19,246
+It's the thing that marshals
+
+113
+00:03:19,246 --> 0:03:19,506
+data.
+
+114
+00:03:20,046 --> 0:03:21,116
+It's the thing that you tell to
+
+115
+00:03:21,116 --> 0:03:22,216
+start or stop running.
+
+116
+00:03:23,766 --> 0:03:25,356
+You add to it one or more
+
+117
+00:03:25,356 --> 0:03:27,136
+inputs, AVCaptureInputs.
+
+118
+00:03:27,536 --> 0:03:28,276
+One such is the
+
+119
+00:03:28,276 --> 0:03:30,436
+AVCaptureDeviceInput, which is a
+
+120
+00:03:30,436 --> 0:03:32,556
+wrapper for either a camera or a
+
+121
+00:03:32,556 --> 0:03:33,126
+microphone.
+
+122
+00:03:34,626 --> 0:03:35,846
+You also need to add one or more
+
+123
+00:03:35,846 --> 0:03:38,046
+AVCaptureOutputs to receive the
+
+124
+00:03:38,046 --> 0:03:38,346
+data.
+
+125
+00:03:38,776 --> 0:03:40,156
+Otherwise, those producers have
+
+126
+00:03:40,156 --> 0:03:40,846
+nowhere to put it.
+
+127
+00:03:40,846 --> 0:03:42,606
+And then the session
+
+128
+00:03:42,606 --> 0:03:43,586
+automatically creates
+
+129
+00:03:43,586 --> 0:03:44,866
+connections on your behalf
+
+130
+00:03:45,116 --> 0:03:46,836
+between inputs and outputs that
+
+131
+00:03:46,836 --> 0:03:48,266
+have compatible media types.
+
+132
+00:03:49,046 --> 0:03:49,996
+So note what I'm showing you
+
+133
+00:03:49,996 --> 0:03:51,146
+here is the traditional
+
+134
+00:03:51,146 --> 0:03:53,496
+AVCaptureSession, which on iOS
+
+135
+00:03:53,496 --> 0:03:55,886
+only allows one camera input per
+
+136
+00:03:55,886 --> 0:03:56,296
+session.
+
+137
+00:03:58,006 --> 0:04:00,316
+New in iOS 13: We're introducing
+
+138
+00:03:58,006 --> 0:04:00,316
+New in iOS 13: We're introducing
+
+139
+00:04:00,316 --> 0:04:02,106
+a subclass of AVCaptureSession
+
+140
+00:04:02,106 --> 0:04:04,686
+called AVCaptureMultiCamSession.
+
+141
+00:04:04,876 --> 0:04:07,476
+So this lets you do multiple ins
+
+142
+00:04:07,536 --> 0:04:08,316
+and outs.
+
+143
+00:04:09,056 --> 0:04:12,276
+AVCaptureSession is not
+
+144
+00:04:12,466 --> 0:04:13,146
+deprecated.
+
+145
+00:04:13,146 --> 0:04:14,506
+It's not going away.
+
+146
+00:04:14,796 --> 0:04:16,435
+In fact, the existing
+
+147
+00:04:16,435 --> 0:04:17,736
+AVCaptureSession is still the
+
+148
+00:04:17,736 --> 0:04:18,856
+preferred class when you're
+
+149
+00:04:18,856 --> 0:04:20,416
+doing single cam capture.
+
+150
+00:04:20,886 --> 0:04:22,026
+The reason for that is that
+
+151
+00:04:22,136 --> 0:04:24,166
+MultiCamSession, while being a
+
+152
+00:04:24,256 --> 0:04:26,646
+power tool, has some limitations
+
+153
+00:04:26,806 --> 0:04:28,096
+and I'll address those later.
+
+154
+00:04:29,566 --> 0:04:30,366
+All right.
+
+155
+00:04:30,366 --> 0:04:31,686
+So let me give you an example of
+
+156
+00:04:31,686 --> 0:04:33,596
+a bread and butter use case for
+
+157
+00:04:33,596 --> 0:04:34,236
+our new
+
+158
+00:04:34,236 --> 0:04:35,546
+AVCaptureMultiCamSession.
+
+159
+00:04:36,076 --> 0:04:37,406
+Let's say you want to add two
+
+160
+00:04:37,406 --> 0:04:38,656
+devices-- one for the front, and
+
+161
+00:04:38,656 --> 0:04:40,756
+one for the back camera to a
+
+162
+00:04:40,756 --> 0:04:42,966
+MultiCamSession; and do two to
+
+163
+00:04:42,966 --> 0:04:45,266
+VideoDataOutputs simultaneously,
+
+164
+00:04:45,266 --> 0:04:46,496
+one receiving frames from the
+
+165
+00:04:46,496 --> 0:04:47,856
+back camera, one from the front.
+
+166
+00:04:49,096 --> 0:04:50,876
+And then let's say, if you want
+
+167
+00:04:50,986 --> 0:04:52,316
+to do a real time preview, you
+
+168
+00:04:52,316 --> 0:04:53,336
+can add separate
+
+169
+00:04:53,336 --> 0:04:54,656
+VideoPreviewLayers; one for the
+
+170
+00:04:54,706 --> 0:04:55,836
+front, one for the back.
+
+171
+00:04:57,066 --> 0:04:58,166
+You needn't stop there, though.
+
+172
+00:04:59,106 --> 0:05:02,606
+You can do simultaneous
+
+173
+00:04:59,106 --> 0:05:02,606
+You can do simultaneous
+
+174
+00:05:02,836 --> 0:05:04,636
+MetadataOutputs, if you want to
+
+175
+00:05:04,636 --> 0:05:06,556
+do simultaneous barcode scanning
+
+176
+00:05:06,866 --> 0:05:07,786
+or face detection.
+
+177
+00:05:08,776 --> 0:05:10,076
+You could do multiple
+
+178
+00:05:10,076 --> 0:05:11,576
+MovieFileOutputs, if you want to
+
+179
+00:05:11,576 --> 0:05:12,846
+record one for the front and one
+
+180
+00:05:12,846 --> 0:05:13,216
+for the back.
+
+181
+00:05:13,726 --> 0:05:14,976
+You could add multiple
+
+182
+00:05:15,166 --> 0:05:17,086
+PhotoOutputs if you want to do
+
+183
+00:05:17,296 --> 0:05:18,916
+real-time capture of photos from
+
+184
+00:05:18,916 --> 0:05:19,726
+different cameras.
+
+185
+00:05:20,126 --> 0:05:21,426
+So as you can see, these graphs
+
+186
+00:05:21,426 --> 0:05:22,426
+are starting to look pretty
+
+187
+00:05:22,426 --> 0:05:24,376
+complicated with a lot of arrows
+
+188
+00:05:24,416 --> 0:05:25,616
+going from a lot of inputs to a
+
+189
+00:05:25,616 --> 0:05:26,386
+lot of outputs.
+
+190
+00:05:27,376 --> 0:05:29,116
+Those little arrows are called
+
+191
+00:05:29,116 --> 0:05:30,756
+AVCaptureConnections, and they
+
+192
+00:05:30,756 --> 0:05:32,246
+define the flow of data from an
+
+193
+00:05:32,246 --> 0:05:33,346
+input to an output.
+
+194
+00:05:33,956 --> 0:05:35,236
+Let me zoom in for a moment on
+
+195
+00:05:35,236 --> 0:05:37,226
+the device input to illustrate
+
+196
+00:05:37,226 --> 0:05:38,336
+the anatomy of connection.
+
+197
+00:05:39,816 --> 0:05:41,756
+Capture inputs have
+
+198
+00:05:41,926 --> 0:05:45,026
+AVCaptureInput ports which I
+
+199
+00:05:45,026 --> 0:05:46,426
+like to think of as little
+
+200
+00:05:46,426 --> 0:05:47,646
+electrical outlets.
+
+201
+00:05:48,396 --> 0:05:50,746
+You have one outlet per media
+
+202
+00:05:50,746 --> 0:05:52,496
+type that the input can produce.
+
+203
+00:05:53,436 --> 0:05:54,736
+If nothing is plugged into the
+
+204
+00:05:54,736 --> 0:05:56,646
+port, no data flows from that
+
+205
+00:05:56,716 --> 0:05:57,986
+port, just like an electrical
+
+206
+00:05:57,986 --> 0:05:58,336
+outlet.
+
+207
+00:05:58,426 --> 0:05:59,476
+You have to plug something in to
+
+208
+00:05:59,476 --> 0:06:00,296
+get the electricity.
+
+209
+00:05:59,476 --> 0:06:00,296
+get the electricity.
+
+210
+00:06:00,806 --> 0:06:02,256
+Now, to find out what ports are
+
+211
+00:06:02,256 --> 0:06:03,646
+available for a particular
+
+212
+00:06:03,646 --> 0:06:05,506
+input, you can query that
+
+213
+00:06:05,506 --> 0:06:07,616
+input's ports property and it
+
+214
+00:06:07,616 --> 0:06:09,286
+will tell you, "I have this
+
+215
+00:06:09,286 --> 0:06:11,056
+array of AVCaptureInput ports.
+
+216
+00:06:11,396 --> 0:06:13,186
+So for the Dual Camera, these
+
+217
+00:06:13,186 --> 0:06:14,116
+are the ports that you would
+
+218
+00:06:14,116 --> 0:06:14,516
+find.
+
+219
+00:06:14,516 --> 0:06:16,246
+One for video, one for depth,
+
+220
+00:06:16,816 --> 0:06:18,726
+one for Metadata objects such as
+
+221
+00:06:18,726 --> 0:06:20,596
+barcode scanning and faces, and
+
+222
+00:06:20,596 --> 0:06:22,496
+one for Metadata items, which
+
+223
+00:06:22,496 --> 0:06:23,356
+can be hooked up to a
+
+224
+00:06:23,356 --> 0:06:24,216
+MovieFileOutput.
+
+225
+00:06:25,466 --> 0:06:26,706
+Now whenever you use
+
+226
+00:06:26,706 --> 0:06:28,296
+AVCaptureSessions addInput
+
+227
+00:06:28,296 --> 0:06:30,026
+method to add an input to the
+
+228
+00:06:30,026 --> 0:06:33,276
+session or addOutput to add an
+
+229
+00:06:33,276 --> 0:06:35,276
+output to the session, the
+
+230
+00:06:35,276 --> 0:06:37,186
+session will look for compatible
+
+231
+00:06:37,186 --> 0:06:38,986
+media types and implicitly form
+
+232
+00:06:38,986 --> 0:06:40,136
+connections if it can.
+
+233
+00:06:40,856 --> 0:06:41,746
+So here, we had a
+
+234
+00:06:41,746 --> 0:06:42,876
+VideoDataOutput.
+
+235
+00:06:43,126 --> 0:06:45,186
+VideoDataOutputs receive video,
+
+236
+00:06:45,186 --> 0:06:45,976
+accept video.
+
+237
+00:06:45,976 --> 0:06:47,866
+And we had an electrical plug
+
+238
+00:06:48,116 --> 0:06:49,266
+that can produce video.
+
+239
+00:06:49,466 --> 0:06:50,746
+And so the connection was made
+
+240
+00:06:50,746 --> 0:06:51,436
+automatically.
+
+241
+00:06:52,066 --> 0:06:54,036
+That is how most of you are
+
+242
+00:06:54,446 --> 0:06:55,686
+accustomed to working with
+
+243
+00:06:55,686 --> 0:06:56,826
+AVCaptureSession, if you've
+
+244
+00:06:56,826 --> 0:06:58,106
+worked with our classes before.
+
+245
+00:06:58,786 --> 0:07:00,516
+MultiCamSession is a different
+
+246
+00:06:58,786 --> 0:07:00,516
+MultiCamSession is a different
+
+247
+00:07:00,516 --> 0:07:00,916
+beast.
+
+248
+00:07:01,696 --> 0:07:03,666
+That is because inputs and
+
+249
+00:07:03,666 --> 0:07:05,676
+outputs-- You have multiple
+
+250
+00:07:05,676 --> 0:07:06,866
+inputs now with multiple
+
+251
+00:07:06,866 --> 0:07:07,286
+outputs.
+
+252
+00:07:07,286 --> 0:07:08,306
+You probably want to make sure
+
+253
+00:07:08,306 --> 0:07:09,346
+that the connections are
+
+254
+00:07:09,346 --> 0:07:11,456
+happening from A to A and B to
+
+255
+00:07:11,456 --> 0:07:11,936
+B.
+
+256
+00:07:11,936 --> 0:07:13,176
+And not crossing where you
+
+257
+00:07:13,176 --> 0:07:14,216
+didn't intend them to.
+
+258
+00:07:14,686 --> 0:07:16,346
+So when building a
+
+259
+00:07:16,346 --> 0:07:18,446
+MultiCamSession, we urge you not
+
+260
+00:07:18,446 --> 0:07:20,206
+to use implicit connection
+
+261
+00:07:20,356 --> 0:07:20,796
+forming.
+
+262
+00:07:21,016 --> 0:07:23,456
+But instead use these special
+
+263
+00:07:23,456 --> 0:07:24,646
+purpose adders,
+
+264
+00:07:24,836 --> 0:07:27,516
+addInputWithNoConnections, or
+
+265
+00:07:27,516 --> 0:07:29,486
+addOutputWithNoConnections.
+
+266
+00:07:30,096 --> 0:07:34,166
+And there are likewise ones that
+
+267
+00:07:34,166 --> 0:07:34,796
+you can use for
+
+268
+00:07:34,796 --> 0:07:36,816
+VideoPreviewLayer, which are
+
+269
+00:07:37,146 --> 0:07:38,916
+setSessionWithNoConnections.
+
+270
+00:07:39,326 --> 0:07:41,256
+When you use these, it basically
+
+271
+00:07:41,256 --> 0:07:43,126
+just tells the session: Here are
+
+272
+00:07:43,126 --> 0:07:44,216
+these inputs, here these
+
+273
+00:07:44,216 --> 0:07:44,726
+outputs.
+
+274
+00:07:44,806 --> 0:07:46,686
+You now know about them but keep
+
+275
+00:07:46,686 --> 0:07:47,456
+your hands off them.
+
+276
+00:07:47,666 --> 0:07:49,296
+I'm going to add connections as
+
+277
+00:07:49,296 --> 0:07:50,876
+I want to later on manually.
+
+278
+00:07:51,126 --> 0:07:53,126
+And the way you do that is you
+
+279
+00:07:53,126 --> 0:07:54,786
+create the AVCaptureConnection
+
+280
+00:07:54,786 --> 0:07:56,686
+yourself by telling it, "I want
+
+281
+00:07:56,686 --> 0:07:58,326
+you to connect this port or
+
+282
+00:07:58,326 --> 0:07:59,926
+ports to this output."
+
+283
+00:08:00,256 --> 0:08:01,376
+And then you tell the session,
+
+284
+00:08:01,586 --> 0:08:02,706
+"Please add this connection."
+
+285
+00:08:02,996 --> 0:08:03,866
+And now you're ready to go.
+
+286
+00:08:03,866 --> 0:08:06,316
+That was very wordy.
+
+287
+00:08:06,626 --> 0:08:08,466
+It's better shown than talked
+
+288
+00:08:08,466 --> 0:08:08,766
+about.
+
+289
+00:08:08,766 --> 0:08:09,866
+So I'd like to bring up Nik
+
+290
+00:08:09,866 --> 0:08:10,336
+Gallo.
+
+291
+00:08:10,856 --> 0:08:12,036
+Also from the Camera Software
+
+292
+00:08:12,036 --> 0:08:13,596
+group, to demonstrate
+
+293
+00:08:13,596 --> 0:08:14,306
+AVMultiCamPiP.
+
+294
+00:08:14,306 --> 0:08:14,436
+Nik?
+
+295
+00:08:15,056 --> 0:08:17,056
+[ Applause ]
+
+296
+00:08:17,096 --> 0:08:17,596
+&gt;&gt; Thanks, Brad.
+
+297
+00:08:18,626 --> 0:08:20,106
+AVMultiCampPiP is an app that
+
+298
+00:08:20,106 --> 0:08:21,116
+demonstrates streaming from the
+
+299
+00:08:21,176 --> 0:08:22,036
+front and back cameras
+
+300
+00:08:22,036 --> 0:08:22,866
+simultaneously.
+
+301
+00:08:23,136 --> 0:08:24,306
+Here, we have two video
+
+302
+00:08:24,306 --> 0:08:25,556
+previews; one displaying the
+
+303
+00:08:25,556 --> 0:08:26,956
+front camera and one displaying
+
+304
+00:08:26,956 --> 0:08:27,596
+the back camera.
+
+305
+00:08:27,596 --> 0:08:28,696
+And when I double tap the
+
+306
+00:08:28,696 --> 0:08:30,346
+screen, I can swap which camera
+
+307
+00:08:30,346 --> 0:08:31,926
+appears full screen and which
+
+308
+00:08:31,926 --> 0:08:33,000
+camera appears PiP.
+
+309
+00:08:39,515 --> 0:08:42,736
+[ Applause ]
+
+310
+00:08:43,236 --> 0:08:44,035
+There we go.
+
+311
+00:08:44,035 --> 0:08:46,396
+Now, we can see here that Brad
+
+312
+00:08:46,396 --> 0:08:47,796
+is live at Apple Park.
+
+313
+00:08:47,796 --> 0:08:50,076
+And before I ask him a few
+
+314
+00:08:50,076 --> 0:08:51,766
+questions, I will press the
+
+315
+00:08:51,766 --> 0:08:53,046
+record button here at the bottom
+
+316
+00:08:53,346 --> 0:08:54,426
+to watch this conversation
+
+317
+00:08:54,426 --> 0:08:54,626
+later.
+
+318
+00:08:55,636 --> 0:08:56,066
+Hey, Brad.
+
+319
+00:08:56,606 --> 0:08:57,786
+So tell me how's it going over
+
+320
+00:08:57,786 --> 0:08:58,286
+at Apple Park?
+
+321
+00:08:58,886 --> 0:09:00,626
+&gt;&gt; Nik, it's pandemonium here at
+
+322
+00:08:58,886 --> 0:09:00,626
+&gt;&gt; Nik, it's pandemonium here at
+
+323
+00:09:00,626 --> 0:09:01,146
+Apple Park.
+
+324
+00:09:01,236 --> 0:09:02,406
+As you can see in front of the
+
+325
+00:09:02,406 --> 0:09:03,686
+reflecting pool, there's all
+
+326
+00:09:03,686 --> 0:09:05,086
+kinds of activity happening.
+
+327
+00:09:05,466 --> 0:09:06,726
+I hear a rushing of water.
+
+328
+00:09:07,076 --> 0:09:08,036
+It sounds like I'm about to be
+
+329
+00:09:08,036 --> 0:09:09,146
+drenched at any moment.
+
+330
+00:09:09,676 --> 0:09:11,466
+I hear wild animals behind me,
+
+331
+00:09:11,576 --> 0:09:12,816
+like ducks or something.
+
+332
+00:09:13,256 --> 0:09:14,936
+I honestly fear for my life
+
+333
+00:09:14,936 --> 0:09:15,116
+here.
+
+334
+00:09:15,456 --> 0:09:16,316
+&gt;&gt; Well, Brad, that seems
+
+335
+00:09:16,316 --> 0:09:17,156
+absolutely terrifying.
+
+336
+00:09:17,156 --> 0:09:18,066
+Hope you stay safe out there.
+
+337
+00:09:18,306 --> 0:09:19,106
+&gt;&gt; Okay, thanks.
+
+338
+00:09:19,486 --> 0:09:19,776
+&gt;&gt; Got it.
+
+339
+00:09:20,856 --> 0:09:21,866
+So now that we finished
+
+340
+00:09:21,866 --> 0:09:22,646
+recording the movie.
+
+341
+00:09:22,736 --> 0:09:23,536
+Let's go take a look at what we
+
+342
+00:09:23,536 --> 0:09:23,956
+just recorded.
+
+343
+00:09:27,256 --> 0:09:28,536
+Here we have the movie.
+
+344
+00:09:29,256 --> 0:09:30,726
+As you can see, when I swap
+
+345
+00:09:30,726 --> 0:09:33,196
+between the two cameras, it
+
+346
+00:09:33,446 --> 0:09:35,356
+swaps just like we did when
+
+347
+00:09:35,576 --> 0:09:36,196
+using the app.
+
+348
+00:09:36,196 --> 0:09:38,276
+And that's AVMultiCamPiP.
+
+349
+00:09:38,276 --> 0:09:38,906
+Back to Brad.
+
+350
+00:09:39,516 --> 0:09:43,736
+[ Applause ]
+
+351
+00:09:44,236 --> 0:09:44,716
+&gt;&gt; Thanks, Nik.
+
+352
+00:09:45,036 --> 0:09:45,626
+Awesome demo.
+
+353
+00:09:47,316 --> 0:09:48,466
+All right, so let's look at
+
+354
+00:09:48,466 --> 0:09:49,706
+what's happening under the hood
+
+355
+00:09:49,806 --> 0:09:51,056
+in AVMultiCamPiP.
+
+356
+00:09:51,676 --> 0:09:53,266
+So we have two device inputs:
+
+357
+00:09:53,266 --> 0:09:54,876
+One for the front camera, one
+
+358
+00:09:54,876 --> 0:09:57,696
+for the back camera, added, with
+
+359
+00:09:57,696 --> 0:09:59,476
+no connections, as I mentioned
+
+360
+00:09:59,476 --> 0:09:59,866
+before.
+
+361
+00:10:00,106 --> 0:10:00,776
+We also have two
+
+362
+00:10:00,776 --> 0:10:02,496
+VideoDataOutputs, one for each.
+
+363
+00:10:02,856 --> 0:10:04,516
+And two VideoPreviewLayers.
+
+364
+00:10:04,986 --> 0:10:06,446
+Now to place them on screen,
+
+365
+00:10:06,676 --> 0:10:07,926
+it's just a matter of taking
+
+366
+00:10:07,926 --> 0:10:10,616
+those VideoPreviewLayers and
+
+367
+00:10:10,616 --> 0:10:12,036
+ordering them so that one is on
+
+368
+00:10:12,036 --> 0:10:13,096
+top of the other and one is
+
+369
+00:10:13,096 --> 0:10:14,056
+sized smaller.
+
+370
+00:10:14,056 --> 0:10:15,766
+And when Nik double tapped on
+
+371
+00:10:15,766 --> 0:10:17,906
+them, we simply repositioned
+
+372
+00:10:17,906 --> 0:10:18,796
+them and reversed the Z
+
+373
+00:10:18,796 --> 0:10:18,976
+ordering.
+
+374
+00:10:19,046 --> 0:10:20,836
+Now there is some magic
+
+375
+00:10:20,836 --> 0:10:22,176
+happening in the Metal Shader
+
+376
+00:10:22,386 --> 0:10:23,416
+compositor code.
+
+377
+00:10:23,796 --> 0:10:25,116
+There it's taking those two
+
+378
+00:10:25,116 --> 0:10:27,506
+VideoDataOutputs and compositing
+
+379
+00:10:27,506 --> 0:10:29,756
+them so that the smaller PiP is
+
+380
+00:10:29,756 --> 0:10:31,586
+arranged within one frame.
+
+381
+00:10:31,586 --> 0:10:32,736
+So it's compositing them to a
+
+382
+00:10:32,736 --> 0:10:34,396
+single video buffer and then
+
+383
+00:10:34,396 --> 0:10:36,126
+sending them to an AVAssetWriter
+
+384
+00:10:36,366 --> 0:10:38,166
+where they are recorded to one
+
+385
+00:10:38,166 --> 0:10:39,166
+video track in a movie.
+
+386
+00:10:39,896 --> 0:10:41,506
+This sample code is available
+
+387
+00:10:41,746 --> 0:10:42,296
+right now.
+
+388
+00:10:42,676 --> 0:10:43,686
+It's associated with this
+
+389
+00:10:43,686 --> 0:10:43,996
+session.
+
+390
+00:10:43,996 --> 0:10:45,006
+You can take a look and start
+
+391
+00:10:45,006 --> 0:10:46,566
+doing your own MultiCam
+
+392
+00:10:46,566 --> 0:10:47,176
+Captures.
+
+393
+00:10:47,626 --> 0:10:47,786
+All right.
+
+394
+00:10:48,416 --> 0:10:51,236
+Time to talk about limitations.
+
+395
+00:10:51,366 --> 0:10:53,846
+While AVMultiCamSession is a
+
+396
+00:10:53,846 --> 0:10:55,556
+power tool, it doesn't do
+
+397
+00:10:55,556 --> 0:10:56,136
+everything.
+
+398
+00:10:56,496 --> 0:10:58,436
+And let me tell you what it does
+
+399
+00:10:58,436 --> 0:10:58,866
+not do.
+
+400
+00:11:00,316 --> 0:11:02,016
+First up, you cannot pretend
+
+401
+00:11:02,116 --> 0:11:04,246
+that one camera is two cameras.
+
+402
+00:11:04,866 --> 0:11:07,556
+AVCaptureDeviceInput API will
+
+403
+00:11:07,556 --> 0:11:09,216
+let you create multiple
+
+404
+00:11:09,216 --> 0:11:11,076
+instances for say the back
+
+405
+00:11:11,076 --> 0:11:11,476
+camera.
+
+406
+00:11:11,786 --> 0:11:12,776
+You could make ten of them if
+
+407
+00:11:12,776 --> 0:11:13,126
+you want.
+
+408
+00:11:13,526 --> 0:11:15,126
+But if you try to add all those
+
+409
+00:11:15,126 --> 0:11:16,046
+instances to one
+
+410
+00:11:16,046 --> 0:11:17,346
+MultiCamSession, it will say,
+
+411
+00:11:17,346 --> 0:11:17,706
+uh-uh.
+
+412
+00:11:18,406 --> 0:11:19,916
+And it will throw an exception.
+
+413
+00:11:20,786 --> 0:11:22,716
+Please, only one input per
+
+414
+00:11:22,716 --> 0:11:24,036
+camera in a session.
+
+415
+00:11:25,156 --> 0:11:26,326
+Also, you're not allowed to
+
+416
+00:11:26,396 --> 0:11:28,916
+clone a camera to two outputs of
+
+417
+00:11:28,916 --> 0:11:29,646
+the same type.
+
+418
+00:11:30,246 --> 0:11:32,936
+Such as taking one camera and
+
+419
+00:11:32,936 --> 0:11:34,336
+splitting its signal to two
+
+420
+00:11:34,336 --> 0:11:35,316
+VideoDataOutputs.
+
+421
+00:11:35,846 --> 0:11:37,656
+You can, of course, add multiple
+
+422
+00:11:37,656 --> 0:11:39,546
+cameras and connect them to a
+
+423
+00:11:39,546 --> 0:11:41,336
+VideoDataOutput each, but you
+
+424
+00:11:41,336 --> 0:11:42,976
+cannot fan out from one to many.
+
+425
+00:11:47,076 --> 0:11:48,806
+You're also not allowed-- The
+
+426
+00:11:48,806 --> 0:11:50,146
+opposite holds true as well.
+
+427
+00:11:50,256 --> 0:11:53,026
+AVCaptureOutputs on iOS do not
+
+428
+00:11:53,026 --> 0:11:54,286
+support media mixing.
+
+429
+00:11:54,776 --> 0:11:56,916
+So all the data outputs only can
+
+430
+00:11:56,916 --> 0:11:57,896
+take a single input.
+
+431
+00:11:58,546 --> 0:11:59,736
+You can't, for instance, try to
+
+432
+00:11:59,786 --> 0:12:01,436
+jam two cameras sources into a
+
+433
+00:11:59,786 --> 0:12:01,436
+jam two cameras sources into a
+
+434
+00:12:01,436 --> 0:12:03,926
+single data output.
+
+435
+00:12:03,926 --> 0:12:04,986
+It wouldn't know what to do with
+
+436
+00:12:04,986 --> 0:12:05,996
+the second video since it
+
+437
+00:12:05,996 --> 0:12:07,406
+doesn't know how to mix them.
+
+438
+00:12:08,066 --> 0:12:09,996
+You can, of course, use separate
+
+439
+00:12:09,996 --> 0:12:11,926
+VideoDataOutputs and then
+
+440
+00:12:12,016 --> 0:12:13,436
+composite those buffers in your
+
+441
+00:12:13,436 --> 0:12:14,906
+own code, such as the Metal
+
+442
+00:12:14,906 --> 0:12:16,436
+Shader Composite that we used in
+
+443
+00:12:16,436 --> 0:12:17,186
+MultiCamPiP.
+
+444
+00:12:17,856 --> 0:12:18,856
+You can do that however you
+
+445
+00:12:18,856 --> 0:12:19,066
+like.
+
+446
+00:12:19,496 --> 0:12:20,686
+But as far as session building
+
+447
+00:12:20,686 --> 0:12:22,416
+is concerned, do not try to jam
+
+448
+00:12:22,416 --> 0:12:23,916
+multiple cameras into a single
+
+449
+00:12:23,916 --> 0:12:24,236
+output.
+
+450
+00:12:25,726 --> 0:12:26,126
+All right.
+
+451
+00:12:26,206 --> 0:12:27,486
+A word about presets.
+
+452
+00:12:28,666 --> 0:12:30,226
+The traditional AVCaptureSession
+
+453
+00:12:30,296 --> 0:12:31,906
+has this concept of a session
+
+454
+00:12:31,906 --> 0:12:34,446
+preset, which dictates a common
+
+455
+00:12:34,446 --> 0:12:36,046
+quality of service for the whole
+
+456
+00:12:36,046 --> 0:12:36,456
+session.
+
+457
+00:12:36,726 --> 0:12:39,086
+And it applies to all inputs and
+
+458
+00:12:39,086 --> 0:12:40,376
+outputs within that session.
+
+459
+00:12:40,656 --> 0:12:42,216
+For instance, when you set the
+
+460
+00:12:42,216 --> 0:12:45,146
+session preset to high, the
+
+461
+00:12:45,146 --> 0:12:46,706
+session configures the device's
+
+462
+00:12:46,706 --> 0:12:49,186
+resolution and frame rate, and
+
+463
+00:12:49,266 --> 0:12:50,686
+all of the outputs so that they
+
+464
+00:12:50,686 --> 0:12:52,396
+are delivering a high-quality
+
+465
+00:12:52,596 --> 0:12:53,866
+video experience such as
+
+466
+00:12:53,866 --> 0:12:54,926
+1080p30.
+
+467
+00:12:58,046 --> 0:12:59,326
+Presets are a problem for
+
+468
+00:12:59,326 --> 0:13:00,306
+MultiCamSession.
+
+469
+00:12:59,326 --> 0:13:00,306
+MultiCamSession.
+
+470
+00:13:01,116 --> 0:13:02,756
+Think again about something that
+
+471
+00:13:02,756 --> 0:13:03,576
+looks like this.
+
+472
+00:13:04,306 --> 0:13:06,906
+MultiCamSession configurations
+
+473
+00:13:06,906 --> 0:13:08,196
+are hybrid.
+
+474
+00:13:08,266 --> 0:13:09,296
+They're heterogeneous.
+
+475
+00:13:09,636 --> 0:13:10,846
+What does it mean to have high
+
+476
+00:13:10,846 --> 0:13:12,146
+quality for the whole thing?
+
+477
+00:13:12,486 --> 0:13:13,616
+You might want to do different
+
+478
+00:13:13,616 --> 0:13:15,186
+qualities of service on
+
+479
+00:13:15,186 --> 0:13:16,666
+different branches of the graph.
+
+480
+00:13:17,086 --> 0:13:18,606
+For instance, on the front
+
+481
+00:13:18,606 --> 0:13:19,596
+camera, you might want to just
+
+482
+00:13:19,596 --> 0:13:21,436
+do a low res preview, such as
+
+483
+00:13:21,436 --> 0:13:24,296
+640x480, while also
+
+484
+00:13:24,296 --> 0:13:25,846
+simultaneously doing something
+
+485
+00:13:26,096 --> 0:13:27,996
+really high quality, 1080p60,
+
+486
+00:13:27,996 --> 0:13:29,196
+for instance, on the back.
+
+487
+00:13:29,626 --> 0:13:30,886
+Well, obviously, we don't have
+
+488
+00:13:30,976 --> 0:13:32,446
+presets for all of these hybrid
+
+489
+00:13:32,446 --> 0:13:33,146
+situations.
+
+490
+00:13:34,136 --> 0:13:35,236
+We've decided to keep things
+
+491
+00:13:35,236 --> 0:13:37,156
+simple in MultiCamSession.
+
+492
+00:13:37,636 --> 0:13:39,166
+It does not support presets.
+
+493
+00:13:39,276 --> 0:13:41,716
+It supports one, and one preset
+
+494
+00:13:41,716 --> 0:13:43,676
+only, which is input priority.
+
+495
+00:13:44,106 --> 0:13:45,316
+So that means it leaves the
+
+496
+00:13:45,316 --> 0:13:46,906
+inputs and outputs alone.
+
+497
+00:13:47,256 --> 0:13:49,086
+When you add them, you must
+
+498
+00:13:49,086 --> 0:13:50,496
+configure the active format
+
+499
+00:13:50,496 --> 0:13:51,126
+yourself.
+
+500
+00:13:51,636 --> 0:13:55,806
+All right, onto the Cost
+
+501
+00:13:55,806 --> 0:13:56,406
+Functions.
+
+502
+00:13:57,136 --> 0:13:58,126
+I mentioned at the beginning
+
+503
+00:13:58,126 --> 0:13:59,506
+that we took our time with this
+
+504
+00:13:59,576 --> 0:14:01,086
+MultiCam support because we
+
+505
+00:13:59,576 --> 0:14:01,086
+MultiCam support because we
+
+506
+00:14:01,086 --> 0:14:02,306
+wanted to deliver a very
+
+507
+00:14:02,306 --> 0:14:04,596
+responsible API, one that could
+
+508
+00:14:04,596 --> 0:14:06,306
+help you account for the various
+
+509
+00:14:06,356 --> 0:14:08,146
+costs that you incur when
+
+510
+00:14:08,146 --> 0:14:09,456
+running multiple cameras and
+
+511
+00:14:09,456 --> 0:14:11,146
+lighting up virtually every
+
+512
+00:14:11,146 --> 0:14:11,956
+block on the phone.
+
+513
+00:14:16,076 --> 0:14:17,456
+So this is trite but true.
+
+514
+00:14:18,276 --> 0:14:19,606
+There is no such thing as a free
+
+515
+00:14:19,606 --> 0:14:20,006
+lunch.
+
+516
+00:14:20,256 --> 0:14:22,226
+And so this is the part of the
+
+517
+00:14:22,226 --> 0:14:23,366
+session where I become your
+
+518
+00:14:23,366 --> 0:14:25,236
+father and I'm going to give you
+
+519
+00:14:25,236 --> 0:14:25,936
+the Dad Talk.
+
+520
+00:14:27,156 --> 0:14:28,736
+In the Dad Talk, I will explain
+
+521
+00:14:28,736 --> 0:14:30,866
+how credit cards work, and how
+
+522
+00:14:30,866 --> 0:14:31,956
+you need to be responsible with
+
+523
+00:14:31,956 --> 0:14:33,386
+your money and live within your
+
+524
+00:14:33,386 --> 0:14:36,626
+means, and, like, such things.
+
+525
+00:14:37,766 --> 0:14:39,026
+So it's a fact of life that we
+
+526
+00:14:39,026 --> 0:14:40,886
+have limited hardware bandwidth
+
+527
+00:14:40,886 --> 0:14:41,686
+on iOS.
+
+528
+00:14:41,796 --> 0:14:43,696
+And though we have multiple
+
+529
+00:14:43,696 --> 0:14:44,976
+cameras-- so we have multiple
+
+530
+00:14:44,976 --> 0:14:48,466
+sensors-- we only have one ISP,
+
+531
+00:14:48,466 --> 0:14:49,836
+or image signal processor.
+
+532
+00:14:50,646 --> 0:14:52,646
+So all of those sensors, all the
+
+533
+00:14:52,646 --> 0:14:55,036
+pixels being -- going through
+
+534
+00:14:55,036 --> 0:14:56,326
+those sensors need to be
+
+535
+00:14:56,356 --> 0:14:57,916
+processed by a single ISP.
+
+536
+00:14:57,916 --> 0:15:00,106
+And it is limited by how many
+
+537
+00:14:57,916 --> 0:15:00,106
+And it is limited by how many
+
+538
+00:15:00,446 --> 0:15:02,576
+pixels it can run per clock at a
+
+539
+00:15:02,576 --> 0:15:03,416
+given frequency.
+
+540
+00:15:04,346 --> 0:15:06,946
+So there are limiters to the
+
+541
+00:15:07,036 --> 0:15:08,276
+number of pixels that you can
+
+542
+00:15:08,276 --> 0:15:08,906
+run at a time.
+
+543
+00:15:09,756 --> 0:15:10,596
+The contributors to the
+
+544
+00:15:10,596 --> 0:15:12,316
+HardwareCosts are, as you would
+
+545
+00:15:12,316 --> 0:15:14,046
+expect, video resolution.
+
+546
+00:15:14,566 --> 0:15:15,826
+Higher resolution means more
+
+547
+00:15:15,826 --> 0:15:17,126
+pixels to cram through there.
+
+548
+00:15:17,896 --> 0:15:19,086
+The max frame rate.
+
+549
+00:15:19,496 --> 0:15:20,576
+If you're delivering those
+
+550
+00:15:20,576 --> 0:15:22,376
+pixels faster, it's got to do
+
+551
+00:15:22,376 --> 0:15:23,836
+more pixels per clock as well.
+
+552
+00:15:23,876 --> 0:15:26,346
+And then a third one, which you
+
+553
+00:15:26,346 --> 0:15:27,536
+may or may not have heard of, is
+
+554
+00:15:27,536 --> 0:15:28,596
+called Sensor Binning.
+
+555
+00:15:29,716 --> 0:15:31,866
+Sensor Binning refers to a way
+
+556
+00:15:31,866 --> 0:15:33,456
+to combine information in
+
+557
+00:15:33,456 --> 0:15:34,936
+adjacent pixels to reduce
+
+558
+00:15:34,936 --> 0:15:35,426
+bandwidth.
+
+559
+00:15:35,996 --> 0:15:36,936
+So for instance, if we have an
+
+560
+00:15:36,936 --> 0:15:39,186
+image here, and we do a 2x2
+
+561
+00:15:39,186 --> 0:15:41,066
+binning, it's going to take 4
+
+562
+00:15:41,066 --> 0:15:43,176
+pixels in squares and sum them
+
+563
+00:15:43,176 --> 0:15:45,406
+into one so that we get a
+
+564
+00:15:45,406 --> 0:15:47,506
+reduction in size by 4X.
+
+565
+00:15:48,046 --> 0:15:49,256
+It gives you a reduction in
+
+566
+00:15:49,256 --> 0:15:49,786
+noise.
+
+567
+00:15:50,366 --> 0:15:51,636
+It gives you a reduction in
+
+568
+00:15:51,636 --> 0:15:52,116
+bandwidth.
+
+569
+00:15:52,596 --> 0:15:54,796
+It gives you 4X intensity per
+
+570
+00:15:54,796 --> 0:15:55,276
+pixel.
+
+571
+00:15:55,766 --> 0:15:56,576
+So there are a lot of great
+
+572
+00:15:56,616 --> 0:15:57,706
+things about Sensor Binning.
+
+573
+00:15:58,146 --> 0:15:59,676
+The downside is that you get a
+
+574
+00:15:59,676 --> 0:16:01,256
+little reduction in image
+
+575
+00:15:59,676 --> 0:16:01,256
+little reduction in image
+
+576
+00:16:01,256 --> 0:16:01,796
+quality.
+
+577
+00:16:02,106 --> 0:16:03,566
+So diagonal lines might look a
+
+578
+00:16:03,566 --> 0:16:04,556
+little stair stepped.
+
+579
+00:16:05,196 --> 0:16:07,666
+But their most redeeming quality
+
+580
+00:16:07,666 --> 0:16:09,236
+is that binned formats are super
+
+581
+00:16:09,236 --> 0:16:09,906
+low power.
+
+582
+00:16:09,906 --> 0:16:12,696
+In fact, whenever you use ARKit
+
+583
+00:16:12,696 --> 0:16:14,256
+with the camera, you are using a
+
+584
+00:16:14,256 --> 0:16:16,306
+binned format because ARKit uses
+
+585
+00:16:16,306 --> 0:16:17,776
+binned formats exclusively to
+
+586
+00:16:17,776 --> 0:16:19,246
+save on that power for all the
+
+587
+00:16:19,246 --> 0:16:20,736
+interesting AR things that you'd
+
+588
+00:16:20,736 --> 0:16:21,156
+like to do.
+
+589
+00:16:22,526 --> 0:16:22,856
+All right.
+
+590
+00:16:23,226 --> 0:16:24,736
+How do we account for cost?
+
+591
+00:16:24,736 --> 0:16:26,406
+Or how do we report those costs?
+
+592
+00:16:26,996 --> 0:16:28,486
+MultiCamSession tallies up your
+
+593
+00:16:28,486 --> 0:16:30,196
+HardwareCost as you configure
+
+594
+00:16:30,196 --> 0:16:30,726
+your session.
+
+595
+00:16:31,246 --> 0:16:32,296
+So each time you change
+
+596
+00:16:32,296 --> 0:16:34,246
+something, it keeps track of it.
+
+597
+00:16:34,526 --> 0:16:36,106
+Just like filling up a shopping
+
+598
+00:16:36,106 --> 0:16:38,146
+cart, or going to an online
+
+599
+00:16:38,146 --> 0:16:39,536
+store and putting things into
+
+600
+00:16:39,536 --> 0:16:40,696
+the cart before you pay for
+
+601
+00:16:40,696 --> 0:16:41,746
+them, you know when you're
+
+602
+00:16:41,746 --> 0:16:43,386
+getting close to your limit on
+
+603
+00:16:43,386 --> 0:16:43,906
+your budget.
+
+604
+00:16:43,976 --> 0:16:45,376
+And you can kind of try things
+
+605
+00:16:45,376 --> 0:16:47,246
+out, and then put new things in
+
+606
+00:16:47,246 --> 0:16:48,336
+or move old things out.
+
+607
+00:16:48,586 --> 0:16:49,806
+You see the costs before you
+
+608
+00:16:49,806 --> 0:16:50,416
+have to pay.
+
+609
+00:16:50,966 --> 0:16:51,976
+It's the same with
+
+610
+00:16:51,976 --> 0:16:52,876
+MultiCamSession.
+
+611
+00:16:53,436 --> 0:16:55,326
+We have a new property called
+
+612
+00:16:55,976 --> 0:16:56,856
+HardwareCost.
+
+613
+00:16:57,146 --> 0:16:58,926
+And this HardwareCost starts at
+
+614
+00:16:58,966 --> 0:17:00,196
+zero when you make a brand new
+
+615
+00:16:58,966 --> 0:17:00,196
+zero when you make a brand new
+
+616
+00:17:00,196 --> 0:17:00,666
+session.
+
+617
+00:17:01,736 --> 0:17:03,656
+And it increments as you add
+
+618
+00:17:03,656 --> 0:17:05,276
+more features, more inputs, more
+
+619
+00:17:05,276 --> 0:17:05,786
+outputs.
+
+620
+00:17:05,826 --> 0:17:07,876
+And you're fine as long as you
+
+621
+00:17:07,876 --> 0:17:09,016
+stay under 1.0.
+
+622
+00:17:09,536 --> 0:17:11,526
+Anything under 1.0 is runnable.
+
+623
+00:17:12,766 --> 0:17:14,556
+The minute you hit 1.0 or
+
+624
+00:17:14,556 --> 0:17:15,906
+greater, you're in trouble.
+
+625
+00:17:15,906 --> 0:17:17,576
+And that's because the ISP
+
+626
+00:17:17,576 --> 0:17:19,276
+bandwidth limit is hard.
+
+627
+00:17:19,685 --> 0:17:21,965
+It's not like you can, you know,
+
+628
+00:17:22,086 --> 0:17:23,526
+deliver every other frame.
+
+629
+00:17:24,296 --> 0:17:24,626
+No.
+
+630
+00:17:24,675 --> 0:17:25,546
+This is an all-or-nothing
+
+631
+00:17:25,546 --> 0:17:25,986
+proposal.
+
+632
+00:17:26,276 --> 0:17:27,675
+You have to either make it, or
+
+633
+00:17:27,675 --> 0:17:28,016
+you don't.
+
+634
+00:17:28,425 --> 0:17:30,016
+So if you're over 1.0, and you
+
+635
+00:17:30,016 --> 0:17:31,356
+try to run the
+
+636
+00:17:31,356 --> 0:17:32,836
+AVCaptureMultiCamSession, it
+
+637
+00:17:33,076 --> 0:17:33,856
+will say, "Uh-uh."
+
+638
+00:17:33,856 --> 0:17:35,936
+It will give you a notification
+
+639
+00:17:36,246 --> 0:17:38,096
+of a Runtime error, indicating
+
+640
+00:17:38,096 --> 0:17:39,776
+that the reason it had to stop
+
+641
+00:17:39,776 --> 0:17:40,796
+is because of a HardwareCost
+
+642
+00:17:40,796 --> 0:17:40,976
+overage.
+
+643
+00:17:45,046 --> 0:17:45,766
+Now, you're probably wondering,
+
+644
+00:17:45,766 --> 0:17:47,246
+"How do I reduce that cost?"
+
+645
+00:17:47,996 --> 0:17:49,206
+The most obvious way you can do
+
+646
+00:17:49,206 --> 0:17:50,576
+it is to pick a lower
+
+647
+00:17:50,576 --> 0:17:51,166
+resolution.
+
+648
+00:17:51,856 --> 0:17:53,456
+Another way you can do it is if
+
+649
+00:17:53,456 --> 0:17:54,246
+you want to keep the same
+
+650
+00:17:54,246 --> 0:17:56,356
+resolution, if there was a
+
+651
+00:17:56,356 --> 0:17:57,616
+binned format at the same
+
+652
+00:17:57,616 --> 0:17:58,686
+resolution, pick that one
+
+653
+00:17:58,686 --> 0:17:59,136
+instead.
+
+654
+00:17:59,476 --> 0:18:00,756
+It's a little bit lower quality
+
+655
+00:17:59,476 --> 0:18:00,756
+It's a little bit lower quality
+
+656
+00:18:00,936 --> 0:18:02,416
+but way lower in power.
+
+657
+00:18:02,876 --> 0:18:05,576
+Next, you would think that
+
+658
+00:18:05,576 --> 0:18:06,796
+lowering the frame rate would
+
+659
+00:18:06,796 --> 0:18:08,946
+help, but it doesn't.
+
+660
+00:18:10,016 --> 0:18:10,966
+The reason is that
+
+661
+00:18:10,966 --> 0:18:13,306
+AVCaptureDevice allows you and
+
+662
+00:18:13,306 --> 0:18:14,846
+has allowed you since, I think,
+
+663
+00:18:14,846 --> 0:18:17,666
+iOS 4, to change the frame rate
+
+664
+00:18:17,666 --> 0:18:18,196
+on the fly.
+
+665
+00:18:18,826 --> 0:18:21,106
+So if you have a 120 fps format,
+
+666
+00:18:21,826 --> 0:18:24,116
+and you say, "Set the active
+
+667
+00:18:24,116 --> 0:18:26,646
+format to 60," you still have to
+
+668
+00:18:26,646 --> 0:18:28,866
+pay the cost for 120, not 60.
+
+669
+00:18:29,066 --> 0:18:30,136
+Because at any point while
+
+670
+00:18:30,136 --> 0:18:31,086
+you're running, you could
+
+671
+00:18:31,086 --> 0:18:32,166
+increase the frame rate up to
+
+672
+00:18:32,166 --> 0:18:33,016
+120.
+
+673
+00:18:33,266 --> 0:18:34,816
+We must assume the worst case.
+
+674
+00:18:35,876 --> 0:18:37,506
+But good news.
+
+675
+00:18:37,616 --> 0:18:39,056
+We're now offering an override
+
+676
+00:18:39,146 --> 0:18:40,236
+property on the
+
+677
+00:18:40,236 --> 0:18:41,506
+AVCaptureDeviceInput.
+
+678
+00:18:42,326 --> 0:18:45,426
+By setting it, you can turn a
+
+679
+00:18:45,426 --> 0:18:47,166
+high frame rate format into a
+
+680
+00:18:47,166 --> 0:18:49,236
+lower frame rate format by
+
+681
+00:18:49,346 --> 0:18:51,096
+promising that you will go no
+
+682
+00:18:51,096 --> 0:18:52,716
+higher than a particular frame
+
+683
+00:18:52,886 --> 0:18:52,976
+rate.
+
+684
+00:18:56,166 --> 0:18:58,046
+Now, this is a point of
+
+685
+00:18:58,046 --> 0:18:59,786
+confusion in our APIs.
+
+686
+00:18:59,846 --> 0:19:01,156
+We don't talk about frame rates
+
+687
+00:18:59,846 --> 0:19:01,156
+We don't talk about frame rates
+
+688
+00:19:01,156 --> 0:19:01,796
+as rates.
+
+689
+00:19:01,826 --> 0:19:02,686
+We talked about them as
+
+690
+00:19:02,686 --> 0:19:03,276
+durations.
+
+691
+00:19:03,586 --> 0:19:06,326
+So to set a frame rate, you set
+
+692
+00:19:06,326 --> 0:19:07,576
+one over the duration.
+
+693
+00:19:07,736 --> 0:19:08,746
+That's the same as the frame
+
+694
+00:19:08,746 --> 0:19:08,986
+rate.
+
+695
+00:19:09,396 --> 0:19:10,906
+So if you want to take a 60 fps
+
+696
+00:19:10,906 --> 0:19:12,736
+format and make it into a 30 fps
+
+697
+00:19:12,736 --> 0:19:13,196
+format.
+
+698
+00:19:13,776 --> 0:19:16,056
+You do that by making a CMTime
+
+699
+00:19:16,056 --> 0:19:17,546
+with 1 over 30, which is the
+
+700
+00:19:17,546 --> 0:19:18,146
+duration.
+
+701
+00:19:18,536 --> 0:19:20,196
+And then set that deviceInputs
+
+702
+00:19:20,496 --> 0:19:22,646
+videoMinFrameDuration override
+
+703
+00:19:22,896 --> 0:19:24,076
+to 30 fps.
+
+704
+00:19:24,466 --> 0:19:25,356
+Congratulations.
+
+705
+00:19:25,416 --> 0:19:26,606
+You've just turned a 60 fps
+
+706
+00:19:26,606 --> 0:19:28,326
+format into a 30 fps format.
+
+707
+00:19:28,326 --> 0:19:29,326
+And you only pay the hardware
+
+708
+00:19:29,326 --> 0:19:32,416
+cost for 30.
+
+709
+00:19:32,596 --> 0:19:34,216
+I should also mention that there
+
+710
+00:19:34,216 --> 0:19:36,606
+is a great function in the
+
+711
+00:19:36,606 --> 0:19:38,676
+AVMultiCamPiP app that shows how
+
+712
+00:19:38,676 --> 0:19:40,496
+to iteratively reduce your cost.
+
+713
+00:19:40,826 --> 0:19:42,046
+It's a recursive function that
+
+714
+00:19:42,186 --> 0:19:43,236
+kind of picks things that are
+
+715
+00:19:43,236 --> 0:19:44,946
+most important to it and it
+
+716
+00:19:45,186 --> 0:19:46,736
+throttles down things that are
+
+717
+00:19:46,736 --> 0:19:48,096
+less important until it gets
+
+718
+00:19:48,096 --> 0:19:49,056
+under the HardwareCost.
+
+719
+00:19:50,006 --> 0:19:51,756
+Now next up is System Pressure
+
+720
+00:19:51,756 --> 0:19:52,046
+Costs.
+
+721
+00:19:52,046 --> 0:19:53,866
+This is the second-big
+
+722
+00:19:53,866 --> 0:19:55,186
+contributor that we report.
+
+723
+00:19:55,576 --> 0:19:58,466
+As you're well aware, phones are
+
+724
+00:19:58,466 --> 0:20:00,326
+extremely powerful computers in
+
+725
+00:19:58,466 --> 0:20:00,326
+extremely powerful computers in
+
+726
+00:20:00,576 --> 0:20:01,846
+little, bitty, thermally
+
+727
+00:20:01,846 --> 0:20:03,236
+challenged packages.
+
+728
+00:20:03,936 --> 0:20:06,546
+And in iOS 11, we introduced
+
+729
+00:20:06,746 --> 0:20:08,916
+camera system pressure states.
+
+730
+00:20:09,566 --> 0:20:10,596
+These help you monitor the
+
+731
+00:20:10,596 --> 0:20:11,996
+camera's current situation.
+
+732
+00:20:13,246 --> 0:20:14,846
+Camera system pressure consists
+
+733
+00:20:14,926 --> 0:20:17,136
+of system temperature.
+
+734
+00:20:17,286 --> 0:20:19,286
+That is, overall OS thermals.
+
+735
+00:20:20,596 --> 0:20:21,866
+Peak power demands.
+
+736
+00:20:21,866 --> 0:20:22,876
+And that has to do with the
+
+737
+00:20:22,876 --> 0:20:23,406
+battery.
+
+738
+00:20:23,786 --> 0:20:24,836
+How much charge does it
+
+739
+00:20:24,836 --> 0:20:25,586
+currently have?
+
+740
+00:20:26,196 --> 0:20:27,936
+Is it able to ramp up its
+
+741
+00:20:27,936 --> 0:20:29,416
+voltage fast enough to meet the
+
+742
+00:20:29,416 --> 0:20:31,226
+demands of running whatever you
+
+743
+00:20:31,226 --> 0:20:31,916
+want to do right now?
+
+744
+00:20:33,236 --> 0:20:34,996
+And the infrared projector
+
+745
+00:20:34,996 --> 0:20:35,496
+temperature.
+
+746
+00:20:36,206 --> 0:20:37,636
+On devices that support
+
+747
+00:20:37,636 --> 0:20:39,066
+TrueDepth Camera, we have an
+
+748
+00:20:39,066 --> 0:20:40,346
+infrared camera as well as an
+
+749
+00:20:40,346 --> 0:20:41,136
+RGB camera.
+
+750
+00:20:41,326 --> 0:20:42,606
+Well, that generates its own
+
+751
+00:20:42,656 --> 0:20:42,866
+heat.
+
+752
+00:20:42,956 --> 0:20:43,886
+And so that's part of the
+
+753
+00:20:43,886 --> 0:20:45,366
+contribution to system pressure
+
+754
+00:20:45,366 --> 0:20:45,876
+states.
+
+755
+00:20:46,416 --> 0:20:49,656
+We have five of them.
+
+756
+00:20:50,156 --> 0:20:51,346
+Nominal all the way up to
+
+757
+00:20:51,346 --> 0:20:51,896
+Shutdown.
+
+758
+00:20:52,526 --> 0:20:53,596
+When the system pressure state
+
+759
+00:20:53,596 --> 0:20:55,306
+is nominal, you're in great
+
+760
+00:20:55,306 --> 0:20:55,586
+shape.
+
+761
+00:20:55,786 --> 0:20:56,676
+You can do whatever you want.
+
+762
+00:20:57,176 --> 0:20:58,756
+When it's Fair, you can still
+
+763
+00:20:58,756 --> 0:21:00,086
+almost do whatever you want.
+
+764
+00:20:58,756 --> 0:21:00,086
+almost do whatever you want.
+
+765
+00:21:00,536 --> 0:21:01,976
+But at Serious, you start
+
+766
+00:21:01,976 --> 0:21:03,106
+getting into a situation where
+
+767
+00:21:03,106 --> 0:21:04,336
+the system is going to throttle
+
+768
+00:21:04,636 --> 0:21:05,356
+back.
+
+769
+00:21:05,356 --> 0:21:06,656
+Meaning you have fewer cycles
+
+770
+00:21:06,656 --> 0:21:07,976
+for the GPU.
+
+771
+00:21:08,196 --> 0:21:10,526
+Your quality might be
+
+772
+00:21:10,526 --> 0:21:11,236
+compromised.
+
+773
+00:21:11,736 --> 0:21:12,956
+And, at Critical, you are
+
+774
+00:21:12,956 --> 0:21:13,746
+getting a whole lot of
+
+775
+00:21:13,816 --> 0:21:14,336
+throttling.
+
+776
+00:21:14,586 --> 0:21:18,036
+At Shutdown, we cannot run the
+
+777
+00:21:18,036 --> 0:21:20,266
+camera any longer for fear of
+
+778
+00:21:20,266 --> 0:21:21,046
+hurting the hardware.
+
+779
+00:21:21,356 --> 0:21:23,226
+So at Shutdown, we automatically
+
+780
+00:21:23,226 --> 0:21:24,156
+interrupt your session.
+
+781
+00:21:24,156 --> 0:21:25,846
+Stop it. Tell you that you're
+
+782
+00:21:25,846 --> 0:21:27,636
+interrupted because of a system
+
+783
+00:21:27,636 --> 0:21:28,286
+pressure state.
+
+784
+00:21:28,706 --> 0:21:30,346
+And then we wait for the device
+
+785
+00:21:30,346 --> 0:21:31,296
+to go all the way back to
+
+786
+00:21:31,296 --> 0:21:32,796
+Nominal before we'll let you run
+
+787
+00:21:32,796 --> 0:21:33,546
+the camera again.
+
+788
+00:21:34,956 --> 0:21:37,376
+That was all iOS 11.
+
+789
+00:21:37,866 --> 0:21:40,276
+Now, in iOS 13, we're offering
+
+790
+00:21:40,276 --> 0:21:41,636
+you a way to account for the
+
+791
+00:21:41,636 --> 0:21:43,566
+system pressure cost up front,
+
+792
+00:21:43,966 --> 0:21:44,316
+okay?
+
+793
+00:21:44,846 --> 0:21:46,116
+Instead of just telling you
+
+794
+00:21:46,116 --> 0:21:47,276
+what's happening right now,
+
+795
+00:21:47,796 --> 0:21:49,066
+which may be influenced by the
+
+796
+00:21:49,066 --> 0:21:50,586
+fact that you played Clash of
+
+797
+00:21:50,616 --> 0:21:52,476
+Clans before you started the
+
+798
+00:21:53,296 --> 0:21:54,446
+camera, we now have a way to
+
+799
+00:21:54,446 --> 0:21:56,426
+tell you what the camera cost as
+
+800
+00:21:56,426 --> 0:21:57,616
+far as system pressure is,
+
+801
+00:21:57,946 --> 0:21:58,996
+independent of all other
+
+802
+00:21:58,996 --> 0:21:59,586
+factors.
+
+803
+00:22:00,156 --> 0:22:02,286
+So the contributors to this cost
+
+804
+00:22:02,286 --> 0:22:03,516
+are the same as the ones for
+
+805
+00:22:03,516 --> 0:22:05,096
+hardware, along with a lot of
+
+806
+00:22:05,096 --> 0:22:05,686
+other ones.
+
+807
+00:22:06,086 --> 0:22:07,816
+Such as video image
+
+808
+00:22:07,816 --> 0:22:10,256
+stabilization, or optical image
+
+809
+00:22:10,256 --> 0:22:10,966
+stabilization.
+
+810
+00:22:10,966 --> 0:22:12,556
+All of those cost power.
+
+811
+00:22:12,956 --> 0:22:14,446
+We have a Smart HDR feature,
+
+812
+00:22:14,446 --> 0:22:16,516
+etc. All of those things listed
+
+813
+00:22:16,516 --> 0:22:18,246
+here are contributors to overall
+
+814
+00:22:18,246 --> 0:22:18,976
+system pressure cost.
+
+815
+00:22:21,236 --> 0:22:23,196
+MultiCamSession can tally that
+
+816
+00:22:23,196 --> 0:22:24,466
+score up front, just like it
+
+817
+00:22:24,466 --> 0:22:27,136
+does for hardware, and it will
+
+818
+00:22:27,136 --> 0:22:28,296
+only account for the factors
+
+819
+00:22:28,296 --> 0:22:29,266
+that it knows about.
+
+820
+00:22:29,536 --> 0:22:30,786
+So if you're going to be doing
+
+821
+00:22:30,786 --> 0:22:32,476
+some wild GPU processing at the
+
+822
+00:22:32,476 --> 0:22:34,256
+same time, the score won't
+
+823
+00:22:34,256 --> 0:22:34,956
+include that.
+
+824
+00:22:35,016 --> 0:22:36,296
+It will just include what you're
+
+825
+00:22:36,296 --> 0:22:39,256
+doing with the camera.
+
+826
+00:22:39,256 --> 0:22:40,076
+Here's how you use it.
+
+827
+00:22:41,356 --> 0:22:42,256
+By querying the
+
+828
+00:22:42,256 --> 0:22:44,416
+systemPressureCost, you can find
+
+829
+00:22:44,416 --> 0:22:46,206
+out how long you would be
+
+830
+00:22:46,416 --> 0:22:48,456
+runnable in an otherwise
+
+831
+00:22:48,646 --> 0:22:49,656
+quiescent system.
+
+832
+00:22:50,106 --> 0:22:52,216
+So if it's less than 1.0, you
+
+833
+00:22:52,216 --> 0:22:53,306
+can run indefinitely.
+
+834
+00:22:53,446 --> 0:22:54,286
+You're a cool customer.
+
+835
+00:22:55,086 --> 0:22:56,846
+If it's between 1.0 and 2.0, you
+
+836
+00:22:56,846 --> 0:22:58,296
+should be runnable for up to 15
+
+837
+00:22:58,296 --> 0:22:58,756
+minutes.
+
+838
+00:22:58,756 --> 0:23:01,186
+2.0 to 3.0, up to 10 minutes.
+
+839
+00:22:58,756 --> 0:23:01,186
+2.0 to 3.0, up to 10 minutes.
+
+840
+00:23:01,746 --> 0:23:03,696
+And higher than 3.0, you may be
+
+841
+00:23:03,696 --> 0:23:05,026
+able to run for a short little
+
+842
+00:23:05,026 --> 0:23:05,316
+bit.
+
+843
+00:23:05,316 --> 0:23:07,436
+And, in fact, we will let you
+
+844
+00:23:07,436 --> 0:23:08,786
+run the camera, even if you're
+
+845
+00:23:08,786 --> 0:23:09,456
+over 3.
+
+846
+00:23:09,926 --> 0:23:10,946
+But you have to understand that
+
+847
+00:23:10,946 --> 0:23:12,706
+it's not going to stay cool very
+
+848
+00:23:12,706 --> 0:23:13,006
+long.
+
+849
+00:23:13,086 --> 0:23:14,466
+And once it gets up to a
+
+850
+00:23:14,466 --> 0:23:16,266
+Critical or Shutdown level, your
+
+851
+00:23:16,266 --> 0:23:17,726
+session will become interrupted.
+
+852
+00:23:17,996 --> 0:23:19,446
+So we'll save the hardware, even
+
+853
+00:23:19,446 --> 0:23:20,106
+if you don't want to.
+
+854
+00:23:20,106 --> 0:23:21,176
+But hey, it's great.
+
+855
+00:23:21,176 --> 0:23:22,916
+If you can get what you need to
+
+856
+00:23:23,346 --> 0:23:25,016
+get done in 30 seconds of
+
+857
+00:23:25,016 --> 0:23:26,346
+running at a very, very high
+
+858
+00:23:26,576 --> 0:23:28,096
+system pressure cost, by all
+
+859
+00:23:28,096 --> 0:23:29,486
+means, do that.
+
+860
+00:23:31,076 --> 0:23:32,276
+Now how do you reduce your
+
+861
+00:23:32,276 --> 0:23:33,836
+system pressure while running?
+
+862
+00:23:34,006 --> 0:23:35,166
+I'm not talking about while
+
+863
+00:23:35,166 --> 0:23:36,196
+you're configuring your session.
+
+864
+00:23:36,196 --> 0:23:37,676
+I'm talking about once you're
+
+865
+00:23:37,986 --> 0:23:39,666
+already running and you notice
+
+866
+00:23:39,666 --> 0:23:40,876
+that you're starting to elevate
+
+867
+00:23:40,876 --> 0:23:41,756
+in system pressure.
+
+868
+00:23:41,986 --> 0:23:43,176
+The quickest and easiest way to
+
+869
+00:23:43,176 --> 0:23:44,236
+do it is to lower the frame
+
+870
+00:23:44,236 --> 0:23:44,436
+rate.
+
+871
+00:23:44,866 --> 0:23:45,506
+Immediately.
+
+872
+00:23:45,656 --> 0:23:47,076
+That will relieve system
+
+873
+00:23:47,076 --> 0:23:47,466
+pressure.
+
+874
+00:23:47,966 --> 0:23:49,066
+Also, if you're doing things
+
+875
+00:23:49,066 --> 0:23:50,326
+that we don't know about, such
+
+876
+00:23:50,326 --> 0:23:52,706
+as heavy GPU or CPU work, you
+
+877
+00:23:52,706 --> 0:23:53,696
+can throttle that back.
+
+878
+00:23:54,326 --> 0:23:57,946
+As a last resort, you might try
+
+879
+00:23:58,186 --> 0:23:59,266
+disabling one or more of the
+
+880
+00:23:59,266 --> 0:24:00,326
+cameras that you're using.
+
+881
+00:23:59,266 --> 0:24:00,326
+cameras that you're using.
+
+882
+00:24:00,646 --> 0:24:03,496
+AVMultiCamSession has a neat
+
+883
+00:24:03,886 --> 0:24:06,156
+little feature that, while
+
+884
+00:24:06,156 --> 0:24:08,196
+running, you can disable one of
+
+885
+00:24:08,196 --> 0:24:09,686
+the cameras without affecting
+
+886
+00:24:09,686 --> 0:24:10,706
+preview on the other.
+
+887
+00:24:10,786 --> 0:24:12,166
+We don't shut everything down.
+
+888
+00:24:12,556 --> 0:24:13,456
+So if for instance, you're
+
+889
+00:24:13,456 --> 0:24:14,236
+running with the front and the
+
+890
+00:24:14,236 --> 0:24:14,536
+back.
+
+891
+00:24:14,626 --> 0:24:15,836
+You notice that you're way over
+
+892
+00:24:15,836 --> 0:24:17,386
+budget, and you're soon going to
+
+893
+00:24:17,386 --> 0:24:19,426
+go critical, you could choose to
+
+894
+00:24:19,426 --> 0:24:20,646
+shut down the front camera.
+
+895
+00:24:20,806 --> 0:24:21,846
+The back camera will keep
+
+896
+00:24:21,846 --> 0:24:22,306
+previewing.
+
+897
+00:24:22,306 --> 0:24:23,356
+It won't lose its focus,
+
+898
+00:24:23,356 --> 0:24:24,646
+exposure, or white balance.
+
+899
+00:24:25,186 --> 0:24:27,536
+And when you shut down the last
+
+900
+00:24:27,646 --> 0:24:30,756
+active input port on the camera
+
+901
+00:24:30,756 --> 0:24:32,186
+that you want to disable by
+
+902
+00:24:32,186 --> 0:24:34,496
+setting its input ports enabled
+
+903
+00:24:34,496 --> 0:24:36,876
+property to false, we will stop
+
+904
+00:24:36,876 --> 0:24:38,336
+that camera streaming and save a
+
+905
+00:24:38,336 --> 0:24:39,806
+ton of power and give that
+
+906
+00:24:39,806 --> 0:24:41,626
+system a chance to cool off.
+
+907
+00:24:42,956 --> 0:24:43,546
+All right.
+
+908
+00:24:43,546 --> 0:24:45,456
+So I just talked about two very
+
+909
+00:24:45,456 --> 0:24:46,736
+important costs, hardware and
+
+910
+00:24:46,736 --> 0:24:47,616
+system pressure.
+
+911
+00:24:48,376 --> 0:24:49,706
+There are other costs that we
+
+912
+00:24:49,706 --> 0:24:50,516
+are not reporting.
+
+913
+00:24:50,516 --> 0:24:52,196
+I didn't want to trick you into
+
+914
+00:24:52,196 --> 0:24:52,986
+believing that there aren't
+
+915
+00:24:52,986 --> 0:24:54,306
+other things at work here.
+
+916
+00:24:54,346 --> 0:24:55,256
+There are, of course, other
+
+917
+00:24:55,256 --> 0:24:56,826
+costs, such as memory.
+
+918
+00:24:57,306 --> 0:24:58,906
+But in iOS 13, we are
+
+919
+00:24:58,906 --> 0:25:00,966
+artificially limiting the device
+
+920
+00:24:58,906 --> 0:25:00,966
+artificially limiting the device
+
+921
+00:25:00,966 --> 0:25:02,596
+combinations that we will allow
+
+922
+00:25:02,596 --> 0:25:04,856
+you to run, the ones that we are
+
+923
+00:25:04,856 --> 0:25:06,496
+confident will run, and that
+
+924
+00:25:06,496 --> 0:25:07,756
+will not get you into trouble.
+
+925
+00:25:09,136 --> 0:25:11,326
+So we have a limited number of
+
+926
+00:25:11,326 --> 0:25:13,056
+supported device combinations.
+
+927
+00:25:13,366 --> 0:25:14,386
+Here, I'm listing the ones that
+
+928
+00:25:14,386 --> 0:25:16,346
+are supported on iPhone XS.
+
+929
+00:25:16,776 --> 0:25:17,846
+This is kind of an eye chart.
+
+930
+00:25:17,846 --> 0:25:18,976
+I don't expect you to remember
+
+931
+00:25:18,976 --> 0:25:19,156
+this.
+
+932
+00:25:19,156 --> 0:25:20,336
+You can pause the video later.
+
+933
+00:25:20,666 --> 0:25:21,796
+But there are six supported
+
+934
+00:25:21,796 --> 0:25:22,426
+configs.
+
+935
+00:25:22,426 --> 0:25:23,756
+And the simple rule to remember
+
+936
+00:25:23,756 --> 0:25:25,216
+is that you're allowed to run
+
+937
+00:25:25,216 --> 0:25:26,976
+two physical cameras at a time.
+
+938
+00:25:27,516 --> 0:25:28,466
+You might be questioning like,
+
+939
+00:25:28,706 --> 0:25:30,566
+"Brad, what about config number
+
+940
+00:25:30,566 --> 0:25:30,946
+one there?
+
+941
+00:25:30,946 --> 0:25:32,346
+There's only one checkbox."
+
+942
+00:25:32,766 --> 0:25:33,746
+That's because it's the Dual
+
+943
+00:25:33,746 --> 0:25:34,206
+Camera.
+
+944
+00:25:34,426 --> 0:25:35,566
+And the Dual Camera is a
+
+945
+00:25:35,566 --> 0:25:37,146
+software camera that's actually
+
+946
+00:25:37,146 --> 0:25:38,506
+comprised of the wide and the
+
+947
+00:25:38,506 --> 0:25:39,076
+telephoto.
+
+948
+00:25:39,076 --> 0:25:40,586
+So it is two physical cameras.
+
+949
+00:25:41,976 --> 0:25:43,306
+How do you find out if MultiCam
+
+950
+00:25:43,306 --> 0:25:43,936
+is supported?
+
+951
+00:25:44,276 --> 0:25:45,616
+Like I said, it's only supported
+
+952
+00:25:45,616 --> 0:25:46,526
+on newer hardware.
+
+953
+00:25:46,936 --> 0:25:48,466
+So you need to check if
+
+954
+00:25:48,466 --> 0:25:50,016
+MultiCamSession will let you run
+
+955
+00:25:50,016 --> 0:25:51,766
+multiple cameras or not on the
+
+956
+00:25:51,766 --> 0:25:52,646
+device that you have.
+
+957
+00:25:53,206 --> 0:25:54,366
+There's a class method called
+
+958
+00:25:54,366 --> 0:25:56,026
+isMultiCamSupported, which you
+
+959
+00:25:56,026 --> 0:25:58,086
+can right away decide yes or no.
+
+960
+00:25:58,226 --> 0:26:00,106
+And then further, when you want
+
+961
+00:25:58,226 --> 0:26:00,106
+And then further, when you want
+
+962
+00:26:00,106 --> 0:26:01,426
+to decide, "Am I allowed to run
+
+963
+00:26:01,426 --> 0:26:02,756
+this combination of devices
+
+964
+00:26:02,756 --> 0:26:03,256
+together?"
+
+965
+00:26:03,676 --> 0:26:04,406
+You can create an
+
+966
+00:26:04,406 --> 0:26:06,266
+AVCaptureDeviceDiscoverySession
+
+967
+00:26:06,596 --> 0:26:07,626
+with the devices that you're
+
+968
+00:26:07,626 --> 0:26:08,216
+interested in.
+
+969
+00:26:08,216 --> 0:26:09,506
+And then ask it for its new
+
+970
+00:26:09,506 --> 0:26:10,066
+property,
+
+971
+00:26:10,436 --> 0:26:12,676
+supportedMultiCamDeviceSets.
+
+972
+00:26:12,676 --> 0:26:14,456
+And this will produce an array
+
+973
+00:26:14,456 --> 0:26:16,706
+of unordered sets that tell you
+
+974
+00:26:16,706 --> 0:26:17,846
+which ones you're allowed to use
+
+975
+00:26:17,846 --> 0:26:18,186
+together.
+
+976
+00:26:19,236 --> 0:26:21,216
+Next up is a way that we are
+
+977
+00:26:21,216 --> 0:26:23,336
+artificially limiting the
+
+978
+00:26:23,496 --> 0:26:24,586
+formats that you're allowed to
+
+979
+00:26:24,586 --> 0:26:24,846
+run.
+
+980
+00:26:25,546 --> 0:26:27,416
+The supported formats, last I
+
+981
+00:26:27,536 --> 0:26:28,996
+checked on an iPhone XS, there
+
+982
+00:26:29,566 --> 0:26:31,386
+were more than 40 formats on the
+
+983
+00:26:31,386 --> 0:26:32,006
+back camera.
+
+984
+00:26:32,006 --> 0:26:33,216
+So there are tons to choose
+
+985
+00:26:33,216 --> 0:26:33,466
+from.
+
+986
+00:26:33,626 --> 0:26:35,016
+But we are limiting the actual
+
+987
+00:26:35,016 --> 0:26:36,276
+video formats allowed to run
+
+988
+00:26:36,276 --> 0:26:37,956
+with MultiCamSession because
+
+989
+00:26:37,956 --> 0:26:39,146
+these are the ones that we can
+
+990
+00:26:39,146 --> 0:26:41,226
+comfortably run simultaneously
+
+991
+00:26:41,526 --> 0:26:42,706
+on end devices.
+
+992
+00:26:43,196 --> 0:26:44,096
+So, again, this is a bit of an
+
+993
+00:26:44,096 --> 0:26:45,066
+eye chart, but I'm going to draw
+
+994
+00:26:45,066 --> 0:26:46,346
+your attention to groups.
+
+995
+00:26:46,966 --> 0:26:48,506
+First group is the binned
+
+996
+00:26:48,556 --> 0:26:49,136
+formats.
+
+997
+00:26:49,346 --> 0:26:50,386
+Remember low power?
+
+998
+00:26:50,386 --> 0:26:51,666
+Yay. These are our friends.
+
+999
+00:26:51,936 --> 0:26:53,036
+At the sensor, you're getting
+
+1000
+00:26:53,386 --> 0:26:54,496
+that 2x2 binning.
+
+1001
+00:26:54,496 --> 0:26:55,786
+So you're getting a very low
+
+1002
+00:26:55,786 --> 0:26:56,196
+power.
+
+1003
+00:26:57,016 --> 0:26:58,346
+All of these are available up to
+
+1004
+00:26:58,346 --> 0:26:59,166
+60 fps.
+
+1005
+00:26:59,296 --> 0:27:01,336
+You've got choices from 640x480
+
+1006
+00:26:59,296 --> 0:27:01,336
+You've got choices from 640x480
+
+1007
+00:27:01,336 --> 0:27:03,896
+all the way up to 1920x1440.
+
+1008
+00:27:04,006 --> 0:27:07,886
+Next group is the 1920x1080 at
+
+1009
+00:27:07,946 --> 0:27:08,296
+30.
+
+1010
+00:27:08,296 --> 0:27:10,076
+This is an unbinned format.
+
+1011
+00:27:10,416 --> 0:27:11,746
+And this is the same as the one
+
+1012
+00:27:11,746 --> 0:27:12,806
+you would get if you chose the
+
+1013
+00:27:12,806 --> 0:27:14,366
+high preset on a regular
+
+1014
+00:27:14,536 --> 0:27:15,396
+traditional session.
+
+1015
+00:27:15,996 --> 0:27:17,176
+This one is available for
+
+1016
+00:27:17,176 --> 0:27:18,066
+MultiCam use.
+
+1017
+00:27:18,406 --> 0:27:21,606
+The final one is 1920x1440
+
+1018
+00:27:21,606 --> 0:27:22,766
+unbinned at 30 fps.
+
+1019
+00:27:23,256 --> 0:27:24,616
+This is kind of a good stand-in
+
+1020
+00:27:24,616 --> 0:27:25,666
+for the photo format.
+
+1021
+00:27:26,206 --> 0:27:28,726
+We do not support 12 megapixel
+
+1022
+00:27:28,726 --> 0:27:29,886
+on end cameras.
+
+1023
+00:27:30,216 --> 0:27:31,706
+That would certainly do bad
+
+1024
+00:27:31,756 --> 0:27:32,566
+things to the phone.
+
+1025
+00:27:33,026 --> 0:27:34,316
+But we do allow you to do
+
+1026
+00:27:34,316 --> 0:27:36,696
+1920x1440 at 30 fps.
+
+1027
+00:27:36,756 --> 0:27:38,316
+And notice it still allows you
+
+1028
+00:27:38,316 --> 0:27:40,056
+to do 12 megapixel high res
+
+1029
+00:27:40,056 --> 0:27:40,556
+stills.
+
+1030
+00:27:40,926 --> 0:27:43,416
+So this is a very good proxy for
+
+1031
+00:27:43,886 --> 0:27:45,236
+when you want to do photography
+
+1032
+00:27:45,436 --> 0:27:46,466
+with multiple cameras
+
+1033
+00:27:46,466 --> 0:27:47,256
+simultaneously.
+
+1034
+00:27:47,826 --> 0:27:51,026
+Now, how do you find out if a
+
+1035
+00:27:51,026 --> 0:27:52,446
+format supports MultiCam?
+
+1036
+00:27:52,636 --> 0:27:53,446
+You just ask it.
+
+1037
+00:27:53,836 --> 0:27:54,826
+So while iterating through the
+
+1038
+00:27:54,826 --> 0:27:55,336
+formats.
+
+1039
+00:27:55,336 --> 0:27:57,196
+You can say isMultiCamSupported?
+
+1040
+00:27:57,196 --> 0:27:58,636
+And if it is, you're allowed to
+
+1041
+00:27:58,636 --> 0:27:59,036
+use it.
+
+1042
+00:27:59,606 --> 0:28:01,326
+In this code here, I'm iterating
+
+1043
+00:27:59,606 --> 0:28:01,326
+In this code here, I'm iterating
+
+1044
+00:28:01,326 --> 0:28:02,736
+through the formats on a device
+
+1045
+00:28:03,026 --> 0:28:04,916
+and picking the next lowest one
+
+1046
+00:28:04,916 --> 0:28:06,996
+in resolution that supports
+
+1047
+00:28:06,996 --> 0:28:08,656
+MultiCam, and then setting it as
+
+1048
+00:28:08,656 --> 0:28:09,466
+my active format.
+
+1049
+00:28:09,466 --> 0:28:12,666
+Last way that we're artificially
+
+1050
+00:28:12,666 --> 0:28:15,256
+limiting is because we need to
+
+1051
+00:28:15,256 --> 0:28:17,836
+report costs, and those costs
+
+1052
+00:28:17,836 --> 0:28:18,826
+are reported by the
+
+1053
+00:28:18,826 --> 0:28:20,676
+MultiCamSession, we're
+
+1054
+00:28:20,676 --> 0:28:22,386
+specifically not supporting on
+
+1055
+00:28:22,536 --> 0:28:24,966
+iOS multiple sessions with
+
+1056
+00:28:24,966 --> 0:28:26,636
+multiple cameras in an app.
+
+1057
+00:28:26,756 --> 0:28:28,036
+And we're also not supporting
+
+1058
+00:28:28,246 --> 0:28:29,786
+multiple cameras in multiple
+
+1059
+00:28:29,786 --> 0:28:31,186
+apps simultaneously.
+
+1060
+00:28:31,476 --> 0:28:33,496
+Just be aware that the support
+
+1061
+00:28:33,496 --> 0:28:34,946
+on iOS is still limited to one
+
+1062
+00:28:34,946 --> 0:28:35,806
+session at a time.
+
+1063
+00:28:36,136 --> 0:28:37,276
+But of course, you can do -- run
+
+1064
+00:28:37,276 --> 0:28:40,296
+multiple cameras at a time.
+
+1065
+00:28:40,296 --> 0:28:42,096
+Thus concludes the Dad Talk.
+
+1066
+00:28:42,806 --> 0:28:42,986
+Okay?
+
+1067
+00:28:43,066 --> 0:28:43,846
+Write good code.
+
+1068
+00:28:44,506 --> 0:28:45,546
+Be home by 11:00.
+
+1069
+00:28:45,826 --> 0:28:47,246
+If your plans change, call me.
+
+1070
+00:28:47,626 --> 0:28:48,556
+All right.
+
+1071
+00:28:48,946 --> 0:28:50,976
+All right, now back to the fun
+
+1072
+00:28:50,976 --> 0:28:51,376
+stuff.
+
+1073
+00:28:52,656 --> 0:28:53,606
+Synchronized Streaming.
+
+1074
+00:28:54,126 --> 0:28:57,066
+I talked a little bit about
+
+1075
+00:28:57,066 --> 0:28:58,156
+software cameras.
+
+1076
+00:28:59,036 --> 0:29:00,386
+Dual Camera, for one, was
+
+1077
+00:28:59,036 --> 0:29:00,386
+Dual Camera, for one, was
+
+1078
+00:29:00,386 --> 0:29:02,156
+introduced on iPhone 7 Plus.
+
+1079
+00:29:02,566 --> 0:29:03,616
+And it's now present on the
+
+1080
+00:29:03,616 --> 0:29:05,626
+iPhone XS and XS Max as well.
+
+1081
+00:29:05,626 --> 0:29:07,616
+And the TrueDepth camera is also
+
+1082
+00:29:07,616 --> 0:29:08,846
+another kind of software camera
+
+1083
+00:29:08,846 --> 0:29:10,546
+because it's comprised of an
+
+1084
+00:29:10,546 --> 0:29:12,266
+infrared camera and an RGB
+
+1085
+00:29:12,266 --> 0:29:15,086
+camera that is able to do depth
+
+1086
+00:29:15,186 --> 0:29:16,516
+by taking the disparity between
+
+1087
+00:29:16,516 --> 0:29:17,026
+those two.
+
+1088
+00:29:18,296 --> 0:29:20,316
+Now, we've never given these
+
+1089
+00:29:20,546 --> 0:29:22,326
+special types of cameras a name.
+
+1090
+00:29:22,886 --> 0:29:23,896
+But we're doing that now.
+
+1091
+00:29:24,016 --> 0:29:25,486
+In iOS 13, we're calling them
+
+1092
+00:29:25,486 --> 0:29:26,556
+virtual cameras.
+
+1093
+00:29:27,116 --> 0:29:29,566
+DualCam is one of them.
+
+1094
+00:29:29,566 --> 0:29:31,016
+It presents one video stream at
+
+1095
+00:29:31,016 --> 0:29:33,686
+a time and it switches between
+
+1096
+00:29:33,686 --> 0:29:35,536
+them based on your field -- your
+
+1097
+00:29:35,536 --> 0:29:36,226
+zoom factor.
+
+1098
+00:29:36,406 --> 0:29:38,586
+So as you get closer to a 2X, it
+
+1099
+00:29:38,586 --> 0:29:40,146
+switches over to the telephoto
+
+1100
+00:29:40,146 --> 0:29:41,186
+camera instead of the wide
+
+1101
+00:29:41,186 --> 0:29:41,576
+camera.
+
+1102
+00:29:42,036 --> 0:29:43,626
+It also can do neat tricks with
+
+1103
+00:29:43,976 --> 0:29:45,786
+depth because it has two images
+
+1104
+00:29:45,816 --> 0:29:47,036
+that it can use to generate
+
+1105
+00:29:47,036 --> 0:29:48,026
+disparity between them.
+
+1106
+00:29:48,576 --> 0:29:49,296
+But still, from your
+
+1107
+00:29:49,296 --> 0:29:50,266
+perspective, you've only been
+
+1108
+00:29:50,266 --> 0:29:52,906
+able to get one stream at a
+
+1109
+00:29:53,736 --> 0:29:53,846
+time.
+
+1110
+00:29:54,046 --> 0:29:55,766
+Because we have a name now, they
+
+1111
+00:29:55,766 --> 0:29:57,536
+are also a property in the API,
+
+1112
+00:29:57,536 --> 0:29:58,406
+which you can query.
+
+1113
+00:29:58,486 --> 0:29:59,516
+So as you're looking at your
+
+1114
+00:29:59,516 --> 0:30:01,036
+camera devices, you can find out
+
+1115
+00:29:59,516 --> 0:30:01,036
+camera devices, you can find out
+
+1116
+00:30:01,426 --> 0:30:02,996
+programmatically is this one a
+
+1117
+00:30:02,996 --> 0:30:03,846
+virtual device?
+
+1118
+00:30:04,236 --> 0:30:05,856
+And if it is, you can ask it,
+
+1119
+00:30:05,936 --> 0:30:07,066
+"Well, what are your physical
+
+1120
+00:30:07,066 --> 0:30:07,666
+devices?"
+
+1121
+00:30:08,146 --> 0:30:10,096
+And in the API, we call this its
+
+1122
+00:30:10,256 --> 0:30:11,626
+constituentDevices.
+
+1123
+00:30:13,556 --> 0:30:15,256
+Synchronized streaming is all
+
+1124
+00:30:15,256 --> 0:30:17,216
+about taking those constituent
+
+1125
+00:30:17,216 --> 0:30:20,096
+devices of a virtual device and
+
+1126
+00:30:20,096 --> 0:30:21,996
+running them synchronized.
+
+1127
+00:30:22,326 --> 0:30:23,436
+In other words, for the first
+
+1128
+00:30:23,436 --> 0:30:24,916
+time, we're allowing you to
+
+1129
+00:30:24,916 --> 0:30:26,856
+stream synchronized video from
+
+1130
+00:30:26,856 --> 0:30:28,326
+the wide and the tele at the
+
+1131
+00:30:28,326 --> 0:30:30,456
+same time.
+
+1132
+00:30:30,626 --> 0:30:31,506
+You continue to set the
+
+1133
+00:30:31,506 --> 0:30:32,726
+properties on the virtual
+
+1134
+00:30:32,726 --> 0:30:34,196
+device, not on the constituent
+
+1135
+00:30:34,196 --> 0:30:34,796
+devices.
+
+1136
+00:30:35,326 --> 0:30:38,136
+And there are some rules in
+
+1137
+00:30:38,136 --> 0:30:38,626
+place.
+
+1138
+00:30:39,426 --> 0:30:40,826
+When you run the virtual device,
+
+1139
+00:30:41,186 --> 0:30:43,116
+the constituent devices aren't
+
+1140
+00:30:43,116 --> 0:30:44,246
+allowed to run willy nilly.
+
+1141
+00:30:45,116 --> 0:30:46,446
+They have the same active
+
+1142
+00:30:46,446 --> 0:30:47,186
+resolution.
+
+1143
+00:30:47,186 --> 0:30:48,486
+They have the same frame rate.
+
+1144
+00:30:49,066 --> 0:30:50,836
+And at a hardware level, they
+
+1145
+00:30:50,836 --> 0:30:51,866
+are synchronized.
+
+1146
+00:30:52,196 --> 0:30:55,356
+That means that they are reading
+
+1147
+00:30:55,356 --> 0:30:55,616
+out.
+
+1148
+00:30:55,656 --> 0:30:57,226
+The sensor is reading out those
+
+1149
+00:30:57,226 --> 0:30:58,376
+frames in a synchronized
+
+1150
+00:30:58,376 --> 0:30:58,786
+fashion.
+
+1151
+00:30:58,786 --> 0:31:01,056
+So that the middle of -- middle
+
+1152
+00:30:58,786 --> 0:31:01,056
+So that the middle of -- middle
+
+1153
+00:31:01,056 --> 0:31:03,376
+line of the readout is exactly
+
+1154
+00:31:03,376 --> 0:31:04,756
+at the same clock time.
+
+1155
+00:31:05,706 --> 0:31:07,216
+So, that means that they match
+
+1156
+00:31:07,346 --> 0:31:08,306
+at the frame centers.
+
+1157
+00:31:08,596 --> 0:31:10,496
+It also means that the exposure,
+
+1158
+00:31:10,706 --> 0:31:12,536
+white balance, and focus happen
+
+1159
+00:31:12,536 --> 0:31:14,046
+in tandem, which is really nice.
+
+1160
+00:31:14,046 --> 0:31:15,346
+It makes it look like virtually
+
+1161
+00:31:15,346 --> 0:31:16,446
+it is the same camera.
+
+1162
+00:31:16,646 --> 0:31:17,696
+It just happens to be at two
+
+1163
+00:31:17,696 --> 0:31:19,136
+different fields of view.
+
+1164
+00:31:21,836 --> 0:31:23,986
+This is best shown rather than
+
+1165
+00:31:23,986 --> 0:31:24,756
+talked about.
+
+1166
+00:31:24,756 --> 0:31:25,786
+So, let's do a demo.
+
+1167
+00:31:26,006 --> 0:31:27,986
+This one's called AVDualCam.
+
+1168
+00:31:28,546 --> 0:31:29,826
+There we are.
+
+1169
+00:31:31,276 --> 0:31:33,656
+Okay, AVDualCam lets you see
+
+1170
+00:31:34,076 --> 0:31:36,306
+what a virtual camera sees by
+
+1171
+00:31:36,306 --> 0:31:37,926
+showing you a display of the two
+
+1172
+00:31:37,926 --> 0:31:39,446
+cameras running synchronized.
+
+1173
+00:31:39,656 --> 0:31:42,106
+And it does this by showing you
+
+1174
+00:31:42,106 --> 0:31:43,516
+several different views of those
+
+1175
+00:31:43,516 --> 0:31:44,086
+cameras.
+
+1176
+00:31:44,916 --> 0:31:47,346
+Okay, here I've got the wide and
+
+1177
+00:31:47,346 --> 0:31:49,276
+the tele constituent streams of
+
+1178
+00:31:49,276 --> 0:31:50,806
+the Dual Camera running
+
+1179
+00:31:50,806 --> 0:31:51,496
+synchronized.
+
+1180
+00:31:51,856 --> 0:31:53,136
+On the left is the wide.
+
+1181
+00:31:53,476 --> 0:31:54,876
+And on the right is the tele.
+
+1182
+00:31:55,656 --> 0:31:56,406
+Don't believe me?
+
+1183
+00:31:56,406 --> 0:31:56,506
+Here.
+
+1184
+00:31:57,076 --> 0:31:58,186
+I'm going to put my finger over
+
+1185
+00:31:58,186 --> 0:31:58,686
+one side.
+
+1186
+00:31:58,686 --> 0:32:01,076
+Ooh. I'm going to put my finger
+
+1187
+00:31:58,686 --> 0:32:01,076
+Ooh. I'm going to put my finger
+
+1188
+00:32:01,076 --> 0:32:01,596
+over the other side.
+
+1189
+00:32:01,596 --> 0:32:02,976
+See? They're different cameras.
+
+1190
+00:32:03,516 --> 0:32:05,606
+[ Applause ]
+
+1191
+00:32:06,106 --> 0:32:07,736
+All I've done with the wide is
+
+1192
+00:32:07,736 --> 0:32:08,966
+zoom it so it's at the same
+
+1193
+00:32:08,966 --> 0:32:09,956
+field of view as the tele.
+
+1194
+00:32:10,636 --> 0:32:12,516
+But you can notice that they're
+
+1195
+00:32:12,516 --> 0:32:13,986
+running perfectly synchronized.
+
+1196
+00:32:13,986 --> 0:32:15,506
+There's no tearing.
+
+1197
+00:32:15,506 --> 0:32:16,676
+There's no weirdness in the
+
+1198
+00:32:16,676 --> 0:32:17,526
+vertical blanking.
+
+1199
+00:32:18,146 --> 0:32:20,196
+Their exposures and focuses
+
+1200
+00:32:20,196 --> 0:32:21,376
+change at the same time.
+
+1201
+00:32:22,556 --> 0:32:23,396
+Now we can have a little bit
+
+1202
+00:32:23,396 --> 0:32:24,506
+more fun if we change from the
+
+1203
+00:32:24,506 --> 0:32:27,466
+side-by-side view to the split
+
+1204
+00:32:27,466 --> 0:32:27,706
+view.
+
+1205
+00:32:28,246 --> 0:32:29,416
+Now, this is a little bit hard
+
+1206
+00:32:29,416 --> 0:32:29,916
+to see.
+
+1207
+00:32:30,306 --> 0:32:33,136
+But I'm showing the tele-- the
+
+1208
+00:32:33,136 --> 0:32:35,166
+wide on the left and the tele on
+
+1209
+00:32:35,166 --> 0:32:35,496
+the right.
+
+1210
+00:32:35,676 --> 0:32:36,866
+So I'm only showing you half of
+
+1211
+00:32:36,866 --> 0:32:37,376
+each frame.
+
+1212
+00:32:38,506 --> 0:32:40,676
+Now if I triple tap, I bring up
+
+1213
+00:32:40,756 --> 0:32:43,566
+Distance-o-meter, which lets me
+
+1214
+00:32:43,566 --> 0:32:45,846
+change the plane of depth
+
+1215
+00:32:45,936 --> 0:32:47,616
+convergence for the two images.
+
+1216
+00:32:48,246 --> 0:32:50,426
+This app knows how to register
+
+1217
+00:32:50,426 --> 0:32:51,936
+the two images relative to one
+
+1218
+00:32:51,936 --> 0:32:52,336
+another.
+
+1219
+00:32:52,596 --> 0:32:54,456
+So, it lets me play with the
+
+1220
+00:32:54,516 --> 0:32:55,736
+plane at which the depth
+
+1221
+00:32:55,736 --> 0:32:56,256
+converges.
+
+1222
+00:32:56,256 --> 0:32:57,416
+Kind of like with your eyes.
+
+1223
+00:32:57,976 --> 0:32:59,296
+When you focus on something up
+
+1224
+00:32:59,336 --> 0:33:01,186
+close or far away, you're kind
+
+1225
+00:32:59,336 --> 0:33:01,186
+close or far away, you're kind
+
+1226
+00:33:01,186 --> 0:33:02,436
+of changing that depth plane of
+
+1227
+00:33:02,486 --> 0:33:03,126
+convergence.
+
+1228
+00:33:03,516 --> 0:33:05,126
+So for instance, up close with
+
+1229
+00:33:05,126 --> 0:33:07,706
+my hand, I can find the place
+
+1230
+00:33:07,706 --> 0:33:09,886
+where the depth converges
+
+1231
+00:33:09,886 --> 0:33:10,476
+nicely.
+
+1232
+00:33:10,676 --> 0:33:11,156
+There we go.
+
+1233
+00:33:11,156 --> 0:33:12,686
+Now I've got one hand.
+
+1234
+00:33:13,256 --> 0:33:14,986
+But that's not right for the car
+
+1235
+00:33:14,986 --> 0:33:15,526
+behind me.
+
+1236
+00:33:15,526 --> 0:33:17,586
+So I can keep going further --
+
+1237
+00:33:17,756 --> 0:33:18,726
+be further away.
+
+1238
+00:33:20,056 --> 0:33:20,556
+There we go.
+
+1239
+00:33:20,556 --> 0:33:21,976
+And that's not right for the car
+
+1240
+00:33:21,976 --> 0:33:22,766
+behind it.
+
+1241
+00:33:23,536 --> 0:33:25,916
+So now I can pull that guy back
+
+1242
+00:33:25,916 --> 0:33:26,116
+too.
+
+1243
+00:33:26,196 --> 0:33:28,696
+And that's Dual Camera
+
+1244
+00:33:28,696 --> 0:33:30,076
+streaming-- Synchronized from
+
+1245
+00:33:30,076 --> 0:33:30,876
+the Dual Cameras.
+
+1246
+00:33:31,516 --> 0:33:36,500
+[ Applause ]
+
+1247
+00:33:39,256 --> 0:33:40,536
+Here's a diagram showing
+
+1248
+00:33:40,706 --> 0:33:42,166
+AVDualCam's graph.
+
+1249
+00:33:43,296 --> 0:33:44,936
+Instead of using separate device
+
+1250
+00:33:44,936 --> 0:33:46,216
+inputs, it just has one.
+
+1251
+00:33:46,786 --> 0:33:47,856
+So it's using a single device
+
+1252
+00:33:47,856 --> 0:33:49,036
+input for the Dual Camera.
+
+1253
+00:33:49,366 --> 0:33:51,076
+But it's sourcing wide and tele
+
+1254
+00:33:51,076 --> 0:33:53,456
+frames in a synchronized fashion
+
+1255
+00:33:53,906 --> 0:33:55,426
+to two VideoDataOutputs.
+
+1256
+00:33:56,286 --> 0:33:57,346
+You'll notice that there is a
+
+1257
+00:33:57,526 --> 0:33:59,426
+little object, a little pill at
+
+1258
+00:33:59,426 --> 0:34:00,166
+the bottom called the
+
+1259
+00:33:59,426 --> 0:34:00,166
+the bottom called the
+
+1260
+00:34:00,166 --> 0:34:02,046
+AVCaptureDataOutputSynchronizer.
+
+1261
+00:34:02,286 --> 0:34:03,266
+I don't want to confuse you.
+
+1262
+00:34:03,626 --> 0:34:04,816
+That thing is not doing the
+
+1263
+00:34:04,816 --> 0:34:06,036
+hardware synchronization that I
+
+1264
+00:34:06,036 --> 0:34:06,586
+talked about.
+
+1265
+00:34:06,876 --> 0:34:08,795
+It's just an object that sits at
+
+1266
+00:34:08,835 --> 0:34:10,466
+the bottom of a session if you
+
+1267
+00:34:10,466 --> 0:34:12,426
+desire, which lets you get
+
+1268
+00:34:12,656 --> 0:34:14,335
+multiple callbacks for the same
+
+1269
+00:34:14,396 --> 0:34:16,266
+time in a single callback.
+
+1270
+00:34:16,266 --> 0:34:17,666
+So, instead of getting a
+
+1271
+00:34:17,666 --> 0:34:18,835
+separate VideoDataOutput
+
+1272
+00:34:18,835 --> 0:34:19,846
+callback for the wide and the
+
+1273
+00:34:19,846 --> 0:34:21,176
+tele you can slap a
+
+1274
+00:34:21,176 --> 0:34:22,646
+DataOutputSynchronizer at the
+
+1275
+00:34:22,646 --> 0:34:24,216
+bottom and get both frames for
+
+1276
+00:34:24,216 --> 0:34:25,786
+the same time through a single
+
+1277
+00:34:25,786 --> 0:34:26,295
+callback.
+
+1278
+00:34:26,295 --> 0:34:27,746
+So it's very handy that way.
+
+1279
+00:34:28,366 --> 0:34:30,545
+Now below it, there's a Metal
+
+1280
+00:34:30,545 --> 0:34:31,976
+Shader Filter / Compositor
+
+1281
+00:34:31,976 --> 0:34:33,025
+that's doing some magic.
+
+1282
+00:34:33,576 --> 0:34:34,916
+Like I said, it's knowing how to
+
+1283
+00:34:34,916 --> 0:34:36,196
+blend those frames together.
+
+1284
+00:34:36,416 --> 0:34:38,005
+And it decides where to render
+
+1285
+00:34:38,005 --> 0:34:39,126
+those frames to the correct
+
+1286
+00:34:39,126 --> 0:34:40,286
+places in the preview.
+
+1287
+00:34:40,466 --> 0:34:42,436
+And it also can send them off to
+
+1288
+00:34:42,436 --> 0:34:44,016
+an AVAssetWriter to record into
+
+1289
+00:34:44,016 --> 0:34:45,166
+a video track.
+
+1290
+00:34:46,206 --> 0:34:48,335
+Now recall my earlier diagram.
+
+1291
+00:34:50,286 --> 0:34:51,686
+I showed you a close-up view of
+
+1292
+00:34:51,716 --> 0:34:53,166
+the AVCaptureDeviceInput,
+
+1293
+00:34:53,426 --> 0:34:54,735
+specifically the Dual Camera
+
+1294
+00:34:54,735 --> 0:34:55,016
+one.
+
+1295
+00:34:55,815 --> 0:34:57,045
+The ports property of the Dual
+
+1296
+00:34:57,045 --> 0:34:59,936
+Camera input exposes which ports
+
+1297
+00:34:59,936 --> 0:35:00,466
+you see there.
+
+1298
+00:34:59,936 --> 0:35:00,466
+you see there.
+
+1299
+00:35:01,526 --> 0:35:03,016
+Anybody see two video ports
+
+1300
+00:35:03,016 --> 0:35:03,236
+there?
+
+1301
+00:35:03,316 --> 0:35:06,116
+I don't see two video ports.
+
+1302
+00:35:06,146 --> 0:35:07,636
+So how do we get both wide and
+
+1303
+00:35:07,636 --> 0:35:10,446
+tele out of those input ports
+
+1304
+00:35:10,446 --> 0:35:11,226
+that we see here?
+
+1305
+00:35:11,526 --> 0:35:13,166
+Is that one video port somehow
+
+1306
+00:35:13,166 --> 0:35:13,916
+giving us two?
+
+1307
+00:35:14,396 --> 0:35:14,726
+No.
+
+1308
+00:35:14,726 --> 0:35:16,336
+It's not giving us wide or tele.
+
+1309
+00:35:16,446 --> 0:35:18,236
+It's giving us whatever the Dual
+
+1310
+00:35:18,236 --> 0:35:19,946
+Camera decides is right for the
+
+1311
+00:35:19,946 --> 0:35:22,056
+given zoom factor.
+
+1312
+00:35:22,056 --> 0:35:24,626
+That's not going to help us get
+
+1313
+00:35:24,626 --> 0:35:25,916
+both constituent streams at the
+
+1314
+00:35:25,916 --> 0:35:26,506
+same time.
+
+1315
+00:35:26,506 --> 0:35:27,946
+So how do we do that?
+
+1316
+00:35:28,676 --> 0:35:29,806
+Well, I'll tell you.
+
+1317
+00:35:30,396 --> 0:35:31,096
+But it's a secret.
+
+1318
+00:35:31,096 --> 0:35:32,226
+So you have to promise not to
+
+1319
+00:35:32,226 --> 0:35:32,786
+tell anybody.
+
+1320
+00:35:33,536 --> 0:35:33,716
+Okay?
+
+1321
+00:35:34,516 --> 0:35:36,896
+Virtual devices have secret
+
+1322
+00:35:36,966 --> 0:35:37,636
+ports.
+
+1323
+00:35:38,086 --> 0:35:38,286
+Okay?
+
+1324
+00:35:39,576 --> 0:35:42,606
+These secret ports, previously
+
+1325
+00:35:42,636 --> 0:35:44,126
+unbeknownst to you, are now
+
+1326
+00:35:44,126 --> 0:35:44,616
+available.
+
+1327
+00:35:44,616 --> 0:35:45,546
+But you don't get them out of
+
+1328
+00:35:45,546 --> 0:35:46,716
+the ports array.
+
+1329
+00:35:47,126 --> 0:35:49,776
+You get them by knowing what to
+
+1330
+00:35:49,776 --> 0:35:50,416
+ask for.
+
+1331
+00:35:51,106 --> 0:35:53,086
+So, instead of just getting an
+
+1332
+00:35:53,086 --> 0:35:54,836
+array of every conceivable type
+
+1333
+00:35:54,836 --> 0:35:56,396
+of port including ports that are
+
+1334
+00:35:56,396 --> 0:35:58,126
+not allowed to be used with
+
+1335
+00:35:58,126 --> 0:36:00,376
+Single cam session, you can ask
+
+1336
+00:35:58,126 --> 0:36:00,376
+Single cam session, you can ask
+
+1337
+00:36:00,376 --> 0:36:01,286
+for them by name.
+
+1338
+00:36:01,786 --> 0:36:02,606
+So here we have the
+
+1339
+00:36:02,606 --> 0:36:03,566
+dualCameraInput.
+
+1340
+00:36:03,626 --> 0:36:05,986
+And I'm asking for its ports
+
+1341
+00:36:05,986 --> 0:36:07,516
+with source device type
+
+1342
+00:36:07,796 --> 0:36:09,746
+wide-angle camera and source
+
+1343
+00:36:09,746 --> 0:36:11,536
+device type telephoto camera.
+
+1344
+00:36:12,226 --> 0:36:12,876
+It goes, aha.
+
+1345
+00:36:13,066 --> 0:36:14,086
+Those are the secret ports that
+
+1346
+00:36:14,086 --> 0:36:14,546
+I know about.
+
+1347
+00:36:14,546 --> 0:36:15,296
+I'll give them to you now.
+
+1348
+00:36:15,706 --> 0:36:16,966
+Once you've got those input
+
+1349
+00:36:16,966 --> 0:36:17,456
+ports.
+
+1350
+00:36:17,856 --> 0:36:18,836
+You can hook them up to a
+
+1351
+00:36:18,836 --> 0:36:20,426
+connection the same way that you
+
+1352
+00:36:20,426 --> 0:36:22,406
+would when doing your own manual
+
+1353
+00:36:22,476 --> 0:36:23,386
+connection creation.
+
+1354
+00:36:24,006 --> 0:36:25,576
+Then you're streaming from
+
+1355
+00:36:25,576 --> 0:36:27,266
+either the wide or the tele or
+
+1356
+00:36:27,266 --> 0:36:27,526
+both.
+
+1357
+00:36:29,106 --> 0:36:30,966
+Now in the AVDualCam demo, I was
+
+1358
+00:36:30,966 --> 0:36:32,146
+able to change the depth
+
+1359
+00:36:32,196 --> 0:36:34,526
+convergence plane of the wide
+
+1360
+00:36:34,526 --> 0:36:36,106
+and tele cameras with the
+
+1361
+00:36:36,106 --> 0:36:37,056
+correct perspective.
+
+1362
+00:36:37,056 --> 0:36:38,956
+And you saw that it wasn't kind
+
+1363
+00:36:38,956 --> 0:36:40,276
+of moving and shaking all over.
+
+1364
+00:36:40,276 --> 0:36:41,556
+It was just moving along the
+
+1365
+00:36:41,646 --> 0:36:42,786
+plane that I wanted it to.
+
+1366
+00:36:42,786 --> 0:36:44,506
+It was just along the plane of
+
+1367
+00:36:44,506 --> 0:36:45,116
+the baseline.
+
+1368
+00:36:45,256 --> 0:36:46,686
+And I was able to do that
+
+1369
+00:36:46,686 --> 0:36:48,336
+because AVFoundation offers us
+
+1370
+00:36:48,926 --> 0:36:50,216
+some homography aids.
+
+1371
+00:36:50,696 --> 0:36:51,616
+Homography is, if you're
+
+1372
+00:36:51,616 --> 0:36:52,546
+unfamiliar with the term, it
+
+1373
+00:36:52,546 --> 0:36:54,466
+just relates two images on the
+
+1374
+00:36:54,466 --> 0:36:55,146
+same plane.
+
+1375
+00:36:55,886 --> 0:36:57,166
+They are the basis for computer
+
+1376
+00:36:57,166 --> 0:36:57,486
+vision.
+
+1377
+00:36:57,806 --> 0:36:59,996
+They are common for such tasks
+
+1378
+00:36:59,996 --> 0:37:02,276
+as image rectification, image
+
+1379
+00:36:59,996 --> 0:37:02,276
+as image rectification, image
+
+1380
+00:37:02,276 --> 0:37:02,946
+registration.
+
+1381
+00:37:03,546 --> 0:37:05,906
+Now camera intrinsics are not
+
+1382
+00:37:05,906 --> 0:37:06,876
+new to iOS.
+
+1383
+00:37:06,876 --> 0:37:08,606
+We introduced those in iOS 11.
+
+1384
+00:37:09,436 --> 0:37:10,886
+They're presented as a 3x3
+
+1385
+00:37:10,886 --> 0:37:12,486
+matrix that describes the
+
+1386
+00:37:12,486 --> 0:37:13,946
+geometric properties of a
+
+1387
+00:37:14,046 --> 0:37:16,616
+camera, namely its focal length
+
+1388
+00:37:16,986 --> 0:37:19,386
+and its optical center seen here
+
+1389
+00:37:20,196 --> 0:37:22,706
+using the pinhole camera where
+
+1390
+00:37:22,706 --> 0:37:24,156
+you can see where it enters
+
+1391
+00:37:24,156 --> 0:37:25,736
+through the pinhole and hits the
+
+1392
+00:37:25,736 --> 0:37:27,146
+sensor, and that being the
+
+1393
+00:37:27,146 --> 0:37:28,736
+optical sensor, and the distance
+
+1394
+00:37:28,736 --> 0:37:29,966
+between the two being the focal
+
+1395
+00:37:29,966 --> 0:37:30,266
+length.
+
+1396
+00:37:31,696 --> 0:37:33,206
+Now you can opt-in to receive
+
+1397
+00:37:33,206 --> 0:37:35,296
+per-frame intrinsics by
+
+1398
+00:37:35,856 --> 0:37:36,476
+messaging the
+
+1399
+00:37:36,476 --> 0:37:38,156
+AVCaptureConnection and saying
+
+1400
+00:37:38,396 --> 0:37:39,836
+you want to opt-in for intrinsic
+
+1401
+00:37:39,866 --> 0:37:40,346
+delivery.
+
+1402
+00:37:40,776 --> 0:37:42,296
+Once you've done that, then
+
+1403
+00:37:42,356 --> 0:37:43,886
+every VideoDataOutput buffer
+
+1404
+00:37:43,886 --> 0:37:45,536
+that you receive has this
+
+1405
+00:37:45,536 --> 0:37:46,326
+attachment on it.
+
+1406
+00:37:46,746 --> 0:37:48,546
+CameraIntrinsicMatrix, which
+
+1407
+00:37:48,546 --> 0:37:50,686
+again is an NS data wrapping a
+
+1408
+00:37:51,006 --> 0:37:53,626
+matrix float, 3x3, which is a
+
+1409
+00:37:53,626 --> 0:37:54,286
+SIMDI type.
+
+1410
+00:37:54,936 --> 0:37:56,006
+You'll get -- when you get the
+
+1411
+00:37:56,006 --> 0:37:58,106
+wide frame, it has the matrix
+
+1412
+00:37:58,106 --> 0:37:59,076
+for the wide camera.
+
+1413
+00:37:59,386 --> 0:38:01,046
+When you get the tele frame, it
+
+1414
+00:37:59,386 --> 0:38:01,046
+When you get the tele frame, it
+
+1415
+00:38:01,046 --> 0:38:02,616
+has the matrix for the tele
+
+1416
+00:38:04,636 --> 0:38:04,966
+camera.
+
+1417
+00:38:04,966 --> 0:38:06,636
+Now new in iOS 13, we offer
+
+1418
+00:38:06,636 --> 0:38:09,026
+camera extrinsics at the device
+
+1419
+00:38:09,026 --> 0:38:09,306
+level.
+
+1420
+00:38:09,776 --> 0:38:12,556
+Extrinsics are a rotation matrix
+
+1421
+00:38:12,636 --> 0:38:14,146
+and a translation vector that
+
+1422
+00:38:14,296 --> 0:38:17,576
+are kind of crammed into one
+
+1423
+00:38:17,576 --> 0:38:18,426
+matrix together.
+
+1424
+00:38:18,866 --> 0:38:20,156
+And those describe the camera's
+
+1425
+00:38:20,186 --> 0:38:22,356
+pose compared to a reference
+
+1426
+00:38:23,396 --> 0:38:23,656
+camera.
+
+1427
+00:38:23,696 --> 0:38:24,686
+This helps you if you want to
+
+1428
+00:38:24,686 --> 0:38:25,756
+kind of relate where the two
+
+1429
+00:38:25,756 --> 0:38:28,516
+cameras are, both their tilt and
+
+1430
+00:38:28,516 --> 0:38:29,446
+how far away they are.
+
+1431
+00:38:29,886 --> 0:38:32,906
+So AVDualCam uses the extrinsics
+
+1432
+00:38:33,226 --> 0:38:34,886
+to know how to align the wide
+
+1433
+00:38:34,886 --> 0:38:36,986
+and the tele camera frames with
+
+1434
+00:38:36,986 --> 0:38:38,116
+respect to one another so it's
+
+1435
+00:38:38,116 --> 0:38:38,996
+able to do those neat
+
+1436
+00:38:38,996 --> 0:38:40,006
+perspective shifts.
+
+1437
+00:38:40,096 --> 0:38:43,486
+That was a very, very brief
+
+1438
+00:38:43,486 --> 0:38:45,156
+refresher on intrinsics and
+
+1439
+00:38:45,296 --> 0:38:46,126
+extrinsics.
+
+1440
+00:38:46,426 --> 0:38:47,636
+So I described them in
+
+1441
+00:38:47,896 --> 0:38:49,686
+absolutely excruciating detail
+
+1442
+00:38:49,686 --> 0:38:51,856
+two years ago in session 507.
+
+1443
+00:38:52,216 --> 0:38:53,406
+So I'd invite you to review that
+
+1444
+00:38:53,406 --> 0:38:54,436
+session if you have a very
+
+1445
+00:38:54,436 --> 0:38:55,936
+strong stomach for puns.
+
+1446
+00:38:56,071 --> 0:38:58,071
+[ Chuckling ]
+
+1447
+00:38:58,126 --> 0:39:00,706
+Okay, the last topic of MultiCam
+
+1448
+00:38:58,126 --> 0:39:00,706
+Okay, the last topic of MultiCam
+
+1449
+00:39:00,706 --> 0:39:03,366
+Capture is Multi-Mic Capture.
+
+1450
+00:39:03,916 --> 0:39:05,276
+All right.
+
+1451
+00:39:05,506 --> 0:39:06,666
+Let's review the default
+
+1452
+00:39:06,666 --> 0:39:09,286
+Behaviors of a microphone
+
+1453
+00:39:09,286 --> 0:39:10,946
+capture when using a traditional
+
+1454
+00:39:10,946 --> 0:39:11,736
+AVCaptureSession.
+
+1455
+00:39:13,696 --> 0:39:16,036
+The mic follows the camera.
+
+1456
+00:39:16,456 --> 0:39:17,526
+That's as simple as I can put
+
+1457
+00:39:17,526 --> 0:39:17,636
+it.
+
+1458
+00:39:17,906 --> 0:39:19,696
+So if you have a front-facing
+
+1459
+00:39:19,696 --> 0:39:21,236
+camera attached to your session
+
+1460
+00:39:21,486 --> 0:39:24,456
+and a mic, it will automatically
+
+1461
+00:39:24,496 --> 0:39:25,966
+choose the mic that's pointed
+
+1462
+00:39:25,966 --> 0:39:27,086
+the same direction as the front
+
+1463
+00:39:27,086 --> 0:39:27,516
+camera.
+
+1464
+00:39:28,036 --> 0:39:28,846
+Same goes for the back.
+
+1465
+00:39:29,066 --> 0:39:30,766
+And it will make a nice cardioid
+
+1466
+00:39:30,766 --> 0:39:32,836
+pattern so that it rejects audio
+
+1467
+00:39:32,836 --> 0:39:33,886
+out the side that you don't
+
+1468
+00:39:33,886 --> 0:39:34,206
+want.
+
+1469
+00:39:34,756 --> 0:39:35,936
+That way, you're able to follow
+
+1470
+00:39:36,016 --> 0:39:37,256
+your subject, be it back or
+
+1471
+00:39:37,256 --> 0:39:37,576
+front.
+
+1472
+00:39:37,886 --> 0:39:39,196
+If you have an audio-only
+
+1473
+00:39:39,196 --> 0:39:40,256
+session, we're not really sure
+
+1474
+00:39:40,256 --> 0:39:41,466
+what direction to direct the
+
+1475
+00:39:41,466 --> 0:39:41,836
+audio.
+
+1476
+00:39:41,836 --> 0:39:42,656
+So, we just give you an
+
+1477
+00:39:42,656 --> 0:39:43,896
+omnidirectional field.
+
+1478
+00:39:44,036 --> 0:39:46,416
+And as a power feature, you can
+
+1479
+00:39:46,416 --> 0:39:47,876
+disable all of that by saying,
+
+1480
+00:39:48,186 --> 0:39:49,586
+"Hands off, AVCaptureSession.
+
+1481
+00:39:49,646 --> 0:39:51,296
+I want to use my own AV audio
+
+1482
+00:39:51,296 --> 0:39:53,136
+session and configure my audio
+
+1483
+00:39:53,136 --> 0:39:53,716
+on my own."
+
+1484
+00:39:53,926 --> 0:39:56,966
+And we'll honor that.
+
+1485
+00:39:57,236 --> 0:39:58,526
+So now comes the time for
+
+1486
+00:39:58,526 --> 0:39:59,776
+another dirty little secret.
+
+1487
+00:40:02,636 --> 0:40:04,076
+There is no such thing as a
+
+1488
+00:40:04,076 --> 0:40:04,406
+front mic.
+
+1489
+00:40:04,406 --> 0:40:06,376
+I totally just lied to you.
+
+1490
+00:40:07,386 --> 0:40:10,096
+In actuality, iPhones contain
+
+1491
+00:40:10,096 --> 0:40:11,456
+arrays of microphones.
+
+1492
+00:40:11,526 --> 0:40:12,756
+And there are different numbers
+
+1493
+00:40:12,756 --> 0:40:13,916
+depending on the devices.
+
+1494
+00:40:14,316 --> 0:40:15,386
+Recent iPhones happen to have
+
+1495
+00:40:15,466 --> 0:40:16,016
+four.
+
+1496
+00:40:16,016 --> 0:40:17,096
+iPads have five.
+
+1497
+00:40:17,576 --> 0:40:18,416
+And they are positioned at
+
+1498
+00:40:18,416 --> 0:40:20,056
+different strategic locations.
+
+1499
+00:40:20,486 --> 0:40:21,876
+On recent iPhones, you happen to
+
+1500
+00:40:21,876 --> 0:40:23,166
+have two that point straight out
+
+1501
+00:40:23,166 --> 0:40:23,676
+the bottom.
+
+1502
+00:40:23,956 --> 0:40:25,126
+And at the top, you have one
+
+1503
+00:40:25,126 --> 0:40:26,226
+pointing out each side.
+
+1504
+00:40:26,716 --> 0:40:28,116
+All of them are omnidirectional
+
+1505
+00:40:28,116 --> 0:40:28,436
+mics.
+
+1506
+00:40:28,976 --> 0:40:30,166
+Now, the top ones do get some
+
+1507
+00:40:30,166 --> 0:40:31,586
+acoustic separation because
+
+1508
+00:40:31,586 --> 0:40:33,056
+they've got the body of the
+
+1509
+00:40:33,056 --> 0:40:34,266
+device in between them, which
+
+1510
+00:40:34,266 --> 0:40:35,136
+acts as a baffle.
+
+1511
+00:40:35,136 --> 0:40:37,096
+But it's still not giving a nice
+
+1512
+00:40:37,096 --> 0:40:38,386
+directional pattern like you
+
+1513
+00:40:38,416 --> 0:40:39,536
+would want.
+
+1514
+00:40:39,536 --> 0:40:41,826
+So what do you do to actually
+
+1515
+00:40:41,826 --> 0:40:43,316
+get something approximating a
+
+1516
+00:40:43,316 --> 0:40:44,406
+front or back mic?
+
+1517
+00:40:45,596 --> 0:40:46,506
+What you do, it's called
+
+1518
+00:40:46,506 --> 0:40:48,066
+Microphone Beam Forming.
+
+1519
+00:40:48,556 --> 0:40:50,536
+And this is a way of processing
+
+1520
+00:40:50,536 --> 0:40:52,376
+the raw audio signals to get
+
+1521
+00:40:52,376 --> 0:40:53,526
+them to be directional.
+
+1522
+00:40:53,646 --> 0:40:54,866
+And this is something that Core
+
+1523
+00:40:54,866 --> 0:40:56,126
+Audio does on our behalf.
+
+1524
+00:40:56,756 --> 0:40:58,896
+Here, we've got two blue dots,
+
+1525
+00:40:58,896 --> 0:41:00,326
+which represent two microphones
+
+1526
+00:40:58,896 --> 0:41:00,326
+which represent two microphones
+
+1527
+00:41:00,326 --> 0:41:02,256
+on either side of an iPhone.
+
+1528
+00:41:02,586 --> 0:41:04,606
+And the circles are roughly the
+
+1529
+00:41:04,606 --> 0:41:05,796
+pattern of audio that they are
+
+1530
+00:41:05,796 --> 0:41:06,166
+hearing.
+
+1531
+00:41:06,166 --> 0:41:07,416
+Remember, they're both
+
+1532
+00:41:07,416 --> 0:41:08,506
+omnidirectional mics.
+
+1533
+00:41:08,746 --> 0:41:10,176
+If we take those two signals,
+
+1534
+00:41:10,176 --> 0:41:11,336
+and we just simply subtract
+
+1535
+00:41:11,336 --> 0:41:11,596
+them.
+
+1536
+00:41:11,876 --> 0:41:13,096
+We wind up with a figure eight
+
+1537
+00:41:13,096 --> 0:41:14,496
+pattern, which is cool.
+
+1538
+00:41:14,496 --> 0:41:15,756
+It's not what we want, but it's
+
+1539
+00:41:15,756 --> 0:41:16,116
+cool.
+
+1540
+00:41:17,246 --> 0:41:18,456
+If we want to further shape
+
+1541
+00:41:18,456 --> 0:41:20,756
+that, we can add some gain to
+
+1542
+00:41:20,756 --> 0:41:22,296
+the one that we want to keep
+
+1543
+00:41:22,296 --> 0:41:23,366
+before subtracting them.
+
+1544
+00:41:23,516 --> 0:41:24,726
+And now we wind up with a little
+
+1545
+00:41:24,726 --> 0:41:25,686
+Pac-Man ghost.
+
+1546
+00:41:26,016 --> 0:41:26,696
+And that's good.
+
+1547
+00:41:26,696 --> 0:41:27,826
+Now we've got rejection out the
+
+1548
+00:41:27,826 --> 0:41:28,806
+side that we don't want.
+
+1549
+00:41:29,226 --> 0:41:30,626
+But unfortunately, we've also
+
+1550
+00:41:30,626 --> 0:41:31,666
+attenuated the signal.
+
+1551
+00:41:31,666 --> 0:41:33,286
+So it's much quieter than we
+
+1552
+00:41:33,286 --> 0:41:33,596
+want.
+
+1553
+00:41:34,876 --> 0:41:37,926
+But, if after doing all that, we
+
+1554
+00:41:37,926 --> 0:41:39,526
+apply some gain to that signal,
+
+1555
+00:41:39,776 --> 0:41:41,026
+we get a nice, big Pac-Man
+
+1556
+00:41:41,026 --> 0:41:41,406
+ghost.
+
+1557
+00:41:41,516 --> 0:41:42,636
+And now we've got that beautiful
+
+1558
+00:41:42,636 --> 0:41:44,006
+cardioid pattern that we want,
+
+1559
+00:41:44,246 --> 0:41:46,796
+which rejects out of the side of
+
+1560
+00:41:46,796 --> 0:41:47,796
+the camera that we don't want.
+
+1561
+00:41:48,556 --> 0:41:50,526
+Now, this is extremely over
+
+1562
+00:41:50,526 --> 0:41:51,116
+simplified.
+
+1563
+00:41:51,396 --> 0:41:52,516
+There's a lot of filtering going
+
+1564
+00:41:52,516 --> 0:41:53,826
+on to ensure that white noise
+
+1565
+00:41:53,826 --> 0:41:54,586
+isn't gained up.
+
+1566
+00:41:55,126 --> 0:41:56,366
+But essentially that is what is
+
+1567
+00:41:56,366 --> 0:41:56,766
+happening.
+
+1568
+00:41:57,196 --> 0:41:58,676
+And, up to now, only one
+
+1569
+00:41:58,676 --> 0:42:00,006
+microphone beam form has been
+
+1570
+00:41:58,676 --> 0:42:00,006
+microphone beam form has been
+
+1571
+00:42:00,006 --> 0:42:00,986
+supported at a time.
+
+1572
+00:42:01,376 --> 0:42:02,946
+But the good folks over in Core
+
+1573
+00:42:02,946 --> 0:42:04,396
+Audio land did some great work
+
+1574
+00:42:04,396 --> 0:42:06,006
+for this MultiCam feature.
+
+1575
+00:42:06,366 --> 0:42:09,496
+And as of iOS 13, we now support
+
+1576
+00:42:09,736 --> 0:42:11,636
+multiple simultaneous beam
+
+1577
+00:42:11,636 --> 0:42:11,996
+forming.
+
+1578
+00:42:13,516 --> 0:42:17,116
+[ Applause ]
+
+1579
+00:42:17,616 --> 0:42:18,966
+So going back to the
+
+1580
+00:42:18,966 --> 0:42:21,466
+AVCaptureSession, when you get a
+
+1581
+00:42:21,466 --> 0:42:22,976
+microphone device input, and you
+
+1582
+00:42:22,976 --> 0:42:25,886
+find its audio port, that port
+
+1583
+00:42:26,656 --> 0:42:28,006
+lives many lives.
+
+1584
+00:42:28,006 --> 0:42:29,496
+It can be the front, back, or
+
+1585
+00:42:29,496 --> 0:42:30,976
+omni depending on what cameras
+
+1586
+00:42:30,976 --> 0:42:31,926
+the session finds.
+
+1587
+00:42:32,726 --> 0:42:33,446
+But when you're using the
+
+1588
+00:42:33,446 --> 0:42:36,516
+MultiCamSession, the behavior is
+
+1589
+00:42:36,946 --> 0:42:37,406
+rigid.
+
+1590
+00:42:38,166 --> 0:42:39,506
+The first port, the one -- the
+
+1591
+00:42:39,506 --> 0:42:40,706
+first audio port you find is
+
+1592
+00:42:40,706 --> 0:42:41,776
+always for omni.
+
+1593
+00:42:42,336 --> 0:42:43,946
+And then you can find those
+
+1594
+00:42:43,996 --> 0:42:45,266
+secret ports that I was talking
+
+1595
+00:42:45,266 --> 0:42:47,376
+about to get a dedicated back
+
+1596
+00:42:47,456 --> 0:42:49,186
+beam or dedicated front beam.
+
+1597
+00:42:50,086 --> 0:42:53,026
+The way you do that is by using
+
+1598
+00:42:53,486 --> 0:42:56,976
+those same device input port
+
+1599
+00:42:56,976 --> 0:42:58,456
+getters; this time; by
+
+1600
+00:42:58,456 --> 0:42:59,916
+specifying which position you're
+
+1601
+00:42:59,916 --> 0:43:00,486
+interested in.
+
+1602
+00:42:59,916 --> 0:43:00,486
+interested in.
+
+1603
+00:43:01,016 --> 0:43:02,666
+So you can ask for the front
+
+1604
+00:43:02,736 --> 0:43:04,136
+position or the back position.
+
+1605
+00:43:04,306 --> 0:43:05,356
+And that will give you the ports
+
+1606
+00:43:05,356 --> 0:43:06,276
+that you're interested in.
+
+1607
+00:43:06,416 --> 0:43:07,596
+And you'll get a nice back or
+
+1608
+00:43:07,596 --> 0:43:09,000
+front beam form.
+
+1609
+00:43:10,416 --> 0:43:11,456
+Here's for the front.
+
+1610
+00:43:12,786 --> 0:43:15,736
+And here's for the back.
+
+1611
+00:43:15,736 --> 0:43:16,426
+Now going back to the
+
+1612
+00:43:16,426 --> 0:43:18,536
+MultiCamPiP demonstration we had
+
+1613
+00:43:18,536 --> 0:43:18,956
+with Nik.
+
+1614
+00:43:18,956 --> 0:43:21,276
+We stuck to the video side while
+
+1615
+00:43:21,276 --> 0:43:23,276
+we were showing you the whizzy
+
+1616
+00:43:23,276 --> 0:43:24,106
+part of the graph.
+
+1617
+00:43:24,106 --> 0:43:25,656
+Now I'm going to go back and
+
+1618
+00:43:25,656 --> 0:43:26,426
+tell you what we were doing on
+
+1619
+00:43:26,426 --> 0:43:27,176
+the audio side.
+
+1620
+00:43:28,166 --> 0:43:31,646
+We were running all the time a
+
+1621
+00:43:31,646 --> 0:43:33,726
+single device input with two
+
+1622
+00:43:34,186 --> 0:43:35,456
+beam forms, one for the back and
+
+1623
+00:43:35,456 --> 0:43:36,166
+one for the front.
+
+1624
+00:43:36,626 --> 0:43:37,786
+And we were running those to two
+
+1625
+00:43:37,786 --> 0:43:39,326
+different audio data outputs.
+
+1626
+00:43:39,656 --> 0:43:41,096
+This slide should say audio data
+
+1627
+00:43:41,096 --> 0:43:41,556
+outputs.
+
+1628
+00:43:42,066 --> 0:43:43,616
+And then choosing between them
+
+1629
+00:43:44,006 --> 0:43:44,806
+at Runtime.
+
+1630
+00:43:44,886 --> 0:43:46,856
+So depending on which is the
+
+1631
+00:43:46,856 --> 0:43:48,496
+larger of the two, we would
+
+1632
+00:43:48,496 --> 0:43:50,826
+switch to back or front and give
+
+1633
+00:43:50,826 --> 0:43:52,106
+you the beam form that we
+
+1634
+00:43:52,106 --> 0:43:52,526
+desired.
+
+1635
+00:43:54,296 --> 0:43:55,466
+There are a couple of rules to
+
+1636
+00:43:55,466 --> 0:43:57,606
+know about multi-mic capture.
+
+1637
+00:43:58,046 --> 0:43:59,386
+Beam forming only works with
+
+1638
+00:43:59,386 --> 0:44:00,156
+built-in mics.
+
+1639
+00:43:59,386 --> 0:44:00,156
+built-in mics.
+
+1640
+00:44:00,156 --> 0:44:01,606
+If you've got something external
+
+1641
+00:44:01,676 --> 0:44:03,416
+USB, we don't know what that is.
+
+1642
+00:44:03,416 --> 0:44:04,516
+We don't know how to beam form
+
+1643
+00:44:04,516 --> 0:44:05,406
+with it.
+
+1644
+00:44:06,036 --> 0:44:07,626
+If you do happen to plug in
+
+1645
+00:44:07,626 --> 0:44:08,906
+something else, including
+
+1646
+00:44:08,906 --> 0:44:12,446
+AirPods, we will capture audio
+
+1647
+00:44:12,446 --> 0:44:12,886
+of course.
+
+1648
+00:44:13,196 --> 0:44:14,396
+But we don't know how to beam
+
+1649
+00:44:14,396 --> 0:44:14,626
+form.
+
+1650
+00:44:14,626 --> 0:44:15,766
+So we'll just pipe that
+
+1651
+00:44:15,766 --> 0:44:17,336
+microphone through all of the
+
+1652
+00:44:17,336 --> 0:44:18,726
+inputs that you have connected.
+
+1653
+00:44:18,956 --> 0:44:20,086
+Thus, ensuring that you don't
+
+1654
+00:44:20,086 --> 0:44:20,776
+lose the signal.
+
+1655
+00:44:20,906 --> 0:44:24,926
+And that's the end of the
+
+1656
+00:44:24,926 --> 0:44:26,966
+Multi-Camera Capture part of
+
+1657
+00:44:26,966 --> 0:44:28,396
+today's talk.
+
+1658
+00:44:28,466 --> 0:44:29,586
+Let's do a quick summary.
+
+1659
+00:44:31,156 --> 0:44:33,666
+MultiCam Capture session is the
+
+1660
+00:44:33,666 --> 0:44:36,166
+new way to do multiple cameras
+
+1661
+00:44:36,166 --> 0:44:37,656
+simultaneously on iOS.
+
+1662
+00:44:38,686 --> 0:44:39,716
+It is a power tool.
+
+1663
+00:44:39,716 --> 0:44:40,986
+But it has some limitations.
+
+1664
+00:44:40,986 --> 0:44:41,466
+Know them.
+
+1665
+00:44:42,916 --> 0:44:44,476
+And thoughtfully handle hardware
+
+1666
+00:44:44,476 --> 0:44:46,576
+and system pressure costs as
+
+1667
+00:44:46,576 --> 0:44:47,636
+you're doing your programming.
+
+1668
+00:44:47,946 --> 0:44:50,316
+And if you want to do
+
+1669
+00:44:50,316 --> 0:44:51,726
+synchronized streaming, use
+
+1670
+00:44:51,726 --> 0:44:52,936
+those virtual devices with
+
+1671
+00:44:52,976 --> 0:44:54,306
+constituent device ports.
+
+1672
+00:44:54,466 --> 0:44:56,436
+And lastly, if you want to do
+
+1673
+00:44:56,436 --> 0:44:58,116
+multi-mic capture, be aware that
+
+1674
+00:44:58,116 --> 0:44:59,506
+you can use front or back-beam
+
+1675
+00:44:59,506 --> 0:45:00,356
+formed or omni.
+
+1676
+00:44:59,506 --> 0:45:00,356
+formed or omni.
+
+1677
+00:45:00,616 --> 0:45:02,036
+And with that, I'm going to turn
+
+1678
+00:45:02,036 --> 0:45:03,376
+it over to Jacob to talk about
+
+1679
+00:45:03,376 --> 0:45:04,796
+semantic segmentation mattes.
+
+1680
+00:45:04,796 --> 0:45:04,976
+Thank you.
+
+1681
+00:45:05,516 --> 0:45:11,576
+[ Applause ]
+
+1682
+00:45:12,076 --> 0:45:13,516
+&gt;&gt; Hi, I'm Jacob.
+
+1683
+00:45:13,666 --> 0:45:14,946
+I'm here to tell you about the
+
+1684
+00:45:14,946 --> 0:45:16,296
+semantic segmentation mattes.
+
+1685
+00:45:16,626 --> 0:45:18,386
+So first, I'm going to go
+
+1686
+00:45:18,386 --> 0:45:19,576
+through what are these new types
+
+1687
+00:45:19,576 --> 0:45:20,126
+of mattes.
+
+1688
+00:45:20,126 --> 0:45:21,326
+And then David is going to talk
+
+1689
+00:45:21,326 --> 0:45:23,126
+you through how to leverage Core
+
+1690
+00:45:23,126 --> 0:45:24,176
+Image to work with these new
+
+1691
+00:45:24,176 --> 0:45:25,186
+mattes.
+
+1692
+00:45:25,956 --> 0:45:28,736
+So remember, in iOS 12, we
+
+1693
+00:45:28,736 --> 0:45:29,916
+introduced the portrait effects
+
+1694
+00:45:29,916 --> 0:45:30,136
+matte.
+
+1695
+00:45:30,306 --> 0:45:32,276
+So this was a matte designed
+
+1696
+00:45:32,276 --> 0:45:34,366
+explicitly to provide effects
+
+1697
+00:45:34,616 --> 0:45:35,416
+for portraits.
+
+1698
+00:45:35,926 --> 0:45:37,736
+So we use it internally to
+
+1699
+00:45:37,736 --> 0:45:38,946
+render beautifully looking
+
+1700
+00:45:38,946 --> 0:45:40,806
+portrait mode photos and
+
+1701
+00:45:40,806 --> 0:45:41,576
+portrait lighting photos.
+
+1702
+00:45:41,576 --> 0:45:44,936
+So in taking a closer look at
+
+1703
+00:45:44,936 --> 0:45:47,206
+the portrait effects matte, you
+
+1704
+00:45:47,206 --> 0:45:49,276
+can see how it -- that clearly
+
+1705
+00:45:49,276 --> 0:45:50,516
+delineates the foreground
+
+1706
+00:45:50,516 --> 0:45:52,256
+subject from the background.
+
+1707
+00:45:52,646 --> 0:45:53,846
+So this is beautifully
+
+1708
+00:45:53,846 --> 0:45:55,666
+represented here as a black and
+
+1709
+00:45:55,826 --> 0:45:56,566
+white matte.
+
+1710
+00:45:56,866 --> 0:45:58,346
+So values of one indicating
+
+1711
+00:45:58,556 --> 0:46:00,126
+foreground and values of zero
+
+1712
+00:45:58,556 --> 0:46:00,126
+foreground and values of zero
+
+1713
+00:46:00,126 --> 0:46:01,666
+indicating background.
+
+1714
+00:46:02,676 --> 0:46:05,026
+In iOS 13, we're taking this a
+
+1715
+00:46:05,026 --> 0:46:06,086
+step further with semantic
+
+1716
+00:46:06,086 --> 0:46:07,076
+segmentation mattes.
+
+1717
+00:46:08,376 --> 0:46:10,000
+So we're introducing hair,
+
+1718
+00:46:13,046 --> 0:46:15,046
+-- skin, and teeth.
+
+1719
+00:46:15,046 --> 0:46:19,876
+So taking a closer look at the
+
+1720
+00:46:20,046 --> 0:46:21,416
+hair matte, for instance, you
+
+1721
+00:46:21,416 --> 0:46:23,446
+can see how this is beautifully
+
+1722
+00:46:23,696 --> 0:46:25,896
+separating the hair region from
+
+1723
+00:46:25,896 --> 0:46:26,806
+the non-hair regions.
+
+1724
+00:46:27,146 --> 0:46:29,026
+So we get great hair details
+
+1725
+00:46:29,026 --> 0:46:30,016
+against the background.
+
+1726
+00:46:30,206 --> 0:46:31,536
+And we get great separation
+
+1727
+00:46:31,536 --> 0:46:33,326
+between the non-hair regions and
+
+1728
+00:46:33,376 --> 0:46:34,000
+the hair.
+
+1729
+00:46:35,446 --> 0:46:36,866
+Similarly for the skin regions
+
+1730
+00:46:36,866 --> 0:46:38,386
+where now we have alpha values
+
+1731
+00:46:38,386 --> 0:46:40,256
+indicating how much of a pixel
+
+1732
+00:46:40,626 --> 0:46:42,576
+is of type skin.
+
+1733
+00:46:42,576 --> 0:46:44,626
+So an alpha value of .7, for
+
+1734
+00:46:44,626 --> 0:46:45,936
+instance, would indicate that a
+
+1735
+00:46:46,266 --> 0:46:47,946
+that a pixel is 70% of type
+
+1736
+00:46:47,946 --> 0:46:48,286
+skin.
+
+1737
+00:46:49,096 --> 0:46:50,756
+So we hope these new three types
+
+1738
+00:46:50,886 --> 0:46:52,166
+of -- three new types of mattes
+
+1739
+00:46:52,166 --> 0:46:53,556
+will give you the creative
+
+1740
+00:46:53,556 --> 0:46:55,976
+freedom to render some cool
+
+1741
+00:46:55,976 --> 0:46:57,476
+effects and beautiful-looking
+
+1742
+00:46:57,536 --> 0:46:58,000
+photos.
+
+1743
+00:46:59,856 --> 0:47:01,796
+So a few things to notice-- That
+
+1744
+00:46:59,856 --> 0:47:01,796
+So a few things to notice-- That
+
+1745
+00:47:01,856 --> 0:47:03,346
+the mattes are half size of the
+
+1746
+00:47:03,346 --> 0:47:04,126
+original image.
+
+1747
+00:47:04,516 --> 0:47:05,976
+That means they're half in each
+
+1748
+00:47:05,976 --> 0:47:07,306
+dimension of the original image.
+
+1749
+00:47:07,306 --> 0:47:08,266
+And that means quarter
+
+1750
+00:47:08,266 --> 0:47:08,716
+resolution.
+
+1751
+00:47:09,826 --> 0:47:11,436
+So another thing to remember is
+
+1752
+00:47:11,436 --> 0:47:12,886
+that that these segmentation
+
+1753
+00:47:12,886 --> 0:47:13,936
+mattes can actually overlap.
+
+1754
+00:47:14,086 --> 0:47:16,116
+So this is particularly true for
+
+1755
+00:47:16,116 --> 0:47:17,116
+the portrait effects matte and
+
+1756
+00:47:17,116 --> 0:47:17,926
+the skin matte that will
+
+1757
+00:47:17,926 --> 0:47:19,466
+inherently overlap.
+
+1758
+00:47:21,296 --> 0:47:24,036
+So these mattes do not come for
+
+1759
+00:47:24,156 --> 0:47:24,426
+free.
+
+1760
+00:47:24,426 --> 0:47:25,806
+So we heavily leverage the Apple
+
+1761
+00:47:25,806 --> 0:47:27,216
+Neural Engines for machine
+
+1762
+00:47:27,216 --> 0:47:28,476
+learning spectral graph theory
+
+1763
+00:47:28,946 --> 0:47:30,286
+and looking a bit under the
+
+1764
+00:47:30,286 --> 0:47:32,486
+hood, what we do is we take the
+
+1765
+00:47:32,486 --> 0:47:33,446
+original size image.
+
+1766
+00:47:33,516 --> 0:47:34,426
+We feed it through the Apple
+
+1767
+00:47:34,426 --> 0:47:35,066
+Neural Engine.
+
+1768
+00:47:35,346 --> 0:47:36,016
+And together with the
+
+1769
+00:47:36,016 --> 0:47:38,046
+original-sized image, we render
+
+1770
+00:47:38,046 --> 0:47:39,156
+these high-resolution,
+
+1771
+00:47:39,446 --> 0:47:41,096
+high-quality, and with
+
+1772
+00:47:41,096 --> 0:47:42,626
+high-consistency segmentation
+
+1773
+00:47:42,626 --> 0:47:42,936
+mattes.
+
+1774
+00:47:43,316 --> 0:47:44,196
+These are then ready to be
+
+1775
+00:47:44,196 --> 0:47:45,406
+embedded into the HEIF or JPEG
+
+1776
+00:47:45,446 --> 0:47:47,136
+files as you know them, together
+
+1777
+00:47:47,136 --> 0:47:48,116
+with the original size, the
+
+1778
+00:47:48,116 --> 0:47:49,386
+image, and the depth as you know
+
+1779
+00:47:49,386 --> 0:47:50,396
+from iOS 11.
+
+1780
+00:47:51,046 --> 0:47:54,446
+So there are two distinct ways
+
+1781
+00:47:54,446 --> 0:47:56,776
+to generate these new types of
+
+1782
+00:47:56,776 --> 0:47:57,116
+mattes.
+
+1783
+00:47:57,116 --> 0:47:58,686
+So one is that they're embedded
+
+1784
+00:47:58,686 --> 0:47:59,456
+in the old portrait mode
+
+1785
+00:47:59,496 --> 0:48:00,116
+captures.
+
+1786
+00:47:59,496 --> 0:48:00,116
+captures.
+
+1787
+00:48:00,376 --> 0:48:01,496
+So you can grab them from those
+
+1788
+00:48:01,496 --> 0:48:01,926
+files.
+
+1789
+00:48:02,336 --> 0:48:03,716
+Or even better, you can write
+
+1790
+00:48:03,716 --> 0:48:05,276
+your own capture app and opt-in
+
+1791
+00:48:05,276 --> 0:48:06,466
+to these mattes on capture.
+
+1792
+00:48:06,466 --> 0:48:08,406
+So if you have files with the
+
+1793
+00:48:08,406 --> 0:48:10,366
+segmentation mattes in them, you
+
+1794
+00:48:10,366 --> 0:48:11,826
+can work with them through Core
+
+1795
+00:48:11,826 --> 0:48:12,886
+Image and Image IO.
+
+1796
+00:48:13,246 --> 0:48:14,256
+David is going to talk more
+
+1797
+00:48:14,256 --> 0:48:15,506
+about that.
+
+1798
+00:48:15,636 --> 0:48:17,256
+But first, I'm going to talk you
+
+1799
+00:48:17,256 --> 0:48:18,456
+through how to capture with the
+
+1800
+00:48:18,456 --> 0:48:19,330
+AVFoundation API.
+
+1801
+00:48:23,096 --> 0:48:24,416
+There are four phases we're
+
+1802
+00:48:24,416 --> 0:48:25,436
+going to go through here that
+
+1803
+00:48:25,506 --> 0:48:26,536
+relates to the extension.
+
+1804
+00:48:26,596 --> 0:48:28,096
+So, the first is when we set up
+
+1805
+00:48:28,136 --> 0:48:29,316
+the AVCapturePhotoOutput.
+
+1806
+00:48:29,766 --> 0:48:31,206
+Second is when the capture
+
+1807
+00:48:31,206 --> 0:48:32,776
+request is being initiated in
+
+1808
+00:48:32,776 --> 0:48:34,046
+any point in the life cycle of
+
+1809
+00:48:34,096 --> 0:48:35,346
+your app.
+
+1810
+00:48:35,596 --> 0:48:36,866
+Then two of the callbacks.
+
+1811
+00:48:36,936 --> 0:48:38,276
+So one is when the settings are
+
+1812
+00:48:38,276 --> 0:48:39,616
+resolved for your capture.
+
+1813
+00:48:39,986 --> 0:48:41,446
+And the final one is the one the
+
+1814
+00:48:41,526 --> 0:48:43,086
+photo did finish processing.
+
+1815
+00:48:43,456 --> 0:48:45,356
+So, for full details on this,
+
+1816
+00:48:45,566 --> 0:48:47,706
+please refer to Brad's 2017 talk
+
+1817
+00:48:47,706 --> 0:48:49,000
+on this exact topic.
+
+1818
+00:48:51,476 --> 0:48:53,306
+Yeah, let's go through the how
+
+1819
+00:48:53,306 --> 0:48:53,996
+to set up the
+
+1820
+00:48:53,996 --> 0:48:54,856
+AVCapturePhotoOutput.
+
+1821
+00:48:54,856 --> 0:48:56,006
+So this usually happens when
+
+1822
+00:48:56,006 --> 0:48:57,326
+you're setting or you are
+
+1823
+00:48:57,326 --> 0:48:58,256
+configuring your session.
+
+1824
+00:48:58,256 --> 0:49:00,356
+So you're already, at this
+
+1825
+00:48:58,256 --> 0:49:00,356
+So you're already, at this
+
+1826
+00:49:00,386 --> 0:49:01,546
+point, done session that begin
+
+1827
+00:49:01,546 --> 0:49:02,186
+configuration.
+
+1828
+00:49:02,186 --> 0:49:03,306
+You've set your presets.
+
+1829
+00:49:03,306 --> 0:49:04,856
+You've added your device inputs.
+
+1830
+00:49:05,146 --> 0:49:05,926
+You add your
+
+1831
+00:49:05,926 --> 0:49:06,916
+AVCapturePhotoOutput.
+
+1832
+00:49:07,306 --> 0:49:08,796
+At this point is when you tell
+
+1833
+00:49:08,796 --> 0:49:10,956
+the API what superset of
+
+1834
+00:49:10,956 --> 0:49:11,946
+segmentation mattes are you're
+
+1835
+00:49:11,946 --> 0:49:13,236
+going to ask for at any point in
+
+1836
+00:49:13,236 --> 0:49:14,706
+life cycle of your app.
+
+1837
+00:49:15,936 --> 0:49:17,056
+When you actually want to
+
+1838
+00:49:17,056 --> 0:49:18,376
+initiate your capture requests,
+
+1839
+00:49:18,376 --> 0:49:19,236
+you need to specify the
+
+1840
+00:49:19,236 --> 0:49:20,526
+AVCapturePhotoSettings.
+
+1841
+00:49:20,946 --> 0:49:22,816
+So this is where you tell the
+
+1842
+00:49:22,816 --> 0:49:24,646
+API, "This is what I really want
+
+1843
+00:49:24,646 --> 0:49:25,716
+in this particular capture."
+
+1844
+00:49:25,766 --> 0:49:27,656
+So, here again, you can specify
+
+1845
+00:49:28,006 --> 0:49:28,976
+all the ones that you already
+
+1846
+00:49:28,976 --> 0:49:29,366
+enabled.
+
+1847
+00:49:29,756 --> 0:49:31,376
+Or you can specify a subset, say
+
+1848
+00:49:31,476 --> 0:49:32,016
+hair or skin.
+
+1849
+00:49:33,266 --> 0:49:34,866
+Now you initiate your capture
+
+1850
+00:49:34,866 --> 0:49:35,416
+request.
+
+1851
+00:49:35,596 --> 0:49:36,606
+So you give it the
+
+1852
+00:49:36,606 --> 0:49:37,556
+AVCapturePhotoSettings.
+
+1853
+00:49:37,556 --> 0:49:38,566
+And you give it the delegate
+
+1854
+00:49:38,596 --> 0:49:39,576
+where you want to have your
+
+1855
+00:49:39,636 --> 0:49:40,136
+callbacks.
+
+1856
+00:49:41,166 --> 0:49:43,106
+So time passes.
+
+1857
+00:49:43,636 --> 0:49:45,346
+And soon after, you will get
+
+1858
+00:49:45,426 --> 0:49:47,176
+that -- get a will begin capture
+
+1859
+00:49:47,176 --> 0:49:48,066
+for callback.
+
+1860
+00:49:48,136 --> 0:49:50,956
+This is when the API tells you
+
+1861
+00:49:51,436 --> 0:49:52,486
+you may have asked for
+
+1862
+00:49:52,486 --> 0:49:53,316
+something, but this is what
+
+1863
+00:49:53,316 --> 0:49:54,106
+you're actually going to get.
+
+1864
+00:49:54,536 --> 0:49:55,876
+So this is important for the
+
+1865
+00:49:55,966 --> 0:49:56,936
+portrait effects matte and the
+
+1866
+00:49:56,936 --> 0:49:58,036
+semantic segmentation mattes.
+
+1867
+00:49:58,096 --> 0:49:59,336
+Because if there are no people
+
+1868
+00:49:59,336 --> 0:50:00,726
+in the scene, you'll actually
+
+1869
+00:49:59,336 --> 0:50:00,726
+in the scene, you'll actually
+
+1870
+00:50:00,726 --> 0:50:01,476
+not get a matte here.
+
+1871
+00:50:01,856 --> 0:50:03,376
+So you need to check for the
+
+1872
+00:50:03,376 --> 0:50:05,196
+dimensions of the semantic
+
+1873
+00:50:05,196 --> 0:50:05,896
+segmentation mattes.
+
+1874
+00:50:05,896 --> 0:50:07,236
+There will be zero in such case.
+
+1875
+00:50:10,456 --> 0:50:11,486
+More time passes.
+
+1876
+00:50:11,866 --> 0:50:13,216
+The photo did finish processing.
+
+1877
+00:50:13,656 --> 0:50:15,736
+So this is when you get the --
+
+1878
+00:50:15,736 --> 0:50:18,076
+your AV semantic segmentation
+
+1879
+00:50:18,076 --> 0:50:18,546
+matte back.
+
+1880
+00:50:18,546 --> 0:50:19,606
+This is the variable matte in
+
+1881
+00:50:19,606 --> 0:50:20,096
+this case.
+
+1882
+00:50:20,546 --> 0:50:22,696
+So this new class had the same
+
+1883
+00:50:23,106 --> 0:50:24,776
+type of methods and properties
+
+1884
+00:50:24,776 --> 0:50:25,786
+as you know from the portrait
+
+1885
+00:50:25,786 --> 0:50:26,216
+effects matte.
+
+1886
+00:50:26,276 --> 0:50:27,606
+That means you can rotate
+
+1887
+00:50:27,606 --> 0:50:28,546
+according to EXIF data.
+
+1888
+00:50:28,546 --> 0:50:29,386
+You can get your 
+
+1889
+00:50:29,386 --> 0:50:30,646
+CVPixelBuffer reference.
+
+1890
+00:50:30,646 --> 0:50:32,446
+Or you can get a dictionary
+
+1891
+00:50:32,446 --> 0:50:36,516
+representation for easy file IO.
+
+1892
+00:50:36,726 --> 0:50:39,416
+So for full walkthrough of the
+
+1893
+00:50:39,416 --> 0:50:41,126
+lifecycle of how to make these
+
+1894
+00:50:41,126 --> 0:50:42,496
+captures, please refer to the
+
+1895
+00:50:42,586 --> 0:50:43,846
+AVCam sample app.
+
+1896
+00:50:43,846 --> 0:50:45,426
+It has been updated with the
+
+1897
+00:50:45,426 --> 0:50:46,686
+semantic segmentation mattes and
+
+1898
+00:50:46,686 --> 0:50:48,276
+will take you through all these
+
+1899
+00:50:48,756 --> 0:50:49,476
+different steps.
+
+1900
+00:50:51,656 --> 0:50:52,876
+I'm going to hand it over to
+
+1901
+00:50:52,876 --> 0:50:53,936
+David, who going to talk about
+
+1902
+00:50:53,936 --> 0:50:54,686
+the Core Image.
+
+1903
+00:50:55,516 --> 0:51:00,546
+[ Applause ]
+
+1904
+00:50:55,516 --> 0:51:00,546
+[ Applause ]
+
+1905
+00:51:01,046 --> 0:51:01,366
+&gt;&gt; All right.
+
+1906
+00:51:01,366 --> 0:51:02,366
+Thank you very much.
+
+1907
+00:51:02,366 --> 0:51:03,366
+Now that we've learned how to
+
+1908
+00:51:03,366 --> 0:51:05,156
+capture images with semantic
+
+1909
+00:51:05,156 --> 0:51:06,596
+segmentation mattes, we get to
+
+1910
+00:51:06,596 --> 0:51:08,166
+have some fun and learn how we
+
+1911
+00:51:08,166 --> 0:51:10,356
+can leverage Core Image to apply
+
+1912
+00:51:10,356 --> 0:51:11,666
+some fun effects.
+
+1913
+00:51:11,826 --> 0:51:13,576
+Now, I'm going to have a demo
+
+1914
+00:51:13,846 --> 0:51:14,396
+next.
+
+1915
+00:51:14,396 --> 0:51:15,586
+But I should warn you if --
+
+1916
+00:51:15,656 --> 0:51:17,286
+there's clowns in this image.
+
+1917
+00:51:17,616 --> 0:51:19,636
+So if you have any coulrophobia,
+
+1918
+00:51:19,966 --> 0:51:21,616
+or irrational fear of clowns,
+
+1919
+00:51:22,026 --> 0:51:23,796
+you know, avert your eyes.
+
+1920
+00:51:24,246 --> 0:51:25,136
+All right, so here we have an
+
+1921
+00:51:25,136 --> 0:51:26,636
+image that was captured in
+
+1922
+00:51:26,636 --> 0:51:28,246
+portrait mode on a device.
+
+1923
+00:51:28,736 --> 0:51:30,306
+And what we can see in this
+
+1924
+00:51:30,306 --> 0:51:32,496
+application is that we can now
+
+1925
+00:51:32,796 --> 0:51:33,996
+very easily see all the
+
+1926
+00:51:33,996 --> 0:51:35,376
+different semantic segmentation
+
+1927
+00:51:35,376 --> 0:51:36,596
+mattes that are present in this
+
+1928
+00:51:36,596 --> 0:51:36,966
+file.
+
+1929
+00:51:37,616 --> 0:51:39,976
+We can use the traditional
+
+1930
+00:51:40,416 --> 0:51:42,276
+portrait effects matte.
+
+1931
+00:51:42,636 --> 0:51:44,496
+Or we can also see the skin
+
+1932
+00:51:45,476 --> 0:51:46,036
+matte.
+
+1933
+00:51:46,036 --> 0:51:47,446
+Or we can see my-- the hair
+
+1934
+00:51:47,446 --> 0:51:49,246
+matte or the teeth matte.
+
+1935
+00:51:49,726 --> 0:51:51,356
+And it's also possible to use
+
+1936
+00:51:51,356 --> 0:51:52,636
+Core Image to combine these
+
+1937
+00:51:52,636 --> 0:51:54,376
+various mattes into other
+
+1938
+00:51:54,376 --> 0:51:55,946
+mattes, such as this one I've
+
+1939
+00:51:55,946 --> 0:51:57,986
+synthesized by using logical
+
+1940
+00:51:57,986 --> 0:52:00,566
+operations to create a matte of
+
+1941
+00:51:57,986 --> 0:52:00,566
+operations to create a matte of
+
+1942
+00:52:00,566 --> 0:52:01,446
+just eyes and mouth.
+
+1943
+00:52:02,016 --> 0:52:03,676
+If we go back to the main image,
+
+1944
+00:52:03,676 --> 0:52:04,896
+however, we see this is a
+
+1945
+00:52:04,896 --> 0:52:06,946
+picture of me In Apple Park.
+
+1946
+00:52:07,236 --> 0:52:08,386
+And one of the great things you
+
+1947
+00:52:08,386 --> 0:52:10,336
+could do with semantic -- with
+
+1948
+00:52:10,336 --> 0:52:12,476
+portrait effects mattes is you
+
+1949
+00:52:12,476 --> 0:52:14,236
+could add a background very
+
+1950
+00:52:14,236 --> 0:52:14,596
+easily.
+
+1951
+00:52:14,596 --> 0:52:16,266
+And as you can see here, we can
+
+1952
+00:52:16,376 --> 0:52:18,486
+put me in a circus tent.
+
+1953
+00:52:18,836 --> 0:52:20,386
+And while that really does look
+
+1954
+00:52:20,386 --> 0:52:22,566
+like a circus tent, I don't look
+
+1955
+00:52:22,566 --> 0:52:23,376
+like I fit in.
+
+1956
+00:52:23,716 --> 0:52:25,476
+So now we can use some fun
+
+1957
+00:52:25,476 --> 0:52:25,986
+effects.
+
+1958
+00:52:26,056 --> 0:52:28,026
+For example, we can make it look
+
+1959
+00:52:28,056 --> 0:52:29,366
+like I've got some clown makeup
+
+1960
+00:52:29,366 --> 0:52:29,606
+on.
+
+1961
+00:52:30,306 --> 0:52:31,376
+Or if we want to go a little
+
+1962
+00:52:31,376 --> 0:52:34,386
+further, we can give myself some
+
+1963
+00:52:34,386 --> 0:52:34,996
+green hair.
+
+1964
+00:52:35,336 --> 0:52:36,616
+And lastly, we can use some of
+
+1965
+00:52:36,616 --> 0:52:37,896
+these other mattes to give
+
+1966
+00:52:37,896 --> 0:52:38,796
+myself some makeup.
+
+1967
+00:52:40,126 --> 0:52:42,486
+So that's what I'd like to talk
+
+1968
+00:52:42,486 --> 0:52:43,786
+to you about today is how we can
+
+1969
+00:52:43,786 --> 0:52:44,926
+do these kind of fun effects in
+
+1970
+00:52:44,926 --> 0:52:45,626
+your application.
+
+1971
+00:52:46,516 --> 0:52:51,546
+[ Applause ]
+
+1972
+00:52:52,046 --> 0:52:54,346
+All right, so most of the clown
+
+1973
+00:52:54,856 --> 0:52:55,826
+references are gone now.
+
+1974
+00:52:55,826 --> 0:52:58,666
+So it's safe to look back.
+
+1975
+00:52:58,666 --> 0:52:59,426
+All right, so we're going to be
+
+1976
+00:52:59,426 --> 0:53:00,466
+talking about three things
+
+1977
+00:52:59,426 --> 0:53:00,466
+talking about three things
+
+1978
+00:53:00,466 --> 0:53:00,836
+today.
+
+1979
+00:53:00,836 --> 0:53:02,666
+One is how you create matte
+
+1980
+00:53:02,736 --> 0:53:05,036
+images using Core Image, how you
+
+1981
+00:53:05,036 --> 0:53:06,336
+can apply filters to those
+
+1982
+00:53:06,336 --> 0:53:08,326
+images, and lastly, how you can
+
+1983
+00:53:08,326 --> 0:53:09,596
+save these into files.
+
+1984
+00:53:10,076 --> 0:53:11,526
+So firstly, let's talk about
+
+1985
+00:53:11,526 --> 0:53:13,846
+creating matte images using Core
+
+1986
+00:53:13,846 --> 0:53:14,106
+Image.
+
+1987
+00:53:14,346 --> 0:53:15,216
+There are two ways.
+
+1988
+00:53:15,516 --> 0:53:16,786
+One is you can create matte
+
+1989
+00:53:16,786 --> 0:53:19,016
+images by using the
+
+1990
+00:53:19,016 --> 0:53:20,516
+AVCapturePhoto APIs.
+
+1991
+00:53:20,996 --> 0:53:22,596
+And then, from that, you can
+
+1992
+00:53:22,836 --> 0:53:24,426
+create a Core Image.
+
+1993
+00:53:24,906 --> 0:53:25,986
+So, the code for this is very
+
+1994
+00:53:25,986 --> 0:53:26,396
+simple.
+
+1995
+00:53:26,396 --> 0:53:27,686
+What we're going to be doing is
+
+1996
+00:53:27,686 --> 0:53:28,016
+using the
+
+1997
+00:53:28,016 --> 0:53:29,866
+semanticSegmentationMatte API
+
+1998
+00:53:30,266 --> 0:53:31,626
+and specifying that we want to
+
+1999
+00:53:31,626 --> 0:53:33,466
+do the hair or the skin or the
+
+2000
+00:53:33,466 --> 0:53:33,766
+teeth.
+
+2001
+00:53:34,356 --> 0:53:35,846
+And that returns an
+
+2002
+00:53:35,846 --> 0:53:38,066
+AVSemanticSegementMatteObject.
+
+2003
+00:53:38,666 --> 0:53:40,256
+And from that, it's trivial to
+
+2004
+00:53:40,256 --> 0:53:41,976
+create a CIImage where we can
+
+2005
+00:53:41,976 --> 0:53:43,936
+just instantiate a CIImage from
+
+2006
+00:53:43,936 --> 0:53:44,586
+that object.
+
+2007
+00:53:45,796 --> 0:53:46,936
+The other common way you're
+
+2008
+00:53:46,936 --> 0:53:47,916
+going to want to create matte
+
+2009
+00:53:48,036 --> 0:53:50,006
+images is by loading them from a
+
+2010
+00:53:50,006 --> 0:53:51,536
+HEIF or JPEG file.
+
+2011
+00:53:52,146 --> 0:53:54,426
+These files have a main image
+
+2012
+00:53:54,486 --> 0:53:55,866
+you're familiar with, a typical
+
+2013
+00:53:56,106 --> 0:53:56,936
+RGB image.
+
+2014
+00:53:57,206 --> 0:53:58,856
+But they also have auxiliary
+
+2015
+00:53:58,856 --> 0:54:00,416
+images, such as the portrait
+
+2016
+00:53:58,856 --> 0:54:00,416
+images, such as the portrait
+
+2017
+00:54:00,416 --> 0:54:02,076
+effects matte, as well as the
+
+2018
+00:54:02,346 --> 0:54:04,416
+new mattes that we're talking
+
+2019
+00:54:04,416 --> 0:54:06,246
+about, the skin segmentation
+
+2020
+00:54:06,246 --> 0:54:07,956
+matte, and the hair, and the
+
+2021
+00:54:07,956 --> 0:54:08,116
+teeth.
+
+2022
+00:54:09,166 --> 0:54:10,206
+The code for this is very
+
+2023
+00:54:10,206 --> 0:54:10,606
+simple.
+
+2024
+00:54:10,986 --> 0:54:12,506
+The traditional code to create a
+
+2025
+00:54:12,506 --> 0:54:14,936
+CIImage from a HEIF file is just
+
+2026
+00:54:14,936 --> 0:54:16,976
+to say CIImage and specify a
+
+2027
+00:54:16,976 --> 0:54:17,216
+URL.
+
+2028
+00:54:17,856 --> 0:54:19,466
+To create these auxiliary
+
+2029
+00:54:19,466 --> 0:54:21,126
+images, all you do is make the
+
+2030
+00:54:21,126 --> 0:54:23,086
+same call and provide an options
+
+2031
+00:54:23,086 --> 0:54:25,036
+dictionary, specifying which
+
+2032
+00:54:25,206 --> 0:54:27,096
+matte image you want to return.
+
+2033
+00:54:27,536 --> 0:54:29,336
+So we can specify the auxiliary
+
+2034
+00:54:29,476 --> 0:54:31,376
+segmentation hair matte.
+
+2035
+00:54:31,946 --> 0:54:33,286
+Or if we want, we can get the
+
+2036
+00:54:33,286 --> 0:54:35,426
+mattes for the other semantic
+
+2037
+00:54:35,426 --> 0:54:36,216
+segmentations.
+
+2038
+00:54:37,446 --> 0:54:39,106
+So very simple, just a couple
+
+2039
+00:54:39,106 --> 0:54:40,326
+lines of code.
+
+2040
+00:54:41,296 --> 0:54:42,906
+The next thing we want to do is
+
+2041
+00:54:42,906 --> 0:54:44,146
+talk about how you can apply
+
+2042
+00:54:44,146 --> 0:54:45,586
+effects to these images.
+
+2043
+00:54:46,106 --> 0:54:47,806
+So, I showed a bunch of effects.
+
+2044
+00:54:47,806 --> 0:54:48,986
+I'm going to talk about one in a
+
+2045
+00:54:48,986 --> 0:54:49,906
+little bit of detail.
+
+2046
+00:54:50,316 --> 0:54:52,076
+What we're going to do is we're
+
+2047
+00:54:52,076 --> 0:54:53,566
+going to start with a base RGB
+
+2048
+00:54:53,566 --> 0:54:55,356
+image, and then we're going to
+
+2049
+00:54:55,356 --> 0:54:56,606
+apply some effects to that.
+
+2050
+00:54:56,606 --> 0:54:58,266
+Let's say we want to do the
+
+2051
+00:54:58,266 --> 0:55:01,086
+washed-out clown white makeup.
+
+2052
+00:54:58,266 --> 0:55:01,086
+washed-out clown white makeup.
+
+2053
+00:55:01,906 --> 0:55:02,776
+So, I'm going to apply some
+
+2054
+00:55:02,776 --> 0:55:03,726
+adjustments to that.
+
+2055
+00:55:04,176 --> 0:55:05,256
+Those adjustments, however,
+
+2056
+00:55:05,256 --> 0:55:06,636
+apply to the entire image.
+
+2057
+00:55:06,636 --> 0:55:08,286
+So we want those to be limited
+
+2058
+00:55:08,286 --> 0:55:09,316
+to just the skin area.
+
+2059
+00:55:09,876 --> 0:55:11,366
+So, we're going to use the skin
+
+2060
+00:55:11,366 --> 0:55:11,626
+matte.
+
+2061
+00:55:12,176 --> 0:55:13,436
+And then we're going to combine
+
+2062
+00:55:13,436 --> 0:55:14,806
+these three images to produce
+
+2063
+00:55:14,806 --> 0:55:15,676
+the result we want.
+
+2064
+00:55:17,006 --> 0:55:18,426
+Let me walk you through the code
+
+2065
+00:55:18,426 --> 0:55:19,396
+for it because it's actually
+
+2066
+00:55:19,396 --> 0:55:19,906
+quite simple.
+
+2067
+00:55:21,156 --> 0:55:22,436
+But first, I want to talk about
+
+2068
+00:55:22,466 --> 0:55:23,656
+the top feature requests we've
+
+2069
+00:55:23,656 --> 0:55:25,196
+had for Core Image, which is to
+
+2070
+00:55:25,196 --> 0:55:26,436
+make it easier for people to
+
+2071
+00:55:26,436 --> 0:55:29,006
+discover and use the 200-plus
+
+2072
+00:55:29,056 --> 0:55:30,286
+built-in filters we have.
+
+2073
+00:55:30,746 --> 0:55:32,116
+And that is the new header
+
+2074
+00:55:32,576 --> 0:55:32,836
+called
+
+2075
+00:55:32,906 --> 0:55:34,856
+CoreImage.CIFilterBuiltins.
+
+2076
+00:55:35,116 --> 0:55:36,766
+And these allow you to use all
+
+2077
+00:55:36,766 --> 0:55:38,006
+of the built-in filters without
+
+2078
+00:55:38,006 --> 0:55:39,736
+having to remember the names of
+
+2079
+00:55:39,736 --> 0:55:40,796
+the filters or the names of the
+
+2080
+00:55:40,796 --> 0:55:40,976
+inputs.
+
+2081
+00:55:41,516 --> 0:55:45,686
+[ Applause ]
+
+2082
+00:55:46,186 --> 0:55:47,016
+So [chuckles] it's really great.
+
+2083
+00:55:47,606 --> 0:55:48,946
+So let me show you some code
+
+2084
+00:55:48,946 --> 0:55:49,956
+that will use this new header.
+
+2085
+00:55:50,626 --> 0:55:51,476
+So the first thing we're going
+
+2086
+00:55:51,476 --> 0:55:52,866
+to do is create the base image.
+
+2087
+00:55:52,936 --> 0:55:53,706
+And we're just going to call
+
+2088
+00:55:53,706 --> 0:55:55,086
+image with contents of URL.
+
+2089
+00:55:55,146 --> 0:55:56,906
+And that will produce the
+
+2090
+00:55:56,906 --> 0:55:58,256
+traditional RGB image.
+
+2091
+00:55:59,076 --> 0:56:00,196
+Now, we're going to start
+
+2092
+00:55:59,076 --> 0:56:00,196
+Now, we're going to start
+
+2093
+00:56:00,196 --> 0:56:01,276
+applying some effects.
+
+2094
+00:56:01,276 --> 0:56:02,386
+So the first thing I want to do
+
+2095
+00:56:02,386 --> 0:56:03,336
+is I'm going to convert it to
+
+2096
+00:56:03,336 --> 0:56:03,976
+grayscale.
+
+2097
+00:56:04,246 --> 0:56:05,606
+And I'm going to use a filter
+
+2098
+00:56:05,606 --> 0:56:06,916
+called the maximum component.
+
+2099
+00:56:07,626 --> 0:56:09,006
+And I'm going to give that
+
+2100
+00:56:09,006 --> 0:56:10,476
+filter an input image of the
+
+2101
+00:56:10,476 --> 0:56:11,116
+base image.
+
+2102
+00:56:11,676 --> 0:56:12,846
+And then I'm going to ask for
+
+2103
+00:56:12,846 --> 0:56:14,736
+that filters output, and that
+
+2104
+00:56:14,736 --> 0:56:16,246
+produces an image that looks
+
+2105
+00:56:16,366 --> 0:56:17,316
+grayscale like this.
+
+2106
+00:56:18,396 --> 0:56:19,616
+This doesn't look quite bright
+
+2107
+00:56:19,616 --> 0:56:20,966
+enough to look like clown
+
+2108
+00:56:20,966 --> 0:56:21,336
+makeup.
+
+2109
+00:56:21,636 --> 0:56:22,536
+So we're going to apply an
+
+2110
+00:56:22,536 --> 0:56:23,296
+additional filter.
+
+2111
+00:56:23,296 --> 0:56:24,826
+We're going to say use the gamma
+
+2112
+00:56:24,826 --> 0:56:25,666
+adjustment filter.
+
+2113
+00:56:26,156 --> 0:56:27,806
+And the input to this will be
+
+2114
+00:56:27,806 --> 0:56:29,576
+the previous filter's output,
+
+2115
+00:56:29,656 --> 0:56:31,286
+and then we're going to specify
+
+2116
+00:56:31,566 --> 0:56:33,036
+the power for the gamma
+
+2117
+00:56:33,036 --> 0:56:35,856
+function, and ask for the output
+
+2118
+00:56:35,856 --> 0:56:36,206
+image.
+
+2119
+00:56:36,896 --> 0:56:38,356
+And you'll notice it's now very
+
+2120
+00:56:38,356 --> 0:56:40,616
+easy to specify the power for
+
+2121
+00:56:40,616 --> 0:56:41,406
+the gamma filter.
+
+2122
+00:56:41,406 --> 0:56:42,986
+It's a float rather than having
+
+2123
+00:56:42,986 --> 0:56:44,446
+to remember to use an NS number.
+
+2124
+00:56:46,946 --> 0:56:48,006
+So that's the first part of our
+
+2125
+00:56:48,006 --> 0:56:48,286
+effect.
+
+2126
+00:56:48,936 --> 0:56:52,046
+The next thing we want to do is
+
+2127
+00:56:52,736 --> 0:56:54,936
+start by getting the skin
+
+2128
+00:56:54,936 --> 0:56:55,676
+segmentation matte.
+
+2129
+00:56:56,176 --> 0:56:57,236
+So again, as I described
+
+2130
+00:56:57,316 --> 0:56:58,186
+earlier, we're going to start
+
+2131
+00:56:58,186 --> 0:56:59,936
+with a URL to specify that we
+
+2132
+00:56:59,936 --> 0:57:01,646
+want the skin matte.
+
+2133
+00:56:59,936 --> 0:57:01,646
+want the skin matte.
+
+2134
+00:57:02,056 --> 0:57:03,446
+However, when we get this image,
+
+2135
+00:57:03,896 --> 0:57:06,126
+you notice it's smaller than the
+
+2136
+00:57:06,126 --> 0:57:06,616
+other image.
+
+2137
+00:57:06,616 --> 0:57:07,616
+As we mentioned before, these
+
+2138
+00:57:07,616 --> 0:57:08,766
+are half size by default.
+
+2139
+00:57:10,666 --> 0:57:11,996
+So we need to scale that up to
+
+2140
+00:57:11,996 --> 0:57:13,526
+match the image, the main image
+
+2141
+00:57:13,526 --> 0:57:13,796
+size.
+
+2142
+00:57:14,096 --> 0:57:15,076
+So we're going to create a
+
+2143
+00:57:15,076 --> 0:57:16,566
+CGAffineTransform that scales
+
+2144
+00:57:16,566 --> 0:57:18,366
+from the matte size to the base
+
+2145
+00:57:18,366 --> 0:57:19,046
+image size.
+
+2146
+00:57:19,466 --> 0:57:21,106
+And then we're going to apply a
+
+2147
+00:57:21,106 --> 0:57:22,306
+transform to the image.
+
+2148
+00:57:22,426 --> 0:57:23,626
+And that produces a new image,
+
+2149
+00:57:23,736 --> 0:57:25,806
+which, as you expect, matches
+
+2150
+00:57:25,806 --> 0:57:26,626
+the correct size.
+
+2151
+00:57:28,116 --> 0:57:29,366
+The next step we're going to do
+
+2152
+00:57:29,646 --> 0:57:31,486
+is start combining these two.
+
+2153
+00:57:32,436 --> 0:57:33,496
+And we're going to use the
+
+2154
+00:57:33,556 --> 0:57:34,836
+blendWithMask filter.
+
+2155
+00:57:34,936 --> 0:57:35,626
+And this is great.
+
+2156
+00:57:35,686 --> 0:57:36,596
+And we use this throughout the
+
+2157
+00:57:36,596 --> 0:57:37,836
+sample I just showed.
+
+2158
+00:57:38,836 --> 0:57:39,866
+We're going to specify the
+
+2159
+00:57:39,866 --> 0:57:41,316
+background image to be the base
+
+2160
+00:57:41,356 --> 0:57:43,286
+RGB image, which looks like
+
+2161
+00:57:43,336 --> 0:57:43,676
+this.
+
+2162
+00:57:44,516 --> 0:57:45,726
+Next, we're going to specify the
+
+2163
+00:57:45,726 --> 0:57:47,406
+input image, which will be the
+
+2164
+00:57:47,406 --> 0:57:49,026
+foreground image, which is the
+
+2165
+00:57:49,026 --> 0:57:51,176
+image which has the white makeup
+
+2166
+00:57:51,176 --> 0:57:51,626
+applied.
+
+2167
+00:57:51,686 --> 0:57:53,326
+And lastly, we're going to
+
+2168
+00:57:53,326 --> 0:57:56,606
+specify a mask image, which is
+
+2169
+00:57:56,836 --> 0:57:58,236
+the image that I showed
+
+2170
+00:57:58,946 --> 0:57:59,396
+previously.
+
+2171
+00:58:00,156 --> 0:58:01,656
+Given these three inputs, you
+
+2172
+00:58:01,656 --> 0:58:03,146
+can ask the blend filter for its
+
+2173
+00:58:03,146 --> 0:58:03,576
+output.
+
+2174
+00:58:04,046 --> 0:58:05,346
+And the result looks like this.
+
+2175
+00:58:06,146 --> 0:58:06,956
+Now, as you can see, this is
+
+2176
+00:58:06,956 --> 0:58:07,796
+just the starting point.
+
+2177
+00:58:07,796 --> 0:58:08,826
+And you can combine all sorts of
+
+2178
+00:58:08,826 --> 0:58:10,936
+interesting effects to produce
+
+2179
+00:58:11,056 --> 0:58:11,856
+great results in your
+
+2180
+00:58:11,856 --> 0:58:12,356
+application.
+
+2181
+00:58:14,916 --> 0:58:16,296
+Once you're done applying these
+
+2182
+00:58:16,296 --> 0:58:17,326
+effects, you want to save them.
+
+2183
+00:58:18,026 --> 0:58:19,826
+And most typically, you want to
+
+2184
+00:58:19,826 --> 0:58:21,946
+save them as a HEIF or a JPEG
+
+2185
+00:58:21,946 --> 0:58:23,376
+file, which supports saving
+
+2186
+00:58:23,646 --> 0:58:25,306
+auxiliary images as well.
+
+2187
+00:58:26,136 --> 0:58:27,096
+So, in addition to the main
+
+2188
+00:58:27,096 --> 0:58:28,906
+image, you can also store the
+
+2189
+00:58:29,046 --> 0:58:30,906
+semantic segmentation mattes so
+
+2190
+00:58:30,906 --> 0:58:32,606
+that either your application or
+
+2191
+00:58:32,606 --> 0:58:34,356
+other applications can apply
+
+2192
+00:58:34,356 --> 0:58:35,266
+additional effects.
+
+2193
+00:58:37,166 --> 0:58:38,116
+The code for this is very
+
+2194
+00:58:38,116 --> 0:58:38,476
+simple.
+
+2195
+00:58:38,686 --> 0:58:40,676
+You use this Core Image API
+
+2196
+00:58:40,676 --> 0:58:43,006
+writeHEIFRepresentation, and,
+
+2197
+00:58:43,166 --> 0:58:45,046
+typically you specify the main
+
+2198
+00:58:45,046 --> 0:58:47,556
+image, the URL that you want to
+
+2199
+00:58:47,556 --> 0:58:48,146
+save it to.
+
+2200
+00:58:48,616 --> 0:58:50,186
+And then the pixel format that
+
+2201
+00:58:50,186 --> 0:58:51,326
+you want it to be saved as.
+
+2202
+00:58:51,686 --> 0:58:52,816
+And the color space you want it
+
+2203
+00:58:52,816 --> 0:58:53,576
+to be saved as.
+
+2204
+00:58:54,126 --> 0:58:55,076
+And what I want to highlight
+
+2205
+00:58:55,076 --> 0:58:57,066
+today is another set of options
+
+2206
+00:58:57,066 --> 0:58:58,406
+that you can provide when you're
+
+2207
+00:58:58,406 --> 0:58:59,226
+saving the image.
+
+2208
+00:58:59,796 --> 0:59:01,446
+So, for example, you can specify
+
+2209
+00:58:59,796 --> 0:59:01,446
+So, for example, you can specify
+
+2210
+00:59:01,446 --> 0:59:03,056
+the key semantic segmentation
+
+2211
+00:59:03,056 --> 0:59:03,656
+skin matte.
+
+2212
+00:59:03,836 --> 0:59:06,456
+And specify the skin image, or
+
+2213
+00:59:06,456 --> 0:59:07,946
+the hair image, or the teeth
+
+2214
+00:59:07,946 --> 0:59:08,286
+image.
+
+2215
+00:59:08,596 --> 0:59:09,936
+And all four of these images
+
+2216
+00:59:09,936 --> 0:59:11,436
+will be saved into the resulting
+
+2217
+00:59:11,966 --> 0:59:13,146
+HEIF or JPEG file.
+
+2218
+00:59:14,386 --> 0:59:15,586
+Now there's an alternate way of
+
+2219
+00:59:15,636 --> 0:59:17,816
+getting this result, which is if
+
+2220
+00:59:17,816 --> 0:59:19,266
+you want, you can save a main
+
+2221
+00:59:19,266 --> 0:59:21,526
+image and specify the
+
+2222
+00:59:21,526 --> 0:59:22,636
+segmentation mattes as
+
+2223
+00:59:22,636 --> 0:59:24,546
+AVSemanticSegmentationMatte
+
+2224
+00:59:24,546 --> 0:59:25,346
+objects.
+
+2225
+00:59:25,556 --> 0:59:26,966
+This again, the API is very
+
+2226
+00:59:26,966 --> 0:59:27,356
+simple.
+
+2227
+00:59:27,656 --> 0:59:30,416
+You specify the URL, the primary
+
+2228
+00:59:30,416 --> 0:59:32,546
+image, the pixel format, and the
+
+2229
+00:59:32,546 --> 0:59:33,206
+color space.
+
+2230
+00:59:33,786 --> 0:59:35,026
+In this case, if you want to
+
+2231
+00:59:35,026 --> 0:59:36,386
+specify these objects to be
+
+2232
+00:59:36,386 --> 0:59:38,676
+saved in the file, you just say
+
+2233
+00:59:38,676 --> 0:59:40,096
+AVSemanticSegmentationMattes,
+
+2234
+00:59:40,096 --> 0:59:41,476
+and you provide an array of
+
+2235
+00:59:41,476 --> 0:59:41,886
+mattes.
+
+2236
+00:59:44,296 --> 0:59:46,576
+So, that's what you can do using
+
+2237
+00:59:46,576 --> 0:59:47,676
+Core Image with these mattes.
+
+2238
+00:59:47,676 --> 0:59:48,876
+What I've talked about today is
+
+2239
+00:59:49,086 --> 0:59:52,096
+how to create images for mattes,
+
+2240
+00:59:52,296 --> 0:59:53,796
+how to apply filters, and how to
+
+2241
+00:59:53,796 --> 0:59:54,336
+save them.
+
+2242
+00:59:54,666 --> 0:59:55,946
+I will however, mention that the
+
+2243
+00:59:56,136 --> 0:59:57,656
+sample app I showed you has been
+
+2244
+00:59:57,656 --> 0:59:59,696
+written as a Photos app plugin.
+
+2245
+01:00:00,116 --> 1:00:01,136
+And if you want to learn about
+
+2246
+01:00:01,136 --> 1:00:02,236
+how you can do that in your
+
+2247
+01:00:02,236 --> 1:00:04,066
+application so that you can save
+
+2248
+01:00:04,066 --> 1:00:05,476
+these images not just to HEIFs
+
+2249
+01:00:05,546 --> 1:00:07,126
+but also into the user's photo
+
+2250
+01:00:07,126 --> 1:00:09,496
+library, I recommend you consult
+
+2251
+01:00:09,496 --> 1:00:11,226
+these earlier presentations,
+
+2252
+01:00:11,476 --> 1:00:12,746
+especially the introduction to
+
+2253
+01:00:12,746 --> 1:00:14,736
+the photos frameworks from WWDC
+
+2254
+01:00:14,736 --> 1:00:16,946
+in 2014.
+
+2255
+01:00:17,556 --> 1:00:18,946
+All right, and thank you all
+
+2256
+01:00:18,946 --> 1:00:19,416
+very much.
+
+2257
+01:00:19,416 --> 1:00:20,506
+I really look forward to seeing
+
+2258
+01:00:20,506 --> 1:00:21,336
+what you do with these great
+
+2259
+01:00:21,336 --> 1:00:21,656
+features.
+
+2260
+01:00:21,656 --> 1:00:21,976
+Thanks.
+
+2261
+01:00:22,516 --> 1:00:25,500
+[ Applause ]

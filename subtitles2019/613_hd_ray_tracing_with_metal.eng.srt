@@ -1,0 +1,8867 @@
+1
+00:00:01,176 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:10,516 --> 0:00:14,546
+[ Applause ]
+
+3
+00:00:15,046 --> 0:00:15,836
+&gt;&gt; Good morning everyone.
+
+4
+00:00:16,245 --> 0:00:17,746
+My name is Sean and I'm an
+
+5
+00:00:17,746 --> 0:00:19,376
+engineer on Apple's GPU Software
+
+6
+00:00:19,376 --> 0:00:19,736
+Team.
+
+7
+00:00:20,856 --> 0:00:21,686
+In this session we're going to
+
+8
+00:00:21,686 --> 0:00:22,706
+talk about Ray Tracing.
+
+9
+00:00:23,336 --> 0:00:24,606
+So, let's first review what Ray
+
+10
+00:00:24,606 --> 0:00:25,866
+Tracing is.
+
+11
+00:00:26,556 --> 0:00:27,976
+Ray Tracing applications are
+
+12
+00:00:27,976 --> 0:00:29,346
+based on tracing the paths the
+
+13
+00:00:29,346 --> 0:00:30,816
+rays take as they interact with
+
+14
+00:00:30,816 --> 0:00:31,296
+a scene.
+
+15
+00:00:32,076 --> 0:00:33,796
+So, Ray Tracing has applications
+
+16
+00:00:33,796 --> 0:00:35,666
+in rendering, audio, physics
+
+17
+00:00:35,666 --> 0:00:36,836
+simulation, and more.
+
+18
+00:00:37,926 --> 0:00:39,336
+In particular Ray Tracing is
+
+19
+00:00:39,336 --> 0:00:41,016
+often used in offline rendering
+
+20
+00:00:41,016 --> 0:00:42,686
+applications to simulate
+
+21
+00:00:42,686 --> 0:00:43,886
+individual rays of light
+
+22
+00:00:43,886 --> 0:00:44,886
+bouncing around a scene.
+
+23
+00:00:45,586 --> 0:00:47,086
+This allows these applications
+
+24
+00:00:47,086 --> 0:00:48,166
+to render photo realistic
+
+25
+00:00:48,196 --> 0:00:49,756
+reflections, refractions,
+
+26
+00:00:49,926 --> 0:00:51,706
+shadows, global illumination,
+
+27
+00:00:51,976 --> 0:00:56,336
+and more.
+
+28
+00:00:56,556 --> 0:00:58,076
+Recently, Ray Tracing has also
+
+29
+00:00:58,076 --> 0:00:59,336
+started to be used in real-time
+
+30
+00:00:59,336 --> 0:01:00,366
+applications such as games.
+
+31
+00:00:59,336 --> 0:01:00,366
+applications such as games.
+
+32
+00:01:00,366 --> 0:01:02,606
+And this actually introduces
+
+33
+00:01:02,606 --> 0:01:03,596
+some new requirements.
+
+34
+00:01:05,016 --> 0:01:07,036
+First, in real-time applications
+
+35
+00:01:07,036 --> 0:01:08,256
+objects tend to move around.
+
+36
+00:01:08,326 --> 0:01:09,436
+So, we need to be able to
+
+37
+00:01:09,436 --> 0:01:10,926
+support both camera and object
+
+38
+00:01:10,926 --> 0:01:11,406
+motion.
+
+39
+00:01:12,376 --> 0:01:14,466
+Second, performance is now even
+
+40
+00:01:14,466 --> 0:01:15,136
+more critical.
+
+41
+00:01:15,896 --> 0:01:16,726
+This means that the ray
+
+42
+00:01:16,726 --> 0:01:18,206
+intersection itself has to be as
+
+43
+00:01:18,206 --> 0:01:20,016
+efficient as possible and we
+
+44
+00:01:20,016 --> 0:01:21,406
+also have to make effective use
+
+45
+00:01:21,406 --> 0:01:22,546
+of our limited ray budget.
+
+46
+00:01:23,576 --> 0:01:24,746
+So, we need to careful with our
+
+47
+00:01:24,746 --> 0:01:26,196
+sampling strategies, random
+
+48
+00:01:26,196 --> 0:01:28,256
+number generation, and so on.
+
+49
+00:01:29,236 --> 0:01:30,746
+Finally, even with these
+
+50
+00:01:30,746 --> 0:01:31,956
+techniques we won't be able to
+
+51
+00:01:31,956 --> 0:01:33,376
+cast enough rays to remove all
+
+52
+00:01:33,376 --> 0:01:33,756
+the noise.
+
+53
+00:01:34,386 --> 0:01:35,446
+So, we need a sophisticated
+
+54
+00:01:35,446 --> 0:01:36,606
+noise reduction strategy.
+
+55
+00:01:37,366 --> 0:01:39,336
+Fortunately, Metal has built in
+
+56
+00:01:39,336 --> 0:01:41,006
+support for Ray Tracing and
+
+57
+00:01:41,006 --> 0:01:41,576
+Denoising.
+
+58
+00:01:41,766 --> 0:01:42,876
+So, it's easy to get started.
+
+59
+00:01:43,956 --> 0:01:45,146
+So, let's first review how Ray
+
+60
+00:01:45,146 --> 0:01:46,686
+Tracing works in Metal and then
+
+61
+00:01:46,686 --> 0:01:47,496
+we'll move on to some more
+
+62
+00:01:47,496 --> 0:01:48,306
+advanced topics.
+
+63
+00:01:48,866 --> 0:01:51,656
+So, if you look at a typical Ray
+
+64
+00:01:51,656 --> 0:01:53,246
+Tracing application, they all
+
+65
+00:01:53,246 --> 0:01:54,686
+follow roughly the same outline.
+
+66
+00:01:55,516 --> 0:01:56,946
+First, we generate some rays.
+
+67
+00:01:57,646 --> 0:01:58,846
+Each ray is defined by its
+
+68
+00:01:58,886 --> 0:02:00,206
+origin point and its direction
+
+69
+00:01:58,886 --> 0:02:00,206
+origin point and its direction
+
+70
+00:02:00,206 --> 0:02:00,616
+vector.
+
+71
+00:02:01,816 --> 0:02:03,086
+Those rays are then intersected
+
+72
+00:02:03,086 --> 0:02:04,136
+against the geometry in the
+
+73
+00:02:04,136 --> 0:02:05,566
+scene, which is usually made of
+
+74
+00:02:05,566 --> 0:02:06,076
+triangles.
+
+75
+00:02:06,746 --> 0:02:08,286
+The intersection data could just
+
+76
+00:02:08,286 --> 0:02:09,076
+be the distance to the
+
+77
+00:02:09,076 --> 0:02:10,536
+intersection point, but it
+
+78
+00:02:10,606 --> 0:02:11,726
+typically includes additional
+
+79
+00:02:11,726 --> 0:02:13,186
+data such as the index of the
+
+80
+00:02:13,186 --> 0:02:14,636
+triangle that was hit and the
+
+81
+00:02:14,636 --> 0:02:15,766
+very center coordinates of the
+
+82
+00:02:15,766 --> 0:02:17,206
+intersection point.
+
+83
+00:02:18,636 --> 0:02:19,906
+The next step consumes the
+
+84
+00:02:19,906 --> 0:02:20,846
+intersection results.
+
+85
+00:02:21,106 --> 0:02:22,176
+For example, in a rendering
+
+86
+00:02:22,176 --> 0:02:23,866
+application this is typically a
+
+87
+00:02:23,866 --> 0:02:25,436
+shading step which outputs an
+
+88
+00:02:25,436 --> 0:02:25,806
+image.
+
+89
+00:02:26,566 --> 0:02:27,876
+And this step may also generate
+
+90
+00:02:27,876 --> 0:02:29,646
+additional rays, so we repeat
+
+91
+00:02:29,646 --> 0:02:31,056
+this process however many times
+
+92
+00:02:31,056 --> 0:02:33,996
+we need until we're done.
+
+93
+00:02:34,176 --> 0:02:35,676
+Applications typically intersect
+
+94
+00:02:35,786 --> 0:02:37,116
+millions of rays with the scene
+
+95
+00:02:37,116 --> 0:02:37,736
+every frame.
+
+96
+00:02:38,786 --> 0:02:40,166
+And this core intersection step
+
+97
+00:02:40,226 --> 0:02:41,536
+is common to all Ray Tracing
+
+98
+00:02:41,536 --> 0:02:42,246
+applications.
+
+99
+00:02:42,936 --> 0:02:44,326
+So, this intersection step is
+
+100
+00:02:44,326 --> 0:02:47,426
+what we accelerate in Metal.
+
+101
+00:02:47,566 --> 0:02:49,136
+Last year, we introduced the
+
+102
+00:02:49,136 --> 0:02:51,486
+MPSRayIntersector API, which is
+
+103
+00:02:51,486 --> 0:02:52,486
+part of the Metal performance
+
+104
+00:02:52,486 --> 0:02:53,226
+shaders framework.
+
+105
+00:02:54,296 --> 0:02:55,806
+This API accelerates ray
+
+106
+00:02:55,806 --> 0:02:57,946
+intersection on the GPU on all
+
+107
+00:02:57,946 --> 0:02:59,456
+of our Mac and iOS devices.
+
+108
+00:03:00,366 --> 0:03:01,556
+We talked a lot about this API
+
+109
+00:03:01,626 --> 0:03:02,866
+in last year's talk, so we'd
+
+110
+00:03:02,866 --> 0:03:03,926
+encourage you to go back and
+
+111
+00:03:03,926 --> 0:03:05,056
+review this talk for more
+
+112
+00:03:05,056 --> 0:03:05,526
+information.
+
+113
+00:03:06,486 --> 0:03:08,336
+At a high level, this API takes
+
+114
+00:03:08,336 --> 0:03:09,496
+in batches of rays through a
+
+115
+00:03:09,496 --> 0:03:10,176
+Metal buffer.
+
+116
+00:03:10,996 --> 0:03:11,846
+It finds the closest
+
+117
+00:03:11,846 --> 0:03:13,406
+intersection along each ray and
+
+118
+00:03:13,406 --> 0:03:14,746
+returns the results in another
+
+119
+00:03:14,746 --> 0:03:15,136
+buffer.
+
+120
+00:03:15,666 --> 0:03:18,376
+And all of this work is encoded
+
+121
+00:03:18,416 --> 0:03:20,006
+into a Metal commandBuffer at
+
+122
+00:03:20,006 --> 0:03:21,146
+the point in your application
+
+123
+00:03:21,146 --> 0:03:21,716
+where you'd like to do
+
+124
+00:03:21,716 --> 0:03:22,626
+intersection testing.
+
+125
+00:03:23,236 --> 0:03:26,016
+Much of the speed up comes from
+
+126
+00:03:26,016 --> 0:03:27,106
+building a data structure we
+
+127
+00:03:27,106 --> 0:03:28,466
+call an acceleration structure.
+
+128
+00:03:29,156 --> 0:03:30,546
+This data structure recursively
+
+129
+00:03:30,546 --> 0:03:32,426
+partitions triangles in space so
+
+130
+00:03:32,976 --> 0:03:34,266
+that we can quickly eliminate
+
+131
+00:03:34,266 --> 0:03:35,756
+triangles which cannot possibly
+
+132
+00:03:35,756 --> 0:03:37,306
+intersect a given ray during the
+
+133
+00:03:37,306 --> 0:03:38,196
+intersection search.
+
+134
+00:03:38,706 --> 0:03:41,036
+Metal takes care of building
+
+135
+00:03:41,036 --> 0:03:42,326
+this data structure for you.
+
+136
+00:03:42,746 --> 0:03:44,066
+All you have to do is specify
+
+137
+00:03:44,066 --> 0:03:44,996
+when you'd like to build the
+
+138
+00:03:44,996 --> 0:03:46,616
+acceleration structure, then
+
+139
+00:03:46,616 --> 0:03:47,486
+simply pass it to the
+
+140
+00:03:47,486 --> 0:03:48,696
+intersector for intersection
+
+141
+00:03:48,696 --> 0:03:49,126
+testing.
+
+142
+00:03:50,266 --> 0:03:51,436
+Now, building this data
+
+143
+00:03:51,436 --> 0:03:52,756
+structure is typically a fixed
+
+144
+00:03:52,756 --> 0:03:54,156
+cost paid when your app starts
+
+145
+00:03:54,156 --> 0:03:54,366
+up.
+
+146
+00:03:55,666 --> 0:03:56,536
+In last year's version of the
+
+147
+00:03:56,536 --> 0:03:58,106
+API this data structure was
+
+148
+00:03:58,106 --> 0:03:59,386
+always built on the CPU.
+
+149
+00:04:00,056 --> 0:04:01,156
+This year, we've moved the
+
+150
+00:04:01,156 --> 0:04:02,756
+acceleration structure build to
+
+151
+00:04:02,756 --> 0:04:04,716
+the GPU, which can significantly
+
+152
+00:04:04,716 --> 0:04:06,076
+reduce the startup cost.
+
+153
+00:04:06,646 --> 0:04:08,006
+And even better, the GPU will be
+
+154
+00:04:08,006 --> 0:04:09,226
+used automatically whenever
+
+155
+00:04:09,226 --> 0:04:09,726
+possible.
+
+156
+00:04:09,856 --> 0:04:10,726
+So, you don't need to do
+
+157
+00:04:10,726 --> 0:04:12,166
+anything to see the speed up in
+
+158
+00:04:12,166 --> 0:04:12,796
+your applications.
+
+159
+00:04:14,406 --> 0:04:15,796
+So, let's now revisit our
+
+160
+00:04:15,796 --> 0:04:17,305
+typical Ray Tracing application
+
+161
+00:04:17,396 --> 0:04:18,315
+and see what we need to do to
+
+162
+00:04:18,315 --> 0:04:19,466
+translate it into a Metal Ray
+
+163
+00:04:19,466 --> 0:04:20,375
+Tracing application.
+
+164
+00:04:21,005 --> 0:04:23,346
+So, like I said, we'll start by
+
+165
+00:04:23,376 --> 0:04:24,106
+generating rays.
+
+166
+00:04:24,896 --> 0:04:26,076
+This is typically done using a
+
+167
+00:04:26,076 --> 0:04:27,326
+compute kernel, but it could
+
+168
+00:04:27,326 --> 0:04:28,416
+also be done from a fragment
+
+169
+00:04:28,416 --> 0:04:30,286
+shader or really any mechanism
+
+170
+00:04:30,286 --> 0:04:31,116
+that can write to a Metal
+
+171
+00:04:31,116 --> 0:04:31,486
+buffer.
+
+172
+00:04:32,676 --> 0:04:33,946
+We then pass the ray buffer to
+
+173
+00:04:33,946 --> 0:04:34,646
+the intersector.
+
+174
+00:04:35,596 --> 0:04:37,196
+It'll find the intersections and
+
+175
+00:04:37,196 --> 0:04:38,236
+return the result in our
+
+176
+00:04:38,236 --> 0:04:39,116
+intersection buffer.
+
+177
+00:04:39,556 --> 0:04:40,956
+And remember that to use the
+
+178
+00:04:40,956 --> 0:04:42,486
+intersector we need to provide
+
+179
+00:04:42,486 --> 0:04:43,596
+an acceleration structure.
+
+180
+00:04:44,386 --> 0:04:45,926
+We can often build this just one
+
+181
+00:04:46,076 --> 0:04:47,186
+and reuse it many times.
+
+182
+00:04:48,496 --> 0:04:50,056
+Finally, we'll launch one last
+
+183
+00:04:50,056 --> 0:04:52,016
+compute kernel which will use
+
+184
+00:04:52,016 --> 0:04:53,456
+the intersection data to write a
+
+185
+00:04:53,456 --> 0:04:55,026
+shaded image into a texture.
+
+186
+00:04:55,986 --> 0:04:57,616
+And this compute kernel can also
+
+187
+00:04:57,616 --> 0:04:59,006
+write additional rays back into
+
+188
+00:04:59,006 --> 0:05:00,176
+the ray buffer for iterative
+
+189
+00:04:59,006 --> 0:05:00,176
+the ray buffer for iterative
+
+190
+00:05:00,176 --> 0:05:00,846
+applications.
+
+191
+00:05:02,286 --> 0:05:03,166
+So, let's see how this works in
+
+192
+00:05:03,166 --> 0:05:03,936
+a real application.
+
+193
+00:05:05,226 --> 0:05:06,676
+For this example, we'll talk
+
+194
+00:05:06,676 --> 0:05:08,006
+about how Ray Tracing is being
+
+195
+00:05:08,006 --> 0:05:09,236
+used in AR Quick Look.
+
+196
+00:05:09,686 --> 0:05:11,236
+AR Quick Look was introduced
+
+197
+00:05:11,236 --> 0:05:12,436
+last year and allows you to
+
+198
+00:05:12,506 --> 0:05:14,346
+preview 3D assets in augmented
+
+199
+00:05:14,346 --> 0:05:14,676
+reality.
+
+200
+00:05:15,996 --> 0:05:17,176
+We talked a lot about AR Quick
+
+201
+00:05:17,176 --> 0:05:18,456
+Look in this morning's session.
+
+202
+00:05:18,526 --> 0:05:19,686
+So, I'd encourage you to watch
+
+203
+00:05:19,686 --> 0:05:20,436
+that talk as well.
+
+204
+00:05:20,436 --> 0:05:22,336
+For this talk, we'll focus on
+
+205
+00:05:22,336 --> 0:05:23,816
+how AR Quick Look is using Ray
+
+206
+00:05:23,816 --> 0:05:25,446
+Tracing to render an Ambient
+
+207
+00:05:25,446 --> 0:05:26,146
+Occlusion effect.
+
+208
+00:05:27,076 --> 0:05:28,086
+We'll talk more about Ambient
+
+209
+00:05:28,086 --> 0:05:29,766
+Occlusion later, but for now,
+
+210
+00:05:29,766 --> 0:05:31,116
+what you need to know is that
+
+211
+00:05:31,156 --> 0:05:32,356
+Ambient Occlusion computes an
+
+212
+00:05:32,356 --> 0:05:34,326
+approximation of how much light
+
+213
+00:05:34,386 --> 0:05:35,436
+can reach each point in the
+
+214
+00:05:35,506 --> 0:05:35,816
+scene.
+
+215
+00:05:36,616 --> 0:05:37,376
+So, this results in the
+
+216
+00:05:37,376 --> 0:05:38,316
+darkening of the ground
+
+217
+00:05:38,316 --> 0:05:39,926
+underneath the robot model as
+
+218
+00:05:39,926 --> 0:05:41,436
+well as soft contact shadows
+
+219
+00:05:41,486 --> 0:05:42,776
+between the robot's legs and the
+
+220
+00:05:42,776 --> 0:05:43,136
+ground.
+
+221
+00:05:43,656 --> 0:05:46,236
+The effect is somewhat subtle,
+
+222
+00:05:46,236 --> 0:05:47,556
+but if we turn it off, we can
+
+223
+00:05:47,556 --> 0:05:48,766
+see that it actually goes a long
+
+224
+00:05:48,766 --> 0:05:50,066
+way towards grounding the robot
+
+225
+00:05:50,066 --> 0:05:50,606
+in the scene.
+
+226
+00:05:51,206 --> 0:05:52,566
+And this is really important for
+
+227
+00:05:52,566 --> 0:05:54,226
+AR applications to prevent
+
+228
+00:05:54,226 --> 0:05:55,126
+objects from looking like
+
+229
+00:05:55,126 --> 0:05:56,876
+they're floating above the
+
+230
+00:05:58,496 --> 0:05:58,656
+ground.
+
+231
+00:05:58,806 --> 0:05:59,946
+In last year's version of AR
+
+232
+00:05:59,946 --> 0:06:01,036
+Quick Look, the shadows are
+
+233
+00:05:59,946 --> 0:06:01,036
+Quick Look, the shadows are
+
+234
+00:06:01,036 --> 0:06:02,876
+actually precomputed, so they
+
+235
+00:06:02,936 --> 0:06:04,246
+wouldn't move as objects moved
+
+236
+00:06:04,246 --> 0:06:04,606
+around.
+
+237
+00:06:05,956 --> 0:06:07,736
+This year, we've used Metal
+
+238
+00:06:07,776 --> 0:06:09,466
+support for dynamic scenes to
+
+239
+00:06:09,466 --> 0:06:10,606
+render these shadows in real
+
+240
+00:06:10,606 --> 0:06:10,956
+time.
+
+241
+00:06:11,426 --> 0:06:13,226
+So now as objects move their
+
+242
+00:06:13,226 --> 0:06:14,276
+shadows will move with them.
+
+243
+00:06:14,836 --> 0:06:17,106
+And this even works for
+
+244
+00:06:17,106 --> 0:06:18,516
+deforming objects such as
+
+245
+00:06:18,516 --> 0:06:19,246
+skinned models.
+
+246
+00:06:19,686 --> 0:06:20,886
+We can see the shadows follow
+
+247
+00:06:20,886 --> 0:06:22,176
+the motions of the fish as it
+
+248
+00:06:22,176 --> 0:06:23,706
+swims around the scene.
+
+249
+00:06:25,916 --> 0:06:27,326
+So, what we just saw actually
+
+250
+00:06:27,326 --> 0:06:28,456
+has three types of animation
+
+251
+00:06:28,456 --> 0:06:28,946
+going on.
+
+252
+00:06:28,946 --> 0:06:30,486
+If we were just using the
+
+253
+00:06:30,486 --> 0:06:31,796
+rasterizer, we'd simply
+
+254
+00:06:31,796 --> 0:06:33,006
+rasterize the triangles in their
+
+255
+00:06:33,006 --> 0:06:33,576
+new position.
+
+256
+00:06:34,346 --> 0:06:35,266
+But because we're using Ray
+
+257
+00:06:35,266 --> 0:06:36,646
+Tracing, we need to maintain an
+
+258
+00:06:36,646 --> 0:06:37,726
+acceleration structure.
+
+259
+00:06:38,826 --> 0:06:40,446
+So, the first type of animation
+
+260
+00:06:40,446 --> 0:06:41,476
+is simple camera movement.
+
+261
+00:06:41,476 --> 0:06:43,186
+And this is movement due to just
+
+262
+00:06:43,326 --> 0:06:44,436
+moving the iPad around.
+
+263
+00:06:45,516 --> 0:06:46,386
+We don't need to update the
+
+264
+00:06:46,386 --> 0:06:47,436
+acceleration structure just
+
+265
+00:06:47,436 --> 0:06:48,586
+because the cameras moved.
+
+266
+00:06:48,876 --> 0:06:49,956
+So, we actually get this type of
+
+267
+00:06:49,956 --> 0:06:50,916
+animation for free.
+
+268
+00:06:51,646 --> 0:06:53,056
+We can simply start firing rays
+
+269
+00:06:53,056 --> 0:06:54,006
+from the new camera position.
+
+270
+00:06:55,156 --> 0:06:56,436
+The other two types of animation
+
+271
+00:06:56,436 --> 0:06:57,536
+do require updating the
+
+272
+00:06:57,536 --> 0:06:58,476
+acceleration structure.
+
+273
+00:06:58,666 --> 0:07:00,746
+So, the first is Vertex
+
+274
+00:06:58,666 --> 0:07:00,746
+So, the first is Vertex
+
+275
+00:07:00,746 --> 0:07:01,286
+Animation.
+
+276
+00:07:02,236 --> 0:07:03,346
+This could be skinned models
+
+277
+00:07:03,346 --> 0:07:04,876
+like the fish, but it could also
+
+278
+00:07:04,876 --> 0:07:06,226
+be plants blowing in the wind,
+
+279
+00:07:06,376 --> 0:07:07,676
+cloth, or other types of
+
+280
+00:07:07,676 --> 0:07:08,206
+deformation.
+
+281
+00:07:09,276 --> 0:07:10,336
+Metal includes a special
+
+282
+00:07:10,336 --> 0:07:11,636
+acceleration structure update
+
+283
+00:07:11,636 --> 0:07:13,166
+mechanism optimized for cases
+
+284
+00:07:13,166 --> 0:07:13,646
+like this.
+
+285
+00:07:14,176 --> 0:07:16,446
+And the last type of animation
+
+286
+00:07:16,446 --> 0:07:17,626
+is rigid body animation.
+
+287
+00:07:18,346 --> 0:07:19,566
+This is where objects can move,
+
+288
+00:07:19,646 --> 0:07:21,556
+rotate, and scale, but otherwise
+
+289
+00:07:21,556 --> 0:07:22,796
+completely maintain their shape.
+
+290
+00:07:23,606 --> 0:07:24,496
+So, a large portion of the
+
+291
+00:07:24,496 --> 0:07:25,646
+acceleration structure is
+
+292
+00:07:25,646 --> 0:07:26,566
+actually still valid.
+
+293
+00:07:27,266 --> 0:07:28,406
+So, Metal also includes a
+
+294
+00:07:28,406 --> 0:07:30,006
+special mechanism to reuse the
+
+295
+00:07:30,006 --> 0:07:30,976
+parts of the acceleration
+
+296
+00:07:30,976 --> 0:07:32,186
+structure that hasn't changed.
+
+297
+00:07:33,456 --> 0:07:34,316
+So, let's first talk about
+
+298
+00:07:34,316 --> 0:07:35,086
+Vertex Animation.
+
+299
+00:07:36,206 --> 0:07:38,166
+As the geometry changes, we need
+
+300
+00:07:38,166 --> 0:07:39,176
+to update the acceleration
+
+301
+00:07:39,176 --> 0:07:39,626
+structure.
+
+302
+00:07:40,616 --> 0:07:42,046
+We could rebuild it from scratch
+
+303
+00:07:42,046 --> 0:07:43,706
+every frame, but we can actually
+
+304
+00:07:44,496 --> 0:07:45,246
+do better.
+
+305
+00:07:45,436 --> 0:07:47,146
+In Vertex Animation use cases
+
+306
+00:07:47,446 --> 0:07:48,896
+objects tend to mostly retain
+
+307
+00:07:48,896 --> 0:07:49,306
+their shape.
+
+308
+00:07:49,646 --> 0:07:50,986
+For example, a character's hands
+
+309
+00:07:50,986 --> 0:07:51,816
+will stay connected to their
+
+310
+00:07:51,816 --> 0:07:52,186
+arms.
+
+311
+00:07:52,546 --> 0:07:53,606
+Their arms will stay connected
+
+312
+00:07:53,606 --> 0:07:54,866
+to their body and so on.
+
+313
+00:07:55,506 --> 0:07:57,046
+So, the spatial hierarchy
+
+314
+00:07:57,046 --> 0:07:58,406
+encoded into the acceleration
+
+315
+00:07:58,406 --> 0:08:00,326
+structure is mostly still valid.
+
+316
+00:07:58,406 --> 0:08:00,326
+structure is mostly still valid.
+
+317
+00:08:00,856 --> 0:08:02,046
+It just needs to be adjusted to
+
+318
+00:08:02,046 --> 0:08:02,866
+the new geometry.
+
+319
+00:08:03,636 --> 0:08:04,586
+Let's look at an example.
+
+320
+00:08:06,046 --> 0:08:06,966
+So, here's the acceleration
+
+321
+00:08:06,966 --> 0:08:08,036
+structure we saw earlier.
+
+322
+00:08:09,356 --> 0:08:10,656
+If the triangles move, we can
+
+323
+00:08:10,656 --> 0:08:11,806
+see that the bounding boxes no
+
+324
+00:08:11,806 --> 0:08:12,586
+longer line up with the
+
+325
+00:08:12,586 --> 0:08:13,026
+triangles.
+
+326
+00:08:13,786 --> 0:08:15,086
+But the tree structure itself
+
+327
+00:08:15,086 --> 0:08:16,226
+mostly still makes sense.
+
+328
+00:08:16,596 --> 0:08:18,006
+So rather than rebuild it from
+
+329
+00:08:18,006 --> 0:08:19,566
+scratch, we can simply snap the
+
+330
+00:08:19,566 --> 0:08:20,816
+bounding boxes to the new
+
+331
+00:08:20,816 --> 0:08:22,616
+triangle positions from bottom
+
+332
+00:08:23,066 --> 0:08:24,286
+to top.
+
+333
+00:08:24,496 --> 0:08:25,456
+We call this operation
+
+334
+00:08:25,456 --> 0:08:25,956
+Refitting.
+
+335
+00:08:26,786 --> 0:08:27,766
+As we can see, this still
+
+336
+00:08:27,766 --> 0:08:29,146
+results in a valid acceleration
+
+337
+00:08:29,146 --> 0:08:31,016
+structure, but it's much faster
+
+338
+00:08:31,016 --> 0:08:32,256
+than building from scratch
+
+339
+00:08:32,385 --> 0:08:33,356
+because we can reuse the
+
+340
+00:08:33,356 --> 0:08:34,126
+existing tree.
+
+341
+00:08:34,666 --> 0:08:37,186
+This also runs entirely on the
+
+342
+00:08:37,186 --> 0:08:39,216
+GPU, which makes it even faster,
+
+343
+00:08:39,296 --> 0:08:40,426
+but also means that we can
+
+344
+00:08:40,476 --> 0:08:41,666
+safely encode a Refitting
+
+345
+00:08:41,666 --> 0:08:43,596
+operation after say a compute
+
+346
+00:08:43,596 --> 0:08:44,986
+kernel which updates the
+
+347
+00:08:44,986 --> 0:08:45,606
+vertices.
+
+348
+00:08:46,136 --> 0:08:48,406
+The downside is that we can't
+
+349
+00:08:48,406 --> 0:08:49,886
+add or remove any geometry
+
+350
+00:08:49,886 --> 0:08:50,866
+because the tree will still
+
+351
+00:08:50,866 --> 0:08:52,086
+encode references to the old
+
+352
+00:08:52,086 --> 0:08:52,646
+geometry.
+
+353
+00:08:54,156 --> 0:08:55,786
+This also potentially degrades
+
+354
+00:08:55,786 --> 0:08:56,856
+the acceleration structures
+
+355
+00:08:56,856 --> 0:08:58,206
+quality which can impact Ray
+
+356
+00:08:58,206 --> 0:08:59,156
+Tracing performance.
+
+357
+00:08:59,966 --> 0:09:00,946
+This is because the triangles
+
+358
+00:08:59,966 --> 0:09:00,946
+This is because the triangles
+
+359
+00:09:00,946 --> 0:09:02,136
+were originally partitioned
+
+360
+00:09:02,316 --> 0:09:03,636
+using a set of futuristics which
+
+361
+00:09:03,636 --> 0:09:04,786
+won't be accurate after the
+
+362
+00:09:04,786 --> 0:09:05,536
+triangles move.
+
+363
+00:09:06,016 --> 0:09:08,376
+The impact is usually minor, but
+
+364
+00:09:08,376 --> 0:09:09,886
+extreme cases like teleporting
+
+365
+00:09:09,886 --> 0:09:11,396
+geometry could cause performance
+
+366
+00:09:11,396 --> 0:09:11,826
+problems.
+
+367
+00:09:12,606 --> 0:09:13,766
+Nonetheless, this works great
+
+368
+00:09:13,766 --> 0:09:15,456
+for typical deformation and
+
+369
+00:09:15,456 --> 0:09:16,796
+character skinning use cases.
+
+370
+00:09:17,236 --> 0:09:18,606
+So, let's see how to set this up
+
+371
+00:09:18,606 --> 0:09:18,976
+in code.
+
+372
+00:09:20,056 --> 0:09:21,526
+First, before we build the
+
+373
+00:09:21,526 --> 0:09:22,856
+accelerations structure, we need
+
+374
+00:09:22,856 --> 0:09:24,336
+to enable support for Refitting.
+
+375
+00:09:24,886 --> 0:09:26,306
+And note that just enabling
+
+376
+00:09:26,306 --> 0:09:27,606
+Refitting is enough to reduce
+
+377
+00:09:27,646 --> 0:09:28,636
+the acceleration structure's
+
+378
+00:09:28,636 --> 0:09:29,056
+quality.
+
+379
+00:09:29,056 --> 0:09:31,006
+So definitely only turn this on
+
+380
+00:09:31,036 --> 0:09:32,136
+if you really need to refit the
+
+381
+00:09:32,136 --> 0:09:33,076
+acceleration structure.
+
+382
+00:09:34,536 --> 0:09:36,376
+Then we simple call encodeRefit
+
+383
+00:09:36,376 --> 0:09:37,596
+into a Metal commandBuffer.
+
+384
+00:09:38,176 --> 0:09:39,786
+And that's all we need to do for
+
+385
+00:09:39,786 --> 0:09:40,736
+Vertex Animation.
+
+386
+00:09:41,636 --> 0:09:43,176
+So next, let's talk about Rigid
+
+387
+00:09:43,176 --> 0:09:43,826
+Body Animation.
+
+388
+00:09:44,936 --> 0:09:46,526
+So as the name implies, this is
+
+389
+00:09:46,526 --> 0:09:47,576
+animation where objects can
+
+390
+00:09:47,576 --> 0:09:49,396
+move, rotate, and scale, but
+
+391
+00:09:49,396 --> 0:09:50,676
+otherwise completely maintain
+
+392
+00:09:50,676 --> 0:09:51,086
+their shape.
+
+393
+00:09:51,876 --> 0:09:53,166
+So, in the example on the right,
+
+394
+00:09:53,436 --> 0:09:54,246
+even though it looks like the
+
+395
+00:09:54,246 --> 0:09:55,846
+robot is deforming, actually all
+
+396
+00:09:55,846 --> 0:09:57,366
+of its joins are moving rigidly.
+
+397
+00:09:57,776 --> 0:09:58,906
+So, this is still an example of
+
+398
+00:09:58,906 --> 0:09:59,856
+Rigid Body Animation.
+
+399
+00:10:01,316 --> 0:10:02,816
+So, in a typical scene, most of
+
+400
+00:10:02,816 --> 0:10:04,036
+the geometry is probably only
+
+401
+00:10:04,036 --> 0:10:04,846
+moving rigidly.
+
+402
+00:10:05,546 --> 0:10:07,026
+In fact, most of the geometry is
+
+403
+00:10:07,026 --> 0:10:08,196
+probably not moving at all.
+
+404
+00:10:09,636 --> 0:10:11,346
+We may also have multiple copies
+
+405
+00:10:11,436 --> 0:10:12,596
+of the same objects in the
+
+406
+00:10:12,656 --> 0:10:13,006
+scene.
+
+407
+00:10:13,426 --> 0:10:14,766
+It would be wasteful to
+
+408
+00:10:14,766 --> 0:10:16,196
+replicate these objects multiple
+
+409
+00:10:16,196 --> 0:10:17,256
+times in the accelerations
+
+410
+00:10:17,256 --> 0:10:18,976
+structure and it would also be
+
+411
+00:10:18,976 --> 0:10:20,506
+inefficient to refit or rebuild
+
+412
+00:10:20,506 --> 0:10:21,556
+the entire acceleration
+
+413
+00:10:21,556 --> 0:10:23,306
+structure just because a subset
+
+414
+00:10:23,306 --> 0:10:24,346
+of the geometry is moving.
+
+415
+00:10:25,526 --> 0:10:26,816
+So, to solve both of these
+
+416
+00:10:26,846 --> 0:10:28,176
+problems, we can use what we
+
+417
+00:10:28,176 --> 0:10:29,486
+call a Two-Level Acceleration
+
+418
+00:10:29,486 --> 0:10:29,956
+Structure.
+
+419
+00:10:30,526 --> 0:10:33,586
+So, what we'll do is first build
+
+420
+00:10:33,586 --> 0:10:34,766
+a high-quality triangle
+
+421
+00:10:34,766 --> 0:10:36,186
+acceleration structure for each
+
+422
+00:10:36,186 --> 0:10:37,626
+unique object in the scene.
+
+423
+00:10:37,626 --> 0:10:38,896
+And we can do this just once
+
+424
+00:10:38,896 --> 0:10:41,326
+when the app starts up.
+
+425
+00:10:41,356 --> 0:10:42,826
+We'll then create two copies of
+
+426
+00:10:42,826 --> 0:10:44,296
+those -- of those triangle
+
+427
+00:10:44,296 --> 0:10:45,936
+acceleration structures using a
+
+428
+00:10:46,016 --> 0:10:47,266
+second acceleration structure.
+
+429
+00:10:47,976 --> 0:10:49,876
+Each copy is called an instance
+
+430
+00:10:49,876 --> 0:10:51,166
+of one of the original triangle
+
+431
+00:10:51,166 --> 0:10:52,156
+acceleration structures.
+
+432
+00:10:53,866 --> 0:10:55,196
+Each instance is associated with
+
+433
+00:10:55,196 --> 0:10:56,396
+a transformation matrix,
+
+434
+00:10:57,126 --> 0:10:58,356
+describing where to place it in
+
+435
+00:10:58,356 --> 0:10:58,796
+the scene.
+
+436
+00:10:59,696 --> 0:11:00,786
+So, we'll do this all using two
+
+437
+00:10:59,696 --> 0:11:00,786
+So, we'll do this all using two
+
+438
+00:11:00,786 --> 0:11:02,106
+buffers and each buffer will
+
+439
+00:11:02,106 --> 0:11:03,556
+contain one entry for each
+
+440
+00:11:03,556 --> 0:11:04,526
+instance in the scene.
+
+441
+00:11:05,846 --> 0:11:06,806
+The first buffer will contain
+
+442
+00:11:06,806 --> 0:11:08,146
+the transformation matrices for
+
+443
+00:11:08,146 --> 0:11:08,926
+all the instances.
+
+444
+00:11:10,376 --> 0:11:11,816
+The second buffer will contain
+
+445
+00:11:11,816 --> 0:11:13,286
+indices into an array of
+
+446
+00:11:13,286 --> 0:11:14,256
+triangle accelerations
+
+447
+00:11:14,256 --> 0:11:16,056
+structures describing which
+
+448
+00:11:16,056 --> 0:11:17,286
+acceleration structure to use
+
+449
+00:11:17,286 --> 0:11:18,096
+for each instance.
+
+450
+00:11:18,716 --> 0:11:21,246
+We'll then build a second
+
+451
+00:11:21,246 --> 0:11:22,976
+acceleration structure over just
+
+452
+00:11:22,976 --> 0:11:24,466
+the instances in the scene.
+
+453
+00:11:25,556 --> 0:11:26,926
+We can then quickly rebuild just
+
+454
+00:11:26,926 --> 0:11:28,016
+the instance acceleration
+
+455
+00:11:28,016 --> 0:11:29,446
+structure as the objects move.
+
+456
+00:11:30,346 --> 0:11:31,346
+So, let's see how to set this
+
+457
+00:11:31,346 --> 0:11:31,666
+up.
+
+458
+00:11:32,566 --> 0:11:33,816
+First, we'll create what's
+
+459
+00:11:33,816 --> 0:11:34,266
+called an
+
+460
+00:11:34,266 --> 0:11:35,606
+AccelerationStructureGroup.
+
+461
+00:11:36,386 --> 0:11:37,566
+All the acceleration structures
+
+462
+00:11:37,566 --> 0:11:38,746
+in the instance's hierarchy must
+
+463
+00:11:38,746 --> 0:11:39,796
+belong to the same group.
+
+464
+00:11:39,796 --> 0:11:41,126
+And this allows them to share
+
+465
+00:11:41,126 --> 0:11:42,166
+resources internally.
+
+466
+00:11:42,786 --> 0:11:45,106
+Next, we'll create an array to
+
+467
+00:11:45,106 --> 0:11:46,436
+hold our triangle acceleration
+
+468
+00:11:46,436 --> 0:11:46,916
+structures.
+
+469
+00:11:47,866 --> 0:11:49,206
+Then finally, we'll loop over
+
+470
+00:11:49,206 --> 0:11:50,376
+all the unique objects in the
+
+471
+00:11:50,376 --> 0:11:51,776
+scene, building a triangle
+
+472
+00:11:51,776 --> 0:11:52,926
+acceleration structure for each
+
+473
+00:11:52,926 --> 0:11:53,246
+of them.
+
+474
+00:11:53,526 --> 0:11:55,496
+Adding them to the array as we
+
+475
+00:11:56,896 --> 0:11:56,976
+go.
+
+476
+00:11:57,216 --> 0:11:58,006
+We're now ready to create the
+
+477
+00:11:58,006 --> 0:11:59,076
+second level acceleration
+
+478
+00:11:59,076 --> 0:11:59,526
+structure.
+
+479
+00:12:00,156 --> 0:12:02,006
+We do this using the NPSInstance
+
+480
+00:12:02,006 --> 0:12:03,286
+AccelerationStructure class.
+
+481
+00:12:04,266 --> 0:12:05,446
+We'll start by attaching our
+
+482
+00:12:05,446 --> 0:12:06,746
+array of triangle acceleration
+
+483
+00:12:06,746 --> 0:12:08,686
+structures as well as the two
+
+484
+00:12:08,686 --> 0:12:09,606
+buffers I talked about
+
+485
+00:12:09,606 --> 0:12:10,136
+previously.
+
+486
+00:12:10,836 --> 0:12:12,146
+Then finally, we'll specify the
+
+487
+00:12:12,146 --> 0:12:15,106
+num of instances in the scene.
+
+488
+00:12:15,306 --> 0:12:16,916
+Then, whenever the objects move
+
+489
+00:12:16,916 --> 0:12:18,086
+or if an object is added or
+
+490
+00:12:18,086 --> 0:12:19,816
+removed from the scene, we can
+
+491
+00:12:19,816 --> 0:12:21,256
+simply rebuild just the instance
+
+492
+00:12:21,256 --> 0:12:22,256
+acceleration structure.
+
+493
+00:12:23,246 --> 0:12:24,326
+This acceleration structure is
+
+494
+00:12:24,326 --> 0:12:25,566
+typically much smaller than a
+
+495
+00:12:25,566 --> 0:12:27,016
+triangle acceleration structure,
+
+496
+00:12:27,336 --> 0:12:28,336
+so we can afford to do this
+
+497
+00:12:28,336 --> 0:12:28,956
+every frame.
+
+498
+00:12:29,236 --> 0:12:30,366
+But note that similar to
+
+499
+00:12:30,366 --> 0:12:31,506
+Refitting, there is some
+
+500
+00:12:31,506 --> 0:12:32,896
+overhead when using instancing.
+
+501
+00:12:33,696 --> 0:12:34,776
+So, if your scene only has one
+
+502
+00:12:34,776 --> 0:12:36,446
+object or a handful of objects,
+
+503
+00:12:36,526 --> 0:12:37,496
+or especially if none of the
+
+504
+00:12:37,496 --> 0:12:39,156
+objects are moving, it might be
+
+505
+00:12:39,156 --> 0:12:40,446
+worthwhile to pack those into a
+
+506
+00:12:40,446 --> 0:12:41,776
+single triangle acceleration
+
+507
+00:12:41,776 --> 0:12:42,226
+structure.
+
+508
+00:12:43,026 --> 0:12:43,966
+This will increase your memory
+
+509
+00:12:44,016 --> 0:12:45,806
+footprint, but it should gain
+
+510
+00:12:45,806 --> 0:12:46,856
+back some of the performance.
+
+511
+00:12:47,226 --> 0:12:48,686
+So, you need to experiment to
+
+512
+00:12:48,716 --> 0:12:49,806
+find the right tradeoff for your
+
+513
+00:12:49,806 --> 0:12:50,286
+application.
+
+514
+00:12:50,286 --> 0:12:53,386
+So that's it for dynamic scenes.
+
+515
+00:12:53,826 --> 0:12:54,736
+We talked about how to support
+
+516
+00:12:54,736 --> 0:12:56,146
+Vertex Animation and Skinning
+
+517
+00:12:56,146 --> 0:12:57,006
+using Refitting.
+
+518
+00:12:57,606 --> 0:12:58,816
+As well as how to support Rigid
+
+519
+00:12:58,816 --> 0:13:00,306
+Body Animation using a Two-Level
+
+520
+00:12:58,816 --> 0:13:00,306
+Body Animation using a Two-Level
+
+521
+00:13:00,306 --> 0:13:01,276
+Acceleration Structure.
+
+522
+00:13:02,196 --> 0:13:03,726
+So next, let's switch gears and
+
+523
+00:13:03,726 --> 0:13:04,676
+talk about Denoising.
+
+524
+00:13:05,306 --> 0:13:08,516
+So far, all the images that we
+
+525
+00:13:08,516 --> 0:13:09,396
+have seen have been free of
+
+526
+00:13:09,396 --> 0:13:09,766
+noise.
+
+527
+00:13:10,326 --> 0:13:11,556
+That's because they've all been
+
+528
+00:13:11,556 --> 0:13:12,786
+using a denoising filter.
+
+529
+00:13:13,676 --> 0:13:14,966
+If we turn it off, we could see
+
+530
+00:13:14,966 --> 0:13:15,896
+what it would have looked like
+
+531
+00:13:15,896 --> 0:13:16,796
+without the denoiser.
+
+532
+00:13:17,826 --> 0:13:19,036
+We can see that these images are
+
+533
+00:13:19,036 --> 0:13:20,276
+too noisy to use in a real
+
+534
+00:13:20,276 --> 0:13:20,986
+application.
+
+535
+00:13:21,526 --> 0:13:22,576
+That's because we're only using
+
+536
+00:13:22,576 --> 0:13:23,966
+a handful of samples per pixel.
+
+537
+00:13:25,266 --> 0:13:26,516
+Usually we would just solve this
+
+538
+00:13:26,516 --> 0:13:27,506
+by averaging together more
+
+539
+00:13:27,506 --> 0:13:28,526
+samples over time.
+
+540
+00:13:28,926 --> 0:13:30,236
+But if the camera or objects are
+
+541
+00:13:30,236 --> 0:13:31,466
+moving it's not quite that
+
+542
+00:13:31,466 --> 0:13:31,846
+simple.
+
+543
+00:13:32,226 --> 0:13:34,236
+Fortunately, Metal now includes
+
+544
+00:13:34,236 --> 0:13:35,506
+a sophisticated Denoising
+
+545
+00:13:35,546 --> 0:13:35,936
+filter.
+
+546
+00:13:36,726 --> 0:13:37,566
+Let's see how this works.
+
+547
+00:13:37,676 --> 0:13:40,376
+Ideally what we'd be able to do
+
+548
+00:13:40,376 --> 0:13:41,856
+is simply take the noisy image
+
+549
+00:13:41,856 --> 0:13:43,556
+output by a renderer, run it
+
+550
+00:13:43,556 --> 0:13:44,766
+through a denoiser and get back
+
+551
+00:13:44,766 --> 0:13:45,506
+a clean image.
+
+552
+00:13:46,236 --> 0:13:47,436
+In practice, the denoiser needs
+
+553
+00:13:47,436 --> 0:13:48,736
+a little more information about
+
+554
+00:13:48,736 --> 0:13:49,186
+the scene.
+
+555
+00:13:50,296 --> 0:13:51,236
+We'll start by providing the
+
+556
+00:13:51,236 --> 0:13:52,296
+depths and normal for the
+
+557
+00:13:52,296 --> 0:13:53,616
+directly visible geometry.
+
+558
+00:13:54,386 --> 0:13:55,586
+Many renderers have these
+
+559
+00:13:55,586 --> 0:13:57,156
+textures lying around, and if
+
+560
+00:13:57,156 --> 0:13:59,076
+not, it's easy to produce them.
+
+561
+00:13:59,716 --> 0:14:00,946
+The denoiser will then run a
+
+562
+00:13:59,716 --> 0:14:00,946
+The denoiser will then run a
+
+563
+00:14:00,946 --> 0:14:01,926
+bunch of image processing
+
+564
+00:14:01,926 --> 0:14:03,326
+operations and output a cleaner
+
+565
+00:14:03,326 --> 0:14:03,696
+image.
+
+566
+00:14:04,336 --> 0:14:05,466
+But since we started with just a
+
+567
+00:14:05,466 --> 0:14:06,846
+handful of samples per pixel,
+
+568
+00:14:06,846 --> 0:14:07,926
+the result will still have some
+
+569
+00:14:07,926 --> 0:14:08,196
+noise.
+
+570
+00:14:08,936 --> 0:14:10,316
+So, we'll revisit the idea of
+
+571
+00:14:10,316 --> 0:14:11,706
+combining samples over multiple
+
+572
+00:14:11,706 --> 0:14:12,116
+frames.
+
+573
+00:14:12,786 --> 0:14:14,646
+So, we'll first set aside the
+
+574
+00:14:14,646 --> 0:14:16,246
+clean image to reuse in the next
+
+575
+00:14:16,246 --> 0:14:16,566
+frame.
+
+576
+00:14:17,726 --> 0:14:18,866
+We'll also set aside the depth
+
+577
+00:14:18,866 --> 0:14:20,356
+and normal so we can compare
+
+578
+00:14:20,356 --> 0:14:21,186
+them to the next frame.
+
+579
+00:14:22,256 --> 0:14:23,336
+Then finally, we'll provide a
+
+580
+00:14:23,336 --> 0:14:24,886
+motion vector texture which
+
+581
+00:14:24,886 --> 0:14:26,266
+describes how much each pixel
+
+582
+00:14:26,266 --> 0:14:27,476
+has moved between frames.
+
+583
+00:14:28,116 --> 0:14:30,916
+In the next frame, the denoiser
+
+584
+00:14:30,916 --> 0:14:32,126
+will churn through all of these
+
+585
+00:14:32,126 --> 0:14:33,406
+textures to produce an even
+
+586
+00:14:33,406 --> 0:14:34,136
+better image.
+
+587
+00:14:34,706 --> 0:14:35,856
+And this image will continue to
+
+588
+00:14:35,856 --> 0:14:37,506
+get better over time even if the
+
+589
+00:14:37,506 --> 0:14:38,686
+camera or objects move.
+
+590
+00:14:39,076 --> 0:14:41,156
+The denoiser will use the depths
+
+591
+00:14:41,156 --> 0:14:43,116
+and normal to detect cases where
+
+592
+00:14:43,116 --> 0:14:44,296
+the history for a pixel has
+
+593
+00:14:44,296 --> 0:14:46,426
+become invalid due to an object
+
+594
+00:14:46,426 --> 0:14:47,656
+moving or getting in the way.
+
+595
+00:14:49,196 --> 0:14:50,056
+So, this is all implemented
+
+596
+00:14:50,056 --> 0:14:51,946
+using the MPSSVGF family of
+
+597
+00:14:51,986 --> 0:14:52,506
+classes.
+
+598
+00:14:53,456 --> 0:14:54,756
+This is an implementation of the
+
+599
+00:14:54,756 --> 0:14:56,246
+popular MPSSVGF denoising
+
+600
+00:14:56,246 --> 0:14:56,716
+algorithm.
+
+601
+00:14:57,356 --> 0:14:58,276
+This algorithm makes a good
+
+602
+00:14:58,276 --> 0:14:59,536
+tradeoff between high quality
+
+603
+00:14:59,536 --> 0:15:00,596
+and real-time performance.
+
+604
+00:14:59,536 --> 0:15:00,596
+and real-time performance.
+
+605
+00:15:01,236 --> 0:15:03,146
+So, the denoising process is all
+
+606
+00:15:03,146 --> 0:15:04,386
+coordinated by the
+
+607
+00:15:04,386 --> 0:15:06,096
+MPSSVGFDenoiser class.
+
+608
+00:15:07,206 --> 0:15:08,976
+Meanwhile, low-level control is
+
+609
+00:15:08,976 --> 0:15:10,896
+provided using the MPSSVGF
+
+610
+00:15:10,896 --> 0:15:11,316
+class.
+
+611
+00:15:12,186 --> 0:15:12,996
+This class provides the
+
+612
+00:15:12,996 --> 0:15:14,516
+individual compute kernels used
+
+613
+00:15:14,516 --> 0:15:16,516
+by the denoiser and exposes many
+
+614
+00:15:16,516 --> 0:15:17,726
+parameters you can use to fine
+
+615
+00:15:17,726 --> 0:15:18,736
+tune the Denoising in your
+
+616
+00:15:18,736 --> 0:15:19,236
+application.
+
+617
+00:15:20,006 --> 0:15:21,026
+And you also just call this
+
+618
+00:15:21,026 --> 0:15:22,306
+classes' methods directly to
+
+619
+00:15:22,306 --> 0:15:23,526
+build a customized denoiser.
+
+620
+00:15:24,126 --> 0:15:26,416
+Now the denoiser creates and
+
+621
+00:15:26,416 --> 0:15:27,706
+destroys quite a few temporary
+
+622
+00:15:27,706 --> 0:15:28,576
+textures throughout the
+
+623
+00:15:28,576 --> 0:15:29,566
+Denoising process.
+
+624
+00:15:30,246 --> 0:15:32,456
+To the MPSSVGF texture allocator
+
+625
+00:15:32,456 --> 0:15:34,216
+protocol serves as a cache for
+
+626
+00:15:34,216 --> 0:15:35,346
+these memory allocations.
+
+627
+00:15:36,536 --> 0:15:37,646
+You can either use the default
+
+628
+00:15:37,646 --> 0:15:39,416
+implementation or implement this
+
+629
+00:15:39,416 --> 0:15:40,606
+protocol yourself to share
+
+630
+00:15:40,606 --> 0:15:41,356
+memory with your own
+
+631
+00:15:41,356 --> 0:15:41,966
+application.
+
+632
+00:15:42,986 --> 0:15:44,376
+So as usual, we've optimized
+
+633
+00:15:44,376 --> 0:15:45,666
+these classes for all of our Mac
+
+634
+00:15:45,666 --> 0:15:46,646
+and iOS devices.
+
+635
+00:15:47,536 --> 0:15:48,836
+The denoiser can process two
+
+636
+00:15:48,836 --> 0:15:49,736
+independent images
+
+637
+00:15:49,736 --> 0:15:50,576
+simultaneously.
+
+638
+00:15:50,706 --> 0:15:51,966
+For example, you might want to
+
+639
+00:15:51,966 --> 0:15:53,346
+split your direct and indirect
+
+640
+00:15:53,346 --> 0:15:54,576
+lighting terms into separate
+
+641
+00:15:54,576 --> 0:15:55,066
+textures.
+
+642
+00:15:56,036 --> 0:15:57,166
+There's also a fast path for
+
+643
+00:15:57,166 --> 0:15:58,756
+single channel textures such as
+
+644
+00:15:58,756 --> 0:15:59,946
+Ambient Occlusion or shadow
+
+645
+00:15:59,946 --> 0:16:01,456
+textures, which is faster than
+
+646
+00:15:59,946 --> 0:16:01,456
+textures, which is faster than
+
+647
+00:16:01,456 --> 0:16:03,146
+Denoising a full RBG image.
+
+648
+00:16:04,276 --> 0:16:06,706
+Let's see how to set this up.
+
+649
+00:16:06,706 --> 0:16:08,016
+So first we'll create the
+
+650
+00:16:08,096 --> 0:16:09,996
+MPSSVGF object and configure its
+
+651
+00:16:10,036 --> 0:16:10,516
+properties.
+
+652
+00:16:11,136 --> 0:16:12,106
+All we need to provide is the
+
+653
+00:16:12,106 --> 0:16:13,366
+Metal device we want to use for
+
+654
+00:16:13,366 --> 0:16:13,946
+Denoising.
+
+655
+00:16:14,416 --> 0:16:16,146
+Next, we'll create the
+
+656
+00:16:16,146 --> 0:16:16,996
+TextureAllocator.
+
+657
+00:16:17,276 --> 0:16:18,296
+In this case we'll just use the
+
+658
+00:16:18,296 --> 0:16:19,446
+default implementation.
+
+659
+00:16:20,616 --> 0:16:21,716
+Then finally, we'll create the
+
+660
+00:16:21,716 --> 0:16:23,256
+high level Denoiser object which
+
+661
+00:16:23,256 --> 0:16:24,216
+will manage the denoising
+
+662
+00:16:24,246 --> 0:16:24,696
+process.
+
+663
+00:16:26,146 --> 0:16:27,086
+So now we're ready to do some
+
+664
+00:16:27,086 --> 0:16:27,636
+denoising.
+
+665
+00:16:28,156 --> 0:16:29,406
+We'll start by attaching all of
+
+666
+00:16:29,406 --> 0:16:30,446
+the input textures to the
+
+667
+00:16:30,446 --> 0:16:30,896
+Denoiser.
+
+668
+00:16:31,546 --> 0:16:32,866
+Now we simply encode the entire
+
+669
+00:16:32,866 --> 0:16:34,366
+denoising process to a Metal
+
+670
+00:16:34,366 --> 0:16:34,996
+commandBuffer.
+
+671
+00:16:35,876 --> 0:16:37,146
+And finally, we can retrieve the
+
+672
+00:16:37,146 --> 0:16:38,516
+clean image from the denoiser.
+
+673
+00:16:39,106 --> 0:16:40,416
+And that's all you need to do to
+
+674
+00:16:40,416 --> 0:16:41,306
+enable denoising your
+
+675
+00:16:41,306 --> 0:16:41,926
+applications.
+
+676
+00:16:42,646 --> 0:16:45,086
+So, we now talked about all of
+
+677
+00:16:45,086 --> 0:16:46,136
+the basic building blocks
+
+678
+00:16:46,136 --> 0:16:47,246
+available in Metal for Ray
+
+679
+00:16:47,246 --> 0:16:48,416
+Tracing and Denoising.
+
+680
+00:16:48,646 --> 0:16:50,186
+We reviewed how to do basic
+
+681
+00:16:50,186 --> 0:16:52,476
+ray/triangle intersection using
+
+682
+00:16:52,526 --> 0:16:53,826
+the MPS Ray Intersector API.
+
+683
+00:16:54,996 --> 0:16:55,816
+We then talked about how to
+
+684
+00:16:55,816 --> 0:16:57,196
+extend this to dynamic scenes
+
+685
+00:16:57,196 --> 0:16:58,866
+using Refitting and Two-Level
+
+686
+00:16:58,866 --> 0:16:59,886
+Acceleration Structures.
+
+687
+00:17:00,876 --> 0:17:02,156
+And finally, we talked about how
+
+688
+00:17:02,156 --> 0:17:03,376
+to remove the noise from your
+
+689
+00:17:03,376 --> 0:17:04,856
+images using the MPSSVGF
+
+690
+00:17:04,945 --> 0:17:05,376
+classes.
+
+691
+00:17:05,376 --> 0:17:07,406
+Now, don't worry if this is all
+
+692
+00:17:07,406 --> 0:17:09,096
+a little bit overwhelming.
+
+693
+00:17:09,396 --> 0:17:10,576
+We've written a sample, which
+
+694
+00:17:10,576 --> 0:17:11,695
+demonstrates how to use all of
+
+695
+00:17:11,695 --> 0:17:12,656
+these concepts which is
+
+696
+00:17:12,656 --> 0:17:13,566
+available online.
+
+697
+00:17:14,146 --> 0:17:16,316
+Now, I mentioned earlier that we
+
+698
+00:17:16,316 --> 0:17:17,116
+need to be careful with
+
+699
+00:17:17,116 --> 0:17:17,715
+performance.
+
+700
+00:17:17,715 --> 0:17:18,705
+Especially in a real-time
+
+701
+00:17:18,705 --> 0:17:19,086
+setting.
+
+702
+00:17:19,626 --> 0:17:20,536
+So next, I'd like to bring out
+
+703
+00:17:20,536 --> 0:17:22,036
+my colleague Wayne who will talk
+
+704
+00:17:22,036 --> 0:17:22,996
+about how to make all of this
+
+705
+00:17:22,996 --> 0:17:24,796
+work on real devices with real
+
+706
+00:17:24,796 --> 0:17:25,576
+performance budgets.
+
+707
+00:17:27,516 --> 0:17:31,636
+[ Applause ]
+
+708
+00:17:32,136 --> 0:17:32,556
+&gt;&gt; Hi everyone.
+
+709
+00:17:33,106 --> 0:17:34,596
+Now, what I'd like to show you
+
+710
+00:17:34,596 --> 0:17:36,556
+in this part of the talk is how
+
+711
+00:17:36,596 --> 0:17:38,416
+to use the Ray Tracing features
+
+712
+00:17:38,416 --> 0:17:40,006
+that we have in Metal to
+
+713
+00:17:40,006 --> 0:17:41,126
+implement a few different
+
+714
+00:17:41,126 --> 0:17:42,486
+rendering techniques in your
+
+715
+00:17:42,486 --> 0:17:43,266
+applications.
+
+716
+00:17:43,746 --> 0:17:45,316
+So, in particular, I'll be
+
+717
+00:17:45,316 --> 0:17:46,506
+focusing on hard and soft
+
+718
+00:17:46,506 --> 0:17:48,566
+shadows, Ambient Occlusion, and
+
+719
+00:17:48,696 --> 0:17:49,756
+global illumination.
+
+720
+00:17:49,896 --> 0:17:52,176
+So, let's start with hard
+
+721
+00:17:52,176 --> 0:17:52,656
+shadows.
+
+722
+00:17:52,656 --> 0:17:54,956
+Now, the way that we model this
+
+723
+00:17:54,956 --> 0:17:56,516
+with Ray Tracing is to take
+
+724
+00:17:56,516 --> 0:17:58,366
+points on our surface and fire
+
+725
+00:17:58,366 --> 0:17:59,566
+rays up in the direction of the
+
+726
+00:17:59,566 --> 0:17:59,806
+sun.
+
+727
+00:18:00,616 --> 0:18:02,616
+If a ray hits something, then
+
+728
+00:18:02,616 --> 0:18:03,816
+the associated point is in
+
+729
+00:18:03,816 --> 0:18:04,126
+shadow.
+
+730
+00:18:04,776 --> 0:18:06,266
+Otherwise, it's in sunlight.
+
+731
+00:18:07,476 --> 0:18:10,066
+Now, to incorporate this into an
+
+732
+00:18:10,066 --> 0:18:11,946
+existing application, I'm going
+
+733
+00:18:11,946 --> 0:18:12,896
+to assume that you're starting
+
+734
+00:18:12,896 --> 0:18:15,106
+with something a bit like this.
+
+735
+00:18:15,106 --> 0:18:16,986
+You've rasterized a G-Buffer and
+
+736
+00:18:16,986 --> 0:18:17,896
+run a compute pass for your
+
+737
+00:18:17,896 --> 0:18:18,286
+lighting.
+
+738
+00:18:18,466 --> 0:18:19,936
+And the output of that is your
+
+739
+00:18:19,936 --> 0:18:21,106
+final shaded image.
+
+740
+00:18:21,856 --> 0:18:24,036
+Now, to take advantage of Ray
+
+741
+00:18:24,036 --> 0:18:25,516
+Tracing here we'll start by
+
+742
+00:18:25,516 --> 0:18:27,416
+taking the G-Buffer and then run
+
+743
+00:18:27,416 --> 0:18:28,826
+a compute shader to generate
+
+744
+00:18:28,826 --> 0:18:29,226
+some rays.
+
+745
+00:18:30,836 --> 0:18:31,836
+We'll then pass those rays to
+
+746
+00:18:31,836 --> 0:18:33,256
+Metal to intersect with an
+
+747
+00:18:33,256 --> 0:18:34,256
+acceleration structure.
+
+748
+00:18:34,956 --> 0:18:35,906
+And Metal will output the
+
+749
+00:18:35,906 --> 0:18:37,076
+results to an intersection
+
+750
+00:18:37,076 --> 0:18:37,356
+buffer.
+
+751
+00:18:38,786 --> 0:18:40,026
+You can now use this buffer in
+
+752
+00:18:40,026 --> 0:18:41,356
+your shading kernel to decide
+
+753
+00:18:41,356 --> 0:18:42,336
+whether your surface points are
+
+754
+00:18:42,336 --> 0:18:42,816
+in shadow.
+
+755
+00:18:43,446 --> 0:18:46,066
+Now the main part I'd like us to
+
+756
+00:18:46,066 --> 0:18:47,776
+focus on here is Ray Generation.
+
+757
+00:18:48,626 --> 0:18:49,916
+So, let's start with a quick
+
+758
+00:18:49,916 --> 0:18:51,196
+reminder of how rays are
+
+759
+00:18:51,196 --> 0:18:52,006
+described in Metal.
+
+760
+00:18:54,256 --> 0:18:55,606
+So, Metal provides a few
+
+761
+00:18:55,606 --> 0:18:56,616
+different ray structures for you
+
+762
+00:18:56,616 --> 0:18:58,456
+to use, and at a minimum these
+
+763
+00:18:58,456 --> 0:18:59,676
+contain fields for your ray
+
+764
+00:18:59,676 --> 0:19:01,406
+origin and your ray direction.
+
+765
+00:18:59,676 --> 0:19:01,406
+origin and your ray direction.
+
+766
+00:19:02,496 --> 0:19:03,596
+So just fill out one of these
+
+767
+00:19:03,596 --> 0:19:04,986
+structures for each ray that you
+
+768
+00:19:04,986 --> 0:19:06,566
+want to trace and write it out
+
+769
+00:19:06,566 --> 0:19:09,346
+to your ray buffer.
+
+770
+00:19:09,926 --> 0:19:10,896
+Now, the way in which you
+
+771
+00:19:10,896 --> 0:19:12,176
+arrange your rays in your ray
+
+772
+00:19:12,176 --> 0:19:13,926
+buffer, that has a performance
+
+773
+00:19:13,926 --> 0:19:14,326
+impact.
+
+774
+00:19:15,436 --> 0:19:16,446
+So, often you might start like
+
+775
+00:19:16,446 --> 0:19:16,876
+this.
+
+776
+00:19:17,166 --> 0:19:18,506
+We call this row linear order.
+
+777
+00:19:19,246 --> 0:19:22,326
+Now, the problem here is that as
+
+778
+00:19:22,326 --> 0:19:23,506
+Metal works its way through
+
+779
+00:19:23,506 --> 0:19:25,336
+these rays, they tend to hit
+
+780
+00:19:25,336 --> 0:19:26,556
+very different nodes in the
+
+781
+00:19:26,556 --> 0:19:28,166
+internal data structures that
+
+782
+00:19:28,166 --> 0:19:29,586
+Metal uses to accelerate ray
+
+783
+00:19:29,586 --> 0:19:30,126
+traversal.
+
+784
+00:19:30,606 --> 0:19:32,646
+Now this in turn can flash the
+
+785
+00:19:32,646 --> 0:19:33,816
+underlying hardware caches.
+
+786
+00:19:33,816 --> 0:19:37,116
+So, a better approach is to use
+
+787
+00:19:37,116 --> 0:19:38,386
+block linear ordering.
+
+788
+00:19:39,646 --> 0:19:40,946
+So, rays from nearby pixels on
+
+789
+00:19:40,946 --> 0:19:42,336
+the screen, they tend to hit the
+
+790
+00:19:42,336 --> 0:19:43,606
+same parts of your acceleration
+
+791
+00:19:43,606 --> 0:19:45,626
+structure, and so by storing
+
+792
+00:19:45,626 --> 0:19:47,136
+your rays like this it enables
+
+793
+00:19:47,136 --> 0:19:48,536
+Metal to drive the hardware much
+
+794
+00:19:48,536 --> 0:19:49,246
+more efficiently.
+
+795
+00:19:49,616 --> 0:19:52,226
+Now, in the visualization here,
+
+796
+00:19:52,226 --> 0:19:53,826
+I'm showing you a block size of
+
+797
+00:19:53,886 --> 0:19:54,716
+4 by 4.
+
+798
+00:19:55,056 --> 0:19:56,446
+In practice we found that 8 by 8
+
+799
+00:19:56,446 --> 0:19:58,026
+works really, really well.
+
+800
+00:19:59,796 --> 0:20:01,526
+So, optimizing your ray storage
+
+801
+00:19:59,796 --> 0:20:01,526
+So, optimizing your ray storage
+
+802
+00:20:01,526 --> 0:20:02,796
+is a great way to improve
+
+803
+00:20:02,796 --> 0:20:03,686
+performance.
+
+804
+00:20:03,776 --> 0:20:05,216
+But where possible, an even
+
+805
+00:20:05,216 --> 0:20:06,836
+better way is just not to fire
+
+806
+00:20:06,836 --> 0:20:07,336
+rays at all.
+
+807
+00:20:07,336 --> 0:20:10,246
+Now, in the context of shadows,
+
+808
+00:20:10,246 --> 0:20:11,826
+the reason that you might want
+
+809
+00:20:11,826 --> 0:20:13,386
+to do this is because not all
+
+810
+00:20:13,386 --> 0:20:14,646
+pixels need a shadow ray.
+
+811
+00:20:14,986 --> 0:20:16,786
+For example, pixels on your
+
+812
+00:20:16,786 --> 0:20:18,656
+background, on your skybox, or
+
+813
+00:20:18,656 --> 0:20:19,976
+on surfaces that are facing away
+
+814
+00:20:19,976 --> 0:20:22,876
+from the sun.
+
+815
+00:20:23,056 --> 0:20:24,056
+Now, it's likely that your ray
+
+816
+00:20:24,056 --> 0:20:25,716
+buffer contains a ray structure
+
+817
+00:20:25,986 --> 0:20:27,416
+for each pixel on the screen.
+
+818
+00:20:27,676 --> 0:20:29,496
+So, what we need here is a way
+
+819
+00:20:29,496 --> 0:20:31,156
+to tell Metal to skip firing
+
+820
+00:20:31,156 --> 0:20:32,616
+ways for the pixels that we just
+
+821
+00:20:32,616 --> 0:20:33,866
+don't care about.
+
+822
+00:20:34,456 --> 0:20:35,696
+Now, there's a few ways to do
+
+823
+00:20:35,696 --> 0:20:36,076
+this.
+
+824
+00:20:36,076 --> 0:20:37,316
+The approach I'm showing you
+
+825
+00:20:37,316 --> 0:20:38,656
+here is simply to set the
+
+826
+00:20:38,656 --> 0:20:39,966
+maxDistance field in your ray
+
+827
+00:20:39,966 --> 0:20:41,776
+structure to a negative value.
+
+828
+00:20:42,346 --> 0:20:45,146
+And that's the main things you
+
+829
+00:20:45,146 --> 0:20:46,446
+need to know for Hard Shadows.
+
+830
+00:20:47,506 --> 0:20:48,636
+As you can see, Ray Tracing
+
+831
+00:20:48,636 --> 0:20:50,036
+gives really great results.
+
+832
+00:20:50,106 --> 0:20:51,376
+The shadows are very crisp and
+
+833
+00:20:51,376 --> 0:20:52,346
+they're very precise.
+
+834
+00:20:53,386 --> 0:20:56,316
+But in reality, shadows cast by
+
+835
+00:20:56,316 --> 0:20:58,636
+the sun, they tend not to look
+
+836
+00:20:58,636 --> 0:20:59,196
+that sharp.
+
+837
+00:20:59,976 --> 0:21:00,736
+they look more like this.
+
+838
+00:20:59,976 --> 0:21:00,736
+they look more like this.
+
+839
+00:21:01,726 --> 0:21:02,916
+They're soft around the edges
+
+840
+00:21:03,156 --> 0:21:04,276
+and that softness varies with
+
+841
+00:21:04,276 --> 0:21:04,926
+distance.
+
+842
+00:21:05,686 --> 0:21:07,316
+And you can see a great example
+
+843
+00:21:07,316 --> 0:21:08,436
+of this on the left there.
+
+844
+00:21:09,356 --> 0:21:10,446
+the shadow from the lamp post
+
+845
+00:21:10,446 --> 0:21:11,896
+starts off hard at the base and
+
+846
+00:21:11,896 --> 0:21:13,356
+it softens as the distance to
+
+847
+00:21:13,356 --> 0:21:14,176
+the ground increases.
+
+848
+00:21:14,846 --> 0:21:17,116
+So, to model that with Ray
+
+849
+00:21:17,116 --> 0:21:18,776
+Tracing, instead of using the
+
+850
+00:21:18,776 --> 0:21:19,966
+parallel rays that I was showing
+
+851
+00:21:19,966 --> 0:21:21,556
+you earlier, we'll instead
+
+852
+00:21:21,726 --> 0:21:23,056
+extend the cone from our surface
+
+853
+00:21:23,126 --> 0:21:24,596
+point all the way up to the sun.
+
+854
+00:21:25,506 --> 0:21:27,176
+And then, we'll generate some
+
+855
+00:21:27,176 --> 0:21:28,666
+ray directions randomly within
+
+856
+00:21:29,606 --> 0:21:31,066
+this cone.
+
+857
+00:21:31,286 --> 0:21:32,446
+Now you can see there that some
+
+858
+00:21:32,446 --> 0:21:34,096
+rays intersect geometry and some
+
+859
+00:21:34,156 --> 0:21:34,396
+don't.
+
+860
+00:21:34,396 --> 0:21:36,356
+And it's this ratio that
+
+861
+00:21:36,356 --> 0:21:37,506
+controls the softness of your
+
+862
+00:21:37,506 --> 0:21:38,136
+shadow.
+
+863
+00:21:38,866 --> 0:21:41,186
+So, here's what that looks like.
+
+864
+00:21:42,066 --> 0:21:44,496
+What I'm showing you here is the
+
+865
+00:21:44,496 --> 0:21:46,556
+raw direct lighting term ray
+
+866
+00:21:46,556 --> 0:21:48,006
+traced with one ray per pixel.
+
+867
+00:21:49,006 --> 0:21:50,386
+So, in this image, all other
+
+868
+00:21:50,386 --> 0:21:52,716
+effects such as reflections and
+
+869
+00:21:52,716 --> 0:21:54,616
+global illumination, they're all
+
+870
+00:21:54,616 --> 0:21:56,216
+disabled so we can focus purely
+
+871
+00:21:56,216 --> 0:21:56,726
+on the shadow.
+
+872
+00:21:57,876 --> 0:22:00,096
+And as you can see, the result
+
+873
+00:21:57,876 --> 0:22:00,096
+And as you can see, the result
+
+874
+00:22:00,096 --> 0:22:01,406
+is really quite noisy.
+
+875
+00:22:02,086 --> 0:22:04,856
+Now, to deal with that, we could
+
+876
+00:22:04,856 --> 0:22:06,086
+just keep firing more and more
+
+877
+00:22:06,086 --> 0:22:06,346
+rays.
+
+878
+00:22:06,756 --> 0:22:08,086
+But since that's something we're
+
+879
+00:22:08,086 --> 0:22:09,486
+really trying to avoid in a real
+
+880
+00:22:09,486 --> 0:22:11,706
+time application, what we can do
+
+881
+00:22:11,706 --> 0:22:13,786
+instead is use the Denoiser that
+
+882
+00:22:13,786 --> 0:22:14,706
+Sean was telling us about
+
+883
+00:22:14,706 --> 0:22:14,926
+earlier.
+
+884
+00:22:15,606 --> 0:22:19,266
+And here's the results of that.
+
+885
+00:22:19,346 --> 0:22:20,376
+Most of the noise is filtered
+
+886
+00:22:20,376 --> 0:22:21,796
+away and we get these great
+
+887
+00:22:21,796 --> 0:22:23,166
+looking soft shadows with just
+
+888
+00:22:23,166 --> 0:22:24,066
+one ray per pixel.
+
+889
+00:22:24,956 --> 0:22:26,666
+And I'll be showing you this in
+
+890
+00:22:26,666 --> 0:22:28,226
+action in our live demo later
+
+891
+00:22:28,226 --> 0:22:28,426
+on.
+
+892
+00:22:29,026 --> 0:22:33,466
+So now let's talk about Ambient
+
+893
+00:22:33,466 --> 0:22:33,956
+Occlusion.
+
+894
+00:22:34,606 --> 0:22:37,016
+So essentially, this is an
+
+895
+00:22:37,016 --> 0:22:38,346
+approximation of how much
+
+896
+00:22:38,406 --> 0:22:39,776
+ambient light is able to reach
+
+897
+00:22:39,776 --> 0:22:40,446
+the surface.
+
+898
+00:22:41,306 --> 0:22:42,946
+And as you saw in our AR Quick
+
+899
+00:22:42,946 --> 0:22:44,506
+Look demo earlier, it's a really
+
+900
+00:22:44,506 --> 0:22:45,716
+great technique for grounding
+
+901
+00:22:45,716 --> 0:22:47,266
+objects in their environments.
+
+902
+00:22:48,596 --> 0:22:50,176
+So, let's visualize how this
+
+903
+00:22:50,176 --> 0:22:51,126
+works with Ray Tracing.
+
+904
+00:22:52,066 --> 0:22:53,866
+We have a surface point in the
+
+905
+00:22:53,866 --> 0:22:54,736
+middle of the screen there and
+
+906
+00:22:55,556 --> 0:22:57,206
+there's a blue block over on the
+
+907
+00:22:57,206 --> 0:22:58,216
+right that's going to play the
+
+908
+00:22:58,216 --> 0:22:59,146
+role of our occluder.
+
+909
+00:23:00,676 --> 0:23:01,686
+We define an imaginary
+
+910
+00:23:01,686 --> 0:23:03,176
+hemisphere around our surface
+
+911
+00:23:03,216 --> 0:23:04,916
+points and then we fire some
+
+912
+00:23:04,916 --> 0:23:05,136
+rays.
+
+913
+00:23:05,836 --> 0:23:09,106
+If a ray hits something, and we
+
+914
+00:23:09,106 --> 0:23:10,426
+found that object is blocking
+
+915
+00:23:10,426 --> 0:23:11,616
+ambient light from reaching the
+
+916
+00:23:11,726 --> 0:23:11,886
+surface.
+
+917
+00:23:14,376 --> 0:23:15,866
+Now, as I've mentioned a couple
+
+918
+00:23:15,866 --> 0:23:17,356
+of times now, in a real time
+
+919
+00:23:17,356 --> 0:23:18,826
+application, we're really trying
+
+920
+00:23:18,826 --> 0:23:20,186
+to limit ourselves to just one
+
+921
+00:23:20,186 --> 0:23:21,156
+or two rays per pixel.
+
+922
+00:23:22,136 --> 0:23:23,616
+So, we need to use these rays as
+
+923
+00:23:23,616 --> 0:23:26,616
+efficiently as we can.
+
+924
+00:23:26,646 --> 0:23:28,236
+Now, one of the ways to do this
+
+925
+00:23:28,236 --> 0:23:29,246
+is importance sampling.
+
+926
+00:23:29,846 --> 0:23:31,446
+And the general idea here is to
+
+927
+00:23:31,446 --> 0:23:33,286
+fire rays in the directions
+
+928
+00:23:33,286 --> 0:23:34,036
+where we expect they'll
+
+929
+00:23:34,036 --> 0:23:35,626
+contribute most to our final
+
+930
+00:23:35,626 --> 0:23:36,066
+image.
+
+931
+00:23:36,666 --> 0:23:39,536
+Now with Ambient Occlusion the
+
+932
+00:23:39,536 --> 0:23:40,836
+most important rays are the ones
+
+933
+00:23:40,836 --> 0:23:41,826
+closer to the normal.
+
+934
+00:23:43,026 --> 0:23:44,676
+So instead of firing rays evenly
+
+935
+00:23:44,676 --> 0:23:45,776
+in a hemisphere like you see
+
+936
+00:23:45,776 --> 0:23:47,216
+here, we instead use cosine
+
+937
+00:23:47,216 --> 0:23:47,946
+sampling.
+
+938
+00:23:48,546 --> 0:23:51,196
+Now, this distributes fewer rays
+
+939
+00:23:51,196 --> 0:23:52,656
+around the horizons and more
+
+940
+00:23:52,656 --> 0:23:53,876
+rays around the surface normal.
+
+941
+00:23:54,256 --> 0:23:54,786
+And that's great.
+
+942
+00:23:54,786 --> 0:23:56,766
+That's exactly where we need
+
+943
+00:23:58,836 --> 0:23:58,946
+them.
+
+944
+00:23:59,156 --> 0:24:00,536
+Now in addition to this angular
+
+945
+00:23:59,156 --> 0:24:00,536
+Now in addition to this angular
+
+946
+00:24:00,536 --> 0:24:02,626
+falloff, Ambient Occlusion also
+
+947
+00:24:02,626 --> 0:24:03,666
+has a distance term.
+
+948
+00:24:04,326 --> 0:24:05,576
+So, objects close to the
+
+949
+00:24:05,576 --> 0:24:06,786
+surface, they tend to block the
+
+950
+00:24:06,786 --> 0:24:07,196
+most light.
+
+951
+00:24:07,196 --> 0:24:09,226
+And there's usually a fall off
+
+952
+00:24:09,226 --> 0:24:10,286
+function in there too,
+
+953
+00:24:10,286 --> 0:24:11,536
+proportional to the square of
+
+954
+00:24:11,536 --> 0:24:12,226
+distance.
+
+955
+00:24:13,876 --> 0:24:15,376
+Now, interesting thing we can do
+
+956
+00:24:15,376 --> 0:24:16,976
+here is bake that fall off
+
+957
+00:24:16,976 --> 0:24:18,336
+function right into the ray
+
+958
+00:24:18,336 --> 0:24:19,476
+distribution itself.
+
+959
+00:24:20,316 --> 0:24:21,736
+And the way we do this is by
+
+960
+00:24:21,846 --> 0:24:22,936
+firing rays of different
+
+961
+00:24:23,856 --> 0:24:24,036
+lengths.
+
+962
+00:24:25,076 --> 0:24:26,676
+So, as you can see here, because
+
+963
+00:24:26,676 --> 0:24:28,446
+of that distance squared fall
+
+964
+00:24:28,446 --> 0:24:29,376
+off function I was telling you
+
+965
+00:24:29,376 --> 0:24:31,426
+about, the majority of rays end
+
+966
+00:24:31,426 --> 0:24:32,256
+up being quite short.
+
+967
+00:24:32,256 --> 0:24:33,956
+Now this is great for
+
+968
+00:24:33,956 --> 0:24:34,656
+performance.
+
+969
+00:24:34,726 --> 0:24:36,366
+Short rays are much easier for
+
+970
+00:24:36,366 --> 0:24:37,366
+Metal to trace through the
+
+971
+00:24:37,366 --> 0:24:38,366
+acceleration structures.
+
+972
+00:24:38,986 --> 0:24:43,386
+So, a couple of times now, I've
+
+973
+00:24:43,386 --> 0:24:45,186
+talked about generating rays in
+
+974
+00:24:45,186 --> 0:24:46,666
+various shapes and various
+
+975
+00:24:46,666 --> 0:24:48,596
+distributions, such as the cones
+
+976
+00:24:48,596 --> 0:24:49,826
+we were using for Soft Shadows
+
+977
+00:24:50,006 --> 0:24:51,186
+and the hemisphere's that we're
+
+978
+00:24:51,186 --> 0:24:52,366
+using for Ambient Occlusion.
+
+979
+00:24:52,966 --> 0:24:55,606
+Now, the way that this works in
+
+980
+00:24:55,606 --> 0:24:57,366
+practice is we begin by
+
+981
+00:24:57,396 --> 0:24:58,866
+generating points in 2D
+
+982
+00:24:58,866 --> 0:25:00,556
+parameter space and then we map
+
+983
+00:24:58,866 --> 0:25:00,556
+parameter space and then we map
+
+984
+00:25:00,716 --> 0:25:02,206
+that space with whichever ray
+
+985
+00:25:02,206 --> 0:25:03,516
+distribution you want to use.
+
+986
+00:25:04,106 --> 0:25:06,826
+Now the position of these points
+
+987
+00:25:06,826 --> 0:25:08,426
+in parameter space can have a
+
+988
+00:25:08,426 --> 0:25:09,796
+big effect on image quality.
+
+989
+00:25:11,206 --> 0:25:12,856
+If you choose them randomly, you
+
+990
+00:25:12,856 --> 0:25:14,056
+tend to end up with regions
+
+991
+00:25:14,056 --> 0:25:15,076
+where sample points clump
+
+992
+00:25:15,076 --> 0:25:15,366
+together.
+
+993
+00:25:15,366 --> 0:25:18,896
+Now this causes us to fire rays
+
+994
+00:25:18,896 --> 0:25:19,896
+in pretty much the same
+
+995
+00:25:19,896 --> 0:25:21,296
+direction and that's just
+
+996
+00:25:21,296 --> 0:25:21,926
+wasting rays.
+
+997
+00:25:22,576 --> 0:25:26,536
+You can also get areas without
+
+998
+00:25:26,536 --> 0:25:27,606
+any sample points at all.
+
+999
+00:25:28,106 --> 0:25:30,226
+Now this impacts image quality
+
+1000
+00:25:30,226 --> 0:25:31,346
+because we're undersampling the
+
+1001
+00:25:31,346 --> 0:25:32,266
+scene in these areas.
+
+1002
+00:25:32,946 --> 0:25:35,336
+So, a better approach to
+
+1003
+00:25:35,336 --> 0:25:37,046
+generate sample points is to use
+
+1004
+00:25:37,046 --> 0:25:37,846
+something called a low
+
+1005
+00:25:37,846 --> 0:25:39,206
+discrepancy sequence.
+
+1006
+00:25:39,906 --> 0:25:40,726
+So, the one I'm showing you up
+
+1007
+00:25:40,756 --> 0:25:41,986
+on the screen here is the Halton
+
+1008
+00:25:41,986 --> 0:25:43,286
+2,3 sequence.
+
+1009
+00:25:44,756 --> 0:25:46,206
+You can see that sample points
+
+1010
+00:25:46,206 --> 0:25:47,406
+generated in this way, they
+
+1011
+00:25:47,556 --> 0:25:49,446
+cover the space far more evenly
+
+1012
+00:25:49,446 --> 0:25:50,746
+and we vanish the void by
+
+1013
+00:25:50,896 --> 0:25:52,436
+plumping and undersampling.
+
+1014
+00:25:53,046 --> 0:25:57,856
+So that's how to generate good
+
+1015
+00:25:57,856 --> 0:25:59,406
+rays for a single pixel.
+
+1016
+00:26:00,036 --> 0:26:01,216
+And what we need to do now is
+
+1017
+00:26:01,316 --> 0:26:02,936
+scale that to generate good rays
+
+1018
+00:26:02,936 --> 0:26:04,406
+for all pixels on the screen.
+
+1019
+00:26:04,496 --> 0:26:06,846
+Now, the way that we're doing
+
+1020
+00:26:06,846 --> 0:26:08,586
+this is by taking one of those
+
+1021
+00:26:08,586 --> 0:26:10,336
+low discrepancy sample points I
+
+1022
+00:26:10,336 --> 0:26:12,206
+was just showing you and then we
+
+1023
+00:26:12,206 --> 0:26:13,726
+apply a random delta for each
+
+1024
+00:26:13,726 --> 0:26:14,106
+pixel.
+
+1025
+00:26:14,726 --> 0:26:18,426
+Now, the effect of that is that
+
+1026
+00:26:18,466 --> 0:26:20,396
+each pixel still runs through a
+
+1027
+00:26:20,396 --> 0:26:22,556
+low discrepancy sequence, but
+
+1028
+00:26:22,556 --> 0:26:23,676
+the exact positions of the
+
+1029
+00:26:23,676 --> 0:26:25,326
+sample points are offset from
+
+1030
+00:26:25,326 --> 0:26:26,176
+neighboring pixels on the
+
+1031
+00:26:26,176 --> 0:26:26,726
+screen.
+
+1032
+00:26:27,206 --> 0:26:29,826
+Now, there's a couple of
+
+1033
+00:26:29,826 --> 0:26:31,116
+different ways to generate these
+
+1034
+00:26:31,116 --> 0:26:31,706
+deltas.
+
+1035
+00:26:32,646 --> 0:26:34,826
+One way is just to sample an RG
+
+1036
+00:26:34,826 --> 0:26:36,856
+texture full of random numbers.
+
+1037
+00:26:37,386 --> 0:26:40,026
+What we saw previously that
+
+1038
+00:26:40,026 --> 0:26:41,446
+random numbers aren't always a
+
+1039
+00:26:41,446 --> 0:26:42,796
+great choice for Ray Tracing.
+
+1040
+00:26:43,376 --> 0:26:44,796
+And an alternative that works
+
+1041
+00:26:44,856 --> 0:26:45,836
+really well for Ambient
+
+1042
+00:26:45,836 --> 0:26:47,266
+Occlusion is blue noise.
+
+1043
+00:26:47,376 --> 0:26:49,966
+So, you can see on the right
+
+1044
+00:26:50,026 --> 0:26:51,906
+there that the randomness is the
+
+1045
+00:26:51,906 --> 0:26:53,366
+blue noise texture, it's
+
+1046
+00:26:53,396 --> 0:26:55,436
+distributed far more evenly and
+
+1047
+00:26:55,576 --> 0:26:56,936
+that's great for image quality.
+
+1048
+00:26:56,936 --> 0:26:58,726
+Particularly when we're limited
+
+1049
+00:26:58,836 --> 0:26:59,856
+to just a couple of rays per
+
+1050
+00:26:59,856 --> 0:27:00,096
+pixel.
+
+1051
+00:26:59,856 --> 0:27:00,096
+pixel.
+
+1052
+00:27:00,096 --> 0:27:03,886
+So, let's look at the effect of
+
+1053
+00:27:03,886 --> 0:27:05,416
+all of this on the Ambient
+
+1054
+00:27:05,416 --> 0:27:06,396
+Occlusion result that we were
+
+1055
+00:27:06,396 --> 0:27:07,136
+trying to generate.
+
+1056
+00:27:07,886 --> 0:27:09,896
+So, here's what we started with.
+
+1057
+00:27:11,036 --> 0:27:12,066
+This is using hemisphere
+
+1058
+00:27:12,066 --> 0:27:14,186
+sampling and random deltas for
+
+1059
+00:27:14,186 --> 0:27:14,786
+all pixels.
+
+1060
+00:27:15,396 --> 0:27:18,546
+And this is what we get with
+
+1061
+00:27:18,546 --> 0:27:20,196
+cosine sampling and the blue
+
+1062
+00:27:20,196 --> 0:27:21,136
+noise that I was telling you
+
+1063
+00:27:21,136 --> 0:27:21,446
+about.
+
+1064
+00:27:21,446 --> 0:27:23,506
+So, I'll flip between these
+
+1065
+00:27:23,506 --> 0:27:24,396
+images so you can see.
+
+1066
+00:27:25,816 --> 0:27:27,146
+Now, both of these images are
+
+1067
+00:27:27,146 --> 0:27:28,846
+generated using just two rays
+
+1068
+00:27:28,846 --> 0:27:29,346
+per pixel.
+
+1069
+00:27:29,406 --> 0:27:31,896
+But you can see by being
+
+1070
+00:27:31,946 --> 0:27:33,576
+selective about how we use those
+
+1071
+00:27:33,576 --> 0:27:35,836
+rays, the amount of noise is
+
+1072
+00:27:35,836 --> 0:27:37,246
+significantly reduced.
+
+1073
+00:27:37,246 --> 0:27:38,396
+And we've managed to capture
+
+1074
+00:27:38,396 --> 0:27:39,856
+much more of the fine surface
+
+1075
+00:27:39,856 --> 0:27:40,266
+detail.
+
+1076
+00:27:40,856 --> 0:27:43,456
+And if we were to keep firing
+
+1077
+00:27:43,456 --> 0:27:45,316
+rays, eventually the two
+
+1078
+00:27:45,316 --> 0:27:46,516
+approaches would converge on
+
+1079
+00:27:46,516 --> 0:27:47,746
+exactly the same image.
+
+1080
+00:27:48,136 --> 0:27:49,846
+But using importance sampling
+
+1081
+00:27:49,846 --> 0:27:51,616
+gets us there much faster.
+
+1082
+00:27:53,516 --> 0:27:55,386
+So that's Shadows and Ambient
+
+1083
+00:27:55,386 --> 0:27:55,846
+Occlusion.
+
+1084
+00:27:56,386 --> 0:27:58,046
+And for these effects we were
+
+1085
+00:27:58,046 --> 0:27:59,636
+really only interested in
+
+1086
+00:27:59,636 --> 0:28:00,916
+whether our rays hit something
+
+1087
+00:27:59,636 --> 0:28:00,916
+whether our rays hit something
+
+1088
+00:28:00,916 --> 0:28:01,976
+or whether they missed.
+
+1089
+00:28:02,826 --> 0:28:04,866
+Now, for many of the other
+
+1090
+00:28:04,866 --> 0:28:06,036
+effects that we typically
+
+1091
+00:28:06,036 --> 0:28:07,756
+associate with Ray Tracing, such
+
+1092
+00:28:07,756 --> 0:28:09,766
+as Global Illumination, you need
+
+1093
+00:28:09,766 --> 0:28:10,676
+to model your rays as they
+
+1094
+00:28:10,676 --> 0:28:11,856
+bounce around the scene.
+
+1095
+00:28:11,856 --> 0:28:13,896
+And to talk some more about that
+
+1096
+00:28:13,896 --> 0:28:14,876
+I'll invite up my colleague
+
+1097
+00:28:14,876 --> 0:28:14,976
+Matt.
+
+1098
+00:28:16,516 --> 0:28:23,346
+[ Applause ]
+
+1099
+00:28:23,846 --> 0:28:25,916
+&gt;&gt; Thanks Wayne.
+
+1100
+00:28:26,456 --> 0:28:28,846
+So, we're going to cover a few
+
+1101
+00:28:28,846 --> 0:28:30,336
+topics in this section, starting
+
+1102
+00:28:30,336 --> 0:28:31,486
+with a brief overview of Global
+
+1103
+00:28:31,486 --> 0:28:32,046
+Illumination.
+
+1104
+00:28:32,546 --> 0:28:34,126
+Then, we'll go into some best
+
+1105
+00:28:34,126 --> 0:28:35,306
+practices for memory and ray
+
+1106
+00:28:35,306 --> 0:28:35,796
+management.
+
+1107
+00:28:36,426 --> 0:28:38,036
+Finally, we'll cover some
+
+1108
+00:28:38,036 --> 0:28:39,206
+strategies for debugging your
+
+1109
+00:28:39,206 --> 0:28:40,186
+Ray Tracing application.
+
+1110
+00:28:41,486 --> 0:28:43,256
+So, what is Global Illumination?
+
+1111
+00:28:44,866 --> 0:28:46,056
+Conceptually it's pretty simple.
+
+1112
+00:28:46,626 --> 0:28:47,876
+Light enters the scene and
+
+1113
+00:28:47,876 --> 0:28:48,786
+directly illuminates the
+
+1114
+00:28:48,786 --> 0:28:49,926
+surfaces that it hits.
+
+1115
+00:28:50,646 --> 0:28:51,846
+And rasterization, that's
+
+1116
+00:28:51,876 --> 0:28:52,546
+typically the end of the
+
+1117
+00:28:52,546 --> 0:28:53,476
+rendering process.
+
+1118
+00:28:53,866 --> 0:28:55,066
+But in the real world, those
+
+1119
+00:28:55,066 --> 0:28:56,416
+objects absorb some of the light
+
+1120
+00:28:56,416 --> 0:28:58,026
+and then the rays bounce off and
+
+1121
+00:28:58,026 --> 0:28:59,196
+keep traveling around the scene.
+
+1122
+00:28:59,686 --> 0:29:00,896
+And as they bounce around, some
+
+1123
+00:28:59,686 --> 0:29:00,896
+And as they bounce around, some
+
+1124
+00:29:00,896 --> 0:29:01,926
+interesting visual effects
+
+1125
+00:29:01,926 --> 0:29:02,366
+emerge.
+
+1126
+00:29:03,656 --> 0:29:05,986
+After light has bounced once we
+
+1127
+00:29:05,986 --> 0:29:06,876
+start to see specular
+
+1128
+00:29:06,876 --> 0:29:07,786
+reflections on the mirrored
+
+1129
+00:29:07,786 --> 0:29:09,456
+surfaces like the ball and wall
+
+1130
+00:29:09,456 --> 0:29:09,896
+to the right.
+
+1131
+00:29:10,446 --> 0:29:12,916
+You can also see that objects
+
+1132
+00:29:12,916 --> 0:29:14,166
+and shadows get brighter as they
+
+1133
+00:29:14,166 --> 0:29:14,916
+pick up light that's been
+
+1134
+00:29:14,916 --> 0:29:16,366
+reflected off nearby surfaces.
+
+1135
+00:29:16,886 --> 0:29:19,406
+After the light has bounced
+
+1136
+00:29:19,406 --> 0:29:20,286
+twice, we start to see
+
+1137
+00:29:20,286 --> 0:29:21,476
+reflections between mirrored
+
+1138
+00:29:21,476 --> 0:29:23,906
+surfaces and eventually, some
+
+1139
+00:29:23,906 --> 0:29:25,176
+rays have refracted all the way
+
+1140
+00:29:25,176 --> 0:29:26,946
+through transparent objects, and
+
+1141
+00:29:26,946 --> 0:29:27,816
+they're showing the surfaces
+
+1142
+00:29:27,816 --> 0:29:29,206
+behind them giving us the glass
+
+1143
+00:29:29,206 --> 0:29:30,136
+effect of the box.
+
+1144
+00:29:30,726 --> 0:29:32,956
+Now, if we tried to model all
+
+1145
+00:29:32,956 --> 0:29:33,766
+the light bouncing around the
+
+1146
+00:29:33,766 --> 0:29:35,746
+scene only a small portion of it
+
+1147
+00:29:35,746 --> 0:29:36,946
+would actually make it back to
+
+1148
+00:29:36,946 --> 0:29:38,066
+the camera and that would be
+
+1149
+00:29:38,066 --> 0:29:38,706
+pretty inefficient.
+
+1150
+00:29:38,986 --> 0:29:41,296
+So instead, we'll work backwards
+
+1151
+00:29:41,446 --> 0:29:42,576
+from the camera towards the
+
+1152
+00:29:42,576 --> 0:29:43,446
+light source.
+
+1153
+00:29:44,376 --> 0:29:46,236
+We cast rays from the camera
+
+1154
+00:29:46,236 --> 0:29:47,606
+towards the pixels in our image.
+
+1155
+00:29:49,386 --> 0:29:51,316
+The intersection points of those
+
+1156
+00:29:51,316 --> 0:29:52,666
+rays tell us what objects are
+
+1157
+00:29:52,666 --> 0:29:53,036
+visible.
+
+1158
+00:29:53,036 --> 0:29:54,376
+But we'll need to figure out how
+
+1159
+00:29:54,376 --> 0:29:55,516
+much light is reaching them in
+
+1160
+00:29:55,516 --> 0:29:56,416
+order to figure out what their
+
+1161
+00:29:56,416 --> 0:29:57,666
+color in the final image should
+
+1162
+00:29:57,666 --> 0:29:57,956
+be.
+
+1163
+00:29:59,036 --> 0:30:00,396
+Earlier, Wayne described how to
+
+1164
+00:29:59,036 --> 0:30:00,396
+Earlier, Wayne described how to
+
+1165
+00:30:00,396 --> 0:30:02,296
+calculate soft shadows and here
+
+1166
+00:30:02,296 --> 0:30:03,156
+we're going to be performing
+
+1167
+00:30:03,156 --> 0:30:04,616
+exactly the same process.
+
+1168
+00:30:05,956 --> 0:30:07,136
+We cast shadow rays from the
+
+1169
+00:30:07,136 --> 0:30:08,546
+intersection points towards the
+
+1170
+00:30:08,546 --> 0:30:09,826
+lights in the scene in order to
+
+1171
+00:30:09,826 --> 0:30:10,946
+approximate how much light's
+
+1172
+00:30:10,946 --> 0:30:11,366
+reaching them.
+
+1173
+00:30:12,606 --> 0:30:13,496
+That's used as the light
+
+1174
+00:30:13,496 --> 0:30:14,706
+contribution towards the final
+
+1175
+00:30:14,706 --> 0:30:15,026
+image.
+
+1176
+00:30:15,526 --> 0:30:19,336
+Next, from the intersection
+
+1177
+00:30:19,336 --> 0:30:21,166
+points we cast secondary rays in
+
+1178
+00:30:21,166 --> 0:30:22,136
+random directions.
+
+1179
+00:30:22,676 --> 0:30:24,226
+We use Metal to figure out what
+
+1180
+00:30:24,306 --> 0:30:25,706
+those rays hit and then cast
+
+1181
+00:30:25,706 --> 0:30:26,866
+shadow rays to determine their
+
+1182
+00:30:26,866 --> 0:30:28,216
+direct lighting and then use
+
+1183
+00:30:28,216 --> 0:30:29,396
+that to add light to the final
+
+1184
+00:30:29,396 --> 0:30:29,726
+image.
+
+1185
+00:30:30,366 --> 0:30:31,816
+By repeating this process, we
+
+1186
+00:30:31,816 --> 0:30:32,866
+can simulate light bouncing
+
+1187
+00:30:32,866 --> 0:30:34,056
+around the room.
+
+1188
+00:30:34,486 --> 0:30:35,856
+We described this extensively in
+
+1189
+00:30:35,856 --> 0:30:37,126
+last year's talk, so I'll refer
+
+1190
+00:30:37,126 --> 0:30:38,206
+you to that for more details on
+
+1191
+00:30:38,206 --> 0:30:39,476
+how to go through this process.
+
+1192
+00:30:39,996 --> 0:30:42,586
+Our pipeline for this will look
+
+1193
+00:30:42,586 --> 0:30:43,456
+a little bit different than the
+
+1194
+00:30:43,456 --> 0:30:44,656
+hybrid pipelines that we've seen
+
+1195
+00:30:44,656 --> 0:30:45,156
+so far.
+
+1196
+00:30:46,316 --> 0:30:47,526
+First, we set up rays and use
+
+1197
+00:30:47,526 --> 0:30:48,226
+Metal to find their
+
+1198
+00:30:48,226 --> 0:30:51,496
+intersections with the scene.
+
+1199
+00:30:51,966 --> 0:30:53,216
+Then, we write a shader to
+
+1200
+00:30:53,216 --> 0:30:54,236
+process the results of those
+
+1201
+00:30:54,236 --> 0:30:55,916
+intersection tests to tell us
+
+1202
+00:30:55,916 --> 0:30:57,506
+what surfaces we hit.
+
+1203
+00:30:58,956 --> 0:31:01,226
+Then, we generate shadow rays
+
+1204
+00:30:58,956 --> 0:31:01,226
+Then, we generate shadow rays
+
+1205
+00:31:01,226 --> 0:31:02,066
+from those intersection
+
+1206
+00:31:02,066 --> 0:31:03,266
+locations towards the lights in
+
+1207
+00:31:03,266 --> 0:31:03,636
+the scene.
+
+1208
+00:31:04,136 --> 0:31:05,456
+I'll write a shader to figure
+
+1209
+00:31:05,456 --> 0:31:06,516
+out which of those rays hit the
+
+1210
+00:31:06,516 --> 0:31:07,806
+light and then add their light
+
+1211
+00:31:07,806 --> 0:31:08,566
+to the final image.
+
+1212
+00:31:10,016 --> 0:31:11,656
+Finally, we use the hit surfaces
+
+1213
+00:31:11,656 --> 0:31:12,776
+as the starting positions for
+
+1214
+00:31:12,776 --> 0:31:13,766
+our next set of rays.
+
+1215
+00:31:14,326 --> 0:31:15,666
+We repeat this process over and
+
+1216
+00:31:15,666 --> 0:31:16,686
+over again until we've modeled
+
+1217
+00:31:16,686 --> 0:31:17,996
+as many ray bounces as we like.
+
+1218
+00:31:18,626 --> 0:31:20,996
+So that's how Global
+
+1219
+00:31:20,996 --> 0:31:22,156
+Illumination works.
+
+1220
+00:31:22,826 --> 0:31:24,536
+Now we'll discuss some best
+
+1221
+00:31:24,536 --> 0:31:25,606
+practices that come up with
+
+1222
+00:31:25,606 --> 0:31:27,446
+memory for this programing
+
+1223
+00:31:27,446 --> 0:31:27,736
+model.
+
+1224
+00:31:28,976 --> 0:31:31,026
+As any ray bounces around the
+
+1225
+00:31:31,026 --> 0:31:31,486
+scene.
+
+1226
+00:31:31,836 --> 0:31:33,186
+Its state changes depending on
+
+1227
+00:31:33,186 --> 0:31:34,106
+its interactions with the
+
+1228
+00:31:34,106 --> 0:31:35,106
+objects that it hits.
+
+1229
+00:31:35,766 --> 0:31:37,276
+For instance, if a ray hits a
+
+1230
+00:31:37,276 --> 0:31:38,906
+red material that surface
+
+1231
+00:31:38,906 --> 0:31:40,496
+absorbs everything but the red
+
+1232
+00:31:40,496 --> 0:31:41,266
+component of the light.
+
+1233
+00:31:41,836 --> 0:31:42,986
+So, the secondary rays that
+
+1234
+00:31:42,986 --> 0:31:44,616
+reflect off of that surface will
+
+1235
+00:31:44,616 --> 0:31:45,636
+only carry red light.
+
+1236
+00:31:46,146 --> 0:31:47,586
+So, we'll have to keep track of
+
+1237
+00:31:47,586 --> 0:31:48,736
+that information in order to
+
+1238
+00:31:48,736 --> 0:31:50,056
+pass it to the next iteration of
+
+1239
+00:31:50,056 --> 0:31:50,666
+our pipeline.
+
+1240
+00:31:51,366 --> 0:31:51,996
+That means we'll have to
+
+1241
+00:31:51,996 --> 0:31:53,346
+allocate a bunch of resources to
+
+1242
+00:31:53,346 --> 0:31:54,816
+keep track of ray and scene
+
+1243
+00:31:54,816 --> 0:31:55,516
+properties.
+
+1244
+00:31:56,136 --> 0:31:57,646
+To the right, I've listed a few
+
+1245
+00:31:57,646 --> 0:31:59,446
+examples of scene properties you
+
+1246
+00:31:59,446 --> 0:32:02,636
+may want to keep track of.
+
+1247
+00:31:59,446 --> 0:32:02,636
+may want to keep track of.
+
+1248
+00:32:03,146 --> 0:32:04,116
+With all these new buffers
+
+1249
+00:32:04,116 --> 0:32:05,626
+relocated we're going to be
+
+1250
+00:32:05,626 --> 0:32:06,676
+using a lot of memory.
+
+1251
+00:32:07,186 --> 0:32:08,836
+For a 4K image, the ray buffer
+
+1252
+00:32:08,836 --> 0:32:11,096
+alone would be 250 MB.
+
+1253
+00:32:11,416 --> 0:32:12,576
+In one of our demos, we're using
+
+1254
+00:32:12,576 --> 0:32:13,906
+almost 80 bytes per ray.
+
+1255
+00:32:14,536 --> 0:32:15,756
+And this approach can quickly
+
+1256
+00:32:15,756 --> 0:32:16,836
+exceed the amount of available
+
+1257
+00:32:16,836 --> 0:32:17,586
+GPU memory.
+
+1258
+00:32:19,396 --> 0:32:20,946
+One solution to this is just to
+
+1259
+00:32:20,946 --> 0:32:22,476
+batch up your rays into smaller
+
+1260
+00:32:22,476 --> 0:32:23,266
+groups or tiles.
+
+1261
+00:32:23,926 --> 0:32:25,066
+And by restricting the number of
+
+1262
+00:32:25,066 --> 0:32:25,816
+rays that you're launching
+
+1263
+00:32:25,816 --> 0:32:26,916
+simultaneously you can
+
+1264
+00:32:26,916 --> 0:32:28,156
+drastically reduce the memory
+
+1265
+00:32:28,156 --> 0:32:29,396
+footprint of your resources.
+
+1266
+00:32:29,846 --> 0:32:32,336
+Because the data in these
+
+1267
+00:32:32,336 --> 0:32:33,396
+buffers is going to be passed
+
+1268
+00:32:33,496 --> 0:32:35,316
+between pipeline iterations,
+
+1269
+00:32:36,256 --> 0:32:37,546
+storing that data out and then
+
+1270
+00:32:37,546 --> 0:32:38,736
+reading it in, in the next pass
+
+1271
+00:32:38,736 --> 0:32:39,906
+is going to be a major limiting
+
+1272
+00:32:39,906 --> 0:32:40,276
+factor.
+
+1273
+00:32:40,906 --> 0:32:42,956
+For 4K image we're using over 8
+
+1274
+00:32:42,956 --> 0:32:43,756
+million rays.
+
+1275
+00:32:44,276 --> 0:32:45,486
+And for that number of rays,
+
+1276
+00:32:45,486 --> 0:32:46,626
+we're reading and writing almost
+
+1277
+00:32:46,626 --> 0:32:50,006
+5 gigabytes of data per pass.
+
+1278
+00:32:50,286 --> 0:32:51,466
+There's no one solution to every
+
+1279
+00:32:51,466 --> 0:32:52,736
+bandwidth problem, but we can
+
+1280
+00:32:52,736 --> 0:32:53,796
+give you some best practices
+
+1281
+00:32:53,796 --> 0:32:54,936
+that worked well for us.
+
+1282
+00:32:55,206 --> 0:32:57,066
+First, don't index into your
+
+1283
+00:32:57,066 --> 0:32:57,946
+data buffers randomly.
+
+1284
+00:32:58,996 --> 0:33:00,606
+It's much more efficient if you
+
+1285
+00:32:58,996 --> 0:33:00,606
+It's much more efficient if you
+
+1286
+00:33:00,606 --> 0:33:02,196
+can index by thread ID, so the
+
+1287
+00:33:02,196 --> 0:33:03,636
+compiler can coalesce all of the
+
+1288
+00:33:03,636 --> 0:33:05,456
+loads and stores since the
+
+1289
+00:33:05,456 --> 0:33:06,746
+memory the threads are accessing
+
+1290
+00:33:06,746 --> 0:33:07,936
+will be in adjacent buffer
+
+1291
+00:33:07,936 --> 0:33:08,576
+positions.
+
+1292
+00:33:09,796 --> 0:33:10,966
+This is really going to improve
+
+1293
+00:33:10,966 --> 0:33:11,946
+your cache coherency.
+
+1294
+00:33:13,146 --> 0:33:14,756
+Next, for variables where you
+
+1295
+00:33:14,756 --> 0:33:15,786
+don't need full precision,
+
+1296
+00:33:16,376 --> 0:33:17,726
+consider using smaller data
+
+1297
+00:33:17,726 --> 0:33:18,586
+types where possible.
+
+1298
+00:33:19,316 --> 0:33:20,736
+Try to use half instead of float
+
+1299
+00:33:20,736 --> 0:33:22,196
+data types for ray and scene and
+
+1300
+00:33:22,196 --> 0:33:23,366
+material properties if you can.
+
+1301
+00:33:24,806 --> 0:33:26,566
+Finally, split up structs if
+
+1302
+00:33:26,566 --> 0:33:27,836
+possible, to avoid loading or
+
+1303
+00:33:27,836 --> 0:33:28,996
+storing data you're not going to
+
+1304
+00:33:28,996 --> 0:33:29,446
+use.
+
+1305
+00:33:29,696 --> 0:33:31,506
+For example, we have a struct
+
+1306
+00:33:31,506 --> 0:33:32,586
+that contains material
+
+1307
+00:33:32,586 --> 0:33:33,206
+properties.
+
+1308
+00:33:33,776 --> 0:33:35,026
+We get a nice performance boost
+
+1309
+00:33:35,026 --> 0:33:35,706
+by stripping out the
+
+1310
+00:33:35,706 --> 0:33:37,316
+transparency variables because
+
+1311
+00:33:37,316 --> 0:33:38,926
+not every ray hits a transparent
+
+1312
+00:33:38,926 --> 0:33:39,446
+surface.
+
+1313
+00:33:39,446 --> 0:33:40,626
+And we didn't want those rays to
+
+1314
+00:33:40,626 --> 0:33:41,756
+have to pay the penalty for
+
+1315
+00:33:41,756 --> 0:33:42,806
+reading and writing that data.
+
+1316
+00:33:43,626 --> 0:33:44,356
+We're going to see a more
+
+1317
+00:33:44,356 --> 0:33:45,716
+concrete example of this later
+
+1318
+00:33:45,716 --> 0:33:46,916
+in the GPU debugging section.
+
+1319
+00:33:46,916 --> 0:33:51,476
+It might be counter intuitive,
+
+1320
+00:33:51,576 --> 0:33:52,586
+but it may be more efficient to
+
+1321
+00:33:52,586 --> 0:33:53,886
+allocate your own buffers to
+
+1322
+00:33:53,886 --> 0:33:55,996
+store origin and direction data
+
+1323
+00:33:56,356 --> 0:33:57,586
+rather than reusing the Metal
+
+1324
+00:33:57,586 --> 0:33:58,506
+ray buffer structs.
+
+1325
+00:33:59,816 --> 0:34:00,996
+This is because the Metal ray
+
+1326
+00:33:59,816 --> 0:34:00,996
+This is because the Metal ray
+
+1327
+00:34:00,996 --> 0:34:02,566
+buffers may contain extra data
+
+1328
+00:34:02,566 --> 0:34:03,636
+numbers that you don't want to
+
+1329
+00:34:03,636 --> 0:34:05,516
+have to load and store for every
+
+1330
+00:34:05,516 --> 0:34:06,806
+shader that may access the ray.
+
+1331
+00:34:09,576 --> 0:34:12,096
+To maximize your GPU usage, you
+
+1332
+00:34:12,096 --> 0:34:12,985
+need to be mindful of your
+
+1333
+00:34:12,985 --> 0:34:13,856
+shader occupancy.
+
+1334
+00:34:14,545 --> 0:34:16,306
+Occupancy is a huge topic, so we
+
+1335
+00:34:16,306 --> 0:34:17,565
+won't go into it in depth here.
+
+1336
+00:34:18,266 --> 0:34:19,525
+But if you are getting occupancy
+
+1337
+00:34:19,525 --> 0:34:20,746
+problems the easiest way to
+
+1338
+00:34:20,746 --> 0:34:22,156
+improve it is to reduce your
+
+1339
+00:34:22,156 --> 0:34:22,896
+register pressure.
+
+1340
+00:34:24,246 --> 0:34:25,735
+So, be conscious of the number
+
+1341
+00:34:25,735 --> 0:34:27,255
+of simultaneously live variables
+
+1342
+00:34:27,255 --> 0:34:28,096
+that you have in your shader.
+
+1343
+00:34:28,876 --> 0:34:30,326
+Be careful with loop counters,
+
+1344
+00:34:30,326 --> 0:34:32,505
+function calls, and don't hold
+
+1345
+00:34:32,505 --> 0:34:33,626
+on to full structs if you can
+
+1346
+00:34:33,626 --> 0:34:34,585
+avoid it.
+
+1347
+00:34:35,156 --> 0:34:38,766
+When we process ray intersection
+
+1348
+00:34:38,766 --> 0:34:40,485
+points we need to evaluate the
+
+1349
+00:34:40,485 --> 0:34:41,826
+surface properties of whatever
+
+1350
+00:34:41,826 --> 0:34:42,866
+object a ray hits.
+
+1351
+00:34:43,116 --> 0:34:44,755
+And graphics applications
+
+1352
+00:34:44,755 --> 0:34:45,686
+typically store a lot of the
+
+1353
+00:34:45,686 --> 0:34:47,335
+material properties in textures.
+
+1354
+00:34:47,976 --> 0:34:49,456
+The problem here is that because
+
+1355
+00:34:49,456 --> 0:34:51,446
+a shader may need access to any
+
+1356
+00:34:51,446 --> 0:34:52,346
+texture that an object
+
+1357
+00:34:52,346 --> 0:34:54,936
+references, and we don't know in
+
+1358
+00:34:54,936 --> 0:34:56,696
+advance what object a ray is
+
+1359
+00:34:56,696 --> 0:34:58,246
+going to hit, we may potential
+
+1360
+00:34:58,246 --> 0:35:00,296
+he need access to every -- every
+
+1361
+00:34:58,246 --> 0:35:00,296
+he need access to every -- every
+
+1362
+00:35:00,296 --> 0:35:01,246
+texture that's in the scene.
+
+1363
+00:35:02,006 --> 0:35:03,026
+And this can get out of hand
+
+1364
+00:35:03,026 --> 0:35:03,356
+quickly.
+
+1365
+00:35:03,846 --> 0:35:05,386
+For instance, the commonly used
+
+1366
+00:35:05,386 --> 0:35:07,406
+Sponza Atrium scene has 76
+
+1367
+00:35:07,406 --> 0:35:09,236
+textures, which is over double
+
+1368
+00:35:09,306 --> 0:35:10,426
+our available number of bind
+
+1369
+00:35:10,426 --> 0:35:10,746
+slots.
+
+1370
+00:35:11,376 --> 0:35:12,666
+So, we'll pretty quickly run out
+
+1371
+00:35:12,666 --> 0:35:13,866
+of binding locations.
+
+1372
+00:35:15,756 --> 0:35:17,796
+One way to address this is by
+
+1373
+00:35:17,796 --> 0:35:19,566
+using Metal Argument Buffers.
+
+1374
+00:35:19,906 --> 0:35:20,766
+A Metal Argument Buffer
+
+1375
+00:35:20,766 --> 0:35:22,566
+represents a group of resources
+
+1376
+00:35:22,566 --> 0:35:23,526
+that can be collectively
+
+1377
+00:35:23,526 --> 0:35:24,946
+assigned as a single argument to
+
+1378
+00:35:24,946 --> 0:35:25,316
+a shader.
+
+1379
+00:35:26,466 --> 0:35:27,786
+We gave a talk on this at WWDC
+
+1380
+00:35:27,786 --> 0:35:29,006
+two years ago.
+
+1381
+00:35:29,276 --> 0:35:30,786
+So, I'll refer you to that for
+
+1382
+00:35:30,786 --> 0:35:33,106
+more details on how to use them.
+
+1383
+00:35:33,546 --> 0:35:34,926
+Assuming we have one texture per
+
+1384
+00:35:34,926 --> 0:35:36,706
+primitive, our argument buffer
+
+1385
+00:35:36,706 --> 0:35:38,166
+will be a struct that contains a
+
+1386
+00:35:38,166 --> 0:35:39,006
+reference to a texture.
+
+1387
+00:35:40,376 --> 0:35:41,596
+Here, we've set up a struct that
+
+1388
+00:35:41,596 --> 0:35:43,196
+we called material that contains
+
+1389
+00:35:43,196 --> 0:35:44,536
+a texture reference and any
+
+1390
+00:35:44,536 --> 0:35:45,576
+other information we'd like to
+
+1391
+00:35:45,576 --> 0:35:46,206
+access.
+
+1392
+00:35:47,566 --> 0:35:48,896
+Next, we bind our argument
+
+1393
+00:35:48,896 --> 0:35:49,916
+buffer to a compute kernel.
+
+1394
+00:35:50,206 --> 0:35:51,846
+It will appear as an array of
+
+1395
+00:35:51,846 --> 0:35:52,726
+material structs.
+
+1396
+00:35:54,506 --> 0:35:55,646
+We read from our intersection
+
+1397
+00:35:55,646 --> 0:35:56,676
+buffer to find out what
+
+1398
+00:35:56,676 --> 0:35:59,206
+primitive the ray hit and then
+
+1399
+00:35:59,206 --> 0:36:00,596
+we index into our argument
+
+1400
+00:35:59,206 --> 0:36:00,596
+we index into our argument
+
+1401
+00:36:00,596 --> 0:36:01,936
+buffer using that index.
+
+1402
+00:36:02,626 --> 0:36:04,126
+That lets us access a unique
+
+1403
+00:36:04,126 --> 0:36:04,976
+texture for every primitive.
+
+1404
+00:36:08,646 --> 0:36:10,106
+That covers our memory topics.
+
+1405
+00:36:11,186 --> 0:36:12,336
+Now we'll discuss managing the
+
+1406
+00:36:12,336 --> 0:36:13,436
+lifetime of your rays.
+
+1407
+00:36:14,516 --> 0:36:16,066
+As your ray bounces around the
+
+1408
+00:36:16,066 --> 0:36:17,716
+scene it can stop contributing
+
+1409
+00:36:17,716 --> 0:36:19,026
+to the final image for a variety
+
+1410
+00:36:19,026 --> 0:36:19,646
+of reasons.
+
+1411
+00:36:20,156 --> 0:36:21,546
+First, it may leave the scene
+
+1412
+00:36:21,546 --> 0:36:22,036
+entirely.
+
+1413
+00:36:22,736 --> 0:36:23,936
+Unlike the real world, your
+
+1414
+00:36:23,936 --> 0:36:25,156
+scene takes up a finite amount
+
+1415
+00:36:25,156 --> 0:36:26,956
+of space, and if the ray exits
+
+1416
+00:36:26,956 --> 0:36:28,096
+it there's no way for it to make
+
+1417
+00:36:28,096 --> 0:36:28,866
+its way back in.
+
+1418
+00:36:29,386 --> 0:36:31,386
+If that happens, we typically
+
+1419
+00:36:31,386 --> 0:36:32,716
+evaluate an environment map to
+
+1420
+00:36:32,716 --> 0:36:34,336
+get a background color, but that
+
+1421
+00:36:34,336 --> 0:36:35,376
+ray is effectively dead.
+
+1422
+00:36:36,806 --> 0:36:39,166
+Second, as the ray bounces, the
+
+1423
+00:36:39,166 --> 0:36:40,136
+light it carries will be
+
+1424
+00:36:40,136 --> 0:36:41,566
+attenuated by the surfaces is
+
+1425
+00:36:41,566 --> 0:36:42,266
+interacts with.
+
+1426
+00:36:42,936 --> 0:36:45,456
+If it loses enough light it may
+
+1427
+00:36:45,456 --> 0:36:46,576
+not be able to have a measurable
+
+1428
+00:36:46,576 --> 0:36:47,716
+impact on the final image.
+
+1429
+00:36:48,686 --> 0:36:50,276
+And finally, with transparent
+
+1430
+00:36:50,276 --> 0:36:51,516
+surfaces, there are some rays
+
+1431
+00:36:51,516 --> 0:36:53,026
+that can get trapped in
+
+1432
+00:36:53,026 --> 0:36:54,066
+position, such that they can
+
+1433
+00:36:54,066 --> 0:36:55,166
+never get back to the camera.
+
+1434
+00:36:55,786 --> 0:36:58,826
+So how quickly to rays become
+
+1435
+00:36:58,826 --> 0:36:59,236
+inactive?
+
+1436
+00:37:00,116 --> 0:37:01,136
+Well, depending on the kind of
+
+1437
+00:37:01,136 --> 0:37:02,706
+scene it can be quite rapid.
+
+1438
+00:37:03,396 --> 0:37:04,996
+For example, this scene has an
+
+1439
+00:37:04,996 --> 0:37:06,626
+open world and a lot of the rays
+
+1440
+00:37:06,626 --> 0:37:07,866
+will exit quickly by hitting the
+
+1441
+00:37:07,866 --> 0:37:08,456
+environment map.
+
+1442
+00:37:09,156 --> 0:37:10,156
+On the right, we're showing a
+
+1443
+00:37:10,156 --> 0:37:11,696
+simplified representation of a
+
+1444
+00:37:11,696 --> 0:37:13,666
+fully active ray buffer as it
+
+1445
+00:37:13,666 --> 0:37:14,696
+would exist for the first
+
+1446
+00:37:14,696 --> 0:37:15,956
+iteration of our pipeline.
+
+1447
+00:37:16,346 --> 0:37:17,886
+This is the step where we cast
+
+1448
+00:37:17,886 --> 0:37:19,246
+rays from the camera towards the
+
+1449
+00:37:19,246 --> 0:37:19,546
+scene.
+
+1450
+00:37:20,136 --> 0:37:23,096
+Some of those rays will hit the
+
+1451
+00:37:23,096 --> 0:37:24,016
+environment map and become
+
+1452
+00:37:24,016 --> 0:37:24,436
+inactive.
+
+1453
+00:37:25,156 --> 0:37:26,336
+Here, we've colored inactive
+
+1454
+00:37:26,336 --> 0:37:27,986
+rays yellow and we've removed
+
+1455
+00:37:27,986 --> 0:37:28,826
+them from the ray buffer.
+
+1456
+00:37:29,626 --> 0:37:31,626
+After the first pass only 57
+
+1457
+00:37:31,626 --> 0:37:32,746
+percent of our rays are still
+
+1458
+00:37:32,746 --> 0:37:33,046
+active.
+
+1459
+00:37:34,526 --> 0:37:36,046
+When we let the rays continue
+
+1460
+00:37:36,046 --> 0:37:37,276
+traveling, some of the rays that
+
+1461
+00:37:37,276 --> 0:37:39,006
+initially hit the ground bounce
+
+1462
+00:37:39,006 --> 0:37:40,076
+up and hit the environment map.
+
+1463
+00:37:40,636 --> 0:37:41,916
+Now we're down to 43 percent of
+
+1464
+00:37:41,916 --> 0:37:44,566
+rays that -- left active.
+
+1465
+00:37:45,286 --> 0:37:46,796
+Now, some of the rays travel all
+
+1466
+00:37:46,796 --> 0:37:47,826
+the way through the transparent
+
+1467
+00:37:47,826 --> 0:37:49,126
+objects and eventually exit the
+
+1468
+00:37:49,126 --> 0:37:49,536
+scene.
+
+1469
+00:37:50,036 --> 0:37:50,956
+We've only got about a third
+
+1470
+00:37:50,956 --> 0:37:51,556
+remaining active.
+
+1471
+00:37:52,646 --> 0:37:53,816
+And of course, the more we
+
+1472
+00:37:53,816 --> 0:37:55,016
+iterate, the more rays become
+
+1473
+00:37:55,016 --> 0:37:55,386
+inactive.
+
+1474
+00:37:56,086 --> 0:37:58,896
+In this example we know a lot of
+
+1475
+00:37:58,896 --> 0:38:00,116
+the rays in our ray buffer will
+
+1476
+00:37:58,896 --> 0:38:00,116
+the rays in our ray buffer will
+
+1477
+00:38:00,116 --> 0:38:01,406
+be inactive, and anytime we
+
+1478
+00:38:01,406 --> 0:38:02,466
+spend processing them will be
+
+1479
+00:38:02,466 --> 0:38:02,886
+wasted.
+
+1480
+00:38:03,376 --> 0:38:04,916
+But because we don't know in
+
+1481
+00:38:04,916 --> 0:38:06,156
+advance which rays are going to
+
+1482
+00:38:06,156 --> 0:38:07,896
+be inactive, the Metal Ray
+
+1483
+00:38:07,896 --> 0:38:09,366
+Intersector and all of the
+
+1484
+00:38:09,366 --> 0:38:10,896
+shaders that process its results
+
+1485
+00:38:10,896 --> 0:38:12,126
+are still going to have to be
+
+1486
+00:38:12,126 --> 0:38:13,276
+run on all of them.
+
+1487
+00:38:13,696 --> 0:38:14,296
+That means we'll have to
+
+1488
+00:38:14,296 --> 0:38:15,486
+allocate thread group memory,
+
+1489
+00:38:15,626 --> 0:38:16,756
+the compiler may be prefetching
+
+1490
+00:38:16,756 --> 0:38:18,176
+data, and we may have to add
+
+1491
+00:38:18,176 --> 0:38:20,056
+control flow statements to cull
+
+1492
+00:38:20,056 --> 0:38:21,146
+inactive rays.
+
+1493
+00:38:22,026 --> 0:38:23,676
+Our occupancy here stays the
+
+1494
+00:38:23,676 --> 0:38:25,676
+same, but our thread groups have
+
+1495
+00:38:25,676 --> 0:38:27,076
+become sparsely utilized.
+
+1496
+00:38:27,486 --> 0:38:28,756
+And we're wasting all that
+
+1497
+00:38:28,756 --> 0:38:29,676
+processor capacity.
+
+1498
+00:38:30,216 --> 0:38:33,386
+Our solution to this is to the
+
+1499
+00:38:33,386 --> 0:38:34,736
+compact the ray buffers.
+
+1500
+00:38:35,536 --> 0:38:37,396
+For every pass we only add
+
+1501
+00:38:37,396 --> 0:38:39,256
+active rays to the next passes
+
+1502
+00:38:39,256 --> 0:38:39,726
+ray buffer.
+
+1503
+00:38:40,426 --> 0:38:41,856
+This adds some overhead, but it
+
+1504
+00:38:41,856 --> 0:38:43,166
+results in the cache lines and
+
+1505
+00:38:43,166 --> 0:38:44,136
+thread groups being fully
+
+1506
+00:38:44,136 --> 0:38:45,926
+utilized so there's less waste
+
+1507
+00:38:45,926 --> 0:38:47,566
+of processing and less bandwidth
+
+1508
+00:38:47,566 --> 0:38:48,056
+required.
+
+1509
+00:38:48,746 --> 0:38:50,446
+It's also important to note that
+
+1510
+00:38:50,446 --> 0:38:51,666
+this can be used for shadow rays
+
+1511
+00:38:51,666 --> 0:38:52,286
+as well.
+
+1512
+00:38:52,756 --> 0:38:54,066
+Some rays will hit surfaces that
+
+1513
+00:38:54,066 --> 0:38:55,186
+are pointing away from a light
+
+1514
+00:38:55,436 --> 0:38:56,436
+or they may hit the background.
+
+1515
+00:38:56,546 --> 0:38:57,406
+So, we won't want to cache
+
+1516
+00:38:57,406 --> 0:38:58,776
+shadow rays for them.
+
+1517
+00:38:59,936 --> 0:39:01,966
+The downside is that because
+
+1518
+00:38:59,936 --> 0:39:01,966
+The downside is that because
+
+1519
+00:39:01,966 --> 0:39:03,196
+we're shuffling ray positions
+
+1520
+00:39:03,196 --> 0:39:04,856
+within the ray buffers, the
+
+1521
+00:39:04,856 --> 0:39:06,836
+indices in our ray buffer no
+
+1522
+00:39:06,836 --> 0:39:08,206
+longer map to constant pixel
+
+1523
+00:39:08,206 --> 0:39:08,846
+locations.
+
+1524
+00:39:09,336 --> 0:39:10,256
+So, we'll need to allocate a
+
+1525
+00:39:10,256 --> 0:39:11,546
+buffer to start tracking pixel
+
+1526
+00:39:11,546 --> 0:39:12,876
+coordinates along with each ray.
+
+1527
+00:39:12,876 --> 0:39:15,386
+Even though we're using extra
+
+1528
+00:39:15,386 --> 0:39:17,026
+buffers, we'll actually be using
+
+1529
+00:39:17,026 --> 0:39:18,616
+much less memory if we factor in
+
+1530
+00:39:18,616 --> 0:39:19,726
+all of the rays that we don't
+
+1531
+00:39:19,726 --> 0:39:20,636
+have to process.
+
+1532
+00:39:21,886 --> 0:39:23,976
+When we're compacting the rays,
+
+1533
+00:39:24,316 --> 0:39:25,846
+we don't want two shaders to try
+
+1534
+00:39:25,846 --> 0:39:27,136
+to add rays to the new ray
+
+1535
+00:39:27,136 --> 0:39:28,506
+buffer at the same location.
+
+1536
+00:39:29,296 --> 0:39:30,476
+Therefore, we need to produce a
+
+1537
+00:39:30,476 --> 0:39:32,126
+unique index into the ray buffer
+
+1538
+00:39:32,126 --> 0:39:33,286
+for every ray that remains
+
+1539
+00:39:33,286 --> 0:39:34,916
+active between passes.
+
+1540
+00:39:35,996 --> 0:39:37,406
+We use an atomic counter to do
+
+1541
+00:39:37,406 --> 0:39:37,756
+this.
+
+1542
+00:39:38,536 --> 0:39:39,836
+Here, the atomic integer
+
+1543
+00:39:39,946 --> 0:39:41,446
+outgoingRayCount contains the
+
+1544
+00:39:41,446 --> 0:39:43,036
+current number of rays in the
+
+1545
+00:39:43,036 --> 0:39:43,756
+new ray buffer.
+
+1546
+00:39:45,376 --> 0:39:47,506
+We use atomic fetch add explicit
+
+1547
+00:39:47,506 --> 0:39:48,836
+to grab the current value of
+
+1548
+00:39:48,836 --> 0:39:50,786
+outgoing ray count and increment
+
+1549
+00:39:51,396 --> 0:39:52,606
+it by one.
+
+1550
+00:39:52,606 --> 0:39:54,156
+Using that value as the index
+
+1551
+00:39:54,156 --> 0:39:55,306
+into the outgoing ray buffer
+
+1552
+00:39:55,406 --> 0:39:56,376
+ensures that we don't get
+
+1553
+00:39:56,376 --> 0:39:57,086
+conflicts.
+
+1554
+00:39:57,556 --> 0:39:58,806
+It has the added benefit of
+
+1555
+00:39:58,806 --> 0:39:59,936
+leaving the number of rays that
+
+1556
+00:39:59,936 --> 0:40:02,516
+remain active in outgoing ray
+
+1557
+00:39:59,936 --> 0:40:02,516
+remain active in outgoing ray
+
+1558
+00:40:03,416 --> 0:40:03,556
+count.
+
+1559
+00:40:04,096 --> 0:40:05,446
+Now, Ray Compaction doesn't help
+
+1560
+00:40:05,446 --> 0:40:06,666
+you much if you can't restrict
+
+1561
+00:40:06,666 --> 0:40:07,426
+the number of threads that
+
+1562
+00:40:07,426 --> 0:40:07,906
+you're launching.
+
+1563
+00:40:08,076 --> 0:40:09,476
+The outgoing ray count buffer we
+
+1564
+00:40:09,476 --> 0:40:11,046
+just produced contains the total
+
+1565
+00:40:11,046 --> 0:40:12,806
+number of active rays in our
+
+1566
+00:40:12,806 --> 0:40:13,686
+outgoing ray buffer.
+
+1567
+00:40:14,836 --> 0:40:16,286
+We can use that to fill out an
+
+1568
+00:40:16,356 --> 0:40:17,646
+MTLDispatch ThreadGroups
+
+1569
+00:40:17,686 --> 0:40:19,026
+IndirectArguments object.
+
+1570
+00:40:19,956 --> 0:40:21,266
+That just specifies launch
+
+1571
+00:40:21,266 --> 0:40:22,476
+dimensions to be used with the
+
+1572
+00:40:22,476 --> 0:40:23,026
+dispatch.
+
+1573
+00:40:24,146 --> 0:40:25,836
+Then, by using IndirectDispatch
+
+1574
+00:40:25,836 --> 0:40:27,056
+with that indirectBuffer object
+
+1575
+00:40:27,496 --> 0:40:28,596
+we can restrict the number of
+
+1576
+00:40:28,596 --> 0:40:29,666
+threads that we're launching to
+
+1577
+00:40:29,666 --> 0:40:30,896
+only process the rays that
+
+1578
+00:40:30,896 --> 0:40:31,416
+remain active.
+
+1579
+00:40:31,416 --> 0:40:33,506
+There's also a version of the
+
+1580
+00:40:33,506 --> 0:40:34,436
+ray intersection function that
+
+1581
+00:40:34,466 --> 0:40:34,976
+corresponds to this.
+
+1582
+00:40:35,066 --> 0:40:37,576
+The important point here is that
+
+1583
+00:40:38,266 --> 0:40:40,966
+we can pass our ray count via a
+
+1584
+00:40:40,966 --> 0:40:42,356
+buffer, so we can feed the
+
+1585
+00:40:42,356 --> 0:40:43,626
+result of our ray compaction
+
+1586
+00:40:43,626 --> 0:40:45,216
+step in as the number of threads
+
+1587
+00:40:45,216 --> 0:40:45,796
+to launch.
+
+1588
+00:40:47,596 --> 0:40:49,776
+After Ray Compaction we get
+
+1589
+00:40:49,776 --> 0:40:51,326
+about a 15 percent performance
+
+1590
+00:40:51,326 --> 0:40:52,216
+gain in this scene.
+
+1591
+00:40:52,346 --> 0:40:54,096
+But of course, your results will
+
+1592
+00:40:54,096 --> 0:40:55,616
+depend on the complexity of the
+
+1593
+00:40:55,616 --> 0:40:56,876
+scene you're using and the
+
+1594
+00:40:56,876 --> 0:40:57,926
+number of ray bounces.
+
+1595
+00:40:58,486 --> 0:41:02,036
+So that covers ray lifetime and
+
+1596
+00:40:58,486 --> 0:41:02,036
+So that covers ray lifetime and
+
+1597
+00:41:02,036 --> 0:41:02,396
+culling.
+
+1598
+00:41:03,696 --> 0:41:05,386
+Now we're going to discuss
+
+1599
+00:41:05,386 --> 0:41:07,806
+debugging your application with
+
+1600
+00:41:08,536 --> 0:41:08,706
+Xcode.
+
+1601
+00:41:09,346 --> 0:41:10,496
+Debugging on the GPU is
+
+1602
+00:41:10,496 --> 0:41:12,176
+notoriously difficult process.
+
+1603
+00:41:12,756 --> 0:41:14,126
+And this is especially true for
+
+1604
+00:41:14,126 --> 0:41:14,546
+Ray Tracing.
+
+1605
+00:41:15,346 --> 0:41:16,436
+Any change you make may get
+
+1606
+00:41:16,436 --> 0:41:18,016
+invoked multiple times per ray
+
+1607
+00:41:18,016 --> 0:41:19,286
+and you might have to write a
+
+1608
+00:41:19,286 --> 0:41:20,726
+lot of code to dump out buffers
+
+1609
+00:41:20,726 --> 0:41:22,196
+and textures for a bunch of
+
+1610
+00:41:22,196 --> 0:41:23,046
+different stages of your
+
+1611
+00:41:23,046 --> 0:41:24,676
+algorithm to get a clue about
+
+1612
+00:41:24,676 --> 0:41:25,916
+where an error was introduced.
+
+1613
+00:41:26,736 --> 0:41:28,566
+Xcode's frame capture tools are
+
+1614
+00:41:28,566 --> 0:41:30,226
+amazing for debugging exactly
+
+1615
+00:41:30,226 --> 0:41:31,446
+these kinds of issues.
+
+1616
+00:41:31,896 --> 0:41:32,966
+It's incredibly powerful and a
+
+1617
+00:41:32,966 --> 0:41:33,766
+real time saver.
+
+1618
+00:41:34,746 --> 0:41:36,356
+So, I'm going to walk you
+
+1619
+00:41:36,356 --> 0:41:37,586
+through debugging a real-world
+
+1620
+00:41:37,586 --> 0:41:38,856
+issue that we hit when we
+
+1621
+00:41:38,856 --> 0:41:40,246
+implemented super sampling in
+
+1622
+00:41:40,246 --> 0:41:40,976
+our ray tracer.
+
+1623
+00:41:41,606 --> 0:41:43,256
+We implemented the ability to
+
+1624
+00:41:43,256 --> 0:41:44,776
+sample a single pixel multiple
+
+1625
+00:41:44,776 --> 0:41:46,336
+times per frame and all of a
+
+1626
+00:41:46,336 --> 0:41:47,476
+sudden, our ray tracer is
+
+1627
+00:41:47,476 --> 0:41:48,746
+producing a blown-out image.
+
+1628
+00:41:50,096 --> 0:41:52,356
+The first step is just to do a
+
+1629
+00:41:52,356 --> 0:41:53,386
+frame capture as your
+
+1630
+00:41:53,386 --> 0:41:54,276
+application is running.
+
+1631
+00:41:55,716 --> 0:41:56,756
+This records the state of the
+
+1632
+00:41:56,756 --> 0:41:58,686
+GPU for every API call and
+
+1633
+00:41:58,686 --> 0:41:59,686
+shader over the course of a
+
+1634
+00:41:59,686 --> 0:42:00,046
+frame.
+
+1635
+00:41:59,686 --> 0:42:00,046
+frame.
+
+1636
+00:42:01,076 --> 0:42:03,106
+By selecting any shader, we can
+
+1637
+00:42:03,106 --> 0:42:04,266
+examine the resources that are
+
+1638
+00:42:04,266 --> 0:42:06,206
+bound to it so we can really
+
+1639
+00:42:06,206 --> 0:42:07,716
+quickly narrow down exactly what
+
+1640
+00:42:07,716 --> 0:42:09,176
+shader's failing by just
+
+1641
+00:42:09,176 --> 0:42:10,376
+selecting all of the shaders
+
+1642
+00:42:10,376 --> 0:42:11,346
+that write to the frame buffer
+
+1643
+00:42:11,486 --> 0:42:12,636
+and examining the frame buffer
+
+1644
+00:42:12,636 --> 0:42:13,546
+contents directly.
+
+1645
+00:42:13,956 --> 0:42:15,556
+So here we can see the first
+
+1646
+00:42:15,556 --> 0:42:16,316
+image is pretty light.
+
+1647
+00:42:16,866 --> 0:42:18,006
+The second image is pretty
+
+1648
+00:42:18,006 --> 0:42:18,486
+washed out.
+
+1649
+00:42:18,486 --> 0:42:19,716
+And the third is almost white.
+
+1650
+00:42:20,326 --> 0:42:23,186
+But here we're going to select
+
+1651
+00:42:23,186 --> 0:42:24,166
+the shader that outputs the
+
+1652
+00:42:24,166 --> 0:42:26,206
+lightest image and we're going
+
+1653
+00:42:26,206 --> 0:42:27,526
+to take a look at the two input
+
+1654
+00:42:27,526 --> 0:42:28,426
+buffers that we used to
+
+1655
+00:42:28,466 --> 0:42:29,736
+calculate the frame buffer.
+
+1656
+00:42:30,566 --> 0:42:31,826
+And the first buffer just
+
+1657
+00:42:31,826 --> 0:42:32,956
+contains the sum of all the
+
+1658
+00:42:32,956 --> 0:42:34,736
+light a ray has accumulated.
+
+1659
+00:42:36,796 --> 0:42:38,346
+The second buffer contains our
+
+1660
+00:42:38,346 --> 0:42:38,836
+new variable.
+
+1661
+00:42:38,836 --> 0:42:40,456
+And that's just the number of
+
+1662
+00:42:40,456 --> 0:42:41,506
+times we've sampled a given
+
+1663
+00:42:41,506 --> 0:42:41,816
+pixel.
+
+1664
+00:42:42,786 --> 0:42:43,916
+Both of these buffers look like
+
+1665
+00:42:43,916 --> 0:42:45,386
+they have valid data in them, so
+
+1666
+00:42:45,386 --> 0:42:46,406
+we'll go directly to the shader
+
+1667
+00:42:46,406 --> 0:42:47,456
+debugger to examine what our
+
+1668
+00:42:47,456 --> 0:42:48,476
+shader is doing with this data.
+
+1669
+00:42:49,116 --> 0:42:51,846
+Our color calculation is just
+
+1670
+00:42:51,846 --> 0:42:52,956
+that some of the luminance for
+
+1671
+00:42:52,956 --> 0:42:54,076
+all the rays that were launched
+
+1672
+00:42:54,076 --> 0:42:54,936
+for a given pixel.
+
+1673
+00:42:55,546 --> 0:42:57,246
+When we only had one ray per
+
+1674
+00:42:57,246 --> 0:42:58,676
+pixel, this worked just fine.
+
+1675
+00:42:59,636 --> 0:43:00,586
+But now, we're failing to
+
+1676
+00:42:59,636 --> 0:43:00,586
+But now, we're failing to
+
+1677
+00:43:00,586 --> 0:43:01,566
+compensate for the fact that
+
+1678
+00:43:01,566 --> 0:43:02,896
+we're sampling multiple times
+
+1679
+00:43:02,936 --> 0:43:03,346
+per pixel.
+
+1680
+00:43:03,346 --> 0:43:05,576
+So, we're going to change that
+
+1681
+00:43:05,576 --> 0:43:06,986
+code in the shader debugger to
+
+1682
+00:43:07,126 --> 0:43:08,486
+divide the total luminance by
+
+1683
+00:43:08,486 --> 0:43:09,746
+the number of input samples.
+
+1684
+00:43:10,586 --> 0:43:12,146
+We reevaluate directly in the
+
+1685
+00:43:12,146 --> 0:43:14,176
+shader debugger and we can
+
+1686
+00:43:14,176 --> 0:43:15,266
+instantly see that our output
+
+1687
+00:43:15,266 --> 0:43:16,226
+image has been fixed.
+
+1688
+00:43:16,606 --> 0:43:19,836
+It's just that easy.
+
+1689
+00:43:20,486 --> 0:43:21,666
+Another issue we hit frequently
+
+1690
+00:43:21,666 --> 0:43:22,636
+was trying to understand the
+
+1691
+00:43:22,636 --> 0:43:23,556
+performance impact of our
+
+1692
+00:43:23,556 --> 0:43:24,246
+changes.
+
+1693
+00:43:24,476 --> 0:43:26,776
+Xcode frame captures tools make
+
+1694
+00:43:26,816 --> 0:43:27,886
+this easy as well.
+
+1695
+00:43:29,136 --> 0:43:30,226
+Here's an example of a struct
+
+1696
+00:43:30,226 --> 0:43:31,046
+that tracks surface
+
+1697
+00:43:31,046 --> 0:43:32,366
+characteristics across ray
+
+1698
+00:43:32,366 --> 0:43:33,066
+bounces.
+
+1699
+00:43:33,826 --> 0:43:35,116
+Not every surface in our scene
+
+1700
+00:43:35,116 --> 0:43:36,206
+uses transparencies.
+
+1701
+00:43:36,206 --> 0:43:37,186
+The final two values,
+
+1702
+00:43:37,246 --> 0:43:38,566
+transmission and index of
+
+1703
+00:43:38,566 --> 0:43:40,206
+refraction, won't be used for
+
+1704
+00:43:40,206 --> 0:43:40,986
+some rays.
+
+1705
+00:43:41,566 --> 0:43:43,056
+But, because we've packed all of
+
+1706
+00:43:43,056 --> 0:43:44,546
+that data into a single struct,
+
+1707
+00:43:44,986 --> 0:43:46,406
+rays that don't hit transparent
+
+1708
+00:43:46,406 --> 0:43:47,896
+surfaces are still going to have
+
+1709
+00:43:47,896 --> 0:43:49,676
+to pay the penalty for reading
+
+1710
+00:43:49,676 --> 0:43:50,976
+and writing those fields out
+
+1711
+00:43:51,906 --> 0:43:53,376
+between passes.
+
+1712
+00:43:53,876 --> 0:43:55,896
+Here, we've refactored the index
+
+1713
+00:43:55,896 --> 0:43:57,096
+of refraction variables into
+
+1714
+00:43:57,096 --> 0:43:57,746
+their own struct.
+
+1715
+00:43:58,556 --> 0:44:00,036
+By separating the structs only
+
+1716
+00:43:58,556 --> 0:44:00,036
+By separating the structs only
+
+1717
+00:44:00,036 --> 0:44:01,166
+rays that hit transparent
+
+1718
+00:44:01,166 --> 0:44:02,326
+surfaces will have to touch the
+
+1719
+00:44:02,326 --> 0:44:03,756
+refraction data.
+
+1720
+00:44:06,156 --> 0:44:07,636
+But we can still do a bit
+
+1721
+00:44:07,636 --> 0:44:07,926
+better.
+
+1722
+00:44:08,606 --> 0:44:09,626
+Now we've changed all of our
+
+1723
+00:44:09,626 --> 0:44:11,306
+variables to half data types to
+
+1724
+00:44:11,306 --> 0:44:12,346
+save even more space.
+
+1725
+00:44:13,096 --> 0:44:14,226
+We've reduced our memory usage
+
+1726
+00:44:14,226 --> 0:44:16,236
+from 40 to 20 bytes, and rays
+
+1727
+00:44:16,236 --> 0:44:17,256
+that don't hit transparent
+
+1728
+00:44:17,256 --> 0:44:18,776
+objects will only need 12 bytes.
+
+1729
+00:44:19,326 --> 0:44:21,526
+So how do we understand the
+
+1730
+00:44:21,526 --> 0:44:22,706
+performance impact of this?
+
+1731
+00:44:23,386 --> 0:44:25,666
+Here we grab GPU traces using
+
+1732
+00:44:25,666 --> 0:44:26,726
+the frame capture tool both
+
+1733
+00:44:26,756 --> 0:44:28,306
+before and after our change.
+
+1734
+00:44:29,216 --> 0:44:30,666
+The most basic version of
+
+1735
+00:44:30,666 --> 0:44:31,946
+performance analysis we can do
+
+1736
+00:44:31,946 --> 0:44:33,256
+takes place at this phase.
+
+1737
+00:44:34,036 --> 0:44:35,536
+By comparing the shader timings
+
+1738
+00:44:35,866 --> 0:44:37,056
+in our before and after
+
+1739
+00:44:37,056 --> 0:44:38,976
+captures, we can isolate shaders
+
+1740
+00:44:38,976 --> 0:44:40,076
+whose performance has changed.
+
+1741
+00:44:40,796 --> 0:44:41,906
+Here, we can see that the shader
+
+1742
+00:44:41,906 --> 0:44:43,026
+that we've labeled sample
+
+1743
+00:44:43,026 --> 0:44:45,136
+surface has gone from 5.5
+
+1744
+00:44:45,136 --> 0:44:46,756
+milliseconds to 4 milliseconds.
+
+1745
+00:44:47,396 --> 0:44:48,536
+That's almost a 30 percent
+
+1746
+00:44:48,536 --> 0:44:49,546
+savings for one of our more
+
+1747
+00:44:49,546 --> 0:44:50,516
+costly shaders.
+
+1748
+00:44:51,546 --> 0:44:53,726
+If we want to quantify exactly
+
+1749
+00:44:53,726 --> 0:44:54,926
+why we're getting a performance
+
+1750
+00:44:54,926 --> 0:44:56,836
+gain, Xcode helpfully displays
+
+1751
+00:44:56,836 --> 0:44:57,756
+the results of all the
+
+1752
+00:44:57,756 --> 0:44:58,756
+performance counters that it
+
+1753
+00:44:58,756 --> 0:44:59,846
+inserts when it does a frame
+
+1754
+00:44:59,846 --> 0:45:00,146
+capture.
+
+1755
+00:44:59,846 --> 0:45:00,146
+capture.
+
+1756
+00:45:00,526 --> 0:45:02,176
+Because we're interested in how
+
+1757
+00:45:02,176 --> 0:45:03,626
+we've affected our memory usage,
+
+1758
+00:45:04,386 --> 0:45:05,246
+we can take a look at the
+
+1759
+00:45:05,246 --> 0:45:07,266
+texture unit statistics and we
+
+1760
+00:45:07,266 --> 0:45:08,496
+see that our average texture
+
+1761
+00:45:08,496 --> 0:45:10,096
+unit stall time has gone down
+
+1762
+00:45:10,096 --> 0:45:11,836
+from 70 percent to 54 percent.
+
+1763
+00:45:12,476 --> 0:45:13,686
+And we've reduced our L2
+
+1764
+00:45:13,686 --> 0:45:16,686
+throughput by almost two-thirds.
+
+1765
+00:45:17,506 --> 0:45:18,986
+Even more helpfully Xcode will
+
+1766
+00:45:18,986 --> 0:45:20,336
+do some analysis of its own and
+
+1767
+00:45:20,336 --> 0:45:21,576
+report potential problems to
+
+1768
+00:45:21,576 --> 0:45:21,726
+you.
+
+1769
+00:45:22,246 --> 0:45:23,846
+Here, it's telling us that our
+
+1770
+00:45:23,846 --> 0:45:25,086
+original version had some real
+
+1771
+00:45:25,086 --> 0:45:26,366
+problems with memory and that
+
+1772
+00:45:26,366 --> 0:45:27,476
+our new version's performing
+
+1773
+00:45:27,476 --> 0:45:29,806
+much better.
+
+1774
+00:45:30,456 --> 0:45:31,526
+One more tip that you may find
+
+1775
+00:45:31,526 --> 0:45:33,106
+useful, is that the compute
+
+1776
+00:45:33,106 --> 0:45:34,116
+pipeline state had some
+
+1777
+00:45:34,116 --> 0:45:35,376
+interesting telemetry as well.
+
+1778
+00:45:36,346 --> 0:45:36,616
+Look at
+
+1779
+00:45:36,616 --> 0:45:37,966
+MaxTotalThreadsForThreadgroup.
+
+1780
+00:45:38,356 --> 0:45:39,746
+This is an indication of the
+
+1781
+00:45:39,746 --> 0:45:40,876
+occupancy of a shader.
+
+1782
+00:45:41,576 --> 0:45:42,866
+You should target 1024 as the
+
+1783
+00:45:42,866 --> 0:45:44,346
+maximum and anything less means
+
+1784
+00:45:44,346 --> 0:45:45,386
+that there may be an occupancy
+
+1785
+00:45:45,386 --> 0:45:46,426
+issue that you can fix.
+
+1786
+00:45:46,926 --> 0:45:50,166
+So that's debugging in Xcode.
+
+1787
+00:45:50,706 --> 0:45:51,996
+It makes developing Ray Tracing
+
+1788
+00:45:51,996 --> 0:45:52,896
+and Global Illumination
+
+1789
+00:45:52,896 --> 0:45:54,296
+algorithms on the Mac platform
+
+1790
+00:45:54,296 --> 0:45:55,116
+incredibly easy.
+
+1791
+00:45:55,876 --> 0:45:56,986
+And now, here's Wayne to give
+
+1792
+00:45:56,986 --> 0:45:57,966
+you a live demo of all of this.
+
+1793
+00:45:58,516 --> 0:46:01,056
+[ Applause ]
+
+1794
+00:45:58,516 --> 0:46:01,056
+[ Applause ]
+
+1795
+00:46:01,556 --> 0:46:03,206
+&gt;&gt; Thanks Matt.
+
+1796
+00:46:04,386 --> 0:46:06,086
+So, you may recognize this scene
+
+1797
+00:46:06,176 --> 0:46:07,736
+from our platform State of the
+
+1798
+00:46:07,736 --> 0:46:09,636
+Union session earlier this week.
+
+1799
+00:46:10,826 --> 0:46:12,546
+To render it here, I'm using a
+
+1800
+00:46:12,546 --> 0:46:14,176
+MacBook Pro along with four
+
+1801
+00:46:14,176 --> 0:46:14,606
+external GPUs.
+
+1802
+00:46:14,606 --> 0:46:17,986
+And everything you can see on
+
+1803
+00:46:18,016 --> 0:46:19,386
+the screen there is being ray
+
+1804
+00:46:19,386 --> 0:46:20,546
+traced in real time.
+
+1805
+00:46:21,106 --> 0:46:22,696
+So, I can just take hold of the
+
+1806
+00:46:22,696 --> 0:46:23,706
+camera and move around the
+
+1807
+00:46:23,706 --> 0:46:23,976
+scene.
+
+1808
+00:46:25,216 --> 0:46:26,936
+So, let's start over here.
+
+1809
+00:46:26,936 --> 0:46:29,306
+You can see these great shadows
+
+1810
+00:46:29,306 --> 0:46:30,076
+that we're getting with Ray
+
+1811
+00:46:30,076 --> 0:46:30,616
+Tracing.
+
+1812
+00:46:30,826 --> 0:46:32,386
+They're hard at the contact
+
+1813
+00:46:32,386 --> 0:46:33,836
+points and they become softer
+
+1814
+00:46:33,836 --> 0:46:35,356
+and softer as the distance to
+
+1815
+00:46:35,356 --> 0:46:36,326
+the ground increases.
+
+1816
+00:46:37,736 --> 0:46:40,186
+And remember, for these shadows
+
+1817
+00:46:40,186 --> 0:46:41,666
+we're firing just one ray per
+
+1818
+00:46:41,666 --> 0:46:43,236
+pixel and then we're using the
+
+1819
+00:46:43,236 --> 0:46:44,576
+Denoiser that Sean was telling
+
+1820
+00:46:44,576 --> 0:46:45,786
+us about to get this great
+
+1821
+00:46:45,826 --> 0:46:46,506
+filtered result.
+
+1822
+00:46:47,126 --> 0:46:49,176
+And this is all calculated
+
+1823
+00:46:49,176 --> 0:46:49,816
+dynamically.
+
+1824
+00:46:49,816 --> 0:46:51,136
+So, I can just take hold of the
+
+1825
+00:46:51,136 --> 0:46:52,966
+light and move it around.
+
+1826
+00:46:54,066 --> 0:46:56,096
+And I can see the effect of that
+
+1827
+00:46:56,096 --> 0:46:57,026
+pretty much immediately.
+
+1828
+00:46:57,596 --> 0:47:00,256
+There's a really great effect
+
+1829
+00:46:57,596 --> 0:47:00,256
+There's a really great effect
+
+1830
+00:47:00,256 --> 0:47:01,056
+going on here too.
+
+1831
+00:47:01,056 --> 0:47:02,636
+If we fly over and look in the
+
+1832
+00:47:02,636 --> 0:47:04,346
+window of the tram here, you can
+
+1833
+00:47:04,346 --> 0:47:05,856
+actually see the reflections of
+
+1834
+00:47:05,856 --> 0:47:07,606
+our shadows, and again, you can
+
+1835
+00:47:07,606 --> 0:47:09,126
+see the shadow moving around as
+
+1836
+00:47:09,126 --> 0:47:10,826
+I take control of the light.
+
+1837
+00:47:13,226 --> 0:47:15,326
+And if we head over to this part
+
+1838
+00:47:15,326 --> 0:47:16,296
+of the scene now, there's a
+
+1839
+00:47:16,296 --> 0:47:18,036
+really great reflection effect
+
+1840
+00:47:18,076 --> 0:47:18,656
+going on here.
+
+1841
+00:47:19,306 --> 0:47:21,866
+So, if we look at the left most
+
+1842
+00:47:21,866 --> 0:47:24,276
+tram you can see the reflection
+
+1843
+00:47:24,276 --> 0:47:25,446
+of the tram behind this.
+
+1844
+00:47:26,296 --> 0:47:28,106
+But you can also see reflections
+
+1845
+00:47:28,196 --> 0:47:29,636
+in the windshield of the tram
+
+1846
+00:47:29,636 --> 0:47:30,276
+behind us.
+
+1847
+00:47:30,396 --> 0:47:31,846
+So, there's reflections within
+
+1848
+00:47:31,846 --> 0:47:33,856
+reflections going on here and we
+
+1849
+00:47:33,856 --> 0:47:35,136
+have to simulate a couple of ray
+
+1850
+00:47:35,136 --> 0:47:36,896
+bounces per pixel to achieve
+
+1851
+00:47:37,106 --> 0:47:38,006
+that effect.
+
+1852
+00:47:39,856 --> 0:47:41,226
+So, I'm going to zoom out here a
+
+1853
+00:47:41,226 --> 0:47:41,606
+bit now.
+
+1854
+00:47:41,886 --> 0:47:43,896
+And of course, in this scene
+
+1855
+00:47:43,896 --> 0:47:45,676
+it's not just the camera and the
+
+1856
+00:47:45,676 --> 0:47:46,526
+lights that can move.
+
+1857
+00:47:47,486 --> 0:47:48,636
+Sean was telling us about
+
+1858
+00:47:48,636 --> 0:47:50,086
+Metal's Two-Level Acceleration
+
+1859
+00:47:50,086 --> 0:47:50,806
+structures earlier.
+
+1860
+00:47:51,156 --> 0:47:52,556
+And we're using those here to
+
+1861
+00:47:52,676 --> 0:47:53,926
+enable the trams to move around
+
+1862
+00:47:53,926 --> 0:47:54,226
+the scene.
+
+1863
+00:47:54,846 --> 0:47:57,966
+What I really want to show you
+
+1864
+00:47:57,966 --> 0:47:59,576
+now though is this fantastic
+
+1865
+00:47:59,576 --> 0:48:01,076
+lighting effect we have going on
+
+1866
+00:47:59,576 --> 0:48:01,076
+lighting effect we have going on
+
+1867
+00:48:01,116 --> 0:48:01,656
+up on the roof.
+
+1868
+00:48:01,656 --> 0:48:05,266
+So, if we focus on the wall on
+
+1869
+00:48:05,266 --> 0:48:07,006
+the right there you can see that
+
+1870
+00:48:07,006 --> 0:48:08,486
+currently it's being lit
+
+1871
+00:48:08,626 --> 0:48:10,206
+primarily by direct sunlight.
+
+1872
+00:48:10,866 --> 0:48:13,266
+But as I take control of the sun
+
+1873
+00:48:13,396 --> 0:48:15,636
+and I rotate it around you can
+
+1874
+00:48:15,636 --> 0:48:16,996
+see the wall falls into shadow
+
+1875
+00:48:16,996 --> 0:48:18,756
+and now it's being lit by this
+
+1876
+00:48:18,846 --> 0:48:20,606
+really great indirect
+
+1877
+00:48:20,606 --> 0:48:21,206
+illumination.
+
+1878
+00:48:22,176 --> 0:48:24,336
+So, what's going on here is
+
+1879
+00:48:24,866 --> 0:48:26,116
+sunlight is hitting the roof on
+
+1880
+00:48:26,116 --> 0:48:28,246
+the left and it's bouncing and
+
+1881
+00:48:28,246 --> 0:48:29,246
+illuminating the wall on the
+
+1882
+00:48:29,246 --> 0:48:29,576
+right.
+
+1883
+00:48:29,576 --> 0:48:30,756
+Giving us this great color
+
+1884
+00:48:30,756 --> 0:48:31,476
+bleeding effect.
+
+1885
+00:48:31,956 --> 0:48:35,226
+And if I continue to rotate the
+
+1886
+00:48:35,226 --> 0:48:36,556
+sun you can see these really
+
+1887
+00:48:36,556 --> 0:48:38,026
+dramatic shadows start to come
+
+1888
+00:48:38,026 --> 0:48:39,626
+in and they travel across the
+
+1889
+00:48:39,626 --> 0:48:40,356
+surface of the roof there.
+
+1890
+00:48:41,016 --> 0:48:43,506
+If I spin the camera around a
+
+1891
+00:48:43,506 --> 0:48:44,516
+bit you can really see the
+
+1892
+00:48:44,516 --> 0:48:45,956
+reflections as well hitting the
+
+1893
+00:48:45,956 --> 0:48:47,366
+roof on the left.
+
+1894
+00:48:47,976 --> 0:48:49,246
+So, this is -- I really like
+
+1895
+00:48:49,246 --> 0:48:49,796
+this shot.
+
+1896
+00:48:49,796 --> 0:48:51,636
+There's a lot of Ray Tracing
+
+1897
+00:48:51,636 --> 0:48:53,056
+effects all going on at the same
+
+1898
+00:48:53,056 --> 0:48:53,706
+time here.
+
+1899
+00:48:53,706 --> 0:48:54,686
+We have the indirect
+
+1900
+00:48:54,686 --> 0:48:55,766
+illumination, we have the
+
+1901
+00:48:55,766 --> 0:48:56,696
+shadows, we have the
+
+1902
+00:48:56,696 --> 0:48:57,426
+reflections.
+
+1903
+00:48:58,126 --> 0:48:59,516
+And it's all being ray traced in
+
+1904
+00:48:59,516 --> 0:49:01,666
+real time with Metal and multi
+
+1905
+00:48:59,516 --> 0:49:01,666
+real time with Metal and multi
+
+1906
+00:49:01,666 --> 0:49:01,976
+GPU.
+
+1907
+00:49:02,976 --> 0:49:04,176
+So, I'm going to switch back to
+
+1908
+00:49:04,176 --> 0:49:05,516
+the keynote now and it's this
+
+1909
+00:49:05,516 --> 0:49:07,206
+multi GPU aspect that I'd like
+
+1910
+00:49:07,206 --> 0:49:08,396
+to talk a bit more about.
+
+1911
+00:49:09,516 --> 0:49:16,516
+[ Applause ]
+
+1912
+00:49:17,016 --> 0:49:18,146
+So, for the demo that we just
+
+1913
+00:49:18,146 --> 0:49:20,666
+saw, the way that we implemented
+
+1914
+00:49:21,006 --> 0:49:23,066
+multi GPU was by dividing the
+
+1915
+00:49:23,066 --> 0:49:25,546
+screen into a set of small tiles
+
+1916
+00:49:26,536 --> 0:49:27,676
+and then we mapped these tiles
+
+1917
+00:49:27,676 --> 0:49:29,036
+onto the different GPUs.
+
+1918
+00:49:29,636 --> 0:49:32,396
+Now in the visualization here
+
+1919
+00:49:32,396 --> 0:49:33,826
+I'm using different colors to
+
+1920
+00:49:33,826 --> 0:49:35,066
+show you how the tiles are
+
+1921
+00:49:35,066 --> 0:49:35,716
+distributed.
+
+1922
+00:49:36,256 --> 0:49:38,166
+So, one GPU renders the tiles in
+
+1923
+00:49:38,166 --> 0:49:38,716
+red.
+
+1924
+00:49:39,316 --> 0:49:40,176
+Another does the tiles in
+
+1925
+00:49:40,176 --> 0:49:40,696
+yellow, and so on.
+
+1926
+00:49:40,696 --> 0:49:43,286
+And after all GPUs are finished,
+
+1927
+00:49:43,286 --> 0:49:45,906
+we just composite those results
+
+1928
+00:49:45,906 --> 0:49:47,396
+together to form our final
+
+1929
+00:49:47,396 --> 0:49:47,766
+image.
+
+1930
+00:49:47,766 --> 0:49:50,716
+So, if we take a step back and
+
+1931
+00:49:50,716 --> 0:49:53,186
+look at what we have here
+
+1932
+00:49:53,226 --> 0:49:54,546
+there's two things that jump
+
+1933
+00:49:54,546 --> 0:49:54,826
+out.
+
+1934
+00:49:54,826 --> 0:49:57,806
+So firstly, in the image on the
+
+1935
+00:49:57,806 --> 0:49:59,126
+left, so the way that we're
+
+1936
+00:49:59,126 --> 0:50:00,006
+assigning tiles to GPUs, it
+
+1937
+00:49:59,126 --> 0:50:00,006
+assigning tiles to GPUs, it
+
+1938
+00:50:00,006 --> 0:50:00,716
+looks a bit strange.
+
+1939
+00:50:01,086 --> 0:50:03,766
+So why are we doing it like
+
+1940
+00:50:03,766 --> 0:50:04,156
+that?
+
+1941
+00:50:05,066 --> 0:50:08,136
+And secondly, for those small
+
+1942
+00:50:08,136 --> 0:50:11,056
+tiles the implication of that is
+
+1943
+00:50:11,056 --> 0:50:12,736
+that each GPU is going to render
+
+1944
+00:50:12,736 --> 0:50:14,436
+a block of pixels there and then
+
+1945
+00:50:14,436 --> 0:50:15,336
+a block of pixels somewhere
+
+1946
+00:50:15,336 --> 0:50:15,546
+else.
+
+1947
+00:50:16,476 --> 0:50:17,646
+And that just feels like it's
+
+1948
+00:50:17,646 --> 0:50:19,246
+going to be bad for things like
+
+1949
+00:50:19,246 --> 0:50:21,336
+ray coherency, cache hit ratios.
+
+1950
+00:50:21,336 --> 0:50:22,126
+All that kind of stuff.
+
+1951
+00:50:23,116 --> 0:50:25,036
+So, let's deal with these in
+
+1952
+00:50:27,016 --> 0:50:27,126
+turn.
+
+1953
+00:50:27,326 --> 0:50:30,226
+So, imagine we have four GPUs.
+
+1954
+00:50:30,226 --> 0:50:31,986
+The simple way to do multi GPU
+
+1955
+00:50:31,986 --> 0:50:34,046
+here is just to split the screen
+
+1956
+00:50:34,046 --> 0:50:34,886
+into quadrants.
+
+1957
+00:50:35,826 --> 0:50:38,156
+Now the issue with that is that
+
+1958
+00:50:38,156 --> 0:50:39,506
+some parts of a scene will be
+
+1959
+00:50:39,506 --> 0:50:40,816
+much easier to render than
+
+1960
+00:50:40,816 --> 0:50:41,106
+others.
+
+1961
+00:50:41,986 --> 0:50:43,896
+So, if we assume that the street
+
+1962
+00:50:43,896 --> 0:50:45,226
+and the building on the left
+
+1963
+00:50:45,226 --> 0:50:47,026
+there are much easier to render
+
+1964
+00:50:47,026 --> 0:50:48,266
+than the tram on the right.
+
+1965
+00:50:49,316 --> 0:50:50,946
+It stands to reason that the red
+
+1966
+00:50:50,946 --> 0:50:52,316
+and yellow GPUs will finish
+
+1967
+00:50:52,316 --> 0:50:54,046
+before the green and purple
+
+1968
+00:50:54,046 --> 0:50:54,226
+GPUs.
+
+1969
+00:50:54,226 --> 0:50:57,926
+Now we can fix this just by
+
+1970
+00:50:57,926 --> 0:50:59,116
+splitting the screen into
+
+1971
+00:50:59,116 --> 0:50:59,926
+smaller tiles.
+
+1972
+00:50:59,926 --> 0:51:02,866
+Then we can split each of those
+
+1973
+00:50:59,926 --> 0:51:02,866
+Then we can split each of those
+
+1974
+00:51:02,866 --> 0:51:05,286
+into smaller tiles and so on.
+
+1975
+00:51:05,436 --> 0:51:06,946
+Until we reach some minimum tile
+
+1976
+00:51:06,996 --> 0:51:07,326
+size.
+
+1977
+00:51:07,946 --> 0:51:10,836
+Now this has the effect of
+
+1978
+00:51:10,836 --> 0:51:13,706
+distributing work really evenly
+
+1979
+00:51:13,706 --> 0:51:14,196
+across the GPUs.
+
+1980
+00:51:14,926 --> 0:51:16,456
+So, if one part of the screen is
+
+1981
+00:51:16,456 --> 0:51:17,566
+particularly difficult to
+
+1982
+00:51:17,566 --> 0:51:19,276
+render, it just doesn't matter,
+
+1983
+00:51:19,626 --> 0:51:21,586
+because every GPU will be
+
+1984
+00:51:21,586 --> 0:51:24,026
+assigned tiles from that part of
+
+1985
+00:51:25,056 --> 0:51:25,506
+the screen.
+
+1986
+00:51:25,956 --> 0:51:27,406
+Now in practice, this regular
+
+1987
+00:51:27,406 --> 0:51:29,126
+tiling pattern that you see here
+
+1988
+00:51:29,126 --> 0:51:30,616
+probably isn't the way to go.
+
+1989
+00:51:31,166 --> 0:51:32,506
+Because you can get cases where
+
+1990
+00:51:32,506 --> 0:51:33,886
+the tiling aligns with the
+
+1991
+00:51:33,886 --> 0:51:34,936
+geometry in your scene.
+
+1992
+00:51:36,396 --> 0:51:37,606
+And so, we randomize a bit.
+
+1993
+00:51:38,186 --> 0:51:39,936
+And I'll give a few more details
+
+1994
+00:51:39,936 --> 0:51:40,726
+on how we're doing that in a
+
+1995
+00:51:40,726 --> 0:51:41,126
+second.
+
+1996
+00:51:41,626 --> 0:51:44,606
+And one of the really
+
+1997
+00:51:44,606 --> 0:51:45,826
+interesting things about this
+
+1998
+00:51:45,826 --> 0:51:47,956
+approach is that the mapping of
+
+1999
+00:51:47,956 --> 0:51:50,106
+tiles to GPUs, it does not
+
+2000
+00:51:50,106 --> 0:51:50,616
+change.
+
+2001
+00:51:51,886 --> 0:51:53,716
+So, the same GPU will process
+
+2002
+00:51:53,716 --> 0:51:55,586
+the same tiles every frame.
+
+2003
+00:51:56,316 --> 0:51:57,566
+And this is great.
+
+2004
+00:51:57,626 --> 0:51:59,106
+So, you can just calculate that
+
+2005
+00:51:59,106 --> 0:52:00,666
+mapping when your application
+
+2006
+00:51:59,106 --> 0:52:00,666
+mapping when your application
+
+2007
+00:52:00,666 --> 0:52:02,666
+initializes or when you resize
+
+2008
+00:52:02,666 --> 0:52:04,066
+the window and that's it.
+
+2009
+00:52:04,636 --> 0:52:05,906
+You don't need to think about
+
+2010
+00:52:05,906 --> 0:52:07,946
+multi GPU load balancing anymore
+
+2011
+00:52:07,946 --> 0:52:09,056
+and there's nothing to monitor.
+
+2012
+00:52:09,056 --> 0:52:10,626
+Nothing to recalculate in your
+
+2013
+00:52:10,626 --> 0:52:12,226
+application's main loop.
+
+2014
+00:52:14,176 --> 0:52:17,366
+So, if we know that small tiles
+
+2015
+00:52:17,616 --> 0:52:19,126
+distribute the work more evenly,
+
+2016
+00:52:19,576 --> 0:52:20,626
+why not just take it to the
+
+2017
+00:52:20,626 --> 0:52:22,306
+extreme and make them a pixel.
+
+2018
+00:52:22,946 --> 0:52:25,956
+So, the problem with that is
+
+2019
+00:52:25,956 --> 0:52:27,446
+that we need to give each GPU
+
+2020
+00:52:27,766 --> 0:52:29,356
+nice coherent blocks of pixels
+
+2021
+00:52:29,356 --> 0:52:30,076
+to be working on.
+
+2022
+00:52:31,326 --> 0:52:33,476
+So, the tradeoff there between
+
+2023
+00:52:33,476 --> 0:52:35,276
+balancing the load evenly and
+
+2024
+00:52:35,276 --> 0:52:36,786
+making sure that each GPU can
+
+2025
+00:52:36,786 --> 0:52:38,166
+run as efficiently as possible.
+
+2026
+00:52:38,746 --> 0:52:41,606
+So, to better understand that
+
+2027
+00:52:41,606 --> 0:52:43,276
+tradeoff we did a simple
+
+2028
+00:52:43,276 --> 0:52:43,866
+experiment.
+
+2029
+00:52:44,446 --> 0:52:46,756
+We took one of the new Mac Pros
+
+2030
+00:52:46,756 --> 0:52:49,336
+with a pair of the Vega II Duo
+
+2031
+00:52:49,336 --> 0:52:51,066
+GPUs, so that's four GPUs in
+
+2032
+00:52:51,066 --> 0:52:53,386
+total, and we tried rendering
+
+2033
+00:52:53,386 --> 0:52:54,496
+the same scene with various
+
+2034
+00:52:54,496 --> 0:52:56,146
+tiles sizes to see how that
+
+2035
+00:52:56,146 --> 0:52:57,256
+effected performance.
+
+2036
+00:52:57,476 --> 0:53:00,826
+Now of course, your mileage may
+
+2037
+00:52:57,476 --> 0:53:00,826
+Now of course, your mileage may
+
+2038
+00:53:00,826 --> 0:53:03,756
+vary here, but what we found is
+
+2039
+00:53:03,756 --> 0:53:05,056
+that the performance window is
+
+2040
+00:53:05,056 --> 0:53:06,116
+actually really wide.
+
+2041
+00:53:07,076 --> 0:53:09,566
+So, efficiency drops off if you
+
+2042
+00:53:09,566 --> 0:53:11,486
+make your tiles very small or if
+
+2043
+00:53:11,486 --> 0:53:12,856
+you make them very, very large.
+
+2044
+00:53:13,766 --> 0:53:15,446
+But anywhere in the middle keeps
+
+2045
+00:53:15,446 --> 0:53:16,626
+us pretty close to peak
+
+2046
+00:53:16,626 --> 0:53:17,246
+performance.
+
+2047
+00:53:20,936 --> 0:53:22,386
+So now we have our tile size
+
+2048
+00:53:22,386 --> 0:53:23,966
+pinned down, what we need to do
+
+2049
+00:53:23,966 --> 0:53:25,686
+next is assign them to the
+
+2050
+00:53:25,686 --> 0:53:27,486
+various GPUs.
+
+2051
+00:53:28,196 --> 0:53:30,186
+Now to do this, we start by
+
+2052
+00:53:30,186 --> 0:53:31,936
+generating a random number for
+
+2053
+00:53:31,936 --> 0:53:34,236
+each tile and then we compare
+
+2054
+00:53:34,236 --> 0:53:36,006
+those random numbers to a set of
+
+2055
+00:53:36,006 --> 0:53:36,736
+thresholds.
+
+2056
+00:53:38,036 --> 0:53:39,406
+And whichever range the random
+
+2057
+00:53:39,406 --> 0:53:41,106
+number lands in, that gives us
+
+2058
+00:53:41,106 --> 0:53:43,066
+the GPU to use for that tile.
+
+2059
+00:53:43,506 --> 0:53:46,606
+So as an example, here, if the
+
+2060
+00:53:46,606 --> 0:53:49,026
+random number is .4, we assign
+
+2061
+00:53:49,026 --> 0:53:49,786
+it to GPU 1.
+
+2062
+00:53:50,796 --> 0:53:53,736
+If it's .55, it goes on GPU 2.
+
+2063
+00:53:54,146 --> 0:53:54,886
+And so on.
+
+2064
+00:53:56,236 --> 0:53:58,186
+Now, once we've done this for
+
+2065
+00:53:58,186 --> 0:54:00,406
+every tile the output is a list
+
+2066
+00:53:58,186 --> 0:54:00,406
+every tile the output is a list
+
+2067
+00:54:00,406 --> 0:54:01,876
+of tiles that we need each GPU
+
+2068
+00:54:01,876 --> 0:54:02,266
+to render.
+
+2069
+00:54:03,016 --> 0:54:06,676
+As you can see down the bottom
+
+2070
+00:54:07,226 --> 0:54:08,146
+there the ranges that we're
+
+2071
+00:54:08,146 --> 0:54:10,216
+using for each GPU are equal.
+
+2072
+00:54:11,476 --> 0:54:13,616
+So, when assigning tiles to GPUs
+
+2073
+00:54:13,716 --> 0:54:15,016
+they are all equally likely to
+
+2074
+00:54:15,016 --> 0:54:15,486
+be chosen.
+
+2075
+00:54:16,146 --> 0:54:19,346
+But in practice, you almost
+
+2076
+00:54:19,346 --> 0:54:20,936
+certainly don't want this.
+
+2077
+00:54:20,936 --> 0:54:23,346
+For example, you might need to
+
+2078
+00:54:23,346 --> 0:54:25,536
+reserve capacity on one of your
+
+2079
+00:54:25,536 --> 0:54:27,286
+GPUs for non-ray tracing tasks
+
+2080
+00:54:27,806 --> 0:54:29,736
+such as denoising or tone
+
+2081
+00:54:31,206 --> 0:54:31,366
+mapping.
+
+2082
+00:54:31,916 --> 0:54:33,536
+Or you might be using GPUs with
+
+2083
+00:54:33,536 --> 0:54:34,536
+different performance.
+
+2084
+00:54:34,906 --> 0:54:35,866
+In which case you'll want to
+
+2085
+00:54:35,866 --> 0:54:37,246
+send more tiles to the more
+
+2086
+00:54:37,246 --> 0:54:37,976
+powerful GPUs.
+
+2087
+00:54:39,846 --> 0:54:41,096
+And you can account for this
+
+2088
+00:54:41,346 --> 0:54:43,226
+really easily by just adjusting
+
+2089
+00:54:43,226 --> 0:54:43,676
+the ranges.
+
+2090
+00:54:44,996 --> 0:54:46,416
+So now if we go ahead and
+
+2091
+00:54:46,416 --> 0:54:47,906
+reassign the same tiles we used
+
+2092
+00:54:47,906 --> 0:54:49,946
+before, you can see here that
+
+2093
+00:54:49,946 --> 0:54:51,886
+now GPU 2 takes on a much
+
+2094
+00:54:51,886 --> 0:54:52,886
+greater share of the work.
+
+2095
+00:54:52,886 --> 0:54:57,966
+Now, for the actual implantation
+
+2096
+00:54:57,966 --> 0:54:59,696
+of this there was a lot of
+
+2097
+00:54:59,696 --> 0:55:01,296
+really useful information in our
+
+2098
+00:54:59,696 --> 0:55:01,296
+really useful information in our
+
+2099
+00:55:01,296 --> 0:55:02,696
+Metal for Pro Apps session
+
+2100
+00:55:02,696 --> 0:55:03,466
+earlier this week.
+
+2101
+00:55:03,766 --> 0:55:05,256
+So, I won't go over that again
+
+2102
+00:55:05,256 --> 0:55:05,496
+here.
+
+2103
+00:55:06,086 --> 0:55:08,356
+But it is definitely useful to
+
+2104
+00:55:08,356 --> 0:55:10,016
+highlight just a couple of areas
+
+2105
+00:55:10,106 --> 0:55:11,016
+that can have a really big
+
+2106
+00:55:11,016 --> 0:55:12,286
+impact on performance.
+
+2107
+00:55:12,846 --> 0:55:16,616
+So firstly, you'll probably want
+
+2108
+00:55:16,616 --> 0:55:17,976
+to composite your tiles together
+
+2109
+00:55:17,976 --> 0:55:19,436
+on the GPU that's driving the
+
+2110
+00:55:19,436 --> 0:55:19,896
+display.
+
+2111
+00:55:21,216 --> 0:55:22,886
+So, it's important to find out
+
+2112
+00:55:22,886 --> 0:55:25,056
+which GPU that is and then work
+
+2113
+00:55:25,056 --> 0:55:27,086
+backwards to figure out how to
+
+2114
+00:55:27,086 --> 0:55:28,416
+get your data there efficiently.
+
+2115
+00:55:28,936 --> 0:55:31,326
+So, if the GPUs are in the same
+
+2116
+00:55:31,326 --> 0:55:33,176
+peer group then you can copy
+
+2117
+00:55:33,176 --> 0:55:34,916
+between them directly using our
+
+2118
+00:55:34,916 --> 0:55:36,196
+new peer group APIs.
+
+2119
+00:55:37,186 --> 0:55:38,646
+Otherwise you'll need to go by
+
+2120
+00:55:38,646 --> 0:55:39,216
+the CPU.
+
+2121
+00:55:41,926 --> 0:55:44,476
+Now secondly, it can often take
+
+2122
+00:55:44,476 --> 0:55:46,056
+a few milliseconds to copy data
+
+2123
+00:55:46,056 --> 0:55:48,156
+between GPUs and we definitely
+
+2124
+00:55:48,276 --> 0:55:50,016
+don't want to block waiting for
+
+2125
+00:55:50,016 --> 0:55:51,126
+those transfers to complete.
+
+2126
+00:55:52,356 --> 0:55:54,526
+So, to give you an example of
+
+2127
+00:55:54,526 --> 0:55:56,426
+how we're dealing with that we
+
+2128
+00:55:56,426 --> 0:55:58,256
+have two GPUs here and we're
+
+2129
+00:55:58,256 --> 0:55:59,466
+using the tiling scheme that I
+
+2130
+00:55:59,466 --> 0:56:01,136
+was just talking about to spread
+
+2131
+00:55:59,466 --> 0:56:01,136
+was just talking about to spread
+
+2132
+00:56:01,136 --> 0:56:02,786
+the rendering across the two
+
+2133
+00:56:02,786 --> 0:56:02,956
+GPUs.
+
+2134
+00:56:04,666 --> 0:56:06,876
+Now in GPU 0 at the top there we
+
+2135
+00:56:06,876 --> 0:56:08,066
+have two queues.
+
+2136
+00:56:08,306 --> 0:56:10,066
+One is just flat out doing
+
+2137
+00:56:10,066 --> 0:56:11,146
+back-to-back Ray Tracing.
+
+2138
+00:56:11,876 --> 0:56:13,116
+And then we have a second queue
+
+2139
+00:56:13,606 --> 0:56:15,076
+that copies the completed tiles
+
+2140
+00:56:15,076 --> 0:56:16,976
+over to GPU 1 asynchronously.
+
+2141
+00:56:20,266 --> 0:56:21,956
+Now, we'll assume that GPU 1 at
+
+2142
+00:56:21,956 --> 0:56:23,166
+the bottom there is the one
+
+2143
+00:56:23,166 --> 0:56:24,206
+that's driving our display.
+
+2144
+00:56:24,896 --> 0:56:26,246
+And here things are a bit
+
+2145
+00:56:26,246 --> 0:56:26,596
+different.
+
+2146
+00:56:27,086 --> 0:56:30,626
+This GPU is also Ray Tracing
+
+2147
+00:56:30,746 --> 0:56:32,996
+part of frame 0, but we can't go
+
+2148
+00:56:32,996 --> 0:56:34,596
+ahead and present that frame
+
+2149
+00:56:35,076 --> 0:56:36,746
+until the rest of our tiles have
+
+2150
+00:56:36,746 --> 0:56:37,936
+been copied over from the other
+
+2151
+00:56:37,936 --> 0:56:38,476
+GPU.
+
+2152
+00:56:39,596 --> 0:56:42,076
+So rather than wait, we just
+
+2153
+00:56:42,076 --> 0:56:43,226
+start work on the next frame.
+
+2154
+00:56:44,716 --> 0:56:46,126
+And then a bit later on when our
+
+2155
+00:56:46,126 --> 0:56:47,996
+tiles arrive from the other GPU,
+
+2156
+00:56:48,836 --> 0:56:50,186
+that's when we go ahead and
+
+2157
+00:56:50,186 --> 0:56:51,386
+composite everything together.
+
+2158
+00:56:52,716 --> 0:56:53,906
+So, I'll show you that one more
+
+2159
+00:56:53,906 --> 0:56:54,286
+time here.
+
+2160
+00:56:54,286 --> 0:56:57,396
+So, you can see that we end up
+
+2161
+00:56:57,396 --> 0:56:59,316
+in this steady state where we
+
+2162
+00:56:59,316 --> 0:57:01,146
+render frame N and then we
+
+2163
+00:56:59,316 --> 0:57:01,146
+render frame N and then we
+
+2164
+00:57:01,146 --> 0:57:02,756
+composite frame N minus 1.
+
+2165
+00:57:04,376 --> 0:57:06,326
+So essentially, what we're doing
+
+2166
+00:57:06,326 --> 0:57:07,656
+here is latency hiding.
+
+2167
+00:57:08,796 --> 0:57:10,186
+And this together with the
+
+2168
+00:57:10,186 --> 0:57:11,626
+tiling scheme I was showing you
+
+2169
+00:57:11,626 --> 0:57:13,196
+to load balance between the
+
+2170
+00:57:13,596 --> 0:57:15,236
+GPUs, this is enabling us to
+
+2171
+00:57:15,236 --> 0:57:16,796
+achieve really great performance
+
+2172
+00:57:16,796 --> 0:57:18,526
+for our Ray Tracing workloads on
+
+2173
+00:57:18,526 --> 0:57:19,886
+our multi GPU systems.
+
+2174
+00:57:20,396 --> 0:57:23,186
+And with that, we come to the
+
+2175
+00:57:23,186 --> 0:57:23,796
+end of the talk.
+
+2176
+00:57:24,926 --> 0:57:26,896
+We began with a quick refresher
+
+2177
+00:57:26,896 --> 0:57:28,286
+of how Ray Tracing works in
+
+2178
+00:57:28,286 --> 0:57:30,696
+Metal and then we focused on a
+
+2179
+00:57:30,756 --> 0:57:31,696
+few features of the
+
+2180
+00:57:31,696 --> 0:57:33,536
+MPSRayIntersector that are there
+
+2181
+00:57:33,616 --> 0:57:34,846
+to really help with dynamic
+
+2182
+00:57:34,846 --> 0:57:35,376
+scenes.
+
+2183
+00:57:35,796 --> 0:57:36,886
+So that's the Two-Level
+
+2184
+00:57:36,886 --> 0:57:38,886
+Acceleration Structures along
+
+2185
+00:57:38,886 --> 0:57:40,226
+with our GPU Accelerated
+
+2186
+00:57:40,226 --> 0:57:41,766
+Rebuilds and Refitting.
+
+2187
+00:57:42,376 --> 0:57:45,216
+We also introduced the new Metal
+
+2188
+00:57:45,216 --> 0:57:45,656
+Denoiser.
+
+2189
+00:57:45,786 --> 0:57:48,026
+And then we talked through a few
+
+2190
+00:57:48,026 --> 0:57:49,716
+Ray Tracing use cases such as
+
+2191
+00:57:49,716 --> 0:57:51,826
+Shadows, Ambient Occlusion, and
+
+2192
+00:57:51,826 --> 0:57:52,716
+Global Illumination.
+
+2193
+00:57:53,716 --> 0:57:55,806
+When then showed you how to
+
+2194
+00:57:55,806 --> 0:57:57,736
+debug and profile Ray Tracing
+
+2195
+00:57:57,736 --> 0:57:58,866
+workloads using Xcode.
+
+2196
+00:57:58,866 --> 0:58:00,856
+And then, we finished by talking
+
+2197
+00:57:58,866 --> 0:58:00,856
+And then, we finished by talking
+
+2198
+00:58:00,856 --> 0:58:02,946
+about how to take advantage of
+
+2199
+00:58:02,946 --> 0:58:05,086
+multiple GPUs in your Ray
+
+2200
+00:58:05,086 --> 0:58:06,136
+Tracing applications.
+
+2201
+00:58:06,166 --> 0:58:08,026
+Now, for more information be
+
+2202
+00:58:08,026 --> 0:58:08,606
+sure to visit
+
+2203
+00:58:08,606 --> 0:58:10,996
+developer.apple.com and there
+
+2204
+00:58:10,996 --> 0:58:12,666
+you'll also find a new sample
+
+2205
+00:58:12,666 --> 0:58:13,646
+demonstrating some of the
+
+2206
+00:58:13,646 --> 0:58:14,826
+features that we've talked about
+
+2207
+00:58:14,826 --> 0:58:15,046
+today.
+
+2208
+00:58:16,066 --> 0:58:17,926
+If you're new to Ray Tracing be
+
+2209
+00:58:18,226 --> 0:58:19,506
+sure to check out our talk from
+
+2210
+00:58:19,506 --> 0:58:20,236
+last year.
+
+2211
+00:58:20,586 --> 0:58:21,926
+And finally, we have our lab
+
+2212
+00:58:21,926 --> 0:58:23,336
+session coming up next at 12.
+
+2213
+00:58:23,446 --> 0:58:24,886
+So, I hope you can join us for
+
+2214
+00:58:24,886 --> 0:58:24,976
+that.
+
+2215
+00:58:26,366 --> 0:58:27,456
+So, thank you all for coming and
+
+2216
+00:58:27,456 --> 0:58:28,796
+I'll see you in the lab shortly.
+
+2217
+00:58:29,016 --> 0:58:31,000
+[ Applause ]

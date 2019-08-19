@@ -1,0 +1,5071 @@
+1
+00:00:01,516 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:06,516 --> 0:00:09,016
+[ Applause ]
+
+3
+00:00:09,516 --> 0:00:11,056
+&gt;&gt; Good morning everyone, my
+
+4
+00:00:11,056 --> 0:00:12,736
+name is Michael Gorbach and I'll
+
+5
+00:00:12,736 --> 0:00:13,666
+be presenting today with my
+
+6
+00:00:13,666 --> 0:00:15,226
+colleague John Nefulda from
+
+7
+00:00:15,226 --> 0:00:18,296
+Apple's Accessibility team.
+
+8
+00:00:18,506 --> 0:00:20,536
+I'm sure all of you are excited
+
+9
+00:00:20,576 --> 0:00:22,276
+about SwiftUI and how it can
+
+10
+00:00:22,276 --> 0:00:24,086
+help you build better apps
+
+11
+00:00:24,256 --> 0:00:25,886
+faster and easier.
+
+12
+00:00:27,046 --> 0:00:29,176
+I am also really excited about
+
+13
+00:00:29,176 --> 0:00:31,436
+SwiftUI and specifically, I'm
+
+14
+00:00:31,436 --> 0:00:33,916
+excited about its potential for
+
+15
+00:00:33,916 --> 0:00:34,676
+Accessibility.
+
+16
+00:00:35,656 --> 0:00:36,566
+We're going to tell you today
+
+17
+00:00:36,566 --> 0:00:38,476
+how SwiftUI can help you build
+
+18
+00:00:38,686 --> 0:00:41,316
+the next generation of apps for
+
+19
+00:00:41,316 --> 0:00:42,676
+all of your users.
+
+20
+00:00:43,176 --> 0:00:46,496
+We're going to kick it off with
+
+21
+00:00:46,546 --> 0:00:48,436
+a quick introduction to
+
+22
+00:00:48,436 --> 0:00:50,506
+Accessibility and our
+
+23
+00:00:50,506 --> 0:00:51,946
+Accessibility technologies on
+
+24
+00:00:51,946 --> 0:00:52,716
+our platforms.
+
+25
+00:00:55,216 --> 0:00:58,426
+Then talk a little bit about how
+
+26
+00:00:58,426 --> 0:01:00,346
+SwiftUI make your -- makes your
+
+27
+00:00:58,426 --> 0:01:00,346
+SwiftUI make your -- makes your
+
+28
+00:01:00,346 --> 0:01:02,676
+apps more accessible by default.
+
+29
+00:01:03,246 --> 0:01:06,186
+John is going to come in and
+
+30
+00:01:06,186 --> 0:01:07,266
+take us through the
+
+31
+00:01:07,266 --> 0:01:09,306
+Accessibility API that we are
+
+32
+00:01:09,306 --> 0:01:10,546
+introducing today.
+
+33
+00:01:11,146 --> 0:01:13,616
+And, also take us through the
+
+34
+00:01:13,616 --> 0:01:15,906
+Accessibility Tree that SwiftUI
+
+35
+00:01:15,906 --> 0:01:17,446
+generates for us in our
+
+36
+00:01:17,446 --> 0:01:17,976
+applications.
+
+37
+00:01:21,556 --> 0:01:23,186
+So, let's start with that
+
+38
+00:01:23,186 --> 0:01:23,706
+introduction.
+
+39
+00:01:24,866 --> 0:01:26,896
+What do we mean when we throw
+
+40
+00:01:26,896 --> 0:01:28,606
+around this word Accessibility
+
+41
+00:01:28,606 --> 0:01:28,886
+today?
+
+42
+00:01:30,066 --> 0:01:32,046
+Well, all of you have put a ton
+
+43
+00:01:32,046 --> 0:01:33,726
+of work into your applications
+
+44
+00:01:34,246 --> 0:01:36,166
+to make them fun and functional,
+
+45
+00:01:36,546 --> 0:01:38,416
+helpful and a joy to use.
+
+46
+00:01:39,766 --> 0:01:42,166
+Given all of that work you want
+
+47
+00:01:42,166 --> 0:01:43,906
+your apps to be useable by all
+
+48
+00:01:43,906 --> 0:01:45,606
+of your potential customers.
+
+49
+00:01:45,796 --> 0:01:46,896
+Not just some of them.
+
+50
+00:01:48,036 --> 0:01:49,566
+That's really what Accessibility
+
+51
+00:01:49,566 --> 0:01:50,386
+is all about.
+
+52
+00:01:50,496 --> 0:01:52,226
+It's about giving customers with
+
+53
+00:01:52,226 --> 0:01:54,616
+disabilities full access to the
+
+54
+00:01:54,616 --> 0:01:56,606
+value that your app provides.
+
+55
+00:01:57,706 --> 0:01:59,076
+And that means more happy
+
+56
+00:01:59,076 --> 0:02:00,176
+customers for you.
+
+57
+00:01:59,076 --> 0:02:00,176
+customers for you.
+
+58
+00:02:01,546 --> 0:02:03,376
+It is also especially great for
+
+59
+00:02:03,376 --> 0:02:04,486
+your customers with
+
+60
+00:02:04,556 --> 0:02:05,126
+disabilities.
+
+61
+00:02:06,386 --> 0:02:08,306
+On our various devices like Macs
+
+62
+00:02:08,586 --> 0:02:10,626
+and iPhones, Watches and
+
+63
+00:02:10,626 --> 0:02:12,866
+HomePods, Apples technologies
+
+64
+00:02:12,916 --> 0:02:14,636
+enable people with disabilities
+
+65
+00:02:14,846 --> 0:02:16,366
+to live fuller lives.
+
+66
+00:02:17,626 --> 0:02:19,296
+They open up possibilities for
+
+67
+00:02:19,296 --> 0:02:21,286
+them that did not exist just a
+
+68
+00:02:21,286 --> 0:02:22,286
+few years ago.
+
+69
+00:02:22,866 --> 0:02:25,436
+A huge part of how that happens
+
+70
+00:02:25,436 --> 0:02:26,936
+in practice is through your
+
+71
+00:02:26,936 --> 0:02:27,836
+applications.
+
+72
+00:02:28,416 --> 0:02:30,086
+Yes, your apps can change
+
+73
+00:02:30,086 --> 0:02:30,766
+people's lives.
+
+74
+00:02:31,346 --> 0:02:32,556
+But for that to happen you need
+
+75
+00:02:32,556 --> 0:02:34,376
+to do a little work to make them
+
+76
+00:02:34,376 --> 0:02:35,416
+fully accessible.
+
+77
+00:02:38,976 --> 0:02:41,076
+When folks with disabilities
+
+78
+00:02:41,166 --> 0:02:43,056
+interact with your applications,
+
+79
+00:02:43,156 --> 0:02:45,286
+they will generally use Apple's
+
+80
+00:02:45,286 --> 0:02:47,336
+built in Accessibility features.
+
+81
+00:02:48,066 --> 0:02:49,776
+We've got a whole array of these
+
+82
+00:02:49,776 --> 0:02:50,966
+shipping across our many
+
+83
+00:02:50,966 --> 0:02:51,686
+platforms.
+
+84
+00:02:51,866 --> 0:02:53,426
+I'm going to focus on one of
+
+85
+00:02:53,426 --> 0:02:54,936
+them first called VoiceOver.
+
+86
+00:02:57,066 --> 0:02:58,836
+VoiceOver is a screen reader
+
+87
+00:02:59,096 --> 0:03:00,576
+available across all our
+
+88
+00:02:59,096 --> 0:03:00,576
+available across all our
+
+89
+00:03:00,576 --> 0:03:01,166
+platforms.
+
+90
+00:03:01,626 --> 0:03:03,236
+It's a product that lets folks
+
+91
+00:03:03,296 --> 0:03:05,176
+with low to no vision use their
+
+92
+00:03:05,176 --> 0:03:07,026
+Apple devices without needing to
+
+93
+00:03:07,026 --> 0:03:08,216
+see their screens.
+
+94
+00:03:09,316 --> 0:03:11,416
+The way it does this is by
+
+95
+00:03:11,546 --> 0:03:12,186
+reading to you.
+
+96
+00:03:12,866 --> 0:03:14,336
+VoiceOver lets you step through
+
+97
+00:03:14,336 --> 0:03:15,496
+the elements on your screen,
+
+98
+00:03:15,766 --> 0:03:17,166
+taking each one of them in turn,
+
+99
+00:03:17,736 --> 0:03:19,216
+and reads information to you
+
+100
+00:03:19,216 --> 0:03:20,726
+about those elements like the
+
+101
+00:03:20,726 --> 0:03:22,656
+titles of buttons, the names of
+
+102
+00:03:22,656 --> 0:03:24,796
+images, and the values of text
+
+103
+00:03:24,796 --> 0:03:25,176
+fields.
+
+104
+00:03:26,456 --> 0:03:28,406
+It also lets you use gestures on
+
+105
+00:03:28,566 --> 0:03:30,576
+iOS or keyboard keys on the Mac
+
+106
+00:03:31,116 --> 0:03:32,906
+to interact with those elements
+
+107
+00:03:33,086 --> 0:03:34,976
+and kick off their associated
+
+108
+00:03:35,046 --> 0:03:35,506
+actions.
+
+109
+00:03:36,256 --> 0:03:37,616
+Here's VoiceOver on the Mac
+
+110
+00:03:37,896 --> 0:03:39,236
+interacting with Calculator.
+
+111
+00:03:39,906 --> 0:03:41,516
+VoiceOver is reading to us here
+
+112
+00:03:41,646 --> 0:03:42,916
+and it's showing what it's
+
+113
+00:03:42,916 --> 0:03:45,226
+reading in the bottom right as
+
+114
+00:03:45,976 --> 0:03:46,136
+well.
+
+115
+00:03:46,876 --> 0:03:49,236
+There are also two really cool
+
+116
+00:03:49,236 --> 0:03:51,026
+new items in this long list this
+
+117
+00:03:51,026 --> 0:03:51,226
+year.
+
+118
+00:03:51,856 --> 0:03:53,536
+The first is Voice Control.
+
+119
+00:03:53,536 --> 0:03:55,296
+I'm sure you all have seen the
+
+120
+00:03:55,296 --> 0:03:56,426
+amazing demos.
+
+121
+00:03:58,556 --> 0:04:00,856
+The second -- yes, it is
+
+122
+00:03:58,556 --> 0:04:00,856
+The second -- yes, it is
+
+123
+00:04:00,856 --> 0:04:01,276
+amazing.
+
+124
+00:04:03,646 --> 0:04:05,306
+The second is Full Keyboard
+
+125
+00:04:05,476 --> 0:04:05,876
+Access.
+
+126
+00:04:06,046 --> 0:04:07,996
+Totally new on iOS this year and
+
+127
+00:04:08,056 --> 0:04:09,306
+greatly enhanced on the Mac.
+
+128
+00:04:10,216 --> 0:04:11,576
+Full Keyboard Access lets you
+
+129
+00:04:11,576 --> 0:04:13,646
+use your Mac of iOS devices
+
+130
+00:04:13,646 --> 0:04:15,946
+entirely with just a keyboard.
+
+131
+00:04:17,276 --> 0:04:19,326
+It is a great, fast and fluid
+
+132
+00:04:19,326 --> 0:04:21,136
+way to get things one on your
+
+133
+00:04:21,136 --> 0:04:21,856
+Apple devices.
+
+134
+00:04:23,056 --> 0:04:24,446
+We are confident that this
+
+135
+00:04:24,486 --> 0:04:25,666
+feature is really going to get
+
+136
+00:04:25,666 --> 0:04:27,746
+used not just for accessibility
+
+137
+00:04:27,816 --> 0:04:29,906
+purposes, but also just by folks
+
+138
+00:04:29,906 --> 0:04:31,256
+looking to be extra productive
+
+139
+00:04:31,526 --> 0:04:32,586
+on their Apple devices.
+
+140
+00:04:32,826 --> 0:04:34,326
+Move around screens, kick off
+
+141
+00:04:34,326 --> 0:04:34,776
+commands.
+
+142
+00:04:35,996 --> 0:04:37,326
+Here's Full Keyboard Access
+
+143
+00:04:37,326 --> 0:04:38,646
+interacting with the Calculator
+
+144
+00:04:38,646 --> 0:04:39,116
+on iOS.
+
+145
+00:04:39,826 --> 0:04:41,436
+Notice the highlighted 8 key
+
+146
+00:04:41,436 --> 0:04:42,936
+showing us where the keyboard
+
+147
+00:04:42,936 --> 0:04:44,266
+focus is.
+
+148
+00:04:45,056 --> 0:04:47,016
+These two great features are
+
+149
+00:04:47,016 --> 0:04:48,506
+perfect examples of something
+
+150
+00:04:48,666 --> 0:04:50,596
+we've learned on our team time
+
+151
+00:04:50,596 --> 0:04:51,166
+and time again.
+
+152
+00:04:51,976 --> 0:04:53,866
+Accessibility is for everyone.
+
+153
+00:04:54,336 --> 0:04:55,526
+Not just for people with
+
+154
+00:04:55,526 --> 0:04:56,146
+disabilities.
+
+155
+00:04:56,776 --> 0:04:57,996
+That is why the little bit of
+
+156
+00:04:57,996 --> 0:04:59,416
+work you do on your app for
+
+157
+00:04:59,416 --> 0:05:01,306
+Accessibility has such a broad
+
+158
+00:04:59,416 --> 0:05:01,306
+Accessibility has such a broad
+
+159
+00:05:04,346 --> 0:05:04,536
+impact.
+
+160
+00:05:04,716 --> 0:05:06,536
+Now, one of the best things
+
+161
+00:05:06,536 --> 0:05:09,346
+about our platforms is that many
+
+162
+00:05:09,346 --> 0:05:10,786
+of the features on this slide,
+
+163
+00:05:10,786 --> 0:05:11,986
+including all the ones we just
+
+164
+00:05:11,986 --> 0:05:13,626
+discussed, use the same
+
+165
+00:05:13,726 --> 0:05:15,196
+underlying technologies.
+
+166
+00:05:16,026 --> 0:05:17,456
+If you implement Accessibility
+
+167
+00:05:17,456 --> 0:05:18,826
+in your app well it will work
+
+168
+00:05:18,826 --> 0:05:21,846
+great with all of them.
+
+169
+00:05:22,056 --> 0:05:23,426
+All these features ultimately
+
+170
+00:05:23,426 --> 0:05:24,766
+rely on information that your
+
+171
+00:05:24,996 --> 0:05:26,956
+app exposes to our platforms.
+
+172
+00:05:27,376 --> 0:05:28,906
+The better this information, the
+
+173
+00:05:28,906 --> 0:05:29,926
+better these features are going
+
+174
+00:05:29,926 --> 0:05:30,216
+to work.
+
+175
+00:05:31,076 --> 0:05:32,696
+We call this information your
+
+176
+00:05:32,696 --> 0:05:34,496
+apps Accessibility User
+
+177
+00:05:34,496 --> 0:05:35,246
+Interface.
+
+178
+00:05:35,766 --> 0:05:38,606
+What actually goes into one of
+
+179
+00:05:38,606 --> 0:05:38,976
+these?
+
+180
+00:05:39,146 --> 0:05:40,886
+Well, let's take a quick look at
+
+181
+00:05:40,886 --> 0:05:42,506
+Calculator just as a simple
+
+182
+00:05:42,506 --> 0:05:44,286
+example, and take it apart.
+
+183
+00:05:45,636 --> 0:05:47,816
+The Accessibility User Interface
+
+184
+00:05:47,816 --> 0:05:49,896
+your app exposes to us consists
+
+185
+00:05:49,896 --> 0:05:51,526
+of Accessibility elements.
+
+186
+00:05:52,116 --> 0:05:54,326
+Each view in Calculator forms
+
+187
+00:05:54,436 --> 0:05:55,936
+one Accessibility element here.
+
+188
+00:05:56,496 --> 0:05:59,036
+In this case, most of these
+
+189
+00:05:59,036 --> 0:06:00,276
+Accessibility elements are
+
+190
+00:05:59,036 --> 0:06:00,276
+Accessibility elements are
+
+191
+00:06:00,356 --> 0:06:00,616
+buttons.
+
+192
+00:06:01,176 --> 0:06:02,466
+So, let's take a look at one of
+
+193
+00:06:02,496 --> 0:06:03,366
+them in particular.
+
+194
+00:06:04,246 --> 0:06:06,476
+Here is the X button on the left
+
+195
+00:06:06,836 --> 0:06:08,506
+and its Accessibility element on
+
+196
+00:06:08,506 --> 0:06:08,816
+the right.
+
+197
+00:06:10,066 --> 0:06:11,656
+Notice that it's got a label for
+
+198
+00:06:11,656 --> 0:06:12,456
+VoiceOver to read.
+
+199
+00:06:13,196 --> 0:06:14,016
+You're going to want a label
+
+200
+00:06:14,016 --> 0:06:14,996
+like this for all of your
+
+201
+00:06:14,996 --> 0:06:17,356
+elements so a VoiceOver knows
+
+202
+00:06:17,496 --> 0:06:19,386
+where they are in your app.
+
+203
+00:06:19,956 --> 0:06:21,916
+In this case, the developers of
+
+204
+00:06:21,916 --> 0:06:22,926
+the Calculator app have
+
+205
+00:06:22,976 --> 0:06:24,386
+customized the default label
+
+206
+00:06:24,516 --> 0:06:26,216
+from the simple X to the text
+
+207
+00:06:26,356 --> 0:06:26,876
+multiply.
+
+208
+00:06:28,176 --> 0:06:29,866
+This element also has a type.
+
+209
+00:06:30,436 --> 0:06:32,126
+On iOS that's described using
+
+210
+00:06:32,186 --> 0:06:34,086
+traits and on macOS it's
+
+211
+00:06:34,086 --> 0:06:35,486
+described using roles.
+
+212
+00:06:35,976 --> 0:06:37,326
+That type here is button.
+
+213
+00:06:38,236 --> 0:06:40,286
+And finally, this button element
+
+214
+00:06:40,286 --> 0:06:41,616
+has a default action.
+
+215
+00:06:42,156 --> 0:06:45,106
+Press on macOS or tap on iOS.
+
+216
+00:06:45,456 --> 0:06:47,056
+A VoiceOver user can use this
+
+217
+00:06:47,056 --> 0:06:49,146
+action to interact with the
+
+218
+00:06:49,146 --> 0:06:49,586
+element.
+
+219
+00:06:49,986 --> 0:06:53,616
+Let's take a look at one more.
+
+220
+00:06:54,226 --> 0:06:55,776
+This is the display at the top
+
+221
+00:06:55,876 --> 0:06:57,446
+showing us the results of our
+
+222
+00:06:57,446 --> 0:06:58,136
+calculation.
+
+223
+00:06:59,136 --> 0:07:00,446
+We can see that the developers
+
+224
+00:06:59,136 --> 0:07:00,446
+We can see that the developers
+
+225
+00:07:00,446 --> 0:07:01,896
+have given it a label named
+
+226
+00:07:01,896 --> 0:07:02,276
+display.
+
+227
+00:07:03,376 --> 0:07:05,006
+It is also exposing another
+
+228
+00:07:05,006 --> 0:07:06,736
+important piece of information
+
+229
+00:07:06,926 --> 0:07:08,716
+called a value, that holds the
+
+230
+00:07:08,716 --> 0:07:10,156
+current text its showing.
+
+231
+00:07:11,556 --> 0:07:13,236
+It has no default action since
+
+232
+00:07:13,236 --> 0:07:14,716
+you can't right now interact
+
+233
+00:07:14,716 --> 0:07:15,366
+with this element.
+
+234
+00:07:16,986 --> 0:07:18,786
+Default actions though are not
+
+235
+00:07:18,786 --> 0:07:20,426
+the only way your Accessibility
+
+236
+00:07:20,426 --> 0:07:22,026
+customers are going to interact
+
+237
+00:07:22,406 --> 0:07:24,086
+with your app and its elements.
+
+238
+00:07:24,686 --> 0:07:27,066
+You can add custom named actions
+
+239
+00:07:27,266 --> 0:07:28,886
+to any Accessibility element in
+
+240
+00:07:28,886 --> 0:07:29,116
+your app.
+
+241
+00:07:29,876 --> 0:07:31,046
+For example, we could add a
+
+242
+00:07:31,046 --> 0:07:32,456
+Custom Action on this one called
+
+243
+00:07:32,496 --> 0:07:34,186
+clear, which would clear the
+
+244
+00:07:34,186 --> 0:07:34,606
+display.
+
+245
+00:07:34,646 --> 0:07:38,236
+So that is Calculator's
+
+246
+00:07:38,236 --> 0:07:40,256
+Accessibility User Interface.
+
+247
+00:07:41,146 --> 0:07:42,566
+Your app has one too.
+
+248
+00:07:43,286 --> 0:07:44,386
+A lot of it is going to get
+
+249
+00:07:44,386 --> 0:07:45,796
+created for you automatically,
+
+250
+00:07:45,796 --> 0:07:46,986
+but with a little bit of work
+
+251
+00:07:46,986 --> 0:07:49,006
+you can make it a whole lot
+
+252
+00:07:50,116 --> 0:07:50,256
+better.
+
+253
+00:07:50,436 --> 0:07:52,746
+You relentlessly polish the
+
+254
+00:07:52,746 --> 0:07:54,496
+visual user interfaces on your
+
+255
+00:07:54,706 --> 0:07:54,916
+apps.
+
+256
+00:07:55,686 --> 0:07:56,906
+In a similar way you should
+
+257
+00:07:56,906 --> 0:07:58,806
+polish your Accessibility User
+
+258
+00:07:58,806 --> 0:07:59,936
+Interface as well.
+
+259
+00:08:00,946 --> 0:08:02,626
+Here are three key things to
+
+260
+00:08:02,626 --> 0:08:03,496
+look for which we're going to
+
+261
+00:08:03,496 --> 0:08:04,836
+show you how to do today.
+
+262
+00:08:06,176 --> 0:08:08,216
+First, your Accessibility
+
+263
+00:08:08,216 --> 0:08:09,216
+elements should be
+
+264
+00:08:09,216 --> 0:08:09,986
+understandable.
+
+265
+00:08:10,546 --> 0:08:11,726
+They should have reasonable
+
+266
+00:08:11,726 --> 0:08:13,746
+labels, values, and other
+
+267
+00:08:13,746 --> 0:08:15,006
+describing information.
+
+268
+00:08:15,176 --> 0:08:16,866
+An example of this is how
+
+269
+00:08:16,926 --> 0:08:18,626
+Calculator changed the label of
+
+270
+00:08:18,626 --> 0:08:20,666
+the X button to multiple so it's
+
+271
+00:08:20,706 --> 0:08:21,626
+easier to understand.
+
+272
+00:08:22,136 --> 0:08:25,066
+Your elements should also be
+
+273
+00:08:25,106 --> 0:08:25,826
+interactable.
+
+274
+00:08:26,416 --> 0:08:28,366
+That means, appropriate default
+
+275
+00:08:28,366 --> 0:08:30,246
+actions and Custom Actions
+
+276
+00:08:30,356 --> 0:08:31,496
+wherever they are needed.
+
+277
+00:08:32,226 --> 0:08:33,736
+Adding that clear action to the
+
+278
+00:08:33,736 --> 0:08:35,126
+main display as we just talked
+
+279
+00:08:35,126 --> 0:08:36,756
+about is an example of this.
+
+280
+00:08:37,996 --> 0:08:39,496
+And finally, your elements
+
+281
+00:08:39,496 --> 0:08:40,676
+should be navigable.
+
+282
+00:08:41,296 --> 0:08:42,726
+Carefully thinking through the
+
+283
+00:08:42,756 --> 0:08:44,216
+ordering of your Accessibility
+
+284
+00:08:44,216 --> 0:08:45,856
+elements and grouping them as
+
+285
+00:08:45,856 --> 0:08:47,726
+needed will really make your app
+
+286
+00:08:47,756 --> 0:08:49,536
+more useable with our
+
+287
+00:08:49,536 --> 0:08:50,806
+Accessibility features.
+
+288
+00:08:51,346 --> 0:08:54,486
+So, if you're interested in how
+
+289
+00:08:54,486 --> 0:08:56,016
+to do all this fun stuff with
+
+290
+00:08:56,096 --> 0:08:58,186
+AppKit or UIKit we have some
+
+291
+00:08:58,186 --> 0:09:00,116
+great sessions for you, but not
+
+292
+00:08:58,186 --> 0:09:00,116
+great sessions for you, but not
+
+293
+00:09:00,296 --> 0:09:00,676
+this one.
+
+294
+00:09:01,516 --> 0:09:03,026
+Today we are going to talk about
+
+295
+00:09:03,136 --> 0:09:03,636
+SwiftUI.
+
+296
+00:09:04,356 --> 0:09:09,236
+At Apple we have always deeply
+
+297
+00:09:09,236 --> 0:09:11,056
+believed in the importance and
+
+298
+00:09:11,176 --> 0:09:12,676
+power of Accessibility.
+
+299
+00:09:13,496 --> 0:09:14,776
+That is why we all work
+
+300
+00:09:14,776 --> 0:09:16,066
+extremely hard to make
+
+301
+00:09:16,066 --> 0:09:17,426
+frameworks that let you folks
+
+302
+00:09:17,576 --> 0:09:19,596
+make accessible apps easily and
+
+303
+00:09:19,596 --> 0:09:20,756
+even automatically wherever
+
+304
+00:09:20,756 --> 0:09:21,226
+possible.
+
+305
+00:09:22,636 --> 0:09:24,456
+Today, because of the high level
+
+306
+00:09:24,456 --> 0:09:26,456
+of declarative nature of SwiftUI
+
+307
+00:09:26,456 --> 0:09:27,916
+and the way that it understands
+
+308
+00:09:27,916 --> 0:09:30,296
+your state, we can take
+
+309
+00:09:30,296 --> 0:09:31,896
+automatic Accessibility to a
+
+310
+00:09:31,896 --> 0:09:33,626
+whole new level with this new
+
+311
+00:09:33,626 --> 0:09:34,056
+framework.
+
+312
+00:09:35,206 --> 0:09:36,846
+SwiftUI can make your apps more
+
+313
+00:09:36,846 --> 0:09:39,446
+accessible by default and it
+
+314
+00:09:39,446 --> 0:09:40,636
+also gives us a powerful
+
+315
+00:09:40,636 --> 0:09:42,526
+foundation to do more of your
+
+316
+00:09:42,526 --> 0:09:44,596
+Accessibility work for you going
+
+317
+00:09:44,596 --> 0:09:44,976
+forward.
+
+318
+00:09:47,576 --> 0:09:49,966
+SwiftUI is going to generate
+
+319
+00:09:49,966 --> 0:09:51,536
+your Accessibility elements for
+
+320
+00:09:51,536 --> 0:09:53,046
+you, just like it generates
+
+321
+00:09:53,046 --> 0:09:54,846
+NSView and UIViews for you.
+
+322
+00:09:55,746 --> 0:09:57,096
+Let's take a look at this simple
+
+323
+00:09:57,096 --> 0:09:57,966
+SwiftUI code.
+
+324
+00:09:58,956 --> 0:10:00,306
+It's creating a vertical stack,
+
+325
+00:09:58,956 --> 0:10:00,306
+It's creating a vertical stack,
+
+326
+00:10:01,056 --> 0:10:03,736
+in that stack is a button, and
+
+327
+00:10:03,736 --> 0:10:05,446
+it is sandwiched between some
+
+328
+00:10:05,446 --> 0:10:05,886
+text.
+
+329
+00:10:08,346 --> 0:10:10,376
+SwiftUI is going to create three
+
+330
+00:10:10,376 --> 0:10:12,016
+Accessibility elements for you
+
+331
+00:10:12,016 --> 0:10:12,366
+here.
+
+332
+00:10:12,796 --> 0:10:14,386
+One for each of the two texts
+
+333
+00:10:14,386 --> 0:10:15,756
+and of course one for the
+
+334
+00:10:15,756 --> 0:10:16,076
+button.
+
+335
+00:10:17,436 --> 0:10:19,186
+Keep in mind, the Accessibility
+
+336
+00:10:19,186 --> 0:10:20,856
+elements that SwiftUI creates
+
+337
+00:10:20,856 --> 0:10:23,586
+here are not UIViews or NSViews.
+
+338
+00:10:24,276 --> 0:10:26,476
+Instead, they are SwiftUI's own
+
+339
+00:10:26,546 --> 0:10:27,886
+Accessibility elements.
+
+340
+00:10:28,396 --> 0:10:31,136
+We have all worked hard to make
+
+341
+00:10:31,136 --> 0:10:32,856
+sure that SwiftUI's standard
+
+342
+00:10:32,886 --> 0:10:34,566
+controls are as Accessible as
+
+343
+00:10:34,636 --> 0:10:36,136
+possible by default.
+
+344
+00:10:37,106 --> 0:10:38,106
+Notice that although these
+
+345
+00:10:38,106 --> 0:10:41,246
+elements are simple, they
+
+346
+00:10:41,246 --> 0:10:42,896
+already have all the important
+
+347
+00:10:42,896 --> 0:10:43,866
+information we need.
+
+348
+00:10:44,186 --> 0:10:45,306
+They're understandable because
+
+349
+00:10:45,346 --> 0:10:45,976
+they have labels.
+
+350
+00:10:46,936 --> 0:10:48,746
+They are intractable, the button
+
+351
+00:10:48,746 --> 0:10:49,436
+has an action.
+
+352
+00:10:49,826 --> 0:10:51,166
+And they're navigable because
+
+353
+00:10:51,166 --> 0:10:52,396
+they're in the correct order.
+
+354
+00:10:52,956 --> 0:10:56,246
+As I mentioned though, SwiftUI
+
+355
+00:10:56,246 --> 0:10:58,066
+does have an Accessibility API
+
+356
+00:10:58,186 --> 0:10:59,626
+to customize the elements it
+
+357
+00:10:59,626 --> 0:11:00,446
+generates for you.
+
+358
+00:10:59,626 --> 0:11:00,446
+generates for you.
+
+359
+00:11:01,246 --> 0:11:02,656
+Before we get into that though,
+
+360
+00:11:02,836 --> 0:11:04,086
+I wanted to talk to you about
+
+361
+00:11:04,086 --> 0:11:05,516
+the great Accessibility you get
+
+362
+00:11:05,826 --> 0:11:07,836
+with SwiftUI before you write
+
+363
+00:11:08,006 --> 0:11:11,826
+any Accessibility specific code.
+
+364
+00:11:12,696 --> 0:11:13,846
+One thing you get for free in
+
+365
+00:11:13,846 --> 0:11:16,006
+SwiftUI is notifications to help
+
+366
+00:11:16,006 --> 0:11:17,676
+keep our Accessibility features
+
+367
+00:11:17,676 --> 0:11:19,836
+like VoiceOver up to date
+
+368
+00:11:19,836 --> 0:11:21,066
+regarding what is going on in
+
+369
+00:11:21,066 --> 0:11:22,526
+your app.
+
+370
+00:11:22,566 --> 0:11:24,016
+Remember, the Accessibility
+
+371
+00:11:24,016 --> 0:11:25,416
+features I talked about earlier
+
+372
+00:11:25,416 --> 0:11:26,756
+are all based on the
+
+373
+00:11:26,756 --> 0:11:28,666
+Accessibility elements that your
+
+374
+00:11:28,666 --> 0:11:29,696
+app exposes.
+
+375
+00:11:31,276 --> 0:11:32,876
+While running, VoiceOver's going
+
+376
+00:11:32,876 --> 0:11:34,436
+to ask your app for that list of
+
+377
+00:11:34,436 --> 0:11:35,606
+Accessibility elements.
+
+378
+00:11:36,486 --> 0:11:37,876
+For example, when the user opens
+
+379
+00:11:37,876 --> 0:11:39,986
+Calculator it'll ask Calculator
+
+380
+00:11:39,986 --> 0:11:41,676
+for the elements on screen and
+
+381
+00:11:41,676 --> 0:11:42,906
+Calculator's going to respond
+
+382
+00:11:42,906 --> 0:11:44,126
+with those buttons we talked
+
+383
+00:11:44,126 --> 0:11:44,686
+about earlier.
+
+384
+00:11:45,996 --> 0:11:47,646
+It's also going to send the
+
+385
+00:11:47,646 --> 0:11:49,426
+element for the main display.
+
+386
+00:11:49,606 --> 0:11:50,956
+It'll send a value with that.
+
+387
+00:11:50,956 --> 0:11:54,196
+In this case, that value is 5.
+
+388
+00:11:54,336 --> 0:11:56,326
+So, what happens if this
+
+389
+00:11:56,326 --> 0:11:57,536
+information changes?
+
+390
+00:11:58,086 --> 0:11:59,606
+For example, what happens when
+
+391
+00:11:59,606 --> 0:12:01,216
+Calculator has gotten a press of
+
+392
+00:11:59,606 --> 0:12:01,216
+Calculator has gotten a press of
+
+393
+00:12:01,216 --> 0:12:02,716
+the equals button and has
+
+394
+00:12:02,716 --> 0:12:04,326
+updated the value of that main
+
+395
+00:12:04,326 --> 0:12:05,046
+display?
+
+396
+00:12:05,626 --> 0:12:07,496
+Let's say that value is now 10.
+
+397
+00:12:08,526 --> 0:12:10,636
+Well, VoiceOver needs to know
+
+398
+00:12:10,636 --> 0:12:11,766
+that the value of that element
+
+399
+00:12:11,766 --> 0:12:12,426
+has changed.
+
+400
+00:12:13,226 --> 0:12:14,336
+That's why our frameworks
+
+401
+00:12:14,336 --> 0:12:15,586
+support Accessibility
+
+402
+00:12:15,716 --> 0:12:16,636
+notifications.
+
+403
+00:12:17,096 --> 0:12:18,326
+Your app can tell VoiceOver,
+
+404
+00:12:18,506 --> 0:12:20,806
+hey, the value here has changed.
+
+405
+00:12:23,136 --> 0:12:25,106
+We have been talking to you all
+
+406
+00:12:25,106 --> 0:12:27,326
+conference about how SwiftUI is
+
+407
+00:12:27,326 --> 0:12:28,156
+state driven.
+
+408
+00:12:28,926 --> 0:12:30,296
+Well, this is where there are
+
+409
+00:12:30,296 --> 0:12:31,716
+some huge benefits for
+
+410
+00:12:31,716 --> 0:12:32,416
+Accessibility.
+
+411
+00:12:33,016 --> 0:12:34,346
+Because SwiftUI really
+
+412
+00:12:34,346 --> 0:12:35,676
+understands your state and is
+
+413
+00:12:35,796 --> 0:12:38,196
+tracking when it changes, you
+
+414
+00:12:38,196 --> 0:12:39,446
+never need to worry about
+
+415
+00:12:39,446 --> 0:12:40,826
+Accessibility notifications
+
+416
+00:12:41,026 --> 0:12:41,606
+again.
+
+417
+00:12:41,946 --> 0:12:43,426
+Not even for custom controls.
+
+418
+00:12:44,886 --> 0:12:45,976
+Yes, exactly.
+
+419
+00:12:49,066 --> 0:12:50,606
+SwiftUI will track the state
+
+420
+00:12:50,766 --> 0:12:52,046
+that you're using for your
+
+421
+00:12:52,046 --> 0:12:53,866
+Accessibility and send them for
+
+422
+00:12:53,866 --> 0:12:54,136
+you.
+
+423
+00:12:54,646 --> 0:12:55,606
+Let's take a look at how this
+
+424
+00:12:55,606 --> 0:12:56,096
+happens.
+
+425
+00:12:57,066 --> 0:12:58,626
+We have a toggle here and a
+
+426
+00:12:58,626 --> 0:13:00,166
+button that are linked to a
+
+427
+00:12:58,626 --> 0:13:00,166
+button that are linked to a
+
+428
+00:13:00,166 --> 0:13:01,236
+single piece of state.
+
+429
+00:13:01,646 --> 0:13:02,886
+It's a Boolean and we've called
+
+430
+00:13:02,886 --> 0:13:03,436
+it Enabled.
+
+431
+00:13:03,956 --> 0:13:06,786
+You can see there are two
+
+432
+00:13:06,786 --> 0:13:08,296
+Accessibility elements created
+
+433
+00:13:08,296 --> 0:13:08,886
+for us here.
+
+434
+00:13:09,206 --> 0:13:10,236
+In this case, we'll have an
+
+435
+00:13:10,236 --> 0:13:11,656
+Accessibility element for that
+
+436
+00:13:11,656 --> 0:13:12,076
+toggle.
+
+437
+00:13:12,346 --> 0:13:13,656
+It's got a correct label and
+
+438
+00:13:13,656 --> 0:13:13,876
+type.
+
+439
+00:13:14,596 --> 0:13:15,886
+Its value is going to start off
+
+440
+00:13:15,886 --> 0:13:16,556
+as 0.
+
+441
+00:13:17,086 --> 0:13:19,796
+When you click the button the
+
+442
+00:13:19,796 --> 0:13:21,386
+value of that Boolean enabled
+
+443
+00:13:21,386 --> 0:13:22,606
+state is going to change.
+
+444
+00:13:22,796 --> 0:13:25,656
+It'll go from 0 to 1 or 1 to 0.
+
+445
+00:13:25,976 --> 0:13:26,946
+That's why we've called that
+
+446
+00:13:26,946 --> 0:13:28,086
+button Flip.
+
+447
+00:13:28,756 --> 0:13:30,346
+So, what happens here with
+
+448
+00:13:30,346 --> 0:13:31,096
+Accessibility?
+
+449
+00:13:31,876 --> 0:13:33,776
+Well, the Accessibility value of
+
+450
+00:13:33,776 --> 0:13:35,066
+that toggle has now changed.
+
+451
+00:13:35,066 --> 0:13:36,606
+So, we need to let VoiceOver
+
+452
+00:13:36,606 --> 0:13:36,866
+know.
+
+453
+00:13:37,546 --> 0:13:38,726
+Because it understands that that
+
+454
+00:13:38,726 --> 0:13:40,316
+value's changed, SwiftUI will
+
+455
+00:13:40,316 --> 0:13:41,226
+automatically send a
+
+456
+00:13:41,226 --> 0:13:42,416
+notification to VoiceOver
+
+457
+00:13:42,686 --> 0:13:43,596
+telling it exactly what
+
+458
+00:13:43,596 --> 0:13:43,946
+happened.
+
+459
+00:13:44,656 --> 0:13:46,306
+Notice, there's no Accessibility
+
+460
+00:13:46,306 --> 0:13:47,896
+specific code needed here.
+
+461
+00:13:48,286 --> 0:13:49,246
+You don't need to worry about
+
+462
+00:13:49,246 --> 0:13:50,606
+Accessibility notifications in
+
+463
+00:13:50,606 --> 0:13:52,566
+SwiftUI, because we send them
+
+464
+00:13:52,566 --> 0:13:52,946
+for you.
+
+465
+00:13:55,996 --> 0:13:58,006
+Another area SwiftUI really
+
+466
+00:13:58,006 --> 0:14:00,036
+improves on is Custom Controls.
+
+467
+00:13:58,006 --> 0:14:00,036
+improves on is Custom Controls.
+
+468
+00:14:00,896 --> 0:14:02,896
+Often when you're designing your
+
+469
+00:14:03,166 --> 0:14:04,506
+app, you may want to customize
+
+470
+00:14:04,506 --> 0:14:06,376
+the look and feel of your UI.
+
+471
+00:14:06,656 --> 0:14:08,176
+Maybe you want your app to have
+
+472
+00:14:08,176 --> 0:14:09,986
+a unique visual style or you
+
+473
+00:14:09,986 --> 0:14:10,936
+need to fit with a company
+
+474
+00:14:10,936 --> 0:14:11,256
+theme.
+
+475
+00:14:12,686 --> 0:14:14,016
+If you have done Accessibility
+
+476
+00:14:14,016 --> 0:14:15,886
+work in the past you know that
+
+477
+00:14:15,886 --> 0:14:17,836
+oftentimes the more custom your
+
+478
+00:14:17,836 --> 0:14:19,466
+controls in this way, the more
+
+479
+00:14:19,466 --> 0:14:21,006
+Accessibility work you have to
+
+480
+00:14:21,006 --> 0:14:21,656
+put into them.
+
+481
+00:14:22,476 --> 0:14:24,846
+Well, SwiftUI's control styles
+
+482
+00:14:24,846 --> 0:14:26,546
+let you have complete control
+
+483
+00:14:26,546 --> 0:14:27,946
+over the look and feel of your
+
+484
+00:14:27,946 --> 0:14:30,026
+UI while still getting great
+
+485
+00:14:30,026 --> 0:14:31,516
+accessibility out of the box.
+
+486
+00:14:32,296 --> 0:14:33,636
+That means you can finally
+
+487
+00:14:33,666 --> 0:14:35,306
+easily make custom controls that
+
+488
+00:14:35,306 --> 0:14:37,356
+are beautiful and unique, but
+
+489
+00:14:37,356 --> 0:14:38,956
+still immediately accessible
+
+490
+00:14:39,146 --> 0:14:40,536
+just like the system ones.
+
+491
+00:14:40,996 --> 0:14:43,896
+Here's an example of a custom
+
+492
+00:14:43,896 --> 0:14:45,536
+button style built using
+
+493
+00:14:45,536 --> 0:14:46,016
+SwiftUI.
+
+494
+00:14:47,436 --> 0:14:50,256
+This API is giving us the style
+
+495
+00:14:50,256 --> 0:14:51,476
+of the button including its
+
+496
+00:14:51,476 --> 0:14:53,466
+label and whether it is pressed.
+
+497
+00:14:54,366 --> 0:14:55,736
+Given that, we need to let the
+
+498
+00:14:55,736 --> 0:14:57,426
+style know how we want this
+
+499
+00:14:57,426 --> 0:14:58,066
+button to draw.
+
+500
+00:14:59,086 --> 0:15:01,086
+So, let's go ahead and put that
+
+501
+00:14:59,086 --> 0:15:01,086
+So, let's go ahead and put that
+
+502
+00:15:01,086 --> 0:15:02,996
+label within a rounded rectangle
+
+503
+00:15:03,396 --> 0:15:04,546
+and set some background and
+
+504
+00:15:04,546 --> 0:15:05,746
+foreground colors that are going
+
+505
+00:15:05,746 --> 0:15:06,926
+to depend on whether we're
+
+506
+00:15:06,966 --> 0:15:07,306
+pressed.
+
+507
+00:15:08,486 --> 0:15:09,766
+We're also going to add a tiny
+
+508
+00:15:09,766 --> 0:15:11,406
+bit of padding and set a nice
+
+509
+00:15:11,406 --> 0:15:13,456
+big font and color as well.
+
+510
+00:15:14,996 --> 0:15:16,936
+So, you can see the result here
+
+511
+00:15:16,936 --> 0:15:17,436
+on the right.
+
+512
+00:15:18,086 --> 0:15:21,406
+Now that we've defined this
+
+513
+00:15:21,406 --> 0:15:23,176
+beautiful custom drawing, we of
+
+514
+00:15:23,176 --> 0:15:24,186
+course need to use it.
+
+515
+00:15:25,216 --> 0:15:26,766
+All we need to do is create a
+
+516
+00:15:26,766 --> 0:15:28,576
+normal button and then use the
+
+517
+00:15:28,576 --> 0:15:30,266
+button style modifier function
+
+518
+00:15:30,706 --> 0:15:31,926
+to set the way we want the
+
+519
+00:15:31,926 --> 0:15:32,836
+button to draw.
+
+520
+00:15:33,856 --> 0:15:34,986
+This is going to create an
+
+521
+00:15:34,986 --> 0:15:36,706
+Accessibility element for us,
+
+522
+00:15:36,706 --> 0:15:37,776
+which you can see in the top
+
+523
+00:15:37,776 --> 0:15:38,216
+right here.
+
+524
+00:15:38,976 --> 0:15:40,776
+Notice that despite the totally
+
+525
+00:15:40,776 --> 0:15:42,106
+custom drawing here this
+
+526
+00:15:42,106 --> 0:15:43,916
+Accessibility element is good to
+
+527
+00:15:43,916 --> 0:15:44,536
+go.
+
+528
+00:15:44,766 --> 0:15:46,466
+It has a label, it's got the
+
+529
+00:15:46,466 --> 0:15:48,246
+right type, and it has an
+
+530
+00:15:48,246 --> 0:15:48,566
+action.
+
+531
+00:15:50,336 --> 0:15:51,526
+Once again, we're doing this
+
+532
+00:15:51,526 --> 0:15:52,536
+without writing any
+
+533
+00:15:52,626 --> 0:15:54,866
+Accessibility specific code.
+
+534
+00:15:57,476 --> 0:16:00,196
+SwiftUI also provides better and
+
+535
+00:15:57,476 --> 0:16:00,196
+SwiftUI also provides better and
+
+536
+00:16:00,196 --> 0:16:02,236
+more intuitive Accessibility for
+
+537
+00:16:02,236 --> 0:16:02,996
+your images.
+
+538
+00:16:03,446 --> 0:16:04,706
+Specifically, I want to talk to
+
+539
+00:16:04,706 --> 0:16:06,276
+you about illustrations and
+
+540
+00:16:06,276 --> 0:16:07,496
+glyphs which often form
+
+541
+00:16:07,496 --> 0:16:08,816
+important parts of our UI's.
+
+542
+00:16:10,426 --> 0:16:11,926
+Imagine you have an app with a
+
+543
+00:16:11,926 --> 0:16:13,906
+sign-up flow that ends in a
+
+544
+00:16:13,906 --> 0:16:17,826
+green checkmark like this.
+
+545
+00:16:18,026 --> 0:16:19,376
+Here are some simple SwiftUI
+
+546
+00:16:19,376 --> 0:16:20,576
+code you might start with to
+
+547
+00:16:20,576 --> 0:16:21,886
+create such a view.
+
+548
+00:16:21,936 --> 0:16:22,946
+In this case, it's just a
+
+549
+00:16:22,946 --> 0:16:24,386
+vertical stack with an image in
+
+550
+00:16:24,936 --> 0:16:25,006
+it.
+
+551
+00:16:25,706 --> 0:16:27,606
+After completing this sign up a
+
+552
+00:16:27,606 --> 0:16:29,066
+sighted customer would look at
+
+553
+00:16:29,066 --> 0:16:30,736
+this and say, oh sweet, that
+
+554
+00:16:30,736 --> 0:16:31,396
+means I'm done.
+
+555
+00:16:31,516 --> 0:16:35,146
+Great. But, a customer with
+
+556
+00:16:35,146 --> 0:16:36,436
+VoiceOver will hear,
+
+557
+00:16:36,966 --> 0:16:37,796
+CheckmarkGlyph.
+
+558
+00:16:39,036 --> 0:16:40,706
+That is not super useful.
+
+559
+00:16:40,826 --> 0:16:42,646
+That is your developer created
+
+560
+00:16:42,646 --> 0:16:43,606
+name for the image.
+
+561
+00:16:43,866 --> 0:16:45,906
+I don't know what a glyph is or
+
+562
+00:16:45,976 --> 0:16:46,916
+what it's supposed to mean.
+
+563
+00:16:47,236 --> 0:16:48,526
+As a VoiceOver user I'm
+
+564
+00:16:48,526 --> 0:16:49,046
+confused.
+
+565
+00:16:49,046 --> 0:16:50,116
+Am I finished or not?
+
+566
+00:16:50,436 --> 0:16:51,196
+Was there an error?
+
+567
+00:16:52,616 --> 0:16:54,286
+This is not understandable for
+
+568
+00:16:54,286 --> 0:16:54,456
+me.
+
+569
+00:16:55,686 --> 0:16:57,116
+The reason for that is that this
+
+570
+00:16:57,116 --> 0:16:59,116
+image is not explicitly labeled.
+
+571
+00:16:59,986 --> 0:17:01,466
+Here's the Accessibility element
+
+572
+00:16:59,986 --> 0:17:01,466
+Here's the Accessibility element
+
+573
+00:17:01,466 --> 0:17:03,656
+that's created by SwiftUI, which
+
+574
+00:17:03,656 --> 0:17:04,876
+you can see it's got the right
+
+575
+00:17:04,876 --> 0:17:06,086
+type but no label.
+
+576
+00:17:07,435 --> 0:17:08,906
+What SwiftUI is going to have to
+
+577
+00:17:08,906 --> 0:17:10,935
+do here is pull the label from
+
+578
+00:17:11,066 --> 0:17:12,856
+the filename of the image or the
+
+579
+00:17:12,856 --> 0:17:13,626
+name of the asset.
+
+580
+00:17:14,556 --> 0:17:15,996
+That isn't really something we
+
+581
+00:17:15,996 --> 0:17:16,796
+want to rely on.
+
+582
+00:17:17,006 --> 0:17:19,996
+Because that name is for you the
+
+583
+00:17:19,996 --> 0:17:21,646
+developer, not your customers.
+
+584
+00:17:23,316 --> 0:17:25,675
+With SwiftUI you can label your
+
+585
+00:17:25,675 --> 0:17:27,326
+images now with localizable
+
+586
+00:17:27,326 --> 0:17:29,216
+accessibility information right
+
+587
+00:17:29,216 --> 0:17:30,746
+as you create them, like so.
+
+588
+00:17:30,746 --> 0:17:33,476
+All we need to do is use the
+
+589
+00:17:33,476 --> 0:17:35,686
+Label Based Initializer to
+
+590
+00:17:35,686 --> 0:17:36,076
+image.
+
+591
+00:17:37,036 --> 0:17:38,056
+That way there's no need to
+
+592
+00:17:38,056 --> 0:17:39,466
+remember to do this afterwards
+
+593
+00:17:39,706 --> 0:17:40,846
+in some separate code.
+
+594
+00:17:41,866 --> 0:17:42,756
+This is going to create an
+
+595
+00:17:42,756 --> 0:17:44,226
+Accessibility User Interface
+
+596
+00:17:44,226 --> 0:17:45,646
+that is understandable.
+
+597
+00:17:47,016 --> 0:17:48,366
+Notice that this updated
+
+598
+00:17:48,366 --> 0:17:49,846
+Accessibility element is now
+
+599
+00:17:49,936 --> 0:17:50,856
+properly labeled.
+
+600
+00:17:51,176 --> 0:17:52,596
+When I land on this image
+
+601
+00:17:52,596 --> 0:17:54,096
+VoiceOver reads, sign up
+
+602
+00:17:54,126 --> 0:17:54,606
+complete.
+
+603
+00:17:55,036 --> 0:17:59,586
+On the other hand, sometimes
+
+604
+00:17:59,816 --> 0:18:01,256
+your VoiceOver users don't need
+
+605
+00:17:59,816 --> 0:18:01,256
+your VoiceOver users don't need
+
+606
+00:18:01,256 --> 0:18:02,376
+to land on an image.
+
+607
+00:18:02,916 --> 0:18:04,266
+For example, maybe this
+
+608
+00:18:04,266 --> 0:18:05,376
+checkmark is really just
+
+609
+00:18:05,376 --> 0:18:06,706
+decoration and you've already
+
+610
+00:18:06,706 --> 0:18:08,566
+got text below it that says,
+
+611
+00:18:08,666 --> 0:18:09,346
+sign up complete.
+
+612
+00:18:10,496 --> 0:18:11,806
+The SwiftUI code might look
+
+613
+00:18:11,806 --> 0:18:12,716
+something like this.
+
+614
+00:18:13,056 --> 0:18:14,506
+A vertical stack with an image
+
+615
+00:18:14,506 --> 0:18:15,836
+and two lines of text.
+
+616
+00:18:17,236 --> 0:18:18,506
+In this case, the image is
+
+617
+00:18:18,506 --> 0:18:19,576
+really just decorative.
+
+618
+00:18:20,026 --> 0:18:21,336
+You could create it like so,
+
+619
+00:18:21,526 --> 0:18:23,116
+telling SwiftUI that with the
+
+620
+00:18:23,116 --> 0:18:23,966
+right initializer.
+
+621
+00:18:25,076 --> 0:18:26,686
+Now, VoiceOver users aren't
+
+622
+00:18:26,686 --> 0:18:28,086
+going to land on this image.
+
+623
+00:18:28,396 --> 0:18:29,656
+If we look at the Accessibility
+
+624
+00:18:29,656 --> 0:18:31,126
+elements, we've got two for the
+
+625
+00:18:31,126 --> 0:18:33,456
+text, but none for the image.
+
+626
+00:18:34,566 --> 0:18:36,186
+This is now more navigable
+
+627
+00:18:36,276 --> 0:18:37,856
+because your VoiceOver users
+
+628
+00:18:37,856 --> 0:18:39,466
+aren't going to land on useless
+
+629
+00:18:39,646 --> 0:18:40,196
+elements.
+
+630
+00:18:41,806 --> 0:18:45,026
+There is one last area where
+
+631
+00:18:45,026 --> 0:18:46,256
+SwiftUI can make your life
+
+632
+00:18:46,296 --> 0:18:47,496
+easier with Accessibility.
+
+633
+00:18:47,776 --> 0:18:49,066
+And that is labels.
+
+634
+00:18:49,646 --> 0:18:50,616
+Let's take a look at this
+
+635
+00:18:50,616 --> 0:18:52,196
+control which is actually in our
+
+636
+00:18:52,196 --> 0:18:53,036
+System Preferences.
+
+637
+00:18:53,646 --> 0:18:55,156
+Its purpose it to let you pick a
+
+638
+00:18:55,156 --> 0:18:55,606
+voice.
+
+639
+00:18:56,136 --> 0:18:58,546
+You can see the Accessibility
+
+640
+00:18:58,546 --> 0:19:00,146
+element here in the top right.
+
+641
+00:18:58,546 --> 0:19:00,146
+element here in the top right.
+
+642
+00:19:00,396 --> 0:19:02,196
+It has no label and a value of
+
+643
+00:19:02,196 --> 0:19:02,796
+Alex.
+
+644
+00:19:03,946 --> 0:19:05,836
+So, this is not understandable
+
+645
+00:19:05,836 --> 0:19:07,086
+to me as a VoiceOver user.
+
+646
+00:19:07,236 --> 0:19:08,216
+Because VoiceOver is going to
+
+647
+00:19:08,216 --> 0:19:10,496
+read, Alex, and nothing else.
+
+648
+00:19:10,896 --> 0:19:12,636
+Who is Alex and why do I care
+
+649
+00:19:12,636 --> 0:19:13,086
+about him?
+
+650
+00:19:13,086 --> 0:19:14,506
+If I'm using VoiceOver I don't
+
+651
+00:19:14,506 --> 0:19:14,706
+know.
+
+652
+00:19:15,286 --> 0:19:16,496
+I would have to scan around the
+
+653
+00:19:16,526 --> 0:19:17,976
+rest of this screen to try to
+
+654
+00:19:17,976 --> 0:19:19,076
+find some context.
+
+655
+00:19:19,556 --> 0:19:22,836
+Let's take a look at the SwiftUI
+
+656
+00:19:22,836 --> 0:19:24,816
+code instead for such a control.
+
+657
+00:19:25,656 --> 0:19:27,566
+Here, we are using a standard
+
+658
+00:19:27,566 --> 0:19:29,436
+SwiftUI picker which is being
+
+659
+00:19:29,436 --> 0:19:30,776
+rendered as a popup button.
+
+660
+00:19:32,166 --> 0:19:33,846
+Now, SwiftUI's picker has a
+
+661
+00:19:33,846 --> 0:19:35,496
+built in label we can use.
+
+662
+00:19:35,586 --> 0:19:37,076
+In this case, we've set System
+
+663
+00:19:37,076 --> 0:19:37,536
+Voice.
+
+664
+00:19:38,436 --> 0:19:40,106
+Many of SwiftUI's controls have
+
+665
+00:19:40,106 --> 0:19:41,716
+labels like this and the rest
+
+666
+00:19:41,716 --> 0:19:42,466
+will soon.
+
+667
+00:19:42,786 --> 0:19:44,426
+Let's take a look at the
+
+668
+00:19:44,426 --> 0:19:46,286
+appropriate Accessibility
+
+669
+00:19:46,286 --> 0:19:46,626
+element.
+
+670
+00:19:47,076 --> 0:19:48,376
+This time it's got a label.
+
+671
+00:19:48,826 --> 0:19:50,106
+And if we look at what VoiceOver
+
+672
+00:19:50,106 --> 0:19:52,826
+reads; we have Alex System Voice
+
+673
+00:19:53,226 --> 0:19:56,786
+pop up button.
+
+674
+00:19:56,936 --> 0:19:59,076
+In an upcoming seed of SwiftUI
+
+675
+00:19:59,176 --> 0:20:01,326
+you'll be able to do even more
+
+676
+00:19:59,176 --> 0:20:01,326
+you'll be able to do even more
+
+677
+00:20:01,326 --> 0:20:01,546
+here.
+
+678
+00:20:02,406 --> 0:20:03,796
+What if you want one single
+
+679
+00:20:03,796 --> 0:20:05,406
+label to show for all of your
+
+680
+00:20:05,436 --> 0:20:06,736
+customers, regardless of whether
+
+681
+00:20:06,736 --> 0:20:07,966
+they're using Accessibility?
+
+682
+00:20:09,056 --> 0:20:10,156
+Well, you will be able to
+
+683
+00:20:10,156 --> 0:20:11,466
+configure that label to show
+
+684
+00:20:11,606 --> 0:20:13,186
+visual -- let's say on the left
+
+685
+00:20:13,186 --> 0:20:15,606
+here, and when you do so we will
+
+686
+00:20:15,606 --> 0:20:17,376
+set up Accessibility for you.
+
+687
+00:20:17,896 --> 0:20:19,276
+Specifically, we will set up a
+
+688
+00:20:19,276 --> 0:20:20,656
+connection between the label on
+
+689
+00:20:20,656 --> 0:20:22,616
+the left and the popup button on
+
+690
+00:20:22,616 --> 0:20:22,906
+the right.
+
+691
+00:20:23,796 --> 0:20:24,996
+They'll each be their own
+
+692
+00:20:24,996 --> 0:20:26,286
+Accessibility element, but
+
+693
+00:20:26,346 --> 0:20:27,836
+VoiceOver will know that they're
+
+694
+00:20:27,836 --> 0:20:28,116
+linked.
+
+695
+00:20:28,566 --> 0:20:29,716
+And so, VoiceOver's going to
+
+696
+00:20:29,716 --> 0:20:32,176
+read, Alex System Voice pop up
+
+697
+00:20:32,176 --> 0:20:32,436
+button.
+
+698
+00:20:36,396 --> 0:20:39,576
+So, here is what SwiftUI can do
+
+699
+00:20:39,576 --> 0:20:40,806
+for you automatically.
+
+700
+00:20:41,496 --> 0:20:42,616
+There are two things to
+
+701
+00:20:42,616 --> 0:20:43,816
+highlight about all of these
+
+702
+00:20:43,856 --> 0:20:44,326
+items.
+
+703
+00:20:44,696 --> 0:20:46,366
+First, they're all consistent
+
+704
+00:20:46,536 --> 0:20:48,866
+across SwiftUI's platforms.
+
+705
+00:20:49,646 --> 0:20:51,906
+And second, to get all of this
+
+706
+00:20:51,976 --> 0:20:53,066
+you don't need to write any
+
+707
+00:20:53,156 --> 0:20:54,836
+Accessibility specific code.
+
+708
+00:20:56,186 --> 0:20:57,646
+Sometimes though, no matter how
+
+709
+00:20:57,686 --> 0:20:59,646
+good our automatic Accessibility
+
+710
+00:20:59,646 --> 0:21:00,886
+might be, it might not be
+
+711
+00:20:59,646 --> 0:21:00,886
+might be, it might not be
+
+712
+00:21:00,886 --> 0:21:01,166
+enough.
+
+713
+00:21:01,756 --> 0:21:03,036
+That's why we provide an
+
+714
+00:21:03,036 --> 0:21:04,846
+Accessibility API for you to
+
+715
+00:21:04,846 --> 0:21:05,246
+use.
+
+716
+00:21:05,456 --> 0:21:06,686
+I'm going to hand the show over
+
+717
+00:21:06,686 --> 0:21:08,126
+to John now to take you through
+
+718
+00:21:08,126 --> 0:21:08,346
+it.
+
+719
+00:21:08,836 --> 0:21:08,926
+John.
+
+720
+00:21:09,516 --> 0:21:16,736
+[ Applause ]
+
+721
+00:21:17,236 --> 0:21:17,666
+&gt;&gt; Thanks Michael.
+
+722
+00:21:19,166 --> 0:21:20,226
+So, we've shown you all of the
+
+723
+00:21:20,226 --> 0:21:21,816
+great built-in Accessibility
+
+724
+00:21:22,176 --> 0:21:23,286
+that SwiftUI provides.
+
+725
+00:21:23,816 --> 0:21:25,666
+It was designed to give everyone
+
+726
+00:21:25,746 --> 0:21:26,856
+a good experience out of the
+
+727
+00:21:26,856 --> 0:21:27,176
+box.
+
+728
+00:21:28,036 --> 0:21:29,586
+But we understand that this
+
+729
+00:21:29,586 --> 0:21:31,136
+alone isn't enough to be a
+
+730
+00:21:31,136 --> 0:21:31,966
+complete experience.
+
+731
+00:21:33,016 --> 0:21:34,926
+This SwiftUI Accessibility API
+
+732
+00:21:35,866 --> 0:21:36,836
+allows you to modify and
+
+733
+00:21:36,836 --> 0:21:38,736
+ultimately create an even better
+
+734
+00:21:38,736 --> 0:21:39,826
+experience for everyone.
+
+735
+00:21:43,376 --> 0:21:44,466
+So, I want to start off by
+
+736
+00:21:44,466 --> 0:21:45,636
+showing a couple simple use
+
+737
+00:21:45,636 --> 0:21:46,446
+cases for the API.
+
+738
+00:21:46,446 --> 0:21:48,136
+And let's go back to the
+
+739
+00:21:48,136 --> 0:21:49,506
+Calculator example that Michael
+
+740
+00:21:49,506 --> 0:21:49,996
+showed earlier.
+
+741
+00:21:50,836 --> 0:21:51,766
+We'll start with the multiply
+
+742
+00:21:51,766 --> 0:21:53,786
+button, which by default will
+
+743
+00:21:54,166 --> 0:21:55,356
+read X.
+
+744
+00:21:55,956 --> 0:21:58,136
+To change the label, I'll use
+
+745
+00:21:58,136 --> 0:21:59,366
+the Accessibility modifier
+
+746
+00:21:59,406 --> 0:22:00,876
+function with the label
+
+747
+00:21:59,406 --> 0:22:00,876
+function with the label
+
+748
+00:22:00,876 --> 0:22:01,296
+parameter.
+
+749
+00:22:02,066 --> 0:22:04,246
+And with this change the button
+
+750
+00:22:04,246 --> 0:22:05,596
+will now read, multiply.
+
+751
+00:22:05,596 --> 0:22:08,936
+We also want to provide
+
+752
+00:22:08,996 --> 0:22:10,446
+VoiceOver for the selected state
+
+753
+00:22:10,446 --> 0:22:10,936
+of the button.
+
+754
+00:22:11,836 --> 0:22:13,256
+Visually the button becomes
+
+755
+00:22:13,256 --> 0:22:14,256
+white when selected.
+
+756
+00:22:14,916 --> 0:22:18,016
+We have an Accessibility trait
+
+757
+00:22:18,106 --> 0:22:19,046
+that can help out with this.
+
+758
+00:22:19,986 --> 0:22:20,796
+And if you're not familiar,
+
+759
+00:22:21,046 --> 0:22:22,586
+traits are a set of things that
+
+760
+00:22:22,586 --> 0:22:23,856
+describe what your element is
+
+761
+00:22:24,056 --> 0:22:24,716
+and what it can do.
+
+762
+00:22:26,106 --> 0:22:27,386
+Buttons for example, will
+
+763
+00:22:27,386 --> 0:22:28,966
+automatically have the isButton
+
+764
+00:22:28,966 --> 0:22:30,006
+trait by default.
+
+765
+00:22:31,076 --> 0:22:32,326
+VoiceOver will read, button,
+
+766
+00:22:32,906 --> 0:22:34,066
+after reading out the elements
+
+767
+00:22:34,066 --> 0:22:34,326
+label.
+
+768
+00:22:34,516 --> 0:22:37,296
+For this example, we can add the
+
+769
+00:22:37,296 --> 0:22:38,996
+isSelected state using the
+
+770
+00:22:38,996 --> 0:22:40,526
+Accessibility function and add
+
+771
+00:22:40,526 --> 0:22:41,506
+traits as the parameter.
+
+772
+00:22:42,526 --> 0:22:43,416
+VoiceOver will now read,
+
+773
+00:22:43,496 --> 0:22:45,296
+selected, when the button is in
+
+774
+00:22:46,046 --> 0:22:47,786
+this state.
+
+775
+00:22:48,016 --> 0:22:48,946
+So, let's see how we can improve
+
+776
+00:22:48,946 --> 0:22:51,226
+the Accessibility of the result
+
+777
+00:22:52,106 --> 0:22:52,226
+view.
+
+778
+00:22:52,676 --> 0:22:54,436
+We'll change the label to result
+
+779
+00:22:54,836 --> 0:22:56,176
+and add an Accessibility value.
+
+780
+00:22:57,016 --> 0:22:58,376
+You can use Accessibility value
+
+781
+00:22:58,436 --> 0:22:59,836
+to provide VoiceOver with a
+
+782
+00:22:59,836 --> 0:23:00,656
+readable description.
+
+783
+00:22:59,836 --> 0:23:00,656
+readable description.
+
+784
+00:23:00,656 --> 0:23:03,366
+You might choose to include
+
+785
+00:23:03,366 --> 0:23:04,976
+units or other additional
+
+786
+00:23:04,976 --> 0:23:05,446
+context.
+
+787
+00:23:06,506 --> 0:23:07,856
+But for our purposes, the number
+
+788
+00:23:07,856 --> 0:23:09,466
+itself is sufficient.
+
+789
+00:23:10,956 --> 0:23:12,576
+Finally, we'll add a Custom
+
+790
+00:23:12,576 --> 0:23:14,136
+Action using the Accessibility
+
+791
+00:23:14,136 --> 0:23:14,826
+action function.
+
+792
+00:23:16,246 --> 0:23:17,626
+Using the name parameter, we'll
+
+793
+00:23:17,626 --> 0:23:19,466
+create a Custom Action called
+
+794
+00:23:19,596 --> 0:23:19,836
+Clear.
+
+795
+00:23:21,266 --> 0:23:22,566
+VoiceOver will read that there
+
+796
+00:23:22,566 --> 0:23:23,756
+are actions available when
+
+797
+00:23:23,756 --> 0:23:24,726
+focused on this element.
+
+798
+00:23:25,856 --> 0:23:26,676
+And this was just a quick
+
+799
+00:23:26,796 --> 0:23:28,066
+overview of how to add
+
+800
+00:23:28,066 --> 0:23:29,186
+Accessibility in SwiftUI.
+
+801
+00:23:29,986 --> 0:23:31,526
+The Accessibility function adds
+
+802
+00:23:31,526 --> 0:23:32,676
+information and the
+
+803
+00:23:32,676 --> 0:23:34,146
+Accessibility action function
+
+804
+00:23:34,416 --> 0:23:35,506
+allows you to add actions.
+
+805
+00:23:36,206 --> 0:23:37,286
+But I want to talk a little bit
+
+806
+00:23:37,286 --> 0:23:38,826
+more about when to use this API
+
+807
+00:23:38,826 --> 0:23:40,766
+and how you can identify the
+
+808
+00:23:40,766 --> 0:23:42,346
+areas of need within your app.
+
+809
+00:23:42,996 --> 0:23:45,976
+And this comes back to what your
+
+810
+00:23:45,976 --> 0:23:49,026
+customers need your apps to be.
+
+811
+00:23:49,306 --> 0:23:52,356
+Understandable, interactable,
+
+812
+00:23:53,046 --> 0:23:54,796
+and navigable.
+
+813
+00:23:56,596 --> 0:23:57,786
+And here are a few questions to
+
+814
+00:23:57,786 --> 0:23:58,746
+help you evaluate this.
+
+815
+00:24:01,186 --> 0:24:02,766
+Do the displayed strings provide
+
+816
+00:24:02,766 --> 0:24:03,446
+enough information?
+
+817
+00:24:07,166 --> 0:24:08,806
+Will a Custom Action simplify
+
+818
+00:24:08,806 --> 0:24:09,386
+the interaction?
+
+819
+00:24:13,046 --> 0:24:13,976
+And can you speed up navigation?
+
+820
+00:24:18,046 --> 0:24:19,146
+So now I'll show you a video of
+
+821
+00:24:19,146 --> 0:24:20,276
+VoiceOver moving through an app
+
+822
+00:24:20,276 --> 0:24:20,916
+that I created.
+
+823
+00:24:21,206 --> 0:24:22,646
+And as it does, try to keep
+
+824
+00:24:22,686 --> 0:24:23,916
+these three questions in mind.
+
+825
+00:24:27,436 --> 0:24:28,236
+So, this is an app that
+
+826
+00:24:28,236 --> 0:24:29,646
+calculates the contrast ratio
+
+827
+00:24:29,926 --> 0:24:31,386
+between text and its background
+
+828
+00:24:31,386 --> 0:24:31,646
+color.
+
+829
+00:24:32,286 --> 0:24:33,236
+At the top you can see the
+
+830
+00:24:33,236 --> 0:24:35,516
+current value of the ratio and
+
+831
+00:24:35,516 --> 0:24:36,726
+at the bottom there are two
+
+832
+00:24:36,726 --> 0:24:38,036
+areas where you can adjust the
+
+833
+00:24:38,036 --> 0:24:39,816
+red, green, and blue values of
+
+834
+00:24:39,816 --> 0:24:41,006
+the background color and the
+
+835
+00:24:41,006 --> 0:24:41,356
+text color.
+
+836
+00:24:42,666 --> 0:24:43,816
+I've also added a double tap
+
+837
+00:24:43,816 --> 0:24:45,436
+gesture on the top view to swap
+
+838
+00:24:45,436 --> 0:24:45,996
+the two colors.
+
+839
+00:24:47,596 --> 0:24:48,776
+So, let's see how VoiceOver uses
+
+840
+00:24:48,776 --> 0:24:49,506
+that by default.
+
+841
+00:24:52,836 --> 0:24:53,086
+:50
+
+842
+00:24:53,086 --> 0:24:54,146
+&gt;&gt; 11.7 1.
+
+843
+00:24:54,286 --> 0:25:01,146
+11.7 1. 11.7 1.
+
+844
+00:24:54,286 --> 0:25:01,146
+11.7 1. 11.7 1.
+
+845
+00:25:02,896 --> 0:25:04,766
+Reset colors button.
+
+846
+00:25:05,696 --> 0:25:06,656
+Background.
+
+847
+00:25:07,556 --> 0:25:11,206
+Red 76. 30 percent.
+
+848
+00:25:11,486 --> 0:25:12,246
+Adjustable.
+
+849
+00:25:12,776 --> 0:25:14,946
+Green 217.
+
+850
+00:25:15,656 --> 0:25:17,096
+85 percent.
+
+851
+00:25:17,386 --> 0:25:18,136
+Adjustable.
+
+852
+00:25:18,776 --> 0:25:22,576
+Blue 100. 39 percent.
+
+853
+00:25:22,876 --> 0:25:23,626
+Adjustable.
+
+854
+00:25:24,356 --> 0:25:26,796
+39 -- 100 percent.
+
+855
+00:25:30,376 --> 0:25:31,376
+&gt;&gt; So, there were a couple of
+
+856
+00:25:31,426 --> 0:25:32,576
+things in the video that stood
+
+857
+00:25:32,576 --> 0:25:34,766
+out to me with the label at the
+
+858
+00:25:35,636 --> 0:25:35,746
+top.
+
+859
+00:25:35,956 --> 0:25:37,616
+First, there was a symbol that
+
+860
+00:25:37,616 --> 0:25:38,216
+wasn't read out.
+
+861
+00:25:39,106 --> 0:25:40,136
+VoiceOver doesn't always read
+
+862
+00:25:40,136 --> 0:25:41,346
+out your punctuation depending
+
+863
+00:25:41,346 --> 0:25:41,896
+on settings.
+
+864
+00:25:42,266 --> 0:25:43,566
+And in a situation like this,
+
+865
+00:25:43,916 --> 0:25:45,146
+where the punctuation represents
+
+866
+00:25:45,146 --> 0:25:46,556
+that this is a ratio, we should
+
+867
+00:25:46,556 --> 0:25:47,626
+pass that information on to
+
+868
+00:25:47,626 --> 0:25:48,096
+VoiceOver.
+
+869
+00:25:49,136 --> 0:25:51,536
+So, 11.7 1 should read 11.7 to
+
+870
+00:25:51,566 --> 0:25:51,696
+1.
+
+871
+00:25:53,126 --> 0:25:54,216
+And secondly, the numbers were
+
+872
+00:25:54,216 --> 0:25:55,546
+spoken without any context.
+
+873
+00:25:57,096 --> 0:25:58,186
+It's probably a good idea to
+
+874
+00:25:58,186 --> 0:25:59,186
+give this a proper label to
+
+875
+00:25:59,186 --> 0:25:59,986
+describe its value.
+
+876
+00:26:00,896 --> 0:26:02,346
+So, we can use contrast ratio.
+
+877
+00:26:04,786 --> 0:26:05,796
+And we'll do this by calling the
+
+878
+00:26:05,796 --> 0:26:07,536
+Accessibility function twice on
+
+879
+00:26:07,536 --> 0:26:08,536
+a contrast ratio view.
+
+880
+00:26:09,176 --> 0:26:11,086
+Once for the label and another
+
+881
+00:26:11,126 --> 0:26:14,676
+to add the value.
+
+882
+00:26:15,246 --> 0:26:16,216
+Another thing that stood out to
+
+883
+00:26:16,216 --> 0:26:17,926
+me was the information provided
+
+884
+00:26:17,926 --> 0:26:18,506
+by the slider.
+
+885
+00:26:19,466 --> 0:26:20,846
+The value of the slider was a
+
+886
+00:26:20,846 --> 0:26:22,826
+percentage, but in this case, it
+
+887
+00:26:22,826 --> 0:26:24,376
+actually represents the color
+
+888
+00:26:24,376 --> 0:26:26,646
+components value from 0 to 255.
+
+889
+00:26:27,496 --> 0:26:30,476
+We can also hide the label above
+
+890
+00:26:30,476 --> 0:26:32,506
+the slider and expose that
+
+891
+00:26:32,506 --> 0:26:33,716
+information through the slider
+
+892
+00:26:33,956 --> 0:26:34,356
+instead.
+
+893
+00:26:34,896 --> 0:26:35,936
+So that'll group all the
+
+894
+00:26:35,936 --> 0:26:37,666
+information into one element.
+
+895
+00:26:39,236 --> 0:26:41,346
+So first let's hide the label.
+
+896
+00:26:42,286 --> 0:26:43,256
+We'll call the Accessibility
+
+897
+00:26:43,256 --> 0:26:44,856
+function with visibility as the
+
+898
+00:26:44,856 --> 0:26:45,286
+parameter.
+
+899
+00:26:46,236 --> 0:26:47,966
+Passing in .hidden will hide the
+
+900
+00:26:47,966 --> 0:26:50,566
+element and any children that it
+
+901
+00:26:53,016 --> 0:26:53,186
+may have.
+
+902
+00:26:53,346 --> 0:26:54,726
+Next, we'll add the information
+
+903
+00:26:54,726 --> 0:26:55,946
+of the label onto the slider.
+
+904
+00:26:56,886 --> 0:26:58,066
+We'll give it the label of the
+
+905
+00:26:58,096 --> 0:26:59,876
+color that it will modify and a
+
+906
+00:26:59,876 --> 0:27:04,166
+proper value between 0 and 255.
+
+907
+00:26:59,876 --> 0:27:04,166
+proper value between 0 and 255.
+
+908
+00:27:05,826 --> 0:27:06,816
+We also have a double tap
+
+909
+00:27:06,816 --> 0:27:07,526
+gesture on the view.
+
+910
+00:27:08,366 --> 0:27:09,606
+Gestures on iOS can be
+
+911
+00:27:09,606 --> 0:27:10,816
+challenging to perform for
+
+912
+00:27:10,816 --> 0:27:12,266
+customers who use our
+
+913
+00:27:12,266 --> 0:27:13,106
+Accessibility products.
+
+914
+00:27:14,296 --> 0:27:15,586
+Some of our products have a
+
+915
+00:27:15,586 --> 0:27:17,526
+built-in gestures menu to help
+
+916
+00:27:17,526 --> 0:27:18,686
+perform some of the more complex
+
+917
+00:27:18,686 --> 0:27:19,176
+gestures.
+
+918
+00:27:20,296 --> 0:27:21,156
+But we can do better here.
+
+919
+00:27:21,926 --> 0:27:23,316
+An easy simplification for this
+
+920
+00:27:23,546 --> 0:27:24,806
+is to create a Custom Action for
+
+921
+00:27:24,806 --> 0:27:25,266
+the gesture.
+
+922
+00:27:26,176 --> 0:27:27,326
+This helps in two ways.
+
+923
+00:27:28,166 --> 0:27:29,676
+First, the name of the action
+
+924
+00:27:29,726 --> 0:27:30,606
+will help describe what will
+
+925
+00:27:30,606 --> 0:27:31,796
+happen when you activate it.
+
+926
+00:27:32,576 --> 0:27:33,806
+And second, actions are
+
+927
+00:27:33,806 --> 0:27:35,656
+available everywhere in iOS and
+
+928
+00:27:35,656 --> 0:27:36,646
+they're discoverable in all of
+
+929
+00:27:36,646 --> 0:27:37,596
+our Accessibility products.
+
+930
+00:27:41,216 --> 0:27:42,636
+So, let's add the swap colors
+
+931
+00:27:42,636 --> 0:27:44,766
+action to our contrast ratio
+
+932
+00:27:44,766 --> 0:27:45,806
+view by calling the same
+
+933
+00:27:45,806 --> 0:27:47,306
+Accessibility action modifier
+
+934
+00:27:47,306 --> 0:27:47,656
+function.
+
+935
+00:27:48,206 --> 0:27:52,446
+And finally, can we speed up
+
+936
+00:27:52,446 --> 0:27:53,096
+navigation here?
+
+937
+00:27:54,596 --> 0:27:55,896
+Looking at the view it can be
+
+938
+00:27:55,896 --> 0:27:57,716
+divided into three main spaces;
+
+939
+00:27:58,596 --> 0:28:01,156
+the contrast ratio, the
+
+940
+00:27:58,596 --> 0:28:01,156
+the contrast ratio, the
+
+941
+00:28:01,156 --> 0:28:03,976
+background color, and the text
+
+942
+00:28:03,976 --> 0:28:04,196
+color.
+
+943
+00:28:05,256 --> 0:28:06,716
+So, these are good candidates
+
+944
+00:28:06,876 --> 0:28:08,306
+for the isHeader Accessibility
+
+945
+00:28:08,306 --> 0:28:08,576
+trait.
+
+946
+00:28:09,296 --> 0:28:10,616
+This trait's used by VoiceOver
+
+947
+00:28:10,776 --> 0:28:11,966
+to navigate quickly between
+
+948
+00:28:11,966 --> 0:28:12,996
+different header elements in
+
+949
+00:28:12,996 --> 0:28:14,926
+your app.
+
+950
+00:28:15,996 --> 0:28:17,426
+So, let's add the trait to the
+
+951
+00:28:17,426 --> 0:28:19,366
+contrast ratio view and the two
+
+952
+00:28:19,366 --> 0:28:20,636
+text views in each of the color
+
+953
+00:28:20,636 --> 0:28:21,166
+picker sections.
+
+954
+00:28:25,446 --> 0:28:26,216
+So, let's take a look at the
+
+955
+00:28:26,216 --> 0:28:27,226
+results of the changes that we
+
+956
+00:28:27,226 --> 0:28:28,496
+made, starting off with the top
+
+957
+00:28:28,496 --> 0:28:28,616
+view.
+
+958
+00:28:31,076 --> 0:28:33,966
+&gt;&gt; Contrast ratio 11.7 to 1.
+
+959
+00:28:34,256 --> 0:28:34,736
+Heading.
+
+960
+00:28:35,676 --> 0:28:37,026
+&gt;&gt; So, the element now provides
+
+961
+00:28:37,026 --> 0:28:38,566
+context and a proper description
+
+962
+00:28:38,636 --> 0:28:40,556
+for the value.
+
+963
+00:28:40,696 --> 0:28:41,806
+Let's move onto the sliders and
+
+964
+00:28:41,806 --> 0:28:42,856
+we'll adjust the blue sliders
+
+965
+00:28:42,856 --> 0:28:43,106
+value.
+
+966
+00:28:44,456 --> 0:28:46,306
+&gt;&gt; Reset colors button.
+
+967
+00:28:47,316 --> 0:28:48,266
+Background.
+
+968
+00:28:48,556 --> 0:28:52,366
+Heading. Red 76.
+
+969
+00:28:52,366 --> 0:28:53,086
+Adjustable.
+
+970
+00:28:53,086 --> 0:28:56,536
+Swipe or down with one finger to
+
+971
+00:28:56,536 --> 0:28:57,546
+adjust the value.
+
+972
+00:28:58,616 --> 0:29:00,876
+Green 217.
+
+973
+00:28:58,616 --> 0:29:00,876
+Green 217.
+
+974
+00:29:01,186 --> 0:29:01,946
+Adjustable.
+
+975
+00:29:02,556 --> 0:29:05,136
+Blue 10. Adjustable.
+
+976
+00:29:05,136 --> 0:29:07,676
+Swipe -- 100.
+
+977
+00:29:08,116 --> 0:29:11,546
+255.
+
+978
+00:29:15,076 --> 0:29:16,126
+&gt;&gt; And finally, let's use the
+
+979
+00:29:16,126 --> 0:29:17,896
+VoiceOver rotor to navigate by
+
+980
+00:29:17,896 --> 0:29:19,446
+headings and swap the colors
+
+981
+00:29:19,516 --> 0:29:20,536
+using the Custom Action that we
+
+982
+00:29:20,536 --> 0:29:20,896
+created.
+
+983
+00:29:22,086 --> 0:29:23,026
+&gt;&gt; Adjust value.
+
+984
+00:29:23,276 --> 0:29:26,306
+Headings. Text.
+
+985
+00:29:26,306 --> 0:29:28,226
+Heading. Background.
+
+986
+00:29:28,516 --> 0:29:32,996
+Heading. Contrast ratio 13.0 to
+
+987
+00:29:32,996 --> 0:29:33,426
+1.
+
+988
+00:29:33,736 --> 0:29:36,076
+Heading. Actions.
+
+989
+00:29:36,076 --> 0:29:39,516
+Swap colors.
+
+990
+00:29:43,516 --> 0:29:48,556
+[ Applause ]
+
+991
+00:29:49,056 --> 0:29:50,366
+&gt;&gt; So, with just a few tweaks we
+
+992
+00:29:50,366 --> 0:29:51,596
+were able to greatly improve the
+
+993
+00:29:51,596 --> 0:29:52,806
+Accessibility experience of this
+
+994
+00:29:52,806 --> 0:29:53,036
+app.
+
+995
+00:29:53,866 --> 0:29:54,896
+And these are just the basics of
+
+996
+00:29:54,896 --> 0:29:55,166
+the API.
+
+997
+00:29:55,166 --> 0:29:56,446
+But I want to move onto
+
+998
+00:29:56,446 --> 0:29:57,416
+something a little bit more
+
+999
+00:29:57,416 --> 0:29:57,906
+conceptual.
+
+1000
+00:29:58,796 --> 0:29:59,676
+The Accessibility Tree.
+
+1001
+00:30:01,196 --> 0:30:02,036
+And you've seen how
+
+1002
+00:30:02,036 --> 0:30:03,186
+Accessibility elements are
+
+1003
+00:30:03,186 --> 0:30:04,086
+created from your views.
+
+1004
+00:30:04,556 --> 0:30:05,316
+But I want to go in a bit
+
+1005
+00:30:05,316 --> 0:30:06,626
+further and talk about this tree
+
+1006
+00:30:06,626 --> 0:30:08,336
+structure of these elements and
+
+1007
+00:30:08,336 --> 0:30:09,376
+how you can manipulate the
+
+1008
+00:30:09,376 --> 0:30:11,556
+structure to provide a better
+
+1009
+00:30:11,556 --> 0:30:12,256
+experience.
+
+1010
+00:30:13,146 --> 0:30:14,046
+So, we'll start with how this
+
+1011
+00:30:14,046 --> 0:30:14,616
+tree's created.
+
+1012
+00:30:14,616 --> 0:30:19,126
+Starts off with your view tree
+
+1013
+00:30:19,306 --> 0:30:20,426
+created directly from your code.
+
+1014
+00:30:21,446 --> 0:30:23,006
+On the left here is SwiftUI code
+
+1015
+00:30:23,086 --> 0:30:23,956
+for a table cell view.
+
+1016
+00:30:24,936 --> 0:30:26,926
+It has one label, a spacer, and
+
+1017
+00:30:26,926 --> 0:30:27,386
+two buttons.
+
+1018
+00:30:28,366 --> 0:30:29,806
+Arranged horizontally inside of
+
+1019
+00:30:29,806 --> 0:30:30,216
+an HStack.
+
+1020
+00:30:31,626 --> 0:30:32,996
+And this directly translates to
+
+1021
+00:30:32,996 --> 0:30:33,906
+the view tree structure on the
+
+1022
+00:30:33,906 --> 0:30:35,756
+right where the HStack is the
+
+1023
+00:30:35,756 --> 0:30:37,546
+parent node and the label,
+
+1024
+00:30:37,636 --> 0:30:39,726
+spacer, and buttons are its
+
+1025
+00:30:39,726 --> 0:30:40,056
+children.
+
+1026
+00:30:41,806 --> 0:30:42,526
+Because of our built in
+
+1027
+00:30:42,526 --> 0:30:44,346
+Accessibility, this view tree
+
+1028
+00:30:44,346 --> 0:30:45,846
+will create three Accessibility
+
+1029
+00:30:45,846 --> 0:30:46,336
+elements.
+
+1030
+00:30:46,746 --> 0:30:48,346
+One from the text and two from
+
+1031
+00:30:48,346 --> 0:30:48,786
+the buttons.
+
+1032
+00:30:51,046 --> 0:30:51,936
+These elements will become
+
+1033
+00:30:51,936 --> 0:30:53,116
+children of your platforms
+
+1034
+00:30:53,116 --> 0:30:54,676
+hosting view and that's passed
+
+1035
+00:30:54,676 --> 0:30:55,726
+on to our Accessibility
+
+1036
+00:30:55,726 --> 0:30:56,156
+products.
+
+1037
+00:30:57,526 --> 0:31:00,076
+This subtree may also be a part
+
+1038
+00:30:57,526 --> 0:31:00,076
+This subtree may also be a part
+
+1039
+00:31:00,076 --> 0:31:01,646
+of a larger Accessibility Tree,
+
+1040
+00:31:01,716 --> 0:31:03,666
+mixed in with UiKit or AppKit
+
+1041
+00:31:03,666 --> 0:31:04,146
+elements.
+
+1042
+00:31:04,836 --> 0:31:07,106
+The SwiftUI tree can even be a
+
+1043
+00:31:07,106 --> 0:31:08,346
+parent of other platform
+
+1044
+00:31:08,346 --> 0:31:10,166
+elements bridged over using a UI
+
+1045
+00:31:10,166 --> 0:31:11,406
+or NSViewRepresentable.
+
+1046
+00:31:12,026 --> 0:31:14,506
+And you'll notice the levels of
+
+1047
+00:31:14,506 --> 0:31:15,966
+hierarchy in this tree and you
+
+1048
+00:31:15,966 --> 0:31:17,116
+might be thinking about how
+
+1049
+00:31:17,116 --> 0:31:18,506
+quickly this can become complex.
+
+1050
+00:31:19,296 --> 0:31:20,556
+But I'll show you how creating
+
+1051
+00:31:20,556 --> 0:31:21,576
+hierarchy in this tree can
+
+1052
+00:31:21,576 --> 0:31:23,106
+actually improve navigation.
+
+1053
+00:31:24,166 --> 0:31:24,916
+So, let's take a look at our
+
+1054
+00:31:24,916 --> 0:31:26,286
+example again.
+
+1055
+00:31:28,336 --> 0:31:31,156
+The table cell itself has three
+
+1056
+00:31:31,156 --> 0:31:32,276
+Accessibility elements.
+
+1057
+00:31:32,886 --> 0:31:34,056
+VoiceOver will navigate these in
+
+1058
+00:31:34,056 --> 0:31:35,906
+order and this works great if
+
+1059
+00:31:35,906 --> 0:31:36,856
+you have only one cell.
+
+1060
+00:31:36,856 --> 0:31:39,156
+But it's more likely that you'll
+
+1061
+00:31:39,156 --> 0:31:40,576
+have hundreds of these in your
+
+1062
+00:31:40,576 --> 0:31:40,736
+app.
+
+1063
+00:31:42,086 --> 0:31:43,206
+And as you can see, there are a
+
+1064
+00:31:43,206 --> 0:31:44,316
+ton of elements in this tree.
+
+1065
+00:31:44,846 --> 0:31:46,326
+And it doesn't seem very useful
+
+1066
+00:31:46,326 --> 0:31:47,316
+to have a lot of repetitive
+
+1067
+00:31:47,316 --> 0:31:48,566
+information with the follow and
+
+1068
+00:31:48,566 --> 0:31:49,236
+share buttons.
+
+1069
+00:31:49,996 --> 0:31:50,946
+If you landed on this follow
+
+1070
+00:31:50,946 --> 0:31:52,536
+button, how would you know if it
+
+1071
+00:31:52,536 --> 0:31:54,866
+was for person 5 or person 6?
+
+1072
+00:31:55,306 --> 0:31:56,356
+There's no context here unless
+
+1073
+00:31:56,356 --> 0:31:56,906
+you look around.
+
+1074
+00:31:57,926 --> 0:31:58,766
+But we can make this a lot
+
+1075
+00:31:58,766 --> 0:31:59,056
+simpler.
+
+1076
+00:31:59,726 --> 0:32:02,956
+And we'll do this by creating an
+
+1077
+00:31:59,726 --> 0:32:02,956
+And we'll do this by creating an
+
+1078
+00:32:02,956 --> 0:32:04,376
+Accessibility element at a
+
+1079
+00:32:04,376 --> 0:32:05,456
+higher level than in the view
+
+1080
+00:32:05,456 --> 0:32:05,696
+tree.
+
+1081
+00:32:07,316 --> 0:32:08,556
+We can find a view that is a
+
+1082
+00:32:08,616 --> 0:32:09,836
+parent of our Accessibility
+
+1083
+00:32:09,836 --> 0:32:11,776
+elements and create a new
+
+1084
+00:32:11,776 --> 0:32:12,356
+element there.
+
+1085
+00:32:13,736 --> 0:32:15,986
+In our case, we'll use the
+
+1086
+00:32:19,276 --> 0:32:19,396
+HStack.
+
+1087
+00:32:19,616 --> 0:32:20,756
+We can use the Accessibility
+
+1088
+00:32:20,756 --> 0:32:22,356
+element function on our HStack
+
+1089
+00:32:22,526 --> 0:32:23,446
+to create a new element.
+
+1090
+00:32:24,446 --> 0:32:26,496
+Specifying .combine will merge
+
+1091
+00:32:26,546 --> 0:32:28,166
+the Accessibility provided by
+
+1092
+00:32:28,166 --> 0:32:29,486
+the children into one element.
+
+1093
+00:32:30,596 --> 0:32:32,806
+In this case, the text view will
+
+1094
+00:32:32,806 --> 0:32:34,526
+provide the elements label and
+
+1095
+00:32:34,526 --> 0:32:35,326
+the two buttons will
+
+1096
+00:32:35,326 --> 0:32:36,696
+automatically be converted into
+
+1097
+00:32:36,696 --> 0:32:37,446
+Custom Actions.
+
+1098
+00:32:41,206 --> 0:32:42,706
+And now, VoiceOver will see just
+
+1099
+00:32:42,706 --> 0:32:44,216
+one element here which will read
+
+1100
+00:32:44,216 --> 0:32:46,596
+the person's name and that there
+
+1101
+00:32:46,656 --> 0:32:49,086
+are actions available.
+
+1102
+00:32:50,516 --> 0:32:55,596
+[ Applause ]
+
+1103
+00:32:56,096 --> 0:32:57,026
+And with these changes we've
+
+1104
+00:32:57,026 --> 0:32:58,456
+significantly reduced the number
+
+1105
+00:32:58,456 --> 0:32:59,406
+of elements in this tree.
+
+1106
+00:33:00,136 --> 0:33:01,376
+You can navigate the cells one
+
+1107
+00:33:01,376 --> 0:33:02,456
+by one as expected.
+
+1108
+00:33:03,876 --> 0:33:05,286
+You can access the buttons
+
+1109
+00:33:05,476 --> 0:33:07,126
+through Custom Actions.
+
+1110
+00:33:07,916 --> 0:33:09,606
+So, grouping related UI like
+
+1111
+00:33:09,646 --> 0:33:11,476
+this is a simple yet great way
+
+1112
+00:33:11,626 --> 0:33:14,156
+to improve navigation in your
+
+1113
+00:33:15,266 --> 0:33:15,346
+app.
+
+1114
+00:33:16,036 --> 0:33:17,156
+Another important component of
+
+1115
+00:33:17,156 --> 0:33:18,886
+navigation and Accessibility is
+
+1116
+00:33:18,886 --> 0:33:19,236
+ordering.
+
+1117
+00:33:20,776 --> 0:33:21,856
+There may be situations where
+
+1118
+00:33:21,856 --> 0:33:22,806
+you find that the default
+
+1119
+00:33:22,806 --> 0:33:23,886
+ordering isn't giving you the
+
+1120
+00:33:23,886 --> 0:33:24,976
+experience that you'd expect.
+
+1121
+00:33:26,086 --> 0:33:26,886
+So, you may have noticed from
+
+1122
+00:33:26,886 --> 0:33:28,506
+the video earlier that the reset
+
+1123
+00:33:28,506 --> 0:33:30,076
+colors button was actually the
+
+1124
+00:33:30,076 --> 0:33:31,166
+second element in the swipe
+
+1125
+00:33:31,166 --> 0:33:31,386
+order.
+
+1126
+00:33:32,936 --> 0:33:34,406
+The two elements are arranged in
+
+1127
+00:33:34,406 --> 0:33:36,256
+a ZStack which orders elements
+
+1128
+00:33:36,256 --> 0:33:37,626
+from back to front by default.
+
+1129
+00:33:38,906 --> 0:33:40,176
+Visually though, the button
+
+1130
+00:33:40,176 --> 0:33:41,686
+appears above the contrast
+
+1131
+00:33:41,686 --> 0:33:42,026
+ratio.
+
+1132
+00:33:42,686 --> 0:33:45,246
+So, in this case we might want
+
+1133
+00:33:45,246 --> 0:33:46,566
+to swap that.
+
+1134
+00:33:47,656 --> 0:33:49,056
+To customize this order, we can
+
+1135
+00:33:49,056 --> 0:33:49,876
+use sortPriority.
+
+1136
+00:33:53,386 --> 0:33:54,806
+So, all elements have a default
+
+1137
+00:33:54,806 --> 0:33:55,736
+sortPriority of 0.
+
+1138
+00:33:56,426 --> 0:33:58,156
+And elements in a container are
+
+1139
+00:33:58,156 --> 0:33:59,496
+sorted from highest to lowest
+
+1140
+00:33:59,496 --> 0:33:59,906
+priority.
+
+1141
+00:34:01,216 --> 0:34:02,506
+So, we can set the sortPriority
+
+1142
+00:34:02,826 --> 0:34:03,976
+by calling the Accessibility
+
+1143
+00:34:03,976 --> 0:34:05,966
+modifier function with the
+
+1144
+00:34:05,966 --> 0:34:06,996
+sortPriority parameter.
+
+1145
+00:34:08,966 --> 0:34:09,835
+So, we'll give our button a
+
+1146
+00:34:09,835 --> 0:34:12,315
+sortPriority of 1 and since the
+
+1147
+00:34:12,315 --> 0:34:14,156
+contrast ratio has a priority of
+
+1148
+00:34:14,156 --> 0:34:15,926
+zero, the button will be scanned
+
+1149
+00:34:15,926 --> 0:34:18,186
+first and the ratio will be
+
+1150
+00:34:18,186 --> 0:34:18,746
+scanned second.
+
+1151
+00:34:23,315 --> 0:34:26,246
+So, the Accessibility API helps
+
+1152
+00:34:26,246 --> 0:34:27,326
+you make your apps more
+
+1153
+00:34:27,326 --> 0:34:27,896
+understandable.
+
+1154
+00:34:29,216 --> 0:34:30,646
+It lets you add context by
+
+1155
+00:34:30,646 --> 0:34:32,516
+adding labels, values, and hints
+
+1156
+00:34:32,826 --> 0:34:33,726
+using the Accessibility
+
+1157
+00:34:33,726 --> 0:34:34,126
+function.
+
+1158
+00:34:34,676 --> 0:34:38,166
+You can use the Accessibility
+
+1159
+00:34:38,166 --> 0:34:40,076
+action function to add actions
+
+1160
+00:34:40,076 --> 0:34:40,886
+and make your apps more
+
+1161
+00:34:40,886 --> 0:34:41,386
+interactable.
+
+1162
+00:34:42,065 --> 0:34:45,606
+And finally, you can use the
+
+1163
+00:34:45,606 --> 0:34:47,016
+Accessibility element function
+
+1164
+00:34:47,306 --> 0:34:48,446
+to group your elements together
+
+1165
+00:34:48,706 --> 0:34:49,696
+and improve navigation.
+
+1166
+00:34:50,346 --> 0:34:55,156
+With built in Accessibility and
+
+1167
+00:34:55,156 --> 0:34:56,406
+simple enhancements with the
+
+1168
+00:34:56,406 --> 0:34:59,836
+Accessibility API, SwiftUI lets
+
+1169
+00:34:59,836 --> 0:35:00,966
+you make your apps accessible,
+
+1170
+00:34:59,836 --> 0:35:00,966
+you make your apps accessible,
+
+1171
+00:35:01,236 --> 0:35:02,466
+faster and easier than ever.
+
+1172
+00:35:03,616 --> 0:35:04,466
+Now, back to Michael.
+
+1173
+00:35:05,516 --> 0:35:10,500
+[ Applause ]
+
+1174
+00:35:14,346 --> 0:35:16,626
+&gt;&gt; All right, so let us close
+
+1175
+00:35:16,666 --> 0:35:17,866
+things up here.
+
+1176
+00:35:18,756 --> 0:35:20,086
+One last thing before we do
+
+1177
+00:35:20,086 --> 0:35:20,236
+that.
+
+1178
+00:35:21,196 --> 0:35:22,476
+If you have put in all of this
+
+1179
+00:35:22,476 --> 0:35:24,036
+work into the Accessibility of
+
+1180
+00:35:24,036 --> 0:35:25,616
+your app, how do you know you're
+
+1181
+00:35:25,616 --> 0:35:26,856
+actually being successful?
+
+1182
+00:35:27,796 --> 0:35:29,366
+Well, we have two pieces of
+
+1183
+00:35:29,366 --> 0:35:30,106
+advice for you here.
+
+1184
+00:35:31,006 --> 0:35:32,636
+First, there is no substitute
+
+1185
+00:35:32,746 --> 0:35:34,336
+for using your app.
+
+1186
+00:35:34,416 --> 0:35:35,586
+That means trying it out with
+
+1187
+00:35:35,586 --> 0:35:37,446
+our real Accessibility features
+
+1188
+00:35:37,446 --> 0:35:39,116
+like VoiceOver, Full Keyboard
+
+1189
+00:35:39,116 --> 0:35:40,476
+Access, and Voice Control.
+
+1190
+00:35:41,256 --> 0:35:42,926
+For example, if you're using
+
+1191
+00:35:42,926 --> 0:35:44,586
+your app with VoiceOver and
+
+1192
+00:35:44,586 --> 0:35:45,916
+there's something you can't do
+
+1193
+00:35:45,956 --> 0:35:47,206
+with just your voice or you --
+
+1194
+00:35:47,386 --> 0:35:49,286
+there's something that you need
+
+1195
+00:35:49,286 --> 0:35:51,166
+to look at the screen for, you
+
+1196
+00:35:51,166 --> 0:35:52,416
+have some work to do.
+
+1197
+00:35:52,846 --> 0:35:54,096
+Or if you're using your app with
+
+1198
+00:35:54,096 --> 0:35:55,216
+Voice Control and there is
+
+1199
+00:35:55,216 --> 0:35:56,306
+something you can't do with your
+
+1200
+00:35:56,306 --> 0:35:56,566
+voice.
+
+1201
+00:35:56,966 --> 0:35:58,356
+Or you're using your app with
+
+1202
+00:35:58,356 --> 0:35:59,646
+Full Keyboard Access and there's
+
+1203
+00:35:59,646 --> 0:36:00,976
+something you can't do with your
+
+1204
+00:35:59,646 --> 0:36:00,976
+something you can't do with your
+
+1205
+00:36:00,976 --> 0:36:02,886
+keyboard; you have some work
+
+1206
+00:36:02,886 --> 0:36:05,676
+left to do.
+
+1207
+00:36:05,926 --> 0:36:07,416
+Second, there is the
+
+1208
+00:36:07,416 --> 0:36:08,816
+Accessibility Inspector.
+
+1209
+00:36:09,546 --> 0:36:10,796
+This is a product that ships
+
+1210
+00:36:10,796 --> 0:36:12,316
+with Xcode and can help you dig
+
+1211
+00:36:12,316 --> 0:36:14,126
+deep into the Accessibility of
+
+1212
+00:36:14,126 --> 0:36:14,566
+your app.
+
+1213
+00:36:15,156 --> 0:36:17,346
+The Accessibility Inspector
+
+1214
+00:36:17,346 --> 0:36:19,126
+doesn't replace testing your app
+
+1215
+00:36:19,126 --> 0:36:20,396
+with our real Accessibility
+
+1216
+00:36:20,396 --> 0:36:22,276
+features, but it can be a
+
+1217
+00:36:22,276 --> 0:36:24,186
+powerful tool to understand your
+
+1218
+00:36:24,186 --> 0:36:26,486
+Accessibility Tree and the debug
+
+1219
+00:36:26,536 --> 0:36:27,366
+when things go wrong.
+
+1220
+00:36:28,256 --> 0:36:29,196
+There are some great sessions
+
+1221
+00:36:29,196 --> 0:36:31,746
+about the inspector on this
+
+1222
+00:36:33,316 --> 0:36:33,476
+slide.
+
+1223
+00:36:33,646 --> 0:36:35,566
+So, a few points to summarize
+
+1224
+00:36:35,566 --> 0:36:36,446
+what we've talked about today.
+
+1225
+00:36:37,896 --> 0:36:39,646
+We have worked super hard at
+
+1226
+00:36:39,816 --> 0:36:42,106
+Apple to build SwiftUI so it can
+
+1227
+00:36:42,106 --> 0:36:44,016
+make your apps as accessible as
+
+1228
+00:36:44,076 --> 0:36:45,316
+possible by default.
+
+1229
+00:36:46,466 --> 0:36:48,396
+And we've designed SwiftUI with
+
+1230
+00:36:48,396 --> 0:36:50,086
+Accessibility in mind from the
+
+1231
+00:36:50,086 --> 0:36:50,886
+very beginning.
+
+1232
+00:36:51,396 --> 0:36:54,056
+We've talked today about what a
+
+1233
+00:36:54,056 --> 0:36:55,476
+great Accessibility User
+
+1234
+00:36:55,476 --> 0:36:56,356
+Interface is.
+
+1235
+00:36:56,486 --> 0:36:57,486
+I know we've been drilling it
+
+1236
+00:36:57,486 --> 0:36:58,526
+into you, but remember,
+
+1237
+00:36:58,756 --> 0:37:00,756
+understandable, interactable,
+
+1238
+00:36:58,756 --> 0:37:00,756
+understandable, interactable,
+
+1239
+00:37:01,176 --> 0:37:02,056
+and navigable.
+
+1240
+00:37:04,956 --> 0:37:07,236
+To go beyond the basics and add
+
+1241
+00:37:07,356 --> 0:37:09,486
+polish, SwiftUI has a powerful
+
+1242
+00:37:09,486 --> 0:37:11,326
+Accessibility API for you to
+
+1243
+00:37:11,326 --> 0:37:11,956
+use.
+
+1244
+00:37:12,906 --> 0:37:15,146
+And that API is now finally
+
+1245
+00:37:15,246 --> 0:37:16,696
+unified across all our
+
+1246
+00:37:16,726 --> 0:37:17,236
+platforms.
+
+1247
+00:37:17,236 --> 0:37:18,706
+So, you only have to learn it
+
+1248
+00:37:18,706 --> 0:37:19,126
+once.
+
+1249
+00:37:20,516 --> 0:37:25,546
+[ Applause ]
+
+1250
+00:37:26,046 --> 0:37:27,826
+Two useful references going
+
+1251
+00:37:27,826 --> 0:37:28,286
+forward.
+
+1252
+00:37:28,356 --> 0:37:29,796
+First, we will be releasing
+
+1253
+00:37:29,796 --> 0:37:31,106
+sample code for the session.
+
+1254
+00:37:31,106 --> 0:37:32,596
+You can find it at the link
+
+1255
+00:37:32,596 --> 0:37:33,316
+above.
+
+1256
+00:37:33,746 --> 0:37:35,336
+And second, we have an
+
+1257
+00:37:35,336 --> 0:37:36,786
+Accessibility lab coming up
+
+1258
+00:37:36,786 --> 0:37:38,336
+immediately after this session.
+
+1259
+00:37:38,726 --> 0:37:40,846
+Come join us to meet us, talk
+
+1260
+00:37:40,846 --> 0:37:41,896
+about SwiftUI, and
+
+1261
+00:37:41,896 --> 0:37:42,706
+Accessibility.
+
+1262
+00:37:43,196 --> 0:37:44,046
+We are looking forward to
+
+1263
+00:37:44,046 --> 0:37:46,396
+meeting all of you.
+
+1264
+00:37:46,616 --> 0:37:48,686
+We're super excited of the new
+
+1265
+00:37:48,686 --> 0:37:50,176
+era of accessible apps that you
+
+1266
+00:37:50,176 --> 0:37:51,926
+folks will create with SwiftUI.
+
+1267
+00:37:52,506 --> 0:37:53,416
+Thank you for listening.
+
+1268
+00:37:54,516 --> 0:37:57,500
+[ Applause ]

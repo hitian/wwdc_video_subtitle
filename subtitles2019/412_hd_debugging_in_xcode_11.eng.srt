@@ -1,0 +1,5543 @@
+1
+00:00:07,136 --> 0:00:09,376
+&gt;&gt; Hello, and welcome to
+
+2
+00:00:09,376 --> 0:00:10,626
+debugging in Xcode 11.
+
+3
+00:00:11,176 --> 0:00:12,186
+I'm Chris Miles, one of the
+
+4
+00:00:12,186 --> 0:00:13,306
+engineering managers on the
+
+5
+00:00:13,306 --> 0:00:14,006
+Xcode team.
+
+6
+00:00:14,336 --> 0:00:15,386
+I'm really excited to be here
+
+7
+00:00:15,386 --> 0:00:15,616
+today.
+
+8
+00:00:15,716 --> 0:00:16,746
+We've got a lot of great stuff
+
+9
+00:00:16,776 --> 0:00:18,396
+to get through, so I'm going to
+
+10
+00:00:18,446 --> 0:00:19,886
+jump straight in and start by
+
+11
+00:00:19,886 --> 0:00:21,236
+telling you about device
+
+12
+00:00:21,236 --> 0:00:22,816
+conditions and environment
+
+13
+00:00:22,816 --> 0:00:23,446
+overrides.
+
+14
+00:00:24,226 --> 0:00:25,806
+So, you may have received
+
+15
+00:00:25,806 --> 0:00:27,306
+reports from users where your
+
+16
+00:00:27,306 --> 0:00:29,336
+app isn't behaving as expected
+
+17
+00:00:29,336 --> 0:00:30,906
+under certain real-world
+
+18
+00:00:30,906 --> 0:00:32,516
+conditions, and they may be the
+
+19
+00:00:32,566 --> 0:00:33,756
+types of conditions that are
+
+20
+00:00:33,756 --> 0:00:35,816
+really hard to replicate in your
+
+21
+00:00:35,816 --> 0:00:36,746
+development environment.
+
+22
+00:00:37,466 --> 0:00:39,266
+Such as real-world networking
+
+23
+00:00:39,266 --> 0:00:39,866
+conditions.
+
+24
+00:00:40,256 --> 0:00:41,866
+Network response out in the real
+
+25
+00:00:41,866 --> 0:00:43,776
+world isn't always as ideal as
+
+26
+00:00:43,776 --> 0:00:45,276
+it is in our home or office
+
+27
+00:00:45,276 --> 0:00:46,166
+where we typically build our
+
+28
+00:00:46,166 --> 0:00:46,516
+apps.
+
+29
+00:00:46,516 --> 0:00:48,306
+And if users report an issue
+
+30
+00:00:48,716 --> 0:00:50,426
+while using your app in
+
+31
+00:00:50,426 --> 0:00:51,566
+situations where network
+
+32
+00:00:51,566 --> 0:00:53,006
+connectivity is limited, you
+
+33
+00:00:53,006 --> 0:00:54,956
+need a way to reliably reproduce
+
+34
+00:00:55,076 --> 0:00:55,986
+these types of network
+
+35
+00:00:55,986 --> 0:00:57,746
+conditions to debug and improve
+
+36
+00:00:57,746 --> 0:00:59,076
+your app.
+
+37
+00:00:59,436 --> 0:01:01,106
+Or, when devices out in the real
+
+38
+00:00:59,436 --> 0:01:01,106
+Or, when devices out in the real
+
+39
+00:01:01,106 --> 0:01:02,756
+world are under thermal pressure
+
+40
+00:01:03,086 --> 0:01:05,215
+and need to regulate resources
+
+41
+00:01:05,215 --> 0:01:06,856
+available to your app in order
+
+42
+00:01:06,856 --> 0:01:08,356
+to help cool down the device.
+
+43
+00:01:08,706 --> 0:01:09,826
+You need to understand how your
+
+44
+00:01:09,826 --> 0:01:11,566
+app behaves in these types of
+
+45
+00:01:11,566 --> 0:01:13,406
+thermal conditions and for apps
+
+46
+00:01:13,406 --> 0:01:14,566
+that make heavy use of
+
+47
+00:01:14,566 --> 0:01:15,946
+resources, you may be
+
+48
+00:01:15,946 --> 0:01:17,236
+proactively responding to
+
+49
+00:01:17,286 --> 0:01:18,806
+thermal state changes by
+
+50
+00:01:18,806 --> 0:01:21,096
+reducing resource usage when the
+
+51
+00:01:21,096 --> 0:01:22,466
+device is under thermal
+
+52
+00:01:22,466 --> 0:01:22,776
+pressure.
+
+53
+00:01:23,386 --> 0:01:24,896
+But how do you reliably put the
+
+54
+00:01:24,896 --> 0:01:26,786
+device into an elevated thermal
+
+55
+00:01:26,786 --> 0:01:28,776
+state in order to debug and
+
+56
+00:01:28,776 --> 0:01:29,746
+verify your logic?
+
+57
+00:01:30,756 --> 0:01:31,836
+And this is where device
+
+58
+00:01:31,836 --> 0:01:32,676
+conditions come in.
+
+59
+00:01:33,136 --> 0:01:35,646
+New in Xcode 11, you're able to
+
+60
+00:01:35,646 --> 0:01:36,866
+use the new thermal state
+
+61
+00:01:36,866 --> 0:01:39,096
+condition to safely and reliably
+
+62
+00:01:39,376 --> 0:01:40,626
+raise the thermal state of a
+
+63
+00:01:40,626 --> 0:01:42,136
+device to any of the elevated
+
+64
+00:01:42,136 --> 0:01:43,966
+levels, fair, serious, or
+
+65
+00:01:43,966 --> 0:01:44,406
+critical.
+
+66
+00:01:44,836 --> 0:01:46,166
+You can use this to understand
+
+67
+00:01:46,166 --> 0:01:47,946
+your app's behavior under these
+
+68
+00:01:47,946 --> 0:01:49,976
+elevated thermal states, and to
+
+69
+00:01:49,976 --> 0:01:51,746
+debug and verify your handling
+
+70
+00:01:51,836 --> 0:01:53,166
+of thermal state changes.
+
+71
+00:01:53,996 --> 0:01:55,136
+Just note the device does not
+
+72
+00:01:55,136 --> 0:01:56,346
+actually get physically warmer,
+
+73
+00:01:56,596 --> 0:01:57,686
+so don't use this functionality
+
+74
+00:01:57,686 --> 0:01:59,256
+to try and warm your hands on a
+
+75
+00:01:59,836 --> 0:02:00,616
+cold day.
+
+76
+00:01:59,836 --> 0:02:00,616
+cold day.
+
+77
+00:02:00,846 --> 0:02:01,806
+Along with the thermal state
+
+78
+00:02:01,806 --> 0:02:02,796
+condition, we also have the
+
+79
+00:02:02,796 --> 0:02:03,946
+network link condition.
+
+80
+00:02:04,366 --> 0:02:05,976
+This allows you to simulate
+
+81
+00:02:06,086 --> 0:02:07,786
+real-world networking conditions
+
+82
+00:02:07,986 --> 0:02:09,556
+directly from Xcode on that
+
+83
+00:02:09,606 --> 0:02:11,606
+device, such as a high latency,
+
+84
+00:02:11,896 --> 0:02:14,016
+low bandwidth, high packet loss,
+
+85
+00:02:14,076 --> 0:02:14,766
+and slow DNS.
+
+86
+00:02:14,906 --> 0:02:17,366
+So you can use this to
+
+87
+00:02:17,366 --> 0:02:18,566
+understand and debug your app's
+
+88
+00:02:18,606 --> 0:02:20,456
+behavior under these various
+
+89
+00:02:20,506 --> 0:02:21,646
+networking conditions.
+
+90
+00:02:22,066 --> 0:02:23,316
+Now this functionality is
+
+91
+00:02:23,316 --> 0:02:24,476
+similar to the network link
+
+92
+00:02:24,476 --> 0:02:26,646
+conditioner in iOS developer
+
+93
+00:02:26,646 --> 0:02:27,986
+settings that some of you may be
+
+94
+00:02:27,986 --> 0:02:29,526
+already familiar with, but it
+
+95
+00:02:29,526 --> 0:02:31,266
+has been updated with a wider
+
+96
+00:02:31,266 --> 0:02:32,626
+range of modern network
+
+97
+00:02:32,666 --> 0:02:34,436
+profiles, and it's fully
+
+98
+00:02:34,436 --> 0:02:36,386
+controllable by Xcode, and I'll
+
+99
+00:02:36,386 --> 0:02:37,526
+show you how that works in a few
+
+100
+00:02:37,526 --> 0:02:38,006
+moments.
+
+101
+00:02:38,516 --> 0:02:41,166
+Now, some conditions that an app
+
+102
+00:02:41,166 --> 0:02:43,176
+must adapt to are controlled by
+
+103
+00:02:43,176 --> 0:02:43,636
+the user.
+
+104
+00:02:44,206 --> 0:02:45,516
+There are numerous settings that
+
+105
+00:02:45,516 --> 0:02:47,586
+a user can adjust in order to
+
+106
+00:02:47,586 --> 0:02:50,166
+customize their interface, such
+
+107
+00:02:50,166 --> 0:02:52,106
+as the light or dark interface
+
+108
+00:02:52,106 --> 0:02:53,916
+style that an app is running in.
+
+109
+00:02:54,186 --> 0:02:56,796
+In iOS 13, your app must provide
+
+110
+00:02:56,836 --> 0:02:58,576
+a great user experience when
+
+111
+00:02:58,576 --> 0:03:00,356
+running in either light or dark.
+
+112
+00:02:58,576 --> 0:03:00,356
+running in either light or dark.
+
+113
+00:03:01,046 --> 0:03:03,276
+A setting that is highly
+
+114
+00:03:03,276 --> 0:03:05,436
+customizable is dynamic type.
+
+115
+00:03:06,706 --> 0:03:07,996
+Users can choose between very
+
+116
+00:03:07,996 --> 0:03:10,256
+small dynamic type sizes up to
+
+117
+00:03:10,406 --> 0:03:12,366
+very large sizes, and there are
+
+118
+00:03:12,366 --> 0:03:14,206
+even larger sizes available in
+
+119
+00:03:14,206 --> 0:03:15,546
+the accessibility settings.
+
+120
+00:03:16,056 --> 0:03:17,726
+So you need to be able to debug
+
+121
+00:03:17,796 --> 0:03:19,916
+your UI layout across a wide
+
+122
+00:03:19,946 --> 0:03:21,976
+range of dynamic type settings.
+
+123
+00:03:22,516 --> 0:03:24,906
+And then there are many
+
+124
+00:03:24,906 --> 0:03:26,326
+accessibility options available
+
+125
+00:03:26,326 --> 0:03:26,756
+as well.
+
+126
+00:03:27,356 --> 0:03:28,636
+Many system controls already
+
+127
+00:03:28,636 --> 0:03:30,096
+adapt to these settings, but you
+
+128
+00:03:30,096 --> 0:03:31,556
+need to ensure that your custom
+
+129
+00:03:31,556 --> 0:03:33,446
+views and controls also do the
+
+130
+00:03:33,446 --> 0:03:35,136
+right thing when these settings
+
+131
+00:03:35,136 --> 0:03:35,646
+are enabled.
+
+132
+00:03:36,256 --> 0:03:37,646
+As you can see here, there's a
+
+133
+00:03:37,646 --> 0:03:39,546
+large matrix of environment
+
+134
+00:03:39,546 --> 0:03:40,956
+settings available to users.
+
+135
+00:03:40,956 --> 0:03:42,716
+Do you debug and test your app
+
+136
+00:03:42,716 --> 0:03:43,826
+with many of these settings
+
+137
+00:03:44,066 --> 0:03:44,996
+adjusted or enabled?
+
+138
+00:03:44,996 --> 0:03:46,696
+Do you even remember where to
+
+139
+00:03:46,696 --> 0:03:48,076
+find many of these settings?
+
+140
+00:03:48,476 --> 0:03:49,726
+And this is where environment
+
+141
+00:03:49,726 --> 0:03:51,336
+overrides can really help,
+
+142
+00:03:51,806 --> 0:03:53,016
+allowing you to effortlessly
+
+143
+00:03:53,066 --> 0:03:54,526
+override any combination of
+
+144
+00:03:54,526 --> 0:03:56,056
+these settings while debugging
+
+145
+00:03:56,056 --> 0:03:57,666
+your app directly from Xcode.
+
+146
+00:03:58,196 --> 0:04:00,396
+That's a quick introduction into
+
+147
+00:03:58,196 --> 0:04:00,396
+That's a quick introduction into
+
+148
+00:04:00,396 --> 0:04:01,286
+device conditions and
+
+149
+00:04:01,286 --> 0:04:02,416
+environment overrides, but I'd
+
+150
+00:04:02,416 --> 0:04:03,456
+love to show you how they work,
+
+151
+00:04:03,456 --> 0:04:04,356
+and I'm going to do that by
+
+152
+00:04:04,416 --> 0:04:05,906
+jumping into Xcode.
+
+153
+00:04:08,076 --> 0:04:10,116
+So here we have Xcode open with
+
+154
+00:04:10,176 --> 0:04:11,056
+the Trouble Project.
+
+155
+00:04:11,146 --> 0:04:12,316
+This is an iOS app that we've
+
+156
+00:04:12,316 --> 0:04:14,016
+been building that allows users
+
+157
+00:04:14,016 --> 0:04:15,576
+to discover places to travel to,
+
+158
+00:04:15,576 --> 0:04:17,315
+create a travel plan, and record
+
+159
+00:04:17,315 --> 0:04:18,026
+a travel journey.
+
+160
+00:04:18,236 --> 0:04:19,266
+You may have seen it from some
+
+161
+00:04:19,266 --> 0:04:20,716
+of our other sessions this week.
+
+162
+00:04:21,266 --> 0:04:22,536
+I've been focusing on this
+
+163
+00:04:22,576 --> 0:04:24,016
+beautiful 3D rendering of the
+
+164
+00:04:24,016 --> 0:04:26,496
+Earth here with pins in it
+
+165
+00:04:26,566 --> 0:04:28,096
+indicating places to travel to.
+
+166
+00:04:28,866 --> 0:04:30,036
+Now, I want this app to be a
+
+167
+00:04:30,036 --> 0:04:31,746
+good thermal citizen, and so
+
+168
+00:04:31,746 --> 0:04:33,526
+I've started adding code to
+
+169
+00:04:33,526 --> 0:04:35,136
+observe thermal state changes on
+
+170
+00:04:35,136 --> 0:04:36,586
+the device, and I'd like to
+
+171
+00:04:36,586 --> 0:04:38,776
+reduce the use of GPU resources
+
+172
+00:04:39,006 --> 0:04:40,276
+when the device is under thermal
+
+173
+00:04:40,326 --> 0:04:40,606
+pressure.
+
+174
+00:04:41,196 --> 0:04:42,466
+So, let me show you how I've
+
+175
+00:04:42,526 --> 0:04:42,816
+done that.
+
+176
+00:04:43,286 --> 0:04:44,716
+I'm going to switch to this
+
+177
+00:04:44,776 --> 0:04:46,026
+Globe Scene Controller.
+
+178
+00:04:46,366 --> 0:04:47,166
+This is the controller
+
+179
+00:04:47,166 --> 0:04:48,466
+responsible for configuring the
+
+180
+00:04:48,466 --> 0:04:49,226
+3D scene.
+
+181
+00:04:50,036 --> 0:04:51,446
+In the initializer, you can see
+
+182
+00:04:51,446 --> 0:04:52,976
+that I've added an observer for
+
+183
+00:04:52,976 --> 0:04:54,346
+the thermal state did change
+
+184
+00:04:54,346 --> 0:04:55,026
+notification.
+
+185
+00:04:55,486 --> 0:04:56,546
+This is called whenever the
+
+186
+00:04:56,546 --> 0:04:57,726
+thermal state of the device
+
+187
+00:04:57,726 --> 0:04:58,256
+changes.
+
+188
+00:04:58,576 --> 0:05:00,356
+In the callback, we call through
+
+189
+00:04:58,576 --> 0:05:00,356
+In the callback, we call through
+
+190
+00:05:00,356 --> 0:05:01,946
+to configure scene features.
+
+191
+00:05:02,286 --> 0:05:03,186
+So let's take a look at this
+
+192
+00:05:03,186 --> 0:05:03,556
+function.
+
+193
+00:05:04,246 --> 0:05:05,426
+It's responsible for two
+
+194
+00:05:05,476 --> 0:05:07,446
+parameters of our 3D scene, the
+
+195
+00:05:07,446 --> 0:05:08,816
+anti-aliasing mode and the
+
+196
+00:05:08,816 --> 0:05:09,836
+requested frame rate.
+
+197
+00:05:10,716 --> 0:05:12,116
+So when this is called, we can
+
+198
+00:05:12,116 --> 0:05:13,306
+fetch the thermal state of the
+
+199
+00:05:13,306 --> 0:05:15,356
+device, and then when the device
+
+200
+00:05:15,356 --> 0:05:16,766
+is in the critical thermal
+
+201
+00:05:16,766 --> 0:05:18,706
+state, the recommendation is to
+
+202
+00:05:18,706 --> 0:05:20,556
+reduce our use of energy
+
+203
+00:05:20,556 --> 0:05:22,446
+impactful resources as much as
+
+204
+00:05:22,446 --> 0:05:23,826
+possible to help the device cool
+
+205
+00:05:23,826 --> 0:05:24,116
+down.
+
+206
+00:05:24,716 --> 0:05:25,776
+So, in our case, what I'm going
+
+207
+00:05:25,776 --> 0:05:27,226
+to do is to turn off
+
+208
+00:05:27,226 --> 0:05:29,716
+anti-aliasing and also to reduce
+
+209
+00:05:29,716 --> 0:05:30,816
+our frame rate to 30.
+
+210
+00:05:31,896 --> 0:05:34,076
+In the serious thermal state, we
+
+211
+00:05:34,076 --> 0:05:35,186
+don't have to be as aggressive,
+
+212
+00:05:35,396 --> 0:05:36,426
+so let's just turn off
+
+213
+00:05:36,616 --> 0:05:37,996
+anti-aliasing but leave the
+
+214
+00:05:38,076 --> 0:05:40,166
+frame rate as it is, and in the
+
+215
+00:05:40,166 --> 0:05:41,266
+lower thermal states, we don't
+
+216
+00:05:41,266 --> 0:05:42,466
+have to take any action in this
+
+217
+00:05:42,466 --> 0:05:43,306
+particular case.
+
+218
+00:05:43,956 --> 0:05:45,636
+So with that change in place,
+
+219
+00:05:45,766 --> 0:05:48,106
+I'm going to stop and rerun, and
+
+220
+00:05:48,106 --> 0:05:49,266
+I have a device next to me, and
+
+221
+00:05:49,266 --> 0:05:50,326
+I'm mirroring that device back
+
+222
+00:05:50,326 --> 0:05:51,796
+to the desktop using QuickTime
+
+223
+00:05:51,906 --> 0:05:52,906
+player on the right.
+
+224
+00:05:53,856 --> 0:05:54,746
+Now what I'd like to do is to
+
+225
+00:05:54,746 --> 0:05:56,036
+put the device into the critical
+
+226
+00:05:56,036 --> 0:05:57,286
+thermal state, so we can test
+
+227
+00:05:57,286 --> 0:05:58,566
+this logic and debug it if there
+
+228
+00:05:58,566 --> 0:06:00,096
+are any problems, and so I can
+
+229
+00:05:58,566 --> 0:06:00,096
+are any problems, and so I can
+
+230
+00:06:00,096 --> 0:06:01,216
+use the new device conditions
+
+231
+00:06:01,216 --> 0:06:01,736
+for that.
+
+232
+00:06:02,106 --> 0:06:03,566
+But before I do that, I'd also
+
+233
+00:06:03,566 --> 0:06:04,676
+like to monitor the thermal
+
+234
+00:06:04,676 --> 0:06:06,536
+state of this device, and I can
+
+235
+00:06:06,536 --> 0:06:08,196
+do that now by switching to the
+
+236
+00:06:08,196 --> 0:06:09,636
+debug navigator and selecting
+
+237
+00:06:09,886 --> 0:06:11,366
+the energy impact gauge.
+
+238
+00:06:11,936 --> 0:06:14,456
+This gauge shows you a breakdown
+
+239
+00:06:14,456 --> 0:06:16,476
+of the average energy impact as
+
+240
+00:06:16,476 --> 0:06:18,136
+well as the component
+
+241
+00:06:18,136 --> 0:06:19,466
+utilization here on the top
+
+242
+00:06:19,466 --> 0:06:20,756
+right, and you can see as I
+
+243
+00:06:20,756 --> 0:06:22,996
+interact with the app the GPU is
+
+244
+00:06:23,076 --> 0:06:24,256
+the primary component in this
+
+245
+00:06:24,256 --> 0:06:25,116
+case, as expected.
+
+246
+00:06:25,116 --> 0:06:26,256
+But I'm going to draw your
+
+247
+00:06:26,256 --> 0:06:28,536
+attention to the middle here
+
+248
+00:06:28,616 --> 0:06:30,086
+where we have the new thermal
+
+249
+00:06:30,086 --> 0:06:31,616
+state track available in Xcode
+
+250
+00:06:31,616 --> 0:06:32,046
+11.
+
+251
+00:06:32,496 --> 0:06:33,596
+This shows you two pieces of
+
+252
+00:06:33,596 --> 0:06:34,156
+information.
+
+253
+00:06:34,536 --> 0:06:35,616
+The top of the track shows you
+
+254
+00:06:35,616 --> 0:06:36,856
+whether any device conditions
+
+255
+00:06:36,856 --> 0:06:38,326
+are active, and there are no
+
+256
+00:06:38,326 --> 0:06:39,546
+device conditions active yet.
+
+257
+00:06:40,106 --> 0:06:41,176
+The bottom part shows you the
+
+258
+00:06:41,176 --> 0:06:42,196
+current thermal state of the
+
+259
+00:06:42,196 --> 0:06:42,646
+device.
+
+260
+00:06:42,906 --> 0:06:44,096
+And blue indicates the nominal
+
+261
+00:06:44,096 --> 0:06:45,226
+thermal state, everything is
+
+262
+00:06:45,226 --> 0:06:46,246
+running cool and smoothly.
+
+263
+00:06:46,876 --> 0:06:48,986
+So let's leave that open while I
+
+264
+00:06:49,046 --> 0:06:50,386
+use the window menu to open the
+
+265
+00:06:50,386 --> 0:06:51,236
+devices window.
+
+266
+00:06:52,436 --> 0:06:53,146
+I'll move that up here.
+
+267
+00:06:53,666 --> 0:06:54,936
+Now, with the device selected,
+
+268
+00:06:55,166 --> 0:06:56,186
+we can scroll to the bottom and
+
+269
+00:06:56,186 --> 0:06:57,566
+find the new device conditions
+
+270
+00:06:57,566 --> 0:06:57,796
+UI.
+
+271
+00:06:58,756 --> 0:06:59,666
+And here we can see all the
+
+272
+00:06:59,666 --> 0:07:01,476
+device conditions available for
+
+273
+00:06:59,666 --> 0:07:01,476
+device conditions available for
+
+274
+00:07:01,476 --> 0:07:02,136
+this device.
+
+275
+00:07:02,276 --> 0:07:03,416
+We have the network link
+
+276
+00:07:03,416 --> 0:07:04,786
+condition and all the new
+
+277
+00:07:04,906 --> 0:07:05,976
+profiles available.
+
+278
+00:07:06,456 --> 0:07:07,816
+In our case, let's select
+
+279
+00:07:08,176 --> 0:07:08,706
+thermal state.
+
+280
+00:07:09,406 --> 0:07:10,276
+And here we can choose an
+
+281
+00:07:10,276 --> 0:07:11,686
+elevated thermal state level,
+
+282
+00:07:11,686 --> 0:07:12,716
+and I'm going to choose critical
+
+283
+00:07:12,836 --> 0:07:13,836
+and press start.
+
+284
+00:07:14,196 --> 0:07:15,326
+Now, there's a few things to
+
+285
+00:07:15,326 --> 0:07:16,056
+take note of here.
+
+286
+00:07:16,256 --> 0:07:17,196
+One is that it takes a few
+
+287
+00:07:17,196 --> 0:07:18,176
+moments for the device to
+
+288
+00:07:18,176 --> 0:07:19,686
+transition to the critical
+
+289
+00:07:19,686 --> 0:07:21,416
+thermal state, and down here in
+
+290
+00:07:21,416 --> 0:07:23,256
+the thermal state track, we see
+
+291
+00:07:23,256 --> 0:07:24,636
+confirmation that that device
+
+292
+00:07:24,636 --> 0:07:26,326
+condition is now active, and
+
+293
+00:07:26,326 --> 0:07:27,536
+after a few moments, you can see
+
+294
+00:07:27,536 --> 0:07:29,786
+that the device transitioned to
+
+295
+00:07:29,786 --> 0:07:30,736
+the critical thermal state.
+
+296
+00:07:31,386 --> 0:07:33,206
+Over here on the right, on the
+
+297
+00:07:33,206 --> 0:07:35,776
+device itself, note in the top
+
+298
+00:07:35,776 --> 0:07:36,946
+there's a background filler on
+
+299
+00:07:36,946 --> 0:07:38,186
+the time, and that's you status
+
+300
+00:07:38,186 --> 0:07:39,926
+bar indicator that a device
+
+301
+00:07:39,926 --> 0:07:41,396
+condition is active on this
+
+302
+00:07:41,396 --> 0:07:41,916
+device.
+
+303
+00:07:42,546 --> 0:07:43,856
+Now, finally, if we interact
+
+304
+00:07:44,066 --> 0:07:46,366
+with our 3D scene, we can see
+
+305
+00:07:46,366 --> 0:07:47,626
+that the frame rate indicator
+
+306
+00:07:47,626 --> 0:07:49,306
+that we've added shows 30 frames
+
+307
+00:07:49,306 --> 0:07:49,786
+per second.
+
+308
+00:07:50,116 --> 0:07:51,696
+And so we can verify easily as
+
+309
+00:07:51,696 --> 0:07:52,896
+that, that our logic is doing
+
+310
+00:07:52,896 --> 0:07:53,386
+the right thing.
+
+311
+00:07:54,106 --> 0:07:55,166
+Also, the anti-aliasing is
+
+312
+00:07:55,166 --> 0:07:55,656
+switched off.
+
+313
+00:07:55,656 --> 0:07:56,786
+It's a little hard to see on
+
+314
+00:07:56,786 --> 0:07:58,056
+this small device, but on a
+
+315
+00:07:58,056 --> 0:07:59,336
+larger device, you'd be able to
+
+316
+00:07:59,336 --> 0:07:59,746
+see that.
+
+317
+00:08:00,306 --> 0:08:01,306
+So now that we've used device
+
+318
+00:08:01,306 --> 0:08:03,306
+conditions to verify our code,
+
+319
+00:08:03,306 --> 0:08:04,576
+we can switch it off.
+
+320
+00:08:05,276 --> 0:08:06,386
+I could press the stop button
+
+321
+00:08:06,386 --> 0:08:07,266
+here, but there are a couple of
+
+322
+00:08:07,266 --> 0:08:08,746
+other ways to disable the device
+
+323
+00:08:08,746 --> 0:08:09,196
+condition.
+
+324
+00:08:09,596 --> 0:08:11,166
+One, is to disconnect that
+
+325
+00:08:11,166 --> 0:08:13,086
+device from Xcode or quit Xcode.
+
+326
+00:08:13,406 --> 0:08:14,316
+If the device ever comes
+
+327
+00:08:14,616 --> 0:08:16,026
+disconnected from Xcode, it will
+
+328
+00:08:16,026 --> 0:08:17,416
+automatically tear down a device
+
+329
+00:08:17,416 --> 0:08:18,336
+condition, because we don't want
+
+330
+00:08:18,336 --> 0:08:19,276
+to leave your device running in
+
+331
+00:08:19,276 --> 0:08:20,366
+one of these states when you're
+
+332
+00:08:20,366 --> 0:08:21,016
+not developing.
+
+333
+00:08:21,626 --> 0:08:23,376
+Another is on the device itself,
+
+334
+00:08:23,656 --> 0:08:24,816
+we can tap that status bar
+
+335
+00:08:24,816 --> 0:08:25,956
+indicator at the top, which I'll
+
+336
+00:08:25,956 --> 0:08:27,986
+do now, and we'll see
+
+337
+00:08:27,986 --> 0:08:29,176
+information about the currently
+
+338
+00:08:29,176 --> 0:08:30,476
+active condition, and I can
+
+339
+00:08:30,476 --> 0:08:32,176
+press the stop button to turn
+
+340
+00:08:32,176 --> 0:08:32,866
+off that condition.
+
+341
+00:08:33,155 --> 0:08:33,946
+So, I'll press that now.
+
+342
+00:08:34,596 --> 0:08:35,996
+We can close the devices window,
+
+343
+00:08:37,035 --> 0:08:38,696
+and in the thermal state track
+
+344
+00:08:38,736 --> 0:08:39,976
+here, we see confirmation that
+
+345
+00:08:39,976 --> 0:08:41,456
+the device condition is no
+
+346
+00:08:41,456 --> 0:08:43,076
+longer active, and we can see
+
+347
+00:08:43,076 --> 0:08:44,416
+that the device starts
+
+348
+00:08:44,416 --> 0:08:45,706
+transitioning back down to the
+
+349
+00:08:45,706 --> 0:08:47,056
+fair thermal state and the
+
+350
+00:08:47,056 --> 0:08:47,976
+nominal thermal state.
+
+351
+00:08:48,516 --> 0:08:53,106
+[ Applause ]
+
+352
+00:08:53,606 --> 0:08:54,626
+So that's a quick example of
+
+353
+00:08:54,626 --> 0:08:55,936
+using the device conditions, in
+
+354
+00:08:55,936 --> 0:08:56,926
+this case the thermal state
+
+355
+00:08:56,956 --> 0:08:57,986
+condition on our connected
+
+356
+00:08:57,986 --> 0:08:58,406
+device.
+
+357
+00:08:58,746 --> 0:08:59,586
+Now, I'd like to move on and
+
+358
+00:08:59,586 --> 0:09:01,316
+show you environment overrides.
+
+359
+00:08:59,586 --> 0:09:01,316
+show you environment overrides.
+
+360
+00:09:01,996 --> 0:09:04,216
+Now what I'm going to do is stop
+
+361
+00:09:04,496 --> 0:09:05,586
+running and switch to a
+
+362
+00:09:05,586 --> 0:09:06,436
+particular view.
+
+363
+00:09:06,916 --> 0:09:07,776
+I'm going to choose profile
+
+364
+00:09:07,776 --> 0:09:08,026
+view.
+
+365
+00:09:08,196 --> 0:09:10,426
+This is written in Swift UI, and
+
+366
+00:09:10,426 --> 0:09:12,146
+I really, really like writing
+
+367
+00:09:12,146 --> 0:09:15,056
+Swift UI and using the new Xcode
+
+368
+00:09:15,056 --> 0:09:15,456
+preview.
+
+369
+00:09:15,456 --> 0:09:16,806
+So I'm going to open the canvas
+
+370
+00:09:17,256 --> 0:09:18,326
+to start the preview engine.
+
+371
+00:09:19,056 --> 0:09:20,366
+Now, I don't need the device
+
+372
+00:09:20,366 --> 0:09:21,166
+anymore, so I'll close
+
+373
+00:09:21,166 --> 0:09:21,616
+QuickTime.
+
+374
+00:09:23,036 --> 0:09:24,196
+Previews will start up.
+
+375
+00:09:24,576 --> 0:09:25,636
+Now, to use environment
+
+376
+00:09:25,636 --> 0:09:26,896
+overrides, you need to be
+
+377
+00:09:26,896 --> 0:09:28,246
+debugging your app or debugging
+
+378
+00:09:28,246 --> 0:09:29,916
+your preview, and if you haven't
+
+379
+00:09:29,916 --> 0:09:31,456
+seen already, you can debug
+
+380
+00:09:31,516 --> 0:09:34,216
+previews by control clicking on
+
+381
+00:09:34,376 --> 0:09:35,646
+the live button down on the
+
+382
+00:09:35,646 --> 0:09:36,136
+bottom right.
+
+383
+00:09:36,626 --> 0:09:37,596
+You'll see a pop-up menu, and
+
+384
+00:09:37,596 --> 0:09:38,496
+you can just choose debug
+
+385
+00:09:38,496 --> 0:09:38,916
+preview.
+
+386
+00:09:39,726 --> 0:09:40,716
+This does two things.
+
+387
+00:09:41,316 --> 0:09:42,756
+It puts the preview into live
+
+388
+00:09:42,796 --> 0:09:44,656
+mode, and it also attaches a
+
+389
+00:09:44,656 --> 0:09:45,306
+debug session.
+
+390
+00:09:45,816 --> 0:09:47,166
+So, now the preview is live and
+
+391
+00:09:47,166 --> 0:09:50,726
+interactive, and here we go down
+
+392
+00:09:50,726 --> 0:09:52,756
+the bottom, which I'll lift up a
+
+393
+00:09:52,756 --> 0:09:52,946
+bit.
+
+394
+00:09:53,056 --> 0:09:54,966
+In the debug bar, we can see
+
+395
+00:09:55,076 --> 0:09:56,766
+that we have confirmation that
+
+396
+00:09:56,766 --> 0:09:58,016
+we have a debug session active
+
+397
+00:09:58,016 --> 0:09:58,886
+debugging the preview.
+
+398
+00:09:59,336 --> 0:10:00,536
+So we have all of our usual
+
+399
+00:09:59,336 --> 0:10:00,536
+So we have all of our usual
+
+400
+00:10:00,536 --> 0:10:01,596
+debugging tools, such as view
+
+401
+00:10:01,596 --> 0:10:02,526
+debugging, memory graft
+
+402
+00:10:02,526 --> 0:10:04,006
+debugging, and the new
+
+403
+00:10:04,006 --> 0:10:05,146
+environment overrides.
+
+404
+00:10:05,816 --> 0:10:07,196
+So, if I click that, we see the
+
+405
+00:10:07,196 --> 0:10:09,616
+environment overrides UI, and we
+
+406
+00:10:09,616 --> 0:10:10,946
+can simply override the
+
+407
+00:10:10,946 --> 0:10:12,646
+interface style by clicking the
+
+408
+00:10:12,646 --> 0:10:14,246
+switch, and now we've put that
+
+409
+00:10:14,246 --> 0:10:15,766
+preview into dark mode.
+
+410
+00:10:16,376 --> 0:10:17,196
+We can just switch back and
+
+411
+00:10:17,196 --> 0:10:18,626
+forth between light and dark to
+
+412
+00:10:18,666 --> 0:10:20,296
+test our layout and test our UI.
+
+413
+00:10:21,056 --> 0:10:21,906
+So, you might have already
+
+414
+00:10:21,906 --> 0:10:22,646
+noticed an issue.
+
+415
+00:10:23,216 --> 0:10:25,166
+The description text here looks
+
+416
+00:10:25,166 --> 0:10:27,316
+great in light, but in dark, we
+
+417
+00:10:27,316 --> 0:10:28,146
+can't even see it.
+
+418
+00:10:28,486 --> 0:10:29,246
+So, while we're here, let's take
+
+419
+00:10:29,246 --> 0:10:29,796
+a quick look.
+
+420
+00:10:30,696 --> 0:10:31,596
+This text element under my
+
+421
+00:10:31,596 --> 0:10:33,356
+cursor is responsible for
+
+422
+00:10:33,356 --> 0:10:35,046
+drawing the description, and you
+
+423
+00:10:35,046 --> 0:10:36,126
+can see that I haven't finished
+
+424
+00:10:36,126 --> 0:10:37,836
+transitioning this view to take
+
+425
+00:10:37,836 --> 0:10:38,676
+advantage of dark mode.
+
+426
+00:10:38,676 --> 0:10:39,786
+I'm still using a fixed color.
+
+427
+00:10:39,846 --> 0:10:41,376
+I should use a semantic color
+
+428
+00:10:41,376 --> 0:10:42,326
+like secondary, so I'll make
+
+429
+00:10:42,366 --> 0:10:42,916
+that change.
+
+430
+00:10:43,496 --> 0:10:44,616
+What I love about previews,
+
+431
+00:10:45,016 --> 0:10:45,886
+refreshes for me.
+
+432
+00:10:46,586 --> 0:10:47,246
+Because we have asked for
+
+433
+00:10:47,246 --> 0:10:48,416
+debugging, we still have a debug
+
+434
+00:10:48,416 --> 0:10:49,776
+session, so I can bring up
+
+435
+00:10:49,776 --> 0:10:50,886
+environment overrides and look
+
+436
+00:10:50,886 --> 0:10:52,276
+at dark mode, and we've made our
+
+437
+00:10:52,276 --> 0:10:52,976
+fix as easy as that.
+
+438
+00:10:53,516 --> 0:10:57,996
+[ Applause ]
+
+439
+00:10:58,496 --> 0:10:59,726
+Let's try out the dynamic type
+
+440
+00:10:59,726 --> 0:11:00,216
+override.
+
+441
+00:10:59,726 --> 0:11:00,216
+override.
+
+442
+00:11:00,436 --> 0:11:01,786
+I'll switch on text overrides.
+
+443
+00:11:01,786 --> 0:11:03,946
+I can simply use this slider to
+
+444
+00:11:03,946 --> 0:11:05,396
+choose any of the dynamic type
+
+445
+00:11:05,396 --> 0:11:06,786
+settings down to the very
+
+446
+00:11:06,786 --> 0:11:09,386
+smallest, up to the very
+
+447
+00:11:09,526 --> 0:11:11,636
+largest, and then we can keep
+
+448
+00:11:11,636 --> 0:11:13,076
+going into the accessibility
+
+449
+00:11:13,126 --> 0:11:14,506
+sizes, all the way up to the
+
+450
+00:11:14,506 --> 0:11:15,966
+very largest accessibility
+
+451
+00:11:15,966 --> 0:11:17,366
+dynamic type size.
+
+452
+00:11:17,936 --> 0:11:19,406
+Notice that our layout is pretty
+
+453
+00:11:19,406 --> 0:11:20,916
+good in this case except here.
+
+454
+00:11:20,916 --> 0:11:22,616
+These little rectangles get
+
+455
+00:11:22,616 --> 0:11:24,006
+clicked in the very largest type
+
+456
+00:11:24,006 --> 0:11:24,506
+sizes.
+
+457
+00:11:24,886 --> 0:11:25,816
+So, while we're here, let's fix
+
+458
+00:11:25,816 --> 0:11:26,216
+that too.
+
+459
+00:11:26,216 --> 0:11:28,116
+I'm going to scroll down to
+
+460
+00:11:28,326 --> 0:11:29,586
+image text pill is the view
+
+461
+00:11:29,586 --> 0:11:30,616
+responsible for drawing these
+
+462
+00:11:30,616 --> 0:11:31,276
+rectangles.
+
+463
+00:11:31,966 --> 0:11:33,676
+It lays out an image and a text
+
+464
+00:11:33,676 --> 0:11:34,526
+in a horizontal stack.
+
+465
+00:11:35,346 --> 0:11:36,846
+What I'd like us to do is when
+
+466
+00:11:36,846 --> 0:11:38,976
+the type size gets too large, to
+
+467
+00:11:38,976 --> 0:11:40,156
+switch that to a vertical stack
+
+468
+00:11:40,156 --> 0:11:41,286
+and lay them out one above the
+
+469
+00:11:41,286 --> 0:11:41,486
+other.
+
+470
+00:11:41,596 --> 0:11:42,976
+Now, I've had to solve this
+
+471
+00:11:42,976 --> 0:11:44,646
+elsewhere, and I build a custom
+
+472
+00:11:44,646 --> 0:11:45,936
+view called an adapting stack.
+
+473
+00:11:45,936 --> 0:11:47,786
+I'm going to option click that
+
+474
+00:11:47,786 --> 0:11:51,026
+now to open that, and we don't
+
+475
+00:11:51,026 --> 0:11:52,906
+need the canvas in this case, so
+
+476
+00:11:53,066 --> 0:11:53,836
+I'll close that.
+
+477
+00:11:54,076 --> 0:11:54,746
+So we've opened this
+
+478
+00:11:54,746 --> 0:11:56,756
+in an editor split, and let's take a
+
+479
+00:11:56,756 --> 0:11:57,216
+quick look.
+
+480
+00:11:57,216 --> 0:11:58,826
+An adapting stack is a custom
+
+481
+00:11:58,826 --> 0:12:00,486
+view that takes a view builder
+
+482
+00:11:58,826 --> 0:12:00,486
+view that takes a view builder
+
+483
+00:12:00,486 --> 0:12:02,366
+closer as an import, the same as
+
+484
+00:12:02,366 --> 0:12:03,836
+an H stack or a V stack does.
+
+485
+00:12:04,636 --> 0:12:05,826
+It binds itself to the size
+
+486
+00:12:05,826 --> 0:12:06,676
+category environment.
+
+487
+00:12:06,676 --> 0:12:08,276
+And so when a size category
+
+488
+00:12:08,276 --> 0:12:09,436
+changes, which is what happens
+
+489
+00:12:09,436 --> 0:12:10,446
+when you change dynamic type,
+
+490
+00:12:10,446 --> 0:12:12,276
+our bodies fold, and then if we
+
+491
+00:12:12,276 --> 0:12:13,636
+switch on size category, if it's
+
+492
+00:12:13,636 --> 0:12:15,326
+accessibility large or larger,
+
+493
+00:12:15,746 --> 0:12:16,846
+then we wrap the content in a
+
+494
+00:12:16,846 --> 0:12:18,536
+vertical stack and adjust some
+
+495
+00:12:18,536 --> 0:12:18,876
+padding.
+
+496
+00:12:19,256 --> 0:12:20,126
+Otherwise, we wrap it in a
+
+497
+00:12:20,126 --> 0:12:20,766
+horizontal stack.
+
+498
+00:12:21,486 --> 0:12:22,876
+So, let's try this one out.
+
+499
+00:12:23,666 --> 0:12:25,836
+I'll change this H stack to an
+
+500
+00:12:25,836 --> 0:12:29,606
+adapting stack.
+
+501
+00:12:29,806 --> 0:12:32,026
+Our preview will refresh for us,
+
+502
+00:12:32,346 --> 0:12:33,966
+and now we can try out our
+
+503
+00:12:34,626 --> 0:12:35,846
+environment overrides.
+
+504
+00:12:36,476 --> 0:12:38,986
+And now, as we go into the large
+
+505
+00:12:38,986 --> 0:12:40,136
+sizes, we can see that our
+
+506
+00:12:40,346 --> 0:12:40,946
+layout adapts.
+
+507
+00:12:41,516 --> 0:12:46,026
+[ Applause ]
+
+508
+00:12:46,526 --> 0:12:48,186
+I'm happy with that change, and
+
+509
+00:12:48,186 --> 0:12:48,866
+let's take a quick look at
+
+510
+00:12:48,866 --> 0:12:49,676
+accessibility settings.
+
+511
+00:12:49,676 --> 0:12:50,326
+You can see there are a lot of
+
+512
+00:12:50,326 --> 0:12:50,886
+settings here.
+
+513
+00:12:50,886 --> 0:12:52,406
+We don't have time to play with
+
+514
+00:12:52,406 --> 0:12:53,366
+them today, but I highly
+
+515
+00:12:53,366 --> 0:12:55,106
+encourage you to try out all
+
+516
+00:12:55,106 --> 0:12:56,516
+these settings with your apps
+
+517
+00:12:56,516 --> 0:12:58,656
+and previews and make sure your
+
+518
+00:12:58,656 --> 0:12:59,856
+UI is doing the right thing with
+
+519
+00:12:59,856 --> 0:13:00,446
+these enabled.
+
+520
+00:12:59,856 --> 0:13:00,446
+these enabled.
+
+521
+00:13:01,266 --> 0:13:01,506
+Thank you.
+
+522
+00:13:02,516 --> 0:13:07,546
+[ Applause ]
+
+523
+00:13:08,046 --> 0:13:09,526
+So let me give you just a quick
+
+524
+00:13:09,526 --> 0:13:10,966
+summary of what I showed you.
+
+525
+00:13:11,166 --> 0:13:12,066
+First, we looked at device
+
+526
+00:13:12,066 --> 0:13:13,236
+conditions, which is available
+
+527
+00:13:13,236 --> 0:13:14,476
+from the devices window.
+
+528
+00:13:15,066 --> 0:13:17,476
+It allows you to enable a
+
+529
+00:13:17,476 --> 0:13:19,476
+network link condition or a
+
+530
+00:13:19,476 --> 0:13:20,586
+thermal state condition.
+
+531
+00:13:21,486 --> 0:13:23,326
+Device conditions are tied to
+
+532
+00:13:23,326 --> 0:13:25,226
+the Xcode device connection.
+
+533
+00:13:25,276 --> 0:13:26,226
+So if the device becomes
+
+534
+00:13:26,266 --> 0:13:27,746
+disconnected from Xcode, we
+
+535
+00:13:27,746 --> 0:13:29,026
+automatically tear down that
+
+536
+00:13:29,026 --> 0:13:29,836
+device condition.
+
+537
+00:13:30,236 --> 0:13:31,626
+And in iOS status bar indicator,
+
+538
+00:13:31,626 --> 0:13:33,506
+it is your indication that a
+
+539
+00:13:33,506 --> 0:13:35,066
+device condition is active on
+
+540
+00:13:35,066 --> 0:13:35,576
+that device.
+
+541
+00:13:35,826 --> 0:13:37,196
+You can tap that indicator to
+
+542
+00:13:37,196 --> 0:13:38,426
+see details about the condition
+
+543
+00:13:38,456 --> 0:13:39,316
+and use it to stop the
+
+544
+00:13:39,316 --> 0:13:39,766
+condition.
+
+545
+00:13:41,116 --> 0:13:42,166
+Environment override is
+
+546
+00:13:42,196 --> 0:13:43,476
+available while debugging.
+
+547
+00:13:44,026 --> 0:13:45,066
+You can use to instantly
+
+548
+00:13:45,066 --> 0:13:46,736
+override many of the settings
+
+549
+00:13:46,736 --> 0:13:48,326
+that you saw, and it only
+
+550
+00:13:48,326 --> 0:13:49,836
+affects your debug app.
+
+551
+00:13:50,146 --> 0:13:51,486
+It does not affect any other
+
+552
+00:13:51,486 --> 0:13:53,036
+processes that are running, and
+
+553
+00:13:53,036 --> 0:13:54,056
+it doesn't, importantly, it
+
+554
+00:13:54,056 --> 0:13:55,256
+doesn't change any system
+
+555
+00:13:55,256 --> 0:13:55,666
+settings.
+
+556
+00:13:56,016 --> 0:13:56,876
+So, it's really great and
+
+557
+00:13:56,876 --> 0:13:57,766
+convenient to use.
+
+558
+00:13:58,386 --> 0:14:00,396
+It's supported while debugging
+
+559
+00:13:58,386 --> 0:14:00,396
+It's supported while debugging
+
+560
+00:14:00,456 --> 0:14:01,716
+in any cases, devices,
+
+561
+00:14:01,716 --> 0:14:03,146
+simulators, or previews as you
+
+562
+00:14:03,146 --> 0:14:05,146
+saw, and it's available for all
+
+563
+00:14:05,146 --> 0:14:05,806
+of our platforms.
+
+564
+00:14:06,156 --> 0:14:07,156
+Some of the settings may differ,
+
+565
+00:14:07,156 --> 0:14:09,126
+but it's available for any of
+
+566
+00:14:09,126 --> 0:14:09,936
+the platforms that you can
+
+567
+00:14:09,936 --> 0:14:10,186
+debug.
+
+568
+00:14:10,876 --> 0:14:12,076
+So, I hope you can take
+
+569
+00:14:12,076 --> 0:14:13,596
+advantage of these new features
+
+570
+00:14:13,876 --> 0:14:15,646
+to develop and test your apps in
+
+571
+00:14:15,646 --> 0:14:17,216
+a wider range of conditions and
+
+572
+00:14:17,216 --> 0:14:18,946
+environments so you can create a
+
+573
+00:14:18,946 --> 0:14:20,766
+great user experience for more
+
+574
+00:14:20,766 --> 0:14:22,496
+users in more situations.
+
+575
+00:14:23,156 --> 0:14:24,286
+Thank you, and I'm going to hand
+
+576
+00:14:24,286 --> 0:14:25,106
+over to Han Ming, who is going
+
+577
+00:14:25,106 --> 0:14:26,266
+to tell you more details about
+
+578
+00:14:26,266 --> 0:14:27,576
+debugging live previews.
+
+579
+00:14:28,516 --> 0:14:33,006
+[ Applause ]
+
+580
+00:14:33,506 --> 0:14:34,196
+&gt;&gt; Thank you, Chris.
+
+581
+00:14:35,376 --> 0:14:35,926
+Good morning.
+
+582
+00:14:36,036 --> 0:14:38,676
+In the past few days we have
+
+583
+00:14:38,676 --> 0:14:39,886
+learned that live previews are
+
+584
+00:14:39,886 --> 0:14:41,216
+great for testing interactions
+
+585
+00:14:41,246 --> 0:14:43,096
+between, with a particular view
+
+586
+00:14:43,096 --> 0:14:44,746
+of your project, and Xcode is
+
+587
+00:14:44,746 --> 0:14:45,866
+optimized for the fast
+
+588
+00:14:45,866 --> 0:14:47,476
+turnaround time between editing
+
+589
+00:14:47,476 --> 0:14:48,936
+your source code and updating
+
+590
+00:14:48,936 --> 0:14:49,376
+the preview.
+
+591
+00:14:50,456 --> 0:14:52,366
+But because some of us, no all
+
+592
+00:14:52,366 --> 0:14:53,476
+of us are mere mortals, we are
+
+593
+00:14:53,476 --> 0:14:55,256
+bound to introduce code, a bug
+
+594
+00:14:55,256 --> 0:14:55,726
+in the code.
+
+595
+00:14:56,456 --> 0:14:58,176
+So Xcode allows the debugger to
+
+596
+00:14:58,176 --> 0:14:59,406
+be attached to the preview
+
+597
+00:14:59,406 --> 0:15:00,746
+instance in order to seek out
+
+598
+00:14:59,406 --> 0:15:00,746
+instance in order to seek out
+
+599
+00:15:00,746 --> 0:15:01,286
+those bugs.
+
+600
+00:15:01,786 --> 0:15:04,006
+When the debugger is attached,
+
+601
+00:15:04,156 --> 0:15:05,196
+you access to all the great
+
+602
+00:15:05,196 --> 0:15:07,186
+tools, such as debug navigator
+
+603
+00:15:08,046 --> 0:15:09,976
+where you can examine the
+
+604
+00:15:09,976 --> 0:15:11,636
+backtrace.
+
+605
+00:15:11,636 --> 0:15:12,926
+Break points, where you can
+
+606
+00:15:12,926 --> 0:15:13,826
+pause the debugger.
+
+607
+00:15:14,516 --> 0:15:17,216
+Debug bar, where you can search
+
+608
+00:15:17,216 --> 0:15:18,426
+for your process control button,
+
+609
+00:15:18,426 --> 0:15:19,436
+such as stepping controls.
+
+610
+00:15:20,646 --> 0:15:21,846
+And variables view, where you
+
+611
+00:15:21,846 --> 0:15:22,876
+can inspect the state of the
+
+612
+00:15:22,876 --> 0:15:23,926
+process when paused.
+
+613
+00:15:26,356 --> 0:15:27,946
+New in Xcode 11 is going to
+
+614
+00:15:27,946 --> 0:15:29,336
+start showing you Swift UI
+
+615
+00:15:29,336 --> 0:15:30,276
+runtime issues.
+
+616
+00:15:30,846 --> 0:15:33,986
+Now this is part of a new
+
+617
+00:15:33,986 --> 0:15:35,726
+category of issues that are
+
+618
+00:15:35,726 --> 0:15:37,466
+generated by system frameworks,
+
+619
+00:15:37,946 --> 0:15:39,306
+and typically it's related to
+
+620
+00:15:39,566 --> 0:15:41,016
+how their APIs are not used
+
+621
+00:15:41,016 --> 0:15:41,456
+correctly.
+
+622
+00:15:43,596 --> 0:15:46,336
+Xcode will find them when the
+
+623
+00:15:46,336 --> 0:15:49,066
+process is running, and we
+
+624
+00:15:49,116 --> 0:15:49,916
+currently have a couple of
+
+625
+00:15:49,916 --> 0:15:50,426
+frameworks that are
+
+626
+00:15:50,426 --> 0:15:52,326
+participating, and because Swift
+
+627
+00:15:52,326 --> 0:15:53,976
+UI is brand new, it's designed
+
+628
+00:15:53,976 --> 0:15:55,426
+from the get-go to generate
+
+629
+00:15:55,426 --> 0:15:56,206
+these issues for you.
+
+630
+00:15:57,576 --> 0:15:58,726
+These issues do not crash a
+
+631
+00:15:58,726 --> 0:16:00,586
+process, but instead they point
+
+632
+00:15:58,726 --> 0:16:00,586
+process, but instead they point
+
+633
+00:16:00,586 --> 0:16:02,016
+to important bugs that we want
+
+634
+00:16:02,016 --> 0:16:03,716
+you to solve before deploying
+
+635
+00:16:03,716 --> 0:16:04,696
+your app to the app store.
+
+636
+00:16:05,236 --> 0:16:06,556
+To grab your attention, they
+
+637
+00:16:06,556 --> 0:16:08,096
+will show up prominently in
+
+638
+00:16:08,096 --> 0:16:08,446
+Xcode.
+
+639
+00:16:08,506 --> 0:16:10,276
+They will show up as purple
+
+640
+00:16:10,276 --> 0:16:12,766
+icons in the activity viewer and
+
+641
+00:16:12,896 --> 0:16:14,656
+with more details in the issues
+
+642
+00:16:14,656 --> 0:16:15,126
+navigator.
+
+643
+00:16:17,406 --> 0:16:18,846
+Besides previews, these issues
+
+644
+00:16:18,846 --> 0:16:20,396
+are available for all platforms
+
+645
+00:16:20,636 --> 0:16:21,726
+and run destinations.
+
+646
+00:16:22,636 --> 0:16:24,146
+To learn more, let's get
+
+647
+00:16:24,146 --> 0:16:26,436
+straight to demo.
+
+648
+00:16:26,586 --> 0:16:26,876
+All right.
+
+649
+00:16:27,356 --> 0:16:28,426
+This is the project that we have
+
+650
+00:16:28,426 --> 0:16:30,706
+been working on, and the canvas
+
+651
+00:16:30,706 --> 0:16:31,936
+starts off with showing you the
+
+652
+00:16:31,936 --> 0:16:32,666
+static preview.
+
+653
+00:16:36,656 --> 0:16:39,026
+And this preview will show
+
+654
+00:16:39,026 --> 0:16:39,946
+temperature on the right-hand
+
+655
+00:16:39,946 --> 0:16:41,516
+side when data has been fetched.
+
+656
+00:16:42,736 --> 0:16:43,806
+But before that, it you will
+
+657
+00:16:43,806 --> 0:16:44,416
+show the spinner.
+
+658
+00:16:44,816 --> 0:16:47,306
+The presence of the spinner is
+
+659
+00:16:47,306 --> 0:16:48,766
+controlled by a state value
+
+660
+00:16:48,766 --> 0:16:49,496
+called loading.
+
+661
+00:16:50,266 --> 0:16:53,556
+Loading becomes false when data
+
+662
+00:16:53,556 --> 0:16:55,906
+has been fetched, and that's
+
+663
+00:16:55,906 --> 0:16:56,366
+when with the spinner
+
+664
+00:16:56,366 --> 0:16:56,966
+disappears.
+
+665
+00:16:57,766 --> 0:16:59,506
+Pretty simple logic.
+
+666
+00:17:01,036 --> 0:17:02,816
+So to get the live preview, as
+
+667
+00:17:02,816 --> 0:17:03,976
+Chris mentioned, you click on
+
+668
+00:17:03,976 --> 0:17:04,506
+the play button.
+
+669
+00:17:05,566 --> 0:17:06,726
+To get the debugger attached,
+
+670
+00:17:07,616 --> 0:17:08,636
+you can control click to bring
+
+671
+00:17:08,636 --> 0:17:09,726
+up the contextual menu and select
+
+672
+00:17:09,945 --> 0:17:10,955
+debug preview.
+
+673
+00:17:12,266 --> 0:17:14,056
+Now, my QA engineer told me that
+
+674
+00:17:14,056 --> 0:17:15,205
+she has found a bug in which
+
+675
+00:17:15,205 --> 0:17:16,336
+spinner doesn't disappear.
+
+676
+00:17:16,736 --> 0:17:17,986
+So keep an eye, keep your eyes
+
+677
+00:17:17,986 --> 0:17:20,016
+on it while I get the debug
+
+678
+00:17:20,016 --> 0:17:20,556
+session going.
+
+679
+00:17:21,205 --> 0:17:24,116
+What happens now is that Xcode
+
+680
+00:17:24,116 --> 0:17:25,786
+will recompile this particular
+
+681
+00:17:25,786 --> 0:17:28,036
+Swift file with debug info and
+
+682
+00:17:28,036 --> 0:17:29,546
+launch the new preview.
+
+683
+00:17:30,516 --> 0:17:32,856
+You know that the debugger is
+
+684
+00:17:32,856 --> 0:17:33,906
+attached in two ways.
+
+685
+00:17:34,816 --> 0:17:36,936
+First, you can go to the debug
+
+686
+00:17:36,936 --> 0:17:39,366
+navigator and look for it, or
+
+687
+00:17:39,606 --> 0:17:40,616
+you can look for the process
+
+688
+00:17:40,616 --> 0:17:43,176
+control buttons in the debug
+
+689
+00:17:43,176 --> 0:17:43,426
+bar.
+
+690
+00:17:44,646 --> 0:17:46,586
+It looks like we have a debug
+
+691
+00:17:46,586 --> 0:17:48,336
+session going, and in the
+
+692
+00:17:48,336 --> 0:17:49,816
+canvas, we can see that the
+
+693
+00:17:49,816 --> 0:17:51,756
+spinner didn't disappear.
+
+694
+00:17:51,986 --> 0:17:52,496
+So she's right.
+
+695
+00:17:53,536 --> 0:17:54,386
+Let's solve this bug.
+
+696
+00:17:55,646 --> 0:17:57,276
+Under the debugger, we can see
+
+697
+00:17:57,276 --> 0:17:59,666
+that a new runtime issue is
+
+698
+00:17:59,666 --> 0:18:00,676
+showing up in the editor.
+
+699
+00:17:59,666 --> 0:18:00,676
+showing up in the editor.
+
+700
+00:18:00,676 --> 0:18:02,666
+We can click on the annotation,
+
+701
+00:18:03,116 --> 0:18:05,106
+and it will show you a message.
+
+702
+00:18:05,646 --> 0:18:07,296
+Says here modifying state during
+
+703
+00:18:07,296 --> 0:18:07,906
+view update.
+
+704
+00:18:08,896 --> 0:18:10,606
+This will cause undefined
+
+705
+00:18:10,676 --> 0:18:11,156
+behavior.
+
+706
+00:18:11,606 --> 0:18:12,826
+Now that's quite a mouthful, so
+
+707
+00:18:12,826 --> 0:18:14,506
+let me explain that.
+
+708
+00:18:15,536 --> 0:18:17,136
+The body property retains a 
+
+709
+00:18:17,756 --> 0:18:19,126
+view hierarchy that will be
+
+710
+00:18:19,126 --> 0:18:19,696
+shown later.
+
+711
+00:18:20,806 --> 0:18:22,116
+The framework will ask for the
+
+712
+00:18:22,116 --> 0:18:23,896
+body property whenever it thinks
+
+713
+00:18:23,896 --> 0:18:25,006
+that the views need to be
+
+714
+00:18:25,006 --> 0:18:25,416
+updated.
+
+715
+00:18:25,976 --> 0:18:27,746
+So you have no control over when
+
+716
+00:18:28,116 --> 0:18:29,486
+or how many times it's going to
+
+717
+00:18:29,486 --> 0:18:30,006
+be asked.
+
+718
+00:18:30,756 --> 0:18:32,416
+Thus there's no context, there's
+
+719
+00:18:32,416 --> 0:18:33,756
+absolutely no context for you to
+
+720
+00:18:33,756 --> 0:18:35,356
+make a decision on how to change
+
+721
+00:18:35,356 --> 0:18:36,016
+the state value.
+
+722
+00:18:37,376 --> 0:18:39,296
+Luckily for us, its loading can
+
+723
+00:18:39,296 --> 0:18:40,916
+be changed at a better place,
+
+724
+00:18:41,346 --> 0:18:42,616
+which is at the callback of the
+
+725
+00:18:42,616 --> 0:18:43,286
+weather fetcher.
+
+726
+00:18:46,066 --> 0:18:47,266
+On line 47.
+
+727
+00:18:47,626 --> 0:18:49,126
+So, I'm going to move this chunk
+
+728
+00:18:49,126 --> 0:18:54,696
+of code to line 47, but you will
+
+729
+00:18:54,696 --> 0:18:56,176
+see that Xcode notices source
+
+730
+00:18:56,176 --> 0:18:57,606
+code added changes and will
+
+731
+00:18:57,606 --> 0:18:59,276
+automatically try to launch a
+
+732
+00:18:59,276 --> 0:18:59,946
+new preview.
+
+733
+00:19:00,346 --> 0:19:01,556
+So, again, keep your eye on the
+
+734
+00:19:01,556 --> 0:19:02,776
+spinner in case I'm doing it too
+
+735
+00:19:02,776 --> 0:19:02,976
+slow.
+
+736
+00:19:12,326 --> 0:19:13,246
+So here's the spinner.
+
+737
+00:19:14,176 --> 0:19:15,356
+Data is fetched.
+
+738
+00:19:16,266 --> 0:19:17,676
+Oh wait, debugger session has to
+
+739
+00:19:17,676 --> 0:19:18,006
+come in.
+
+740
+00:19:18,926 --> 0:19:19,446
+Here's the spinner.
+
+741
+00:19:20,006 --> 0:19:20,716
+It's fetching the data.
+
+742
+00:19:21,656 --> 0:19:22,836
+The data comes in, spinner
+
+743
+00:19:22,836 --> 0:19:23,446
+disappears.
+
+744
+00:19:23,776 --> 0:19:24,926
+So bug is number one solved.
+
+745
+00:19:25,516 --> 0:19:29,606
+[ Applause ]
+
+746
+00:19:30,106 --> 0:19:31,676
+To stop the debug session, you
+
+747
+00:19:31,676 --> 0:19:32,796
+go back to the same place where
+
+748
+00:19:32,796 --> 0:19:34,276
+you started it and click on the
+
+749
+00:19:34,616 --> 0:19:35,296
+stop button.
+
+750
+00:19:36,716 --> 0:19:38,366
+So my ever diligent QA engineer
+
+751
+00:19:38,366 --> 0:19:39,616
+told me that she also has a
+
+752
+00:19:39,616 --> 0:19:40,816
+different bug for me, and this
+
+753
+00:19:40,816 --> 0:19:41,906
+time it's with a different view.
+
+754
+00:19:42,256 --> 0:19:44,166
+It's called a plain details
+
+755
+00:19:45,786 --> 0:19:45,896
+view.
+
+756
+00:19:46,076 --> 0:19:47,586
+So let me show it.
+
+757
+00:19:48,706 --> 0:19:50,176
+And I'll get the debug session
+
+758
+00:19:50,176 --> 0:19:51,456
+going while I describe the
+
+759
+00:19:51,456 --> 0:19:52,086
+situation.
+
+760
+00:19:55,526 --> 0:19:56,726
+So we have a header here at the
+
+761
+00:19:56,726 --> 0:19:58,766
+top, and the design here is for
+
+762
+00:19:58,766 --> 0:20:00,196
+it to get slightly bigger, when
+
+763
+00:19:58,766 --> 0:20:00,196
+it to get slightly bigger, when
+
+764
+00:20:00,446 --> 0:20:01,766
+I do a pull down on the screen.
+
+765
+00:20:02,276 --> 0:20:03,616
+This is to help folks like me
+
+766
+00:20:03,616 --> 0:20:04,096
+see better.
+
+767
+00:20:04,526 --> 0:20:05,676
+So, it looks like we have a
+
+768
+00:20:05,676 --> 0:20:06,836
+debug session, so let me try it
+
+769
+00:20:07,696 --> 0:20:07,766
+out.
+
+770
+00:20:09,276 --> 0:20:10,496
+So it does get bigger, that's
+
+771
+00:20:10,496 --> 0:20:10,696
+good.
+
+772
+00:20:10,696 --> 0:20:12,776
+And at some point it suddenly
+
+773
+00:20:12,776 --> 0:20:13,396
+disappears.
+
+774
+00:20:13,806 --> 0:20:15,176
+So this must be the bug she's
+
+775
+00:20:15,176 --> 0:20:15,856
+referring to.
+
+776
+00:20:17,156 --> 0:20:19,036
+And then over here I'd noticed
+
+777
+00:20:19,036 --> 0:20:20,786
+that a purple icon popped up in
+
+778
+00:20:20,786 --> 0:20:22,316
+the activity viewer.
+
+779
+00:20:23,496 --> 0:20:25,206
+So, I'm going to click on that,
+
+780
+00:20:25,246 --> 0:20:26,256
+and that should bring me to the
+
+781
+00:20:26,256 --> 0:20:27,886
+issues navigator where it says
+
+782
+00:20:28,536 --> 0:20:30,356
+cannot invert singular matrix.
+
+783
+00:20:30,976 --> 0:20:32,736
+Hmm. For those of us who
+
+784
+00:20:32,736 --> 0:20:33,536
+breathe CGAffine transform daily, you know
+
+785
+00:20:33,536 --> 0:20:35,966
+exactly what this means.
+
+786
+00:20:37,016 --> 0:20:38,366
+For the rest of us, here's a
+
+787
+00:20:38,366 --> 0:20:39,486
+two-hour lecture on high school
+
+788
+00:20:39,486 --> 0:20:40,236
+linear algebra.
+
+789
+00:20:41,566 --> 0:20:43,106
+And there's my math PhD friend
+
+790
+00:20:43,106 --> 0:20:45,306
+pumping his fist, but no, let's
+
+791
+00:20:45,306 --> 0:20:45,756
+not do that.
+
+792
+00:20:45,756 --> 0:20:47,186
+But here's a very brief
+
+793
+00:20:47,186 --> 0:20:47,866
+explanation.
+
+794
+00:20:48,726 --> 0:20:50,236
+Getting the inverse of a matrix
+
+795
+00:20:50,236 --> 0:20:51,486
+is akin to doing some math
+
+796
+00:20:51,546 --> 0:20:51,996
+division.
+
+797
+00:20:52,456 --> 0:20:53,856
+Now math division you guys all
+
+798
+00:20:53,856 --> 0:20:54,106
+know.
+
+799
+00:20:54,206 --> 0:20:55,606
+There are some values that are
+
+800
+00:20:55,606 --> 0:20:56,646
+simply not possible.
+
+801
+00:20:57,596 --> 0:21:00,206
+So, we'll see why in a little
+
+802
+00:20:57,596 --> 0:21:00,206
+So, we'll see why in a little
+
+803
+00:21:00,206 --> 0:21:01,676
+bit, but for now let me draw
+
+804
+00:21:01,676 --> 0:21:04,186
+your attention to another piece
+
+805
+00:21:04,186 --> 0:21:06,446
+of data in the issues navigator,
+
+806
+00:21:06,546 --> 0:21:07,786
+which is the recorder backtrace
+
+807
+00:21:07,926 --> 0:21:08,986
+generated by the debugger.
+
+808
+00:21:09,816 --> 0:21:12,576
+You disclose that, you will see
+
+809
+00:21:12,576 --> 0:21:14,286
+backtrace and then there will be
+
+810
+00:21:14,286 --> 0:21:15,546
+a frame with your debug symbol,
+
+811
+00:21:15,686 --> 0:21:16,646
+which is frame number one.
+
+812
+00:21:17,336 --> 0:21:18,666
+You select that, it will
+
+813
+00:21:18,666 --> 0:21:19,836
+navigate you to the following
+
+814
+00:21:19,836 --> 0:21:21,836
+line where the issue is
+
+815
+00:21:22,016 --> 0:21:22,536
+generated.
+
+816
+00:21:22,536 --> 0:21:23,976
+But in this case, knowing where
+
+817
+00:21:23,976 --> 0:21:25,976
+is less important than how or
+
+818
+00:21:25,976 --> 0:21:26,366
+when.
+
+819
+00:21:27,166 --> 0:21:28,376
+And typically to do that, we
+
+820
+00:21:28,376 --> 0:21:29,506
+need to pause in the debugger,
+
+821
+00:21:30,106 --> 0:21:31,326
+and then you can inspect the
+
+822
+00:21:31,326 --> 0:21:32,286
+state of the process.
+
+823
+00:21:32,326 --> 0:21:33,676
+Now you guys probably know what
+
+824
+00:21:33,676 --> 0:21:34,816
+tool I'm going to use to hunt
+
+825
+00:21:34,816 --> 0:21:35,516
+down these bugs.
+
+826
+00:21:36,506 --> 0:21:37,336
+Yes, break points.
+
+827
+00:21:38,166 --> 0:21:39,706
+I can simply put a final break
+
+828
+00:21:39,706 --> 0:21:44,286
+point in line 44, but guess
+
+829
+00:21:44,286 --> 0:21:44,856
+what?
+
+830
+00:21:45,786 --> 0:21:47,106
+It's going to be hit many times
+
+831
+00:21:47,106 --> 0:21:48,246
+when I do the pull down, so it's
+
+832
+00:21:48,246 --> 0:21:49,306
+going to be less effective.
+
+833
+00:21:49,306 --> 0:21:50,656
+So, let's not do that.
+
+834
+00:21:51,946 --> 0:21:53,366
+Instead, let's head over to the
+
+835
+00:21:53,896 --> 0:21:57,866
+break points navigator and click
+
+836
+00:21:57,866 --> 0:22:00,376
+on the add button.
+
+837
+00:21:57,866 --> 0:22:00,376
+on the add button.
+
+838
+00:22:00,526 --> 0:22:01,586
+Where in Xcode 11 we have
+
+839
+00:22:01,586 --> 0:22:02,676
+introduced a new breakpoint
+
+840
+00:22:02,676 --> 0:22:04,326
+called runtime issue breakpoint,
+
+841
+00:22:04,486 --> 0:22:05,216
+let's add that.
+
+842
+00:22:06,486 --> 0:22:08,646
+We'll leave the target
+
+843
+00:22:08,646 --> 0:22:09,536
+system frameworks.
+
+844
+00:22:10,906 --> 0:22:11,916
+Now, during the demo I like to
+
+845
+00:22:11,916 --> 0:22:13,036
+introduce tips and tricks that
+
+846
+00:22:13,036 --> 0:22:14,526
+will make your workflow more
+
+847
+00:22:14,526 --> 0:22:14,926
+productive.
+
+848
+00:22:15,286 --> 0:22:16,066
+Here's another good one.
+
+849
+00:22:16,756 --> 0:22:18,786
+If you ever have a need to stop
+
+850
+00:22:18,786 --> 0:22:19,976
+and restart your preview, you
+
+851
+00:22:20,316 --> 0:22:21,946
+can use the appropriately named
+
+852
+00:22:22,446 --> 0:22:24,536
+refresh shortcut under the
+
+853
+00:22:24,536 --> 0:22:25,126
+editor menu.
+
+854
+00:22:25,576 --> 0:22:26,966
+Let's try that.
+
+855
+00:22:29,456 --> 0:22:31,786
+So we have a new preview with a
+
+856
+00:22:31,786 --> 0:22:32,596
+debugger attached.
+
+857
+00:22:33,226 --> 0:22:34,566
+The Xcode will always remember
+
+858
+00:22:34,566 --> 0:22:35,826
+your previous configuration.
+
+859
+00:22:36,106 --> 0:22:38,596
+So if you use the debugger, the
+
+860
+00:22:38,596 --> 0:22:39,876
+debugger will be attached to the
+
+861
+00:22:39,876 --> 0:22:40,726
+new preview session.
+
+862
+00:22:41,546 --> 0:22:43,046
+So, I'm going to do a pulldown.
+
+863
+00:22:43,286 --> 0:22:44,006
+If I'm lucky, I'll hit the
+
+864
+00:22:44,006 --> 0:22:44,466
+breakpoint.
+
+865
+00:22:44,936 --> 0:22:45,366
+There we go.
+
+866
+00:22:45,426 --> 0:22:47,686
+And Xcode conveniently brings up
+
+867
+00:22:47,686 --> 0:22:48,916
+the variables view.
+
+868
+00:22:49,056 --> 0:22:51,086
+Now we know there's something
+
+869
+00:22:51,086 --> 0:22:52,226
+wrong with our skill transform,
+
+870
+00:22:52,666 --> 0:22:53,906
+so I'm going to twist it open
+
+871
+00:22:53,906 --> 0:22:55,206
+and look at the matrix.
+
+872
+00:22:57,586 --> 0:22:58,996
+M11 is the value that we're
+
+873
+00:22:58,996 --> 0:23:01,476
+using for X scaling.
+
+874
+00:22:58,996 --> 0:23:01,476
+using for X scaling.
+
+875
+00:23:01,476 --> 0:23:02,396
+We're not doing anything with
+
+876
+00:23:02,396 --> 0:23:03,236
+it, so we're keeping it at a
+
+877
+00:23:03,236 --> 0:23:03,876
+constant one.
+
+878
+00:23:05,296 --> 0:23:07,146
+M22 is the value that we are
+
+879
+00:23:07,146 --> 0:23:08,986
+using for Y scaling, and when
+
+880
+00:23:08,986 --> 0:23:10,526
+this value gets to 0, the math
+
+881
+00:23:10,576 --> 0:23:12,196
+formula for getting the inverse
+
+882
+00:23:12,756 --> 0:23:14,656
+just doesn't work, right.
+
+883
+00:23:15,056 --> 0:23:19,786
+Yeah. So, now we know why the
+
+884
+00:23:19,786 --> 0:23:22,196
+issue is generated, and let's
+
+885
+00:23:22,226 --> 0:23:24,206
+get up in the code to see where
+
+886
+00:23:24,206 --> 0:23:26,306
+I assign the value to be 0, for
+
+887
+00:23:26,306 --> 0:23:27,446
+the Y scaling to be 0.
+
+888
+00:23:27,686 --> 0:23:28,496
+It looks like it's this line
+
+889
+00:23:28,496 --> 0:23:28,876
+right here.
+
+890
+00:23:29,266 --> 0:23:29,836
+Now fix it.
+
+891
+00:23:30,536 --> 0:23:31,346
+And while I'm here, I'll make
+
+892
+00:23:31,346 --> 0:23:33,006
+the code more succinct.
+
+893
+00:23:35,246 --> 0:23:35,716
+Oops.
+
+894
+00:23:37,936 --> 0:23:38,506
+All right.
+
+895
+00:23:38,506 --> 0:23:41,446
+I will close the debug area.
+
+896
+00:23:42,256 --> 0:23:46,106
+All right, let me try it now and
+
+897
+00:23:46,106 --> 0:23:47,716
+get-- okay, it gets bigger, and
+
+898
+00:23:48,236 --> 0:23:48,806
+it sticks.
+
+899
+00:23:49,406 --> 0:23:51,616
+Good. Bug number two solved, and
+
+900
+00:23:51,736 --> 0:23:52,716
+that actually marks the end of
+
+901
+00:23:52,716 --> 0:23:52,976
+my demo.
+
+902
+00:23:53,516 --> 0:23:57,500
+[ Applause ]
+
+903
+00:24:01,766 --> 0:24:04,376
+So, when you are debugging live
+
+904
+00:24:04,416 --> 0:24:05,706
+previews, there are three things
+
+905
+00:24:05,706 --> 0:24:08,066
+that can be different compared
+
+906
+00:24:08,066 --> 0:24:08,946
+to when you are doing regular
+
+907
+00:24:08,946 --> 0:24:09,456
+debugging.
+
+908
+00:24:09,846 --> 0:24:12,146
+First, you use the contextual
+
+909
+00:24:12,146 --> 0:24:14,356
+manual of the play button in the
+
+910
+00:24:14,356 --> 0:24:17,046
+canvas to start you debug
+
+911
+00:24:17,046 --> 0:24:17,406
+session.
+
+912
+00:24:17,826 --> 0:24:19,246
+To stop it, you click on the
+
+913
+00:24:19,246 --> 0:24:19,776
+same button.
+
+914
+00:24:20,466 --> 0:24:23,136
+And you guys saw that Xcode
+
+915
+00:24:23,166 --> 0:24:24,536
+automatically notices source
+
+916
+00:24:24,536 --> 0:24:26,286
+code added changes and then
+
+917
+00:24:26,286 --> 0:24:28,806
+tries to launch a preview, a new
+
+918
+00:24:28,806 --> 0:24:29,506
+preview for you.
+
+919
+00:24:29,716 --> 0:24:31,296
+This happens with or without the
+
+920
+00:24:31,296 --> 0:24:31,776
+debugger.
+
+921
+00:24:32,336 --> 0:24:33,626
+But with the debugger, there
+
+922
+00:24:33,966 --> 0:24:35,266
+will be a new debug session.
+
+923
+00:24:35,906 --> 0:24:37,336
+So, if you want to keep the same
+
+924
+00:24:37,336 --> 0:24:38,736
+debug session associated with
+
+925
+00:24:38,736 --> 0:24:40,656
+the same file in the editor, do
+
+926
+00:24:40,656 --> 0:24:42,046
+not change that file.
+
+927
+00:24:42,376 --> 0:24:43,936
+To view a different file, you
+
+928
+00:24:43,936 --> 0:24:45,306
+use a different pane, a
+
+929
+00:24:45,306 --> 0:24:46,486
+different tab, or a different
+
+930
+00:24:46,486 --> 0:24:46,836
+window.
+
+931
+00:24:46,906 --> 0:24:48,756
+So Sebastian will show the
+
+932
+00:24:48,796 --> 0:24:49,706
+workflow in a little bit.
+
+933
+00:24:54,556 --> 0:24:55,106
+All right.
+
+934
+00:24:55,176 --> 0:24:56,946
+For my demo, we learned that
+
+935
+00:24:56,946 --> 0:24:58,186
+when you are debugging live
+
+936
+00:24:58,236 --> 0:24:59,606
+previews, you have access to all
+
+937
+00:24:59,606 --> 0:25:00,676
+the great tools that you are so
+
+938
+00:24:59,606 --> 0:25:00,676
+the great tools that you are so
+
+939
+00:25:00,676 --> 0:25:02,526
+used to, but to be more
+
+940
+00:25:02,526 --> 0:25:04,376
+productive, you want to leverage
+
+941
+00:25:04,376 --> 0:25:05,556
+on the workflows that we have
+
+942
+00:25:05,556 --> 0:25:06,856
+designed especially for
+
+943
+00:25:06,856 --> 0:25:07,496
+previews.
+
+944
+00:25:08,406 --> 0:25:10,616
+And pay attention to those Swift
+
+945
+00:25:10,616 --> 0:25:12,306
+UI runtime issues, because they
+
+946
+00:25:12,306 --> 0:25:14,776
+do point to real bugs and make
+
+947
+00:25:14,776 --> 0:25:16,676
+use of the runtime issue
+
+948
+00:25:16,676 --> 0:25:17,936
+breakpoint to help you with the
+
+949
+00:25:17,936 --> 0:25:18,376
+debugging.
+
+950
+00:25:18,376 --> 0:25:20,436
+And I've shown you several ways
+
+951
+00:25:20,436 --> 0:25:22,786
+to do debugging, but sometimes
+
+952
+00:25:22,786 --> 0:25:24,056
+you just need to do it visually,
+
+953
+00:25:24,976 --> 0:25:26,006
+and to do that, let's bring out
+
+954
+00:25:26,006 --> 0:25:26,506
+Sebastian.
+
+955
+00:25:27,516 --> 0:25:31,826
+[ Applause ]
+
+956
+00:25:32,326 --> 0:25:32,976
+&gt;&gt; Thank you Han Ming.
+
+957
+00:25:34,066 --> 0:25:36,226
+We will indeed take a look at
+
+958
+00:25:36,416 --> 0:25:37,406
+debugging Swift UI View
+
+959
+00:25:37,406 --> 0:25:39,816
+hierarchies in a demo, but
+
+960
+00:25:39,816 --> 0:25:41,246
+before we do so, let's take a
+
+961
+00:25:41,246 --> 0:25:43,036
+look at a couple characteristics
+
+962
+00:25:43,036 --> 0:25:44,626
+of Swift UI and key differences
+
+963
+00:25:44,626 --> 0:25:46,006
+between Swift UI and traditional
+
+964
+00:25:46,006 --> 0:25:47,426
+UI frameworks like AppKit and
+
+965
+00:25:47,426 --> 0:25:49,186
+UIKit and see how that may
+
+966
+00:25:49,186 --> 0:25:50,536
+impact your debugging workflows.
+
+967
+00:25:51,816 --> 0:25:54,066
+First of all, Swift UI makes use
+
+968
+00:25:54,066 --> 0:25:55,206
+of a declarative API.
+
+969
+00:25:55,206 --> 0:25:56,716
+That means, instead of
+
+970
+00:25:56,896 --> 0:25:58,216
+initializing the views that will
+
+971
+00:25:58,216 --> 0:25:59,856
+be presented at runtime yourself
+
+972
+00:25:59,856 --> 0:26:01,246
+and your own source code, you
+
+973
+00:25:59,856 --> 0:26:01,246
+and your own source code, you
+
+974
+00:26:01,246 --> 0:26:02,436
+provide a recipe of your view
+
+975
+00:26:02,436 --> 0:26:03,866
+hierarchy, and the framework
+
+976
+00:26:03,986 --> 0:26:05,676
+constructs your views and keeps
+
+977
+00:26:05,676 --> 0:26:06,546
+them up to date for you at
+
+978
+00:26:06,546 --> 0:26:06,866
+runtime.
+
+979
+00:26:08,236 --> 0:26:09,866
+Swift UI embraces composition
+
+980
+00:26:09,866 --> 0:26:11,306
+and lightweight modifiers over
+
+981
+00:26:11,306 --> 0:26:13,806
+complex view types, so views
+
+982
+00:26:13,806 --> 0:26:14,926
+that you may be inspecting at
+
+983
+00:26:14,926 --> 0:26:16,226
+runtime have a lot less
+
+984
+00:26:16,296 --> 0:26:17,496
+properties to inspect.
+
+985
+00:26:18,926 --> 0:26:20,636
+Views in Swift UI are value
+
+986
+00:26:20,636 --> 0:26:20,946
+types.
+
+987
+00:26:20,946 --> 0:26:22,616
+That means debugging workflows
+
+988
+00:26:22,656 --> 0:26:24,276
+that rely on references to views
+
+989
+00:26:24,276 --> 0:26:25,476
+may not be applicable anymore,
+
+990
+00:26:26,616 --> 0:26:28,236
+and at runtimes, Swift UI may
+
+991
+00:26:28,236 --> 0:26:29,606
+translate certain views that you
+
+992
+00:26:29,606 --> 0:26:31,446
+use in your code and to platform
+
+993
+00:26:31,446 --> 0:26:33,226
+specific UIKit and AppKit views,
+
+994
+00:26:33,876 --> 0:26:34,956
+and we will see an example of
+
+995
+00:26:34,956 --> 0:26:37,716
+that later in the demo.
+
+996
+00:26:37,906 --> 0:26:39,546
+Swift UI also mixes very well
+
+997
+00:26:39,546 --> 0:26:41,626
+with existing framework views
+
+998
+00:26:41,886 --> 0:26:44,306
+from your UIKit or AppKit, and
+
+999
+00:26:44,396 --> 0:26:45,466
+the travel app that you saw
+
+1000
+00:26:45,466 --> 0:26:46,496
+earlier actually makes use of
+
+1001
+00:26:46,496 --> 0:26:48,916
+exactly that concept to mix a
+
+1002
+00:26:48,916 --> 0:26:50,796
+UIKit view with the Swift UI
+
+1003
+00:26:50,876 --> 0:26:53,176
+views, which are the main views
+
+1004
+00:26:53,176 --> 0:26:54,776
+used in that application.
+
+1005
+00:26:56,446 --> 0:26:58,056
+With these aspects in mind,
+
+1006
+00:26:58,196 --> 0:26:59,426
+let's switch to the demo machine
+
+1007
+00:26:59,426 --> 0:27:00,596
+and take a look at inspecting
+
+1008
+00:26:59,426 --> 0:27:00,596
+and take a look at inspecting
+
+1009
+00:27:00,596 --> 0:27:01,856
+the view hierarchy of our
+
+1010
+00:27:01,856 --> 0:27:03,016
+profile screen of the travel
+
+1011
+00:27:03,016 --> 0:27:03,126
+app.
+
+1012
+00:27:05,906 --> 0:27:06,186
+[applause] Thank you.
+
+1013
+00:27:07,296 --> 0:27:08,576
+And we're debugging the profile
+
+1014
+00:27:08,576 --> 0:27:09,726
+view of the travel app again,
+
+1015
+00:27:09,976 --> 0:27:11,706
+and we're already in debug mode
+
+1016
+00:27:11,756 --> 0:27:11,936
+here.
+
+1017
+00:27:12,046 --> 0:27:13,366
+And let me resize the inspector
+
+1018
+00:27:13,366 --> 0:27:14,666
+a little bit.
+
+1019
+00:27:15,396 --> 0:27:16,906
+To inspect the view hierarchy,
+
+1020
+00:27:17,376 --> 0:27:18,716
+we can use this button down here
+
+1021
+00:27:18,716 --> 0:27:20,456
+in Xcode's debug bar to debug
+
+1022
+00:27:20,626 --> 0:27:21,266
+view hierarchy.
+
+1023
+00:27:21,956 --> 0:27:22,836
+And as Han Ming mentioned
+
+1024
+00:27:22,836 --> 0:27:24,126
+earlier, we have to ensure that
+
+1025
+00:27:24,276 --> 0:27:25,646
+the preview stays open while
+
+1026
+00:27:25,646 --> 0:27:26,766
+we're debugging since the debug
+
+1027
+00:27:26,766 --> 0:27:28,206
+session is tied to the lifetime
+
+1028
+00:27:28,206 --> 0:27:28,796
+of the preview.
+
+1029
+00:27:29,396 --> 0:27:31,066
+We can do so using the new
+
+1030
+00:27:31,066 --> 0:27:32,696
+editor split feature in Xcode 11
+
+1031
+00:27:33,006 --> 0:27:34,676
+by holding down option while we
+
+1032
+00:27:34,676 --> 0:27:36,436
+click the debug view hierarchy
+
+1033
+00:27:36,436 --> 0:27:37,716
+button in Xcode's debug bar.
+
+1034
+00:27:37,786 --> 0:27:39,106
+That will open up the view debug
+
+1035
+00:27:39,106 --> 0:27:40,746
+canvas in a separate editor
+
+1036
+00:27:40,746 --> 0:27:42,236
+split, and we have access to the
+
+1037
+00:27:42,236 --> 0:27:44,236
+source code on the top left, the
+
+1038
+00:27:44,236 --> 0:27:45,886
+preview on the bottom left, and
+
+1039
+00:27:45,886 --> 0:27:47,846
+the view debug canvas on the
+
+1040
+00:27:47,846 --> 0:27:48,456
+right-hand side.
+
+1041
+00:27:49,391 --> 0:27:51,391
+[Applause]
+
+1042
+00:27:51,766 --> 0:27:52,206
+Thank you.
+
+1043
+00:27:53,976 --> 0:27:55,146
+If you've used the view debugger
+
+1044
+00:27:55,146 --> 0:27:56,526
+before, this is very familiar to
+
+1045
+00:27:56,526 --> 0:27:56,776
+you.
+
+1046
+00:27:57,286 --> 0:27:58,756
+You have a canvas areas where
+
+1047
+00:27:58,756 --> 0:27:59,936
+you can inspect all your views.
+
+1048
+00:28:00,196 --> 0:28:01,806
+You can export in 3D by simply
+
+1049
+00:28:01,806 --> 0:28:03,016
+rotating, so you get a good
+
+1050
+00:28:03,016 --> 0:28:05,096
+overview of your views, and you
+
+1051
+00:28:05,096 --> 0:28:06,526
+can select elements and see
+
+1052
+00:28:06,526 --> 0:28:07,476
+inspect the properties on the
+
+1053
+00:28:07,476 --> 0:28:08,076
+right-hand side.
+
+1054
+00:28:08,926 --> 0:28:09,956
+The navigator on the left-hand
+
+1055
+00:28:09,956 --> 0:28:10,816
+side has an outline
+
+1056
+00:28:10,816 --> 0:28:11,756
+representation of your view
+
+1057
+00:28:11,756 --> 0:28:12,926
+hierarchy so you can orient
+
+1058
+00:28:13,456 --> 0:28:14,816
+yourself relative to subviews
+
+1059
+00:28:14,816 --> 0:28:15,376
+and superviews.
+
+1060
+00:28:17,046 --> 0:28:18,306
+Okay. So, as I mentioned
+
+1061
+00:28:18,306 --> 0:28:19,726
+earlier, this profile view
+
+1062
+00:28:19,936 --> 0:28:23,106
+combines UIKit and Swift UI, and
+
+1063
+00:28:23,196 --> 0:28:24,396
+looking at the implementation,
+
+1064
+00:28:24,866 --> 0:28:27,936
+you can see that it returns a
+
+1065
+00:28:27,936 --> 0:28:29,466
+vertical stack as part of its
+
+1066
+00:28:29,506 --> 0:28:32,216
+body, which includes avatar view
+
+1067
+00:28:32,216 --> 0:28:33,476
+controller view here, and that
+
+1068
+00:28:33,686 --> 0:28:35,026
+view simply loads a UI view
+
+1069
+00:28:35,026 --> 0:28:36,386
+control from a storyboard file,
+
+1070
+00:28:37,156 --> 0:28:38,656
+and below that, it instantiates
+
+1071
+00:28:38,656 --> 0:28:38,926
+a list.
+
+1072
+00:28:39,766 --> 0:28:41,126
+What that means, the top part
+
+1073
+00:28:41,286 --> 0:28:42,836
+here is built up using UIKit,
+
+1074
+00:28:42,946 --> 0:28:44,446
+and the bottom part is built up
+
+1075
+00:28:44,646 --> 0:28:46,176
+using a list with Swift UI.
+
+1076
+00:28:48,426 --> 0:28:49,436
+The first part of this demo, I
+
+1077
+00:28:49,436 --> 0:28:51,166
+want to focus on the UI Kit part
+
+1078
+00:28:51,166 --> 0:28:52,186
+of the view hierarchy, and then
+
+1079
+00:28:52,186 --> 0:28:53,466
+the second part will focus on
+
+1080
+00:28:53,466 --> 0:28:54,146
+the Swift UI part.
+
+1081
+00:28:55,666 --> 0:28:57,226
+New in Xcode 11 is support for
+
+1082
+00:28:57,226 --> 0:28:58,966
+UI Window Scene, which is a
+
+1083
+00:28:58,966 --> 0:29:01,266
+concept used for multiwindow
+
+1084
+00:28:58,966 --> 0:29:01,266
+concept used for multiwindow
+
+1085
+00:29:01,266 --> 0:29:02,756
+support and UIKit apps in iOS
+
+1086
+00:29:02,826 --> 0:29:04,676
+13, and you can see how all UI
+
+1087
+00:29:04,676 --> 0:29:07,566
+windows are now listed below
+
+1088
+00:29:07,566 --> 0:29:08,736
+owning windows scene.
+
+1089
+00:29:09,076 --> 0:29:10,856
+So once you add multiwindow
+
+1090
+00:29:10,856 --> 0:29:12,396
+support in your iOS app, it's
+
+1091
+00:29:12,396 --> 0:29:13,616
+very handy to look out for these
+
+1092
+00:29:13,616 --> 0:29:14,956
+window scenes, and when you
+
+1093
+00:29:15,016 --> 0:29:16,576
+select one in the navigator, you
+
+1094
+00:29:16,576 --> 0:29:17,766
+can also inspect their
+
+1095
+00:29:17,766 --> 0:29:19,296
+properties, for example, see the
+
+1096
+00:29:19,296 --> 0:29:21,006
+title and the activation state
+
+1097
+00:29:21,006 --> 0:29:21,646
+in the inspector.
+
+1098
+00:29:23,276 --> 0:29:25,696
+Another new feature in iOS 13 is
+
+1099
+00:29:25,736 --> 0:29:28,786
+dark mode, and there are several
+
+1100
+00:29:29,066 --> 0:29:30,766
+ways where we enhance the view
+
+1101
+00:29:30,766 --> 0:29:32,236
+debugger this year to help you
+
+1102
+00:29:32,276 --> 0:29:33,176
+add support in your own
+
+1103
+00:29:33,176 --> 0:29:33,746
+application.
+
+1104
+00:29:34,746 --> 0:29:36,056
+First of all, when you select a
+
+1105
+00:29:36,056 --> 0:29:37,536
+UI view or UI view controller,
+
+1106
+00:29:37,986 --> 0:29:39,086
+we now show you trade collection
+
+1107
+00:29:39,086 --> 0:29:40,286
+information in the inspector,
+
+1108
+00:29:40,286 --> 0:29:41,486
+such as the interface style, so
+
+1109
+00:29:41,486 --> 0:29:43,086
+you can ensure that the
+
+1110
+00:29:43,086 --> 0:29:44,996
+interface style is as expected,
+
+1111
+00:29:45,246 --> 0:29:46,196
+and when you override the
+
+1112
+00:29:46,196 --> 0:29:47,326
+interface style for certain
+
+1113
+00:29:47,386 --> 0:29:48,706
+subparts of your view hierarchy,
+
+1114
+00:29:49,096 --> 0:29:50,886
+you can debug it right from the
+
+1115
+00:29:50,886 --> 0:29:51,276
+view debugger.
+
+1116
+00:29:52,936 --> 0:29:54,436
+Another key feature of dark mode
+
+1117
+00:29:54,546 --> 0:29:56,376
+are dynamic colors that adapt to
+
+1118
+00:29:56,376 --> 0:29:57,936
+appearance changes, and a good
+
+1119
+00:29:57,936 --> 0:29:59,356
+way to do that is using
+
+1120
+00:29:59,356 --> 0:30:00,486
+asset catalog and name
+
+1121
+00:29:59,356 --> 0:30:00,486
+asset catalog and name
+
+1122
+00:30:00,486 --> 0:30:00,886
+colors.
+
+1123
+00:30:01,536 --> 0:30:02,686
+And when we select this badge
+
+1124
+00:30:02,686 --> 0:30:04,016
+here, you can see that it's
+
+1125
+00:30:04,016 --> 0:30:06,426
+achieving its orange tint with a
+
+1126
+00:30:06,426 --> 0:30:08,246
+named color, the accent color,
+
+1127
+00:30:08,246 --> 0:30:09,316
+which is coming from an accent
+
+1128
+00:30:09,356 --> 0:30:10,686
+catalog, so it's now very easy
+
+1129
+00:30:10,716 --> 0:30:12,866
+to tell whether a color is a
+
+1130
+00:30:12,866 --> 0:30:14,056
+name color coming from an accent
+
+1131
+00:30:14,056 --> 0:30:15,336
+catalog that can dynamically
+
+1132
+00:30:15,336 --> 0:30:16,756
+adapt to appearance changes or
+
+1133
+00:30:16,756 --> 0:30:17,956
+whether it's a hard-coded color
+
+1134
+00:30:17,956 --> 0:30:19,276
+that cannot adapt to appearance
+
+1135
+00:30:19,276 --> 0:30:19,556
+changes.
+
+1136
+00:30:20,456 --> 0:30:21,816
+Another new feature are symbol
+
+1137
+00:30:21,816 --> 0:30:24,276
+images, and this badge actually
+
+1138
+00:30:24,446 --> 0:30:25,666
+makes use of a symbol image.
+
+1139
+00:30:26,136 --> 0:30:27,316
+When I just go up a little bit
+
+1140
+00:30:27,316 --> 0:30:28,776
+in this inspector, you can see
+
+1141
+00:30:28,776 --> 0:30:30,156
+details about the symbol image
+
+1142
+00:30:30,216 --> 0:30:30,816
+in the inspector.
+
+1143
+00:30:31,306 --> 0:30:32,866
+We now show names for all images
+
+1144
+00:30:33,206 --> 0:30:34,186
+that you select in the
+
+1145
+00:30:34,186 --> 0:30:35,826
+inspector, and you can get
+
+1146
+00:30:35,876 --> 0:30:36,806
+details like symbol
+
+1147
+00:30:36,806 --> 0:30:37,996
+configuration and see that it's
+
+1148
+00:30:38,166 --> 0:30:39,576
+in fact a system symbol image
+
+1149
+00:30:39,576 --> 0:30:41,106
+compared to for example a custom
+
+1150
+00:30:41,106 --> 0:30:42,306
+symbol that you created in your
+
+1151
+00:30:42,306 --> 0:30:42,756
+assent catalog.
+
+1152
+00:30:43,516 --> 0:30:47,026
+[ Applause ]
+
+1153
+00:30:47,526 --> 0:30:48,976
+Symbol images are aware of their
+
+1154
+00:30:48,976 --> 0:30:50,256
+baseline, so they lay out very
+
+1155
+00:30:50,256 --> 0:30:52,616
+nicely next to text.
+
+1156
+00:30:53,016 --> 0:30:54,976
+We visualize the baseline in
+
+1157
+00:30:54,976 --> 0:30:56,266
+this view on the right-hand
+
+1158
+00:30:56,266 --> 0:30:58,196
+side, and to make sure it
+
+1159
+00:30:58,196 --> 0:30:59,906
+actually lays out nicely next to
+
+1160
+00:31:00,016 --> 0:31:02,046
+text, we have to, in the UIKit
+
+1161
+00:31:02,046 --> 0:31:03,576
+world where we use auto layout
+
+1162
+00:31:03,576 --> 0:31:04,746
+constraints and ensure that we
+
+1163
+00:31:04,746 --> 0:31:06,256
+use the baseline constraints
+
+1164
+00:31:06,256 --> 0:31:07,106
+instead of, for example,
+
+1165
+00:31:07,106 --> 0:31:07,706
+centering them.
+
+1166
+00:31:08,106 --> 0:31:09,596
+Because if this name gets longer
+
+1167
+00:31:09,596 --> 0:31:11,586
+and causes a line break, and we
+
+1168
+00:31:11,586 --> 0:31:12,806
+have a multiline label, we want
+
+1169
+00:31:12,806 --> 0:31:14,036
+to ensure the badge is aligned
+
+1170
+00:31:14,066 --> 0:31:15,216
+to the first line of this label.
+
+1171
+00:31:16,016 --> 0:31:17,556
+We can very easily verify this
+
+1172
+00:31:17,656 --> 0:31:18,666
+with the badge selected.
+
+1173
+00:31:18,826 --> 0:31:19,726
+We can switch to the size
+
+1174
+00:31:19,726 --> 0:31:21,506
+inspector and take a look at the
+
+1175
+00:31:21,506 --> 0:31:22,736
+constraint details.
+
+1176
+00:31:23,246 --> 0:31:24,386
+We overhauled this section in
+
+1177
+00:31:24,386 --> 0:31:26,306
+Xcode 11 to be a lot more like
+
+1178
+00:31:26,306 --> 0:31:27,506
+interface builder and be more
+
+1179
+00:31:27,506 --> 0:31:28,506
+powerful, so you can now
+
+1180
+00:31:28,506 --> 0:31:29,616
+highlight constraints as you
+
+1181
+00:31:29,616 --> 0:31:30,326
+mouse over them.
+
+1182
+00:31:30,816 --> 0:31:32,146
+You can use this mini navigator
+
+1183
+00:31:32,146 --> 0:31:33,996
+here to filter down to a
+
+1184
+00:31:33,996 --> 0:31:35,846
+specific edge, and we can easily
+
+1185
+00:31:35,846 --> 0:31:38,186
+confirm that this badge is in
+
+1186
+00:31:38,186 --> 0:31:39,406
+fact using the first baseline
+
+1187
+00:31:39,406 --> 0:31:40,686
+constraint to the label that's
+
+1188
+00:31:40,686 --> 0:31:41,176
+next to it.
+
+1189
+00:31:41,686 --> 0:31:43,016
+So, that's exactly what we want,
+
+1190
+00:31:44,186 --> 0:31:46,396
+and we were easily able to
+
+1191
+00:31:46,396 --> 0:31:46,976
+confirm this.
+
+1192
+00:31:48,046 --> 0:31:49,226
+Okay. So, these are the
+
+1193
+00:31:49,226 --> 0:31:50,096
+enhancements we made on the
+
+1194
+00:31:50,096 --> 0:31:50,686
+UIKit side.
+
+1195
+00:31:51,126 --> 0:31:52,716
+Let's switch our focus to
+
+1196
+00:31:52,716 --> 0:31:53,256
+SwiftUI.
+
+1197
+00:31:55,396 --> 0:31:56,736
+As we saw, we're currently
+
+1198
+00:31:56,736 --> 0:31:58,386
+looking at the preview of the
+
+1199
+00:31:58,386 --> 0:32:00,976
+profile view, and looking at the
+
+1200
+00:31:58,386 --> 0:32:00,976
+profile view, and looking at the
+
+1201
+00:32:01,376 --> 0:32:02,386
+navigator on the left-hand side,
+
+1202
+00:32:02,506 --> 0:32:03,516
+you can see the profile view
+
+1203
+00:32:03,516 --> 0:32:05,146
+shows up there, and we can get a
+
+1204
+00:32:05,146 --> 0:32:06,546
+good understanding of its size
+
+1205
+00:32:06,586 --> 0:32:07,496
+in the canvas area.
+
+1206
+00:32:09,056 --> 0:32:09,966
+We saw that it's using a
+
+1207
+00:32:09,966 --> 0:32:11,066
+vertical stack, and we can also
+
+1208
+00:32:11,066 --> 0:32:12,646
+see that in the canvas area, and
+
+1209
+00:32:12,646 --> 0:32:14,056
+selecting it, you can get
+
+1210
+00:32:14,056 --> 0:32:14,976
+details about it and then
+
+1211
+00:32:14,976 --> 0:32:15,796
+inspect on the right.
+
+1212
+00:32:16,646 --> 0:32:17,716
+Switching back to the profile
+
+1213
+00:32:17,716 --> 0:32:19,396
+view, which has a few more
+
+1214
+00:32:19,396 --> 0:32:22,386
+properties, you can see that a
+
+1215
+00:32:22,386 --> 0:32:23,576
+lot of properties about this
+
+1216
+00:32:23,616 --> 0:32:24,936
+view show up in inspector, and
+
+1217
+00:32:24,936 --> 0:32:26,186
+we actually use Swift reflection
+
+1218
+00:32:26,186 --> 0:32:27,696
+to automatically discover these
+
+1219
+00:32:27,696 --> 0:32:28,226
+properties.
+
+1220
+00:32:28,796 --> 0:32:30,276
+So, even for your own custom
+
+1221
+00:32:30,276 --> 0:32:31,946
+views, we automatically now show
+
+1222
+00:32:31,946 --> 0:32:33,126
+these properties in inspector,
+
+1223
+00:32:33,656 --> 0:32:35,056
+which is a lot more powerful
+
+1224
+00:32:35,056 --> 0:32:36,616
+than before where we only
+
+1225
+00:32:36,616 --> 0:32:38,156
+supported system views.
+
+1226
+00:32:38,876 --> 0:32:39,796
+And we even went one step
+
+1227
+00:32:39,796 --> 0:32:40,076
+further.
+
+1228
+00:32:40,076 --> 0:32:41,076
+You can now customize the
+
+1229
+00:32:41,076 --> 0:32:42,226
+properties that show up in
+
+1230
+00:32:42,226 --> 0:32:43,406
+inspector on the right-hand side
+
+1231
+00:32:43,886 --> 0:32:45,066
+by implementing the customer
+
+1232
+00:32:45,066 --> 0:32:46,646
+reflectable protocol on your
+
+1233
+00:32:46,646 --> 0:32:48,446
+view types, and profile view is
+
+1234
+00:32:48,446 --> 0:32:49,396
+exactly doing that.
+
+1235
+00:32:49,916 --> 0:32:51,196
+You can see that it's returning
+
+1236
+00:32:51,396 --> 0:32:53,086
+three different properties here,
+
+1237
+00:32:53,086 --> 0:32:54,976
+account status, last login, and
+
+1238
+00:32:54,976 --> 0:32:56,436
+profile, as part of a custom
+
+1239
+00:32:56,436 --> 0:32:58,686
+mirror, and looking at the
+
+1240
+00:32:58,686 --> 0:33:00,316
+inspect on the right, you can
+
+1241
+00:32:58,686 --> 0:33:00,316
+inspect on the right, you can
+
+1242
+00:33:00,316 --> 0:33:01,656
+see that these are exactly the
+
+1243
+00:33:01,656 --> 0:33:02,726
+properties that I'll return.
+
+1244
+00:33:02,726 --> 0:33:04,916
+So that's a very powerful
+
+1245
+00:33:04,916 --> 0:33:06,706
+feature to let you return
+
+1246
+00:33:06,706 --> 0:33:07,926
+exactly the data that you need
+
+1247
+00:33:07,996 --> 0:33:08,636
+while you're debugging.
+
+1248
+00:33:09,516 --> 0:33:13,716
+[ Applause ]
+
+1249
+00:33:14,216 --> 0:33:15,056
+Taking another look at the
+
+1250
+00:33:15,056 --> 0:33:16,006
+inspector, you can see that at
+
+1251
+00:33:16,006 --> 0:33:18,136
+the top we get properties of
+
+1252
+00:33:18,136 --> 0:33:20,486
+view that is selected currently,
+
+1253
+00:33:20,646 --> 0:33:21,946
+the profile view, and then
+
+1254
+00:33:21,946 --> 0:33:23,256
+further down, we can see all the
+
+1255
+00:33:23,256 --> 0:33:24,556
+modifiers that are currently in
+
+1256
+00:33:24,556 --> 0:33:25,846
+effect on that selected view.
+
+1257
+00:33:25,846 --> 0:33:27,136
+So we can see details about the
+
+1258
+00:33:27,136 --> 0:33:28,436
+padding and the safe area
+
+1259
+00:33:28,436 --> 0:33:29,036
+inset, for example.
+
+1260
+00:33:31,166 --> 0:33:33,966
+Let's take another look at a
+
+1261
+00:33:33,966 --> 0:33:34,936
+different part of the view
+
+1262
+00:33:34,936 --> 0:33:37,106
+hierarchy, and as we saw
+
+1263
+00:33:37,106 --> 0:33:38,636
+earlier, the bottom part is
+
+1264
+00:33:38,636 --> 0:33:40,246
+using a list to lay out all the
+
+1265
+00:33:40,246 --> 0:33:40,576
+views.
+
+1266
+00:33:41,316 --> 0:33:42,566
+So let's select one of the views
+
+1267
+00:33:42,566 --> 0:33:43,686
+that we see here, for example,
+
+1268
+00:33:43,686 --> 0:33:47,006
+the 965 text here, and I will
+
+1269
+00:33:47,006 --> 0:33:48,596
+use a gesture of navigate and
+
+1270
+00:33:48,596 --> 0:33:50,196
+reveal in debug navigator so we
+
+1271
+00:33:50,196 --> 0:33:51,236
+have a good understanding of
+
+1272
+00:33:51,236 --> 0:33:52,816
+where it is inside the view
+
+1273
+00:33:52,816 --> 0:33:53,256
+hierarchy.
+
+1274
+00:33:53,986 --> 0:33:55,016
+And we can see that Swift UI
+
+1275
+00:33:55,016 --> 0:33:56,936
+actually translated that list
+
+1276
+00:33:57,076 --> 0:33:58,446
+into a UI table view under the
+
+1277
+00:33:58,446 --> 0:34:00,856
+hood, and it's using table view
+
+1278
+00:33:58,446 --> 0:34:00,856
+hood, and it's using table view
+
+1279
+00:34:00,856 --> 0:34:02,606
+cells to host the Swift UI views
+
+1280
+00:34:03,536 --> 0:34:05,066
+that we construct in our code.
+
+1281
+00:34:05,836 --> 0:34:06,816
+This is an implementation
+
+1282
+00:34:06,816 --> 0:34:08,255
+detail, and you should not rely
+
+1283
+00:34:08,255 --> 0:34:09,356
+on it in your implementation,
+
+1284
+00:34:09,545 --> 0:34:10,976
+but it can be very helpful when
+
+1285
+00:34:10,976 --> 0:34:12,626
+you're trying to debug layout
+
+1286
+00:34:12,735 --> 0:34:13,795
+issues, for example.
+
+1287
+00:34:14,206 --> 0:34:16,576
+With this text selected, there's
+
+1288
+00:34:16,576 --> 0:34:18,005
+actually an issue here that our
+
+1289
+00:34:18,005 --> 0:34:18,946
+designer pointed out.
+
+1290
+00:34:19,466 --> 0:34:21,206
+Instead of vertically centering
+
+1291
+00:34:21,286 --> 0:34:24,416
+these two texts, they should
+
+1292
+00:34:24,416 --> 0:34:25,636
+actually be baseline aligned.
+
+1293
+00:34:25,976 --> 0:34:27,826
+Now, we already saw that there's
+
+1294
+00:34:27,826 --> 0:34:29,835
+a horizontal stack that is
+
+1295
+00:34:30,176 --> 0:34:31,426
+laying them out next to each
+
+1296
+00:34:31,426 --> 0:34:33,446
+other, and when we take a look
+
+1297
+00:34:33,446 --> 0:34:35,136
+at the implementation, here, you
+
+1298
+00:34:35,136 --> 0:34:37,016
+can see that it's a plain
+
+1299
+00:34:37,335 --> 0:34:38,505
+horizontal stack that has no
+
+1300
+00:34:38,505 --> 0:34:39,556
+parameters passed to its
+
+1301
+00:34:39,556 --> 0:34:40,085
+initializer.
+
+1302
+00:34:40,606 --> 0:34:41,536
+But when we take a look at the
+
+1303
+00:34:41,536 --> 0:34:42,966
+inspector, you can see that it
+
+1304
+00:34:42,966 --> 0:34:45,005
+actually defaults to an
+
+1305
+00:34:45,005 --> 0:34:45,906
+alignment of center.
+
+1306
+00:34:46,206 --> 0:34:47,186
+Now, we don't want center
+
+1307
+00:34:47,186 --> 0:34:48,295
+alignment, we want the baseline
+
+1308
+00:34:48,295 --> 0:34:48,706
+alignment.
+
+1309
+00:34:49,576 --> 0:34:51,786
+So, let's adjust the code and
+
+1310
+00:34:51,835 --> 0:34:52,576
+fix this problem.
+
+1311
+00:34:53,025 --> 0:34:54,286
+I will close the view debugger,
+
+1312
+00:34:54,936 --> 0:34:56,976
+continue the debug session, and
+
+1313
+00:34:57,416 --> 0:34:58,586
+activate the previews again.
+
+1314
+00:35:00,066 --> 0:35:01,886
+And for the H stack, I will now
+
+1315
+00:35:02,326 --> 0:35:04,516
+add a parameter of alignment to
+
+1316
+00:35:04,516 --> 0:35:06,326
+dot first baseline, and we can
+
+1317
+00:35:06,326 --> 0:35:08,976
+now see that the two labels are
+
+1318
+00:35:08,976 --> 0:35:11,146
+in fact baseline aligned.
+
+1319
+00:35:11,576 --> 0:35:11,886
+So we were--
+
+1320
+00:35:12,516 --> 0:35:15,856
+[ Applause ]
+
+1321
+00:35:16,356 --> 0:35:19,206
+We were able to see the default
+
+1322
+00:35:19,206 --> 0:35:20,546
+value that the H stack assumed
+
+1323
+00:35:20,546 --> 0:35:22,096
+for its alignment, figure out
+
+1324
+00:35:22,126 --> 0:35:24,476
+the fix for it, and then
+
+1325
+00:35:24,476 --> 0:35:26,086
+instantly verify it using the
+
+1326
+00:35:26,086 --> 0:35:27,506
+new previews in Xcode 11.
+
+1327
+00:35:28,276 --> 0:35:29,516
+With that, I will switch back to
+
+1328
+00:35:29,566 --> 0:35:29,966
+slides.
+
+1329
+00:35:31,366 --> 0:35:32,616
+We just saw, when you're
+
+1330
+00:35:32,616 --> 0:35:33,616
+inspecting Swift UI view
+
+1331
+00:35:33,616 --> 0:35:36,326
+hierarchies, the view hierarchy
+
+1332
+00:35:36,326 --> 0:35:38,036
+shows up in the navigator on the
+
+1333
+00:35:38,036 --> 0:35:39,456
+left-hand side and in the canvas
+
+1334
+00:35:39,456 --> 0:35:41,426
+area, and properties and
+
+1335
+00:35:41,426 --> 0:35:43,026
+modifiers are presented in
+
+1336
+00:35:43,026 --> 0:35:44,176
+inspect on the right-hand side.
+
+1337
+00:35:45,146 --> 0:35:46,396
+Inspect the properties are
+
+1338
+00:35:46,396 --> 0:35:47,636
+automatically discovered using
+
+1339
+00:35:47,636 --> 0:35:48,806
+Swift Reflection, and you can
+
+1340
+00:35:48,806 --> 0:35:50,106
+even customize the inspector
+
+1341
+00:35:50,106 --> 0:35:51,806
+properties that show up in
+
+1342
+00:35:51,806 --> 0:35:52,816
+inspector on the right-hand side
+
+1343
+00:35:52,856 --> 0:35:54,136
+using the custom reflectable
+
+1344
+00:35:54,136 --> 0:35:54,606
+protocol.
+
+1345
+00:35:55,486 --> 0:35:56,976
+And, of course, just as Swift
+
+1346
+00:35:56,976 --> 0:35:58,306
+UI, we also have support for
+
+1347
+00:35:58,306 --> 0:35:59,626
+mixed view hierarchies, and we
+
+1348
+00:35:59,696 --> 0:36:01,456
+just saw how the UIKit view
+
+1349
+00:35:59,696 --> 0:36:01,456
+just saw how the UIKit view
+
+1350
+00:36:01,456 --> 0:36:02,396
+showed up right next to the
+
+1351
+00:36:02,396 --> 0:36:03,006
+Swift UI views.
+
+1352
+00:36:04,496 --> 0:36:05,656
+We also have numerous
+
+1353
+00:36:05,656 --> 0:36:07,616
+enhancements for UIKit views,
+
+1354
+00:36:07,986 --> 0:36:10,646
+namely support for UI Window
+
+1355
+00:36:10,726 --> 0:36:12,926
+Scene, which will be handy as
+
+1356
+00:36:12,926 --> 0:36:13,916
+you start adopting multiple
+
+1357
+00:36:13,916 --> 0:36:15,006
+windows in your UIKit
+
+1358
+00:36:15,006 --> 0:36:16,476
+applications, and we have
+
+1359
+00:36:16,476 --> 0:36:18,616
+inspector enhancement to provide
+
+1360
+00:36:18,616 --> 0:36:20,396
+even more details such as trait
+
+1361
+00:36:20,396 --> 0:36:21,326
+collection details.
+
+1362
+00:36:21,586 --> 0:36:24,326
+We saw the named images and
+
+1363
+00:36:24,516 --> 0:36:26,626
+symbol image information.
+
+1364
+00:36:26,976 --> 0:36:28,316
+We also saw named colors, which
+
+1365
+00:36:28,316 --> 0:36:29,436
+will be very helpful as you
+
+1366
+00:36:29,436 --> 0:36:30,436
+start it up in dark mode.
+
+1367
+00:36:31,046 --> 0:36:32,686
+And we have greatly improved
+
+1368
+00:36:32,726 --> 0:36:33,736
+constraint details in the
+
+1369
+00:36:33,736 --> 0:36:34,886
+inspector, which are more
+
+1370
+00:36:34,886 --> 0:36:36,366
+powerful than ever before when
+
+1371
+00:36:36,366 --> 0:36:37,486
+you're debugging your auto
+
+1372
+00:36:37,486 --> 0:36:39,386
+layout constraints in your UIKit
+
+1373
+00:36:39,386 --> 0:36:39,906
+application.
+
+1374
+00:36:41,296 --> 0:36:42,586
+If you want to learn more about
+
+1375
+00:36:42,646 --> 0:36:45,126
+device conditions, I recommend
+
+1376
+00:36:45,666 --> 0:36:47,466
+this session here, and there's
+
+1377
+00:36:47,466 --> 0:36:49,346
+also a great video that's
+
+1378
+00:36:50,236 --> 0:36:52,036
+teaching about LLDB and
+
+1379
+00:36:52,036 --> 0:36:52,646
+enhancements.
+
+1380
+00:36:53,826 --> 0:36:56,326
+With that, that brings us to the
+
+1381
+00:36:56,326 --> 0:36:56,886
+end of this talk.
+
+1382
+00:36:57,636 --> 0:36:59,116
+I wish you a fantastic rest of
+
+1383
+00:36:59,116 --> 0:37:00,546
+the conference, and I'll see you
+
+1384
+00:36:59,116 --> 0:37:00,546
+the conference, and I'll see you
+
+1385
+00:37:00,546 --> 0:37:00,976
+at the bash.
+
+1386
+00:37:01,516 --> 0:37:05,500
+[ Applause ]

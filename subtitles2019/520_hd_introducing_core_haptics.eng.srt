@@ -1,0 +1,3543 @@
+1
+00:00:01,176 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:06,016 --> 0:00:07,216
+[ Applause ]
+
+3
+00:00:07,216 --> 0:00:08,376
+&gt;&gt; I am Michael Diu from the
+
+4
+00:00:08,376 --> 0:00:09,636
+Interactive Haptics Team.
+
+5
+00:00:10,096 --> 0:00:11,526
+And I am forward to sharing the
+
+6
+00:00:11,526 --> 0:00:13,616
+many advances in haptics in iOS 13
+
+7
+00:00:13,696 --> 0:00:14,836
+with you.
+
+8
+00:00:15,646 --> 0:00:16,726
+Let's take a look at our agenda.
+
+9
+00:00:18,756 --> 0:00:20,776
+First, we'll find out where we
+
+10
+00:00:20,776 --> 0:00:21,976
+can use Core Haptics.
+
+11
+00:00:22,476 --> 0:00:24,416
+How it fits in with other audio
+
+12
+00:00:24,466 --> 0:00:25,456
+and haptic APIs.
+
+13
+00:00:28,056 --> 0:00:29,506
+And we'll talk about the two
+
+14
+00:00:29,506 --> 0:00:31,336
+groups of classes in the API.
+
+15
+00:00:31,986 --> 0:00:34,026
+And the basic dimensions and
+
+16
+00:00:34,026 --> 0:00:36,026
+descriptors that we will use to
+
+17
+00:00:36,026 --> 0:00:38,236
+describe our haptics and audio
+
+18
+00:00:38,366 --> 0:00:38,856
+content.
+
+19
+00:00:40,336 --> 0:00:41,646
+We're going to walk through the
+
+20
+00:00:41,646 --> 0:00:43,446
+basic recipe to start playing
+
+21
+00:00:43,446 --> 0:00:43,946
+out that content.
+
+22
+00:00:46,066 --> 0:00:47,686
+And then we're going to move on
+
+23
+00:00:47,686 --> 0:00:49,316
+to introducing dynamic
+
+24
+00:00:49,396 --> 0:00:50,076
+parameters.
+
+25
+00:00:50,266 --> 0:00:52,466
+And dynamic parameters are a way
+
+26
+00:00:52,466 --> 0:00:54,146
+that you can customize your
+
+27
+00:00:54,146 --> 0:00:56,176
+haptic patterns at playback time
+
+28
+00:00:56,516 --> 0:00:59,336
+in response to your user or your
+
+29
+00:00:59,336 --> 0:00:59,976
+apps behavior.
+
+30
+00:01:02,046 --> 0:01:03,966
+And we're going to explore a new
+
+31
+00:01:03,966 --> 0:01:07,256
+way to express, store, and share
+
+32
+00:01:07,486 --> 0:01:08,866
+your audio haptics content.
+
+33
+00:01:09,106 --> 0:01:10,896
+A new file format we're calling
+
+34
+00:01:10,896 --> 0:01:12,816
+the Apple Haptic Audio Pattern,
+
+35
+00:01:13,226 --> 0:01:13,676
+or AHAP.
+
+36
+00:01:15,156 --> 0:01:15,976
+So let's get to it.
+
+37
+00:01:22,066 --> 0:01:23,686
+First, what is Core Haptics?
+
+38
+00:01:25,056 --> 0:01:26,286
+We can think of it as an
+
+39
+00:01:26,286 --> 0:01:28,796
+event-based audio and haptic
+
+40
+00:01:28,986 --> 0:01:29,736
+rendering API.
+
+41
+00:01:30,156 --> 0:01:32,796
+Or synthesizer for iPhone.
+
+42
+00:01:34,516 --> 0:01:36,486
+We can continue to use our other
+
+43
+00:01:36,486 --> 0:01:38,456
+audio and haptics and feedback
+
+44
+00:01:38,456 --> 0:01:41,406
+API's like AVAudioPlayer and
+
+45
+00:01:41,406 --> 0:01:43,526
+UIKit's UIFeedbackGenerator in
+
+46
+00:01:43,526 --> 0:01:44,976
+parallel with Core Haptics.
+
+47
+00:01:47,206 --> 0:01:49,776
+You might be wondering, "Which
+
+48
+00:01:49,776 --> 0:01:52,566
+iPhones can I use this on?"
+
+49
+00:01:52,566 --> 0:01:54,956
+With one, just one API and one
+
+50
+00:01:54,956 --> 0:01:56,816
+file format, we will be able to
+
+51
+00:01:56,956 --> 0:01:59,686
+access hundreds of millions of
+
+52
+00:01:59,866 --> 0:02:01,436
+haptic engine-equipped iPhones
+
+53
+00:01:59,866 --> 0:02:01,436
+haptic engine-equipped iPhones
+
+54
+00:02:01,746 --> 0:02:03,686
+starting from iPhone 8 onward.
+
+55
+00:02:04,326 --> 0:02:07,076
+And we've taken care that your
+
+56
+00:02:07,146 --> 0:02:08,205
+haptic patterns will have the
+
+57
+00:02:08,286 --> 0:02:10,326
+same feel across all of these
+
+58
+00:02:10,326 --> 0:02:10,836
+products.
+
+59
+00:02:11,236 --> 0:02:12,616
+So much so that you're going to
+
+60
+00:02:12,616 --> 0:02:15,246
+be able to prototype and release
+
+61
+00:02:15,486 --> 0:02:16,936
+just using one product.
+
+62
+00:02:19,476 --> 0:02:22,556
+And these iPhones aren't
+
+63
+00:02:22,556 --> 0:02:24,586
+equipped with just any old
+
+64
+00:02:24,676 --> 0:02:25,876
+commodity actuator.
+
+65
+00:02:26,196 --> 0:02:27,846
+They all have the Apple-designed
+
+66
+00:02:28,026 --> 0:02:28,716
+taptic engine.
+
+67
+00:02:28,926 --> 0:02:30,566
+Which offers you that unique
+
+68
+00:02:30,636 --> 0:02:33,996
+combination of power, a wide,
+
+69
+00:02:33,996 --> 0:02:35,596
+expressive range, and an
+
+70
+00:02:35,766 --> 0:02:38,296
+unmatched precision and control
+
+71
+00:02:38,846 --> 0:02:39,496
+and subtlety.
+
+72
+00:02:41,476 --> 0:02:43,106
+Next, I'd like to talk about
+
+73
+00:02:43,106 --> 0:02:44,476
+those of you who have already
+
+74
+00:02:44,476 --> 0:02:46,536
+started adopting haptics on
+
+75
+00:02:46,616 --> 0:02:48,356
+iPhone with UIKit's
+
+76
+00:02:48,436 --> 0:02:49,776
+feedback-generated API's.
+
+77
+00:02:50,716 --> 0:02:55,046
+Now Core Haptics is not a
+
+78
+00:02:55,046 --> 0:02:56,346
+replacement for this API.
+
+79
+00:02:58,436 --> 0:03:00,176
+In most cases, you want to keep
+
+80
+00:02:58,436 --> 0:03:00,176
+In most cases, you want to keep
+
+81
+00:03:00,176 --> 0:03:02,026
+on using FeedbackGenerator,
+
+82
+00:03:02,026 --> 0:03:04,946
+especially for UIKit controls
+
+83
+00:03:05,216 --> 0:03:06,356
+and adding haptics to that.
+
+84
+00:03:07,206 --> 0:03:10,116
+With that API, you indicate the
+
+85
+00:03:10,116 --> 0:03:11,636
+design intent for your event.
+
+86
+00:03:11,636 --> 0:03:13,606
+Whether that's a selection, an
+
+87
+00:03:13,606 --> 0:03:15,276
+impact, or a notification.
+
+88
+00:03:15,626 --> 0:03:17,706
+And you let someone else, Apple,
+
+89
+00:03:18,056 --> 0:03:19,466
+worry about developing a
+
+90
+00:03:19,466 --> 0:03:21,606
+vocabulary to express that and
+
+91
+00:03:21,726 --> 0:03:24,116
+mixing the right modalities like
+
+92
+00:03:24,116 --> 0:03:26,096
+audio haptics animation to
+
+93
+00:03:26,096 --> 0:03:27,366
+communicate that message.
+
+94
+00:03:28,646 --> 0:03:30,096
+Now, this API is also being
+
+95
+00:03:30,096 --> 0:03:31,526
+improved in iOS 13.
+
+96
+00:03:31,696 --> 0:03:32,636
+So please check out its
+
+97
+00:03:32,636 --> 0:03:33,976
+documentation for more details.
+
+98
+00:03:36,276 --> 0:03:39,506
+In contrast, Core Haptics is
+
+99
+00:03:39,506 --> 0:03:41,246
+good when you want to be your
+
+100
+00:03:41,246 --> 0:03:43,476
+own sound and haptic designer.
+
+101
+00:03:44,366 --> 0:03:46,026
+With it, you develop your own
+
+102
+00:03:46,026 --> 0:03:46,466
+patterns.
+
+103
+00:03:47,036 --> 0:03:48,296
+And you can have a lot more
+
+104
+00:03:48,296 --> 0:03:50,846
+control over exactly what time
+
+105
+00:03:50,846 --> 0:03:51,556
+it gets played.
+
+106
+00:03:51,556 --> 0:03:53,076
+So you can synchronize with
+
+107
+00:03:53,306 --> 0:03:55,716
+other API's like an animation
+
+108
+00:03:55,716 --> 0:03:56,756
+from Core Animation.
+
+109
+00:03:57,016 --> 0:03:58,576
+Or a sound event from
+
+110
+00:03:58,696 --> 0:03:59,636
+AVAudioEngine.
+
+111
+00:04:00,776 --> 0:04:02,266
+You have a much richer set of
+
+112
+00:04:02,376 --> 0:04:03,456
+playback and modulation
+
+113
+00:04:03,456 --> 0:04:03,926
+controls.
+
+114
+00:04:05,136 --> 0:04:07,506
+Now, UIKit is built on top of
+
+115
+00:04:07,506 --> 0:04:08,376
+Core Haptics.
+
+116
+00:04:08,736 --> 0:04:11,616
+So both API's share the same
+
+117
+00:04:11,616 --> 0:04:12,936
+low-latency performance
+
+118
+00:04:12,936 --> 0:04:13,756
+characteristics.
+
+119
+00:04:14,656 --> 0:04:14,956
+Now
+
+120
+00:04:17,055 --> 0:04:18,106
+designing your own haptic
+
+121
+00:04:18,136 --> 0:04:20,326
+patterns is going to take more
+
+122
+00:04:20,326 --> 0:04:20,685
+time.
+
+123
+00:04:21,016 --> 0:04:22,856
+But when it allows you to do
+
+124
+00:04:22,856 --> 0:04:23,706
+something that you couldn't
+
+125
+00:04:23,706 --> 0:04:26,326
+otherwise do and when it allows
+
+126
+00:04:26,326 --> 0:04:28,646
+you to differentiate your app,
+
+127
+00:04:29,306 --> 0:04:30,376
+then it's worth thinking about.
+
+128
+00:04:31,166 --> 0:04:32,806
+Now next, I'd like to talk a bit
+
+129
+00:04:32,806 --> 0:04:33,886
+more about those audio
+
+130
+00:04:33,886 --> 0:04:34,596
+capabilities.
+
+131
+00:04:36,826 --> 0:04:39,366
+So Core Haptics is also an Audio
+
+132
+00:04:39,366 --> 0:04:39,716
+API.
+
+133
+00:04:40,246 --> 0:04:42,496
+And so that allows you to play
+
+134
+00:04:42,736 --> 0:04:45,336
+short, synthesized or custom
+
+135
+00:04:45,936 --> 0:04:47,666
+waveform audio in
+
+136
+00:04:47,666 --> 0:04:49,456
+synchronization, tight sync with
+
+137
+00:04:49,456 --> 0:04:49,936
+your haptics.
+
+138
+00:04:51,686 --> 0:04:53,256
+This type of audio haptic
+
+139
+00:04:53,286 --> 0:04:54,996
+duality has been crucial to many
+
+140
+00:04:54,996 --> 0:04:56,226
+of Apple's own haptics
+
+141
+00:04:56,226 --> 0:04:56,866
+experiences.
+
+142
+00:04:57,216 --> 0:04:58,866
+Like the haptic home button in
+
+143
+00:04:58,936 --> 0:05:02,106
+iPhone 7, the haptic crown in
+
+144
+00:04:58,936 --> 0:05:02,106
+iPhone 7, the haptic crown in
+
+145
+00:05:02,186 --> 0:05:04,526
+Series 4 Watch, and the
+
+146
+00:05:04,526 --> 0:05:06,216
+UIDatePicker, those scrolling
+
+147
+00:05:06,216 --> 0:05:08,256
+wheels that you use to select
+
+148
+00:05:08,356 --> 0:05:09,996
+dates and times and alarms and
+
+149
+00:05:09,996 --> 0:05:10,436
+calendars.
+
+150
+00:05:11,436 --> 0:05:12,976
+And you may not have realized
+
+151
+00:05:13,516 --> 0:05:13,656
+that.
+
+152
+00:05:13,836 --> 0:05:15,086
+You may not even have noticed
+
+153
+00:05:15,086 --> 0:05:16,076
+that there was audio in these
+
+154
+00:05:16,076 --> 0:05:16,776
+experiences.
+
+155
+00:05:17,096 --> 0:05:18,466
+But if you were to cover up that
+
+156
+00:05:18,706 --> 0:05:20,336
+audio once you take it away,
+
+157
+00:05:20,596 --> 0:05:21,796
+you'll realize that it's an
+
+158
+00:05:21,796 --> 0:05:23,776
+inseparable an integral part of
+
+159
+00:05:23,776 --> 0:05:24,556
+that experience.
+
+160
+00:05:24,836 --> 0:05:27,626
+So now, you can do the same with
+
+161
+00:05:27,626 --> 0:05:28,936
+Core Haptics in your own apps.
+
+162
+00:05:29,296 --> 0:05:30,896
+And I want to talk about some
+
+163
+00:05:30,896 --> 0:05:32,596
+categories of apps, one app -- a
+
+164
+00:05:32,826 --> 0:05:34,246
+huge category in particular
+
+165
+00:05:34,516 --> 0:05:35,326
+where you might want to think
+
+166
+00:05:35,326 --> 0:05:37,206
+about Core Haptics, and that's
+
+167
+00:05:37,206 --> 0:05:37,546
+games.
+
+168
+00:05:39,556 --> 0:05:41,606
+So imagine we are at the race
+
+169
+00:05:41,606 --> 0:05:41,866
+track.
+
+170
+00:05:42,136 --> 0:05:43,396
+We want to go into turbo mode.
+
+171
+00:05:43,836 --> 0:05:44,466
+Let's imagine.
+
+172
+00:05:45,016 --> 0:05:47,000
+[ Engine Sounds ]
+
+173
+00:05:49,416 --> 0:05:51,096
+When you've got that brute force
+
+174
+00:05:51,096 --> 0:05:52,856
+message to deliver, think about
+
+175
+00:05:52,856 --> 0:05:54,716
+using synchronized haptics and
+
+176
+00:05:54,716 --> 0:05:56,676
+audio in your app to generate
+
+177
+00:05:56,676 --> 0:05:58,506
+those visceral explosions and
+
+178
+00:05:58,506 --> 0:05:58,876
+rumbles.
+
+179
+00:06:00,576 --> 0:06:02,766
+Now another very nice
+
+180
+00:06:02,766 --> 0:06:05,336
+application is for to simulate
+
+181
+00:06:05,336 --> 0:06:07,216
+physical contact to make your
+
+182
+00:06:07,216 --> 0:06:08,706
+applications feel more
+
+183
+00:06:08,706 --> 0:06:09,326
+realistic.
+
+184
+00:06:10,156 --> 0:06:11,186
+Think about a tennis game.
+
+185
+00:06:12,146 --> 0:06:13,796
+You could have audio and haptic
+
+186
+00:06:13,796 --> 0:06:16,546
+components where the pitch of
+
+187
+00:06:16,546 --> 0:06:17,916
+your audio, the intensity of
+
+188
+00:06:17,916 --> 0:06:19,556
+your haptics are proportional to
+
+189
+00:06:19,556 --> 0:06:21,466
+how fast your swing is or how
+
+190
+00:06:21,466 --> 0:06:22,936
+centered the ball lands in the
+
+191
+00:06:22,936 --> 0:06:23,706
+middle of the racket.
+
+192
+00:06:24,146 --> 0:06:25,666
+And you can even control how
+
+193
+00:06:25,666 --> 0:06:27,536
+long the strings your racket
+
+194
+00:06:27,676 --> 0:06:29,186
+will resonate for after the
+
+195
+00:06:29,186 --> 0:06:29,546
+impact.
+
+196
+00:06:31,536 --> 0:06:33,066
+So another great area to think
+
+197
+00:06:33,066 --> 0:06:35,036
+about using Core Haptics is in
+
+198
+00:06:35,066 --> 0:06:37,176
+augmented reality apps.
+
+199
+00:06:38,436 --> 0:06:40,036
+And there, if you're working in
+
+200
+00:06:40,036 --> 0:06:41,766
+this space, you're already
+
+201
+00:06:41,766 --> 0:06:43,376
+familiar with the benefits of
+
+202
+00:06:43,376 --> 0:06:44,886
+having high visual fidelity
+
+203
+00:06:45,276 --> 0:06:49,006
+paired with 3D audio working in
+
+204
+00:06:49,006 --> 0:06:49,416
+concert.
+
+205
+00:06:49,746 --> 0:06:51,766
+Now we can reach for that next
+
+206
+00:06:51,766 --> 0:06:53,886
+level of immersion by
+
+207
+00:06:53,886 --> 0:06:55,706
+considering how custom haptic
+
+208
+00:06:55,706 --> 0:06:58,856
+feedback can ground our user
+
+209
+00:06:58,856 --> 0:06:59,456
+gestures,
+
+210
+00:07:01,696 --> 0:07:05,216
+or respond to app, device, and
+
+211
+00:07:05,216 --> 0:07:06,506
+AR object events.
+
+212
+00:07:06,816 --> 0:07:08,556
+For example, moving your device
+
+213
+00:07:08,556 --> 0:07:12,346
+around or moving your entire
+
+214
+00:07:12,346 --> 0:07:13,096
+users around.
+
+215
+00:07:16,046 --> 0:07:17,436
+As an inspiration this year,
+
+216
+00:07:17,436 --> 0:07:19,346
+we've enhanced the Swift Shot
+
+217
+00:07:19,346 --> 0:07:22,356
+sample code by using haptics
+
+218
+00:07:22,406 --> 0:07:25,166
+that are modulated based on how
+
+219
+00:07:25,166 --> 0:07:27,476
+fast you pull back the sling.
+
+220
+00:07:28,246 --> 0:07:29,676
+How fast you pull back your
+
+221
+00:07:29,676 --> 0:07:29,766
+phone.
+
+222
+00:07:29,766 --> 0:07:32,286
+You're going to feel the tension
+
+223
+00:07:32,416 --> 0:07:34,146
+building up as you stretch it
+
+224
+00:07:34,176 --> 0:07:34,386
+back.
+
+225
+00:07:34,616 --> 0:07:36,116
+And then a very satisfying thunk
+
+226
+00:07:36,506 --> 0:07:37,146
+as you release.
+
+227
+00:07:38,826 --> 0:07:39,956
+I'd like to show you a video of
+
+228
+00:07:39,956 --> 0:07:42,346
+this and I'm going to use audio
+
+229
+00:07:42,346 --> 0:07:44,216
+to represent just the haptics
+
+230
+00:07:44,256 --> 0:07:45,016
+that you're going to feel.
+
+231
+00:07:45,606 --> 0:07:46,746
+They're going to sound like
+
+232
+00:07:46,746 --> 0:07:46,916
+this.
+
+233
+00:07:47,516 --> 0:07:50,616
+[ Low-Pitched Noise ]
+
+234
+00:07:51,116 --> 0:07:52,566
+Now, we're going to see the
+
+235
+00:07:52,566 --> 0:07:53,336
+whole thing together.
+
+236
+00:07:53,936 --> 0:07:57,156
+Visuals and haptics, no regular
+
+237
+00:07:57,156 --> 0:07:57,466
+audio.
+
+238
+00:07:58,516 --> 0:08:02,196
+[ Low-Pitched Noise ]
+
+239
+00:07:58,516 --> 0:08:02,196
+[ Low-Pitched Noise ]
+
+240
+00:08:02,696 --> 0:08:04,526
+So that was an example of how we
+
+241
+00:08:04,526 --> 0:08:08,226
+can use haptics, sound, and
+
+242
+00:08:08,226 --> 0:08:09,986
+visuals all synchronized
+
+243
+00:08:09,986 --> 0:08:11,566
+together to enhance our AR
+
+244
+00:08:11,566 --> 0:08:12,566
+experience.
+
+245
+00:08:12,866 --> 0:08:13,766
+Now these are just a few
+
+246
+00:08:13,766 --> 0:08:16,036
+categories of apps, games, and
+
+247
+00:08:16,036 --> 0:08:17,706
+AR that are ripe for creative
+
+248
+00:08:17,706 --> 0:08:19,836
+explorations, with haptics and
+
+249
+00:08:19,836 --> 0:08:20,856
+the corresponding sounds.
+
+250
+00:08:21,606 --> 0:08:22,636
+I'm sure you're going to think
+
+251
+00:08:22,636 --> 0:08:23,886
+of many, many more.
+
+252
+00:08:27,606 --> 0:08:30,186
+So now let's get into how we can
+
+253
+00:08:30,186 --> 0:08:31,996
+start expressing our content
+
+254
+00:08:32,476 --> 0:08:32,976
+with Core Haptics.
+
+255
+00:08:36,416 --> 0:08:37,466
+There are just two groups of
+
+256
+00:08:37,466 --> 0:08:38,996
+classes in Core Haptics.
+
+257
+00:08:39,066 --> 0:08:40,866
+There's those to represent your
+
+258
+00:08:40,866 --> 0:08:41,326
+content.
+
+259
+00:08:41,796 --> 0:08:43,436
+And those to playback that
+
+260
+00:08:43,436 --> 0:08:43,816
+content.
+
+261
+00:08:44,516 --> 0:08:47,496
+Let's take a closer look at the
+
+262
+00:08:47,496 --> 0:08:49,166
+content side first.
+
+263
+00:08:49,896 --> 0:08:53,356
+The basic indivisible content
+
+264
+00:08:53,356 --> 0:08:55,496
+elements is in Core Haptics is
+
+265
+00:08:55,496 --> 0:08:56,856
+called a CHHapticEvent.
+
+266
+00:08:57,766 --> 0:09:01,156
+Now, each event has a type and a
+
+267
+00:08:57,766 --> 0:09:01,156
+Now, each event has a type and a
+
+268
+00:09:01,156 --> 0:09:01,576
+time.
+
+269
+00:09:01,866 --> 0:09:03,866
+And optionally, parameters that
+
+270
+00:09:03,866 --> 0:09:05,586
+will customize its feel.
+
+271
+00:09:07,316 --> 0:09:09,386
+These events can overlap each
+
+272
+00:09:09,386 --> 0:09:10,656
+other and when they do, they
+
+273
+00:09:10,656 --> 0:09:10,986
+mix.
+
+274
+00:09:12,496 --> 0:09:15,006
+And all events are grouped into
+
+275
+00:09:15,436 --> 0:09:15,886
+a pattern.
+
+276
+00:09:17,216 --> 0:09:18,616
+Next, I'd like to talk about
+
+277
+00:09:18,916 --> 0:09:20,436
+those types of events that we
+
+278
+00:09:20,436 --> 0:09:20,846
+can have.
+
+279
+00:09:22,816 --> 0:09:24,876
+Our first type is called the
+
+280
+00:09:24,876 --> 0:09:25,766
+HapticTransient.
+
+281
+00:09:26,516 --> 0:09:28,386
+The HapticTransient, I think of
+
+282
+00:09:28,386 --> 0:09:29,946
+it as a gavel.
+
+283
+00:09:29,946 --> 0:09:31,206
+It's a striking motion.
+
+284
+00:09:31,376 --> 0:09:32,526
+It's momentary and
+
+285
+00:09:32,526 --> 0:09:33,226
+instantaneous.
+
+286
+00:09:34,046 --> 0:09:36,096
+And then we have two continuous
+
+287
+00:09:36,096 --> 0:09:36,416
+types.
+
+288
+00:09:37,746 --> 0:09:39,556
+We have HapticContinuous and
+
+289
+00:09:39,556 --> 0:09:40,616
+AudioContinuous.
+
+290
+00:09:41,016 --> 0:09:42,346
+And there I think of, for
+
+291
+00:09:42,346 --> 0:09:44,276
+example, bowing a stringed
+
+292
+00:09:44,276 --> 0:09:44,806
+instrument.
+
+293
+00:09:45,356 --> 0:09:48,116
+It is longer than a transient.
+
+294
+00:09:48,396 --> 0:09:49,766
+It can be, for example, used as
+
+295
+00:09:49,766 --> 0:09:50,866
+a background texture.
+
+296
+00:09:51,086 --> 0:09:52,576
+And you have a much richer set
+
+297
+00:09:52,576 --> 0:09:53,876
+of knobs that you can use.
+
+298
+00:09:53,876 --> 0:09:55,276
+For example, to modulate the
+
+299
+00:09:55,276 --> 0:09:57,166
+resonance of it.
+
+300
+00:09:57,466 --> 0:10:00,266
+Lastly, we have the AudioCustom
+
+301
+00:09:57,466 --> 0:10:00,266
+Lastly, we have the AudioCustom
+
+302
+00:10:00,266 --> 0:10:00,476
+type.
+
+303
+00:10:00,886 --> 0:10:02,806
+And the AudioCustom, as we -- as
+
+304
+00:10:02,806 --> 0:10:03,676
+I mentioned earlier.
+
+305
+00:10:03,966 --> 0:10:05,806
+Is where you can provide your
+
+306
+00:10:05,806 --> 0:10:08,666
+own audio to be played back in
+
+307
+00:10:08,746 --> 0:10:10,996
+sync with the haptics.
+
+308
+00:10:12,596 --> 0:10:14,236
+Next, let's talk about some of
+
+309
+00:10:14,236 --> 0:10:15,976
+those optional parameters.
+
+310
+00:10:20,056 --> 0:10:21,646
+Our first event parameter is
+
+311
+00:10:21,646 --> 0:10:23,396
+called HapticIntesnity.
+
+312
+00:10:23,986 --> 0:10:26,336
+And it has an audio analog,
+
+313
+00:10:26,736 --> 0:10:27,846
+audio volume, which you're
+
+314
+00:10:27,846 --> 0:10:29,076
+probably already familiar with.
+
+315
+00:10:30,426 --> 0:10:32,736
+Now, with this parameter, you go
+
+316
+00:10:32,736 --> 0:10:34,946
+from no output as you turn, and
+
+317
+00:10:34,946 --> 0:10:36,736
+as you turn the knob from zero
+
+318
+00:10:36,736 --> 0:10:38,256
+all the way up to one, you go to
+
+319
+00:10:38,256 --> 0:10:39,436
+the maximum output of the
+
+320
+00:10:39,436 --> 0:10:39,856
+system.
+
+321
+00:10:41,456 --> 0:10:43,016
+Our next parameter is called
+
+322
+00:10:43,206 --> 0:10:44,306
+HapticSharpness.
+
+323
+00:10:44,846 --> 0:10:47,056
+Now HapticSharpness is a new
+
+324
+00:10:47,056 --> 0:10:47,566
+concept.
+
+325
+00:10:47,926 --> 0:10:49,836
+There's no physical analog to
+
+326
+00:10:49,836 --> 0:10:51,506
+this and there's also no audio
+
+327
+00:10:51,506 --> 0:10:51,976
+analog.
+
+328
+00:10:54,176 --> 0:10:57,146
+In this world, I want you to
+
+329
+00:10:57,146 --> 0:10:59,186
+instead think of moving along in
+
+330
+00:10:59,186 --> 0:11:02,606
+a perceptual space from a very
+
+331
+00:10:59,186 --> 0:11:02,606
+a perceptual space from a very
+
+332
+00:11:02,606 --> 0:11:05,506
+round and organic feel at zero,
+
+333
+00:11:06,796 --> 0:11:08,306
+all the way to a more crisp and
+
+334
+00:11:08,306 --> 0:11:09,856
+precise feel at one.
+
+335
+00:11:10,646 --> 0:11:12,596
+And to help ground that a bit
+
+336
+00:11:12,596 --> 0:11:14,546
+further, I'm going to use some
+
+337
+00:11:14,546 --> 0:11:16,986
+examples from iOS 12.
+
+338
+00:11:17,876 --> 0:11:19,856
+The flashlight button on your
+
+339
+00:11:19,856 --> 0:11:21,396
+lock screen is an example of a
+
+340
+00:11:21,396 --> 0:11:24,126
+very high sharpness haptic.
+
+341
+00:11:24,606 --> 0:11:29,316
+And the App Switcher, that swipe
+
+342
+00:11:29,316 --> 0:11:32,216
+up, that's an example of a more
+
+343
+00:11:32,216 --> 0:11:33,936
+round, a lower sharpness haptic.
+
+344
+00:11:34,316 --> 0:11:37,436
+As for the why.
+
+345
+00:11:37,536 --> 0:11:39,946
+Why were those two types of
+
+346
+00:11:40,056 --> 0:11:42,166
+experiences, you know, sharp and
+
+347
+00:11:42,166 --> 0:11:42,656
+not sharp?
+
+348
+00:11:42,936 --> 0:11:44,326
+I'm going to refer you to our
+
+349
+00:11:44,386 --> 0:11:47,186
+talk on Audio Haptic Design.
+
+350
+00:11:47,706 --> 0:11:50,566
+Now, we have several more types
+
+351
+00:11:50,566 --> 0:11:52,466
+of event parameters, for
+
+352
+00:11:52,466 --> 0:11:54,816
+example, that apply to audio,
+
+353
+00:11:54,816 --> 0:11:56,286
+like pitch and pan.
+
+354
+00:11:56,606 --> 0:11:58,456
+And for haptics, we have things
+
+355
+00:11:58,456 --> 0:11:59,636
+that let you change those
+
+356
+00:11:59,636 --> 0:12:00,746
+resonance and so forth.
+
+357
+00:11:59,636 --> 0:12:00,746
+resonance and so forth.
+
+358
+00:12:01,066 --> 0:12:03,776
+But these two, intensity and
+
+359
+00:12:03,776 --> 0:12:05,636
+sharpness, will be enough to get
+
+360
+00:12:05,636 --> 0:12:05,976
+us going.
+
+361
+00:12:08,396 --> 0:12:10,506
+Now, to develop a feel for that
+
+362
+00:12:10,616 --> 0:12:13,356
+dynamic range and precision of
+
+363
+00:12:13,696 --> 0:12:14,796
+intensity and sharpness.
+
+364
+00:12:15,856 --> 0:12:18,246
+We've got a sample code, the
+
+365
+00:12:18,276 --> 0:12:20,186
+palette, which allows you to try
+
+366
+00:12:20,186 --> 0:12:22,886
+out these experiences for
+
+367
+00:12:22,886 --> 0:12:23,316
+yourself.
+
+368
+00:12:23,636 --> 0:12:25,626
+As you move, as you tap, or you
+
+369
+00:12:25,626 --> 0:12:28,166
+drag your finger around, you'll
+
+370
+00:12:28,386 --> 0:12:30,206
+be accessing the sharpness axis,
+
+371
+00:12:30,856 --> 0:12:32,506
+as well as the intensity axis.
+
+372
+00:12:32,506 --> 0:12:33,516
+And it's going to play out the
+
+373
+00:12:33,516 --> 0:12:35,596
+corresponding continuous or
+
+374
+00:12:35,596 --> 0:12:37,606
+transient haptic as you do that.
+
+375
+00:12:38,656 --> 0:12:40,696
+This will help you get that
+
+376
+00:12:40,696 --> 0:12:41,576
+intuition.
+
+377
+00:12:46,046 --> 0:12:47,876
+So that was an introduction
+
+378
+00:12:48,506 --> 0:12:50,436
+about where we can use Core
+
+379
+00:12:50,436 --> 0:12:52,956
+Haptics and also how to specify
+
+380
+00:12:52,956 --> 0:12:53,566
+our content.
+
+381
+00:12:54,066 --> 0:12:55,956
+Now, let's invite Doug Scott,
+
+382
+00:12:55,956 --> 0:12:57,886
+our Core Haptics architect, to
+
+383
+00:12:57,886 --> 0:13:00,606
+get us started with playing back
+
+384
+00:12:57,886 --> 0:13:00,606
+get us started with playing back
+
+385
+00:13:00,766 --> 0:13:02,966
+Core Haptics, playing back those
+
+386
+00:13:02,966 --> 0:13:04,916
+patterns, and integrating Core
+
+387
+00:13:04,916 --> 0:13:06,076
+Haptics into our apps.
+
+388
+00:13:06,526 --> 0:13:07,286
+Please welcome Doug.
+
+389
+00:13:08,516 --> 0:13:10,556
+[ Applause ]
+
+390
+00:13:11,056 --> 0:13:11,546
+&gt;&gt; Thank you, Michael.
+
+391
+00:13:12,596 --> 0:13:13,606
+Good evening, everyone.
+
+392
+00:13:13,756 --> 0:13:16,006
+I am thrilled to be here to talk
+
+393
+00:13:16,006 --> 0:13:17,176
+to you about integrating the
+
+394
+00:13:17,176 --> 0:13:19,186
+Core Haptics API into your
+
+395
+00:13:19,186 --> 0:13:19,926
+applications.
+
+396
+00:13:21,456 --> 0:13:24,136
+Before I show a demo and dive
+
+397
+00:13:24,136 --> 0:13:25,536
+into the code, let's walk
+
+398
+00:13:25,536 --> 0:13:26,766
+through the basic steps that
+
+399
+00:13:26,766 --> 0:13:28,036
+your application will follow
+
+400
+00:13:28,036 --> 0:13:28,826
+when you want to play a haptic
+
+401
+00:13:28,826 --> 0:13:28,976
+pattern.
+
+402
+00:13:33,046 --> 0:13:34,536
+Creating your content is the
+
+403
+00:13:34,536 --> 0:13:36,476
+first good step because this can
+
+404
+00:13:36,476 --> 0:13:38,286
+be done at any point prior to
+
+405
+00:13:38,286 --> 0:13:39,566
+the point where you need to use
+
+406
+00:13:39,566 --> 0:13:39,726
+it.
+
+407
+00:13:40,376 --> 0:13:43,126
+In this example, we load an
+
+408
+00:13:43,126 --> 0:13:44,566
+NSDictionary into a haptic
+
+409
+00:13:44,566 --> 0:13:44,966
+pattern.
+
+410
+00:13:45,076 --> 0:13:46,076
+The dictionary might have been
+
+411
+00:13:46,076 --> 0:13:47,276
+something that we stored in our
+
+412
+00:13:47,276 --> 0:13:48,486
+application as part of our
+
+413
+00:13:48,486 --> 0:13:49,166
+resources.
+
+414
+00:13:50,226 --> 0:13:52,256
+As we will see later, patterns
+
+415
+00:13:52,256 --> 0:13:54,166
+can also be created right before
+
+416
+00:13:54,166 --> 0:13:55,566
+they are to be played if they
+
+417
+00:13:55,566 --> 0:13:57,496
+need to very interactively in
+
+418
+00:13:57,496 --> 0:13:58,816
+response to changes in your
+
+419
+00:13:58,816 --> 0:13:59,446
+application.
+
+420
+00:14:02,046 --> 0:14:03,576
+The next step is to create an
+
+421
+00:14:03,576 --> 0:14:04,926
+instance of the haptic engine.
+
+422
+00:14:05,846 --> 0:14:07,116
+This should be done as soon as
+
+423
+00:14:07,116 --> 0:14:08,666
+your application knows that it
+
+424
+00:14:08,666 --> 0:14:09,976
+will be making use of haptics.
+
+425
+00:14:12,596 --> 0:14:14,456
+Next, you create a haptic player
+
+426
+00:14:14,456 --> 0:14:15,426
+for your haptic pattern.
+
+427
+00:14:15,996 --> 0:14:17,846
+Each player is associated with a
+
+428
+00:14:17,846 --> 0:14:19,856
+single pattern and a particular
+
+429
+00:14:19,856 --> 0:14:20,616
+haptic engine.
+
+430
+00:14:23,356 --> 0:14:25,196
+Starting the haptic engine tells
+
+431
+00:14:25,196 --> 0:14:26,736
+the system to initialize the
+
+432
+00:14:26,736 --> 0:14:28,466
+audio and haptic hardware in
+
+433
+00:14:28,466 --> 0:14:30,716
+preparation for request to play
+
+434
+00:14:30,716 --> 0:14:30,966
+the pattern.
+
+435
+00:14:33,156 --> 0:14:34,536
+At the moment that your
+
+436
+00:14:34,536 --> 0:14:35,926
+application wants the pattern to
+
+437
+00:14:36,016 --> 0:14:36,366
+play.
+
+438
+00:14:36,616 --> 0:14:37,656
+You start the player.
+
+439
+00:14:38,306 --> 0:14:40,056
+This can be done in two modes.
+
+440
+00:14:40,346 --> 0:14:42,396
+The first is called -- which we
+
+441
+00:14:42,396 --> 0:14:44,176
+call immediate mode tells the
+
+442
+00:14:44,176 --> 0:14:45,436
+system that you wish this
+
+443
+00:14:46,106 --> 0:14:47,716
+pattern to play at the soonest
+
+444
+00:14:47,716 --> 0:14:49,006
+possible moment with the minimal
+
+445
+00:14:49,006 --> 0:14:49,536
+latency.
+
+446
+00:14:50,476 --> 0:14:52,276
+The second, in scheduled mode,
+
+447
+00:14:52,346 --> 0:14:54,296
+you hand it an absolute
+
+448
+00:14:54,296 --> 0:14:56,016
+timestamp which tells the system
+
+449
+00:14:56,016 --> 0:14:57,116
+that you want to synchronize
+
+450
+00:14:57,116 --> 0:14:58,426
+this event with some other
+
+451
+00:14:58,426 --> 0:15:00,006
+systems such as another audio
+
+452
+00:14:58,426 --> 0:15:00,006
+systems such as another audio
+
+453
+00:15:00,046 --> 0:15:03,456
+player or a game event or a
+
+454
+00:15:03,456 --> 0:15:03,976
+graphics event.
+
+455
+00:15:08,266 --> 0:15:09,196
+If you want to know when your
+
+456
+00:15:09,196 --> 0:15:11,106
+pattern is finished playing, you
+
+457
+00:15:11,106 --> 0:15:12,296
+can have the haptic engine
+
+458
+00:15:12,296 --> 0:15:14,136
+notify you via callback when
+
+459
+00:15:14,136 --> 0:15:15,816
+your player or players are done.
+
+460
+00:15:17,556 --> 0:15:19,516
+Here, the engine calls back to
+
+461
+00:15:19,516 --> 0:15:20,306
+the application.
+
+462
+00:15:21,326 --> 0:15:22,706
+And the application can now
+
+463
+00:15:22,736 --> 0:15:24,376
+choose to stop the haptic engine
+
+464
+00:15:24,526 --> 0:15:26,366
+or continue on with the next
+
+465
+00:15:26,366 --> 0:15:26,976
+haptic pattern.
+
+466
+00:15:29,046 --> 0:15:30,216
+Those are the basic steps.
+
+467
+00:15:30,466 --> 0:15:32,276
+Now let's see an example of an
+
+468
+00:15:32,276 --> 0:15:33,586
+application which uses this
+
+469
+00:15:33,626 --> 0:15:33,976
+system.
+
+470
+00:15:36,386 --> 0:15:38,566
+But before we do, we need to let
+
+471
+00:15:38,566 --> 0:15:41,046
+you in on a secret demonstrating
+
+472
+00:15:41,046 --> 0:15:42,666
+the use of an API which
+
+473
+00:15:42,666 --> 0:15:44,136
+generates tactile feedback
+
+474
+00:15:44,546 --> 0:15:46,116
+prevents -- presents a unique
+
+475
+00:15:46,206 --> 0:15:46,736
+problem.
+
+476
+00:15:47,386 --> 0:15:48,596
+You in the audience can't feel
+
+477
+00:15:48,596 --> 0:15:48,686
+it.
+
+478
+00:15:49,366 --> 0:15:51,006
+The way we handle this was by
+
+479
+00:15:51,006 --> 0:15:52,786
+adding an audio equivalent for
+
+480
+00:15:52,786 --> 0:15:53,876
+each haptic event into the
+
+481
+00:15:53,876 --> 0:15:55,786
+output which will let you hear
+
+482
+00:15:55,786 --> 0:15:56,976
+the effect of the haptics.
+
+483
+00:16:00,806 --> 0:16:02,826
+This application uses a simple
+
+484
+00:16:02,826 --> 0:16:04,506
+physics engine to move the ball
+
+485
+00:16:04,506 --> 0:16:05,976
+around the screen in response to
+
+486
+00:16:05,976 --> 0:16:06,856
+the accelerometer.
+
+487
+00:16:07,031 --> 0:16:09,031
+[ Knocking Sounds ]
+
+488
+00:16:09,046 --> 0:16:10,936
+It generates haptic and audio
+
+489
+00:16:10,936 --> 0:16:12,296
+feedback when the ball impacts
+
+490
+00:16:12,296 --> 0:16:13,636
+the edges of the screen.
+
+491
+00:16:14,106 --> 0:16:15,446
+The user has the sense they are
+
+492
+00:16:15,446 --> 0:16:16,726
+feeling the impacts through the
+
+493
+00:16:16,726 --> 0:16:18,186
+edges of the game wall as well
+
+494
+00:16:18,186 --> 0:16:18,726
+as hearing them.
+
+495
+00:16:19,056 --> 0:16:20,386
+The harder the ball hits the
+
+496
+00:16:20,386 --> 0:16:21,796
+edge, the more intense the
+
+497
+00:16:21,796 --> 0:16:23,706
+haptic and the louder the audio.
+
+498
+00:16:26,136 --> 0:16:28,356
+Okay, let's look at the code for
+
+499
+00:16:28,356 --> 0:16:29,846
+this example to see how to
+
+500
+00:16:29,846 --> 0:16:31,186
+integrate the Core Haptics API
+
+501
+00:16:31,186 --> 0:16:32,416
+into your application.
+
+502
+00:16:32,796 --> 0:16:34,706
+We'll see how event parameters
+
+503
+00:16:34,756 --> 0:16:36,816
+are used to produce changes in
+
+504
+00:16:36,816 --> 0:16:37,896
+the haptics and audio.
+
+505
+00:16:38,916 --> 0:16:40,706
+The example here, all this code,
+
+506
+00:16:40,706 --> 0:16:42,106
+is taken from the sample code on
+
+507
+00:16:42,106 --> 0:16:42,726
+the website.
+
+508
+00:16:43,026 --> 0:16:44,306
+But it's been edited down to
+
+509
+00:16:44,306 --> 0:16:45,906
+show the important points.
+
+510
+00:16:48,226 --> 0:16:50,046
+First, we import the Core
+
+511
+00:16:50,046 --> 0:16:50,946
+Haptics module.
+
+512
+00:16:50,946 --> 0:16:52,386
+Along with the other modules we
+
+513
+00:16:52,386 --> 0:16:53,546
+need for the application.
+
+514
+00:16:57,046 --> 0:16:59,006
+The CHHapticEngine is declared
+
+515
+00:16:59,006 --> 0:17:00,156
+as a member variable of our
+
+516
+00:16:59,006 --> 0:17:00,156
+as a member variable of our
+
+517
+00:17:00,156 --> 0:17:01,776
+ViewController because we want
+
+518
+00:17:01,776 --> 0:17:02,726
+to be able to control its
+
+519
+00:17:02,726 --> 0:17:04,236
+lifetime and have it exist for
+
+520
+00:17:04,236 --> 0:17:05,656
+the lifetime of the application.
+
+521
+00:17:08,106 --> 0:17:09,566
+As discussed in our flow chart
+
+522
+00:17:09,566 --> 0:17:11,306
+earlier, we set up the haptic
+
+523
+00:17:11,306 --> 0:17:12,776
+engine in advance of when we
+
+524
+00:17:12,776 --> 0:17:13,546
+want to use it.
+
+525
+00:17:13,836 --> 0:17:15,806
+Here, we call a helper method at
+
+526
+00:17:15,806 --> 0:17:17,036
+the point that the view has
+
+527
+00:17:17,036 --> 0:17:17,445
+loaded.
+
+528
+00:17:20,195 --> 0:17:21,675
+In the helper method, we began
+
+529
+00:17:21,986 --> 0:17:23,685
+by creating the instance of the
+
+530
+00:17:23,685 --> 0:17:25,246
+haptic engine and check for
+
+531
+00:17:25,246 --> 0:17:26,126
+possible errors.
+
+532
+00:17:26,896 --> 0:17:28,116
+The engine is assigned to our
+
+533
+00:17:28,116 --> 0:17:29,666
+member variable so we can keep
+
+534
+00:17:29,666 --> 0:17:29,976
+it around.
+
+535
+00:17:32,066 --> 0:17:34,456
+It is optional, but extremely
+
+536
+00:17:34,456 --> 0:17:36,676
+useful to assign a closure to
+
+537
+00:17:36,676 --> 0:17:38,346
+the engine's stoppedHandler
+
+538
+00:17:38,396 --> 0:17:38,886
+property.
+
+539
+00:17:39,376 --> 0:17:40,406
+This will be called if the
+
+540
+00:17:40,406 --> 0:17:42,196
+engine is stopped by some action
+
+541
+00:17:42,256 --> 0:17:44,026
+other than the application
+
+542
+00:17:44,026 --> 0:17:45,296
+itself asking it to.
+
+543
+00:17:45,766 --> 0:17:47,046
+Some possible reasons that this
+
+544
+00:17:47,046 --> 0:17:48,396
+might happen are an audio
+
+545
+00:17:48,396 --> 0:17:50,016
+session interruption or the
+
+546
+00:17:50,016 --> 0:17:51,576
+application being suspended.
+
+547
+00:17:54,066 --> 0:17:55,496
+We finish this method by
+
+548
+00:17:55,496 --> 0:17:57,006
+starting the haptic engine and
+
+549
+00:17:57,006 --> 0:17:58,416
+checking for possible errors.
+
+550
+00:17:59,286 --> 0:18:00,836
+The engine will continue to run
+
+551
+00:17:59,286 --> 0:18:00,836
+The engine will continue to run
+
+552
+00:18:00,906 --> 0:18:02,296
+until the application, or a
+
+553
+00:18:02,296 --> 0:18:04,416
+possible outside action stops
+
+554
+00:18:04,416 --> 0:18:04,486
+it.
+
+555
+00:18:05,806 --> 0:18:07,676
+Note that the application tracks
+
+556
+00:18:07,766 --> 0:18:09,106
+whether or not the engine needs
+
+557
+00:18:09,106 --> 0:18:10,106
+to be restarted.
+
+558
+00:18:11,206 --> 0:18:12,856
+Typically, you might leave the
+
+559
+00:18:12,856 --> 0:18:14,226
+engine running for the entire
+
+560
+00:18:14,226 --> 0:18:16,036
+time that you have any view
+
+561
+00:18:16,326 --> 0:18:18,176
+visible on the screen which has
+
+562
+00:18:18,176 --> 0:18:18,976
+haptic interaction.
+
+563
+00:18:24,396 --> 0:18:25,396
+Here's the location in the
+
+564
+00:18:25,396 --> 0:18:26,736
+application where the simple
+
+565
+00:18:26,736 --> 0:18:28,506
+physics engine lets us know that
+
+566
+00:18:28,506 --> 0:18:29,816
+the ball has collided with the
+
+567
+00:18:29,816 --> 0:18:30,246
+wall.
+
+568
+00:18:30,826 --> 0:18:32,026
+In this example, we want to
+
+569
+00:18:32,026 --> 0:18:33,526
+generate our haptic and audio
+
+570
+00:18:33,526 --> 0:18:35,776
+pattern to interactively track
+
+571
+00:18:35,886 --> 0:18:37,166
+the velocity of the ball.
+
+572
+00:18:37,336 --> 0:18:38,696
+So the pattern player and its
+
+573
+00:18:38,696 --> 0:18:40,056
+pattern are created at the
+
+574
+00:18:40,056 --> 0:18:40,976
+moment they are needed.
+
+575
+00:18:44,046 --> 0:18:45,316
+This method is responsible for
+
+576
+00:18:45,316 --> 0:18:46,726
+creating the pattern to be
+
+577
+00:18:46,726 --> 0:18:48,176
+played in response to the ball
+
+578
+00:18:48,176 --> 0:18:48,636
+collision.
+
+579
+00:18:49,506 --> 0:18:50,786
+In here, we will create a
+
+580
+00:18:50,786 --> 0:18:52,286
+pattern with two events.
+
+581
+00:18:52,416 --> 0:18:53,976
+One haptic and one audio.
+
+582
+00:18:56,186 --> 0:18:58,126
+We create a haptic event of type
+
+583
+00:18:58,236 --> 0:19:00,406
+hapticTransient to produce that
+
+584
+00:18:58,236 --> 0:19:00,406
+hapticTransient to produce that
+
+585
+00:19:00,406 --> 0:19:01,546
+impactful feel.
+
+586
+00:19:04,366 --> 0:19:05,396
+And we give it two event
+
+587
+00:19:05,396 --> 0:19:06,676
+parameters which configure the
+
+588
+00:19:06,676 --> 0:19:08,306
+event's sharpness and intensity,
+
+589
+00:19:08,546 --> 0:19:09,566
+which you've heard about
+
+590
+00:19:09,566 --> 0:19:11,866
+already, based upon the velocity
+
+591
+00:19:11,866 --> 0:19:12,456
+of the ball.
+
+592
+00:19:15,206 --> 0:19:16,936
+Then, we create the audio event
+
+593
+00:19:17,036 --> 0:19:20,306
+with type audioContinuous with a
+
+594
+00:19:20,546 --> 0:19:22,386
+set of event parameters for
+
+595
+00:19:22,386 --> 0:19:24,836
+volume and envelope decay also
+
+596
+00:19:24,836 --> 0:19:26,076
+calculated from the ball's
+
+597
+00:19:26,076 --> 0:19:26,706
+velocity.
+
+598
+00:19:27,366 --> 0:19:28,956
+The sustained parameter here
+
+599
+00:19:29,086 --> 0:19:31,356
+assures us that the intensity of
+
+600
+00:19:31,406 --> 0:19:33,586
+this event will die off to zero
+
+601
+00:19:33,996 --> 0:19:36,076
+instead of continuing on for the
+
+602
+00:19:36,076 --> 0:19:36,886
+length of the event.
+
+603
+00:19:39,356 --> 0:19:41,166
+We create a pattern containing
+
+604
+00:19:41,166 --> 0:19:43,206
+these two events synchronized in
+
+605
+00:19:43,206 --> 0:19:43,576
+time.
+
+606
+00:19:46,046 --> 0:19:47,496
+Finally, we create the pattern
+
+607
+00:19:47,496 --> 0:19:49,036
+player from this pattern and
+
+608
+00:19:49,036 --> 0:19:52,416
+return it to this layer, back in
+
+609
+00:19:52,416 --> 0:19:53,716
+the method that responds to the
+
+610
+00:19:53,716 --> 0:19:54,206
+collision.
+
+611
+00:19:55,346 --> 0:19:57,336
+The final step is to start the
+
+612
+00:19:57,336 --> 0:19:58,996
+pattern player at time
+
+613
+00:19:58,996 --> 0:20:01,546
+CHHapticTimeImmediate, which
+
+614
+00:19:58,996 --> 0:20:01,546
+CHHapticTimeImmediate, which
+
+615
+00:20:01,546 --> 0:20:03,176
+indicates to play it back as
+
+616
+00:20:03,176 --> 0:20:04,606
+soon as possible with minimal
+
+617
+00:20:04,606 --> 0:20:04,976
+latency.
+
+618
+00:20:07,046 --> 0:20:08,096
+Notice that the app does not
+
+619
+00:20:08,096 --> 0:20:09,636
+hold on to the instance of this
+
+620
+00:20:09,666 --> 0:20:10,206
+player.
+
+621
+00:20:11,226 --> 0:20:12,726
+Its pattern is guaranteed to
+
+622
+00:20:12,726 --> 0:20:14,466
+continue playing until it is
+
+623
+00:20:14,466 --> 0:20:14,976
+finished.
+
+624
+00:20:15,306 --> 0:20:16,886
+So the application can simply
+
+625
+00:20:16,886 --> 0:20:17,966
+fire and forget it.
+
+626
+00:20:20,046 --> 0:20:22,346
+And that's the basic recipe for
+
+627
+00:20:22,346 --> 0:20:23,536
+playing your content using a
+
+628
+00:20:23,536 --> 0:20:24,826
+pattern that is created
+
+629
+00:20:24,826 --> 0:20:25,916
+programmatically within your
+
+630
+00:20:25,916 --> 0:20:26,566
+app's code.
+
+631
+00:20:27,736 --> 0:20:28,996
+Again, because this app is
+
+632
+00:20:28,996 --> 0:20:30,866
+continuously interactive we
+
+633
+00:20:30,866 --> 0:20:32,376
+don't stop the haptic engine
+
+634
+00:20:32,556 --> 0:20:34,066
+until the game screen is no
+
+635
+00:20:34,066 --> 0:20:34,856
+longer visible.
+
+636
+00:20:38,096 --> 0:20:39,706
+Now let's take a moment to talk
+
+637
+00:20:39,706 --> 0:20:40,886
+about one of the most powerful
+
+638
+00:20:40,886 --> 0:20:42,546
+capabilities of Core Haptics,
+
+639
+00:20:42,946 --> 0:20:43,976
+dynamic parameters.
+
+640
+00:20:46,156 --> 0:20:48,206
+Dynamic parameters let you
+
+641
+00:20:48,206 --> 0:20:50,046
+increase and decrease the value
+
+642
+00:20:50,116 --> 0:20:51,886
+of the existing event parameters
+
+643
+00:20:52,146 --> 0:20:54,316
+for all active and upcoming
+
+644
+00:20:54,316 --> 0:20:55,976
+events in a pattern as it plays.
+
+645
+00:20:58,196 --> 0:21:00,286
+Dynamic parameters take effect
+
+646
+00:20:58,196 --> 0:21:00,286
+Dynamic parameters take effect
+
+647
+00:21:00,286 --> 0:21:01,796
+at the timestamp you provide.
+
+648
+00:21:02,656 --> 0:21:03,986
+You can adjust multiple
+
+649
+00:21:03,986 --> 0:21:05,636
+different parameters at the same
+
+650
+00:21:05,636 --> 0:21:08,136
+time or with any arbitrary time
+
+651
+00:21:08,256 --> 0:21:08,946
+relationship.
+
+652
+00:21:11,176 --> 0:21:12,246
+You can include dynamic
+
+653
+00:21:12,246 --> 0:21:13,566
+parameters when you create your
+
+654
+00:21:13,566 --> 0:21:14,036
+pattern.
+
+655
+00:21:14,466 --> 0:21:16,576
+or send them to your player in
+
+656
+00:21:16,576 --> 0:21:17,976
+real time during playback.
+
+657
+00:21:20,076 --> 0:21:21,896
+This allows you to use a single
+
+658
+00:21:21,896 --> 0:21:23,896
+pattern to generate an infinite
+
+659
+00:21:23,896 --> 0:21:26,326
+number of haptic and audio
+
+660
+00:21:26,326 --> 0:21:28,186
+variations by adjusting the
+
+661
+00:21:28,186 --> 0:21:29,436
+pattern dynamically.
+
+662
+00:21:32,046 --> 0:21:33,396
+Let's take a look at an example.
+
+663
+00:21:34,076 --> 0:21:35,536
+In this diagram, on the bottom,
+
+664
+00:21:35,536 --> 0:21:36,866
+we have a haptic pattern that
+
+665
+00:21:36,866 --> 0:21:39,326
+was designed with all haptic
+
+666
+00:21:39,326 --> 0:21:40,866
+event intensities set to their
+
+667
+00:21:40,866 --> 0:21:41,886
+maximum value.
+
+668
+00:21:42,156 --> 0:21:43,636
+The first half are
+
+669
+00:21:43,636 --> 0:21:44,686
+HapticTransients.
+
+670
+00:21:44,686 --> 0:21:45,596
+The second half is the
+
+671
+00:21:45,596 --> 0:21:46,636
+HapticContinuous.
+
+672
+00:21:47,936 --> 0:21:48,836
+We'd like to reduce the
+
+673
+00:21:48,836 --> 0:21:50,316
+intensity of all the games
+
+674
+00:21:50,316 --> 0:21:51,606
+haptics temporarily.
+
+675
+00:21:51,836 --> 0:21:53,566
+For example, if a game -- if a
+
+676
+00:21:53,566 --> 0:21:54,786
+character was speaking in the
+
+677
+00:21:54,786 --> 0:21:54,976
+game.
+
+678
+00:21:58,186 --> 0:21:59,706
+I send a dynamic parameter for
+
+679
+00:21:59,706 --> 0:22:02,426
+intensity with a value of 0.3
+
+680
+00:21:59,706 --> 0:22:02,426
+intensity with a value of 0.3
+
+681
+00:22:02,596 --> 0:22:04,546
+that takes effect at time .5
+
+682
+00:22:04,546 --> 0:22:04,986
+seconds.
+
+683
+00:22:05,776 --> 0:22:07,316
+You can see that it reduced the
+
+684
+00:22:07,316 --> 0:22:08,816
+intensity of the event at that
+
+685
+00:22:08,816 --> 0:22:10,286
+time significantly to about a
+
+686
+00:22:10,286 --> 0:22:11,976
+third of what it was unmodified.
+
+687
+00:22:16,406 --> 0:22:18,306
+Finally, let's look at another
+
+688
+00:22:18,306 --> 0:22:19,916
+way to create patterns.
+
+689
+00:22:22,496 --> 0:22:25,826
+So what exactly is AHAP?
+
+690
+00:22:27,476 --> 0:22:30,476
+The Apple Haptic Audio Pattern
+
+691
+00:22:30,596 --> 0:22:31,936
+is a specification for
+
+692
+00:22:31,936 --> 0:22:33,306
+describing a Core Haptics
+
+693
+00:22:33,306 --> 0:22:35,696
+pattern in a text-based format.
+
+694
+00:22:36,316 --> 0:22:37,996
+It is built from nested key
+
+695
+00:22:37,996 --> 0:22:40,426
+value pairs which become quite
+
+696
+00:22:40,426 --> 0:22:42,656
+familiar for you, to you once
+
+697
+00:22:42,656 --> 0:22:43,646
+you start working with the
+
+698
+00:22:43,646 --> 0:22:45,076
+classes which make up the Core
+
+699
+00:22:45,076 --> 0:22:45,886
+Haptics API.
+
+700
+00:22:48,416 --> 0:22:49,986
+It is a schema for the widely
+
+701
+00:22:49,986 --> 0:22:52,066
+established JSON file format.
+
+702
+00:22:52,486 --> 0:22:55,046
+Which means you have already
+
+703
+00:22:55,046 --> 0:22:56,096
+quite a number of different
+
+704
+00:22:56,096 --> 0:22:57,336
+frameworks which can read,
+
+705
+00:22:57,336 --> 0:22:59,236
+write, and edit these, including
+
+706
+00:22:59,376 --> 0:23:01,116
+such things as the Swift Codable
+
+707
+00:22:59,376 --> 0:23:01,116
+such things as the Swift Codable
+
+708
+00:23:01,116 --> 0:23:01,536
+framework.
+
+709
+00:23:04,036 --> 0:23:06,526
+AHAP makes it easy to share and
+
+710
+00:23:06,526 --> 0:23:08,366
+edit haptic patterns because it
+
+711
+00:23:08,366 --> 0:23:10,146
+is a format that all developers
+
+712
+00:23:10,266 --> 0:23:10,956
+can agree on.
+
+713
+00:23:14,046 --> 0:23:15,096
+Loading your haptic patterns
+
+714
+00:23:15,096 --> 0:23:17,136
+from external AHAP files allows
+
+715
+00:23:17,136 --> 0:23:18,706
+you to separate your content
+
+716
+00:23:18,996 --> 0:23:20,576
+from your application code.
+
+717
+00:23:24,046 --> 0:23:25,516
+Using the magic of a slide deck,
+
+718
+00:23:26,006 --> 0:23:27,146
+we're going to create a simple
+
+719
+00:23:27,146 --> 0:23:28,476
+AHAP file here.
+
+720
+00:23:30,496 --> 0:23:32,616
+We start with a version string.
+
+721
+00:23:33,066 --> 0:23:34,916
+Which indicates which version of
+
+722
+00:23:34,916 --> 0:23:36,116
+the system this pattern was
+
+723
+00:23:36,116 --> 0:23:36,836
+designed for.
+
+724
+00:23:39,206 --> 0:23:40,826
+Next, we add the key for our
+
+725
+00:23:40,826 --> 0:23:41,246
+pattern.
+
+726
+00:23:41,616 --> 0:23:42,646
+Which will be an array of
+
+727
+00:23:42,646 --> 0:23:42,976
+dictionaries.
+
+728
+00:23:46,176 --> 0:23:47,496
+We add our first event
+
+729
+00:23:47,496 --> 0:23:49,036
+dictionary to our pattern array.
+
+730
+00:23:49,616 --> 0:23:51,976
+This event has two required key
+
+731
+00:23:51,976 --> 0:23:52,916
+value pairs.
+
+732
+00:23:53,146 --> 0:23:54,586
+A time in seconds at which the
+
+733
+00:23:54,586 --> 0:23:57,246
+event should happen relative to
+
+734
+00:23:57,246 --> 0:23:58,636
+the start of the pattern and the
+
+735
+00:23:58,636 --> 0:23:59,526
+type of event.
+
+736
+00:24:00,336 --> 0:24:01,886
+This is a haptic transient event
+
+737
+00:24:01,886 --> 0:24:03,306
+starting as soon as the pattern
+
+738
+00:24:03,306 --> 0:24:03,836
+starts.
+
+739
+00:24:06,096 --> 0:24:08,076
+To this event, we add event
+
+740
+00:24:08,076 --> 0:24:09,516
+parameters which will affect
+
+741
+00:24:09,516 --> 0:24:10,436
+only this event.
+
+742
+00:24:11,126 --> 0:24:12,496
+These are stored in their own
+
+743
+00:24:12,496 --> 0:24:13,756
+array of dictionaries.
+
+744
+00:24:15,106 --> 0:24:16,586
+We add an event parameter to
+
+745
+00:24:16,586 --> 0:24:18,396
+control the intensity of the
+
+746
+00:24:18,396 --> 0:24:19,746
+event and another to control its
+
+747
+00:24:19,746 --> 0:24:19,966
+sharpness.
+
+748
+00:24:24,096 --> 0:24:25,466
+We can add a second event in the
+
+749
+00:24:25,466 --> 0:24:26,196
+same fashion.
+
+750
+00:24:26,906 --> 0:24:28,396
+This one starts at an offset of
+
+751
+00:24:28,506 --> 0:24:30,306
+.5 seconds from the first and is
+
+752
+00:24:30,306 --> 0:24:31,906
+of type HapticContinuous.
+
+753
+00:24:32,776 --> 0:24:34,366
+For the event parameters, we use
+
+754
+00:24:34,366 --> 0:24:36,236
+the same as we had for the first
+
+755
+00:24:36,236 --> 0:24:36,536
+event.
+
+756
+00:24:38,336 --> 0:24:41,206
+Events type HapticContinuous and
+
+757
+00:24:41,296 --> 0:24:43,506
+AudioContinuous require an event
+
+758
+00:24:43,556 --> 0:24:45,806
+duration in addition to the time
+
+759
+00:24:45,886 --> 0:24:46,566
+and event type.
+
+760
+00:24:46,916 --> 0:24:48,396
+This duration value is always
+
+761
+00:24:48,396 --> 0:24:49,566
+specified in seconds.
+
+762
+00:24:52,096 --> 0:24:54,376
+Here is a visual representation
+
+763
+00:24:54,376 --> 0:24:56,046
+of the pattern we just created.
+
+764
+00:24:56,456 --> 0:24:57,596
+You can see the two types of
+
+765
+00:24:57,596 --> 0:25:00,716
+events; the HapticTransient at
+
+766
+00:24:57,596 --> 0:25:00,716
+events; the HapticTransient at
+
+767
+00:25:00,716 --> 0:25:02,036
+the very beginning, the
+
+768
+00:25:02,036 --> 0:25:04,116
+Continuous later with a relative
+
+769
+00:25:04,116 --> 0:25:05,706
+timing and duration and their
+
+770
+00:25:05,706 --> 0:25:07,016
+intensity and sharpness
+
+771
+00:25:07,146 --> 0:25:07,976
+parameter values.
+
+772
+00:25:10,376 --> 0:25:13,026
+That was a quick tour of AHAP.
+
+773
+00:25:13,406 --> 0:25:15,326
+This diagram shows a summary of
+
+774
+00:25:15,326 --> 0:25:16,706
+the AHAP file structure.
+
+775
+00:25:17,126 --> 0:25:18,996
+A single pattern consisting of
+
+776
+00:25:18,996 --> 0:25:20,446
+an array of event dictionaries,
+
+777
+00:25:21,816 --> 0:25:24,506
+optional dynamic parameters, and
+
+778
+00:25:24,506 --> 0:25:26,716
+optional use of parameter curves
+
+779
+00:25:26,716 --> 0:25:28,346
+which are an extension of
+
+780
+00:25:28,466 --> 0:25:29,416
+dynamic parameters.
+
+781
+00:25:29,686 --> 0:25:31,086
+Which you can read about more
+
+782
+00:25:31,086 --> 0:25:32,756
+on, within the information that
+
+783
+00:25:32,756 --> 0:25:33,896
+we have on the website.
+
+784
+00:25:35,176 --> 0:25:36,896
+You can find a full link to the
+
+785
+00:25:36,896 --> 0:25:38,536
+AHAP specification on our
+
+786
+00:25:38,536 --> 0:25:39,516
+sessions page.
+
+787
+00:25:42,856 --> 0:25:44,136
+Also on our sessions page,
+
+788
+00:25:44,136 --> 0:25:45,776
+you'll find a code example that
+
+789
+00:25:45,776 --> 0:25:47,536
+shows how to create, load, and
+
+790
+00:25:47,536 --> 0:25:49,086
+play the patterns described by
+
+791
+00:25:49,086 --> 0:25:49,796
+AHAP files.
+
+792
+00:25:50,236 --> 0:25:52,316
+This haptic sampler app includes
+
+793
+00:25:52,316 --> 0:25:53,726
+a range of patterns that
+
+794
+00:25:53,726 --> 0:25:55,776
+highlight the subtlety, dynamic
+
+795
+00:25:55,776 --> 0:25:57,536
+range, and audio haptic sync.
+
+796
+00:25:57,816 --> 0:25:59,066
+That's possible with the Core
+
+797
+00:25:59,066 --> 0:25:59,776
+Haptics API.
+
+798
+00:26:01,316 --> 0:26:02,266
+Thank you very much.
+
+799
+00:26:02,266 --> 0:26:03,376
+And now, I'd like to return the
+
+800
+00:26:03,376 --> 0:26:05,016
+stage to my colleague, Michael.
+
+801
+00:26:06,516 --> 0:26:12,436
+[ Applause ]
+
+802
+00:26:12,936 --> 0:26:13,416
+&gt;&gt; Thanks, Doug.
+
+803
+00:26:14,306 --> 0:26:16,126
+So although we covered a lot of
+
+804
+00:26:16,126 --> 0:26:18,866
+ground today there is still much
+
+805
+00:26:18,866 --> 0:26:20,196
+more to discover with Core
+
+806
+00:26:20,196 --> 0:26:20,646
+Haptics.
+
+807
+00:26:22,016 --> 0:26:23,366
+Check out the online doc
+
+808
+00:26:23,366 --> 0:26:26,116
+reference for details.
+
+809
+00:26:26,236 --> 0:26:27,476
+Once you're up and running with
+
+810
+00:26:27,476 --> 0:26:28,866
+the basics of specifying
+
+811
+00:26:28,866 --> 0:26:30,516
+contents and playing that
+
+812
+00:26:30,516 --> 0:26:31,826
+content you'll probably be
+
+813
+00:26:31,826 --> 0:26:33,626
+wondering about the design
+
+814
+00:26:33,626 --> 0:26:35,006
+principles for these joints
+
+815
+00:26:35,006 --> 0:26:35,926
+haptic audio patterns.
+
+816
+00:26:38,116 --> 0:26:39,596
+You'll be wondering do the
+
+817
+00:26:39,596 --> 0:26:41,726
+rules, the guidelines for sound
+
+818
+00:26:41,726 --> 0:26:43,356
+design carry over to haptic
+
+819
+00:26:43,356 --> 0:26:43,806
+design?
+
+820
+00:26:44,096 --> 0:26:45,606
+What are some common pitfalls I
+
+821
+00:26:45,606 --> 0:26:46,296
+should be aware of?
+
+822
+00:26:47,276 --> 0:26:50,256
+The good news is that our Audio
+
+823
+00:26:50,586 --> 0:26:52,006
+and Haptic Design teams have
+
+824
+00:26:52,006 --> 0:26:53,786
+been doing this for years and
+
+825
+00:26:53,786 --> 0:26:55,166
+they've helped put together some
+
+826
+00:26:55,236 --> 0:26:56,786
+advice and guidance in an
+
+827
+00:26:56,786 --> 0:26:58,326
+updated human interface
+
+828
+00:26:58,326 --> 0:26:59,976
+guidelines or HIG for haptics.
+
+829
+00:27:00,296 --> 0:27:01,846
+As well as in the accompanying
+
+830
+00:27:02,506 --> 0:27:04,896
+talk in WWDC this year.
+
+831
+00:27:05,666 --> 0:27:05,976
+Check it out.
+
+832
+00:27:08,236 --> 0:27:09,756
+So let's recap.
+
+833
+00:27:10,046 --> 0:27:11,696
+Today, we talked about where
+
+834
+00:27:11,696 --> 0:27:13,076
+haptics can help you reach for
+
+835
+00:27:13,076 --> 0:27:15,456
+that next level of immersion and
+
+836
+00:27:15,456 --> 0:27:17,356
+make your app interactions more
+
+837
+00:27:17,356 --> 0:27:17,806
+effortless.
+
+838
+00:27:19,156 --> 0:27:20,606
+Having synchronized and
+
+839
+00:27:20,606 --> 0:27:23,356
+complimentary audio and haptics
+
+840
+00:27:23,386 --> 0:27:25,636
+together is a particularly
+
+841
+00:27:25,636 --> 0:27:26,836
+effective combination.
+
+842
+00:27:27,686 --> 0:27:29,046
+But there haven't been API's
+
+843
+00:27:29,046 --> 0:27:30,966
+that allowed you to actually do
+
+844
+00:27:30,966 --> 0:27:31,166
+this.
+
+845
+00:27:32,026 --> 0:27:34,496
+With iOS 13, we now have the
+
+846
+00:27:34,496 --> 0:27:36,666
+necessary ingredients to create
+
+847
+00:27:36,666 --> 0:27:38,216
+these rich multimodal
+
+848
+00:27:38,216 --> 0:27:38,946
+experiences.
+
+849
+00:27:39,796 --> 0:27:41,856
+We have the vocabulary to
+
+850
+00:27:41,856 --> 0:27:43,406
+describe haptics and audio
+
+851
+00:27:43,406 --> 0:27:46,726
+events and a file format, AHAP.
+
+852
+00:27:47,936 --> 0:27:50,056
+We've got a new performant API
+
+853
+00:27:50,516 --> 0:27:52,506
+Core Haptics which is designed
+
+854
+00:27:52,556 --> 0:27:54,386
+for low latency and real-time
+
+855
+00:27:54,386 --> 0:27:55,016
+modulation.
+
+856
+00:27:55,536 --> 0:27:58,986
+We've put together sample code,
+
+857
+00:27:59,406 --> 0:28:01,756
+sample patterns, design
+
+858
+00:27:59,406 --> 0:28:01,756
+sample patterns, design
+
+859
+00:28:01,756 --> 0:28:03,206
+guidelines, and support from
+
+860
+00:28:04,336 --> 0:28:04,496
+Apple.
+
+861
+00:28:04,586 --> 0:28:06,236
+And lastly, you've got an
+
+862
+00:28:06,236 --> 0:28:08,356
+incredible audience, incredible
+
+863
+00:28:08,356 --> 0:28:10,256
+hardware where you can feel your
+
+864
+00:28:10,256 --> 0:28:11,476
+haptics as you intended.
+
+865
+00:28:11,976 --> 0:28:14,766
+A huge installed base of taptic
+
+866
+00:28:14,766 --> 0:28:16,486
+engines that give you the most
+
+867
+00:28:16,596 --> 0:28:19,036
+powerful, expressive, and
+
+868
+00:28:19,036 --> 0:28:20,496
+precise haptics hardware
+
+869
+00:28:20,496 --> 0:28:21,016
+available.
+
+870
+00:28:21,606 --> 0:28:24,856
+So please come on down to the
+
+871
+00:28:24,856 --> 0:28:26,316
+labs on Thursday and Friday
+
+872
+00:28:26,406 --> 0:28:28,076
+where you can check out some of
+
+873
+00:28:28,076 --> 0:28:30,366
+these haptics samples that we
+
+874
+00:28:30,366 --> 0:28:32,856
+showed today and discuss your
+
+875
+00:28:32,856 --> 0:28:34,196
+own ideas for your apps.
+
+876
+00:28:34,876 --> 0:28:36,466
+You'll also find all of these
+
+877
+00:28:37,606 --> 0:28:39,406
+guidelines and references online
+
+878
+00:28:39,456 --> 0:28:40,466
+at our sessions page.
+
+879
+00:28:42,476 --> 0:28:43,376
+I know you're going to have a
+
+880
+00:28:43,376 --> 0:28:46,206
+lot of fun creating and using
+
+881
+00:28:46,206 --> 0:28:47,366
+these haptic patterns in your
+
+882
+00:28:47,366 --> 0:28:47,606
+apps.
+
+883
+00:28:48,156 --> 0:28:49,746
+We can't wait to hear and feel
+
+884
+00:28:49,856 --> 0:28:50,526
+what you come up with.
+
+885
+00:28:51,176 --> 0:28:51,976
+Thank you, and good night.
+
+886
+00:28:52,516 --> 0:29:00,500
+[ Applause ]

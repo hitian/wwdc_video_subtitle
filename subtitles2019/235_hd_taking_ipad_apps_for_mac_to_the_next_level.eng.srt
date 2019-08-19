@@ -1,0 +1,6871 @@
+1
+00:00:00,506 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:10,886 --> 0:00:11,736
+&gt;&gt; Good afternoon.
+
+3
+00:00:12,516 --> 0:00:16,046
+[ Applause ]
+
+4
+00:00:16,546 --> 0:00:17,616
+So, my name is Jamie
+
+5
+00:00:17,616 --> 0:00:18,106
+Montgomerie.
+
+6
+00:00:18,256 --> 0:00:19,496
+I work in the UIKit team.
+
+7
+00:00:19,496 --> 0:00:20,386
+I'm going to be joined by
+
+8
+00:00:20,466 --> 0:00:22,336
+colleagues Glen, Nils and Chris.
+
+9
+00:00:23,056 --> 0:00:24,276
+Together, we're going to tell
+
+10
+00:00:24,276 --> 0:00:25,946
+you about taking iPad apps on
+
+11
+00:00:26,036 --> 0:00:27,206
+the Mac to the next level.
+
+12
+00:00:28,086 --> 0:00:30,916
+In our first talk Introducing
+
+13
+00:00:30,916 --> 0:00:32,526
+iPad Apps for the Mac, we
+
+14
+00:00:32,526 --> 0:00:33,416
+covered the basics.
+
+15
+00:00:33,536 --> 0:00:34,486
+We showed you how to get your
+
+16
+00:00:34,486 --> 0:00:36,096
+app building and discuss some of
+
+17
+00:00:36,296 --> 0:00:37,896
+the key API differences that you
+
+18
+00:00:37,896 --> 0:00:38,566
+should be aware of.
+
+19
+00:00:39,566 --> 0:00:40,696
+In this talk, we're going to
+
+20
+00:00:40,696 --> 0:00:42,366
+show how to go further and make
+
+21
+00:00:42,366 --> 0:00:44,316
+your app better for Mac, cover
+
+22
+00:00:44,316 --> 0:00:46,196
+multiplatform differences, talk
+
+23
+00:00:46,196 --> 0:00:47,246
+a little about some design
+
+24
+00:00:47,246 --> 0:00:49,316
+considerations, talk about how
+
+25
+00:00:49,316 --> 0:00:50,646
+the application life cycle
+
+26
+00:00:50,796 --> 0:00:52,786
+differs for Mac and discuss how
+
+27
+00:00:52,786 --> 0:00:54,746
+you can distribute your app.
+
+28
+00:00:57,146 --> 0:00:58,356
+So let's talk about making your
+
+29
+00:00:58,356 --> 0:01:00,146
+UIKit app a better Mac app.
+
+30
+00:00:58,356 --> 0:01:00,146
+UIKit app a better Mac app.
+
+31
+00:01:01,256 --> 0:01:03,416
+The first thing to remember is
+
+32
+00:01:03,416 --> 0:01:06,296
+that better iPad apps are better
+
+33
+00:01:06,296 --> 0:01:06,926
+Mac apps.
+
+34
+00:01:07,936 --> 0:01:08,896
+So we'll talk about some of the
+
+35
+00:01:08,896 --> 0:01:10,176
+things you can do to make your
+
+36
+00:01:10,176 --> 0:01:12,316
+app better on iPad and on Mac.
+
+37
+00:01:15,866 --> 0:01:17,766
+On iPad, your app runs in
+
+38
+00:01:17,766 --> 0:01:19,146
+everything, from Slide Over in
+
+39
+00:01:19,236 --> 0:01:20,796
+iPad mini to our beautiful
+
+40
+00:01:20,936 --> 0:01:22,706
+12.9-inch iPad Pros.
+
+41
+00:01:23,936 --> 0:01:25,336
+But now running on Mac, that's
+
+42
+00:01:25,336 --> 0:01:25,756
+not all.
+
+43
+00:01:25,926 --> 0:01:27,086
+Your app could be running full
+
+44
+00:01:27,166 --> 0:01:28,896
+screen on a 27-inch iMac, and
+
+45
+00:01:29,816 --> 0:01:32,296
+that's with a 77% skill factor.
+
+46
+00:01:33,676 --> 0:01:35,856
+In fact, the 27-inch display is
+
+47
+00:01:35,856 --> 0:01:37,446
+more like a 35-inch iPad.
+
+48
+00:01:38,466 --> 0:01:40,106
+So you can fit a lot in that
+
+49
+00:01:40,106 --> 0:01:40,446
+window.
+
+50
+00:01:41,446 --> 0:01:43,156
+So use best practices, support
+
+51
+00:01:43,156 --> 0:01:44,396
+dynamic type and use Auto
+
+52
+00:01:44,396 --> 0:01:46,236
+Layout, and lastly, remember
+
+53
+00:01:46,446 --> 0:01:48,446
+that on the Mac app resize fast.
+
+54
+00:01:49,516 --> 0:01:51,126
+Can your layout code run at 60
+
+55
+00:01:51,126 --> 0:01:51,886
+frames per second?
+
+56
+00:01:52,686 --> 0:01:54,196
+If not, you should check it out
+
+57
+00:01:54,196 --> 0:01:55,116
+using our Instruments
+
+58
+00:01:55,116 --> 0:01:55,766
+performance tool.
+
+59
+00:01:58,816 --> 0:02:00,476
+Next, implement great keyboard
+
+60
+00:01:58,816 --> 0:02:00,476
+Next, implement great keyboard
+
+61
+00:02:00,476 --> 0:02:00,876
+support.
+
+62
+00:02:01,646 --> 0:02:03,466
+All Macs have a keyboard and Mac
+
+63
+00:02:03,466 --> 0:02:04,766
+users' hands are always near
+
+64
+00:02:04,766 --> 0:02:04,946
+them.
+
+65
+00:02:05,646 --> 0:02:06,886
+It's increasingly common for
+
+66
+00:02:06,886 --> 0:02:08,126
+iPads to have keyboards too.
+
+67
+00:02:09,186 --> 0:02:10,455
+You can use our UIKeyCommand
+
+68
+00:02:10,455 --> 0:02:11,856
+class to respond to keyboard
+
+69
+00:02:11,856 --> 0:02:12,336
+shortcuts.
+
+70
+00:02:13,456 --> 0:02:14,546
+You can respond to standard
+
+71
+00:02:14,546 --> 0:02:15,896
+responder actions in your view
+
+72
+00:02:15,896 --> 0:02:17,556
+controllers, things like the
+
+73
+00:02:17,556 --> 0:02:19,466
+cut, copy and paste methods.
+
+74
+00:02:20,786 --> 0:02:22,326
+And look after your responder
+
+75
+00:02:22,326 --> 0:02:22,596
+ping.
+
+76
+00:02:23,446 --> 0:02:24,996
+Set first responder so that key
+
+77
+00:02:24,996 --> 0:02:26,226
+commands go to the right places.
+
+78
+00:02:26,446 --> 0:02:29,076
+And this will help at iPad too.
+
+79
+00:02:29,316 --> 0:02:31,046
+If your app is a game, consider
+
+80
+00:02:31,046 --> 0:02:32,676
+supporting game controllers that
+
+81
+00:02:32,676 --> 0:02:33,796
+will make the experience better
+
+82
+00:02:33,796 --> 0:02:35,586
+for your iOS and your Mac users.
+
+83
+00:02:39,576 --> 0:02:40,966
+So a couple of years ago, we
+
+84
+00:02:41,106 --> 0:02:42,686
+introduced some great drag and
+
+85
+00:02:42,686 --> 0:02:43,846
+drop APIs in UIKit.
+
+86
+00:02:44,466 --> 0:02:46,386
+IPad users now expect drag and
+
+87
+00:02:46,386 --> 0:02:47,736
+drop, and Mac users have
+
+88
+00:02:47,736 --> 0:02:49,436
+expected it for a long time.
+
+89
+00:02:50,826 --> 0:02:52,066
+Making great use of UI drag
+
+90
+00:02:52,066 --> 0:02:53,226
+interaction and UI drop
+
+91
+00:02:53,226 --> 0:02:54,636
+interaction will make your Mac
+
+92
+00:02:54,836 --> 0:02:56,026
+and your iPad users happy.
+
+93
+00:02:59,936 --> 0:03:01,316
+Now this one is always good
+
+94
+00:02:59,936 --> 0:03:01,316
+Now this one is always good
+
+95
+00:03:01,316 --> 0:03:01,786
+advice.
+
+96
+00:03:02,066 --> 0:03:02,956
+Use the latest APIs.
+
+97
+00:03:02,956 --> 0:03:05,266
+If you haven't done it for a
+
+98
+00:03:05,266 --> 0:03:06,976
+while, now is the time to
+
+99
+00:03:06,976 --> 0:03:08,456
+examine your app and look at
+
+100
+00:03:08,456 --> 0:03:09,866
+your use of deprecated APIs.
+
+101
+00:03:10,006 --> 0:03:12,896
+I said it's always good advice
+
+102
+00:03:12,896 --> 0:03:14,496
+but it's even better advice this
+
+103
+00:03:14,496 --> 0:03:16,196
+year as we discussed in our
+
+104
+00:03:16,196 --> 0:03:17,926
+introductory talk many of the
+
+105
+00:03:17,926 --> 0:03:19,936
+deprecated iOS APIs are simply
+
+106
+00:03:19,936 --> 0:03:21,186
+not available on Mac.
+
+107
+00:03:22,206 --> 0:03:24,736
+So use WKWebView not UIWebView,
+
+108
+00:03:25,136 --> 0:03:26,876
+use Metal not OpenGL ES.
+
+109
+00:03:27,556 --> 0:03:29,046
+We've been working hard on these
+
+110
+00:03:29,046 --> 0:03:30,516
+modern alternatives and using
+
+111
+00:03:30,516 --> 0:03:31,376
+them enables you to take
+
+112
+00:03:31,376 --> 0:03:32,786
+advantage of all that work in
+
+113
+00:03:32,886 --> 0:03:34,556
+iPad and on Mac.
+
+114
+00:03:38,756 --> 0:03:41,326
+Lastly, support our new iOS 13
+
+115
+00:03:41,326 --> 0:03:41,726
+features.
+
+116
+00:03:42,936 --> 0:03:44,426
+For example, if you support
+
+117
+00:03:44,426 --> 0:03:45,926
+multiple windows in your iPad
+
+118
+00:03:45,926 --> 0:03:47,966
+app, every UI window scene will
+
+119
+00:03:47,966 --> 0:03:49,806
+be a window on Mac.
+
+120
+00:03:50,826 --> 0:03:54,006
+Support Dark Mode on iPad and
+
+121
+00:03:54,006 --> 0:03:55,626
+you'll support Dark Mode on Mac
+
+122
+00:03:55,626 --> 0:03:55,846
+too.
+
+123
+00:03:56,746 --> 0:03:58,206
+I could call it some specific
+
+124
+00:03:58,206 --> 0:03:59,956
+talks here but there are a lot
+
+125
+00:03:59,956 --> 0:04:00,396
+this year.
+
+126
+00:03:59,956 --> 0:04:00,396
+this year.
+
+127
+00:04:00,646 --> 0:04:02,056
+So go and have a browse and
+
+128
+00:04:02,056 --> 0:04:02,816
+watch the ones that you're
+
+129
+00:04:02,816 --> 0:04:04,426
+interested in, remembering
+
+130
+00:04:04,586 --> 0:04:06,316
+better iPad apps make better Mac
+
+131
+00:04:07,216 --> 0:04:07,306
+apps.
+
+132
+00:04:10,356 --> 0:04:12,066
+So, better iPad apps or better
+
+133
+00:04:12,066 --> 0:04:13,706
+Mac apps but better Mac apps
+
+134
+00:04:13,786 --> 0:04:15,326
+also contain refinements just
+
+135
+00:04:15,326 --> 0:04:15,786
+for Mac.
+
+136
+00:04:17,076 --> 0:04:18,245
+So we'll take a look about what
+
+137
+00:04:18,245 --> 0:04:19,656
+you can do to make your UIKit
+
+138
+00:04:19,656 --> 0:04:21,755
+app feel even more at home on
+
+139
+00:04:21,755 --> 0:04:22,046
+Mac.
+
+140
+00:04:23,366 --> 0:04:24,456
+There are a whole range of
+
+141
+00:04:24,456 --> 0:04:25,016
+things here.
+
+142
+00:04:25,236 --> 0:04:27,006
+They spend the gamut from making
+
+143
+00:04:27,116 --> 0:04:29,446
+more use of existing UIKit APIs
+
+144
+00:04:29,446 --> 0:04:32,206
+to enable unique Mac features to
+
+145
+00:04:32,206 --> 0:04:33,626
+some APIs that are completely
+
+146
+00:04:33,626 --> 0:04:35,216
+new on Mac, or at least
+
+147
+00:04:35,506 --> 0:04:36,756
+completely new to UIKit
+
+148
+00:04:36,756 --> 0:04:37,216
+developers.
+
+149
+00:04:38,726 --> 0:04:39,956
+We're going to take a quick look
+
+150
+00:04:39,956 --> 0:04:41,396
+at the breadth of APIs available
+
+151
+00:04:41,396 --> 0:04:43,336
+to you now.
+
+152
+00:04:43,566 --> 0:04:44,886
+So what's the first thing that
+
+153
+00:04:44,886 --> 0:04:46,226
+you think of that's unique to
+
+154
+00:04:46,226 --> 0:04:46,526
+Mac?
+
+155
+00:04:47,386 --> 0:04:49,596
+For me, it's the Menu Bar.
+
+156
+00:04:50,956 --> 0:04:52,156
+Global Menu Bars are unique to
+
+157
+00:04:52,156 --> 0:04:52,446
+Mac.
+
+158
+00:04:52,706 --> 0:04:54,316
+They store all the possible
+
+159
+00:04:54,316 --> 0:04:55,686
+actions your user can take in
+
+160
+00:04:55,686 --> 0:04:57,176
+one place and neatly tucked away
+
+161
+00:04:57,176 --> 0:04:57,986
+at the top of the screen.
+
+162
+00:04:58,956 --> 0:05:01,096
+They're global to the app and
+
+163
+00:04:58,956 --> 0:05:01,096
+They're global to the app and
+
+164
+00:05:01,096 --> 0:05:03,326
+the items in them are enabled or
+
+165
+00:05:03,326 --> 0:05:04,776
+disabled based on what the user
+
+166
+00:05:04,776 --> 0:05:05,096
+is doing.
+
+167
+00:05:05,866 --> 0:05:08,506
+So for your iPad app on Mac, you
+
+168
+00:05:08,506 --> 0:05:09,656
+can just accept the default Menu
+
+169
+00:05:09,656 --> 0:05:09,936
+Bar.
+
+170
+00:05:09,936 --> 0:05:11,386
+No extra work is required.
+
+171
+00:05:11,976 --> 0:05:15,106
+You can also compose a Menu Bar
+
+172
+00:05:15,106 --> 0:05:16,866
+in Interface Builder as we saw
+
+173
+00:05:16,866 --> 0:05:17,616
+in our first session.
+
+174
+00:05:18,896 --> 0:05:20,476
+Or for field control, you can
+
+175
+00:05:20,476 --> 0:05:21,346
+customize in code.
+
+176
+00:05:21,966 --> 0:05:24,376
+So I spoke about UIKeyCommand
+
+177
+00:05:24,376 --> 0:05:24,716
+earlier.
+
+178
+00:05:24,966 --> 0:05:27,076
+If you're a sharp-eyed API dev
+
+179
+00:05:27,076 --> 0:05:28,316
+reader, you'll have noticed that
+
+180
+00:05:28,406 --> 0:05:30,206
+this year has a new UI command
+
+181
+00:05:30,326 --> 0:05:30,886
+super class.
+
+182
+00:05:32,126 --> 0:05:35,636
+And this along with UIMenu and
+
+183
+00:05:35,636 --> 0:05:37,796
+UIMenuBuilder enable you to take
+
+184
+00:05:37,886 --> 0:05:39,496
+full control over the Mac Menu
+
+185
+00:05:39,496 --> 0:05:39,746
+Bar.
+
+186
+00:05:40,476 --> 0:05:41,336
+We're going to see a demo of
+
+187
+00:05:41,336 --> 0:05:41,916
+this in a moment.
+
+188
+00:05:43,306 --> 0:05:45,476
+One neat thing about this API is
+
+189
+00:05:45,476 --> 0:05:46,796
+that UIKeyCommands that you use
+
+190
+00:05:46,796 --> 0:05:48,676
+in Menus will be available in
+
+191
+00:05:48,676 --> 0:05:49,196
+iPad too.
+
+192
+00:05:49,396 --> 0:05:50,466
+They'll be shown in the
+
+193
+00:05:50,466 --> 0:05:51,806
+discovery builder you get when
+
+194
+00:05:51,806 --> 0:05:52,996
+you hold on the Command key.
+
+195
+00:05:53,696 --> 0:05:55,716
+So if you use this API to make
+
+196
+00:05:55,716 --> 0:05:57,156
+your app a better Mac app,
+
+197
+00:05:57,686 --> 0:05:58,606
+you'll be making it a better
+
+198
+00:05:58,606 --> 0:06:02,816
+iPad app too.
+
+199
+00:05:58,606 --> 0:06:02,816
+iPad app too.
+
+200
+00:06:02,896 --> 0:06:03,756
+Now, there's another kind of
+
+201
+00:06:03,756 --> 0:06:05,416
+menu in Mac, the Context Menu.
+
+202
+00:06:05,746 --> 0:06:06,896
+It's shown in the Control click
+
+203
+00:06:06,896 --> 0:06:07,536
+or right click.
+
+204
+00:06:07,976 --> 0:06:09,506
+And unlike the Main Menu, its
+
+205
+00:06:09,506 --> 0:06:10,486
+contents are dynamic.
+
+206
+00:06:10,826 --> 0:06:11,716
+They're based on what's under
+
+207
+00:06:11,716 --> 0:06:12,406
+the mouse pointer.
+
+208
+00:06:13,446 --> 0:06:15,436
+We have a great new UIKit API
+
+209
+00:06:15,436 --> 0:06:17,156
+for this available on iOS 2,
+
+210
+00:06:17,516 --> 0:06:18,926
+UIContextMenuInteraction.
+
+211
+00:06:19,946 --> 0:06:21,506
+It uses UICommands and its
+
+212
+00:06:21,506 --> 0:06:22,716
+sibling, UIAction.
+
+213
+00:06:23,346 --> 0:06:25,006
+UIAction is block base, so maybe
+
+214
+00:06:25,006 --> 0:06:26,076
+more suitable for this kind of
+
+215
+00:06:26,076 --> 0:06:26,386
+menu.
+
+216
+00:06:27,176 --> 0:06:28,766
+And this cross platform API
+
+217
+00:06:28,896 --> 0:06:30,546
+works uniquely on Mac showing
+
+218
+00:06:30,546 --> 0:06:31,756
+the context menu that we're all
+
+219
+00:06:31,756 --> 0:06:32,836
+used to.
+
+220
+00:06:33,396 --> 0:06:34,726
+To learn more about this API,
+
+221
+00:06:34,726 --> 0:06:36,116
+you should check out our
+
+222
+00:06:36,316 --> 0:06:38,666
+Modernizing Your UI for iOS 13
+
+223
+00:06:38,746 --> 0:06:39,096
+session.
+
+224
+00:06:43,456 --> 0:06:44,706
+So we've talked about some new
+
+225
+00:06:44,706 --> 0:06:45,706
+UIKit APIs.
+
+226
+00:06:45,786 --> 0:06:47,426
+Here's an old UIKit API,
+
+227
+00:06:47,846 --> 0:06:48,816
+UISplitViewController.
+
+228
+00:06:49,806 --> 0:06:51,706
+So the familiar sidebars on Mac
+
+229
+00:06:51,706 --> 0:06:53,296
+are very similar to Split Views
+
+230
+00:06:53,296 --> 0:06:53,966
+in iOS.
+
+231
+00:06:54,326 --> 0:06:55,386
+They're often used for master
+
+232
+00:06:55,386 --> 0:06:56,456
+detail kinds of UI.
+
+233
+00:06:56,456 --> 0:06:59,566
+On Mac, UISplitViewController
+
+234
+00:06:59,566 --> 0:07:01,026
+manage views are automatically
+
+235
+00:06:59,566 --> 0:07:01,026
+manage views are automatically
+
+236
+00:07:01,066 --> 0:07:02,596
+drag resizable from the minimum
+
+237
+00:07:02,596 --> 0:07:03,656
+to maximum column width.
+
+238
+00:07:04,156 --> 0:07:05,446
+And you can use our new
+
+239
+00:07:05,676 --> 0:07:07,156
+primaryBackgroundStyle property
+
+240
+00:07:07,386 --> 0:07:08,576
+to have the left-hand column
+
+241
+00:07:08,746 --> 0:07:10,826
+take on a Mac sidebar look.
+
+242
+00:07:11,536 --> 0:07:12,796
+When you're using the sidebar
+
+243
+00:07:12,796 --> 0:07:14,726
+background style, embedded table
+
+244
+00:07:14,726 --> 0:07:16,226
+views using either of our group
+
+245
+00:07:16,226 --> 0:07:17,696
+styles will take on a source
+
+246
+00:07:17,696 --> 0:07:18,966
+list like appearance and look
+
+247
+00:07:18,966 --> 0:07:20,236
+right at home on Mac.
+
+248
+00:07:20,826 --> 0:07:21,696
+We're going to see this in a
+
+249
+00:07:21,696 --> 0:07:23,236
+second in the demo too.
+
+250
+00:07:26,776 --> 0:07:28,776
+Hover, it doesn't exist on iPad
+
+251
+00:07:29,076 --> 0:07:30,236
+but it's an instantly familiar
+
+252
+00:07:30,236 --> 0:07:31,386
+idea to Mac users.
+
+253
+00:07:32,316 --> 0:07:33,716
+We've added a new easy to use
+
+254
+00:07:33,716 --> 0:07:34,616
+gesture recognizer,
+
+255
+00:07:34,736 --> 0:07:36,206
+UIHoverGestureRecognizer.
+
+256
+00:07:36,726 --> 0:07:38,176
+It allows you to use Hover in
+
+257
+00:07:38,176 --> 0:07:39,216
+you UIKit apps.
+
+258
+00:07:39,846 --> 0:07:41,646
+On screen here, you can see our
+
+259
+00:07:41,646 --> 0:07:43,736
+stocks app making great use of
+
+260
+00:07:43,736 --> 0:07:45,276
+this to display prices as the
+
+261
+00:07:45,316 --> 0:07:47,266
+user moves the most plunger over
+
+262
+00:07:47,266 --> 0:07:47,876
+the price chart.
+
+263
+00:07:54,336 --> 0:07:55,686
+Now for some things that differ
+
+264
+00:07:55,686 --> 0:07:56,956
+completely on Mac, we already
+
+265
+00:07:56,956 --> 0:07:58,326
+have some great Mac APIs.
+
+266
+00:07:59,026 --> 0:08:00,236
+One example of this is the
+
+267
+00:07:59,026 --> 0:08:00,236
+One example of this is the
+
+268
+00:08:00,236 --> 0:08:00,686
+Toolbar.
+
+269
+00:08:01,216 --> 0:08:02,886
+Mac apps often have Toolbars at
+
+270
+00:08:02,886 --> 0:08:03,856
+the top of the window.
+
+271
+00:08:05,176 --> 0:08:06,196
+Because this is a Mac only
+
+272
+00:08:06,196 --> 0:08:07,556
+feature, we've exposed the
+
+273
+00:08:07,556 --> 0:08:10,316
+regular Mac only API, NSToolbar.
+
+274
+00:08:11,256 --> 0:08:12,246
+You can get to it via your
+
+275
+00:08:12,246 --> 0:08:14,236
+UIWindowScene's titlebar
+
+276
+00:08:14,346 --> 0:08:14,746
+property.
+
+277
+00:08:15,816 --> 0:08:18,046
+There's a demo of this coming up
+
+278
+00:08:20,976 --> 0:08:21,316
+soon too.
+
+279
+00:08:21,316 --> 0:08:22,646
+Another kind of bar unique to
+
+280
+00:08:22,646 --> 0:08:23,806
+Mac is the Touch Bar.
+
+281
+00:08:24,386 --> 0:08:25,966
+Touch Bars are on Mac harder
+
+282
+00:08:25,966 --> 0:08:26,336
+feature.
+
+283
+00:08:26,546 --> 0:08:27,926
+On MacBook Pros, they sit just
+
+284
+00:08:27,926 --> 0:08:29,076
+above the keyboard, unlike
+
+285
+00:08:29,106 --> 0:08:30,926
+context menus, what's in them
+
+286
+00:08:30,926 --> 0:08:31,856
+changes based on the what the
+
+287
+00:08:31,856 --> 0:08:32,466
+user is doing.
+
+288
+00:08:33,846 --> 0:08:34,905
+To allow you to support Touch
+
+289
+00:08:34,905 --> 0:08:36,556
+Bar, we've exposed the existing
+
+290
+00:08:36,556 --> 0:08:38,535
+NSTouchBar class to UIKit apps.
+
+291
+00:08:39,086 --> 0:08:40,356
+And it's available via new
+
+292
+00:08:40,356 --> 0:08:42,775
+UIResponder and UIViewController
+
+293
+00:08:43,395 --> 0:08:43,546
+APIs.
+
+294
+00:08:46,436 --> 0:08:48,506
+So there are of course the whole
+
+295
+00:08:48,506 --> 0:08:49,566
+host of other Mac features you
+
+296
+00:08:49,566 --> 0:08:50,066
+could adopt.
+
+297
+00:08:50,806 --> 0:08:52,236
+You can have some control over
+
+298
+00:08:52,236 --> 0:08:54,366
+window sizing, you could use the
+
+299
+00:08:54,366 --> 0:08:56,086
+iOS printing APIs to implement
+
+300
+00:08:56,086 --> 0:08:58,456
+print support on Mac, you can
+
+301
+00:08:58,456 --> 0:08:59,626
+author a Help Book which will
+
+302
+00:08:59,626 --> 0:09:01,066
+give your users help accessible
+
+303
+00:08:59,626 --> 0:09:01,066
+give your users help accessible
+
+304
+00:09:01,066 --> 0:09:03,356
+directly from the Help Menu, and
+
+305
+00:09:03,356 --> 0:09:04,536
+you can customize your Assets
+
+306
+00:09:04,536 --> 0:09:06,076
+And Strings to make how your app
+
+307
+00:09:06,076 --> 0:09:07,736
+looks or what your app says
+
+308
+00:09:08,056 --> 0:09:08,756
+unique to Mac.
+
+309
+00:09:09,146 --> 0:09:13,396
+Now, last but not the least, I'd
+
+310
+00:09:13,396 --> 0:09:14,486
+like to give a mention to the
+
+311
+00:09:14,486 --> 0:09:15,156
+app icon.
+
+312
+00:09:16,246 --> 0:09:18,026
+If you do nothing, your icon for
+
+313
+00:09:18,026 --> 0:09:19,116
+the iPad app will be used for
+
+314
+00:09:19,116 --> 0:09:20,356
+your Mac app.
+
+315
+00:09:20,356 --> 0:09:21,956
+But Mac style differs from iPad
+
+316
+00:09:21,956 --> 0:09:23,906
+style so you can also create an
+
+317
+00:09:23,906 --> 0:09:25,426
+icon for your app that's just
+
+318
+00:09:25,426 --> 0:09:26,996
+for Mac.
+
+319
+00:09:27,096 --> 0:09:28,616
+This may seem pretty trivial but
+
+320
+00:09:28,616 --> 0:09:29,826
+it's the first thing that your
+
+321
+00:09:29,826 --> 0:09:30,386
+users see.
+
+322
+00:09:30,716 --> 0:09:31,846
+So I encourage you to put some
+
+323
+00:09:31,846 --> 0:09:33,026
+time and effort into it.
+
+324
+00:09:33,026 --> 0:09:37,566
+Now, I'd like to introduce my
+
+325
+00:09:37,566 --> 0:09:38,366
+colleague Glen.
+
+326
+00:09:38,536 --> 0:09:40,056
+He'll show you firsthand how to
+
+327
+00:09:40,056 --> 0:09:41,486
+make an iPad app into a better
+
+328
+00:09:41,486 --> 0:09:42,766
+Mac app.
+
+329
+00:09:43,266 --> 0:09:45,766
+[Applause]
+
+330
+00:09:46,266 --> 0:09:48,566
+&gt;&gt; Thanks, Jaime.
+
+331
+00:09:49,276 --> 0:09:51,896
+As my colleague had said, better
+
+332
+00:09:51,896 --> 0:09:53,486
+iPad apps make for better Mac
+
+333
+00:09:53,486 --> 0:09:53,906
+apps.
+
+334
+00:09:54,206 --> 0:09:55,816
+Let's take an example of this.
+
+335
+00:09:56,976 --> 0:09:58,856
+So here, we have an app called
+
+336
+00:09:58,856 --> 0:09:59,646
+ChocolateChip.
+
+337
+00:09:59,766 --> 0:10:01,256
+It's an iPad app that shows
+
+338
+00:09:59,766 --> 0:10:01,256
+It's an iPad app that shows
+
+339
+00:10:01,536 --> 0:10:02,406
+yummy recipes.
+
+340
+00:10:03,356 --> 0:10:06,916
+In previous demos, all we did
+
+341
+00:10:06,916 --> 0:10:11,066
+was-- OK, let's and wait for it
+
+342
+00:10:11,066 --> 0:10:11,776
+to load.
+
+343
+00:10:12,276 --> 0:10:13,936
+In previous demos, we just
+
+344
+00:10:13,966 --> 0:10:16,606
+checked the Mac-- checkbox here,
+
+345
+00:10:16,606 --> 0:10:19,316
+fix any build issues and just
+
+346
+00:10:19,316 --> 0:10:22,406
+built and ran the app like so.
+
+347
+00:10:22,996 --> 0:10:27,426
+OK. Just taking a while.
+
+348
+00:10:28,836 --> 0:10:30,246
+As you can see, we have a
+
+349
+00:10:30,246 --> 0:10:32,256
+brand-new Mac app with all the
+
+350
+00:10:32,256 --> 0:10:33,916
+niceties you expect for a Mac
+
+351
+00:10:33,916 --> 0:10:34,176
+app.
+
+352
+00:10:34,766 --> 0:10:36,556
+For example, all your content
+
+353
+00:10:36,556 --> 0:10:38,246
+appears in a window that you can
+
+354
+00:10:38,246 --> 0:10:38,846
+drag around.
+
+355
+00:10:40,046 --> 0:10:41,356
+And if you have supported
+
+356
+00:10:41,836 --> 0:10:43,996
+varying screen sizes and
+
+357
+00:10:43,996 --> 0:10:45,896
+optimize drawing like Jamie
+
+358
+00:10:45,896 --> 0:10:47,816
+suggested, you will also be able
+
+359
+00:10:47,816 --> 0:10:50,186
+to get resizing windows fast and
+
+360
+00:10:50,186 --> 0:10:51,956
+smooth, like so.
+
+361
+00:10:52,526 --> 0:10:55,246
+Now, if you will implement it,
+
+362
+00:10:55,246 --> 0:10:57,416
+the existing move callback in
+
+363
+00:10:57,416 --> 0:10:59,156
+the table view controller, you
+
+364
+00:10:59,156 --> 0:11:01,536
+can also reorder rows in the
+
+365
+00:10:59,156 --> 0:11:01,536
+can also reorder rows in the
+
+366
+00:11:01,536 --> 0:11:03,816
+table view controller like so
+
+367
+00:11:04,686 --> 0:11:06,046
+without going through a separate
+
+368
+00:11:06,176 --> 0:11:06,846
+editing mode.
+
+369
+00:11:07,366 --> 0:11:08,426
+So this is a Mac feature.
+
+370
+00:11:08,986 --> 0:11:12,126
+Next, we've used the new
+
+371
+00:11:12,126 --> 0:11:14,886
+UIContextMenuInteraction API
+
+372
+00:11:15,046 --> 0:11:16,306
+which we introduced this year,
+
+373
+00:11:17,366 --> 0:11:18,446
+configure it with the right
+
+374
+00:11:18,496 --> 0:11:21,876
+UIActions and UICommands, then
+
+375
+00:11:21,996 --> 0:11:23,926
+your context menus carry over to
+
+376
+00:11:23,926 --> 0:11:25,256
+the Mac seamlessly.
+
+377
+00:11:26,256 --> 0:11:27,636
+So here I've got Add to
+
+378
+00:11:27,636 --> 0:11:28,326
+Favorites.
+
+379
+00:11:28,956 --> 0:11:30,636
+I can make Donuts my favorites
+
+380
+00:11:30,786 --> 0:11:32,166
+or I can take that away as well.
+
+381
+00:11:32,746 --> 0:11:35,436
+Now talking about menus.
+
+382
+00:11:36,616 --> 0:11:38,676
+You also get a default menu bar
+
+383
+00:11:38,676 --> 0:11:41,016
+that start with all the default
+
+384
+00:11:41,016 --> 0:11:45,196
+items that you're used to.
+
+385
+00:11:45,346 --> 0:11:47,396
+For example, cut, copy, past,
+
+386
+00:11:47,396 --> 0:11:48,246
+undo and redo.
+
+387
+00:11:48,696 --> 0:11:51,176
+And these items, menu items are
+
+388
+00:11:51,176 --> 0:11:52,676
+enabled or disabled depending on
+
+389
+00:11:52,676 --> 0:11:54,626
+what's on the responder chain.
+
+390
+00:11:56,356 --> 0:12:00,316
+Finally, if you use the new Dark
+
+391
+00:11:56,356 --> 0:12:00,316
+Finally, if you use the new Dark
+
+392
+00:12:00,316 --> 0:12:04,166
+Mode API in iOS and specify your
+
+393
+00:12:04,166 --> 0:12:05,646
+colors using these system
+
+394
+00:12:05,646 --> 0:12:08,896
+colors, then Dark Mode works
+
+395
+00:12:09,096 --> 0:12:10,236
+really well as well.
+
+396
+00:12:11,106 --> 0:12:12,746
+As you can see, everything goes
+
+397
+00:12:12,746 --> 0:12:15,546
+dark and all your colors are set
+
+398
+00:12:15,546 --> 0:12:16,496
+and your highlights are set
+
+399
+00:12:16,496 --> 0:12:18,516
+correctly as well.
+
+400
+00:12:19,346 --> 0:12:20,426
+And all of this without a single
+
+401
+00:12:20,426 --> 0:12:20,976
+line of code.
+
+402
+00:12:23,516 --> 0:12:25,666
+[ Applause ]
+
+403
+00:12:26,166 --> 0:12:26,606
+Yeah. Thank you.
+
+404
+00:12:30,616 --> 0:12:32,876
+But what if you want it to
+
+405
+00:12:32,876 --> 0:12:35,046
+catalyze your app to the next
+
+406
+00:12:35,046 --> 0:12:35,386
+level?
+
+407
+00:12:36,116 --> 0:12:37,496
+If you want it to make it look
+
+408
+00:12:37,496 --> 0:12:38,846
+and feel like it really belongs
+
+409
+00:12:38,846 --> 0:12:41,476
+in a Mac, what can we do?
+
+410
+00:12:41,586 --> 0:12:44,126
+Well, let's fix three things
+
+411
+00:12:44,576 --> 0:12:46,756
+today, sidebars, toolbars and
+
+412
+00:12:46,856 --> 0:12:47,676
+menu bars.
+
+413
+00:12:48,766 --> 0:12:49,836
+So it looks like I'll be your
+
+414
+00:12:49,836 --> 0:12:51,836
+friendly bartender for today.
+
+415
+00:12:52,466 --> 0:12:54,546
+Yeah, thanks [laughter].
+
+416
+00:12:55,956 --> 0:13:02,346
+OK. First order of business is
+
+417
+00:12:55,956 --> 0:13:02,346
+OK. First order of business is
+
+418
+00:13:02,346 --> 0:13:06,126
+you look at this master view
+
+419
+00:13:06,126 --> 0:13:06,416
+here.
+
+420
+00:13:06,416 --> 0:13:07,936
+This is a master view of the
+
+421
+00:13:07,936 --> 0:13:10,296
+regular Split View controller.
+
+422
+00:13:10,876 --> 0:13:13,066
+But it really should look like a
+
+423
+00:13:13,066 --> 0:13:13,846
+Mac toolbar.
+
+424
+00:13:14,346 --> 0:13:16,546
+So let's set-- Let's figure out
+
+425
+00:13:16,546 --> 0:13:17,886
+how to set the toolbar style.
+
+426
+00:13:18,426 --> 0:13:20,996
+First, we go to the
+
+427
+00:13:21,066 --> 0:13:23,156
+RecipeSplitViewController and we
+
+428
+00:13:23,156 --> 0:13:25,346
+need to hook on to the
+
+429
+00:13:25,346 --> 0:13:28,976
+viewDidLoad delegate call.
+
+430
+00:13:29,786 --> 0:13:31,526
+And here, our call has to be
+
+431
+00:13:31,526 --> 0:13:33,336
+conditionalized for UIKit for
+
+432
+00:13:33,336 --> 0:13:36,846
+Mac so that it only applies for
+
+433
+00:13:36,846 --> 0:13:37,546
+Mac builds.
+
+434
+00:13:38,726 --> 0:13:41,876
+And we only need to insert a
+
+435
+00:13:42,286 --> 0:13:44,776
+primaryBackgroundStyle and a
+
+436
+00:13:44,776 --> 0:13:46,366
+new, you know, enumeration of
+
+437
+00:13:47,046 --> 0:13:47,456
+sidebar.
+
+438
+00:13:47,456 --> 0:13:49,416
+So with this single line of
+
+439
+00:13:49,416 --> 0:13:53,946
+code, we now have a-- and we
+
+440
+00:13:54,176 --> 0:13:55,526
+have a quick rebuild.
+
+441
+00:13:55,586 --> 0:13:59,346
+We now have the sidebar style.
+
+442
+00:14:00,336 --> 0:14:02,106
+So just to show you how it looks
+
+443
+00:14:02,106 --> 0:14:04,496
+like and to convince you it
+
+444
+00:14:04,496 --> 0:14:06,486
+really does look like a sidebar.
+
+445
+00:14:06,486 --> 0:14:07,216
+You can see it has the
+
+446
+00:14:07,216 --> 0:14:09,416
+translucency of a sidebar as I
+
+447
+00:14:09,416 --> 0:14:10,096
+move it around.
+
+448
+00:14:11,386 --> 0:14:12,996
+The other things about sidebars
+
+449
+00:14:12,996 --> 0:14:15,146
+are you can also set in the
+
+450
+00:14:15,146 --> 0:14:16,906
+general preferences the sidebar
+
+451
+00:14:16,906 --> 0:14:17,746
+icon size.
+
+452
+00:14:18,436 --> 0:14:19,986
+So here I'm setting it to small.
+
+453
+00:14:20,406 --> 0:14:21,406
+And as you can see, it
+
+454
+00:14:21,406 --> 0:14:22,496
+dynamically updates.
+
+455
+00:14:22,496 --> 0:14:24,206
+You can also set it to large.
+
+456
+00:14:25,606 --> 0:14:26,546
+I will leave it at medium.
+
+457
+00:14:26,876 --> 0:14:30,166
+And as before, reordering what's
+
+458
+00:14:30,326 --> 0:14:36,676
+-- just as what I did before.
+
+459
+00:14:36,826 --> 0:14:38,036
+OK. Sorry.
+
+460
+00:14:38,266 --> 0:14:40,406
+Back to the app.
+
+461
+00:14:41,736 --> 0:14:43,386
+Next, we should really put in a
+
+462
+00:14:43,386 --> 0:14:43,746
+toolbar.
+
+463
+00:14:44,616 --> 0:14:45,586
+We have various widgets
+
+464
+00:14:45,586 --> 0:14:47,456
+integrated into the title bar
+
+465
+00:14:47,456 --> 0:14:52,166
+chrome so that users can click
+
+466
+00:14:52,166 --> 0:14:53,706
+on their commonly used commands.
+
+467
+00:14:54,476 --> 0:14:56,586
+Now, this is different from iOS
+
+468
+00:14:56,586 --> 0:14:58,026
+where toolbars are typically
+
+469
+00:14:58,026 --> 0:15:00,946
+found at the bottom of the app.
+
+470
+00:14:58,026 --> 0:15:00,946
+found at the bottom of the app.
+
+471
+00:15:01,286 --> 0:15:03,086
+We'll have a widget to filter
+
+472
+00:15:03,086 --> 0:15:03,776
+the recipes.
+
+473
+00:15:04,296 --> 0:15:06,116
+We'll also have a widget to add
+
+474
+00:15:06,466 --> 0:15:07,206
+a new recipe.
+
+475
+00:15:07,706 --> 0:15:08,906
+So let's see how to do that.
+
+476
+00:15:09,406 --> 0:15:12,966
+We'll go over to the scene
+
+477
+00:15:12,966 --> 0:15:13,386
+delegate.
+
+478
+00:15:13,386 --> 0:15:15,396
+And here in the scene delegate,
+
+479
+00:15:15,396 --> 0:15:18,016
+we're hooking on to the scene
+
+480
+00:15:18,016 --> 0:15:19,416
+willConnect callback.
+
+481
+00:15:19,746 --> 0:15:22,876
+And again, we also have to
+
+482
+00:15:22,876 --> 0:15:24,376
+conditionalize this for
+
+483
+00:15:24,376 --> 0:15:26,066
+UIKitForMac so that it only
+
+484
+00:15:26,066 --> 0:15:26,806
+applies in the Mac.
+
+485
+00:15:28,216 --> 0:15:30,176
+We're digging into the object
+
+486
+00:15:30,176 --> 0:15:32,276
+model of the scene-- windowScene
+
+487
+00:15:32,846 --> 0:15:32,966
+here.
+
+488
+00:15:33,106 --> 0:15:35,176
+And we grab this object called
+
+489
+00:15:35,176 --> 0:15:35,806
+the titlebar.
+
+490
+00:15:36,026 --> 0:15:37,646
+The titlebar allows us to set
+
+491
+00:15:38,136 --> 0:15:41,256
+toolbars as well as change title
+
+492
+00:15:41,256 --> 0:15:44,156
+bar visibility.
+
+493
+00:15:45,666 --> 0:15:49,716
+So let's create a new toolbar.
+
+494
+00:15:49,876 --> 0:15:53,576
+So, notice now that I'm using NS
+
+495
+00:15:53,576 --> 0:15:54,066
+prefix.
+
+496
+00:15:54,156 --> 0:15:56,016
+This is actually AppKit object.
+
+497
+00:15:56,016 --> 0:15:59,736
+And I need to give it identifier
+
+498
+00:16:01,186 --> 0:16:04,076
+which I have one previously set.
+
+499
+00:16:05,296 --> 0:16:08,486
+And all I need to do now is a
+
+500
+00:16:08,486 --> 0:16:09,216
+title bar.
+
+501
+00:16:09,216 --> 0:16:11,516
+I want to set the toolbar to the
+
+502
+00:16:11,516 --> 0:16:12,646
+toolbar I just created.
+
+503
+00:16:13,396 --> 0:16:14,616
+So with these two lines of code,
+
+504
+00:16:14,986 --> 0:16:16,456
+I've now created a toolbar
+
+505
+00:16:17,116 --> 0:16:18,206
+that's attached to the title
+
+506
+00:16:18,206 --> 0:16:18,436
+bar.
+
+507
+00:16:19,276 --> 0:16:21,096
+But this code is not
+
+508
+00:16:21,176 --> 0:16:22,486
+particularly interesting, or the
+
+509
+00:16:22,486 --> 0:16:23,756
+result is not particularly
+
+510
+00:16:23,816 --> 0:16:25,626
+interesting because we actually
+
+511
+00:16:25,626 --> 0:16:26,726
+need to configure the toolbar of
+
+512
+00:16:26,726 --> 0:16:27,576
+the actual items.
+
+513
+00:16:28,026 --> 0:16:28,976
+So let's see how to do that.
+
+514
+00:16:35,516 --> 0:16:37,006
+I'll leave you to assign this
+
+515
+00:16:37,006 --> 0:16:37,846
+code.
+
+516
+00:16:38,206 --> 0:16:39,896
+First, we're grabbing-- we need
+
+517
+00:16:39,896 --> 0:16:41,746
+to grab the rootViewController,
+
+518
+00:16:42,416 --> 0:16:44,116
+and then we pass it to an
+
+519
+00:16:44,116 --> 0:16:45,126
+initializer of the
+
+520
+00:16:45,126 --> 0:16:47,246
+ToolbarDelegate which is a class
+
+521
+00:16:47,246 --> 0:16:47,966
+we've created.
+
+522
+00:16:48,826 --> 0:16:50,516
+And we set up the delegate.
+
+523
+00:16:51,196 --> 0:16:52,736
+We want to allow user
+
+524
+00:16:52,736 --> 0:16:54,726
+customization of the toolbar.
+
+525
+00:16:55,446 --> 0:16:57,336
+We also want to center the
+
+526
+00:16:57,336 --> 0:16:59,036
+navigationItem which is the
+
+527
+00:16:59,036 --> 0:17:00,276
+filter that I talked about.
+
+528
+00:16:59,036 --> 0:17:00,276
+filter that I talked about.
+
+529
+00:17:01,056 --> 0:17:03,666
+And finally, I want to set the
+
+530
+00:17:03,666 --> 0:17:06,636
+titleVisibility to hidden so
+
+531
+00:17:06,636 --> 0:17:09,965
+that the title doesn't overlap
+
+532
+00:17:10,256 --> 0:17:11,965
+the navigation item that I've
+
+533
+00:17:12,126 --> 0:17:12,786
+just created.
+
+534
+00:17:14,106 --> 0:17:18,376
+So, with a quick recompile and
+
+535
+00:17:18,376 --> 0:17:20,586
+build, we now have a toolbar.
+
+536
+00:17:21,156 --> 0:17:23,396
+And you can see the toolbar has
+
+537
+00:17:23,396 --> 0:17:26,665
+filters for various meals.
+
+538
+00:17:26,726 --> 0:17:29,376
+So, you know, for breakfast I
+
+539
+00:17:29,376 --> 0:17:30,536
+think I'm having donuts.
+
+540
+00:17:31,816 --> 0:17:33,466
+For lunch, I'm having pizzas.
+
+541
+00:17:34,656 --> 0:17:35,506
+For dinner, I'm having
+
+542
+00:17:35,506 --> 0:17:36,096
+spaghetti.
+
+543
+00:17:36,716 --> 0:17:37,896
+Hopefully for desert I'm not
+
+544
+00:17:37,896 --> 0:17:39,016
+having spaghetti again.
+
+545
+00:17:39,596 --> 0:17:41,666
+Wow, it's chocolate chip
+
+546
+00:17:41,666 --> 0:17:41,976
+cookies.
+
+547
+00:17:44,946 --> 0:17:47,486
+Yes. And we also have a plus
+
+548
+00:17:47,486 --> 0:17:49,296
+widget or the add item widget
+
+549
+00:17:49,996 --> 0:17:55,336
+which allows us to add new
+
+550
+00:17:55,446 --> 0:17:55,976
+recipes.
+
+551
+00:17:56,516 --> 0:18:00,256
+OK. Finally, we should actually
+
+552
+00:17:56,516 --> 0:18:00,256
+OK. Finally, we should actually
+
+553
+00:18:00,256 --> 0:18:02,186
+also customize the menu bar so
+
+554
+00:18:02,186 --> 0:18:04,166
+that users can find all the
+
+555
+00:18:04,846 --> 0:18:05,966
+commands they want in a
+
+556
+00:18:05,966 --> 0:18:06,876
+convenient place.
+
+557
+00:18:07,366 --> 0:18:08,736
+Now, menu bars are great places
+
+558
+00:18:08,736 --> 0:18:10,366
+to put all the commands you want
+
+559
+00:18:10,536 --> 0:18:11,716
+and the system will enable or
+
+560
+00:18:11,716 --> 0:18:13,796
+disable them accordingly, in
+
+561
+00:18:13,796 --> 0:18:16,026
+contrast to toolbars where you
+
+562
+00:18:16,026 --> 0:18:17,426
+might only put commonly used
+
+563
+00:18:17,426 --> 0:18:17,866
+commands.
+
+564
+00:18:18,396 --> 0:18:21,096
+In the introduction session, we
+
+565
+00:18:21,096 --> 0:18:22,766
+showed you how to do this by
+
+566
+00:18:23,146 --> 0:18:25,536
+dragging out a menu bar in Xcode
+
+567
+00:18:25,536 --> 0:18:26,346
+Interface Builder.
+
+568
+00:18:27,216 --> 0:18:28,406
+But sometimes you want to better
+
+569
+00:18:28,406 --> 0:18:30,466
+control your menus at runtime.
+
+570
+00:18:30,466 --> 0:18:32,426
+So I'll show you how to do this
+
+571
+00:18:32,486 --> 0:18:32,946
+in code.
+
+572
+00:18:33,466 --> 0:18:35,686
+What are we going to do?
+
+573
+00:18:35,686 --> 0:18:36,556
+We are going to remove the
+
+574
+00:18:36,556 --> 0:18:37,896
+Format menu because having a
+
+575
+00:18:38,476 --> 0:18:40,666
+Format menu doesn't make a lot
+
+576
+00:18:40,666 --> 0:18:43,196
+of sense because this app has no
+
+577
+00:18:43,196 --> 0:18:43,956
+editable text.
+
+578
+00:18:44,636 --> 0:18:46,426
+So not a lot of sense to have a
+
+579
+00:18:46,426 --> 0:18:49,136
+font menu or even text
+
+580
+00:18:49,176 --> 0:18:49,706
+alignment.
+
+581
+00:18:50,896 --> 0:18:54,126
+We also want to add two items to
+
+582
+00:18:54,126 --> 0:18:54,896
+the File menu.
+
+583
+00:18:55,496 --> 0:18:58,346
+So here, I want to add a new
+
+584
+00:18:58,346 --> 0:19:00,566
+recipe command which is similar
+
+585
+00:18:58,346 --> 0:19:00,566
+recipe command which is similar
+
+586
+00:19:00,566 --> 0:19:04,776
+to the add recipe widget here.
+
+587
+00:19:04,996 --> 0:19:06,716
+And we also want to add a
+
+588
+00:19:06,716 --> 0:19:08,296
+command to add or remove
+
+589
+00:19:08,336 --> 0:19:10,306
+favorite status which is similar
+
+590
+00:19:11,036 --> 0:19:12,916
+to the context menu here.
+
+591
+00:19:15,056 --> 0:19:15,226
+All right.
+
+592
+00:19:15,226 --> 0:19:15,976
+Let's see how to do that.
+
+593
+00:19:20,156 --> 0:19:21,246
+We'll go over to the app
+
+594
+00:19:21,246 --> 0:19:21,706
+delegate.
+
+595
+00:19:21,706 --> 0:19:23,436
+And here in the app delegate, we
+
+596
+00:19:23,436 --> 0:19:25,206
+need to override a single
+
+597
+00:19:25,206 --> 0:19:25,616
+method.
+
+598
+00:19:29,896 --> 0:19:32,136
+And this method is buildCommands
+
+599
+00:19:32,786 --> 0:19:34,736
+with builder, and it gets passed
+
+600
+00:19:34,736 --> 0:19:35,766
+a UICommandBuilder.
+
+601
+00:19:36,426 --> 0:19:38,736
+In subsequent seeds, this will
+
+602
+00:19:38,736 --> 0:19:40,816
+be called buildMenu and
+
+603
+00:19:41,566 --> 0:19:44,086
+buildMenu with builder and that
+
+604
+00:19:44,086 --> 0:19:46,006
+will be passed a UIMenuBuilder.
+
+605
+00:19:46,006 --> 0:19:48,796
+So be aware of that if you are
+
+606
+00:19:48,796 --> 0:19:50,846
+working with the current seed.
+
+607
+00:19:51,906 --> 0:19:53,246
+First thing you need to do is to
+
+608
+00:19:53,246 --> 0:19:54,936
+make sure that we're actually
+
+609
+00:19:54,936 --> 0:19:56,196
+building for the Main menu.
+
+610
+00:19:56,916 --> 0:19:58,256
+So here we're guarding against
+
+611
+00:19:58,966 --> 0:20:00,176
+checking to see that the system
+
+612
+00:19:58,966 --> 0:20:00,176
+checking to see that the system
+
+613
+00:20:00,176 --> 0:20:00,976
+is the main system.
+
+614
+00:20:01,556 --> 0:20:04,036
+Sometimes you'll get a .context
+
+615
+00:20:04,136 --> 0:20:05,596
+if you're building for the-- a
+
+616
+00:20:05,596 --> 0:20:06,266
+context menu.
+
+617
+00:20:06,806 --> 0:20:09,606
+With that, we need to talk to
+
+618
+00:20:09,606 --> 0:20:09,986
+the builder.
+
+619
+00:20:10,566 --> 0:20:14,826
+So builder, I want to remove a
+
+620
+00:20:15,596 --> 0:20:16,666
+particular menu.
+
+621
+00:20:18,076 --> 0:20:20,066
+So here, this menu that I wanted
+
+622
+00:20:20,066 --> 0:20:21,156
+to remove is a Format menu.
+
+623
+00:20:21,156 --> 0:20:22,536
+So as you can see, code
+
+624
+00:20:22,536 --> 0:20:24,116
+completion helps you out a lot
+
+625
+00:20:24,636 --> 0:20:28,386
+and suggests what kinds of menus
+
+626
+00:20:28,386 --> 0:20:31,936
+you can actually remove.
+
+627
+00:20:32,056 --> 0:20:35,646
+So quick build and run.
+
+628
+00:20:36,236 --> 0:20:37,586
+You can see we've removed the
+
+629
+00:20:37,586 --> 0:20:39,096
+Format menu from between the
+
+630
+00:20:39,096 --> 0:20:39,846
+Edit and View.
+
+631
+00:20:40,426 --> 0:20:43,866
+So, let's go back to this.
+
+632
+00:20:44,486 --> 0:20:45,926
+So the builder is actually
+
+633
+00:20:45,926 --> 0:20:46,666
+pretty flexible.
+
+634
+00:20:46,666 --> 0:20:47,936
+You can do anything from
+
+635
+00:20:47,936 --> 0:20:49,386
+replacing an entire menu
+
+636
+00:20:49,386 --> 0:20:51,416
+structure to making selective
+
+637
+00:20:51,416 --> 0:20:52,516
+edits like what I'm doing.
+
+638
+00:20:53,856 --> 0:20:56,536
+OK. So next thing I want to do
+
+639
+00:20:56,606 --> 0:20:58,606
+is I actually want to insert the
+
+640
+00:20:58,606 --> 0:20:59,046
+content.
+
+641
+00:20:59,796 --> 0:21:01,806
+So let's do a talk to the
+
+642
+00:20:59,796 --> 0:21:01,806
+So let's do a talk to the
+
+643
+00:21:01,806 --> 0:21:04,196
+builder and say insert a child
+
+644
+00:21:04,816 --> 0:21:08,486
+at the start here of the File
+
+645
+00:21:08,586 --> 0:21:08,896
+menu.
+
+646
+00:21:09,426 --> 0:21:12,976
+So, what about this content?
+
+647
+00:21:16,776 --> 0:21:21,736
+I have a little commands here
+
+648
+00:21:21,736 --> 0:21:23,416
+that will be added.
+
+649
+00:21:23,776 --> 0:21:24,926
+The first one is
+
+650
+00:21:24,926 --> 0:21:25,846
+newRecipeCommand.
+
+651
+00:21:26,336 --> 0:21:28,746
+And this is a key command which
+
+652
+00:21:28,746 --> 0:21:31,606
+is hooked on to the createRecipe
+
+653
+00:21:32,416 --> 0:21:33,286
+method.
+
+654
+00:21:33,876 --> 0:21:36,126
+And it's a key command so it
+
+655
+00:21:36,126 --> 0:21:39,816
+will take a input of f and a
+
+656
+00:21:39,816 --> 0:21:41,016
+command and option.
+
+657
+00:21:41,016 --> 0:21:42,406
+So if you press Command option
+
+658
+00:21:42,406 --> 0:21:44,646
+f, you'll also be able to invoke
+
+659
+00:21:44,646 --> 0:21:45,656
+this UIKeyCommand.
+
+660
+00:21:46,186 --> 0:21:47,066
+The nice thing about having a
+
+661
+00:21:47,066 --> 0:21:50,036
+UIKeyCommand here is this is
+
+662
+00:21:50,306 --> 0:21:51,526
+perfectly cross platform.
+
+663
+00:21:51,656 --> 0:21:53,316
+This will also appear, you know,
+
+664
+00:21:53,476 --> 0:21:55,126
+discoverability view or
+
+665
+00:21:55,126 --> 0:21:57,386
+discoverability had that you get
+
+666
+00:21:57,386 --> 0:21:57,916
+on the iPad.
+
+667
+00:21:58,356 --> 0:22:00,266
+So without conditionalizing any
+
+668
+00:21:58,356 --> 0:22:00,266
+So without conditionalizing any
+
+669
+00:22:00,266 --> 0:22:01,076
+code.
+
+670
+00:22:01,276 --> 0:22:03,146
+This works on both Mac as well
+
+671
+00:22:03,896 --> 0:22:05,356
+as iOS.
+
+672
+00:22:05,526 --> 0:22:08,166
+Next, we can create a
+
+673
+00:22:08,166 --> 0:22:09,106
+makeFavoriteCommand.
+
+674
+00:22:09,606 --> 0:22:10,606
+And this is just a regular
+
+675
+00:22:10,606 --> 0:22:12,126
+command without any key
+
+676
+00:22:12,126 --> 0:22:12,606
+equivalence.
+
+677
+00:22:13,596 --> 0:22:17,006
+And this goes to toggleSelected
+
+678
+00:22:17,316 --> 0:22:18,476
+RecipeFavoriteState.
+
+679
+00:22:19,056 --> 0:22:21,866
+And finally, we make a menu
+
+680
+00:22:21,866 --> 0:22:24,236
+which is a construct that groups
+
+681
+00:22:24,776 --> 0:22:25,946
+both the new command--
+
+682
+00:22:25,946 --> 0:22:27,076
+newRecipeCommand and the
+
+683
+00:22:27,076 --> 0:22:27,976
+makeFavoriteCommand.
+
+684
+00:22:28,606 --> 0:22:30,496
+One thing to highlight here is
+
+685
+00:22:30,496 --> 0:22:32,386
+we're passing the options of
+
+686
+00:22:32,896 --> 0:22:35,056
+displayInline so that the menu
+
+687
+00:22:35,056 --> 0:22:37,186
+will be displayed-- the contents
+
+688
+00:22:37,186 --> 0:22:38,166
+in the menu will be displayed
+
+689
+00:22:38,166 --> 0:22:40,366
+together with the parent.
+
+690
+00:22:40,606 --> 0:22:42,296
+If you omitted these options,
+
+691
+00:22:42,356 --> 0:22:43,956
+what will happen is the menu
+
+692
+00:22:43,956 --> 0:22:44,976
+will be displayed as a
+
+693
+00:22:44,976 --> 0:22:46,646
+hierarchical menu which is what
+
+694
+00:22:46,646 --> 0:22:49,756
+you might be used to on the Mac.
+
+695
+00:22:49,806 --> 0:22:51,696
+OK. Let's see what this looks
+
+696
+00:22:51,696 --> 0:22:52,896
+like here.
+
+697
+00:22:55,046 --> 0:22:56,746
+So we insert this into the-- at
+
+698
+00:22:56,786 --> 0:22:57,736
+the beginning of File menu.
+
+699
+00:22:58,356 --> 0:23:01,656
+OK. We have a quick rebuild and
+
+700
+00:22:58,356 --> 0:23:01,656
+OK. We have a quick rebuild and
+
+701
+00:23:01,656 --> 0:23:01,906
+run.
+
+702
+00:23:02,676 --> 0:23:05,876
+As you can see, it now has a New
+
+703
+00:23:05,876 --> 0:23:08,766
+Recipe command which does the
+
+704
+00:23:08,766 --> 0:23:10,096
+same thing as that plus widget.
+
+705
+00:23:10,636 --> 0:23:13,066
+It also has a Make Favorite
+
+706
+00:23:13,856 --> 0:23:16,596
+which does-- it gives a love
+
+707
+00:23:16,596 --> 0:23:18,186
+heart on the chocolate chips.
+
+708
+00:23:18,966 --> 0:23:20,316
+And we can remove favorites as
+
+709
+00:23:20,346 --> 0:23:20,526
+well.
+
+710
+00:23:21,276 --> 0:23:23,856
+In summary, what I've shown you
+
+711
+00:23:23,856 --> 0:23:26,736
+is how much you get for free
+
+712
+00:23:27,166 --> 0:23:30,316
+just by rebuilding your iPad app
+
+713
+00:23:30,316 --> 0:23:31,056
+on the Mac.
+
+714
+00:23:31,546 --> 0:23:34,376
+I've also shown you sidebars,
+
+715
+00:23:34,666 --> 0:23:37,176
+toolbars and menu bars to take
+
+716
+00:23:37,176 --> 0:23:38,736
+you all-- to catalyze your app
+
+717
+00:23:39,056 --> 0:23:39,826
+to the next level.
+
+718
+00:23:40,486 --> 0:23:42,206
+So it's over to you, Jamie, for
+
+719
+00:23:42,206 --> 0:23:42,976
+some design considerations.
+
+720
+00:23:43,516 --> 0:23:46,866
+[ Applause ]
+
+721
+00:23:47,366 --> 0:23:47,676
+&gt;&gt; Thanks, Glen.
+
+722
+00:23:52,726 --> 0:23:54,836
+So, now we've talked about some
+
+723
+00:23:54,836 --> 0:23:55,886
+of the technical details of
+
+724
+00:23:55,886 --> 0:23:57,496
+adapting your iPad app for Mac,
+
+725
+00:23:58,136 --> 0:23:59,816
+let's take a short dip into some
+
+726
+00:23:59,816 --> 0:24:00,876
+design considerations.
+
+727
+00:23:59,816 --> 0:24:00,876
+design considerations.
+
+728
+00:24:03,256 --> 0:24:04,906
+First, Navigation.
+
+729
+00:24:05,686 --> 0:24:07,806
+Think about how your users find
+
+730
+00:24:07,806 --> 0:24:08,716
+their way around your app.
+
+731
+00:24:09,596 --> 0:24:10,756
+If you're not already think
+
+732
+00:24:10,756 --> 0:24:12,606
+about using a sidebar on Mac and
+
+733
+00:24:12,606 --> 0:24:14,416
+maybe a Split View on iPad too,
+
+734
+00:24:15,766 --> 0:24:17,466
+and reconsider your use of tab
+
+735
+00:24:17,506 --> 0:24:17,846
+bars.
+
+736
+00:24:17,936 --> 0:24:19,356
+On the Mac, you should consider
+
+737
+00:24:19,356 --> 0:24:20,696
+using a segmented control in the
+
+738
+00:24:20,696 --> 0:24:21,736
+toolbar instead.
+
+739
+00:24:26,336 --> 0:24:27,226
+Next, layout.
+
+740
+00:24:27,886 --> 0:24:29,086
+We've talked about screen sizes
+
+741
+00:24:29,116 --> 0:24:29,556
+already.
+
+742
+00:24:29,716 --> 0:24:31,256
+It should be flexible in your
+
+743
+00:24:31,256 --> 0:24:32,636
+layout and take advantage of the
+
+744
+00:24:32,636 --> 0:24:33,296
+big window.
+
+745
+00:24:34,356 --> 0:24:35,876
+You can reflow and redesign your
+
+746
+00:24:35,876 --> 0:24:37,416
+user interface and you can sue
+
+747
+00:24:37,416 --> 0:24:39,276
+custom assets to reword hardware
+
+748
+00:24:39,276 --> 0:24:40,996
+related content or just to take
+
+749
+00:24:40,996 --> 0:24:41,956
+advantage of the space.
+
+750
+00:24:46,106 --> 0:24:48,706
+iPad design is larger than Mac
+
+751
+00:24:48,706 --> 0:24:49,086
+design.
+
+752
+00:24:49,086 --> 0:24:50,226
+It's optimized for touch.
+
+753
+00:24:51,076 --> 0:24:52,426
+So baseline font sizes are not
+
+754
+00:24:52,426 --> 0:24:52,776
+the same.
+
+755
+00:24:52,976 --> 0:24:55,456
+On iOS, most text is 17 points
+
+756
+00:24:55,646 --> 0:24:57,456
+and on Mac it's 13 points.
+
+757
+00:24:58,486 --> 0:25:00,476
+So we scale UIKit content for
+
+758
+00:24:58,486 --> 0:25:00,476
+So we scale UIKit content for
+
+759
+00:25:00,476 --> 0:25:02,736
+you by 77% compared to how it
+
+760
+00:25:02,736 --> 0:25:04,346
+would appear in an AppKit app.
+
+761
+00:25:05,336 --> 0:25:07,246
+This means that UIKit points are
+
+762
+00:25:07,246 --> 0:25:08,936
+smaller than AppKit points on
+
+763
+00:25:08,936 --> 0:25:09,276
+screen.
+
+764
+00:25:09,876 --> 0:25:11,576
+Even bitmap graphics in UIKit
+
+765
+00:25:11,576 --> 0:25:14,286
+apps will be shown at 77% of the
+
+766
+00:25:14,286 --> 0:25:15,416
+size that they would be in an
+
+767
+00:25:15,416 --> 0:25:16,016
+AppKit app.
+
+768
+00:25:17,326 --> 0:25:18,346
+Now because the scaling is
+
+769
+00:25:18,346 --> 0:25:19,816
+global to the app, in most
+
+770
+00:25:19,816 --> 0:25:20,836
+cases, you don't need to worry
+
+771
+00:25:20,836 --> 0:25:21,166
+about it.
+
+772
+00:25:22,366 --> 0:25:23,806
+If you do want some more direct
+
+773
+00:25:23,806 --> 0:25:25,346
+control especially over font
+
+774
+00:25:25,346 --> 0:25:27,226
+scaling, you should look at the
+
+775
+00:25:27,226 --> 0:25:28,906
+Font Management and Text Scaling
+
+776
+00:25:28,906 --> 0:25:33,526
+session to learn all about it.
+
+777
+00:25:33,576 --> 0:25:34,516
+And menu bars.
+
+778
+00:25:35,046 --> 0:25:36,406
+We talked about the how already,
+
+779
+00:25:36,406 --> 0:25:38,056
+but what should you put in it?
+
+780
+00:25:39,366 --> 0:25:40,386
+So I mentioned that the menu
+
+781
+00:25:40,386 --> 0:25:42,246
+contains all possible actions in
+
+782
+00:25:42,246 --> 0:25:44,086
+one place that is global to the
+
+783
+00:25:44,086 --> 0:25:45,706
+app and that items are enabled
+
+784
+00:25:45,706 --> 0:25:47,126
+or disabled based on what the
+
+785
+00:25:47,126 --> 0:25:47,696
+user is doing.
+
+786
+00:25:48,546 --> 0:25:49,446
+This means that what's in the
+
+787
+00:25:49,446 --> 0:25:51,016
+menus shouldn't change.
+
+788
+00:25:51,016 --> 0:25:53,026
+You should build it only once at
+
+789
+00:25:53,026 --> 0:25:53,536
+launch time.
+
+790
+00:25:54,616 --> 0:25:55,626
+And you really should think
+
+791
+00:25:55,626 --> 0:25:56,946
+about all the functions your app
+
+792
+00:25:56,946 --> 0:25:58,506
+has and make sure they're all
+
+793
+00:25:58,506 --> 0:25:59,896
+available via the menu bar.
+
+794
+00:26:04,166 --> 0:26:05,246
+And we just talked about how the
+
+795
+00:26:05,246 --> 0:26:06,426
+iPad is optimized for touch.
+
+796
+00:26:07,206 --> 0:26:08,666
+One thing that's unique to iPad
+
+797
+00:26:08,666 --> 0:26:09,896
+is direct multitouch.
+
+798
+00:26:10,606 --> 0:26:12,186
+The Mac doesn't have this but it
+
+799
+00:26:12,186 --> 0:26:13,886
+does always have a keyboard and
+
+800
+00:26:13,886 --> 0:26:14,756
+the mouse or trackpad.
+
+801
+00:26:15,346 --> 0:26:17,066
+You should think about how you
+
+802
+00:26:17,066 --> 0:26:18,496
+can map the gestures used in
+
+803
+00:26:18,496 --> 0:26:20,246
+your app to these input devices,
+
+804
+00:26:20,686 --> 0:26:22,536
+reimplementing them for mouse
+
+805
+00:26:22,536 --> 0:26:23,206
+and trackpad on Mac.
+
+806
+00:26:23,206 --> 0:26:23,776
+And when you're doing this,
+
+807
+00:26:24,576 --> 0:26:25,476
+remember to consider
+
+808
+00:26:25,476 --> 0:26:25,976
+accessibility.
+
+809
+00:26:29,356 --> 0:26:31,026
+Now that really was just a short
+
+810
+00:26:31,026 --> 0:26:32,146
+dip into design topics.
+
+811
+00:26:32,466 --> 0:26:33,636
+There's lots of useful
+
+812
+00:26:33,636 --> 0:26:35,296
+information on device in the Mac
+
+813
+00:26:35,296 --> 0:26:36,496
+Human Interface Guidelines.
+
+814
+00:26:37,106 --> 0:26:38,086
+You should look at it while
+
+815
+00:26:38,086 --> 0:26:38,846
+you're designing your app.
+
+816
+00:26:38,846 --> 0:26:41,046
+And I encourage you to check out
+
+817
+00:26:41,246 --> 0:26:42,946
+the Design for iPad Apps on Mac
+
+818
+00:26:42,946 --> 0:26:43,246
+talk.
+
+819
+00:26:43,786 --> 0:26:45,576
+It contains lots of great advice
+
+820
+00:26:45,676 --> 0:26:47,036
+on how to make your UIKit app a
+
+821
+00:26:47,036 --> 0:26:50,726
+great Mac app.
+
+822
+00:26:50,976 --> 0:26:52,886
+So now we've talked about making
+
+823
+00:26:53,006 --> 0:26:54,616
+your iPad app into a better Mac
+
+824
+00:26:54,616 --> 0:26:56,556
+app, I'd like to introduce Nils
+
+825
+00:26:56,706 --> 0:26:57,846
+who'll talk about another thing
+
+826
+00:26:57,846 --> 0:26:59,286
+that's unique to UIKit apps on
+
+827
+00:26:59,286 --> 0:27:01,126
+Mac, the application lifecycle.
+
+828
+00:26:59,286 --> 0:27:01,126
+Mac, the application lifecycle.
+
+829
+00:27:02,351 --> 0:27:04,351
+[ Applause ]
+
+830
+00:27:04,686 --> 0:27:05,226
+&gt;&gt; Thank you Jamie.
+
+831
+00:27:06,306 --> 0:27:07,256
+Good afternoon, everyone.
+
+832
+00:27:07,706 --> 0:27:08,716
+My name is Nils Beck.
+
+833
+00:27:08,856 --> 0:27:10,526
+I'm an engineer with the AppKit
+
+834
+00:27:10,606 --> 0:27:12,076
+framework team and I'm excited
+
+835
+00:27:12,136 --> 0:27:13,806
+to talk to you today about the
+
+836
+00:27:13,806 --> 0:27:15,456
+application lifecycle of your
+
+837
+00:27:15,456 --> 0:27:17,346
+iPad app for the Mac.
+
+838
+00:27:18,476 --> 0:27:19,656
+When we compare the app
+
+839
+00:27:19,656 --> 0:27:21,636
+lifecycle on iOS to that on
+
+840
+00:27:21,636 --> 0:27:23,376
+macOS, we find that there are
+
+841
+00:27:23,376 --> 0:27:24,006
+differences.
+
+842
+00:27:24,546 --> 0:27:26,396
+In some iOS, specific behaviors
+
+843
+00:27:26,506 --> 0:27:28,066
+are reflected in the UIKit API.
+
+844
+00:27:29,546 --> 0:27:30,856
+This presents a challenge when
+
+845
+00:27:30,856 --> 0:27:32,606
+running iPad apps on the Mac.
+
+846
+00:27:33,666 --> 0:27:36,026
+How do we map macOS app states
+
+847
+00:27:36,436 --> 0:27:37,506
+to the iOS API?
+
+848
+00:27:41,316 --> 0:27:42,656
+Let's start by first reviewing
+
+849
+00:27:42,656 --> 0:27:44,366
+the app lifecycle states as they
+
+850
+00:27:44,366 --> 0:27:45,326
+exist on iOS.
+
+851
+00:27:46,146 --> 0:27:47,146
+You can follow along in the
+
+852
+00:27:47,146 --> 0:27:48,746
+chart that I'll be showing here
+
+853
+00:27:48,826 --> 0:27:50,796
+on the right-hand side.
+
+854
+00:27:51,006 --> 0:27:52,466
+When your app is on screen and
+
+855
+00:27:52,466 --> 0:27:53,396
+the person is normally
+
+856
+00:27:53,396 --> 0:27:54,736
+interacting with your app on
+
+857
+00:27:54,776 --> 0:27:56,126
+iPad, it is both in the
+
+858
+00:27:56,126 --> 0:27:57,496
+foreground and active.
+
+859
+00:27:58,176 --> 0:28:01,416
+Your app is inactive but still
+
+860
+00:27:58,176 --> 0:28:01,416
+Your app is inactive but still
+
+861
+00:28:01,416 --> 0:28:03,016
+in the foreground when something
+
+862
+00:28:03,016 --> 0:28:04,266
+is occluding it and it is
+
+863
+00:28:04,266 --> 0:28:05,826
+therefore not receiving events.
+
+864
+00:28:06,926 --> 0:28:08,706
+This is usually temporary, for
+
+865
+00:28:08,706 --> 0:28:10,146
+example when control center is
+
+866
+00:28:10,146 --> 0:28:13,266
+visible on top of your app.
+
+867
+00:28:14,176 --> 0:28:14,846
+Once your app is in the
+
+868
+00:28:14,846 --> 0:28:16,646
+background, the user is not
+
+869
+00:28:16,646 --> 0:28:17,466
+interacting with it.
+
+870
+00:28:18,246 --> 0:28:19,506
+For example, they may have used
+
+871
+00:28:19,506 --> 0:28:20,936
+the task switcher and swiped
+
+872
+00:28:20,936 --> 0:28:23,416
+sideways to a different app, but
+
+873
+00:28:23,836 --> 0:28:25,326
+you may still perform background
+
+874
+00:28:25,326 --> 0:28:26,986
+task completion and your app is
+
+875
+00:28:26,986 --> 0:28:28,416
+suspended when no background
+
+876
+00:28:28,416 --> 0:28:29,206
+tasks remain.
+
+877
+00:28:29,716 --> 0:28:32,866
+Once suspended, your app is
+
+878
+00:28:32,866 --> 0:28:34,486
+frozen and gets no more CPU
+
+879
+00:28:34,486 --> 0:28:35,016
+cycles.
+
+880
+00:28:35,706 --> 0:28:37,436
+At this point, it may be killed
+
+881
+00:28:37,436 --> 0:28:38,766
+by the system at any moment
+
+882
+00:28:38,816 --> 0:28:40,206
+without further notification.
+
+883
+00:28:40,836 --> 0:28:43,756
+And finally, your app is not
+
+884
+00:28:43,756 --> 0:28:45,196
+running when it is no longer
+
+885
+00:28:45,256 --> 0:28:48,496
+even in memory.
+
+886
+00:28:49,016 --> 0:28:49,996
+Putting all of this together,
+
+887
+00:28:50,206 --> 0:28:51,716
+let's look at the possible state
+
+888
+00:28:51,716 --> 0:28:53,216
+changes you will see whether
+
+889
+00:28:53,216 --> 0:28:55,256
+running an iOS or a macOS.
+
+890
+00:28:55,636 --> 0:28:56,956
+I will walk you through these in
+
+891
+00:28:56,956 --> 0:28:59,206
+a second but first I'd like to
+
+892
+00:28:59,206 --> 0:29:00,656
+note that to keep simple--
+
+893
+00:28:59,206 --> 0:29:00,656
+note that to keep simple--
+
+894
+00:29:00,656 --> 0:29:02,746
+things simple for you, iPad apps
+
+895
+00:29:02,746 --> 0:29:04,466
+on the Mac will get the same
+
+896
+00:29:04,466 --> 0:29:06,816
+delegate calls and notifications
+
+897
+00:29:06,816 --> 0:29:07,676
+as an iOS.
+
+898
+00:29:08,416 --> 0:29:11,486
+You may be used to handling
+
+899
+00:29:11,486 --> 0:29:12,806
+these state changes in app
+
+900
+00:29:12,806 --> 0:29:14,566
+delegate methods, but they also
+
+901
+00:29:14,566 --> 0:29:16,496
+existed and NSNotification shown
+
+902
+00:29:16,496 --> 0:29:16,716
+here.
+
+903
+00:29:18,436 --> 0:29:19,426
+We recommend using these
+
+904
+00:29:19,426 --> 0:29:21,806
+notifications as they work even
+
+905
+00:29:21,806 --> 0:29:23,216
+when you are opted into the new
+
+906
+00:29:23,216 --> 0:29:25,596
+multi-window API where some app
+
+907
+00:29:25,596 --> 0:29:27,096
+delegate calls are omitted.
+
+908
+00:29:27,856 --> 0:29:29,196
+It's the same on iOS by the way.
+
+909
+00:29:30,616 --> 0:29:33,116
+Also, the overall app state in a
+
+910
+00:29:33,116 --> 0:29:34,816
+multi-window app depends on the
+
+911
+00:29:34,816 --> 0:29:36,126
+activation states of the
+
+912
+00:29:36,126 --> 0:29:37,226
+individual scenes.
+
+913
+00:29:37,786 --> 0:29:39,156
+So you will likely want to
+
+914
+00:29:39,156 --> 0:29:41,026
+handle state changes per scene.
+
+915
+00:29:42,106 --> 0:29:43,276
+But in this talk, we'll just
+
+916
+00:29:43,276 --> 0:29:44,866
+focus on the overall app
+
+917
+00:29:44,866 --> 0:29:45,486
+lifecycle.
+
+918
+00:29:46,886 --> 0:29:48,376
+In addition to the delegate
+
+919
+00:29:48,376 --> 0:29:50,426
+calls and notifications, on
+
+920
+00:29:50,426 --> 0:29:52,336
+macOS, the sequences of these
+
+921
+00:29:52,336 --> 0:29:53,976
+state changes are also the same
+
+922
+00:29:53,976 --> 0:29:54,616
+as an iPad.
+
+923
+00:29:56,346 --> 0:29:57,926
+As I promised a second ago,
+
+924
+00:29:58,016 --> 0:29:59,296
+let's take a closer look at
+
+925
+00:29:59,296 --> 0:30:00,606
+these sequences of state change
+
+926
+00:29:59,296 --> 0:30:00,606
+these sequences of state change
+
+927
+00:30:00,606 --> 0:30:00,976
+notifications.
+
+928
+00:30:03,316 --> 0:30:05,036
+On the launch, you will see
+
+929
+00:30:05,246 --> 0:30:06,866
+didFinishLaunching and
+
+930
+00:30:06,866 --> 0:30:07,716
+didBecomeActive.
+
+931
+00:30:08,416 --> 0:30:12,186
+On the way out, you will see
+
+932
+00:30:12,186 --> 0:30:13,726
+willResignActive and
+
+933
+00:30:13,726 --> 0:30:14,646
+didEnterBackground.
+
+934
+00:30:17,156 --> 0:30:19,116
+You may also get willTerminate
+
+935
+00:30:19,576 --> 0:30:20,996
+if we are certain that the app
+
+936
+00:30:20,996 --> 0:30:22,936
+is exiting and your app is not
+
+937
+00:30:22,936 --> 0:30:23,756
+already suspended.
+
+938
+00:30:24,426 --> 0:30:27,716
+And finally, on the way back in
+
+939
+00:30:27,716 --> 0:30:28,856
+from the background state, you
+
+940
+00:30:28,856 --> 0:30:30,946
+will see willEnterForeground and
+
+941
+00:30:30,946 --> 0:30:31,816
+didBecomeActive.
+
+942
+00:30:32,466 --> 0:30:35,666
+While the notifications and
+
+943
+00:30:35,666 --> 0:30:37,176
+sequences are the same on both
+
+944
+00:30:37,176 --> 0:30:39,496
+platforms, we did alter when
+
+945
+00:30:39,586 --> 0:30:40,596
+these transitions occur on
+
+946
+00:30:40,596 --> 0:30:41,206
+macOS.
+
+947
+00:30:42,286 --> 0:30:43,156
+We'll get back to that in a
+
+948
+00:30:43,156 --> 0:30:43,546
+moment.
+
+949
+00:30:44,286 --> 0:30:48,196
+Now, back in iOS, we recommend
+
+950
+00:30:48,276 --> 0:30:49,716
+that your code should respond to
+
+951
+00:30:49,716 --> 0:30:51,266
+these state changes in certain
+
+952
+00:30:51,266 --> 0:30:51,716
+ways.
+
+953
+00:30:52,316 --> 0:30:53,846
+For example, when you learn
+
+954
+00:30:53,846 --> 0:30:55,476
+about the deactivation of your
+
+955
+00:30:55,646 --> 0:30:56,186
+app through
+
+956
+00:30:56,186 --> 0:30:57,826
+willResignActiveNotification,
+
+957
+00:30:58,516 --> 0:31:00,076
+you're expected to among other
+
+958
+00:30:58,516 --> 0:31:00,076
+you're expected to among other
+
+959
+00:31:00,076 --> 0:31:02,636
+things, reduce the frame rate of
+
+960
+00:31:02,636 --> 0:31:05,486
+on-screen content, stop various
+
+961
+00:31:05,486 --> 0:31:07,006
+types of nonessential work, for
+
+962
+00:31:07,266 --> 0:31:09,676
+example, timers, queues and
+
+963
+00:31:09,676 --> 0:31:12,076
+queries, and there may also be
+
+964
+00:31:12,076 --> 0:31:12,946
+other side effects.
+
+965
+00:31:13,126 --> 0:31:14,856
+For example, you may want to
+
+966
+00:31:14,856 --> 0:31:18,546
+pause game play in your game.
+
+967
+00:31:18,766 --> 0:31:20,466
+Similarly, when your app enters
+
+968
+00:31:20,466 --> 0:31:21,786
+the background state through
+
+969
+00:31:21,786 --> 0:31:23,366
+didEnterBackgroundNotification,
+
+970
+00:31:23,816 --> 0:31:26,096
+on iOS, your app is expected to
+
+971
+00:31:26,436 --> 0:31:28,706
+cease all rendering, reduce your
+
+972
+00:31:28,776 --> 0:31:30,626
+CPU usage to the bare minimum
+
+973
+00:31:30,626 --> 0:31:33,186
+necessary, and free up as much
+
+974
+00:31:33,186 --> 0:31:34,136
+memory as possible.
+
+975
+00:31:35,336 --> 0:31:36,596
+Again, there may also be other
+
+976
+00:31:36,596 --> 0:31:37,296
+side effects.
+
+977
+00:31:38,156 --> 0:31:39,716
+For example, if the content
+
+978
+00:31:39,716 --> 0:31:40,796
+shown on screen should be
+
+979
+00:31:40,796 --> 0:31:42,676
+private, you may want to obscure
+
+980
+00:31:42,676 --> 0:31:43,826
+it before the screenshot is
+
+981
+00:31:43,826 --> 0:31:44,126
+taken.
+
+982
+00:31:44,516 --> 0:31:48,436
+Now, we don't want you to have
+
+983
+00:31:48,436 --> 0:31:49,706
+to change all of the state
+
+984
+00:31:49,706 --> 0:31:51,126
+change handling code when
+
+985
+00:31:51,126 --> 0:31:53,006
+bringing your iPad app to macOS.
+
+986
+00:31:54,056 --> 0:31:55,656
+But your iPad app running on
+
+987
+00:31:55,656 --> 0:31:57,506
+macOS is now a Mac app.
+
+988
+00:31:57,506 --> 0:31:59,556
+How does that change things?
+
+989
+00:32:00,646 --> 0:32:01,726
+Here are some Mac specific
+
+990
+00:32:01,726 --> 0:32:02,586
+considerations.
+
+991
+00:32:03,156 --> 0:32:06,116
+It is common for many Mac apps
+
+992
+00:32:06,116 --> 0:32:07,416
+to share the screen at the same
+
+993
+00:32:07,466 --> 0:32:07,756
+time.
+
+994
+00:32:07,756 --> 0:32:11,476
+One of those applications is
+
+995
+00:32:11,476 --> 0:32:13,966
+Frontmost which just means that
+
+996
+00:32:13,966 --> 0:32:16,186
+it receives key events and its
+
+997
+00:32:16,186 --> 0:32:17,006
+menu bar is shown.
+
+998
+00:32:17,596 --> 0:32:21,696
+Many things may affect the
+
+999
+00:32:21,696 --> 0:32:23,696
+visibility of an app's contents.
+
+1000
+00:32:24,136 --> 0:32:26,006
+For example, a window may be
+
+1001
+00:32:26,006 --> 0:32:28,616
+occluded by another window, or
+
+1002
+00:32:28,936 --> 0:32:30,126
+the window may be minimized to
+
+1003
+00:32:30,126 --> 0:32:32,636
+the dock, or it could even be in
+
+1004
+00:32:32,636 --> 0:32:33,906
+another space entirely.
+
+1005
+00:32:36,346 --> 0:32:38,696
+It is also possible that the app
+
+1006
+00:32:38,696 --> 0:32:40,516
+isn't showing contents on screen
+
+1007
+00:32:40,606 --> 0:32:41,386
+for other reasons.
+
+1008
+00:32:42,156 --> 0:32:43,716
+For example, the whole app could
+
+1009
+00:32:43,716 --> 0:32:46,156
+be hidden, or it might just not
+
+1010
+00:32:46,156 --> 0:32:48,776
+have any windows right now, or
+
+1011
+00:32:49,296 --> 0:32:50,926
+it's even possible that your app
+
+1012
+00:32:50,926 --> 0:32:52,056
+could be running in an
+
+1013
+00:32:52,056 --> 0:32:53,766
+off-screen log in session that
+
+1014
+00:32:53,766 --> 0:32:55,756
+only exists on a virtual screen
+
+1015
+00:32:56,136 --> 0:32:57,736
+which you might be accessing via
+
+1016
+00:32:57,736 --> 0:32:59,406
+VNC during one of those late
+
+1017
+00:32:59,406 --> 0:33:00,426
+night debugging sessions.
+
+1018
+00:32:59,406 --> 0:33:00,426
+night debugging sessions.
+
+1019
+00:33:02,866 --> 0:33:04,266
+Regardless of their frontmost
+
+1020
+00:33:04,266 --> 0:33:05,936
+state and content feasibility,
+
+1021
+00:33:06,216 --> 0:33:07,846
+Mac apps are generally not
+
+1022
+00:33:08,036 --> 0:33:09,196
+expected to change their
+
+1023
+00:33:09,196 --> 0:33:13,006
+behavior as drastically as iOS
+
+1024
+00:33:13,646 --> 0:33:13,756
+apps.
+
+1025
+00:33:13,976 --> 0:33:16,076
+All running apps are expected to
+
+1026
+00:33:16,076 --> 0:33:17,406
+be doing valuable work for the
+
+1027
+00:33:17,406 --> 0:33:17,816
+user.
+
+1028
+00:33:19,166 --> 0:33:21,346
+Also, you want apps that are not
+
+1029
+00:33:21,436 --> 0:33:23,126
+frontmost to still receive
+
+1030
+00:33:23,126 --> 0:33:25,156
+scroll events, click-throughs
+
+1031
+00:33:25,366 --> 0:33:26,386
+and hover events.
+
+1032
+00:33:27,716 --> 0:33:29,136
+And a Mac user would not
+
+1033
+00:33:29,136 --> 0:33:30,786
+necessarily expect game play to
+
+1034
+00:33:30,786 --> 0:33:32,096
+pause when they switch to a
+
+1035
+00:33:32,096 --> 0:33:33,936
+different app, or rendering to
+
+1036
+00:33:33,936 --> 0:33:35,796
+be disabled entirely while
+
+1037
+00:33:35,796 --> 0:33:37,376
+trying to use your app through
+
+1038
+00:33:37,376 --> 0:33:38,846
+one of those VNC sessions on a
+
+1039
+00:33:38,846 --> 0:33:40,246
+virtual screen.
+
+1040
+00:33:42,256 --> 0:33:44,616
+I told you earlier that we had
+
+1041
+00:33:44,616 --> 0:33:46,316
+altered when these state changes
+
+1042
+00:33:46,316 --> 0:33:47,976
+occur compared to iOS.
+
+1043
+00:33:48,126 --> 0:33:48,816
+And here it is.
+
+1044
+00:33:49,596 --> 0:33:50,756
+Based on what I just told you,
+
+1045
+00:33:50,756 --> 0:33:52,356
+we have decided that on macOS,
+
+1046
+00:33:52,356 --> 0:33:55,316
+we will simultaneously keep all
+
+1047
+00:33:55,316 --> 0:33:57,496
+iPad apps foreground and active
+
+1048
+00:33:57,876 --> 0:33:58,806
+almost all the time.
+
+1049
+00:33:59,656 --> 0:34:01,196
+We will only enter the
+
+1050
+00:33:59,656 --> 0:34:01,196
+We will only enter the
+
+1051
+00:34:01,256 --> 0:34:02,766
+foreground inactive and
+
+1052
+00:34:02,836 --> 0:34:04,676
+background states during app
+
+1053
+00:34:04,676 --> 0:34:06,276
+termination and background
+
+1054
+00:34:06,276 --> 0:34:06,796
+launches.
+
+1055
+00:34:07,826 --> 0:34:09,626
+In other words, as long as the
+
+1056
+00:34:09,626 --> 0:34:11,196
+user perceives your app to be
+
+1057
+00:34:11,196 --> 0:34:13,396
+running, it is foreground active
+
+1058
+00:34:13,775 --> 0:34:15,786
+to avoid any unMac like side
+
+1059
+00:34:15,786 --> 0:34:16,226
+effects.
+
+1060
+00:34:16,766 --> 0:34:19,016
+Let me repeat that.
+
+1061
+00:34:19,815 --> 0:34:21,085
+The UIKit state change
+
+1062
+00:34:21,085 --> 0:34:22,886
+notifications are not going to
+
+1063
+00:34:22,886 --> 0:34:24,846
+be called for example when your
+
+1064
+00:34:24,846 --> 0:34:26,795
+app gains or loses the menu bar,
+
+1065
+00:34:27,056 --> 0:34:28,315
+or a window becomes occluded.
+
+1066
+00:34:29,005 --> 0:34:33,346
+That means that your app won't
+
+1067
+00:34:33,346 --> 0:34:34,795
+reduce its resource consumption
+
+1068
+00:34:34,866 --> 0:34:36,396
+as eagerly as on iOS.
+
+1069
+00:34:36,926 --> 0:34:38,676
+However, the AppNap heuristics
+
+1070
+00:34:38,676 --> 0:34:40,226
+are applied to all Mac apps
+
+1071
+00:34:40,446 --> 0:34:41,985
+including your iPad app.
+
+1072
+00:34:42,916 --> 0:34:44,295
+AppNap is a feature of macOS
+
+1073
+00:34:44,295 --> 0:34:46,206
+where the system constantly
+
+1074
+00:34:46,206 --> 0:34:47,716
+observes various properties of
+
+1075
+00:34:47,716 --> 0:34:49,396
+the app for indications that it
+
+1076
+00:34:49,396 --> 0:34:50,295
+is not in use.
+
+1077
+00:34:50,295 --> 0:34:52,226
+For example, whether it is
+
+1078
+00:34:52,226 --> 0:34:54,416
+visible, actively drawing,
+
+1079
+00:34:54,656 --> 0:34:56,346
+playing audio and so on.
+
+1080
+00:34:57,966 --> 0:34:59,356
+AppNap then automatically
+
+1081
+00:34:59,356 --> 0:35:01,426
+applies throttling when it is
+
+1082
+00:34:59,356 --> 0:35:01,426
+applies throttling when it is
+
+1083
+00:35:01,426 --> 0:35:02,736
+deemed safe to do so.
+
+1084
+00:35:03,356 --> 0:35:07,146
+As I mentioned earlier, we do
+
+1085
+00:35:07,146 --> 0:35:08,206
+enter the other app states
+
+1086
+00:35:08,246 --> 0:35:09,496
+during termination and
+
+1087
+00:35:09,496 --> 0:35:10,446
+background launches.
+
+1088
+00:35:11,666 --> 0:35:12,556
+Let's start with app
+
+1089
+00:35:12,556 --> 0:35:13,116
+termination.
+
+1090
+00:35:14,656 --> 0:35:16,256
+Something developers need to be
+
+1091
+00:35:16,256 --> 0:35:18,386
+aware of when moving their iPad
+
+1092
+00:35:18,386 --> 0:35:21,246
+apps to macOS is that switching
+
+1093
+00:35:21,246 --> 0:35:23,486
+between apps in iOS has no
+
+1094
+00:35:23,486 --> 0:35:25,656
+single equivalent on macOS.
+
+1095
+00:35:26,536 --> 0:35:28,486
+For example, switching to
+
+1096
+00:35:28,486 --> 0:35:30,126
+another app in iOS while
+
+1097
+00:35:30,126 --> 0:35:31,226
+background audio is still
+
+1098
+00:35:31,226 --> 0:35:33,016
+playing is like changing a
+
+1099
+00:35:33,016 --> 0:35:34,876
+frontmost Mac app to a different
+
+1100
+00:35:34,876 --> 0:35:36,786
+frontmost Mac app, because your
+
+1101
+00:35:36,786 --> 0:35:38,886
+app continues to be perceived as
+
+1102
+00:35:38,886 --> 0:35:39,816
+running by the user.
+
+1103
+00:35:41,296 --> 0:35:42,746
+But when the user doesn't return
+
+1104
+00:35:42,746 --> 0:35:45,306
+to your app on iOS and no audio
+
+1105
+00:35:45,306 --> 0:35:47,166
+was playing, this might be more
+
+1106
+00:35:47,166 --> 0:35:49,116
+similar to terminating a Mac on
+
+1107
+00:35:49,116 --> 0:35:51,166
+macOS because your app is out of
+
+1108
+00:35:51,166 --> 0:35:52,976
+sight and out of mind and exits
+
+1109
+00:35:52,976 --> 0:35:53,556
+eventually.
+
+1110
+00:35:54,156 --> 0:35:59,376
+On macOS, user initiated app
+
+1111
+00:35:59,406 --> 0:36:01,306
+termination of your iPad app
+
+1112
+00:35:59,406 --> 0:36:01,306
+termination of your iPad app
+
+1113
+00:36:01,566 --> 0:36:03,366
+gets the same state transitions
+
+1114
+00:36:03,586 --> 0:36:05,056
+as switching to a different app
+
+1115
+00:36:05,246 --> 0:36:07,446
+in iOS, for example by using the
+
+1116
+00:36:07,446 --> 0:36:08,176
+task switcher.
+
+1117
+00:36:09,796 --> 0:36:11,286
+The state change notifications
+
+1118
+00:36:11,286 --> 0:36:12,856
+will take you from foreground
+
+1119
+00:36:12,856 --> 0:36:14,306
+active through foreground
+
+1120
+00:36:14,306 --> 0:36:15,926
+inactive to the background.
+
+1121
+00:36:17,276 --> 0:36:18,546
+To the user, however, the app
+
+1122
+00:36:18,546 --> 0:36:20,466
+will immediately appear as no
+
+1123
+00:36:20,466 --> 0:36:22,566
+longer running, the app's
+
+1124
+00:36:22,566 --> 0:36:23,656
+remaining windows are made
+
+1125
+00:36:23,656 --> 0:36:26,086
+invisible, it is no longer in
+
+1126
+00:36:26,086 --> 0:36:27,416
+control of the menu bar, there
+
+1127
+00:36:27,846 --> 0:36:29,396
+will be no indicator light in
+
+1128
+00:36:29,396 --> 0:36:32,136
+the dock, and your app is no
+
+1129
+00:36:32,136 --> 0:36:33,926
+longer available in the macOS
+
+1130
+00:36:33,976 --> 0:36:35,556
+command tab task switcher.
+
+1131
+00:36:36,146 --> 0:36:39,716
+But behind the scenes, we give
+
+1132
+00:36:39,786 --> 0:36:41,096
+background tasks a chance to
+
+1133
+00:36:41,096 --> 0:36:42,836
+finish if they are created
+
+1134
+00:36:42,836 --> 0:36:44,396
+through the usual API on
+
+1135
+00:36:44,396 --> 0:36:45,786
+UIApplication that I've shown
+
+1136
+00:36:45,786 --> 0:36:46,316
+here.
+
+1137
+00:36:46,596 --> 0:36:50,366
+Just like in iOS, end your
+
+1138
+00:36:50,366 --> 0:36:52,206
+background tasks quickly or risk
+
+1139
+00:36:52,206 --> 0:36:53,226
+task expiration.
+
+1140
+00:36:54,636 --> 0:36:55,916
+There is one exception to this
+
+1141
+00:36:55,916 --> 0:36:56,146
+rule.
+
+1142
+00:36:57,036 --> 0:36:58,486
+Background audio plist entries
+
+1143
+00:36:58,536 --> 0:36:59,156
+are ignored.
+
+1144
+00:36:59,846 --> 0:37:01,346
+The process will terminate in
+
+1145
+00:36:59,846 --> 0:37:01,346
+The process will terminate in
+
+1146
+00:37:01,346 --> 0:37:02,546
+spite of background audio
+
+1147
+00:37:02,546 --> 0:37:03,086
+requests.
+
+1148
+00:37:03,846 --> 0:37:05,406
+After all, to the user, the app
+
+1149
+00:37:05,406 --> 0:37:06,456
+already looks terminated.
+
+1150
+00:37:07,626 --> 0:37:09,256
+So your media frameworks will
+
+1151
+00:37:09,256 --> 0:37:10,606
+pause your-- our media
+
+1152
+00:37:10,606 --> 0:37:11,836
+frameworks will pause your
+
+1153
+00:37:11,836 --> 0:37:13,496
+playback for you upon entering
+
+1154
+00:37:13,496 --> 0:37:14,266
+the background state.
+
+1155
+00:37:15,496 --> 0:37:17,226
+However, keep in mind that
+
+1156
+00:37:17,226 --> 0:37:18,746
+background audio is not needed
+
+1157
+00:37:18,746 --> 0:37:19,486
+on macOS.
+
+1158
+00:37:20,306 --> 0:37:21,476
+Your app will remain foreground
+
+1159
+00:37:21,476 --> 0:37:23,136
+active even when the user
+
+1160
+00:37:23,136 --> 0:37:24,886
+switches to a different app.
+
+1161
+00:37:26,856 --> 0:37:29,306
+Additionally, if the user tries
+
+1162
+00:37:29,306 --> 0:37:30,566
+to launch the app while it is
+
+1163
+00:37:30,566 --> 0:37:32,406
+still backgrounded, we simply
+
+1164
+00:37:32,406 --> 0:37:33,436
+return your app to the
+
+1165
+00:37:33,436 --> 0:37:34,496
+foreground active state.
+
+1166
+00:37:35,466 --> 0:37:37,086
+This is similar to returning to
+
+1167
+00:37:37,086 --> 0:37:38,706
+your app in the iOS task
+
+1168
+00:37:38,706 --> 0:37:39,126
+switcher.
+
+1169
+00:37:40,086 --> 0:37:42,216
+This sort of relaunch is only
+
+1170
+00:37:42,216 --> 0:37:43,836
+possible while your app is still
+
+1171
+00:37:43,836 --> 0:37:46,346
+processing background tasks, not
+
+1172
+00:37:46,386 --> 0:37:47,856
+once the synchronous handling of
+
+1173
+00:37:47,856 --> 0:37:49,136
+willTerminate has begun.
+
+1174
+00:37:50,116 --> 0:37:51,616
+So try to minimize this phase
+
+1175
+00:37:51,836 --> 0:37:53,396
+where your app ignores user
+
+1176
+00:37:53,396 --> 0:37:54,546
+attempts to relaunch it.
+
+1177
+00:37:54,996 --> 0:37:58,776
+Once the last background task
+
+1178
+00:37:58,776 --> 0:38:00,586
+completes or expires, the
+
+1179
+00:37:58,776 --> 0:38:00,586
+completes or expires, the
+
+1180
+00:38:00,586 --> 0:38:01,936
+process exits without
+
+1181
+00:38:01,936 --> 0:38:02,456
+suspension.
+
+1182
+00:38:03,866 --> 0:38:05,316
+As mentioned before, you will
+
+1183
+00:38:05,316 --> 0:38:06,966
+get the same delegate calls and
+
+1184
+00:38:06,966 --> 0:38:08,906
+notifications as on iOS.
+
+1185
+00:38:10,036 --> 0:38:10,976
+In thid case, that means you
+
+1186
+00:38:10,976 --> 0:38:12,876
+will see willResignActive,
+
+1187
+00:38:13,326 --> 0:38:15,216
+didEnterBackground, and
+
+1188
+00:38:15,216 --> 0:38:17,036
+willTerminate because we will
+
+1189
+00:38:17,036 --> 0:38:18,646
+exit the process rather than
+
+1190
+00:38:18,646 --> 0:38:21,026
+just suspending it like on iOS.
+
+1191
+00:38:22,916 --> 0:38:24,596
+So, that was iPad app
+
+1192
+00:38:24,596 --> 0:38:25,686
+termination on Mac.
+
+1193
+00:38:27,056 --> 0:38:28,416
+As I mentioned earlier, the
+
+1194
+00:38:28,416 --> 0:38:29,766
+other way for your iPad app on
+
+1195
+00:38:29,766 --> 0:38:31,756
+Mac to enter the background
+
+1196
+00:38:31,756 --> 0:38:33,476
+state is when it is launched
+
+1197
+00:38:33,476 --> 0:38:34,766
+directly into the background.
+
+1198
+00:38:36,056 --> 0:38:38,016
+iOS has quite a few APIs that
+
+1199
+00:38:38,016 --> 0:38:40,106
+allow you to opt into some form
+
+1200
+00:38:40,106 --> 0:38:41,536
+of background launch for your
+
+1201
+00:38:42,396 --> 0:38:42,566
+app.
+
+1202
+00:38:42,866 --> 0:38:43,826
+To learn much more about this
+
+1203
+00:38:43,826 --> 0:38:45,416
+topic, check out the session
+
+1204
+00:38:45,776 --> 0:38:47,226
+Advances in App Background
+
+1205
+00:38:47,226 --> 0:38:48,936
+Execution, also from this year.
+
+1206
+00:38:49,516 --> 0:38:53,166
+The following subset of these
+
+1207
+00:38:53,166 --> 0:38:55,566
+APIs is supported for your iPad
+
+1208
+00:38:56,436 --> 0:38:58,306
+apps for Mac.
+
+1209
+00:38:58,306 --> 0:39:00,016
+URL sessions configured for
+
+1210
+00:38:58,306 --> 0:39:00,016
+URL sessions configured for
+
+1211
+00:39:00,016 --> 0:39:03,556
+background downloads, silent
+
+1212
+00:39:03,556 --> 0:39:05,356
+remote user notifications with
+
+1213
+00:39:05,356 --> 0:39:07,226
+the content available specified
+
+1214
+00:39:07,226 --> 0:39:08,426
+in the APS dictionary.
+
+1215
+00:39:08,426 --> 0:39:10,496
+You could use this, for example,
+
+1216
+00:39:10,496 --> 0:39:12,006
+to update your app's contents
+
+1217
+00:39:12,276 --> 0:39:13,196
+when a new content arrives
+
+1218
+00:39:13,196 --> 0:39:17,636
+server-side, also when our user
+
+1219
+00:39:17,636 --> 0:39:18,986
+invokes a notification action
+
+1220
+00:39:18,986 --> 0:39:20,346
+that does not specify the
+
+1221
+00:39:20,346 --> 0:39:21,146
+foreground option.
+
+1222
+00:39:21,766 --> 0:39:23,506
+For example, they might like a
+
+1223
+00:39:23,506 --> 0:39:25,046
+post thorugh a user notification
+
+1224
+00:39:25,636 --> 0:39:27,076
+and we could background launch
+
+1225
+00:39:27,076 --> 0:39:28,586
+your app to let the server know
+
+1226
+00:39:28,586 --> 0:39:29,046
+about this.
+
+1227
+00:39:30,156 --> 0:39:32,506
+And finally, we also support the
+
+1228
+00:39:32,506 --> 0:39:34,166
+new BackgroundTasks framework
+
+1229
+00:39:34,656 --> 0:39:35,706
+including the new
+
+1230
+00:39:35,706 --> 0:39:38,246
+BGProcessingTask as well as
+
+1231
+00:39:38,546 --> 0:39:41,016
+BGAppRefreshTask for traditional
+
+1232
+00:39:41,116 --> 0:39:42,366
+background app refresh.
+
+1233
+00:39:43,416 --> 0:39:45,256
+Note that for iPad apps for Mac,
+
+1234
+00:39:45,416 --> 0:39:47,036
+the app refresh feature is only
+
+1235
+00:39:47,036 --> 0:39:48,636
+supported through this new API.
+
+1236
+00:39:54,416 --> 0:39:55,706
+The usual restrictions on
+
+1237
+00:39:55,706 --> 0:39:57,436
+background runtime and process
+
+1238
+00:39:57,436 --> 0:39:59,766
+priority apply same as on iOS.
+
+1239
+00:40:00,236 --> 0:40:01,576
+So if your task takes too much
+
+1240
+00:40:01,576 --> 0:40:03,096
+time, your app risks being
+
+1241
+00:40:03,096 --> 0:40:04,426
+suspended or even killed.
+
+1242
+00:40:06,086 --> 0:40:07,456
+If the user attempts to launch
+
+1243
+00:40:07,456 --> 0:40:08,756
+the app while it is already
+
+1244
+00:40:08,756 --> 0:40:10,276
+running in the background, we
+
+1245
+00:40:10,526 --> 0:40:11,956
+will simply transition it to
+
+1246
+00:40:11,956 --> 0:40:13,966
+foreground active similar to the
+
+1247
+00:40:13,966 --> 0:40:15,456
+previously discussed relaunch
+
+1248
+00:40:15,906 --> 0:40:16,626
+during termination.
+
+1249
+00:40:18,026 --> 0:40:19,896
+For background launches as well,
+
+1250
+00:40:20,266 --> 0:40:21,676
+all state transitions will match
+
+1251
+00:40:21,676 --> 0:40:22,536
+those on iOS.
+
+1252
+00:40:23,546 --> 0:40:24,666
+In this case, that means you
+
+1253
+00:40:24,666 --> 0:40:26,486
+will only see didFinishLaunching
+
+1254
+00:40:26,856 --> 0:40:28,566
+and whatever callback was
+
+1255
+00:40:28,566 --> 0:40:30,036
+specific to the background
+
+1256
+00:40:30,036 --> 0:40:31,686
+launch API that was used.
+
+1257
+00:40:32,156 --> 0:40:34,726
+Only during the full launch by
+
+1258
+00:40:34,726 --> 0:40:36,476
+the user will you additionally
+
+1259
+00:40:36,476 --> 0:40:37,316
+see willEnterForeground and
+
+1260
+00:40:37,316 --> 0:40:37,976
+didBecomeActive.
+
+1261
+00:40:41,976 --> 0:40:43,176
+A word on app suspension.
+
+1262
+00:40:43,766 --> 0:40:45,586
+iPad apps are rarely suspended
+
+1263
+00:40:45,586 --> 0:40:47,546
+on macOS compared to iOS.
+
+1264
+00:40:48,576 --> 0:40:50,446
+During regular termination, the
+
+1265
+00:40:50,716 --> 0:40:52,566
+app will exit exclusively
+
+1266
+00:40:52,656 --> 0:40:53,506
+without suspension.
+
+1267
+00:40:54,566 --> 0:40:55,676
+And during app switching on
+
+1268
+00:40:55,676 --> 0:40:57,616
+macOS, this does not cause
+
+1269
+00:40:57,616 --> 0:40:58,846
+backgrounding or suspension.
+
+1270
+00:40:59,856 --> 0:41:01,876
+But you will likely still see it
+
+1271
+00:40:59,856 --> 0:41:01,876
+But you will likely still see it
+
+1272
+00:41:01,876 --> 0:41:03,936
+occur if an app is launched
+
+1273
+00:41:03,986 --> 0:41:05,216
+directly into the background.
+
+1274
+00:41:06,886 --> 0:41:09,006
+Now on iPad, your app may be
+
+1275
+00:41:09,006 --> 0:41:10,506
+terminated when resources are
+
+1276
+00:41:10,506 --> 0:41:12,056
+needed elsewhere especially if
+
+1277
+00:41:12,056 --> 0:41:12,976
+it's already suspended.
+
+1278
+00:41:13,516 --> 0:41:15,826
+But on macOS, if your iPad app
+
+1279
+00:41:15,826 --> 0:41:17,906
+is suspended, it is always
+
+1280
+00:41:17,906 --> 0:41:20,206
+terminated immediately even if
+
+1281
+00:41:20,206 --> 0:41:21,566
+no memory pressure exists.
+
+1282
+00:41:23,196 --> 0:41:24,956
+Speaking of memory, the Mac
+
+1283
+00:41:24,956 --> 0:41:27,056
+memory model applies which means
+
+1284
+00:41:27,056 --> 0:41:28,506
+there are no enforced memory
+
+1285
+00:41:28,506 --> 0:41:28,916
+limits.
+
+1286
+00:41:29,576 --> 0:41:31,016
+Your app won't risk being killed
+
+1287
+00:41:31,016 --> 0:41:31,976
+while doing heavy lifting.
+
+1288
+00:41:32,586 --> 0:41:34,896
+But this is a double-edged
+
+1289
+00:41:34,896 --> 0:41:35,266
+sword.
+
+1290
+00:41:36,086 --> 0:41:37,436
+Because your app runs longer,
+
+1291
+00:41:37,876 --> 0:41:40,096
+user may notice degraded system
+
+1292
+00:41:40,096 --> 0:41:41,366
+performance from leaks piling
+
+1293
+00:41:41,366 --> 0:41:42,006
+up.
+
+1294
+00:41:42,726 --> 0:41:44,536
+This is specially the case if it
+
+1295
+00:41:44,536 --> 0:41:46,196
+causes VM swapping on hard disk
+
+1296
+00:41:46,236 --> 0:41:46,926
+base systems.
+
+1297
+00:41:49,366 --> 0:41:51,096
+So please, use the allocations
+
+1298
+00:41:51,126 --> 0:41:52,016
+profiling template and
+
+1299
+00:41:52,016 --> 0:41:53,826
+instruments to find and fix your
+
+1300
+00:41:53,826 --> 0:41:54,236
+leaks.
+
+1301
+00:41:55,076 --> 0:41:56,206
+This will also benefit your app
+
+1302
+00:41:56,206 --> 0:41:56,726
+on iPad.
+
+1303
+00:41:59,516 --> 0:42:00,806
+Now, that was a lot of
+
+1304
+00:41:59,516 --> 0:42:00,806
+Now, that was a lot of
+
+1305
+00:42:00,806 --> 0:42:02,146
+information, so let's recap.
+
+1306
+00:42:03,576 --> 0:42:05,856
+On macOs, your iPad app will
+
+1307
+00:42:05,856 --> 0:42:07,416
+spend most of its time in the
+
+1308
+00:42:07,416 --> 0:42:08,546
+foreground active state.
+
+1309
+00:42:09,096 --> 0:42:11,746
+App termination and background
+
+1310
+00:42:11,746 --> 0:42:13,696
+launches do allow your app to
+
+1311
+00:42:13,696 --> 0:42:15,276
+get into the foreground inactive
+
+1312
+00:42:15,346 --> 0:42:17,146
+and background states though.
+
+1313
+00:42:17,896 --> 0:42:20,176
+Don't expect audio playback to
+
+1314
+00:42:20,176 --> 0:42:21,846
+continue while your app is
+
+1315
+00:42:21,846 --> 0:42:23,026
+backgrounded even if you
+
+1316
+00:42:23,026 --> 0:42:23,926
+requested it.
+
+1317
+00:42:25,036 --> 0:42:26,696
+And finally, you can just
+
+1318
+00:42:26,696 --> 0:42:28,036
+continue to respond to these
+
+1319
+00:42:28,036 --> 0:42:29,796
+state changes the same way as
+
+1320
+00:42:29,796 --> 0:42:30,716
+you do on iOS.
+
+1321
+00:42:31,286 --> 0:42:33,276
+And now, I'm going to hand it
+
+1322
+00:42:33,276 --> 0:42:34,816
+over to Chris who will talk to
+
+1323
+00:42:34,816 --> 0:42:36,436
+you about distributing your iPad
+
+1324
+00:42:36,436 --> 0:42:37,206
+app to the Mac.
+
+1325
+00:42:37,636 --> 0:42:37,976
+Thank you.
+
+1326
+00:42:38,516 --> 0:42:43,726
+[ Applause ]
+
+1327
+00:42:44,226 --> 0:42:44,966
+&gt;&gt; Thank you, Nils.
+
+1328
+00:42:50,066 --> 0:42:51,746
+You've been building iOS apps
+
+1329
+00:42:51,746 --> 0:42:53,336
+for a while now.
+
+1330
+00:42:54,666 --> 0:42:56,296
+You know how to distribute on
+
+1331
+00:42:56,296 --> 0:42:58,326
+the App Store, how to use
+
+1332
+00:42:58,326 --> 0:43:00,906
+TestFlight, how to distribute
+
+1333
+00:42:58,326 --> 0:43:00,906
+TestFlight, how to distribute
+
+1334
+00:43:00,906 --> 0:43:02,386
+yourself using development
+
+1335
+00:43:02,386 --> 0:43:04,576
+signing, ad hoc or enterprise.
+
+1336
+00:43:05,676 --> 0:43:08,126
+But now, you're going to be
+
+1337
+00:43:08,126 --> 0:43:10,196
+building and selling a second
+
+1338
+00:43:10,196 --> 0:43:12,836
+app on the Mac all from the same
+
+1339
+00:43:12,836 --> 0:43:13,496
+code base.
+
+1340
+00:43:14,846 --> 0:43:15,876
+How are you going to do that?
+
+1341
+00:43:15,876 --> 0:43:17,826
+What will be different about the
+
+1342
+00:43:17,826 --> 0:43:18,196
+Mac?
+
+1343
+00:43:19,366 --> 0:43:20,296
+How will you ensure that your
+
+1344
+00:43:20,296 --> 0:43:21,596
+customers have a seamless
+
+1345
+00:43:21,596 --> 0:43:23,596
+experience using both apps?
+
+1346
+00:43:23,596 --> 0:43:25,186
+That's what we're going to
+
+1347
+00:43:25,186 --> 0:43:25,466
+cover.
+
+1348
+00:43:26,786 --> 0:43:27,846
+Let's go back to the beginning.
+
+1349
+00:43:29,076 --> 0:43:30,566
+You opened up the project editor
+
+1350
+00:43:30,566 --> 0:43:31,106
+in Xcode.
+
+1351
+00:43:32,076 --> 0:43:33,196
+You enabled the Mac support.
+
+1352
+00:43:34,016 --> 0:43:35,346
+You've been working very hard.
+
+1353
+00:43:35,346 --> 0:43:36,526
+You've got your app perfectly
+
+1354
+00:43:36,526 --> 0:43:38,596
+tuned and you think to yourself,
+
+1355
+00:43:38,876 --> 0:43:40,106
+gosh, I haven't had to worry
+
+1356
+00:43:40,106 --> 0:43:41,356
+about code signing once.
+
+1357
+00:43:42,476 --> 0:43:43,096
+Well, that's great.
+
+1358
+00:43:43,656 --> 0:43:45,436
+But when you want to know more
+
+1359
+00:43:45,436 --> 0:43:46,766
+about how signing is working,
+
+1360
+00:43:47,236 --> 0:43:48,896
+you can head over to the Signing
+
+1361
+00:43:48,896 --> 0:43:50,016
+and Capabilities tab.
+
+1362
+00:43:50,986 --> 0:43:52,306
+There you can see there is a lot
+
+1363
+00:43:52,336 --> 0:43:54,036
+going on under the hood to sign
+
+1364
+00:43:54,036 --> 0:43:55,356
+your iOS and Mac app.
+
+1365
+00:43:56,206 --> 0:43:57,116
+Let's take a closer look.
+
+1366
+00:43:58,086 --> 0:44:00,366
+First off, if you enable
+
+1367
+00:43:58,086 --> 0:44:00,366
+First off, if you enable
+
+1368
+00:44:00,366 --> 0:44:02,326
+automatic signing, all of the
+
+1369
+00:44:02,326 --> 0:44:03,816
+maintenance of code signing is
+
+1370
+00:44:03,816 --> 0:44:05,156
+taken care of by Xcode.
+
+1371
+00:44:05,266 --> 0:44:06,296
+It will make this transition
+
+1372
+00:44:06,296 --> 0:44:07,106
+super easy.
+
+1373
+00:44:07,506 --> 0:44:08,816
+I highly recommend using
+
+1374
+00:44:08,816 --> 0:44:10,136
+automatic signing.
+
+1375
+00:44:11,606 --> 0:44:13,176
+Now, using automatic signing,
+
+1376
+00:44:13,176 --> 0:44:15,166
+Xcode will create a necessary
+
+1377
+00:44:15,166 --> 0:44:16,696
+provisioning profile for the Mac
+
+1378
+00:44:17,216 --> 0:44:18,386
+and one for iOS.
+
+1379
+00:44:19,436 --> 0:44:20,716
+And we've modernized things a
+
+1380
+00:44:20,716 --> 0:44:20,956
+bit.
+
+1381
+00:44:21,676 --> 0:44:22,996
+Instead of using an iOs
+
+1382
+00:44:22,996 --> 0:44:24,156
+certificate and a Mac
+
+1383
+00:44:24,156 --> 0:44:25,576
+certificate, we're going to use
+
+1384
+00:44:25,576 --> 0:44:27,056
+one unified Apple developer
+
+1385
+00:44:27,056 --> 0:44:27,336
+certificate.
+
+1386
+00:44:27,336 --> 0:44:27,976
+So, that's a nice improvement.
+
+1387
+00:44:28,516 --> 0:44:32,806
+[ Applause ]
+
+1388
+00:44:33,306 --> 0:44:35,066
+Now, when you add Mac support,
+
+1389
+00:44:35,836 --> 0:44:38,526
+Xcode will use automatic signing
+
+1390
+00:44:38,526 --> 0:44:40,496
+to register a reserved bundle
+
+1391
+00:44:40,496 --> 0:44:42,256
+identifier for your app, for
+
+1392
+00:44:42,256 --> 0:44:44,796
+your Mac app prefixed with UIKit
+
+1393
+00:44:44,796 --> 0:44:45,296
+for Mac.
+
+1394
+00:44:45,836 --> 0:44:46,756
+Now, this is important.
+
+1395
+00:44:47,246 --> 0:44:48,786
+If you have been making use of
+
+1396
+00:44:48,786 --> 0:44:50,146
+your bundle identifier in your
+
+1397
+00:44:50,146 --> 0:44:51,926
+code or in your entitlements,
+
+1398
+00:44:52,196 --> 0:44:53,176
+you need to think about how that
+
+1399
+00:44:53,176 --> 0:44:54,996
+may affect both apps.
+
+1400
+00:44:56,416 --> 0:44:58,476
+The entitlements file which you
+
+1401
+00:44:58,476 --> 0:44:59,906
+have been using for your iOS app
+
+1402
+00:45:00,466 --> 0:45:01,776
+is shared when signing for the
+
+1403
+00:45:01,776 --> 0:45:02,066
+Mac.
+
+1404
+00:45:02,066 --> 0:45:02,956
+So there's no issue there.
+
+1405
+00:45:03,516 --> 0:45:06,406
+And when you enable Mac support,
+
+1406
+00:45:07,046 --> 0:45:08,436
+Xcode will add those
+
+1407
+00:45:08,436 --> 0:45:09,916
+capabilities that are required
+
+1408
+00:45:09,916 --> 0:45:12,206
+on the Mac, Hardened Runtime and
+
+1409
+00:45:12,206 --> 0:45:13,116
+App Sandbox.
+
+1410
+00:45:13,706 --> 0:45:14,836
+So for instance, if you've
+
+1411
+00:45:14,876 --> 0:45:17,476
+provided a usage description for
+
+1412
+00:45:17,476 --> 0:45:19,046
+the camera in your info.plist,
+
+1413
+00:45:19,526 --> 0:45:20,646
+Xcode will update your
+
+1414
+00:45:20,646 --> 0:45:22,026
+entitlements file so that your
+
+1415
+00:45:22,066 --> 0:45:23,496
+app can make use of the camera
+
+1416
+00:45:23,496 --> 0:45:26,006
+on the Mac.
+
+1417
+00:45:26,206 --> 0:45:27,416
+If you're using an iCloud
+
+1418
+00:45:27,416 --> 0:45:29,546
+default container, that is based
+
+1419
+00:45:29,546 --> 0:45:30,716
+on your bundle identifier.
+
+1420
+00:45:31,286 --> 0:45:33,406
+So, Xcode will adjust your
+
+1421
+00:45:33,406 --> 0:45:35,026
+entitlements file so that your
+
+1422
+00:45:35,026 --> 0:45:36,716
+iOS app and your Mac app point
+
+1423
+00:45:36,716 --> 0:45:38,196
+explicitly to your existing
+
+1424
+00:45:38,446 --> 0:45:38,926
+container.
+
+1425
+00:45:39,456 --> 0:45:40,456
+If you've been using the default
+
+1426
+00:45:40,456 --> 0:45:41,816
+container API, you may continue
+
+1427
+00:45:41,816 --> 0:45:42,306
+doing so.
+
+1428
+00:45:42,836 --> 0:45:46,456
+Now, Xcode will migrate a lot
+
+1429
+00:45:46,456 --> 0:45:46,826
+for you.
+
+1430
+00:45:47,076 --> 0:45:49,286
+But if you want to share
+
+1431
+00:45:49,286 --> 0:45:50,926
+functionality between your iOS
+
+1432
+00:45:50,926 --> 0:45:52,806
+app and your Mac app, there may
+
+1433
+00:45:52,806 --> 0:45:54,076
+be some manual steps that you
+
+1434
+00:45:54,076 --> 0:45:54,586
+need to take.
+
+1435
+00:45:55,946 --> 0:45:57,776
+If you're using the Keychain in
+
+1436
+00:45:57,776 --> 0:45:59,716
+your app, you should add the
+
+1437
+00:45:59,716 --> 0:46:01,586
+Keychain Sharing Capability in
+
+1438
+00:45:59,716 --> 0:46:01,586
+Keychain Sharing Capability in
+
+1439
+00:46:01,636 --> 0:46:02,056
+Xcode.
+
+1440
+00:46:03,176 --> 0:46:04,226
+iCloud Keychain is made
+
+1441
+00:46:04,226 --> 0:46:06,256
+available by default on iOS.
+
+1442
+00:46:06,706 --> 0:46:07,796
+But on the Mac, you need to
+
+1443
+00:46:07,796 --> 0:46:09,006
+declare your intent to use it
+
+1444
+00:46:09,036 --> 0:46:09,926
+through this capability.
+
+1445
+00:46:11,756 --> 0:46:12,906
+If you're using push
+
+1446
+00:46:12,906 --> 0:46:14,746
+notifications, continue sending
+
+1447
+00:46:14,746 --> 0:46:16,316
+notifications to your iOS app.
+
+1448
+00:46:16,846 --> 0:46:17,946
+Those notifications will be
+
+1449
+00:46:17,946 --> 0:46:20,566
+received by your iOS and Mac
+
+1450
+00:46:21,226 --> 0:46:21,306
+app.
+
+1451
+00:46:21,576 --> 0:46:21,926
+All right.
+
+1452
+00:46:22,266 --> 0:46:23,306
+That's what you need to know to
+
+1453
+00:46:23,306 --> 0:46:24,956
+get your project set up properly
+
+1454
+00:46:24,956 --> 0:46:25,566
+for development.
+
+1455
+00:46:27,176 --> 0:46:28,686
+Now, when you're ready to share
+
+1456
+00:46:28,686 --> 0:46:30,536
+your app with others, you begin
+
+1457
+00:46:30,536 --> 0:46:32,346
+in Xcode by building an archive.
+
+1458
+00:46:33,196 --> 0:46:35,336
+And on iOS, you use that archive
+
+1459
+00:46:35,336 --> 0:46:37,016
+to export for the store as an
+
+1460
+00:46:37,266 --> 0:46:37,836
+IPA.
+
+1461
+00:46:38,556 --> 0:46:39,676
+But things are a bit different
+
+1462
+00:46:39,676 --> 0:46:40,126
+on the Mac.
+
+1463
+00:46:41,156 --> 0:46:43,106
+When Xcode uploads your app to
+
+1464
+00:46:43,106 --> 0:46:44,876
+the App Store, it sends it as a
+
+1465
+00:46:44,876 --> 0:46:47,046
+Mac package behind the scenes.
+
+1466
+00:46:48,256 --> 0:46:49,756
+Now, uploading to the App Store
+
+1467
+00:46:49,756 --> 0:46:51,296
+is very similar to how it is for
+
+1468
+00:46:51,406 --> 0:46:51,856
+iOS.
+
+1469
+00:46:51,856 --> 0:46:52,466
+Let me show you.
+
+1470
+00:46:53,766 --> 0:46:55,106
+When you have your project open,
+
+1471
+00:46:55,346 --> 0:46:57,136
+you can use the Product menu to
+
+1472
+00:46:57,136 --> 0:46:58,536
+switch your Run Destination to
+
+1473
+00:46:58,536 --> 0:46:59,126
+My Mac.
+
+1474
+00:46:59,916 --> 0:47:00,846
+then you Archive.
+
+1475
+00:46:59,916 --> 0:47:00,846
+then you Archive.
+
+1476
+00:47:01,726 --> 0:47:03,256
+The organizer will open up and
+
+1477
+00:47:03,256 --> 0:47:04,676
+show you your brand-new Mac app
+
+1478
+00:47:04,676 --> 0:47:05,136
+archive.
+
+1479
+00:47:06,086 --> 0:47:07,126
+From there, you can click the
+
+1480
+00:47:07,126 --> 0:47:08,936
+Distribute App button and follow
+
+1481
+00:47:08,936 --> 0:47:10,266
+that same upload workflow that
+
+1482
+00:47:10,266 --> 0:47:10,746
+you're used to.
+
+1483
+00:47:11,296 --> 0:47:13,646
+Of course, you can do all of
+
+1484
+00:47:13,646 --> 0:47:14,616
+this from the command line
+
+1485
+00:47:15,706 --> 0:47:17,746
+including uploading from Xcode
+
+1486
+00:47:18,236 --> 0:47:18,366
+build.
+
+1487
+00:47:19,016 --> 0:47:20,666
+For more on how to automate all
+
+1488
+00:47:20,666 --> 0:47:22,346
+of this, I recommend checking
+
+1489
+00:47:22,346 --> 0:47:24,036
+out the session from 2017,
+
+1490
+00:47:24,036 --> 0:47:25,966
+What's New in Signing for Xcode
+
+1491
+00:47:25,966 --> 0:47:26,766
+and Xcode Server.
+
+1492
+00:47:30,536 --> 0:47:32,006
+OK. So you've built your app,
+
+1493
+00:47:32,676 --> 0:47:34,496
+but there are some steps to take
+
+1494
+00:47:34,536 --> 0:47:35,716
+before sending your app to the
+
+1495
+00:47:35,716 --> 0:47:36,276
+App Store.
+
+1496
+00:47:37,166 --> 0:47:39,816
+First, this is a new Mac app, so
+
+1497
+00:47:39,816 --> 0:47:41,736
+you need to create a new app
+
+1498
+00:47:41,736 --> 0:47:43,326
+record in App Store Connect just
+
+1499
+00:47:43,326 --> 0:47:45,116
+like you did for iOS, then
+
+1500
+00:47:45,116 --> 0:47:46,446
+before and now once more.
+
+1501
+00:47:47,946 --> 0:47:49,656
+Now when you do this, you're
+
+1502
+00:47:49,656 --> 0:47:51,386
+going to associate that App
+
+1503
+00:47:51,386 --> 0:47:52,996
+Record with the app identifier
+
+1504
+00:47:52,996 --> 0:47:54,486
+that Xcode synthesized for you,
+
+1505
+00:47:54,686 --> 0:47:56,606
+the one prefix with UIKit for
+
+1506
+00:47:57,316 --> 0:47:57,426
+Mac.
+
+1507
+00:47:58,166 --> 0:47:59,926
+And whenever you upload to the
+
+1508
+00:47:59,926 --> 0:48:00,836
+App Store, you should always
+
+1509
+00:47:59,926 --> 0:48:00,836
+App Store, you should always
+
+1510
+00:48:00,836 --> 0:48:01,866
+increment your build number.
+
+1511
+00:48:01,866 --> 0:48:03,666
+This is a little different from
+
+1512
+00:48:03,786 --> 0:48:04,276
+iOS.
+
+1513
+00:48:04,966 --> 0:48:06,776
+macOS uses the build number to
+
+1514
+00:48:06,776 --> 0:48:07,796
+determine the order of your
+
+1515
+00:48:07,796 --> 0:48:08,326
+releases.
+
+1516
+00:48:09,666 --> 0:48:11,546
+And if you've done all that, you
+
+1517
+00:48:11,546 --> 0:48:13,686
+can upload from Xcode and
+
+1518
+00:48:13,686 --> 0:48:15,646
+release your app on the App
+
+1519
+00:48:17,916 --> 0:48:18,046
+Store.
+
+1520
+00:48:18,266 --> 0:48:20,476
+Now, a cool thing about the Mac
+
+1521
+00:48:20,566 --> 0:48:22,266
+is that you have more control
+
+1522
+00:48:22,266 --> 0:48:23,646
+over how you install apps.
+
+1523
+00:48:24,696 --> 0:48:26,456
+When a customer downloads your
+
+1524
+00:48:26,456 --> 0:48:28,266
+app from the App Store, it is
+
+1525
+00:48:28,316 --> 0:48:29,796
+perfectly possible to copy that
+
+1526
+00:48:29,796 --> 0:48:31,436
+app to another Mac and run it,
+
+1527
+00:48:32,696 --> 0:48:33,946
+which brings up a few things.
+
+1528
+00:48:35,076 --> 0:48:36,576
+App Thinning isn't used on
+
+1529
+00:48:36,576 --> 0:48:37,276
+macOS.
+
+1530
+00:48:38,626 --> 0:48:39,786
+Your app will always contain the
+
+1531
+00:48:39,786 --> 0:48:40,976
+complete set of resources
+
+1532
+00:48:40,976 --> 0:48:43,046
+necessary to run on any Mac.
+
+1533
+00:48:43,846 --> 0:48:45,276
+And because your app can be
+
+1534
+00:48:45,276 --> 0:48:46,596
+dragged and dropped to any Mac,
+
+1535
+00:48:46,986 --> 0:48:48,296
+it is up to you to add receipt
+
+1536
+00:48:48,296 --> 0:48:49,676
+validation logic to your app.
+
+1537
+00:48:50,446 --> 0:48:51,666
+So whenever your app launches,
+
+1538
+00:48:51,666 --> 0:48:52,786
+it should be checking that it
+
+1539
+00:48:52,786 --> 0:48:54,646
+was legitimately purchased and
+
+1540
+00:48:54,646 --> 0:48:56,096
+is allowed to run.
+
+1541
+00:48:56,736 --> 0:48:58,416
+For more on how to add receipt
+
+1542
+00:48:58,416 --> 0:49:00,316
+validation to your app, I
+
+1543
+00:48:58,416 --> 0:49:00,316
+validation to your app, I
+
+1544
+00:49:00,316 --> 0:49:01,346
+recommend checking out the
+
+1545
+00:49:01,346 --> 0:49:02,966
+Advanced StoreKit talk from
+
+1546
+00:49:02,966 --> 0:49:04,526
+2017.
+
+1547
+00:49:05,936 --> 0:49:08,106
+The good news is that once your
+
+1548
+00:49:08,106 --> 0:49:09,966
+app is on the App Store, you
+
+1549
+00:49:09,966 --> 0:49:11,196
+have access to the same great
+
+1550
+00:49:11,226 --> 0:49:13,666
+tools, like App Store Connect,
+
+1551
+00:49:13,666 --> 0:49:14,846
+App Analytics to track your
+
+1552
+00:49:14,846 --> 0:49:17,116
+sales and marketing efforts, and
+
+1553
+00:49:17,116 --> 0:49:18,916
+the Xcode Crashes Organizer to
+
+1554
+00:49:18,916 --> 0:49:20,316
+triage any crashes that may be
+
+1555
+00:49:20,316 --> 0:49:21,436
+affecting your customers.
+
+1556
+00:49:21,936 --> 0:49:23,846
+Your app can use the same
+
+1557
+00:49:23,846 --> 0:49:25,746
+StoreKit and GameKit APIs.
+
+1558
+00:49:26,696 --> 0:49:27,606
+Now, if you're using those
+
+1559
+00:49:27,606 --> 0:49:29,396
+API's, there is some additional
+
+1560
+00:49:29,396 --> 0:49:30,666
+set up required on App Store
+
+1561
+00:49:30,666 --> 0:49:31,016
+Connect.
+
+1562
+00:49:31,926 --> 0:49:33,916
+If you're using In-App Purchases
+
+1563
+00:49:34,266 --> 0:49:36,276
+or subscriptions, you will need
+
+1564
+00:49:36,276 --> 0:49:37,936
+to recreate those in App Store
+
+1565
+00:49:37,936 --> 0:49:39,356
+Connect for your new Mac app.
+
+1566
+00:49:40,366 --> 0:49:41,296
+And if you want to share the
+
+1567
+00:49:41,296 --> 0:49:42,856
+same purchase history between
+
+1568
+00:49:42,856 --> 0:49:44,536
+both apps, that will require
+
+1569
+00:49:44,536 --> 0:49:45,566
+that you maintain your own
+
+1570
+00:49:45,566 --> 0:49:46,916
+server-side synching solution.
+
+1571
+00:49:47,476 --> 0:49:50,666
+If you have a game, you should
+
+1572
+00:49:50,666 --> 0:49:52,286
+begin using Game Center Groups
+
+1573
+00:49:52,416 --> 0:49:53,726
+to share your leaderboard and
+
+1574
+00:49:53,726 --> 0:49:54,946
+achievement data between both
+
+1575
+00:49:54,946 --> 0:49:55,306
+apps.
+
+1576
+00:49:56,226 --> 0:49:57,796
+And if you have a multiplayer
+
+1577
+00:49:57,796 --> 0:49:59,376
+game, you should update the
+
+1578
+00:49:59,376 --> 0:50:00,666
+Multiplayer Compatibility
+
+1579
+00:49:59,376 --> 0:50:00,666
+Multiplayer Compatibility
+
+1580
+00:50:00,666 --> 0:50:02,236
+section in App Store Connect
+
+1581
+00:50:02,696 --> 0:50:03,496
+that will ensure that your
+
+1582
+00:50:03,496 --> 0:50:04,496
+players are matched with the
+
+1583
+00:50:04,496 --> 0:50:05,866
+appropriate versions of your app
+
+1584
+00:50:06,216 --> 0:50:06,956
+across iOS and Mac.
+
+1585
+00:50:09,976 --> 0:50:10,276
+All right.
+
+1586
+00:50:10,276 --> 0:50:11,346
+So you can begin playing with
+
+1587
+00:50:11,346 --> 0:50:12,996
+all of this now, but a heads-up.
+
+1588
+00:50:13,336 --> 0:50:15,406
+For the time being, the App
+
+1589
+00:50:15,406 --> 0:50:16,746
+Store will not be accepting
+
+1590
+00:50:16,856 --> 0:50:18,746
+uploads with the prefix UIKit
+
+1591
+00:50:18,746 --> 0:50:19,206
+for Mac.
+
+1592
+00:50:19,526 --> 0:50:20,906
+You can still create an App
+
+1593
+00:50:20,906 --> 0:50:22,776
+record and experiment with those
+
+1594
+00:50:22,776 --> 0:50:24,386
+StoreKit and GameKit APIs in the
+
+1595
+00:50:24,386 --> 0:50:24,916
+meantime.
+
+1596
+00:50:25,986 --> 0:50:27,456
+Over the summer, we will begin
+
+1597
+00:50:27,456 --> 0:50:28,966
+accepting uploads and this would
+
+1598
+00:50:28,966 --> 0:50:30,046
+be a good time to practice
+
+1599
+00:50:30,046 --> 0:50:30,796
+uploading your app.
+
+1600
+00:50:31,806 --> 0:50:33,676
+And finally, when Xcode 11 is
+
+1601
+00:50:33,676 --> 0:50:35,066
+released, you can begin
+
+1602
+00:50:35,066 --> 0:50:35,876
+submitting for app review.
+
+1603
+00:50:38,566 --> 0:50:40,176
+And that is distribution on the
+
+1604
+00:50:40,176 --> 0:50:40,556
+App Store.
+
+1605
+00:50:42,516 --> 0:50:46,526
+[Applause]
+
+1606
+00:50:47,026 --> 0:50:48,666
+Now, there are other options if
+
+1607
+00:50:48,666 --> 0:50:49,996
+you'd like to distribute outside
+
+1608
+00:50:49,996 --> 0:50:50,706
+of the App Store.
+
+1609
+00:50:51,706 --> 0:50:53,206
+You can serve you app directly
+
+1610
+00:50:53,256 --> 0:50:56,336
+to your customers if you sign
+
+1611
+00:50:56,336 --> 0:50:57,696
+your app with a developer ID
+
+1612
+00:50:57,696 --> 0:50:59,686
+certificate and get it notarized
+
+1613
+00:50:59,686 --> 0:51:00,126
+by Apple.
+
+1614
+00:50:59,686 --> 0:51:00,126
+by Apple.
+
+1615
+00:51:01,806 --> 0:51:03,076
+Notarized apps are a great
+
+1616
+00:51:03,076 --> 0:51:04,316
+evolution and security for the
+
+1617
+00:51:04,316 --> 0:51:04,666
+Mac.
+
+1618
+00:51:05,356 --> 0:51:06,786
+We can all take comfort that the
+
+1619
+00:51:06,786 --> 0:51:08,476
+apps that we download and run on
+
+1620
+00:51:08,476 --> 0:51:10,186
+our Mac have been signed by the
+
+1621
+00:51:10,186 --> 0:51:12,116
+developer that wrote it and that
+
+1622
+00:51:12,116 --> 0:51:13,376
+signature has been vetted by
+
+1623
+00:51:13,376 --> 0:51:13,756
+Apple.
+
+1624
+00:51:14,996 --> 0:51:16,416
+There's no app review for these
+
+1625
+00:51:16,416 --> 0:51:17,906
+apps, but we enforce good
+
+1626
+00:51:17,906 --> 0:51:19,176
+policies like requiring that
+
+1627
+00:51:19,176 --> 0:51:20,506
+Hardened Runtime be turned on in
+
+1628
+00:51:20,506 --> 0:51:21,406
+your app.
+
+1629
+00:51:22,786 --> 0:51:24,146
+And there's great command line
+
+1630
+00:51:24,146 --> 0:51:25,296
+tool support to sign and
+
+1631
+00:51:25,296 --> 0:51:26,646
+notarize your app.
+
+1632
+00:51:27,506 --> 0:51:28,856
+And sharing a notarized app with
+
+1633
+00:51:28,856 --> 0:51:30,086
+your team is a great alternative
+
+1634
+00:51:30,086 --> 0:51:31,136
+to TestFlight which is not
+
+1635
+00:51:31,136 --> 0:51:32,026
+available on the Mac.
+
+1636
+00:51:32,896 --> 0:51:34,666
+One caveat though, signing this
+
+1637
+00:51:34,666 --> 0:51:35,866
+way doesn't allow you to use
+
+1638
+00:51:35,866 --> 0:51:37,316
+those App Store based features
+
+1639
+00:51:37,316 --> 0:51:38,696
+like GameKit and StoreKit.
+
+1640
+00:51:40,936 --> 0:51:43,546
+Now, signing a notarized app is
+
+1641
+00:51:43,546 --> 0:51:44,756
+not as scary as it sounds.
+
+1642
+00:51:44,756 --> 0:51:45,716
+You can do all of this from
+
+1643
+00:51:45,716 --> 0:51:46,066
+Xcode.
+
+1644
+00:51:46,776 --> 0:51:48,716
+The first step is uploading your
+
+1645
+00:51:48,716 --> 0:51:49,366
+app to Apple.
+
+1646
+00:51:50,406 --> 0:51:53,186
+In this process, Xcode will sign
+
+1647
+00:51:53,186 --> 0:51:54,366
+your app with the developer ID
+
+1648
+00:51:54,366 --> 0:51:56,206
+certificate and Apple will scan
+
+1649
+00:51:56,206 --> 0:51:56,816
+it for malware.
+
+1650
+00:51:58,166 --> 0:51:59,726
+After a few minutes, Xcode will
+
+1651
+00:51:59,726 --> 0:52:01,896
+receive a notification, notarize
+
+1652
+00:51:59,726 --> 0:52:01,896
+receive a notification, notarize
+
+1653
+00:52:01,896 --> 0:52:03,316
+the app, at which point you can
+
+1654
+00:52:03,316 --> 0:52:05,476
+export it, you can zip it up or
+
+1655
+00:52:05,476 --> 0:52:07,316
+put it in a disk image and make
+
+1656
+00:52:07,316 --> 0:52:07,976
+it available on your server.
+
+1657
+00:52:11,686 --> 0:52:12,706
+If you want to know more about
+
+1658
+00:52:12,706 --> 0:52:14,046
+the security model or how to use
+
+1659
+00:52:14,046 --> 0:52:15,476
+it in your app, I recommend
+
+1660
+00:52:15,476 --> 0:52:16,426
+checking out the session from
+
+1661
+00:52:16,426 --> 0:52:17,556
+this year, All About
+
+1662
+00:52:17,556 --> 0:52:17,976
+Notarization.
+
+1663
+00:52:20,636 --> 0:52:20,956
+All right.
+
+1664
+00:52:21,096 --> 0:52:22,106
+Those are your options for
+
+1665
+00:52:22,106 --> 0:52:24,236
+distribution to your customers.
+
+1666
+00:52:25,416 --> 0:52:26,526
+There is a third distribution
+
+1667
+00:52:26,526 --> 0:52:28,286
+option worth mentioning and that
+
+1668
+00:52:28,286 --> 0:52:29,516
+is development signing.
+
+1669
+00:52:30,986 --> 0:52:32,216
+Now, development signing is just
+
+1670
+00:52:32,216 --> 0:52:33,296
+the same as you're used to on
+
+1671
+00:52:33,436 --> 0:52:33,916
+iOS.
+
+1672
+00:52:34,426 --> 0:52:36,176
+It is great for sharing a build
+
+1673
+00:52:36,176 --> 0:52:37,246
+with your team to test.
+
+1674
+00:52:37,856 --> 0:52:39,406
+And remember, when you share
+
+1675
+00:52:39,576 --> 0:52:41,456
+with a new Mac, remember to
+
+1676
+00:52:41,456 --> 0:52:42,836
+register any new devices on the
+
+1677
+00:52:42,836 --> 0:52:43,526
+developer portal.
+
+1678
+00:52:44,036 --> 0:52:46,906
+And development signing is what
+
+1679
+00:52:46,906 --> 0:52:48,496
+you should use to test those
+
+1680
+00:52:48,496 --> 0:52:50,116
+StoreKit and GameKit APIs.
+
+1681
+00:52:50,636 --> 0:52:51,506
+You can-- When you use
+
+1682
+00:52:51,506 --> 0:52:53,166
+development signing, you can use
+
+1683
+00:52:53,166 --> 0:52:55,286
+Sandbox test accounts instead of
+
+1684
+00:52:55,286 --> 0:52:56,266
+spending your own money
+
+1685
+00:52:56,266 --> 0:52:57,696
+exercising receipt validation.
+
+1686
+00:53:00,556 --> 0:53:01,556
+And those are your options for
+
+1687
+00:53:01,556 --> 0:53:05,486
+distribution on the Mac.
+
+1688
+00:53:05,686 --> 0:53:08,736
+Now, to be sure, this has all
+
+1689
+00:53:08,736 --> 0:53:09,596
+been a lot to take in.
+
+1690
+00:53:10,776 --> 0:53:13,246
+But consider if you will how far
+
+1691
+00:53:13,246 --> 0:53:13,656
+we've come.
+
+1692
+00:53:14,926 --> 0:53:15,666
+Maybe you're like me.
+
+1693
+00:53:16,816 --> 0:53:17,846
+You began as an iPhone
+
+1694
+00:53:17,846 --> 0:53:18,316
+developer.
+
+1695
+00:53:19,546 --> 0:53:21,076
+You mastered table views and
+
+1696
+00:53:21,076 --> 0:53:23,566
+screen rotation, then you
+
+1697
+00:53:23,566 --> 0:53:24,746
+graduated to something a bit
+
+1698
+00:53:24,816 --> 0:53:25,086
+bigger.
+
+1699
+00:53:26,076 --> 0:53:28,036
+You sought opportunity on iPad.
+
+1700
+00:53:29,366 --> 0:53:30,736
+You challenged yourself with a
+
+1701
+00:53:30,736 --> 0:53:32,486
+new form factor adding
+
+1702
+00:53:32,486 --> 0:53:35,766
+multitasking and drag and drop.
+
+1703
+00:53:35,956 --> 0:53:37,486
+Your next adventure will be the
+
+1704
+00:53:37,486 --> 0:53:37,856
+Mac.
+
+1705
+00:53:38,876 --> 0:53:40,266
+You'll conquer window resizing
+
+1706
+00:53:40,266 --> 0:53:40,916
+and menu bars.
+
+1707
+00:53:42,176 --> 0:53:43,386
+I am delighted to see what you
+
+1708
+00:53:43,386 --> 0:53:44,136
+bring to the Mac.
+
+1709
+00:53:44,756 --> 0:53:46,146
+We all stand to share greatly in
+
+1710
+00:53:46,146 --> 0:53:46,716
+its growth.
+
+1711
+00:53:47,606 --> 0:53:48,836
+Now, go check that checkbox.
+
+1712
+00:53:50,106 --> 0:53:50,976
+Please, join us in the labs.
+
+1713
+00:53:51,016 --> 0:53:52,326
+[Applause]
+
+1714
+00:53:52,326 --> 0:53:53,196
+Please watch the related
+
+1715
+00:53:53,196 --> 0:53:53,616
+sessions.
+
+1716
+00:53:54,106 --> 0:53:55,366
+Please, have a fantastic WWDC.
+
+1717
+00:53:55,366 --> 0:53:55,796
+Thank you.
+
+1718
+00:53:56,516 --> 0:54:00,500
+[ Applause ]

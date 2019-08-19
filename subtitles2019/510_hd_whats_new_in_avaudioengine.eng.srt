@@ -1,0 +1,1011 @@
+1
+00:00:01,516 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:07,796 --> 0:00:09,296
+&gt;&gt; Hello, and welcome to our
+
+3
+00:00:09,296 --> 0:00:11,706
+session about audio API updates.
+
+4
+00:00:12,116 --> 0:00:14,116
+My name is Peter Vasil, and I am
+
+5
+00:00:14,116 --> 0:00:15,656
+a software engineer in the Core
+
+6
+00:00:15,656 --> 0:00:16,276
+Audio team.
+
+7
+00:00:18,426 --> 0:00:20,066
+Let's start with what's new in
+
+8
+00:00:20,066 --> 0:00:21,186
+AVAudioEngine.
+
+9
+00:00:24,206 --> 0:00:25,226
+We have added a couple of
+
+10
+00:00:25,226 --> 0:00:26,976
+enhancements and new APIs to
+
+11
+00:00:26,976 --> 0:00:27,996
+AVAudioEngine.
+
+12
+00:00:28,946 --> 0:00:30,446
+We now have a voice processing
+
+13
+00:00:30,446 --> 0:00:30,946
+support.
+
+14
+00:00:31,946 --> 0:00:33,486
+We have added two new nodes,
+
+15
+00:00:33,726 --> 0:00:35,346
+AVAudioSourceNode and
+
+16
+00:00:35,346 --> 0:00:37,646
+AVAudioSinkNode, and we have
+
+17
+00:00:37,646 --> 0:00:38,826
+made some improvements to
+
+18
+00:00:38,826 --> 0:00:40,256
+spatial audio rendering.
+
+19
+00:00:41,616 --> 0:00:43,076
+Now, let's dive into the
+
+20
+00:00:45,976 --> 0:00:46,516
+details.
+
+21
+00:00:46,516 --> 0:00:48,236
+AVAudioEngine now has a voice
+
+22
+00:00:48,236 --> 0:00:49,156
+processing mode.
+
+23
+00:00:49,726 --> 0:00:51,916
+The main use case for the mode
+
+24
+00:00:51,916 --> 0:00:53,256
+is echo cancellation and
+
+25
+00:00:53,256 --> 0:00:54,926
+voice-over IP applications.
+
+26
+00:00:55,956 --> 0:00:56,836
+What does this mean?
+
+27
+00:00:57,836 --> 0:00:59,346
+When enabled, extra signal
+
+28
+00:00:59,346 --> 0:01:00,826
+processing is applied on the
+
+29
+00:00:59,346 --> 0:01:00,826
+processing is applied on the
+
+30
+00:01:00,826 --> 0:01:03,286
+incoming audio, and any audio
+
+31
+00:01:03,286 --> 0:01:04,676
+that is coming from the device
+
+32
+00:01:04,676 --> 0:01:06,046
+is taken out.
+
+33
+00:01:06,816 --> 0:01:09,136
+This requires that both input
+
+34
+00:01:09,136 --> 0:01:10,506
+and output nodes are in the
+
+35
+00:01:10,506 --> 0:01:11,686
+voice processing mode.
+
+36
+00:01:13,126 --> 0:01:15,236
+Therefore, when enabling the
+
+37
+00:01:15,236 --> 0:01:16,966
+mode on either of the I/O nodes,
+
+38
+00:01:17,536 --> 0:01:19,556
+the engine takes care that both
+
+39
+00:01:19,556 --> 0:01:21,406
+I/O nodes exist and that they
+
+40
+00:01:21,406 --> 0:01:22,506
+are switched to the voice
+
+41
+00:01:22,506 --> 0:01:23,336
+processing mode.
+
+42
+00:01:24,966 --> 0:01:26,296
+Voice processing is only
+
+43
+00:01:26,296 --> 0:01:27,886
+available when rendering to an
+
+44
+00:01:27,886 --> 0:01:29,906
+audio device, not a manual
+
+45
+00:01:29,906 --> 0:01:30,746
+rendering mode.
+
+46
+00:01:34,326 --> 0:01:35,966
+To enable or disable voice
+
+47
+00:01:35,966 --> 0:01:38,456
+processing, we can use set voice
+
+48
+00:01:38,496 --> 0:01:40,616
+processing enabled on either the
+
+49
+00:01:40,616 --> 0:01:42,066
+input or output node.
+
+50
+00:01:43,406 --> 0:01:44,826
+Voice processing cannot be
+
+51
+00:01:44,826 --> 0:01:47,046
+enabled dynamically, which means
+
+52
+00:01:47,106 --> 0:01:48,586
+the engine needs to be in a stop
+
+53
+00:01:48,586 --> 0:01:50,466
+state when enabling the mode.
+
+54
+00:01:50,466 --> 0:01:54,296
+The AV Echo Touch Sample Code
+
+55
+00:01:54,296 --> 0:01:56,726
+project demonstrates how to use
+
+56
+00:01:56,726 --> 0:01:57,826
+voice processing with
+
+57
+00:01:57,826 --> 0:01:59,396
+AVAudioEngine in detail.
+
+58
+00:01:59,846 --> 0:02:03,616
+Let's look at the new nodes in
+
+59
+00:01:59,846 --> 0:02:03,616
+Let's look at the new nodes in
+
+60
+00:02:03,616 --> 0:02:06,376
+AVAudioEngine, AVAudioSourceNode
+
+61
+00:02:06,376 --> 0:02:07,766
+and AVAudioSinkNode.
+
+62
+00:02:08,955 --> 0:02:10,826
+Both nodes wrap a user-defined
+
+63
+00:02:10,826 --> 0:02:13,006
+blog that allows apps to send or
+
+64
+00:02:13,006 --> 0:02:14,006
+receive audio from
+
+65
+00:02:14,006 --> 0:02:15,006
+AVAudioEngine.
+
+66
+00:02:16,176 --> 0:02:17,646
+When rendering to an audio
+
+67
+00:02:17,646 --> 0:02:20,056
+device, the block operates under
+
+68
+00:02:20,056 --> 0:02:21,476
+real-time constraints, which
+
+69
+00:02:21,476 --> 0:02:22,796
+means that within the block
+
+70
+00:02:22,796 --> 0:02:24,156
+there shouldn't be any blocking
+
+71
+00:02:24,156 --> 0:02:26,106
+calls like memory allocations,
+
+72
+00:02:26,566 --> 0:02:28,066
+call to lib dispatch, or
+
+73
+00:02:28,066 --> 0:02:28,946
+blocking on a mutex.
+
+74
+00:02:32,936 --> 0:02:35,176
+With AVAudioSourceNode, we pass
+
+75
+00:02:35,176 --> 0:02:36,566
+or render block to the node,
+
+76
+00:02:36,566 --> 0:02:38,236
+which sends audio data to its
+
+77
+00:02:38,236 --> 0:02:38,736
+output.
+
+78
+00:02:40,066 --> 0:02:41,626
+This makes it very easy to
+
+79
+00:02:41,626 --> 0:02:43,446
+create generated nodes without
+
+80
+00:02:43,446 --> 0:02:45,406
+having to implement a full audio
+
+81
+00:02:45,406 --> 0:02:47,106
+unit and wrap it with AVAudio
+
+82
+00:02:47,106 --> 0:02:47,486
+unit.
+
+83
+00:02:49,046 --> 0:02:51,306
+The node can be used in both
+
+84
+00:02:51,306 --> 0:02:52,936
+real time and manual rendering
+
+85
+00:02:52,936 --> 0:02:53,246
+mode.
+
+86
+00:02:54,476 --> 0:02:56,726
+AVAudioSourceNode support linear
+
+87
+00:02:56,726 --> 0:02:59,316
+PCM conversions such as sample
+
+88
+00:02:59,316 --> 0:03:01,056
+rate or bit depth conversions
+
+89
+00:02:59,316 --> 0:03:01,056
+rate or bit depth conversions
+
+90
+00:03:01,616 --> 0:03:04,996
+and has one output but no input.
+
+91
+00:03:09,436 --> 0:03:11,476
+This short code snippet shows
+
+92
+00:03:11,476 --> 0:03:13,366
+how to use AVAudioSourceNode.
+
+93
+00:03:14,056 --> 0:03:16,096
+As we can see, the block is
+
+94
+00:03:16,096 --> 0:03:18,126
+passed as an initializer
+
+95
+00:03:18,126 --> 0:03:19,986
+argument, and after creating the
+
+96
+00:03:19,986 --> 0:03:21,896
+node, it can be connected just
+
+97
+00:03:21,896 --> 0:03:22,906
+like any other node.
+
+98
+00:03:23,936 --> 0:03:25,676
+A more detailed example can be
+
+99
+00:03:25,676 --> 0:03:27,306
+found in our Signal Generator
+
+100
+00:03:27,306 --> 0:03:28,536
+Sample Code project.
+
+101
+00:03:32,356 --> 0:03:34,166
+Let's look at AVAudioSinkNode.
+
+102
+00:03:34,866 --> 0:03:37,156
+AVAudioSinkNode is a symmetrical
+
+103
+00:03:37,156 --> 0:03:37,876
+counterpart of
+
+104
+00:03:37,876 --> 0:03:39,256
+AVAudioSourceNode.
+
+105
+00:03:40,086 --> 0:03:41,916
+It wraps a user-defined block
+
+106
+00:03:41,966 --> 0:03:43,636
+that receives the input audio
+
+107
+00:03:43,636 --> 0:03:45,086
+from the node chain that is
+
+108
+00:03:45,086 --> 0:03:46,446
+connected to its input.
+
+109
+00:03:47,516 --> 0:03:49,796
+AVAudioSinkNode is restricted to
+
+110
+00:03:49,796 --> 0:03:50,776
+the input chain.
+
+111
+00:03:51,176 --> 0:03:52,746
+In other words, it must be
+
+112
+00:03:52,746 --> 0:03:54,056
+connected downstream of the
+
+113
+00:03:54,056 --> 0:03:54,796
+input node.
+
+114
+00:03:56,076 --> 0:03:57,496
+It does not support format
+
+115
+00:03:57,496 --> 0:03:59,306
+conversions, and the format
+
+116
+00:03:59,306 --> 0:04:00,916
+within the block has to be the
+
+117
+00:03:59,306 --> 0:04:00,916
+within the block has to be the
+
+118
+00:04:00,916 --> 0:04:02,336
+same as the hardware input
+
+119
+00:04:02,336 --> 0:04:02,836
+format.
+
+120
+00:04:04,236 --> 0:04:06,436
+The node can be useful for
+
+121
+00:04:06,436 --> 0:04:09,086
+voice-over IP application when
+
+122
+00:04:09,086 --> 0:04:10,756
+the input needs to be processed
+
+123
+00:04:10,756 --> 0:04:12,596
+in real time, in which case
+
+124
+00:04:12,596 --> 0:04:14,256
+installing a regular tap would
+
+125
+00:04:14,256 --> 0:04:15,936
+not be sufficient because the
+
+126
+00:04:15,936 --> 0:04:17,755
+tap doesn't operate in a
+
+127
+00:04:17,755 --> 0:04:18,815
+real-time context.
+
+128
+00:04:21,076 --> 0:04:22,746
+Here is a code snippet
+
+129
+00:04:22,746 --> 0:04:24,636
+demonstrating how to create an
+
+130
+00:04:24,636 --> 0:04:25,826
+AVAudioSinkNode.
+
+131
+00:04:26,466 --> 0:04:28,086
+It is quite similar to
+
+132
+00:04:28,086 --> 0:04:29,206
+AVAudioSourceNode.
+
+133
+00:04:29,976 --> 0:04:32,096
+The main steps to note here are
+
+134
+00:04:32,096 --> 0:04:33,606
+to initialize the node with a
+
+135
+00:04:33,606 --> 0:04:35,836
+blog, attach it to the engine,
+
+136
+00:04:36,146 --> 0:04:37,676
+and connect it to a node
+
+137
+00:04:37,676 --> 0:04:39,266
+downstream of the input node.
+
+138
+00:04:42,996 --> 0:04:44,266
+Now let's see the spatial
+
+139
+00:04:44,266 --> 0:04:45,576
+rendering improvements.
+
+140
+00:04:46,666 --> 0:04:48,426
+We have introduced an automatic
+
+141
+00:04:48,426 --> 0:04:51,256
+spatial rendering algorithm, and
+
+142
+00:04:51,256 --> 0:04:53,486
+AVAudioPlayerNode now supports
+
+143
+00:04:53,486 --> 0:04:55,636
+spatialization of multichannel
+
+144
+00:04:55,636 --> 0:04:56,546
+audio content.
+
+145
+00:05:00,716 --> 0:05:02,076
+With the automatic spatial
+
+146
+00:05:02,076 --> 0:05:03,806
+rendering algorithm, the most
+
+147
+00:05:03,806 --> 0:05:05,446
+appropriate spatialization
+
+148
+00:05:05,446 --> 0:05:06,936
+algorithm is selected for the
+
+149
+00:05:06,936 --> 0:05:07,786
+current route.
+
+150
+00:05:08,626 --> 0:05:10,576
+This means developers don't need
+
+151
+00:05:10,576 --> 0:05:12,396
+to figure out what algorithms
+
+152
+00:05:12,396 --> 0:05:14,066
+are suitable for headphones or
+
+153
+00:05:14,066 --> 0:05:14,786
+different speaker
+
+154
+00:05:14,786 --> 0:05:15,816
+configurations.
+
+155
+00:05:16,896 --> 0:05:18,846
+This adds near-field and in-head
+
+156
+00:05:18,846 --> 0:05:20,856
+rendering for headphones and
+
+157
+00:05:20,856 --> 0:05:22,426
+virtual surround for built-in
+
+158
+00:05:22,426 --> 0:05:24,546
+speakers is available starting
+
+159
+00:05:24,546 --> 0:05:26,466
+with iOS devices and laptops
+
+160
+00:05:26,466 --> 0:05:28,646
+from 2018 and newer.
+
+161
+00:05:32,096 --> 0:05:34,026
+Here we see the new API in the
+
+162
+00:05:34,026 --> 0:05:36,126
+AVAudio3DMixing protocol.
+
+163
+00:05:36,746 --> 0:05:39,656
+The AVAudio3DMixing rendering
+
+164
+00:05:39,656 --> 0:05:42,076
+algorithm enum has a new entry,
+
+165
+00:05:42,476 --> 0:05:43,006
+auto.
+
+166
+00:05:44,056 --> 0:05:45,926
+Additionally, we can specify the
+
+167
+00:05:45,926 --> 0:05:47,966
+output type with the output type
+
+168
+00:05:47,966 --> 0:05:48,576
+property.
+
+169
+00:05:49,076 --> 0:05:52,346
+With the property set to auto,
+
+170
+00:05:52,636 --> 0:05:54,146
+the output type can be
+
+171
+00:05:54,146 --> 0:05:56,346
+automatically detected in
+
+172
+00:05:56,346 --> 0:05:58,266
+real-time mode but not in manual
+
+173
+00:05:58,266 --> 0:05:59,076
+rendering mode.
+
+174
+00:06:03,056 --> 0:06:05,116
+With the ability to spatialize
+
+175
+00:06:05,116 --> 0:06:07,546
+multichannel streams, we support
+
+176
+00:06:07,546 --> 0:06:09,316
+point-source and ambience bed
+
+177
+00:06:09,316 --> 0:06:09,916
+rendering.
+
+178
+00:06:10,816 --> 0:06:12,476
+We also support channel-based
+
+179
+00:06:12,476 --> 0:06:14,066
+formats and higher-order
+
+180
+00:06:14,066 --> 0:06:15,576
+Ambisonics up to the third
+
+181
+00:06:15,576 --> 0:06:15,996
+order.
+
+182
+00:06:19,616 --> 0:06:20,786
+We have added two new
+
+183
+00:06:20,786 --> 0:06:22,706
+spatialization properties to the
+
+184
+00:06:22,706 --> 0:06:25,946
+AVAudio3DMixing protocol, source
+
+185
+00:06:25,946 --> 0:06:27,606
+mode and pointSource and head
+
+186
+00:06:27,606 --> 0:06:27,996
+mode.
+
+187
+00:06:29,936 --> 0:06:32,366
+SpatializeIfMono is legacy
+
+188
+00:06:32,366 --> 0:06:33,056
+behavior.
+
+189
+00:06:33,246 --> 0:06:35,416
+This is the same as bypass for
+
+190
+00:06:35,416 --> 0:06:37,546
+any multichannel stream, which
+
+191
+00:06:37,546 --> 0:06:39,596
+means a pass through or downmix
+
+192
+00:06:39,596 --> 0:06:40,806
+to the output format.
+
+193
+00:06:41,906 --> 0:06:44,016
+With pointSource, the audio is
+
+194
+00:06:44,016 --> 0:06:45,826
+sum to mono and render at the
+
+195
+00:06:45,826 --> 0:06:47,366
+location of the player node.
+
+196
+00:06:47,446 --> 0:06:50,096
+And with ambienceBed, the audio
+
+197
+00:06:50,096 --> 0:06:52,246
+is anchored to the 3D world and
+
+198
+00:06:52,246 --> 0:06:53,596
+is rotatable with the player
+
+199
+00:06:53,596 --> 0:06:55,506
+node's position relative to the
+
+200
+00:06:55,506 --> 0:06:56,716
+listener orientation.
+
+201
+00:06:59,326 --> 0:07:00,856
+Here we see an example of
+
+202
+00:06:59,326 --> 0:07:00,856
+Here we see an example of
+
+203
+00:07:00,856 --> 0:07:02,616
+ambienceBed source mode with
+
+204
+00:07:02,616 --> 0:07:04,376
+automatic rendering algorithm.
+
+205
+00:07:05,476 --> 0:07:07,496
+After setting the properties, it
+
+206
+00:07:07,496 --> 0:07:09,156
+is important to make sure the
+
+207
+00:07:09,156 --> 0:07:10,666
+format that is used for the
+
+208
+00:07:10,666 --> 0:07:12,426
+connection between player node
+
+209
+00:07:12,606 --> 0:07:13,836
+and the environment node
+
+210
+00:07:14,106 --> 0:07:15,406
+contains the multichannel
+
+211
+00:07:15,406 --> 0:07:15,936
+layout.
+
+212
+00:07:19,176 --> 0:07:21,546
+Now let's talk about what's new
+
+213
+00:07:21,546 --> 0:07:22,606
+in AVAudioSession.
+
+214
+00:07:25,316 --> 0:07:27,906
+AVAudioSessionPromptStyle is a
+
+215
+00:07:27,906 --> 0:07:30,576
+hint to apps that play voice
+
+216
+00:07:30,616 --> 0:07:32,366
+prompts in order to modify the
+
+217
+00:07:32,366 --> 0:07:34,076
+style of the played prompt.
+
+218
+00:07:35,036 --> 0:07:37,596
+For example, if Siri is speaking
+
+219
+00:07:37,596 --> 0:07:39,116
+or a phone call is ongoing,
+
+220
+00:07:39,506 --> 0:07:41,116
+verbal navigation prompts is a
+
+221
+00:07:41,116 --> 0:07:42,756
+confusing user experience.
+
+222
+00:07:43,696 --> 0:07:45,366
+We also don't want Siri to
+
+223
+00:07:45,366 --> 0:07:47,046
+record a navigation prompt.
+
+224
+00:07:47,946 --> 0:07:49,526
+Navigation apps, for example,
+
+225
+00:07:49,526 --> 0:07:51,236
+are encouraged to pay attention
+
+226
+00:07:51,236 --> 0:07:53,016
+to prompt style changes and
+
+227
+00:07:53,016 --> 0:07:54,486
+modify the prompts for better
+
+228
+00:07:54,486 --> 0:07:55,566
+user experience.
+
+229
+00:07:56,276 --> 0:07:57,746
+We have three prompt styles,
+
+230
+00:07:57,916 --> 0:08:00,066
+none, short, and normal.
+
+231
+00:07:57,916 --> 0:08:00,066
+none, short, and normal.
+
+232
+00:08:00,756 --> 0:08:02,676
+We can now indicate to disable
+
+233
+00:08:02,676 --> 0:08:04,446
+prompts completely, play
+
+234
+00:08:04,446 --> 0:08:06,496
+shortened prompts, or play the
+
+235
+00:08:06,496 --> 0:08:07,446
+regular prompts.
+
+236
+00:08:10,026 --> 0:08:11,126
+Let's look at other
+
+237
+00:08:11,126 --> 0:08:12,946
+AVAudioSession enhancements.
+
+238
+00:08:14,176 --> 0:08:15,766
+The default policy is to mute
+
+239
+00:08:15,766 --> 0:08:17,406
+haptics and system sounds when
+
+240
+00:08:17,406 --> 0:08:18,936
+audio recording is active.
+
+241
+00:08:19,836 --> 0:08:21,766
+A new property, allow haptics
+
+242
+00:08:21,766 --> 0:08:23,076
+and system sounds during
+
+243
+00:08:23,076 --> 0:08:25,436
+recording, allows system sounds
+
+244
+00:08:25,826 --> 0:08:27,186
+and haptics to play while the
+
+245
+00:08:27,186 --> 0:08:28,836
+session is actively using an
+
+246
+00:08:28,836 --> 0:08:29,566
+audio input.
+
+247
+00:08:30,366 --> 0:08:32,126
+It can be set using the
+
+248
+00:08:32,336 --> 0:08:33,466
+setter set allow haptics
+
+249
+00:08:33,466 --> 0:08:34,736
+and system sounds during
+
+250
+00:08:34,736 --> 0:08:35,376
+recording.
+
+251
+00:08:37,976 --> 0:08:40,096
+For more information, please
+
+252
+00:08:40,096 --> 0:08:41,846
+visit the developer website.
+
+253
+00:08:43,196 --> 0:08:44,936
+Thank you for your attention.

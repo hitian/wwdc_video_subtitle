@@ -1,0 +1,1295 @@
+1
+00:00:00,506 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:08,516 --> 0:00:12,776
+[ Applause ]
+
+3
+00:00:13,276 --> 0:00:15,346
+&gt;&gt; Hello. I'm Hoyt, from the
+
+4
+00:00:15,346 --> 0:00:16,816
+Turi team at Apple, and I'm here
+
+5
+00:00:16,816 --> 0:00:18,376
+to tell you about the Create ML
+
+6
+00:00:18,506 --> 0:00:19,236
+Recommender.
+
+7
+00:00:20,046 --> 0:00:21,486
+Create ML Recommenders are a
+
+8
+00:00:21,486 --> 0:00:23,366
+fantastic way to add
+
+9
+00:00:23,366 --> 0:00:25,556
+personalization and intelligence
+
+10
+00:00:25,556 --> 0:00:27,416
+into the user experience of your
+
+11
+00:00:27,416 --> 0:00:27,666
+app.
+
+12
+00:00:28,896 --> 0:00:30,546
+Suppose I have a hiking journal
+
+13
+00:00:31,016 --> 0:00:32,656
+where I can log different hikes
+
+14
+00:00:32,656 --> 0:00:34,506
+I've taken and how much I like
+
+15
+00:00:34,686 --> 0:00:35,886
+or dislike each of them.
+
+16
+00:00:36,816 --> 0:00:38,656
+Wouldn't it be great if this
+
+17
+00:00:38,806 --> 0:00:41,186
+also recommended new trails for
+
+18
+00:00:41,186 --> 0:00:42,756
+me to try based on the
+
+19
+00:00:42,756 --> 0:00:44,876
+preferences I already expressed?
+
+20
+00:00:46,586 --> 0:00:48,756
+Or suppose I have a math quiz
+
+21
+00:00:48,756 --> 0:00:51,946
+app, where the user has to solve
+
+22
+00:00:51,946 --> 0:00:53,446
+a number of math problems in a
+
+23
+00:00:53,446 --> 0:00:54,366
+timed session.
+
+24
+00:00:55,226 --> 0:00:56,706
+It would make sense here to
+
+25
+00:00:56,706 --> 0:00:58,396
+choose the next problem to ask
+
+26
+00:00:58,826 --> 0:01:00,256
+based on which of the previously
+
+27
+00:00:58,826 --> 0:01:00,256
+based on which of the previously
+
+28
+00:01:00,256 --> 0:01:02,016
+problems the user got correct or
+
+29
+00:01:02,016 --> 0:01:02,426
+incorrect.
+
+30
+00:01:03,606 --> 0:01:05,495
+Or let's take a look at a
+
+31
+00:01:05,566 --> 0:01:07,216
+shopping list where I can list
+
+32
+00:01:07,216 --> 0:01:08,316
+out the ingredients I need to
+
+33
+00:01:08,316 --> 0:01:09,656
+buy the next time I go to the
+
+34
+00:01:09,656 --> 0:01:10,386
+grocery store.
+
+35
+00:01:11,356 --> 0:01:13,586
+Now, this is really simple here.
+
+36
+00:01:14,136 --> 0:01:16,546
+But if it suggested ingredients
+
+37
+00:01:16,546 --> 0:01:18,156
+that I may have forgotten, it
+
+38
+00:01:18,156 --> 0:01:19,906
+makes the experience more
+
+39
+00:01:19,906 --> 0:01:21,296
+engaging and interesting.
+
+40
+00:01:23,026 --> 0:01:25,286
+My goal today is to enable you
+
+41
+00:01:25,286 --> 0:01:26,916
+to create these kind of user
+
+42
+00:01:26,916 --> 0:01:28,966
+experiences in your app through
+
+43
+00:01:28,966 --> 0:01:30,536
+the Create ML recommender.
+
+44
+00:01:31,926 --> 0:01:33,276
+Let's dive into how we're going
+
+45
+00:01:33,276 --> 0:01:35,466
+to do this and let's start with
+
+46
+00:01:35,466 --> 0:01:35,926
+the data.
+
+47
+00:01:38,456 --> 0:01:40,906
+Recommenders work by looking for
+
+48
+00:01:40,906 --> 0:01:43,236
+patterns in groups of items.
+
+49
+00:01:44,026 --> 0:01:45,206
+Back to the shopping list.
+
+50
+00:01:45,206 --> 0:01:46,996
+When I'm going to the grocery
+
+51
+00:01:46,996 --> 0:01:49,556
+store, it's likely I have a few
+
+52
+00:01:49,556 --> 0:01:50,576
+recipes in mind.
+
+53
+00:01:50,896 --> 0:01:52,016
+I want to buy the ingredients
+
+54
+00:01:52,016 --> 0:01:53,006
+for them and make something
+
+55
+00:01:53,006 --> 0:01:53,616
+delicious.
+
+56
+00:01:53,906 --> 0:01:56,406
+And, well what are recipes?
+
+57
+00:01:56,776 --> 0:01:58,756
+They are groups of ingredients.
+
+58
+00:01:59,096 --> 0:02:00,776
+And it turns out this is a
+
+59
+00:01:59,096 --> 0:02:00,776
+And it turns out this is a
+
+60
+00:02:00,776 --> 0:02:03,346
+perfect example of the kind of
+
+61
+00:02:03,346 --> 0:02:04,976
+data you can use for
+
+62
+00:02:04,976 --> 0:02:05,646
+Recommender.
+
+63
+00:02:06,506 --> 0:02:08,645
+In fact, all you need to do here
+
+64
+00:02:09,066 --> 0:02:11,036
+is to take these recipes and
+
+65
+00:02:11,036 --> 0:02:13,636
+turn them into a table with a
+
+66
+00:02:13,636 --> 0:02:16,826
+group column and an item column.
+
+67
+00:02:17,566 --> 0:02:19,456
+Each row here says that a
+
+68
+00:02:19,456 --> 0:02:21,006
+particular item belongs to a
+
+69
+00:02:21,006 --> 0:02:21,976
+particular group.
+
+70
+00:02:23,106 --> 0:02:25,616
+Now, here the groups are recipes
+
+71
+00:02:25,616 --> 0:02:27,146
+and the items are ingredients.
+
+72
+00:02:27,506 --> 0:02:28,566
+But this can be much more
+
+73
+00:02:28,566 --> 0:02:29,006
+general.
+
+74
+00:02:29,556 --> 0:02:31,316
+Let's go to the math quiz app.
+
+75
+00:02:31,846 --> 0:02:33,406
+Here, the group can be the
+
+76
+00:02:33,406 --> 0:02:35,026
+particular session that a
+
+77
+00:02:35,026 --> 0:02:36,736
+problem was asked in.
+
+78
+00:02:36,806 --> 0:02:38,026
+The item is the problem.
+
+79
+00:02:38,256 --> 0:02:40,926
+And, well, I need to introduce
+
+80
+00:02:40,926 --> 0:02:41,966
+one more concept here.
+
+81
+00:02:42,616 --> 0:02:43,896
+We need to be able to give the
+
+82
+00:02:43,896 --> 0:02:44,966
+model feedback.
+
+83
+00:02:45,486 --> 0:02:46,706
+We need to tell it which
+
+84
+00:02:46,746 --> 0:02:48,856
+problems the user got correct or
+
+85
+00:02:48,856 --> 0:02:49,516
+incorrect.
+
+86
+00:02:49,936 --> 0:02:51,986
+And so the Recommender also
+
+87
+00:02:51,986 --> 0:02:53,646
+works with a rating column.
+
+88
+00:02:54,436 --> 0:02:56,136
+A rating is a measure of how
+
+89
+00:02:56,136 --> 0:02:57,666
+good or how desirable a
+
+90
+00:02:57,666 --> 0:02:59,126
+particular interaction is.
+
+91
+00:02:59,666 --> 0:03:01,976
+Here, we could assign a 1 if the
+
+92
+00:02:59,666 --> 0:03:01,976
+Here, we could assign a 1 if the
+
+93
+00:03:01,976 --> 0:03:03,946
+user got the problem correct, or
+
+94
+00:03:03,946 --> 0:03:05,166
+a 0 if they got it wrong.
+
+95
+00:03:06,656 --> 0:03:09,356
+Now, with the hiking app, the
+
+96
+00:03:09,866 --> 0:03:13,396
+data there has the user, has the
+
+97
+00:03:13,396 --> 0:03:15,826
+group being the user, the trail
+
+98
+00:03:16,076 --> 0:03:17,846
+being the item, and a rating
+
+99
+00:03:17,846 --> 0:03:19,926
+being an explicit feedback from
+
+100
+00:03:19,926 --> 0:03:21,166
+the user about how much they
+
+101
+00:03:21,166 --> 0:03:22,976
+liked or disliked that
+
+102
+00:03:22,976 --> 0:03:24,496
+particular trail.
+
+103
+00:03:27,106 --> 0:03:29,746
+Now, in your app, you would
+
+104
+00:03:29,746 --> 0:03:31,276
+query it with the same kind of
+
+105
+00:03:31,276 --> 0:03:31,706
+data.
+
+106
+00:03:32,286 --> 0:03:33,616
+You would locally track these
+
+107
+00:03:33,616 --> 0:03:35,486
+interactions and you would feed
+
+108
+00:03:35,486 --> 0:03:38,946
+in a set of items or item rating
+
+109
+00:03:38,946 --> 0:03:40,366
+pairs to your model.
+
+110
+00:03:40,846 --> 0:03:42,786
+Your model would then recommend
+
+111
+00:03:43,036 --> 0:03:44,856
+new items based on the
+
+112
+00:03:44,856 --> 0:03:46,696
+preferences and patterns
+
+113
+00:03:46,696 --> 0:03:49,046
+expressed in your input data.
+
+114
+00:03:50,196 --> 0:03:51,536
+Let's see this particular one in
+
+115
+00:03:51,536 --> 0:03:51,976
+action.
+
+116
+00:03:52,806 --> 0:03:55,156
+So, I have here a simple hiking
+
+117
+00:03:55,156 --> 0:03:55,526
+journal.
+
+118
+00:03:56,276 --> 0:03:57,886
+I don't have any hikes logged
+
+119
+00:03:57,886 --> 0:03:59,696
+yet and so it's actually
+
+120
+00:03:59,696 --> 0:04:01,526
+recommending popular items,
+
+121
+00:03:59,696 --> 0:04:01,526
+recommending popular items,
+
+122
+00:04:01,526 --> 0:04:02,996
+things that get consistently
+
+123
+00:04:02,996 --> 0:04:03,646
+high ratings.
+
+124
+00:04:04,226 --> 0:04:05,246
+Let's go see if there's any
+
+125
+00:04:05,246 --> 0:04:06,266
+interesting ones in here.
+
+126
+00:04:07,016 --> 0:04:09,366
+Well, I'm adventurous, let's try
+
+127
+00:04:09,366 --> 0:04:09,786
+this one.
+
+128
+00:04:10,136 --> 0:04:10,866
+Well, okay.
+
+129
+00:04:11,196 --> 0:04:13,166
+Actually too hot, too dry.
+
+130
+00:04:13,166 --> 0:04:14,446
+Didn't really like it.
+
+131
+00:04:14,446 --> 0:04:17,055
+So, I'm going to say it's not
+
+132
+00:04:17,086 --> 0:04:17,446
+for me.
+
+133
+00:04:18,296 --> 0:04:21,046
+Now, what we see here is that
+
+134
+00:04:21,046 --> 0:04:23,326
+this hiking journal has now
+
+135
+00:04:23,326 --> 0:04:25,996
+updated the hikes based on the
+
+136
+00:04:25,996 --> 0:04:27,536
+preferences I've expressed
+
+137
+00:04:27,936 --> 0:04:28,666
+already.
+
+138
+00:04:30,146 --> 0:04:31,576
+It's recommending different
+
+139
+00:04:31,576 --> 0:04:32,176
+landscapes.
+
+140
+00:04:32,176 --> 0:04:33,786
+Ah. This one looks really nice.
+
+141
+00:04:34,026 --> 0:04:35,206
+I grew up in Colorado.
+
+142
+00:04:35,346 --> 0:04:36,816
+I love aspens, I love tall
+
+143
+00:04:36,816 --> 0:04:37,306
+mountains.
+
+144
+00:04:37,306 --> 0:04:37,926
+Let's try it.
+
+145
+00:04:37,926 --> 0:04:39,796
+Okay. It was fantastic.
+
+146
+00:04:40,736 --> 0:04:43,916
+Loved it. And here the model is
+
+147
+00:04:43,916 --> 0:04:44,966
+learning more about my
+
+148
+00:04:44,966 --> 0:04:45,926
+preferences now.
+
+149
+00:04:46,236 --> 0:04:47,466
+It knows I like mountains,
+
+150
+00:04:47,746 --> 0:04:49,806
+rocks, and colorful foliage.
+
+151
+00:04:50,596 --> 0:04:52,406
+So, let's try another one.
+
+152
+00:04:53,346 --> 0:04:53,906
+All right.
+
+153
+00:04:54,606 --> 0:04:55,116
+There we go.
+
+154
+00:04:57,356 --> 0:04:59,506
+Now I'm exhausted.
+
+155
+00:04:59,896 --> 0:05:00,886
+Three hikes in one day.
+
+156
+00:04:59,896 --> 0:05:00,886
+Three hikes in one day.
+
+157
+00:05:01,066 --> 0:05:01,856
+That's quite a bit [laughter].
+
+158
+00:05:03,356 --> 0:05:05,446
+Let's go back to the slides
+
+159
+00:05:05,446 --> 0:05:05,676
+here.
+
+160
+00:05:06,516 --> 0:05:11,776
+[ Applause ]
+
+161
+00:05:12,276 --> 0:05:13,786
+Now, I already showed you an
+
+162
+00:05:13,786 --> 0:05:15,716
+example of the type of data used
+
+163
+00:05:15,946 --> 0:05:17,676
+to train this particular model.
+
+164
+00:05:18,896 --> 0:05:21,216
+Now I would like to dive into
+
+165
+00:05:21,216 --> 0:05:23,536
+how the Create ML Recommender
+
+166
+00:05:23,916 --> 0:05:25,666
+extracts the patterns from this
+
+167
+00:05:25,696 --> 0:05:28,526
+data and builds a model that you
+
+168
+00:05:28,526 --> 0:05:30,326
+can use in your app.
+
+169
+00:05:30,616 --> 0:05:32,496
+The Create ML Recommender works
+
+170
+00:05:32,536 --> 0:05:34,086
+by learning relationships
+
+171
+00:05:34,406 --> 0:05:35,926
+between the items.
+
+172
+00:05:36,586 --> 0:05:38,356
+What items tend to go with what
+
+173
+00:05:38,356 --> 0:05:39,056
+other items?
+
+174
+00:05:39,746 --> 0:05:41,236
+Let's suppose we have three
+
+175
+00:05:41,236 --> 0:05:41,806
+hikes here.
+
+176
+00:05:41,806 --> 0:05:44,186
+Two of these are up tall, steep,
+
+177
+00:05:44,186 --> 0:05:46,066
+mountain peaks, possibly the
+
+178
+00:05:46,066 --> 0:05:46,856
+kind I would like.
+
+179
+00:05:47,536 --> 0:05:49,526
+And one of these is a nice
+
+180
+00:05:49,526 --> 0:05:51,346
+stroll by a sandy beach.
+
+181
+00:05:52,586 --> 0:05:54,676
+Now, that information is not
+
+182
+00:05:54,676 --> 0:05:56,216
+actually present in the model.
+
+183
+00:05:56,216 --> 0:05:58,786
+All we have are hikers, trails,
+
+184
+00:05:58,786 --> 0:05:59,666
+and ratings.
+
+185
+00:06:00,516 --> 0:06:02,576
+However, if you like climbing
+
+186
+00:06:02,576 --> 0:06:04,576
+these tall mountain peaks, it's
+
+187
+00:06:04,576 --> 0:06:05,676
+likely you would give both of
+
+188
+00:06:05,676 --> 0:06:06,926
+these similar ratings.
+
+189
+00:06:06,926 --> 0:06:08,216
+And so what we would see in the
+
+190
+00:06:08,216 --> 0:06:10,106
+data is that the same hiker
+
+191
+00:06:10,106 --> 0:06:11,576
+would give each of these hikes
+
+192
+00:06:11,716 --> 0:06:12,756
+similar ratings.
+
+193
+00:06:13,506 --> 0:06:16,016
+Likewise, because you go out and
+
+194
+00:06:16,016 --> 0:06:17,376
+enjoy a nice stroll by the
+
+195
+00:06:17,376 --> 0:06:18,716
+beach, it doesn't necessarily
+
+196
+00:06:18,716 --> 0:06:20,116
+mean you want to climb a tall,
+
+197
+00:06:20,116 --> 0:06:21,236
+cold, windy mountain.
+
+198
+00:06:21,626 --> 0:06:23,226
+And, or vice versa.
+
+199
+00:06:23,556 --> 0:06:25,746
+And so you may give these two
+
+200
+00:06:25,746 --> 0:06:27,346
+trails different ratings.
+
+201
+00:06:28,646 --> 0:06:30,756
+The Create ML Recommender would
+
+202
+00:06:30,756 --> 0:06:32,476
+find these patterns in the data
+
+203
+00:06:32,956 --> 0:06:34,946
+and learn that these first two
+
+204
+00:06:34,946 --> 0:06:36,406
+hikes are similar to each other.
+
+205
+00:06:36,576 --> 0:06:37,646
+They tend to go together.
+
+206
+00:06:38,076 --> 0:06:39,706
+And the third one is different.
+
+207
+00:06:40,526 --> 0:06:42,316
+Now, when you throw all the
+
+208
+00:06:42,316 --> 0:06:43,966
+items into the mix, the
+
+209
+00:06:43,966 --> 0:06:45,766
+Recommender builds a graph of
+
+210
+00:06:45,836 --> 0:06:47,296
+which items tend to go with
+
+211
+00:06:47,336 --> 0:06:48,236
+which other items.
+
+212
+00:06:48,616 --> 0:06:49,676
+How they're all related.
+
+213
+00:06:49,676 --> 0:06:51,416
+And it's this graph that gets
+
+214
+00:06:51,416 --> 0:06:53,026
+packaged into your model.
+
+215
+00:06:53,876 --> 0:06:55,386
+All of the user data and the
+
+216
+00:06:55,386 --> 0:06:56,536
+group data present in your
+
+217
+00:06:56,536 --> 0:06:58,916
+training data is not explicitly
+
+218
+00:06:58,916 --> 0:07:02,296
+present in the final model.
+
+219
+00:06:58,916 --> 0:07:02,296
+present in the final model.
+
+220
+00:07:02,296 --> 0:07:06,786
+Now, to do this in your app, the
+
+221
+00:07:06,786 --> 0:07:08,416
+easiest way to build this model
+
+222
+00:07:08,416 --> 0:07:09,546
+is through the Recommender
+
+223
+00:07:09,546 --> 0:07:11,596
+template in the Create ML app.
+
+224
+00:07:12,806 --> 0:07:14,436
+That, like all of the other
+
+225
+00:07:14,436 --> 0:07:15,796
+templates, guides you through
+
+226
+00:07:15,796 --> 0:07:18,486
+the process of loading your
+
+227
+00:07:19,076 --> 0:07:20,386
+data, building your model,
+
+228
+00:07:21,186 --> 0:07:22,536
+evaluating your model's
+
+229
+00:07:22,536 --> 0:07:24,436
+performance, and exporting your
+
+230
+00:07:24,436 --> 0:07:27,036
+model to Core ML.
+
+231
+00:07:27,716 --> 0:07:29,486
+Now, if you want to do it
+
+232
+00:07:29,486 --> 0:07:31,546
+programmatically, this is also
+
+233
+00:07:31,546 --> 0:07:33,456
+possible through the Create ML
+
+234
+00:07:33,556 --> 0:07:34,016
+framework.
+
+235
+00:07:34,416 --> 0:07:35,846
+And here the process is the
+
+236
+00:07:35,846 --> 0:07:36,306
+same.
+
+237
+00:07:37,516 --> 0:07:39,276
+First we load our training data
+
+238
+00:07:39,276 --> 0:07:41,406
+from a CSV file or a JSON file.
+
+239
+00:07:42,126 --> 0:07:45,126
+We then specify what the group
+
+240
+00:07:45,126 --> 0:07:47,216
+or user column, what's the item
+
+241
+00:07:47,216 --> 0:07:49,196
+column, and optionally, which is
+
+242
+00:07:49,196 --> 0:07:50,126
+the rating column.
+
+243
+00:07:51,596 --> 0:07:53,476
+If we have data that's not
+
+244
+00:07:53,476 --> 0:07:55,436
+present in the training data, we
+
+245
+00:07:55,436 --> 0:07:57,926
+can evaluate how well our model,
+
+246
+00:07:57,926 --> 0:07:59,646
+how accurately our model can
+
+247
+00:07:59,646 --> 0:08:01,886
+anticipate those new data by
+
+248
+00:07:59,646 --> 0:08:01,886
+anticipate those new data by
+
+249
+00:08:02,026 --> 0:08:03,996
+using the model evaluate method.
+
+250
+00:08:04,346 --> 0:08:06,016
+And finally, we can write this
+
+251
+00:08:06,016 --> 0:08:07,216
+model out to Core ML.
+
+252
+00:08:07,766 --> 0:08:10,016
+Now, in your app, you would
+
+253
+00:08:10,016 --> 0:08:11,936
+locally track the interactions.
+
+254
+00:08:12,416 --> 0:08:14,786
+If your model uses ratings, you
+
+255
+00:08:14,786 --> 0:08:16,186
+would track a dictionary of
+
+256
+00:08:16,186 --> 0:08:17,376
+items to ratings.
+
+257
+00:08:17,896 --> 0:08:19,936
+Otherwise, you would simply use
+
+258
+00:08:19,936 --> 0:08:20,926
+a list of items.
+
+259
+00:08:22,116 --> 0:08:23,226
+Then, you would construct the
+
+260
+00:08:23,226 --> 0:08:24,596
+input to your model by also
+
+261
+00:08:24,596 --> 0:08:26,756
+specifying how many items you
+
+262
+00:08:26,756 --> 0:08:27,766
+wanted to recommend.
+
+263
+00:08:28,266 --> 0:08:30,206
+And finally, your model will
+
+264
+00:08:30,316 --> 0:08:31,966
+return a ranked list of
+
+265
+00:08:32,015 --> 0:08:33,946
+suggested items based on the
+
+266
+00:08:33,946 --> 0:08:36,606
+input preferences it believes
+
+267
+00:08:36,796 --> 0:08:39,966
+most go with your input set.
+
+268
+00:08:40,826 --> 0:08:42,635
+Let me wrap this up with a few
+
+269
+00:08:42,635 --> 0:08:44,035
+final considerations here.
+
+270
+00:08:45,876 --> 0:08:49,526
+First, these models are very
+
+271
+00:08:49,526 --> 0:08:50,186
+flexible.
+
+272
+00:08:50,776 --> 0:08:52,126
+They can be used in many
+
+273
+00:08:52,126 --> 0:08:53,746
+scenarios that don't fall into
+
+274
+00:08:53,746 --> 0:08:55,726
+the traditional user, item,
+
+275
+00:08:56,066 --> 0:08:58,366
+rating system of recommenders.
+
+276
+00:08:58,836 --> 0:09:00,496
+We, I gave you several examples
+
+277
+00:08:58,836 --> 0:09:00,496
+We, I gave you several examples
+
+278
+00:09:00,496 --> 0:09:02,576
+here but I'm excited to see how
+
+279
+00:09:02,576 --> 0:09:04,606
+you as creative app developers
+
+280
+00:09:04,736 --> 0:09:06,026
+can incorporate this into the
+
+281
+00:09:06,026 --> 0:09:07,726
+user experiences of your app.
+
+282
+00:09:08,856 --> 0:09:12,306
+Second, these models shift with
+
+283
+00:09:12,306 --> 0:09:12,766
+your app.
+
+284
+00:09:12,986 --> 0:09:14,426
+That means they're on the device
+
+285
+00:09:14,426 --> 0:09:15,676
+and they work offline and
+
+286
+00:09:15,676 --> 0:09:16,416
+they're fast.
+
+287
+00:09:17,006 --> 0:09:18,656
+It's perfect for just adding
+
+288
+00:09:18,656 --> 0:09:20,396
+that touch of personalization
+
+289
+00:09:20,836 --> 0:09:22,356
+into your user experience.
+
+290
+00:09:23,076 --> 0:09:25,736
+Finally, because they are with
+
+291
+00:09:25,776 --> 0:09:27,296
+your app and work offline, that
+
+292
+00:09:27,296 --> 0:09:28,616
+means they're also privacy
+
+293
+00:09:28,616 --> 0:09:29,246
+preserving.
+
+294
+00:09:30,266 --> 0:09:31,586
+That way you can guarantee to
+
+295
+00:09:31,586 --> 0:09:33,626
+your users that their data is
+
+296
+00:09:33,626 --> 0:09:35,916
+secure, even though the app
+
+297
+00:09:35,916 --> 0:09:37,506
+adapts and responds to their
+
+298
+00:09:37,506 --> 0:09:38,246
+preferences.
+
+299
+00:09:39,046 --> 0:09:41,186
+Finally, to wrap up this entire
+
+300
+00:09:41,186 --> 0:09:43,266
+session, you heard about some
+
+301
+00:09:43,266 --> 0:09:44,976
+amazing new advances in text
+
+302
+00:09:44,976 --> 0:09:46,726
+classification that allow us to
+
+303
+00:09:46,726 --> 0:09:48,316
+take advantage of the semantic
+
+304
+00:09:48,366 --> 0:09:50,786
+meaning of the text, even with
+
+305
+00:09:50,786 --> 0:09:52,076
+the limited amount of input
+
+306
+00:09:52,076 --> 0:09:52,416
+data.
+
+307
+00:09:53,826 --> 0:09:54,996
+You also heard about the new
+
+308
+00:09:54,996 --> 0:09:57,066
+activity classification, which
+
+309
+00:09:57,066 --> 0:09:58,536
+allows you to understand and
+
+310
+00:09:58,536 --> 0:10:00,146
+assign meaning to the motion and
+
+311
+00:09:58,536 --> 0:10:00,146
+assign meaning to the motion and
+
+312
+00:10:00,146 --> 0:10:01,336
+activities of your user.
+
+313
+00:10:02,286 --> 0:10:04,116
+And finally, I just introduced
+
+314
+00:10:04,116 --> 0:10:06,256
+the recommender which allows you
+
+315
+00:10:06,256 --> 0:10:08,426
+to personalize the user
+
+316
+00:10:08,426 --> 0:10:09,656
+experience of your app into the
+
+317
+00:10:09,656 --> 0:10:11,126
+many, many different ways.
+
+318
+00:10:12,076 --> 0:10:14,366
+For more information on any of
+
+319
+00:10:14,366 --> 0:10:15,726
+these things, please visit the
+
+320
+00:10:15,726 --> 0:10:17,016
+website associated to this
+
+321
+00:10:17,016 --> 0:10:19,246
+session, or come talk to us in
+
+322
+00:10:19,246 --> 0:10:20,106
+the lab tomorrow.
+
+323
+00:10:20,496 --> 0:10:20,876
+Thank you.
+
+324
+00:10:21,516 --> 0:10:26,506
+[ Applause ]

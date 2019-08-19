@@ -1,0 +1,2483 @@
+1
+00:00:00,506 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:07,356 --> 0:00:08,586
+&gt;&gt; Welcome to our session on
+
+3
+00:00:08,586 --> 0:00:09,586
+Universal Links.
+
+4
+00:00:10,096 --> 0:00:11,946
+My name is Jonathan Grynspan and
+
+5
+00:00:11,946 --> 0:00:13,146
+I work on the Core Frameworks
+
+6
+00:00:13,146 --> 0:00:13,876
+Team at Apple.
+
+7
+00:00:14,966 --> 0:00:16,556
+Today, I'll be showing you how
+
+8
+00:00:16,556 --> 0:00:18,116
+to use universal links in your
+
+9
+00:00:18,116 --> 0:00:18,366
+app.
+
+10
+00:00:19,246 --> 0:00:20,426
+We introduced the universal
+
+11
+00:00:20,426 --> 0:00:22,566
+links in iOS 9 as a great way to
+
+12
+00:00:22,566 --> 0:00:24,436
+provide rich content both on the
+
+13
+00:00:24,436 --> 0:00:25,506
+web and in your app.
+
+14
+00:00:26,496 --> 0:00:27,986
+Today, I'll be showing you the
+
+15
+00:00:27,986 --> 0:00:29,196
+enhancements we've made to this
+
+16
+00:00:29,196 --> 0:00:29,586
+feature.
+
+17
+00:00:30,436 --> 0:00:31,676
+Whether you've already adopted
+
+18
+00:00:31,676 --> 0:00:33,306
+universal links in your iOS app
+
+19
+00:00:33,606 --> 0:00:34,846
+or you're adding them to your
+
+20
+00:00:34,846 --> 0:00:36,676
+macOS app, you will want to pay
+
+21
+00:00:36,676 --> 0:00:37,936
+close attention to the changes
+
+22
+00:00:37,936 --> 0:00:38,726
+I'll be discussing.
+
+23
+00:00:40,436 --> 0:00:42,466
+To begin, let's talk about what
+
+24
+00:00:42,466 --> 0:00:43,626
+universal links are.
+
+25
+00:00:45,566 --> 0:00:47,966
+Universal links are HTTP or
+
+26
+00:00:47,966 --> 0:00:50,606
+HTTPS URLs that Apple's
+
+27
+00:00:50,606 --> 0:00:52,516
+operating systems recognize as
+
+28
+00:00:52,516 --> 0:00:54,146
+pointing to resources either on
+
+29
+00:00:54,146 --> 0:00:55,876
+the web or in your app.
+
+30
+00:00:56,756 --> 0:00:58,616
+This means that a single URL can
+
+31
+00:00:58,616 --> 0:01:00,166
+represent that content, whether
+
+32
+00:00:58,616 --> 0:01:00,166
+represent that content, whether
+
+33
+00:01:00,166 --> 0:01:01,246
+your users have your app
+
+34
+00:01:01,246 --> 0:01:03,056
+installed or it just haven't
+
+35
+00:01:03,056 --> 0:01:03,876
+downloaded it yet.
+
+36
+00:01:04,575 --> 0:01:05,816
+They are great way to increase
+
+37
+00:01:05,816 --> 0:01:07,216
+user engagement within your app.
+
+38
+00:01:08,396 --> 0:01:09,896
+Universal links are introduced
+
+39
+00:01:09,896 --> 0:01:11,926
+in iOS 9 and tvOS 10.
+
+40
+00:01:12,346 --> 0:01:13,936
+I'm happy to announce that we
+
+41
+00:01:13,936 --> 0:01:15,256
+are introducing them to the Mac
+
+42
+00:01:15,256 --> 0:01:17,796
+with macOS 10.15, whether you're
+
+43
+00:01:17,796 --> 0:01:19,676
+using AppKit or UIKit.
+
+44
+00:01:20,026 --> 0:01:21,756
+I'll tell you more about that in
+
+45
+00:01:21,756 --> 0:01:22,176
+a moment.
+
+46
+00:01:23,166 --> 0:01:24,666
+Universal links are securely
+
+47
+00:01:24,666 --> 0:01:26,406
+associated between your app and
+
+48
+00:01:26,406 --> 0:01:27,096
+your website.
+
+49
+00:01:27,836 --> 0:01:29,236
+Your app adopts an entitlement
+
+50
+00:01:29,236 --> 0:01:30,936
+in Xcode that indicates which
+
+51
+00:01:30,936 --> 0:01:32,926
+domains it can represent and
+
+52
+00:01:32,926 --> 0:01:34,436
+your web server adopts a single
+
+53
+00:01:34,436 --> 0:01:36,016
+JSON file that contains more
+
+54
+00:01:36,016 --> 0:01:37,806
+details about what parts of its
+
+55
+00:01:37,806 --> 0:01:39,506
+domain are representable in your
+
+56
+00:01:39,506 --> 0:01:39,746
+app.
+
+57
+00:01:40,596 --> 0:01:42,226
+These two ways secure handshake
+
+58
+00:01:42,226 --> 0:01:43,866
+ensures nobody can redirect your
+
+59
+00:01:43,866 --> 0:01:45,526
+users into their apps instead of
+
+60
+00:01:45,526 --> 0:01:46,026
+yours.
+
+61
+00:01:47,536 --> 0:01:48,916
+We recommend that where you are
+
+62
+00:01:48,916 --> 0:01:50,436
+currently using custom URL
+
+63
+00:01:50,436 --> 0:01:52,326
+schemes, you begin migrating to
+
+64
+00:01:52,326 --> 0:01:53,486
+universal links today.
+
+65
+00:01:54,306 --> 0:01:55,606
+Custom URL schemes are
+
+66
+00:01:55,606 --> 0:01:57,656
+inherently insecure and can be
+
+67
+00:01:57,656 --> 0:01:59,186
+abused by malicious developers.
+
+68
+00:01:59,726 --> 0:02:01,626
+New uses of custom URL schemes
+
+69
+00:01:59,726 --> 0:02:01,626
+New uses of custom URL schemes
+
+70
+00:02:01,626 --> 0:02:02,746
+are highly discouraged.
+
+71
+00:02:05,106 --> 0:02:06,626
+Now that we know what universal
+
+72
+00:02:06,626 --> 0:02:08,515
+links are, let's talk about how
+
+73
+00:02:08,515 --> 0:02:09,205
+to build them.
+
+74
+00:02:09,645 --> 0:02:10,596
+We'll start with your web
+
+75
+00:02:10,596 --> 0:02:10,996
+server.
+
+76
+00:02:12,816 --> 0:02:14,606
+Your web server must have a
+
+77
+00:02:14,606 --> 0:02:17,016
+valid HTTPS certificate.
+
+78
+00:02:17,526 --> 0:02:19,886
+HTTP is not secure and cannot be
+
+79
+00:02:19,886 --> 0:02:21,646
+used to validate an association
+
+80
+00:02:21,806 --> 0:02:23,026
+between your app and your
+
+81
+00:02:23,026 --> 0:02:23,546
+website.
+
+82
+00:02:23,846 --> 0:02:25,936
+The root certificate used to
+
+83
+00:02:25,936 --> 0:02:28,226
+sign your HTTPS certificate must
+
+84
+00:02:28,226 --> 0:02:29,626
+be recognized by the operating
+
+85
+00:02:29,626 --> 0:02:30,126
+system.
+
+86
+00:02:30,646 --> 0:02:32,126
+Custom root certificates are not
+
+87
+00:02:32,126 --> 0:02:32,606
+supported.
+
+88
+00:02:33,816 --> 0:02:34,986
+After generating your
+
+89
+00:02:34,986 --> 0:02:36,366
+certificate and configuring your
+
+90
+00:02:36,366 --> 0:02:37,596
+server, add your
+
+91
+00:02:37,596 --> 0:02:39,636
+apple-app-site-association file.
+
+92
+00:02:40,226 --> 0:02:41,586
+This is a JSON file.
+
+93
+00:02:41,586 --> 0:02:42,776
+We'll discuss this format in a
+
+94
+00:02:42,776 --> 0:02:43,206
+moment.
+
+95
+00:02:43,556 --> 0:02:45,446
+When your app is installed on an
+
+96
+00:02:45,446 --> 0:02:46,896
+Apple device, the operating
+
+97
+00:02:46,896 --> 0:02:48,326
+system downloads this file to
+
+98
+00:02:48,326 --> 0:02:49,916
+determine what services the
+
+99
+00:02:49,916 --> 0:02:51,306
+server will let your app use.
+
+100
+00:02:51,616 --> 0:02:53,666
+The system also periodically
+
+101
+00:02:53,666 --> 0:02:55,496
+downloads updates for this file.
+
+102
+00:02:56,246 --> 0:02:57,626
+Universal links are one of many
+
+103
+00:02:57,626 --> 0:02:59,086
+services that may be included in
+
+104
+00:02:59,086 --> 0:02:59,606
+this file.
+
+105
+00:03:00,606 --> 0:03:02,376
+This file should be located at
+
+106
+00:03:02,506 --> 0:03:06,126
+HTTPS://your domain name/
+
+107
+00:03:07,286 --> 0:03:10,216
+.well-known/apple-app-site-
+
+108
+00:03:10,216 --> 0:03:11,036
+association.
+
+109
+00:03:11,956 --> 0:03:13,346
+Other paths are deprecated.
+
+110
+00:03:14,226 --> 0:03:15,566
+In the past, we've discussed
+
+111
+00:03:15,566 --> 0:03:16,056
+signing your
+
+112
+00:03:16,056 --> 0:03:17,816
+apple-app-site-association file.
+
+113
+00:03:18,356 --> 0:03:19,666
+This has never been a necessary
+
+114
+00:03:19,666 --> 0:03:21,376
+step to support universal links
+
+115
+00:03:21,416 --> 0:03:22,696
+so it is now deprecated.
+
+116
+00:03:23,926 --> 0:03:25,936
+Support for sign JSON files and
+
+117
+00:03:25,936 --> 0:03:27,606
+JSON files at other paths will
+
+118
+00:03:27,606 --> 0:03:29,156
+be removed in a future release.
+
+119
+00:03:29,446 --> 0:03:32,676
+With that out of the way, let's
+
+120
+00:03:32,676 --> 0:03:33,426
+take a look at your
+
+121
+00:03:33,426 --> 0:03:35,316
+apple-app-site-association file.
+
+122
+00:03:36,156 --> 0:03:37,336
+If you already have one of these
+
+123
+00:03:37,336 --> 0:03:38,776
+files on your web server this
+
+124
+00:03:38,776 --> 0:03:41,336
+probably looks familiar, but we
+
+125
+00:03:41,336 --> 0:03:42,786
+have a few changes to introduce
+
+126
+00:03:42,786 --> 0:03:42,996
+today.
+
+127
+00:03:43,686 --> 0:03:45,556
+At the top level is a dictionary
+
+128
+00:03:45,556 --> 0:03:47,036
+whose keys are service types.
+
+129
+00:03:47,036 --> 0:03:48,976
+For universal links, the key is
+
+130
+00:03:48,976 --> 0:03:50,896
+applinks like you see here but
+
+131
+00:03:50,896 --> 0:03:52,316
+other services are also
+
+132
+00:03:52,316 --> 0:03:52,766
+available.
+
+133
+00:03:53,586 --> 0:03:54,966
+We'll be focusing solely on
+
+134
+00:03:54,966 --> 0:03:55,886
+Universal Links.
+
+135
+00:03:56,316 --> 0:03:58,336
+Under that top level key are the
+
+136
+00:03:58,336 --> 0:03:59,976
+apps key and the details key.
+
+137
+00:04:00,576 --> 0:04:02,276
+If you are targeting iOS 13,
+
+138
+00:04:02,606 --> 0:04:05,926
+tvOS 13 and macOS 10.15, you do
+
+139
+00:04:05,926 --> 0:04:07,636
+not need the apps key, so you
+
+140
+00:04:07,636 --> 0:04:08,266
+can remove it.
+
+141
+00:04:09,066 --> 0:04:10,376
+If you are continuing to provide
+
+142
+00:04:10,376 --> 0:04:12,956
+support for iOS 12, tvOS 12 or
+
+143
+00:04:12,956 --> 0:04:14,526
+earlier, you'll still need it.
+
+144
+00:04:14,816 --> 0:04:16,125
+For universal links, it should
+
+145
+00:04:16,125 --> 0:04:17,456
+always be an empty array.
+
+146
+00:04:18,846 --> 0:04:20,146
+The details key contains an
+
+147
+00:04:20,146 --> 0:04:21,736
+array of dictionaries, each of
+
+148
+00:04:21,736 --> 0:04:23,416
+which represents a specific apps
+
+149
+00:04:23,416 --> 0:04:24,926
+universal links configuration.
+
+150
+00:04:25,306 --> 0:04:27,326
+In the past, we supported using
+
+151
+00:04:27,326 --> 0:04:28,596
+a dictionary structure here
+
+152
+00:04:28,626 --> 0:04:30,126
+instead of an array but that
+
+153
+00:04:30,126 --> 0:04:31,626
+configuration is obsolete.
+
+154
+00:04:33,136 --> 0:04:34,536
+Under the details key is an
+
+155
+00:04:34,536 --> 0:04:36,556
+appID key whose value is your
+
+156
+00:04:36,556 --> 0:04:37,346
+app identifier.
+
+157
+00:04:38,006 --> 0:04:39,676
+Your app identifier consists of
+
+158
+00:04:39,676 --> 0:04:41,196
+an alphanumeric, 10 character
+
+159
+00:04:41,196 --> 0:04:43,316
+prefix provided by Apple, a
+
+160
+00:04:43,316 --> 0:04:44,996
+period, and your bundle
+
+161
+00:04:44,996 --> 0:04:45,516
+identifier.
+
+162
+00:04:46,936 --> 0:04:48,536
+The prefix may or may not be
+
+163
+00:04:48,536 --> 0:04:49,876
+equal to your team identifier.
+
+164
+00:04:50,146 --> 0:04:51,486
+Check the developer portal to
+
+165
+00:04:51,486 --> 0:04:52,776
+confirm your app identifier.
+
+166
+00:04:52,776 --> 0:04:55,086
+If you have multiple apps with
+
+167
+00:04:55,086 --> 0:04:56,296
+the same universal links
+
+168
+00:04:56,296 --> 0:04:58,316
+configuration, you may not want
+
+169
+00:04:58,316 --> 0:04:59,726
+to repeat the relevant JSON.
+
+170
+00:05:00,056 --> 0:05:01,776
+If you are targeting this year's
+
+171
+00:05:01,776 --> 0:05:03,296
+releases, you can reduce the
+
+172
+00:05:03,296 --> 0:05:04,926
+size of this file by using the
+
+173
+00:05:04,926 --> 0:05:06,226
+plural appIDs key.
+
+174
+00:05:06,656 --> 0:05:08,316
+The value of that key is an
+
+175
+00:05:08,316 --> 0:05:09,816
+array of app identifiers.
+
+176
+00:05:10,486 --> 0:05:11,906
+If you need to support previous
+
+177
+00:05:11,906 --> 0:05:13,466
+releases, you should keep using
+
+178
+00:05:13,466 --> 0:05:15,346
+the singular appID key for each
+
+179
+00:05:15,346 --> 0:05:15,606
+app.
+
+180
+00:05:16,646 --> 0:05:17,826
+Next is the paths key.
+
+181
+00:05:18,326 --> 0:05:19,736
+This key contains an array of
+
+182
+00:05:19,736 --> 0:05:20,526
+path patterns.
+
+183
+00:05:20,586 --> 0:05:22,246
+Pattern matching is performed
+
+184
+00:05:22,246 --> 0:05:23,566
+the same way it is in terminal.
+
+185
+00:05:24,026 --> 0:05:25,676
+The asterisk is used to indicate
+
+186
+00:05:25,676 --> 0:05:27,216
+multiple wildcard characters
+
+187
+00:05:27,216 --> 0:05:28,696
+while the question mark matches
+
+188
+00:05:28,696 --> 0:05:29,666
+just one character.
+
+189
+00:05:30,636 --> 0:05:31,856
+Beginning this year, we are
+
+190
+00:05:31,856 --> 0:05:33,486
+replacing the paths key with the
+
+191
+00:05:33,486 --> 0:05:34,266
+components key.
+
+192
+00:05:35,346 --> 0:05:36,966
+This key's value is an array of
+
+193
+00:05:36,966 --> 0:05:38,366
+dictionaries, each of which
+
+194
+00:05:38,366 --> 0:05:40,066
+contains zero or more URL
+
+195
+00:05:40,066 --> 0:05:41,526
+components to pattern match
+
+196
+00:05:41,526 --> 0:05:42,046
+against.
+
+197
+00:05:42,396 --> 0:05:44,546
+As before, you can match against
+
+198
+00:05:44,546 --> 0:05:45,936
+the URL's path component whose
+
+199
+00:05:45,936 --> 0:05:47,116
+key is the forward slash.
+
+200
+00:05:47,486 --> 0:05:49,446
+If you need to support previous
+
+201
+00:05:49,446 --> 0:05:50,986
+releases, you can keep the paths
+
+202
+00:05:50,986 --> 0:05:51,206
+key.
+
+203
+00:05:52,026 --> 0:05:55,766
+iOS 13, tvOS 13 and macOS 10.15
+
+204
+00:05:55,766 --> 0:05:57,296
+will ignore it if the components
+
+205
+00:05:57,296 --> 0:05:58,016
+key is present.
+
+206
+00:05:58,556 --> 0:06:00,346
+And now you can match against
+
+207
+00:05:58,556 --> 0:06:00,346
+And now you can match against
+
+208
+00:06:00,346 --> 0:06:01,596
+the URL's fragment component
+
+209
+00:06:01,956 --> 0:06:03,646
+whose key is the hash mark and
+
+210
+00:06:03,646 --> 0:06:04,436
+you can match the query
+
+211
+00:06:04,436 --> 0:06:05,566
+component whose key is the
+
+212
+00:06:05,566 --> 0:06:06,236
+question mark.
+
+213
+00:06:07,076 --> 0:06:09,466
+Now many, if not most URLs out
+
+214
+00:06:09,466 --> 0:06:10,616
+there divide their query
+
+215
+00:06:10,616 --> 0:06:12,056
+component up into key value
+
+216
+00:06:12,056 --> 0:06:13,496
+pairs called query items.
+
+217
+00:06:13,496 --> 0:06:15,386
+For the query component, you can
+
+218
+00:06:15,386 --> 0:06:17,016
+specify a dictionary instead of
+
+219
+00:06:17,016 --> 0:06:19,026
+a string as its value and
+
+220
+00:06:19,026 --> 0:06:20,556
+pattern match individual query
+
+221
+00:06:20,556 --> 0:06:20,946
+items.
+
+222
+00:06:21,686 --> 0:06:23,636
+URLs may repeat query item names
+
+223
+00:06:23,706 --> 0:06:24,826
+and the operating system will
+
+224
+00:06:24,826 --> 0:06:26,586
+require that all instances of a
+
+225
+00:06:26,586 --> 0:06:28,276
+given query item name match your
+
+226
+00:06:28,276 --> 0:06:28,626
+pattern.
+
+227
+00:06:29,486 --> 0:06:31,216
+Query items with no value and
+
+228
+00:06:31,216 --> 0:06:32,736
+absent query items are treated
+
+229
+00:06:32,736 --> 0:06:34,406
+by the operating system as if
+
+230
+00:06:34,406 --> 0:06:35,746
+they have a value equal to the
+
+231
+00:06:35,746 --> 0:06:36,416
+empty string.
+
+232
+00:06:37,986 --> 0:06:39,306
+For a components dictionary to
+
+233
+00:06:39,306 --> 0:06:41,206
+match a candidate URL, all the
+
+234
+00:06:41,206 --> 0:06:42,866
+specified components must match.
+
+235
+00:06:43,466 --> 0:06:44,456
+If you don't specify a
+
+236
+00:06:44,456 --> 0:06:45,596
+component, the operating
+
+237
+00:06:45,596 --> 0:06:47,356
+system's default behavior is to
+
+238
+00:06:47,356 --> 0:06:48,876
+simply ignore that component.
+
+239
+00:06:49,456 --> 0:06:51,266
+So if, for example, your app
+
+240
+00:06:51,326 --> 0:06:52,576
+doesn't care about the fragment
+
+241
+00:06:52,576 --> 0:06:54,426
+component of a URL, you don't
+
+242
+00:06:54,426 --> 0:06:55,846
+need to specify it in this file.
+
+243
+00:06:56,556 --> 0:06:57,706
+You may have sections of your
+
+244
+00:06:57,706 --> 0:06:59,196
+website that are not able to be
+
+245
+00:06:59,196 --> 0:07:00,606
+represented in your app yet.
+
+246
+00:06:59,196 --> 0:07:00,606
+represented in your app yet.
+
+247
+00:07:01,266 --> 0:07:03,086
+You can exclude such subsections
+
+248
+00:07:03,086 --> 0:07:04,796
+by specifying the exclude key
+
+249
+00:07:05,016 --> 0:07:06,386
+with a Boolean value of true.
+
+250
+00:07:07,276 --> 0:07:08,826
+This key has the same behavior
+
+251
+00:07:08,826 --> 0:07:10,466
+as a not keyword that you used
+
+252
+00:07:10,466 --> 0:07:11,536
+in the old paths key.
+
+253
+00:07:12,056 --> 0:07:13,436
+That key word is not supported
+
+254
+00:07:13,436 --> 0:07:14,436
+when using the component's
+
+255
+00:07:14,436 --> 0:07:14,876
+dictionary.
+
+256
+00:07:16,626 --> 0:07:18,486
+Here we have a few examples of
+
+257
+00:07:18,486 --> 0:07:19,906
+URLs that we need to pattern
+
+258
+00:07:19,906 --> 0:07:20,286
+match.
+
+259
+00:07:20,726 --> 0:07:22,286
+I'm working on a meal ordering
+
+260
+00:07:22,286 --> 0:07:23,726
+app and I'm using universal
+
+261
+00:07:23,726 --> 0:07:25,436
+links to bring users into my app
+
+262
+00:07:25,436 --> 0:07:26,186
+from Safari.
+
+263
+00:07:26,616 --> 0:07:28,316
+On the left, you can see some
+
+264
+00:07:28,316 --> 0:07:30,146
+JSON from my server and on the
+
+265
+00:07:30,146 --> 0:07:31,936
+right, you can see some URLs.
+
+266
+00:07:32,806 --> 0:07:34,606
+First, I want to match all the
+
+267
+00:07:34,606 --> 0:07:36,626
+order forms on my website which
+
+268
+00:07:36,626 --> 0:07:38,436
+are all located on a path where
+
+269
+00:07:38,436 --> 0:07:39,576
+the first component can be
+
+270
+00:07:39,576 --> 0:07:40,076
+anything.
+
+271
+00:07:40,496 --> 0:07:42,086
+The second component is order
+
+272
+00:07:42,086 --> 0:07:43,656
+and there are no further path
+
+273
+00:07:43,656 --> 0:07:44,656
+components afterward.
+
+274
+00:07:45,806 --> 0:07:47,336
+This pattern will match a URL
+
+275
+00:07:47,336 --> 0:07:48,786
+such as these two on the right.
+
+276
+00:07:49,136 --> 0:07:49,856
+Time for lunch.
+
+277
+00:07:51,396 --> 0:07:52,746
+Next, I know a lot of my
+
+278
+00:07:52,746 --> 0:07:54,126
+customers are going to want to
+
+279
+00:07:54,126 --> 0:07:56,026
+put cheese on their tacos so I'm
+
+280
+00:07:56,026 --> 0:07:57,726
+going to match any URL where the
+
+281
+00:07:57,726 --> 0:07:59,246
+path starts with the path
+
+282
+00:07:59,246 --> 0:08:01,866
+component taco and where a query
+
+283
+00:07:59,246 --> 0:08:01,866
+component taco and where a query
+
+284
+00:08:01,866 --> 0:08:03,986
+item named cheese is specified.
+
+285
+00:08:04,626 --> 0:08:05,916
+You'll notice that I specify a
+
+286
+00:08:05,916 --> 0:08:07,946
+question mark and an asterisk as
+
+287
+00:08:07,946 --> 0:08:09,286
+the pattern from the query items
+
+288
+00:08:09,286 --> 0:08:09,676
+value.
+
+289
+00:08:09,966 --> 0:08:12,046
+A pattern consisting of a single
+
+290
+00:08:12,046 --> 0:08:13,696
+asterisk matches any string,
+
+291
+00:08:13,826 --> 0:08:15,066
+including the empty string.
+
+292
+00:08:15,156 --> 0:08:16,966
+And a missing query item has a
+
+293
+00:08:16,966 --> 0:08:18,236
+value equivalent to the empty
+
+294
+00:08:18,236 --> 0:08:18,556
+string.
+
+295
+00:08:19,076 --> 0:08:20,766
+So to match against the string
+
+296
+00:08:20,766 --> 0:08:22,016
+that's at least one character
+
+297
+00:08:22,016 --> 0:08:24,416
+long, I specify a question mark
+
+298
+00:08:24,416 --> 0:08:25,446
+and then any additional
+
+299
+00:08:25,446 --> 0:08:26,626
+characters are matched by the
+
+300
+00:08:26,626 --> 0:08:27,256
+asterisk.
+
+301
+00:08:28,096 --> 0:08:29,436
+That matches our third URL.
+
+302
+00:08:31,266 --> 0:08:33,006
+The fourth and fifth URLs look
+
+303
+00:08:33,006 --> 0:08:35,206
+very similar but there's a good
+
+304
+00:08:35,206 --> 0:08:35,956
+reason for that.
+
+305
+00:08:36,535 --> 0:08:38,206
+My website also has lots of
+
+306
+00:08:38,206 --> 0:08:39,576
+four-digit coupon codes that the
+
+307
+00:08:39,576 --> 0:08:40,326
+app can handle.
+
+308
+00:08:40,395 --> 0:08:42,866
+But if they start with a 1, I
+
+309
+00:08:43,006 --> 0:08:43,936
+want them to stay in the
+
+310
+00:08:43,936 --> 0:08:44,446
+browser.
+
+311
+00:08:45,216 --> 0:08:46,706
+Because the operating system is
+
+312
+00:08:46,706 --> 0:08:47,916
+going to look at the available
+
+313
+00:08:47,916 --> 0:08:49,446
+patterns from top to bottom,
+
+314
+00:08:49,846 --> 0:08:51,266
+we'll first mark coupon code
+
+315
+00:08:51,266 --> 0:08:52,566
+starting with the one as
+
+316
+00:08:52,566 --> 0:08:53,176
+excluded.
+
+317
+00:08:54,236 --> 0:08:55,846
+This tells the system to stop
+
+318
+00:08:55,846 --> 0:08:57,446
+looking here if it finds a match
+
+319
+00:08:57,646 --> 0:08:59,496
+but not to open the URL as a
+
+320
+00:08:59,496 --> 0:09:00,356
+universal link.
+
+321
+00:08:59,496 --> 0:09:00,356
+universal link.
+
+322
+00:09:00,926 --> 0:09:02,866
+Then any other coupon will match
+
+323
+00:09:02,866 --> 0:09:04,366
+the fourth and final components
+
+324
+00:09:04,366 --> 0:09:04,886
+dictionary.
+
+325
+00:09:08,116 --> 0:09:09,486
+Before we move on to your app,
+
+326
+00:09:09,686 --> 0:09:11,226
+let's discuss how to support an
+
+327
+00:09:11,226 --> 0:09:12,386
+international audience.
+
+328
+00:09:13,456 --> 0:09:15,946
+URLs are always ASCII coded so
+
+329
+00:09:15,946 --> 0:09:17,206
+component matching is done in
+
+330
+00:09:17,206 --> 0:09:17,926
+ASCII as well.
+
+331
+00:09:18,866 --> 0:09:20,036
+If you need to match Unicode
+
+332
+00:09:20,036 --> 0:09:21,816
+characters present and code them
+
+333
+00:09:21,816 --> 0:09:23,026
+like you would in your URL.
+
+334
+00:09:23,866 --> 0:09:25,186
+Because components are present
+
+335
+00:09:25,186 --> 0:09:26,766
+and coded, a Unicode character
+
+336
+00:09:26,766 --> 0:09:28,406
+may be represented by more than
+
+337
+00:09:28,406 --> 0:09:30,166
+one ASCII character, so keep
+
+338
+00:09:30,166 --> 0:09:31,196
+that in mind when using the
+
+339
+00:09:31,196 --> 0:09:32,526
+question mark in your patterns.
+
+340
+00:09:33,636 --> 0:09:35,036
+When you build your JSON, you
+
+341
+00:09:35,036 --> 0:09:36,226
+may be tempted to provide
+
+342
+00:09:36,226 --> 0:09:37,556
+country-specific patterns for
+
+343
+00:09:37,556 --> 0:09:38,826
+every country you support.
+
+344
+00:09:39,426 --> 0:09:40,716
+This increases the size of your
+
+345
+00:09:40,716 --> 0:09:41,826
+JSON significantly.
+
+346
+00:09:42,646 --> 0:09:43,616
+If your pattern-matching is
+
+347
+00:09:43,616 --> 0:09:45,096
+consistent between countries,
+
+348
+00:09:45,286 --> 0:09:46,646
+you can reduce the traffic to
+
+349
+00:09:46,646 --> 0:09:47,596
+and from your server by
+
+350
+00:09:47,596 --> 0:09:48,736
+simplifying you JSON.
+
+351
+00:09:49,526 --> 0:09:50,816
+For instance, if you separate
+
+352
+00:09:50,816 --> 0:09:51,926
+your content by two-letter
+
+353
+00:09:51,926 --> 0:09:53,406
+country code, you need to only
+
+354
+00:09:53,406 --> 0:09:55,266
+specify two question marks where
+
+355
+00:09:55,266 --> 0:09:56,516
+you are previously using those
+
+356
+00:09:56,516 --> 0:09:57,226
+country codes.
+
+357
+00:09:57,926 --> 0:09:59,456
+Other more complex patterns like
+
+358
+00:09:59,456 --> 0:10:01,216
+you see here can also be matched
+
+359
+00:09:59,456 --> 0:10:01,216
+you see here can also be matched
+
+360
+00:10:01,216 --> 0:10:01,596
+easily.
+
+361
+00:10:02,506 --> 0:10:04,216
+If you encounter a URL with an
+
+362
+00:10:04,216 --> 0:10:05,736
+invalid country code or locale
+
+363
+00:10:05,736 --> 0:10:07,636
+specific identifier, just treat
+
+364
+00:10:07,636 --> 0:10:08,646
+it like the user's current
+
+365
+00:10:08,646 --> 0:10:09,046
+locale.
+
+366
+00:10:10,476 --> 0:10:11,876
+Beginning in this release, the
+
+367
+00:10:11,876 --> 0:10:13,426
+operating system will prioritize
+
+368
+00:10:13,426 --> 0:10:15,036
+apple-app-site-association
+
+369
+00:10:15,036 --> 0:10:16,926
+downloads based on where a user
+
+370
+00:10:16,926 --> 0:10:18,226
+is most likely to browse.
+
+371
+00:10:18,786 --> 0:10:19,946
+We'll still download them all
+
+372
+00:10:19,946 --> 0:10:21,406
+when an app is installed but at
+
+373
+00:10:21,406 --> 0:10:22,466
+different priorities.
+
+374
+00:10:22,826 --> 0:10:24,856
+The top-level domains .com,
+
+375
+00:10:24,976 --> 0:10:27,046
+.net, and .org, are high
+
+376
+00:10:27,046 --> 0:10:28,476
+priority domains because they
+
+377
+00:10:28,476 --> 0:10:29,746
+account for so much internet
+
+378
+00:10:29,746 --> 0:10:30,856
+traffic worldwide.
+
+379
+00:10:31,666 --> 0:10:33,676
+Country code TLDs also known as
+
+380
+00:10:33,676 --> 0:10:36,056
+ccTLDs and internationalized
+
+381
+00:10:36,056 --> 0:10:38,036
+TLDs are also prioritized if
+
+382
+00:10:38,036 --> 0:10:39,266
+they match the user's current
+
+383
+00:10:39,266 --> 0:10:40,126
+locale settings.
+
+384
+00:10:40,586 --> 0:10:42,386
+For example, the average user in
+
+385
+00:10:42,386 --> 0:10:43,986
+China is more likely to visit a
+
+386
+00:10:43,986 --> 0:10:46,316
+domain under a Chinese ccTLD
+
+387
+00:10:46,476 --> 0:10:47,826
+than under, for example, an
+
+388
+00:10:47,826 --> 0:10:49,676
+Italian or Russian ccTLD.
+
+389
+00:10:52,506 --> 0:10:53,956
+So now your server is ready to
+
+390
+00:10:53,956 --> 0:10:55,266
+support universal links.
+
+391
+00:10:55,496 --> 0:10:58,776
+Let's update your app.
+
+392
+00:10:58,776 --> 0:11:00,246
+Open your project in Xcode and
+
+393
+00:10:58,776 --> 0:11:00,246
+Open your project in Xcode and
+
+394
+00:11:00,246 --> 0:11:01,416
+navigate to your project
+
+395
+00:11:01,416 --> 0:11:01,966
+settings.
+
+396
+00:11:02,266 --> 0:11:03,836
+Add the Associated Domains
+
+397
+00:11:03,836 --> 0:11:04,486
+capability.
+
+398
+00:11:05,106 --> 0:11:06,516
+This adds a new entitlement to
+
+399
+00:11:06,516 --> 0:11:07,506
+the selected target.
+
+400
+00:11:08,106 --> 0:11:09,406
+You can modify this entitlement
+
+401
+00:11:09,406 --> 0:11:10,396
+directly from this view.
+
+402
+00:11:13,336 --> 0:11:15,106
+The value of this entitlement is
+
+403
+00:11:15,106 --> 0:11:16,726
+an array of strings of the form
+
+404
+00:11:16,796 --> 0:11:18,856
+service type: domain name.
+
+405
+00:11:18,856 --> 0:11:20,936
+For universal links, the service
+
+406
+00:11:20,936 --> 0:11:22,626
+type is applinks like it was in
+
+407
+00:11:22,626 --> 0:11:24,326
+your apple-app-site-association
+
+408
+00:11:24,326 --> 0:11:24,556
+file.
+
+409
+00:11:25,326 --> 0:11:26,586
+The order of values in this
+
+410
+00:11:26,586 --> 0:11:28,106
+array is ignored by the system.
+
+411
+00:11:29,006 --> 0:11:30,586
+Here, we declare that your app
+
+412
+00:11:30,586 --> 0:11:31,976
+supports universal links for
+
+413
+00:11:31,976 --> 0:11:34,176
+www.example.com.
+
+414
+00:11:34,956 --> 0:11:36,336
+When your app is then installed,
+
+415
+00:11:36,466 --> 0:11:37,686
+the operating system will visit
+
+416
+00:11:37,686 --> 0:11:40,836
+www.example.com looking for the
+
+417
+00:11:40,836 --> 0:11:42,616
+apple-app-site-association file
+
+418
+00:11:42,616 --> 0:11:43,536
+we just discussed.
+
+419
+00:11:44,066 --> 0:11:45,536
+If it's present and it contains
+
+420
+00:11:45,536 --> 0:11:47,066
+information for these apps, app
+
+421
+00:11:47,066 --> 0:11:48,796
+identifier, then the association
+
+422
+00:11:48,796 --> 0:11:49,476
+is confirmed.
+
+423
+00:11:50,376 --> 0:11:51,886
+It's also possible to indicate
+
+424
+00:11:51,886 --> 0:11:53,426
+wildcard support for subdomains
+
+425
+00:11:53,426 --> 0:11:55,026
+of a given domain as shown here.
+
+426
+00:11:55,726 --> 0:11:56,916
+In this case, the operating
+
+427
+00:11:56,916 --> 0:11:58,696
+system will visit example.com.
+
+428
+00:11:58,996 --> 0:12:00,846
+No www at this time.
+
+429
+00:11:58,996 --> 0:12:00,846
+No www at this time.
+
+430
+00:12:02,036 --> 0:12:03,256
+Exact domains have higher
+
+431
+00:12:03,256 --> 0:12:04,756
+priority during universal links
+
+432
+00:12:04,756 --> 0:12:06,436
+look up than wildcard domains.
+
+433
+00:12:07,126 --> 0:12:08,516
+In this case, that means when
+
+434
+00:12:08,516 --> 0:12:09,966
+the system opens a URL at
+
+435
+00:12:09,966 --> 0:12:13,226
+www.example.com, it will try to
+
+436
+00:12:13,226 --> 0:12:14,696
+match patterns from that domain
+
+437
+00:12:14,966 --> 0:12:16,266
+before the ones it got from the
+
+438
+00:12:16,266 --> 0:12:17,016
+parent domain.
+
+439
+00:12:17,736 --> 0:12:19,076
+Patterns from the parent domain
+
+440
+00:12:19,076 --> 0:12:20,606
+will only be matched if no match
+
+441
+00:12:20,606 --> 0:12:22,036
+was found at the fully qualified
+
+442
+00:12:22,036 --> 0:12:22,596
+subdomain.
+
+443
+00:12:23,956 --> 0:12:25,806
+Finally, here's an example of an
+
+444
+00:12:25,806 --> 0:12:27,016
+internationalized domain.
+
+445
+00:12:27,716 --> 0:12:29,426
+Since URLs are always ASCII,
+
+446
+00:12:29,736 --> 0:12:30,966
+your internationalized domain
+
+447
+00:12:30,966 --> 0:12:32,416
+names will need to be encoded
+
+448
+00:12:32,416 --> 0:12:33,266
+using Punycode.
+
+449
+00:12:33,356 --> 0:12:34,836
+For more information on
+
+450
+00:12:34,836 --> 0:12:37,696
+Punycode, see RFC 3492.
+
+451
+00:12:40,126 --> 0:12:41,276
+Now that your app declares
+
+452
+00:12:41,276 --> 0:12:42,646
+support for certain domains,
+
+453
+00:12:42,766 --> 0:12:44,066
+you'll need to actually parse
+
+454
+00:12:44,066 --> 0:12:45,346
+the URLs as they come in.
+
+455
+00:12:46,236 --> 0:12:47,496
+Universal links are based on
+
+456
+00:12:47,496 --> 0:12:49,126
+foundations and as user activity
+
+457
+00:12:49,126 --> 0:12:50,696
+class and are handled by your
+
+458
+00:12:50,696 --> 0:12:51,406
+app delegate.
+
+459
+00:12:52,356 --> 0:12:53,346
+You'll need a handler for
+
+460
+00:12:53,346 --> 0:12:54,716
+incoming user activities.
+
+461
+00:12:55,286 --> 0:12:56,706
+If you already support hand-off
+
+462
+00:12:56,706 --> 0:12:58,266
+or other similar technologies,
+
+463
+00:12:58,516 --> 0:12:59,876
+you may already have this method
+
+464
+00:12:59,876 --> 0:13:00,786
+in your app delegate.
+
+465
+00:12:59,876 --> 0:13:00,786
+in your app delegate.
+
+466
+00:13:01,416 --> 0:13:02,646
+This method returns a bool.
+
+467
+00:13:02,896 --> 0:13:03,996
+Return true if you could
+
+468
+00:13:03,996 --> 0:13:05,226
+successfully open the user
+
+469
+00:13:05,226 --> 0:13:06,576
+activity and false if you
+
+470
+00:13:06,576 --> 0:13:06,996
+couldn't.
+
+471
+00:13:07,786 --> 0:13:09,846
+If you're using UI scene, then a
+
+472
+00:13:09,846 --> 0:13:11,076
+similar delegate method is
+
+473
+00:13:11,076 --> 0:13:11,506
+available.
+
+474
+00:13:12,126 --> 0:13:13,526
+If you're using AppKit, the
+
+475
+00:13:13,526 --> 0:13:14,656
+signature of this method is
+
+476
+00:13:14,656 --> 0:13:15,706
+almost identical.
+
+477
+00:13:15,706 --> 0:13:18,086
+Just replace UI with NS like you
+
+478
+00:13:18,086 --> 0:13:18,586
+see here.
+
+479
+00:13:19,396 --> 0:13:20,976
+We'll use UI application for the
+
+480
+00:13:20,976 --> 0:13:22,076
+remainder of this session.
+
+481
+00:13:23,296 --> 0:13:24,626
+Next, we'll check that the
+
+482
+00:13:24,626 --> 0:13:25,786
+activityType is
+
+483
+00:13:25,786 --> 0:13:27,896
+NSUserActivityTypeBrowsingWeb.
+
+484
+00:13:28,546 --> 0:13:30,046
+This helps distinguish universal
+
+485
+00:13:30,046 --> 0:13:31,466
+links from other incoming user
+
+486
+00:13:31,466 --> 0:13:32,616
+activities that your app may
+
+487
+00:13:32,616 --> 0:13:33,106
+support.
+
+488
+00:13:33,916 --> 0:13:35,346
+Even if you don't support other
+
+489
+00:13:35,346 --> 0:13:37,206
+activity types now, it's a good
+
+490
+00:13:37,206 --> 0:13:38,766
+idea to check the activity type
+
+491
+00:13:38,996 --> 0:13:40,266
+in case you need to support
+
+492
+00:13:40,266 --> 0:13:41,376
+other types in the future.
+
+493
+00:13:41,976 --> 0:13:43,846
+The activity type looks good.
+
+494
+00:13:44,186 --> 0:13:45,866
+Let's grab the webpage URL from
+
+495
+00:13:45,866 --> 0:13:47,126
+the user activity object.
+
+496
+00:13:47,526 --> 0:13:48,726
+This will never be nil for a
+
+497
+00:13:48,726 --> 0:13:51,486
+universal link and let's build a
+
+498
+00:13:51,486 --> 0:13:52,966
+URL components draft from the
+
+499
+00:13:52,966 --> 0:13:53,306
+URL.
+
+500
+00:13:53,996 --> 0:13:55,576
+You should always parse URLs
+
+501
+00:13:55,576 --> 0:13:56,856
+using URL components.
+
+502
+00:13:57,296 --> 0:13:58,716
+Using regular expressions or
+
+503
+00:13:58,716 --> 0:14:00,366
+manually parsing a URL string
+
+504
+00:13:58,716 --> 0:14:00,366
+manually parsing a URL string
+
+505
+00:14:00,366 --> 0:14:01,566
+may leave you vulnerable to
+
+506
+00:14:01,566 --> 0:14:02,546
+security issues.
+
+507
+00:14:03,576 --> 0:14:04,896
+We're past the guard statement
+
+508
+00:14:04,996 --> 0:14:06,356
+so let's examine the contents of
+
+509
+00:14:06,356 --> 0:14:06,956
+the URL.
+
+510
+00:14:07,696 --> 0:14:09,116
+In this case I'm interested in
+
+511
+00:14:09,116 --> 0:14:10,546
+the query items of the URL but
+
+512
+00:14:10,546 --> 0:14:11,936
+you can use any of the URL's
+
+513
+00:14:11,936 --> 0:14:13,536
+components to root activities at
+
+514
+00:14:13,536 --> 0:14:14,056
+this point.
+
+515
+00:14:14,816 --> 0:14:16,186
+If you support universal links
+
+516
+00:14:16,186 --> 0:14:17,586
+from multiple domains, don't
+
+517
+00:14:17,586 --> 0:14:18,556
+forget to check the host
+
+518
+00:14:18,556 --> 0:14:19,056
+component.
+
+519
+00:14:21,376 --> 0:14:22,836
+Our code is complete and our
+
+520
+00:14:22,836 --> 0:14:24,176
+server is configured but there
+
+521
+00:14:24,176 --> 0:14:25,606
+are few differences when using
+
+522
+00:14:25,606 --> 0:14:27,116
+universal links on macOS.
+
+523
+00:14:28,006 --> 0:14:29,216
+Universal links open in the
+
+524
+00:14:29,216 --> 0:14:30,896
+browser by default on macOS.
+
+525
+00:14:31,406 --> 0:14:32,876
+When they do, Safari will give
+
+526
+00:14:32,876 --> 0:14:34,376
+the user the option to open them
+
+527
+00:14:34,376 --> 0:14:35,026
+in your app.
+
+528
+00:14:35,146 --> 0:14:37,356
+If the user selects this option,
+
+529
+00:14:37,356 --> 0:14:38,856
+your links will continue to open
+
+530
+00:14:38,856 --> 0:14:39,966
+in your app afterward.
+
+531
+00:14:41,186 --> 0:14:43,106
+Unlike iOS, macOS supports
+
+532
+00:14:43,106 --> 0:14:44,646
+launching apps present on remote
+
+533
+00:14:44,646 --> 0:14:45,246
+volumes.
+
+534
+00:14:45,566 --> 0:14:47,256
+Apps on remote volumes cannot
+
+535
+00:14:47,256 --> 0:14:48,456
+use universal links.
+
+536
+00:14:48,616 --> 0:14:50,036
+They must be installed locally.
+
+537
+00:14:50,266 --> 0:14:52,596
+If the user downloads your app
+
+538
+00:14:52,596 --> 0:14:54,086
+from the App Store, the system
+
+539
+00:14:54,086 --> 0:14:55,106
+will begin downloading
+
+540
+00:14:55,106 --> 0:14:57,046
+apple-app-site-association files
+
+541
+00:14:57,046 --> 0:14:58,106
+as soon as soon as your app is
+
+542
+00:14:58,106 --> 0:14:59,216
+installed or updated.
+
+543
+00:15:00,036 --> 0:15:01,026
+If your app is developer
+
+544
+00:15:01,026 --> 0:15:02,616
+ID-signed, the system will not
+
+545
+00:15:02,616 --> 0:15:03,946
+begin these downloads until the
+
+546
+00:15:03,946 --> 0:15:05,266
+user has launched your app at
+
+547
+00:15:05,266 --> 0:15:06,006
+least once.
+
+548
+00:15:07,176 --> 0:15:08,416
+Because a universal link is
+
+549
+00:15:08,416 --> 0:15:10,176
+backed by a secure association
+
+550
+00:15:10,176 --> 0:15:12,236
+with an app identifier, only one
+
+551
+00:15:12,236 --> 0:15:13,726
+copy of a given app will be able
+
+552
+00:15:13,726 --> 0:15:15,166
+to handle universal links on a
+
+553
+00:15:15,166 --> 0:15:15,536
+Mac.
+
+554
+00:15:16,176 --> 0:15:17,676
+Typically, this will be the copy
+
+555
+00:15:17,676 --> 0:15:19,066
+of the app present in slash
+
+556
+00:15:19,066 --> 0:15:19,826
+applications.
+
+557
+00:15:20,306 --> 0:15:21,586
+Keep that in mind anytime you
+
+558
+00:15:21,586 --> 0:15:22,816
+need to test changes to your
+
+559
+00:15:22,816 --> 0:15:24,386
+associated domains entitlement.
+
+560
+00:15:25,226 --> 0:15:26,606
+If you are on the other end of
+
+561
+00:15:26,606 --> 0:15:28,176
+an operation and want to open a
+
+562
+00:15:28,176 --> 0:15:30,426
+universal link, UIApplication
+
+563
+00:15:30,556 --> 0:15:31,916
+and NSWorkspace and launch
+
+564
+00:15:31,916 --> 0:15:33,556
+services will all automatically
+
+565
+00:15:33,556 --> 0:15:34,756
+open them when available.
+
+566
+00:15:35,816 --> 0:15:37,236
+If you want to require opening a
+
+567
+00:15:37,236 --> 0:15:38,816
+universal link in an app rather
+
+568
+00:15:38,816 --> 0:15:40,316
+than the default browser, you
+
+569
+00:15:40,316 --> 0:15:42,066
+can use UIApplication or
+
+570
+00:15:42,206 --> 0:15:44,276
+NSWorkspace API as appropriate.
+
+571
+00:15:44,796 --> 0:15:46,356
+If these open operations fail,
+
+572
+00:15:46,476 --> 0:15:47,806
+it means that a universal link
+
+573
+00:15:47,806 --> 0:15:48,866
+was not available for the
+
+574
+00:15:48,866 --> 0:15:49,726
+supplied URL.
+
+575
+00:15:50,786 --> 0:15:51,846
+If you're developing a web
+
+576
+00:15:51,846 --> 0:15:53,646
+browser from macOS, additional
+
+577
+00:15:53,646 --> 0:15:55,246
+API will be made available to
+
+578
+00:15:55,246 --> 0:15:56,456
+help you support universal
+
+579
+00:15:56,456 --> 0:15:56,866
+links.
+
+580
+00:15:58,676 --> 0:16:00,346
+To help you make the best apps
+
+581
+00:15:58,676 --> 0:16:00,346
+To help you make the best apps
+
+582
+00:16:00,346 --> 0:16:01,546
+and to provide the best user
+
+583
+00:16:01,546 --> 0:16:03,186
+experience, I've got a few final
+
+584
+00:16:03,186 --> 0:16:04,156
+tips to share with you.
+
+585
+00:16:05,836 --> 0:16:07,896
+The first is to fail gracefully.
+
+586
+00:16:08,546 --> 0:16:09,906
+It's possible you'll be provided
+
+587
+00:16:09,906 --> 0:16:11,246
+with URLs that represent
+
+588
+00:16:11,246 --> 0:16:12,746
+outdated, invalid, or
+
+589
+00:16:12,746 --> 0:16:13,986
+nonexistent content.
+
+590
+00:16:14,666 --> 0:16:15,566
+If you determine that a
+
+591
+00:16:15,566 --> 0:16:16,986
+universal link can't be opened
+
+592
+00:16:16,986 --> 0:16:18,716
+by your app, you can often open
+
+593
+00:16:18,716 --> 0:16:19,966
+it in Safari View Controller.
+
+594
+00:16:20,396 --> 0:16:21,776
+This keeps the user engaged in
+
+595
+00:16:21,776 --> 0:16:22,156
+your app.
+
+596
+00:16:22,836 --> 0:16:24,176
+If Safari View Controller is not
+
+597
+00:16:24,176 --> 0:16:26,006
+an option, consider opening the
+
+598
+00:16:26,006 --> 0:16:28,126
+URL in Safari, or at a minimum,
+
+599
+00:16:28,336 --> 0:16:29,696
+prompting with details about the
+
+600
+00:16:29,696 --> 0:16:30,146
+issue.
+
+601
+00:16:30,606 --> 0:16:31,946
+Avoid sending the user to a
+
+602
+00:16:31,946 --> 0:16:32,686
+blank screen.
+
+603
+00:16:33,716 --> 0:16:35,316
+If the user is visiting your
+
+604
+00:16:35,316 --> 0:16:37,016
+website, use the Smart App
+
+605
+00:16:37,016 --> 0:16:38,506
+Banner to provide a link either
+
+606
+00:16:38,506 --> 0:16:39,806
+to the App Store or to your
+
+607
+00:16:39,806 --> 0:16:40,346
+content.
+
+608
+00:16:40,816 --> 0:16:42,116
+The Smart App Banner integrates
+
+609
+00:16:42,116 --> 0:16:43,616
+seamlessly with Safari and looks
+
+610
+00:16:43,616 --> 0:16:44,016
+great.
+
+611
+00:16:44,436 --> 0:16:45,666
+And there's no JavaScript or
+
+612
+00:16:45,666 --> 0:16:47,146
+custom URL schemes required to
+
+613
+00:16:47,146 --> 0:16:47,676
+support it.
+
+614
+00:16:48,756 --> 0:16:50,306
+Finally, if you have feedback on
+
+615
+00:16:50,306 --> 0:16:51,426
+how we can improve universal
+
+616
+00:16:51,426 --> 0:16:53,016
+links, I would love to hear it.
+
+617
+00:16:53,366 --> 0:16:54,396
+Please use the feedback
+
+618
+00:16:54,396 --> 0:16:55,786
+assistant and let us know what
+
+619
+00:16:55,786 --> 0:16:56,966
+we can do to make universal
+
+620
+00:16:56,966 --> 0:16:57,836
+links even better.
+
+621
+00:16:58,466 --> 0:16:59,176
+Thank you.

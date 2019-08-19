@@ -1,0 +1,3963 @@
+1
+00:00:00,506 --> 0:00:05,500
+[ Music ]
+
+2
+00:00:07,046 --> 0:00:08,456
+&gt;&gt; Hello, welcome to what's new
+
+3
+00:00:08,456 --> 0:00:09,186
+in ClassKit.
+
+4
+00:00:09,676 --> 0:00:11,016
+My name is John Calhoun.
+
+5
+00:00:11,286 --> 0:00:12,496
+I'm an iOS Engineer on the
+
+6
+00:00:12,496 --> 0:00:13,886
+ClassKit and Schoolwork Team.
+
+7
+00:00:15,236 --> 0:00:16,646
+In case you are new to ClassKit,
+
+8
+00:00:17,036 --> 0:00:18,266
+I'll begin with an introduction
+
+9
+00:00:18,266 --> 0:00:19,486
+to give you some context for
+
+10
+00:00:19,486 --> 0:00:20,216
+what follows.
+
+11
+00:00:20,656 --> 0:00:21,976
+And what follows are the new
+
+12
+00:00:21,976 --> 0:00:23,716
+features for ClassKit as well as
+
+13
+00:00:23,716 --> 0:00:25,366
+a brief discussion of best
+
+14
+00:00:25,366 --> 0:00:26,796
+coding practices that you might
+
+15
+00:00:26,796 --> 0:00:27,546
+want to consider.
+
+16
+00:00:29,406 --> 0:00:30,836
+Let's begin with what ClassKit
+
+17
+00:00:30,836 --> 0:00:31,156
+is.
+
+18
+00:00:32,686 --> 0:00:34,146
+ClassKit is a framework that
+
+19
+00:00:34,146 --> 0:00:36,466
+Apple introduced in iOS 11.3.
+
+20
+00:00:37,756 --> 0:00:39,056
+It's a core part of Apple's
+
+21
+00:00:39,056 --> 0:00:40,516
+education ecosystem.
+
+22
+00:00:41,036 --> 0:00:42,516
+So if you consider your app to
+
+23
+00:00:42,516 --> 0:00:44,546
+also target education, then you
+
+24
+00:00:44,546 --> 0:00:45,636
+should become familiar with the
+
+25
+00:00:45,636 --> 0:00:47,246
+ClassKit framework and what it
+
+26
+00:00:47,246 --> 0:00:47,946
+can do for your app.
+
+27
+00:00:49,736 --> 0:00:51,996
+The whole purpose of ClassKit is
+
+28
+00:00:51,996 --> 0:00:53,076
+to allow your app to share a
+
+29
+00:00:53,076 --> 0:00:54,156
+student's progress with a
+
+30
+00:00:54,156 --> 0:00:54,646
+teacher.
+
+31
+00:00:55,126 --> 0:00:56,446
+I'll discuss what this means in
+
+32
+00:00:56,446 --> 0:00:57,666
+more detail in a bit.
+
+33
+00:00:59,586 --> 0:01:01,126
+And because student data is so
+
+34
+00:00:59,586 --> 0:01:01,126
+And because student data is so
+
+35
+00:01:01,126 --> 0:01:03,056
+important, ClassKit exists to
+
+36
+00:01:03,056 --> 0:01:04,245
+ensure that the data remains
+
+37
+00:01:04,245 --> 0:01:06,246
+secure and is only accessible to
+
+38
+00:01:06,246 --> 0:01:08,476
+specific users like the teachers
+
+39
+00:01:08,476 --> 0:01:09,776
+who have been granted privileges
+
+40
+00:01:09,956 --> 0:01:11,086
+to access that data.
+
+41
+00:01:11,416 --> 0:01:13,186
+But let's move on to an example.
+
+42
+00:01:14,206 --> 0:01:15,436
+I'm going to use an imaginary
+
+43
+00:01:15,436 --> 0:01:17,266
+application as an example today.
+
+44
+00:01:17,966 --> 0:01:19,236
+This will be a simple app that
+
+45
+00:01:19,236 --> 0:01:20,606
+introduces the user to writing
+
+46
+00:01:20,606 --> 0:01:20,966
+code.
+
+47
+00:01:21,706 --> 0:01:23,126
+It contains a number of sections
+
+48
+00:01:23,126 --> 0:01:24,236
+that the student works through.
+
+49
+00:01:25,156 --> 0:01:26,796
+There are exercises and quizzes
+
+50
+00:01:26,796 --> 0:01:28,246
+along the way that check to see
+
+51
+00:01:28,246 --> 0:01:29,236
+how well the student is
+
+52
+00:01:29,236 --> 0:01:30,456
+understanding the material.
+
+53
+00:01:31,036 --> 0:01:32,246
+So it already has the notion of
+
+54
+00:01:32,246 --> 0:01:33,886
+activities and it will be nice
+
+55
+00:01:33,886 --> 0:01:35,256
+to share the student's progress
+
+56
+00:01:35,256 --> 0:01:35,936
+with a teacher.
+
+57
+00:01:36,476 --> 0:01:37,906
+In short, it's a good candidate
+
+58
+00:01:37,906 --> 0:01:38,586
+for ClassKit.
+
+59
+00:01:41,046 --> 0:01:42,596
+Here's the student using the
+
+60
+00:01:42,876 --> 0:01:42,956
+app.
+
+61
+00:01:44,206 --> 0:01:45,796
+And somehow the app would like
+
+62
+00:01:45,796 --> 0:01:47,056
+to share the student's progress
+
+63
+00:01:47,056 --> 0:01:48,606
+with the teacher and do so in a
+
+64
+00:01:48,606 --> 0:01:50,006
+way that protects the student's
+
+65
+00:01:50,006 --> 0:01:50,556
+privacy.
+
+66
+00:01:52,186 --> 0:01:53,646
+This is the role that ClassKit
+
+67
+00:01:53,646 --> 0:01:54,486
+facilitates.
+
+68
+00:01:55,186 --> 0:01:56,446
+ClassKit insures that the
+
+69
+00:01:56,446 --> 0:01:57,886
+student data stored on the
+
+70
+00:01:57,886 --> 0:01:59,776
+device, sent to the Cloud, and
+
+71
+00:01:59,776 --> 0:02:01,496
+stored in the Cloud is always
+
+72
+00:01:59,776 --> 0:02:01,496
+stored in the Cloud is always
+
+73
+00:02:01,496 --> 0:02:01,936
+secure.
+
+74
+00:02:02,656 --> 0:02:04,436
+And ClassKit insures that access
+
+75
+00:02:04,436 --> 0:02:06,386
+to this data is available only
+
+76
+00:02:06,386 --> 0:02:07,316
+to users with the right
+
+77
+00:02:07,316 --> 0:02:07,966
+privileges.
+
+78
+00:02:08,096 --> 0:02:09,246
+For example, the student's
+
+79
+00:02:09,246 --> 0:02:09,696
+teacher.
+
+80
+00:02:10,656 --> 0:02:12,116
+So how does a teacher or the
+
+81
+00:02:12,116 --> 0:02:13,616
+student for that matter, see
+
+82
+00:02:13,616 --> 0:02:15,316
+their progress in a ClassKit
+
+83
+00:02:15,316 --> 0:02:16,106
+enabled app?
+
+84
+00:02:17,776 --> 0:02:19,226
+Apple provides an application
+
+85
+00:02:19,226 --> 0:02:21,076
+called Schoolwork for iOS.
+
+86
+00:02:22,156 --> 0:02:23,816
+It's a free app for the iPad.
+
+87
+00:02:24,066 --> 0:02:25,116
+It's been available since
+
+88
+00:02:25,116 --> 0:02:26,196
+ClassKit debuted.
+
+89
+00:02:26,456 --> 0:02:27,546
+You can download it today.
+
+90
+00:02:28,896 --> 0:02:30,526
+It's been used by schools not
+
+91
+00:02:30,526 --> 0:02:31,866
+only in the United States, but
+
+92
+00:02:31,866 --> 0:02:32,996
+in other countries as well.
+
+93
+00:02:33,666 --> 0:02:34,766
+Teachers use Schoolwork to
+
+94
+00:02:34,766 --> 0:02:36,096
+create assignments called
+
+95
+00:02:36,096 --> 0:02:37,976
+handouts and students receive
+
+96
+00:02:37,976 --> 0:02:39,176
+these handouts from within
+
+97
+00:02:39,176 --> 0:02:39,726
+Schoolwork.
+
+98
+00:02:41,126 --> 0:02:42,696
+When your application in
+
+99
+00:02:42,696 --> 0:02:44,436
+response to a handout activity
+
+100
+00:02:44,646 --> 0:02:46,856
+records progress, it is within
+
+101
+00:02:46,856 --> 0:02:48,506
+Schoolwork that the teacher and
+
+102
+00:02:48,506 --> 0:02:49,956
+student both can track this
+
+103
+00:02:49,956 --> 0:02:50,586
+progress.
+
+104
+00:02:51,606 --> 0:02:53,116
+Let's briefly look at Schoolwork
+
+105
+00:02:53,446 --> 0:02:54,386
+so you can understand the
+
+106
+00:02:54,386 --> 0:02:55,136
+workflow.
+
+107
+00:02:56,256 --> 0:02:57,466
+The first time you launch
+
+108
+00:02:57,466 --> 0:02:59,096
+Schoolwork as a developer, you
+
+109
+00:02:59,096 --> 0:03:00,356
+may see a screen like this.
+
+110
+00:02:59,096 --> 0:03:00,356
+may see a screen like this.
+
+111
+00:03:01,016 --> 0:03:02,666
+Schoolwork requires a managed
+
+112
+00:03:02,666 --> 0:03:03,166
+Apple ID.
+
+113
+00:03:03,166 --> 0:03:05,286
+These are the type of Apple IDs
+
+114
+00:03:05,286 --> 0:03:06,646
+that schools use in order to
+
+115
+00:03:06,646 --> 0:03:07,956
+assign them to students and
+
+116
+00:03:07,956 --> 0:03:08,456
+teachers.
+
+117
+00:03:09,036 --> 0:03:10,596
+Since most of us don't have a
+
+118
+00:03:10,596 --> 0:03:12,786
+managed Apple ID, we've provided
+
+119
+00:03:12,786 --> 0:03:14,846
+a useful switch in iOS under
+
+120
+00:03:14,846 --> 0:03:16,366
+Settings in the Developer's
+
+121
+00:03:16,366 --> 0:03:16,866
+Section.
+
+122
+00:03:19,086 --> 0:03:20,026
+You'll need the Developer
+
+123
+00:03:20,026 --> 0:03:21,226
+Install of iOS.
+
+124
+00:03:21,676 --> 0:03:23,186
+This adds additional developer
+
+125
+00:03:23,186 --> 0:03:24,696
+options in the Settings app.
+
+126
+00:03:26,376 --> 0:03:27,706
+One of the settings is labeled
+
+127
+00:03:27,706 --> 0:03:28,666
+ClassKit API.
+
+128
+00:03:30,046 --> 0:03:31,686
+Here you can emulate the role of
+
+129
+00:03:31,686 --> 0:03:32,946
+either a user with teacher
+
+130
+00:03:32,946 --> 0:03:34,796
+privileges, or a user with
+
+131
+00:03:34,796 --> 0:03:35,836
+student privileges.
+
+132
+00:03:36,426 --> 0:03:37,676
+Initially it is off.
+
+133
+00:03:39,046 --> 0:03:41,126
+But select Teacher and when you
+
+134
+00:03:41,126 --> 0:03:42,516
+launch Schoolwork, you'll have
+
+135
+00:03:42,516 --> 0:03:44,196
+the ability to create handouts
+
+136
+00:03:44,196 --> 0:03:45,416
+and assign them to a student.
+
+137
+00:03:46,166 --> 0:03:48,186
+Go back into Settings and switch
+
+138
+00:03:48,186 --> 0:03:50,256
+the ClassKit API role to Student
+
+139
+00:03:51,216 --> 0:03:52,616
+and when you return to
+
+140
+00:03:52,616 --> 0:03:54,176
+Schoolwork, you're now your
+
+141
+00:03:54,176 --> 0:03:55,846
+student persona and you can
+
+142
+00:03:55,846 --> 0:03:57,316
+complete that handout that you
+
+143
+00:03:57,316 --> 0:03:58,706
+just assigned from your teacher
+
+144
+00:03:58,706 --> 0:03:59,196
+persona.
+
+145
+00:04:00,016 --> 0:04:01,526
+If you're still with me, you can
+
+146
+00:04:01,526 --> 0:04:03,026
+then switch back to the teacher
+
+147
+00:04:03,026 --> 0:04:04,736
+role and see your student
+
+148
+00:04:04,736 --> 0:04:06,116
+persona's progress.
+
+149
+00:04:07,476 --> 0:04:09,236
+Okay, if you've never used
+
+150
+00:04:09,236 --> 0:04:10,876
+Schoolwork, here's an example of
+
+151
+00:04:10,876 --> 0:04:12,146
+what a handout looks like.
+
+152
+00:04:12,606 --> 0:04:14,376
+The handout recipients displayed
+
+153
+00:04:14,376 --> 0:04:15,586
+at the top of the card are
+
+154
+00:04:15,586 --> 0:04:16,716
+chosen by the teacher.
+
+155
+00:04:16,986 --> 0:04:18,486
+The title and instructions for
+
+156
+00:04:18,486 --> 0:04:19,666
+the handout just below the
+
+157
+00:04:19,666 --> 0:04:21,286
+recipients are created by the
+
+158
+00:04:21,286 --> 0:04:22,065
+teacher as well.
+
+159
+00:04:23,426 --> 0:04:25,506
+But the activity, the icon
+
+160
+00:04:25,506 --> 0:04:26,926
+representation of what you can
+
+161
+00:04:26,926 --> 0:04:28,886
+see here, could be an activity
+
+162
+00:04:28,886 --> 0:04:30,706
+in your ClassKit enabled app.
+
+163
+00:04:31,456 --> 0:04:33,086
+So how do we get from your code,
+
+164
+00:04:33,436 --> 0:04:35,206
+your app, to a handout?
+
+165
+00:04:36,316 --> 0:04:37,726
+By adopting ClassKit.
+
+166
+00:04:37,726 --> 0:04:40,126
+And there's an entire
+
+167
+00:04:40,126 --> 0:04:43,246
+presentation from WWDC 2018 that
+
+168
+00:04:43,246 --> 0:04:44,926
+covers ClassKit and it's full
+
+169
+00:04:44,926 --> 0:04:45,686
+feature set.
+
+170
+00:04:46,126 --> 0:04:47,596
+But for brevity, I'll give you a
+
+171
+00:04:47,596 --> 0:04:49,176
+primer on one specific and
+
+172
+00:04:49,176 --> 0:04:52,016
+important class in ClassKit, the
+
+173
+00:04:52,016 --> 0:04:53,196
+CLSContext.
+
+174
+00:04:54,096 --> 0:04:55,856
+If you're not familiar with the
+
+175
+00:04:55,856 --> 0:04:57,626
+whole of ClassKit, understanding
+
+176
+00:04:57,626 --> 0:04:59,146
+at least the CLSContext will
+
+177
+00:04:59,146 --> 0:05:00,666
+give you insight into how
+
+178
+00:04:59,146 --> 0:05:00,666
+give you insight into how
+
+179
+00:05:00,666 --> 0:05:02,116
+exactly your app can appear in
+
+180
+00:05:02,116 --> 0:05:03,656
+Schoolwork and be added to a
+
+181
+00:05:03,656 --> 0:05:04,246
+handout.
+
+182
+00:05:04,806 --> 0:05:05,866
+It is through the use of
+
+183
+00:05:05,866 --> 0:05:07,836
+CLSContexts that you're app can
+
+184
+00:05:07,836 --> 0:05:09,206
+surface the activities that it
+
+185
+00:05:09,206 --> 0:05:09,796
+supports.
+
+186
+00:05:10,436 --> 0:05:12,296
+If your app teaches coding, each
+
+187
+00:05:12,296 --> 0:05:13,556
+lesson might be an individual
+
+188
+00:05:13,556 --> 0:05:15,526
+activity and so each lesson
+
+189
+00:05:15,526 --> 0:05:16,756
+would have a corresponding
+
+190
+00:05:16,886 --> 0:05:18,006
+CLSContext.
+
+191
+00:05:18,876 --> 0:05:20,566
+And when a student is using your
+
+192
+00:05:20,566 --> 0:05:22,896
+app, those same CLSContexts
+
+193
+00:05:23,066 --> 0:05:24,456
+provide the scaffolding upon
+
+194
+00:05:24,456 --> 0:05:25,696
+which you hang the progress
+
+195
+00:05:25,696 --> 0:05:25,966
+data.
+
+196
+00:05:26,806 --> 0:05:28,356
+In the example app, I mentioned
+
+197
+00:05:28,356 --> 0:05:29,836
+we can keep track of time spent
+
+198
+00:05:29,836 --> 0:05:31,986
+within a given lesson, or if
+
+199
+00:05:31,986 --> 0:05:33,176
+there is a quiz in the app, we
+
+200
+00:05:33,176 --> 0:05:34,486
+can record the quiz score for
+
+201
+00:05:34,486 --> 0:05:36,076
+that student as progress data.
+
+202
+00:05:36,606 --> 0:05:39,476
+And as I alluded to, your
+
+203
+00:05:39,476 --> 0:05:41,196
+application can create as many
+
+204
+00:05:41,196 --> 0:05:43,216
+CLSContexts as there are
+
+205
+00:05:43,216 --> 0:05:44,636
+activities within your app.
+
+206
+00:05:44,986 --> 0:05:46,266
+As many as makes sense.
+
+207
+00:05:46,986 --> 0:05:48,516
+ClassKit has your organize them
+
+208
+00:05:48,516 --> 0:05:49,876
+in a tree structure with
+
+209
+00:05:49,986 --> 0:05:51,536
+child-parent relationships.
+
+210
+00:05:53,646 --> 0:05:54,886
+So let's take a look at what is
+
+211
+00:05:54,886 --> 0:05:56,526
+mean by your app's Context Tree.
+
+212
+00:05:57,256 --> 0:05:58,246
+It begins with the one
+
+213
+00:05:58,246 --> 0:06:00,276
+CLSContext that your app doesn't
+
+214
+00:05:58,246 --> 0:06:00,276
+CLSContext that your app doesn't
+
+215
+00:06:00,276 --> 0:06:00,736
+create.
+
+216
+00:06:01,186 --> 0:06:02,786
+This is the main app context.
+
+217
+00:06:03,386 --> 0:06:05,236
+The main app context is created
+
+218
+00:06:05,236 --> 0:06:06,606
+for you by ClassKit when you
+
+219
+00:06:06,606 --> 0:06:08,526
+request it and it is this
+
+220
+00:06:08,526 --> 0:06:11,046
+context that all CLSContext that
+
+221
+00:06:11,046 --> 0:06:12,406
+you will create will descend
+
+222
+00:06:12,406 --> 0:06:13,736
+from, will be children of.
+
+223
+00:06:14,646 --> 0:06:16,006
+It's the root node of the tree.
+
+224
+00:06:17,426 --> 0:06:18,806
+So before you do anything at all
+
+225
+00:06:18,806 --> 0:06:20,366
+with ClassKit in your app, you
+
+226
+00:06:20,366 --> 0:06:21,836
+need to request your main app
+
+227
+00:06:21,836 --> 0:06:23,336
+context from ClassKit.
+
+228
+00:06:23,916 --> 0:06:25,206
+You do this with a simple call
+
+229
+00:06:25,206 --> 0:06:27,626
+to the CLSDatastore singleton as
+
+230
+00:06:27,626 --> 0:06:28,226
+shown here.
+
+231
+00:06:28,916 --> 0:06:31,096
+But, before we go on to creating
+
+232
+00:06:31,096 --> 0:06:32,726
+contexts and adding them to our
+
+233
+00:06:32,726 --> 0:06:34,746
+main app context, we need to
+
+234
+00:06:34,746 --> 0:06:37,326
+step back and ask, what contexts
+
+235
+00:06:37,436 --> 0:06:39,536
+or activities does our app want
+
+236
+00:06:39,536 --> 0:06:40,066
+to present?
+
+237
+00:06:41,996 --> 0:06:43,246
+I'll stick with the example of
+
+238
+00:06:43,246 --> 0:06:44,536
+an app that is an introduction
+
+239
+00:06:44,536 --> 0:06:45,456
+on how to code.
+
+240
+00:06:46,026 --> 0:06:47,546
+For our example, I'll imagine
+
+241
+00:06:47,546 --> 0:06:48,526
+that there are three major
+
+242
+00:06:48,526 --> 0:06:49,546
+sections in the app.
+
+243
+00:06:50,096 --> 0:06:52,156
+An Intro section, a section on
+
+244
+00:06:52,156 --> 0:06:54,066
+Variables and Datatypes, and
+
+245
+00:06:54,066 --> 0:06:55,526
+then one on Conditionals.
+
+246
+00:06:56,096 --> 0:06:57,836
+We could consider each of these
+
+247
+00:06:57,836 --> 0:06:59,866
+an activity but ask yourself, if
+
+248
+00:06:59,866 --> 0:07:01,306
+a teacher might want to assign
+
+249
+00:06:59,866 --> 0:07:01,306
+a teacher might want to assign
+
+250
+00:07:01,306 --> 0:07:02,996
+one of these sections as part of
+
+251
+00:07:02,996 --> 0:07:03,576
+a handout.
+
+252
+00:07:04,296 --> 0:07:05,506
+These are large sections and
+
+253
+00:07:05,506 --> 0:07:06,806
+might cover a little too much
+
+254
+00:07:06,806 --> 0:07:07,756
+for a single handout.
+
+255
+00:07:07,756 --> 0:07:09,836
+It might be too large in scope.
+
+256
+00:07:11,056 --> 0:07:12,546
+But digging deeper into our app,
+
+257
+00:07:12,766 --> 0:07:14,866
+within each section our app has
+
+258
+00:07:14,896 --> 0:07:15,976
+individual lessons.
+
+259
+00:07:16,926 --> 0:07:18,586
+The lessons are smaller, more
+
+260
+00:07:18,586 --> 0:07:19,846
+bite-sized if you will.
+
+261
+00:07:20,326 --> 0:07:21,826
+It makes more sense to expose
+
+262
+00:07:21,826 --> 0:07:23,876
+these instead at the activities.
+
+263
+00:07:24,986 --> 0:07:26,216
+Since the sections were rather
+
+264
+00:07:26,216 --> 0:07:28,066
+broad, I'm going to assume no
+
+265
+00:07:28,066 --> 0:07:29,586
+teacher would assign an entire
+
+266
+00:07:29,586 --> 0:07:30,136
+section.
+
+267
+00:07:30,466 --> 0:07:31,966
+So I've removed them from
+
+268
+00:07:31,966 --> 0:07:32,806
+consideration.
+
+269
+00:07:33,256 --> 0:07:34,476
+We're left with these seven
+
+270
+00:07:34,476 --> 0:07:35,066
+lessons.
+
+271
+00:07:36,096 --> 0:07:38,126
+Oh, additionally in our app,
+
+272
+00:07:38,276 --> 0:07:39,466
+some of the lessons are followed
+
+273
+00:07:39,466 --> 0:07:40,966
+by a quiz to see how well the
+
+274
+00:07:40,966 --> 0:07:42,416
+student understood the lesson.
+
+275
+00:07:43,016 --> 0:07:44,496
+These would make nice activities
+
+276
+00:07:44,496 --> 0:07:45,836
+with which our app can provide
+
+277
+00:07:45,836 --> 0:07:47,306
+meaningful progress data to the
+
+278
+00:07:47,306 --> 0:07:49,356
+teacher like what score the
+
+279
+00:07:49,356 --> 0:07:50,656
+student gets on a quiz.
+
+280
+00:07:51,506 --> 0:07:52,566
+So where does that leave us?
+
+281
+00:07:53,186 --> 0:07:54,546
+We decide to take advantage of
+
+282
+00:07:54,546 --> 0:07:55,926
+the tree structure that ClassKit
+
+283
+00:07:55,926 --> 0:07:56,446
+allows.
+
+284
+00:07:56,786 --> 0:07:58,296
+The quizzes then can be children
+
+285
+00:07:58,296 --> 0:07:59,736
+activities of the lessons that
+
+286
+00:07:59,736 --> 0:08:00,256
+they cover.
+
+287
+00:07:59,736 --> 0:08:00,256
+they cover.
+
+288
+00:08:01,016 --> 0:08:03,416
+Okay, each item here makes sense
+
+289
+00:08:03,656 --> 0:08:05,476
+as an individual, progress
+
+290
+00:08:05,476 --> 0:08:06,826
+trackable activity.
+
+291
+00:08:07,296 --> 0:08:08,276
+They're not too broad.
+
+292
+00:08:08,676 --> 0:08:10,376
+But now let's see how an app can
+
+293
+00:08:10,376 --> 0:08:11,666
+go about representing these
+
+294
+00:08:11,666 --> 0:08:14,046
+activities as CLSContexts.
+
+295
+00:08:15,716 --> 0:08:17,716
+So I've depicted the activities
+
+296
+00:08:17,716 --> 0:08:19,556
+now in a tree like arrangement.
+
+297
+00:08:19,826 --> 0:08:21,296
+At the top of the tree is not
+
+298
+00:08:21,296 --> 0:08:22,966
+surprisingly, the main app
+
+299
+00:08:22,966 --> 0:08:24,646
+content that ClassKit provides
+
+300
+00:08:24,646 --> 0:08:25,046
+our app.
+
+301
+00:08:25,216 --> 0:08:26,916
+And descending from the main app
+
+302
+00:08:26,916 --> 0:08:28,556
+context are the first level of
+
+303
+00:08:28,556 --> 0:08:29,076
+children.
+
+304
+00:08:29,796 --> 0:08:31,146
+These are the seven lessons that
+
+305
+00:08:31,146 --> 0:08:31,876
+I described.
+
+306
+00:08:32,416 --> 0:08:33,826
+Or a lesson had a quiz, of
+
+307
+00:08:33,826 --> 0:08:35,606
+course we have a child seal as
+
+308
+00:08:35,606 --> 0:08:37,296
+context that represents that
+
+309
+00:08:37,296 --> 0:08:37,726
+quiz.
+
+310
+00:08:38,525 --> 0:08:39,996
+The labels I'm showing here for
+
+311
+00:08:39,996 --> 0:08:42,706
+each app created CLSContext is
+
+312
+00:08:42,706 --> 0:08:45,086
+the CLSContexts identifier
+
+313
+00:08:45,086 --> 0:08:45,686
+property.
+
+314
+00:08:46,016 --> 0:08:48,606
+The identifier is any string you
+
+315
+00:08:48,606 --> 0:08:50,776
+wish to assign to a CLSContext.
+
+316
+00:08:51,186 --> 0:08:52,526
+It's never seen by the teacher
+
+317
+00:08:52,526 --> 0:08:53,666
+or student so you can use
+
+318
+00:08:53,666 --> 0:08:54,916
+whatever nomenclature makes
+
+319
+00:08:54,916 --> 0:08:55,606
+sense for you.
+
+320
+00:08:55,906 --> 0:08:57,686
+For this example, I came up with
+
+321
+00:08:57,686 --> 0:08:59,346
+something fairly compact but
+
+322
+00:08:59,346 --> 0:08:59,876
+descriptive.
+
+323
+00:09:01,176 --> 0:09:03,396
+CLSContexts have a title
+
+324
+00:09:03,396 --> 0:09:04,356
+property as well.
+
+325
+00:09:04,476 --> 0:09:05,686
+And this is what the teacher and
+
+326
+00:09:05,686 --> 0:09:07,256
+student will see as I will soon
+
+327
+00:09:07,256 --> 0:09:07,816
+demonstrate.
+
+328
+00:09:08,486 --> 0:09:09,706
+I'm showing only a portion of
+
+329
+00:09:09,706 --> 0:09:11,176
+the context tree here with their
+
+330
+00:09:11,176 --> 0:09:12,576
+titles because of how much
+
+331
+00:09:12,576 --> 0:09:14,006
+visual space they would take up
+
+332
+00:09:14,006 --> 0:09:14,606
+on the slide.
+
+333
+00:09:15,816 --> 0:09:17,146
+But let's return to the
+
+334
+00:09:17,146 --> 0:09:17,946
+identifiers.
+
+335
+00:09:18,276 --> 0:09:19,586
+From the software side, we deal
+
+336
+00:09:19,586 --> 0:09:20,846
+with the identifier property
+
+337
+00:09:20,846 --> 0:09:21,606
+exclusively.
+
+338
+00:09:22,526 --> 0:09:24,486
+Once a CLSContext with a give
+
+339
+00:09:24,486 --> 0:09:25,966
+identifier is added to your
+
+340
+00:09:25,966 --> 0:09:28,396
+context tree, it will have an
+
+341
+00:09:28,396 --> 0:09:30,176
+implied identifier path.
+
+342
+00:09:31,196 --> 0:09:32,966
+ClassKit API often make
+
+343
+00:09:32,966 --> 0:09:34,906
+reference to this path so it is
+
+344
+00:09:34,906 --> 0:09:36,616
+worthwhile briefly explaining
+
+345
+00:09:36,926 --> 0:09:36,993
+it.
+
+346
+00:09:37,266 --> 0:09:38,916
+An identifier path is an array
+
+347
+00:09:38,916 --> 0:09:40,766
+of strings, an array of
+
+348
+00:09:40,766 --> 0:09:43,466
+identifiers of CLSContexts from
+
+349
+00:09:43,466 --> 0:09:45,286
+the root of your context tree to
+
+350
+00:09:45,286 --> 0:09:47,196
+the CLSContext in question.
+
+351
+00:09:47,876 --> 0:09:49,436
+I begin at any child of the main
+
+352
+00:09:49,436 --> 0:09:50,886
+app context and grab it's
+
+353
+00:09:50,886 --> 0:09:51,606
+identifier.
+
+354
+00:09:51,986 --> 0:09:53,696
+Append the identifiers of the
+
+355
+00:09:53,696 --> 0:09:55,606
+children as you descend the tree
+
+356
+00:09:55,836 --> 0:09:57,196
+until you arrive at some
+
+357
+00:09:57,346 --> 0:09:58,976
+intended CLSContext.
+
+358
+00:09:59,626 --> 0:10:01,296
+You have the identifier path now
+
+359
+00:09:59,626 --> 0:10:01,296
+You have the identifier path now
+
+360
+00:10:01,296 --> 0:10:02,876
+for that CLSContext.
+
+361
+00:10:04,136 --> 0:10:05,556
+Just to give you a single
+
+362
+00:10:05,556 --> 0:10:07,056
+example, consider the
+
+363
+00:10:07,056 --> 0:10:08,796
+highlighted CLSContext.
+
+364
+00:10:09,246 --> 0:10:11,776
+The identifier path that looks
+
+365
+00:10:11,776 --> 0:10:14,036
+like 4 underscore structs and 4
+
+366
+00:10:14,036 --> 0:10:16,126
+underscore quiz uniquely refers
+
+367
+00:10:16,126 --> 0:10:18,636
+to this one CLSContext and is
+
+368
+00:10:18,636 --> 0:10:20,466
+this quiz context's identifier
+
+369
+00:10:20,466 --> 0:10:20,816
+path.
+
+370
+00:10:21,926 --> 0:10:24,376
+Now having examined our app and
+
+371
+00:10:24,376 --> 0:10:25,666
+considered the activities we
+
+372
+00:10:25,666 --> 0:10:26,946
+want to support and their
+
+373
+00:10:26,946 --> 0:10:29,166
+hierarchy, we've arrived at this
+
+374
+00:10:29,166 --> 0:10:30,506
+tree representation of
+
+375
+00:10:30,506 --> 0:10:31,796
+CLSContexts.
+
+376
+00:10:32,426 --> 0:10:34,046
+If you want to see code examples
+
+377
+00:10:34,046 --> 0:10:36,076
+on how to create CLSContexts,
+
+378
+00:10:36,396 --> 0:10:37,866
+there are resources associated
+
+379
+00:10:37,866 --> 0:10:38,966
+with this presentation.
+
+380
+00:10:39,686 --> 0:10:40,986
+To stay within the scope of this
+
+381
+00:10:40,986 --> 0:10:42,796
+presentation, I want to go back
+
+382
+00:10:42,796 --> 0:10:44,206
+briefly to Schoolwork so we can
+
+383
+00:10:44,206 --> 0:10:45,266
+tie this discussion of
+
+384
+00:10:45,266 --> 0:10:47,326
+CLSContexts back into the
+
+385
+00:10:47,326 --> 0:10:48,666
+teacher-student workflow.
+
+386
+00:10:50,156 --> 0:10:51,526
+You'll recall that in Settings
+
+387
+00:10:51,576 --> 0:10:52,586
+you could select a teacher
+
+388
+00:10:52,586 --> 0:10:53,106
+persona.
+
+389
+00:10:53,576 --> 0:10:55,086
+If you select this and then you
+
+390
+00:10:55,086 --> 0:10:57,556
+launch Schoolwork, there is a
+
+391
+00:10:57,556 --> 0:10:59,196
+plus button in the top right
+
+392
+00:10:59,196 --> 0:11:00,716
+corner of the Dashboard that
+
+393
+00:10:59,196 --> 0:11:00,716
+corner of the Dashboard that
+
+394
+00:11:00,716 --> 0:11:02,196
+allows the teacher to create a
+
+395
+00:11:02,196 --> 0:11:02,906
+new handout.
+
+396
+00:11:03,836 --> 0:11:06,476
+Tapping on that, presents this
+
+397
+00:11:06,476 --> 0:11:06,736
+view.
+
+398
+00:11:07,296 --> 0:11:08,666
+It allows you to create a new
+
+399
+00:11:08,666 --> 0:11:09,216
+handout.
+
+400
+00:11:10,106 --> 0:11:11,876
+As I mentioned earlier, the
+
+401
+00:11:11,876 --> 0:11:13,596
+teacher determines who to assign
+
+402
+00:11:13,596 --> 0:11:15,196
+the handout to, gives the
+
+403
+00:11:15,196 --> 0:11:16,476
+handout a title, and
+
+404
+00:11:16,476 --> 0:11:17,196
+instructions.
+
+405
+00:11:17,916 --> 0:11:19,566
+But more interesting to us, is
+
+406
+00:11:19,566 --> 0:11:21,876
+the blue plus button, labeled
+
+407
+00:11:22,256 --> 0:11:23,246
+Add Activity.
+
+408
+00:11:24,056 --> 0:11:25,696
+Tapping on that brings up a list
+
+409
+00:11:25,696 --> 0:11:26,416
+of activities.
+
+410
+00:11:27,316 --> 0:11:28,316
+There are a number of different
+
+411
+00:11:28,316 --> 0:11:29,826
+options for adding various
+
+412
+00:11:29,826 --> 0:11:31,526
+document types, but we want to
+
+413
+00:11:31,526 --> 0:11:33,046
+pay attention to the top item,
+
+414
+00:11:33,606 --> 0:11:34,106
+Apps.
+
+415
+00:11:34,946 --> 0:11:36,926
+Tapping that brings up a list of
+
+416
+00:11:36,926 --> 0:11:39,056
+App activities, and there,
+
+417
+00:11:39,406 --> 0:11:40,896
+second on the list, is our
+
+418
+00:11:40,896 --> 0:11:41,696
+application.
+
+419
+00:11:42,346 --> 0:11:44,246
+That our app appears at all
+
+420
+00:11:44,356 --> 0:11:45,636
+indicates that our app has
+
+421
+00:11:45,636 --> 0:11:47,716
+created a CLSContext tree.
+
+422
+00:11:49,276 --> 0:11:51,066
+The disclosure chevron to the
+
+423
+00:11:51,066 --> 0:11:52,666
+right tells the teacher to drill
+
+424
+00:11:52,666 --> 0:11:54,086
+in for the activities for this
+
+425
+00:11:54,086 --> 0:11:54,346
+app.
+
+426
+00:11:55,346 --> 0:11:56,946
+And having tapped to drill in,
+
+427
+00:11:57,336 --> 0:11:58,456
+guess what is presented to the
+
+428
+00:11:58,456 --> 0:11:58,926
+teacher?
+
+429
+00:11:59,416 --> 0:12:01,426
+The CLSContexts that are the
+
+430
+00:11:59,416 --> 0:12:01,426
+The CLSContexts that are the
+
+431
+00:12:01,426 --> 0:12:03,346
+first descendants of our app's
+
+432
+00:12:03,346 --> 0:12:04,616
+main app context.
+
+433
+00:12:05,076 --> 0:12:06,646
+Here of course we are displaying
+
+434
+00:12:06,646 --> 0:12:08,796
+the titles for each CLSContext,
+
+435
+00:12:08,796 --> 0:12:10,026
+not the identifiers.
+
+436
+00:12:10,466 --> 0:12:11,876
+That's why their human readable.
+
+437
+00:12:12,286 --> 0:12:15,286
+Notice that the last five have a
+
+438
+00:12:15,286 --> 0:12:16,436
+disclosure chevron.
+
+439
+00:12:17,286 --> 0:12:18,576
+It should surprise you that
+
+440
+00:12:18,576 --> 0:12:20,396
+these are the CLSContexts that
+
+441
+00:12:20,396 --> 0:12:21,546
+had a quiz as well.
+
+442
+00:12:22,466 --> 0:12:25,506
+For example, if the teacher taps
+
+443
+00:12:25,506 --> 0:12:27,336
+into the third item down, "What
+
+444
+00:12:27,336 --> 0:12:30,086
+is a variable?", there's the
+
+445
+00:12:30,086 --> 0:12:30,626
+quiz.
+
+446
+00:12:31,066 --> 0:12:32,376
+But let's say that the teacher
+
+447
+00:12:32,376 --> 0:12:33,736
+is creating a handout that
+
+448
+00:12:33,736 --> 0:12:34,716
+introduces Swift.
+
+449
+00:12:34,996 --> 0:12:36,196
+The class is not yet for
+
+450
+00:12:36,196 --> 0:12:38,016
+variables so instead, the
+
+451
+00:12:38,016 --> 0:12:39,546
+teacher backs up by tapping the
+
+452
+00:12:39,546 --> 0:12:40,556
+button to return.
+
+453
+00:12:41,326 --> 0:12:42,856
+The teacher then taps the Select
+
+454
+00:12:42,856 --> 0:12:44,746
+button in the upper right and
+
+455
+00:12:44,746 --> 0:12:46,006
+selects the "What is Swift?"
+
+456
+00:12:46,006 --> 0:12:48,176
+activity. This is how you add an
+
+457
+00:12:48,176 --> 0:12:49,326
+activity to a handout.
+
+458
+00:12:50,486 --> 0:12:52,036
+So now, we're back on the
+
+459
+00:12:52,036 --> 0:12:53,276
+handout editing view.
+
+460
+00:12:53,436 --> 0:12:54,856
+And at this point, the teacher
+
+461
+00:12:54,856 --> 0:12:56,446
+can tap Post in the upper right
+
+462
+00:12:56,446 --> 0:12:58,056
+corner and the handout will then
+
+463
+00:12:58,056 --> 0:12:59,466
+be sent to the assignees.
+
+464
+00:12:59,596 --> 0:13:02,736
+And as we saw before, a handout
+
+465
+00:12:59,596 --> 0:13:02,736
+And as we saw before, a handout
+
+466
+00:13:02,736 --> 0:13:04,366
+card with the activity displayed
+
+467
+00:13:04,366 --> 0:13:05,836
+will appear in Schoolwork on
+
+468
+00:13:05,836 --> 0:13:06,816
+everyone's device.
+
+469
+00:13:07,916 --> 0:13:08,736
+There is more to learn in
+
+470
+00:13:08,736 --> 0:13:10,416
+ClassKit regarding what happens
+
+471
+00:13:10,416 --> 0:13:11,476
+when the student taps on the
+
+472
+00:13:11,476 --> 0:13:13,226
+activity and your app launches
+
+473
+00:13:13,506 --> 0:13:14,866
+and how you report progress
+
+474
+00:13:14,866 --> 0:13:16,656
+data, but that is outside of the
+
+475
+00:13:16,656 --> 0:13:17,816
+scope of this session.
+
+476
+00:13:17,816 --> 0:13:19,946
+I would refer you instead to the
+
+477
+00:13:19,946 --> 0:13:21,796
+many resources associated with
+
+478
+00:13:21,796 --> 0:13:23,536
+this session in particular, the
+
+479
+00:13:23,536 --> 0:13:26,596
+ClassKit session from WWDC 2018.
+
+480
+00:13:28,036 --> 0:13:29,636
+But with that somewhat focused
+
+481
+00:13:29,636 --> 0:13:31,606
+background on ClassKit, let's go
+
+482
+00:13:31,606 --> 0:13:32,896
+now to the new features.
+
+483
+00:13:34,206 --> 0:13:35,046
+The features I'm going to
+
+484
+00:13:35,046 --> 0:13:36,496
+describe were introduced in
+
+485
+00:13:36,496 --> 0:13:39,156
+ClassKit for iOS version 12.2,
+
+486
+00:13:39,436 --> 0:13:40,766
+so these are already available
+
+487
+00:13:40,766 --> 0:13:41,186
+today.
+
+488
+00:13:42,096 --> 0:13:43,486
+We've added a new context
+
+489
+00:13:43,486 --> 0:13:45,436
+provider extension, added a new
+
+490
+00:13:45,436 --> 0:13:46,936
+function you can call to mark an
+
+491
+00:13:46,936 --> 0:13:49,106
+activity as complete and added a
+
+492
+00:13:49,106 --> 0:13:50,346
+new progress value.
+
+493
+00:13:51,256 --> 0:13:52,606
+The first feature I'll discuss
+
+494
+00:13:52,686 --> 0:13:53,846
+is the Context Provider
+
+495
+00:13:53,846 --> 0:13:54,476
+Extension.
+
+496
+00:13:55,236 --> 0:13:55,866
+The name might be
+
+497
+00:13:55,866 --> 0:13:56,986
+self-explanatory.
+
+498
+00:13:57,276 --> 0:13:58,786
+It is a new extension you can
+
+499
+00:13:58,786 --> 0:14:00,236
+create for your app that will be
+
+500
+00:13:58,786 --> 0:14:00,236
+create for your app that will be
+
+501
+00:14:00,236 --> 0:14:01,666
+called upon to create your
+
+502
+00:14:01,666 --> 0:14:03,636
+CLSContext tree to provide
+
+503
+00:14:03,636 --> 0:14:04,386
+contexts.
+
+504
+00:14:05,506 --> 0:14:06,846
+But before I explain how it
+
+505
+00:14:06,846 --> 0:14:08,326
+works, I want to show you how
+
+506
+00:14:08,326 --> 0:14:09,666
+you would initially create this
+
+507
+00:14:09,666 --> 0:14:10,246
+extension.
+
+508
+00:14:10,356 --> 0:14:12,296
+Here is the most recent Xcode.
+
+509
+00:14:12,586 --> 0:14:13,986
+If you go to the File menu and
+
+510
+00:14:13,986 --> 0:14:15,526
+select New and then Target, for
+
+511
+00:14:15,916 --> 0:14:18,036
+the iOS application Extensions
+
+512
+00:14:18,076 --> 0:14:20,506
+Templates, there is a new
+
+513
+00:14:20,506 --> 0:14:22,716
+template for ClassKit Context
+
+514
+00:14:22,716 --> 0:14:23,226
+Provider.
+
+515
+00:14:24,106 --> 0:14:25,366
+When you add this target to your
+
+516
+00:14:25,366 --> 0:14:26,896
+app, it creates a single new
+
+517
+00:14:26,896 --> 0:14:27,766
+file for you.
+
+518
+00:14:28,446 --> 0:14:29,846
+Let me explain how the Context
+
+519
+00:14:29,846 --> 0:14:31,646
+Provider Extension works by
+
+520
+00:14:31,646 --> 0:14:33,066
+showing you boilerplate code
+
+521
+00:14:33,066 --> 0:14:33,996
+that you might implement.
+
+522
+00:14:34,306 --> 0:14:35,566
+I'll show you after how it will
+
+523
+00:14:35,566 --> 0:14:37,126
+likely be used by Schoolwork.
+
+524
+00:14:39,056 --> 0:14:40,846
+So, I said that a context
+
+525
+00:14:40,846 --> 0:14:42,496
+provider extension adds a single
+
+526
+00:14:42,496 --> 0:14:43,026
+file.
+
+527
+00:14:43,266 --> 0:14:44,586
+It's in fact just a single
+
+528
+00:14:44,586 --> 0:14:45,176
+class.
+
+529
+00:14:45,516 --> 0:14:48,196
+CLSContextProvider is the super
+
+530
+00:14:48,196 --> 0:14:50,146
+class where you must override
+
+531
+00:14:50,346 --> 0:14:51,526
+just one function,
+
+532
+00:14:52,196 --> 0:14:54,726
+updateDescendants of context
+
+533
+00:14:54,866 --> 0:14:55,546
+completion.
+
+534
+00:14:56,336 --> 0:14:57,306
+ClassKit will call your
+
+535
+00:14:57,306 --> 0:14:58,876
+extensions updateDescendants
+
+536
+00:14:58,876 --> 0:14:59,216
+call.
+
+537
+00:14:59,776 --> 0:15:01,296
+When called, your extension is
+
+538
+00:14:59,776 --> 0:15:01,296
+When called, your extension is
+
+539
+00:15:01,296 --> 0:15:02,936
+being asked to add a minimum,
+
+540
+00:15:03,146 --> 0:15:04,846
+update or provide the children's
+
+541
+00:15:04,846 --> 0:15:07,686
+CLSContexts, of the CLSContext
+
+542
+00:15:07,686 --> 0:15:08,716
+being passed in.
+
+543
+00:15:09,536 --> 0:15:10,826
+You don't return these children
+
+544
+00:15:10,826 --> 0:15:11,886
+in the function, mind you.
+
+545
+00:15:12,226 --> 0:15:13,956
+Your extension is being asked to
+
+546
+00:15:13,956 --> 0:15:15,736
+add or update just a specific
+
+547
+00:15:15,736 --> 0:15:17,456
+part of your app's context tree
+
+548
+00:15:17,636 --> 0:15:18,966
+and to save those changes.
+
+549
+00:15:20,326 --> 0:15:21,896
+And for reasons I'll explain
+
+550
+00:15:22,236 --> 0:15:23,366
+your code in this function
+
+551
+00:15:23,366 --> 0:15:24,806
+should be as performant as
+
+552
+00:15:24,806 --> 0:15:25,356
+possible.
+
+553
+00:15:27,376 --> 0:15:28,556
+I'll go back to our earlier
+
+554
+00:15:28,556 --> 0:15:30,146
+example to give you an idea of
+
+555
+00:15:30,146 --> 0:15:31,386
+how this all might work.
+
+556
+00:15:31,966 --> 0:15:33,236
+Imagine your extension being
+
+557
+00:15:33,236 --> 0:15:34,996
+called updateDescendants of
+
+558
+00:15:34,996 --> 0:15:36,756
+context completion being called.
+
+559
+00:15:37,026 --> 0:15:39,226
+And the CLSContext passed in is
+
+560
+00:15:39,226 --> 0:15:40,876
+your app's main app context.
+
+561
+00:15:41,036 --> 0:15:42,656
+How does your code know it's the
+
+562
+00:15:42,656 --> 0:15:43,706
+main app context?
+
+563
+00:15:43,836 --> 0:15:45,536
+The simplest check is to see if
+
+564
+00:15:45,536 --> 0:15:47,536
+the CLSContext passed in has a
+
+565
+00:15:47,536 --> 0:15:48,016
+parent.
+
+566
+00:15:48,356 --> 0:15:50,156
+Only the main app context is
+
+567
+00:15:50,156 --> 0:15:50,896
+parentless.
+
+568
+00:15:51,596 --> 0:15:53,676
+So, your contract is to update
+
+569
+00:15:53,676 --> 0:15:55,666
+your context tree to provide at
+
+570
+00:15:55,666 --> 0:15:57,516
+least the first tier, that is,
+
+571
+00:15:57,516 --> 0:15:58,936
+the immediate children
+
+572
+00:15:58,996 --> 0:16:00,966
+CLSContext of your main app
+
+573
+00:15:58,996 --> 0:16:00,966
+CLSContext of your main app
+
+574
+00:16:00,966 --> 0:16:01,646
+context.
+
+575
+00:16:02,406 --> 0:16:03,906
+If you recall from our example,
+
+576
+00:16:04,096 --> 0:16:05,166
+this would correspond to the
+
+577
+00:16:05,166 --> 0:16:07,966
+CLSContext what is an IDE, what
+
+578
+00:16:07,966 --> 0:16:09,806
+is Swift, what is a variable, et
+
+579
+00:16:09,806 --> 0:16:10,216
+cetera.
+
+580
+00:16:10,566 --> 0:16:12,596
+Those seven top level lessons,
+
+581
+00:16:13,056 --> 0:16:14,776
+or since we've been referring to
+
+582
+00:16:14,776 --> 0:16:16,136
+them by their identifiers,
+
+583
+00:16:16,516 --> 0:16:16,956
+these.
+
+584
+00:16:19,386 --> 0:16:20,796
+If these children are all there,
+
+585
+00:16:21,406 --> 0:16:23,146
+exist already in your context
+
+586
+00:16:23,146 --> 0:16:24,246
+tree, do not need to be
+
+587
+00:16:24,246 --> 0:16:25,996
+modified, then your code need do
+
+588
+00:16:25,996 --> 0:16:26,676
+nothing at all.
+
+589
+00:16:27,126 --> 0:16:28,016
+You can simply call the
+
+590
+00:16:28,016 --> 0:16:29,636
+completion block and pass no
+
+591
+00:16:29,636 --> 0:16:31,386
+error to indicate all is well.
+
+592
+00:16:32,216 --> 0:16:33,456
+But the extension exists to
+
+593
+00:16:33,456 --> 0:16:34,976
+allow you to create this portion
+
+594
+00:16:34,976 --> 0:16:36,466
+of your tree in the event that
+
+595
+00:16:36,466 --> 0:16:37,636
+the teacher had never yet
+
+596
+00:16:37,636 --> 0:16:39,236
+visited this portion of your
+
+597
+00:16:39,236 --> 0:16:39,556
+app.
+
+598
+00:16:39,756 --> 0:16:41,276
+Maybe they have never launched
+
+599
+00:16:41,276 --> 0:16:41,916
+your app at all.
+
+600
+00:16:42,776 --> 0:16:44,156
+I want to add though that your
+
+601
+00:16:44,156 --> 0:16:45,906
+extension is free to populate
+
+602
+00:16:45,906 --> 0:16:47,686
+more of your app's context tree.
+
+603
+00:16:48,106 --> 0:16:49,606
+In fact, could populate the
+
+604
+00:16:49,606 --> 0:16:51,396
+entire tree as long as it can be
+
+605
+00:16:51,396 --> 0:16:52,076
+done quickly.
+
+606
+00:16:52,836 --> 0:16:54,116
+You'll see why this is important
+
+607
+00:16:54,116 --> 0:16:54,616
+in a minute.
+
+608
+00:16:54,966 --> 0:16:56,636
+For this example, I'll stick to
+
+609
+00:16:56,636 --> 0:16:58,146
+the bare minimum and imagine
+
+610
+00:16:58,146 --> 0:16:59,296
+that we only create the
+
+611
+00:16:59,296 --> 0:17:00,926
+immediate descendants of the
+
+612
+00:16:59,296 --> 0:17:00,926
+immediate descendants of the
+
+613
+00:17:00,926 --> 0:17:02,596
+CLSContext passed in.
+
+614
+00:17:03,246 --> 0:17:05,226
+And so, we create those seven
+
+615
+00:17:05,226 --> 0:17:07,026
+descendants, and our context
+
+616
+00:17:07,026 --> 0:17:08,256
+tree should look like this.
+
+617
+00:17:09,816 --> 0:17:11,526
+Let me give one more example and
+
+618
+00:17:11,526 --> 0:17:12,685
+I think it will be clearer how
+
+619
+00:17:12,685 --> 0:17:13,296
+this works.
+
+620
+00:17:13,886 --> 0:17:15,526
+Consider now your extension is
+
+621
+00:17:15,526 --> 0:17:16,246
+called again.
+
+622
+00:17:16,596 --> 0:17:18,566
+But this time, the CLSContext
+
+623
+00:17:18,566 --> 0:17:20,685
+with the identifier 3 underscore
+
+624
+00:17:20,685 --> 0:17:23,266
+datatypes is the CLSContext
+
+625
+00:17:23,266 --> 0:17:24,366
+passed to the function.
+
+626
+00:17:25,106 --> 0:17:27,286
+The expectation is that your
+
+627
+00:17:27,286 --> 0:17:29,446
+code will add or update at least
+
+628
+00:17:29,446 --> 0:17:31,606
+the immediate descendants of 3
+
+629
+00:17:31,606 --> 0:17:32,886
+underscore datatypes.
+
+630
+00:17:33,746 --> 0:17:35,346
+And you may recall, this was
+
+631
+00:17:35,346 --> 0:17:36,376
+simply a quiz.
+
+632
+00:17:36,576 --> 0:17:38,156
+And so, we have added it here.
+
+633
+00:17:40,476 --> 0:17:41,686
+What is the purpose of the
+
+634
+00:17:41,686 --> 0:17:43,326
+context provider extension?
+
+635
+00:17:44,056 --> 0:17:45,406
+I essentially laid it out for
+
+636
+00:17:45,406 --> 0:17:46,766
+you, it's to give your app an
+
+637
+00:17:46,766 --> 0:17:48,196
+opportunity to create your
+
+638
+00:17:48,196 --> 0:17:50,666
+CLSContext tree to, in effect,
+
+639
+00:17:50,936 --> 0:17:52,966
+advertise your app's activities,
+
+640
+00:17:53,116 --> 0:17:54,576
+and the teacher will not have
+
+641
+00:17:54,576 --> 0:17:56,046
+needed to have even launched
+
+642
+00:17:56,046 --> 0:17:56,556
+your app.
+
+643
+00:17:57,686 --> 0:17:59,446
+Of course, the teacher will have
+
+644
+00:17:59,446 --> 0:18:01,126
+had to have downloaded your app.
+
+645
+00:17:59,446 --> 0:18:01,126
+had to have downloaded your app.
+
+646
+00:18:01,326 --> 0:18:02,976
+But the very act of downloading
+
+647
+00:18:02,976 --> 0:18:04,096
+will cause your ClassKit
+
+648
+00:18:04,096 --> 0:18:05,516
+extension to be registered with
+
+649
+00:18:05,706 --> 0:18:07,706
+iOS, such as the ClassKit, and
+
+650
+00:18:07,746 --> 0:18:09,346
+more specifically, Schoolwork
+
+651
+00:18:09,466 --> 0:18:10,486
+will be aware of those
+
+652
+00:18:10,486 --> 0:18:11,696
+activities available.
+
+653
+00:18:15,376 --> 0:18:17,146
+Some of your apps may support a
+
+654
+00:18:17,146 --> 0:18:18,876
+bevy of activities and have a
+
+655
+00:18:18,876 --> 0:18:20,876
+tree that may be broad or deep.
+
+656
+00:18:21,366 --> 0:18:22,876
+To create this entire tree when
+
+657
+00:18:22,876 --> 0:18:24,216
+your app launches might cause a
+
+658
+00:18:24,216 --> 0:18:25,166
+performance issue.
+
+659
+00:18:25,166 --> 0:18:27,456
+So, this extension is designed
+
+660
+00:18:27,456 --> 0:18:29,056
+to allow you to dole out
+
+661
+00:18:29,056 --> 0:18:31,566
+CLSContexts in smaller batches.
+
+662
+00:18:32,646 --> 0:18:34,686
+Some ClassKit apps require user
+
+663
+00:18:34,686 --> 0:18:36,206
+interaction before they can
+
+664
+00:18:36,206 --> 0:18:37,616
+begin to create their context
+
+665
+00:18:37,616 --> 0:18:37,906
+tree.
+
+666
+00:18:38,626 --> 0:18:40,376
+Unfortunately, the extension is
+
+667
+00:18:40,376 --> 0:18:41,986
+not going to be useful in those
+
+668
+00:18:41,986 --> 0:18:42,536
+cases.
+
+669
+00:18:42,726 --> 0:18:44,306
+The extension is called without
+
+670
+00:18:44,306 --> 0:18:45,386
+an option for your app to
+
+671
+00:18:45,386 --> 0:18:46,276
+display any UI.
+
+672
+00:18:47,886 --> 0:18:50,246
+Finally, I want to present to
+
+673
+00:18:50,246 --> 0:18:51,776
+you how your Context Provider
+
+674
+00:18:51,776 --> 0:18:53,326
+Extension fits in with the
+
+675
+00:18:53,326 --> 0:18:54,206
+teacher workflow.
+
+676
+00:18:54,876 --> 0:18:56,176
+Recall the example that I gave
+
+677
+00:18:56,176 --> 0:18:57,456
+earlier, where a teacher was
+
+678
+00:18:57,456 --> 0:18:58,806
+creating a handout and was
+
+679
+00:18:58,806 --> 0:18:59,676
+navigating through the
+
+680
+00:18:59,676 --> 0:19:00,866
+activities available.
+
+681
+00:18:59,676 --> 0:19:00,866
+activities available.
+
+682
+00:19:01,636 --> 0:19:02,846
+If your app has a context
+
+683
+00:19:02,846 --> 0:19:04,306
+provider extension, you can
+
+684
+00:19:04,306 --> 0:19:05,606
+expect it to be called before
+
+685
+00:19:05,606 --> 0:19:07,246
+the teacher gets to this screen
+
+686
+00:19:07,246 --> 0:19:07,996
+in Schoolwork.
+
+687
+00:19:08,536 --> 0:19:09,636
+Your extension should have been
+
+688
+00:19:09,636 --> 0:19:10,636
+called with the main app
+
+689
+00:19:10,636 --> 0:19:12,186
+context, so that your app can be
+
+690
+00:19:12,186 --> 0:19:13,646
+presented here as having
+
+691
+00:19:13,786 --> 0:19:14,926
+available activities.
+
+692
+00:19:15,636 --> 0:19:16,766
+And should the teacher begin
+
+693
+00:19:16,766 --> 0:19:18,186
+drilling down into your app's
+
+694
+00:19:18,186 --> 0:19:20,886
+activity hierarchy, you can
+
+695
+00:19:20,886 --> 0:19:22,606
+expect repeated calls to your
+
+696
+00:19:22,606 --> 0:19:24,466
+extension to provide more depth
+
+697
+00:19:24,466 --> 0:19:26,006
+to your CLSContext tree.
+
+698
+00:19:26,936 --> 0:19:28,586
+Since it is possible that your
+
+699
+00:19:28,586 --> 0:19:30,236
+tree is being created in more or
+
+700
+00:19:30,236 --> 0:19:32,166
+less real time, live as the
+
+701
+00:19:32,166 --> 0:19:34,156
+teacher is drilling in, this is
+
+702
+00:19:34,156 --> 0:19:35,686
+why it is important that your
+
+703
+00:19:35,686 --> 0:19:37,576
+extension code work quickly to
+
+704
+00:19:37,576 --> 0:19:40,176
+create and save the CLSContext
+
+705
+00:19:40,326 --> 0:19:41,146
+being asked for.
+
+706
+00:19:42,206 --> 0:19:43,896
+I think you can see now how all
+
+707
+00:19:43,896 --> 0:19:44,866
+the pieces of this work
+
+708
+00:19:44,866 --> 0:19:46,776
+together, the extension, your
+
+709
+00:19:46,776 --> 0:19:48,566
+app's tree of activities and
+
+710
+00:19:48,566 --> 0:19:49,116
+Schoolwork.
+
+711
+00:19:50,426 --> 0:19:52,106
+The next feature new to ClassKit
+
+712
+00:19:52,356 --> 0:19:53,846
+is an API that allows your app
+
+713
+00:19:53,846 --> 0:19:54,936
+to mark an activity as
+
+714
+00:19:54,936 --> 0:19:55,456
+completed.
+
+715
+00:19:55,616 --> 0:19:57,416
+That is, to make it easier for
+
+716
+00:19:57,416 --> 0:19:58,936
+the student to let the teacher
+
+717
+00:19:58,936 --> 0:20:00,446
+know that the activity that was
+
+718
+00:19:58,936 --> 0:20:00,446
+know that the activity that was
+
+719
+00:20:00,446 --> 0:20:02,786
+assigned is done.
+
+720
+00:20:03,046 --> 0:20:04,486
+To understand why this is a nice
+
+721
+00:20:04,486 --> 0:20:06,576
+new feature, let me revisit
+
+722
+00:20:06,576 --> 0:20:08,546
+Schoolwork but briefly show you
+
+723
+00:20:08,546 --> 0:20:09,446
+the student side.
+
+724
+00:20:10,116 --> 0:20:11,046
+We've seen a bit about the
+
+725
+00:20:11,046 --> 0:20:12,576
+teacher workflow for assigning
+
+726
+00:20:12,576 --> 0:20:13,186
+activities.
+
+727
+00:20:13,436 --> 0:20:14,446
+What's it like to be on the
+
+728
+00:20:14,446 --> 0:20:15,146
+receiving end?
+
+729
+00:20:15,806 --> 0:20:17,356
+This is the handout card that I
+
+730
+00:20:17,356 --> 0:20:18,046
+showed earlier.
+
+731
+00:20:18,396 --> 0:20:19,746
+It's how the student sees it in
+
+732
+00:20:19,746 --> 0:20:20,316
+Schoolwork.
+
+733
+00:20:21,166 --> 0:20:25,426
+When they tap on it, they see
+
+734
+00:20:25,426 --> 0:20:27,116
+the handout with the activities,
+
+735
+00:20:27,526 --> 0:20:28,836
+just the one activity in this
+
+736
+00:20:28,836 --> 0:20:29,166
+case.
+
+737
+00:20:29,516 --> 0:20:31,056
+Tapping on the activity takes
+
+738
+00:20:31,056 --> 0:20:31,856
+them to your app.
+
+739
+00:20:32,216 --> 0:20:33,776
+But after completing the
+
+740
+00:20:33,776 --> 0:20:35,776
+activity, the students still has
+
+741
+00:20:35,776 --> 0:20:37,846
+to come back to Schoolwork and
+
+742
+00:20:37,846 --> 0:20:39,206
+tap the complete button.
+
+743
+00:20:40,246 --> 0:20:41,816
+If your app adopts a new
+
+744
+00:20:41,816 --> 0:20:43,906
+ClassKit API, you can make this
+
+745
+00:20:43,906 --> 0:20:45,256
+last step unnecessary.
+
+746
+00:20:45,256 --> 0:20:47,536
+From within your app, you can
+
+747
+00:20:47,536 --> 0:20:49,266
+mark the activity complete by
+
+748
+00:20:49,266 --> 0:20:50,576
+calling a new API.
+
+749
+00:20:52,016 --> 0:20:54,186
+The CLSDataStore has a new
+
+750
+00:20:54,186 --> 0:20:54,976
+function called
+
+751
+00:20:55,246 --> 0:20:57,166
+completeAllAssignedActivities
+
+752
+00:20:57,406 --> 0:20:58,956
+matching contextPath.
+
+753
+00:20:59,306 --> 0:21:01,266
+The path is, of course, an
+
+754
+00:20:59,306 --> 0:21:01,266
+The path is, of course, an
+
+755
+00:21:01,326 --> 0:21:02,606
+identifier path to the
+
+756
+00:21:02,606 --> 0:21:04,926
+CLSContext or activity that the
+
+757
+00:21:04,926 --> 0:21:06,016
+student just completed.
+
+758
+00:21:06,706 --> 0:21:08,186
+If, for example, the student
+
+759
+00:21:08,186 --> 0:21:09,666
+just completed the, what is a
+
+760
+00:21:09,666 --> 0:21:11,466
+variable quiz within this app,
+
+761
+00:21:12,146 --> 0:21:13,516
+we can indicate it is complete
+
+762
+00:21:13,516 --> 0:21:14,156
+by calling
+
+763
+00:21:14,156 --> 0:21:16,036
+completeAllAssignedActivities
+
+764
+00:21:16,186 --> 0:21:18,036
+for the CLSContext with the path
+
+765
+00:21:18,306 --> 0:21:20,596
+2 underscore vars, 2 underscore
+
+766
+00:21:20,596 --> 0:21:21,086
+quiz.
+
+767
+00:21:21,806 --> 0:21:23,136
+The next time the student
+
+768
+00:21:23,136 --> 0:21:25,516
+returns to Schoolwork, it will
+
+769
+00:21:25,516 --> 0:21:27,186
+indicate the activity complete.
+
+770
+00:21:27,516 --> 0:21:28,946
+Further, the teacher who
+
+771
+00:21:28,946 --> 0:21:30,586
+assigned the handout will also
+
+772
+00:21:30,586 --> 0:21:31,936
+find the activity marked as
+
+773
+00:21:31,936 --> 0:21:33,096
+complete for that student.
+
+774
+00:21:33,886 --> 0:21:35,286
+If your app adapts this new
+
+775
+00:21:35,286 --> 0:21:36,756
+call, the student's workflow
+
+776
+00:21:36,756 --> 0:21:37,866
+will be much smoother.
+
+777
+00:21:39,406 --> 0:21:42,806
+Finally, ClassKit and iOS 12.2
+
+778
+00:21:42,886 --> 0:21:45,236
+adds a new activity item type, a
+
+779
+00:21:45,236 --> 0:21:46,776
+correct/incorrect type.
+
+780
+00:21:48,396 --> 0:21:49,736
+In my ClassKit overview, I
+
+781
+00:21:49,736 --> 0:21:51,766
+didn't describe the CLS activity
+
+782
+00:21:51,766 --> 0:21:53,796
+class, but for purposes of
+
+783
+00:21:53,796 --> 0:21:55,216
+introducing this new feature,
+
+784
+00:21:55,216 --> 0:21:56,956
+I'll just mention that each
+
+785
+00:21:56,956 --> 0:21:59,156
+CLSContext can have an activity
+
+786
+00:21:59,156 --> 0:22:01,196
+in the form of a CLS activity
+
+787
+00:21:59,156 --> 0:22:01,196
+in the form of a CLS activity
+
+788
+00:22:01,196 --> 0:22:01,856
+object.
+
+789
+00:22:02,286 --> 0:22:05,046
+And, a CLS activity can have any
+
+790
+00:22:05,046 --> 0:22:07,456
+number of CLS activity items.
+
+791
+00:22:08,846 --> 0:22:11,396
+Now, CLSActivityItem is a parent
+
+792
+00:22:11,396 --> 0:22:12,766
+class to a handful of other
+
+793
+00:22:12,766 --> 0:22:13,356
+classes.
+
+794
+00:22:13,526 --> 0:22:14,916
+And I'll call out one, in
+
+795
+00:22:14,916 --> 0:22:18,106
+particular, the CLSBinaryItem.
+
+796
+00:22:18,646 --> 0:22:22,016
+A CLSBinaryItem can only
+
+797
+00:22:22,016 --> 0:22:23,666
+represent progress in one of two
+
+798
+00:22:23,666 --> 0:22:25,326
+states, the flavors of which are
+
+799
+00:22:25,326 --> 0:22:25,856
+shown here.
+
+800
+00:22:26,646 --> 0:22:27,816
+Maybe the progress you want to
+
+801
+00:22:27,816 --> 0:22:28,946
+report is simply whether the
+
+802
+00:22:28,946 --> 0:22:30,246
+student passed or failed.
+
+803
+00:22:30,616 --> 0:22:33,156
+And CLSBinaryItem has an ENUM to
+
+804
+00:22:33,156 --> 0:22:33,996
+indicate this.
+
+805
+00:22:34,536 --> 0:22:36,196
+Additionally, you can indicate
+
+806
+00:22:36,196 --> 0:22:38,416
+true versus false or yes versus
+
+807
+00:22:38,416 --> 0:22:38,746
+no.
+
+808
+00:22:39,596 --> 0:22:41,036
+But we heard from developers
+
+809
+00:22:41,036 --> 0:22:41,976
+that felt as though we were
+
+810
+00:22:41,976 --> 0:22:43,736
+missing another binary flavor.
+
+811
+00:22:45,496 --> 0:22:46,956
+So, ClassKit has defined the
+
+812
+00:22:46,956 --> 0:22:49,006
+correct/incorrect enumeration to
+
+813
+00:22:49,006 --> 0:22:50,716
+describe this new type of binary
+
+814
+00:22:50,716 --> 0:22:51,306
+activity.
+
+815
+00:22:51,986 --> 0:22:53,376
+Consider the quiz example that I
+
+816
+00:22:53,376 --> 0:22:54,746
+mentioned for our sample app.
+
+817
+00:22:55,066 --> 0:22:56,656
+It consists of ten questions.
+
+818
+00:22:56,866 --> 0:22:58,626
+We'll probably not use a binary
+
+819
+00:22:58,626 --> 0:23:00,176
+activity type for the primary
+
+820
+00:22:58,626 --> 0:23:00,176
+activity type for the primary
+
+821
+00:23:00,176 --> 0:23:01,856
+activity item, because we want
+
+822
+00:23:01,856 --> 0:23:02,926
+to represent the score as a
+
+823
+00:23:02,926 --> 0:23:03,626
+quantity.
+
+824
+00:23:03,726 --> 0:23:05,266
+So, the teacher sees that the
+
+825
+00:23:05,266 --> 0:23:07,526
+student got 70%, for example.
+
+826
+00:23:08,916 --> 0:23:11,126
+But as a bonus, our app can add
+
+827
+00:23:11,126 --> 0:23:12,706
+additional activity items.
+
+828
+00:23:12,786 --> 0:23:14,216
+For example, one for each
+
+829
+00:23:14,216 --> 0:23:16,156
+question, and indicate correct
+
+830
+00:23:16,156 --> 0:23:17,696
+or incorrect for those so that
+
+831
+00:23:17,696 --> 0:23:18,726
+the teacher can see which
+
+832
+00:23:18,726 --> 0:23:20,076
+questions the student missed,
+
+833
+00:23:20,346 --> 0:23:21,706
+which ones they got correct.
+
+834
+00:23:22,246 --> 0:23:23,906
+I just offer that as one example
+
+835
+00:23:23,906 --> 0:23:25,376
+of how this type might be used.
+
+836
+00:23:26,756 --> 0:23:29,246
+So, finally, let's talk about
+
+837
+00:23:29,246 --> 0:23:31,416
+ClassKit coding best practices.
+
+838
+00:23:33,676 --> 0:23:35,036
+I've already described that it
+
+839
+00:23:35,116 --> 0:23:36,556
+is an error to add to your
+
+840
+00:23:36,556 --> 0:23:39,306
+context tree, a CLSContext whose
+
+841
+00:23:39,366 --> 0:23:41,296
+identifier path is not unique.
+
+842
+00:23:41,496 --> 0:23:43,546
+At first blush, this sounds sort
+
+843
+00:23:43,546 --> 0:23:44,796
+of like an error that's hard to
+
+844
+00:23:44,796 --> 0:23:45,206
+make.
+
+845
+00:23:45,576 --> 0:23:46,656
+But consider the following
+
+846
+00:23:46,656 --> 0:23:48,856
+scenario, your app launches for
+
+847
+00:23:48,856 --> 0:23:50,446
+the very first time, and you
+
+848
+00:23:50,446 --> 0:23:52,586
+dutifully create a CLSContext
+
+849
+00:23:52,586 --> 0:23:54,276
+tree in order to make available
+
+850
+00:23:54,276 --> 0:23:55,426
+your app's activities.
+
+851
+00:23:55,856 --> 0:23:57,516
+A portion of that original tree
+
+852
+00:23:57,516 --> 0:23:58,166
+is shown here.
+
+853
+00:23:59,646 --> 0:24:01,676
+On your app's second launch, you
+
+854
+00:23:59,646 --> 0:24:01,676
+On your app's second launch, you
+
+855
+00:24:01,676 --> 0:24:03,026
+should not create your
+
+856
+00:24:03,026 --> 0:24:04,946
+CLSContext tree again.
+
+857
+00:24:06,296 --> 0:24:08,366
+This would be adding CLSContext
+
+858
+00:24:08,506 --> 0:24:10,256
+that have identifier paths that
+
+859
+00:24:10,256 --> 0:24:11,826
+conflict with the existing ones.
+
+860
+00:24:12,236 --> 0:24:13,716
+You should always check that a
+
+861
+00:24:13,716 --> 0:24:15,936
+CLSContext does not exist first
+
+862
+00:24:15,936 --> 0:24:17,516
+in your tree before adding it.
+
+863
+00:24:18,936 --> 0:24:20,576
+There are a few ways to check to
+
+864
+00:24:20,576 --> 0:24:22,736
+see if a CLSContext is already
+
+865
+00:24:22,736 --> 0:24:23,556
+part of your tree.
+
+866
+00:24:23,996 --> 0:24:24,956
+One way is to call the
+
+867
+00:24:24,956 --> 0:24:27,486
+CLSDataStore function contexts
+
+868
+00:24:27,486 --> 0:24:28,906
+matchingIdentifierPath.
+
+869
+00:24:29,086 --> 0:24:30,636
+And when your completion block
+
+870
+00:24:30,636 --> 0:24:32,566
+is called, a note that the call
+
+871
+00:24:32,566 --> 0:24:34,896
+is asynchronous, an empty array
+
+872
+00:24:34,896 --> 0:24:36,606
+for the CLSContext returned
+
+873
+00:24:36,776 --> 0:24:38,196
+would indicate the context with
+
+874
+00:24:38,196 --> 0:24:40,086
+that path does not yet exist.
+
+875
+00:24:40,226 --> 0:24:41,866
+So, it would be correct to now
+
+876
+00:24:41,866 --> 0:24:43,276
+create it.
+
+877
+00:24:43,276 --> 0:24:44,906
+Or, instead there was a
+
+878
+00:24:44,906 --> 0:24:47,126
+CLSContext function descendant's
+
+879
+00:24:47,126 --> 0:24:49,146
+matchingIdentifierPath that you
+
+880
+00:24:49,146 --> 0:24:49,706
+could call.
+
+881
+00:24:50,226 --> 0:24:51,656
+It also is asynchronous.
+
+882
+00:24:51,656 --> 0:24:53,096
+And like the previous example,
+
+883
+00:24:53,396 --> 0:24:55,046
+if no context is passed to your
+
+884
+00:24:55,046 --> 0:24:56,926
+completion block, then again, it
+
+885
+00:24:56,926 --> 0:24:58,236
+is safe for your app to create
+
+886
+00:24:58,236 --> 0:25:00,036
+and add the new CLSContext.
+
+887
+00:24:58,236 --> 0:25:00,036
+and add the new CLSContext.
+
+888
+00:25:00,036 --> 0:25:01,786
+There are going to be numerous
+
+889
+00:25:01,786 --> 0:25:03,126
+places within your app where
+
+890
+00:25:03,126 --> 0:25:04,336
+you're going to have to make one
+
+891
+00:25:04,336 --> 0:25:05,176
+of these checks.
+
+892
+00:25:05,826 --> 0:25:08,096
+And if you adopt the new Context
+
+893
+00:25:08,096 --> 0:25:09,666
+Provider Extension, you're
+
+894
+00:25:09,666 --> 0:25:11,076
+adding even more vectors from
+
+895
+00:25:11,076 --> 0:25:12,106
+which you will need to test
+
+896
+00:25:12,106 --> 0:25:14,286
+whether a CLSContext has already
+
+897
+00:25:14,286 --> 0:25:15,976
+been added to your tree or not.
+
+898
+00:25:17,406 --> 0:25:18,906
+So I wanted you to be aware of
+
+899
+00:25:18,906 --> 0:25:19,886
+what might be an elegant
+
+900
+00:25:19,886 --> 0:25:21,666
+solution, which is to implement
+
+901
+00:25:21,666 --> 0:25:23,086
+the CLSDataStore Delegate
+
+902
+00:25:23,086 --> 0:25:24,746
+function, createContext
+
+903
+00:25:24,746 --> 0:25:26,976
+forIdentifier, parentContext,
+
+904
+00:25:26,976 --> 0:25:28,366
+parentIdentifierPath.
+
+905
+00:25:28,876 --> 0:25:30,316
+If you make one of the classes
+
+906
+00:25:30,316 --> 0:25:31,896
+in your app, the CLSDataStore
+
+907
+00:25:31,896 --> 0:25:33,676
+Delegate, then when you call one
+
+908
+00:25:33,676 --> 0:25:35,076
+of the previous functions like
+
+909
+00:25:35,076 --> 0:25:36,776
+CLSDataStore context
+
+910
+00:25:36,776 --> 0:25:38,866
+matchingIdentifierPath, this
+
+911
+00:25:38,866 --> 0:25:40,426
+delegate function will only be
+
+912
+00:25:40,426 --> 0:25:42,416
+called if the context has never
+
+913
+00:25:42,416 --> 0:25:44,636
+been created, implementing the
+
+914
+00:25:44,636 --> 0:25:46,296
+delegate sort of bottlenecks
+
+915
+00:25:46,296 --> 0:25:48,196
+then all context creation to
+
+916
+00:25:48,196 --> 0:25:49,636
+just one place in your app.
+
+917
+00:25:50,716 --> 0:25:52,106
+In my experience, the actual
+
+918
+00:25:52,106 --> 0:25:53,786
+implementation of creating a
+
+919
+00:25:53,786 --> 0:25:55,766
+CLSContext is pretty app
+
+920
+00:25:55,766 --> 0:25:56,356
+specific.
+
+921
+00:25:56,356 --> 0:25:57,646
+So I've left the code empty
+
+922
+00:25:57,646 --> 0:25:57,986
+here.
+
+923
+00:25:58,316 --> 0:25:59,996
+If you are adding ClassKit
+
+924
+00:25:59,996 --> 0:26:01,576
+support for the first time, the
+
+925
+00:25:59,996 --> 0:26:01,576
+support for the first time, the
+
+926
+00:26:01,576 --> 0:26:05,046
+2018 WWDC session on ClassKit or
+
+927
+00:26:05,046 --> 0:26:06,906
+the available sample code is an
+
+928
+00:26:06,906 --> 0:26:08,086
+excellent place to start.
+
+929
+00:26:09,396 --> 0:26:11,346
+Here's an example of a simple
+
+930
+00:26:11,346 --> 0:26:12,856
+helper function that might exist
+
+931
+00:26:12,856 --> 0:26:13,426
+in your app.
+
+932
+00:26:13,806 --> 0:26:14,956
+This function we'll call
+
+933
+00:26:15,066 --> 0:26:17,056
+beginActivity, can be called to
+
+934
+00:26:17,056 --> 0:26:19,296
+make a specific CLSContext the
+
+935
+00:26:19,296 --> 0:26:20,436
+active context.
+
+936
+00:26:20,946 --> 0:26:22,626
+We pass in only an identifier
+
+937
+00:26:22,626 --> 0:26:23,026
+path.
+
+938
+00:26:24,086 --> 0:26:25,026
+The function calls the
+
+939
+00:26:25,026 --> 0:26:27,126
+CLSContext query to find the
+
+940
+00:26:27,126 --> 0:26:28,256
+descendant that matches the
+
+941
+00:26:28,256 --> 0:26:29,906
+identifier path passed in.
+
+942
+00:26:30,536 --> 0:26:32,226
+Again, since we have elsewhere
+
+943
+00:26:32,226 --> 0:26:33,866
+in this application set up the
+
+944
+00:26:33,866 --> 0:26:36,226
+CLSDataStore Delegate, we can be
+
+945
+00:26:36,226 --> 0:26:37,586
+sure that if the specified
+
+946
+00:26:37,586 --> 0:26:40,156
+CLSContext was never created, it
+
+947
+00:26:40,156 --> 0:26:42,036
+will be in the delegate function
+
+948
+00:26:42,036 --> 0:26:43,886
+and therefore a CLSContext
+
+949
+00:26:44,046 --> 0:26:45,096
+should be returned from the
+
+950
+00:26:45,096 --> 0:26:45,506
+query.
+
+951
+00:26:47,026 --> 0:26:48,496
+We make the context return to
+
+952
+00:26:48,496 --> 0:26:50,456
+active, create a new activity
+
+953
+00:26:50,456 --> 0:26:52,056
+for it and start that activity.
+
+954
+00:26:52,616 --> 0:26:54,076
+These series of calls indicates
+
+955
+00:26:54,076 --> 0:26:55,696
+we want to record progress in
+
+956
+00:26:55,696 --> 0:26:57,306
+the form of time spent for a
+
+957
+00:26:57,306 --> 0:26:59,046
+specific CLSContext.
+
+958
+00:26:59,896 --> 0:27:02,326
+And finally, we call save on the
+
+959
+00:26:59,896 --> 0:27:02,326
+And finally, we call save on the
+
+960
+00:27:02,326 --> 0:27:04,336
+CLSDataStore to initiate these
+
+961
+00:27:04,336 --> 0:27:05,796
+series of calls that we've made.
+
+962
+00:27:06,696 --> 0:27:07,916
+Likely, you will create plenty
+
+963
+00:27:07,916 --> 0:27:09,326
+of other helper functions like
+
+964
+00:27:09,326 --> 0:27:10,866
+this one, but the context
+
+965
+00:27:10,866 --> 0:27:12,236
+creation code need to live in
+
+966
+00:27:12,236 --> 0:27:13,726
+only one place, in your
+
+967
+00:27:13,726 --> 0:27:15,776
+CLSDataStore Delegate function.
+
+968
+00:27:17,246 --> 0:27:18,906
+If you are new to ClassKit, I
+
+969
+00:27:18,906 --> 0:27:20,366
+hope this brief introduction has
+
+970
+00:27:20,366 --> 0:27:21,366
+given you a taste of its
+
+971
+00:27:21,366 --> 0:27:22,236
+capabilities.
+
+972
+00:27:22,426 --> 0:27:24,006
+And if you think students and
+
+973
+00:27:24,006 --> 0:27:25,476
+teachers would benefit from
+
+974
+00:27:25,476 --> 0:27:26,926
+using your app in the education
+
+975
+00:27:26,926 --> 0:27:28,046
+realm, you should give
+
+976
+00:27:28,046 --> 0:27:29,506
+consideration to adopting
+
+977
+00:27:29,506 --> 0:27:30,196
+ClassKit.
+
+978
+00:27:30,376 --> 0:27:32,376
+If you are already familiar with
+
+979
+00:27:32,376 --> 0:27:33,726
+ClassKit, I hope you take
+
+980
+00:27:33,726 --> 0:27:35,146
+advantage of the new features we
+
+981
+00:27:35,146 --> 0:27:36,616
+added for 2019.
+
+982
+00:27:36,856 --> 0:27:38,336
+All of these were the result of
+
+983
+00:27:38,336 --> 0:27:39,996
+feedback from developers like
+
+984
+00:27:39,996 --> 0:27:40,596
+yourselves.
+
+985
+00:27:41,956 --> 0:27:43,026
+Take a look at the links that
+
+986
+00:27:43,026 --> 0:27:44,556
+accompany this presentation.
+
+987
+00:27:45,276 --> 0:27:46,566
+You'll find links to sample
+
+988
+00:27:46,566 --> 0:27:48,846
+code, documentation and to other
+
+989
+00:27:48,846 --> 0:27:50,456
+presentations that take a deeper
+
+990
+00:27:50,456 --> 0:27:51,706
+dive into ClassKit.
+
+991
+00:27:52,456 --> 0:27:52,866
+Thank you.

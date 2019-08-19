@@ -1,0 +1,4779 @@
+1
+00:00:00,506 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:13,131 --> 0:00:15,131
+[Applause]
+
+3
+00:00:15,246 --> 0:00:15,906
+&gt;&gt; Good Morning.
+
+4
+00:00:16,856 --> 0:00:18,716
+Welcome to What's New in Swift.
+
+5
+00:00:19,786 --> 0:00:21,086
+Today we're going to talk about
+
+6
+00:00:21,146 --> 0:00:23,186
+two important and exciting Swift
+
+7
+00:00:23,186 --> 0:00:23,856
+releases.
+
+8
+00:00:24,276 --> 0:00:26,056
+Swift 5, which was recently
+
+9
+00:00:26,056 --> 0:00:28,876
+released in March, and Swift 5.1
+
+10
+00:00:29,036 --> 0:00:30,546
+which is available now as a
+
+11
+00:00:30,546 --> 0:00:32,906
+developer preview in Xcode 11.
+
+12
+00:00:34,196 --> 0:00:36,326
+Combined together, these two
+
+13
+00:00:36,326 --> 0:00:38,436
+releases further unleash the
+
+14
+00:00:38,436 --> 0:00:41,156
+potential of Swift as a language
+
+15
+00:00:41,216 --> 0:00:42,986
+and technology that both Apple
+
+16
+00:00:43,276 --> 0:00:45,616
+and all of you can build upon.
+
+17
+00:00:46,666 --> 0:00:49,326
+And that comes in the form of
+
+18
+00:00:49,326 --> 0:00:51,406
+really powerhouse story with
+
+19
+00:00:51,406 --> 0:00:54,666
+Swift and APIs.
+
+20
+00:00:55,756 --> 0:00:58,136
+With a shared Swift runtime for
+
+21
+00:00:58,206 --> 0:00:59,876
+third-party apps now shipped in
+
+22
+00:00:59,876 --> 0:01:02,356
+Apple's operating system, and
+
+23
+00:00:59,876 --> 0:01:02,356
+Apple's operating system, and
+
+24
+00:01:02,356 --> 0:01:03,726
+binary frameworks written in
+
+25
+00:01:03,726 --> 0:01:05,716
+Swift that can now be deployed,
+
+26
+00:01:06,326 --> 0:01:08,416
+we see the appearance of marquee
+
+27
+00:01:08,616 --> 0:01:10,476
+Swift-only frameworks from
+
+28
+00:01:10,476 --> 0:01:10,856
+Apple.
+
+29
+00:01:11,926 --> 0:01:14,136
+Further, the integrated support
+
+30
+00:01:14,486 --> 0:01:15,826
+of the Swift Package Manager
+
+31
+00:01:15,826 --> 0:01:17,296
+within Xcode brings Swift
+
+32
+00:01:17,296 --> 0:01:19,256
+packages directly into the core
+
+33
+00:01:19,256 --> 0:01:21,516
+workflows for app development.
+
+34
+00:01:22,166 --> 0:01:23,496
+And the Swift language itself
+
+35
+00:01:23,496 --> 0:01:25,066
+has grown new affordances for
+
+36
+00:01:25,066 --> 0:01:27,886
+building beautiful and rich APIs
+
+37
+00:01:28,396 --> 0:01:30,016
+and capabilities for expressing
+
+38
+00:01:30,016 --> 0:01:31,216
+API evolution.
+
+39
+00:01:31,716 --> 0:01:33,096
+It's a really, really exciting
+
+40
+00:01:33,096 --> 0:01:35,846
+time for the language and in the
+
+41
+00:01:35,846 --> 0:01:36,306
+story.
+
+42
+00:01:36,966 --> 0:01:38,716
+So let's kick things off by
+
+43
+00:01:38,716 --> 0:01:40,436
+talking more about binary
+
+44
+00:01:40,506 --> 0:01:42,296
+frameworks, in particular, dig
+
+45
+00:01:42,296 --> 0:01:43,806
+into some of the core
+
+46
+00:01:43,806 --> 0:01:45,666
+ingredients that made that
+
+47
+00:01:45,666 --> 0:01:46,176
+happen.
+
+48
+00:01:46,846 --> 0:01:48,536
+And those ingredients are ABI
+
+49
+00:01:48,536 --> 0:01:50,256
+and module stability.
+
+50
+00:01:51,516 --> 0:01:54,276
+ABI stands for Application
+
+51
+00:01:54,436 --> 0:01:56,496
+Binary Interface and it's the
+
+52
+00:01:56,496 --> 0:01:57,966
+rules that governs the nuts and
+
+53
+00:01:57,966 --> 0:01:59,906
+bolts of how compiled code can
+
+54
+00:01:59,956 --> 0:02:01,766
+interact together at runtime.
+
+55
+00:01:59,956 --> 0:02:01,766
+interact together at runtime.
+
+56
+00:02:02,576 --> 0:02:04,636
+So details like a function call.
+
+57
+00:02:04,916 --> 0:02:06,796
+How does it actually work?
+
+58
+00:02:07,416 --> 0:02:08,836
+How are the values in the
+
+59
+00:02:08,836 --> 0:02:11,586
+arguments passed off from caller
+
+60
+00:02:11,996 --> 0:02:12,636
+to callee?
+
+61
+00:02:13,086 --> 0:02:14,386
+What is the available metadata?
+
+62
+00:02:14,386 --> 0:02:15,506
+How is it laid out in memory?
+
+63
+00:02:15,626 --> 0:02:16,766
+All of these details are
+
+64
+00:02:16,766 --> 0:02:18,506
+necessary for compiled code to
+
+65
+00:02:18,506 --> 0:02:19,436
+interact together.
+
+66
+00:02:19,766 --> 0:02:21,526
+So to kind of illustrate this
+
+67
+00:02:21,526 --> 0:02:23,326
+idea, imagine you have a program
+
+68
+00:02:23,326 --> 0:02:24,116
+written in Swift.
+
+69
+00:02:24,236 --> 0:02:25,626
+It's an app, could be command
+
+70
+00:02:25,626 --> 0:02:26,926
+line tool, it doesn't really
+
+71
+00:02:26,926 --> 0:02:27,246
+matter.
+
+72
+00:02:27,246 --> 0:02:28,876
+It's just some executable.
+
+73
+00:02:29,706 --> 0:02:31,416
+And it uses a framework that is
+
+74
+00:02:31,416 --> 0:02:33,756
+also written in Swift, and all
+
+75
+00:02:33,756 --> 0:02:35,066
+of this, you know, compiled code
+
+76
+00:02:35,066 --> 0:02:36,866
+is running together within a
+
+77
+00:02:36,866 --> 0:02:37,786
+running process.
+
+78
+00:02:37,876 --> 0:02:40,926
+So the executable is using APIs
+
+79
+00:02:41,116 --> 0:02:42,146
+from the framework and they have
+
+80
+00:02:42,186 --> 0:02:43,386
+to be able to talk to each other
+
+81
+00:02:43,696 --> 0:02:44,456
+at runtime.
+
+82
+00:02:45,246 --> 0:02:46,966
+Well, in order for this to work,
+
+83
+00:02:46,966 --> 0:02:48,186
+they have to have a compatible
+
+84
+00:02:48,186 --> 0:02:49,896
+ABI, like these two, you know,
+
+85
+00:02:49,896 --> 0:02:50,926
+pieces are compiled
+
+86
+00:02:51,006 --> 0:02:52,696
+independently but that compiled
+
+87
+00:02:52,736 --> 0:02:53,856
+code needs to work together.
+
+88
+00:02:54,436 --> 0:02:56,296
+Before ABI stability, the only
+
+89
+00:02:56,296 --> 0:02:58,876
+guarantee we had is that these
+
+90
+00:02:59,066 --> 0:03:00,546
+would have a compatible ABI if
+
+91
+00:02:59,066 --> 0:03:00,546
+would have a compatible ABI if
+
+92
+00:03:00,546 --> 0:03:02,406
+they were built with the same
+
+93
+00:03:02,406 --> 0:03:02,966
+compiler.
+
+94
+00:03:03,056 --> 0:03:04,826
+And this was the case because we
+
+95
+00:03:04,826 --> 0:03:06,616
+were really evolving the core
+
+96
+00:03:06,616 --> 0:03:08,176
+fundamentals of Swift, making
+
+97
+00:03:08,176 --> 0:03:09,746
+sure all the building blocks
+
+98
+00:03:09,746 --> 0:03:10,996
+that we wanted to have in place
+
+99
+00:03:11,416 --> 0:03:13,096
+to build upon in the future were
+
+100
+00:03:13,096 --> 0:03:14,106
+in the right place.
+
+101
+00:03:14,766 --> 0:03:16,226
+Well, in Swift 5, we've
+
+102
+00:03:16,226 --> 0:03:18,286
+crystallized those details and
+
+103
+00:03:18,386 --> 0:03:20,436
+Swift now has ABI stability,
+
+104
+00:03:20,436 --> 0:03:22,286
+meaning these two components no
+
+105
+00:03:22,286 --> 0:03:23,796
+longer need to be built with the
+
+106
+00:03:23,796 --> 0:03:25,826
+same compiler as long as they're
+
+107
+00:03:25,826 --> 0:03:27,166
+built with the Swift 5 compiler
+
+108
+00:03:27,626 --> 0:03:28,106
+or later.
+
+109
+00:03:28,676 --> 0:03:31,386
+The second important ingredient
+
+110
+00:03:31,386 --> 0:03:33,346
+is module stability and this is
+
+111
+00:03:33,346 --> 0:03:35,146
+a compiled time concept.
+
+112
+00:03:35,146 --> 0:03:36,996
+So if you take a Swift framework
+
+113
+00:03:37,156 --> 0:03:38,966
+using of all the APIs in that
+
+114
+00:03:38,966 --> 0:03:40,516
+framework, those are part of a
+
+115
+00:03:40,516 --> 0:03:42,496
+shared namespace called a
+
+116
+00:03:42,496 --> 0:03:43,076
+module.
+
+117
+00:03:43,466 --> 0:03:45,396
+And when the Swift compiler is
+
+118
+00:03:45,396 --> 0:03:48,296
+used to build that framework, it
+
+119
+00:03:48,296 --> 0:03:50,786
+produces a manifest of all the
+
+120
+00:03:50,786 --> 0:03:53,716
+APIs in that framework that can
+
+121
+00:03:53,716 --> 0:03:55,756
+be then consumed by clients of
+
+122
+00:03:55,756 --> 0:03:56,326
+that framework.
+
+123
+00:03:56,636 --> 0:03:57,826
+And that manifest is called a
+
+124
+00:03:57,826 --> 0:03:58,776
+Swift module file.
+
+125
+00:03:59,196 --> 0:04:00,666
+So if we return back to this
+
+126
+00:03:59,196 --> 0:04:00,666
+So if we return back to this
+
+127
+00:04:00,666 --> 0:04:02,586
+example, imagine where-- you
+
+128
+00:04:02,586 --> 0:04:03,346
+know, we're compiling the
+
+129
+00:04:03,386 --> 0:04:04,716
+program so we have, you know, a
+
+130
+00:04:04,716 --> 0:04:06,396
+source file, it references the
+
+131
+00:04:06,466 --> 0:04:08,206
+framework, and what happens is
+
+132
+00:04:08,206 --> 0:04:09,216
+the compiler goes and reads
+
+133
+00:04:09,256 --> 0:04:10,756
+Swift module file, gets the
+
+134
+00:04:10,756 --> 0:04:11,416
+available APIs.
+
+135
+00:04:11,416 --> 0:04:14,246
+But the details in this module
+
+136
+00:04:14,246 --> 0:04:17,326
+file are really rich and in many
+
+137
+00:04:17,326 --> 0:04:18,766
+ways very tightly coupled to the
+
+138
+00:04:18,766 --> 0:04:19,826
+compiler itself.
+
+139
+00:04:19,826 --> 0:04:21,716
+So we had the same problem as
+
+140
+00:04:21,716 --> 0:04:22,746
+with ABI stability.
+
+141
+00:04:22,746 --> 0:04:24,016
+The only thing that worked is
+
+142
+00:04:24,016 --> 0:04:25,266
+that these two pieces had to
+
+143
+00:04:25,266 --> 0:04:27,446
+compile with the same compiler.
+
+144
+00:04:28,026 --> 0:04:31,236
+On Swift 5.1, we've introduced a
+
+145
+00:04:31,236 --> 0:04:33,446
+new complementary manifest.
+
+146
+00:04:33,936 --> 0:04:35,506
+It's called a Swift module
+
+147
+00:04:35,506 --> 0:04:36,396
+interface file.
+
+148
+00:04:36,996 --> 0:04:38,766
+And it can be used by frameworks
+
+149
+00:04:39,186 --> 0:04:40,906
+to provide a stable interface
+
+150
+00:04:41,356 --> 0:04:42,896
+that clients can consume.
+
+151
+00:04:43,666 --> 0:04:45,736
+It's a-- If you, you know, crack
+
+152
+00:04:45,736 --> 0:04:47,246
+it open, it looks like Swift
+
+153
+00:04:47,296 --> 0:04:47,816
+source code.
+
+154
+00:04:47,866 --> 0:04:49,196
+So it's also built on the notion
+
+155
+00:04:49,196 --> 0:04:50,836
+of source stability that we've
+
+156
+00:04:50,836 --> 0:04:52,446
+had in Swift for quite some
+
+157
+00:04:52,446 --> 0:04:52,776
+time.
+
+158
+00:04:53,086 --> 0:04:54,946
+So with these two ingredients,
+
+159
+00:04:55,186 --> 0:04:57,626
+you get Swift frameworks that
+
+160
+00:04:57,626 --> 0:04:59,776
+can be deployed and shared with
+
+161
+00:04:59,776 --> 0:05:00,296
+others.
+
+162
+00:04:59,776 --> 0:05:00,296
+others.
+
+163
+00:05:01,516 --> 0:05:06,546
+[Applause]
+
+164
+00:05:07,046 --> 0:05:08,096
+Now there's a lot of really
+
+165
+00:05:08,096 --> 0:05:09,576
+interesting details about ABI
+
+166
+00:05:09,576 --> 0:05:10,786
+stability, was something that
+
+167
+00:05:10,786 --> 0:05:12,346
+was in the works for quite some
+
+168
+00:05:12,946 --> 0:05:13,216
+time.
+
+169
+00:05:13,216 --> 0:05:14,386
+If you're interested in finding
+
+170
+00:05:14,386 --> 0:05:15,896
+out a lot more details and we're
+
+171
+00:05:15,896 --> 0:05:16,946
+going to talk about today,
+
+172
+00:05:16,946 --> 0:05:19,326
+swift.org is a great resource.
+
+173
+00:05:19,326 --> 0:05:22,236
+This is the homepage of Swift
+
+174
+00:05:22,236 --> 0:05:23,056
+open source project.
+
+175
+00:05:23,056 --> 0:05:24,136
+And there's a couple of really
+
+176
+00:05:24,136 --> 0:05:25,766
+great blog posts about ABI
+
+177
+00:05:25,816 --> 0:05:26,276
+stability.
+
+178
+00:05:27,816 --> 0:05:29,286
+Also, if you're interested in
+
+179
+00:05:29,286 --> 0:05:31,156
+putting binary frameworks to
+
+180
+00:05:31,576 --> 0:05:33,576
+use, you know, for your own use
+
+181
+00:05:33,576 --> 0:05:34,416
+like, you know, sharing with
+
+182
+00:05:34,416 --> 0:05:35,866
+others, there's a great talk
+
+183
+00:05:35,866 --> 0:05:37,176
+later this week called Binary
+
+184
+00:05:37,176 --> 0:05:38,976
+Frameworks in Swift.
+
+185
+00:05:39,276 --> 0:05:40,256
+And it talks about some of the
+
+186
+00:05:40,256 --> 0:05:41,666
+considerations you should have
+
+187
+00:05:41,996 --> 0:05:43,566
+when sharing frameworks with
+
+188
+00:05:43,566 --> 0:05:44,036
+others.
+
+189
+00:05:45,316 --> 0:05:46,476
+Now binary frameworks are just
+
+190
+00:05:46,476 --> 0:05:48,286
+one part of that API story,
+
+191
+00:05:48,286 --> 0:05:50,296
+another big piece are Swift
+
+192
+00:05:50,566 --> 0:05:51,116
+packages.
+
+193
+00:05:51,946 --> 0:05:53,336
+And with the integration of the
+
+194
+00:05:53,336 --> 0:05:55,216
+Swift Package Manager now into
+
+195
+00:05:55,626 --> 0:05:56,646
+Xcode, they're part of the core
+
+196
+00:05:56,646 --> 0:05:58,816
+workflows of building apps.
+
+197
+00:05:59,666 --> 0:06:00,826
+Two great talks this week about
+
+198
+00:05:59,666 --> 0:06:00,826
+Two great talks this week about
+
+199
+00:06:00,826 --> 0:06:02,326
+both creating and adopting
+
+200
+00:06:02,326 --> 0:06:04,206
+packages within Xcode.
+
+201
+00:06:04,296 --> 0:06:06,356
+And so the combination of binary
+
+202
+00:06:06,356 --> 0:06:07,766
+frameworks and Swift packages
+
+203
+00:06:07,766 --> 0:06:09,346
+provides a really rich set of
+
+204
+00:06:09,346 --> 0:06:12,276
+options for sharing APIs with
+
+205
+00:06:12,276 --> 0:06:12,766
+others.
+
+206
+00:06:14,556 --> 0:06:15,966
+So let's shift gears and talk
+
+207
+00:06:15,966 --> 0:06:17,386
+about performance.
+
+208
+00:06:18,066 --> 0:06:20,386
+Swift language was built to be a
+
+209
+00:06:20,386 --> 0:06:22,326
+modern, safe, but very
+
+210
+00:06:22,326 --> 0:06:24,216
+performant programming language.
+
+211
+00:06:24,856 --> 0:06:25,856
+And there are some key
+
+212
+00:06:25,856 --> 0:06:27,106
+performance benefits that came
+
+213
+00:06:27,106 --> 0:06:28,376
+out of ABI stability.
+
+214
+00:06:29,706 --> 0:06:30,976
+One of them comes down to having
+
+215
+00:06:30,976 --> 0:06:32,696
+that shared Swift runtime for
+
+216
+00:06:32,696 --> 0:06:34,676
+apps in the OS, and this came
+
+217
+00:06:34,676 --> 0:06:37,206
+out in March and so for macOS,
+
+218
+00:06:37,206 --> 0:06:38,676
+iOS, tvOS, watchOS and now
+
+219
+00:06:38,756 --> 0:06:41,086
+iPadOS, as of these releases,
+
+220
+00:06:41,406 --> 0:06:42,666
+there's a shared Swift runtime
+
+221
+00:06:42,666 --> 0:06:45,176
+in US that, well, third-party
+
+222
+00:06:45,176 --> 0:06:46,046
+apps, first-party apps,
+
+223
+00:06:46,046 --> 0:06:47,936
+everything in the system uses.
+
+224
+00:06:48,526 --> 0:06:51,546
+So what-- how does this actually
+
+225
+00:06:51,546 --> 0:06:53,296
+work, when does this come into
+
+226
+00:06:54,096 --> 0:06:54,196
+play?
+
+227
+00:06:54,406 --> 0:06:56,376
+If your app is built with Swift
+
+228
+00:06:56,376 --> 0:06:58,656
+5 or later, it will always use
+
+229
+00:06:58,716 --> 0:07:00,496
+the shared runtime in the OS
+
+230
+00:06:58,716 --> 0:07:00,496
+the shared runtime in the OS
+
+231
+00:07:00,916 --> 0:07:02,486
+when it is present.
+
+232
+00:07:03,636 --> 0:07:05,336
+However, you may still be
+
+233
+00:07:05,336 --> 0:07:06,826
+building your app to deploy back
+
+234
+00:07:06,826 --> 0:07:08,496
+to an earlier OS release that
+
+235
+00:07:08,496 --> 0:07:09,546
+doesn't have that runtime.
+
+236
+00:07:10,886 --> 0:07:12,396
+In that case, Xcode will
+
+237
+00:07:12,396 --> 0:07:13,976
+continue to bundle a copy of the
+
+238
+00:07:13,976 --> 0:07:15,986
+runtime in your app so it can
+
+239
+00:07:15,986 --> 0:07:17,466
+continue to run on those older
+
+240
+00:07:17,466 --> 0:07:18,596
+OS releases.
+
+241
+00:07:19,796 --> 0:07:22,406
+But, we will always prefer to
+
+242
+00:07:22,406 --> 0:07:24,166
+use a copy that's in the OS
+
+243
+00:07:24,166 --> 0:07:25,986
+itself, so that, you know, that
+
+244
+00:07:25,986 --> 0:07:27,956
+copy in the app will be inert
+
+245
+00:07:28,566 --> 0:07:29,806
+when running on newer system.
+
+246
+00:07:30,536 --> 0:07:33,976
+And as an optimization, the iOS
+
+247
+00:07:34,156 --> 0:07:36,556
+App Store will send out that
+
+248
+00:07:36,716 --> 0:07:37,906
+copy, the runtime from your app
+
+249
+00:07:38,356 --> 0:07:39,766
+when downloading into a device
+
+250
+00:07:39,976 --> 0:07:41,926
+that has the runtime in the OS.
+
+251
+00:07:41,926 --> 0:07:43,756
+So your users don't have to pay
+
+252
+00:07:43,756 --> 0:07:44,966
+that download cost.
+
+253
+00:07:45,606 --> 0:07:48,566
+So that's a really important
+
+254
+00:07:48,566 --> 0:07:51,286
+code size benefit, but the real
+
+255
+00:07:51,286 --> 0:07:52,796
+win about having that runtime in
+
+256
+00:07:52,796 --> 0:07:54,526
+the OS is now it can be
+
+257
+00:07:54,586 --> 0:07:56,476
+optimized as part of the
+
+258
+00:07:56,476 --> 0:07:58,126
+operating system itself.
+
+259
+00:07:58,126 --> 0:07:59,586
+And then those benefits can then
+
+260
+00:07:59,586 --> 0:08:01,136
+be imparted onto apps
+
+261
+00:07:59,586 --> 0:08:01,136
+be imparted onto apps
+
+262
+00:08:01,216 --> 0:08:01,676
+themselves.
+
+263
+00:08:03,226 --> 0:08:04,986
+And one important benefit is
+
+264
+00:08:04,986 --> 0:08:06,096
+launch time.
+
+265
+00:08:06,336 --> 0:08:08,506
+So let's rewind back in time, a
+
+266
+00:08:08,506 --> 0:08:10,926
+year ago, we talked about Swift
+
+267
+00:08:10,926 --> 0:08:11,496
+4.2.
+
+268
+00:08:12,996 --> 0:08:14,926
+And if you take an Objective C
+
+269
+00:08:14,926 --> 0:08:17,506
+app, it does nothing, it just
+
+270
+00:08:17,506 --> 0:08:19,166
+starts up, does nothing at all
+
+271
+00:08:19,716 --> 0:08:21,346
+and a Swift app that's, you
+
+272
+00:08:21,346 --> 0:08:22,526
+know, similarly has no function,
+
+273
+00:08:22,526 --> 0:08:23,386
+it just starts up.
+
+274
+00:08:23,796 --> 0:08:25,446
+There's about a 5% overhead of
+
+275
+00:08:25,446 --> 0:08:27,326
+using Swift because of the work
+
+276
+00:08:27,356 --> 0:08:29,256
+needed to, you know, handle that
+
+277
+00:08:29,256 --> 0:08:30,116
+embedded runtime.
+
+278
+00:08:30,306 --> 0:08:32,546
+But when your app is recompiled
+
+279
+00:08:32,546 --> 0:08:34,265
+with Swift 5 compiler and runs
+
+280
+00:08:34,265 --> 0:08:35,506
+on an OS with that shared
+
+281
+00:08:35,506 --> 0:08:37,466
+runtime, that overhead
+
+282
+00:08:38,035 --> 0:08:38,686
+disappears.
+
+283
+00:08:39,515 --> 0:08:43,216
+[Applause]
+
+284
+00:08:43,716 --> 0:08:44,536
+This is really, really
+
+285
+00:08:44,536 --> 0:08:45,676
+important.
+
+286
+00:08:45,676 --> 0:08:47,006
+I mean, that latency is the
+
+287
+00:08:47,006 --> 0:08:48,886
+difference between users wanting
+
+288
+00:08:48,886 --> 0:08:50,156
+to-- you know, the moment they
+
+289
+00:08:50,156 --> 0:08:51,196
+want to start using your app,
+
+290
+00:08:51,626 --> 0:08:52,996
+and them starting experiencing
+
+291
+00:08:53,796 --> 0:08:53,866
+it.
+
+292
+00:08:54,996 --> 0:08:56,856
+Another important area that
+
+293
+00:08:56,856 --> 0:08:58,476
+we've optimized is further
+
+294
+00:08:58,476 --> 0:09:01,396
+tuning the committed, you know,
+
+295
+00:08:58,476 --> 0:09:01,396
+tuning the committed, you know,
+
+296
+00:09:01,396 --> 0:09:02,686
+code from the compilers.
+
+297
+00:09:02,686 --> 0:09:03,676
+It reduces-- further reduce the
+
+298
+00:09:03,676 --> 0:09:06,026
+code size of Swift applications.
+
+299
+00:09:06,026 --> 0:09:07,776
+And this really has been like
+
+300
+00:09:07,776 --> 0:09:09,356
+fine tuning, like looking at
+
+301
+00:09:09,386 --> 0:09:11,126
+specific patterns in Swift
+
+302
+00:09:11,126 --> 0:09:13,086
+applications like chess, how our
+
+303
+00:09:13,086 --> 0:09:14,306
+dictionary literals like
+
+304
+00:09:14,306 --> 0:09:15,556
+represented, you know, when
+
+305
+00:09:15,556 --> 0:09:16,656
+their code generated and so
+
+306
+00:09:16,656 --> 0:09:18,516
+forth, and just trying to make
+
+307
+00:09:18,516 --> 0:09:19,696
+sure that, you know, the output
+
+308
+00:09:19,696 --> 0:09:22,346
+of the compiler is optimized for
+
+309
+00:09:22,346 --> 0:09:23,406
+those use cases.
+
+310
+00:09:23,786 --> 0:09:24,756
+And so with an assortment of
+
+311
+00:09:24,756 --> 0:09:26,776
+optimizations we see up to a 10%
+
+312
+00:09:26,776 --> 0:09:29,546
+reduction in code size when--
+
+313
+00:09:29,546 --> 0:09:30,956
+well, with the Swift 5.1
+
+314
+00:09:30,956 --> 0:09:31,506
+compiler.
+
+315
+00:09:31,846 --> 0:09:32,846
+And if you have optimized your
+
+316
+00:09:32,846 --> 0:09:35,936
+size, it's about a 15% reduction
+
+317
+00:09:35,936 --> 0:09:36,566
+code size.
+
+318
+00:09:36,976 --> 0:09:39,086
+So some pretty significant ones.
+
+319
+00:09:40,076 --> 0:09:42,786
+We've also continued to refine,
+
+320
+00:09:42,786 --> 0:09:44,136
+you know, the performance of
+
+321
+00:09:44,136 --> 0:09:44,536
+bridging.
+
+322
+00:09:45,156 --> 0:09:46,246
+And by bridging I'm talking
+
+323
+00:09:46,246 --> 0:09:47,856
+about the bridging between Swift
+
+324
+00:09:48,296 --> 0:09:49,046
+and Objective-C.
+
+325
+00:09:49,046 --> 0:09:49,956
+There's a really deep
+
+326
+00:09:49,956 --> 0:09:51,776
+inoperability between those two
+
+327
+00:09:51,776 --> 0:09:52,456
+languages.
+
+328
+00:09:54,556 --> 0:09:56,666
+So both Swift and Objective-C
+
+329
+00:09:56,666 --> 0:09:58,396
+have what we call common
+
+330
+00:09:58,446 --> 0:10:00,206
+currency types, that are used
+
+331
+00:09:58,446 --> 0:10:00,206
+currency types, that are used
+
+332
+00:10:00,256 --> 0:10:01,786
+throughout the API space.
+
+333
+00:10:02,326 --> 0:10:04,206
+Things like String and NSString,
+
+334
+00:10:04,556 --> 0:10:06,356
+Dictionary and NSDictionary.
+
+335
+00:10:06,356 --> 0:10:08,516
+And the inoperability between
+
+336
+00:10:08,516 --> 0:10:10,296
+those currency types is pretty
+
+337
+00:10:10,296 --> 0:10:11,136
+fundamental as part of the
+
+338
+00:10:11,136 --> 0:10:12,796
+inoperability between Swift and
+
+339
+00:10:12,796 --> 0:10:13,706
+Objective-C.
+
+340
+00:10:14,246 --> 0:10:15,646
+Objective-C APIs that use their
+
+341
+00:10:15,646 --> 0:10:16,886
+currency types are re-mapped
+
+342
+00:10:16,886 --> 0:10:18,486
+into Swift using Swift's
+
+343
+00:10:18,486 --> 0:10:19,326
+currency types.
+
+344
+00:10:19,506 --> 0:10:21,166
+Now this is a compiler-- this is
+
+345
+00:10:21,166 --> 0:10:23,006
+a combination of compiler work
+
+346
+00:10:23,566 --> 0:10:24,696
+but also there's a runtime
+
+347
+00:10:24,696 --> 0:10:26,116
+aspect when you pass a value of
+
+348
+00:10:26,116 --> 0:10:28,696
+one type off for another across
+
+349
+00:10:28,726 --> 0:10:29,956
+these API boundaries.
+
+350
+00:10:31,026 --> 0:10:32,076
+This is the part that we have
+
+351
+00:10:32,076 --> 0:10:33,626
+further attuned as part of Swift
+
+352
+00:10:33,676 --> 0:10:35,246
+being now part of the operating
+
+353
+00:10:35,246 --> 0:10:35,756
+system.
+
+354
+00:10:36,676 --> 0:10:39,106
+For example, bridging between
+
+355
+00:10:39,106 --> 0:10:40,256
+NSDictionary and Dictionary is
+
+356
+00:10:40,256 --> 0:10:42,156
+now 1.6 times faster.
+
+357
+00:10:43,186 --> 0:10:44,966
+And if you're passing a Swift
+
+358
+00:10:44,966 --> 0:10:47,416
+string off to Objective-C and it
+
+359
+00:10:47,416 --> 0:10:49,346
+bridges over as an NSString and
+
+360
+00:10:49,346 --> 0:10:50,206
+it's used, you know, from the
+
+361
+00:10:50,206 --> 0:10:52,676
+Objective-C side, its operations
+
+362
+00:10:52,706 --> 0:10:55,566
+can be up to 15 times faster.
+
+363
+00:10:56,516 --> 0:11:01,096
+[ Applause ]
+
+364
+00:10:56,516 --> 0:11:01,096
+[ Applause ]
+
+365
+00:11:01,596 --> 0:11:03,116
+And all these like little bit--
+
+366
+00:11:03,116 --> 0:11:04,666
+all these benefits really do add
+
+367
+00:11:04,666 --> 0:11:05,896
+up because these are types that
+
+368
+00:11:05,896 --> 0:11:07,286
+are used, you know, throughout
+
+369
+00:11:07,286 --> 0:11:08,436
+the API ecosystem.
+
+370
+00:11:09,076 --> 0:11:12,326
+Now speaking of strings, we
+
+371
+00:11:12,326 --> 0:11:13,986
+continue to refine their core
+
+372
+00:11:13,986 --> 0:11:15,316
+representation and we made a
+
+373
+00:11:15,316 --> 0:11:17,546
+major change to the string type
+
+374
+00:11:17,976 --> 0:11:18,826
+in Swift 5.
+
+375
+00:11:19,786 --> 0:11:20,856
+And this was an under-the-hood
+
+376
+00:11:20,856 --> 0:11:21,896
+change where we change the
+
+377
+00:11:21,896 --> 0:11:23,346
+unicode representation of
+
+378
+00:11:23,346 --> 0:11:29,326
+strings from UTF-16 to UTF-8.
+
+379
+00:11:30,206 --> 0:11:31,866
+Now this is completely
+
+380
+00:11:31,866 --> 0:11:33,416
+performance motivated.
+
+381
+00:11:34,296 --> 0:11:35,416
+There's a lot of rich detail
+
+382
+00:11:35,416 --> 0:11:36,226
+about this change.
+
+383
+00:11:36,226 --> 0:11:37,206
+If you're interested in finding
+
+384
+00:11:37,206 --> 0:11:38,506
+out a lot more than what I'm
+
+385
+00:11:38,506 --> 0:11:40,406
+about to say, swift.org, there's
+
+386
+00:11:40,406 --> 0:11:41,566
+a blog post that goes into the
+
+387
+00:11:41,566 --> 0:11:42,896
+actual technical changes and
+
+388
+00:11:42,896 --> 0:11:43,666
+what motivate it.
+
+389
+00:11:44,196 --> 0:11:44,946
+Well, I'll highlight a few
+
+390
+00:11:44,946 --> 0:11:45,766
+important things.
+
+391
+00:11:46,816 --> 0:11:49,556
+First, we created Swift as a
+
+392
+00:11:49,556 --> 0:11:50,936
+language you could reach for,
+
+393
+00:11:50,936 --> 0:11:52,996
+for C-like performance.
+
+394
+00:11:54,256 --> 0:11:55,536
+But a key aspect of that is that
+
+395
+00:11:55,536 --> 0:11:56,846
+we want Swift to have great
+
+396
+00:11:56,846 --> 0:11:58,716
+inoperability with an existing
+
+397
+00:11:58,716 --> 0:12:00,266
+ecosystem of C APIs.
+
+398
+00:11:58,716 --> 0:12:00,266
+ecosystem of C APIs.
+
+399
+00:12:00,266 --> 0:12:02,286
+And when Swift strings were
+
+400
+00:12:02,286 --> 0:12:05,016
+using the UTF-16, when you pass
+
+401
+00:12:05,016 --> 0:12:08,866
+a string off to a C API, there--
+
+402
+00:12:09,186 --> 0:12:10,936
+unbeknownst to maybe to you, you
+
+403
+00:12:10,936 --> 0:12:12,796
+had to do-- there was an
+
+404
+00:12:12,796 --> 0:12:14,556
+allocation and a copy and a
+
+405
+00:12:14,556 --> 0:12:15,776
+transcoding just to put it in a
+
+406
+00:12:15,776 --> 0:12:16,996
+compatible format that can be
+
+407
+00:12:17,046 --> 0:12:17,746
+passed up to six.
+
+408
+00:12:17,746 --> 0:12:18,916
+So this is like a lot of
+
+409
+00:12:18,916 --> 0:12:19,366
+overhead.
+
+410
+00:12:20,176 --> 0:12:22,346
+By moving to UTF-8, we can just
+
+411
+00:12:22,346 --> 0:12:23,436
+now pull a pass off a
+
+412
+00:12:23,436 --> 0:12:25,396
+null-terminated UTF-8 string to
+
+413
+00:12:25,396 --> 0:12:26,036
+C APIs.
+
+414
+00:12:26,396 --> 0:12:28,896
+No allocations, no copies, zero
+
+415
+00:12:28,896 --> 0:12:29,276
+overhead.
+
+416
+00:12:30,886 --> 0:12:32,666
+We've also been able to expand
+
+417
+00:12:32,666 --> 0:12:33,736
+out the optimizations of the
+
+418
+00:12:33,736 --> 0:12:34,816
+string type itself.
+
+419
+00:12:35,576 --> 0:12:37,396
+So string has a small string
+
+420
+00:12:37,396 --> 0:12:39,376
+optimization where if the number
+
+421
+00:12:39,376 --> 0:12:40,436
+of characters in the string are
+
+422
+00:12:40,436 --> 0:12:41,796
+about like 15 characters or
+
+423
+00:12:41,796 --> 0:12:43,646
+less, we don't need a separate
+
+424
+00:12:43,646 --> 0:12:44,746
+allocation to care-- you know,
+
+425
+00:12:44,746 --> 0:12:45,816
+to have that, that payload of
+
+426
+00:12:45,816 --> 0:12:47,016
+characters, we can just pack it
+
+427
+00:12:47,016 --> 0:12:48,156
+right into the string value
+
+428
+00:12:48,156 --> 0:12:48,546
+itself.
+
+429
+00:12:48,706 --> 0:12:49,726
+So this is a real win.
+
+430
+00:12:49,836 --> 0:12:51,566
+With Swift 5, we'd be able to
+
+431
+00:12:51,566 --> 0:12:53,026
+expand this optimization out to
+
+432
+00:12:53,026 --> 0:12:54,216
+include, you know, essentially
+
+433
+00:12:54,216 --> 0:12:55,716
+all unicode characters not just,
+
+434
+00:12:55,716 --> 0:12:57,806
+you know, ASCII, which means it
+
+435
+00:12:57,806 --> 0:12:59,776
+now applies to languages with
+
+436
+00:12:59,776 --> 0:13:00,946
+non-Roman characters.
+
+437
+00:12:59,776 --> 0:13:00,946
+non-Roman characters.
+
+438
+00:13:01,506 --> 0:13:03,596
+And we've done this while
+
+439
+00:13:03,596 --> 0:13:06,236
+maintaining great inoperability
+
+440
+00:13:06,456 --> 0:13:08,036
+between NSStrings and String at
+
+441
+00:13:08,036 --> 0:13:08,876
+a performance level.
+
+442
+00:13:10,216 --> 0:13:11,456
+But the really exciting to hear
+
+443
+00:13:11,456 --> 0:13:13,446
+is this is really all about
+
+444
+00:13:13,446 --> 0:13:13,906
+performance.
+
+445
+00:13:13,906 --> 0:13:14,966
+I've said it several times.
+
+446
+00:13:16,056 --> 0:13:17,486
+A great example that benchmarks
+
+447
+00:13:17,556 --> 0:13:18,916
+this is SwiftNIO.
+
+448
+00:13:18,916 --> 0:13:20,266
+For those of you who are not
+
+449
+00:13:20,266 --> 0:13:21,756
+familiar with it, SwiftNIO comes
+
+450
+00:13:21,756 --> 0:13:23,086
+from the Swift on server world
+
+451
+00:13:23,566 --> 0:13:25,556
+and it is a cross-platform
+
+452
+00:13:25,556 --> 0:13:26,786
+framework for building network
+
+453
+00:13:26,836 --> 0:13:27,976
+protocols and services.
+
+454
+00:13:28,246 --> 0:13:29,966
+And it's really been tuned for
+
+455
+00:13:29,966 --> 0:13:30,486
+speed.
+
+456
+00:13:31,676 --> 0:13:35,156
+And by switching to UTF-8, we
+
+457
+00:13:35,226 --> 0:13:37,776
+see a 20% increase in the
+
+458
+00:13:37,776 --> 0:13:39,646
+throughput of a web server built
+
+459
+00:13:39,646 --> 0:13:40,266
+on SwiftNIO.
+
+460
+00:13:40,266 --> 0:13:41,236
+So this is just like, you know,
+
+461
+00:13:41,666 --> 0:13:43,446
+just a benchmark of textual text
+
+462
+00:13:43,446 --> 0:13:44,136
+processing.
+
+463
+00:13:44,736 --> 0:13:46,726
+And this really resonates with
+
+464
+00:13:46,726 --> 0:13:47,926
+we want string to be a type that
+
+465
+00:13:47,926 --> 0:13:51,406
+you can use for high performance
+
+466
+00:13:51,566 --> 0:13:54,216
+intensive string operations but
+
+467
+00:13:54,216 --> 0:13:56,326
+also just it's user friendly and
+
+468
+00:13:56,386 --> 0:13:59,906
+easy to use.
+
+469
+00:14:00,366 --> 0:14:01,576
+And before I hand the stage off
+
+470
+00:14:01,696 --> 0:14:03,266
+to Anna, who will talk about
+
+471
+00:14:03,266 --> 0:14:04,636
+mainly the language changes in
+
+472
+00:14:04,636 --> 0:14:06,536
+Swift 5 and Swift 5.1, I want to
+
+473
+00:14:06,536 --> 0:14:07,636
+talk about some of the core tool
+
+474
+00:14:07,636 --> 0:14:09,556
+and improvements and part of
+
+475
+00:14:09,556 --> 0:14:11,946
+those being a key aspect of the
+
+476
+00:14:11,946 --> 0:14:12,846
+open source project.
+
+477
+00:14:14,416 --> 0:14:16,766
+Now Swift being open source is
+
+478
+00:14:16,766 --> 0:14:18,936
+more than just the day to day,
+
+479
+00:14:18,936 --> 0:14:20,096
+you know, engineering work on a
+
+480
+00:14:20,096 --> 0:14:20,556
+project.
+
+481
+00:14:20,886 --> 0:14:22,216
+It's about Swift being part of a
+
+482
+00:14:22,216 --> 0:14:23,926
+much broader and diverse
+
+483
+00:14:23,986 --> 0:14:25,886
+ecosystem of software.
+
+484
+00:14:26,536 --> 0:14:28,816
+So for example, the Swift
+
+485
+00:14:28,816 --> 0:14:30,566
+community came together and
+
+486
+00:14:30,566 --> 0:14:32,746
+created official Docker images
+
+487
+00:14:32,926 --> 0:14:34,346
+for Swift that are hosted on
+
+488
+00:14:34,496 --> 0:14:35,786
+Docker Hub.
+
+489
+00:14:36,446 --> 0:14:37,546
+And if you have Docker installed
+
+490
+00:14:37,546 --> 0:14:38,636
+on your Mac, which is a few
+
+491
+00:14:38,636 --> 0:14:40,606
+keystrokes, you can have-- you
+
+492
+00:14:40,606 --> 0:14:42,016
+can pull down a Docker, this
+
+493
+00:14:42,016 --> 0:14:43,406
+Docker image and have, you know,
+
+494
+00:14:43,406 --> 0:14:45,066
+working Docker Linux container
+
+495
+00:14:45,466 --> 0:14:46,896
+on your Mac that includes a
+
+496
+00:14:46,896 --> 0:14:48,866
+compiler and the package
+
+497
+00:14:48,866 --> 0:14:50,356
+manager, everything you need to
+
+498
+00:14:50,356 --> 0:14:50,866
+get going.
+
+499
+00:14:51,366 --> 0:14:52,566
+And this was done because
+
+500
+00:14:52,626 --> 0:14:53,986
+containers are viewed as an
+
+501
+00:14:53,986 --> 0:14:56,306
+intrinsic part of building
+
+502
+00:14:56,406 --> 0:14:58,396
+services today.
+
+503
+00:14:59,736 --> 0:15:01,816
+Another important technology
+
+504
+00:14:59,736 --> 0:15:01,816
+Another important technology
+
+505
+00:15:01,816 --> 0:15:03,006
+that is open source is
+
+506
+00:15:03,006 --> 0:15:03,516
+SourceKit.
+
+507
+00:15:03,936 --> 0:15:05,536
+And it's a semantic code engine
+
+508
+00:15:05,656 --> 0:15:07,286
+behind Xcode's features like
+
+509
+00:15:07,426 --> 0:15:08,426
+code completion,
+
+510
+00:15:08,426 --> 0:15:10,496
+jump-to-definition, refactoring,
+
+511
+00:15:10,936 --> 0:15:11,376
+and more.
+
+512
+00:15:12,116 --> 0:15:13,066
+And it's something that we
+
+513
+00:15:13,066 --> 0:15:14,406
+continue to refine.
+
+514
+00:15:14,406 --> 0:15:15,546
+We want to make the results of
+
+515
+00:15:15,546 --> 0:15:17,276
+code completion, so forth, much
+
+516
+00:15:17,276 --> 0:15:17,826
+better.
+
+517
+00:15:19,186 --> 0:15:20,496
+So something we continually to,
+
+518
+00:15:20,496 --> 0:15:21,406
+you know, iterate upon.
+
+519
+00:15:22,266 --> 0:15:23,886
+But also we want to make it
+
+520
+00:15:23,886 --> 0:15:25,466
+reliable and robust.
+
+521
+00:15:27,296 --> 0:15:28,556
+One of the efforts that we did,
+
+522
+00:15:28,556 --> 0:15:29,546
+part of the open source project
+
+523
+00:15:29,546 --> 0:15:31,006
+this year was build a new stress
+
+524
+00:15:31,006 --> 0:15:32,526
+tester tool for SourceKit.
+
+525
+00:15:33,676 --> 0:15:35,946
+What it does is it just pummels
+
+526
+00:15:36,126 --> 0:15:37,696
+SourceKit with all the queries
+
+527
+00:15:37,696 --> 0:15:40,086
+the IDE could issue to flush out
+
+528
+00:15:40,136 --> 0:15:42,296
+issues with SourceKit.
+
+529
+00:15:42,856 --> 0:15:43,816
+So things like crashes,
+
+530
+00:15:43,816 --> 0:15:44,756
+assertions, it creates
+
+531
+00:15:44,796 --> 0:15:46,476
+reproducible test cases for us.
+
+532
+00:15:46,896 --> 0:15:48,836
+And there's something very Meta
+
+533
+00:15:48,836 --> 0:15:49,106
+here.
+
+534
+00:15:50,466 --> 0:15:52,086
+We believe in building the first
+
+535
+00:15:52,086 --> 0:15:55,096
+in class tools with Swift for
+
+536
+00:15:55,096 --> 0:15:56,996
+all of you and investing in
+
+537
+00:15:56,996 --> 0:15:58,396
+tools as part of our own
+
+538
+00:15:58,396 --> 0:15:59,386
+workflows is like, you know,
+
+539
+00:15:59,386 --> 0:16:01,146
+we're eating our own philosophy
+
+540
+00:15:59,386 --> 0:16:01,146
+we're eating our own philosophy
+
+541
+00:16:01,786 --> 0:16:04,386
+and efforts like this are now a
+
+542
+00:16:04,486 --> 0:16:06,686
+core part of, you know, our day
+
+543
+00:16:06,686 --> 0:16:07,996
+to day engineering with the
+
+544
+00:16:08,546 --> 0:16:08,766
+project.
+
+545
+00:16:10,906 --> 0:16:12,986
+And I like to talk about a
+
+546
+00:16:12,986 --> 0:16:14,626
+future looking investment with
+
+547
+00:16:14,626 --> 0:16:16,046
+SourceKit, and that's in
+
+548
+00:16:16,046 --> 0:16:17,246
+adopting the language server
+
+549
+00:16:17,246 --> 0:16:17,676
+protocol.
+
+550
+00:16:18,386 --> 0:16:20,446
+So take this example slide
+
+551
+00:16:20,446 --> 0:16:20,896
+before.
+
+552
+00:16:21,576 --> 0:16:23,546
+You could take Xcode and really
+
+553
+00:16:23,546 --> 0:16:24,896
+generalize this picture, be
+
+554
+00:16:24,896 --> 0:16:27,146
+about really any kind of editor
+
+555
+00:16:27,146 --> 0:16:27,636
+or tool.
+
+556
+00:16:27,636 --> 0:16:29,086
+I mean SourceKit is open source.
+
+557
+00:16:29,406 --> 0:16:30,776
+It's designed to be used as a
+
+558
+00:16:30,776 --> 0:16:32,606
+reusable component for building
+
+559
+00:16:32,606 --> 0:16:33,116
+tools.
+
+560
+00:16:34,196 --> 0:16:37,386
+So this could work, right, but
+
+561
+00:16:37,386 --> 0:16:39,636
+this is really kind of an old
+
+562
+00:16:39,636 --> 0:16:40,016
+model.
+
+563
+00:16:40,236 --> 0:16:41,646
+You imagine that there's a wide
+
+564
+00:16:41,646 --> 0:16:43,996
+range of tools and editors and
+
+565
+00:16:43,996 --> 0:16:45,806
+IDs out there and they want to
+
+566
+00:16:45,806 --> 0:16:47,046
+wire up to a variety of
+
+567
+00:16:47,046 --> 0:16:48,056
+different, you know, language
+
+568
+00:16:48,056 --> 0:16:48,816
+services.
+
+569
+00:16:49,246 --> 0:16:50,316
+And so while they could directly
+
+570
+00:16:50,316 --> 0:16:51,526
+wire up logic to talk to
+
+571
+00:16:51,526 --> 0:16:53,466
+SourceKit, this is all very ad
+
+572
+00:16:53,466 --> 0:16:53,836
+hoc.
+
+573
+00:16:53,836 --> 0:16:54,926
+You have to have each editor
+
+574
+00:16:54,926 --> 0:16:57,096
+wire up its own support and they
+
+575
+00:16:57,096 --> 0:16:58,136
+have to understand the SourceKit
+
+576
+00:16:58,136 --> 0:16:58,926
+and then they have to understand
+
+577
+00:16:58,926 --> 0:17:00,056
+all the other services they want
+
+578
+00:16:58,926 --> 0:17:00,056
+all the other services they want
+
+579
+00:17:00,056 --> 0:17:00,526
+to connect to.
+
+580
+00:17:00,526 --> 0:17:02,446
+So this isn't a very scalable
+
+581
+00:17:02,446 --> 0:17:02,776
+model.
+
+582
+00:17:03,296 --> 0:17:04,576
+But like most problems in
+
+583
+00:17:04,576 --> 0:17:05,626
+computer science, you can solve
+
+584
+00:17:05,626 --> 0:17:06,486
+everything with a layer of
+
+585
+00:17:06,486 --> 0:17:08,546
+indirection, (except
+
+586
+00:17:08,546 --> 0:17:11,776
+performance), and an industry
+
+587
+00:17:11,776 --> 0:17:12,886
+standard solution called the
+
+588
+00:17:12,886 --> 0:17:14,465
+Language Service Protocol has
+
+589
+00:17:14,465 --> 0:17:15,596
+emerged or LSP.
+
+590
+00:17:15,596 --> 0:17:18,056
+And the idea is, is that if the
+
+591
+00:17:18,056 --> 0:17:20,205
+editors speak LSP, which is a
+
+592
+00:17:20,205 --> 0:17:22,056
+standard set of queries and the
+
+593
+00:17:22,056 --> 0:17:23,846
+services, you know, can speak it
+
+594
+00:17:23,846 --> 0:17:25,286
+back, you can just mash, make
+
+595
+00:17:25,286 --> 0:17:26,056
+them up together.
+
+596
+00:17:27,576 --> 0:17:28,976
+This is an active effort that's
+
+597
+00:17:28,976 --> 0:17:31,136
+underway, also an open source,
+
+598
+00:17:31,376 --> 0:17:32,236
+you can check it out.
+
+599
+00:17:32,846 --> 0:17:34,446
+But to give you a taste of
+
+600
+00:17:34,446 --> 0:17:36,806
+what's there, this animation
+
+601
+00:17:36,806 --> 0:17:39,146
+shows code completion support
+
+602
+00:17:39,146 --> 0:17:41,596
+working in them using SourceKit
+
+603
+00:17:41,596 --> 0:17:44,296
+LSP and there's also support for
+
+604
+00:17:44,296 --> 0:17:45,536
+various other editors.
+
+605
+00:17:45,536 --> 0:17:47,256
+You can find instructions on the
+
+606
+00:17:47,256 --> 0:17:48,006
+GitHub page.
+
+607
+00:17:49,516 --> 0:17:54,616
+[ Applause ]
+
+608
+00:17:55,116 --> 0:17:56,476
+It's investments like this that
+
+609
+00:17:56,476 --> 0:17:57,906
+are really exciting for us,
+
+610
+00:17:57,906 --> 0:17:59,416
+because Swift is really-- it's a
+
+611
+00:17:59,416 --> 0:18:00,976
+language that we built for
+
+612
+00:17:59,416 --> 0:18:00,976
+language that we built for
+
+613
+00:18:00,976 --> 0:18:02,936
+general, you know, computing,
+
+614
+00:18:03,076 --> 0:18:03,326
+right?
+
+615
+00:18:03,326 --> 0:18:05,166
+It has an immense amount of
+
+616
+00:18:05,216 --> 0:18:07,616
+potential and this is really
+
+617
+00:18:07,616 --> 0:18:10,036
+about making Swift really thrive
+
+618
+00:18:10,036 --> 0:18:11,636
+in a diverse software ecosystem.
+
+619
+00:18:12,126 --> 0:18:13,766
+With that I'd like to hand the
+
+620
+00:18:13,766 --> 0:18:15,146
+stage off to my colleague Anna
+
+621
+00:18:15,146 --> 0:18:16,496
+Zaks [phonetic], who will talk
+
+622
+00:18:16,496 --> 0:18:18,146
+about the language changes in
+
+623
+00:18:18,146 --> 0:18:18,516
+Swift.
+
+624
+00:18:19,516 --> 0:18:24,056
+[ Applause ]
+
+625
+00:18:24,556 --> 0:18:25,146
+&gt;&gt; Thank you, Ted.
+
+626
+00:18:25,756 --> 0:18:26,526
+Ted talked about the
+
+627
+00:18:26,526 --> 0:18:27,996
+improvements to the project and
+
+628
+00:18:27,996 --> 0:18:28,586
+the compiler.
+
+629
+00:18:28,956 --> 0:18:30,366
+Now let me tell you about
+
+630
+00:18:30,526 --> 0:18:32,136
+improvements we've made to the
+
+631
+00:18:32,136 --> 0:18:33,516
+Swift language and the standard
+
+632
+00:18:33,516 --> 0:18:35,176
+library in Swift 5 and Swift
+
+633
+00:18:35,176 --> 0:18:36,006
+5.1.
+
+634
+00:18:37,126 --> 0:18:38,836
+Many of these features continued
+
+635
+00:18:38,836 --> 0:18:40,416
+refining the core parts of the
+
+636
+00:18:40,416 --> 0:18:41,576
+language and the library.
+
+637
+00:18:42,256 --> 0:18:43,956
+Also, aligned with Apple
+
+638
+00:18:43,956 --> 0:18:45,556
+shipping several major Swift
+
+639
+00:18:45,556 --> 0:18:47,086
+frameworks this year, we've
+
+640
+00:18:47,086 --> 0:18:48,626
+added features that support
+
+641
+00:18:48,626 --> 0:18:50,386
+creation of better Swift APIs.
+
+642
+00:18:51,356 --> 0:18:52,876
+As many of you know, Swift
+
+643
+00:18:52,876 --> 0:18:54,556
+language goes through open
+
+644
+00:18:54,556 --> 0:18:55,516
+evolution process.
+
+645
+00:18:56,006 --> 0:18:57,676
+And these SE numbers you see on
+
+646
+00:18:57,676 --> 0:18:59,716
+the slide correspond to the
+
+647
+00:18:59,716 --> 0:19:01,006
+feature documents that you can
+
+648
+00:18:59,716 --> 0:19:01,006
+feature documents that you can
+
+649
+00:19:01,006 --> 0:19:02,396
+find on the Swift evolution
+
+650
+00:19:02,396 --> 0:19:02,916
+website.
+
+651
+00:19:03,926 --> 0:19:05,146
+It's a great resource if you
+
+652
+00:19:05,146 --> 0:19:06,346
+want to learn more about these
+
+653
+00:19:06,346 --> 0:19:06,786
+features.
+
+654
+00:19:07,306 --> 0:19:08,486
+But now, let me give you a
+
+655
+00:19:08,486 --> 0:19:11,096
+glimpse into some of them.
+
+656
+00:19:11,256 --> 0:19:12,726
+We'll start with a few examples
+
+657
+00:19:12,726 --> 0:19:14,376
+that I just fill in the missing
+
+658
+00:19:14,376 --> 0:19:14,726
+blocks.
+
+659
+00:19:15,296 --> 0:19:18,046
+Many of you love the simplicity
+
+660
+00:19:18,046 --> 0:19:19,546
+of single expression closure
+
+661
+00:19:19,546 --> 0:19:20,026
+syntax.
+
+662
+00:19:20,606 --> 0:19:22,036
+So they need to write a return
+
+663
+00:19:22,216 --> 0:19:24,226
+in single expression, functions,
+
+664
+00:19:24,226 --> 0:19:27,066
+methods, and subscripts might
+
+665
+00:19:27,156 --> 0:19:28,896
+feel like unnecessary burden.
+
+666
+00:19:29,216 --> 0:19:31,456
+Well now, you can use the simple
+
+667
+00:19:31,456 --> 0:19:32,676
+syntax everywhere.
+
+668
+00:19:33,516 --> 0:19:38,476
+[ Applause ]
+
+669
+00:19:38,976 --> 0:19:40,466
+Another [inaudible] was fixed by
+
+670
+00:19:40,466 --> 0:19:41,876
+an open source contributor,
+
+671
+00:19:42,156 --> 0:19:43,416
+Alejandro Alonso.
+
+672
+00:19:43,766 --> 0:19:45,716
+And what's amazing, he is just
+
+673
+00:19:45,716 --> 0:19:46,856
+finishing high school.
+
+674
+00:19:47,766 --> 0:19:49,146
+Consider this struct that
+
+675
+00:19:49,146 --> 0:19:50,806
+conveniently defines default
+
+676
+00:19:50,806 --> 0:19:51,906
+values for both of its
+
+677
+00:19:51,906 --> 0:19:52,436
+properties.
+
+678
+00:19:53,396 --> 0:19:54,896
+Previously, you could call an
+
+679
+00:19:54,896 --> 0:19:56,546
+initializer and pass it no
+
+680
+00:19:56,546 --> 0:19:57,146
+arguments.
+
+681
+00:19:57,806 --> 0:19:58,776
+You could also call an
+
+682
+00:19:58,776 --> 0:20:00,216
+initializer and pass it all
+
+683
+00:19:58,776 --> 0:20:00,216
+initializer and pass it all
+
+684
+00:20:00,216 --> 0:20:02,326
+arguments, but you could not
+
+685
+00:20:02,356 --> 0:20:04,196
+call an initializer and pass it
+
+686
+00:20:04,196 --> 0:20:05,406
+only some of the arguments.
+
+687
+00:20:06,266 --> 0:20:08,236
+As of Swift 5, this problem is
+
+688
+00:20:08,236 --> 0:20:08,626
+fixed.
+
+689
+00:20:09,506 --> 0:20:11,106
+Everything works as you expect
+
+690
+00:20:11,606 --> 0:20:15,736
+[applause].
+
+691
+00:20:16,236 --> 0:20:18,286
+And the compiler generates
+
+692
+00:20:18,506 --> 0:20:19,766
+initializers for all of these
+
+693
+00:20:19,766 --> 0:20:20,156
+cases.
+
+694
+00:20:21,116 --> 0:20:23,176
+Another imported area is high
+
+695
+00:20:23,176 --> 0:20:24,206
+performance computing.
+
+696
+00:20:25,106 --> 0:20:26,896
+In Swift 5 the standard library
+
+697
+00:20:26,896 --> 0:20:29,006
+added support for SIMD, Single
+
+698
+00:20:29,006 --> 0:20:30,396
+Instruction Multiple Data
+
+699
+00:20:30,496 --> 0:20:31,576
+instructions and types.
+
+700
+00:20:32,496 --> 0:20:33,986
+These are often used for writing
+
+701
+00:20:33,986 --> 0:20:36,056
+low level performance sensitive
+
+702
+00:20:36,056 --> 0:20:38,116
+code for graphics, such as image
+
+703
+00:20:38,116 --> 0:20:39,766
+processing or AR.
+
+704
+00:20:40,276 --> 0:20:41,706
+In fact, the new RealityKit
+
+705
+00:20:41,706 --> 0:20:43,036
+library we're shipping this year
+
+706
+00:20:43,276 --> 0:20:44,496
+is using these types.
+
+707
+00:20:45,226 --> 0:20:47,716
+The new SIMD types represent
+
+708
+00:20:47,916 --> 0:20:49,486
+fixed size SIMD vectors.
+
+709
+00:20:50,136 --> 0:20:51,786
+And as you expect, you can use
+
+710
+00:20:51,786 --> 0:20:53,566
+the standard library integer and
+
+711
+00:20:53,606 --> 0:20:55,756
+floating-point types as elements
+
+712
+00:20:55,756 --> 0:20:55,966
+here.
+
+713
+00:20:56,916 --> 0:20:58,396
+Let me give you a taste of what
+
+714
+00:20:58,396 --> 0:21:01,916
+you can do with these types.
+
+715
+00:20:58,396 --> 0:21:01,916
+you can do with these types.
+
+716
+00:21:02,096 --> 0:21:03,876
+You can initialize SIMD vector
+
+717
+00:21:03,876 --> 0:21:04,786
+from array literals.
+
+718
+00:21:05,626 --> 0:21:07,676
+Here we have array of size four,
+
+719
+00:21:08,156 --> 0:21:09,386
+actually two arrays of size
+
+720
+00:21:09,386 --> 0:21:09,696
+four.
+
+721
+00:21:09,696 --> 0:21:11,816
+And the new dot operators allow
+
+722
+00:21:11,816 --> 0:21:14,046
+you to perform pointwise
+
+723
+00:21:14,096 --> 0:21:16,096
+operations on these vectors,
+
+724
+00:21:16,706 --> 0:21:17,946
+such as equality and
+
+725
+00:21:17,946 --> 0:21:18,676
+comparisons.
+
+726
+00:21:19,296 --> 0:21:20,906
+For example here, we are
+
+727
+00:21:20,906 --> 0:21:23,636
+checking if x is greater than y
+
+728
+00:21:23,936 --> 0:21:24,616
+pointwise.
+
+729
+00:21:25,406 --> 0:21:27,136
+And the result tells us that x
+
+730
+00:21:27,136 --> 0:21:29,076
+is greater than y only at the
+
+731
+00:21:29,076 --> 0:21:30,076
+last two points.
+
+732
+00:21:30,676 --> 0:21:33,076
+The result is stored in another
+
+733
+00:21:33,076 --> 0:21:36,136
+type called SIMDMask and the dot
+
+734
+00:21:36,136 --> 0:21:37,906
+operators on the SIMDMask type
+
+735
+00:21:37,906 --> 0:21:40,096
+allow you to manipulate these
+
+736
+00:21:40,496 --> 0:21:42,036
+resulting masks further.
+
+737
+00:21:42,246 --> 0:21:43,226
+For example here, we are
+
+738
+00:21:43,226 --> 0:21:44,356
+negating the result of the
+
+739
+00:21:44,356 --> 0:21:45,466
+previous computation.
+
+740
+00:21:48,376 --> 0:21:50,456
+Swift 5 also gives you more
+
+741
+00:21:50,456 --> 0:21:52,206
+expressivity for manipulating
+
+742
+00:21:53,426 --> 0:21:53,576
+text.
+
+743
+00:21:53,806 --> 0:21:55,246
+String interpolation has been
+
+744
+00:21:55,246 --> 0:21:56,946
+redesigned in Swift 5.
+
+745
+00:21:57,506 --> 0:22:00,346
+The new design is up to 1.7
+
+746
+00:21:57,506 --> 0:22:00,346
+The new design is up to 1.7
+
+747
+00:22:00,346 --> 0:22:03,376
+times faster and further, you
+
+748
+00:22:03,376 --> 0:22:05,256
+can customize the built
+
+749
+00:22:05,256 --> 0:22:07,116
+interpolation by providing your
+
+750
+00:22:07,116 --> 0:22:08,676
+own helpers and you can
+
+751
+00:22:08,676 --> 0:22:10,956
+initialize your own types with
+
+752
+00:22:10,956 --> 0:22:12,946
+interpolated strings, giving
+
+753
+00:22:12,946 --> 0:22:14,356
+string interpolation cost and
+
+754
+00:22:14,356 --> 0:22:14,786
+meanings.
+
+755
+00:22:15,886 --> 0:22:17,576
+Swift can support the string
+
+756
+00:22:17,576 --> 0:22:18,726
+interpolation from the very
+
+757
+00:22:18,726 --> 0:22:19,116
+beginning.
+
+758
+00:22:19,466 --> 0:22:20,666
+If you write the backslash
+
+759
+00:22:21,016 --> 0:22:22,266
+followed by some parenthesized
+
+760
+00:22:22,266 --> 0:22:23,566
+quote inside of a string
+
+761
+00:22:23,566 --> 0:22:25,166
+literal, the compiler will
+
+762
+00:22:25,166 --> 0:22:26,636
+execute the code and insert the
+
+763
+00:22:26,636 --> 0:22:28,476
+string and insert the value into
+
+764
+00:22:28,476 --> 0:22:28,916
+the string.
+
+765
+00:22:28,916 --> 0:22:31,246
+This has always worked but there
+
+766
+00:22:31,246 --> 0:22:32,546
+were some limitations as well.
+
+767
+00:22:33,556 --> 0:22:35,736
+For example, using an
+
+768
+00:22:35,736 --> 0:22:37,816
+interpolated string enclosed to
+
+769
+00:22:37,816 --> 0:22:40,056
+NSLocalizedString does not work.
+
+770
+00:22:41,236 --> 0:22:43,346
+The interpolation happens before
+
+771
+00:22:43,346 --> 0:22:44,276
+the translation.
+
+772
+00:22:44,946 --> 0:22:46,986
+And for example here, the string
+
+773
+00:22:46,986 --> 0:22:48,996
+file does not contain a
+
+774
+00:22:48,996 --> 0:22:51,246
+translation of this string with
+
+775
+00:22:51,296 --> 0:22:52,896
+every single integer inserted
+
+776
+00:22:52,896 --> 0:22:53,306
+into it.
+
+777
+00:22:53,726 --> 0:22:57,636
+So, you have 10 apples will not
+
+778
+00:22:57,636 --> 0:22:58,466
+get translated.
+
+779
+00:22:59,576 --> 0:23:01,016
+Instead what you need to do is
+
+780
+00:22:59,576 --> 0:23:01,016
+Instead what you need to do is
+
+781
+00:23:01,016 --> 0:23:02,586
+first construct the
+
+782
+00:23:02,636 --> 0:23:03,416
+formatString.
+
+783
+00:23:05,146 --> 0:23:07,166
+Next, localize it.
+
+784
+00:23:08,176 --> 0:23:10,046
+And only after that, insert the
+
+785
+00:23:10,046 --> 0:23:11,716
+value into the localized string.
+
+786
+00:23:12,836 --> 0:23:14,376
+This is the right way to do
+
+787
+00:23:14,376 --> 0:23:16,726
+string localization with UIKit
+
+788
+00:23:16,726 --> 0:23:17,406
+and AppKit.
+
+789
+00:23:18,456 --> 0:23:20,476
+But the new string interpolation
+
+790
+00:23:20,476 --> 0:23:22,236
+design lets us take it another
+
+791
+00:23:22,236 --> 0:23:24,526
+step forward and design really
+
+792
+00:23:24,526 --> 0:23:26,946
+expressive APIs like text from
+
+793
+00:23:26,946 --> 0:23:28,036
+the SwiftUI framework.
+
+794
+00:23:28,706 --> 0:23:30,666
+Text is used to represent label
+
+795
+00:23:30,666 --> 0:23:32,906
+in SwiftUI and we want that
+
+796
+00:23:32,906 --> 0:23:33,506
+localized.
+
+797
+00:23:34,616 --> 0:23:35,606
+Let's see how that works.
+
+798
+00:23:36,336 --> 0:23:39,096
+Here we are passing an
+
+799
+00:23:39,096 --> 0:23:40,256
+interpolated string to the
+
+800
+00:23:40,256 --> 0:23:41,526
+initializer of text.
+
+801
+00:23:42,506 --> 0:23:44,126
+And the trick here is that the
+
+802
+00:23:44,126 --> 0:23:46,656
+text initializer does not take a
+
+803
+00:23:46,656 --> 0:23:48,046
+string type as its input.
+
+804
+00:23:48,616 --> 0:23:50,026
+It takes another type called
+
+805
+00:23:50,146 --> 0:23:52,456
+LocalizedStringKey that is
+
+806
+00:23:52,456 --> 0:23:54,166
+defined inside of a SwiftUI
+
+807
+00:23:54,166 --> 0:23:54,616
+framework.
+
+808
+00:23:54,726 --> 0:23:56,916
+Because of this, the Swift
+
+809
+00:23:56,946 --> 0:23:58,316
+compiler uses the cost and
+
+810
+00:23:58,316 --> 0:24:00,186
+conformance to the expressible
+
+811
+00:23:58,316 --> 0:24:00,186
+conformance to the expressible
+
+812
+00:24:00,186 --> 0:24:02,026
+by string interpolation protocol
+
+813
+00:24:02,236 --> 0:24:03,876
+to process this interpolation.
+
+814
+00:24:04,896 --> 0:24:06,496
+Once it knows which conformance
+
+815
+00:24:06,496 --> 0:24:08,656
+to use, the compiler translates
+
+816
+00:24:08,656 --> 0:24:10,606
+this string interpolation with
+
+817
+00:24:10,606 --> 0:24:12,156
+this autogenerated code.
+
+818
+00:24:13,306 --> 0:24:14,746
+Let step three to understand
+
+819
+00:24:14,746 --> 0:24:15,276
+what it does.
+
+820
+00:24:16,166 --> 0:24:18,546
+First, Swift creates an instance
+
+821
+00:24:18,596 --> 0:24:21,296
+for a builder specifically for
+
+822
+00:24:21,296 --> 0:24:23,076
+the LocalizedStringKey.
+
+823
+00:24:23,566 --> 0:24:25,396
+This instance will contain two
+
+824
+00:24:25,396 --> 0:24:27,876
+things, formatKey and an
+
+825
+00:24:27,876 --> 0:24:29,276
+argument array separately.
+
+826
+00:24:30,756 --> 0:24:33,216
+Next we build up the string by
+
+827
+00:24:33,716 --> 0:24:35,566
+processing the segments of the
+
+828
+00:24:35,566 --> 0:24:36,336
+interpolation.
+
+829
+00:24:37,076 --> 0:24:38,666
+First, we have a string literal
+
+830
+00:24:38,786 --> 0:24:40,036
+and we add it to the formatKey.
+
+831
+00:24:41,296 --> 0:24:43,506
+Second, on processing quantity,
+
+832
+00:24:43,646 --> 0:24:45,856
+restore the format specifier in
+
+833
+00:24:45,856 --> 0:24:48,256
+the formatKey and the value
+
+834
+00:24:48,256 --> 0:24:49,596
+inside of the arguments array
+
+835
+00:24:49,636 --> 0:24:50,186
+separately.
+
+836
+00:24:51,666 --> 0:24:53,356
+Last, we add another literal to
+
+837
+00:24:53,356 --> 0:24:54,046
+the formatKey.
+
+838
+00:24:55,346 --> 0:24:57,466
+And finally, the initializer for
+
+839
+00:24:57,466 --> 0:24:58,626
+the LocalizedStringKey is
+
+840
+00:24:58,626 --> 0:24:58,946
+called.
+
+841
+00:24:58,946 --> 0:25:00,806
+At this point you have enough
+
+842
+00:24:58,946 --> 0:25:00,806
+At this point you have enough
+
+843
+00:25:00,806 --> 0:25:02,826
+information to properly localize
+
+844
+00:25:02,826 --> 0:25:03,306
+the string.
+
+845
+00:25:05,356 --> 0:25:06,856
+So, SwiftUI can use this
+
+846
+00:25:06,856 --> 0:25:08,326
+language feature to localize the
+
+847
+00:25:08,386 --> 0:25:11,236
+text, and the user can read the
+
+848
+00:25:11,236 --> 0:25:11,776
+message.
+
+849
+00:25:12,076 --> 0:25:12,646
+Pretty cool.
+
+850
+00:25:13,516 --> 0:25:19,036
+[ Applause ]
+
+851
+00:25:19,536 --> 0:25:21,266
+This example only scratches the
+
+852
+00:25:21,266 --> 0:25:22,796
+surface of what you can do with
+
+853
+00:25:22,796 --> 0:25:23,886
+string interpolation.
+
+854
+00:25:24,296 --> 0:25:26,196
+And if you're as excited as us
+
+855
+00:25:26,196 --> 0:25:27,886
+about this new feature, a good
+
+856
+00:25:27,916 --> 0:25:29,456
+place to get started is reading
+
+857
+00:25:29,456 --> 0:25:30,646
+documentation for the
+
+858
+00:25:30,646 --> 0:25:32,426
+ExpressibleByStringInterpolation
+
+859
+00:25:32,426 --> 0:25:33,056
+protocol.
+
+860
+00:25:35,166 --> 0:25:36,926
+Now, let's talk about focus.
+
+861
+00:25:37,506 --> 0:25:39,896
+Part of API design is deciding
+
+862
+00:25:39,896 --> 0:25:42,806
+what to exclude from your API.
+
+863
+00:25:42,876 --> 0:25:44,766
+And in Swift 5.1, we've
+
+864
+00:25:44,866 --> 0:25:46,256
+specifically made improvements
+
+865
+00:25:46,256 --> 0:25:47,466
+around returned types.
+
+866
+00:25:47,986 --> 0:25:50,146
+While it's important that the
+
+867
+00:25:50,146 --> 0:25:51,636
+returned type represents
+
+868
+00:25:51,636 --> 0:25:53,166
+capabilities of the type that
+
+869
+00:25:53,166 --> 0:25:54,956
+the user of your API should
+
+870
+00:25:54,956 --> 0:25:57,416
+reason about, sometimes we want
+
+871
+00:25:57,416 --> 0:25:59,246
+to abstract what we return.
+
+872
+00:26:00,246 --> 0:26:01,906
+A function could return multiple
+
+873
+00:26:01,906 --> 0:26:05,066
+times at runtime, or maybe it
+
+874
+00:26:05,066 --> 0:26:06,736
+always returns the same type,
+
+875
+00:26:07,366 --> 0:26:08,716
+but that type might leak
+
+876
+00:26:08,716 --> 0:26:11,296
+implementation detail about your
+
+877
+00:26:11,296 --> 0:26:11,426
+API,
+
+878
+00:26:12,456 --> 0:26:14,446
+exposing something that the user
+
+879
+00:26:14,446 --> 0:26:15,806
+of your API should not reason
+
+880
+00:26:15,806 --> 0:26:16,186
+about.
+
+881
+00:26:17,026 --> 0:26:18,456
+Let's take a look at the options
+
+882
+00:26:18,666 --> 0:26:20,326
+that Swift provides for these
+
+883
+00:26:20,326 --> 0:26:20,766
+cases.
+
+884
+00:26:22,226 --> 0:26:23,846
+We'll use the simple shape API
+
+885
+00:26:24,176 --> 0:26:25,106
+in our examples.
+
+886
+00:26:25,626 --> 0:26:27,116
+Here as you'd expect we have a
+
+887
+00:26:27,116 --> 0:26:29,626
+shape protocol and we have types
+
+888
+00:26:29,626 --> 0:26:31,696
+that define basic shapes like
+
+889
+00:26:31,696 --> 0:26:34,616
+circle, oval, and square.
+
+890
+00:26:35,736 --> 0:26:37,226
+Further we have structs that
+
+891
+00:26:37,226 --> 0:26:40,136
+manipulate shapes creating their
+
+892
+00:26:40,136 --> 0:26:42,256
+union and transforming them.
+
+893
+00:26:42,916 --> 0:26:44,476
+Consider this face shape
+
+894
+00:26:44,476 --> 0:26:45,076
+example.
+
+895
+00:26:45,796 --> 0:26:47,906
+Note that this API returns
+
+896
+00:26:47,946 --> 0:26:50,206
+different types depending on the
+
+897
+00:26:50,296 --> 0:26:53,016
+type of your shape-- face but
+
+898
+00:26:53,216 --> 0:26:55,166
+all of them conform to the shape
+
+899
+00:26:55,166 --> 0:26:55,686
+protocol.
+
+900
+00:26:55,996 --> 0:26:57,806
+So it's a great place to use the
+
+901
+00:26:57,876 --> 0:26:59,246
+protocol type as our returned
+
+902
+00:26:59,246 --> 0:26:59,466
+type.
+
+903
+00:27:00,086 --> 0:27:02,726
+Now, what about this example
+
+904
+00:27:02,916 --> 0:27:05,126
+where we're constructing an
+
+905
+00:27:05,216 --> 0:27:07,696
+eight-pointed star by creating a
+
+906
+00:27:07,696 --> 0:27:09,566
+union of a square and the
+
+907
+00:27:09,566 --> 0:27:10,596
+transformed square?
+
+908
+00:27:11,866 --> 0:27:13,476
+Declaring the concrete return
+
+909
+00:27:13,476 --> 0:27:15,376
+type here, will leak most of the
+
+910
+00:27:15,376 --> 0:27:16,696
+implementation details to the
+
+911
+00:27:16,696 --> 0:27:19,726
+client and expose-- exposing
+
+912
+00:27:19,726 --> 0:27:21,546
+this unnecessary detail will
+
+913
+00:27:21,546 --> 0:27:23,706
+make the API hard to reason
+
+914
+00:27:23,706 --> 0:27:24,106
+about.
+
+915
+00:27:25,626 --> 0:27:27,406
+However, using a protocol type
+
+916
+00:27:27,406 --> 0:27:29,216
+shape here is also not so great.
+
+917
+00:27:29,606 --> 0:27:30,236
+Let's see why.
+
+918
+00:27:31,706 --> 0:27:33,226
+When the protocol type is
+
+919
+00:27:33,226 --> 0:27:34,856
+returned, there is no guarantee
+
+920
+00:27:34,856 --> 0:27:36,516
+that the same type will be
+
+921
+00:27:36,516 --> 0:27:38,046
+returned from every call to the
+
+922
+00:27:38,046 --> 0:27:40,606
+API, which, in addition to the
+
+923
+00:27:40,606 --> 0:27:42,486
+Swift generic's model, brings us
+
+924
+00:27:42,486 --> 0:27:44,086
+these fundamental limitations.
+
+925
+00:27:44,806 --> 0:27:46,906
+If you have two values of
+
+926
+00:27:46,906 --> 0:27:49,046
+eight-pointed star, return from
+
+927
+00:27:49,046 --> 0:27:51,336
+the same API but two different
+
+928
+00:27:51,336 --> 0:27:53,526
+calls to this API, they might
+
+929
+00:27:53,526 --> 0:27:54,976
+not have the same type so you
+
+930
+00:27:54,976 --> 0:27:56,236
+cannot compare them for
+
+931
+00:27:56,236 --> 0:27:56,766
+equality.
+
+932
+00:27:57,636 --> 0:27:59,296
+The returned type cannot have
+
+933
+00:27:59,296 --> 0:28:01,766
+any associated types nor it can
+
+934
+00:27:59,296 --> 0:28:01,766
+any associated types nor it can
+
+935
+00:28:01,766 --> 0:28:03,096
+have requirements that involve
+
+936
+00:28:03,096 --> 0:28:03,486
+self.
+
+937
+00:28:04,526 --> 0:28:06,606
+Further, losing this type
+
+938
+00:28:06,606 --> 0:28:07,926
+identity may prevent some
+
+939
+00:28:07,926 --> 0:28:08,976
+compiler optimizations.
+
+940
+00:28:11,496 --> 0:28:14,216
+Swift 5.1 introduces another
+
+941
+00:28:14,216 --> 0:28:16,666
+concept called opaque results
+
+942
+00:28:16,716 --> 0:28:17,126
+types.
+
+943
+00:28:17,706 --> 0:28:19,476
+It's a great feat for APIs that
+
+944
+00:28:19,476 --> 0:28:21,476
+are known to return the same
+
+945
+00:28:21,476 --> 0:28:24,406
+concrete type, but might want to
+
+946
+00:28:24,406 --> 0:28:26,396
+hide them, this type from their
+
+947
+00:28:26,396 --> 0:28:26,816
+users.
+
+948
+00:28:27,876 --> 0:28:29,126
+And opaque result type is
+
+949
+00:28:29,126 --> 0:28:31,576
+spelled some shape and it
+
+950
+00:28:31,576 --> 0:28:33,736
+conveys that a specific shape
+
+951
+00:28:33,736 --> 0:28:35,266
+type is returned from this API.
+
+952
+00:28:36,936 --> 0:28:38,996
+This guarantee of type identity
+
+953
+00:28:39,316 --> 0:28:40,536
+also allows us to perform
+
+954
+00:28:40,536 --> 0:28:42,326
+stronger type checking inside of
+
+955
+00:28:42,326 --> 0:28:43,586
+the body of the API.
+
+956
+00:28:44,516 --> 0:28:46,296
+So, if you have several return
+
+957
+00:28:46,296 --> 0:28:48,046
+statements that return different
+
+958
+00:28:48,046 --> 0:28:50,946
+types, the compiler will cache
+
+959
+00:28:51,256 --> 0:28:52,796
+that and remind you to fix the
+
+960
+00:28:52,796 --> 0:28:53,246
+problem.
+
+961
+00:28:54,606 --> 0:28:55,996
+Opaque result types are
+
+962
+00:28:55,996 --> 0:28:58,476
+available in Swift 5.1 and you
+
+963
+00:28:58,476 --> 0:28:59,846
+can read more about them in our
+
+964
+00:28:59,846 --> 0:29:00,626
+documentation.
+
+965
+00:28:59,846 --> 0:29:00,626
+documentation.
+
+966
+00:29:01,806 --> 0:29:03,296
+Note that this feature requires
+
+967
+00:29:03,296 --> 0:29:04,336
+new Swift runtime.
+
+968
+00:29:05,086 --> 0:29:06,626
+So it will only work on newer
+
+969
+00:29:06,626 --> 0:29:07,366
+Swift OS.
+
+970
+00:29:08,356 --> 0:29:09,796
+If you had caught that backward
+
+971
+00:29:09,796 --> 0:29:11,636
+deploy, you can use this feature
+
+972
+00:29:11,636 --> 0:29:13,686
+but you need to guard their uses
+
+973
+00:29:13,986 --> 0:29:15,656
+with static availability checks.
+
+974
+00:29:17,816 --> 0:29:19,766
+Now let's talk about code reuse,
+
+975
+00:29:19,866 --> 0:29:21,126
+and the new feature called
+
+976
+00:29:21,216 --> 0:29:22,306
+property wrappers.
+
+977
+00:29:23,636 --> 0:29:25,296
+Custom patterns for accessing
+
+978
+00:29:25,296 --> 0:29:26,306
+properties are common.
+
+979
+00:29:26,856 --> 0:29:28,816
+Some of you-- Some of these
+
+980
+00:29:28,816 --> 0:29:30,246
+patterns have first class
+
+981
+00:29:30,246 --> 0:29:32,426
+language support, such as lazy,
+
+982
+00:29:32,866 --> 0:29:34,206
+but you are also probably
+
+983
+00:29:34,206 --> 0:29:35,466
+writing your own custom
+
+984
+00:29:35,466 --> 0:29:35,826
+wrappers.
+
+985
+00:29:36,716 --> 0:29:39,066
+Maybe you have some storage that
+
+986
+00:29:39,106 --> 0:29:41,406
+access a thread local
+
+987
+00:29:41,406 --> 0:29:42,396
+[inaudible].
+
+988
+00:29:42,396 --> 0:29:43,686
+Maybe you have computed
+
+989
+00:29:43,686 --> 0:29:45,046
+properties to store your user
+
+990
+00:29:45,046 --> 0:29:45,536
+defaults.
+
+991
+00:29:46,956 --> 0:29:48,666
+We write custom getters and
+
+992
+00:29:48,666 --> 0:29:50,476
+setters all the time, but
+
+993
+00:29:50,476 --> 0:29:52,146
+sometimes that code is repeated.
+
+994
+00:29:53,106 --> 0:29:54,636
+For example here, I have two
+
+995
+00:29:54,636 --> 0:29:57,046
+properties that specify my user
+
+996
+00:29:57,046 --> 0:29:57,506
+default.
+
+997
+00:29:58,436 --> 0:29:59,696
+But most of this code is just
+
+998
+00:29:59,696 --> 0:30:02,206
+copy and pasted.
+
+999
+00:29:59,696 --> 0:30:02,206
+copy and pasted.
+
+1000
+00:30:02,336 --> 0:30:03,856
+With property wrappers, we can
+
+1001
+00:30:03,856 --> 0:30:06,756
+declare one type that specifies
+
+1002
+00:30:06,756 --> 0:30:07,896
+the access pattern.
+
+1003
+00:30:09,446 --> 0:30:10,816
+Let's call it user default.
+
+1004
+00:30:12,186 --> 0:30:13,846
+Further, we tell the compiler
+
+1005
+00:30:13,846 --> 0:30:15,416
+that this type is special.
+
+1006
+00:30:16,256 --> 0:30:18,246
+Its primary purpose is to wrap a
+
+1007
+00:30:18,246 --> 0:30:20,776
+property, specify its access
+
+1008
+00:30:20,826 --> 0:30:21,236
+pattern.
+
+1009
+00:30:22,486 --> 0:30:24,646
+What that gives us is this type
+
+1010
+00:30:24,646 --> 0:30:26,056
+will allow us to use a custom
+
+1011
+00:30:26,106 --> 0:30:28,796
+attribute to declare properties
+
+1012
+00:30:28,796 --> 0:30:30,786
+that use-- user default access
+
+1013
+00:30:30,786 --> 0:30:31,126
+pattern.
+
+1014
+00:30:32,486 --> 0:30:33,556
+Let's take a closer look.
+
+1015
+00:30:33,806 --> 0:30:35,326
+With the property wrappers in
+
+1016
+00:30:35,326 --> 0:30:38,746
+place, we can rewrite that two
+
+1017
+00:30:38,746 --> 0:30:40,116
+user default properties from
+
+1018
+00:30:40,116 --> 0:30:41,096
+before was this code.
+
+1019
+00:30:41,216 --> 0:30:43,626
+There is no repetition here.
+
+1020
+00:30:43,626 --> 0:30:44,886
+It's very clean.
+
+1021
+00:30:45,386 --> 0:30:47,196
+All I needed to do is add the
+
+1022
+00:30:47,196 --> 0:30:50,546
+custom attributes, and also know
+
+1023
+00:30:50,546 --> 0:30:52,236
+that these properties still are
+
+1024
+00:30:52,236 --> 0:30:53,436
+declared a type Bool.
+
+1025
+00:30:53,716 --> 0:30:55,296
+So you can use them as if they
+
+1026
+00:30:55,296 --> 0:30:56,826
+were simple Boolean values.
+
+1027
+00:30:58,516 --> 0:31:04,276
+[ Applause ]
+
+1028
+00:30:58,516 --> 0:31:04,276
+[ Applause ]
+
+1029
+00:31:04,776 --> 0:31:06,236
+Property wrappers allow us to
+
+1030
+00:31:06,236 --> 0:31:08,096
+define custom access patterns
+
+1031
+00:31:08,486 --> 0:31:09,856
+and a property can opt into
+
+1032
+00:31:09,856 --> 0:31:11,776
+using them by just adding a
+
+1033
+00:31:11,776 --> 0:31:13,086
+custom attributes to its
+
+1034
+00:31:13,086 --> 0:31:13,726
+declaration.
+
+1035
+00:31:16,136 --> 0:31:18,046
+We reach for specific tools to
+
+1036
+00:31:18,046 --> 0:31:19,396
+solve specific problems.
+
+1037
+00:31:19,926 --> 0:31:21,796
+They each are useful in their
+
+1038
+00:31:21,796 --> 0:31:22,486
+own domains.
+
+1039
+00:31:23,526 --> 0:31:25,776
+Similarly, DSLs play an
+
+1040
+00:31:25,776 --> 0:31:26,956
+important role in programmer's
+
+1041
+00:31:26,956 --> 0:31:27,256
+lives.
+
+1042
+00:31:27,936 --> 0:31:29,536
+We use them to query databases
+
+1043
+00:31:30,006 --> 0:31:31,646
+and build graphs.
+
+1044
+00:31:31,646 --> 0:31:33,256
+We love the declarative style
+
+1045
+00:31:33,546 --> 0:31:35,116
+that allows us to simply and
+
+1046
+00:31:35,116 --> 0:31:38,166
+concisely declare our layout for
+
+1047
+00:31:38,166 --> 0:31:39,126
+our web pages.
+
+1048
+00:31:40,016 --> 0:31:41,686
+However, they are also
+
+1049
+00:31:41,686 --> 0:31:42,146
+different.
+
+1050
+00:31:43,176 --> 0:31:44,626
+Every time we use one as a
+
+1051
+00:31:44,626 --> 0:31:46,806
+contact Switch, each language
+
+1052
+00:31:46,806 --> 0:31:48,276
+comes with its own syntax and
+
+1053
+00:31:48,426 --> 0:31:48,966
+semantics.
+
+1054
+00:31:50,166 --> 0:31:51,546
+They each have unique powerful
+
+1055
+00:31:51,546 --> 0:31:52,746
+tools that support them.
+
+1056
+00:31:53,456 --> 0:31:55,576
+It's very easy if an HTML tag is
+
+1057
+00:31:55,576 --> 0:31:57,496
+missing, if you're inside of an
+
+1058
+00:31:57,496 --> 0:31:58,806
+HTML editor.
+
+1059
+00:31:59,916 --> 0:32:01,426
+However, because syntax and
+
+1060
+00:31:59,916 --> 0:32:01,426
+However, because syntax and
+
+1061
+00:32:01,456 --> 0:32:03,436
+semantics are tuned to specific
+
+1062
+00:32:03,506 --> 0:32:05,986
+purposes, the tools that support
+
+1063
+00:32:05,986 --> 0:32:07,386
+them are also often domain
+
+1064
+00:32:07,386 --> 0:32:08,036
+specific.
+
+1065
+00:32:09,196 --> 0:32:10,946
+So when we need to integrate
+
+1066
+00:32:10,946 --> 0:32:12,636
+these DSLs into our projects,
+
+1067
+00:32:13,496 --> 0:32:14,776
+the options are not so great.
+
+1068
+00:32:16,066 --> 0:32:17,586
+In some cases, we add custom
+
+1069
+00:32:17,586 --> 0:32:20,336
+build phases but often we reach
+
+1070
+00:32:20,336 --> 0:32:21,336
+out to this solution.
+
+1071
+00:32:22,456 --> 0:32:23,826
+I'm sure it looks familiar.
+
+1072
+00:32:23,826 --> 0:32:25,296
+It's a string literal that
+
+1073
+00:32:25,296 --> 0:32:26,376
+represents HTML.
+
+1074
+00:32:27,666 --> 0:32:28,946
+We gained integration but we
+
+1075
+00:32:28,946 --> 0:32:29,936
+lost tool support.
+
+1076
+00:32:30,566 --> 0:32:32,726
+The compiler code completion see
+
+1077
+00:32:32,726 --> 0:32:33,606
+this as a string.
+
+1078
+00:32:34,476 --> 0:32:35,866
+There is no type checking here.
+
+1079
+00:32:36,186 --> 0:32:37,776
+It's a blob of text to the Swift
+
+1080
+00:32:37,776 --> 0:32:38,176
+compiler.
+
+1081
+00:32:39,046 --> 0:32:40,526
+So silly mistakes like
+
+1082
+00:32:40,526 --> 0:32:42,836
+forgetting a closing tag go
+
+1083
+00:32:42,836 --> 0:32:44,286
+unnoticed until runtime.
+
+1084
+00:32:45,306 --> 0:32:47,316
+We want the power of these DSLs
+
+1085
+00:32:47,736 --> 0:32:49,146
+but we also want them to
+
+1086
+00:32:49,276 --> 0:32:50,926
+integrate well in our language
+
+1087
+00:32:51,026 --> 0:32:51,526
+and tools.
+
+1088
+00:32:53,316 --> 0:32:55,466
+In Swift 5.1, we are bringing
+
+1089
+00:32:55,466 --> 0:32:57,626
+the power to define embedded
+
+1090
+00:32:57,626 --> 0:32:58,766
+DSLs into Swift.
+
+1091
+00:32:59,516 --> 0:33:06,516
+[ Applause ]
+
+1092
+00:32:59,516 --> 0:33:06,516
+[ Applause ]
+
+1093
+00:33:07,016 --> 0:33:08,256
+Let's take a look at this code
+
+1094
+00:33:08,256 --> 0:33:10,116
+that defines an HTML object.
+
+1095
+00:33:10,656 --> 0:33:12,476
+One of my colleagues prototype
+
+1096
+00:33:12,476 --> 0:33:15,636
+support for the HTML DSL, just
+
+1097
+00:33:15,636 --> 0:33:17,906
+for fun, in a few hours, using
+
+1098
+00:33:17,906 --> 0:33:19,236
+this new Swift feature.
+
+1099
+00:33:20,056 --> 0:33:21,706
+As you can see here, this code
+
+1100
+00:33:21,706 --> 0:33:23,796
+looks like Swift, but your eyes
+
+1101
+00:33:23,796 --> 0:33:25,496
+are drawn to the HTML elements
+
+1102
+00:33:25,496 --> 0:33:26,276
+is defining.
+
+1103
+00:33:26,536 --> 0:33:29,886
+Here you can see the familiar
+
+1104
+00:33:29,886 --> 0:33:32,186
+Swift concepts like closures and
+
+1105
+00:33:32,186 --> 0:33:32,646
+method calls.
+
+1106
+00:33:33,076 --> 0:33:34,596
+We are using the variables from
+
+1107
+00:33:34,596 --> 0:33:35,956
+our Swift program.
+
+1108
+00:33:36,756 --> 0:33:38,496
+The tools will ensure there are
+
+1109
+00:33:38,496 --> 0:33:40,366
+no unbalanced text and provide
+
+1110
+00:33:40,366 --> 0:33:41,536
+syntax highlights and
+
+1111
+00:33:41,536 --> 0:33:42,816
+refactoring actions.
+
+1112
+00:33:43,946 --> 0:33:45,666
+Our vision is that not only
+
+1113
+00:33:45,666 --> 0:33:47,126
+you'll be able to declare a list
+
+1114
+00:33:47,126 --> 0:33:49,366
+of elements, but you could use
+
+1115
+00:33:49,426 --> 0:33:51,506
+Swift control statements like
+
+1116
+00:33:51,506 --> 0:33:54,116
+this, right here in this DSL.
+
+1117
+00:33:56,306 --> 0:33:56,456
+OK.
+
+1118
+00:33:58,516 --> 0:34:02,316
+[ Applause ]
+
+1119
+00:33:58,516 --> 0:34:02,316
+[ Applause ]
+
+1120
+00:34:02,816 --> 0:34:04,386
+Let's take a look at how this is
+
+1121
+00:34:04,386 --> 0:34:05,706
+implemented under the hood.
+
+1122
+00:34:06,256 --> 0:34:07,926
+The DSL implementer added a
+
+1123
+00:34:07,986 --> 0:34:10,116
+function to construct each HTML
+
+1124
+00:34:10,206 --> 0:34:10,565
+element.
+
+1125
+00:34:11,545 --> 0:34:12,676
+These functions, they're
+
+1126
+00:34:12,676 --> 0:34:13,356
+closures.
+
+1127
+00:34:14,216 --> 0:34:16,626
+And the interesting part here is
+
+1128
+00:34:16,626 --> 0:34:18,216
+that these closures are special.
+
+1129
+00:34:18,815 --> 0:34:20,106
+They all have this custom
+
+1130
+00:34:20,106 --> 0:34:22,806
+attribute, @HTMLBuilder, that
+
+1131
+00:34:22,806 --> 0:34:24,656
+tells the compiler to use the
+
+1132
+00:34:24,656 --> 0:34:27,025
+HTML builder type to process
+
+1133
+00:34:27,096 --> 0:34:27,896
+these closures.
+
+1134
+00:34:29,576 --> 0:34:30,826
+Let's see how disclosure
+
+1135
+00:34:30,826 --> 0:34:32,706
+containing DSL code gets
+
+1136
+00:34:32,706 --> 0:34:34,246
+translated into a normal Swift
+
+1137
+00:34:34,286 --> 0:34:34,716
+closure.
+
+1138
+00:34:36,056 --> 0:34:37,896
+What is this DSL closure doing?
+
+1139
+00:34:38,386 --> 0:34:40,016
+Well, it's producing a batch of
+
+1140
+00:34:40,016 --> 0:34:40,446
+values.
+
+1141
+00:34:41,386 --> 0:34:42,806
+However, those values are not
+
+1142
+00:34:42,806 --> 0:34:43,976
+used and there is no return
+
+1143
+00:34:43,976 --> 0:34:45,716
+statement here either.
+
+1144
+00:34:46,456 --> 0:34:48,126
+To make this work, the compiler
+
+1145
+00:34:48,126 --> 0:34:51,286
+translates this code by first
+
+1146
+00:34:51,896 --> 0:34:53,646
+collecting the unused values,
+
+1147
+00:34:54,266 --> 0:34:57,196
+and second, calling into the
+
+1148
+00:34:57,196 --> 0:34:59,036
+builder functions to combine
+
+1149
+00:34:59,036 --> 0:34:59,226
+them.
+
+1150
+00:35:00,686 --> 0:35:02,196
+These functions are provided by
+
+1151
+00:35:02,196 --> 0:35:05,046
+the HTML builder type that you,
+
+1152
+00:35:05,046 --> 0:35:08,076
+the DSL author, write and it can
+
+1153
+00:35:08,146 --> 0:35:10,396
+construct any object that is
+
+1154
+00:35:10,396 --> 0:35:11,576
+suitable for your DSL.
+
+1155
+00:35:12,236 --> 0:35:14,196
+Here we are building HTML, so it
+
+1156
+00:35:14,196 --> 0:35:15,676
+builds HTML objects.
+
+1157
+00:35:17,976 --> 0:35:19,756
+We are very excited about this
+
+1158
+00:35:19,756 --> 0:35:21,336
+feature and we use it to power
+
+1159
+00:35:21,566 --> 0:35:23,796
+the declarative syntax that you
+
+1160
+00:35:23,796 --> 0:35:25,606
+will use with the new SwiftUI
+
+1161
+00:35:25,836 --> 0:35:26,286
+framework.
+
+1162
+00:35:27,516 --> 0:35:33,266
+[ Applause ]
+
+1163
+00:35:33,766 --> 0:35:35,366
+Here is an example of that
+
+1164
+00:35:35,366 --> 0:35:37,616
+[inaudible] in SwiftUI using its
+
+1165
+00:35:37,616 --> 0:35:39,896
+own custom Swift DSL.
+
+1166
+00:35:41,196 --> 0:35:42,706
+This feature is available in
+
+1167
+00:35:42,706 --> 0:35:44,596
+beta 1, and we'd like to see how
+
+1168
+00:35:44,596 --> 0:35:46,146
+it will benefit you and what
+
+1169
+00:35:46,146 --> 0:35:47,846
+cool DSLs you'll build with it.
+
+1170
+00:35:48,886 --> 0:35:50,226
+We are discussing the details
+
+1171
+00:35:50,226 --> 0:35:51,596
+behind this feature on the Swift
+
+1172
+00:35:51,596 --> 0:35:52,526
+forums right now.
+
+1173
+00:35:53,336 --> 0:35:54,356
+So if you're interested in
+
+1174
+00:35:54,356 --> 0:35:55,776
+shaping the future of this
+
+1175
+00:35:55,776 --> 0:35:57,416
+feature or other Swift features,
+
+1176
+00:35:57,886 --> 0:35:59,306
+we welcome you to participate.
+
+1177
+00:36:01,596 --> 0:36:03,216
+To conclude, many of the
+
+1178
+00:36:03,216 --> 0:36:05,106
+improvements I talked about come
+
+1179
+00:36:05,106 --> 0:36:06,996
+together in the new Swift
+
+1180
+00:36:06,996 --> 0:36:08,136
+frameworks we are shipping this
+
+1181
+00:36:08,136 --> 0:36:08,436
+year.
+
+1182
+00:36:09,276 --> 0:36:11,186
+And we are excited to see how
+
+1183
+00:36:11,186 --> 0:36:13,286
+they will benefit you, to make
+
+1184
+00:36:13,286 --> 0:36:15,276
+your APIs expressive, clear and
+
+1185
+00:36:15,276 --> 0:36:15,946
+easy to use.
+
+1186
+00:36:16,776 --> 0:36:18,626
+Our colleagues will give a talk
+
+1187
+00:36:18,626 --> 0:36:20,906
+on modern Swift API design where
+
+1188
+00:36:20,906 --> 0:36:22,466
+they will share with you some of
+
+1189
+00:36:22,466 --> 0:36:24,206
+the lessons learned when using
+
+1190
+00:36:24,206 --> 0:36:26,076
+these features building Apple
+
+1191
+00:36:26,076 --> 0:36:26,646
+frameworks.
+
+1192
+00:36:27,446 --> 0:36:29,356
+But this is it from us, enjoy
+
+1193
+00:36:29,356 --> 0:36:30,016
+the conference.
+
+1194
+00:36:30,316 --> 0:36:30,816
+Thank you.
+
+1195
+00:36:31,516 --> 0:36:36,500
+[ Applause ]

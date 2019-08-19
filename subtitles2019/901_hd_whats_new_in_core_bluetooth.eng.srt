@@ -1,0 +1,3983 @@
+1
+00:00:01,176 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:09,516 --> 0:00:15,546
+[ Applause ]
+
+3
+00:00:16,046 --> 0:00:16,816
+&gt;&gt; Thank you for joining the
+
+4
+00:00:16,816 --> 0:00:17,246
+session.
+
+5
+00:00:17,326 --> 0:00:18,356
+My name is Duy Phan.
+
+6
+00:00:18,526 --> 0:00:19,916
+I'm here with Yilok and Meghna
+
+7
+00:00:20,306 --> 0:00:21,326
+to talk to you about what's new
+
+8
+00:00:21,326 --> 0:00:21,936
+in Core Bluetooth.
+
+9
+00:00:22,496 --> 0:00:24,946
+I'll start with an introduction.
+
+10
+00:00:25,466 --> 0:00:28,136
+Then LE 2 Mbps and advertising
+
+11
+00:00:28,136 --> 0:00:28,696
+extension.
+
+12
+00:00:29,256 --> 0:00:30,586
+Then provide an overview for
+
+13
+00:00:30,586 --> 0:00:32,136
+Core Bluetooth for BR/EDR
+
+14
+00:00:32,136 --> 0:00:32,716
+devices.
+
+15
+00:00:32,946 --> 0:00:33,806
+Then Core Bluetooth for
+
+16
+00:00:33,806 --> 0:00:35,686
+dual-mode, user privacy,
+
+17
+00:00:35,786 --> 0:00:37,316
+developer tools, then wrap up
+
+18
+00:00:37,316 --> 0:00:38,396
+with a summary.
+
+19
+00:00:38,966 --> 0:00:41,116
+Let's start with the
+
+20
+00:00:41,116 --> 0:00:41,806
+introduction.
+
+21
+00:00:42,366 --> 0:00:44,866
+For those in the audience that's
+
+22
+00:00:44,866 --> 0:00:46,726
+new to Core Bluetooth, the Core
+
+23
+00:00:46,726 --> 0:00:48,316
+Bluetooth framework is our
+
+24
+00:00:48,316 --> 0:00:49,856
+abstraction of the Bluetooth low
+
+25
+00:00:49,856 --> 0:00:51,576
+energy specification and
+
+26
+00:00:51,576 --> 0:00:52,006
+hardware.
+
+27
+00:00:52,536 --> 0:00:54,116
+We provide our developers an
+
+28
+00:00:54,116 --> 0:00:57,196
+easy and robust way to develop
+
+29
+00:00:57,196 --> 0:00:58,746
+applications that can interact
+
+30
+00:00:58,746 --> 0:01:00,966
+with Bluetooth low energy
+
+31
+00:00:58,746 --> 0:01:00,966
+with Bluetooth low energy
+
+32
+00:01:00,966 --> 0:01:02,396
+devices, and since the
+
+33
+00:01:02,396 --> 0:01:04,056
+introduction of the framework,
+
+34
+00:01:04,516 --> 0:01:05,966
+we've seen an amazing number of
+
+35
+00:01:05,966 --> 0:01:07,306
+accessories and applications.
+
+36
+00:01:08,586 --> 0:01:09,736
+We've seen everything from
+
+37
+00:01:09,736 --> 0:01:12,046
+health and fitness devices to
+
+38
+00:01:12,096 --> 0:01:14,016
+indoor locationing and item
+
+39
+00:01:14,016 --> 0:01:17,776
+finding to creative tools, toys
+
+40
+00:01:17,776 --> 0:01:20,366
+and accessories for kids, things
+
+41
+00:01:20,366 --> 0:01:22,526
+for the home, appliances, and
+
+42
+00:01:22,526 --> 0:01:23,956
+even everyday items like
+
+43
+00:01:24,226 --> 0:01:25,146
+Bluetooth controlled water
+
+44
+00:01:25,146 --> 0:01:25,926
+bottles and mugs.
+
+45
+00:01:26,406 --> 0:01:27,806
+Our developers' creativity and
+
+46
+00:01:27,806 --> 0:01:29,396
+hard work have really made the
+
+47
+00:01:29,396 --> 0:01:30,246
+Bluetooth low everything
+
+48
+00:01:30,246 --> 0:01:32,466
+ecosystem a very vibrant and
+
+49
+00:01:32,466 --> 0:01:34,056
+innovative space, thank you.
+
+50
+00:01:35,516 --> 0:01:38,926
+[ Applause ]
+
+51
+00:01:39,426 --> 0:01:40,656
+But there's more.
+
+52
+00:01:41,996 --> 0:01:43,796
+There exists an entire class of
+
+53
+00:01:43,796 --> 0:01:45,536
+Bluetooth devices that are also
+
+54
+00:01:45,536 --> 0:01:47,166
+thriving and growing, but we
+
+55
+00:01:47,166 --> 0:01:48,636
+often don't talk about them here
+
+56
+00:01:48,706 --> 0:01:49,876
+because they don't support the
+
+57
+00:01:49,876 --> 0:01:50,876
+Core Bluetooth framework.
+
+58
+00:01:51,576 --> 0:01:53,076
+These are Bluetooth BR/EDR
+
+59
+00:01:53,076 --> 0:01:55,706
+devices, and they include
+
+60
+00:01:56,046 --> 0:01:57,316
+accessories like your favorite
+
+61
+00:01:57,316 --> 0:01:59,326
+audio streaming devices, in-car
+
+62
+00:01:59,326 --> 0:02:00,386
+entertainment systems with
+
+63
+00:01:59,326 --> 0:02:00,386
+entertainment systems with
+
+64
+00:02:00,386 --> 0:02:03,326
+hands-free calling and various
+
+65
+00:02:03,326 --> 0:02:04,436
+accessories like mouse and
+
+66
+00:02:04,436 --> 0:02:05,406
+keyboards and game pads.
+
+67
+00:02:06,176 --> 0:02:07,766
+What's been missing is a way for
+
+68
+00:02:07,766 --> 0:02:09,376
+our Core Bluetooth developers to
+
+69
+00:02:09,376 --> 0:02:11,236
+develop applications that can
+
+70
+00:02:11,236 --> 0:02:14,266
+interact with these devices.
+
+71
+00:02:14,356 --> 0:02:15,486
+Until now.
+
+72
+00:02:16,046 --> 0:02:17,306
+This year we are adding Core
+
+73
+00:02:17,306 --> 0:02:18,596
+Bluetooth support for BR/EDR
+
+74
+00:02:18,596 --> 0:02:18,976
+devices.
+
+75
+00:02:19,366 --> 0:02:21,366
+[ Applause ]
+
+76
+00:02:21,716 --> 0:02:21,976
+Thank you.
+
+77
+00:02:22,491 --> 0:02:24,491
+[ Applause ]
+
+78
+00:02:24,966 --> 0:02:26,676
+This means that Core Bluetooth
+
+79
+00:02:26,676 --> 0:02:29,186
+can now reach out and interact
+
+80
+00:02:29,186 --> 0:02:30,186
+with all of your favorite
+
+81
+00:02:30,296 --> 0:02:32,026
+Bluetooth devices regardless of
+
+82
+00:02:32,026 --> 0:02:32,876
+what transport they run.
+
+83
+00:02:33,786 --> 0:02:35,196
+In addition, we added various
+
+84
+00:02:35,196 --> 0:02:37,006
+dual-mode features, so the two
+
+85
+00:02:37,006 --> 0:02:38,456
+transport works even better when
+
+86
+00:02:38,456 --> 0:02:38,966
+they're together.
+
+87
+00:02:39,326 --> 0:02:42,526
+We hope that our developers will
+
+88
+00:02:42,526 --> 0:02:43,626
+take advantage of these
+
+89
+00:02:43,626 --> 0:02:45,526
+features, and we look forward to
+
+90
+00:02:45,526 --> 0:02:46,316
+seeing all of the new
+
+91
+00:02:46,676 --> 0:02:48,026
+accessories and applications you
+
+92
+00:02:48,026 --> 0:02:48,296
+build.
+
+93
+00:02:48,946 --> 0:02:52,366
+So, this year we really have
+
+94
+00:02:52,466 --> 0:02:53,726
+three major driving themes.
+
+95
+00:02:54,516 --> 0:02:56,286
+The first is, as always, to
+
+96
+00:02:56,286 --> 0:02:58,596
+improve our core technology but
+
+97
+00:02:58,596 --> 0:03:00,436
+also to protect our user privacy
+
+98
+00:02:58,596 --> 0:03:00,436
+also to protect our user privacy
+
+99
+00:03:01,476 --> 0:03:03,056
+and enable our developers with
+
+100
+00:03:03,056 --> 0:03:03,736
+better tools.
+
+101
+00:03:05,086 --> 0:03:07,216
+Let's get started with
+
+102
+00:03:07,366 --> 0:03:08,176
+improvements to our core
+
+103
+00:03:08,176 --> 0:03:11,426
+technology and LE 2 megabits.
+
+104
+00:03:12,236 --> 0:03:16,366
+LE 2 Mbps is a new feature in
+
+105
+00:03:16,366 --> 0:03:17,336
+Bluetooth 5.0.
+
+106
+00:03:18,516 --> 0:03:20,576
+The physical layer rate or radio
+
+107
+00:03:20,576 --> 0:03:22,646
+rate can increase now from 1 to
+
+108
+00:03:22,646 --> 0:03:24,126
+2 Mbps between compatible
+
+109
+00:03:24,126 --> 0:03:24,596
+devices.
+
+110
+00:03:26,286 --> 0:03:27,956
+This means that with the same
+
+111
+00:03:27,956 --> 0:03:29,186
+amount of airtime, Core
+
+112
+00:03:29,186 --> 0:03:30,626
+Bluetooth can now transmit twice
+
+113
+00:03:30,666 --> 0:03:31,936
+the number of bits, so your
+
+114
+00:03:31,936 --> 0:03:33,036
+connections are not only faster,
+
+115
+00:03:33,036 --> 0:03:33,666
+they're also more power
+
+116
+00:03:33,666 --> 0:03:33,936
+efficient.
+
+117
+00:03:37,016 --> 0:03:39,336
+This is better yet transparent
+
+118
+00:03:39,336 --> 0:03:40,086
+to the application.
+
+119
+00:03:40,436 --> 0:03:41,636
+We will handle all of the link
+
+120
+00:03:41,636 --> 0:03:43,136
+layer negotiations for you based
+
+121
+00:03:43,136 --> 0:03:44,846
+on the platform you're on.
+
+122
+00:03:45,456 --> 0:03:46,546
+But remember, if you're
+
+123
+00:03:46,546 --> 0:03:48,056
+developing an accessory, your
+
+124
+00:03:48,056 --> 0:03:50,446
+accessory must also support LE 2
+
+125
+00:03:50,546 --> 0:03:51,646
+Mbps for this to work.
+
+126
+00:03:52,796 --> 0:03:54,596
+This is available now starting
+
+127
+00:03:54,596 --> 0:03:56,706
+with iPhone 8, 8 Plus, iPhone X,
+
+128
+00:03:57,046 --> 0:03:59,606
+Apple TV 4K, and the Apple Watch
+
+129
+00:03:59,606 --> 0:04:00,146
+Series 4.
+
+130
+00:03:59,606 --> 0:04:00,146
+Series 4.
+
+131
+00:04:00,626 --> 0:04:04,446
+And here I have an illustration
+
+132
+00:04:04,526 --> 0:04:07,546
+of Bluetooth 1 Mbps in various
+
+133
+00:04:07,546 --> 0:04:07,816
+modes.
+
+134
+00:04:08,506 --> 0:04:13,006
+And I've added LE 2 Mbps to show
+
+135
+00:04:13,006 --> 0:04:15,436
+the [applause], thank you, to
+
+136
+00:04:15,956 --> 0:04:17,466
+show the leap forward in
+
+137
+00:04:17,466 --> 0:04:17,935
+performance.
+
+138
+00:04:23,356 --> 0:04:24,466
+Also new for this year we've
+
+139
+00:04:24,466 --> 0:04:25,886
+added advertising extension.
+
+140
+00:04:27,676 --> 0:04:29,596
+Advertising extension is a
+
+141
+00:04:29,596 --> 0:04:30,916
+Bluetooth 5.0 feature.
+
+142
+00:04:32,096 --> 0:04:33,536
+It essentially improves upon
+
+143
+00:04:33,536 --> 0:04:35,816
+three main points for
+
+144
+00:04:35,816 --> 0:04:36,466
+advertising.
+
+145
+00:04:36,626 --> 0:04:37,806
+The first is it eases the
+
+146
+00:04:37,806 --> 0:04:39,296
+congestion on the three
+
+147
+00:04:39,506 --> 0:04:41,366
+advertising channel by sending a
+
+148
+00:04:41,366 --> 0:04:43,046
+smaller payload on the
+
+149
+00:04:43,046 --> 0:04:45,566
+advertising channel, then
+
+150
+00:04:45,566 --> 0:04:46,976
+jumping to the more spacious
+
+151
+00:04:46,976 --> 0:04:48,526
+data channel to transmit a much
+
+152
+00:04:48,526 --> 0:04:49,316
+larger payload.
+
+153
+00:04:49,946 --> 0:04:53,666
+Up now from 31 to 255 bytes, and
+
+154
+00:04:53,666 --> 0:04:55,076
+the transmission rate itself can
+
+155
+00:04:55,076 --> 0:04:57,506
+now be in LE 2 Mbps.
+
+156
+00:04:59,536 --> 0:05:01,056
+Core Bluetooth will support
+
+157
+00:04:59,536 --> 0:05:01,056
+Core Bluetooth will support
+
+158
+00:05:01,056 --> 0:05:02,076
+extended scan this year.
+
+159
+00:05:03,726 --> 0:05:05,006
+This means that we can scan now
+
+160
+00:05:05,006 --> 0:05:06,466
+for the extended advertisements
+
+161
+00:05:06,466 --> 0:05:09,396
+that I've just mentioned, but we
+
+162
+00:05:09,606 --> 0:05:12,126
+will only scan for our extended
+
+163
+00:05:12,126 --> 0:05:13,006
+advertisements that are
+
+164
+00:05:13,006 --> 0:05:14,946
+transmitted in LE 2 Mbps.
+
+165
+00:05:15,596 --> 0:05:16,836
+So, if you're developing an
+
+166
+00:05:16,836 --> 0:05:18,356
+accessory, your accessory must
+
+167
+00:05:18,356 --> 0:05:19,636
+also support extended
+
+168
+00:05:19,636 --> 0:05:21,776
+advertisement with LE 2 Mbps.
+
+169
+00:05:24,116 --> 0:05:26,206
+We now support extended
+
+170
+00:05:26,206 --> 0:05:28,436
+advertisement payloads up to 124
+
+171
+00:05:29,326 --> 0:05:29,456
+bytes.
+
+172
+00:05:30,296 --> 0:05:32,516
+This is four times the amount of
+
+173
+00:05:32,516 --> 0:05:33,856
+advertisement data that an
+
+174
+00:05:33,856 --> 0:05:37,746
+accessory can send us today.
+
+175
+00:05:37,946 --> 0:05:38,966
+This is again transparent to
+
+176
+00:05:38,966 --> 0:05:39,606
+your application.
+
+177
+00:05:40,206 --> 0:05:41,516
+You can use the same scan API,
+
+178
+00:05:41,776 --> 0:05:42,576
+scan filters.
+
+179
+00:05:43,326 --> 0:05:45,276
+We would scan for both legacy
+
+180
+00:05:45,276 --> 0:05:46,386
+and extended advertisements.
+
+181
+00:05:46,956 --> 0:05:50,096
+There's a new API for you to
+
+182
+00:05:50,096 --> 0:05:51,876
+programmatically query for
+
+183
+00:05:51,876 --> 0:05:54,386
+platform support, and this is
+
+184
+00:05:54,386 --> 0:05:57,026
+now supported on iPhone XS and
+
+185
+00:05:57,426 --> 0:06:00,526
+the new iPad Pro.
+
+186
+00:05:57,426 --> 0:06:00,526
+the new iPad Pro.
+
+187
+00:06:01,056 --> 0:06:02,676
+Also new for this year we're
+
+188
+00:06:02,676 --> 0:06:03,746
+going to support extended
+
+189
+00:06:03,746 --> 0:06:04,266
+connections.
+
+190
+00:06:05,946 --> 0:06:07,026
+This means that we can make
+
+191
+00:06:07,026 --> 0:06:08,306
+connections to connectable,
+
+192
+00:06:08,306 --> 0:06:08,976
+extended advertisements.
+
+193
+00:06:11,996 --> 0:06:13,536
+Extended connections improve
+
+194
+00:06:13,536 --> 0:06:14,716
+upon the existing connection
+
+195
+00:06:14,716 --> 0:06:16,286
+exchange protocol, and I'll
+
+196
+00:06:16,286 --> 0:06:16,896
+explain how.
+
+197
+00:06:17,636 --> 0:06:20,266
+Today with Legacy Connections,
+
+198
+00:06:20,796 --> 0:06:22,276
+the advertiser would advertise a
+
+199
+00:06:22,276 --> 0:06:23,386
+connectable advertisement.
+
+200
+00:06:24,796 --> 0:06:26,036
+The scanner would send a
+
+201
+00:06:26,036 --> 0:06:27,096
+connection identification if it
+
+202
+00:06:27,096 --> 0:06:29,256
+wants to connect.
+
+203
+00:06:29,366 --> 0:06:30,246
+There's no ACK for this.
+
+204
+00:06:32,116 --> 0:06:33,446
+The scanner assumes that the
+
+205
+00:06:33,446 --> 0:06:34,806
+connection indication reaches
+
+206
+00:06:34,806 --> 0:06:35,536
+the advertiser.
+
+207
+00:06:36,266 --> 0:06:37,266
+It then wakes up the host
+
+208
+00:06:37,266 --> 0:06:38,586
+processor to tell it there's a
+
+209
+00:06:38,586 --> 0:06:39,196
+new connection.
+
+210
+00:06:39,766 --> 0:06:42,956
+But the connection indication
+
+211
+00:06:42,956 --> 0:06:43,986
+may actually not reach the
+
+212
+00:06:43,986 --> 0:06:45,836
+advertiser because the RF
+
+213
+00:06:45,836 --> 0:06:47,256
+characteristic of the scanner
+
+214
+00:06:47,256 --> 0:06:49,036
+and advertiser can differ, and
+
+215
+00:06:49,036 --> 0:06:51,486
+the RF environment is very
+
+216
+00:06:52,176 --> 0:06:52,526
+dynamic.
+
+217
+00:06:52,746 --> 0:06:54,316
+So, because of this, throughout
+
+218
+00:06:54,316 --> 0:06:57,026
+your day, your whole processor
+
+219
+00:06:57,026 --> 0:06:59,566
+can be unnecessarily woken up,
+
+220
+00:07:00,136 --> 0:07:02,366
+training your phone's battery
+
+221
+00:07:02,366 --> 0:07:04,426
+more while you're using, your
+
+222
+00:07:04,496 --> 0:07:06,066
+user is using your application
+
+223
+00:07:06,066 --> 0:07:06,716
+or accessory.
+
+224
+00:07:07,586 --> 0:07:09,296
+But extended connections improve
+
+225
+00:07:10,036 --> 0:07:11,006
+upon this.
+
+226
+00:07:11,206 --> 0:07:13,376
+With extended connections, the
+
+227
+00:07:13,376 --> 0:07:15,306
+advertiser would advertise a
+
+228
+00:07:15,306 --> 0:07:16,256
+connectable extended
+
+229
+00:07:16,256 --> 0:07:16,986
+advertisement.
+
+230
+00:07:17,536 --> 0:07:19,466
+The scanner would send a
+
+231
+00:07:19,466 --> 0:07:20,296
+connection request.
+
+232
+00:07:21,646 --> 0:07:23,056
+The advertiser would send an
+
+233
+00:07:23,056 --> 0:07:24,446
+explicit connection response,
+
+234
+00:07:25,026 --> 0:07:26,106
+and only when the scanner
+
+235
+00:07:26,106 --> 0:07:27,256
+receives this connection
+
+236
+00:07:27,256 --> 0:07:30,076
+response it will wake the host
+
+237
+00:07:30,076 --> 0:07:31,406
+processor to tell it there's the
+
+238
+00:07:31,406 --> 0:07:32,006
+new connection.
+
+239
+00:07:32,576 --> 0:07:35,056
+In addition, your connection can
+
+240
+00:07:35,056 --> 0:07:36,476
+also start in LE 2 Mbps,
+
+241
+00:07:37,106 --> 0:07:38,356
+skipping some of the link layer
+
+242
+00:07:38,356 --> 0:07:38,996
+negotiation.
+
+243
+00:07:39,586 --> 0:07:43,506
+And because of this, extended
+
+244
+00:07:43,506 --> 0:07:45,126
+Connection is more robust and
+
+245
+00:07:45,126 --> 0:07:45,716
+power efficient.
+
+246
+00:07:46,416 --> 0:07:48,666
+It is again transparent to your
+
+247
+00:07:48,666 --> 0:07:49,826
+application if you can call the
+
+248
+00:07:49,826 --> 0:07:50,596
+same connect API.
+
+249
+00:07:50,706 --> 0:07:52,676
+It will connect to both Legacy
+
+250
+00:07:52,676 --> 0:07:54,626
+and Extended Advertisements.
+
+251
+00:07:55,246 --> 0:07:58,446
+But remember if you're
+
+252
+00:07:58,446 --> 0:07:59,706
+developing an accessory, your
+
+253
+00:07:59,706 --> 0:08:00,946
+accessory must also support
+
+254
+00:07:59,706 --> 0:08:00,946
+accessory must also support
+
+255
+00:08:01,426 --> 0:08:02,286
+connectable extended
+
+256
+00:08:02,286 --> 0:08:02,996
+advertisements.
+
+257
+00:08:03,496 --> 0:08:06,916
+There's a new API for you to
+
+258
+00:08:06,916 --> 0:08:09,226
+programmatically query for
+
+259
+00:08:09,226 --> 0:08:10,136
+platform support.
+
+260
+00:08:10,676 --> 0:08:12,026
+This is also available now with
+
+261
+00:08:12,106 --> 0:08:16,096
+iPhone XS and the new iPad Pro.
+
+262
+00:08:16,526 --> 0:08:17,856
+I'd like to now hand it off to
+
+263
+00:08:17,886 --> 0:08:18,966
+Yilok to talk about Core
+
+264
+00:08:18,966 --> 0:08:20,456
+Bluetooth support for BR/EDR.
+
+265
+00:08:21,206 --> 0:08:21,436
+Thank you.
+
+266
+00:08:22,176 --> 0:08:24,500
+[ Applause ]
+
+267
+00:08:27,616 --> 0:08:28,336
+&gt;&gt; Thanks, Duy.
+
+268
+00:08:28,886 --> 0:08:29,786
+Hi everyone.
+
+269
+00:08:29,786 --> 0:08:31,036
+I'm Yilok, and I'm here to
+
+270
+00:08:31,036 --> 0:08:32,246
+introduce you to you the new
+
+271
+00:08:32,246 --> 0:08:33,176
+things we've added to Core
+
+272
+00:08:33,176 --> 0:08:35,316
+Bluetooth for BR/EDR devices.
+
+273
+00:08:36,126 --> 0:08:37,696
+When we first introduced Core
+
+274
+00:08:37,696 --> 0:08:39,785
+Bluetooth back in 2012, we
+
+275
+00:08:39,785 --> 0:08:41,306
+wanted to create an abstraction
+
+276
+00:08:41,306 --> 0:08:42,525
+layer for you to use what's
+
+277
+00:08:42,525 --> 0:08:43,686
+called GATT.
+
+278
+00:08:43,976 --> 0:08:45,546
+Now GATT is a Bluetooth SIG
+
+279
+00:08:45,546 --> 0:08:47,306
+protocol that is
+
+280
+00:08:47,306 --> 0:08:49,436
+hierarchy-based, and it consists
+
+281
+00:08:49,436 --> 0:08:50,856
+if services and characteristics,
+
+282
+00:08:51,176 --> 0:08:52,836
+and it makes it very easy to
+
+283
+00:08:52,836 --> 0:08:54,576
+read, write, and be notified of
+
+284
+00:08:54,576 --> 0:08:55,326
+changes on these
+
+285
+00:08:55,326 --> 0:08:56,096
+characteristics.
+
+286
+00:08:56,876 --> 0:08:57,946
+You've shown us that it's
+
+287
+00:08:58,066 --> 0:08:59,616
+exceptionally easy to make great
+
+288
+00:08:59,616 --> 0:09:00,766
+products such as heart rate
+
+289
+00:08:59,616 --> 0:09:00,766
+products such as heart rate
+
+290
+00:09:00,766 --> 0:09:03,946
+monitors, toys, and a bunch of
+
+291
+00:09:03,946 --> 0:09:05,246
+accessories in the world.
+
+292
+00:09:05,706 --> 0:09:07,016
+And it's been wonderful seeing
+
+293
+00:09:07,016 --> 0:09:08,516
+what you've been able to do with
+
+294
+00:09:08,516 --> 0:09:09,516
+the Core Bluetooth apps that you
+
+295
+00:09:09,516 --> 0:09:11,076
+build to interface with these
+
+296
+00:09:11,216 --> 0:09:11,916
+accessories.
+
+297
+00:09:12,816 --> 0:09:14,126
+Now, this year, as Duy has
+
+298
+00:09:14,126 --> 0:09:15,936
+mentioned, we're adding support
+
+299
+00:09:16,266 --> 0:09:18,496
+for Core Bluetooth over BR/EDR
+
+300
+00:09:18,496 --> 0:09:20,346
+devices or classic devices.
+
+301
+00:09:21,236 --> 0:09:22,586
+Now these devices range from
+
+302
+00:09:22,586 --> 0:09:24,386
+things such as car head units,
+
+303
+00:09:24,906 --> 0:09:27,056
+speakers, and headphones.
+
+304
+00:09:27,916 --> 0:09:29,486
+So, how do we do this?
+
+305
+00:09:30,356 --> 0:09:32,626
+Well, our stack from last year
+
+306
+00:09:32,876 --> 0:09:35,876
+consisted of two different
+
+307
+00:09:35,876 --> 0:09:36,506
+transports.
+
+308
+00:09:36,676 --> 0:09:37,976
+Essentially, we were running the
+
+309
+00:09:37,976 --> 0:09:39,806
+system profiles or things such
+
+310
+00:09:39,806 --> 0:09:43,046
+as audio, A2DP, HFP, and
+
+311
+00:09:43,206 --> 0:09:46,326
+remote-control profiles in the
+
+312
+00:09:46,326 --> 0:09:46,696
+system.
+
+313
+00:09:47,516 --> 0:09:48,446
+On the other side, for low
+
+314
+00:09:48,446 --> 0:09:50,056
+energy, we were running Core
+
+315
+00:09:50,056 --> 0:09:51,736
+Bluetooth over GATT, and that
+
+316
+00:09:51,736 --> 0:09:52,596
+was the framework that you were
+
+317
+00:09:52,596 --> 0:09:53,876
+using to interface with your
+
+318
+00:09:53,876 --> 0:09:54,516
+accessories.
+
+319
+00:09:55,396 --> 0:09:56,946
+This year, we've merged the two
+
+320
+00:09:56,946 --> 0:09:59,006
+layers together, and now, you
+
+321
+00:09:59,006 --> 0:10:00,746
+have transparent access to both
+
+322
+00:09:59,006 --> 0:10:00,746
+have transparent access to both
+
+323
+00:10:01,146 --> 0:10:04,406
+BR/EDR and low energy without
+
+324
+00:10:04,406 --> 0:10:04,916
+doing anything.
+
+325
+00:10:05,296 --> 0:10:09,536
+Now, what this means for you is
+
+326
+00:10:10,426 --> 0:10:12,106
+without much changes in the API,
+
+327
+00:10:12,106 --> 0:10:15,446
+you can now work with both the
+
+328
+00:10:15,446 --> 0:10:16,726
+classic devices and the low
+
+329
+00:10:16,726 --> 0:10:17,566
+energy devices.
+
+330
+00:10:18,906 --> 0:10:19,926
+So let's go and look into the
+
+331
+00:10:19,926 --> 0:10:21,516
+details of Core Bluetooth for
+
+332
+00:10:21,516 --> 0:10:22,156
+BR/EDR.
+
+333
+00:10:22,726 --> 0:10:26,236
+This now will allow transparent
+
+334
+00:10:26,236 --> 0:10:27,686
+use of GATT with the BR/EDR
+
+335
+00:10:27,686 --> 0:10:28,176
+devices.
+
+336
+00:10:29,266 --> 0:10:30,326
+It's still running the exact
+
+337
+00:10:30,326 --> 0:10:31,716
+same Bluetooth SIG protocol.
+
+338
+00:10:32,116 --> 0:10:33,546
+There's no changes to that, and
+
+339
+00:10:33,546 --> 0:10:34,526
+so you can look at this
+
+340
+00:10:34,866 --> 0:10:36,836
+specification online on the
+
+341
+00:10:36,836 --> 0:10:38,306
+Bluetooth SIG website.
+
+342
+00:10:39,276 --> 0:10:41,016
+To your application and to the
+
+343
+00:10:41,016 --> 0:10:42,986
+developer, the CBPeripheral APIs
+
+344
+00:10:42,986 --> 0:10:43,866
+are exactly the same.
+
+345
+00:10:44,196 --> 0:10:45,236
+You can still do the same
+
+346
+00:10:45,236 --> 0:10:47,016
+service discovery and be
+
+347
+00:10:47,016 --> 0:10:48,086
+notified of changes to
+
+348
+00:10:48,086 --> 0:10:48,906
+characteristics.
+
+349
+00:10:49,396 --> 0:10:52,176
+There is a new change in the
+
+350
+00:10:52,246 --> 0:10:53,126
+CBCentralManager.
+
+351
+00:10:53,756 --> 0:10:55,006
+We've added a way for you to be
+
+352
+00:10:55,006 --> 0:10:56,796
+notified when a device is
+
+353
+00:10:56,796 --> 0:10:59,676
+connected with a service IUD or
+
+354
+00:10:59,676 --> 0:11:00,656
+a known peripheral UID.
+
+355
+00:10:59,676 --> 0:11:00,656
+a known peripheral UID.
+
+356
+00:11:00,656 --> 0:11:01,946
+And I'll go more into detail
+
+357
+00:11:01,946 --> 0:11:04,476
+about that later.
+
+358
+00:11:04,706 --> 0:11:06,466
+Core Bluetooth for BR/EDR is
+
+359
+00:11:06,466 --> 0:11:08,796
+available with iOS 13, the
+
+360
+00:11:08,796 --> 0:11:10,216
+watchOS, and tvOS that we
+
+361
+00:11:10,216 --> 0:11:10,896
+released this week.
+
+362
+00:11:11,346 --> 0:11:14,856
+And finally, because GATT is a
+
+363
+00:11:14,856 --> 0:11:16,986
+software layer protocol, you can
+
+364
+00:11:16,986 --> 0:11:18,126
+add support to your accessory
+
+365
+00:11:18,126 --> 0:11:19,526
+without the need for new
+
+366
+00:11:19,526 --> 0:11:19,876
+hardware.
+
+367
+00:11:20,096 --> 0:11:21,666
+This means only a software or
+
+368
+00:11:21,666 --> 0:11:22,986
+firmware update.
+
+369
+00:11:23,936 --> 0:11:27,866
+Now let's look at the new API.
+
+370
+00:11:27,956 --> 0:11:29,516
+To register for connection events,
+
+371
+00:11:29,896 --> 0:11:31,516
+you'll register by either a
+
+372
+00:11:31,516 --> 0:11:33,066
+known service or a known
+
+373
+00:11:33,066 --> 0:11:33,936
+peripheral UID.
+
+374
+00:11:34,646 --> 0:11:35,756
+This would be akin to something
+
+375
+00:11:35,756 --> 0:11:39,146
+like the heart rate service.
+
+376
+00:11:39,306 --> 0:11:39,796
+You'll call
+
+377
+00:11:39,796 --> 0:11:41,556
+registerForConnectionEvents, and
+
+378
+00:11:41,556 --> 0:11:42,346
+you'll pass to the
+
+379
+00:11:42,346 --> 0:11:44,706
+CBCentralManager a type for
+
+380
+00:11:44,706 --> 0:11:46,406
+either a service UID or a
+
+381
+00:11:46,406 --> 0:11:46,976
+peripheral UID.
+
+382
+00:11:49,636 --> 0:11:51,656
+When we find a matching option,
+
+383
+00:11:52,546 --> 0:11:53,306
+we'll send you a delegate
+
+384
+00:11:53,306 --> 0:11:56,006
+callback, and this delegate
+
+385
+00:11:56,006 --> 0:11:57,626
+callback will include the CB
+
+386
+00:11:57,626 --> 0:11:58,976
+peripheral and the type of
+
+387
+00:11:58,976 --> 0:11:59,606
+connection event.
+
+388
+00:12:00,116 --> 0:12:02,056
+It's pretty simple.
+
+389
+00:12:03,136 --> 0:12:04,216
+So, what does the incoming
+
+390
+00:12:04,216 --> 0:12:05,616
+connection look like from your
+
+391
+00:12:05,616 --> 0:12:09,146
+app's point of view?
+
+392
+00:12:09,296 --> 0:12:11,106
+Your app will have instantiated
+
+393
+00:12:11,106 --> 0:12:14,426
+a CBCentralManager, passed us a
+
+394
+00:12:14,596 --> 0:12:18,066
+known service UID, and in the
+
+395
+00:12:18,306 --> 0:12:20,566
+case of a BR/EDR or classic
+
+396
+00:12:20,566 --> 0:12:22,586
+device, your user will go to the
+
+397
+00:12:22,586 --> 0:12:23,776
+Bluetooth settings and search
+
+398
+00:12:23,776 --> 0:12:25,506
+for the device, in this case
+
+399
+00:12:25,506 --> 0:12:26,596
+let's say it's a headset running
+
+400
+00:12:26,596 --> 0:12:27,626
+heart rate.
+
+401
+00:12:28,176 --> 0:12:29,516
+They'll discover the device,
+
+402
+00:12:29,766 --> 0:12:33,426
+find it, and attempt to connect.
+
+403
+00:12:33,546 --> 0:12:35,266
+Pairing will be triggered, and
+
+404
+00:12:35,616 --> 0:12:36,436
+then afterwards when we're
+
+405
+00:12:36,436 --> 0:12:37,606
+connected, we'll run a service
+
+406
+00:12:37,606 --> 0:12:39,306
+discovery of the GATT services.
+
+407
+00:12:39,696 --> 0:12:40,926
+If we find a service that you
+
+408
+00:12:40,926 --> 0:12:42,026
+want, then you'll get the
+
+409
+00:12:42,026 --> 0:12:42,716
+delegate callback.
+
+410
+00:12:43,906 --> 0:12:45,176
+And this will now look extremely
+
+411
+00:12:45,176 --> 0:12:46,646
+similar to those who have
+
+412
+00:12:46,646 --> 0:12:47,556
+already used Core Bluetooth.
+
+413
+00:12:48,406 --> 0:12:49,716
+With your delegate callback,
+
+414
+00:12:49,886 --> 0:12:50,786
+you'll then handle the
+
+415
+00:12:50,786 --> 0:12:52,216
+connection event, and so you
+
+416
+00:12:52,216 --> 0:12:53,556
+might call connect on that given
+
+417
+00:12:53,556 --> 0:12:53,976
+peripheral.
+
+418
+00:12:53,976 --> 0:12:57,936
+So, all this code looks like so.
+
+419
+00:12:58,296 --> 0:12:59,936
+You'll do initialization first,
+
+420
+00:13:00,276 --> 0:13:02,726
+register for your connection
+
+421
+00:13:02,726 --> 0:13:04,636
+event with the CBCentralManager,
+
+422
+00:13:05,186 --> 0:13:08,206
+and finally handle the delegate
+
+423
+00:13:08,206 --> 0:13:08,626
+callback.
+
+424
+00:13:09,396 --> 0:13:10,096
+If you're interested in the
+
+425
+00:13:10,096 --> 0:13:12,106
+device, call connect, and then
+
+426
+00:13:12,106 --> 0:13:13,306
+you can clear the registration
+
+427
+00:13:13,466 --> 0:13:14,046
+for filters.
+
+428
+00:13:14,586 --> 0:13:17,116
+Now, what about outgoing
+
+429
+00:13:17,116 --> 0:13:17,686
+connections.
+
+430
+00:13:17,876 --> 0:13:18,896
+Let's say you have a known
+
+431
+00:13:18,896 --> 0:13:20,176
+peripheral already and you're
+
+432
+00:13:20,176 --> 0:13:21,286
+paired to it and you want to
+
+433
+00:13:21,286 --> 0:13:21,606
+connect.
+
+434
+00:13:22,676 --> 0:13:24,506
+You can now connect out to a
+
+435
+00:13:24,506 --> 0:13:25,456
+BR/EDR device.
+
+436
+00:13:26,506 --> 0:13:27,896
+To do so, you'll do the same
+
+437
+00:13:27,896 --> 0:13:29,036
+thing, instantiate your
+
+438
+00:13:29,156 --> 0:13:32,576
+CBCentralManager and call
+
+439
+00:13:32,576 --> 0:13:32,796
+connect.
+
+440
+00:13:33,866 --> 0:13:34,826
+This is not a new API.
+
+441
+00:13:34,886 --> 0:13:35,926
+This has existed in
+
+442
+00:13:36,176 --> 0:13:39,746
+CBCentralManager for a while
+
+443
+00:13:39,746 --> 0:13:39,813
+now.
+
+444
+00:13:39,946 --> 0:13:42,176
+And so if you're calling connect
+
+445
+00:13:42,176 --> 0:13:45,456
+on a BR/EDR device, if your app
+
+446
+00:13:45,456 --> 0:13:47,406
+is in foreground, then we'll try
+
+447
+00:13:47,406 --> 0:13:48,626
+to make a connection out to that
+
+448
+00:13:48,626 --> 0:13:49,216
+device for you.
+
+449
+00:13:50,086 --> 0:13:51,806
+We'll page the device, and if
+
+450
+00:13:51,806 --> 0:13:53,086
+it's connected, then you'll get
+
+451
+00:13:53,656 --> 0:13:54,956
+a delegate callback.
+
+452
+00:13:56,096 --> 0:13:56,686
+It's that simple.
+
+453
+00:13:57,236 --> 0:14:00,546
+So, now that we've gone through
+
+454
+00:13:57,236 --> 0:14:00,546
+So, now that we've gone through
+
+455
+00:14:00,546 --> 0:14:02,506
+the new APIs for BR/EDR devices,
+
+456
+00:14:03,636 --> 0:14:04,996
+let's continue on to the other
+
+457
+00:14:04,996 --> 0:14:06,826
+improvements we've made for Core
+
+458
+00:14:06,826 --> 0:14:07,796
+Bluetooth dual-mode.
+
+459
+00:14:08,076 --> 0:14:09,316
+This means when you're using low
+
+460
+00:14:09,316 --> 0:14:11,646
+energy and BR/EDR together.
+
+461
+00:14:12,256 --> 0:14:16,826
+One common thing we've seen with
+
+462
+00:14:17,856 --> 0:14:19,786
+dual-mode devices, as you've
+
+463
+00:14:19,786 --> 0:14:20,436
+developed more and more
+
+464
+00:14:20,436 --> 0:14:21,766
+accessories and apps on top of
+
+465
+00:14:21,766 --> 0:14:24,356
+it, is that generally when users
+
+466
+00:14:24,356 --> 0:14:26,296
+use your device, they see two
+
+467
+00:14:26,296 --> 0:14:27,256
+entries in the Bluetooth
+
+468
+00:14:27,256 --> 0:14:27,696
+settings.
+
+469
+00:14:28,146 --> 0:14:29,676
+There's a low energy one, and
+
+470
+00:14:29,676 --> 0:14:31,316
+there's a BR/EDR or classic one.
+
+471
+00:14:31,416 --> 0:14:32,476
+And it's sometimes confusing to
+
+472
+00:14:32,476 --> 0:14:32,976
+users.
+
+473
+00:14:33,546 --> 0:14:35,946
+So, we worked really hard this
+
+474
+00:14:35,946 --> 0:14:37,436
+year to alleviate this
+
+475
+00:14:37,436 --> 0:14:37,856
+confusion.
+
+476
+00:14:38,426 --> 0:14:40,966
+So, this year we're introducing
+
+477
+00:14:41,666 --> 0:14:43,196
+adoption of what's called Cross
+
+478
+00:14:43,196 --> 0:14:44,466
+Transport Key Derivation.
+
+479
+00:14:45,476 --> 0:14:47,586
+This is a Bluetooth 4.2 SIG
+
+480
+00:14:47,586 --> 0:14:49,836
+specification, and basically
+
+481
+00:14:49,836 --> 0:14:51,496
+what this means is through a
+
+482
+00:14:51,556 --> 0:14:53,396
+single pairing we will derive
+
+483
+00:14:53,456 --> 0:14:54,706
+link keys for the other
+
+484
+00:14:54,706 --> 0:14:55,176
+transport.
+
+485
+00:14:56,836 --> 0:14:59,016
+To you, it means that the device
+
+486
+00:14:59,016 --> 0:15:00,236
+will now have a single
+
+487
+00:14:59,016 --> 0:15:00,236
+will now have a single
+
+488
+00:15:00,236 --> 0:15:01,946
+CBPeripheral identifier, so you
+
+489
+00:15:01,946 --> 0:15:02,806
+don't need to care about the
+
+490
+00:15:02,806 --> 0:15:03,776
+transport of the device.
+
+491
+00:15:04,936 --> 0:15:06,176
+This is completely transparent
+
+492
+00:15:06,176 --> 0:15:09,096
+to your application, and now
+
+493
+00:15:09,326 --> 0:15:11,656
+that we have the single pairing
+
+494
+00:15:11,656 --> 0:15:13,156
+for two devices, it means your
+
+495
+00:15:13,156 --> 0:15:14,786
+app can seamlessly use both low
+
+496
+00:15:14,786 --> 0:15:19,066
+energy and BR/EDR together.
+
+497
+00:15:19,186 --> 0:15:20,926
+So before when users of your
+
+498
+00:15:20,926 --> 0:15:23,316
+device or application, if they
+
+499
+00:15:23,316 --> 0:15:25,786
+were seeing two devices, now
+
+500
+00:15:26,546 --> 0:15:27,846
+they'll just see one, which is
+
+501
+00:15:27,846 --> 0:15:27,976
+merged.
+
+502
+00:15:28,516 --> 0:15:33,006
+[ Applause ]
+
+503
+00:15:33,506 --> 0:15:33,756
+Thank you.
+
+504
+00:15:34,336 --> 0:15:37,156
+And we can further take
+
+505
+00:15:37,156 --> 0:15:38,816
+advantage of Cross Transport Key
+
+506
+00:15:38,816 --> 0:15:41,556
+Derivation, or CTKD, to improve
+
+507
+00:15:41,556 --> 0:15:42,246
+the pairing process.
+
+508
+00:15:42,716 --> 0:15:43,936
+So let's say you want to control
+
+509
+00:15:43,936 --> 0:15:45,756
+the entire discovery and pairing
+
+510
+00:15:46,126 --> 0:15:47,226
+experience for your user.
+
+511
+00:15:47,926 --> 0:15:48,956
+Instead of having the user go
+
+512
+00:15:48,956 --> 0:15:50,146
+into Bluetooth settings and do
+
+513
+00:15:50,146 --> 0:15:51,856
+an inquiry scan, which leaves
+
+514
+00:15:51,856 --> 0:15:53,916
+your app experience, you can now
+
+515
+00:15:53,916 --> 0:15:54,906
+look for low energy
+
+516
+00:15:54,906 --> 0:15:56,596
+advertisements from your
+
+517
+00:15:57,076 --> 0:15:57,696
+accessory.
+
+518
+00:15:59,056 --> 0:16:01,506
+If you find the device, you can
+
+519
+00:15:59,056 --> 0:16:01,506
+If you find the device, you can
+
+520
+00:16:01,506 --> 0:16:03,626
+then Call Connect and connect
+
+521
+00:16:03,626 --> 0:16:05,216
+over LE and access the
+
+522
+00:16:05,216 --> 0:16:06,126
+protective characteristic.
+
+523
+00:16:07,256 --> 0:16:09,696
+Once you're paired, because of
+
+524
+00:16:09,826 --> 0:16:13,036
+CTKD, we'll take the LE key, and
+
+525
+00:16:13,036 --> 0:16:15,036
+we'll also derive the BR/EDR
+
+526
+00:16:15,036 --> 0:16:15,306
+key.
+
+527
+00:16:15,806 --> 0:16:19,656
+And this means you can now make
+
+528
+00:16:19,656 --> 0:16:21,456
+a BR/EDR connection without
+
+529
+00:16:21,456 --> 0:16:22,946
+having to trigger more pairing
+
+530
+00:16:23,186 --> 0:16:24,676
+to confuse the user, and it
+
+531
+00:16:24,816 --> 0:16:26,336
+stays in the app for the entire
+
+532
+00:16:26,336 --> 0:16:26,936
+experience.
+
+533
+00:16:30,756 --> 0:16:32,616
+Great. Now that we've talked
+
+534
+00:16:32,616 --> 0:16:34,066
+about improving pairing, let's
+
+535
+00:16:34,066 --> 0:16:34,926
+talk about how we improve
+
+536
+00:16:34,926 --> 0:16:35,806
+dual-mode connections.
+
+537
+00:16:36,606 --> 0:16:38,086
+Let's consider a new product
+
+538
+00:16:38,086 --> 0:16:40,056
+that you want to plan, and it's
+
+539
+00:16:40,056 --> 0:16:41,246
+a home audio device.
+
+540
+00:16:41,866 --> 0:16:42,946
+And it would be great if your
+
+541
+00:16:42,946 --> 0:16:44,966
+user could be using your app and
+
+542
+00:16:44,966 --> 0:16:46,236
+have it trigger some sort of
+
+543
+00:16:46,576 --> 0:16:48,106
+connection to use media, such as
+
+544
+00:16:48,106 --> 0:16:49,906
+music or podcast when the user
+
+545
+00:16:50,476 --> 0:16:51,716
+becomes in proximity of the
+
+546
+00:16:51,716 --> 0:16:51,976
+device.
+
+547
+00:16:55,786 --> 0:16:57,086
+So, you'd want the user to bring
+
+548
+00:16:57,086 --> 0:16:58,546
+up something like music or
+
+549
+00:16:59,446 --> 0:17:01,276
+podcasts, which this would mean
+
+550
+00:16:59,446 --> 0:17:01,276
+podcasts, which this would mean
+
+551
+00:17:01,276 --> 0:17:02,786
+that iOS would have to bring up
+
+552
+00:17:02,856 --> 0:17:04,746
+what's called a BR/EDR channels
+
+553
+00:17:04,746 --> 0:17:04,996
+for you.
+
+554
+00:17:05,786 --> 0:17:07,036
+We've done so this year by
+
+555
+00:17:07,036 --> 0:17:08,496
+introducing a new concept called
+
+556
+00:17:08,496 --> 0:17:08,896
+bridging.
+
+557
+00:17:11,455 --> 0:17:13,346
+Bridging works by taking
+
+558
+00:17:13,346 --> 0:17:14,626
+advantage of low energy
+
+559
+00:17:14,626 --> 0:17:16,836
+proximity to bring up BR/EDR
+
+560
+00:17:16,836 --> 0:17:18,836
+profiles such as A2DP, HFP,
+
+561
+00:17:18,836 --> 0:17:19,266
+AVRCP.
+
+562
+00:17:19,486 --> 0:17:22,736
+This will work on all devices
+
+563
+00:17:22,736 --> 0:17:25,516
+that support CTKD and to take
+
+564
+00:17:25,516 --> 0:17:26,316
+advantage of it in your
+
+565
+00:17:26,316 --> 0:17:27,826
+application, it's extremely
+
+566
+00:17:27,826 --> 0:17:28,066
+easy.
+
+567
+00:17:29,316 --> 0:17:32,236
+You'll use a new key in the
+
+568
+00:17:32,786 --> 0:17:33,996
+CBManagerConnect, and it's
+
+569
+00:17:33,996 --> 0:17:36,396
+called the TransportBridgingKey.
+
+570
+00:17:37,816 --> 0:17:38,626
+You add it in the option
+
+571
+00:17:38,626 --> 0:17:39,156
+dictionary.
+
+572
+00:17:39,706 --> 0:17:42,506
+And so when you pass that to us,
+
+573
+00:17:43,066 --> 0:17:44,246
+we'll try to connect over low
+
+574
+00:17:44,246 --> 0:17:45,326
+energy to your device.
+
+575
+00:17:45,636 --> 0:17:47,586
+If we find it, then we'll
+
+576
+00:17:47,586 --> 0:17:49,936
+immediately page out over BR/EDR
+
+577
+00:17:49,936 --> 0:17:51,686
+and connect as many profiles as
+
+578
+00:17:51,686 --> 0:17:52,616
+we can.
+
+579
+00:17:53,576 --> 0:17:55,756
+The result is that your user can
+
+580
+00:17:55,756 --> 0:17:57,406
+now seamlessly use all the
+
+581
+00:17:57,406 --> 0:17:59,016
+multimedia profiles without
+
+582
+00:17:59,016 --> 0:17:59,776
+having to do anything.
+
+583
+00:18:01,516 --> 0:18:06,846
+[ Applause ]
+
+584
+00:18:07,346 --> 0:18:09,116
+Great. So, now we've covered all
+
+585
+00:18:09,116 --> 0:18:10,276
+the core technology improvements
+
+586
+00:18:10,276 --> 0:18:10,906
+we've made this year.
+
+587
+00:18:11,216 --> 0:18:12,316
+I'd like to now hand it over to
+
+588
+00:18:12,316 --> 0:18:13,956
+Meghna to talk at Core Bluetooth
+
+589
+00:18:14,016 --> 0:18:14,366
+privacy.
+
+590
+00:18:15,066 --> 0:18:15,656
+&gt;&gt; Thank you, Yilok.
+
+591
+00:18:16,486 --> 0:18:18,036
+In the last year alone, there
+
+592
+00:18:18,036 --> 0:18:19,666
+have been an increasing number
+
+593
+00:18:19,666 --> 0:18:21,756
+of instances where applications
+
+594
+00:18:21,756 --> 0:18:24,386
+made the news or we're pulled
+
+595
+00:18:24,386 --> 0:18:25,246
+from the App Store for not
+
+596
+00:18:25,246 --> 0:18:26,826
+respecting user privacy.
+
+597
+00:18:27,606 --> 0:18:29,626
+I'm here today to help you avoid
+
+598
+00:18:29,626 --> 0:18:31,276
+that situation for your Core
+
+599
+00:18:31,276 --> 0:18:32,326
+Bluetooth applications.
+
+600
+00:18:34,216 --> 0:18:34,886
+Hello everyone.
+
+601
+00:18:35,096 --> 0:18:37,096
+My name is Meghna Lav, and over
+
+602
+00:18:37,096 --> 0:18:38,406
+the next few minutes, I'd like
+
+603
+00:18:38,406 --> 0:18:40,026
+to talk you through the privacy
+
+604
+00:18:40,026 --> 0:18:41,856
+update for Core Bluetooth APIs.
+
+605
+00:18:47,046 --> 0:18:49,526
+Privacy matters, and it is more
+
+606
+00:18:49,526 --> 0:18:51,286
+important today than ever
+
+607
+00:18:51,286 --> 0:18:51,686
+before.
+
+608
+00:18:52,266 --> 0:18:54,396
+Our users are more aware of it
+
+609
+00:18:54,396 --> 0:18:56,176
+today than ever before.
+
+610
+00:18:57,306 --> 0:18:59,056
+At Apple, we believe that
+
+611
+00:18:59,056 --> 0:19:01,006
+privacy is a fundamental human
+
+612
+00:18:59,056 --> 0:19:01,006
+privacy is a fundamental human
+
+613
+00:19:01,006 --> 0:19:02,906
+right, and as Tim Cook has
+
+614
+00:19:02,906 --> 0:19:04,806
+mentioned, it is our collective
+
+615
+00:19:04,806 --> 0:19:07,316
+responsibility to safeguard and
+
+616
+00:19:07,316 --> 0:19:09,036
+protect the fundamental human
+
+617
+00:19:09,036 --> 0:19:10,196
+right to privacy.
+
+618
+00:19:10,676 --> 0:19:13,746
+As developers in the Apple
+
+619
+00:19:13,746 --> 0:19:15,616
+ecosystem, you all have a
+
+620
+00:19:15,736 --> 0:19:17,886
+profound impact on user's lives
+
+621
+00:19:17,886 --> 0:19:18,506
+every day.
+
+622
+00:19:19,386 --> 0:19:21,436
+As such, users trust you with
+
+623
+00:19:21,436 --> 0:19:23,296
+their data, and together with
+
+624
+00:19:23,296 --> 0:19:24,586
+us, you shoulder the
+
+625
+00:19:24,586 --> 0:19:26,806
+responsibility to uphold that
+
+626
+00:19:26,806 --> 0:19:26,976
+trust.
+
+627
+00:19:30,076 --> 0:19:31,526
+This year, we've made
+
+628
+00:19:31,526 --> 0:19:33,596
+enhancements to two major areas
+
+629
+00:19:33,596 --> 0:19:36,556
+for Core Bluetooth privacy, user
+
+630
+00:19:36,556 --> 0:19:38,726
+authorization, and accessory
+
+631
+00:19:38,726 --> 0:19:39,556
+notifications.
+
+632
+00:19:40,156 --> 0:19:42,406
+Let's start by talking about
+
+633
+00:19:42,636 --> 0:19:44,616
+user authorization and how it
+
+634
+00:19:44,616 --> 0:19:45,376
+currently works.
+
+635
+00:19:46,676 --> 0:19:49,336
+In iOS 12, if your application
+
+636
+00:19:49,336 --> 0:19:50,256
+instantiated a
+
+637
+00:19:50,256 --> 0:19:52,766
+CBPeripheralManager and wanted
+
+638
+00:19:52,766 --> 0:19:54,086
+to advertise when in the
+
+639
+00:19:54,086 --> 0:19:56,256
+background, we required that you
+
+640
+00:19:56,256 --> 0:19:57,686
+obtain user authorization.
+
+641
+00:19:58,236 --> 0:20:01,936
+New for this year, if your
+
+642
+00:19:58,236 --> 0:20:01,936
+New for this year, if your
+
+643
+00:20:01,936 --> 0:20:03,666
+application uses any Core
+
+644
+00:20:03,666 --> 0:20:05,966
+Bluetooth APIs, we'll require
+
+645
+00:20:05,966 --> 0:20:06,906
+you to obtain user
+
+646
+00:20:06,906 --> 0:20:07,726
+authorization.
+
+647
+00:20:08,266 --> 0:20:11,036
+It is important to note that
+
+648
+00:20:11,036 --> 0:20:12,676
+this applies to applications
+
+649
+00:20:13,056 --> 0:20:15,056
+that are built on older SDKs as
+
+650
+00:20:15,056 --> 0:20:15,366
+well.
+
+651
+00:20:15,366 --> 0:20:17,536
+And when a user makes this
+
+652
+00:20:17,536 --> 0:20:19,466
+decision, they can modify it in
+
+653
+00:20:19,466 --> 0:20:21,376
+the settings app either in the
+
+654
+00:20:21,376 --> 0:20:23,276
+Bluetooth privacy pane or even
+
+655
+00:20:23,276 --> 0:20:24,696
+in your application specific
+
+656
+00:20:24,696 --> 0:20:25,136
+settings.
+
+657
+00:20:25,796 --> 0:20:29,536
+And this is required on iOS,
+
+658
+00:20:29,756 --> 0:20:32,026
+watchOS, and tvOS.
+
+659
+00:20:32,716 --> 0:20:34,616
+So what does user authorization
+
+660
+00:20:34,616 --> 0:20:35,826
+mean on watchOS.
+
+661
+00:20:36,746 --> 0:20:38,446
+If your application runs as an
+
+662
+00:20:38,446 --> 0:20:40,946
+extension on watchOS, then the
+
+663
+00:20:40,946 --> 0:20:43,036
+permission is shared between iOS
+
+664
+00:20:43,036 --> 0:20:45,476
+and watchOS, and the user only
+
+665
+00:20:45,476 --> 0:20:46,726
+has to grant this permission
+
+666
+00:20:46,726 --> 0:20:46,996
+once.
+
+667
+00:20:48,356 --> 0:20:49,856
+This of course is not true for
+
+668
+00:20:49,856 --> 0:20:50,776
+stand-alone watchOS
+
+669
+00:20:50,776 --> 0:20:51,386
+applications.
+
+670
+00:20:52,106 --> 0:20:55,156
+So, how would you adopt user
+
+671
+00:20:55,156 --> 0:20:56,456
+authorizations in your
+
+672
+00:20:56,456 --> 0:20:57,166
+application?
+
+673
+00:20:58,476 --> 0:21:00,706
+The first thing to do is to open
+
+674
+00:20:58,476 --> 0:21:00,706
+The first thing to do is to open
+
+675
+00:21:00,706 --> 0:21:03,226
+the info.plist of your app and
+
+676
+00:21:03,226 --> 0:21:04,736
+add this new usage description
+
+677
+00:21:04,736 --> 0:21:05,086
+string.
+
+678
+00:21:06,256 --> 0:21:07,496
+There are three reasons why you
+
+679
+00:21:07,496 --> 0:21:08,576
+should add this usage
+
+680
+00:21:08,576 --> 0:21:09,396
+description string.
+
+681
+00:21:10,376 --> 0:21:12,066
+First, you can use this to
+
+682
+00:21:12,066 --> 0:21:14,086
+convey to users why your
+
+683
+00:21:14,086 --> 0:21:15,696
+application requires access to
+
+684
+00:21:15,696 --> 0:21:16,136
+Bluetooth.
+
+685
+00:21:17,436 --> 0:21:19,586
+Second it is a mandatory string
+
+686
+00:21:19,586 --> 0:21:21,436
+and failure to adopt it would
+
+687
+00:21:21,436 --> 0:21:22,956
+lead to a crash upon launch for
+
+688
+00:21:22,956 --> 0:21:23,736
+your application.
+
+689
+00:21:24,446 --> 0:21:25,666
+And you see an error like this
+
+690
+00:21:25,666 --> 0:21:26,296
+in console.
+
+691
+00:21:26,706 --> 0:21:29,456
+And thirdly, the app review
+
+692
+00:21:29,456 --> 0:21:31,626
+process reviews all usage
+
+693
+00:21:31,626 --> 0:21:33,526
+description strings to ensure
+
+694
+00:21:33,636 --> 0:21:35,396
+that they are nonempty and
+
+695
+00:21:35,476 --> 0:21:36,006
+meaningful.
+
+696
+00:21:36,006 --> 0:21:40,446
+So let's take a look at some
+
+697
+00:21:40,446 --> 0:21:40,896
+code now.
+
+698
+00:21:41,666 --> 0:21:42,916
+We've created a new property
+
+699
+00:21:42,916 --> 0:21:43,876
+this year that is the
+
+700
+00:21:43,876 --> 0:21:46,276
+authorization property, and this
+
+701
+00:21:46,276 --> 0:21:48,526
+will tell you whether a user has
+
+702
+00:21:48,526 --> 0:21:50,526
+allowed or denied access to your
+
+703
+00:21:50,526 --> 0:21:52,786
+application and whether you
+
+704
+00:21:52,786 --> 0:21:54,046
+check for this authorization
+
+705
+00:21:54,046 --> 0:21:54,806
+property.
+
+706
+00:21:55,316 --> 0:21:57,326
+In order to under that, let's
+
+707
+00:21:57,326 --> 0:21:58,996
+take a look the flow of a Core
+
+708
+00:21:58,996 --> 0:21:59,966
+Bluetooth application.
+
+709
+00:22:00,406 --> 0:22:02,446
+In your Core Bluetooth
+
+710
+00:22:02,446 --> 0:22:04,336
+application, the first thing you
+
+711
+00:22:04,336 --> 0:22:06,586
+probably do is instantiate a
+
+712
+00:22:06,586 --> 0:22:08,506
+CBCentralManager or a
+
+713
+00:22:08,506 --> 0:22:09,516
+CBPeripheralManager.
+
+714
+00:22:10,116 --> 0:22:11,336
+And so the first delegate
+
+715
+00:22:11,336 --> 0:22:12,716
+callbacks that you will receive
+
+716
+00:22:12,926 --> 0:22:14,316
+from Bluetooth will be the
+
+717
+00:22:14,316 --> 0:22:15,916
+ManagerDidUpdateState callback.
+
+718
+00:22:16,816 --> 0:22:18,536
+In this, you can look at the
+
+719
+00:22:18,536 --> 0:22:20,786
+value of state to see if the
+
+720
+00:22:20,786 --> 0:22:22,026
+manager is ready to be used.
+
+721
+00:22:23,316 --> 0:22:24,636
+Now if the value of state is
+
+722
+00:22:24,636 --> 0:22:26,446
+CBManagerstate.unauthorized,
+
+723
+00:22:26,976 --> 0:22:28,106
+then you can look at a new
+
+724
+00:22:28,106 --> 0:22:30,236
+authorization property to see if
+
+725
+00:22:30,236 --> 0:22:31,726
+the user has denied access to
+
+726
+00:22:31,726 --> 0:22:32,616
+your application.
+
+727
+00:22:35,876 --> 0:22:37,606
+So if your code looks like this
+
+728
+00:22:37,646 --> 0:22:39,886
+today, where you only look at
+
+729
+00:22:39,886 --> 0:22:41,606
+one or two values of manager
+
+730
+00:22:41,606 --> 0:22:44,216
+state, I urge you to please take
+
+731
+00:22:44,216 --> 0:22:45,896
+ten minutes aside today and
+
+732
+00:22:45,896 --> 0:22:47,546
+update your code so it looks a
+
+733
+00:22:47,546 --> 0:22:49,516
+little more like this where you
+
+734
+00:22:49,516 --> 0:22:51,146
+look at all the possible values
+
+735
+00:22:51,196 --> 0:22:53,306
+of manager state, and this also
+
+736
+00:22:53,306 --> 0:22:55,146
+give you a really smooth path to
+
+737
+00:22:55,146 --> 0:22:56,266
+start adopting user
+
+738
+00:22:56,266 --> 0:22:57,426
+authorization in your
+
+739
+00:22:57,426 --> 0:22:58,036
+application.
+
+740
+00:22:58,036 --> 0:23:00,706
+All of this code will be
+
+741
+00:22:58,036 --> 0:23:00,706
+All of this code will be
+
+742
+00:23:00,706 --> 0:23:02,336
+available in the sample project,
+
+743
+00:23:02,476 --> 0:23:03,456
+details of which will be
+
+744
+00:23:03,456 --> 0:23:04,516
+provided in the more info
+
+745
+00:23:04,516 --> 0:23:06,786
+session, section, sorry.
+
+746
+00:23:09,146 --> 0:23:11,006
+Let's now move onto accessory
+
+747
+00:23:11,006 --> 0:23:11,696
+notifications.
+
+748
+00:23:15,236 --> 0:23:18,406
+Apple implements ANCS, or Apple
+
+749
+00:23:18,406 --> 0:23:19,886
+Notification Center Service,
+
+750
+00:23:20,496 --> 0:23:21,976
+which is a GATT server service
+
+751
+00:23:22,446 --> 0:23:24,466
+that allows your accessories to
+
+752
+00:23:24,466 --> 0:23:27,126
+get system and app notifications
+
+753
+00:23:27,496 --> 0:23:29,086
+from the iOS Notification
+
+754
+00:23:29,086 --> 0:23:29,546
+Center.
+
+755
+00:23:30,876 --> 0:23:32,286
+If you want to learn more about
+
+756
+00:23:32,286 --> 0:23:34,086
+ANCS, then the detailed
+
+757
+00:23:34,086 --> 0:23:35,826
+documentation is available on
+
+758
+00:23:35,826 --> 0:23:39,546
+developer.apple.com.
+
+759
+00:23:39,746 --> 0:23:41,676
+The privacy update for ANCS is
+
+760
+00:23:41,726 --> 0:23:44,176
+that user authorization will now
+
+761
+00:23:44,176 --> 0:23:45,926
+be required in order to share
+
+762
+00:23:45,926 --> 0:23:47,856
+notifications with accessories.
+
+763
+00:23:48,806 --> 0:23:50,806
+And so if a user updates to iOS
+
+764
+00:23:50,866 --> 0:23:53,466
+13, when your accessory connects
+
+765
+00:23:53,466 --> 0:23:54,416
+in and registers for
+
+766
+00:23:54,416 --> 0:23:56,116
+notifications, we'll show this
+
+767
+00:23:56,116 --> 0:23:57,656
+permission prompt to users.
+
+768
+00:23:58,826 --> 0:24:00,616
+Once users make this decision,
+
+769
+00:23:58,826 --> 0:24:00,616
+Once users make this decision,
+
+770
+00:24:00,796 --> 0:24:02,106
+they can modify it under the
+
+771
+00:24:02,106 --> 0:24:04,106
+device-specific settings in
+
+772
+00:24:04,106 --> 0:24:04,786
+Bluetooth settings.
+
+773
+00:24:04,846 --> 0:24:07,926
+Now, we know that this flow
+
+774
+00:24:07,926 --> 0:24:09,636
+could be a lot better for users
+
+775
+00:24:10,096 --> 0:24:11,556
+if the permission prompt was
+
+776
+00:24:11,556 --> 0:24:12,976
+shown at a time when it was more
+
+777
+00:24:12,976 --> 0:24:15,956
+contextually relevant and in
+
+778
+00:24:15,956 --> 0:24:16,806
+your application.
+
+779
+00:24:17,496 --> 0:24:19,396
+And so we've created new ANCS
+
+780
+00:24:19,396 --> 0:24:21,716
+privacy APIs to help you enable
+
+781
+00:24:21,716 --> 0:24:22,866
+this experience.
+
+782
+00:24:24,496 --> 0:24:27,336
+From your CBCentralManager, if
+
+783
+00:24:27,336 --> 0:24:28,636
+you know that the peripheral
+
+784
+00:24:28,636 --> 0:24:29,806
+that you are connecting to
+
+785
+00:24:29,926 --> 0:24:32,086
+supports ANCS, you can use this
+
+786
+00:24:32,086 --> 0:24:33,436
+new CBConnect option.
+
+787
+00:24:34,796 --> 0:24:36,656
+If you do this, then upon
+
+788
+00:24:36,656 --> 0:24:38,166
+successful connection and
+
+789
+00:24:38,236 --> 0:24:39,746
+pairing, we'll show the
+
+790
+00:24:39,746 --> 0:24:41,126
+permission alert to the user
+
+791
+00:24:41,466 --> 0:24:42,706
+while the user is in your
+
+792
+00:24:42,706 --> 0:24:44,986
+application, and when they
+
+793
+00:24:44,986 --> 0:24:46,136
+respond to this permission
+
+794
+00:24:46,136 --> 0:24:47,936
+alert, your application will
+
+795
+00:24:47,936 --> 0:24:49,916
+receive a delegate callback that
+
+796
+00:24:49,916 --> 0:24:51,586
+tells you that ANCS
+
+797
+00:24:51,586 --> 0:24:53,046
+authorization has changed.
+
+798
+00:24:54,146 --> 0:24:55,356
+And you can fetch the value of
+
+799
+00:24:55,426 --> 0:24:56,556
+that using the getter
+
+800
+00:24:56,556 --> 0:24:57,666
+ancsAuthorized.
+
+801
+00:25:00,616 --> 0:25:02,596
+So, we spoke about user
+
+802
+00:25:02,596 --> 0:25:04,556
+authorization and accessory
+
+803
+00:25:04,556 --> 0:25:05,336
+notifications.
+
+804
+00:25:06,106 --> 0:25:07,586
+But apart from this, there's a
+
+805
+00:25:07,586 --> 0:25:09,046
+lot more that your application
+
+806
+00:25:09,046 --> 0:25:11,256
+can do to be a good custodian of
+
+807
+00:25:11,286 --> 0:25:12,116
+user privacy.
+
+808
+00:25:13,106 --> 0:25:14,136
+So let's take a look at some
+
+809
+00:25:14,136 --> 0:25:16,026
+best practices for your Core
+
+810
+00:25:16,026 --> 0:25:16,936
+Bluetooth applications.
+
+811
+00:25:20,996 --> 0:25:23,316
+First and foremost, invoke Core
+
+812
+00:25:23,316 --> 0:25:25,106
+Bluetooth APIs only when
+
+813
+00:25:25,106 --> 0:25:26,936
+required and at a time that it
+
+814
+00:25:26,936 --> 0:25:28,356
+is contextually relevant to
+
+815
+00:25:28,356 --> 0:25:28,796
+users.
+
+816
+00:25:30,736 --> 0:25:33,366
+Next, scan and advertise for a
+
+817
+00:25:33,366 --> 0:25:34,936
+limited duration only.
+
+818
+00:25:35,276 --> 0:25:36,356
+When your application is
+
+819
+00:25:36,356 --> 0:25:38,426
+advertising, it is essentially
+
+820
+00:25:38,426 --> 0:25:39,766
+sharing information from the
+
+821
+00:25:39,766 --> 0:25:41,646
+user's phone and limiting the
+
+822
+00:25:41,646 --> 0:25:43,346
+duration for which you do this
+
+823
+00:25:43,416 --> 0:25:44,736
+helps foster user trust.
+
+824
+00:25:47,616 --> 0:25:48,716
+Keep your scan filters as
+
+825
+00:25:48,716 --> 0:25:51,656
+specific as possible and look
+
+826
+00:25:51,656 --> 0:25:53,596
+only for the UUIDs that your
+
+827
+00:25:53,596 --> 0:25:55,836
+application is invested in.
+
+828
+00:25:57,256 --> 0:25:59,846
+And lastly, be transparent with
+
+829
+00:25:59,846 --> 0:26:01,676
+users about why your application
+
+830
+00:25:59,846 --> 0:26:01,676
+users about why your application
+
+831
+00:26:01,676 --> 0:26:02,986
+requires access to Core
+
+832
+00:26:02,986 --> 0:26:03,376
+Bluetooth.
+
+833
+00:26:03,476 --> 0:26:05,746
+If you do this, then users are
+
+834
+00:26:05,746 --> 0:26:06,896
+more likely to make the right
+
+835
+00:26:06,896 --> 0:26:07,386
+decision.
+
+836
+00:26:08,876 --> 0:26:10,486
+If you want to learn more about
+
+837
+00:26:10,806 --> 0:26:12,256
+designing your applications for
+
+838
+00:26:12,256 --> 0:26:14,066
+privacy, I invite you all to
+
+839
+00:26:14,066 --> 0:26:15,416
+look at the recorded sessions
+
+840
+00:26:15,496 --> 0:26:17,266
+for the privacy talks from this
+
+841
+00:26:17,266 --> 0:26:19,056
+year's and previous years' WWDC
+
+842
+00:26:19,146 --> 0:26:19,546
+sessions.
+
+843
+00:26:20,236 --> 0:26:24,436
+So let's all be proactive in
+
+844
+00:26:24,436 --> 0:26:26,116
+thinking about and safeguarding
+
+845
+00:26:26,116 --> 0:26:28,626
+user privacy as we design and
+
+846
+00:26:28,626 --> 0:26:30,036
+implement our Core Bluetooth
+
+847
+00:26:30,036 --> 0:26:30,676
+applications.
+
+848
+00:26:32,066 --> 0:26:33,296
+I'd now like to hand it over to
+
+849
+00:26:33,296 --> 0:26:34,476
+Duy to walk you through
+
+850
+00:26:34,476 --> 0:26:35,216
+developer tools.
+
+851
+00:26:35,686 --> 0:26:35,976
+Thank you.
+
+852
+00:26:36,516 --> 0:26:39,616
+[ Applause ]
+
+853
+00:26:40,116 --> 0:26:40,346
+&gt;&gt; Thanks.
+
+854
+00:26:40,836 --> 0:26:42,436
+I'd like to talk to you a little
+
+855
+00:26:42,436 --> 0:26:44,476
+bit about a new feature we've
+
+856
+00:26:44,476 --> 0:26:45,546
+added to the Core Bluetooth
+
+857
+00:26:45,616 --> 0:26:46,166
+PacketLogger.
+
+858
+00:26:47,186 --> 0:26:48,886
+For those that's not familiar
+
+859
+00:26:48,886 --> 0:26:49,676
+with the Core Bluetooth
+
+860
+00:26:49,676 --> 0:26:50,996
+PacketLogger, this is our
+
+861
+00:26:50,996 --> 0:26:52,326
+Bluetooth packet analysis
+
+862
+00:26:52,326 --> 0:26:53,936
+application built for Apple
+
+863
+00:26:53,936 --> 0:26:54,586
+developers.
+
+864
+00:26:56,016 --> 0:26:57,346
+Today, when you install a login
+
+865
+00:26:57,346 --> 0:26:59,346
+profile on your iOS device and
+
+866
+00:26:59,346 --> 0:27:00,596
+trigger sys diagnose, this is
+
+867
+00:26:59,346 --> 0:27:00,596
+trigger sys diagnose, this is
+
+868
+00:27:00,636 --> 0:27:02,446
+the application that can open up
+
+869
+00:27:02,446 --> 0:27:04,216
+the small PacketLogger file
+
+870
+00:27:04,286 --> 0:27:05,346
+that's inside.
+
+871
+00:27:05,996 --> 0:27:08,256
+The application can decode all
+
+872
+00:27:08,256 --> 0:27:09,396
+protocols defined by the
+
+873
+00:27:09,446 --> 0:27:10,586
+Bluetooth SIG and by Apple.
+
+874
+00:27:10,586 --> 0:27:12,796
+And because it can understand
+
+875
+00:27:12,796 --> 0:27:13,986
+all of these protocols, it will
+
+876
+00:27:13,986 --> 0:27:15,366
+also highlight errors to warn
+
+877
+00:27:15,366 --> 0:27:16,466
+you of potential problems.
+
+878
+00:27:17,536 --> 0:27:19,276
+It has rich filtering options.
+
+879
+00:27:19,736 --> 0:27:21,036
+You can filter by trust
+
+880
+00:27:21,036 --> 0:27:22,356
+connections or protocol.
+
+881
+00:27:23,836 --> 0:27:25,246
+You can search by text or regex,
+
+882
+00:27:26,526 --> 0:27:27,836
+comment and flag individual
+
+883
+00:27:27,836 --> 0:27:30,696
+packets, and even export raw
+
+884
+00:27:30,696 --> 0:27:31,916
+data for later analysis.
+
+885
+00:27:34,056 --> 0:27:36,566
+This is what the top level looks
+
+886
+00:27:37,116 --> 0:27:42,786
+like in dark mode, and in this
+
+887
+00:27:42,786 --> 0:27:44,456
+example, I have filtered only
+
+888
+00:27:44,456 --> 0:27:46,426
+for the ACI and ATT protocols.
+
+889
+00:27:47,656 --> 0:27:49,696
+But you can also click down,
+
+890
+00:27:50,016 --> 0:27:52,246
+click on each of the packets and
+
+891
+00:27:52,246 --> 0:27:54,426
+drill down to view the full
+
+892
+00:27:54,456 --> 0:27:58,566
+protocol hierarchy and examine
+
+893
+00:27:58,616 --> 0:27:59,676
+each of the protocols
+
+894
+00:27:59,826 --> 0:28:03,126
+individually down to the lowest
+
+895
+00:27:59,826 --> 0:28:03,126
+individually down to the lowest
+
+896
+00:28:03,126 --> 0:28:03,936
+layer in raw bytes.
+
+897
+00:28:07,996 --> 0:28:09,256
+And new for this year, we've
+
+898
+00:28:09,256 --> 0:28:10,666
+added a feature which we think
+
+899
+00:28:10,736 --> 0:28:11,606
+you're really going to like.
+
+900
+00:28:11,916 --> 0:28:12,876
+It's called Live Capture.
+
+901
+00:28:13,516 --> 0:28:17,326
+[ Applause ]
+
+902
+00:28:17,826 --> 0:28:19,476
+This means that you can now
+
+903
+00:28:19,746 --> 0:28:21,426
+install a login profile on your
+
+904
+00:28:21,426 --> 0:28:23,326
+iOS device, connect it to your
+
+905
+00:28:23,326 --> 0:28:26,286
+Mac, launch PacketLogger, and
+
+906
+00:28:26,286 --> 0:28:27,856
+capture live Bluetooth traffic
+
+907
+00:28:28,216 --> 0:28:29,976
+from your iOS device to an
+
+908
+00:28:29,976 --> 0:28:30,476
+accessory.
+
+909
+00:28:30,866 --> 0:28:33,696
+[applause] Thank you.
+
+910
+00:28:34,508 --> 0:28:36,508
+[ Applause ]
+
+911
+00:28:38,616 --> 0:28:40,436
+You can also connect multiple
+
+912
+00:28:40,436 --> 0:28:42,176
+iOS devices and capture live
+
+913
+00:28:42,176 --> 0:28:42,526
+traffic.
+
+914
+00:28:43,406 --> 0:28:44,496
+We hope that this will give you
+
+915
+00:28:44,496 --> 0:28:46,036
+more context when you debug.
+
+916
+00:28:46,036 --> 0:28:47,246
+It will make your debug more
+
+917
+00:28:47,246 --> 0:28:49,336
+interactive and hopefully help
+
+918
+00:28:49,336 --> 0:28:50,676
+you resolve your problems more
+
+919
+00:28:50,676 --> 0:28:50,976
+quickly.
+
+920
+00:28:53,416 --> 0:28:55,076
+And now that you're excited, how
+
+921
+00:28:55,076 --> 0:28:57,216
+do you set up Live Capture?
+
+922
+00:28:57,646 --> 0:28:59,196
+You can install the iOS 13
+
+923
+00:28:59,196 --> 0:29:00,526
+developer beta on your iOS
+
+924
+00:28:59,196 --> 0:29:00,526
+developer beta on your iOS
+
+925
+00:29:00,526 --> 0:29:03,506
+device, install the developer
+
+926
+00:29:03,506 --> 0:29:05,966
+logging profile, launch
+
+927
+00:29:05,966 --> 0:29:08,926
+PacketLogger, connect your iOS
+
+928
+00:29:08,956 --> 0:29:12,186
+device to your Mac, select file
+
+929
+00:29:12,186 --> 0:29:13,426
+New iOS Trace on your
+
+930
+00:29:13,426 --> 0:29:14,926
+PacketLogger application, and
+
+931
+00:29:14,926 --> 0:29:15,236
+that's it.
+
+932
+00:29:15,616 --> 0:29:16,346
+You're live capturing.
+
+933
+00:29:18,096 --> 0:29:19,496
+Thank you.
+
+934
+00:29:21,666 --> 0:29:22,836
+There's also an indicator in
+
+935
+00:29:22,836 --> 0:29:24,836
+your iOS device to tell that
+
+936
+00:29:24,836 --> 0:29:26,086
+Live Capture is in progress.
+
+937
+00:29:26,616 --> 0:29:29,666
+And how do you get PacketLogger?
+
+938
+00:29:30,546 --> 0:29:31,876
+You can download PacketLogger
+
+939
+00:29:31,876 --> 0:29:33,406
+inside the additional tools for
+
+940
+00:29:33,406 --> 0:29:34,246
+Xcode package.
+
+941
+00:29:34,246 --> 0:29:36,376
+The link will be provided in the
+
+942
+00:29:36,376 --> 0:29:37,366
+more information page.
+
+943
+00:29:38,306 --> 0:29:39,656
+PacketLogger is inside the
+
+944
+00:29:39,656 --> 0:29:41,106
+hardware folder of this package.
+
+945
+00:29:41,626 --> 0:29:44,066
+For best performance, run with
+
+946
+00:29:44,066 --> 0:29:44,976
+MacOS Catalina.
+
+947
+00:29:48,676 --> 0:29:50,146
+Let's wrap up now with a
+
+948
+00:29:50,146 --> 0:29:50,556
+summary.
+
+949
+00:29:56,036 --> 0:29:57,586
+When developing your accessory
+
+950
+00:29:57,586 --> 0:29:59,076
+use the chipset with the latest
+
+951
+00:29:59,076 --> 0:30:00,396
+Bluetooth stand to take
+
+952
+00:29:59,076 --> 0:30:00,396
+Bluetooth stand to take
+
+953
+00:30:00,396 --> 0:30:01,896
+advantage of all of the new
+
+954
+00:30:02,286 --> 0:30:03,906
+performance and power
+
+955
+00:30:03,906 --> 0:30:05,906
+optimizations like LE 2 Mbps and
+
+956
+00:30:05,906 --> 0:30:06,916
+Advertising Extension.
+
+957
+00:30:07,476 --> 0:30:10,156
+You can now build Core Bluetooth
+
+958
+00:30:10,156 --> 0:30:11,866
+apps for Bluetooth BR/EDR
+
+959
+00:30:11,866 --> 0:30:12,366
+devices.
+
+960
+00:30:12,516 --> 0:30:13,696
+We look forward to seeing all of
+
+961
+00:30:13,696 --> 0:30:14,826
+the new applications and
+
+962
+00:30:14,826 --> 0:30:15,746
+accessories you build.
+
+963
+00:30:17,896 --> 0:30:19,166
+And always protect your user
+
+964
+00:30:19,166 --> 0:30:20,806
+privacy and protect their trust
+
+965
+00:30:20,806 --> 0:30:21,766
+in your brand and product.
+
+966
+00:30:22,436 --> 0:30:25,116
+And take advantage of the
+
+967
+00:30:25,116 --> 0:30:25,976
+developer beta.
+
+968
+00:30:26,576 --> 0:30:27,586
+Download the beta and test
+
+969
+00:30:27,586 --> 0:30:27,906
+today.
+
+970
+00:30:28,506 --> 0:30:29,946
+IOS has very good adoption
+
+971
+00:30:29,946 --> 0:30:30,196
+rates.
+
+972
+00:30:30,626 --> 0:30:32,146
+You don't want your users to run
+
+973
+00:30:32,146 --> 0:30:33,516
+into problems when they upgrade.
+
+974
+00:30:34,176 --> 0:30:35,746
+We usually have a small window
+
+975
+00:30:35,746 --> 0:30:36,086
+to help.
+
+976
+00:30:36,086 --> 0:30:37,816
+So if you discover a problem
+
+977
+00:30:37,816 --> 0:30:39,006
+early enough, you can work with
+
+978
+00:30:39,006 --> 0:30:40,206
+us to resolve the issues.
+
+979
+00:30:40,746 --> 0:30:43,266
+And refer to the accessory
+
+980
+00:30:43,366 --> 0:30:44,866
+design guidelines for Apple
+
+981
+00:30:44,866 --> 0:30:45,406
+devices.
+
+982
+00:30:45,936 --> 0:30:46,806
+We have a great set of
+
+983
+00:30:46,806 --> 0:30:48,196
+guidelines there to tell you how
+
+984
+00:30:48,196 --> 0:30:49,596
+to develop the best accessory.
+
+985
+00:30:50,146 --> 0:30:52,996
+And finally, Apple is here to
+
+986
+00:30:52,996 --> 0:30:53,226
+help.
+
+987
+00:30:53,956 --> 0:30:55,346
+Use the feedback app, reach out
+
+988
+00:30:55,346 --> 0:30:56,686
+to us so we can work together in
+
+989
+00:30:56,686 --> 0:30:57,526
+your accessories and
+
+990
+00:30:57,526 --> 0:30:58,126
+applications.
+
+991
+00:30:58,776 --> 0:31:01,046
+And if you have more questions,
+
+992
+00:30:58,776 --> 0:31:01,046
+And if you have more questions,
+
+993
+00:31:01,046 --> 0:31:02,286
+come to the Core Bluetooth lab
+
+994
+00:31:02,286 --> 0:31:02,746
+at 4.
+
+995
+00:31:02,746 --> 0:31:03,826
+Thank you.
+
+996
+00:31:04,516 --> 0:31:08,500
+[ Applause ]

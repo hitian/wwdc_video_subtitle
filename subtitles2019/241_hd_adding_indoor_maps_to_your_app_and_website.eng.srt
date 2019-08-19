@@ -1,0 +1,5855 @@
+1
+00:00:00,506 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:10,516 --> 0:00:14,946
+[ Applause ]
+
+3
+00:00:15,446 --> 0:00:16,226
+&gt;&gt; Hello and welcome.
+
+4
+00:00:16,616 --> 0:00:18,016
+I am Stephane, an engineer in
+
+5
+00:00:18,016 --> 0:00:19,546
+the maps team, and together with
+
+6
+00:00:19,596 --> 0:00:21,246
+my colleague, Mithilesh, we are
+
+7
+00:00:21,246 --> 0:00:22,336
+going to talk about adding
+
+8
+00:00:22,406 --> 0:00:24,006
+indoor maps to your app and
+
+9
+00:00:24,006 --> 0:00:24,386
+websites.
+
+10
+00:00:26,306 --> 0:00:28,116
+In iOS 11, we introduced indoor
+
+11
+00:00:28,116 --> 0:00:29,626
+maps as a part of Apple maps.
+
+12
+00:00:30,586 --> 0:00:32,386
+We provide beautiful and
+
+13
+00:00:32,386 --> 0:00:33,856
+detailed floor plans for venues
+
+14
+00:00:33,856 --> 0:00:35,186
+such as airports and malls.
+
+15
+00:00:36,196 --> 0:00:37,786
+Indoor maps is a great way for
+
+16
+00:00:37,786 --> 0:00:39,826
+you to view, search, and find
+
+17
+00:00:39,826 --> 0:00:40,836
+your way inside of indoor
+
+18
+00:00:40,836 --> 0:00:41,286
+spaces.
+
+19
+00:00:43,026 --> 0:00:45,036
+Using the level picker, you can switch
+
+20
+00:00:45,036 --> 0:00:46,616
+between floors, and each of
+
+21
+00:00:46,616 --> 0:00:48,716
+these venues have indoor
+
+22
+00:00:48,716 --> 0:00:51,166
+location similar to GPS or
+
+23
+00:00:51,166 --> 0:00:51,516
+better.
+
+24
+00:00:52,986 --> 0:00:54,366
+Today, we will talk about how
+
+25
+00:00:54,366 --> 0:00:55,706
+you can display indoor maps
+
+26
+00:00:55,946 --> 0:00:57,716
+inside your own applications
+
+27
+00:00:58,136 --> 0:00:59,376
+along with indoor positioning.
+
+28
+00:01:01,356 --> 0:01:02,836
+We'll start by talking about the
+
+29
+00:01:02,836 --> 0:01:04,105
+Indoor Mapping Data Format.
+
+30
+00:01:04,796 --> 0:01:06,646
+Then, we'll introduce some of
+
+31
+00:01:06,646 --> 0:01:08,276
+the tools available to you as a
+
+32
+00:01:08,276 --> 0:01:10,046
+part of the Indoor Maps Program.
+
+33
+00:01:11,036 --> 0:01:12,186
+We'll then show you how you can
+
+34
+00:01:12,186 --> 0:01:14,266
+display indoor maps inside your
+
+35
+00:01:14,266 --> 0:01:15,606
+iOS and web applications.
+
+36
+00:01:16,156 --> 0:01:18,246
+Let's get started.
+
+37
+00:01:19,146 --> 0:01:21,076
+IMDF, which stands for the
+
+38
+00:01:21,076 --> 0:01:23,146
+Indoor Mapping Data Format, is a
+
+39
+00:01:23,146 --> 0:01:24,586
+specification for modeling
+
+40
+00:01:24,586 --> 0:01:25,176
+indoor spaces.
+
+41
+00:01:26,246 --> 0:01:27,736
+But before going into more
+
+42
+00:01:27,736 --> 0:01:28,936
+details, let's step back a bit
+
+43
+00:01:29,086 --> 0:01:31,026
+and take a closer look at what
+
+44
+00:01:31,026 --> 0:01:32,456
+an indoor map is in general
+
+45
+00:01:32,456 --> 0:01:32,796
+terms.
+
+46
+00:01:33,236 --> 0:01:36,156
+An indoor map, like your regular
+
+47
+00:01:36,156 --> 0:01:38,166
+map, is comprised of many
+
+48
+00:01:38,166 --> 0:01:39,946
+layers, and each of these layers
+
+49
+00:01:40,426 --> 0:01:41,706
+may contain several features.
+
+50
+00:01:42,646 --> 0:01:43,476
+Let's break this map, for
+
+51
+00:01:43,476 --> 0:01:43,816
+instance.
+
+52
+00:01:44,476 --> 0:01:47,636
+The base of an indoor map is the
+
+53
+00:01:47,636 --> 0:01:48,336
+building footprint.
+
+54
+00:01:49,016 --> 0:01:51,326
+Then we get a level.
+
+55
+00:01:51,326 --> 0:01:54,006
+On that level, we can find
+
+56
+00:01:54,006 --> 0:01:55,526
+units, such as rooms and
+
+57
+00:01:55,526 --> 0:01:55,936
+walkways.
+
+58
+00:01:56,526 --> 0:02:00,996
+Units have doorways, and we can
+
+59
+00:01:56,526 --> 0:02:00,996
+Units have doorways, and we can
+
+60
+00:02:00,996 --> 0:02:03,026
+also have kiosks that you often
+
+61
+00:02:03,086 --> 0:02:03,576
+see in malls.
+
+62
+00:02:04,216 --> 0:02:06,766
+We have labels for rooms and
+
+63
+00:02:06,766 --> 0:02:08,496
+kiosks, such as the name of a
+
+64
+00:02:08,496 --> 0:02:11,726
+business occupying a room, and
+
+65
+00:02:11,786 --> 0:02:13,106
+also icons that mark the
+
+66
+00:02:13,106 --> 0:02:14,246
+location of amnities of
+
+67
+00:02:14,246 --> 0:02:16,136
+interest like elevators or
+
+68
+00:02:16,166 --> 0:02:16,586
+restrooms.
+
+69
+00:02:16,736 --> 0:02:21,476
+And finally, there is also a
+
+70
+00:02:21,476 --> 0:02:23,806
+virtual boundary enclosing an area
+
+71
+00:02:23,886 --> 0:02:25,096
+with multiple units.
+
+72
+00:02:26,516 --> 0:02:27,816
+Okay, so these are some of the
+
+73
+00:02:27,816 --> 0:02:29,146
+layers that make an indoor map.
+
+74
+00:02:30,316 --> 0:02:32,186
+However, in order to be able to
+
+75
+00:02:32,486 --> 0:02:35,006
+accurately describe-- in order
+
+76
+00:02:35,006 --> 0:02:36,446
+to be able to create and display
+
+77
+00:02:36,446 --> 0:02:38,456
+such a map, we need a way to
+
+78
+00:02:38,456 --> 0:02:39,626
+accurately describe its
+
+79
+00:02:39,626 --> 0:02:40,156
+contents.
+
+80
+00:02:41,126 --> 0:02:42,696
+That's where IMDF comes into
+
+81
+00:02:42,916 --> 0:02:43,000
+play.
+
+82
+00:02:44,286 --> 0:02:46,136
+IMDF is a specification for
+
+83
+00:02:46,136 --> 0:02:47,356
+modeling indoor spaces.
+
+84
+00:02:48,646 --> 0:02:50,276
+It is a 2D GeoJSON based data
+
+85
+00:02:50,276 --> 0:02:52,636
+format that's not only easy to
+
+86
+00:02:52,636 --> 0:02:55,236
+create and understand but also
+
+87
+00:02:55,236 --> 0:02:57,186
+easy for applications to use.
+
+88
+00:02:58,136 --> 0:03:00,626
+An IMDF archive is a set of JSON
+
+89
+00:02:58,136 --> 0:03:00,626
+An IMDF archive is a set of JSON
+
+90
+00:03:00,626 --> 0:03:00,996
+files.
+
+91
+00:03:03,236 --> 0:03:05,486
+More specifically, it consists
+
+92
+00:03:05,486 --> 0:03:07,506
+of a manifest JSON file and
+
+93
+00:03:07,506 --> 0:03:10,216
+several GeoJSON files, each
+
+94
+00:03:10,216 --> 0:03:11,416
+containing a collection of
+
+95
+00:03:11,416 --> 0:03:13,316
+features of the given IMDF
+
+96
+00:03:13,316 --> 0:03:14,386
+feature type.
+
+97
+00:03:15,696 --> 0:03:18,016
+An IMDF feature is a regular
+
+98
+00:03:18,016 --> 0:03:18,826
+GeoJSON feature.
+
+99
+00:03:19,536 --> 0:03:21,856
+It has a type feature, may have
+
+100
+00:03:21,856 --> 0:03:23,696
+a geometry, and has a set of
+
+101
+00:03:23,696 --> 0:03:24,156
+properties.
+
+102
+00:03:25,566 --> 0:03:27,216
+The IMDF specification also
+
+103
+00:03:27,216 --> 0:03:28,926
+requires an ID to present, which
+
+104
+00:03:28,926 --> 0:03:31,466
+is a UUID and an additional
+
+105
+00:03:31,466 --> 0:03:33,586
+field called feature type, which
+
+106
+00:03:33,586 --> 0:03:34,996
+represents the indoor concept
+
+107
+00:03:35,076 --> 0:03:35,556
+being modeled.
+
+108
+00:03:36,246 --> 0:03:38,486
+Let's take a look at some of the
+
+109
+00:03:38,486 --> 0:03:40,886
+main feature types of IMDF.
+
+110
+00:03:43,586 --> 0:03:45,346
+Levels model the location and
+
+111
+00:03:45,346 --> 0:03:47,716
+physical extent of floor areas.
+
+112
+00:03:48,866 --> 0:03:50,926
+A level has a full name, like
+
+113
+00:03:50,926 --> 0:03:53,416
+parking level one, a short name
+
+114
+00:03:53,886 --> 0:03:56,436
+like P1, and a reference to the
+
+115
+00:03:56,436 --> 0:03:57,966
+building features it belongs to.
+
+116
+00:03:59,166 --> 0:04:00,516
+It also has an ordinal, which
+
+117
+00:03:59,166 --> 0:04:00,516
+It also has an ordinal, which
+
+118
+00:04:00,896 --> 0:04:02,996
+represents the level's position
+
+119
+00:04:02,996 --> 0:04:04,406
+within the total range of floors
+
+120
+00:04:04,406 --> 0:04:04,966
+in a building.
+
+121
+00:04:06,446 --> 0:04:08,106
+Ground levels have an ordinal
+
+122
+00:04:08,106 --> 0:04:10,956
+equal to 0, subterranean levels
+
+123
+00:04:11,036 --> 0:04:13,236
+have negative ordinals, and, of
+
+124
+00:04:13,236 --> 0:04:15,046
+course, above-ground levels have
+
+125
+00:04:15,116 --> 0:04:16,546
+positive ordinals.
+
+126
+00:04:19,096 --> 0:04:21,185
+A level is paved with units.
+
+127
+00:04:21,726 --> 0:04:23,006
+A unit models the location
+
+128
+00:04:23,056 --> 0:04:24,266
+and extent of a space, like a
+
+129
+00:04:24,266 --> 0:04:26,826
+room, a walkway, a stairwell, or
+
+130
+00:04:26,826 --> 0:04:27,446
+an elevator.
+
+131
+00:04:29,366 --> 0:04:31,616
+Openings model entrances such as
+
+132
+00:04:31,616 --> 0:04:31,826
+door.
+
+133
+00:04:32,866 --> 0:04:33,956
+They may also define interesting
+
+134
+00:04:33,956 --> 0:04:35,716
+properties like the type of
+
+135
+00:04:35,716 --> 0:04:37,576
+accessibility or the kind of
+
+136
+00:04:37,576 --> 0:04:38,486
+access control systems.
+
+137
+00:04:39,056 --> 0:04:42,756
+Kiosks model pieces of furniture
+
+138
+00:04:42,976 --> 0:04:44,876
+that may be used to provide
+
+139
+00:04:44,916 --> 0:04:46,546
+services or distribute products,
+
+140
+00:04:47,046 --> 0:04:48,686
+like information desks or
+
+141
+00:04:48,686 --> 0:04:49,306
+vending machines.
+
+142
+00:04:49,996 --> 0:04:52,936
+We can also add businesses to
+
+143
+00:04:52,936 --> 0:04:54,926
+our map thanks to the occupant
+
+144
+00:04:54,926 --> 0:04:55,376
+features.
+
+145
+00:04:55,476 --> 0:04:57,676
+An occupant provides information
+
+146
+00:04:57,676 --> 0:04:59,766
+about a business like the name,
+
+147
+00:04:59,766 --> 0:05:00,966
+the phone number, and opening
+
+148
+00:04:59,766 --> 0:05:00,966
+the phone number, and opening
+
+149
+00:05:00,966 --> 0:05:01,336
+hours.
+
+150
+00:05:02,306 --> 0:05:04,246
+They don't have a geometry, but
+
+151
+00:05:04,246 --> 0:05:05,456
+we can get their display point
+
+152
+00:05:05,866 --> 0:05:09,556
+and address through their associated
+
+153
+00:05:10,476 --> 0:05:10,616
+anchor.
+
+154
+00:05:10,856 --> 0:05:12,666
+Anchors represent a curated
+
+155
+00:05:12,666 --> 0:05:13,996
+point used as a peripheral
+
+156
+00:05:13,996 --> 0:05:15,496
+display location in a unit.
+
+157
+00:05:16,556 --> 0:05:17,646
+They may also have a reference
+
+158
+00:05:17,646 --> 0:05:17,986
+to an address.
+
+159
+00:05:19,106 --> 0:05:21,466
+Anchors play a key role in IMDF
+
+160
+00:05:22,106 --> 0:05:23,566
+since other features like
+
+161
+00:05:23,566 --> 0:05:26,476
+occupant, unit, or kiosk may be
+
+162
+00:05:26,526 --> 0:05:28,476
+linked to addresses through
+
+163
+00:05:30,516 --> 0:05:30,626
+them.
+
+164
+00:05:30,846 --> 0:05:31,866
+We may also want to add
+
+165
+00:05:31,866 --> 0:05:32,406
+amenities.
+
+166
+00:05:33,156 --> 0:05:34,396
+Amenity features can model
+
+167
+00:05:34,486 --> 0:05:36,366
+permanent equipment or other
+
+168
+00:05:36,366 --> 0:05:38,376
+convenience of interest like a
+
+169
+00:05:38,376 --> 0:05:40,096
+photo booth, and ATM, or an
+
+170
+00:05:40,096 --> 0:05:44,216
+exhibit in that case.
+
+171
+00:05:44,406 --> 0:05:45,976
+Section features may be used to
+
+172
+00:05:45,976 --> 0:05:47,476
+describe the extent of an area
+
+173
+00:05:47,476 --> 0:05:49,126
+with a particular theme on the
+
+174
+00:05:49,126 --> 0:05:50,876
+level like a food court in a
+
+175
+00:05:50,876 --> 0:05:53,216
+mall or a post-security area in an
+
+176
+00:05:53,216 --> 0:05:53,546
+airport.
+
+177
+00:05:54,856 --> 0:05:56,106
+Sections do not need to be
+
+178
+00:05:56,106 --> 0:05:57,906
+materialized by a physical
+
+179
+00:05:57,906 --> 0:05:58,316
+boundary.
+
+180
+00:06:01,276 --> 0:06:02,676
+Buildings describe physical
+
+181
+00:06:02,676 --> 0:06:03,396
+building structures.
+
+182
+00:06:04,006 --> 0:06:05,256
+They may have a name and also
+
+183
+00:06:05,256 --> 0:06:06,006
+refer to an address.
+
+184
+00:06:06,866 --> 0:06:08,046
+However, they don't have a
+
+185
+00:06:08,046 --> 0:06:10,146
+geometry, but defer job of
+
+186
+00:06:10,146 --> 0:06:12,006
+describing their extent to
+
+187
+00:06:12,006 --> 0:06:13,256
+another feature called
+
+188
+00:06:13,636 --> 0:06:14,046
+footprint.
+
+189
+00:06:15,576 --> 0:06:16,576
+And there are three types of
+
+190
+00:06:16,576 --> 0:06:16,996
+footprints.
+
+191
+00:06:17,516 --> 0:06:19,926
+Aerial footprints capture the
+
+192
+00:06:19,926 --> 0:06:21,576
+maximum extent of the levels
+
+193
+00:06:21,606 --> 0:06:22,296
+above ground.
+
+194
+00:06:23,366 --> 0:06:24,416
+Ground footprints capture the
+
+195
+00:06:24,416 --> 0:06:25,616
+maximum extent of the ground
+
+196
+00:06:25,616 --> 0:06:27,536
+levels, and subterranean
+
+197
+00:06:27,536 --> 0:06:28,936
+footprints capture the maximum
+
+198
+00:06:28,996 --> 0:06:31,276
+extent of the floors below
+
+199
+00:06:31,926 --> 0:06:32,086
+ground.
+
+200
+00:06:33,466 --> 0:06:33,576
+Okay.
+
+201
+00:06:33,806 --> 0:06:35,246
+So this was just a quick
+
+202
+00:06:35,246 --> 0:06:37,146
+overview of the main features of
+
+203
+00:06:37,146 --> 0:06:37,676
+IMDF.
+
+204
+00:06:38,586 --> 0:06:40,716
+Thanks to IMDF, we can describe
+
+205
+00:06:40,716 --> 0:06:42,846
+indoor spaces data in a formal
+
+206
+00:06:43,056 --> 0:06:44,046
+yet flexible way.
+
+207
+00:06:45,076 --> 0:06:46,406
+But, of course the specification
+
+208
+00:06:46,406 --> 0:06:47,226
+covers a lot more.
+
+209
+00:06:47,846 --> 0:06:48,756
+You can check it out at
+
+210
+00:06:48,756 --> 0:06:51,846
+register.apple.com.
+
+211
+00:06:52,286 --> 0:06:54,686
+Apple works with many of the top
+
+212
+00:06:54,686 --> 0:06:56,386
+platforms' providers for
+
+213
+00:06:56,386 --> 0:06:57,926
+geospatial tooling that support
+
+214
+00:06:57,926 --> 0:06:58,546
+IMDF.
+
+215
+00:06:59,536 --> 0:07:00,886
+You can work directly with them
+
+216
+00:06:59,536 --> 0:07:00,886
+You can work directly with them
+
+217
+00:07:01,256 --> 0:07:03,166
+to create an IMDF archive for
+
+218
+00:07:03,166 --> 0:07:03,596
+your venue.
+
+219
+00:07:05,206 --> 0:07:06,986
+You can use that archive right
+
+220
+00:07:06,986 --> 0:07:08,486
+away and display it in your apps
+
+221
+00:07:08,486 --> 0:07:10,226
+as we will demonstrate later in
+
+222
+00:07:10,226 --> 0:07:10,686
+this session.
+
+223
+00:07:11,266 --> 0:07:14,856
+But what if you also want to
+
+224
+00:07:14,856 --> 0:07:16,036
+enable indoor positioning?
+
+225
+00:07:17,076 --> 0:07:17,976
+Well, that's where the indoor
+
+226
+00:07:17,976 --> 0:07:19,826
+maps program comes in.
+
+227
+00:07:20,516 --> 0:07:22,766
+By participating in the indoor
+
+228
+00:07:22,766 --> 0:07:23,976
+maps program, you can take
+
+229
+00:07:23,976 --> 0:07:25,396
+advantage of some of the tools
+
+230
+00:07:25,396 --> 0:07:27,616
+that Apple provides to visualize
+
+231
+00:07:27,696 --> 0:07:28,896
+and validate your data.
+
+232
+00:07:29,786 --> 0:07:31,496
+Even more interesting, you can
+
+233
+00:07:31,536 --> 0:07:33,036
+add indoor location capability
+
+234
+00:07:33,036 --> 0:07:34,856
+or the blue dot to your venue.
+
+235
+00:07:35,596 --> 0:07:37,176
+And optionally, you can also
+
+236
+00:07:37,346 --> 0:07:38,906
+allow Apple to display your
+
+237
+00:07:38,906 --> 0:07:44,186
+venue inside of Apple Maps.
+
+238
+00:07:44,186 --> 0:07:45,386
+You can sign up for the indoor
+
+239
+00:07:45,386 --> 0:07:46,206
+maps program at
+
+240
+00:07:46,296 --> 0:07:48,156
+register.Apple.com/indoor.
+
+241
+00:07:49,116 --> 0:07:50,196
+Signing up is very
+
+242
+00:07:50,276 --> 0:07:51,236
+straightforward and easy.
+
+243
+00:07:51,676 --> 0:07:52,886
+You just need to provide some
+
+244
+00:07:52,886 --> 0:07:54,326
+basic information about yourself
+
+245
+00:07:54,326 --> 0:07:56,626
+and your organization such as
+
+246
+00:07:56,626 --> 0:07:58,246
+the name, the location, and
+
+247
+00:07:58,246 --> 0:07:58,596
+address.
+
+248
+00:07:59,176 --> 0:08:02,366
+Once Apple has reviewed and
+
+249
+00:07:59,176 --> 0:08:02,366
+Once Apple has reviewed and
+
+250
+00:08:02,366 --> 0:08:03,846
+approved your application, you
+
+251
+00:08:03,846 --> 0:08:05,486
+can start working with your
+
+252
+00:08:05,486 --> 0:08:07,296
+geospatial tool provider to
+
+253
+00:08:07,296 --> 0:08:08,626
+create an IMDF archive.
+
+254
+00:08:08,626 --> 0:08:11,776
+And now that you have it, you
+
+255
+00:08:11,776 --> 0:08:13,376
+are ready to validate it with
+
+256
+00:08:13,376 --> 0:08:14,616
+the IMDF Sandbox.
+
+257
+00:08:15,276 --> 0:08:19,016
+The IMDF Sandbox is a tool that
+
+258
+00:08:19,016 --> 0:08:20,516
+allows you to visualize and
+
+259
+00:08:20,516 --> 0:08:22,076
+validate your IMDF data.
+
+260
+00:08:22,856 --> 0:08:24,006
+Most of the issues it reports
+
+261
+00:08:24,106 --> 0:08:25,696
+can be addressed right away with
+
+262
+00:08:25,696 --> 0:08:26,226
+a few clicks.
+
+263
+00:08:27,426 --> 0:08:28,836
+Some errors might require more
+
+264
+00:08:28,836 --> 0:08:30,396
+work, and, in that case, you may
+
+265
+00:08:30,396 --> 0:08:31,806
+want to take your data back to
+
+266
+00:08:31,806 --> 0:08:34,916
+the mapmaker to fix them.
+
+267
+00:08:35,145 --> 0:08:36,836
+When the IMDF Sandbox reports no
+
+268
+00:08:36,836 --> 0:08:38,916
+errors, you may submit your data
+
+269
+00:08:39,186 --> 0:08:40,586
+for more exhausting validation
+
+270
+00:08:40,586 --> 0:08:40,956
+tests.
+
+271
+00:08:41,895 --> 0:08:43,486
+If no issues are detected, you
+
+272
+00:08:43,486 --> 0:08:44,476
+can proceed to the next step,
+
+273
+00:08:44,686 --> 0:08:46,516
+which is enabling indoor
+
+274
+00:08:46,516 --> 0:08:48,366
+positioning for your venue with
+
+275
+00:08:48,366 --> 0:08:49,986
+the indoor survey app.
+
+276
+00:08:51,276 --> 0:08:53,146
+The indoor survey app is your
+
+277
+00:08:53,146 --> 0:08:54,586
+companion to enable indoor
+
+278
+00:08:54,586 --> 0:08:55,656
+positioning on iOS.
+
+279
+00:08:56,976 --> 0:08:58,996
+You survey a place by collecting
+
+280
+00:08:58,996 --> 0:09:00,596
+radiofrequency fingerprints of
+
+281
+00:08:58,996 --> 0:09:00,596
+radiofrequency fingerprints of
+
+282
+00:09:00,596 --> 0:09:01,026
+your venue.
+
+283
+00:09:01,986 --> 0:09:03,346
+Surveying relies on the fact
+
+284
+00:09:03,806 --> 0:09:05,616
+that the radiofrequency patterns
+
+285
+00:09:05,666 --> 0:09:07,256
+emitted by fixed WiFi access
+
+286
+00:09:07,316 --> 0:09:09,066
+points inside a building are
+
+287
+00:09:09,066 --> 0:09:10,376
+unique depending on your
+
+288
+00:09:10,376 --> 0:09:10,826
+location.
+
+289
+00:09:11,436 --> 0:09:14,816
+Once surveying is complete, the
+
+290
+00:09:14,816 --> 0:09:16,136
+survey data is uploaded to Apple
+
+291
+00:09:16,136 --> 0:09:17,316
+servers and processed.
+
+292
+00:09:17,716 --> 0:09:20,066
+And, if no issues are detected,
+
+293
+00:09:20,736 --> 0:09:21,786
+your venue is made live for
+
+294
+00:09:21,786 --> 0:09:22,416
+indoor location.
+
+295
+00:09:23,596 --> 0:09:25,276
+You can use a survey app to test
+
+296
+00:09:25,276 --> 0:09:27,126
+the accuracy of indoor location
+
+297
+00:09:27,166 --> 0:09:27,676
+afterwards.
+
+298
+00:09:29,006 --> 0:09:30,916
+Performing a survey is very easy
+
+299
+00:09:30,916 --> 0:09:31,526
+and intuitive.
+
+300
+00:09:32,366 --> 0:09:33,466
+We have some guidelines in place
+
+301
+00:09:33,466 --> 0:09:34,746
+so that you can get the best
+
+302
+00:09:34,746 --> 0:09:35,416
+results out of it.
+
+303
+00:09:37,226 --> 0:09:37,496
+Alright.
+
+304
+00:09:37,726 --> 0:09:40,146
+So, you have created your IMDF
+
+305
+00:09:40,146 --> 0:09:42,366
+archive and validated it, and
+
+306
+00:09:42,366 --> 0:09:43,586
+you may also have enabled indoor
+
+307
+00:09:43,586 --> 0:09:44,086
+positioning.
+
+308
+00:09:44,836 --> 0:09:46,126
+The next step is to display it
+
+309
+00:09:46,586 --> 0:09:47,746
+in your app or website.
+
+310
+00:09:48,786 --> 0:09:50,056
+I'll now hand over to Mithilesh,
+
+311
+00:09:50,056 --> 0:09:51,126
+who will show you how you can
+
+312
+00:09:51,246 --> 0:09:53,286
+display an indoor map inside an
+
+313
+00:09:53,436 --> 0:09:53,976
+iOS application.
+
+314
+00:09:54,516 --> 0:09:57,986
+[ Applause ]
+
+315
+00:09:58,486 --> 0:09:59,126
+&gt;&gt; Thank you, Stephane.
+
+316
+00:10:01,006 --> 0:10:01,656
+Hello everyone.
+
+317
+00:10:01,876 --> 0:10:03,476
+My name is Mithilesh, and I'm an
+
+318
+00:10:03,476 --> 0:10:04,576
+engineer on the maps team.
+
+319
+00:10:05,486 --> 0:10:06,716
+I'm here to show you how you can
+
+320
+00:10:06,716 --> 0:10:09,246
+use IMDF data to display an
+
+321
+00:10:09,246 --> 0:10:10,466
+indoor map in your iOS
+
+322
+00:10:10,466 --> 0:10:11,086
+application.
+
+323
+00:10:11,676 --> 0:10:15,266
+We'll build a simple app for
+
+324
+00:10:15,266 --> 0:10:16,696
+visitors of a dinosaur museum.
+
+325
+00:10:17,276 --> 0:10:19,286
+We call this app Dinoseum.
+
+326
+00:10:20,296 --> 0:10:21,666
+The app displays a map of a
+
+327
+00:10:21,666 --> 0:10:23,136
+museum with different exhibits,
+
+328
+00:10:23,396 --> 0:10:24,916
+restaurants, shops, and more.
+
+329
+00:10:26,076 --> 0:10:28,026
+The various areas of the museum
+
+330
+00:10:28,026 --> 0:10:29,486
+are marked with descriptive
+
+331
+00:10:29,486 --> 0:10:31,326
+labels and icons that the user
+
+332
+00:10:31,326 --> 0:10:33,416
+can tap to display details.
+
+333
+00:10:35,276 --> 0:10:36,716
+On the top right corner, we have
+
+334
+00:10:36,716 --> 0:10:38,306
+a level picker to switch between
+
+335
+00:10:38,306 --> 0:10:38,656
+levels.
+
+336
+00:10:39,356 --> 0:10:42,176
+The app also takes advantage of
+
+337
+00:10:42,176 --> 0:10:43,796
+indoor positioning to display
+
+338
+00:10:43,796 --> 0:10:45,476
+the user's location inside the
+
+339
+00:10:45,476 --> 0:10:45,896
+museum.
+
+340
+00:10:47,066 --> 0:10:48,546
+So, what does it take to build
+
+341
+00:10:48,546 --> 0:10:49,996
+this app?
+
+342
+00:10:50,296 --> 0:10:52,056
+Displaying a basic indoor map
+
+343
+00:10:52,126 --> 0:10:53,316
+can be done in three steps.
+
+344
+00:10:55,026 --> 0:10:57,096
+In step one, we'll add the IMDF
+
+345
+00:10:57,126 --> 0:10:59,466
+files to our project and create
+
+346
+00:10:59,466 --> 0:11:01,306
+model classes for each of the
+
+347
+00:10:59,466 --> 0:11:01,306
+model classes for each of the
+
+348
+00:11:02,056 --> 0:11:03,096
+feature types.
+
+349
+00:11:03,276 --> 0:11:05,186
+In step two, we will decode the
+
+350
+00:11:05,186 --> 0:11:07,416
+IMDF files and create instances
+
+351
+00:11:07,416 --> 0:11:08,496
+of these model classes.
+
+352
+00:11:09,436 --> 0:11:10,846
+We will then relate them to
+
+353
+00:11:10,846 --> 0:11:12,056
+create a graph of feature
+
+354
+00:11:12,056 --> 0:11:12,536
+objects.
+
+355
+00:11:13,986 --> 0:11:15,446
+Venue consists of buildings.
+
+356
+00:11:15,726 --> 0:11:17,246
+Buildings have footprint and
+
+357
+00:11:17,246 --> 0:11:17,606
+levels.
+
+358
+00:11:17,866 --> 0:11:19,636
+Levels have units and openings
+
+359
+00:11:20,086 --> 0:11:20,606
+and so on.
+
+360
+00:11:21,256 --> 0:11:24,426
+In the third step, we will
+
+361
+00:11:24,426 --> 0:11:26,546
+retrieve the geometry from the
+
+362
+00:11:26,546 --> 0:11:28,276
+decoded feature objects and
+
+363
+00:11:28,276 --> 0:11:30,416
+render them to create an indoor
+
+364
+00:11:30,416 --> 0:11:30,636
+map.
+
+365
+00:11:32,456 --> 0:11:33,556
+Now, let's take a quick look at
+
+366
+00:11:33,556 --> 0:11:34,506
+some of the code that we'll
+
+367
+00:11:34,506 --> 0:11:34,686
+write.
+
+368
+00:11:36,116 --> 0:11:38,106
+For step one, we'll create an
+
+369
+00:11:38,106 --> 0:11:39,646
+abstract class called feature.
+
+370
+00:11:41,306 --> 0:11:43,246
+Every IMDF feature must have a
+
+371
+00:11:43,246 --> 0:11:44,276
+unique identifier.
+
+372
+00:11:44,936 --> 0:11:47,656
+It must also have a set of
+
+373
+00:11:47,746 --> 0:11:50,246
+properties that describe the
+
+374
+00:11:50,856 --> 0:11:51,006
+feature.
+
+375
+00:11:51,186 --> 0:11:53,806
+And it may have geometry, which
+
+376
+00:11:53,806 --> 0:11:55,606
+is an array of MKShape objects.
+
+377
+00:11:57,166 --> 0:11:58,536
+Using this as the base class,
+
+378
+00:11:58,716 --> 0:11:59,586
+we'll write concrete
+
+379
+00:11:59,586 --> 0:12:01,036
+implementations of feature class
+
+380
+00:11:59,586 --> 0:12:01,036
+implementations of feature class
+
+381
+00:12:01,236 --> 0:12:02,126
+such as Unit.
+
+382
+00:12:04,436 --> 0:12:06,516
+For decoding an IMDF file, which
+
+383
+00:12:06,516 --> 0:12:08,886
+is also a GeoJSON file, we'll
+
+384
+00:12:08,886 --> 0:12:11,056
+use the new MKGeoJSONDecoder
+
+385
+00:12:11,466 --> 0:12:13,346
+and call decode on the data.
+
+386
+00:12:14,666 --> 0:12:15,786
+We'll look into the details of
+
+387
+00:12:15,786 --> 0:12:19,736
+decoding in a short while.
+
+388
+00:12:19,966 --> 0:12:22,116
+During step three, we will use
+
+389
+00:12:22,116 --> 0:12:24,036
+addOverlays and addAnnotations
+
+390
+00:12:24,036 --> 0:12:26,666
+APIs of the MapKit framework to
+
+391
+00:12:27,276 --> 0:12:29,276
+draw polygons, lines, and point
+
+392
+00:12:29,276 --> 0:12:31,836
+geometry on the map.
+
+393
+00:12:31,836 --> 0:12:33,036
+And for every overlay that is
+
+394
+00:12:33,036 --> 0:12:34,726
+added to the map, we get a
+
+395
+00:12:34,726 --> 0:12:36,466
+callback to MKMapViewDelegate
+
+396
+00:12:36,466 --> 0:12:38,946
+method mapView render for
+
+397
+00:12:38,946 --> 0:12:39,586
+overlay.
+
+398
+00:12:40,956 --> 0:12:42,766
+And for every annotation, we get
+
+399
+00:12:42,766 --> 0:12:44,666
+a callback to mapView view for
+
+400
+00:12:44,666 --> 0:12:45,256
+annotation.
+
+401
+00:12:46,026 --> 0:12:47,486
+In these delegate methods, we'll
+
+402
+00:12:47,536 --> 0:12:48,916
+have the opportunity to
+
+403
+00:12:48,916 --> 0:12:50,226
+customize the appearance of the
+
+404
+00:12:50,226 --> 0:12:51,296
+indoor map elements.
+
+405
+00:12:51,586 --> 0:12:55,146
+And with that, let's start
+
+406
+00:12:55,146 --> 0:12:56,306
+building our dinosaur museum
+
+407
+00:12:56,306 --> 0:12:56,486
+app.
+
+408
+00:13:10,436 --> 0:13:12,056
+We'll start with a very basic
+
+409
+00:13:12,056 --> 0:13:12,276
+app.
+
+410
+00:13:13,036 --> 0:13:14,276
+This is a single view
+
+411
+00:13:14,276 --> 0:13:17,056
+application based on MKMapView.
+
+412
+00:13:19,096 --> 0:13:20,366
+The first thing I want to do is
+
+413
+00:13:20,366 --> 0:13:22,026
+to make sure I have added my
+
+414
+00:13:22,216 --> 0:13:23,746
+IMDF files to the project.
+
+415
+00:13:24,236 --> 0:13:28,186
+And here they are.
+
+416
+00:13:28,846 --> 0:13:30,256
+In your application, you could
+
+417
+00:13:30,256 --> 0:13:31,606
+choose to either bundle these
+
+418
+00:13:31,686 --> 0:13:33,206
+files with your app or download
+
+419
+00:13:33,206 --> 0:13:34,076
+them from your servers.
+
+420
+00:13:36,186 --> 0:13:37,226
+Let's take a look at one of
+
+421
+00:13:37,226 --> 0:13:37,706
+these files.
+
+422
+00:13:39,226 --> 0:13:40,786
+This is for the Unit feature
+
+423
+00:13:40,786 --> 0:13:41,046
+type.
+
+424
+00:13:41,876 --> 0:13:43,846
+Our goal is to decode and render
+
+425
+00:13:43,846 --> 0:13:48,036
+the contents of this file.
+
+426
+00:13:49,426 --> 0:13:50,836
+I'll now write the abstract
+
+427
+00:13:50,866 --> 0:13:51,906
+class called Feature.
+
+428
+00:13:55,636 --> 0:13:57,266
+This has the three properties we
+
+429
+00:13:57,266 --> 0:13:57,886
+saw earlier.
+
+430
+00:13:58,366 --> 0:14:00,486
+Identifier, properties, and
+
+431
+00:13:58,366 --> 0:14:00,486
+Identifier, properties, and
+
+432
+00:14:00,486 --> 0:14:00,996
+geometry.
+
+433
+00:14:01,596 --> 0:14:03,546
+Our class is missing an
+
+434
+00:14:03,546 --> 0:14:06,000
+initializer, so let's add one.
+
+435
+00:14:10,046 --> 0:14:11,096
+Initialization is
+
+436
+00:14:11,096 --> 0:14:12,766
+straightforward with the
+
+437
+00:14:12,766 --> 0:14:14,066
+exception of properties.
+
+438
+00:14:15,046 --> 0:14:17,066
+MKGeoJSON feature exposes
+
+439
+00:14:17,256 --> 0:14:20,136
+property as opaque data, and we
+
+440
+00:14:20,136 --> 0:14:21,786
+must decode it before we can use
+
+441
+00:14:21,836 --> 0:14:22,006
+this.
+
+442
+00:14:23,856 --> 0:14:25,976
+We use the JSON decoder class to
+
+443
+00:14:25,976 --> 0:14:28,196
+decode our data and convert it
+
+444
+00:14:28,196 --> 0:14:29,196
+into adjacent object.
+
+445
+00:14:29,846 --> 0:14:33,526
+And now, I can write concrete
+
+446
+00:14:33,526 --> 0:14:34,726
+implementations of Feature
+
+447
+00:14:34,726 --> 0:14:35,016
+class.
+
+448
+00:14:35,736 --> 0:14:37,396
+We'll do that for the unit type.
+
+449
+00:14:41,316 --> 0:14:43,166
+Let's set the base class to be
+
+450
+00:14:43,496 --> 0:14:43,796
+Feature.
+
+451
+00:14:47,276 --> 0:14:49,046
+To describe the unit feature
+
+452
+00:14:49,046 --> 0:14:50,776
+type, we need to define some
+
+453
+00:14:50,866 --> 0:14:51,316
+properties.
+
+454
+00:14:55,126 --> 0:14:57,426
+It consists of category, which
+
+455
+00:14:57,426 --> 0:14:58,846
+is used to differentiate between
+
+456
+00:14:58,846 --> 0:15:01,856
+different kinds of unit and
+
+457
+00:14:58,846 --> 0:15:01,856
+different kinds of unit and
+
+458
+00:15:01,996 --> 0:15:03,086
+level ID, which is the
+
+459
+00:15:03,086 --> 0:15:04,776
+identifier of the level this
+
+460
+00:15:04,776 --> 0:15:08,436
+unit belongs to.
+
+461
+00:15:08,686 --> 0:15:10,226
+Units have occupants and
+
+462
+00:15:10,226 --> 0:15:10,926
+amenities.
+
+463
+00:15:11,216 --> 0:15:16,596
+So let's add them here.
+
+464
+00:15:16,596 --> 0:15:17,866
+And that's all we needed to do
+
+465
+00:15:17,866 --> 0:15:20,146
+for the unit feature class.
+
+466
+00:15:20,616 --> 0:15:22,116
+Similar to unit, we can create
+
+467
+00:15:22,116 --> 0:15:24,906
+model classes for venue and
+
+468
+00:15:24,906 --> 0:15:26,266
+level and all the other feature
+
+469
+00:15:26,266 --> 0:15:27,546
+types that we wish to decode.
+
+470
+00:15:28,706 --> 0:15:30,546
+I've already implemented them
+
+471
+00:15:30,546 --> 0:15:32,206
+and added them to the project.
+
+472
+00:15:32,856 --> 0:15:34,896
+You can check them out by
+
+473
+00:15:35,146 --> 0:15:36,426
+downloading the sample code
+
+474
+00:15:36,426 --> 0:15:40,216
+provided for this session.
+
+475
+00:15:40,766 --> 0:15:42,296
+Okay, now we can move onto step
+
+476
+00:15:42,476 --> 0:15:44,766
+two, which is to decode the IMDF
+
+477
+00:15:44,766 --> 0:15:45,116
+data.
+
+478
+00:15:45,706 --> 0:15:48,626
+We'll do that in a class called
+
+479
+00:15:49,766 --> 0:15:50,736
+IMDFDecoder.
+
+480
+00:15:51,406 --> 0:15:55,316
+Let's add a property of type
+
+481
+00:15:55,316 --> 0:15:57,246
+MKGeoJSONDecoder.
+
+482
+00:15:58,336 --> 0:15:59,706
+This is the new class available
+
+483
+00:15:59,706 --> 0:16:01,746
+in the MapKit framework that you
+
+484
+00:15:59,706 --> 0:16:01,746
+in the MapKit framework that you
+
+485
+00:16:01,746 --> 0:16:03,996
+can use to decode any GeoJSON
+
+486
+00:16:04,626 --> 0:16:04,756
+data.
+
+487
+00:16:07,756 --> 0:16:09,556
+I'll now write a method called
+
+488
+00:16:09,656 --> 0:16:11,486
+decodeFeatures that decodes a
+
+489
+00:16:11,546 --> 0:16:12,696
+single IMDF file.
+
+490
+00:16:13,276 --> 0:16:17,236
+In this method, we first read
+
+491
+00:16:17,236 --> 0:16:18,896
+the contents of the IMDF file
+
+492
+00:16:18,896 --> 0:16:21,276
+from disk and by using the
+
+493
+00:16:21,276 --> 0:16:23,456
+instance of MKGeoJSONDecoder,
+
+494
+00:16:24,106 --> 0:16:27,556
+we all the code on the data.
+
+495
+00:16:27,756 --> 0:16:29,826
+We get back an array of
+
+496
+00:16:29,826 --> 0:16:32,746
+MKGeoJSONFeature objects, which
+
+497
+00:16:32,746 --> 0:16:34,436
+we can use to initialize our
+
+498
+00:16:34,436 --> 0:16:40,036
+model classes.
+
+499
+00:16:40,036 --> 0:16:41,206
+I'll now write a method called
+
+500
+00:16:41,206 --> 0:16:43,106
+decode that decodes an IMDF
+
+501
+00:16:43,136 --> 0:16:45,626
+archive or a collection of IMDF
+
+502
+00:16:45,656 --> 0:16:45,946
+files.
+
+503
+00:16:51,236 --> 0:16:52,906
+Let's create the instances of
+
+504
+00:16:52,906 --> 0:16:54,346
+the feature objects that we wish
+
+505
+00:16:54,376 --> 0:16:56,026
+to decode such as venues and
+
+506
+00:16:56,026 --> 0:16:57,886
+levels and units, and we use the
+
+507
+00:16:57,886 --> 0:17:00,316
+decodeFeatures method I wrote
+
+508
+00:16:57,886 --> 0:17:00,316
+decodeFeatures method I wrote
+
+509
+00:17:00,316 --> 0:17:02,596
+earlier in passing in the type
+
+510
+00:17:02,776 --> 0:17:04,726
+of feature I wish to decode.
+
+511
+00:17:06,876 --> 0:17:08,685
+To make it easier to render the
+
+512
+00:17:08,685 --> 0:17:11,955
+correct subset of features, we
+
+513
+00:17:11,955 --> 0:17:13,215
+need to create associations
+
+514
+00:17:13,215 --> 0:17:14,455
+between these feature objects.
+
+515
+00:17:15,705 --> 0:17:18,086
+For example, venue contains
+
+516
+00:17:18,086 --> 0:17:18,465
+levels.
+
+517
+00:17:19,276 --> 0:17:20,266
+So let's relate them.
+
+518
+00:17:20,836 --> 0:17:24,146
+We do that after grouping the
+
+519
+00:17:24,146 --> 0:17:25,435
+levels by the ordinal.
+
+520
+00:17:29,176 --> 0:17:31,246
+Levels contain units and
+
+521
+00:17:31,246 --> 0:17:32,546
+openings, so let's make that
+
+522
+00:17:32,546 --> 0:17:33,346
+association.
+
+523
+00:17:38,776 --> 0:17:41,146
+Both units and openings have a
+
+524
+00:17:41,196 --> 0:17:43,146
+property called levelID.
+
+525
+00:17:44,136 --> 0:17:46,206
+We group the units and levels by
+
+526
+00:17:46,206 --> 0:17:48,556
+the levelID, and then iterate
+
+527
+00:17:48,556 --> 0:17:49,896
+through all the levels of this
+
+528
+00:17:49,896 --> 0:17:52,806
+venue and find the units that
+
+529
+00:17:52,806 --> 0:17:54,976
+are contained in this level and
+
+530
+00:17:54,976 --> 0:17:55,466
+relate them.
+
+531
+00:17:55,586 --> 0:17:59,246
+And the same thing for the
+
+532
+00:17:59,796 --> 0:18:00,000
+openings.
+
+533
+00:18:03,906 --> 0:18:06,236
+Units contain amenities and
+
+534
+00:18:06,236 --> 0:18:07,806
+occupants, so let's create that
+
+535
+00:18:07,806 --> 0:18:08,616
+association.
+
+536
+00:18:13,876 --> 0:18:15,276
+We iterate through all the
+
+537
+00:18:15,276 --> 0:18:18,076
+amenities, find the unit it
+
+538
+00:18:18,076 --> 0:18:19,616
+belongs to, and make the
+
+539
+00:18:19,616 --> 0:18:20,406
+association.
+
+540
+00:18:21,746 --> 0:18:23,166
+In just the same way, we can
+
+541
+00:18:23,166 --> 0:18:24,596
+relate occupants to units as
+
+542
+00:18:24,596 --> 0:18:24,776
+well.
+
+543
+00:18:28,696 --> 0:18:31,006
+But there's one exception for
+
+544
+00:18:31,006 --> 0:18:31,546
+occupants.
+
+545
+00:18:32,366 --> 0:18:33,936
+Remember that we use occupants
+
+546
+00:18:33,936 --> 0:18:35,386
+to display a business' name on
+
+547
+00:18:35,386 --> 0:18:37,786
+the map, but they do not have
+
+548
+00:18:37,786 --> 0:18:38,786
+geometry of their own.
+
+549
+00:18:39,406 --> 0:18:41,986
+Instead, they rely on the anchor
+
+550
+00:18:41,986 --> 0:18:44,306
+object to get the display
+
+551
+00:18:44,416 --> 0:18:45,000
+point.
+
+552
+00:18:47,896 --> 0:18:48,206
+Okay.
+
+553
+00:18:48,206 --> 0:18:50,016
+So, now we have a decode method
+
+554
+00:18:51,076 --> 0:18:53,276
+that decodes and IMDF archive
+
+555
+00:18:53,396 --> 0:18:56,176
+and gives us a fully decoded and
+
+556
+00:18:56,176 --> 0:18:58,306
+configured venue object with
+
+557
+00:18:58,416 --> 0:18:59,876
+references to all the feature
+
+558
+00:18:59,876 --> 0:19:01,246
+types that we wish to render.
+
+559
+00:18:59,876 --> 0:19:01,246
+types that we wish to render.
+
+560
+00:19:02,426 --> 0:19:03,626
+So now we can move onto step
+
+561
+00:19:03,716 --> 0:19:05,626
+three, which is to render the
+
+562
+00:19:05,626 --> 0:19:09,196
+IMDF data on a map.
+
+563
+00:19:09,566 --> 0:19:11,356
+We'll do that in our main view
+
+564
+00:19:11,356 --> 0:19:12,946
+controller class called
+
+565
+00:19:12,946 --> 0:19:13,876
+IndoorMapViewController.
+
+566
+00:19:18,136 --> 0:19:19,886
+Let's call the decode method
+
+567
+00:19:20,176 --> 0:19:22,426
+that we defined in step two, and
+
+568
+00:19:24,476 --> 0:19:27,606
+we get back a venue object, and
+
+569
+00:19:27,606 --> 0:19:29,626
+now we can add features on the
+
+570
+00:19:29,626 --> 0:19:31,996
+map as overlays and annotations.
+
+571
+00:19:33,466 --> 0:19:35,386
+And to do that, I'll write a
+
+572
+00:19:35,386 --> 0:19:37,956
+method called showFeaturesForOrdinal
+
+573
+00:19:38,026 --> 0:19:42,626
+where ordinal is an
+
+574
+00:19:42,626 --> 0:19:44,706
+integer representing the level's
+
+575
+00:19:44,706 --> 0:19:46,336
+position within total range of
+
+576
+00:19:46,396 --> 0:19:47,396
+floors in the building.
+
+577
+00:19:47,946 --> 0:19:52,776
+In this method, we first remove
+
+578
+00:19:52,776 --> 0:19:54,606
+all the overlays and annotations
+
+579
+00:19:54,686 --> 0:19:56,286
+that belong to a previous level
+
+580
+00:19:56,876 --> 0:19:59,686
+and then aggregate the subset of
+
+581
+00:19:59,726 --> 0:20:01,216
+features that we want to display
+
+582
+00:19:59,726 --> 0:20:01,216
+features that we want to display
+
+583
+00:20:01,266 --> 0:20:03,986
+for the current level and
+
+584
+00:20:03,986 --> 0:20:05,576
+retrieve the geometry from those
+
+585
+00:20:05,576 --> 0:20:08,736
+feature objects and add them to
+
+586
+00:20:08,736 --> 0:20:10,386
+the map as overlays and
+
+587
+00:20:10,386 --> 0:20:11,066
+annotations.
+
+588
+00:20:11,626 --> 0:20:16,016
+Let's call this method from
+
+589
+00:20:16,016 --> 0:20:16,083
+our viewDidLoad.
+
+590
+00:20:22,046 --> 0:20:23,296
+We set the initial level to be
+
+591
+00:20:23,296 --> 0:20:24,686
+the one with ordinal one.
+
+592
+00:20:25,316 --> 0:20:30,086
+We've already implemented the
+
+593
+00:20:30,086 --> 0:20:31,276
+MKMapViewDelegate method,
+
+594
+00:20:31,766 --> 0:20:33,796
+mapView, render for overlay,
+
+595
+00:20:34,426 --> 0:20:36,466
+where we create instances of
+
+596
+00:20:36,466 --> 0:20:39,586
+MKOverlayRenderer for every
+
+597
+00:20:39,586 --> 0:20:41,966
+GeoJSON geometry type including
+
+598
+00:20:41,966 --> 0:20:43,816
+the new MKMultipolygonRenderer
+
+599
+00:20:43,896 --> 0:20:46,436
+and the new MKMultipolylineRenderer
+
+600
+00:20:46,436 --> 0:20:48,596
+for much more efficient
+
+601
+00:20:48,596 --> 0:20:51,096
+rendering of polygons and lines.
+
+602
+00:20:51,696 --> 0:20:56,796
+Let's run this app and see if we
+
+603
+00:20:56,796 --> 0:20:58,486
+have an indoor map.
+
+604
+00:21:00,826 --> 0:21:00,976
+Okay.
+
+605
+00:21:01,166 --> 0:21:04,816
+We have a very basic map of a
+
+606
+00:21:04,816 --> 0:21:05,346
+museum.
+
+607
+00:21:06,766 --> 0:21:11,176
+Let me zoom in a bit.
+
+608
+00:21:11,386 --> 0:21:15,036
+In this map, the units are shown
+
+609
+00:21:15,036 --> 0:21:15,746
+as polygons.
+
+610
+00:21:17,326 --> 0:21:19,636
+Amenities such as this restroom
+
+611
+00:21:19,996 --> 0:21:21,746
+is displayed as an annotation,
+
+612
+00:21:22,076 --> 0:21:25,596
+and occupants such as our
+
+613
+00:21:25,596 --> 0:21:27,506
+Jurassic Table Restaurant is
+
+614
+00:21:27,506 --> 0:21:29,346
+also displayed as an annotation.
+
+615
+00:21:29,946 --> 0:21:33,386
+Our museum is a multilevel
+
+616
+00:21:33,386 --> 0:21:34,936
+building, so it needs a level
+
+617
+00:21:34,936 --> 0:21:35,236
+picker.
+
+618
+00:21:36,396 --> 0:21:40,476
+Let's add one.
+
+619
+00:21:40,656 --> 0:21:41,716
+I've already added a level
+
+620
+00:21:41,716 --> 0:21:42,866
+picker to the story board.
+
+621
+00:21:43,596 --> 0:21:45,266
+It's a UIStackView based
+
+622
+00:21:45,326 --> 0:21:45,896
+level picker.
+
+623
+00:21:46,626 --> 0:21:47,516
+I'll make it visible.
+
+624
+00:21:47,966 --> 0:21:52,426
+And to receive the level picker
+
+625
+00:21:52,426 --> 0:21:54,846
+related update messages, we have
+
+626
+00:21:54,846 --> 0:21:56,316
+implemented a level picker
+
+627
+00:21:56,316 --> 0:21:58,356
+delegate, which has a method
+
+628
+00:21:58,356 --> 0:21:59,606
+called selected level did
+
+629
+00:21:59,646 --> 0:21:59,986
+change.
+
+630
+00:22:00,666 --> 0:22:02,206
+This method is called every time
+
+631
+00:22:02,206 --> 0:22:04,006
+the user taps to make a
+
+632
+00:22:04,006 --> 0:22:05,346
+selection in the level picker.
+
+633
+00:22:06,846 --> 0:22:08,926
+Let's handle the level change
+
+634
+00:22:08,926 --> 0:22:10,000
+event here.
+
+635
+00:22:16,056 --> 0:22:17,886
+When the level changes, we use
+
+636
+00:22:18,026 --> 0:22:20,496
+showFeaturesForOrdinal to
+
+637
+00:22:20,496 --> 0:22:22,966
+update the map with features for
+
+638
+00:22:22,966 --> 0:22:24,166
+the selected level.
+
+639
+00:22:24,686 --> 0:22:28,276
+Let's run and make sure we have
+
+640
+00:22:28,276 --> 0:22:34,446
+a level picker.
+
+641
+00:22:34,636 --> 0:22:35,086
+Okay.
+
+642
+00:22:35,386 --> 0:22:38,166
+I can now tap the items in the
+
+643
+00:22:38,166 --> 0:22:40,956
+level picker and see every
+
+644
+00:22:41,016 --> 0:22:46,566
+single level of this museum.
+
+645
+00:22:48,516 --> 0:22:52,546
+[ Applause ]
+
+646
+00:22:53,046 --> 0:22:54,436
+Let's pause for a moment here
+
+647
+00:22:55,166 --> 0:23:00,056
+and recap what we have done.
+
+648
+00:22:55,166 --> 0:23:00,056
+and recap what we have done.
+
+649
+00:23:02,266 --> 0:23:04,966
+First, we created model classes
+
+650
+00:23:05,016 --> 0:23:06,546
+for all the IMDF feature types.
+
+651
+00:23:08,076 --> 0:23:09,996
+Then we decoded the IMDF data
+
+652
+00:23:09,996 --> 0:23:13,026
+using MKGeoJSONDecoder and
+
+653
+00:23:13,026 --> 0:23:14,836
+created association between the
+
+654
+00:23:14,886 --> 0:23:15,476
+feature types.
+
+655
+00:23:15,706 --> 0:23:19,886
+And finally, we rendered IMDF
+
+656
+00:23:19,886 --> 0:23:22,396
+data on a map view using
+
+657
+00:23:22,396 --> 0:23:24,326
+addOverlays and addAnnotation APIs
+
+658
+00:23:24,326 --> 0:23:25,526
+of the MapKit framework.
+
+659
+00:23:26,856 --> 0:23:28,046
+You might have already noticed
+
+660
+00:23:28,046 --> 0:23:29,596
+that our current map lacks any
+
+661
+00:23:29,596 --> 0:23:31,446
+styling, and the annotations
+
+662
+00:23:31,506 --> 0:23:32,596
+don't look very interesting.
+
+663
+00:23:33,226 --> 0:23:36,206
+You can significantly improve
+
+664
+00:23:36,206 --> 0:23:37,776
+the indoor map experience and
+
+665
+00:23:37,776 --> 0:23:38,966
+functionality with two
+
+666
+00:23:38,966 --> 0:23:39,676
+additional steps.
+
+667
+00:23:40,296 --> 0:23:44,006
+First, by applying style to your
+
+668
+00:23:44,006 --> 0:23:44,876
+indoor map elements.
+
+669
+00:23:46,036 --> 0:23:48,246
+Styling your map is critical to
+
+670
+00:23:48,246 --> 0:23:49,896
+how it is perceived and used.
+
+671
+00:23:51,226 --> 0:23:53,476
+Use distinct colors and icons
+
+672
+00:23:53,546 --> 0:23:55,076
+that match your app's team or
+
+673
+00:23:55,076 --> 0:23:56,186
+your company's brand.
+
+674
+00:23:56,806 --> 0:23:59,796
+And in the final step, we can
+
+675
+00:23:59,796 --> 0:24:02,826
+make your app more useful by
+
+676
+00:23:59,796 --> 0:24:02,826
+make your app more useful by
+
+677
+00:24:02,826 --> 0:24:03,976
+showing the user's current
+
+678
+00:24:03,976 --> 0:24:04,426
+location.
+
+679
+00:24:05,896 --> 0:24:06,886
+Remember that you can take
+
+680
+00:24:06,886 --> 0:24:08,466
+advantage of accurate indoor
+
+681
+00:24:08,466 --> 0:24:11,276
+location on iOS by participating
+
+682
+00:24:11,276 --> 0:24:13,076
+in the indoor maps program and
+
+683
+00:24:13,116 --> 0:24:14,826
+having your venue surveyed using
+
+684
+00:24:14,826 --> 0:24:16,106
+the Indoor Survey app.
+
+685
+00:24:17,156 --> 0:24:18,826
+Luckily, we had a team survey
+
+686
+00:24:18,826 --> 0:24:20,636
+our dinosaur museum, so we can
+
+687
+00:24:20,636 --> 0:24:22,206
+go ahead and add location or the
+
+688
+00:24:22,206 --> 0:24:23,206
+blue dot to the map.
+
+689
+00:24:23,726 --> 0:24:26,726
+Let's take a look at some of the
+
+690
+00:24:26,726 --> 0:24:27,956
+code that we'll write to help
+
+691
+00:24:27,956 --> 0:24:28,566
+with styling.
+
+692
+00:24:29,136 --> 0:24:32,436
+We'll define a protocol called
+
+693
+00:24:32,436 --> 0:24:35,796
+StylableFeature, which has a
+
+694
+00:24:35,966 --> 0:24:37,296
+property and two methods.
+
+695
+00:24:38,506 --> 0:24:40,336
+Every stylable feature must have
+
+696
+00:24:40,336 --> 0:24:40,896
+geometry.
+
+697
+00:24:41,426 --> 0:24:45,146
+And to apply styles to overlays,
+
+698
+00:24:45,276 --> 0:24:46,596
+we will implement the configure
+
+699
+00:24:46,596 --> 0:24:47,936
+overlay renderer method.
+
+700
+00:24:49,506 --> 0:24:51,006
+Similarly, to apply styles to
+
+701
+00:24:51,006 --> 0:24:52,856
+the annotations, we'll implement
+
+702
+00:24:52,896 --> 0:24:54,206
+the configure annotation view
+
+703
+00:24:54,206 --> 0:24:54,646
+method.
+
+704
+00:24:55,196 --> 0:24:57,576
+I'll switch to Xcode and show
+
+705
+00:24:57,576 --> 0:24:59,000
+you how this can be done.
+
+706
+00:25:07,316 --> 0:25:09,376
+To apply the styles, we'll take
+
+707
+00:25:09,376 --> 0:25:11,196
+advantage of the asset catalogue
+
+708
+00:25:11,806 --> 0:25:14,776
+where I have added colors very
+
+709
+00:25:14,846 --> 0:25:17,466
+specific to the indoor map we
+
+710
+00:25:17,466 --> 0:25:18,256
+are using here.
+
+711
+00:25:18,916 --> 0:25:22,766
+So, to apply these colors, I'll
+
+712
+00:25:22,766 --> 0:25:24,856
+go to a file called Styles.swift
+
+713
+00:25:26,016 --> 0:25:27,486
+where I have defined the
+
+714
+00:25:27,486 --> 0:25:28,646
+StylableFeature protocol.
+
+715
+00:25:30,206 --> 0:25:32,296
+Now, let's say we want to apply
+
+716
+00:25:32,296 --> 0:25:33,726
+some styling to the amenity
+
+717
+00:25:33,726 --> 0:25:34,136
+features.
+
+718
+00:25:35,616 --> 0:25:38,086
+We can do that by extending the
+
+719
+00:25:38,086 --> 0:25:40,826
+Amenity class to adopt the
+
+720
+00:25:40,826 --> 0:25:42,066
+StylableFeature protocol.
+
+721
+00:25:42,146 --> 0:25:45,846
+And because amenities have point
+
+722
+00:25:45,846 --> 0:25:47,926
+geometry, we will implement the
+
+723
+00:25:47,966 --> 0:25:49,246
+configure annotation view
+
+724
+00:25:49,246 --> 0:25:50,996
+method, where we set the
+
+725
+00:25:51,046 --> 0:25:52,466
+annotation view's background
+
+726
+00:25:52,516 --> 0:25:54,176
+color to a default fill color
+
+727
+00:25:54,176 --> 0:25:55,296
+from the asset catalogue.
+
+728
+00:25:56,546 --> 0:25:58,016
+We also take this opportunity to
+
+729
+00:25:58,106 --> 0:25:59,606
+set the display priority of the
+
+730
+00:25:59,606 --> 0:26:01,636
+annotation to a default low.
+
+731
+00:25:59,606 --> 0:26:01,636
+annotation to a default low.
+
+732
+00:26:02,216 --> 0:26:05,216
+In a similar way, we can extend
+
+733
+00:26:05,216 --> 0:26:06,926
+the unit class to adopt the
+
+734
+00:26:06,926 --> 0:26:08,256
+StylableFeature protocol to
+
+735
+00:26:08,256 --> 0:26:09,296
+apply styling to units.
+
+736
+00:26:10,746 --> 0:26:12,426
+But for units, we want to apply
+
+737
+00:26:12,426 --> 0:26:14,976
+unique colors for every category
+
+738
+00:26:14,976 --> 0:26:15,466
+of units.
+
+739
+00:26:16,546 --> 0:26:18,346
+So, to do that, I will define
+
+740
+00:26:18,346 --> 0:26:19,876
+and enumeration type called
+
+741
+00:26:20,396 --> 0:26:24,296
+StylableCategory, and the
+
+742
+00:26:24,296 --> 0:26:26,306
+values in this are the category
+
+743
+00:26:26,306 --> 0:26:27,506
+names that we wish to style.
+
+744
+00:26:27,906 --> 0:26:32,246
+And because units have polygon
+
+745
+00:26:32,246 --> 0:26:34,496
+geometry, we will implement the
+
+746
+00:26:34,526 --> 0:26:36,016
+configure overlay renderer
+
+747
+00:26:36,016 --> 0:26:36,436
+method.
+
+748
+00:26:36,996 --> 0:26:41,916
+And in this method, we handle
+
+749
+00:26:41,916 --> 0:26:44,026
+the different values of the unit
+
+750
+00:26:44,086 --> 0:26:45,796
+category and apply different
+
+751
+00:26:45,896 --> 0:26:50,666
+fill colors to each one of them.
+
+752
+00:26:50,886 --> 0:26:53,206
+I'll now switch to the main view
+
+753
+00:26:53,206 --> 0:26:55,736
+controller class, and in my
+
+754
+00:26:55,736 --> 0:26:57,326
+mapView renderer for overlay
+
+755
+00:26:57,326 --> 0:27:00,216
+method, instead of using the
+
+756
+00:26:57,326 --> 0:27:00,216
+method, instead of using the
+
+757
+00:27:00,376 --> 0:27:02,876
+same stroke and fill color for
+
+758
+00:27:02,916 --> 0:27:05,316
+every polygon, we will now call
+
+759
+00:27:05,706 --> 0:27:07,516
+configure overlay renderer
+
+760
+00:27:07,516 --> 0:27:10,776
+method to apply feature-specific
+
+761
+00:27:10,916 --> 0:27:11,346
+styling.
+
+762
+00:27:11,936 --> 0:27:16,266
+In a similar way, for
+
+763
+00:27:16,266 --> 0:27:18,456
+annotations, I will call
+
+764
+00:27:18,986 --> 0:27:23,336
+configure annotation view and
+
+765
+00:27:23,696 --> 0:27:25,746
+apply feature-specific styles to
+
+766
+00:27:25,746 --> 0:27:26,306
+annotations.
+
+767
+00:27:26,956 --> 0:27:31,156
+We want to render occupants as a
+
+768
+00:27:31,216 --> 0:27:33,876
+simple dot and a label and the
+
+769
+00:27:33,876 --> 0:27:35,936
+amenities with just gray dots.
+
+770
+00:27:36,756 --> 0:27:38,776
+To do that, I have implemented
+
+771
+00:27:39,186 --> 0:27:40,736
+custom annotation views and
+
+772
+00:27:40,736 --> 0:27:42,036
+included them in the project.
+
+773
+00:27:43,166 --> 0:27:45,376
+Here, we're calling the
+
+774
+00:27:45,376 --> 0:27:48,336
+configure annotation view and
+
+775
+00:27:48,416 --> 0:27:50,386
+set the feature-specific style
+
+776
+00:27:50,496 --> 0:27:51,516
+to that annotation view.
+
+777
+00:27:52,106 --> 0:27:55,296
+So, let's run this app and see
+
+778
+00:27:55,296 --> 0:27:56,556
+if our map looks any different.
+
+779
+00:27:57,156 --> 0:27:57,256
+Okay.
+
+780
+00:28:00,876 --> 0:28:03,566
+This definitely looks better
+
+781
+00:28:03,566 --> 0:28:05,076
+than what we had before.
+
+782
+00:28:06,246 --> 0:28:08,516
+Now, we can see the different
+
+783
+00:28:08,516 --> 0:28:11,846
+units in different colors, and
+
+784
+00:28:11,846 --> 0:28:13,636
+the gray dots are our amenity
+
+785
+00:28:14,206 --> 0:28:14,516
+points.
+
+786
+00:28:15,426 --> 0:28:17,246
+And the occupants such as the
+
+787
+00:28:17,246 --> 0:28:18,566
+Jurassic Table Restaurant is
+
+788
+00:28:18,566 --> 0:28:20,336
+displayed with a dot and a
+
+789
+00:28:20,336 --> 0:28:20,676
+label.
+
+790
+00:28:21,256 --> 0:28:23,626
+But something is not right here.
+
+791
+00:28:24,226 --> 0:28:27,696
+This area on the map, I believe,
+
+792
+00:28:27,916 --> 0:28:30,056
+is a unit of category walkway,
+
+793
+00:28:30,146 --> 0:28:32,466
+and its color is not so
+
+794
+00:28:32,466 --> 0:28:34,176
+different from the other units
+
+795
+00:28:34,176 --> 0:28:34,596
+around it.
+
+796
+00:28:35,686 --> 0:28:37,406
+Let's see if we can fix that.
+
+797
+00:28:41,676 --> 0:28:44,296
+To do that, I'll go to the
+
+798
+00:28:44,296 --> 0:28:46,616
+Style.swift file and here let's
+
+799
+00:28:46,616 --> 0:28:50,566
+add a value of type, for the
+
+800
+00:28:50,566 --> 0:28:51,466
+walkway category.
+
+801
+00:28:52,446 --> 0:28:53,996
+And we must handle this in a
+
+802
+00:28:54,026 --> 0:28:55,366
+configure overlay renderer
+
+803
+00:28:56,176 --> 0:28:56,326
+method.
+
+804
+00:28:58,576 --> 0:29:01,326
+Where we are setting the color,
+
+805
+00:28:58,576 --> 0:29:01,326
+Where we are setting the color,
+
+806
+00:29:01,326 --> 0:29:03,016
+the fill color of the walkway to
+
+807
+00:29:03,276 --> 0:29:04,596
+a color called walkway fill,
+
+808
+00:29:05,156 --> 0:29:07,556
+which should be there in our
+
+809
+00:29:07,556 --> 0:29:08,296
+asset catalogue.
+
+810
+00:29:09,006 --> 0:29:09,546
+Let's make sure.
+
+811
+00:29:10,366 --> 0:29:10,656
+Okay.
+
+812
+00:29:10,656 --> 0:29:12,466
+We have a white color set for
+
+813
+00:29:12,936 --> 0:29:13,286
+that.
+
+814
+00:29:14,096 --> 0:29:15,986
+I'll run the app and see if we
+
+815
+00:29:16,106 --> 0:29:20,096
+have fixed that problem.
+
+816
+00:29:20,206 --> 0:29:20,486
+Okay.
+
+817
+00:29:20,486 --> 0:29:20,836
+Cool.
+
+818
+00:29:21,546 --> 0:29:22,656
+This definitely looks better.
+
+819
+00:29:23,376 --> 0:29:25,386
+Simply by applying a distinct
+
+820
+00:29:25,386 --> 0:29:27,416
+color to the walkways, the
+
+821
+00:29:27,416 --> 0:29:29,416
+appearance of our map has improved
+
+822
+00:29:29,416 --> 0:29:30,186
+significantly.
+
+823
+00:29:30,806 --> 0:29:35,216
+Let's make one more enhancement
+
+824
+00:29:35,216 --> 0:29:35,446
+here.
+
+825
+00:29:36,686 --> 0:29:39,316
+The gray dots for the amenities
+
+826
+00:29:39,316 --> 0:29:41,436
+are good, but I think icons are
+
+827
+00:29:41,436 --> 0:29:41,716
+better.
+
+828
+00:29:43,026 --> 0:29:44,346
+And what's better than icons?
+
+829
+00:29:44,596 --> 0:29:45,456
+Dinosaur icons.
+
+830
+00:29:45,926 --> 0:29:47,706
+So, let's use them.
+
+831
+00:29:49,196 --> 0:29:51,596
+Our designer has given us some
+
+832
+00:29:51,596 --> 0:29:52,846
+icons that we have included in
+
+833
+00:29:52,846 --> 0:29:53,336
+our project.
+
+834
+00:29:54,336 --> 0:29:58,276
+Let's add these to the map.
+
+835
+00:29:58,276 --> 0:30:00,136
+I'll go to my Styles.swift file,
+
+836
+00:29:58,276 --> 0:30:00,136
+I'll go to my Styles.swift file,
+
+837
+00:30:01,206 --> 0:30:03,796
+and the dots we saw were for
+
+838
+00:30:03,856 --> 0:30:05,576
+amenities, so let's make a small
+
+839
+00:30:05,576 --> 0:30:05,906
+change here.
+
+840
+00:30:13,136 --> 0:30:15,486
+For convenience, we have set the
+
+841
+00:30:15,486 --> 0:30:17,186
+icon's name to be the same as
+
+842
+00:30:17,186 --> 0:30:20,176
+the name of the category for the
+
+843
+00:30:20,176 --> 0:30:20,876
+amenity.
+
+844
+00:30:22,186 --> 0:30:23,276
+So we look at the asset
+
+845
+00:30:23,276 --> 0:30:25,266
+catalogue for that particular
+
+846
+00:30:25,266 --> 0:30:25,666
+name.
+
+847
+00:30:26,096 --> 0:30:28,556
+If we find an icon, we set it to
+
+848
+00:30:28,556 --> 0:30:29,926
+the annotation view's image
+
+849
+00:30:30,006 --> 0:30:33,256
+property, but if we don't, then
+
+850
+00:30:33,256 --> 0:30:34,476
+we continue displaying the gray
+
+851
+00:30:34,476 --> 0:30:34,706
+dots.
+
+852
+00:30:35,426 --> 0:30:38,826
+Let's run the app and see.
+
+853
+00:30:41,376 --> 0:30:42,036
+Cool.
+
+854
+00:30:42,536 --> 0:30:43,326
+Now we have some
+
+855
+00:30:43,326 --> 0:30:44,976
+beautiful-looking icons on the
+
+856
+00:30:44,976 --> 0:30:46,996
+map, and we can clearly see
+
+857
+00:30:46,996 --> 0:30:48,326
+where the restrooms are and the
+
+858
+00:30:48,326 --> 0:30:50,846
+escalator and the elevator and
+
+859
+00:30:50,846 --> 0:30:53,576
+more importantly the exhibit
+
+860
+00:30:53,676 --> 0:30:55,656
+called T-Rex.
+
+861
+00:30:58,516 --> 0:31:03,206
+[ Applause ]
+
+862
+00:30:58,516 --> 0:31:03,206
+[ Applause ]
+
+863
+00:31:03,706 --> 0:31:04,436
+One last thing.
+
+864
+00:31:05,266 --> 0:31:06,826
+We know that we have indoor
+
+865
+00:31:06,826 --> 0:31:08,296
+location available at this
+
+866
+00:31:08,396 --> 0:31:08,906
+museum.
+
+867
+00:31:09,606 --> 0:31:10,956
+So let's take advantage of that.
+
+868
+00:31:11,556 --> 0:31:15,936
+Let's add the user's location to
+
+869
+00:31:15,936 --> 0:31:16,246
+the map.
+
+870
+00:31:17,456 --> 0:31:18,866
+To do so, I'll go to the map
+
+871
+00:31:18,926 --> 0:31:21,936
+view and enable the user
+
+872
+00:31:21,936 --> 0:31:22,826
+location from here.
+
+873
+00:31:23,436 --> 0:31:28,306
+In my view controller, first
+
+874
+00:31:29,276 --> 0:31:32,276
+I'll add a property of type
+
+875
+00:31:32,276 --> 0:31:36,596
+CLLocationManager and then use
+
+876
+00:31:36,596 --> 0:31:39,946
+this property to request the
+
+877
+00:31:40,076 --> 0:31:41,606
+user's permission to use
+
+878
+00:31:41,736 --> 0:31:43,656
+location services while the app
+
+879
+00:31:43,656 --> 0:31:44,506
+is in the foreground.
+
+880
+00:31:45,046 --> 0:31:48,596
+And every time we get a location
+
+881
+00:31:48,596 --> 0:31:50,636
+update, we get a callback to
+
+882
+00:31:50,636 --> 0:31:54,176
+MKMapViewDelegate method, mapView
+
+883
+00:31:54,176 --> 0:31:56,866
+did update user location.
+
+884
+00:31:57,506 --> 0:32:00,356
+So let's handle the location
+
+885
+00:31:57,506 --> 0:32:00,356
+So let's handle the location
+
+886
+00:32:00,356 --> 0:32:00,676
+updates.
+
+887
+00:32:01,296 --> 0:32:04,716
+First, we check to see if the
+
+888
+00:32:04,716 --> 0:32:06,216
+user is inside the venue.
+
+889
+00:32:07,096 --> 0:32:08,576
+If the user is inside, there's
+
+890
+00:32:08,576 --> 0:32:09,656
+no need to update the map.
+
+891
+00:32:11,006 --> 0:32:12,646
+If the user is outside, there's
+
+892
+00:32:12,646 --> 0:32:14,446
+no need to update the map, but
+
+893
+00:32:14,446 --> 0:32:16,586
+if the user is inside, then we
+
+894
+00:32:16,586 --> 0:32:18,816
+use the CLLocation property on
+
+895
+00:32:18,956 --> 0:32:20,756
+MKUserLocation to get the
+
+896
+00:32:20,756 --> 0:32:21,856
+user's coordinates.
+
+897
+00:32:22,586 --> 0:32:26,156
+CLLocation not only provides
+
+898
+00:32:26,226 --> 0:32:27,856
+the user's longitude and
+
+899
+00:32:27,856 --> 0:32:29,826
+latitude but also the floor
+
+900
+00:32:29,826 --> 0:32:31,936
+information if your venue has
+
+901
+00:32:31,936 --> 0:32:33,886
+been surveyed and the user is
+
+902
+00:32:33,886 --> 0:32:35,616
+inside that location.
+
+903
+00:32:36,186 --> 0:32:39,556
+So, we'll use the floor
+
+904
+00:32:39,556 --> 0:32:41,976
+information from the CLLocation
+
+905
+00:32:41,976 --> 0:32:44,446
+object and update our map using
+
+906
+00:32:44,446 --> 0:32:46,366
+the showFeaturesForOrdinal to
+
+907
+00:32:46,926 --> 0:32:48,656
+display the user's location.
+
+908
+00:32:49,606 --> 0:32:50,976
+Let's run the app one more time.
+
+909
+00:32:58,936 --> 0:33:03,016
+I'll hit allow, and here we have
+
+910
+00:32:58,936 --> 0:33:03,016
+I'll hit allow, and here we have
+
+911
+00:33:03,016 --> 0:33:03,976
+the user's indoor location.
+
+912
+00:33:04,516 --> 0:33:08,276
+[ Applause ]
+
+913
+00:33:08,776 --> 0:33:10,316
+I must mention that if the user
+
+914
+00:33:10,316 --> 0:33:11,856
+were to switch between levels,
+
+915
+00:33:11,946 --> 0:33:14,216
+the map will update the user's
+
+916
+00:33:14,326 --> 0:33:15,026
+current level.
+
+917
+00:33:15,746 --> 0:33:17,356
+And that's all I have for you in
+
+918
+00:33:17,356 --> 0:33:17,816
+this demo.
+
+919
+00:33:18,016 --> 0:33:19,046
+I'll now hand over to Stephane,
+
+920
+00:33:19,046 --> 0:33:22,196
+who will show you how to display
+
+921
+00:33:22,396 --> 0:33:23,836
+and indoor map in a web app.
+
+922
+00:33:24,516 --> 0:33:29,500
+[ Applause ]
+
+923
+00:33:37,276 --> 0:33:37,516
+&gt;&gt; All right.
+
+924
+00:33:37,846 --> 0:33:39,796
+With MapKit JS we can achieve
+
+925
+00:33:39,926 --> 0:33:42,066
+similar indoor maps look and
+
+926
+00:33:42,066 --> 0:33:43,606
+feel on the web.
+
+927
+00:33:44,666 --> 0:33:46,626
+I will demonstrate how to render
+
+928
+00:33:46,666 --> 0:33:49,136
+our map with MapKit JS and bring
+
+929
+00:33:49,136 --> 0:33:50,816
+the same indoor maps experience
+
+930
+00:33:51,126 --> 0:33:52,496
+to all major browser
+
+931
+00:33:52,496 --> 0:33:53,206
+implementations.
+
+932
+00:33:53,856 --> 0:33:56,396
+The key MapKit JS method that we
+
+933
+00:33:56,396 --> 0:33:58,366
+will use for this demo is import
+
+934
+00:33:58,366 --> 0:33:58,846
+GeoJSON.
+
+935
+00:33:59,666 --> 0:34:00,866
+ImportGeoJSON takes two
+
+936
+00:33:59,666 --> 0:34:00,866
+ImportGeoJSON takes two
+
+937
+00:34:00,866 --> 0:34:01,446
+parameters.
+
+938
+00:34:01,696 --> 0:34:03,336
+The first one is the GeoJSON
+
+939
+00:34:03,336 --> 0:34:04,826
+feature to convert and the
+
+940
+00:34:04,826 --> 0:34:07,226
+second one is GeoJSON delegate
+
+941
+00:34:07,226 --> 0:34:08,835
+object that allows us to
+
+942
+00:34:08,835 --> 0:34:11,525
+customize how items are created.
+
+943
+00:34:12,525 --> 0:34:14,216
+In this basic example, we have
+
+944
+00:34:14,436 --> 0:34:15,065
+two delegates.
+
+945
+00:34:15,966 --> 0:34:17,735
+GeoJSONDidError that allows us
+
+946
+00:34:17,735 --> 0:34:20,025
+to react on errors and GeoJSON
+
+947
+00:34:20,025 --> 0:34:21,926
+did complete that gives us an
+
+948
+00:34:21,926 --> 0:34:23,186
+array of the items that were
+
+949
+00:34:23,186 --> 0:34:23,755
+just created.
+
+950
+00:34:28,356 --> 0:34:30,065
+Then we show these items by
+
+951
+00:34:30,065 --> 0:34:32,056
+giving them to the showItems
+
+952
+00:34:32,056 --> 0:34:32,335
+method.
+
+953
+00:34:33,176 --> 0:34:34,666
+We can also use addItems;
+
+954
+00:34:34,896 --> 0:34:36,216
+the difference being that add
+
+955
+00:34:36,216 --> 0:34:38,196
+items does not center the map on
+
+956
+00:34:38,196 --> 0:34:38,936
+the added elements.
+
+957
+00:34:41,656 --> 0:34:43,386
+In order to style the overlays,
+
+958
+00:34:43,606 --> 0:34:45,626
+like polygons and lines, we can
+
+959
+00:34:45,626 --> 0:34:46,815
+use styleForOverlay.
+
+960
+00:34:47,696 --> 0:34:49,235
+It takes a newly created overlay
+
+961
+00:34:49,235 --> 0:34:51,226
+as a parameter and expects a
+
+962
+00:34:51,226 --> 0:34:53,056
+style object to be returned.
+
+963
+00:34:54,005 --> 0:34:55,585
+We can, of course, craft a brand
+
+964
+00:34:55,585 --> 0:34:57,296
+new one, but we can also use the
+
+965
+00:34:57,296 --> 0:34:59,066
+default one that is associated
+
+966
+00:34:59,066 --> 0:35:00,936
+with the overlay through the
+
+967
+00:34:59,066 --> 0:35:00,936
+with the overlay through the
+
+968
+00:35:00,936 --> 0:35:04,086
+style property and customize it.
+
+969
+00:35:06,596 --> 0:35:08,796
+We can also customize how points
+
+970
+00:35:08,796 --> 0:35:10,846
+are rendered with item for
+
+971
+00:35:10,846 --> 0:35:11,076
+point.
+
+972
+00:35:11,896 --> 0:35:13,066
+ItemForPoint takes a
+
+973
+00:35:13,066 --> 0:35:14,436
+coordinate of the point feature
+
+974
+00:35:14,526 --> 0:35:16,906
+as a parameter and should return
+
+975
+00:35:17,026 --> 0:35:18,196
+an item.
+
+976
+00:35:18,916 --> 0:35:20,926
+Here, we return a marker
+
+977
+00:35:20,926 --> 0:35:21,386
+annotation.
+
+978
+00:35:22,446 --> 0:35:23,996
+We can, of course, set options
+
+979
+00:35:24,086 --> 0:35:25,576
+like the title and the color.
+
+980
+00:35:26,136 --> 0:35:28,546
+We can also set the display
+
+981
+00:35:28,546 --> 0:35:29,016
+priority.
+
+982
+00:35:29,766 --> 0:35:31,416
+When the zoom level is too low
+
+983
+00:35:31,416 --> 0:35:32,636
+and that many annotations are
+
+984
+00:35:32,636 --> 0:35:33,826
+present on the map, they may
+
+985
+00:35:33,826 --> 0:35:34,146
+collide.
+
+986
+00:35:35,006 --> 0:35:37,106
+There are multiple strategies to
+
+987
+00:35:37,106 --> 0:35:39,336
+deal with this issue like
+
+988
+00:35:39,336 --> 0:35:40,716
+annotation clustering or
+
+989
+00:35:40,716 --> 0:35:41,496
+display priorities.
+
+990
+00:35:42,566 --> 0:35:43,776
+MapView JS may use display
+
+991
+00:35:43,776 --> 0:35:46,276
+priorities to decide what
+
+992
+00:35:46,476 --> 0:35:48,226
+annotations it should hide
+
+993
+00:35:48,226 --> 0:35:49,000
+first.
+
+994
+00:35:50,676 --> 0:35:52,386
+With importGeoJSON we had
+
+995
+00:35:52,386 --> 0:35:54,496
+everything that needed to create
+
+996
+00:35:54,846 --> 0:35:55,776
+our dinosaur map.
+
+997
+00:35:56,176 --> 0:35:56,816
+So let's get started.
+
+998
+00:36:14,426 --> 0:36:15,486
+Alright. So we start off our
+
+999
+00:36:15,486 --> 0:36:16,996
+project with a simple mapView.
+
+1000
+00:36:17,606 --> 0:36:19,636
+I'm running an HTTP server that
+
+1001
+00:36:19,636 --> 0:36:20,306
+serves our web
+
+1002
+00:36:20,306 --> 0:36:22,216
+assets and is responsible for
+
+1003
+00:36:22,216 --> 0:36:23,586
+generating the MapKit JS
+
+1004
+00:36:23,736 --> 0:36:24,626
+authorization token.
+
+1005
+00:36:25,886 --> 0:36:27,786
+To draw the dinosaur map on the
+
+1006
+00:36:27,786 --> 0:36:29,526
+browser, we need to load the
+
+1007
+00:36:29,526 --> 0:36:31,476
+IMDF files and create MapKit
+
+1008
+00:36:31,476 --> 0:36:32,626
+items for each feature they
+
+1009
+00:36:32,626 --> 0:36:33,016
+contain.
+
+1010
+00:36:33,846 --> 0:36:35,136
+That sounds like a difficult
+
+1011
+00:36:35,316 --> 0:36:37,166
+task, but it's really not thanks
+
+1012
+00:36:37,166 --> 0:36:38,216
+to the importGeoJSON method
+
+1013
+00:36:38,216 --> 0:36:40,396
+that we just saw and the fact
+
+1014
+00:36:40,396 --> 0:36:42,226
+that IMDF uses GeoJSON.
+
+1015
+00:36:42,816 --> 0:36:45,376
+In the iOS demo, you saw
+
+1016
+00:36:45,376 --> 0:36:47,496
+that we created a graph of
+
+1017
+00:36:47,496 --> 0:36:48,056
+features.
+
+1018
+00:36:48,726 --> 0:36:49,846
+In this demo, we will take a
+
+1019
+00:36:49,846 --> 0:36:51,106
+slightly different approach by
+
+1020
+00:36:51,516 --> 0:36:53,626
+filtering the features on
+
+1021
+00:36:53,746 --> 0:36:54,236
+demand.
+
+1022
+00:36:55,256 --> 0:36:56,936
+We will create a class called
+
+1023
+00:36:56,936 --> 0:36:58,946
+IMDF archive that will provide
+
+1024
+00:36:58,946 --> 0:37:00,566
+the essential methods to load,
+
+1025
+00:36:58,946 --> 0:37:00,566
+the essential methods to load,
+
+1026
+00:37:00,996 --> 0:37:02,486
+organize, and filter the
+
+1027
+00:37:02,486 --> 0:37:02,926
+features.
+
+1028
+00:37:11,066 --> 0:37:12,726
+The static load method downloads
+
+1029
+00:37:12,726 --> 0:37:13,826
+all the files that we need from
+
+1030
+00:37:13,826 --> 0:37:16,106
+the server, then aggregates the
+
+1031
+00:37:16,106 --> 0:37:17,676
+features into an array and
+
+1032
+00:37:17,676 --> 0:37:18,846
+passes that array to the
+
+1033
+00:37:18,846 --> 0:37:20,436
+constructor, and then we create
+
+1034
+00:37:20,436 --> 0:37:23,176
+two objects, featureById and
+
+1035
+00:37:23,256 --> 0:37:23,956
+featuresByType.
+
+1036
+00:37:24,076 --> 0:37:25,456
+They will help us afterwards.
+
+1037
+00:37:27,076 --> 0:37:30,076
+Now we can call this method to
+
+1038
+00:37:30,076 --> 0:37:33,126
+load our features, and we can
+
+1039
+00:37:33,126 --> 0:37:35,186
+use import GeoJSON to create
+
+1040
+00:37:35,186 --> 0:37:36,746
+MapKit items for each of
+
+1041
+00:37:39,556 --> 0:37:39,666
+them.
+
+1042
+00:37:39,886 --> 0:37:40,166
+Okay.
+
+1043
+00:37:40,756 --> 0:37:43,466
+And now what we have to do is to
+
+1044
+00:37:43,776 --> 0:37:46,206
+call showItems with these newly
+
+1045
+00:37:46,206 --> 0:37:47,096
+created map items.
+
+1046
+00:37:47,376 --> 0:37:47,886
+So let's do that.
+
+1047
+00:37:56,186 --> 0:37:56,296
+Okay.
+
+1048
+00:37:56,556 --> 0:37:58,306
+Let's try.
+
+1049
+00:37:59,036 --> 0:37:59,136
+Okay.
+
+1050
+00:38:02,436 --> 0:38:05,706
+There is a lot of geometries
+
+1051
+00:38:05,706 --> 0:38:07,166
+showing up on our map, and
+
+1052
+00:38:07,166 --> 0:38:08,996
+that's expected because we asked
+
+1053
+00:38:09,056 --> 0:38:10,296
+MapKit JS to render all the
+
+1054
+00:38:10,296 --> 0:38:11,166
+features in our venue.
+
+1055
+00:38:12,056 --> 0:38:13,386
+What we need to do is to retain
+
+1056
+00:38:13,386 --> 0:38:14,426
+only the feature types that we
+
+1057
+00:38:14,426 --> 0:38:16,706
+want and to filter them by
+
+1058
+00:38:16,706 --> 0:38:17,216
+level.
+
+1059
+00:38:18,026 --> 0:38:19,346
+So let's implement a few methods
+
+1060
+00:38:19,346 --> 0:38:21,256
+in our IMDFArchive class
+
+1061
+00:38:21,896 --> 0:38:23,766
+that returns only the features
+
+1062
+00:38:23,796 --> 0:38:25,156
+of a certain type on a given
+
+1063
+00:38:25,156 --> 0:38:25,496
+ordinal.
+
+1064
+00:38:26,536 --> 0:38:27,666
+We'll start with levels.
+
+1065
+00:38:33,426 --> 0:38:33,536
+Okay.
+
+1066
+00:38:33,766 --> 0:38:35,416
+So we retain only the levels
+
+1067
+00:38:35,416 --> 0:38:37,236
+that have the right ordinal, and
+
+1068
+00:38:37,236 --> 0:38:38,516
+similarly we can do the same
+
+1069
+00:38:38,516 --> 0:38:38,976
+thing for units.
+
+1070
+00:38:46,046 --> 0:38:46,146
+Okay.
+
+1071
+00:38:46,146 --> 0:38:46,946
+Same thing with the level ID.
+
+1072
+00:38:48,346 --> 0:38:49,436
+And we can do also the same
+
+1073
+00:38:49,436 --> 0:38:50,766
+thing for amenities in units,
+
+1074
+00:38:51,456 --> 0:38:54,786
+openings on level, and amenities
+
+1075
+00:38:55,176 --> 0:38:55,936
+and anchors on level.
+
+1076
+00:39:04,076 --> 0:39:05,116
+Let's pause for a moment here.
+
+1077
+00:39:05,696 --> 0:39:07,356
+The fact that IMDF files are
+
+1078
+00:39:07,546 --> 0:39:08,696
+plain old GeoJSON makes
+
+1079
+00:39:08,696 --> 0:39:09,646
+our job so easy.
+
+1080
+00:39:10,586 --> 0:39:11,936
+There is not complicated parsing
+
+1081
+00:39:11,936 --> 0:39:12,776
+or decoding logic.
+
+1082
+00:39:13,566 --> 0:39:14,436
+We only have to know what
+
+1083
+00:39:14,436 --> 0:39:16,056
+properties we expect depending
+
+1084
+00:39:16,056 --> 0:39:16,726
+on the feature type.
+
+1085
+00:39:18,146 --> 0:39:19,706
+Okay, so now let's rewrite our
+
+1086
+00:39:19,706 --> 0:39:20,406
+rendering logic.
+
+1087
+00:39:22,056 --> 0:39:25,266
+We will create a function called
+
+1088
+00:39:25,266 --> 0:39:26,496
+createItemsForOrdinal that
+
+1089
+00:39:26,546 --> 0:39:28,156
+will create the items for a
+
+1090
+00:39:28,156 --> 0:39:28,726
+given ordinal.
+
+1091
+00:39:30,206 --> 0:39:31,266
+Now, what we need to do is to
+
+1092
+00:39:31,266 --> 0:39:32,906
+get the features for that
+
+1093
+00:39:32,906 --> 0:39:33,206
+ordinal.
+
+1094
+00:39:33,206 --> 0:39:34,426
+So let's start with levels,
+
+1095
+00:39:35,066 --> 0:39:38,826
+okay, and for each of these
+
+1096
+00:39:38,826 --> 0:39:40,226
+levels, we will get all the
+
+1097
+00:39:40,906 --> 0:39:44,496
+units and similarly amenities
+
+1098
+00:39:44,496 --> 0:39:44,976
+and openings.
+
+1099
+00:39:49,146 --> 0:39:49,256
+Okay.
+
+1100
+00:39:49,476 --> 0:39:50,886
+So that's all the features that
+
+1101
+00:39:50,956 --> 0:39:53,446
+we are interested into right
+
+1102
+00:39:57,256 --> 0:39:57,336
+now.
+
+1103
+00:39:57,636 --> 0:39:57,946
+Okay.
+
+1104
+00:39:58,846 --> 0:40:00,286
+And now what we need to do is to
+
+1105
+00:39:58,846 --> 0:40:00,286
+And now what we need to do is to
+
+1106
+00:40:00,286 --> 0:40:00,736
+show them.
+
+1107
+00:40:01,286 --> 0:40:02,816
+So, we call create items for
+
+1108
+00:40:02,816 --> 0:40:05,386
+ordinal with an ordinal, let's
+
+1109
+00:40:05,386 --> 0:40:06,846
+say ordinal 1, which would be
+
+1110
+00:40:06,896 --> 0:40:08,886
+second floor and add them to the
+
+1111
+00:40:08,886 --> 0:40:08,976
+map.
+
+1112
+00:40:14,496 --> 0:40:14,746
+Alright.
+
+1113
+00:40:15,836 --> 0:40:20,076
+Let's write that.
+
+1114
+00:40:20,226 --> 0:40:20,476
+Okay.
+
+1115
+00:40:20,476 --> 0:40:22,116
+So, that's a lot better.
+
+1116
+00:40:22,116 --> 0:40:23,786
+Now we have a clean view over
+
+1117
+00:40:23,786 --> 0:40:25,006
+the structure of the second
+
+1118
+00:40:25,006 --> 0:40:25,216
+floor.
+
+1119
+00:40:26,176 --> 0:40:27,586
+Now, let's add a level picker.
+
+1120
+00:40:28,486 --> 0:40:29,916
+I already implemented a simple
+
+1121
+00:40:29,916 --> 0:40:32,166
+level picker that is just a basic
+
+1122
+00:40:32,166 --> 0:40:32,646
+HTML list.
+
+1123
+00:40:32,736 --> 0:40:34,146
+That's what I did with level
+
+1124
+00:40:34,146 --> 0:40:35,036
+names of our venue.
+
+1125
+00:40:35,986 --> 0:40:36,896
+You can check out the
+
+1126
+00:40:36,896 --> 0:40:38,236
+implementation details in the
+
+1127
+00:40:38,236 --> 0:40:39,116
+sample code that's linked to
+
+1128
+00:40:39,116 --> 0:40:39,576
+this session.
+
+1129
+00:40:40,906 --> 0:40:42,516
+The level picker will use our
+
+1130
+00:40:42,896 --> 0:40:43,866
+createItemsForOrdinal
+
+1131
+00:40:44,046 --> 0:40:46,206
+function to create items if
+
+1132
+00:40:46,726 --> 0:40:46,886
+needed.
+
+1133
+00:40:47,636 --> 0:40:49,126
+I already imported the script, so
+
+1134
+00:40:49,126 --> 0:40:50,116
+the only thing that I need to do
+
+1135
+00:40:50,116 --> 0:40:55,966
+here is to instantiate it and
+
+1136
+00:40:56,206 --> 0:40:57,756
+select the ordinal 1, so that
+
+1137
+00:40:57,756 --> 0:40:59,336
+the second floor shows up when
+
+1138
+00:40:59,336 --> 0:41:00,056
+the page is loaded.
+
+1139
+00:40:59,336 --> 0:41:00,056
+the page is loaded.
+
+1140
+00:41:00,666 --> 0:41:04,026
+Let's try again.
+
+1141
+00:41:05,586 --> 0:41:05,816
+Okay.
+
+1142
+00:41:05,966 --> 0:41:08,226
+So, now I can switch between
+
+1143
+00:41:08,226 --> 0:41:08,586
+floors.
+
+1144
+00:41:09,156 --> 0:41:12,636
+Okay, so now what we need to do
+
+1145
+00:41:12,636 --> 0:41:13,826
+is to add some styling.
+
+1146
+00:41:14,826 --> 0:41:15,776
+All units look the same,
+
+1147
+00:41:16,096 --> 0:41:18,006
+and we cannot even distinguish
+
+1148
+00:41:18,006 --> 0:41:19,236
+the opening LineStrings from the
+
+1149
+00:41:19,236 --> 0:41:20,416
+rest of the geometries, which
+
+1150
+00:41:20,416 --> 0:41:21,486
+gives us the false impression
+
+1151
+00:41:21,486 --> 0:41:23,506
+that all the units don't have
+
+1152
+00:41:23,506 --> 0:41:23,896
+any doors.
+
+1153
+00:41:24,276 --> 0:41:25,056
+That's a bit confusing.
+
+1154
+00:41:26,006 --> 0:41:27,216
+We can customize the style of
+
+1155
+00:41:27,216 --> 0:41:28,286
+polygons and lines by
+
+1156
+00:41:28,286 --> 0:41:29,266
+implementing the style for
+
+1157
+00:41:29,266 --> 0:41:32,266
+overlay function in the GeoJSON
+
+1158
+00:41:32,266 --> 0:41:33,146
+delegate object.
+
+1159
+00:41:33,906 --> 0:41:36,456
+So, let's start by drawing our
+
+1160
+00:41:36,456 --> 0:41:36,976
+openings in white.
+
+1161
+00:41:43,166 --> 0:41:43,276
+Okay.
+
+1162
+00:41:43,516 --> 0:41:45,356
+So that's really simple.
+
+1163
+00:41:45,356 --> 0:41:47,056
+We just select the opening
+
+1164
+00:41:47,056 --> 0:41:49,006
+features and we set the stroke
+
+1165
+00:41:49,006 --> 0:41:49,556
+color to white.
+
+1166
+00:41:51,786 --> 0:41:54,436
+And as we did in the iOS app,
+
+1167
+00:41:54,436 --> 0:41:57,126
+let's set a fill color to units
+
+1168
+00:41:57,236 --> 0:41:58,356
+depending on their category.
+
+1169
+00:41:59,166 --> 0:42:00,776
+In order to do that, let's
+
+1170
+00:41:59,166 --> 0:42:00,776
+In order to do that, let's
+
+1171
+00:42:00,776 --> 0:42:01,856
+create an object called unit
+
+1172
+00:42:01,856 --> 0:42:01,976
+style.
+
+1173
+00:42:09,506 --> 0:42:09,866
+Okay.
+
+1174
+00:42:09,976 --> 0:42:11,786
+So that object will contain the
+
+1175
+00:42:11,786 --> 0:42:13,886
+styling properties for each unit
+
+1176
+00:42:13,886 --> 0:42:15,386
+category that we want to show.
+
+1177
+00:42:16,566 --> 0:42:18,916
+But we also need a default one
+
+1178
+00:42:18,916 --> 0:42:21,696
+if we don't have a style for
+
+1179
+00:42:21,696 --> 0:42:23,106
+some categories, so let's do
+
+1180
+00:42:23,806 --> 0:42:27,466
+that first.
+
+1181
+00:42:27,646 --> 0:42:29,356
+Okay, and now we can set the
+
+1182
+00:42:29,356 --> 0:42:30,966
+styles for the unit categories
+
+1183
+00:42:30,966 --> 0:42:32,000
+that we care about.
+
+1184
+00:42:35,876 --> 0:42:36,096
+Okay.
+
+1185
+00:42:37,236 --> 0:42:38,796
+So, now we can go ahead and use
+
+1186
+00:42:38,796 --> 0:42:41,946
+that object to apply a style to
+
+1187
+00:42:41,946 --> 0:42:42,926
+unit overlays.
+
+1188
+00:42:43,556 --> 0:42:43,656
+Okay.
+
+1189
+00:42:52,876 --> 0:42:56,996
+So what we do here is to get the
+
+1190
+00:42:56,996 --> 0:42:58,686
+proper unit style with the
+
+1191
+00:42:58,686 --> 0:43:01,556
+category and set fillOpacity,
+
+1192
+00:42:58,686 --> 0:43:01,556
+category and set fillOpacity,
+
+1193
+00:43:01,666 --> 0:43:03,056
+strokeColor, and fillColor to
+
+1194
+00:43:03,056 --> 0:43:05,556
+the style values or setting the
+
+1195
+00:43:05,556 --> 0:43:06,576
+default if there isn't.
+
+1196
+00:43:08,546 --> 0:43:09,686
+That's actually a good example
+
+1197
+00:43:09,686 --> 0:43:11,516
+of how easy it can be to render
+
+1198
+00:43:11,516 --> 0:43:12,186
+IMDF maps.
+
+1199
+00:43:13,336 --> 0:43:14,426
+Most of the styling can be done
+
+1200
+00:43:14,546 --> 0:43:16,216
+by using a combination of the
+
+1201
+00:43:16,216 --> 0:43:17,386
+feature type and the category.
+
+1202
+00:43:17,866 --> 0:43:19,596
+Of course, we can also rely on
+
+1203
+00:43:19,646 --> 0:43:21,296
+all other properties as well.
+
+1204
+00:43:22,566 --> 0:43:22,836
+Okay.
+
+1205
+00:43:22,836 --> 0:43:23,816
+So, let's see the changes.
+
+1206
+00:43:24,476 --> 0:43:24,576
+Okay.
+
+1207
+00:43:27,976 --> 0:43:29,526
+That's a lot better.
+
+1208
+00:43:29,876 --> 0:43:31,206
+Now we can see where the
+
+1209
+00:43:31,206 --> 0:43:33,756
+walkways are and what units our
+
+1210
+00:43:33,756 --> 0:43:36,636
+visitors can access to.
+
+1211
+00:43:36,886 --> 0:43:38,896
+Now, you may also have noticed
+
+1212
+00:43:39,706 --> 0:43:41,446
+all these red pins on the map.
+
+1213
+00:43:42,216 --> 0:43:43,256
+They are amenities.
+
+1214
+00:43:43,886 --> 0:43:45,416
+Remember, amenities have point
+
+1215
+00:43:45,416 --> 0:43:47,886
+geometries, and importGeoJSON
+
+1216
+00:43:47,886 --> 0:43:50,416
+renders point geometries with
+
+1217
+00:43:50,416 --> 0:43:51,656
+marker annotations by default.
+
+1218
+00:43:53,526 --> 0:43:55,106
+So, what we would really like to
+
+1219
+00:43:55,106 --> 0:43:56,596
+have here is using the same
+
+1220
+00:43:56,596 --> 0:43:58,316
+icons as we did in the iOS app.
+
+1221
+00:43:58,766 --> 0:44:01,356
+For that, we will use MapKit JS
+
+1222
+00:43:58,766 --> 0:44:01,356
+For that, we will use MapKit JS
+
+1223
+00:44:01,356 --> 0:44:02,336
+ImageAnnotations.
+
+1224
+00:44:03,576 --> 0:44:04,496
+As we saw earlier, we can
+
+1225
+00:44:04,496 --> 0:44:05,946
+replace the default behavior of
+
+1226
+00:44:05,946 --> 0:44:07,536
+importGeoJSON by providing our
+
+1227
+00:44:07,536 --> 0:44:10,236
+own implementation of item for
+
+1228
+00:44:10,236 --> 0:44:10,496
+point.
+
+1229
+00:44:11,176 --> 0:44:11,686
+So let's do that.
+
+1230
+00:44:21,046 --> 0:44:21,196
+Okay.
+
+1231
+00:44:21,796 --> 0:44:23,406
+So what we do here is inserting
+
+1232
+00:44:23,406 --> 0:44:25,116
+a name from the properties or
+
+1233
+00:44:25,116 --> 0:44:26,216
+fall back to the category if
+
+1234
+00:44:26,216 --> 0:44:28,656
+there isn't and use that name as
+
+1235
+00:44:28,656 --> 0:44:30,756
+a title of our annotation.
+
+1236
+00:44:32,296 --> 0:44:33,586
+When the annotation is clicked,
+
+1237
+00:44:34,036 --> 0:44:35,196
+the title will appear in the
+
+1238
+00:44:35,196 --> 0:44:35,516
+callout.
+
+1239
+00:44:36,466 --> 0:44:38,236
+We also set a relatively low
+
+1240
+00:44:38,236 --> 0:44:40,706
+priority to all amenities so
+
+1241
+00:44:40,706 --> 0:44:42,686
+that we can set a higher one to
+
+1242
+00:44:42,686 --> 0:44:43,876
+the more important amenities,
+
+1243
+00:44:44,296 --> 0:44:45,166
+which are exhibits.
+
+1244
+00:44:45,346 --> 0:44:47,116
+We'll do that in a short while.
+
+1245
+00:44:49,296 --> 0:44:51,366
+And finally, if there is, if we
+
+1246
+00:44:51,366 --> 0:44:55,946
+have a URL for our icon, we
+
+1247
+00:44:55,946 --> 0:44:57,146
+create an image annotation.
+
+1248
+00:44:57,266 --> 0:44:59,546
+But if there isn't, we create a
+
+1249
+00:44:59,616 --> 0:45:00,976
+dot annotation.
+
+1250
+00:44:59,616 --> 0:45:00,976
+dot annotation.
+
+1251
+00:45:02,086 --> 0:45:03,596
+I already implemented a simple
+
+1252
+00:45:03,596 --> 0:45:04,726
+dot annotation in a separate
+
+1253
+00:45:04,726 --> 0:45:06,076
+file, and I already imported it.
+
+1254
+00:45:06,866 --> 0:45:08,416
+So, we can use it here.
+
+1255
+00:45:09,696 --> 0:45:12,316
+Okay, so what we have to do here
+
+1256
+00:45:12,626 --> 0:45:14,706
+is to provide the right URL for
+
+1257
+00:45:14,706 --> 0:45:16,576
+the icons depending on the
+
+1258
+00:45:16,576 --> 0:45:17,026
+category.
+
+1259
+00:45:17,856 --> 0:45:21,766
+So, let's create an object for
+
+1260
+00:45:21,766 --> 0:45:23,906
+that called iconUrls.
+
+1261
+00:45:24,616 --> 0:45:24,716
+Okay.
+
+1262
+00:45:27,156 --> 0:45:28,566
+So that's pretty
+
+1263
+00:45:28,636 --> 0:45:29,196
+straightforward.
+
+1264
+00:45:30,306 --> 0:45:31,876
+And now we can use that object
+
+1265
+00:45:32,686 --> 0:45:41,196
+to get the URL for our icon.
+
+1266
+00:45:42,956 --> 0:45:45,356
+Okay. You may also have noticed
+
+1267
+00:45:45,456 --> 0:45:48,406
+that some of the entries here
+
+1268
+00:45:49,206 --> 0:45:50,006
+are really specific.
+
+1269
+00:45:50,006 --> 0:45:52,416
+They are not amenity categories.
+
+1270
+00:45:52,656 --> 0:45:54,706
+They are icons for our T-rex,
+
+1271
+00:45:54,846 --> 0:45:56,036
+sauropod, and bone hall
+
+1272
+00:45:56,036 --> 0:45:56,456
+exhibits.
+
+1273
+00:45:57,946 --> 0:46:00,546
+So, we need to handle them a bit
+
+1274
+00:45:57,946 --> 0:46:00,546
+So, we need to handle them a bit
+
+1275
+00:46:00,546 --> 0:46:00,976
+differently.
+
+1276
+00:46:07,616 --> 0:46:09,446
+So what we do here is test the
+
+1277
+00:46:09,446 --> 0:46:11,216
+name, and if this is the right
+
+1278
+00:46:11,216 --> 0:46:13,386
+name, we set the right icon.
+
+1279
+00:46:13,596 --> 0:46:14,786
+Of course, we can also use the
+
+1280
+00:46:14,786 --> 0:46:16,006
+feature ID if we want here.
+
+1281
+00:46:17,486 --> 0:46:20,016
+We also set a higher priority
+
+1282
+00:46:20,016 --> 0:46:22,256
+for all exhibits, and the
+
+1283
+00:46:22,256 --> 0:46:24,276
+highest of all for the T-rex
+
+1284
+00:46:24,276 --> 0:46:24,586
+exhibit.
+
+1285
+00:46:24,706 --> 0:46:28,526
+And last but not least, we also
+
+1286
+00:46:28,526 --> 0:46:30,586
+append the matching unicode
+
+1287
+00:46:30,586 --> 0:46:33,996
+character to the name of the
+
+1288
+00:46:33,996 --> 0:46:34,646
+exhibits.
+
+1289
+00:46:34,786 --> 0:46:35,706
+And yes, you heard that right,
+
+1290
+00:46:36,246 --> 0:46:37,136
+there is actually a unicode
+
+1291
+00:46:37,136 --> 0:46:39,446
+character for dinosaurs and
+
+1292
+00:46:39,446 --> 0:46:39,876
+T-rexes.
+
+1293
+00:46:41,186 --> 0:46:41,406
+Okay.
+
+1294
+00:46:41,406 --> 0:46:47,066
+So let's reload and see how it
+
+1295
+00:46:47,066 --> 0:46:47,946
+renders on a map.
+
+1296
+00:46:49,476 --> 0:46:51,066
+Okay, so now that's a map that's
+
+1297
+00:46:51,136 --> 0:46:51,976
+worthy of Dinoseum!
+
+1298
+00:46:52,516 --> 0:46:55,866
+[ Applause ]
+
+1299
+00:46:56,366 --> 0:46:59,366
+And look, between, if I zoom out
+
+1300
+00:47:00,046 --> 0:47:03,216
+very, very, very, very far, here
+
+1301
+00:47:03,216 --> 0:47:04,716
+is our last annotation standing,
+
+1302
+00:47:04,716 --> 0:47:06,546
+the dinosaur exhibit.
+
+1303
+00:47:07,656 --> 0:47:07,906
+Alright.
+
+1304
+00:47:08,156 --> 0:47:10,606
+So, of course what we can also
+
+1305
+00:47:11,186 --> 0:47:12,526
+do is to restrict the capacity
+
+1306
+00:47:12,526 --> 0:47:14,956
+of the users to zoom out too
+
+1307
+00:47:14,956 --> 0:47:15,216
+far.
+
+1308
+00:47:15,846 --> 0:47:19,266
+We can do that with a new
+
+1309
+00:47:19,556 --> 0:47:25,206
+setting from MapKit JS, which
+
+1310
+00:47:25,206 --> 0:47:26,216
+is cameraZoomRange.
+
+1311
+00:47:27,046 --> 0:47:27,236
+Okay.
+
+1312
+00:47:27,356 --> 0:47:30,166
+So let's try that again and see
+
+1313
+00:47:30,456 --> 0:47:32,386
+if we can zoom out now.
+
+1314
+00:47:32,696 --> 0:47:35,016
+No, we can't.
+
+1315
+00:47:35,106 --> 0:47:36,016
+That's great.
+
+1316
+00:47:36,286 --> 0:47:36,516
+Okay.
+
+1317
+00:47:41,696 --> 0:47:43,786
+So the last feature type that we
+
+1318
+00:47:43,786 --> 0:47:45,156
+want to handle here is
+
+1319
+00:47:45,196 --> 0:47:45,676
+occupants.
+
+1320
+00:47:46,466 --> 0:47:48,396
+Remember, it's a bit more
+
+1321
+00:47:48,396 --> 0:47:49,336
+challenging though because
+
+1322
+00:47:49,956 --> 0:47:51,556
+occupants do not have a display
+
+1323
+00:47:51,556 --> 0:47:51,806
+point.
+
+1324
+00:47:52,596 --> 0:47:54,376
+But they are linked to anchors,
+
+1325
+00:47:54,616 --> 0:47:55,956
+and anchors have display points.
+
+1326
+00:47:55,986 --> 0:47:57,336
+So we can use the associated
+
+1327
+00:47:57,336 --> 0:48:00,006
+anchor to get the coordinate to
+
+1328
+00:47:57,336 --> 0:48:00,006
+anchor to get the coordinate to
+
+1329
+00:48:00,006 --> 0:48:01,606
+place our MapKit annotation
+
+1330
+00:48:01,606 --> 0:48:01,956
+on the map.
+
+1331
+00:48:03,456 --> 0:48:05,666
+So, let's implement a method in
+
+1332
+00:48:05,666 --> 0:48:07,376
+our ImdfArchive class that
+
+1333
+00:48:07,906 --> 0:48:09,766
+gathers all occupants on a
+
+1334
+00:48:09,766 --> 0:48:12,356
+certain ordinal along with their
+
+1335
+00:48:12,356 --> 0:48:12,746
+anchors.
+
+1336
+00:48:19,156 --> 0:48:19,476
+Okay.
+
+1337
+00:48:19,566 --> 0:48:21,516
+So that method returns an array
+
+1338
+00:48:21,516 --> 0:48:22,586
+of objects containing the
+
+1339
+00:48:22,586 --> 0:48:24,236
+occupant and its associated
+
+1340
+00:48:24,236 --> 0:48:24,556
+anchor.
+
+1341
+00:48:24,926 --> 0:48:28,556
+So, now let's use it to render
+
+1342
+00:48:29,086 --> 0:48:30,456
+the occupants.
+
+1343
+00:48:34,556 --> 0:48:37,506
+As you can see here, it's fairly
+
+1344
+00:48:37,556 --> 0:48:38,606
+similar to what we did for
+
+1345
+00:48:38,606 --> 0:48:40,826
+amenities with one exception.
+
+1346
+00:48:41,576 --> 0:48:43,426
+We don't provide the occupant by
+
+1347
+00:48:43,426 --> 0:48:44,816
+itself to the importGeoJSON
+
+1348
+00:48:44,816 --> 0:48:47,646
+method, but anchor because
+
+1349
+00:48:47,646 --> 0:48:49,216
+anchor has the geometry.
+
+1350
+00:48:50,016 --> 0:48:51,796
+We use the occupant name to set
+
+1351
+00:48:51,796 --> 0:48:53,096
+the title of the annotation.
+
+1352
+00:48:53,476 --> 0:48:57,696
+And I also set a specific class
+
+1353
+00:48:57,806 --> 0:48:59,806
+based on the category, so
+
+1354
+00:48:59,806 --> 0:49:01,066
+category-annotation,
+
+1355
+00:48:59,806 --> 0:49:01,066
+category-annotation,
+
+1356
+00:49:01,136 --> 0:49:03,266
+so that I can give a specific
+
+1357
+00:49:03,266 --> 0:49:04,916
+style to some categories of
+
+1358
+00:49:04,916 --> 0:49:05,376
+occupants.
+
+1359
+00:49:06,876 --> 0:49:08,646
+I already provided a style in
+
+1360
+00:49:08,736 --> 0:49:10,796
+our CSS file.
+
+1361
+00:49:11,366 --> 0:49:11,476
+Okay.
+
+1362
+00:49:11,706 --> 0:49:17,906
+So let's reload one last time.
+
+1363
+00:49:18,126 --> 0:49:18,376
+Okay.
+
+1364
+00:49:18,876 --> 0:49:19,956
+Now we can see the Jurassic
+
+1365
+00:49:19,956 --> 0:49:21,206
+Table, which is our famous
+
+1366
+00:49:21,206 --> 0:49:21,976
+in-house restaurant.
+
+1367
+00:49:22,516 --> 0:49:26,986
+[ Applause ]
+
+1368
+00:49:27,486 --> 0:49:30,756
+Okay, let's recap what we did.
+
+1369
+00:49:31,556 --> 0:49:33,586
+First, we downloaded the GeoJSON
+
+1370
+00:49:33,586 --> 0:49:35,196
+files from the server, extracted
+
+1371
+00:49:35,196 --> 0:49:36,636
+the features from them and
+
+1372
+00:49:36,676 --> 0:49:38,316
+organized them by type.
+
+1373
+00:49:39,316 --> 0:49:40,386
+Then, we implemented a few
+
+1374
+00:49:40,386 --> 0:49:42,256
+methods to get features of a
+
+1375
+00:49:42,256 --> 0:49:44,276
+certain type on a given ordinal.
+
+1376
+00:49:45,026 --> 0:49:47,546
+Then, we added a level picker so
+
+1377
+00:49:47,546 --> 0:49:49,726
+that our users are able to
+
+1378
+00:49:49,726 --> 0:49:50,926
+choose what level they want to
+
+1379
+00:49:50,926 --> 0:49:51,146
+see.
+
+1380
+00:49:52,456 --> 0:49:53,856
+And we provided a custom style
+
+1381
+00:49:54,286 --> 0:49:55,696
+to units and openings.
+
+1382
+00:49:57,946 --> 0:49:59,426
+And finally, we created icons
+
+1383
+00:49:59,426 --> 0:50:01,206
+and custom annotations instead of
+
+1384
+00:49:59,426 --> 0:50:01,206
+and custom annotations instead of
+
+1385
+00:50:01,206 --> 0:50:02,886
+these default marker annotations
+
+1386
+00:50:03,156 --> 0:50:04,846
+for amenities and occupants.
+
+1387
+00:50:05,446 --> 0:50:08,336
+With MapKit JS we were able to
+
+1388
+00:50:08,336 --> 0:50:10,316
+build a map that shares the same
+
+1389
+00:50:10,316 --> 0:50:11,626
+look and feel as its iOS
+
+1390
+00:50:11,696 --> 0:50:12,116
+counterpart.
+
+1391
+00:50:12,816 --> 0:50:14,266
+Now we have a beautiful map that
+
+1392
+00:50:14,266 --> 0:50:16,006
+we can embed in the Dinoseum
+
+1393
+00:50:16,006 --> 0:50:17,776
+website and provide the same
+
+1394
+00:50:17,776 --> 0:50:19,506
+user experience on all the major
+
+1395
+00:50:19,506 --> 0:50:20,476
+browser implementations.
+
+1396
+00:50:21,286 --> 0:50:23,396
+And on that note, I will hand
+
+1397
+00:50:23,396 --> 0:50:24,736
+over to Mithilesh to conclude.
+
+1398
+00:50:26,516 --> 0:50:31,756
+[ Applause ]
+
+1399
+00:50:32,256 --> 0:50:32,736
+&gt;&gt; Hello again.
+
+1400
+00:50:34,966 --> 0:50:36,416
+I hope you like what you saw
+
+1401
+00:50:36,416 --> 0:50:36,686
+today.
+
+1402
+00:50:37,886 --> 0:50:39,166
+Before we end this session, I'd
+
+1403
+00:50:39,166 --> 0:50:40,166
+like to go through some of the
+
+1404
+00:50:40,166 --> 0:50:41,616
+best practices that apply to
+
+1405
+00:50:41,616 --> 0:50:42,196
+indoor maps.
+
+1406
+00:50:44,356 --> 0:50:45,396
+Let's talk about styling.
+
+1407
+00:50:46,756 --> 0:50:47,906
+You should design an indoor map
+
+1408
+00:50:47,986 --> 0:50:49,106
+that feels like a natural
+
+1409
+00:50:49,106 --> 0:50:50,256
+extension of your app.
+
+1410
+00:50:51,106 --> 0:50:53,196
+Use colors and icons that match
+
+1411
+00:50:53,306 --> 0:50:54,776
+your app's theme or your
+
+1412
+00:50:54,776 --> 0:50:55,896
+company's brand.
+
+1413
+00:50:57,176 --> 0:50:58,296
+Don't try to replicate the
+
+1414
+00:50:58,296 --> 0:50:59,686
+appearance of Apple Maps or
+
+1415
+00:50:59,686 --> 0:51:00,566
+another application.
+
+1416
+00:50:59,686 --> 0:51:00,566
+another application.
+
+1417
+00:51:01,046 --> 0:51:02,826
+Instead, make sure the overlays,
+
+1418
+00:51:02,866 --> 0:51:05,126
+icons, and labels match the
+
+1419
+00:51:05,126 --> 0:51:06,216
+visual style of your app.
+
+1420
+00:51:09,296 --> 0:51:10,506
+Select distinct styles to
+
+1421
+00:51:10,506 --> 0:51:11,896
+differentiate the features of
+
+1422
+00:51:11,896 --> 0:51:12,146
+your map.
+
+1423
+00:51:13,516 --> 0:51:14,696
+Using specific color for
+
+1424
+00:51:14,696 --> 0:51:16,496
+categories such as elevator area
+
+1425
+00:51:17,186 --> 0:51:18,736
+makes it easy for people to spot
+
+1426
+00:51:18,736 --> 0:51:19,486
+them at a glance.
+
+1427
+00:51:22,366 --> 0:51:24,216
+Use easily recognizable icons.
+
+1428
+00:51:25,376 --> 0:51:27,246
+Icons should not only be visually
+
+1429
+00:51:27,316 --> 0:51:29,116
+appealing but should also be
+
+1430
+00:51:29,116 --> 0:51:31,156
+effective in communicating their
+
+1431
+00:51:31,156 --> 0:51:31,306
+purpose.
+
+1432
+00:51:34,196 --> 0:51:36,256
+You should adjust the map detail
+
+1433
+00:51:36,376 --> 0:51:37,506
+based on zoom level.
+
+1434
+00:51:38,326 --> 0:51:39,776
+Too much detail can cause the
+
+1435
+00:51:39,776 --> 0:51:41,056
+map to appear cluttered.
+
+1436
+00:51:42,026 --> 0:51:43,856
+Show large areas like rooms and
+
+1437
+00:51:43,856 --> 0:51:45,166
+buildings at all zoom levels,
+
+1438
+00:51:45,516 --> 0:51:47,516
+then progressively add more
+
+1439
+00:51:47,516 --> 0:51:49,056
+detail features and labels as
+
+1440
+00:51:49,086 --> 0:51:50,006
+the map is zoomed in.
+
+1441
+00:51:53,026 --> 0:51:54,346
+You should include surrounding
+
+1442
+00:51:54,346 --> 0:51:55,786
+areas to provide context.
+
+1443
+00:51:56,696 --> 0:51:58,176
+Adjacent streets, playgrounds,
+
+1444
+00:51:58,266 --> 0:51:59,786
+and other locations can help
+
+1445
+00:51:59,836 --> 0:52:02,296
+people orient when they use your
+
+1446
+00:51:59,836 --> 0:52:02,296
+people orient when they use your
+
+1447
+00:52:02,296 --> 0:52:02,496
+map.
+
+1448
+00:52:04,396 --> 0:52:05,486
+And finally and very
+
+1449
+00:52:05,486 --> 0:52:08,106
+importantly, enable indoor user
+
+1450
+00:52:08,106 --> 0:52:10,406
+location on iOS to enhance the
+
+1451
+00:52:10,406 --> 0:52:13,086
+indoor map experience when your
+
+1452
+00:52:13,086 --> 0:52:14,276
+users visit the venue.
+
+1453
+00:52:15,886 --> 0:52:17,146
+For more information, you may
+
+1454
+00:52:17,146 --> 0:52:18,596
+check out the related sessions,
+
+1455
+00:52:18,756 --> 0:52:20,596
+What's New in MapKit and MapKit
+
+1456
+00:52:21,186 --> 0:52:23,806
+JS and Introducing the Apple
+
+1457
+00:52:23,806 --> 0:52:24,566
+Maps Program.
+
+1458
+00:52:25,346 --> 0:52:26,446
+If you have any comments or
+
+1459
+00:52:26,446 --> 0:52:28,416
+questions, visit us at the lab
+
+1460
+00:52:28,416 --> 0:52:29,486
+right after this session.
+
+1461
+00:52:30,176 --> 0:52:31,556
+Thank you very much for coming
+
+1462
+00:52:31,556 --> 0:52:33,156
+out today, and I hope you have
+
+1463
+00:52:33,156 --> 0:52:33,966
+had a great conference.
+
+1464
+00:52:34,516 --> 0:52:39,500
+[ Applause ]

@@ -1,0 +1,4695 @@
+1
+00:00:01,176 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:07,516 --> 0:00:13,686
+[ Applause ]
+
+3
+00:00:14,186 --> 0:00:14,836
+&gt;&gt; Good afternoon.
+
+4
+00:00:15,616 --> 0:00:16,926
+My name is Anders, and I work on
+
+5
+00:00:16,996 --> 0:00:17,356
+Xcode.
+
+6
+00:00:18,376 --> 0:00:19,696
+In this session, I and my
+
+7
+00:00:19,696 --> 0:00:20,806
+colleague, Balraj, will be
+
+8
+00:00:20,806 --> 0:00:22,246
+talking about how to use Swift
+
+9
+00:00:22,316 --> 0:00:23,946
+Packages from Xcode Projects.
+
+10
+00:00:26,106 --> 0:00:27,526
+The Swift Package Manager is
+
+11
+00:00:27,576 --> 0:00:28,866
+part of the Open Source Swift
+
+12
+00:00:28,866 --> 0:00:29,396
+tool chain.
+
+13
+00:00:29,656 --> 0:00:31,536
+It was introduced in Swift 3.
+
+14
+00:00:32,296 --> 0:00:34,286
+And since then, a lot of Swift
+
+15
+00:00:34,336 --> 0:00:35,486
+Packages have been created.
+
+16
+00:00:36,686 --> 0:00:38,506
+Also, a lot of Open Source
+
+17
+00:00:38,506 --> 0:00:40,216
+libraries that were written for
+
+18
+00:00:40,216 --> 0:00:41,736
+other package managers have been
+
+19
+00:00:41,736 --> 0:00:42,986
+adapted to be compatible with
+
+20
+00:00:42,986 --> 0:00:43,956
+the Swift Package Manager.
+
+21
+00:00:44,426 --> 0:00:48,126
+Swift Packages let you manage
+
+22
+00:00:48,126 --> 0:00:49,546
+your versions of your
+
+23
+00:00:49,546 --> 0:00:51,496
+dependencies, making sure that
+
+24
+00:00:51,496 --> 0:00:53,176
+you get bug fixes without
+
+25
+00:00:53,176 --> 0:00:54,596
+subjecting your code to
+
+26
+00:00:54,596 --> 0:00:56,116
+source-breaking changes as the
+
+27
+00:00:56,116 --> 0:00:57,706
+packages you depend on update.
+
+28
+00:00:59,066 --> 0:01:00,466
+Swift Packages are also a great
+
+29
+00:00:59,066 --> 0:01:00,466
+Swift Packages are also a great
+
+30
+00:01:00,466 --> 0:01:02,516
+way for your own -- to share
+
+31
+00:01:02,516 --> 0:01:03,736
+code among your own apps,
+
+32
+00:01:04,105 --> 0:01:05,146
+whether that's within a small
+
+33
+00:01:05,146 --> 0:01:07,556
+team, a large organization, or
+
+34
+00:01:07,556 --> 0:01:08,996
+maybe just among apps that
+
+35
+00:01:08,996 --> 0:01:10,486
+you're working on by yourself.
+
+36
+00:01:12,966 --> 0:01:15,736
+And now in Xcode 11, you can
+
+37
+00:01:15,736 --> 0:01:17,356
+access Swift Packages directly
+
+38
+00:01:17,356 --> 0:01:18,456
+from Xcode projects.
+
+39
+00:01:20,516 --> 0:01:22,666
+[ Applause ]
+
+40
+00:01:23,166 --> 0:01:23,826
+We're excited too.
+
+41
+00:01:26,096 --> 0:01:27,336
+So in this session, we're going
+
+42
+00:01:27,336 --> 0:01:28,816
+to start by talking about how to
+
+43
+00:01:28,816 --> 0:01:30,336
+use a package, how to extend the
+
+44
+00:01:30,336 --> 0:01:31,846
+functionality of an app by using
+
+45
+00:01:31,846 --> 0:01:32,376
+a package.
+
+46
+00:01:32,806 --> 0:01:34,066
+We're then going to talk a bit
+
+47
+00:01:34,066 --> 0:01:35,486
+about what exactly is in a
+
+48
+00:01:35,486 --> 0:01:37,016
+package, how they construct it,
+
+49
+00:01:37,016 --> 0:01:38,636
+what's in the data store -- in
+
+50
+00:01:38,636 --> 0:01:39,756
+the file format of a package.
+
+51
+00:01:40,846 --> 0:01:41,856
+When we talk about package
+
+52
+00:01:41,856 --> 0:01:43,846
+resolution, how Xcode fetches
+
+53
+00:01:43,846 --> 0:01:45,296
+the right versions of packages
+
+54
+00:01:45,296 --> 0:01:46,416
+and incorporates them into your
+
+55
+00:01:46,416 --> 0:01:46,626
+app.
+
+56
+00:01:46,666 --> 0:01:48,396
+We're going to talk then a
+
+57
+00:01:48,396 --> 0:01:49,586
+little bit about updating
+
+58
+00:01:49,586 --> 0:01:50,806
+packages, what happens when a
+
+59
+00:01:50,806 --> 0:01:52,146
+new version of a package's
+
+60
+00:01:52,146 --> 0:01:53,656
+update is published, and how you
+
+61
+00:01:53,656 --> 0:01:55,706
+can take advantage of that.
+
+62
+00:01:55,706 --> 0:01:57,176
+And we're going to talk about
+
+63
+00:01:57,176 --> 0:01:59,376
+resolving any version conflicts
+
+64
+00:01:59,376 --> 0:02:01,446
+that might happen as you update
+
+65
+00:01:59,376 --> 0:02:01,446
+that might happen as you update
+
+66
+00:02:01,446 --> 0:02:02,036
+the packages.
+
+67
+00:02:03,396 --> 0:02:04,796
+So let's get started by
+
+68
+00:02:04,796 --> 0:02:06,786
+extending NAP functionality to
+
+69
+00:02:06,786 --> 0:02:07,976
+take advantage of packages.
+
+70
+00:02:18,126 --> 0:02:19,226
+Here, we have a little iPhone
+
+71
+00:02:19,226 --> 0:02:22,486
+app that simply shows the, some
+
+72
+00:02:22,486 --> 0:02:24,146
+of the lunch menu offerings of
+
+73
+00:02:24,146 --> 0:02:26,956
+some of the cafes around where I
+
+74
+00:02:26,956 --> 0:02:27,046
+work.
+
+75
+00:02:27,046 --> 0:02:28,386
+We see that there are two here,
+
+76
+00:02:28,386 --> 0:02:29,346
+entries.
+
+77
+00:02:29,346 --> 0:02:30,906
+It's a SwiftUI app.
+
+78
+00:02:30,906 --> 0:02:32,196
+So I can see the preview and
+
+79
+00:02:32,196 --> 0:02:33,586
+Xcode without having to run my
+
+80
+00:02:33,586 --> 0:02:33,826
+app.
+
+81
+00:02:35,676 --> 0:02:37,196
+So we see that the lunch menu
+
+82
+00:02:37,256 --> 0:02:38,686
+from two different places are
+
+83
+00:02:38,686 --> 0:02:39,856
+showing up.
+
+84
+00:02:39,966 --> 0:02:41,576
+In the real version of this app,
+
+85
+00:02:41,686 --> 0:02:42,806
+we would fetch this data over
+
+86
+00:02:42,806 --> 0:02:43,256
+the network.
+
+87
+00:02:44,056 --> 0:02:45,616
+But in this demo app here, I
+
+88
+00:02:45,616 --> 0:02:47,076
+just have them as local files
+
+89
+00:02:47,076 --> 0:02:48,136
+among my source.
+
+90
+00:02:48,176 --> 0:02:49,606
+So you could say that this menu
+
+91
+00:02:49,606 --> 0:02:50,456
+is locally sourced.
+
+92
+00:02:51,286 --> 0:02:53,286
+[ Laughter ]
+
+93
+00:02:53,556 --> 0:02:55,996
+So these two JSON files are
+
+94
+00:02:55,996 --> 0:02:57,226
+showing up just fine.
+
+95
+00:02:57,326 --> 0:02:59,596
+But this cafe here is a bit more
+
+96
+00:02:59,596 --> 0:03:00,856
+modern and upscale.
+
+97
+00:02:59,596 --> 0:03:00,856
+modern and upscale.
+
+98
+00:03:00,856 --> 0:03:02,046
+And so they have a YAML menu,
+
+99
+00:03:02,176 --> 0:03:02,376
+right?
+
+100
+00:03:02,376 --> 0:03:04,346
+So we're not able to parse that.
+
+101
+00:03:04,346 --> 0:03:05,246
+And we're not seeing that.
+
+102
+00:03:05,756 --> 0:03:06,516
+So let's take a look at the
+
+103
+00:03:06,516 --> 0:03:07,906
+source code that loads this
+
+104
+00:03:08,066 --> 0:03:08,616
+data.
+
+105
+00:03:09,246 --> 0:03:10,636
+We see here that we handle JSON,
+
+106
+00:03:10,636 --> 0:03:11,926
+but we don't handle YAML.
+
+107
+00:03:12,146 --> 0:03:14,126
+So now fortunately, I know of a
+
+108
+00:03:14,126 --> 0:03:15,826
+library that can parse YAML
+
+109
+00:03:15,996 --> 0:03:16,326
+great.
+
+110
+00:03:16,506 --> 0:03:17,576
+And it has a nice Swift
+
+111
+00:03:17,576 --> 0:03:18,066
+interface.
+
+112
+00:03:18,316 --> 0:03:20,126
+So it's called Yams.
+
+113
+00:03:20,126 --> 0:03:21,176
+And I'm going to go and use
+
+114
+00:03:21,176 --> 0:03:21,456
+that.
+
+115
+00:03:22,666 --> 0:03:24,006
+And to do that I bring down to
+
+116
+00:03:24,006 --> 0:03:24,786
+file menu.
+
+117
+00:03:25,056 --> 0:03:27,286
+I go to this new Swift Packages
+
+118
+00:03:27,286 --> 0:03:29,746
+submenu, and Add Package
+
+119
+00:03:29,746 --> 0:03:30,366
+Dependency.
+
+120
+00:03:30,366 --> 0:03:31,606
+Now this submenu has a couple of
+
+121
+00:03:31,606 --> 0:03:33,226
+other menu commands to deal with
+
+122
+00:03:33,226 --> 0:03:34,656
+packages once they're in your
+
+123
+00:03:34,656 --> 0:03:34,836
+app.
+
+124
+00:03:35,736 --> 0:03:37,696
+But you said Package Dependency.
+
+125
+00:03:38,246 --> 0:03:40,226
+And here, I see, because I added
+
+126
+00:03:40,276 --> 0:03:42,006
+my GitHub accounts to Swift --
+
+127
+00:03:42,006 --> 0:03:44,136
+to Xcode's preferences, I see
+
+128
+00:03:44,136 --> 0:03:45,406
+here all of the package
+
+129
+00:03:45,406 --> 0:03:47,146
+repositories in that account.
+
+130
+00:03:47,546 --> 0:03:48,676
+And I also see any other
+
+131
+00:03:48,676 --> 0:03:50,006
+repositories that I've starred.
+
+132
+00:03:51,086 --> 0:03:52,326
+In this case, I've starred Yams
+
+133
+00:03:52,326 --> 0:03:52,566
+here.
+
+134
+00:03:53,246 --> 0:03:55,376
+But I could also, if I had a URL
+
+135
+00:03:55,376 --> 0:03:57,066
+for a package, I could enter it
+
+136
+00:03:57,066 --> 0:03:57,286
+here.
+
+137
+00:03:58,506 --> 0:04:00,146
+In this case, I'm going to click
+
+138
+00:03:58,506 --> 0:04:00,146
+In this case, I'm going to click
+
+139
+00:04:00,146 --> 0:04:01,696
+on the readme link here and go
+
+140
+00:04:01,736 --> 0:04:03,506
+to the homepage for the Yams
+
+141
+00:04:03,546 --> 0:04:04,056
+projects.
+
+142
+00:04:04,056 --> 0:04:04,716
+That that looks good.
+
+143
+00:04:05,836 --> 0:04:07,486
+I'm going to go take a look here
+
+144
+00:04:07,486 --> 0:04:07,826
+at the API.
+
+145
+00:04:07,826 --> 0:04:10,606
+That looks like what I need.
+
+146
+00:04:11,126 --> 0:04:11,956
+Now, of course, when you're
+
+147
+00:04:11,956 --> 0:04:13,626
+using an Open Source library,
+
+148
+00:04:13,626 --> 0:04:14,716
+you're bringing somebody else's
+
+149
+00:04:14,716 --> 0:04:15,656
+code into your app.
+
+150
+00:04:15,736 --> 0:04:16,745
+So there are a lot of things you
+
+151
+00:04:16,745 --> 0:04:17,586
+want to be careful with.
+
+152
+00:04:17,586 --> 0:04:18,636
+You want to make sure you trust
+
+153
+00:04:18,676 --> 0:04:19,815
+the source of that package.
+
+154
+00:04:20,546 --> 0:04:21,536
+You want to make sure that you
+
+155
+00:04:21,536 --> 0:04:22,686
+know exactly what this library
+
+156
+00:04:22,686 --> 0:04:23,766
+is doing, so you don't have any
+
+157
+00:04:23,766 --> 0:04:24,526
+surprises.
+
+158
+00:04:24,966 --> 0:04:26,206
+And you want to make sure that
+
+159
+00:04:26,206 --> 0:04:27,966
+the license for this Open Source
+
+160
+00:04:27,966 --> 0:04:29,396
+library is compatible with your
+
+161
+00:04:29,396 --> 0:04:30,126
+app's license.
+
+162
+00:04:31,226 --> 0:04:32,516
+So I've done all that.
+
+163
+00:04:32,566 --> 0:04:33,526
+And so I'm going to go back to
+
+164
+00:04:33,526 --> 0:04:34,086
+Xcode.
+
+165
+00:04:34,086 --> 0:04:35,696
+And I'm going to just click Next
+
+166
+00:04:35,696 --> 0:04:36,016
+here.
+
+167
+00:04:36,016 --> 0:04:37,126
+And we're going to add a
+
+168
+00:04:37,126 --> 0:04:38,956
+reference, a dependency on yams.
+
+169
+00:04:40,396 --> 0:04:41,976
+Now Xcode shows me the versions
+
+170
+00:04:41,976 --> 0:04:42,796
+that are available.
+
+171
+00:04:42,926 --> 0:04:44,486
+And it automatically sets me up
+
+172
+00:04:44,556 --> 0:04:46,556
+to use the latest version of the
+
+173
+00:04:46,556 --> 0:04:46,966
+package.
+
+174
+00:04:46,966 --> 0:04:47,826
+We're going to talk a little bit
+
+175
+00:04:47,856 --> 0:04:49,206
+more about the details of these
+
+176
+00:04:49,206 --> 0:04:50,766
+options later on in the talk.
+
+177
+00:04:51,566 --> 0:04:52,856
+But most often, the default
+
+178
+00:04:52,856 --> 0:04:54,246
+option here is the one you want.
+
+179
+00:04:54,246 --> 0:04:57,486
+It's using version 2.0 anyway,
+
+180
+00:04:57,486 --> 0:04:59,636
+up to, but not including, the
+
+181
+00:04:59,636 --> 0:05:00,586
+next major version.
+
+182
+00:04:59,636 --> 0:05:00,586
+next major version.
+
+183
+00:05:00,746 --> 0:05:02,746
+I'm going to click Next.
+
+184
+00:05:04,136 --> 0:05:05,156
+Now Xcode is fetching the
+
+185
+00:05:05,156 --> 0:05:06,956
+contents of the Yams package.
+
+186
+00:05:07,476 --> 0:05:10,516
+And it preselects for me the
+
+187
+00:05:10,516 --> 0:05:11,466
+single product here.
+
+188
+00:05:11,466 --> 0:05:12,556
+Some packages can have more than
+
+189
+00:05:12,556 --> 0:05:13,116
+one product.
+
+190
+00:05:13,116 --> 0:05:14,226
+In this case, there's one.
+
+191
+00:05:14,226 --> 0:05:14,896
+It's a library.
+
+192
+00:05:15,356 --> 0:05:16,556
+Same name as the package.
+
+193
+00:05:17,136 --> 0:05:18,106
+And if you have more than one
+
+194
+00:05:18,106 --> 0:05:19,366
+app in your project, you can
+
+195
+00:05:19,366 --> 0:05:20,336
+choose where you want to link
+
+196
+00:05:20,336 --> 0:05:20,476
+it.
+
+197
+00:05:20,476 --> 0:05:21,666
+And in this case, it's just the
+
+198
+00:05:21,666 --> 0:05:22,706
+one, so I'm going to link it to
+
+199
+00:05:22,706 --> 0:05:23,186
+the Lunch app.
+
+200
+00:05:23,766 --> 0:05:25,566
+And I hit finish.
+
+201
+00:05:27,026 --> 0:05:27,956
+Now we see a couple of things
+
+202
+00:05:27,956 --> 0:05:28,176
+here.
+
+203
+00:05:28,296 --> 0:05:30,126
+For one, Xcode has added a
+
+204
+00:05:30,126 --> 0:05:32,526
+reference to the Yams Package
+
+205
+00:05:32,656 --> 0:05:34,546
+Dependency to the new Swift
+
+206
+00:05:34,546 --> 0:05:35,876
+Packages tab in my Project
+
+207
+00:05:35,876 --> 0:05:36,206
+Editor.
+
+208
+00:05:37,706 --> 0:05:38,926
+We also see that the Yams
+
+209
+00:05:38,926 --> 0:05:40,546
+Package has shown up down here
+
+210
+00:05:41,126 --> 0:05:43,126
+in Swift Package Dependency
+
+211
+00:05:43,126 --> 0:05:43,576
+section.
+
+212
+00:05:45,356 --> 0:05:46,386
+We're not going to look in that
+
+213
+00:05:46,386 --> 0:05:47,916
+package right -- just now.
+
+214
+00:05:47,916 --> 0:05:48,606
+We're going to take a look in a
+
+215
+00:05:48,606 --> 0:05:48,986
+moment.
+
+216
+00:05:48,986 --> 0:05:50,086
+What we're going to do now,
+
+217
+00:05:50,086 --> 0:05:51,556
+though, is to go into the food
+
+218
+00:05:51,556 --> 0:05:52,246
+menu again.
+
+219
+00:05:52,346 --> 0:05:53,286
+And now, we're going to make use
+
+220
+00:05:53,286 --> 0:05:54,496
+of this from within our code.
+
+221
+00:05:54,496 --> 0:05:56,866
+So I'm going to type import Yams
+
+222
+00:05:56,866 --> 0:05:57,056
+here.
+
+223
+00:05:57,186 --> 0:05:58,306
+And we see we have code
+
+224
+00:05:58,306 --> 0:05:59,736
+completion against the import
+
+225
+00:05:59,736 --> 0:06:00,046
+name.
+
+226
+00:05:59,736 --> 0:06:00,046
+name.
+
+227
+00:06:00,316 --> 0:06:02,356
+And I can also Command-Click on
+
+228
+00:06:02,356 --> 0:06:04,316
+this import statement here.
+
+229
+00:06:04,316 --> 0:06:05,886
+I can jump to the definition.
+
+230
+00:06:05,886 --> 0:06:07,046
+And here I see the rendered
+
+231
+00:06:07,046 --> 0:06:09,766
+version of the documentation for
+
+232
+00:06:09,766 --> 0:06:10,896
+the interface for the Yams
+
+233
+00:06:11,166 --> 0:06:11,496
+Project.
+
+234
+00:06:12,706 --> 0:06:13,736
+And all of this comes from the
+
+235
+00:06:13,736 --> 0:06:14,936
+documentation comments in the
+
+236
+00:06:14,936 --> 0:06:16,246
+source that was included in the
+
+237
+00:06:16,246 --> 0:06:16,686
+package.
+
+238
+00:06:16,686 --> 0:06:19,306
+So I go back to my code.
+
+239
+00:06:19,306 --> 0:06:21,766
+I'm going to add another case
+
+240
+00:06:22,336 --> 0:06:22,436
+here.
+
+241
+00:06:22,646 --> 0:06:25,226
+Case, YAML.
+
+242
+00:06:26,516 --> 0:06:29,806
+I'm going to type -- just type
+
+243
+00:06:30,146 --> 0:06:30,956
+YAML decoder.
+
+244
+00:06:30,956 --> 0:06:33,246
+I have code completion for all
+
+245
+00:06:33,246 --> 0:06:34,356
+of the library methods.
+
+246
+00:06:34,356 --> 0:06:35,696
+And I have Quick Help, because
+
+247
+00:06:35,746 --> 0:06:36,716
+the package includes that.
+
+248
+00:06:36,716 --> 0:06:38,656
+So this looks and feels just
+
+249
+00:06:38,656 --> 0:06:40,516
+like the built-in APIs in terms
+
+250
+00:06:40,516 --> 0:06:42,196
+of the quality of the support
+
+251
+00:06:42,196 --> 0:06:42,466
+you get.
+
+252
+00:06:42,946 --> 0:06:44,856
+I'm going to use this method.
+
+253
+00:06:45,236 --> 0:06:46,836
+I'm going to be using the same
+
+254
+00:06:47,266 --> 0:06:48,666
+first parameters for the JSON
+
+255
+00:06:48,666 --> 0:06:49,036
+case.
+
+256
+00:06:49,766 --> 0:06:51,126
+Now this API happens to take a
+
+257
+00:06:51,126 --> 0:06:52,256
+string instead of data.
+
+258
+00:06:52,406 --> 0:06:53,486
+So I'm going to be using that.
+
+259
+00:06:53,836 --> 0:06:54,786
+And I don't need the third
+
+260
+00:06:54,786 --> 0:06:56,326
+parameter here, because I'll
+
+261
+00:06:56,326 --> 0:06:57,476
+just use the default value.
+
+262
+00:06:58,426 --> 0:07:00,356
+So now, we can go back again to
+
+263
+00:06:58,426 --> 0:07:00,356
+So now, we can go back again to
+
+264
+00:07:00,356 --> 0:07:01,236
+the list view.
+
+265
+00:07:01,866 --> 0:07:02,936
+And because this is a pretty big
+
+266
+00:07:02,936 --> 0:07:04,406
+change, importing a new module,
+
+267
+00:07:04,406 --> 0:07:05,846
+I'm going to hit resume.
+
+268
+00:07:05,846 --> 0:07:07,216
+Xcode is going to rebuild the
+
+269
+00:07:07,216 --> 0:07:08,306
+application in the background.
+
+270
+00:07:08,306 --> 0:07:09,816
+And I'm going to see the preview
+
+271
+00:07:09,816 --> 0:07:10,006
+here.
+
+272
+00:07:10,616 --> 0:07:11,866
+And now we see that I see the
+
+273
+00:07:11,866 --> 0:07:13,716
+contents from the YAML data file
+
+274
+00:07:13,716 --> 0:07:13,976
+as well.
+
+275
+00:07:14,516 --> 0:07:20,056
+[ Applause ]
+
+276
+00:07:20,556 --> 0:07:21,666
+All right, so now I can commit
+
+277
+00:07:21,696 --> 0:07:22,886
+this to my repository.
+
+278
+00:07:24,356 --> 0:07:26,786
+And we see here what we expect.
+
+279
+00:07:26,786 --> 0:07:28,406
+We see the source changes.
+
+280
+00:07:28,406 --> 0:07:29,346
+Let me make that a bit bigger.
+
+281
+00:07:30,186 --> 0:07:31,356
+We see the source changes that I
+
+282
+00:07:31,356 --> 0:07:32,736
+made, of course and it's part of
+
+283
+00:07:32,736 --> 0:07:33,416
+the commit sheets.
+
+284
+00:07:33,786 --> 0:07:34,906
+We also see that the project
+
+285
+00:07:34,906 --> 0:07:35,826
+file has changed, because I've
+
+286
+00:07:35,826 --> 0:07:37,466
+added the reference to the Yams
+
+287
+00:07:37,466 --> 0:07:37,896
+Package.
+
+288
+00:07:38,286 --> 0:07:39,756
+And we see one more thing here,
+
+289
+00:07:39,756 --> 0:07:42,236
+which is Xcode has created a
+
+290
+00:07:42,236 --> 0:07:44,146
+directory called SwiftPM, that's
+
+291
+00:07:44,146 --> 0:07:45,376
+for the Swift Package Manager,
+
+292
+00:07:45,806 --> 0:07:46,926
+underneath the shared data,
+
+293
+00:07:46,926 --> 0:07:48,146
+underneath the workspace.
+
+294
+00:07:48,146 --> 0:07:49,266
+And you want to check that in,
+
+295
+00:07:49,266 --> 0:07:50,786
+because we'll talk about what
+
+296
+00:07:50,786 --> 0:07:52,316
+exactly is in there later on in
+
+297
+00:07:52,316 --> 0:07:52,736
+the talk.
+
+298
+00:07:52,866 --> 0:07:54,756
+But Xcode stores information
+
+299
+00:07:54,756 --> 0:07:56,056
+about the package versions that
+
+300
+00:07:56,056 --> 0:07:56,536
+resolved.
+
+301
+00:07:56,536 --> 0:07:58,156
+And you want to check that in so
+
+302
+00:07:58,156 --> 0:07:59,646
+that everybody on your team gets
+
+303
+00:07:59,676 --> 0:08:00,466
+the same versions.
+
+304
+00:07:59,676 --> 0:08:00,466
+the same versions.
+
+305
+00:08:00,996 --> 0:08:05,456
+All right, so now I can check
+
+306
+00:08:05,456 --> 0:08:09,126
+this in and say useYAML.
+
+307
+00:08:10,506 --> 0:08:14,596
+And use. All right, go back to
+
+308
+00:08:14,596 --> 0:08:14,976
+slides.
+
+309
+00:08:18,686 --> 0:08:20,096
+All right, so we saw quickly how
+
+310
+00:08:20,096 --> 0:08:21,536
+to use an Open Source Package
+
+311
+00:08:21,536 --> 0:08:22,416
+from within a project.
+
+312
+00:08:22,466 --> 0:08:23,386
+Let's take a closer look at
+
+313
+00:08:23,386 --> 0:08:24,986
+what's in the YAML Package.
+
+314
+00:08:26,206 --> 0:08:30,006
+The Package is a directory that
+
+315
+00:08:30,006 --> 0:08:32,226
+contains a Swift Package
+
+316
+00:08:32,476 --> 0:08:33,076
+manifest.
+
+317
+00:08:33,515 --> 0:08:35,436
+The manifest is a file called
+
+318
+00:08:35,436 --> 0:08:37,436
+Package.swift, and it identifies
+
+319
+00:08:37,436 --> 0:08:38,856
+that directory as a Swift
+
+320
+00:08:38,916 --> 0:08:39,366
+Package.
+
+321
+00:08:39,706 --> 0:08:42,556
+It also contains sources and of
+
+322
+00:08:42,556 --> 0:08:43,856
+course, it contains unit tests
+
+323
+00:08:43,856 --> 0:08:44,896
+to make sure that those sources
+
+324
+00:08:44,896 --> 0:08:45,896
+continue functioning well.
+
+325
+00:08:47,366 --> 0:08:48,666
+Underneath the sources is a
+
+326
+00:08:48,666 --> 0:08:49,946
+subdirectory for each of the
+
+327
+00:08:49,946 --> 0:08:51,396
+separate targets in the package.
+
+328
+00:08:51,396 --> 0:08:52,406
+These are the separately
+
+329
+00:08:52,406 --> 0:08:53,436
+buildable components of the
+
+330
+00:08:53,436 --> 0:08:53,896
+package.
+
+331
+00:08:55,176 --> 0:08:56,396
+And similarly, under the test
+
+332
+00:08:56,396 --> 0:08:57,936
+directory, there's a separate
+
+333
+00:08:57,936 --> 0:08:59,336
+subdirectory for every test
+
+334
+00:08:59,336 --> 0:08:59,586
+suite.
+
+335
+00:09:01,496 --> 0:09:02,916
+So let's take a closer look at
+
+336
+00:09:03,036 --> 0:09:04,266
+what's in one of the target
+
+337
+00:09:04,266 --> 0:09:04,836
+directories.
+
+338
+00:09:05,486 --> 0:09:07,296
+Each of the targets can have
+
+339
+00:09:07,406 --> 0:09:09,126
+implementation that's either one
+
+340
+00:09:09,126 --> 0:09:11,266
+of the C-based languages or
+
+341
+00:09:11,336 --> 0:09:11,776
+Swift.
+
+342
+00:09:11,776 --> 0:09:13,636
+So in the case of YAML, there's
+
+343
+00:09:13,636 --> 0:09:15,976
+a core CYAML parser that's
+
+344
+00:09:15,976 --> 0:09:16,916
+written in C.
+
+345
+00:09:17,716 --> 0:09:18,756
+It could also contain
+
+346
+00:09:18,956 --> 0:09:20,316
+Objective-C++ files.
+
+347
+00:09:21,036 --> 0:09:22,256
+And then there's a Swift
+
+348
+00:09:22,256 --> 0:09:24,516
+interface in a separate target
+
+349
+00:09:24,516 --> 0:09:25,986
+on -- in addition to that, that
+
+350
+00:09:25,986 --> 0:09:27,556
+calls down into the CYAML code.
+
+351
+00:09:28,416 --> 0:09:30,476
+And then the unit tests here are
+
+352
+00:09:30,476 --> 0:09:30,976
+written in Swift.
+
+353
+00:09:34,306 --> 0:09:35,636
+So if we look at the contents of
+
+354
+00:09:35,636 --> 0:09:38,516
+the Swift Package Manifests, the
+
+355
+00:09:38,516 --> 0:09:40,796
+first line here is a declaration
+
+356
+00:09:40,796 --> 0:09:42,596
+of what the tool version the
+
+357
+00:09:42,596 --> 0:09:43,756
+package needs.
+
+358
+00:09:43,756 --> 0:09:45,456
+So this says the minimum version
+
+359
+00:09:45,456 --> 0:09:46,726
+that can parse this package
+
+360
+00:09:46,726 --> 0:09:47,766
+manifest at all.
+
+361
+00:09:48,966 --> 0:09:52,596
+The package description API is a
+
+362
+00:09:52,596 --> 0:09:54,346
+declarative API that is provided
+
+363
+00:09:54,346 --> 0:09:55,946
+by the Package Manager's package
+
+364
+00:09:55,946 --> 0:09:56,946
+description library.
+
+365
+00:09:57,366 --> 0:09:59,296
+And by importing that, then the
+
+366
+00:09:59,296 --> 0:10:00,746
+rest of the contents of this
+
+367
+00:09:59,296 --> 0:10:00,746
+rest of the contents of this
+
+368
+00:10:00,806 --> 0:10:02,446
+file can declare the
+
+369
+00:10:02,446 --> 0:10:04,436
+characteristics of the package.
+
+370
+00:10:05,806 --> 0:10:07,426
+That includes the name of the
+
+371
+00:10:07,426 --> 0:10:07,986
+package.
+
+372
+00:10:09,426 --> 0:10:10,816
+It also includes a section that
+
+373
+00:10:10,816 --> 0:10:12,076
+lists the products that the
+
+374
+00:10:12,076 --> 0:10:13,616
+package vends to the clients.
+
+375
+00:10:14,316 --> 0:10:15,936
+So the Package can control which
+
+376
+00:10:15,986 --> 0:10:17,606
+parts of its code can be
+
+377
+00:10:17,606 --> 0:10:18,936
+directly imported by the client.
+
+378
+00:10:18,936 --> 0:10:20,096
+And in this case, there is one
+
+379
+00:10:20,096 --> 0:10:22,516
+library with the same name as
+
+380
+00:10:22,516 --> 0:10:24,456
+the package, so called Yams.
+
+381
+00:10:25,166 --> 0:10:26,616
+We'll talk in a moment about the
+
+382
+00:10:26,616 --> 0:10:27,716
+targets part there.
+
+383
+00:10:27,996 --> 0:10:30,016
+It basically says that this
+
+384
+00:10:30,016 --> 0:10:32,356
+library publishes the Yams
+
+385
+00:10:32,356 --> 0:10:34,956
+target to clients as a library.
+
+386
+00:10:36,976 --> 0:10:38,736
+The target section lists the
+
+387
+00:10:38,736 --> 0:10:40,156
+individually buildable parts of
+
+388
+00:10:40,156 --> 0:10:40,856
+the package.
+
+389
+00:10:41,106 --> 0:10:42,566
+And as we see here, there is a
+
+390
+00:10:42,566 --> 0:10:43,726
+one-to-one correspondence
+
+391
+00:10:43,726 --> 0:10:46,646
+between the source folders and
+
+392
+00:10:46,876 --> 0:10:47,486
+the targets.
+
+393
+00:10:48,096 --> 0:10:49,396
+Each of those source folders can
+
+394
+00:10:49,396 --> 0:10:50,676
+have other subfolders for
+
+395
+00:10:50,676 --> 0:10:51,916
+organizational purposes, but the
+
+396
+00:10:51,916 --> 0:10:54,316
+top level under sources is one
+
+397
+00:10:54,596 --> 0:10:55,936
+folder per packet, per target.
+
+398
+00:10:58,146 --> 0:10:59,866
+In this case, we see the CYAML
+
+399
+00:10:59,866 --> 0:11:01,126
+target listed without any
+
+400
+00:10:59,866 --> 0:11:01,126
+target listed without any
+
+401
+00:11:01,126 --> 0:11:01,786
+dependencies.
+
+402
+00:11:02,226 --> 0:11:04,706
+And the Yams target is listed as
+
+403
+00:11:04,706 --> 0:11:06,626
+depending on the CYAML target.
+
+404
+00:11:06,886 --> 0:11:08,606
+This means that when the product
+
+405
+00:11:08,866 --> 0:11:10,466
+refers to Yams, that will, in
+
+406
+00:11:10,466 --> 0:11:12,236
+turn, indirectly bring in CYAML
+
+407
+00:11:12,236 --> 0:11:12,516
+as well.
+
+408
+00:11:13,306 --> 0:11:15,076
+And then there's one test target
+
+409
+00:11:15,076 --> 0:11:17,146
+here for the unit tests.
+
+410
+00:11:17,496 --> 0:11:18,616
+This code won't actually be
+
+411
+00:11:18,616 --> 0:11:19,636
+linked into the client.
+
+412
+00:11:20,036 --> 0:11:21,766
+But it's necessary to make sure
+
+413
+00:11:21,766 --> 0:11:23,206
+your library keeps running
+
+414
+00:11:23,206 --> 0:11:23,596
+properly.
+
+415
+00:11:24,316 --> 0:11:26,506
+And in this case, the Yams
+
+416
+00:11:26,876 --> 0:11:28,726
+Package Manifest also lists some
+
+417
+00:11:28,796 --> 0:11:30,106
+older Swift versions that the
+
+418
+00:11:30,106 --> 0:11:31,226
+code is compatible with.
+
+419
+00:11:31,766 --> 0:11:33,716
+There are also other
+
+420
+00:11:33,716 --> 0:11:34,756
+characteristics that you can
+
+421
+00:11:34,756 --> 0:11:36,476
+specify and in this declarative
+
+422
+00:11:36,476 --> 0:11:38,856
+language, and we'll get to some
+
+423
+00:11:38,856 --> 0:11:39,326
+of those later.
+
+424
+00:11:39,926 --> 0:11:42,526
+So how is this then linked into
+
+425
+00:11:42,526 --> 0:11:44,416
+your app when you actually build
+
+426
+00:11:44,416 --> 0:11:45,286
+and run your app?
+
+427
+00:11:45,316 --> 0:11:46,656
+So your project consists of
+
+428
+00:11:46,656 --> 0:11:47,456
+source files.
+
+429
+00:11:47,786 --> 0:11:48,786
+So it could be Swift.
+
+430
+00:11:48,786 --> 0:11:49,896
+It could be other languages.
+
+431
+00:11:50,836 --> 0:11:52,156
+And the packages you depend on,
+
+432
+00:11:52,156 --> 0:11:53,436
+they're also source files.
+
+433
+00:11:54,116 --> 0:11:55,776
+And so what Xcode does is it
+
+434
+00:11:55,776 --> 0:11:56,966
+takes all of these source files,
+
+435
+00:11:56,966 --> 0:11:59,276
+and it compiles them and
+
+436
+00:11:59,456 --> 0:12:00,846
+particularly compiles the
+
+437
+00:11:59,456 --> 0:12:00,846
+particularly compiles the
+
+438
+00:12:00,846 --> 0:12:02,286
+package code in a way that is
+
+439
+00:12:02,286 --> 0:12:04,586
+compatible with the app code in
+
+440
+00:12:04,586 --> 0:12:05,126
+your project.
+
+441
+00:12:05,746 --> 0:12:07,056
+So this includes architectures,
+
+442
+00:12:07,096 --> 0:12:08,176
+platforms, those things.
+
+443
+00:12:08,906 --> 0:12:09,936
+It will recompile it multiple
+
+444
+00:12:09,936 --> 0:12:12,246
+times, if needed, depending on
+
+445
+00:12:12,306 --> 0:12:13,306
+what your apps need.
+
+446
+00:12:13,996 --> 0:12:16,356
+Then it links it in and combines
+
+447
+00:12:16,356 --> 0:12:17,976
+all of that into the
+
+448
+00:12:17,976 --> 0:12:18,596
+application.
+
+449
+00:12:19,716 --> 0:12:21,166
+Package libraries are static by
+
+450
+00:12:21,166 --> 0:12:21,606
+default.
+
+451
+00:12:22,036 --> 0:12:23,146
+And so all the code is linked
+
+452
+00:12:23,146 --> 0:12:23,526
+together.
+
+453
+00:12:24,836 --> 0:12:26,696
+And this is repeated for the
+
+454
+00:12:26,696 --> 0:12:28,756
+various apps in your project
+
+455
+00:12:28,756 --> 0:12:30,256
+that use the same package.
+
+456
+00:12:30,256 --> 0:12:32,086
+So if you have an iOS app and
+
+457
+00:12:32,086 --> 0:12:33,586
+WatchOS app, they use the same
+
+458
+00:12:33,586 --> 0:12:34,076
+package.
+
+459
+00:12:34,316 --> 0:12:35,436
+Xcode might build the code
+
+460
+00:12:35,436 --> 0:12:37,326
+multiple times as needed for
+
+461
+00:12:37,326 --> 0:12:37,976
+each of those apps.
+
+462
+00:12:41,526 --> 0:12:43,076
+Now, we saw a case where a
+
+463
+00:12:43,076 --> 0:12:44,766
+project can depend on a package.
+
+464
+00:12:45,306 --> 0:12:47,376
+And we saw that is shown in the
+
+465
+00:12:47,506 --> 0:12:50,326
+Package Dependencies part of the
+
+466
+00:12:50,326 --> 0:12:51,016
+target editor.
+
+467
+00:12:51,556 --> 0:12:53,396
+But a package can also depend on
+
+468
+00:12:53,396 --> 0:12:54,246
+other packages.
+
+469
+00:12:54,456 --> 0:12:55,616
+And this is done through the
+
+470
+00:12:55,616 --> 0:12:56,556
+package manifest.
+
+471
+00:12:57,596 --> 0:12:58,926
+So one of the sections of the
+
+472
+00:12:58,926 --> 0:13:00,506
+package manifest the Yams didn't
+
+473
+00:12:58,926 --> 0:13:00,506
+package manifest the Yams didn't
+
+474
+00:13:00,506 --> 0:13:02,466
+have was a Dependencies section.
+
+475
+00:13:02,466 --> 0:13:03,516
+It didn't have that because it
+
+476
+00:13:03,516 --> 0:13:04,576
+doesn't actually depend on other
+
+477
+00:13:04,576 --> 0:13:05,176
+packages.
+
+478
+00:13:05,696 --> 0:13:06,906
+But some Packages that you have
+
+479
+00:13:06,986 --> 0:13:07,296
+might.
+
+480
+00:13:07,416 --> 0:13:08,606
+And so the Package Dependency
+
+481
+00:13:08,606 --> 0:13:10,286
+graph can include both direct
+
+482
+00:13:10,286 --> 0:13:10,966
+and indirect dependencies.
+
+483
+00:13:14,846 --> 0:13:16,356
+Now, I mentioned before that you
+
+484
+00:13:16,356 --> 0:13:18,096
+can manage your versions with
+
+485
+00:13:18,246 --> 0:13:19,886
+pack -- the Package Manager.
+
+486
+00:13:20,296 --> 0:13:21,346
+And this uses something called
+
+487
+00:13:21,346 --> 0:13:22,136
+semantic versioning.
+
+488
+00:13:22,136 --> 0:13:23,896
+And that's a fairly widely used
+
+489
+00:13:23,896 --> 0:13:25,576
+strategy that assigns semantic
+
+490
+00:13:25,626 --> 0:13:26,596
+meaning to each of the
+
+491
+00:13:26,596 --> 0:13:27,776
+components of a three-part
+
+492
+00:13:27,776 --> 0:13:27,976
+version.
+
+493
+00:13:31,076 --> 0:13:32,426
+So in this case, for example,
+
+494
+00:13:32,486 --> 0:13:35,816
+the major version is incremented
+
+495
+00:13:35,816 --> 0:13:36,776
+whenever there are breaking
+
+496
+00:13:36,776 --> 0:13:37,796
+changes to the API.
+
+497
+00:13:38,476 --> 0:13:39,686
+So this is anything that would
+
+498
+00:13:39,686 --> 0:13:41,326
+cause the clients to have to be
+
+499
+00:13:41,326 --> 0:13:41,936
+modified.
+
+500
+00:13:41,936 --> 0:13:43,466
+For example, if you rename a
+
+501
+00:13:43,466 --> 0:13:45,806
+method or remove a method or if
+
+502
+00:13:45,806 --> 0:13:47,046
+a package makes a met -- a
+
+503
+00:13:47,046 --> 0:13:49,006
+semantically meaningful change
+
+504
+00:13:49,006 --> 0:13:51,206
+that will cause existing clients
+
+505
+00:13:51,206 --> 0:13:52,016
+to have to adapt.
+
+506
+00:13:53,046 --> 0:13:54,456
+This is the reason why the
+
+507
+00:13:54,456 --> 0:13:56,076
+initial version of restriction
+
+508
+00:13:56,076 --> 0:13:57,406
+goes up to, but not including,
+
+509
+00:13:57,406 --> 0:13:58,846
+the next major version number.
+
+510
+00:14:01,346 --> 0:14:02,636
+The minor version number of a
+
+511
+00:14:02,636 --> 0:14:04,566
+package is incremented when
+
+512
+00:14:04,616 --> 0:14:06,146
+functionality is added in a way
+
+513
+00:14:06,146 --> 0:14:07,296
+that doesn't break existing
+
+514
+00:14:07,296 --> 0:14:07,886
+clients.
+
+515
+00:14:08,146 --> 0:14:09,056
+So this could be adding a
+
+516
+00:14:09,056 --> 0:14:09,916
+method, for example.
+
+517
+00:14:12,046 --> 0:14:14,056
+And finally, the patch version
+
+518
+00:14:14,056 --> 0:14:15,786
+here is when there are bug fixes
+
+519
+00:14:15,786 --> 0:14:17,026
+that don't have any semantic
+
+520
+00:14:17,116 --> 0:14:18,576
+changes, semantic meaning
+
+521
+00:14:18,576 --> 0:14:18,996
+changes.
+
+522
+00:14:19,506 --> 0:14:22,236
+And packages can be safely
+
+523
+00:14:22,236 --> 0:14:25,856
+updated to bug fixes, to
+
+524
+00:14:25,856 --> 0:14:27,586
+incorporate bug fixes without
+
+525
+00:14:27,586 --> 0:14:28,676
+changing the semantics of the
+
+526
+00:14:28,676 --> 0:14:28,836
+app.
+
+527
+00:14:31,446 --> 0:14:32,586
+Okay, so we've seen how to use
+
+528
+00:14:32,586 --> 0:14:33,246
+the package.
+
+529
+00:14:33,296 --> 0:14:34,716
+And we've taken a closer look at
+
+530
+00:14:34,716 --> 0:14:35,476
+that package.
+
+531
+00:14:35,476 --> 0:14:36,766
+And now I'd like to invite my
+
+532
+00:14:36,766 --> 0:14:38,096
+colleague, Balraj, on the stage
+
+533
+00:14:38,096 --> 0:14:39,496
+to talk about Package Resolution
+
+534
+00:14:39,496 --> 0:14:39,976
+in more detail.
+
+535
+00:14:40,516 --> 0:14:45,846
+[ Applause ]
+
+536
+00:14:46,346 --> 0:14:47,096
+&gt;&gt; Thank you, Anders.
+
+537
+00:14:47,996 --> 0:14:49,116
+Package resolution is the
+
+538
+00:14:49,116 --> 0:14:51,116
+process Xcode goes through when
+
+539
+00:14:51,116 --> 0:14:52,126
+selecting the versions of
+
+540
+00:14:52,126 --> 0:14:54,146
+Packages to use inside of your
+
+541
+00:14:54,146 --> 0:14:54,766
+workspace.
+
+542
+00:14:55,226 --> 0:14:56,486
+Let's go into a little bit more
+
+543
+00:14:56,486 --> 0:14:58,116
+detail in how that was working
+
+544
+00:14:58,116 --> 0:14:59,696
+with -- and how that was working
+
+545
+00:14:59,976 --> 0:15:01,846
+in the Lunch project Anders was
+
+546
+00:14:59,976 --> 0:15:01,846
+in the Lunch project Anders was
+
+547
+00:15:01,846 --> 0:15:02,616
+demoing earlier.
+
+548
+00:15:05,336 --> 0:15:07,286
+So here in the Project Editor in
+
+549
+00:15:07,286 --> 0:15:09,126
+the Swift Packages tab, we can
+
+550
+00:15:09,126 --> 0:15:10,966
+see our dependency on -- our
+
+551
+00:15:11,006 --> 0:15:12,516
+Lunch's dependency on Yams.
+
+552
+00:15:12,816 --> 0:15:14,686
+Using the Version Rule 2 to up
+
+553
+00:15:14,686 --> 0:15:15,776
+to the next major version,
+
+554
+00:15:16,306 --> 0:15:18,366
+meaning any version of Yams from
+
+555
+00:15:18,366 --> 0:15:21,366
+2 up to, but not including 3.
+
+556
+00:15:21,706 --> 0:15:24,436
+Then, in the Swift Package
+
+557
+00:15:24,436 --> 0:15:25,516
+Dependencies section of the
+
+558
+00:15:25,516 --> 0:15:27,306
+Project Navigator, we can see
+
+559
+00:15:27,306 --> 0:15:29,156
+Yams at version 2.0.
+
+560
+00:15:30,446 --> 0:15:31,656
+Let's look a little deeper into
+
+561
+00:15:31,656 --> 0:15:31,866
+this.
+
+562
+00:15:34,086 --> 0:15:35,886
+Lunch is selecting Yams at
+
+563
+00:15:35,886 --> 0:15:37,506
+Version 2, because of its
+
+564
+00:15:37,506 --> 0:15:38,886
+version requirement, 2 up to the
+
+565
+00:15:38,886 --> 0:15:39,856
+next major version.
+
+566
+00:15:40,886 --> 0:15:43,266
+If a version 2.1 existed, Xcode
+
+567
+00:15:43,266 --> 0:15:44,206
+would have selected that
+
+568
+00:15:44,206 --> 0:15:46,676
+instead, as 2.1 is the latest
+
+569
+00:15:46,676 --> 0:15:48,276
+version matching our version
+
+570
+00:15:48,276 --> 0:15:48,876
+requirement.
+
+571
+00:15:49,886 --> 0:15:52,316
+However, if a version 3 existed,
+
+572
+00:15:52,316 --> 0:15:53,696
+Xcode would not have selected
+
+573
+00:15:53,696 --> 0:15:55,596
+it, as it doesn't fit into the
+
+574
+00:15:55,596 --> 0:15:57,396
+constraints that we specified.
+
+575
+00:15:58,746 --> 0:16:00,686
+In this case 2.1 and 3 are
+
+576
+00:15:58,746 --> 0:16:00,686
+In this case 2.1 and 3 are
+
+577
+00:16:00,686 --> 0:16:01,876
+hypothetical examples.
+
+578
+00:16:02,066 --> 0:16:03,986
+And you'll see Yams continue to
+
+579
+00:16:03,986 --> 0:16:05,706
+resolve at Version 2 throughout
+
+580
+00:16:05,706 --> 0:16:06,976
+the rest of this presentation.
+
+581
+00:16:08,416 --> 0:16:10,226
+In this example, there's one
+
+582
+00:16:10,226 --> 0:16:11,516
+package with one version to
+
+583
+00:16:11,566 --> 0:16:12,086
+choose from.
+
+584
+00:16:12,686 --> 0:16:14,136
+So let's go into a few more
+
+585
+00:16:14,136 --> 0:16:15,936
+interesting cases, where package
+
+586
+00:16:15,936 --> 0:16:17,206
+resolution can get a little bit
+
+587
+00:16:17,206 --> 0:16:17,976
+more complicated.
+
+588
+00:16:20,396 --> 0:16:22,096
+So here is the Lunch app that we
+
+589
+00:16:22,096 --> 0:16:22,746
+have today.
+
+590
+00:16:23,596 --> 0:16:25,316
+It has a very basic UI and is
+
+591
+00:16:25,316 --> 0:16:27,026
+only using one package, as we
+
+592
+00:16:27,026 --> 0:16:28,146
+just said.
+
+593
+00:16:29,596 --> 0:16:31,736
+My team, over time, adds more
+
+594
+00:16:31,736 --> 0:16:33,496
+packages to our application and
+
+595
+00:16:33,496 --> 0:16:35,216
+they use these packages to show
+
+596
+00:16:35,216 --> 0:16:37,036
+common design themes across all
+
+597
+00:16:37,036 --> 0:16:38,636
+the applications that my team
+
+598
+00:16:38,636 --> 0:16:38,966
+owns.
+
+599
+00:16:39,046 --> 0:16:41,386
+So when we go back to the Lunch
+
+600
+00:16:41,386 --> 0:16:43,116
+application, after a few weeks,
+
+601
+00:16:43,386 --> 0:16:46,616
+we can see that the UI has been
+
+602
+00:16:46,616 --> 0:16:47,976
+updated, and there are three
+
+603
+00:16:47,976 --> 0:16:49,886
+additional packages inside of
+
+604
+00:16:49,886 --> 0:16:50,676
+our workspace.
+
+605
+00:16:51,806 --> 0:16:53,436
+These three packages are
+
+606
+00:16:53,436 --> 0:16:55,626
+DesignFont, DesignTheme, and
+
+607
+00:16:55,626 --> 0:16:56,326
+DesignColor.
+
+608
+00:16:57,316 --> 0:16:58,746
+All resolving at their own
+
+609
+00:16:58,746 --> 0:17:00,006
+respective versions.
+
+610
+00:16:58,746 --> 0:17:00,006
+respective versions.
+
+611
+00:17:00,586 --> 0:17:03,696
+So Xcode did a lot of the work
+
+612
+00:17:03,696 --> 0:17:05,376
+for us in terms of selecting the
+
+613
+00:17:05,376 --> 0:17:06,465
+versions of these packages.
+
+614
+00:17:06,776 --> 0:17:08,626
+But I want to understand why
+
+615
+00:17:08,685 --> 0:17:10,256
+these packages are resolving at
+
+616
+00:17:10,256 --> 0:17:10,935
+these versions.
+
+617
+00:17:11,336 --> 0:17:14,336
+So in order to do so, I go back
+
+618
+00:17:14,376 --> 0:17:14,976
+to the Project Editor.
+
+619
+00:17:18,656 --> 0:17:19,915
+Here in the Swift Package
+
+620
+00:17:19,915 --> 0:17:21,685
+Dependency section, we can see
+
+621
+00:17:21,826 --> 0:17:23,185
+our new dependency on
+
+622
+00:17:23,185 --> 0:17:24,925
+DesignTheme, with a Version Rule
+
+623
+00:17:24,925 --> 0:17:26,096
+1 one up to the next major
+
+624
+00:17:26,096 --> 0:17:26,476
+version.
+
+625
+00:17:28,415 --> 0:17:31,316
+Xcode, in this case, selects
+
+626
+00:17:31,316 --> 0:17:32,866
+DesignTheme at Version 1,
+
+627
+00:17:33,086 --> 0:17:35,116
+because it's resolving from 1 to
+
+628
+00:17:35,116 --> 0:17:35,976
+the next major version.
+
+629
+00:17:39,216 --> 0:17:40,386
+And so we also see our
+
+630
+00:17:40,386 --> 0:17:42,016
+dependency on Yams is still the
+
+631
+00:17:42,016 --> 0:17:42,316
+same.
+
+632
+00:17:43,056 --> 0:17:44,456
+And you might be wondering.
+
+633
+00:17:44,976 --> 0:17:46,536
+Where are DesignFont and
+
+634
+00:17:46,536 --> 0:17:47,976
+DesignColor in this case?
+
+635
+00:17:48,206 --> 0:17:49,126
+We're looking in the Project
+
+636
+00:17:49,126 --> 0:17:50,816
+Editor, but we don't see them
+
+637
+00:17:50,856 --> 0:17:51,516
+inside of there.
+
+638
+00:17:51,986 --> 0:17:53,586
+Well, the reason for this is the
+
+639
+00:17:53,586 --> 0:17:55,746
+Project Editor shows us all of
+
+640
+00:17:55,746 --> 0:17:57,256
+the direct dependencies between
+
+641
+00:17:57,256 --> 0:17:59,406
+the Lunch application and its
+
+642
+00:17:59,406 --> 0:18:00,386
+direct packages.
+
+643
+00:17:59,406 --> 0:18:00,386
+direct packages.
+
+644
+00:18:02,016 --> 0:18:04,556
+So in order to look at our
+
+645
+00:18:04,556 --> 0:18:06,426
+package's dependencies, we want
+
+646
+00:18:06,426 --> 0:18:07,706
+to go and look at the
+
+647
+00:18:07,706 --> 0:18:08,686
+DesignTheme package.
+
+648
+00:18:09,066 --> 0:18:10,456
+This is because it's the newest
+
+649
+00:18:10,456 --> 0:18:11,436
+package that was added to our
+
+650
+00:18:11,436 --> 0:18:11,986
+workspace.
+
+651
+00:18:12,296 --> 0:18:13,466
+And it's safe to assume that
+
+652
+00:18:13,466 --> 0:18:14,626
+they're not coming from Yams.
+
+653
+00:18:15,296 --> 0:18:16,956
+So in order to do so, we go back
+
+654
+00:18:16,956 --> 0:18:18,356
+to the high-level view of Xcode,
+
+655
+00:18:18,696 --> 0:18:20,476
+and look under the Swift Package
+
+656
+00:18:20,476 --> 0:18:21,376
+Dependencies section.
+
+657
+00:18:21,676 --> 0:18:23,256
+Here we see our package
+
+658
+00:18:23,256 --> 0:18:23,856
+DesignTheme.
+
+659
+00:18:24,396 --> 0:18:26,806
+We disclose the package and see
+
+660
+00:18:26,846 --> 0:18:28,496
+all the content available inside
+
+661
+00:18:28,496 --> 0:18:28,826
+of there.
+
+662
+00:18:28,826 --> 0:18:30,476
+And in this case, we want to
+
+663
+00:18:30,476 --> 0:18:31,706
+look at the Package.swift
+
+664
+00:18:31,706 --> 0:18:32,506
+manifest file.
+
+665
+00:18:33,246 --> 0:18:36,366
+This is because it is where we
+
+666
+00:18:36,366 --> 0:18:37,696
+will find all of our dependency
+
+667
+00:18:37,696 --> 0:18:39,326
+information for this package.
+
+668
+00:18:40,446 --> 0:18:41,426
+So we go to this file.
+
+669
+00:18:41,426 --> 0:18:43,086
+And in the dependencies array,
+
+670
+00:18:43,336 --> 0:18:44,896
+we see DesignFont and
+
+671
+00:18:44,896 --> 0:18:46,396
+DesignColor, and their version
+
+672
+00:18:46,396 --> 0:18:47,086
+requirements.
+
+673
+00:18:50,036 --> 0:18:52,076
+DesignFont is being resolved how
+
+674
+00:18:52,076 --> 0:18:54,006
+we've seen before, 1 up to the
+
+675
+00:18:54,006 --> 0:18:54,916
+next major version.
+
+676
+00:18:55,446 --> 0:18:56,846
+And so Xcode will select version
+
+677
+00:18:56,846 --> 0:18:59,166
+1.2 as it's the latest version
+
+678
+00:18:59,356 --> 0:18:59,976
+of the package.
+
+679
+00:19:03,176 --> 0:19:05,226
+DesignColor is resolved a little
+
+680
+00:19:05,226 --> 0:19:05,806
+bit differently.
+
+681
+00:19:06,136 --> 0:19:08,166
+This is using 1 up to the next
+
+682
+00:19:08,246 --> 0:19:10,536
+minor version, meaning any
+
+683
+00:19:10,536 --> 0:19:13,316
+version of designs color from 1,
+
+684
+00:19:13,876 --> 0:19:15,286
+and up to, but not including,
+
+685
+00:19:15,286 --> 0:19:15,946
+1.1.
+
+686
+00:19:16,556 --> 0:19:18,416
+This is typically used when
+
+687
+00:19:18,486 --> 0:19:19,746
+packages want to be a little bit
+
+688
+00:19:19,746 --> 0:19:21,106
+more conservative with the new
+
+689
+00:19:21,106 --> 0:19:22,356
+versions that they take during
+
+690
+00:19:22,356 --> 0:19:22,746
+updates.
+
+691
+00:19:23,256 --> 0:19:25,776
+And so Xcode selects Version
+
+692
+00:19:25,776 --> 0:19:28,176
+1.0.1 of the DesignColor
+
+693
+00:19:28,176 --> 0:19:28,716
+package.
+
+694
+00:19:29,646 --> 0:19:31,036
+So now this is the full view of
+
+695
+00:19:31,036 --> 0:19:32,136
+the new packages that have been
+
+696
+00:19:32,176 --> 0:19:33,206
+added and why they're being
+
+697
+00:19:33,206 --> 0:19:34,856
+resolved at the versions they
+
+698
+00:19:37,436 --> 0:19:37,516
+are.
+
+699
+00:19:37,786 --> 0:19:39,296
+You'll remember the last step
+
+700
+00:19:39,296 --> 0:19:40,766
+Anders did in the previous demo
+
+701
+00:19:40,956 --> 0:19:42,546
+was importing Yams and then
+
+702
+00:19:42,546 --> 0:19:43,506
+using its APIs.
+
+703
+00:19:43,906 --> 0:19:45,306
+Let's talk about how this works
+
+704
+00:19:45,426 --> 0:19:46,666
+and how it relates to package
+
+705
+00:19:46,666 --> 0:19:46,976
+resolution.
+
+706
+00:19:50,046 --> 0:19:50,936
+All of our packages are
+
+707
+00:19:50,936 --> 0:19:52,716
+producing libraries of the same
+
+708
+00:19:52,716 --> 0:19:52,976
+name.
+
+709
+00:19:55,046 --> 0:19:56,686
+And we can see that Lunch is
+
+710
+00:19:56,686 --> 0:19:57,626
+importing content from
+
+711
+00:19:57,626 --> 0:19:59,156
+DesignTheme and it's also
+
+712
+00:19:59,156 --> 0:20:00,376
+importing content from Yams.
+
+713
+00:19:59,156 --> 0:20:00,376
+importing content from Yams.
+
+714
+00:20:00,976 --> 0:20:03,176
+And then the DesignTheme library
+
+715
+00:20:03,176 --> 0:20:04,656
+is also importing content from
+
+716
+00:20:04,656 --> 0:20:05,966
+DesignFont and DesignColor.
+
+717
+00:20:08,116 --> 0:20:09,426
+When we look at the full graph
+
+718
+00:20:09,426 --> 0:20:11,316
+here, we can see this is very
+
+719
+00:20:11,316 --> 0:20:12,356
+similar to how package
+
+720
+00:20:12,356 --> 0:20:13,336
+resolution is working.
+
+721
+00:20:13,686 --> 0:20:15,076
+And that is intentional.
+
+722
+00:20:15,556 --> 0:20:16,786
+When we added our direct
+
+723
+00:20:16,786 --> 0:20:19,726
+dependencies on our packages, we
+
+724
+00:20:19,726 --> 0:20:21,226
+also ended up importing their
+
+725
+00:20:21,226 --> 0:20:22,786
+content and actually using the
+
+726
+00:20:22,786 --> 0:20:24,106
+APIs in our application.
+
+727
+00:20:24,446 --> 0:20:27,026
+But what happens when I want to
+
+728
+00:20:27,026 --> 0:20:28,536
+import content from a sub
+
+729
+00:20:28,536 --> 0:20:30,576
+dependency into our project?
+
+730
+00:20:31,766 --> 0:20:33,086
+So let's talk about how we would
+
+731
+00:20:33,086 --> 0:20:33,616
+do this.
+
+732
+00:20:36,046 --> 0:20:37,416
+We have our Lunch project, which
+
+733
+00:20:37,416 --> 0:20:38,606
+is depending on DesignTheme.
+
+734
+00:20:39,376 --> 0:20:40,776
+And DesignTheme is depending on
+
+735
+00:20:40,776 --> 0:20:42,096
+the DesignFont package.
+
+736
+00:20:42,886 --> 0:20:44,496
+The DesignFont package is
+
+737
+00:20:44,496 --> 0:20:45,906
+producing a library of the same
+
+738
+00:20:45,906 --> 0:20:46,186
+name.
+
+739
+00:20:46,976 --> 0:20:48,686
+In this context, we don't want
+
+740
+00:20:48,686 --> 0:20:50,226
+to immediately import content
+
+741
+00:20:50,406 --> 0:20:52,186
+from DesignFont into Lunch,
+
+742
+00:20:52,516 --> 0:20:56,126
+because if DesignTheme loses its
+
+743
+00:20:56,126 --> 0:20:57,526
+dependency on DesignFont and
+
+744
+00:20:57,526 --> 0:20:59,336
+Update, Xcode will lose its
+
+745
+00:20:59,336 --> 0:21:00,446
+reference to DesignFont.
+
+746
+00:20:59,336 --> 0:21:00,446
+reference to DesignFont.
+
+747
+00:21:00,446 --> 0:21:02,986
+And now, we won't be able to use
+
+748
+00:21:02,986 --> 0:21:04,106
+the DesignFont library.
+
+749
+00:21:05,136 --> 0:21:07,036
+So a better approach of doing
+
+750
+00:21:07,036 --> 0:21:08,216
+this, and we'll go back to the
+
+751
+00:21:08,216 --> 0:21:10,126
+beginning of our example, is to
+
+752
+00:21:10,126 --> 0:21:11,696
+create a direct depend -- direct
+
+753
+00:21:11,696 --> 0:21:13,246
+package dependency between the
+
+754
+00:21:13,246 --> 0:21:15,216
+Lunch project and the DesignFont
+
+755
+00:21:15,216 --> 0:21:15,666
+package.
+
+756
+00:21:16,106 --> 0:21:18,276
+And then we can import content
+
+757
+00:21:18,276 --> 0:21:19,696
+from DesignFont into Lunch,
+
+758
+00:21:20,086 --> 0:21:21,776
+because if DesignTheme loses its
+
+759
+00:21:21,776 --> 0:21:24,006
+dependency on DesignFont in an
+
+760
+00:21:24,006 --> 0:21:26,276
+update, we still retain the
+
+761
+00:21:26,276 --> 0:21:28,586
+reference to that library inside
+
+762
+00:21:28,586 --> 0:21:28,976
+of Xcode.
+
+763
+00:21:32,176 --> 0:21:33,916
+So that is how Xcode selects
+
+764
+00:21:33,916 --> 0:21:35,026
+different versions of your
+
+765
+00:21:35,026 --> 0:21:35,556
+packages.
+
+766
+00:21:36,286 --> 0:21:39,536
+Let's go into an -- into how you
+
+767
+00:21:39,536 --> 0:21:40,456
+can go about getting new
+
+768
+00:21:40,456 --> 0:21:41,656
+versions of those packages,
+
+769
+00:21:41,916 --> 0:21:43,446
+which provide API improvements
+
+770
+00:21:43,446 --> 0:21:43,976
+and bug fixes.
+
+771
+00:21:46,106 --> 0:21:47,946
+So one day, I'm at team with --
+
+772
+00:21:48,246 --> 0:21:49,756
+I'm at lunch with the team
+
+773
+00:21:49,756 --> 0:21:51,036
+maintaining DesignFont.
+
+774
+00:21:51,336 --> 0:21:52,936
+And they tell me about a new
+
+775
+00:21:52,936 --> 0:21:54,216
+version of the DesignFont
+
+776
+00:21:54,216 --> 0:21:55,556
+package, which has a few small
+
+777
+00:21:55,556 --> 0:21:58,206
+bug fixes, Version 1.2.1.
+
+778
+00:21:58,206 --> 0:22:01,276
+When I get back to my desk, I
+
+779
+00:21:58,206 --> 0:22:01,276
+When I get back to my desk, I
+
+780
+00:22:01,276 --> 0:22:03,276
+see DesignFont is using version
+
+781
+00:22:03,276 --> 0:22:03,966
+1.2.
+
+782
+00:22:04,086 --> 0:22:06,066
+The Lunch project is using
+
+783
+00:22:06,066 --> 0:22:07,716
+DesignFont at Version 1.2.
+
+784
+00:22:09,216 --> 0:22:10,536
+And so I want to update this
+
+785
+00:22:10,536 --> 0:22:11,016
+package.
+
+786
+00:22:11,446 --> 0:22:14,186
+In order to do so, I click File,
+
+787
+00:22:14,936 --> 0:22:15,806
+Swift Packages.
+
+788
+00:22:16,066 --> 0:22:17,066
+And here, I'm brought with
+
+789
+00:22:17,066 --> 0:22:18,636
+multiple options regarding Swift
+
+790
+00:22:18,636 --> 0:22:19,146
+Packages.
+
+791
+00:22:19,786 --> 0:22:21,966
+In this case, I want to update
+
+792
+00:22:21,966 --> 0:22:23,336
+to the latest package versions.
+
+793
+00:22:24,836 --> 0:22:26,706
+So go ahead and click that, and
+
+794
+00:22:26,706 --> 0:22:27,986
+the update operation occurs.
+
+795
+00:22:29,176 --> 0:22:30,856
+We're now using DesignFont
+
+796
+00:22:30,856 --> 0:22:32,296
+Version 1.2.1.
+
+797
+00:22:32,886 --> 0:22:35,876
+So what exactly does updating
+
+798
+00:22:35,876 --> 0:22:36,776
+package version do?
+
+799
+00:22:37,016 --> 0:22:38,506
+What happened during that update
+
+800
+00:22:38,506 --> 0:22:38,936
+operation?
+
+801
+00:22:42,086 --> 0:22:43,686
+So there exists a file called
+
+802
+00:22:43,686 --> 0:22:44,956
+Package.resolved, which is
+
+803
+00:22:44,956 --> 0:22:45,596
+central to this.
+
+804
+00:22:46,876 --> 0:22:48,906
+Package.resolved records version
+
+805
+00:22:48,906 --> 0:22:50,006
+information about all the
+
+806
+00:22:50,006 --> 0:22:51,176
+packages inside of your
+
+807
+00:22:51,176 --> 0:22:51,676
+workspace.
+
+808
+00:22:52,176 --> 0:22:53,296
+And when you go through the
+
+809
+00:22:53,296 --> 0:22:55,446
+update operation, this file gets
+
+810
+00:22:55,496 --> 0:22:56,976
+updated, and then Xcode will
+
+811
+00:22:56,976 --> 0:22:58,176
+select -- pull down the new
+
+812
+00:22:58,176 --> 0:22:58,976
+versions for you.
+
+813
+00:23:03,046 --> 0:23:04,536
+This file exists inside of
+
+814
+00:23:04,536 --> 0:23:06,426
+xcsharedata, which is typically
+
+815
+00:23:06,426 --> 0:23:08,126
+shared with your team and source
+
+816
+00:23:08,126 --> 0:23:08,526
+control.
+
+817
+00:23:08,956 --> 0:23:10,156
+So an important thing to note
+
+818
+00:23:10,156 --> 0:23:11,286
+here is that that update
+
+819
+00:23:11,286 --> 0:23:13,466
+operation we just did is a local
+
+820
+00:23:13,466 --> 0:23:14,116
+operation.
+
+821
+00:23:14,576 --> 0:23:15,876
+In order to share this update
+
+822
+00:23:15,876 --> 0:23:18,576
+across my team, I have to commit
+
+823
+00:23:18,576 --> 0:23:20,106
+and push my changes to the
+
+824
+00:23:20,106 --> 0:23:20,906
+Package.resolved file.
+
+825
+00:23:23,066 --> 0:23:24,366
+And then if you want to look for
+
+826
+00:23:24,366 --> 0:23:25,586
+all of this yourself, it's
+
+827
+00:23:25,586 --> 0:23:27,006
+inside of the Xcode Project
+
+828
+00:23:27,006 --> 0:23:27,346
+file.
+
+829
+00:23:27,846 --> 0:23:29,296
+But please note that you don't
+
+830
+00:23:29,296 --> 0:23:30,376
+actually have to edit the
+
+831
+00:23:30,376 --> 0:23:32,026
+Package.resolved file yourself.
+
+832
+00:23:32,456 --> 0:23:33,746
+Xcode should be doing all of the
+
+833
+00:23:33,746 --> 0:23:34,596
+work for you.
+
+834
+00:23:38,066 --> 0:23:40,156
+So as I said before, we actually
+
+835
+00:23:40,156 --> 0:23:41,516
+haven't shared this update with
+
+836
+00:23:41,516 --> 0:23:41,996
+our team.
+
+837
+00:23:42,216 --> 0:23:43,236
+So let's do that.
+
+838
+00:23:43,656 --> 0:23:45,176
+We can do all of this within
+
+839
+00:23:45,296 --> 0:23:46,576
+Xcode by going to the Source
+
+840
+00:23:46,576 --> 0:23:47,586
+Control Menu and clicking
+
+841
+00:23:47,586 --> 0:23:47,936
+Commit.
+
+842
+00:23:51,226 --> 0:23:52,906
+Inside of here, we'll see all
+
+843
+00:23:52,906 --> 0:23:53,946
+the changes that were made to
+
+844
+00:23:53,946 --> 0:23:55,636
+the Package.resolved file and
+
+845
+00:23:55,636 --> 0:23:57,606
+how it updated from Version 1.2,
+
+846
+00:23:58,096 --> 0:23:59,396
+what we were previously using,
+
+847
+00:24:00,036 --> 0:24:02,146
+to 1.2.1, the new version.
+
+848
+00:24:02,876 --> 0:24:04,386
+Because I want to push, I go
+
+849
+00:24:04,386 --> 0:24:05,536
+ahead and click the lower-left
+
+850
+00:24:05,856 --> 0:24:07,146
+checkbox, push to remote.
+
+851
+00:24:07,576 --> 0:24:09,136
+And then I can commit and push
+
+852
+00:24:09,136 --> 0:24:09,696
+my changes.
+
+853
+00:24:10,276 --> 0:24:11,926
+We've now successfully shared
+
+854
+00:24:11,926 --> 0:24:13,756
+this update across our team.
+
+855
+00:24:14,956 --> 0:24:16,136
+So all of this begs the
+
+856
+00:24:16,136 --> 0:24:17,646
+question, why do we need a
+
+857
+00:24:17,646 --> 0:24:19,376
+Package.resolved file?
+
+858
+00:24:20,396 --> 0:24:22,476
+This file exists to make sure
+
+859
+00:24:22,476 --> 0:24:23,676
+that when people are using --
+
+860
+00:24:23,876 --> 0:24:25,316
+people across my team are using
+
+861
+00:24:25,536 --> 0:24:27,186
+the Lunch project at the same
+
+862
+00:24:27,186 --> 0:24:28,636
+commit, that they're all getting
+
+863
+00:24:28,636 --> 0:24:30,276
+the same version of DesignFont.
+
+864
+00:24:30,976 --> 0:24:31,856
+If this file -- if the
+
+865
+00:24:31,856 --> 0:24:33,476
+Package.resolved file didn't
+
+866
+00:24:33,476 --> 0:24:35,996
+exist, you might end up in a
+
+867
+00:24:35,996 --> 0:24:37,516
+situation where multiple people
+
+868
+00:24:37,516 --> 0:24:39,966
+on your team are using the same
+
+869
+00:24:39,966 --> 0:24:41,746
+version of your project, but
+
+870
+00:24:41,746 --> 0:24:44,456
+without consistency across the
+
+871
+00:24:44,456 --> 0:24:45,646
+versions of packages that you're
+
+872
+00:24:45,646 --> 0:24:45,956
+using.
+
+873
+00:24:48,326 --> 0:24:49,476
+So an incredibly important thing
+
+874
+00:24:49,476 --> 0:24:50,906
+to note is to check in your
+
+875
+00:24:50,906 --> 0:24:52,166
+Package.resolved file.
+
+876
+00:24:52,606 --> 0:24:54,146
+Otherwise, you might end up
+
+877
+00:24:54,196 --> 0:24:55,796
+using inconsistent versions of
+
+878
+00:24:55,796 --> 0:24:57,326
+packages across your team.
+
+879
+00:24:57,606 --> 0:24:58,666
+So it's incredibly important
+
+880
+00:24:58,666 --> 0:24:59,776
+that this file is checked in.
+
+881
+00:25:02,046 --> 0:25:03,756
+And then be sure to look out for
+
+882
+00:25:03,756 --> 0:25:05,136
+new versions of your packages.
+
+883
+00:25:05,996 --> 0:25:08,716
+And then, update with intent.
+
+884
+00:25:09,016 --> 0:25:10,676
+Otherwise, you might miss out on
+
+885
+00:25:10,676 --> 0:25:12,526
+a few key bug fixes and API
+
+886
+00:25:12,526 --> 0:25:14,036
+improvements that your packages
+
+887
+00:25:14,036 --> 0:25:14,806
+are providing for you.
+
+888
+00:25:16,276 --> 0:25:17,626
+So that's how you update
+
+889
+00:25:17,626 --> 0:25:18,106
+packages.
+
+890
+00:25:18,806 --> 0:25:20,166
+Let's go into a little bit more
+
+891
+00:25:20,166 --> 0:25:21,706
+of an advanced example on how to
+
+892
+00:25:21,706 --> 0:25:22,856
+resolve package conflict, which
+
+893
+00:25:23,086 --> 0:25:24,376
+will bring together a lot of the
+
+894
+00:25:24,376 --> 0:25:25,496
+different topics we've talked
+
+895
+00:25:25,496 --> 0:25:25,976
+about today.
+
+896
+00:25:29,046 --> 0:25:31,296
+So I launch a project to change
+
+897
+00:25:31,296 --> 0:25:33,496
+the font that we're using for
+
+898
+00:25:33,496 --> 0:25:35,186
+our price inside of the Lunch
+
+899
+00:25:35,186 --> 0:25:35,826
+application.
+
+900
+00:25:37,236 --> 0:25:39,096
+The system font that I want to
+
+901
+00:25:39,096 --> 0:25:41,206
+use is available in DesignFont
+
+902
+00:25:41,206 --> 0:25:42,656
+at Version 2, and this helps
+
+903
+00:25:42,656 --> 0:25:43,836
+keep a consistent version of the
+
+904
+00:25:43,836 --> 0:25:46,226
+fonts we're using consistent
+
+905
+00:25:46,356 --> 0:25:48,766
+across the applications our team
+
+906
+00:25:48,766 --> 0:25:49,066
+owns.
+
+907
+00:25:49,686 --> 0:25:50,686
+So let's do this.
+
+908
+00:25:51,456 --> 0:25:52,926
+In order to use the DesignFont
+
+909
+00:25:53,346 --> 0:25:55,326
+package, we need to create a
+
+910
+00:25:55,326 --> 0:25:56,836
+direct dependency between Lunch
+
+911
+00:25:57,086 --> 0:25:57,846
+and DesignFont.
+
+912
+00:25:58,646 --> 0:26:00,356
+And then, because DesignFont at
+
+913
+00:25:58,646 --> 0:26:00,356
+And then, because DesignFont at
+
+914
+00:26:00,356 --> 0:26:02,006
+Version 2 is what released this
+
+915
+00:26:02,006 --> 0:26:04,356
+new font, we want to use that
+
+916
+00:26:04,356 --> 0:26:04,976
+version specifically.
+
+917
+00:26:07,076 --> 0:26:08,576
+So we go to Xcode, and we go
+
+918
+00:26:08,576 --> 0:26:09,316
+through the Add Package
+
+919
+00:26:09,316 --> 0:26:09,776
+workflow.
+
+920
+00:26:10,436 --> 0:26:11,686
+We click DesignFont as it's in
+
+921
+00:26:11,686 --> 0:26:13,696
+our favorite accounts.
+
+922
+00:26:13,996 --> 0:26:14,756
+And we say Next.
+
+923
+00:26:15,156 --> 0:26:16,456
+We choose to up to the next
+
+924
+00:26:16,456 --> 0:26:17,936
+major version, because we want
+
+925
+00:26:17,936 --> 0:26:20,016
+to be open to any updates or new
+
+926
+00:26:20,016 --> 0:26:21,206
+versions that DesignFont
+
+927
+00:26:21,206 --> 0:26:21,686
+releases.
+
+928
+00:26:21,686 --> 0:26:23,776
+And then we click Next.
+
+929
+00:26:24,606 --> 0:26:26,036
+Here, we run into a package
+
+930
+00:26:26,036 --> 0:26:28,186
+resolution error, because of our
+
+931
+00:26:28,186 --> 0:26:29,726
+new dependency requirement on
+
+932
+00:26:29,726 --> 0:26:31,516
+DesignFont from 2 to the next
+
+933
+00:26:31,516 --> 0:26:31,976
+major version.
+
+934
+00:26:35,826 --> 0:26:37,266
+So let's look into what's
+
+935
+00:26:37,266 --> 0:26:39,116
+happening here and debug what's
+
+936
+00:26:39,116 --> 0:26:39,626
+going on.
+
+937
+00:26:40,856 --> 0:26:41,906
+One thing that's really
+
+938
+00:26:41,906 --> 0:26:43,206
+important to remember when
+
+939
+00:26:43,206 --> 0:26:45,046
+debugging package resolution is
+
+940
+00:26:45,046 --> 0:26:46,256
+to look at the full picture.
+
+941
+00:26:47,486 --> 0:26:49,716
+We want to think of every
+
+942
+00:26:49,716 --> 0:26:51,096
+requirement that is that is
+
+943
+00:26:51,096 --> 0:26:52,856
+affecting our packages and not
+
+944
+00:26:52,856 --> 0:26:53,656
+just narrow in on what we've
+
+945
+00:26:53,656 --> 0:26:53,976
+just added.
+
+946
+00:26:56,046 --> 0:26:57,546
+So we take a step back to how
+
+947
+00:26:57,546 --> 0:26:58,656
+this was working before.
+
+948
+00:26:59,226 --> 0:27:00,756
+Lunch had a great dependency on
+
+949
+00:26:59,226 --> 0:27:00,756
+Lunch had a great dependency on
+
+950
+00:27:00,756 --> 0:27:02,466
+DesignTheme at Version 1.
+
+951
+00:27:02,946 --> 0:27:04,316
+And DesignTheme had a direct
+
+952
+00:27:04,316 --> 0:27:06,056
+dependency on DesignFont at
+
+953
+00:27:06,056 --> 0:27:08,616
+Version 1.2.1, using the version
+
+954
+00:27:08,616 --> 0:27:10,686
+requirement 1 to the next major
+
+955
+00:27:10,686 --> 0:27:10,976
+version.
+
+956
+00:27:14,286 --> 0:27:16,276
+And then when we added our
+
+957
+00:27:16,276 --> 0:27:17,656
+direct dependency between Lunch
+
+958
+00:27:17,706 --> 0:27:19,486
+and DesignFont from 2 up to the
+
+959
+00:27:19,486 --> 0:27:21,306
+next major version, we ran into
+
+960
+00:27:21,306 --> 0:27:22,746
+the package resolution conflict.
+
+961
+00:27:24,336 --> 0:27:26,726
+You'll notice that DesignTheme's
+
+962
+00:27:26,726 --> 0:27:29,016
+requirement on DesignFont 1, up
+
+963
+00:27:29,016 --> 0:27:30,316
+to, but not including, 2.
+
+964
+00:27:30,596 --> 0:27:31,956
+And Lunch's requirement on
+
+965
+00:27:31,956 --> 0:27:34,086
+DesignFont 2, but not in -- up
+
+966
+00:27:34,086 --> 0:27:36,026
+to, but not including 3, can't
+
+967
+00:27:36,026 --> 0:27:37,706
+select one version that matches
+
+968
+00:27:37,786 --> 0:27:38,916
+both of those requirements.
+
+969
+00:27:39,996 --> 0:27:42,546
+And so in SwiftPMs integration
+
+970
+00:27:42,546 --> 0:27:44,286
+into Xcode, you can only have
+
+971
+00:27:44,416 --> 0:27:46,066
+one version of a package in a
+
+972
+00:27:46,066 --> 0:27:46,626
+workspace.
+
+973
+00:27:47,646 --> 0:27:48,926
+And this is explaining why we're
+
+974
+00:27:48,926 --> 0:27:50,366
+seeing the package resolution
+
+975
+00:27:50,366 --> 0:27:51,126
+error here.
+
+976
+00:27:51,716 --> 0:27:54,016
+Xcode can't possibly pick one
+
+977
+00:27:54,016 --> 0:27:55,566
+version that satisfies both
+
+978
+00:27:55,566 --> 0:27:56,776
+version requirements.
+
+979
+00:27:58,026 --> 0:27:59,526
+Going about fixing this is
+
+980
+00:27:59,566 --> 0:28:00,786
+really situation specific.
+
+981
+00:27:59,566 --> 0:28:00,786
+really situation specific.
+
+982
+00:28:01,326 --> 0:28:02,626
+But typically, when I run into
+
+983
+00:28:02,626 --> 0:28:03,926
+package resolution errors like
+
+984
+00:28:03,966 --> 0:28:05,466
+this, I want to look at the
+
+985
+00:28:05,466 --> 0:28:06,936
+newer versions of packages that
+
+986
+00:28:06,936 --> 0:28:07,716
+are available to me.
+
+987
+00:28:08,196 --> 0:28:09,476
+And then I can see if those
+
+988
+00:28:09,476 --> 0:28:11,776
+newer versions have provided any
+
+989
+00:28:11,776 --> 0:28:12,536
+updates to their sub
+
+990
+00:28:12,536 --> 0:28:12,976
+dependencies.
+
+991
+00:28:15,046 --> 0:28:16,026
+In this case, I noticed that
+
+992
+00:28:16,026 --> 0:28:17,066
+there's a Version 2 of
+
+993
+00:28:17,066 --> 0:28:19,206
+DesignTheme that we haven't
+
+994
+00:28:19,206 --> 0:28:19,966
+really looked at yet.
+
+995
+00:28:20,596 --> 0:28:23,006
+So let's go to GitHub and look
+
+996
+00:28:23,006 --> 0:28:25,016
+at our DesignTheme's version
+
+997
+00:28:25,016 --> 0:28:25,726
+requirements.
+
+998
+00:28:27,356 --> 0:28:29,106
+When we go to GitHub, we can
+
+999
+00:28:29,106 --> 0:28:30,386
+look in the dependencies array
+
+1000
+00:28:30,386 --> 0:28:31,636
+of the Swift Package Manifest.
+
+1001
+00:28:32,036 --> 0:28:32,936
+And here, we see that
+
+1002
+00:28:32,936 --> 0:28:34,916
+DesignFont's version requirement
+
+1003
+00:28:35,076 --> 0:28:37,336
+has updated from 2 -- from 1 to
+
+1004
+00:28:37,336 --> 0:28:39,036
+the next major version to be 2
+
+1005
+00:28:39,036 --> 0:28:40,116
+to the next major version.
+
+1006
+00:28:41,066 --> 0:28:42,266
+This matches with the version
+
+1007
+00:28:42,266 --> 0:28:43,696
+requirement that we were trying
+
+1008
+00:28:43,696 --> 0:28:44,806
+to add between Lunch and
+
+1009
+00:28:44,806 --> 0:28:45,506
+DesignFont.
+
+1010
+00:28:45,976 --> 0:28:47,966
+So if we can update
+
+1011
+00:28:48,526 --> 0:28:49,446
+DesignTheme's version
+
+1012
+00:28:49,446 --> 0:28:51,166
+requirement to be resolving at
+
+1013
+00:28:51,166 --> 0:28:53,116
+Version 2, we can now
+
+1014
+00:28:53,116 --> 0:28:55,036
+satisfiably add a direct
+
+1015
+00:28:55,036 --> 0:28:56,706
+dependency between Lunch and
+
+1016
+00:28:56,706 --> 0:28:57,336
+DesignFont.
+
+1017
+00:28:58,746 --> 0:29:00,366
+So let's go about doing that and
+
+1018
+00:28:58,746 --> 0:29:00,366
+So let's go about doing that and
+
+1019
+00:29:00,366 --> 0:29:01,876
+update the major version of
+
+1020
+00:29:01,876 --> 0:29:02,426
+DesignTheme.
+
+1021
+00:29:03,206 --> 0:29:04,736
+Previously, Lunch was using
+
+1022
+00:29:05,026 --> 0:29:06,786
+DesignTheme up from 1 to the
+
+1023
+00:29:06,786 --> 0:29:07,676
+next major version.
+
+1024
+00:29:07,916 --> 0:29:09,136
+We want to change that so that
+
+1025
+00:29:09,136 --> 0:29:11,126
+it's now using 2 up to the next
+
+1026
+00:29:11,126 --> 0:29:11,766
+major version.
+
+1027
+00:29:14,286 --> 0:29:15,376
+So we go back to Xcode.
+
+1028
+00:29:15,466 --> 0:29:17,346
+And now, we just click on the
+
+1029
+00:29:17,346 --> 0:29:20,036
+DesignTheme package inside of
+
+1030
+00:29:20,236 --> 0:29:21,046
+the Project Editor.
+
+1031
+00:29:21,046 --> 0:29:23,296
+And then we're back to an edit
+
+1032
+00:29:23,296 --> 0:29:24,076
+version rule sheet.
+
+1033
+00:29:24,536 --> 0:29:25,596
+Here, we were previously
+
+1034
+00:29:25,596 --> 0:29:27,166
+specifying 1 up to the next
+
+1035
+00:29:27,166 --> 0:29:27,936
+major version.
+
+1036
+00:29:28,586 --> 0:29:30,126
+But now we want to change that
+
+1037
+00:29:30,276 --> 0:29:31,806
+to be 2 to the next major
+
+1038
+00:29:31,806 --> 0:29:32,266
+version.
+
+1039
+00:29:33,346 --> 0:29:35,986
+So we simply change our 1 to a 2
+
+1040
+00:29:36,236 --> 0:29:36,956
+and then click Done.
+
+1041
+00:29:37,996 --> 0:29:40,036
+And now, the update operation
+
+1042
+00:29:40,036 --> 0:29:40,476
+occurs.
+
+1043
+00:29:40,746 --> 0:29:43,266
+And we can see that DesignTheme
+
+1044
+00:29:43,266 --> 0:29:45,086
+is at Version 2, and DesignFont
+
+1045
+00:29:45,086 --> 0:29:45,856
+is at Version 2.
+
+1046
+00:29:49,056 --> 0:29:50,456
+But one important thing happens
+
+1047
+00:29:50,456 --> 0:29:50,626
+here.
+
+1048
+00:29:50,926 --> 0:29:52,246
+When we update from one major
+
+1049
+00:29:52,246 --> 0:29:55,036
+version to another, we run into
+
+1050
+00:29:55,036 --> 0:29:55,806
+a build failure.
+
+1051
+00:29:56,146 --> 0:29:57,746
+And this is because when going
+
+1052
+00:29:57,746 --> 0:29:59,006
+from one major version of a
+
+1053
+00:29:59,006 --> 0:30:01,016
+package to another, there can be
+
+1054
+00:29:59,006 --> 0:30:01,016
+package to another, there can be
+
+1055
+00:30:01,016 --> 0:30:01,916
+API changes.
+
+1056
+00:30:02,156 --> 0:30:03,696
+And this can potentially cause
+
+1057
+00:30:03,696 --> 0:30:05,016
+breaking changes inside of your
+
+1058
+00:30:05,016 --> 0:30:05,496
+project.
+
+1059
+00:30:07,316 --> 0:30:09,076
+This means that when you update
+
+1060
+00:30:09,076 --> 0:30:10,036
+from one major version to
+
+1061
+00:30:10,036 --> 0:30:11,566
+another, you should be prepared
+
+1062
+00:30:11,686 --> 0:30:14,086
+to change some APIs, or change
+
+1063
+00:30:14,086 --> 0:30:15,606
+however the APIs are working
+
+1064
+00:30:15,606 --> 0:30:16,806
+inside of the new version of the
+
+1065
+00:30:16,806 --> 0:30:16,956
+package.
+
+1066
+00:30:19,326 --> 0:30:21,306
+This can be very small changes,
+
+1067
+00:30:21,306 --> 0:30:22,346
+or it can be a little bit more
+
+1068
+00:30:22,346 --> 0:30:22,716
+involved.
+
+1069
+00:30:23,336 --> 0:30:24,776
+In this case, we've done all the
+
+1070
+00:30:24,776 --> 0:30:26,146
+work for you to spend more time
+
+1071
+00:30:26,146 --> 0:30:26,756
+on packages.
+
+1072
+00:30:27,006 --> 0:30:28,466
+So when we go back to the Lunch
+
+1073
+00:30:28,466 --> 0:30:30,106
+application, our build errors
+
+1074
+00:30:30,106 --> 0:30:30,696
+are resolved.
+
+1075
+00:30:30,696 --> 0:30:32,206
+And we're using the DesignTheme
+
+1076
+00:30:32,206 --> 0:30:33,906
+at Version 2 successfully.
+
+1077
+00:30:36,046 --> 0:30:37,316
+So our build is now succeeding.
+
+1078
+00:30:37,666 --> 0:30:38,886
+And we want to add a direct
+
+1079
+00:30:38,886 --> 0:30:40,536
+dependency between Lunch and
+
+1080
+00:30:40,536 --> 0:30:41,396
+DesignFont.
+
+1081
+00:30:41,986 --> 0:30:43,286
+Because now that we're at
+
+1082
+00:30:43,546 --> 0:30:45,766
+Version 2 of DesignTheme, we can
+
+1083
+00:30:45,766 --> 0:30:47,086
+add the version requirement we
+
+1084
+00:30:47,086 --> 0:30:47,596
+wanted to.
+
+1085
+00:30:50,056 --> 0:30:51,456
+So we go back to Xcode, and we
+
+1086
+00:30:51,456 --> 0:30:53,036
+go through Add Package workflow.
+
+1087
+00:30:53,476 --> 0:30:54,966
+We pick DesignFont.
+
+1088
+00:30:55,266 --> 0:30:56,576
+We select 2 to the next major
+
+1089
+00:30:56,576 --> 0:30:57,116
+version.
+
+1090
+00:30:58,026 --> 0:30:59,216
+And now, we can link the
+
+1091
+00:30:59,216 --> 0:31:00,516
+DesignFont library with our
+
+1092
+00:30:59,216 --> 0:31:00,516
+DesignFont library with our
+
+1093
+00:31:00,516 --> 0:31:01,096
+application.
+
+1094
+00:31:01,606 --> 0:31:02,856
+And now inside of the Project
+
+1095
+00:31:02,856 --> 0:31:04,416
+Editor, we can see that we're
+
+1096
+00:31:04,416 --> 0:31:05,936
+successfully using DesignFont
+
+1097
+00:31:05,936 --> 0:31:06,616
+from 2 to the next major
+
+1098
+00:31:06,616 --> 0:31:06,926
+version.
+
+1099
+00:31:10,176 --> 0:31:11,576
+Now that we've done this, we can
+
+1100
+00:31:11,576 --> 0:31:13,146
+now import the content inside of
+
+1101
+00:31:13,146 --> 0:31:17,146
+DesignFont, successfully use its
+
+1102
+00:31:17,146 --> 0:31:19,096
+library, and then with a few
+
+1103
+00:31:19,096 --> 0:31:20,816
+small code changes, to update
+
+1104
+00:31:20,816 --> 0:31:21,976
+the font of the price.
+
+1105
+00:31:25,046 --> 0:31:26,116
+So we've now successfully done
+
+1106
+00:31:26,116 --> 0:31:27,416
+that and resolved our package
+
+1107
+00:31:27,416 --> 0:31:27,896
+conflict.
+
+1108
+00:31:28,506 --> 0:31:29,486
+We've updated our package
+
+1109
+00:31:29,486 --> 0:31:31,236
+versions, and we've successfully
+
+1110
+00:31:31,236 --> 0:31:32,756
+went over how to debug package
+
+1111
+00:31:32,756 --> 0:31:33,956
+resolution inside of Xcode.
+
+1112
+00:31:37,146 --> 0:31:38,716
+So we went over a lot of things
+
+1113
+00:31:38,756 --> 0:31:39,016
+today.
+
+1114
+00:31:40,086 --> 0:31:41,116
+We talked about how you can
+
+1115
+00:31:41,116 --> 0:31:42,826
+start using Open Source packages
+
+1116
+00:31:42,826 --> 0:31:44,356
+inside of your projects and
+
+1117
+00:31:44,386 --> 0:31:45,986
+quickly start using its APIs.
+
+1118
+00:31:47,496 --> 0:31:48,856
+We took a closer look at what a
+
+1119
+00:31:48,856 --> 0:31:51,436
+package is, what -- and how the
+
+1120
+00:31:51,436 --> 0:31:53,226
+Package.swift manifest brings it
+
+1121
+00:31:53,226 --> 0:31:53,726
+all together.
+
+1122
+00:31:55,146 --> 0:31:56,966
+We went over how Xcode selects
+
+1123
+00:31:56,966 --> 0:31:58,766
+the versions of packages to use
+
+1124
+00:31:58,796 --> 0:32:00,066
+inside of your project.
+
+1125
+00:31:58,796 --> 0:32:00,066
+inside of your project.
+
+1126
+00:32:01,636 --> 0:32:02,756
+And then we went over how you
+
+1127
+00:32:02,756 --> 0:32:03,776
+can keep those versions
+
+1128
+00:32:03,776 --> 0:32:05,596
+up-to-date and keep getting new
+
+1129
+00:32:05,596 --> 0:32:06,736
+updates for your packages.
+
+1130
+00:32:08,256 --> 0:32:09,386
+We then took a look at a more
+
+1131
+00:32:09,386 --> 0:32:11,226
+advanced example of how to
+
+1132
+00:32:11,226 --> 0:32:12,916
+resolve package conflicts, which
+
+1133
+00:32:12,916 --> 0:32:14,326
+taught us how to debug packages,
+
+1134
+00:32:14,556 --> 0:32:15,706
+and how to update package
+
+1135
+00:32:15,746 --> 0:32:15,976
+versions.
+
+1136
+00:32:18,136 --> 0:32:19,916
+There are a ton of packages
+
+1137
+00:32:20,046 --> 0:32:21,686
+already available on GitHub
+
+1138
+00:32:21,756 --> 0:32:22,086
+today.
+
+1139
+00:32:22,996 --> 0:32:24,366
+And we recommend that you will
+
+1140
+00:32:24,366 --> 0:32:25,736
+look through these packages and
+
+1141
+00:32:25,736 --> 0:32:27,076
+see where you can incorporate
+
+1142
+00:32:27,076 --> 0:32:28,366
+them in your existing
+
+1143
+00:32:28,366 --> 0:32:28,976
+applications.
+
+1144
+00:32:31,096 --> 0:32:31,876
+But we're not done there.
+
+1145
+00:32:32,196 --> 0:32:33,376
+There's a session tomorrow that
+
+1146
+00:32:33,376 --> 0:32:34,706
+my colleagues, Ankit and Boris,
+
+1147
+00:32:35,106 --> 0:32:36,276
+are presenting on, on how to
+
+1148
+00:32:36,276 --> 0:32:37,446
+create Swift Packages.
+
+1149
+00:32:37,996 --> 0:32:39,466
+This session will go into even
+
+1150
+00:32:39,466 --> 0:32:41,966
+more detail about what a package
+
+1151
+00:32:42,016 --> 0:32:45,206
+is, how to edit packages, the
+
+1152
+00:32:45,206 --> 0:32:47,246
+SwiftPM Open Source tool, and
+
+1153
+00:32:47,876 --> 0:32:48,666
+much, much more.
+
+1154
+00:32:49,606 --> 0:32:50,746
+This session will help you
+
+1155
+00:32:50,746 --> 0:32:52,316
+become even more of an expert on
+
+1156
+00:32:52,446 --> 0:32:53,786
+how packages work inside of
+
+1157
+00:32:53,786 --> 0:32:55,826
+Xcode, and you won't want to
+
+1158
+00:32:55,826 --> 0:32:56,156
+miss it.
+
+1159
+00:32:56,336 --> 0:32:58,216
+And then if you have any more
+
+1160
+00:32:58,216 --> 0:33:00,506
+questions for the SwiftPM team,
+
+1161
+00:32:58,216 --> 0:33:00,506
+questions for the SwiftPM team,
+
+1162
+00:33:00,716 --> 0:33:01,956
+we'll be at the Swift Open Hours
+
+1163
+00:33:01,956 --> 0:33:03,646
+Lab right after this session.
+
+1164
+00:33:04,186 --> 0:33:05,276
+And then also, there are two
+
+1165
+00:33:05,276 --> 0:33:06,296
+more sessions throughout the
+
+1166
+00:33:06,296 --> 0:33:08,316
+week, one on Thursday at 12:00
+
+1167
+00:33:08,316 --> 0:33:09,716
+in the Swift Packages Lab, and
+
+1168
+00:33:09,716 --> 0:33:11,096
+another of the same name at
+
+1169
+00:33:11,096 --> 0:33:11,976
+Friday at 12:00.
+
+1170
+00:33:12,976 --> 0:33:13,816
+Thank you so much for coming
+
+1171
+00:33:13,816 --> 0:33:14,596
+today, and we hope you have a
+
+1172
+00:33:14,596 --> 0:33:15,406
+great rest of your week.
+
+1173
+00:33:15,556 --> 0:33:15,896
+Thank you.
+
+1174
+00:33:16,516 --> 0:33:20,500
+[ Applause ]

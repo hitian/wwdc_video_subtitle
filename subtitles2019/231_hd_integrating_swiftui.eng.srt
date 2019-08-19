@@ -1,0 +1,4471 @@
+1
+00:00:00,506 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:09,516 --> 0:00:17,276
+[ Applause ]
+
+3
+00:00:17,776 --> 0:00:18,956
+&gt;&gt; Good afternoon.
+
+4
+00:00:19,546 --> 0:00:20,826
+My name is Tanu Singhal.
+
+5
+00:00:20,826 --> 0:00:22,466
+I'm here with my colleague
+
+6
+00:00:22,466 --> 0:00:25,356
+Raleigh, and today we'll talk
+
+7
+00:00:25,356 --> 0:00:26,966
+about Integrating SwiftUI.
+
+8
+00:00:30,136 --> 0:00:32,305
+Our first goal today is to help
+
+9
+00:00:32,336 --> 0:00:35,226
+you add SwiftUI in your existing
+
+10
+00:00:36,716 --> 0:00:36,896
+apps.
+
+11
+00:00:37,136 --> 0:00:39,306
+Next, we'll learn to embed
+
+12
+00:00:39,656 --> 0:00:42,056
+UIKit, AppKit and WatchKit views
+
+13
+00:00:42,346 --> 0:00:43,116
+in SwiftUI.
+
+14
+00:00:44,776 --> 0:00:46,606
+Later, we'll talk about
+
+15
+00:00:46,606 --> 0:00:48,406
+strategies for setting up your
+
+16
+00:00:48,406 --> 0:00:50,636
+data model so that works well
+
+17
+00:00:50,636 --> 0:00:51,226
+with SwiftUI.
+
+18
+00:00:52,756 --> 0:00:54,966
+And finally, we'll learn to use
+
+19
+00:00:54,966 --> 0:00:56,906
+drag and drop, the paste mode,
+
+20
+00:00:56,906 --> 0:00:58,826
+and the focus system in SwiftUI
+
+21
+00:00:59,476 --> 0:01:00,926
+so our apps integrate better
+
+22
+00:00:59,476 --> 0:01:00,926
+so our apps integrate better
+
+23
+00:01:01,136 --> 0:01:02,366
+with the entire system.
+
+24
+00:01:04,416 --> 0:01:07,696
+It is incredibly easy to host
+
+25
+00:01:07,806 --> 0:01:09,456
+SwiftUI content in your apps.
+
+26
+00:01:10,486 --> 0:01:13,456
+We do this with the help of
+
+27
+00:01:13,456 --> 0:01:14,546
+hosting controllers.
+
+28
+00:01:15,266 --> 0:01:18,816
+A hosting controller can be used
+
+29
+00:01:18,816 --> 0:01:21,116
+to set your SwiftUI views as the
+
+30
+00:01:21,326 --> 0:01:24,196
+content of a ViewController or
+
+31
+00:01:24,196 --> 0:01:25,446
+InterfaceController.
+
+32
+00:01:25,836 --> 0:01:28,826
+Hosting controllers are
+
+33
+00:01:28,826 --> 0:01:30,326
+available on all three
+
+34
+00:01:30,386 --> 0:01:31,046
+frameworks.
+
+35
+00:01:31,606 --> 0:01:35,876
+Let's take a closer look at the
+
+36
+00:01:35,876 --> 0:01:38,426
+UIHostingController first.
+
+37
+00:01:39,216 --> 0:01:41,226
+The UIHostingController is a
+
+38
+00:01:41,226 --> 0:01:43,786
+subclass of UIViewController.
+
+39
+00:01:45,196 --> 0:01:47,166
+It has an initializer that takes
+
+40
+00:01:47,166 --> 0:01:48,646
+a single parameter called
+
+41
+00:01:48,646 --> 0:01:49,516
+rootView.
+
+42
+00:01:50,656 --> 0:01:52,376
+This is where we pass our
+
+43
+00:01:52,376 --> 0:01:53,486
+SwiftUI view.
+
+44
+00:01:54,086 --> 0:01:56,556
+Once the hosting controller is
+
+45
+00:01:56,626 --> 0:01:59,076
+initialized, it can be presented
+
+46
+00:01:59,076 --> 0:02:01,606
+via code or storyboard just like
+
+47
+00:01:59,076 --> 0:02:01,606
+via code or storyboard just like
+
+48
+00:02:01,606 --> 0:02:02,916
+any other view controller.
+
+49
+00:02:05,376 --> 0:02:08,096
+For Mac, we have the
+
+50
+00:02:08,096 --> 0:02:10,186
+NSHostingController which is
+
+51
+00:02:10,346 --> 0:02:12,646
+used to present SwiftUI content
+
+52
+00:02:12,986 --> 0:02:14,436
+in an NSViewController.
+
+53
+00:02:14,436 --> 0:02:18,236
+Now, if you're a Mac developer,
+
+54
+00:02:18,636 --> 0:02:19,946
+you may not always want to
+
+55
+00:02:19,946 --> 0:02:21,496
+present an entire view
+
+56
+00:02:21,496 --> 0:02:22,156
+controller.
+
+57
+00:02:23,106 --> 0:02:25,626
+Perhaps, you want to embed a
+
+58
+00:02:25,626 --> 0:02:27,636
+small SwiftUI view in your
+
+59
+00:02:27,636 --> 0:02:29,776
+existing AppKit view hierarchy.
+
+60
+00:02:31,306 --> 0:02:33,566
+For this, we have the
+
+61
+00:02:33,566 --> 0:02:34,306
+NSHostingView.
+
+62
+00:02:35,356 --> 0:02:38,356
+The NSHostingView is a subclass
+
+63
+00:02:38,356 --> 0:02:41,296
+of NSView and it can be used to
+
+64
+00:02:41,296 --> 0:02:44,426
+present SwiftUI views directly
+
+65
+00:02:44,486 --> 0:02:46,076
+in AppKit view hierarchies.
+
+66
+00:02:46,756 --> 0:02:51,136
+If you're using Auto Layout, we
+
+67
+00:02:51,136 --> 0:02:52,706
+automatically respect the
+
+68
+00:02:52,766 --> 0:02:54,636
+content size preferences of your
+
+69
+00:02:54,636 --> 0:02:57,176
+SwiftUI views and your layout
+
+70
+00:02:57,176 --> 0:02:59,256
+will look as you expect.
+
+71
+00:03:00,386 --> 0:03:03,336
+Auto Layout also works well when
+
+72
+00:03:03,336 --> 0:03:05,696
+using container views to embed
+
+73
+00:03:05,696 --> 0:03:07,566
+UIHostingControllers or
+
+74
+00:03:07,956 --> 0:03:09,916
+NSHostingControllers in your
+
+75
+00:03:09,916 --> 0:03:12,666
+existing AppKit or UIKit view
+
+76
+00:03:12,666 --> 0:03:13,366
+hierarchies.
+
+77
+00:03:15,826 --> 0:03:19,536
+For watchOS developers, we have
+
+78
+00:03:19,536 --> 0:03:21,396
+the WKHostingController.
+
+79
+00:03:22,956 --> 0:03:25,006
+To use this, you first create a
+
+80
+00:03:25,106 --> 0:03:27,756
+subclass, and in the subclass.
+
+81
+00:03:28,126 --> 0:03:30,506
+we return the SwiftUI view from
+
+82
+00:03:30,506 --> 0:03:31,076
+the body.
+
+83
+00:03:32,366 --> 0:03:35,966
+Next, go to the storyboard and
+
+84
+00:03:35,966 --> 0:03:37,916
+select any interface controller
+
+85
+00:03:37,916 --> 0:03:39,106
+or hosting controller.
+
+86
+00:03:39,756 --> 0:03:43,296
+From the identity inspector, set
+
+87
+00:03:43,296 --> 0:03:45,296
+the class as your custom
+
+88
+00:03:45,336 --> 0:03:46,616
+subclass for the
+
+89
+00:03:46,616 --> 0:03:47,876
+WKHostingController.
+
+90
+00:03:49,436 --> 0:03:50,966
+Now, this hosting controller can
+
+91
+00:03:50,966 --> 0:03:53,196
+be used like any other interface
+
+92
+00:03:53,196 --> 0:03:53,786
+controller.
+
+93
+00:03:54,636 --> 0:03:57,296
+If you need to invalidate the
+
+94
+00:03:57,296 --> 0:03:58,946
+body due to a change occurring
+
+95
+00:03:59,176 --> 0:04:01,566
+on the WatchKit side, you can do
+
+96
+00:03:59,176 --> 0:04:01,566
+on the WatchKit side, you can do
+
+97
+00:04:01,566 --> 0:04:02,946
+that by using the
+
+98
+00:04:03,076 --> 0:04:05,186
+setNeedsBodyUpdate and the
+
+99
+00:04:05,186 --> 0:04:07,826
+updateBodyIfNeeded methods.
+
+100
+00:04:08,846 --> 0:04:12,386
+It is also easy to use SwiftUI
+
+101
+00:04:12,556 --> 0:04:14,556
+content in dynamic interactive
+
+102
+00:04:14,556 --> 0:04:15,406
+notifications.
+
+103
+00:04:16,026 --> 0:04:18,366
+For this, we use the
+
+104
+00:04:18,366 --> 0:04:20,036
+WKUserNotification
+
+105
+00:04:20,036 --> 0:04:23,396
+HostingController, and again we
+
+106
+00:04:23,466 --> 0:04:25,376
+first return to SwiftUI View
+
+107
+00:04:25,426 --> 0:04:27,996
+from the body and this body gets
+
+108
+00:04:28,246 --> 0:04:30,276
+updated every time the
+
+109
+00:04:30,276 --> 0:04:32,146
+didReceive notification method
+
+110
+00:04:32,186 --> 0:04:32,856
+is called.
+
+111
+00:04:35,476 --> 0:04:37,356
+To learn more about building
+
+112
+00:04:37,356 --> 0:04:40,026
+Watch apps with SwiftUI, check
+
+113
+00:04:40,026 --> 0:04:41,976
+out the SwiftUI on watchOS
+
+114
+00:04:42,936 --> 0:04:43,086
+session.
+
+115
+00:04:45,136 --> 0:04:47,276
+Now, let's take a look at an
+
+116
+00:04:47,276 --> 0:04:49,406
+example App where we would need
+
+117
+00:04:49,406 --> 0:04:50,946
+to use hosting controllers.
+
+118
+00:04:51,086 --> 0:04:54,396
+I went to buy some plants the
+
+119
+00:04:54,396 --> 0:04:56,216
+other day and I learned so much
+
+120
+00:04:56,276 --> 0:04:58,786
+about different plants and trees
+
+121
+00:04:59,306 --> 0:05:00,556
+that I decided to build an app
+
+122
+00:04:59,306 --> 0:05:00,556
+that I decided to build an app
+
+123
+00:05:01,336 --> 0:05:02,856
+to catalog these plants.
+
+124
+00:05:03,456 --> 0:05:06,476
+I started building my app using
+
+125
+00:05:06,476 --> 0:05:09,566
+UIKit and what you see here is a
+
+126
+00:05:09,636 --> 0:05:10,986
+standard UIKit table view
+
+127
+00:05:10,986 --> 0:05:11,546
+controller.
+
+128
+00:05:11,546 --> 0:05:15,416
+Then, I learned about SwiftUI
+
+129
+00:05:15,416 --> 0:05:18,406
+and I created a details view for
+
+130
+00:05:18,406 --> 0:05:20,176
+my app using SwiftUI.
+
+131
+00:05:20,176 --> 0:05:23,806
+Now, we haven't added any code
+
+132
+00:05:24,266 --> 0:05:25,566
+to navigate from my
+
+133
+00:05:25,616 --> 0:05:27,176
+UIKitTableViewController to
+
+134
+00:05:27,176 --> 0:05:27,586
+SwiftUI.
+
+135
+00:05:27,586 --> 0:05:31,386
+Let's go into a demo and see how
+
+136
+00:05:31,386 --> 0:05:32,386
+we can set this up.
+
+137
+00:05:47,166 --> 0:05:49,566
+Here, we have our SwiftUI view
+
+138
+00:05:50,086 --> 0:05:51,476
+which is used to present our
+
+139
+00:05:51,476 --> 0:05:52,326
+details view.
+
+140
+00:05:52,946 --> 0:05:54,316
+And this is the view we want to
+
+141
+00:05:54,316 --> 0:05:56,396
+navigate to when we tap in our
+
+142
+00:05:56,396 --> 0:05:56,846
+table.
+
+143
+00:05:57,896 --> 0:05:59,406
+So let's go to the storyboard
+
+144
+00:06:00,266 --> 0:06:05,236
+and the storyboard will go into
+
+145
+00:06:05,236 --> 0:06:07,506
+the Library and find a hosting
+
+146
+00:06:07,506 --> 0:06:08,306
+view controller.
+
+147
+00:06:09,166 --> 0:06:11,016
+Let's drag this in our
+
+148
+00:06:11,016 --> 0:06:11,696
+storyboard.
+
+149
+00:06:12,436 --> 0:06:14,876
+I'll select this cell in the
+
+150
+00:06:14,876 --> 0:06:17,016
+table, hold down the Control
+
+151
+00:06:17,016 --> 0:06:19,016
+key, and drag to the hosting
+
+152
+00:06:19,016 --> 0:06:19,566
+controller.
+
+153
+00:06:20,536 --> 0:06:22,016
+We'll select the Show segue.
+
+154
+00:06:23,566 --> 0:06:25,806
+Now, we need to add content to
+
+155
+00:06:25,806 --> 0:06:26,996
+this hosting controller.
+
+156
+00:06:27,806 --> 0:06:29,216
+So let's open our table view
+
+157
+00:06:29,216 --> 0:06:30,446
+controller on the side.
+
+158
+00:06:31,106 --> 0:06:34,746
+Let me hide some of these panels
+
+159
+00:06:34,786 --> 0:06:35,856
+to make more space.
+
+160
+00:06:39,216 --> 0:06:40,846
+I'll now select the segue we
+
+161
+00:06:40,876 --> 0:06:43,066
+just created, hold the Control
+
+162
+00:06:43,066 --> 0:06:44,466
+key and drag into the view
+
+163
+00:06:44,466 --> 0:06:45,386
+controller code.
+
+164
+00:06:46,096 --> 0:06:48,866
+This creates an IBSegueAction.
+
+165
+00:06:50,656 --> 0:06:53,256
+IBSegueActions are new in Xcode
+
+166
+00:06:53,256 --> 0:06:56,446
+11 and they allow you to connect
+
+167
+00:06:56,756 --> 0:06:58,766
+segues in the storyboard to your
+
+168
+00:06:58,766 --> 0:06:59,956
+view controller's code.
+
+169
+00:07:00,876 --> 0:07:02,806
+By using these, you can directly
+
+170
+00:07:02,806 --> 0:07:03,976
+set properties in your
+
+171
+00:07:03,976 --> 0:07:05,496
+destination view controllers
+
+172
+00:07:05,856 --> 0:07:07,016
+without having to use the
+
+173
+00:07:07,076 --> 0:07:08,516
+prepareForSegue method.
+
+174
+00:07:09,516 --> 0:07:12,786
+[ Applause ]
+
+175
+00:07:13,286 --> 0:07:16,866
+Thank you.
+
+176
+00:07:16,926 --> 0:07:18,436
+Let's close the storyboard since
+
+177
+00:07:18,436 --> 0:07:21,406
+we'll focus on the code.
+
+178
+00:07:21,596 --> 0:07:23,736
+Here, I'll create an instance of
+
+179
+00:07:23,736 --> 0:07:24,836
+our SwiftUI view.
+
+180
+00:07:26,266 --> 0:07:28,526
+The rootView here is set to our
+
+181
+00:07:28,526 --> 0:07:30,546
+PlantDetailsView which was our
+
+182
+00:07:30,546 --> 0:07:31,606
+SwiftUI view.
+
+183
+00:07:32,796 --> 0:07:34,966
+All we need to do is pass this
+
+184
+00:07:34,966 --> 0:07:36,906
+rootView to the hosting
+
+185
+00:07:36,906 --> 0:07:38,446
+controller's initializer.
+
+186
+00:07:38,786 --> 0:07:43,276
+Now when we run our app, we'll
+
+187
+00:07:43,276 --> 0:07:44,816
+be able to navigate from our
+
+188
+00:07:44,856 --> 0:07:47,976
+UIKitTableViewController to our
+
+189
+00:07:47,976 --> 0:07:49,766
+PlantDetailsView which is in
+
+190
+00:07:49,766 --> 0:07:50,316
+SwiftUI.
+
+191
+00:07:54,516 --> 0:08:00,366
+[ Applause ]
+
+192
+00:07:54,516 --> 0:08:00,366
+[ Applause ]
+
+193
+00:08:00,866 --> 0:08:03,916
+We saw in this demo how easy it
+
+194
+00:08:03,916 --> 0:08:07,596
+is to add SwiftUI to your apps.
+
+195
+00:08:08,586 --> 0:08:11,326
+Next, we'll learn to embed views
+
+196
+00:08:11,376 --> 0:08:13,406
+created with existing frameworks
+
+197
+00:08:13,676 --> 0:08:15,286
+inside SwiftUI views.
+
+198
+00:08:16,046 --> 0:08:18,566
+To do this, we use the
+
+199
+00:08:18,566 --> 0:08:20,146
+representable protocol.
+
+200
+00:08:20,476 --> 0:08:22,696
+The representable protocol
+
+201
+00:08:22,696 --> 0:08:25,256
+allows us to present UIViews,
+
+202
+00:08:25,296 --> 0:08:27,696
+NSViews, and WKInterfaceObject
+
+203
+00:08:27,946 --> 0:08:28,686
+in SwiftUI.
+
+204
+00:08:30,646 --> 0:08:32,426
+Additionally, we can also
+
+205
+00:08:32,426 --> 0:08:33,916
+present view controllers in
+
+206
+00:08:33,916 --> 0:08:36,025
+SwiftUI with the help of view
+
+207
+00:08:36,025 --> 0:08:37,166
+controller representable
+
+208
+00:08:37,166 --> 0:08:37,826
+protocols.
+
+209
+00:08:38,436 --> 0:08:42,236
+The representable protocol has
+
+210
+00:08:42,366 --> 0:08:44,766
+two required methods, the Make
+
+211
+00:08:44,766 --> 0:08:47,216
+Method and the Update Method.
+
+212
+00:08:48,116 --> 0:08:50,876
+The Make Method is where you
+
+213
+00:08:50,876 --> 0:08:52,426
+create the view or controller
+
+214
+00:08:52,426 --> 0:08:53,846
+that you want to present in
+
+215
+00:08:53,846 --> 0:08:54,376
+SwiftUI.
+
+216
+00:08:55,646 --> 0:08:57,476
+And the Update Method is where
+
+217
+00:08:57,476 --> 0:08:59,356
+you update this view to the
+
+218
+00:08:59,356 --> 0:09:00,616
+current configuration.
+
+219
+00:08:59,356 --> 0:09:00,616
+current configuration.
+
+220
+00:09:02,026 --> 0:09:04,386
+During initialization, the Make
+
+221
+00:09:04,386 --> 0:09:06,406
+Method is called first followed
+
+222
+00:09:06,406 --> 0:09:07,816
+by the Update Method.
+
+223
+00:09:08,376 --> 0:09:11,136
+The Update Method can be called
+
+224
+00:09:11,136 --> 0:09:13,426
+multiple times whenever an
+
+225
+00:09:13,426 --> 0:09:15,396
+update is requested by SwiftUI.
+
+226
+00:09:17,596 --> 0:09:19,786
+Finally, we offer you with an
+
+227
+00:09:19,836 --> 0:09:22,326
+optional Dismantle Method where
+
+228
+00:09:22,326 --> 0:09:24,196
+you can put any clean up code
+
+229
+00:09:24,196 --> 0:09:25,946
+that needs to run before your
+
+230
+00:09:25,946 --> 0:09:27,346
+view or controller is removed.
+
+231
+00:09:27,346 --> 0:09:31,806
+Let's now take a look at the
+
+232
+00:09:31,806 --> 0:09:33,726
+Swift definitions of these
+
+233
+00:09:33,726 --> 0:09:34,256
+methods.
+
+234
+00:09:34,856 --> 0:09:38,356
+Notice that the Make, Update and
+
+235
+00:09:38,356 --> 0:09:40,336
+Dismantle methods look and
+
+236
+00:09:40,336 --> 0:09:42,306
+behave similarly across
+
+237
+00:09:42,346 --> 0:09:43,006
+frameworks.
+
+238
+00:09:44,406 --> 0:09:47,236
+For AppKit and UIKit, these
+
+239
+00:09:47,236 --> 0:09:49,196
+protocols can be used to present
+
+240
+00:09:49,826 --> 0:09:51,826
+views and view controllers in
+
+241
+00:09:51,826 --> 0:09:52,406
+SwiftUI.
+
+242
+00:09:53,796 --> 0:09:56,336
+For WatchKit, we can use the
+
+243
+00:09:56,336 --> 0:09:57,896
+WKInterface representable
+
+244
+00:09:57,896 --> 0:10:00,856
+protocol to present a subset of
+
+245
+00:09:57,896 --> 0:10:00,856
+protocol to present a subset of
+
+246
+00:10:00,856 --> 0:10:03,196
+WKitInterfaceObjects in SwiftUI.
+
+247
+00:10:05,136 --> 0:10:06,536
+You can look up the full list of
+
+248
+00:10:06,536 --> 0:10:08,686
+supported WatchKitObjects on
+
+249
+00:10:08,686 --> 0:10:10,206
+developer.apple.com.
+
+250
+00:10:10,896 --> 0:10:14,786
+So as we mentioned, the Make and
+
+251
+00:10:14,786 --> 0:10:16,286
+Update methods are the only two
+
+252
+00:10:16,286 --> 0:10:18,136
+required methods that's all you
+
+253
+00:10:18,136 --> 0:10:20,746
+need to use simply present your
+
+254
+00:10:20,746 --> 0:10:21,896
+views in SwiftUI.
+
+255
+00:10:23,276 --> 0:10:26,256
+However, views are often complex
+
+256
+00:10:26,666 --> 0:10:28,046
+and you may want to do more than
+
+257
+00:10:28,046 --> 0:10:29,946
+simply present them.
+
+258
+00:10:30,636 --> 0:10:32,986
+Perhaps, you want to expose
+
+259
+00:10:32,986 --> 0:10:35,376
+target action or delegation in
+
+260
+00:10:35,376 --> 0:10:39,776
+SwiftUI, or you may want to read
+
+261
+00:10:40,236 --> 0:10:42,146
+from the environment of SwiftUI
+
+262
+00:10:42,486 --> 0:10:43,706
+and respond accordingly.
+
+263
+00:10:44,376 --> 0:10:47,016
+It could also be useful to
+
+264
+00:10:47,016 --> 0:10:48,436
+understand if there was an
+
+265
+00:10:48,436 --> 0:10:50,606
+animation on your view.
+
+266
+00:10:51,916 --> 0:10:54,136
+To enable you to create better
+
+267
+00:10:54,136 --> 0:10:56,256
+integration between your views
+
+268
+00:10:56,286 --> 0:10:58,826
+and SwiftUI, we have created the
+
+269
+00:10:58,826 --> 0:11:00,136
+representable context.
+
+270
+00:10:58,826 --> 0:11:00,136
+representable context.
+
+271
+00:11:00,876 --> 0:11:04,086
+The representable context has
+
+272
+00:11:04,226 --> 0:11:05,086
+three properties.
+
+273
+00:11:05,756 --> 0:11:07,826
+The first is the coordinator
+
+274
+00:11:08,466 --> 0:11:10,226
+which helps coordinate between
+
+275
+00:11:10,226 --> 0:11:11,696
+your views and SwiftUI.
+
+276
+00:11:13,136 --> 0:11:14,826
+The coordinator can be used to
+
+277
+00:11:14,826 --> 0:11:17,176
+implement common patterns like
+
+278
+00:11:17,176 --> 0:11:19,116
+delegation, data sources, and
+
+279
+00:11:19,116 --> 0:11:19,876
+target action.
+
+280
+00:11:21,326 --> 0:11:23,366
+The next property is the
+
+281
+00:11:23,366 --> 0:11:25,636
+environment which will help you
+
+282
+00:11:25,636 --> 0:11:26,696
+read about SwiftUI's
+
+283
+00:11:26,696 --> 0:11:27,826
+environment.
+
+284
+00:11:28,546 --> 0:11:29,436
+This could be the system
+
+285
+00:11:29,436 --> 0:11:31,736
+environment like color scheme or
+
+286
+00:11:31,736 --> 0:11:34,306
+size classes or clear direction.
+
+287
+00:11:35,186 --> 0:11:37,056
+Or it could be app-defined
+
+288
+00:11:37,556 --> 0:11:39,116
+custom environment properties.
+
+289
+00:11:40,596 --> 0:11:42,516
+Finally, the transaction
+
+290
+00:11:42,516 --> 0:11:45,296
+property let's our views know
+
+291
+00:11:45,296 --> 0:11:46,706
+whether or not there was an
+
+292
+00:11:46,706 --> 0:11:48,426
+animation in SwiftUI.
+
+293
+00:11:49,396 --> 0:11:52,516
+The representable context is
+
+294
+00:11:52,516 --> 0:11:54,666
+available for views, view
+
+295
+00:11:54,666 --> 0:11:56,526
+controllers as well as interface
+
+296
+00:11:56,556 --> 0:11:57,206
+controllers.
+
+297
+00:11:59,336 --> 0:12:02,016
+Now, let's take another look at
+
+298
+00:11:59,336 --> 0:12:02,016
+Now, let's take another look at
+
+299
+00:12:02,016 --> 0:12:03,336
+the representable protocol
+
+300
+00:12:03,336 --> 0:12:04,416
+diagram that we saw.
+
+301
+00:12:05,886 --> 0:12:07,826
+In the Make and Update methods,
+
+302
+00:12:08,286 --> 0:12:10,486
+we passed a parameter for the
+
+303
+00:12:10,486 --> 0:12:11,836
+representable contexts.
+
+304
+00:12:13,116 --> 0:12:14,796
+This context already has
+
+305
+00:12:14,796 --> 0:12:16,286
+information about the
+
+306
+00:12:16,286 --> 0:12:18,096
+environment and transaction.
+
+307
+00:12:19,396 --> 0:12:20,416
+If you wish to use the
+
+308
+00:12:20,416 --> 0:12:22,436
+coordinator however, you would
+
+309
+00:12:22,436 --> 0:12:23,816
+have to create that yourself.
+
+310
+00:12:24,256 --> 0:12:26,426
+That can be done using the
+
+311
+00:12:26,426 --> 0:12:28,336
+optional Make Coordinator
+
+312
+00:12:28,976 --> 0:12:29,126
+method.
+
+313
+00:12:29,676 --> 0:12:32,216
+During initialization, the Make
+
+314
+00:12:32,216 --> 0:12:33,516
+Coordinator method is called
+
+315
+00:12:33,646 --> 0:12:36,086
+first followed by the Make View
+
+316
+00:12:36,086 --> 0:12:38,436
+and Update View methods so that
+
+317
+00:12:38,926 --> 0:12:41,146
+the coordinator is available to
+
+318
+00:12:41,146 --> 0:12:42,336
+the context when you're
+
+319
+00:12:42,416 --> 0:12:43,576
+configuring your views.
+
+320
+00:12:43,676 --> 0:12:47,456
+It might be easier to understand
+
+321
+00:12:47,456 --> 0:12:49,226
+these concepts with the help of
+
+322
+00:12:49,226 --> 0:12:49,956
+an example.
+
+323
+00:12:51,406 --> 0:12:53,266
+We'll take another look at our
+
+324
+00:12:53,266 --> 0:12:54,686
+plants app and here's the
+
+325
+00:12:54,686 --> 0:12:56,536
+details view that we saw before.
+
+326
+00:12:57,846 --> 0:12:59,126
+This is a view created in
+
+327
+00:12:59,126 --> 0:12:59,576
+SwiftUI.
+
+328
+00:12:59,576 --> 0:13:04,146
+I've also created another view
+
+329
+00:12:59,576 --> 0:13:04,146
+I've also created another view
+
+330
+00:13:04,316 --> 0:13:05,186
+in UIKit.
+
+331
+00:13:06,116 --> 0:13:07,576
+This is to present the ratings.
+
+332
+00:13:08,036 --> 0:13:11,236
+What I want to do is embed my
+
+333
+00:13:11,236 --> 0:13:13,476
+UIKit base ratings control
+
+334
+00:13:13,596 --> 0:13:15,386
+inside my SwiftUI view.
+
+335
+00:13:15,386 --> 0:13:19,576
+In addition to that, I also want
+
+336
+00:13:19,676 --> 0:13:22,456
+to add a label in SwiftUI that
+
+337
+00:13:22,456 --> 0:13:24,056
+can read the rating from my
+
+338
+00:13:24,056 --> 0:13:25,006
+ratings control.
+
+339
+00:13:25,676 --> 0:13:28,656
+We can do all this with the help
+
+340
+00:13:28,656 --> 0:13:30,546
+of a UIViewRepresentable
+
+341
+00:13:30,546 --> 0:13:31,096
+protocol.
+
+342
+00:13:31,616 --> 0:13:33,646
+Let's go into a demo and set
+
+343
+00:13:33,686 --> 0:13:33,946
+this up.
+
+344
+00:13:39,116 --> 0:13:41,286
+In this project, I've included a
+
+345
+00:13:41,286 --> 0:13:43,996
+UIKitRatingsControl which is my
+
+346
+00:13:43,996 --> 0:13:46,076
+UIKit base view that renders
+
+347
+00:13:46,076 --> 0:13:47,106
+those five stars.
+
+348
+00:13:47,906 --> 0:13:49,886
+It is this view that we want to
+
+349
+00:13:49,886 --> 0:13:51,086
+present in SwiftUI.
+
+350
+00:13:53,056 --> 0:13:55,406
+The RatingsControlRepresentation
+
+351
+00:13:55,786 --> 0:13:57,746
+is simply a wrapper around our
+
+352
+00:13:57,786 --> 0:14:00,256
+UIKit view and it will enable us
+
+353
+00:13:57,786 --> 0:14:00,256
+UIKit view and it will enable us
+
+354
+00:14:00,326 --> 0:14:03,586
+to present our UI view in
+
+355
+00:14:04,196 --> 0:14:04,426
+SwiftUI.
+
+356
+00:14:04,536 --> 0:14:05,876
+We've also added the two
+
+357
+00:14:05,876 --> 0:14:07,606
+required methods for the
+
+358
+00:14:07,606 --> 0:14:09,506
+UIViewRepresentable protocol,
+
+359
+00:14:09,786 --> 0:14:12,026
+makeUIView and updateUIView.
+
+360
+00:14:12,616 --> 0:14:16,786
+In the makeUIView method, all I
+
+361
+00:14:16,786 --> 0:14:19,046
+need to do is create an instance
+
+362
+00:14:19,446 --> 0:14:21,466
+of my UI view which is the
+
+363
+00:14:21,466 --> 0:14:24,056
+UIKitRatingsControl here and
+
+364
+00:14:24,056 --> 0:14:25,186
+return it.
+
+365
+00:14:25,796 --> 0:14:27,816
+And with this code, I can start
+
+366
+00:14:27,816 --> 0:14:28,356
+using the
+
+367
+00:14:28,356 --> 0:14:30,016
+RatingsControlRepresentation
+
+368
+00:14:30,406 --> 0:14:31,406
+inside SwiftUI.
+
+369
+00:14:32,576 --> 0:14:33,656
+Let's take a look at the
+
+370
+00:14:33,656 --> 0:14:33,976
+preview.
+
+371
+00:14:37,896 --> 0:14:40,126
+These stars are being displayed
+
+372
+00:14:40,126 --> 0:14:40,766
+by calling the
+
+373
+00:14:40,766 --> 0:14:42,676
+RatingsControlRepresentation in
+
+374
+00:14:42,676 --> 0:14:45,186
+SwiftUI which in turn presents
+
+375
+00:14:45,416 --> 0:14:46,916
+my UIKit base view.
+
+376
+00:14:48,236 --> 0:14:50,026
+Notice, however, that all the
+
+377
+00:14:50,026 --> 0:14:51,226
+stars are grayed out.
+
+378
+00:14:51,726 --> 0:14:53,526
+To set the highlighting
+
+379
+00:14:53,586 --> 0:14:55,196
+correctly based on the rating,
+
+380
+00:14:55,746 --> 0:14:56,906
+we would need to read this
+
+381
+00:14:56,906 --> 0:14:59,446
+rating form SwiftUI and set it
+
+382
+00:14:59,506 --> 0:15:00,946
+on our UIKit view.
+
+383
+00:14:59,506 --> 0:15:00,946
+on our UIKit view.
+
+384
+00:15:01,516 --> 0:15:04,466
+In our code, I've already added
+
+385
+00:15:04,516 --> 0:15:06,726
+a binding for the rating so we
+
+386
+00:15:06,726 --> 0:15:08,316
+can read this from SwiftUI.
+
+387
+00:15:08,316 --> 0:15:11,026
+Now, let's go into our
+
+388
+00:15:11,126 --> 0:15:14,616
+updateUIView method and set the
+
+389
+00:15:14,616 --> 0:15:17,146
+rating on the UI view.
+
+390
+00:15:20,536 --> 0:15:23,176
+Immediately, our stars highlight
+
+391
+00:15:23,396 --> 0:15:26,376
+as we expect and we're reading
+
+392
+00:15:26,376 --> 0:15:27,866
+this rating from SwiftUI.
+
+393
+00:15:29,516 --> 0:15:34,576
+[ Applause ]
+
+394
+00:15:35,076 --> 0:15:35,276
+Thank you.
+
+395
+00:15:35,276 --> 0:15:36,836
+We'll go into the live mode for
+
+396
+00:15:36,836 --> 0:15:38,006
+the last preview.
+
+397
+00:15:38,096 --> 0:15:41,066
+In this preview, I've included a
+
+398
+00:15:41,066 --> 0:15:43,886
+Clear button in SwiftUI which
+
+399
+00:15:43,886 --> 0:15:45,786
+updates the rating to zero.
+
+400
+00:15:47,116 --> 0:15:48,876
+Notice when I tap this, our
+
+401
+00:15:49,236 --> 0:15:51,616
+UpdateUIView gets-- method gets
+
+402
+00:15:51,616 --> 0:15:53,126
+called and the rating gets
+
+403
+00:15:53,126 --> 0:15:55,376
+updated on our UI view.
+
+404
+00:15:56,006 --> 0:15:58,356
+We can also tap on the stars to
+
+405
+00:15:58,356 --> 0:15:59,236
+change the rating.
+
+406
+00:16:00,746 --> 0:16:02,146
+When I tap on these stars
+
+407
+00:16:02,196 --> 0:16:04,406
+though, the label on the right
+
+408
+00:16:04,616 --> 0:16:06,416
+is not getting updated properly.
+
+409
+00:16:07,956 --> 0:16:10,916
+The reason is that our UI view
+
+410
+00:16:10,946 --> 0:16:13,476
+is changing-- is intrinsic value
+
+411
+00:16:13,476 --> 0:16:15,216
+for the rating and is not
+
+412
+00:16:15,216 --> 0:16:17,396
+conveying that back to SwiftUI.
+
+413
+00:16:18,936 --> 0:16:20,696
+To address this, you would have
+
+414
+00:16:20,696 --> 0:16:23,016
+to use a target action pattern.
+
+415
+00:16:23,866 --> 0:16:25,486
+So we'll go ahead and implement
+
+416
+00:16:26,466 --> 0:16:26,566
+that.
+
+417
+00:16:27,316 --> 0:16:28,906
+To use the target action
+
+418
+00:16:28,906 --> 0:16:30,526
+pattern, we need to add a
+
+419
+00:16:30,526 --> 0:16:31,286
+coordinator.
+
+420
+00:16:31,286 --> 0:16:33,656
+Let's create a coordinator here.
+
+421
+00:16:34,866 --> 0:16:37,796
+This is simply an NSObject where
+
+422
+00:16:37,796 --> 0:16:40,386
+we're storing the values that
+
+423
+00:16:40,386 --> 0:16:41,106
+we're interested in.
+
+424
+00:16:41,106 --> 0:16:44,036
+And we have an initializer to
+
+425
+00:16:44,116 --> 0:16:45,606
+set the values that we care
+
+426
+00:16:45,606 --> 0:16:47,336
+about which is just the rating
+
+427
+00:16:47,336 --> 0:16:47,606
+here.
+
+428
+00:16:48,376 --> 0:16:51,936
+Next, we've added a selector for
+
+429
+00:16:51,936 --> 0:16:53,946
+the rating called ratingChanged
+
+430
+00:16:54,726 --> 0:16:55,786
+which will get called through
+
+431
+00:16:55,786 --> 0:16:58,196
+our target action pattern.
+
+432
+00:16:58,846 --> 0:17:00,816
+And here, we simply set the
+
+433
+00:16:58,846 --> 0:17:00,816
+And here, we simply set the
+
+434
+00:17:00,816 --> 0:17:03,026
+rating of the coordinator to be
+
+435
+00:17:03,026 --> 0:17:04,976
+the rating that we get from our
+
+436
+00:17:04,976 --> 0:17:05,386
+UI view.
+
+437
+00:17:05,856 --> 0:17:08,136
+We can now implement the
+
+438
+00:17:08,136 --> 0:17:09,675
+makeCoordinator method.
+
+439
+00:17:10,986 --> 0:17:13,486
+In this method, we simply return
+
+440
+00:17:13,546 --> 0:17:15,445
+an instance of the coordinator
+
+441
+00:17:15,445 --> 0:17:17,175
+and we're passing the rating
+
+442
+00:17:17,175 --> 0:17:18,455
+binding from our
+
+443
+00:17:18,455 --> 0:17:20,056
+RatingsControlRepresentation.
+
+444
+00:17:22,935 --> 0:17:24,906
+Finally, we can use this
+
+445
+00:17:25,366 --> 0:17:27,066
+coordinator in our makeUIView
+
+446
+00:17:27,066 --> 0:17:29,826
+method and add the target.
+
+447
+00:17:30,656 --> 0:17:33,416
+With this, our coordinators
+
+448
+00:17:33,416 --> 0:17:35,546
+ratingChanged method gets called
+
+449
+00:17:35,656 --> 0:17:37,626
+whenever the valueChanged event
+
+450
+00:17:37,626 --> 0:17:39,026
+is triggered in UIKit.
+
+451
+00:17:40,216 --> 0:17:42,036
+So we are ready to add this to
+
+452
+00:17:42,036 --> 0:17:42,916
+our app now.
+
+453
+00:17:43,156 --> 0:17:44,426
+I'll go into the
+
+454
+00:17:44,466 --> 0:17:47,606
+PlantDetailsView, call the
+
+455
+00:17:47,606 --> 0:17:49,216
+RatingsControlRepresentation
+
+456
+00:17:49,216 --> 0:17:53,026
+here, and we can also set a
+
+457
+00:17:53,026 --> 0:17:54,906
+frame that gets respected by
+
+458
+00:17:54,906 --> 0:17:55,526
+UIKit.
+
+459
+00:17:56,446 --> 0:17:58,356
+So let's resume the previews.
+
+460
+00:17:58,956 --> 0:18:02,636
+I'll go into the live mode.
+
+461
+00:17:58,956 --> 0:18:02,636
+I'll go into the live mode.
+
+462
+00:18:03,366 --> 0:18:06,956
+And now when I tap on the stars,
+
+463
+00:18:07,696 --> 0:18:09,176
+the value and the text label
+
+464
+00:18:09,176 --> 0:18:10,686
+gets updated as we expect.
+
+465
+00:18:14,516 --> 0:18:18,500
+[ Applause ]
+
+466
+00:18:21,076 --> 0:18:22,356
+We hope you're excited about
+
+467
+00:18:22,356 --> 0:18:24,876
+using SwiftUI in your apps.
+
+468
+00:18:24,876 --> 0:18:27,266
+As a first step, go ahead and
+
+469
+00:18:27,266 --> 0:18:28,756
+create some hosting controllers
+
+470
+00:18:29,036 --> 0:18:30,496
+with SwiftUI content.
+
+471
+00:18:31,186 --> 0:18:33,186
+It's really easy to add these to
+
+472
+00:18:33,276 --> 0:18:35,816
+your apps using IBSegueActions.
+
+473
+00:18:36,556 --> 0:18:39,146
+If you've already created views
+
+474
+00:18:39,366 --> 0:18:41,236
+that you want to embed in your
+
+475
+00:18:41,346 --> 0:18:43,596
+SwiftUI view hierarchy, you can
+
+476
+00:18:43,596 --> 0:18:44,836
+check out the representable
+
+477
+00:18:44,836 --> 0:18:45,496
+protocol.
+
+478
+00:18:46,456 --> 0:18:48,696
+And finally, be sure to leverage
+
+479
+00:18:48,816 --> 0:18:50,716
+the representable context for
+
+480
+00:18:50,716 --> 0:18:52,116
+more advanced functionality.
+
+481
+00:18:53,376 --> 0:18:55,276
+Next up, Raleigh will talk about
+
+482
+00:18:55,746 --> 0:18:57,306
+integrating your data model with
+
+483
+00:18:57,306 --> 0:18:57,796
+SwiftUI.
+
+484
+00:18:59,516 --> 0:19:04,896
+[ Applause ]
+
+485
+00:18:59,516 --> 0:19:04,896
+[ Applause ]
+
+486
+00:19:05,396 --> 0:19:06,846
+&gt;&gt; Thank you, Tanu.
+
+487
+00:19:07,686 --> 0:19:09,096
+My name is Raleigh Ledet.
+
+488
+00:19:09,196 --> 0:19:10,876
+I'm an engineer on both SwiftUI
+
+489
+00:19:11,106 --> 0:19:11,826
+and on AppKit.
+
+490
+00:19:13,016 --> 0:19:14,756
+You've seen how easy it is for
+
+491
+00:19:14,756 --> 0:19:17,366
+you to quickly add SwiftUI views
+
+492
+00:19:17,366 --> 0:19:18,766
+to your existing applications.
+
+493
+00:19:19,126 --> 0:19:20,296
+And we're already getting data
+
+494
+00:19:20,296 --> 0:19:20,666
+in there.
+
+495
+00:19:21,176 --> 0:19:22,636
+But I want to talk about really
+
+496
+00:19:22,636 --> 0:19:25,716
+integrating this with your data.
+
+497
+00:19:25,896 --> 0:19:27,586
+What you saw on Tanu's demo is
+
+498
+00:19:27,586 --> 0:19:28,906
+we took our plants data model
+
+499
+00:19:29,376 --> 0:19:30,996
+and we passed it to our root
+
+500
+00:19:30,996 --> 0:19:31,776
+SwiftUI view.
+
+501
+00:19:32,586 --> 0:19:33,736
+And this is really great because
+
+502
+00:19:33,736 --> 0:19:34,986
+SwiftUI view was able to take
+
+503
+00:19:34,986 --> 0:19:36,466
+out the appropriate properties
+
+504
+00:19:36,756 --> 0:19:37,806
+and we were able to render this.
+
+505
+00:19:38,746 --> 0:19:40,336
+However, this was more of a
+
+506
+00:19:40,336 --> 0:19:43,786
+one-shot operation because our
+
+507
+00:19:43,786 --> 0:19:45,716
+data model is the existing
+
+508
+00:19:45,716 --> 0:19:47,656
+outside of our SwiftUI
+
+509
+00:19:47,656 --> 0:19:48,126
+framework.
+
+510
+00:19:48,766 --> 0:19:50,846
+And this means if there are any
+
+511
+00:19:50,846 --> 0:19:52,116
+changes to our data model
+
+512
+00:19:52,456 --> 0:19:53,736
+perhaps from the cloud or even
+
+513
+00:19:53,736 --> 0:19:55,756
+from the user, SwiftUI doesn't
+
+514
+00:19:55,756 --> 0:19:57,406
+know about it and it won't
+
+515
+00:19:57,406 --> 0:20:00,946
+re-render with our data content.
+
+516
+00:19:57,406 --> 0:20:00,946
+re-render with our data content.
+
+517
+00:20:01,046 --> 0:20:03,006
+Our solution for this is the
+
+518
+00:20:03,006 --> 0:20:05,226
+BindableObject data protocol.
+
+519
+00:20:05,946 --> 0:20:07,026
+And it's a really simple
+
+520
+00:20:07,026 --> 0:20:07,566
+protocol.
+
+521
+00:20:07,566 --> 0:20:09,576
+All you have to do is vend one
+
+522
+00:20:09,876 --> 0:20:10,976
+didChange publisher.
+
+523
+00:20:14,446 --> 0:20:16,196
+Once you implement the didChange
+
+524
+00:20:16,616 --> 0:20:18,426
+property and you are conforming
+
+525
+00:20:18,426 --> 0:20:19,946
+to the BindableObject protocol
+
+526
+00:20:20,586 --> 0:20:22,166
+in your SwiftUI view where
+
+527
+00:20:22,166 --> 0:20:23,656
+previously we were just
+
+528
+00:20:23,656 --> 0:20:25,866
+referencing our data model, we
+
+529
+00:20:25,866 --> 0:20:28,396
+can now use the @ObjectBinding
+
+530
+00:20:28,516 --> 0:20:28,916
+wrapper.
+
+531
+00:20:30,176 --> 0:20:32,016
+This allows SwiftUI to see that
+
+532
+00:20:32,016 --> 0:20:33,356
+we're referencing a
+
+533
+00:20:33,356 --> 0:20:35,286
+BindableObject and then it knows
+
+534
+00:20:35,286 --> 0:20:36,506
+that it can subscribe to it for
+
+535
+00:20:36,506 --> 0:20:37,006
+this view.
+
+536
+00:20:37,886 --> 0:20:38,946
+And now whenever your data
+
+537
+00:20:38,946 --> 0:20:40,976
+changes, the didChange publisher
+
+538
+00:20:40,976 --> 0:20:42,516
+will emit to all of its
+
+539
+00:20:43,146 --> 0:20:44,816
+subscribers that something in
+
+540
+00:20:44,816 --> 0:20:45,876
+the data has changed.
+
+541
+00:20:46,076 --> 0:20:47,086
+And of course, one of those
+
+542
+00:20:47,086 --> 0:20:48,606
+subscribers is SwiftUI.
+
+543
+00:20:49,346 --> 0:20:50,756
+And now SwiftUI automatically
+
+544
+00:20:50,756 --> 0:20:52,056
+knows which views were
+
+545
+00:20:52,056 --> 0:20:53,686
+referencing your data model and
+
+546
+00:20:53,686 --> 0:20:54,576
+need to be updated.
+
+547
+00:20:56,006 --> 0:20:59,416
+In addition, we can use the
+
+548
+00:20:59,416 --> 0:21:02,156
+dollar prefix with data and we
+
+549
+00:20:59,416 --> 0:21:02,156
+dollar prefix with data and we
+
+550
+00:21:02,156 --> 0:21:04,806
+can use a binding to our data
+
+551
+00:21:04,806 --> 0:21:05,136
+model.
+
+552
+00:21:05,206 --> 0:21:06,806
+And this would allow us to have
+
+553
+00:21:07,156 --> 0:21:09,826
+rewrite access directly top our
+
+554
+00:21:10,406 --> 0:21:11,416
+data model.
+
+555
+00:21:11,536 --> 0:21:12,956
+So now, whenever we make changes
+
+556
+00:21:12,956 --> 0:21:14,796
+perhaps in a text field, those
+
+557
+00:21:14,796 --> 0:21:16,246
+changes are updated directly in
+
+558
+00:21:16,246 --> 0:21:16,806
+our data model.
+
+559
+00:21:16,866 --> 0:21:20,396
+So as you can see, the
+
+560
+00:21:20,396 --> 0:21:22,036
+BindableObecject protocol is
+
+561
+00:21:22,036 --> 0:21:22,726
+very simple.
+
+562
+00:21:22,936 --> 0:21:24,296
+Again, just one property that
+
+563
+00:21:24,296 --> 0:21:25,076
+you have to implement.
+
+564
+00:21:25,636 --> 0:21:27,036
+And it's incredibly flexible.
+
+565
+00:21:28,036 --> 0:21:29,436
+We've designed it so that there
+
+566
+00:21:29,436 --> 0:21:30,716
+are number of publishers that
+
+567
+00:21:30,716 --> 0:21:32,566
+will work with whatever kind of
+
+568
+00:21:32,566 --> 0:21:34,076
+notification system you're using
+
+569
+00:21:34,516 --> 0:21:35,836
+to note changes occurring in
+
+570
+00:21:35,836 --> 0:21:36,466
+your data model.
+
+571
+00:21:37,816 --> 0:21:39,006
+And the key point here is that
+
+572
+00:21:39,006 --> 0:21:39,866
+we want to make sure that your
+
+573
+00:21:39,866 --> 0:21:41,346
+data model remains the single
+
+574
+00:21:41,346 --> 0:21:43,006
+source of truth for data in your
+
+575
+00:21:43,006 --> 0:21:43,646
+application.
+
+576
+00:21:44,226 --> 0:21:46,326
+And this is very important in
+
+577
+00:21:46,326 --> 0:21:46,826
+SwiftUI.
+
+578
+00:21:48,046 --> 0:21:49,546
+We always want either your data
+
+579
+00:21:49,546 --> 0:21:50,876
+model or any state that you have
+
+580
+00:21:50,876 --> 0:21:52,436
+in SwiftUI to only have a single
+
+581
+00:21:52,436 --> 0:21:53,106
+source of truth.
+
+582
+00:21:54,476 --> 0:21:56,156
+Combined with the declarative
+
+583
+00:21:56,156 --> 0:21:58,126
+view hierarchy, this eliminates
+
+584
+00:21:58,126 --> 0:21:59,146
+the need to write view
+
+585
+00:21:59,146 --> 0:22:01,326
+controllers to synchronize data.
+
+586
+00:21:59,146 --> 0:22:01,326
+controllers to synchronize data.
+
+587
+00:22:01,506 --> 0:22:06,526
+Now, let's see it in a demo.
+
+588
+00:22:07,196 --> 0:22:10,216
+When Tanu came up to me and she
+
+589
+00:22:10,216 --> 0:22:11,776
+told me about her plants idea, I
+
+590
+00:22:12,346 --> 0:22:13,486
+was extremely excited.
+
+591
+00:22:14,366 --> 0:22:15,786
+And I wanted to jump onboard and
+
+592
+00:22:15,786 --> 0:22:17,186
+help out and I wanted to start
+
+593
+00:22:17,186 --> 0:22:18,396
+writing the Mac application
+
+594
+00:22:18,396 --> 0:22:18,756
+version.
+
+595
+00:22:19,416 --> 0:22:21,316
+So we started writing the
+
+596
+00:22:21,316 --> 0:22:21,926
+application.
+
+597
+00:22:21,926 --> 0:22:23,756
+She was working on the iOS
+
+598
+00:22:23,756 --> 0:22:24,856
+version and I was working on the
+
+599
+00:22:24,856 --> 0:22:25,486
+Mac version.
+
+600
+00:22:26,096 --> 0:22:27,376
+And we got to the same point.
+
+601
+00:22:27,376 --> 0:22:29,206
+And when we saw at SwiftUI come
+
+602
+00:22:29,206 --> 0:22:31,516
+out and we were amazed because
+
+603
+00:22:31,516 --> 0:22:32,796
+we were able to move so quickly
+
+604
+00:22:33,206 --> 0:22:35,086
+with the SwiftUI and write our
+
+605
+00:22:35,086 --> 0:22:37,316
+details view.
+
+606
+00:22:39,736 --> 0:22:42,566
+So here we are running the same
+
+607
+00:22:42,566 --> 0:22:44,456
+application but now on the Mac.
+
+608
+00:22:46,056 --> 0:22:48,356
+So here I have an NSTableView on
+
+609
+00:22:48,356 --> 0:22:49,926
+the left and we have the same
+
+610
+00:22:49,926 --> 0:22:51,416
+details view on the right.
+
+611
+00:22:52,106 --> 0:22:54,966
+But now we want to go a step
+
+612
+00:22:54,996 --> 0:22:55,946
+further and really integrate
+
+613
+00:22:55,946 --> 0:22:57,676
+this with our data model so that
+
+614
+00:22:57,676 --> 0:22:59,136
+we can make changes in our
+
+615
+00:22:59,136 --> 0:23:00,336
+details view and have that
+
+616
+00:22:59,136 --> 0:23:00,336
+details view and have that
+
+617
+00:23:00,496 --> 0:23:01,696
+reflected in our data model.
+
+618
+00:23:03,036 --> 0:23:03,916
+Here's our data model.
+
+619
+00:23:04,346 --> 0:23:05,446
+And you can see it's a really
+
+620
+00:23:05,446 --> 0:23:06,306
+simple data model.
+
+621
+00:23:10,896 --> 0:23:13,066
+All we have is an array of
+
+622
+00:23:13,116 --> 0:23:13,536
+plants.
+
+623
+00:23:13,706 --> 0:23:14,976
+Well, what I really want to
+
+624
+00:23:14,976 --> 0:23:18,126
+point out is that whenever the
+
+625
+00:23:18,356 --> 0:23:21,096
+plants change, we're issuing a
+
+626
+00:23:21,096 --> 0:23:22,706
+PlantsDidChange notification.
+
+627
+00:23:23,376 --> 0:23:24,896
+And we're doing this so that the
+
+628
+00:23:24,896 --> 0:23:26,516
+table view in our view
+
+629
+00:23:26,516 --> 0:23:27,826
+controller can listen for this
+
+630
+00:23:27,826 --> 0:23:29,276
+and know to reload data in table
+
+631
+00:23:29,276 --> 0:23:29,496
+view.
+
+632
+00:23:30,376 --> 0:23:31,916
+But since we're already posting
+
+633
+00:23:32,376 --> 0:23:34,146
+a notification, we're going to
+
+634
+00:23:34,146 --> 0:23:36,696
+use that to implement a
+
+635
+00:23:36,696 --> 0:23:38,406
+didChange BindableOBject.
+
+636
+00:23:38,976 --> 0:23:42,446
+So here's our implementation of
+
+637
+00:23:42,446 --> 0:23:42,986
+didChange.
+
+638
+00:23:42,986 --> 0:23:44,226
+We're using a NotificationCenter
+
+639
+00:23:44,226 --> 0:23:45,476
+publisher for the
+
+640
+00:23:45,476 --> 0:23:46,426
+PlantsDidChange.
+
+641
+00:23:46,426 --> 0:23:47,626
+And we're using self as the
+
+642
+00:23:47,626 --> 0:23:48,906
+object that we want to watch.
+
+643
+00:23:49,856 --> 0:23:50,996
+Now, I do want to point out one
+
+644
+00:23:50,996 --> 0:23:52,646
+more thing real quick, changes
+
+645
+00:23:53,296 --> 0:23:56,306
+to your data need to be informed
+
+646
+00:23:56,306 --> 0:23:57,916
+that a change was needed to be
+
+647
+00:23:57,916 --> 0:23:59,556
+told to SwiftUI on the main
+
+648
+00:23:59,556 --> 0:23:59,906
+thread.
+
+649
+00:24:00,056 --> 0:24:01,176
+So we're using the receive(on)
+
+650
+00:24:01,176 --> 0:24:02,546
+operator to make sure that our
+
+651
+00:24:02,546 --> 0:24:03,896
+publisher emits to all of its
+
+652
+00:24:03,896 --> 0:24:05,056
+subscribers on the main thread.
+
+653
+00:24:05,666 --> 0:24:08,016
+Now that our data model us in
+
+654
+00:24:08,016 --> 0:24:10,006
+place, we can move to a details
+
+655
+00:24:10,006 --> 0:24:10,306
+view.
+
+656
+00:24:10,306 --> 0:24:12,286
+And here you can see where we
+
+657
+00:24:12,286 --> 0:24:13,466
+were referencing our
+
+658
+00:24:13,466 --> 0:24:14,376
+PlantsDataModel.
+
+659
+00:24:15,476 --> 0:24:17,646
+Now, we can simply add our
+
+660
+00:24:21,656 --> 0:24:23,086
+ObjectBinding.
+
+661
+00:24:23,616 --> 0:24:26,786
+And now that we're using the
+
+662
+00:24:26,786 --> 0:24:28,406
+ObjectBinding wrapping, we're
+
+663
+00:24:28,406 --> 0:24:30,286
+going to go down to where we
+
+664
+00:24:30,286 --> 0:24:32,076
+have -- already on isEditing
+
+665
+00:24:32,076 --> 0:24:33,146
+state but we're currently using
+
+666
+00:24:33,146 --> 0:24:33,836
+an EmptyView.
+
+667
+00:24:34,406 --> 0:24:36,796
+But I've already written in
+
+668
+00:24:36,796 --> 0:24:38,536
+EditablePlantsView and what I
+
+669
+00:24:38,536 --> 0:24:39,736
+want to point out is here we're
+
+670
+00:24:39,736 --> 0:24:41,606
+using the dollar prefix so that
+
+671
+00:24:41,606 --> 0:24:43,026
+we can get a binding to a
+
+672
+00:24:43,026 --> 0:24:45,106
+specific plant index.
+
+673
+00:24:46,296 --> 0:24:47,346
+Now, we'll rerun our
+
+674
+00:24:47,346 --> 0:24:48,006
+application.
+
+675
+00:24:48,536 --> 0:24:53,216
+And now with that simple change,
+
+676
+00:24:53,706 --> 0:24:54,556
+we could -- still works as
+
+677
+00:24:54,556 --> 0:24:55,716
+before and when we click the
+
+678
+00:24:55,716 --> 0:24:57,976
+Edit button, we can now edit the
+
+679
+00:24:57,976 --> 0:24:59,286
+various properties.
+
+680
+00:24:59,286 --> 0:25:00,156
+And you can see that the table
+
+681
+00:24:59,286 --> 0:25:00,156
+And you can see that the table
+
+682
+00:25:00,156 --> 0:25:02,016
+view updated right away and, you
+
+683
+00:25:02,016 --> 0:25:03,076
+know, I really like the Hawaiian
+
+684
+00:25:03,076 --> 0:25:04,066
+hibiscus so I'm going to set it
+
+685
+00:25:04,066 --> 0:25:04,816
+to 5 stars.
+
+686
+00:25:05,106 --> 0:25:06,366
+So now we've updated the data
+
+687
+00:25:06,566 --> 0:25:08,256
+directly on our data model and
+
+688
+00:25:08,656 --> 0:25:09,976
+we could get back to it anytime.
+
+689
+00:25:12,516 --> 0:25:16,500
+[ Applause ]
+
+690
+00:25:22,376 --> 0:25:23,806
+So as you saw in that demo, I
+
+691
+00:25:23,996 --> 0:25:24,916
+was already using a
+
+692
+00:25:24,916 --> 0:25:26,266
+NotificationCenter so I just
+
+693
+00:25:26,266 --> 0:25:27,146
+simply used the
+
+694
+00:25:27,146 --> 0:25:28,476
+NotificationCenter publisher.
+
+695
+00:25:29,326 --> 0:25:30,206
+But we have other types of
+
+696
+00:25:30,206 --> 0:25:31,126
+publishers as well.
+
+697
+00:25:31,336 --> 0:25:33,566
+For example, key value observing
+
+698
+00:25:33,566 --> 0:25:34,116
+publishers.
+
+699
+00:25:36,256 --> 0:25:38,896
+Any object that is KVO compliant
+
+700
+00:25:39,296 --> 0:25:40,616
+has a key value observing
+
+701
+00:25:40,786 --> 0:25:41,226
+publisher.
+
+702
+00:25:41,326 --> 0:25:42,436
+And you can acquire it by just
+
+703
+00:25:42,436 --> 0:25:45,016
+using the publisher for key path
+
+704
+00:25:45,016 --> 0:25:45,386
+function.
+
+705
+00:25:46,496 --> 0:25:47,326
+But let's look at a little bit
+
+706
+00:25:47,326 --> 0:25:48,956
+more interesting example.
+
+707
+00:25:49,126 --> 0:25:51,626
+In this example, I have a class
+
+708
+00:25:51,626 --> 0:25:53,456
+that's watching the user default
+
+709
+00:25:53,916 --> 0:25:55,526
+for a couple of changes in the
+
+710
+00:25:55,526 --> 0:25:56,236
+user defaults.
+
+711
+00:25:56,836 --> 0:25:59,876
+And the interesting part is
+
+712
+00:25:59,876 --> 0:26:02,316
+here, we're creating a publisher
+
+713
+00:25:59,876 --> 0:26:02,316
+here, we're creating a publisher
+
+714
+00:26:02,316 --> 0:26:03,606
+for each user default.
+
+715
+00:26:03,606 --> 0:26:05,006
+One for userOption1 and one for
+
+716
+00:26:05,006 --> 0:26:07,526
+userOption2, but we're merging
+
+717
+00:26:07,526 --> 0:26:09,136
+them together into a single
+
+718
+00:26:09,136 --> 0:26:12,196
+publisher that we apply to our
+
+719
+00:26:12,196 --> 0:26:13,546
+didChange property.
+
+720
+00:26:14,816 --> 0:26:16,846
+So now, whenever either
+
+721
+00:26:16,846 --> 0:26:18,446
+userOption1 changes or
+
+722
+00:26:18,446 --> 0:26:21,246
+userOption2 changes, our
+
+723
+00:26:21,246 --> 0:26:23,266
+didChange combined publisher
+
+724
+00:26:23,966 --> 0:26:25,406
+will emit the change at SwiftUI
+
+725
+00:26:25,406 --> 0:26:26,756
+and SwiftUI will go ahead and
+
+726
+00:26:26,756 --> 0:26:27,546
+update our views.
+
+727
+00:26:28,136 --> 0:26:31,196
+All these publishers come
+
+728
+00:26:31,196 --> 0:26:32,466
+courtesy of the combined
+
+729
+00:26:32,496 --> 0:26:33,616
+framework and there are many
+
+730
+00:26:33,616 --> 0:26:34,606
+more publishers there that you
+
+731
+00:26:34,606 --> 0:26:35,056
+can look at.
+
+732
+00:26:35,056 --> 0:26:36,686
+And the combined framework is a
+
+733
+00:26:36,686 --> 0:26:38,546
+great new framework that is a
+
+734
+00:26:38,546 --> 0:26:39,996
+unified declarative API for
+
+735
+00:26:39,996 --> 0:26:41,616
+processing values over time.
+
+736
+00:26:44,246 --> 0:26:46,046
+In addition to the publishers as
+
+737
+00:26:46,046 --> 0:26:47,316
+you saw with the merge operator,
+
+738
+00:26:47,316 --> 0:26:48,266
+there are a number of different
+
+739
+00:26:48,266 --> 0:26:50,966
+operators to do complex merging
+
+740
+00:26:51,006 --> 0:26:52,296
+or zipping together of various
+
+741
+00:26:52,296 --> 0:26:52,866
+publishers.
+
+742
+00:26:54,326 --> 0:26:55,876
+I really suggest that you watch
+
+743
+00:26:56,126 --> 0:26:57,926
+the Combine in Practice talk.
+
+744
+00:26:58,496 --> 0:27:00,766
+However, I do want to point out
+
+745
+00:26:58,496 --> 0:27:00,766
+However, I do want to point out
+
+746
+00:27:01,166 --> 0:27:03,996
+one more specific publisher and
+
+747
+00:27:03,996 --> 0:27:05,116
+that's the PassthroughSubject.
+
+748
+00:27:06,666 --> 0:27:08,406
+If you run into a situation with
+
+749
+00:27:08,406 --> 0:27:10,316
+your data model that none of the
+
+750
+00:27:10,316 --> 0:27:11,336
+other publishers from the
+
+751
+00:27:11,336 --> 0:27:13,896
+combine framework work perfectly
+
+752
+00:27:13,896 --> 0:27:16,086
+for your situation, you can use
+
+753
+00:27:16,086 --> 0:27:17,466
+the PassthroughSubject like I
+
+754
+00:27:17,466 --> 0:27:18,896
+did in this core data example.
+
+755
+00:27:19,966 --> 0:27:20,696
+If you have a core data
+
+756
+00:27:20,696 --> 0:27:22,946
+application, then you're already
+
+757
+00:27:22,946 --> 0:27:23,586
+using an
+
+758
+00:27:23,586 --> 0:27:25,276
+NSFetchedResultsController to
+
+759
+00:27:25,276 --> 0:27:26,806
+get a slice of data out of your
+
+760
+00:27:26,806 --> 0:27:27,446
+database.
+
+761
+00:27:27,576 --> 0:27:28,736
+And the
+
+762
+00:27:28,736 --> 0:27:30,596
+NSFetchedResultsController wants
+
+763
+00:27:30,826 --> 0:27:32,086
+you to provide a delegate to
+
+764
+00:27:32,286 --> 0:27:33,086
+help coordinate.
+
+765
+00:27:34,166 --> 0:27:35,586
+And one of the delegate messages
+
+766
+00:27:35,886 --> 0:27:38,306
+that you'll need to implement is
+
+767
+00:27:38,306 --> 0:27:40,546
+the controllerDidChangeContent.
+
+768
+00:27:40,546 --> 0:27:42,766
+And this lets you know when data
+
+769
+00:27:42,766 --> 0:27:43,806
+in the database changes.
+
+770
+00:27:44,066 --> 0:27:44,986
+And when that happens, we need
+
+771
+00:27:44,986 --> 0:27:46,606
+to let SwiftUI know.
+
+772
+00:27:47,326 --> 0:27:48,726
+So we'll simply grab our
+
+773
+00:27:48,726 --> 0:27:50,406
+didChange PassthroughSubject
+
+774
+00:27:50,406 --> 0:27:52,076
+publisher and we'll tell it to
+
+775
+00:27:52,076 --> 0:27:53,466
+manually send the change.
+
+776
+00:27:53,626 --> 0:27:55,146
+And now SwiftUI will see that as
+
+777
+00:27:55,146 --> 0:27:57,136
+one of the subscribers and all
+
+778
+00:27:57,136 --> 0:27:58,536
+of your views will be updated.
+
+779
+00:27:59,176 --> 0:28:02,646
+I focused here on
+
+780
+00:27:59,176 --> 0:28:02,646
+I focused here on
+
+781
+00:28:02,646 --> 0:28:03,526
+BindableObject.
+
+782
+00:28:04,446 --> 0:28:05,756
+But there are number of tools to
+
+783
+00:28:05,756 --> 0:28:07,536
+help you manage data outside and
+
+784
+00:28:07,536 --> 0:28:08,576
+inside of SwiftUI.
+
+785
+00:28:09,436 --> 0:28:11,156
+The Dataflow in SwiftUI is a
+
+786
+00:28:11,156 --> 0:28:12,456
+great talk that goes on to all
+
+787
+00:28:12,456 --> 0:28:14,766
+of these data tools into more
+
+788
+00:28:14,766 --> 0:28:17,096
+detail and also discusses when
+
+789
+00:28:17,096 --> 0:28:18,486
+it is appropriate to use which
+
+790
+00:28:18,486 --> 0:28:18,976
+type of tool.
+
+791
+00:28:22,596 --> 0:28:25,636
+Now of course, integrating with
+
+792
+00:28:25,636 --> 0:28:27,136
+your data model isn't the only
+
+793
+00:28:27,136 --> 0:28:28,196
+thing you need to think about
+
+794
+00:28:28,196 --> 0:28:29,206
+when you're running a SwiftUI
+
+795
+00:28:29,656 --> 0:28:30,166
+interface.
+
+796
+00:28:30,536 --> 0:28:31,456
+You also need to think about
+
+797
+00:28:31,456 --> 0:28:32,496
+integrating with the rest of the
+
+798
+00:28:32,496 --> 0:28:34,536
+system, with drag and drop on
+
+799
+00:28:34,906 --> 0:28:37,246
+iOS and macOS, with tvOS, and
+
+800
+00:28:37,246 --> 0:28:41,106
+with the Digital Crown perhaps
+
+801
+00:28:41,106 --> 0:28:41,716
+on watchOS.
+
+802
+00:28:44,436 --> 0:28:45,866
+So let's start off this talk by
+
+803
+00:28:45,866 --> 0:28:47,296
+talking about item providers.
+
+804
+00:28:48,436 --> 0:28:49,886
+Item providers are a great
+
+805
+00:28:49,886 --> 0:28:51,246
+technology that's provided by
+
+806
+00:28:51,246 --> 0:28:52,946
+the foundation framework which
+
+807
+00:28:52,946 --> 0:28:54,416
+provides you a means of moving
+
+808
+00:28:54,416 --> 0:28:56,136
+data around your application in
+
+809
+00:28:56,136 --> 0:28:57,026
+various forms.
+
+810
+00:28:57,326 --> 0:28:59,446
+It's also a tool that we use to
+
+811
+00:28:59,446 --> 0:29:01,046
+help transfer data across
+
+812
+00:28:59,446 --> 0:29:01,046
+help transfer data across
+
+813
+00:29:01,076 --> 0:29:01,626
+processes.
+
+814
+00:29:02,236 --> 0:29:05,116
+Item providers are basically a
+
+815
+00:29:05,116 --> 0:29:06,636
+collection of universal type
+
+816
+00:29:06,636 --> 0:29:08,326
+identifiers that describe the
+
+817
+00:29:08,436 --> 0:29:10,276
+type of data that your item can
+
+818
+00:29:10,276 --> 0:29:11,286
+be represented as.
+
+819
+00:29:11,286 --> 0:29:12,606
+And then of course you need to
+
+820
+00:29:12,606 --> 0:29:14,446
+provide the data in that type
+
+821
+00:29:14,526 --> 0:29:15,356
+upon request.
+
+822
+00:29:16,656 --> 0:29:18,516
+And remember, earlier on in the
+
+823
+00:29:18,516 --> 0:29:20,196
+demo, I made a point to say that
+
+824
+00:29:20,196 --> 0:29:21,946
+we needed to have data change on
+
+825
+00:29:21,946 --> 0:29:23,426
+the main thread, and item
+
+826
+00:29:23,426 --> 0:29:24,696
+providers are asynchronous.
+
+827
+00:29:25,726 --> 0:29:27,016
+So when you so get data form an
+
+828
+00:29:27,016 --> 0:29:28,106
+item provider, you'll need to
+
+829
+00:29:28,106 --> 0:29:29,006
+make sure that you actually
+
+830
+00:29:29,006 --> 0:29:30,026
+change the data of have your
+
+831
+00:29:30,026 --> 0:29:32,306
+publisher emit on the main
+
+832
+00:29:33,456 --> 0:29:33,686
+thread.
+
+833
+00:29:33,766 --> 0:29:35,226
+We use item providers and drag
+
+834
+00:29:35,226 --> 0:29:35,596
+and drop.
+
+835
+00:29:36,326 --> 0:29:37,416
+So you can use the onDrag
+
+836
+00:29:37,416 --> 0:29:40,746
+modifier to enable your view to
+
+837
+00:29:40,806 --> 0:29:41,856
+be a drag source.
+
+838
+00:29:42,236 --> 0:29:43,196
+So now when a user starts to
+
+839
+00:29:43,196 --> 0:29:44,926
+drag on your view, we will call
+
+840
+00:29:44,926 --> 0:29:46,276
+the closure and you can provide
+
+841
+00:29:46,276 --> 0:29:48,276
+an item provider which will
+
+842
+00:29:49,066 --> 0:29:50,466
+provide the data associated with
+
+843
+00:29:50,466 --> 0:29:52,186
+that view and we'll-- we will
+
+844
+00:29:52,186 --> 0:29:53,536
+automatically take a rendering
+
+845
+00:29:53,536 --> 0:29:55,026
+of your view and use that as the
+
+846
+00:29:55,026 --> 0:29:55,716
+drag image.
+
+847
+00:29:57,076 --> 0:29:59,176
+To accept a drop, you can use
+
+848
+00:29:59,176 --> 0:30:00,276
+the onDrop modifier.
+
+849
+00:29:59,176 --> 0:30:00,276
+the onDrop modifier.
+
+850
+00:30:01,286 --> 0:30:03,516
+With the onDrop modifier, you
+
+851
+00:30:03,516 --> 0:30:05,546
+simply pass an array of
+
+852
+00:30:05,616 --> 0:30:06,866
+universal type identifier
+
+853
+00:30:06,866 --> 0:30:08,906
+strings that describe what kind
+
+854
+00:30:08,906 --> 0:30:10,186
+of data you can accept on your
+
+855
+00:30:10,186 --> 0:30:10,416
+view.
+
+856
+00:30:11,476 --> 0:30:14,106
+And if the user drops data of
+
+857
+00:30:14,106 --> 0:30:15,466
+that type on your view, we will
+
+858
+00:30:15,466 --> 0:30:16,826
+automatically call your action
+
+859
+00:30:17,376 --> 0:30:19,276
+closure and provide an array of
+
+860
+00:30:19,346 --> 0:30:21,006
+item providers that can form to
+
+861
+00:30:21,006 --> 0:30:21,446
+that type.
+
+862
+00:30:21,446 --> 0:30:23,456
+And of course we'll also tell
+
+863
+00:30:23,456 --> 0:30:25,506
+you exactly the point inside
+
+864
+00:30:25,506 --> 0:30:26,396
+your view that the drop
+
+865
+00:30:26,396 --> 0:30:26,746
+occurred.
+
+866
+00:30:27,896 --> 0:30:29,146
+There's another variant of the
+
+867
+00:30:29,146 --> 0:30:31,636
+onDrop modifier, one that takes
+
+868
+00:30:31,636 --> 0:30:33,876
+a delegate instead of a drop
+
+869
+00:30:33,876 --> 0:30:34,286
+closure.
+
+870
+00:30:34,906 --> 0:30:36,016
+And the delegate gives you a
+
+871
+00:30:36,016 --> 0:30:37,516
+little bit more visibility into
+
+872
+00:30:37,516 --> 0:30:39,326
+the drop process as it's moving
+
+873
+00:30:39,326 --> 0:30:40,046
+around in your views.
+
+874
+00:30:40,046 --> 0:30:41,026
+For example, you can get a
+
+875
+00:30:41,026 --> 0:30:42,756
+cursor location before the user
+
+876
+00:30:42,756 --> 0:30:45,086
+actually lets go and commits to
+
+877
+00:30:45,086 --> 0:30:46,446
+the drop action.
+
+878
+00:30:48,156 --> 0:30:50,166
+We also use item providers with
+
+879
+00:30:50,166 --> 0:30:50,786
+the pasteboard.
+
+880
+00:30:51,876 --> 0:30:53,976
+So if you want to accept a paste
+
+881
+00:30:53,976 --> 0:30:55,466
+command for example, you can use
+
+882
+00:30:55,466 --> 0:30:56,936
+the onPaste command modifier.
+
+883
+00:30:58,486 --> 0:31:00,946
+Similar to the onDrop modifier,
+
+884
+00:30:58,486 --> 0:31:00,946
+Similar to the onDrop modifier,
+
+885
+00:31:00,946 --> 0:31:03,306
+you supply an array of universal
+
+886
+00:31:03,306 --> 0:31:05,136
+type identifiers that you can
+
+887
+00:31:05,136 --> 0:31:06,706
+accept and when the user paste
+
+888
+00:31:06,706 --> 0:31:07,916
+on your view, we will go ahead
+
+889
+00:31:07,916 --> 0:31:09,066
+and provide an array of item
+
+890
+00:31:09,066 --> 0:31:09,616
+providers.
+
+891
+00:31:10,526 --> 0:31:11,516
+However, I want to point out
+
+892
+00:31:12,376 --> 0:31:13,366
+something that really makes
+
+893
+00:31:13,406 --> 0:31:15,856
+onPaste different than onDrop.
+
+894
+00:31:17,446 --> 0:31:18,686
+The first part is that there's
+
+895
+00:31:18,686 --> 0:31:20,936
+no location parameter in the
+
+896
+00:31:20,936 --> 0:31:21,386
+closure.
+
+897
+00:31:21,876 --> 0:31:22,946
+And that's a key to what's
+
+898
+00:31:22,946 --> 0:31:23,786
+really going on here.
+
+899
+00:31:24,956 --> 0:31:27,236
+When you do drag and drop, user
+
+900
+00:31:27,236 --> 0:31:28,906
+is directly targeting via the
+
+901
+00:31:28,906 --> 0:31:31,186
+cursor or the touch location
+
+902
+00:31:31,186 --> 0:31:32,266
+which view should accept the
+
+903
+00:31:32,266 --> 0:31:35,326
+drop but a paste command is more
+
+904
+00:31:35,326 --> 0:31:35,836
+indirect.
+
+905
+00:31:36,316 --> 0:31:37,756
+The user is either choosing
+
+906
+00:31:37,756 --> 0:31:39,796
+paste from the menu or is
+
+907
+00:31:40,146 --> 0:31:41,056
+perhaps using a keyboard
+
+908
+00:31:41,056 --> 0:31:42,216
+shortcut or the great new
+
+909
+00:31:42,216 --> 0:31:44,446
+gestures that exist in iOS.
+
+910
+00:31:46,456 --> 0:31:47,986
+The way we solve the problem of
+
+911
+00:31:48,086 --> 0:31:49,886
+knowing which view that the
+
+912
+00:31:49,886 --> 0:31:51,686
+paste command should go to is
+
+913
+00:31:51,686 --> 0:31:52,626
+with the focus system.
+
+914
+00:31:53,556 --> 0:31:55,296
+And the focus system is a very
+
+915
+00:31:55,296 --> 0:31:57,036
+important tool that we have that
+
+916
+00:31:57,236 --> 0:31:59,686
+the users use to navigate the
+
+917
+00:31:59,686 --> 0:32:01,636
+various UI elements and inform
+
+918
+00:31:59,686 --> 0:32:01,636
+various UI elements and inform
+
+919
+00:32:01,636 --> 0:32:04,146
+us where not specifically
+
+920
+00:32:04,146 --> 0:32:05,896
+directed actions should go.
+
+921
+00:32:06,576 --> 0:32:10,736
+It's very useful on the Mac of
+
+922
+00:32:10,786 --> 0:32:13,026
+course for keyboard input, menu
+
+923
+00:32:13,026 --> 0:32:16,026
+action commands, in iOS for
+
+924
+00:32:16,346 --> 0:32:17,766
+keyboard commands there, and
+
+925
+00:32:17,766 --> 0:32:19,466
+additionally, the new gestures
+
+926
+00:32:19,696 --> 0:32:23,236
+for copy-paste and undo and
+
+927
+00:32:24,896 --> 0:32:25,046
+redo.
+
+928
+00:32:25,206 --> 0:32:27,706
+It's extremely important on tvOS
+
+929
+00:32:28,226 --> 0:32:29,906
+where the focus is how we can
+
+930
+00:32:29,906 --> 0:32:31,276
+determine where the user wants
+
+931
+00:32:31,696 --> 0:32:33,236
+the Siri Remote button actions
+
+932
+00:32:33,286 --> 0:32:35,036
+to be performed on.
+
+933
+00:32:35,636 --> 0:32:38,736
+And for watchOS, we use focus to
+
+934
+00:32:38,736 --> 0:32:40,106
+determine where to send Digital
+
+935
+00:32:40,106 --> 0:32:41,466
+Crown events.
+
+936
+00:32:44,076 --> 0:32:46,246
+The way this works, is you have
+
+937
+00:32:46,246 --> 0:32:47,626
+your view hierarchy and at some
+
+938
+00:32:47,676 --> 0:32:49,876
+point one of your views is going
+
+939
+00:32:49,876 --> 0:32:51,146
+to be the focus view.
+
+940
+00:32:51,896 --> 0:32:53,166
+And when the user performs an
+
+941
+00:32:53,606 --> 0:32:55,266
+indirect action like turning the
+
+942
+00:32:55,266 --> 0:32:58,026
+Digital Crown, we check to see
+
+943
+00:32:58,156 --> 0:33:00,846
+if the focus view has a view
+
+944
+00:32:58,156 --> 0:33:00,846
+if the focus view has a view
+
+945
+00:33:00,846 --> 0:33:02,356
+modifier for that kind of
+
+946
+00:33:02,356 --> 0:33:02,746
+command.
+
+947
+00:33:02,746 --> 0:33:03,786
+In this case, the Digital Crown
+
+948
+00:33:03,786 --> 0:33:04,166
+command.
+
+949
+00:33:04,866 --> 0:33:06,286
+If it does, we'll go ahead and
+
+950
+00:33:06,286 --> 0:33:07,356
+call the appropriate closure.
+
+951
+00:33:08,076 --> 0:33:10,096
+If not, we walk up the ancestors
+
+952
+00:33:10,096 --> 0:33:12,136
+to try and find another-- an
+
+953
+00:33:12,136 --> 0:33:13,936
+ancestor view that has the
+
+954
+00:33:14,266 --> 0:33:16,576
+Digital Crown command and call
+
+955
+00:33:16,576 --> 0:33:18,126
+the appropriate closure.
+
+956
+00:33:18,996 --> 0:33:20,696
+SwiftUI also goes ahead and
+
+957
+00:33:20,696 --> 0:33:23,776
+takes care of moving focus from
+
+958
+00:33:23,776 --> 0:33:24,916
+one view to another
+
+959
+00:33:25,856 --> 0:33:27,486
+appropriately on each platform.
+
+960
+00:33:28,676 --> 0:33:30,696
+The only thing you need to do is
+
+961
+00:33:30,696 --> 0:33:32,426
+let us know which of your
+
+962
+00:33:32,426 --> 0:33:34,106
+SwiftUI views can gain focus.
+
+963
+00:33:34,456 --> 0:33:35,236
+And you do that via the
+
+964
+00:33:35,236 --> 0:33:36,256
+focususable modifier.
+
+965
+00:33:37,566 --> 0:33:40,076
+With the exception of our leaf
+
+966
+00:33:40,076 --> 0:33:43,286
+controls like text fields, UI--
+
+967
+00:33:44,116 --> 0:33:46,506
+SwiftUI views do not gain focus
+
+968
+00:33:46,506 --> 0:33:47,076
+by default.
+
+969
+00:33:47,076 --> 0:33:47,786
+So you'll need to use the
+
+970
+00:33:47,786 --> 0:33:48,996
+focususable modifier and
+
+971
+00:33:48,996 --> 0:33:50,196
+Passthrough to let us know that
+
+972
+00:33:50,416 --> 0:33:51,626
+this view can gain focus.
+
+973
+00:33:52,806 --> 0:33:54,366
+You can optionally pass a
+
+974
+00:33:54,366 --> 0:33:56,326
+closure that we will call to let
+
+975
+00:33:56,326 --> 0:33:57,706
+you know when your view gains or
+
+976
+00:33:57,706 --> 0:33:59,586
+loses focus and you can use this
+
+977
+00:33:59,896 --> 0:34:02,936
+to update your UI to give visual
+
+978
+00:33:59,896 --> 0:34:02,936
+to update your UI to give visual
+
+979
+00:34:02,936 --> 0:34:04,206
+feedback to the user to let them
+
+980
+00:34:04,206 --> 0:34:04,416
+know.
+
+981
+00:34:05,016 --> 0:34:07,666
+We have a number of commands
+
+982
+00:34:07,666 --> 0:34:09,835
+like onExit and onPLayPause.
+
+983
+00:34:09,956 --> 0:34:12,716
+These are examples from the tvOS
+
+984
+00:34:12,716 --> 0:34:13,806
+when using the Siri Remote.
+
+985
+00:34:14,646 --> 0:34:15,485
+But the one I really want to
+
+986
+00:34:15,485 --> 0:34:17,306
+talk about right now is the
+
+987
+00:34:17,306 --> 0:34:18,946
+generic onCommand modifier.
+
+988
+00:34:19,786 --> 0:34:23,196
+This is what you use to direct
+
+989
+00:34:23,775 --> 0:34:26,106
+actions from Objective-C-style
+
+990
+00:34:26,525 --> 0:34:28,846
+action selectors from menus for
+
+991
+00:34:28,846 --> 0:34:29,846
+example that are wired to the
+
+992
+00:34:29,846 --> 0:34:31,485
+first responder or Toolbar
+
+993
+00:34:31,485 --> 0:34:33,315
+buttons that are likewise wired
+
+994
+00:34:33,315 --> 0:34:34,156
+to the first responder.
+
+995
+00:34:34,516 --> 0:34:35,956
+And again, this is how you would
+
+996
+00:34:36,286 --> 0:34:37,626
+also use this on iOS.
+
+997
+00:34:38,806 --> 0:34:39,996
+And they're chainable.
+
+998
+00:34:40,235 --> 0:34:42,366
+So if your view can accept three
+
+999
+00:34:42,366 --> 0:34:44,446
+menu items for example, you
+
+1000
+00:34:44,446 --> 0:34:46,096
+would also have three onCommand
+
+1001
+00:34:46,096 --> 0:34:47,726
+modifiers attached to your view
+
+1002
+00:34:47,726 --> 0:34:49,106
+with each having the appropriate
+
+1003
+00:34:49,106 --> 0:34:49,536
+selector.
+
+1004
+00:34:50,126 --> 0:34:53,386
+Now, I know all of your
+
+1005
+00:34:53,386 --> 0:34:54,876
+applications out there already
+
+1006
+00:34:54,876 --> 0:34:56,536
+have great undo and redo
+
+1007
+00:34:56,536 --> 0:34:56,956
+support.
+
+1008
+00:34:57,196 --> 0:34:59,636
+And in SwiftUI, we use the same
+
+1009
+00:34:59,636 --> 0:35:01,236
+UndoManager that you're already
+
+1010
+00:34:59,636 --> 0:35:01,236
+UndoManager that you're already
+
+1011
+00:35:01,236 --> 0:35:01,666
+using.
+
+1012
+00:35:02,206 --> 0:35:05,786
+And it turns out that in most
+
+1013
+00:35:05,786 --> 0:35:07,296
+cases when you add new SwiftUI
+
+1014
+00:35:07,456 --> 0:35:09,136
+to your application, you don't
+
+1015
+00:35:09,136 --> 0:35:11,206
+need to do anything new with the
+
+1016
+00:35:11,206 --> 0:35:11,946
+UndoManager.
+
+1017
+00:35:12,406 --> 0:35:14,106
+This is especially true if most
+
+1018
+00:35:14,106 --> 0:35:15,416
+of your undo registrations are
+
+1019
+00:35:15,416 --> 0:35:16,686
+being done at a lower level
+
+1020
+00:35:16,686 --> 0:35:17,636
+closer to your data model.
+
+1021
+00:35:18,926 --> 0:35:21,116
+However, if you do need access
+
+1022
+00:35:21,166 --> 0:35:23,026
+to the UndoManager, you can get
+
+1023
+00:35:23,026 --> 0:35:24,886
+it using the Environment
+
+1024
+00:35:24,916 --> 0:35:26,496
+property wrapper with the
+
+1025
+00:35:26,496 --> 0:35:27,426
+UndoManager key path.
+
+1026
+00:35:32,816 --> 0:35:35,146
+Now SwiftUI is obviously a Swift
+
+1027
+00:35:35,146 --> 0:35:38,636
+based API, but we know that you
+
+1028
+00:35:38,636 --> 0:35:39,556
+already have a lot of
+
+1029
+00:35:39,556 --> 0:35:40,816
+Objective-C code out there.
+
+1030
+00:35:41,586 --> 0:35:43,726
+And Objective-C in Swift already
+
+1031
+00:35:43,726 --> 0:35:45,486
+can be integrated together quite
+
+1032
+00:35:45,486 --> 0:35:45,916
+well.
+
+1033
+00:35:46,996 --> 0:35:48,406
+And likewise, you can use
+
+1034
+00:35:48,406 --> 0:35:49,726
+SwiftUI with your Objective-C
+
+1035
+00:35:49,726 --> 0:35:50,356
+code as well.
+
+1036
+00:35:51,536 --> 0:35:53,046
+The standard Objective-C/Swift
+
+1037
+00:35:53,046 --> 0:35:55,206
+integration rules apply, and
+
+1038
+00:35:55,206 --> 0:35:56,616
+basically, what that means as it
+
+1039
+00:35:56,616 --> 0:35:59,056
+concerns SwiftUI is that you'll
+
+1040
+00:35:59,056 --> 0:36:00,166
+need to wrap your hosting
+
+1041
+00:35:59,056 --> 0:36:00,166
+need to wrap your hosting
+
+1042
+00:36:00,166 --> 0:36:01,266
+controllers or your hosting
+
+1043
+00:36:01,266 --> 0:36:02,796
+views in Swift.
+
+1044
+00:36:03,416 --> 0:36:05,796
+In this case, I'm going to wrap
+
+1045
+00:36:05,796 --> 0:36:07,786
+a hosting controller and I'll
+
+1046
+00:36:07,786 --> 0:36:09,266
+make a subclass of
+
+1047
+00:36:09,266 --> 0:36:11,466
+UIViewController and I give it
+
+1048
+00:36:11,756 --> 0:36:13,676
+the at Objective-C attribute.
+
+1049
+00:36:14,096 --> 0:36:15,316
+This will allow us to later
+
+1050
+00:36:15,496 --> 0:36:17,386
+instantiate these Swift class
+
+1051
+00:36:17,636 --> 0:36:18,676
+from within our Objective-C
+
+1052
+00:36:18,676 --> 0:36:19,636
+implementation file.
+
+1053
+00:36:20,186 --> 0:36:22,896
+And now, inside of our Swift
+
+1054
+00:36:22,896 --> 0:36:24,276
+implementation, we can
+
+1055
+00:36:24,386 --> 0:36:25,256
+instantiate a
+
+1056
+00:36:25,256 --> 0:36:27,946
+UIHostingController and pass it
+
+1057
+00:36:27,946 --> 0:36:29,516
+in appropriate SwiftUI RootView.
+
+1058
+00:36:30,066 --> 0:36:32,606
+Now that we have a
+
+1059
+00:36:32,606 --> 0:36:34,246
+UIViewController, we can go
+
+1060
+00:36:34,246 --> 0:36:35,626
+ahead and use it from or
+
+1061
+00:36:35,626 --> 0:36:37,206
+Objective-C implementation files
+
+1062
+00:36:37,206 --> 0:36:38,036
+like we would in the other
+
+1063
+00:36:38,036 --> 0:36:39,046
+UIViewController.
+
+1064
+00:36:39,286 --> 0:36:40,206
+In this example, we're just
+
+1065
+00:36:40,206 --> 0:36:41,346
+presenting it.
+
+1066
+00:36:43,396 --> 0:36:44,936
+Similarly, you'll need to wrap
+
+1067
+00:36:44,936 --> 0:36:46,066
+your data model as well.
+
+1068
+00:36:47,446 --> 0:36:48,796
+And we do that so that we can
+
+1069
+00:36:48,796 --> 0:36:50,106
+implement the BindabelObject
+
+1070
+00:36:50,146 --> 0:36:50,596
+protocol.
+
+1071
+00:36:51,716 --> 0:36:52,986
+So here we have a simple Swift
+
+1072
+00:36:53,086 --> 0:36:55,186
+class that we're going to
+
+1073
+00:36:56,036 --> 0:36:57,366
+implement the BindableObject
+
+1074
+00:36:57,366 --> 0:36:59,046
+protocol via a
+
+1075
+00:36:59,046 --> 0:37:00,366
+NotificationCenter publisher
+
+1076
+00:36:59,046 --> 0:37:00,366
+NotificationCenter publisher
+
+1077
+00:37:00,366 --> 0:37:00,586
+here.
+
+1078
+00:37:00,756 --> 0:37:01,686
+And this is an example.
+
+1079
+00:37:01,686 --> 0:37:03,966
+Let's just say ObjCDataModel is
+
+1080
+00:37:03,966 --> 0:37:05,726
+already issuing a
+
+1081
+00:37:05,726 --> 0:37:06,646
+NotificationCenter
+
+1082
+00:37:06,956 --> 0:37:07,786
+notifications.
+
+1083
+00:37:08,246 --> 0:37:09,796
+And then we'll just have a
+
+1084
+00:37:10,456 --> 0:37:12,626
+reference to our ObjCDataModel.
+
+1085
+00:37:12,626 --> 0:37:15,166
+And the way this works is, in
+
+1086
+00:37:15,166 --> 0:37:16,576
+your wrapping-- and you
+
+1087
+00:37:16,576 --> 0:37:18,286
+WrappedHostingController, you
+
+1088
+00:37:18,286 --> 0:37:19,906
+would pass a pointer to your
+
+1089
+00:37:19,906 --> 0:37:21,656
+ObjCDataModel, and in your
+
+1090
+00:37:21,656 --> 0:37:22,676
+hosting controller, you can
+
+1091
+00:37:22,676 --> 0:37:25,046
+create your WrappedDataModel and
+
+1092
+00:37:25,246 --> 0:37:27,666
+assign it your ObjCDataModel and
+
+1093
+00:37:27,666 --> 0:37:29,456
+pass your WrappedDataModel to
+
+1094
+00:37:29,456 --> 0:37:30,896
+your SwiftUI rootView.
+
+1095
+00:37:31,866 --> 0:37:33,936
+And with just those two simple
+
+1096
+00:37:33,936 --> 0:37:36,216
+wrapped classes, you would now
+
+1097
+00:37:36,216 --> 0:37:37,396
+have seamless integration with
+
+1098
+00:37:37,396 --> 0:37:40,166
+SwiftUI and your Objective-C
+
+1099
+00:37:41,716 --> 0:37:41,826
+code.
+
+1100
+00:37:42,016 --> 0:37:44,226
+So as you can see, it's really
+
+1101
+00:37:44,226 --> 0:37:46,016
+easy to start using SwiftUI in
+
+1102
+00:37:46,016 --> 0:37:47,076
+your applications today.
+
+1103
+00:37:47,076 --> 0:37:49,906
+As you're adding new UI, start
+
+1104
+00:37:49,906 --> 0:37:50,686
+using SwiftUI.
+
+1105
+00:37:51,476 --> 0:37:55,746
+We are having a lab coming up
+
+1106
+00:37:55,946 --> 0:37:58,196
+tomorrow at 11:00 a.m. Try out
+
+1107
+00:37:58,196 --> 0:38:00,096
+SwiftUI in your applications.
+
+1108
+00:37:58,196 --> 0:38:00,096
+SwiftUI in your applications.
+
+1109
+00:38:00,096 --> 0:38:02,036
+If you have any problems, come
+
+1110
+00:38:02,036 --> 0:38:02,896
+talk to us in the lab.
+
+1111
+00:38:03,046 --> 0:38:04,386
+We're more than happy to talk to
+
+1112
+00:38:04,386 --> 0:38:04,496
+you.
+
+1113
+00:38:04,496 --> 0:38:06,096
+We're excited about this but we
+
+1114
+00:38:06,096 --> 0:38:07,206
+can't wait to see what you come
+
+1115
+00:38:07,206 --> 0:38:07,666
+up with.
+
+1116
+00:38:08,506 --> 0:38:08,906
+Thank you.
+
+1117
+00:38:09,126 --> 0:38:10,376
+Enjoy the rest of the show.
+
+1118
+00:38:11,508 --> 0:38:13,508
+[ Applause ]

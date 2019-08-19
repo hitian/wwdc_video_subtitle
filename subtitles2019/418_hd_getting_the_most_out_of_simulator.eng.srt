@@ -1,0 +1,5715 @@
+1
+00:00:00,506 --> 0:00:05,500
+[ Music ]
+
+2
+00:00:08,516 --> 0:00:12,226
+[ Applause ]
+
+3
+00:00:12,726 --> 0:00:13,826
+&gt;&gt; Good morning, everyone.
+
+4
+00:00:14,816 --> 0:00:16,296
+Welcome to Getting the Most out
+
+5
+00:00:16,296 --> 0:00:17,026
+of Simulator.
+
+6
+00:00:17,146 --> 0:00:18,376
+My name is Russ Bishop.
+
+7
+00:00:18,566 --> 0:00:20,466
+I'm an engineer on the Simulator
+
+8
+00:00:20,466 --> 0:00:21,066
+and Devices team.
+
+9
+00:00:21,066 --> 0:00:22,366
+And let's go ahead and get
+
+10
+00:00:22,366 --> 0:00:23,000
+started.
+
+11
+00:00:25,026 --> 0:00:26,336
+Today we're going to tell you a
+
+12
+00:00:26,336 --> 0:00:27,156
+little bit about what the
+
+13
+00:00:27,156 --> 0:00:28,056
+Simulator is.
+
+14
+00:00:28,646 --> 0:00:30,926
+Then Tracy is going to come out
+
+15
+00:00:30,926 --> 0:00:33,156
+and tell you about some burning
+
+16
+00:00:33,156 --> 0:00:34,436
+questions and answers and
+
+17
+00:00:34,436 --> 0:00:35,126
+getting the most out of the
+
+18
+00:00:35,126 --> 0:00:36,296
+Simulator application.
+
+19
+00:00:36,906 --> 0:00:38,906
+I'm going to come back and tell
+
+20
+00:00:38,906 --> 0:00:40,126
+you about using Simulator from
+
+21
+00:00:40,126 --> 0:00:41,756
+the command line, and then
+
+22
+00:00:41,756 --> 0:00:42,876
+finally Katelyn's going to come
+
+23
+00:00:42,876 --> 0:00:44,266
+and tell you all about Metal in
+
+24
+00:00:44,266 --> 0:00:44,786
+the Simulator.
+
+25
+00:00:46,096 --> 0:00:49,396
+So what is Simulator?
+
+26
+00:00:49,536 --> 0:00:53,036
+Well, it is the best way to
+
+27
+00:00:53,036 --> 0:00:55,476
+simulate iOS, tvOS and watchOS
+
+28
+00:00:55,506 --> 0:00:57,566
+devices on your Mac.
+
+29
+00:00:57,906 --> 0:01:00,016
+It can be an amazing tool for
+
+30
+00:00:57,906 --> 0:01:00,016
+It can be an amazing tool for
+
+31
+00:01:00,016 --> 0:01:00,526
+development.
+
+32
+00:01:00,986 --> 0:01:02,966
+Your Mac has more cores, more
+
+33
+00:01:02,966 --> 0:01:03,406
+memory.
+
+34
+00:01:03,716 --> 0:01:05,306
+You can run multiple devices in
+
+35
+00:01:05,306 --> 0:01:05,806
+parallel.
+
+36
+00:01:06,466 --> 0:01:08,886
+So it is a great tool, but as an
+
+37
+00:01:08,886 --> 0:01:11,456
+engineer, that explanation might
+
+38
+00:01:11,456 --> 0:01:12,786
+be a little bit unsatisfying.
+
+39
+00:01:13,556 --> 0:01:16,046
+So to talk really about what the
+
+40
+00:01:16,046 --> 0:01:17,686
+Simulator is at a technical
+
+41
+00:01:17,686 --> 0:01:18,876
+level, we need to talk a little
+
+42
+00:01:18,876 --> 0:01:20,116
+bit about what an operating
+
+43
+00:01:20,116 --> 0:01:20,686
+system is.
+
+44
+00:01:20,686 --> 0:01:24,736
+We have a kernel, manages
+
+45
+00:01:24,736 --> 0:01:26,296
+hardware resources, allocates
+
+46
+00:01:26,296 --> 0:01:27,646
+memory, arbitrates between
+
+47
+00:01:27,646 --> 0:01:28,196
+processes.
+
+48
+00:01:28,286 --> 0:01:29,346
+That's pretty straightforward.
+
+49
+00:01:29,986 --> 0:01:32,456
+macOS then on top of that has a
+
+50
+00:01:32,456 --> 0:01:33,256
+userspace.
+
+51
+00:01:33,816 --> 0:01:36,326
+We have PID 1, launchd.
+
+52
+00:01:36,666 --> 0:01:38,526
+We might have some daemons
+
+53
+00:01:38,526 --> 0:01:39,416
+running on top of that, some
+
+54
+00:01:39,416 --> 0:01:39,796
+services.
+
+55
+00:01:39,796 --> 0:01:42,076
+We have some frameworks, and
+
+56
+00:01:42,076 --> 0:01:43,826
+then we run our applications.
+
+57
+00:01:44,686 --> 0:01:48,196
+Simulator is essentially a
+
+58
+00:01:48,196 --> 0:01:49,226
+separate userspace.
+
+59
+00:01:49,936 --> 0:01:52,326
+It has its own launchd, its own
+
+60
+00:01:52,326 --> 0:01:54,236
+daemons, its own frameworks and
+
+61
+00:01:54,476 --> 0:01:55,826
+runs its own applications.
+
+62
+00:01:56,346 --> 0:01:57,466
+These things are all completely
+
+63
+00:01:57,466 --> 0:01:59,826
+separate and isolated from your
+
+64
+00:01:59,826 --> 0:02:00,966
+Mac's userspace.
+
+65
+00:01:59,826 --> 0:02:00,966
+Mac's userspace.
+
+66
+00:02:01,166 --> 0:02:02,416
+And if I start another
+
+67
+00:02:02,416 --> 0:02:04,226
+Simulator, that essentially
+
+68
+00:02:04,226 --> 0:02:06,286
+brings up another isolated
+
+69
+00:02:06,286 --> 0:02:06,806
+userspace.
+
+70
+00:02:06,806 --> 0:02:08,416
+It's isolated not only from the
+
+71
+00:02:08,416 --> 0:02:10,126
+macOS userspace but also from
+
+72
+00:02:10,126 --> 0:02:11,586
+any other running Simulators.
+
+73
+00:02:12,506 --> 0:02:14,296
+So at a technical level, what a
+
+74
+00:02:14,356 --> 0:02:17,666
+Simulator is is the iOS, watchOS
+
+75
+00:02:17,666 --> 0:02:21,166
+or tvOS userspace but running on
+
+76
+00:02:21,166 --> 0:02:21,906
+the Mac kernel.
+
+77
+00:02:22,466 --> 0:02:25,636
+Has a separate launchd, separate
+
+78
+00:02:25,636 --> 0:02:27,426
+daemons and services, separate
+
+79
+00:02:27,426 --> 0:02:29,446
+notifications domains, separate
+
+80
+00:02:29,446 --> 0:02:31,546
+URL sessions, separate mach
+
+81
+00:02:31,546 --> 0:02:32,666
+bootstrap.
+
+82
+00:02:33,236 --> 0:02:34,736
+It does share the same
+
+83
+00:02:34,736 --> 0:02:36,146
+filesystem but has a separate
+
+84
+00:02:36,146 --> 0:02:36,826
+Home directory.
+
+85
+00:02:38,336 --> 0:02:41,716
+From libSystem up, everything is
+
+86
+00:02:41,716 --> 0:02:43,036
+built for the platform that
+
+87
+00:02:43,036 --> 0:02:44,776
+we're simulating, so that
+
+88
+00:02:44,776 --> 0:02:46,416
+includes, at the lowest layers,
+
+89
+00:02:46,416 --> 0:02:47,916
+you know, libSystem, all the
+
+90
+00:02:47,916 --> 0:02:48,826
+Syslibs all the way up to
+
+91
+00:02:49,006 --> 0:02:51,096
+UIKit and other frameworks.
+
+92
+00:02:52,236 --> 0:02:54,336
+It uses the ABI for that
+
+93
+00:02:54,336 --> 0:02:56,286
+platform, and it's built
+
+94
+00:02:56,466 --> 0:02:58,136
+natively for your Mac's
+
+95
+00:02:58,166 --> 0:02:58,766
+processor.
+
+96
+00:02:59,356 --> 0:03:00,566
+It's not an emulator.
+
+97
+00:02:59,356 --> 0:03:00,566
+It's not an emulator.
+
+98
+00:03:01,146 --> 0:03:03,606
+A couple of more details to
+
+99
+00:03:03,606 --> 0:03:04,000
+cover.
+
+100
+00:03:06,116 --> 0:03:07,946
+The memory and CPU limits of
+
+101
+00:03:07,986 --> 0:03:10,526
+Simulator are -- or rather, the
+
+102
+00:03:10,526 --> 0:03:11,666
+memory and CPU limits of the
+
+103
+00:03:11,666 --> 0:03:14,526
+devices are not simulated, so if
+
+104
+00:03:14,526 --> 0:03:16,766
+your Mac has -- you have one of
+
+105
+00:03:16,766 --> 0:03:18,156
+the new Mac Pros and you have a
+
+106
+00:03:18,296 --> 0:03:20,006
+terabyte of memory, your
+
+107
+00:03:20,006 --> 0:03:20,916
+simulator can allocate a
+
+108
+00:03:20,916 --> 0:03:21,626
+terabyte of memory.
+
+109
+00:03:22,346 --> 0:03:24,666
+If you try that on an iPhone X,
+
+110
+00:03:25,216 --> 0:03:26,476
+that probably isn't going to
+
+111
+00:03:26,866 --> 0:03:27,000
+work.
+
+112
+00:03:28,956 --> 0:03:30,596
+Mac also has different number of
+
+113
+00:03:30,596 --> 0:03:31,686
+cores, different threading
+
+114
+00:03:31,686 --> 0:03:32,196
+behavior.
+
+115
+00:03:32,536 --> 0:03:33,496
+That can be a boon.
+
+116
+00:03:33,496 --> 0:03:35,626
+It can help expose data races or
+
+117
+00:03:35,626 --> 0:03:37,426
+other threading conditions, but
+
+118
+00:03:37,426 --> 0:03:39,186
+it is something to be aware of.
+
+119
+00:03:39,896 --> 0:03:41,756
+The application sandbox is not
+
+120
+00:03:41,756 --> 0:03:44,326
+enforced, so a process in the
+
+121
+00:03:44,326 --> 0:03:45,676
+Simulator can write outside of
+
+122
+00:03:45,676 --> 0:03:46,926
+its sandbox, but, again, if you
+
+123
+00:03:46,926 --> 0:03:48,716
+try that on the device, it's not
+
+124
+00:03:48,716 --> 0:03:50,716
+going to work.
+
+125
+00:03:50,906 --> 0:03:52,896
+However, most people's Macs are
+
+126
+00:03:52,896 --> 0:03:54,736
+setup with a case-insensitive
+
+127
+00:03:54,736 --> 0:03:56,116
+file system, but the Simulator
+
+128
+00:03:56,836 --> 0:03:58,076
+goes ahead and runs in a mode
+
+129
+00:03:58,076 --> 0:04:00,176
+where all processes are using a
+
+130
+00:03:58,076 --> 0:04:00,176
+where all processes are using a
+
+131
+00:04:00,176 --> 0:04:01,666
+case-sensitive file system
+
+132
+00:04:01,666 --> 0:04:02,226
+accesses.
+
+133
+00:04:03,296 --> 0:04:05,516
+And then the, last but not
+
+134
+00:04:05,516 --> 0:04:07,326
+least, the Thread Sanitizer is
+
+135
+00:04:07,406 --> 0:04:08,376
+supported in the Simulator,
+
+136
+00:04:08,376 --> 0:04:09,626
+whereas it's not supported on
+
+137
+00:04:09,626 --> 0:04:10,106
+devices.
+
+138
+00:04:10,106 --> 0:04:11,976
+So that can be a useful tool.
+
+139
+00:04:11,976 --> 0:04:14,186
+So now, I'm going to hand this
+
+140
+00:04:14,186 --> 0:04:15,956
+over to Tracy who's going to
+
+141
+00:04:16,076 --> 0:04:16,836
+talk about some burning
+
+142
+00:04:16,836 --> 0:04:17,796
+questions and answers.
+
+143
+00:04:18,636 --> 0:04:19,116
+Tracy?
+
+144
+00:04:20,516 --> 0:04:24,546
+[ Applause ]
+
+145
+00:04:25,046 --> 0:04:25,536
+&gt;&gt; Good morning.
+
+146
+00:04:26,426 --> 0:04:27,656
+My name is Tracy, and I work for
+
+147
+00:04:27,656 --> 0:04:28,826
+the Development Technologies
+
+148
+00:04:28,826 --> 0:04:29,096
+group.
+
+149
+00:04:29,406 --> 0:04:30,946
+So, you know, we often get
+
+150
+00:04:30,946 --> 0:04:33,876
+questions in our session and in
+
+151
+00:04:33,876 --> 0:04:35,996
+labs and through our user forums
+
+152
+00:04:35,996 --> 0:04:36,896
+and via feedback.
+
+153
+00:04:37,396 --> 0:04:38,806
+So we thought it might be useful
+
+154
+00:04:38,806 --> 0:04:40,176
+to go over the answers to some
+
+155
+00:04:40,176 --> 0:04:41,226
+of those questions.
+
+156
+00:04:41,486 --> 0:04:43,366
+So my goal is that you'll walk
+
+157
+00:04:43,366 --> 0:04:44,936
+away knowing at least one thing
+
+158
+00:04:44,936 --> 0:04:46,176
+you didn't know before about the
+
+159
+00:04:46,176 --> 0:04:46,806
+Simulator.
+
+160
+00:04:47,536 --> 0:04:48,916
+But to start off, I'd like to
+
+161
+00:04:48,916 --> 0:04:50,466
+talk for a bit about why the
+
+162
+00:04:50,466 --> 0:04:51,816
+Simulator should be important to
+
+163
+00:04:51,816 --> 0:04:52,806
+your workflow.
+
+164
+00:04:53,506 --> 0:04:54,596
+Well, if we take into
+
+165
+00:04:54,596 --> 0:04:57,436
+consideration all of the devices
+
+166
+00:04:57,436 --> 0:04:59,526
+that are compatible with iOS 13,
+
+167
+00:05:00,086 --> 0:05:01,616
+and then we add on all of the
+
+168
+00:05:01,616 --> 0:05:02,826
+other operating systems and
+
+169
+00:05:02,826 --> 0:05:04,586
+devices, you're looking at
+
+170
+00:05:04,586 --> 0:05:06,446
+literally hundreds of devices
+
+171
+00:05:06,446 --> 0:05:07,826
+and operating systems available
+
+172
+00:05:07,826 --> 0:05:08,736
+to your customers.
+
+173
+00:05:08,916 --> 0:05:10,726
+And that's just the iPhones and
+
+174
+00:05:10,726 --> 0:05:12,346
+the iPads, not even including
+
+175
+00:05:12,436 --> 0:05:13,776
+the Watches and the TVs.
+
+176
+00:05:14,586 --> 0:05:16,016
+Well, that's a lot of stuff to
+
+177
+00:05:16,016 --> 0:05:16,706
+be carrying around in your
+
+178
+00:05:16,706 --> 0:05:16,996
+backpack.
+
+179
+00:05:16,996 --> 0:05:19,466
+And we thought about, "Well,
+
+180
+00:05:19,466 --> 0:05:20,466
+what about testing with these
+
+181
+00:05:20,466 --> 0:05:21,756
+older operating systems?"
+
+182
+00:05:22,206 --> 0:05:24,426
+So I'm sure you have customers
+
+183
+00:05:24,426 --> 0:05:26,156
+that are using older devices and
+
+184
+00:05:26,156 --> 0:05:27,086
+operating systems.
+
+185
+00:05:27,886 --> 0:05:28,576
+So you might be thinking,
+
+186
+00:05:28,576 --> 0:05:30,166
+"Tracy, there's no way that I
+
+187
+00:05:30,166 --> 0:05:31,216
+could test all these
+
+188
+00:05:31,216 --> 0:05:32,266
+configurations."
+
+189
+00:05:32,706 --> 0:05:33,806
+Well, that might be true.
+
+190
+00:05:34,316 --> 0:05:35,566
+And although you may not have
+
+191
+00:05:35,566 --> 0:05:37,076
+all these physical devices,
+
+192
+00:05:37,736 --> 0:05:38,956
+through the Simulator, you will
+
+193
+00:05:38,956 --> 0:05:40,746
+have access to every operating
+
+194
+00:05:40,746 --> 0:05:42,336
+system and device available.
+
+195
+00:05:43,076 --> 0:05:44,686
+That makes the Simulator a very
+
+196
+00:05:44,686 --> 0:05:45,956
+important tool to your everyday
+
+197
+00:05:45,956 --> 0:05:46,456
+workflow.
+
+198
+00:05:47,176 --> 0:05:48,306
+All right, let's get on to those
+
+199
+00:05:48,306 --> 0:05:49,236
+burning questions.
+
+200
+00:05:49,926 --> 0:05:52,046
+Number one, can I zoom in on the
+
+201
+00:05:52,046 --> 0:05:52,586
+Simulator?
+
+202
+00:05:53,466 --> 0:05:54,146
+Yes, you can.
+
+203
+00:05:54,486 --> 0:05:55,726
+You can simulate the pinch
+
+204
+00:05:55,726 --> 0:05:57,346
+gesture by click and dragging
+
+205
+00:05:57,346 --> 0:05:58,776
+while holding down the Option
+
+206
+00:06:01,616 --> 0:06:01,876
+key.
+
+207
+00:06:02,426 --> 0:06:04,096
+Another gesture you can simulate
+
+208
+00:06:04,096 --> 0:06:05,446
+is drag and drop.
+
+209
+00:06:06,246 --> 0:06:07,336
+First, you grab the app.
+
+210
+00:06:08,556 --> 0:06:09,776
+Then you want to click down the
+
+211
+00:06:09,776 --> 0:06:12,036
+Control key to simulate a hold,
+
+212
+00:06:12,726 --> 0:06:14,866
+drag to where you want to go and
+
+213
+00:06:14,866 --> 0:06:16,726
+then just let go of the Hold
+
+214
+00:06:16,946 --> 0:06:17,000
+key.
+
+215
+00:06:19,306 --> 0:06:20,106
+Oh, that's a good one [laughs].
+
+216
+00:06:22,496 --> 0:06:23,256
+Next question.
+
+217
+00:06:23,686 --> 0:06:25,506
+Can I change which audio device
+
+218
+00:06:25,506 --> 0:06:27,246
+the Simulator uses for input and
+
+219
+00:06:27,246 --> 0:06:27,716
+output?
+
+220
+00:06:28,366 --> 0:06:29,046
+Yes, you can.
+
+221
+00:06:29,646 --> 0:06:30,796
+So that's done through the
+
+222
+00:06:30,796 --> 0:06:31,716
+hardware menu.
+
+223
+00:06:32,096 --> 0:06:34,326
+You can select which audio
+
+224
+00:06:34,326 --> 0:06:37,186
+device you want to route to.
+
+225
+00:06:37,426 --> 0:06:38,596
+That way you can listen to your
+
+226
+00:06:38,596 --> 0:06:39,846
+Apple music without
+
+227
+00:06:39,846 --> 0:06:40,476
+interruption.
+
+228
+00:06:40,976 --> 0:06:43,116
+Next question.
+
+229
+00:06:43,656 --> 0:06:44,706
+Does iCloud work in the
+
+230
+00:06:44,706 --> 0:06:45,256
+Simulator?
+
+231
+00:06:45,866 --> 0:06:46,546
+Yes, it does.
+
+232
+00:06:47,066 --> 0:06:48,496
+You can log into iCloud through
+
+233
+00:06:48,496 --> 0:06:49,826
+the Settings app, and then
+
+234
+00:06:49,826 --> 0:06:51,136
+you'll have access to all your
+
+235
+00:06:51,136 --> 0:06:52,826
+Calendars, Contacts and every
+
+236
+00:06:52,826 --> 0:06:53,966
+other app that's available
+
+237
+00:06:54,206 --> 0:06:55,196
+through iCloud and in the
+
+238
+00:06:55,196 --> 0:06:55,756
+Simulator.
+
+239
+00:06:57,136 --> 0:06:58,916
+You can also trigger an iCloud
+
+240
+00:06:58,956 --> 0:07:00,936
+sync by using the Debug menu,
+
+241
+00:06:58,956 --> 0:07:00,936
+sync by using the Debug menu,
+
+242
+00:07:01,246 --> 0:07:02,926
+Trigger iCloud Sync.
+
+243
+00:07:06,536 --> 0:07:07,956
+Oh, look. I have a vacation
+
+244
+00:07:07,956 --> 0:07:08,726
+coming up next week.
+
+245
+00:07:08,776 --> 0:07:08,986
+Good.
+
+246
+00:07:10,006 --> 0:07:11,536
+Next question.
+
+247
+00:07:12,116 --> 0:07:13,566
+Can I use a Shake Gesture?
+
+248
+00:07:14,546 --> 0:07:15,146
+Yes, you can.
+
+249
+00:07:15,146 --> 0:07:17,296
+In this example, a colleague
+
+250
+00:07:17,296 --> 0:07:19,216
+created an app that will
+
+251
+00:07:19,296 --> 0:07:20,716
+indicate when a shake is
+
+252
+00:07:20,716 --> 0:07:21,226
+received.
+
+253
+00:07:21,816 --> 0:07:23,206
+So you go to the Hardware menu,
+
+254
+00:07:23,486 --> 0:07:25,256
+and you select Shake Gesture.
+
+255
+00:07:25,836 --> 0:07:30,356
+You can also simulate a memory
+
+256
+00:07:30,356 --> 0:07:32,166
+warning by going to the Debug
+
+257
+00:07:32,166 --> 0:07:32,516
+menu.
+
+258
+00:07:39,066 --> 0:07:40,106
+Next question.
+
+259
+00:07:40,816 --> 0:07:42,806
+How do I get older simulators to
+
+260
+00:07:42,806 --> 0:07:44,696
+show up as deployment targets?
+
+261
+00:07:45,576 --> 0:07:46,916
+So this is all done through the
+
+262
+00:07:46,916 --> 0:07:48,456
+Devices and Simulator pane.
+
+263
+00:07:49,066 --> 0:07:50,156
+It's found under the Windows
+
+264
+00:07:50,156 --> 0:07:51,126
+menu, or you can use the
+
+265
+00:07:51,126 --> 0:07:52,156
+keyboard shortcut.
+
+266
+00:07:53,436 --> 0:07:55,656
+Xcode 11 now ships with a
+
+267
+00:07:55,656 --> 0:07:56,996
+default list of simulators,
+
+268
+00:07:57,036 --> 0:07:57,956
+which you may have noticed have
+
+269
+00:07:57,956 --> 0:07:59,166
+been pared down quite a bit.
+
+270
+00:07:59,706 --> 0:08:01,006
+But you can always install
+
+271
+00:07:59,706 --> 0:08:01,006
+But you can always install
+
+272
+00:08:01,006 --> 0:08:02,986
+additional simulators as needed.
+
+273
+00:08:03,886 --> 0:08:04,846
+How are we going to do that is
+
+274
+00:08:04,846 --> 0:08:05,626
+we're going to go to the
+
+275
+00:08:05,626 --> 0:08:06,606
+Simulators tab.
+
+276
+00:08:07,896 --> 0:08:08,886
+Next thing we're going to do is
+
+277
+00:08:08,926 --> 0:08:10,216
+click on the Plus button at the
+
+278
+00:08:10,216 --> 0:08:10,846
+bottom left.
+
+279
+00:08:12,476 --> 0:08:14,426
+Then you will select your device
+
+280
+00:08:14,486 --> 0:08:17,336
+type and what operating system
+
+281
+00:08:17,336 --> 0:08:18,156
+you want to use.
+
+282
+00:08:19,356 --> 0:08:20,586
+In this case, for the device
+
+283
+00:08:20,656 --> 0:08:22,496
+type, let's select the iPad mini
+
+284
+00:08:22,496 --> 0:08:23,076
+simulator.
+
+285
+00:08:23,836 --> 0:08:26,366
+Xcode 11 now ships with support
+
+286
+00:08:26,366 --> 0:08:28,016
+for iPad minis going back to
+
+287
+00:08:28,016 --> 0:08:28,806
+iPad mini 2.
+
+288
+00:08:28,806 --> 0:08:31,826
+So you're going to give this sim
+
+289
+00:08:31,826 --> 0:08:33,775
+a name, and then you click
+
+290
+00:08:33,775 --> 0:08:34,246
+Create.
+
+291
+00:08:35,025 --> 0:08:36,306
+And now your newly created
+
+292
+00:08:36,306 --> 0:08:38,385
+simulator target will show up.
+
+293
+00:08:38,976 --> 0:08:40,696
+And you can run your app to the
+
+294
+00:08:40,696 --> 0:08:42,116
+new iPad mini simulator.
+
+295
+00:08:42,686 --> 0:08:45,936
+Let's talk for a minute about
+
+296
+00:08:45,936 --> 0:08:47,106
+Watch sims.
+
+297
+00:08:47,616 --> 0:08:49,346
+So preset Watch pairs are
+
+298
+00:08:49,346 --> 0:08:50,676
+automatically added to the
+
+299
+00:08:50,676 --> 0:08:53,246
+iPhone X and the Xs Max, but you
+
+300
+00:08:53,246 --> 0:08:54,786
+can add a new pair by clicking
+
+301
+00:08:54,786 --> 0:08:58,296
+on the Plus button.
+
+302
+00:08:58,446 --> 0:08:59,686
+Again, you'll select your
+
+303
+00:08:59,686 --> 0:09:01,026
+operating system and device
+
+304
+00:08:59,686 --> 0:09:01,026
+operating system and device
+
+305
+00:09:01,026 --> 0:09:04,066
+type, and then you click Pair.
+
+306
+00:09:04,726 --> 0:09:09,346
+So to change the act of pairs,
+
+307
+00:09:09,346 --> 0:09:10,816
+all we do is click on the Radio
+
+308
+00:09:10,816 --> 0:09:10,976
+button.
+
+309
+00:09:15,636 --> 0:09:17,526
+You can also download older
+
+310
+00:09:17,526 --> 0:09:19,826
+simulator runtimes by going to
+
+311
+00:09:19,826 --> 0:09:21,176
+the Xcode Preferences and
+
+312
+00:09:21,176 --> 0:09:22,436
+selecting Components.
+
+313
+00:09:22,846 --> 0:09:23,996
+You can choose what you need and
+
+314
+00:09:23,996 --> 0:09:24,966
+then click Install.
+
+315
+00:09:25,276 --> 0:09:26,906
+Older simulators will install,
+
+316
+00:09:27,056 --> 0:09:27,946
+and then you will be able to
+
+317
+00:09:27,946 --> 0:09:29,166
+select them based on the
+
+318
+00:09:29,166 --> 0:09:30,566
+deployment target settings in
+
+319
+00:09:30,566 --> 0:09:31,286
+your project.
+
+320
+00:09:31,876 --> 0:09:34,246
+You can also get older
+
+321
+00:09:34,246 --> 0:09:35,456
+simulators by using the
+
+322
+00:09:35,456 --> 0:09:37,186
+Hardware-Device menu, and they
+
+323
+00:09:37,186 --> 0:09:37,976
+will just launch.
+
+324
+00:09:40,176 --> 0:09:42,186
+This will allow you to show
+
+325
+00:09:42,626 --> 0:09:43,956
+newer operating systems and
+
+326
+00:09:43,956 --> 0:09:45,456
+older operating systems side by
+
+327
+00:09:45,916 --> 0:09:46,000
+side.
+
+328
+00:09:49,376 --> 0:09:50,986
+You can hide simulator targets
+
+329
+00:09:51,036 --> 0:09:52,796
+by deselecting the Show as run
+
+330
+00:09:52,796 --> 0:09:53,596
+destination.
+
+331
+00:09:54,566 --> 0:09:56,106
+You can also delete simulator
+
+332
+00:09:56,106 --> 0:09:57,336
+targets if you don't want them
+
+333
+00:09:57,336 --> 0:09:59,146
+around anymore, and you can use
+
+334
+00:09:59,146 --> 0:09:59,796
+the Delete button on your
+
+335
+00:09:59,796 --> 0:09:59,976
+keyboard.
+
+336
+00:10:00,496 --> 0:10:02,376
+Or you can use the Contextual
+
+337
+00:10:02,376 --> 0:10:03,936
+menu, holding down the Control
+
+338
+00:10:03,936 --> 0:10:04,186
+key.
+
+339
+00:10:04,186 --> 0:10:05,886
+You can also select these other
+
+340
+00:10:05,886 --> 0:10:06,846
+items that are shown.
+
+341
+00:10:07,336 --> 0:10:08,426
+Remember, if you change your
+
+342
+00:10:08,426 --> 0:10:09,506
+mind, you can always add a
+
+343
+00:10:09,506 --> 0:10:11,216
+simulator target back again by
+
+344
+00:10:11,216 --> 0:10:11,886
+creating them.
+
+345
+00:10:12,466 --> 0:10:13,596
+All right, let's go on to the
+
+346
+00:10:13,596 --> 0:10:14,326
+next question.
+
+347
+00:10:14,926 --> 0:10:16,306
+The simulators are overtaking my
+
+348
+00:10:16,306 --> 0:10:16,856
+screen.
+
+349
+00:10:16,856 --> 0:10:17,896
+Can I make them smaller?
+
+350
+00:10:19,366 --> 0:10:20,096
+Yes, you can.
+
+351
+00:10:20,096 --> 0:10:21,796
+So there are three presets that
+
+352
+00:10:21,796 --> 0:10:22,976
+are available on the Simulator:
+
+353
+00:10:23,866 --> 0:10:25,946
+Physical Size, Point Accurate
+
+354
+00:10:25,946 --> 0:10:28,036
+and Pixel Accurate.
+
+355
+00:10:28,396 --> 0:10:29,456
+So what do these all mean?
+
+356
+00:10:29,866 --> 0:10:31,336
+Well, Physical Size is actually
+
+357
+00:10:31,336 --> 0:10:32,726
+the physical size of the device.
+
+358
+00:10:33,176 --> 0:10:34,346
+You can hold up your device to
+
+359
+00:10:34,346 --> 0:10:35,316
+the screen, and it will be the
+
+360
+00:10:35,316 --> 0:10:36,206
+physical size.
+
+361
+00:10:36,696 --> 0:10:38,046
+Point Accurate is going to be
+
+362
+00:10:38,046 --> 0:10:39,926
+one UIKit point will equal one
+
+363
+00:10:39,926 --> 0:10:40,826
+AppKit point.
+
+364
+00:10:41,466 --> 0:10:43,176
+And then Pixel Accurate is the
+
+365
+00:10:43,176 --> 0:10:44,826
+pixel-by-pixel representation
+
+366
+00:10:44,826 --> 0:10:45,816
+based on your monitor
+
+367
+00:10:45,816 --> 0:10:46,416
+resolution.
+
+368
+00:10:47,446 --> 0:10:48,826
+Or as some of you might know,
+
+369
+00:10:48,826 --> 0:10:50,916
+you can always drag, open the
+
+370
+00:10:50,916 --> 0:10:53,406
+Simulator and size it however
+
+371
+00:10:53,406 --> 0:10:53,856
+you want.
+
+372
+00:10:53,856 --> 0:10:55,626
+So you can size it as large as
+
+373
+00:10:55,626 --> 0:10:56,176
+your display.
+
+374
+00:10:56,716 --> 0:10:59,666
+Next question.
+
+375
+00:10:59,826 --> 0:11:02,206
+Can the Simulator help me debug
+
+376
+00:10:59,826 --> 0:11:02,206
+Can the Simulator help me debug
+
+377
+00:11:02,206 --> 0:11:03,356
+UI animations?
+
+378
+00:11:03,946 --> 0:11:04,726
+Yes, it can.
+
+379
+00:11:04,906 --> 0:11:06,826
+So that's done through the Slow
+
+380
+00:11:06,826 --> 0:11:08,466
+Animations under the Debug menu.
+
+381
+00:11:08,916 --> 0:11:10,656
+Once this is toggled and you
+
+382
+00:11:10,656 --> 0:11:14,056
+select any app, it will go very
+
+383
+00:11:14,056 --> 0:11:18,446
+slowly, slowing down the UI
+
+384
+00:11:18,446 --> 0:11:19,156
+animations.
+
+385
+00:11:19,616 --> 0:11:22,666
+Next question.
+
+386
+00:11:23,556 --> 0:11:24,826
+Is Siri available in the
+
+387
+00:11:24,826 --> 0:11:25,276
+Simulator?
+
+388
+00:11:26,756 --> 0:11:27,496
+Yes, it is.
+
+389
+00:11:27,496 --> 0:11:28,656
+As long as you give the
+
+390
+00:11:28,656 --> 0:11:29,826
+Simulator access to your
+
+391
+00:11:29,826 --> 0:11:31,976
+microphone, you can invoke Siri
+
+392
+00:11:32,026 --> 0:11:33,986
+on all Simulator platforms.
+
+393
+00:11:34,636 --> 0:11:36,206
+Additionally, you can find Siri
+
+394
+00:11:36,206 --> 0:11:37,746
+in the hardware menu, or you can
+
+395
+00:11:37,746 --> 0:11:39,386
+use the keyboard shortcuts.
+
+396
+00:11:39,826 --> 0:11:42,896
+Next question.
+
+397
+00:11:43,196 --> 0:11:44,826
+How do I control my tvOS
+
+398
+00:11:44,826 --> 0:11:45,966
+Simulator?
+
+399
+00:11:46,596 --> 0:11:47,566
+Well, there's a few different
+
+400
+00:11:47,566 --> 0:11:48,706
+ways you can do this.
+
+401
+00:11:49,006 --> 0:11:51,416
+One is you can use the Apple TV
+
+402
+00:11:51,416 --> 0:11:52,366
+software Remote.
+
+403
+00:11:52,916 --> 0:11:53,906
+So that's located under the
+
+404
+00:11:53,906 --> 0:11:54,636
+Hardware menu.
+
+405
+00:11:54,786 --> 0:11:55,336
+Click on it.
+
+406
+00:11:55,816 --> 0:11:57,546
+And to activate the area, you
+
+407
+00:11:57,546 --> 0:11:59,006
+just hold down the Option key
+
+408
+00:11:59,346 --> 0:12:00,446
+while you move the cursor
+
+409
+00:11:59,346 --> 0:12:00,446
+while you move the cursor
+
+410
+00:12:00,446 --> 0:12:01,000
+around.
+
+411
+00:12:03,076 --> 0:12:04,266
+Another way is you can actually
+
+412
+00:12:04,266 --> 0:12:06,276
+use the hardware Apple TV
+
+413
+00:12:06,276 --> 0:12:06,686
+Remote.
+
+414
+00:12:06,936 --> 0:12:09,126
+You pair it holding down the
+
+415
+00:12:09,186 --> 0:12:10,686
+Plus and the Menu button on your
+
+416
+00:12:10,686 --> 0:12:12,126
+remote, and then once it's
+
+417
+00:12:12,126 --> 0:12:13,756
+paired, you'll be able to use
+
+418
+00:12:13,976 --> 0:12:16,226
+the hardware Apple TV Remote on
+
+419
+00:12:16,226 --> 0:12:17,756
+your tvOS Simulator.
+
+420
+00:12:20,426 --> 0:12:22,386
+You can also use game
+
+421
+00:12:22,386 --> 0:12:24,036
+controllers, and for simple
+
+422
+00:12:24,036 --> 0:12:25,046
+navigation, just use the
+
+423
+00:12:25,046 --> 0:12:25,536
+keyboard.
+
+424
+00:12:25,986 --> 0:12:28,676
+Next question.
+
+425
+00:12:29,376 --> 0:12:32,406
+Can I use Xcode 10 with iOS 13
+
+426
+00:12:32,406 --> 0:12:33,186
+Simulators?
+
+427
+00:12:34,246 --> 0:12:34,856
+Yes, you can.
+
+428
+00:12:35,196 --> 0:12:37,816
+So as long as you have Xcode 10
+
+429
+00:12:37,816 --> 0:12:40,406
+running on the same system as
+
+430
+00:12:40,406 --> 0:12:42,446
+Xcode 11-Beta, first thing you
+
+431
+00:12:42,446 --> 0:12:43,886
+want to do is launch Xcode 11
+
+432
+00:12:43,886 --> 0:12:45,216
+and then also launch a
+
+433
+00:12:45,216 --> 0:12:45,736
+Simulator.
+
+434
+00:12:46,406 --> 0:12:48,726
+So that'll give you an iOS 13
+
+435
+00:12:48,726 --> 0:12:49,006
+runtime.
+
+436
+00:12:49,846 --> 0:12:51,436
+Then you close down Xcode, but
+
+437
+00:12:51,436 --> 0:12:52,736
+you leave the Simulator.app
+
+438
+00:12:52,846 --> 0:12:53,336
+open.
+
+439
+00:12:54,486 --> 0:12:55,886
+Then you'll go into the older
+
+440
+00:12:56,006 --> 0:12:59,626
+Xcode 10, bring it up, and then
+
+441
+00:12:59,626 --> 0:13:00,836
+you can build and run to the
+
+442
+00:12:59,626 --> 0:13:00,836
+you can build and run to the
+
+443
+00:13:00,836 --> 0:13:01,276
+Simulator.
+
+444
+00:13:02,206 --> 0:13:03,146
+Let me show you how that's done.
+
+445
+00:13:03,376 --> 0:13:05,106
+So this is we're running Xcode
+
+446
+00:13:05,106 --> 0:13:05,456
+10.
+
+447
+00:13:06,906 --> 0:13:07,956
+So what we're going to do is
+
+448
+00:13:07,956 --> 0:13:09,696
+we're going to select the iOS
+
+449
+00:13:09,936 --> 0:13:13,816
+12.2 Sim, run our app to that.
+
+450
+00:13:13,816 --> 0:13:15,756
+And then we're going to change
+
+451
+00:13:15,756 --> 0:13:18,006
+over to the iOS 13 Sim, and
+
+452
+00:13:18,586 --> 0:13:19,706
+we're going to run our app to
+
+453
+00:13:19,706 --> 0:13:20,000
+that.
+
+454
+00:13:21,996 --> 0:13:23,176
+Now you can look at the older
+
+455
+00:13:23,176 --> 0:13:24,466
+and the newer side by side.
+
+456
+00:13:29,466 --> 0:13:32,656
+Oh, yay. That got a clap
+
+457
+00:13:32,656 --> 0:13:33,346
+[laughs].
+
+458
+00:13:33,346 --> 0:13:34,146
+Next question.
+
+459
+00:13:34,146 --> 0:13:35,706
+Can I copy content into my
+
+460
+00:13:35,706 --> 0:13:36,276
+Simulator?
+
+461
+00:13:37,106 --> 0:13:38,566
+There's a couple different ways
+
+462
+00:13:38,566 --> 0:13:39,326
+to copy content.
+
+463
+00:13:39,326 --> 0:13:40,306
+One of the ways is through drag
+
+464
+00:13:40,306 --> 0:13:40,746
+and drop.
+
+465
+00:13:40,746 --> 0:13:42,166
+So through drag and drop, you
+
+466
+00:13:42,166 --> 0:13:44,576
+can copy app bundles, locations,
+
+467
+00:13:44,846 --> 0:13:47,646
+photos and videos and URLs.
+
+468
+00:13:49,416 --> 0:13:51,526
+So in this example, I can take
+
+469
+00:13:51,746 --> 0:13:54,576
+my project, grab my app bundle,
+
+470
+00:13:54,726 --> 0:13:56,156
+just drag and drop it onto the
+
+471
+00:13:56,156 --> 0:13:56,766
+Simulator.
+
+472
+00:13:57,566 --> 0:13:59,316
+It will install, and I can run
+
+473
+00:13:59,876 --> 0:13:59,946
+it.
+
+474
+00:14:03,256 --> 0:14:04,776
+In this example, we're going to
+
+475
+00:14:04,856 --> 0:14:06,556
+take some photos and videos.
+
+476
+00:14:07,676 --> 0:14:09,266
+So I grab them all, and I can
+
+477
+00:14:09,266 --> 0:14:10,546
+just drag and drop them right
+
+478
+00:14:10,546 --> 0:14:12,036
+into the Simulator, and they
+
+479
+00:14:12,036 --> 0:14:13,336
+will automatically go into the
+
+480
+00:14:13,336 --> 0:14:13,956
+Photos app.
+
+481
+00:14:15,176 --> 0:14:16,486
+Oh, wait. I drug in four, and I
+
+482
+00:14:16,486 --> 0:14:17,306
+only got three.
+
+483
+00:14:17,836 --> 0:14:18,366
+Oh.
+
+484
+00:14:18,856 --> 0:14:20,436
+That's because the photo and
+
+485
+00:14:20,436 --> 0:14:22,316
+video file are recombined to
+
+486
+00:14:22,316 --> 0:14:23,366
+give you a live photo.
+
+487
+00:14:23,946 --> 0:14:28,446
+Drag and dropping URLs is
+
+488
+00:14:28,446 --> 0:14:28,816
+simple.
+
+489
+00:14:28,816 --> 0:14:30,646
+Just open up Safari, grab the
+
+490
+00:14:30,646 --> 0:14:31,906
+URL, drag and drop it.
+
+491
+00:14:36,636 --> 0:14:38,476
+And from within Safari, you can
+
+492
+00:14:38,476 --> 0:14:40,556
+also use a Safari Share Sheet.
+
+493
+00:14:40,836 --> 0:14:42,436
+The Simulator is a target under
+
+494
+00:14:42,436 --> 0:14:43,416
+the Safari Share Sheet.
+
+495
+00:14:43,496 --> 0:14:44,216
+Just select it.
+
+496
+00:14:44,746 --> 0:14:45,946
+It'll bring up a dialog.
+
+497
+00:14:45,946 --> 0:14:47,576
+You can select one simulator, or
+
+498
+00:14:47,576 --> 0:14:48,896
+you can go to all simulators at
+
+499
+00:14:48,896 --> 0:14:50,276
+the same time.
+
+500
+00:14:56,576 --> 0:14:59,526
+Also, you can share location via
+
+501
+00:14:59,526 --> 0:15:00,226
+the Share Sheet.
+
+502
+00:14:59,526 --> 0:15:00,226
+the Share Sheet.
+
+503
+00:15:00,456 --> 0:15:02,156
+At the Maps app, you got a
+
+504
+00:15:02,156 --> 0:15:02,896
+location.
+
+505
+00:15:02,896 --> 0:15:04,616
+Just click the Simulator, select
+
+506
+00:15:04,616 --> 0:15:06,296
+your target, and then it will
+
+507
+00:15:06,296 --> 0:15:07,496
+share that location with the
+
+508
+00:15:07,496 --> 0:15:08,000
+Sim.
+
+509
+00:15:11,586 --> 0:15:13,016
+OK, let's go over some other
+
+510
+00:15:13,016 --> 0:15:14,396
+helpful hints that you might not
+
+511
+00:15:14,396 --> 0:15:14,846
+have known.
+
+512
+00:15:16,616 --> 0:15:18,286
+Under the Hardware menu, there
+
+513
+00:15:18,286 --> 0:15:19,516
+is the Rotate Device
+
+514
+00:15:19,516 --> 0:15:20,246
+Automatically.
+
+515
+00:15:20,396 --> 0:15:21,986
+So if you toggle this setting,
+
+516
+00:15:21,986 --> 0:15:23,496
+it will honor the settings in
+
+517
+00:15:23,496 --> 0:15:24,916
+your project, and it will rotate
+
+518
+00:15:24,916 --> 0:15:26,376
+the Sim automatically.
+
+519
+00:15:27,016 --> 0:15:30,716
+We have a few presets for
+
+520
+00:15:30,906 --> 0:15:32,816
+simulator locations in the Sim.
+
+521
+00:15:33,176 --> 0:15:34,896
+One is like a freeway drive, so
+
+522
+00:15:34,896 --> 0:15:36,016
+you can simulate a freeway
+
+523
+00:15:36,016 --> 0:15:36,426
+drive.
+
+524
+00:15:37,096 --> 0:15:40,316
+You can also input your own
+
+525
+00:15:40,316 --> 0:15:42,436
+custom location by putting in
+
+526
+00:15:42,646 --> 0:15:43,976
+the longitude and the latitude.
+
+527
+00:15:52,596 --> 0:15:53,706
+If you want to see what your app
+
+528
+00:15:53,706 --> 0:15:54,876
+will look like when a call is
+
+529
+00:15:54,876 --> 0:15:56,746
+received, you can use the Toggle
+
+530
+00:15:56,746 --> 0:15:59,766
+In-Call Status, or you can use
+
+531
+00:15:59,766 --> 0:16:01,656
+the keyboard shortcut Command-Y.
+
+532
+00:15:59,766 --> 0:16:01,656
+the keyboard shortcut Command-Y.
+
+533
+00:16:06,076 --> 0:16:07,986
+External displays can be used
+
+534
+00:16:07,986 --> 0:16:09,406
+for a variety of content.
+
+535
+00:16:09,526 --> 0:16:11,056
+In this example, what we're
+
+536
+00:16:11,056 --> 0:16:12,816
+doing is we're playing some
+
+537
+00:16:12,816 --> 0:16:14,856
+video out of Safari, and we're
+
+538
+00:16:14,856 --> 0:16:16,146
+selecting a couple of different
+
+539
+00:16:16,146 --> 0:16:17,366
+display resolutions.
+
+540
+00:16:24,056 --> 0:16:25,526
+Dark mode is also available on
+
+541
+00:16:25,526 --> 0:16:26,146
+the Simulator.
+
+542
+00:16:26,516 --> 0:16:27,566
+You'll find that under the
+
+543
+00:16:27,566 --> 0:16:28,456
+Developer menu.
+
+544
+00:16:28,606 --> 0:16:30,206
+Just go under Settings, toggle
+
+545
+00:16:30,206 --> 0:16:31,696
+down to Developer, and you can
+
+546
+00:16:31,696 --> 0:16:33,456
+click on Dark Appearance.
+
+547
+00:16:40,536 --> 0:16:41,386
+You can also change the
+
+548
+00:16:41,386 --> 0:16:43,006
+wallpaper in your Sim if you
+
+549
+00:16:43,316 --> 0:16:43,836
+want to.
+
+550
+00:16:43,836 --> 0:16:45,316
+You can just drag a photo into
+
+551
+00:16:45,316 --> 0:16:46,416
+your Photos app.
+
+552
+00:16:46,416 --> 0:16:47,306
+Then click on the photo.
+
+553
+00:16:47,306 --> 0:16:49,206
+Use the Share Sheet, and that'll
+
+554
+00:16:49,206 --> 0:16:50,336
+bring it up just like it does on
+
+555
+00:16:50,336 --> 0:16:51,226
+the iOS device.
+
+556
+00:16:51,226 --> 0:16:53,186
+Select it as the wallpaper, and
+
+557
+00:16:53,186 --> 0:16:55,586
+the Simulator will also use this
+
+558
+00:16:55,586 --> 0:16:56,816
+as a wallpaper for your
+
+559
+00:16:56,816 --> 0:16:58,216
+background, for the lock screen,
+
+560
+00:16:59,166 --> 0:17:00,446
+and now you have a new
+
+561
+00:16:59,166 --> 0:17:00,446
+and now you have a new
+
+562
+00:17:00,446 --> 0:17:01,000
+background.
+
+563
+00:17:03,866 --> 0:17:05,526
+Dictation also works in the Sim.
+
+564
+00:17:05,945 --> 0:17:06,746
+So that's found under the
+
+565
+00:17:06,746 --> 0:17:07,425
+Settings app.
+
+566
+00:17:08,396 --> 0:17:09,685
+You'll go under the keyboard,
+
+567
+00:17:10,165 --> 0:17:11,826
+and there is an Enable
+
+568
+00:17:11,826 --> 0:17:12,486
+Dictation.
+
+569
+00:17:13,726 --> 0:17:14,996
+So once you have that toggled
+
+570
+00:17:14,996 --> 0:17:17,486
+on, you just bring up an app
+
+571
+00:17:17,486 --> 0:17:19,036
+that accepts keyboard input.
+
+572
+00:17:19,915 --> 0:17:21,246
+Use Command-K to bring up the
+
+573
+00:17:21,286 --> 0:17:22,906
+software keyboard, and then
+
+574
+00:17:22,906 --> 0:17:24,156
+you'll see the microphone down
+
+575
+00:17:24,156 --> 0:17:25,086
+there, and you just start
+
+576
+00:17:25,086 --> 0:17:25,596
+dictating.
+
+577
+00:17:31,456 --> 0:17:33,036
+Input language can also be
+
+578
+00:17:33,036 --> 0:17:34,336
+changed if you didn't know that.
+
+579
+00:17:34,556 --> 0:17:36,506
+So you can go into the keyboard,
+
+580
+00:17:36,676 --> 0:17:38,586
+select what input language you
+
+581
+00:17:38,586 --> 0:17:38,956
+would like.
+
+582
+00:17:39,936 --> 0:17:41,196
+There's a variety of languages
+
+583
+00:17:41,196 --> 0:17:42,206
+in there available.
+
+584
+00:17:42,776 --> 0:17:44,856
+And then again, you're just
+
+585
+00:17:44,856 --> 0:17:45,966
+going to bring up the software
+
+586
+00:17:45,966 --> 0:17:46,526
+keyboard.
+
+587
+00:17:46,526 --> 0:17:48,406
+And you're going to click on the
+
+588
+00:17:48,406 --> 0:17:49,816
+globe just like you do on your
+
+589
+00:17:49,816 --> 0:17:51,000
+iOS device.
+
+590
+00:17:53,616 --> 0:17:56,056
+And speaking of keyboards, the
+
+591
+00:17:56,056 --> 0:17:57,856
+new QuickPath is also supported
+
+592
+00:17:57,856 --> 0:17:58,526
+in the Simulator.
+
+593
+00:17:58,716 --> 0:18:00,846
+Just open up the keyboard, start
+
+594
+00:17:58,716 --> 0:18:00,846
+Just open up the keyboard, start
+
+595
+00:18:01,756 --> 0:18:02,976
+your path, and there you go.
+
+596
+00:18:09,586 --> 0:18:11,006
+You can find more information
+
+597
+00:18:11,006 --> 0:18:12,916
+also by using the Simulator Help
+
+598
+00:18:12,916 --> 0:18:13,316
+menu.
+
+599
+00:18:14,756 --> 0:18:16,676
+Type in what you need, and also
+
+600
+00:18:16,676 --> 0:18:18,216
+the Search feature will just
+
+601
+00:18:18,246 --> 0:18:19,376
+point you right where you need
+
+602
+00:18:20,136 --> 0:18:20,816
+to go.
+
+603
+00:18:20,996 --> 0:18:22,216
+Well, my time is just about up,
+
+604
+00:18:22,216 --> 0:18:23,796
+so I hope you learned at least
+
+605
+00:18:23,796 --> 0:18:24,916
+one thing you didn't know before
+
+606
+00:18:24,916 --> 0:18:25,796
+about the Simulator.
+
+607
+00:18:26,496 --> 0:18:27,526
+Now I'm going to turn it over to
+
+608
+00:18:27,526 --> 0:18:28,536
+Russ who's going to go over
+
+609
+00:18:28,536 --> 0:18:29,686
+running the Simulator through
+
+610
+00:18:29,686 --> 0:18:30,366
+the command line.
+
+611
+00:18:30,566 --> 0:18:30,866
+Thank you.
+
+612
+00:18:31,516 --> 0:18:34,746
+[ Applause ]
+
+613
+00:18:35,246 --> 0:18:35,956
+&gt;&gt; Thank you, Tracy.
+
+614
+00:18:37,236 --> 0:18:39,836
+So let's talk a little bit about
+
+615
+00:18:39,836 --> 0:18:42,736
+Simulator from the command line.
+
+616
+00:18:43,966 --> 0:18:46,026
+If I can leave you with one
+
+617
+00:18:46,026 --> 0:18:49,246
+thing today, it'd be xcrun sim
+
+618
+00:18:49,246 --> 0:18:51,186
+control or simctl.
+
+619
+00:18:52,206 --> 0:18:54,116
+But if I could leave you with
+
+620
+00:18:54,116 --> 0:18:55,946
+two things today, it would be
+
+621
+00:18:55,946 --> 0:18:58,236
+xcrun simctl help.
+
+622
+00:18:59,726 --> 0:19:01,956
+Sim control has extensive help.
+
+623
+00:18:59,726 --> 0:19:01,956
+Sim control has extensive help.
+
+624
+00:19:02,556 --> 0:19:04,206
+If you run it without a command,
+
+625
+00:19:04,416 --> 0:19:05,436
+it will tell you all of the
+
+626
+00:19:05,436 --> 0:19:06,526
+commands that are available.
+
+627
+00:19:07,036 --> 0:19:08,596
+If you run help and then the
+
+628
+00:19:08,596 --> 0:19:10,476
+command name, it will give you a
+
+629
+00:19:10,476 --> 0:19:11,806
+lot more detail about that
+
+630
+00:19:11,806 --> 0:19:12,696
+specific command.
+
+631
+00:19:14,326 --> 0:19:16,366
+So I'm going to cover a few
+
+632
+00:19:16,366 --> 0:19:17,706
+commands that may be useful to
+
+633
+00:19:17,706 --> 0:19:20,126
+you and then talk briefly about
+
+634
+00:19:20,126 --> 0:19:21,526
+a few others, and then we'll do
+
+635
+00:19:21,526 --> 0:19:22,146
+a little demo.
+
+636
+00:19:22,706 --> 0:19:25,546
+So the first command, the most
+
+637
+00:19:25,816 --> 0:19:27,446
+basic command, is the list
+
+638
+00:19:28,196 --> 0:19:28,496
+command.
+
+639
+00:19:28,686 --> 0:19:30,636
+This will show you the device
+
+640
+00:19:30,706 --> 0:19:32,096
+types, runtimes, devices that
+
+641
+00:19:32,096 --> 0:19:32,556
+you have.
+
+642
+00:19:32,946 --> 0:19:34,156
+I've shortened this list to fit
+
+643
+00:19:34,156 --> 0:19:34,706
+on a slide.
+
+644
+00:19:34,706 --> 0:19:35,976
+You'll probably see quite a few
+
+645
+00:19:35,976 --> 0:19:37,006
+more on your own machine.
+
+646
+00:19:37,706 --> 0:19:40,486
+We can see here that we have the
+
+647
+00:19:40,486 --> 0:19:42,716
+device types, both their short
+
+648
+00:19:42,716 --> 0:19:44,826
+names and their identifiers, the
+
+649
+00:19:44,826 --> 0:19:46,616
+runtimes, short names and
+
+650
+00:19:46,616 --> 0:19:48,816
+identifiers, my device, its
+
+651
+00:19:49,606 --> 0:19:51,036
+identifier and then the current
+
+652
+00:19:51,076 --> 0:19:52,406
+state, which is Shutdown.
+
+653
+00:19:53,096 --> 0:19:55,696
+Most of the commands that
+
+654
+00:19:55,696 --> 0:19:57,506
+accept, for example, a device
+
+655
+00:19:57,576 --> 0:19:58,906
+type or a runtime will accept
+
+656
+00:19:58,906 --> 0:19:59,916
+the name, the short name.
+
+657
+00:20:00,266 --> 0:20:02,256
+It's totally fine to use that
+
+658
+00:20:02,256 --> 0:20:02,856
+when you're typing at the
+
+659
+00:20:02,856 --> 0:20:04,306
+terminal, save you a few
+
+660
+00:20:04,306 --> 0:20:04,906
+keystrokes.
+
+661
+00:20:05,386 --> 0:20:06,696
+But I do recommend for
+
+662
+00:20:06,696 --> 0:20:08,446
+automation and scripting that
+
+663
+00:20:08,446 --> 0:20:10,156
+you go with the full identifier
+
+664
+00:20:10,536 --> 0:20:12,026
+just to be specific.
+
+665
+00:20:13,386 --> 0:20:15,466
+The list command accepts a
+
+666
+00:20:15,466 --> 0:20:16,636
+couple of different categories,
+
+667
+00:20:17,216 --> 0:20:18,656
+one of which is devices.
+
+668
+00:20:19,056 --> 0:20:21,166
+So in this case, I'm not looking
+
+669
+00:20:21,166 --> 0:20:23,966
+for the runtimes or the devices
+
+670
+00:20:23,966 --> 0:20:24,286
+types.
+
+671
+00:20:24,286 --> 0:20:25,216
+I just want the devices.
+
+672
+00:20:25,646 --> 0:20:27,936
+I can specify that, and I can
+
+673
+00:20:27,936 --> 0:20:29,586
+give a search string as well.
+
+674
+00:20:30,616 --> 0:20:31,906
+So in this case, I'm just
+
+675
+00:20:32,216 --> 0:20:35,286
+looking at my iPhone X devices.
+
+676
+00:20:35,636 --> 0:20:37,756
+So list command also has a json
+
+677
+00:20:37,756 --> 0:20:38,176
+flag.
+
+678
+00:20:38,446 --> 0:20:39,456
+This will output a
+
+679
+00:20:39,456 --> 0:20:41,136
+machine-readable json file that
+
+680
+00:20:41,136 --> 0:20:42,576
+you can use for automation
+
+681
+00:20:42,576 --> 0:20:43,000
+purposes.
+
+682
+00:20:47,236 --> 0:20:48,946
+The next command I want to talk
+
+683
+00:20:48,946 --> 0:20:50,226
+about is create command.
+
+684
+00:20:50,496 --> 0:20:52,936
+Some of you may have heard we
+
+685
+00:20:52,936 --> 0:20:53,996
+have standalone Watch app
+
+686
+00:20:53,996 --> 0:20:54,766
+support this year.
+
+687
+00:20:54,766 --> 0:20:56,446
+So I think I would like a
+
+688
+00:20:56,446 --> 0:20:57,926
+standalone Watch simulator that
+
+689
+00:20:57,986 --> 0:20:59,136
+I can deploy to.
+
+690
+00:20:59,566 --> 0:21:01,176
+So I'm going to call this Test
+
+691
+00:20:59,566 --> 0:21:01,176
+So I'm going to call this Test
+
+692
+00:21:01,246 --> 0:21:04,436
+Watch, and I'm going to specify
+
+693
+00:21:04,766 --> 0:21:05,906
+the device that I would like, a
+
+694
+00:21:05,906 --> 0:21:07,556
+Series 4 - 44mm.
+
+695
+00:21:08,306 --> 0:21:10,096
+And I would like that to be
+
+696
+00:21:10,096 --> 0:21:11,386
+running watchOS 6.0.
+
+697
+00:21:12,576 --> 0:21:14,866
+The output will be the
+
+698
+00:21:14,866 --> 0:21:17,776
+identifier of the device.
+
+699
+00:21:17,776 --> 0:21:19,476
+This is so I can capture that in
+
+700
+00:21:19,476 --> 0:21:20,746
+an environment variable or use
+
+701
+00:21:20,746 --> 0:21:21,646
+it for scripting purposes.
+
+702
+00:21:21,646 --> 0:21:24,926
+In this little example, I set
+
+703
+00:21:24,926 --> 0:21:26,736
+NEW DEVICE to that value, and
+
+704
+00:21:26,736 --> 0:21:28,656
+then, look the bot echoed the
+
+705
+00:21:29,166 --> 0:21:30,836
+identifier, the device that was
+
+706
+00:21:30,876 --> 0:21:31,276
+created.
+
+707
+00:21:32,056 --> 0:21:35,546
+Most Sim control commands follow
+
+708
+00:21:35,546 --> 0:21:36,516
+the UNIX convention.
+
+709
+00:21:36,926 --> 0:21:39,446
+On success, they exit with zero.
+
+710
+00:21:39,446 --> 0:21:40,766
+On a failure, they exit with a
+
+711
+00:21:40,766 --> 0:21:41,696
+non-zero code.
+
+712
+00:21:42,176 --> 0:21:44,366
+Errors are printed to standard
+
+713
+00:21:44,366 --> 0:21:46,376
+error, and then actual output
+
+714
+00:21:46,376 --> 0:21:48,196
+such as a device identifier or
+
+715
+00:21:48,196 --> 0:21:50,256
+the json is output to standard
+
+716
+00:21:51,076 --> 0:21:51,146
+out.
+
+717
+00:21:53,096 --> 0:21:55,006
+The next command I want to talk
+
+718
+00:21:55,006 --> 0:21:56,916
+about is the spawn command.
+
+719
+00:21:57,466 --> 0:21:59,966
+The spawn command will pause
+
+720
+00:21:59,966 --> 0:22:02,786
+xspawn a process inside the
+
+721
+00:21:59,966 --> 0:22:02,786
+xspawn a process inside the
+
+722
+00:22:02,786 --> 0:22:03,816
+simulated environment.
+
+723
+00:22:04,596 --> 0:22:06,556
+And you might think, "What use
+
+724
+00:22:06,556 --> 0:22:07,246
+is that?"
+
+725
+00:22:07,636 --> 0:22:08,706
+Well, we ship a couple of
+
+726
+00:22:08,706 --> 0:22:10,606
+utilities in the Simulator that
+
+727
+00:22:10,606 --> 0:22:12,000
+might be useful to you.
+
+728
+00:22:13,296 --> 0:22:15,066
+In this case, the default
+
+729
+00:22:15,066 --> 0:22:15,476
+utility.
+
+730
+00:22:15,476 --> 0:22:16,896
+So I'm going to specify the
+
+731
+00:22:16,896 --> 0:22:18,926
+device that I want to target.
+
+732
+00:22:18,926 --> 0:22:19,726
+In this case, I'm going to use
+
+733
+00:22:19,726 --> 0:22:21,726
+the alias booted, because I have
+
+734
+00:22:21,726 --> 0:22:23,376
+one booted simulator, so I don't
+
+735
+00:22:23,376 --> 0:22:24,336
+need to actually specify which
+
+736
+00:22:24,336 --> 0:22:25,726
+one it is.
+
+737
+00:22:25,726 --> 0:22:27,116
+And I'm going to say defaults
+
+738
+00:22:27,116 --> 0:22:29,086
+write, the bundle ID of my
+
+739
+00:22:29,086 --> 0:22:29,806
+application.
+
+740
+00:22:30,286 --> 0:22:31,906
+I want to set the ResetDatabase
+
+741
+00:22:31,946 --> 0:22:33,226
+key to YES.
+
+742
+00:22:34,146 --> 0:22:35,796
+So this can be a handy way to
+
+743
+00:22:35,796 --> 0:22:36,966
+change the user defaults for
+
+744
+00:22:36,966 --> 0:22:38,696
+your application before it's
+
+745
+00:22:38,696 --> 0:22:39,026
+running.
+
+746
+00:22:39,586 --> 0:22:42,476
+I can also run the log stream
+
+747
+00:22:42,476 --> 0:22:42,986
+utility.
+
+748
+00:22:42,986 --> 0:22:44,696
+If you haven't seen this before
+
+749
+00:22:44,696 --> 0:22:46,706
+or haven't run this on your Mac,
+
+750
+00:22:46,706 --> 0:22:48,076
+you can pass a predicate, and
+
+751
+00:22:48,076 --> 0:22:49,266
+you can stream the log output.
+
+752
+00:22:49,836 --> 0:22:50,816
+Well, you can do the same thing
+
+753
+00:22:50,816 --> 0:22:51,416
+with the Simulator.
+
+754
+00:22:51,416 --> 0:22:54,106
+In this case, I'm going to say
+
+755
+00:22:54,106 --> 0:22:55,036
+that the predicate is
+
+756
+00:22:55,256 --> 0:22:57,326
+senderImagePath CONTAINS
+
+757
+00:22:57,436 --> 0:22:59,716
+nsurlsessiond, because I want to
+
+758
+00:22:59,716 --> 0:23:01,016
+debug something that's going
+
+759
+00:22:59,716 --> 0:23:01,016
+debug something that's going
+
+760
+00:23:01,016 --> 0:23:02,276
+wrong with my URL sessions.
+
+761
+00:23:02,836 --> 0:23:06,516
+And then I can see the log
+
+762
+00:23:06,516 --> 0:23:07,236
+stream output.
+
+763
+00:23:07,806 --> 0:23:09,816
+You may notice sim control has
+
+764
+00:23:09,816 --> 0:23:10,986
+detected that I'm using an
+
+765
+00:23:10,986 --> 0:23:12,266
+interactive terminal that
+
+766
+00:23:12,266 --> 0:23:12,996
+supports color.
+
+767
+00:23:13,426 --> 0:23:14,466
+It's passed that information
+
+768
+00:23:14,466 --> 0:23:15,866
+through, so log stream is giving
+
+769
+00:23:15,866 --> 0:23:18,076
+me some nice pretty colorized
+
+770
+00:23:18,076 --> 0:23:18,626
+output.
+
+771
+00:23:19,066 --> 0:23:20,136
+And here I can see my
+
+772
+00:23:20,136 --> 0:23:21,276
+dataTaskWithRequest
+
+773
+00:23:21,496 --> 0:23:23,196
+allowsCellularAccess is set to
+
+774
+00:23:23,196 --> 0:23:23,636
+1.
+
+775
+00:23:23,636 --> 0:23:25,096
+That's what I expected, so I'm
+
+776
+00:23:25,766 --> 0:23:25,896
+happy.
+
+777
+00:23:27,976 --> 0:23:30,596
+Speaking of logs, the next
+
+778
+00:23:30,596 --> 0:23:32,256
+command I want to talk to you
+
+779
+00:23:32,256 --> 0:23:34,426
+about is diagnose.
+
+780
+00:23:34,976 --> 0:23:37,226
+This is an incredibly useful
+
+781
+00:23:37,226 --> 0:23:37,786
+command.
+
+782
+00:23:38,546 --> 0:23:39,836
+The diagnose command will go
+
+783
+00:23:39,836 --> 0:23:41,616
+through and collect not just
+
+784
+00:23:41,616 --> 0:23:43,196
+logs on disk, but ephemeral
+
+785
+00:23:43,196 --> 0:23:45,366
+logging and dump system state
+
+786
+00:23:45,716 --> 0:23:46,806
+that can be useful in tracking
+
+787
+00:23:46,806 --> 0:23:47,586
+down a problem.
+
+788
+00:23:48,886 --> 0:23:50,576
+This a great thing to run in
+
+789
+00:23:50,576 --> 0:23:52,256
+automated systems if you have a
+
+790
+00:23:52,256 --> 0:23:54,286
+test failure or some kind of
+
+791
+00:23:54,286 --> 0:23:56,246
+issue immediately capture
+
+792
+00:23:56,246 --> 0:23:58,506
+diagnose, control diagnose.
+
+793
+00:23:59,196 --> 0:24:00,856
+This is also great if you're
+
+794
+00:23:59,196 --> 0:24:00,856
+This is also great if you're
+
+795
+00:24:00,856 --> 0:24:01,686
+filing bugs.
+
+796
+00:24:02,616 --> 0:24:05,226
+So in an automated scenario, I'm
+
+797
+00:24:05,226 --> 0:24:07,216
+going to pass the -l flag to
+
+798
+00:24:07,216 --> 0:24:08,566
+skip the privacy warning.
+
+799
+00:24:08,566 --> 0:24:09,796
+But I do recommend that you read
+
+800
+00:24:09,796 --> 0:24:11,906
+that before you use this command
+
+801
+00:24:12,316 --> 0:24:13,376
+and also check out Apple's
+
+802
+00:24:13,376 --> 0:24:14,136
+privacy policy.
+
+803
+00:24:14,136 --> 0:24:15,226
+This will tell you the types of
+
+804
+00:24:15,226 --> 0:24:16,226
+information that this will
+
+805
+00:24:16,226 --> 0:24:17,606
+collect, could include account
+
+806
+00:24:17,606 --> 0:24:19,246
+names and things like that.
+
+807
+00:24:20,136 --> 0:24:21,966
+The diagnose can run.
+
+808
+00:24:21,966 --> 0:24:23,136
+It'll tell me where it wrote the
+
+809
+00:24:23,136 --> 0:24:23,786
+file to.
+
+810
+00:24:23,866 --> 0:24:26,146
+If I'm using this at my desk, I
+
+811
+00:24:26,146 --> 0:24:27,236
+would also get a Finder window
+
+812
+00:24:27,236 --> 0:24:29,176
+that pops up, that shows me the
+
+813
+00:24:29,176 --> 0:24:29,916
+file it produced.
+
+814
+00:24:31,046 --> 0:24:32,566
+So, please, if you're going to
+
+815
+00:24:32,566 --> 0:24:33,666
+send in feedback through the new
+
+816
+00:24:33,666 --> 0:24:35,846
+Feedback Assistant with issues
+
+817
+00:24:35,846 --> 0:24:37,596
+occurring the Simulator, attach
+
+818
+00:24:37,596 --> 0:24:38,916
+a sim control diagnose.
+
+819
+00:24:39,416 --> 0:24:41,956
+That makes it much easier to
+
+820
+00:24:41,956 --> 0:24:42,976
+figure out what went wrong.
+
+821
+00:24:43,236 --> 0:24:44,816
+And I do recommend you use it in
+
+822
+00:24:44,816 --> 0:24:46,136
+your own workflows if you're
+
+823
+00:24:46,136 --> 0:24:47,946
+going to send a bug to-- For
+
+824
+00:24:47,946 --> 0:24:48,606
+example, if you're working in
+
+825
+00:24:48,606 --> 0:24:49,576
+QA, you're going to send a bug
+
+826
+00:24:49,576 --> 0:24:50,156
+to the engineer.
+
+827
+00:24:50,156 --> 0:24:51,296
+Hey, the app-- something went
+
+828
+00:24:51,296 --> 0:24:51,686
+wrong.
+
+829
+00:24:52,426 --> 0:24:53,426
+Attach a diagnose.
+
+830
+00:24:53,756 --> 0:24:55,006
+That'll include all the log
+
+831
+00:24:55,006 --> 0:24:56,196
+output from your application.
+
+832
+00:24:56,936 --> 0:24:59,166
+The next command that I want to
+
+833
+00:24:59,166 --> 0:25:00,166
+tell you about is launch
+
+834
+00:24:59,166 --> 0:25:00,166
+tell you about is launch
+
+835
+00:25:00,206 --> 0:25:00,686
+command.
+
+836
+00:25:01,976 --> 0:25:03,336
+Launch command launches an
+
+837
+00:25:03,336 --> 0:25:04,076
+application.
+
+838
+00:25:05,256 --> 0:25:07,476
+You might ask, "Well, what is
+
+839
+00:25:07,476 --> 0:25:08,516
+difference between that and
+
+840
+00:25:08,516 --> 0:25:09,066
+spawn?"
+
+841
+00:25:09,506 --> 0:25:11,686
+Well, launch politely asks the
+
+842
+00:25:11,686 --> 0:25:13,266
+system, "Would you please start
+
+843
+00:25:13,266 --> 0:25:14,666
+the application with this bundle
+
+844
+00:25:14,666 --> 0:25:14,756
+ID?"
+
+845
+00:25:15,526 --> 0:25:16,936
+This is equivalent to tapping on
+
+846
+00:25:16,936 --> 0:25:18,666
+the icon on the Home screen.
+
+847
+00:25:19,506 --> 0:25:20,656
+And in fact, this is the only
+
+848
+00:25:20,656 --> 0:25:22,206
+way a process can display
+
+849
+00:25:22,206 --> 0:25:24,116
+information on the screen on
+
+850
+00:25:24,286 --> 0:25:27,076
+iOS, watchOS or tvOS.
+
+851
+00:25:27,076 --> 0:25:28,096
+So it's incredibly important.
+
+852
+00:25:28,096 --> 0:25:29,086
+So if you actually want to
+
+853
+00:25:29,086 --> 0:25:30,646
+launch an installed application,
+
+854
+00:25:31,026 --> 0:25:32,186
+you'd need to use the launch
+
+855
+00:25:32,186 --> 0:25:32,636
+command.
+
+856
+00:25:33,796 --> 0:25:36,076
+So I'm going to specify again
+
+857
+00:25:36,076 --> 0:25:37,736
+the booted alias, because I only
+
+858
+00:25:37,736 --> 0:25:38,636
+have one simulator that's
+
+859
+00:25:38,676 --> 0:25:39,026
+booted.
+
+860
+00:25:39,576 --> 0:25:41,556
+I'm going to launch my
+
+861
+00:25:41,556 --> 0:25:43,426
+com.apple.example application,
+
+862
+00:25:44,146 --> 0:25:45,086
+and I'm going to pass some
+
+863
+00:25:45,086 --> 0:25:45,716
+arguments.
+
+864
+00:25:46,166 --> 0:25:47,886
+If you haven't seen this before,
+
+865
+00:25:48,126 --> 0:25:49,326
+user defaults allows you to
+
+866
+00:25:49,326 --> 0:25:50,716
+override defaults that you've
+
+867
+00:25:50,716 --> 0:25:52,386
+set as arguments from the
+
+868
+00:25:52,386 --> 0:25:52,976
+command line.
+
+869
+00:25:53,856 --> 0:25:55,326
+Prefix the key with a single
+
+870
+00:25:55,326 --> 0:25:57,626
+dash, the key name and then
+
+871
+00:25:57,626 --> 0:25:58,586
+specify the value.
+
+872
+00:25:59,016 --> 0:26:00,486
+And for that specific launch of
+
+873
+00:25:59,016 --> 0:26:00,486
+And for that specific launch of
+
+874
+00:26:00,486 --> 0:26:01,966
+my application, the
+
+875
+00:26:01,966 --> 0:26:03,986
+-MyDefaultKey will be set to YES
+
+876
+00:26:04,106 --> 0:26:05,536
+regardless of what's stored on
+
+877
+00:26:05,536 --> 0:26:05,836
+disk.
+
+878
+00:26:06,706 --> 0:26:07,936
+The launch can do something else
+
+879
+00:26:07,936 --> 0:26:08,986
+very interesting for me.
+
+880
+00:26:09,726 --> 0:26:12,206
+If I pass the -- console-pty
+
+881
+00:26:12,286 --> 0:26:15,896
+flag, launch will connect my
+
+882
+00:26:15,896 --> 0:26:17,356
+application's standard input,
+
+883
+00:26:17,356 --> 0:26:19,896
+output and standard error to the
+
+884
+00:26:19,896 --> 0:26:21,136
+terminal I'm working with right
+
+885
+00:26:21,136 --> 0:26:21,436
+now.
+
+886
+00:26:22,566 --> 0:26:23,396
+So when I launch this
+
+887
+00:26:23,396 --> 0:26:25,776
+application, I see its standard
+
+888
+00:26:25,776 --> 0:26:27,226
+output right there in my
+
+889
+00:26:27,226 --> 0:26:27,626
+terminal.
+
+890
+00:26:28,386 --> 0:26:30,306
+And more than that, I can hook
+
+891
+00:26:30,306 --> 0:26:31,706
+up debugging facilities.
+
+892
+00:26:32,216 --> 0:26:34,406
+In this example, I press Enter,
+
+893
+00:26:34,846 --> 0:26:35,766
+and it's going to dump some
+
+894
+00:26:35,766 --> 0:26:36,566
+debugging state.
+
+895
+00:26:36,956 --> 0:26:39,216
+So in Terminal, I can press
+
+896
+00:26:39,216 --> 0:26:41,246
+Enter, and I get that debugging
+
+897
+00:26:41,246 --> 0:26:42,046
+state printed from the
+
+898
+00:26:42,046 --> 0:26:42,726
+application.
+
+899
+00:26:43,346 --> 0:26:44,726
+This can be a real useful tool
+
+900
+00:26:44,726 --> 0:26:46,106
+when you're debugging.
+
+901
+00:26:47,136 --> 0:26:48,316
+The other thing you might notice
+
+902
+00:26:48,316 --> 0:26:50,076
+is I press Control-C, which
+
+903
+00:26:50,076 --> 0:26:51,626
+sends an interrupt signal.
+
+904
+00:26:52,426 --> 0:26:54,846
+Sim control detects that, grabs
+
+905
+00:26:54,846 --> 0:26:56,126
+the signal and passes it through
+
+906
+00:26:56,126 --> 0:26:57,006
+to the application.
+
+907
+00:26:57,616 --> 0:27:00,216
+That applies not just to signals
+
+908
+00:26:57,616 --> 0:27:00,216
+That applies not just to signals
+
+909
+00:27:00,216 --> 0:27:01,786
+like interrupt, but user
+
+910
+00:27:01,786 --> 0:27:04,026
+signals: user1, user2.
+
+911
+00:27:04,026 --> 0:27:05,556
+Those are other ways you can set
+
+912
+00:27:05,556 --> 0:27:07,096
+up your application to include
+
+913
+00:27:07,526 --> 0:27:08,756
+debugging information.
+
+914
+00:27:09,296 --> 0:27:12,326
+So there's a couple more
+
+915
+00:27:12,326 --> 0:27:15,536
+commands that I don't have time
+
+916
+00:27:15,536 --> 0:27:16,546
+to go into, but I'm just going
+
+917
+00:27:16,546 --> 0:27:18,556
+to briefly give you an overview.
+
+918
+00:27:19,496 --> 0:27:21,946
+Boot as you might expect boots a
+
+919
+00:27:21,946 --> 0:27:22,456
+device.
+
+920
+00:27:23,536 --> 0:27:26,396
+Shutdown also pretty obvious; it
+
+921
+00:27:26,396 --> 0:27:27,316
+shuts down the device.
+
+922
+00:27:27,916 --> 0:27:29,426
+But shutdown accepts a special
+
+923
+00:27:29,426 --> 0:27:29,956
+alias.
+
+924
+00:27:30,526 --> 0:27:32,126
+The all alias-- That will just
+
+925
+00:27:32,126 --> 0:27:33,036
+shut down all running
+
+926
+00:27:33,036 --> 0:27:33,586
+simulators.
+
+927
+00:27:34,936 --> 0:27:36,366
+Delete, again-- as you might
+
+928
+00:27:36,366 --> 0:27:37,926
+expect-- it deletes a device.
+
+929
+00:27:38,626 --> 0:27:40,496
+But there's another convenient
+
+930
+00:27:40,496 --> 0:27:41,536
+alias that it accepts--
+
+931
+00:27:42,286 --> 0:27:43,096
+unavailable.
+
+932
+00:27:43,846 --> 0:27:45,116
+That will go through and find
+
+933
+00:27:45,116 --> 0:27:47,176
+all of the simulators that use a
+
+934
+00:27:47,176 --> 0:27:49,006
+runtime that's not available to
+
+935
+00:27:49,006 --> 0:27:49,676
+you anymore.
+
+936
+00:27:50,066 --> 0:27:51,136
+Maybe it's an older version of
+
+937
+00:27:51,136 --> 0:27:52,856
+Xcode that you've upgraded or
+
+938
+00:27:52,856 --> 0:27:53,926
+it's a downloaded Simulator
+
+939
+00:27:53,926 --> 0:27:55,106
+runtime-- like Tracy showed
+
+940
+00:27:55,106 --> 0:27:56,156
+you-- that you've deleted.
+
+941
+00:27:56,606 --> 0:27:57,646
+That will go through and clean
+
+942
+00:27:57,646 --> 0:27:58,936
+all these up and recover that
+
+943
+00:27:58,936 --> 0:28:00,386
+disk space.
+
+944
+00:27:58,936 --> 0:28:00,386
+disk space.
+
+945
+00:28:01,896 --> 0:28:03,456
+The next one, pair.
+
+946
+00:28:03,966 --> 0:28:05,636
+There's pair and also an
+
+947
+00:28:05,636 --> 0:28:07,126
+associated unpair and pair
+
+948
+00:28:07,126 --> 0:28:07,576
+activate.
+
+949
+00:28:07,636 --> 0:28:08,856
+You can set up watch phone
+
+950
+00:28:08,856 --> 0:28:11,466
+pairings from the command line.
+
+951
+00:28:11,466 --> 0:28:12,666
+Addmedia-- that's similar to
+
+952
+00:28:12,666 --> 0:28:14,606
+what Tracy showed you earlier
+
+953
+00:28:14,956 --> 0:28:16,516
+dragging, dropping photo and
+
+954
+00:28:16,516 --> 0:28:17,656
+media into the Simulator.
+
+955
+00:28:17,766 --> 0:28:19,046
+You can script that as well.
+
+956
+00:28:19,546 --> 0:28:22,006
+Get app container is an
+
+957
+00:28:22,006 --> 0:28:22,856
+interesting one.
+
+958
+00:28:22,996 --> 0:28:24,776
+If something's going wrong with
+
+959
+00:28:24,776 --> 0:28:25,126
+your app.
+
+960
+00:28:25,176 --> 0:28:27,016
+Perhaps it's writing a corrupted
+
+961
+00:28:27,066 --> 0:28:28,976
+file or it's attempting to load
+
+962
+00:28:28,976 --> 0:28:29,746
+something, and you know it
+
+963
+00:28:29,746 --> 0:28:30,696
+should be there, but it's not
+
+964
+00:28:30,696 --> 0:28:32,586
+there, get app container can
+
+965
+00:28:32,586 --> 0:28:34,466
+give you the path on disk to
+
+966
+00:28:34,466 --> 0:28:35,346
+your application's data
+
+967
+00:28:35,346 --> 0:28:37,616
+container or even to a shared
+
+968
+00:28:37,616 --> 0:28:39,226
+container that perhaps your app
+
+969
+00:28:39,226 --> 0:28:40,396
+and your app's extension are
+
+970
+00:28:40,396 --> 0:28:40,776
+using.
+
+971
+00:28:41,196 --> 0:28:43,056
+And you can go then examine the
+
+972
+00:28:43,056 --> 0:28:44,326
+actual content, the filesystem
+
+973
+00:28:44,326 --> 0:28:46,286
+from Finder or from Terminal and
+
+974
+00:28:46,286 --> 0:28:47,126
+see what's going wrong.
+
+975
+00:28:48,186 --> 0:28:49,886
+Install. Again, that's very
+
+976
+00:28:49,886 --> 0:28:50,996
+similar to what Tracy showed you
+
+977
+00:28:50,996 --> 0:28:52,026
+with dragging dropping app
+
+978
+00:28:52,026 --> 0:28:52,306
+bundle.
+
+979
+00:28:52,306 --> 0:28:53,536
+You can install an application
+
+980
+00:28:53,536 --> 0:28:54,256
+from the command line.
+
+981
+00:28:54,796 --> 0:28:57,296
+And then the last one I want to
+
+982
+00:28:57,296 --> 0:28:58,676
+mention is the io command.
+
+983
+00:28:59,086 --> 0:29:00,366
+Io itself has several
+
+984
+00:28:59,086 --> 0:29:00,366
+Io itself has several
+
+985
+00:29:00,366 --> 0:29:02,486
+subcommands, probably the most
+
+986
+00:29:02,486 --> 0:29:03,746
+important of which is
+
+987
+00:29:03,746 --> 0:29:04,336
+screenshot.
+
+988
+00:29:04,336 --> 0:29:06,026
+So that allows you to automate
+
+989
+00:29:06,026 --> 0:29:07,566
+taking of screenshots in
+
+990
+00:29:07,566 --> 0:29:08,046
+Simulator.
+
+991
+00:29:08,586 --> 0:29:11,196
+And then the last command I want
+
+992
+00:29:11,196 --> 0:29:12,516
+to talk about is the clone
+
+993
+00:29:12,516 --> 0:29:13,000
+command.
+
+994
+00:29:15,186 --> 0:29:18,256
+Clone is a very powerful command
+
+995
+00:29:18,396 --> 0:29:20,426
+that can be used for automation,
+
+996
+00:29:20,426 --> 0:29:21,446
+for testing, for making
+
+997
+00:29:21,446 --> 0:29:22,216
+experiments.
+
+998
+00:29:23,196 --> 0:29:24,426
+Clone allows you to set up a
+
+999
+00:29:24,426 --> 0:29:25,806
+single simulator exactly how you
+
+1000
+00:29:25,806 --> 0:29:27,566
+want, install your app, set user
+
+1001
+00:29:27,566 --> 0:29:28,496
+defaults, load data.
+
+1002
+00:29:28,496 --> 0:29:30,546
+Then you can shut that simulator
+
+1003
+00:29:30,546 --> 0:29:32,066
+down and then make as many
+
+1004
+00:29:32,066 --> 0:29:33,136
+copies of it as you want.
+
+1005
+00:29:34,036 --> 0:29:35,486
+Then you can run those copies,
+
+1006
+00:29:36,286 --> 0:29:37,606
+perform your experiments and
+
+1007
+00:29:37,606 --> 0:29:38,596
+then throw them away when you're
+
+1008
+00:29:38,596 --> 0:29:38,896
+done.
+
+1009
+00:29:38,896 --> 0:29:41,466
+This can be a great timesaver
+
+1010
+00:29:41,886 --> 0:29:43,616
+and saves a lot of disk space
+
+1011
+00:29:43,666 --> 0:29:45,666
+because clone takes advantage of
+
+1012
+00:29:45,666 --> 0:29:47,246
+APSF file cloning under the
+
+1013
+00:29:47,976 --> 0:29:48,686
+covers.
+
+1014
+00:29:48,686 --> 0:29:49,536
+If your game has a
+
+1015
+00:29:49,536 --> 0:29:51,216
+gigabyte worth of assets and you
+
+1016
+00:29:51,216 --> 0:29:52,866
+want to run multiple tests in
+
+1017
+00:29:52,866 --> 0:29:54,206
+parallel, you can go ahead and
+
+1018
+00:29:54,206 --> 0:29:55,316
+do that without taking up a
+
+1019
+00:29:55,316 --> 0:29:56,256
+bunch of disk space.
+
+1020
+00:29:56,966 --> 0:29:58,226
+So rather than talk more about
+
+1021
+00:29:58,226 --> 0:30:00,516
+that, I'm going to show you with
+
+1022
+00:29:58,226 --> 0:30:00,516
+that, I'm going to show you with
+
+1023
+00:30:00,516 --> 0:30:01,306
+a demo.
+
+1024
+00:30:02,796 --> 0:30:03,186
+OK.
+
+1025
+00:30:03,766 --> 0:30:06,746
+So the first thing that I'm
+
+1026
+00:30:06,746 --> 0:30:07,956
+going to do is I'm going to go
+
+1027
+00:30:07,956 --> 0:30:10,236
+ahead and start the simulator
+
+1028
+00:30:10,236 --> 0:30:12,166
+that I'm going to use as my sort
+
+1029
+00:30:12,166 --> 0:30:14,506
+of baseline for comparison.
+
+1030
+00:30:14,976 --> 0:30:16,986
+So I'm going to start that
+
+1031
+00:30:16,986 --> 0:30:17,466
+simulator.
+
+1032
+00:30:17,466 --> 0:30:19,636
+You can see I have the Simulator
+
+1033
+00:30:19,636 --> 0:30:21,266
+app open, so it automatically
+
+1034
+00:30:21,266 --> 0:30:22,606
+attaches to it.
+
+1035
+00:30:24,376 --> 0:30:26,516
+The next thing I'm going to do
+
+1036
+00:30:26,516 --> 0:30:28,466
+is install my application.
+
+1037
+00:30:28,786 --> 0:30:29,986
+I have my application bundle
+
+1038
+00:30:29,986 --> 0:30:31,166
+here and ready to go.
+
+1039
+00:30:31,356 --> 0:30:32,716
+So like I showed you earlier,
+
+1040
+00:30:32,806 --> 0:30:34,516
+I'm going to run install, booted
+
+1041
+00:30:35,106 --> 0:30:37,500
+in that application.
+
+1042
+00:30:38,156 --> 0:30:39,306
+Well, see, it appeared on the
+
+1043
+00:30:39,306 --> 0:30:40,936
+Home screen, and it's now
+
+1044
+00:30:40,936 --> 0:30:41,476
+installed.
+
+1045
+00:30:42,056 --> 0:30:44,486
+So the next thing I'm going to
+
+1046
+00:30:44,486 --> 0:30:45,406
+go ahead and do is shut this
+
+1047
+00:30:45,406 --> 0:30:46,266
+simulator down.
+
+1048
+00:30:46,366 --> 0:30:47,276
+We do need to shut it down
+
+1049
+00:30:47,276 --> 0:30:48,000
+before we can clone it.
+
+1050
+00:30:54,166 --> 0:30:56,476
+And then once I've shut it down,
+
+1051
+00:30:56,826 --> 0:30:59,006
+I'm going to go ahead and create
+
+1052
+00:30:59,006 --> 0:31:00,296
+a clone called clone-1.
+
+1053
+00:30:59,006 --> 0:31:00,296
+a clone called clone-1.
+
+1054
+00:31:04,406 --> 0:31:06,206
+And now I'm going to run this
+
+1055
+00:31:06,206 --> 0:31:06,736
+command again.
+
+1056
+00:31:06,736 --> 0:31:07,426
+I'm going to create another
+
+1057
+00:31:07,426 --> 0:31:08,586
+clone, clone-2.
+
+1058
+00:31:13,476 --> 0:31:15,336
+Now that I have these two clone
+
+1059
+00:31:15,336 --> 0:31:16,496
+simulators, I'm going to go
+
+1060
+00:31:16,496 --> 0:31:17,526
+ahead and ask them to boot.
+
+1061
+00:31:22,076 --> 0:31:23,516
+And here we can see that both of
+
+1062
+00:31:23,516 --> 0:31:25,386
+them are starting up.
+
+1063
+00:31:25,386 --> 0:31:26,246
+They started up much more
+
+1064
+00:31:26,246 --> 0:31:27,896
+quickly, because I don't have to
+
+1065
+00:31:27,896 --> 0:31:30,116
+pay the first boot cost.
+
+1066
+00:31:30,116 --> 0:31:32,156
+I already paid that cost with
+
+1067
+00:31:32,156 --> 0:31:33,356
+the base simulator when I set it
+
+1068
+00:31:33,356 --> 0:31:33,866
+up.
+
+1069
+00:31:33,866 --> 0:31:34,876
+So that can be a great
+
+1070
+00:31:34,916 --> 0:31:35,416
+timesaver.
+
+1071
+00:31:36,876 --> 0:31:39,956
+And then here's what I could set
+
+1072
+00:31:40,406 --> 0:31:42,966
+up things in place for my demos
+
+1073
+00:31:42,966 --> 0:31:44,376
+or my experiments that I want to
+
+1074
+00:31:44,756 --> 0:31:46,636
+run, and then I would launch the
+
+1075
+00:31:46,636 --> 0:31:47,856
+application on both of these
+
+1076
+00:31:47,856 --> 0:31:48,496
+simulators.
+
+1077
+00:31:48,996 --> 0:31:52,226
+Now, some of you may actually
+
+1078
+00:31:52,226 --> 0:31:53,076
+recognize this code.
+
+1079
+00:31:53,076 --> 0:31:53,636
+This is the Metal
+
+1080
+00:31:53,636 --> 0:31:54,706
+DeferredLighting demo.
+
+1081
+00:31:55,266 --> 0:31:56,086
+This is something that we
+
+1082
+00:31:56,086 --> 0:31:57,756
+weren't able to run in previous
+
+1083
+00:31:57,756 --> 0:31:57,966
+years.
+
+1084
+00:31:57,966 --> 0:31:59,836
+This is new to Xcode 11 when
+
+1085
+00:32:00,176 --> 0:32:02,166
+running on macOS Catalina.
+
+1086
+00:32:02,616 --> 0:32:04,936
+And to tell you all about Metal
+
+1087
+00:32:04,936 --> 0:32:07,306
+in the Simulator, I'm going to
+
+1088
+00:32:07,306 --> 0:32:08,086
+invite Katelyn out.
+
+1089
+00:32:08,656 --> 0:32:08,976
+Katelyn?
+
+1090
+00:32:09,516 --> 0:32:14,966
+[ Applause ]
+
+1091
+00:32:15,466 --> 0:32:15,946
+&gt;&gt; Thank you.
+
+1092
+00:32:16,606 --> 0:32:17,836
+Thank you, Russ.
+
+1093
+00:32:18,156 --> 0:32:18,686
+Good morning.
+
+1094
+00:32:18,786 --> 0:32:20,376
+I'm Katelyn Hicks, and I'm an
+
+1095
+00:32:20,376 --> 0:32:21,906
+engineer on the GPU Software
+
+1096
+00:32:21,906 --> 0:32:22,196
+team.
+
+1097
+00:32:22,746 --> 0:32:24,156
+And today, I'm excited to tell
+
+1098
+00:32:24,156 --> 0:32:25,836
+you about the new Metal support
+
+1099
+00:32:25,836 --> 0:32:26,546
+in Simulator.
+
+1100
+00:32:27,216 --> 0:32:28,806
+So let's dive in to see how to
+
+1101
+00:32:28,806 --> 0:32:30,556
+get the most out of Metal in
+
+1102
+00:32:30,596 --> 0:32:31,066
+Simulator.
+
+1103
+00:32:32,696 --> 0:32:35,216
+While running on macOS Catalina
+
+1104
+00:32:35,546 --> 0:32:37,776
+and Xcode 11, Simulator now
+
+1105
+00:32:37,776 --> 0:32:38,606
+supports Metal.
+
+1106
+00:32:38,986 --> 0:32:40,546
+But what does that mean for your
+
+1107
+00:32:40,546 --> 0:32:41,326
+application?
+
+1108
+00:32:42,016 --> 0:32:43,596
+Well, two things.
+
+1109
+00:32:44,456 --> 0:32:46,446
+Simulator is fully GPU
+
+1110
+00:32:46,446 --> 0:32:48,676
+accelerated for all
+
+1111
+00:32:48,676 --> 0:32:49,326
+applications.
+
+1112
+00:32:50,026 --> 0:32:52,476
+And second, the Metal API is now
+
+1113
+00:32:52,476 --> 0:32:54,136
+available to use in Simulator.
+
+1114
+00:32:54,136 --> 0:32:58,016
+So let's take a look at how fast
+
+1115
+00:32:58,176 --> 0:32:59,866
+Simulator is while running on
+
+1116
+00:32:59,866 --> 0:33:02,166
+macOS Catalina and Xcode 11.
+
+1117
+00:32:59,866 --> 0:33:02,166
+macOS Catalina and Xcode 11.
+
+1118
+00:33:02,846 --> 0:33:04,206
+We'll quickly go through a few
+
+1119
+00:33:04,206 --> 0:33:06,846
+applications to see that, across
+
+1120
+00:33:06,846 --> 0:33:08,716
+the system, animations are much
+
+1121
+00:33:08,716 --> 0:33:11,476
+smoother, and user experience is
+
+1122
+00:33:11,476 --> 0:33:12,386
+more responsive.
+
+1123
+00:33:12,976 --> 0:33:16,686
+This is due to the fact that
+
+1124
+00:33:16,686 --> 0:33:18,276
+Apple frameworks have migrated
+
+1125
+00:33:18,336 --> 0:33:20,146
+to Metal renderers and are now
+
+1126
+00:33:20,146 --> 0:33:21,836
+taking advantage of the GPU.
+
+1127
+00:33:22,446 --> 0:33:26,516
+So if your application is not
+
+1128
+00:33:26,556 --> 0:33:28,426
+using Metal, but instead you're
+
+1129
+00:33:28,426 --> 0:33:31,126
+using an Apple framework for UI
+
+1130
+00:33:31,396 --> 0:33:34,036
+2D or 3D graphics, you will
+
+1131
+00:33:34,036 --> 0:33:35,326
+still get the performance
+
+1132
+00:33:35,326 --> 0:33:36,866
+improvements of GPU
+
+1133
+00:33:36,866 --> 0:33:37,666
+acceleration.
+
+1134
+00:33:38,926 --> 0:33:40,926
+There are no changes necessary
+
+1135
+00:33:41,016 --> 0:33:42,936
+for your application to achieve
+
+1136
+00:33:42,936 --> 0:33:45,206
+GPU acceleration through Metal.
+
+1137
+00:33:45,576 --> 0:33:46,816
+This speedup is free.
+
+1138
+00:33:47,516 --> 0:33:48,536
+Now, I'd like to show you a few
+
+1139
+00:33:48,536 --> 0:33:49,116
+examples.
+
+1140
+00:33:49,116 --> 0:33:53,016
+So on the left, we have a device
+
+1141
+00:33:53,326 --> 0:33:54,686
+that is running on the software
+
+1142
+00:33:54,686 --> 0:33:55,136
+renderer.
+
+1143
+00:33:56,076 --> 0:33:57,276
+And on the right, we have the
+
+1144
+00:33:57,276 --> 0:33:59,436
+newly GPU accelerated simulator.
+
+1145
+00:34:00,436 --> 0:34:01,616
+In this simple graphics
+
+1146
+00:34:01,616 --> 0:34:03,196
+workload, we can see the
+
+1147
+00:34:03,196 --> 0:34:04,846
+improved performance through
+
+1148
+00:34:04,846 --> 0:34:06,306
+scrolling through this Table
+
+1149
+00:34:06,306 --> 0:34:08,096
+View that uses UIKit.
+
+1150
+00:34:08,556 --> 0:34:13,616
+Since the original Simulator, an
+
+1151
+00:34:13,786 --> 0:34:15,956
+iOS device's resolution has
+
+1152
+00:34:15,956 --> 0:34:18,376
+increased 17 times, which has
+
+1153
+00:34:18,376 --> 0:34:19,786
+put extra pressure on the
+
+1154
+00:34:19,786 --> 0:34:21,446
+underlying software renderer.
+
+1155
+00:34:22,446 --> 0:34:23,755
+In this SpriteKit Xcode
+
+1156
+00:34:23,755 --> 0:34:25,556
+template, we see the performance
+
+1157
+00:34:25,556 --> 0:34:28,136
+dipped down to 15 frames per
+
+1158
+00:34:28,136 --> 0:34:29,886
+second in the software renderer,
+
+1159
+00:34:30,696 --> 0:34:32,856
+whereas we're rendering the same
+
+1160
+00:34:33,216 --> 0:34:35,696
+application in Xcode 11 and
+
+1161
+00:34:35,755 --> 0:34:37,156
+macOS Catalina, and we see a
+
+1162
+00:34:37,156 --> 0:34:39,696
+steady 60 frames per second with
+
+1163
+00:34:39,735 --> 0:34:41,406
+more SpriteKit nodes rendering
+
+1164
+00:34:41,505 --> 0:34:44,616
+in the scene.
+
+1165
+00:34:44,835 --> 0:34:47,306
+For more complex 3D scenes like
+
+1166
+00:34:47,335 --> 0:34:48,826
+this Fox demo that uses
+
+1167
+00:34:48,826 --> 0:34:50,876
+SceneKit, we see a dramatic
+
+1168
+00:34:50,876 --> 0:34:52,646
+performance improvement without
+
+1169
+00:34:52,646 --> 0:34:54,116
+any changes to the Fox
+
+1170
+00:34:54,116 --> 0:34:55,275
+application source.
+
+1171
+00:34:55,815 --> 0:34:58,616
+And now it is possible to run
+
+1172
+00:34:58,616 --> 0:35:01,116
+multiple simulator devices in
+
+1173
+00:34:58,616 --> 0:35:01,116
+multiple simulator devices in
+
+1174
+00:35:01,326 --> 0:35:02,996
+parallel with real-time
+
+1175
+00:35:02,996 --> 0:35:03,616
+performance.
+
+1176
+00:35:04,456 --> 0:35:06,146
+In this Badger demo, which also
+
+1177
+00:35:06,146 --> 0:35:08,296
+uses SceneKit, the geometry and
+
+1178
+00:35:08,296 --> 0:35:10,026
+animation was previously too
+
+1179
+00:35:10,026 --> 0:35:12,366
+strenuous for a single software
+
+1180
+00:35:12,366 --> 0:35:14,346
+rendered GL simulator device,
+
+1181
+00:35:14,906 --> 0:35:16,096
+let alone two running in
+
+1182
+00:35:16,096 --> 0:35:16,566
+parallel.
+
+1183
+00:35:17,106 --> 0:35:21,426
+For those of you that use Metal
+
+1184
+00:35:21,426 --> 0:35:23,486
+directly, Metal development is
+
+1185
+00:35:23,486 --> 0:35:25,166
+now possible, and the workload
+
+1186
+00:35:25,166 --> 0:35:26,446
+is fully accelerated.
+
+1187
+00:35:26,856 --> 0:35:28,036
+Let's see how your experience
+
+1188
+00:35:28,036 --> 0:35:29,696
+has changed while running your
+
+1189
+00:35:29,696 --> 0:35:31,206
+application in Simulator.
+
+1190
+00:35:31,826 --> 0:35:33,476
+So previously, you may have seen
+
+1191
+00:35:33,476 --> 0:35:34,296
+a black screen.
+
+1192
+00:35:34,756 --> 0:35:36,096
+But now when you run your
+
+1193
+00:35:36,156 --> 0:35:38,006
+application in Simulator, you'll
+
+1194
+00:35:38,276 --> 0:35:39,746
+be able to run your application
+
+1195
+00:35:39,746 --> 0:35:41,456
+across all simulated devices.
+
+1196
+00:35:42,076 --> 0:35:46,266
+Now that you've seen it in
+
+1197
+00:35:46,266 --> 0:35:48,056
+action, let's dive into more
+
+1198
+00:35:48,056 --> 0:35:48,556
+details.
+
+1199
+00:35:50,136 --> 0:35:51,696
+If you've seen our other Metal
+
+1200
+00:35:51,696 --> 0:35:53,466
+session, you know that this year
+
+1201
+00:35:53,466 --> 0:35:54,926
+we have revamped our feature
+
+1202
+00:35:54,926 --> 0:35:56,986
+query API and have introduced
+
+1203
+00:35:56,986 --> 0:35:58,536
+the Metal GPU Family API.
+
+1204
+00:35:59,616 --> 0:36:01,876
+The Metal GPU Family API makes
+
+1205
+00:35:59,616 --> 0:36:01,876
+The Metal GPU Family API makes
+
+1206
+00:36:01,876 --> 0:36:03,566
+writing cross platform code
+
+1207
+00:36:03,566 --> 0:36:05,676
+simpler by abstracting GPU
+
+1208
+00:36:05,676 --> 0:36:07,966
+capabilities into a few distinct
+
+1209
+00:36:07,966 --> 0:36:10,506
+tiers, and the three families
+
+1210
+00:36:10,546 --> 0:36:12,396
+that are relevant to Simulator
+
+1211
+00:36:12,606 --> 0:36:15,086
+are first common, which includes
+
+1212
+00:36:15,136 --> 0:36:16,896
+all GPU features that are
+
+1213
+00:36:16,896 --> 0:36:18,486
+available cross platform.
+
+1214
+00:36:19,516 --> 0:36:21,606
+And second, macOS, which in
+
+1215
+00:36:21,606 --> 0:36:22,676
+includes the features that are
+
+1216
+00:36:22,676 --> 0:36:25,056
+specific to macOS GPU hardware.
+
+1217
+00:36:26,356 --> 0:36:28,356
+And third, Apple, which includes
+
+1218
+00:36:28,356 --> 0:36:30,066
+the features that are specific
+
+1219
+00:36:30,436 --> 0:36:32,996
+to iOS and tvOS GPU hardware.
+
+1220
+00:36:33,316 --> 0:36:34,206
+So while running your
+
+1221
+00:36:34,206 --> 0:36:35,756
+application in Simulator, your
+
+1222
+00:36:35,756 --> 0:36:37,186
+application can use features
+
+1223
+00:36:37,186 --> 0:36:39,826
+from MTLGPUFamilyApple2, which
+
+1224
+00:36:39,826 --> 0:36:40,826
+includes features that are
+
+1225
+00:36:40,826 --> 0:36:43,206
+included in MTLGPUFamilyCommon1
+
+1226
+00:36:43,206 --> 0:36:43,656
+as well.
+
+1227
+00:36:44,966 --> 0:36:46,676
+This support is common for all
+
+1228
+00:36:46,676 --> 0:36:47,816
+Simulator devices.
+
+1229
+00:36:49,396 --> 0:36:50,656
+So let's take a look how it is
+
+1230
+00:36:50,656 --> 0:36:52,106
+possible to run your iOS
+
+1231
+00:36:52,106 --> 0:36:53,476
+application in Simulator.
+
+1232
+00:36:54,306 --> 0:36:56,636
+Previously, your application
+
+1233
+00:36:56,636 --> 0:36:58,256
+rendered on an OpenGL ES
+
+1234
+00:36:58,346 --> 0:36:59,856
+software renderer for all
+
+1235
+00:36:59,856 --> 0:37:02,556
+applications, and it had no GPU
+
+1236
+00:36:59,856 --> 0:37:02,556
+applications, and it had no GPU
+
+1237
+00:37:02,556 --> 0:37:03,666
+hardware acceleration.
+
+1238
+00:37:04,176 --> 0:37:06,366
+But now in Xcode 11 and macOS
+
+1239
+00:37:06,366 --> 0:37:08,516
+Catalina, the great news is the
+
+1240
+00:37:08,516 --> 0:37:11,006
+Metal API is available to use in
+
+1241
+00:37:11,056 --> 0:37:11,616
+Simulator.
+
+1242
+00:37:12,346 --> 0:37:14,466
+And all of the Apple frameworks
+
+1243
+00:37:14,566 --> 0:37:15,976
+are now using Metal as well.
+
+1244
+00:37:17,186 --> 0:37:18,676
+But not only it is available,
+
+1245
+00:37:19,496 --> 0:37:20,706
+it's GPU-accelerated.
+
+1246
+00:37:21,576 --> 0:37:23,096
+So this means that all commands
+
+1247
+00:37:23,096 --> 0:37:24,506
+that are created by your iOS
+
+1248
+00:37:24,506 --> 0:37:27,346
+application for UI 2D or 3D
+
+1249
+00:37:27,346 --> 0:37:29,306
+graphics are all being
+
+1250
+00:37:29,306 --> 0:37:31,486
+translated from iOS Metal to
+
+1251
+00:37:31,486 --> 0:37:32,356
+macOS Metal.
+
+1252
+00:37:32,636 --> 0:37:34,456
+And this translation allows you
+
+1253
+00:37:34,456 --> 0:37:35,896
+to take advantage of the
+
+1254
+00:37:35,896 --> 0:37:37,796
+underlying Mac GPU on your
+
+1255
+00:37:37,796 --> 0:37:38,196
+system.
+
+1256
+00:37:39,326 --> 0:37:40,586
+But this does come with a few
+
+1257
+00:37:40,586 --> 0:37:42,986
+caveats and one of them being
+
+1258
+00:37:43,226 --> 0:37:44,686
+the performance you see may be
+
+1259
+00:37:44,686 --> 0:37:45,596
+different from the actual
+
+1260
+00:37:45,596 --> 0:37:45,966
+device.
+
+1261
+00:37:47,286 --> 0:37:48,826
+So the graphics you see will be
+
+1262
+00:37:48,826 --> 0:37:50,296
+the performance of your
+
+1263
+00:37:50,296 --> 0:37:51,616
+underlying Mac GPU.
+
+1264
+00:37:52,056 --> 0:37:54,446
+And the Simulator device is not
+
+1265
+00:37:54,446 --> 0:37:56,336
+a true iOS GPU emulator.
+
+1266
+00:37:57,356 --> 0:37:59,626
+So if you run an iPhone 6s
+
+1267
+00:37:59,676 --> 0:38:01,446
+simulator on your incredibly
+
+1268
+00:37:59,676 --> 0:38:01,446
+simulator on your incredibly
+
+1269
+00:38:01,446 --> 0:38:03,586
+fast Mac Pro, the performance
+
+1270
+00:38:03,586 --> 0:38:05,246
+you see will be different from
+
+1271
+00:38:05,246 --> 0:38:07,156
+running your application on an
+
+1272
+00:38:07,156 --> 0:38:08,756
+actual success device.
+
+1273
+00:38:09,566 --> 0:38:11,636
+So as always, make sure to
+
+1274
+00:38:11,636 --> 0:38:13,066
+profile and optimize your
+
+1275
+00:38:13,066 --> 0:38:15,406
+application directly on devices
+
+1276
+00:38:15,486 --> 0:38:16,236
+before shipping your
+
+1277
+00:38:16,236 --> 0:38:16,946
+application.
+
+1278
+00:38:17,476 --> 0:38:19,516
+One other thing you need to take
+
+1279
+00:38:19,516 --> 0:38:20,896
+into mind is the fact that there
+
+1280
+00:38:20,896 --> 0:38:22,136
+are different storage modes
+
+1281
+00:38:22,456 --> 0:38:23,686
+across macOS and iOS.
+
+1282
+00:38:23,916 --> 0:38:26,716
+iOS has support for private,
+
+1283
+00:38:27,246 --> 0:38:29,446
+shared and memoryless textures,
+
+1284
+00:38:30,096 --> 0:38:31,286
+whereas Mac has support for
+
+1285
+00:38:31,286 --> 0:38:33,016
+private and managed textures.
+
+1286
+00:38:34,036 --> 0:38:35,916
+And while the native macOS
+
+1287
+00:38:35,916 --> 0:38:37,766
+device does not support shared
+
+1288
+00:38:37,766 --> 0:38:39,606
+and memoryless textures, they
+
+1289
+00:38:39,606 --> 0:38:41,146
+are supported in Simulator.
+
+1290
+00:38:42,256 --> 0:38:43,636
+There are a few other special
+
+1291
+00:38:43,636 --> 0:38:45,876
+cases with shared storage, but
+
+1292
+00:38:45,876 --> 0:38:47,966
+first let's revisit how shared
+
+1293
+00:38:47,966 --> 0:38:48,766
+storage works.
+
+1294
+00:38:50,226 --> 0:38:52,456
+So when you create an iOS
+
+1295
+00:38:52,456 --> 0:38:54,606
+texture with Shared Storage
+
+1296
+00:38:54,646 --> 0:38:56,446
+mode, this means that your
+
+1297
+00:38:56,446 --> 0:38:58,276
+texture can be modified both on
+
+1298
+00:38:58,276 --> 0:39:00,126
+the CPU and on the GPU.
+
+1299
+00:38:58,276 --> 0:39:00,126
+the CPU and on the GPU.
+
+1300
+00:39:00,736 --> 0:39:02,536
+And so if your application
+
+1301
+00:39:02,536 --> 0:39:03,766
+wanted to initialize this
+
+1302
+00:39:03,816 --> 0:39:06,306
+texture on the CPU, then bind
+
+1303
+00:39:06,306 --> 0:39:08,106
+your texture to a render or
+
+1304
+00:39:08,146 --> 0:39:09,806
+compute encoder to be read on
+
+1305
+00:39:09,806 --> 0:39:10,386
+the GPU.
+
+1306
+00:39:11,106 --> 0:39:12,516
+You could directly modify this
+
+1307
+00:39:12,516 --> 0:39:15,116
+same texture on the GPU and then
+
+1308
+00:39:15,116 --> 0:39:16,966
+read back those modifications on
+
+1309
+00:39:16,966 --> 0:39:19,436
+the CPU after the command buffer
+
+1310
+00:39:19,436 --> 0:39:19,956
+completes.
+
+1311
+00:39:20,336 --> 0:39:21,236
+And your app does not have to
+
+1312
+00:39:21,236 --> 0:39:22,376
+worry about any memory
+
+1313
+00:39:22,376 --> 0:39:25,276
+synchronization as on iOS it's a
+
+1314
+00:39:25,426 --> 0:39:26,786
+unified memory model.
+
+1315
+00:39:29,006 --> 0:39:31,136
+And so in Simulator, for
+
+1316
+00:39:31,136 --> 0:39:33,756
+multisampled, depth stencil and
+
+1317
+00:39:33,756 --> 0:39:36,066
+linear textures, these texture
+
+1318
+00:39:36,066 --> 0:39:38,606
+types must be created in private
+
+1319
+00:39:38,906 --> 0:39:41,236
+storage, whereas on an actual
+
+1320
+00:39:41,346 --> 0:39:43,316
+iOS device, these types may be
+
+1321
+00:39:43,316 --> 0:39:44,226
+in shared storage.
+
+1322
+00:39:45,226 --> 0:39:46,316
+And so your app may need a
+
+1323
+00:39:46,316 --> 0:39:48,936
+simulator-only path if you need
+
+1324
+00:39:49,056 --> 0:39:50,716
+CPU access to these textures.
+
+1325
+00:39:51,526 --> 0:39:53,616
+For most of you, you will
+
+1326
+00:39:53,616 --> 0:39:55,226
+initialize these texture types
+
+1327
+00:39:55,226 --> 0:39:57,056
+and use them directly in your
+
+1328
+00:39:57,056 --> 0:39:59,016
+GPU commands, and so this won't
+
+1329
+00:39:59,086 --> 0:39:59,956
+affect your application.
+
+1330
+00:40:00,086 --> 0:40:02,406
+They should already be private
+
+1331
+00:40:02,406 --> 0:40:02,976
+textures.
+
+1332
+00:40:03,686 --> 0:40:05,816
+But if you do need CPU access
+
+1333
+00:40:06,286 --> 0:40:07,996
+for one of these textures, let's
+
+1334
+00:40:07,996 --> 0:40:09,286
+go through what changes may be
+
+1335
+00:40:09,286 --> 0:40:09,836
+required.
+
+1336
+00:40:10,836 --> 0:40:12,216
+So as a reminder, if you create
+
+1337
+00:40:12,216 --> 0:40:14,536
+a texture in private memory, the
+
+1338
+00:40:14,536 --> 0:40:16,506
+texture does not have CPU
+
+1339
+00:40:16,506 --> 0:40:16,916
+access.
+
+1340
+00:40:17,806 --> 0:40:19,286
+It only can be modified by the
+
+1341
+00:40:19,286 --> 0:40:20,926
+GPU and read by the GPU.
+
+1342
+00:40:21,846 --> 0:40:23,516
+So if your app reads or writes
+
+1343
+00:40:23,516 --> 0:40:24,896
+to the texture on the CPU, you
+
+1344
+00:40:25,196 --> 0:40:26,946
+need an intermediate shared
+
+1345
+00:40:26,946 --> 0:40:28,136
+resource to do so.
+
+1346
+00:40:29,256 --> 0:40:30,786
+So first we can either create a
+
+1347
+00:40:30,786 --> 0:40:32,416
+shared buffer or a shared
+
+1348
+00:40:32,416 --> 0:40:32,896
+texture.
+
+1349
+00:40:33,856 --> 0:40:35,766
+Then in order to copy this
+
+1350
+00:40:35,896 --> 0:40:36,916
+texture, you create a
+
+1351
+00:40:36,916 --> 0:40:38,816
+BlitCommandEncoder, and you can
+
+1352
+00:40:38,816 --> 0:40:40,736
+copy from the shared buffer in
+
+1353
+00:40:40,736 --> 0:40:42,266
+this case to the private
+
+1354
+00:40:42,266 --> 0:40:42,796
+texture.
+
+1355
+00:40:43,246 --> 0:40:44,576
+Or you can copy from the private
+
+1356
+00:40:44,576 --> 0:40:46,786
+texture to the shared buffer.
+
+1357
+00:40:47,726 --> 0:40:48,976
+So let's take a look at what
+
+1358
+00:40:49,026 --> 0:40:50,306
+this looks like in source code.
+
+1359
+00:40:51,656 --> 0:40:53,556
+So in this code example, we see
+
+1360
+00:40:53,856 --> 0:40:55,776
+that a depth stencil texture is
+
+1361
+00:40:55,776 --> 0:40:56,996
+created, and we want to
+
+1362
+00:40:56,996 --> 0:40:58,386
+initialize it on the CPU.
+
+1363
+00:40:58,986 --> 0:41:02,456
+So first, we set the storage
+
+1364
+00:40:58,986 --> 0:41:02,456
+So first, we set the storage
+
+1365
+00:41:02,516 --> 0:41:04,166
+mode to private only in
+
+1366
+00:41:04,196 --> 0:41:04,696
+Simulator.
+
+1367
+00:41:05,406 --> 0:41:06,696
+While we're not in a simulated
+
+1368
+00:41:06,696 --> 0:41:08,516
+environment, we want to still
+
+1369
+00:41:08,516 --> 0:41:10,686
+use a shared storage mode.
+
+1370
+00:41:11,616 --> 0:41:13,346
+Then we create the texture with
+
+1371
+00:41:13,346 --> 0:41:14,706
+the modified textureDescriptor.
+
+1372
+00:41:15,236 --> 0:41:18,926
+And then while in the simulated
+
+1373
+00:41:18,926 --> 0:41:20,446
+environment, in order to
+
+1374
+00:41:20,446 --> 0:41:22,396
+initialize this private texture,
+
+1375
+00:41:22,696 --> 0:41:23,896
+we will first create a shared
+
+1376
+00:41:24,856 --> 0:41:25,366
+buffer.
+
+1377
+00:41:25,496 --> 0:41:26,986
+For this shared buffer, we will
+
+1378
+00:41:26,986 --> 0:41:28,686
+initialize it on the CPU with
+
+1379
+00:41:28,686 --> 0:41:29,836
+the data that you'd like to see
+
+1380
+00:41:29,836 --> 0:41:30,696
+in your private texture.
+
+1381
+00:41:31,286 --> 0:41:33,276
+And finally, we blit from that
+
+1382
+00:41:33,276 --> 0:41:35,196
+shared resource to the private
+
+1383
+00:41:35,246 --> 0:41:35,646
+texture.
+
+1384
+00:41:36,746 --> 0:41:38,346
+And then in the case that you're
+
+1385
+00:41:38,346 --> 0:41:40,506
+still running on an actual iOS
+
+1386
+00:41:40,546 --> 0:41:42,386
+device, we want to do the exact
+
+1387
+00:41:42,386 --> 0:41:43,506
+same thing you did before and
+
+1388
+00:41:43,736 --> 0:41:45,156
+initialize that texture on the
+
+1389
+00:41:45,156 --> 0:41:47,196
+CPU and avoid this unnecessary
+
+1390
+00:41:47,196 --> 0:41:47,466
+blit.
+
+1391
+00:41:49,066 --> 0:41:50,586
+From this point forward, the use
+
+1392
+00:41:50,586 --> 0:41:52,226
+of this texture is the exact
+
+1393
+00:41:52,276 --> 0:41:53,746
+same, whether you're running on
+
+1394
+00:41:53,746 --> 0:41:56,006
+an actual iOS device or in the
+
+1395
+00:41:56,006 --> 0:41:56,596
+Simulator.
+
+1396
+00:41:56,906 --> 0:41:58,646
+All of your GPU commands can be
+
+1397
+00:41:58,646 --> 0:41:59,366
+the exact same.
+
+1398
+00:42:00,726 --> 0:42:02,406
+And so there are a few other
+
+1399
+00:42:02,406 --> 0:42:04,376
+changes that may be needed for
+
+1400
+00:42:04,376 --> 0:42:05,806
+your application in Simulator,
+
+1401
+00:42:05,806 --> 0:42:06,936
+and for that we have full
+
+1402
+00:42:06,936 --> 0:42:08,666
+documentation for those small
+
+1403
+00:42:08,666 --> 0:42:09,116
+changes.
+
+1404
+00:42:09,386 --> 0:42:11,126
+And we also have a sample code
+
+1405
+00:42:11,126 --> 0:42:12,566
+available for you to download
+
+1406
+00:42:12,886 --> 0:42:15,276
+and to see example of porting an
+
+1407
+00:42:15,276 --> 0:42:16,696
+application to Simulator.
+
+1408
+00:42:17,296 --> 0:42:19,796
+I hope you learned something new
+
+1409
+00:42:19,796 --> 0:42:20,916
+about Simulator today.
+
+1410
+00:42:21,566 --> 0:42:23,046
+We first went over that the iOS,
+
+1411
+00:42:23,436 --> 0:42:26,146
+watchOS and tvOS userspace is
+
+1412
+00:42:26,146 --> 0:42:27,876
+running on the macOS kernel and
+
+1413
+00:42:28,236 --> 0:42:29,886
+that the Simulator is pivotal to
+
+1414
+00:42:29,886 --> 0:42:31,816
+testing your application across
+
+1415
+00:42:31,816 --> 0:42:33,306
+all devices and runtimes.
+
+1416
+00:42:34,356 --> 0:42:36,546
+We saw the power of xcrun simctl
+
+1417
+00:42:36,946 --> 0:42:38,456
+and how you can script all of
+
+1418
+00:42:38,456 --> 0:42:40,326
+your testing through Simulator.
+
+1419
+00:42:41,156 --> 0:42:42,996
+And lastly, we saw that the GPU
+
+1420
+00:42:42,996 --> 0:42:44,936
+acceleration through Metal in
+
+1421
+00:42:44,936 --> 0:42:46,426
+Simulator is for everyone, and
+
+1422
+00:42:46,686 --> 0:42:48,076
+it also enables Metal
+
+1423
+00:42:48,076 --> 0:42:49,406
+development in the Simulator.
+
+1424
+00:42:49,406 --> 0:42:51,716
+And if you have any other
+
+1425
+00:42:51,716 --> 0:42:53,416
+questions, please visit the
+
+1426
+00:42:53,506 --> 0:42:54,336
+session website.
+
+1427
+00:42:54,336 --> 0:42:55,856
+Thank you, and I hope a great
+
+1428
+00:42:55,856 --> 0:42:56,536
+rest of your week.
+
+1429
+00:42:57,508 --> 0:42:59,508
+[ Applause ]

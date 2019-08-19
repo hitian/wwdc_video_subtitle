@@ -1,0 +1,1175 @@
+1
+00:00:01,516 --> 0:00:06,316
+[ Music ]
+
+2
+00:00:06,816 --> 0:00:08,876
+&gt;&gt; Hello. Welcome to Creating a
+
+3
+00:00:08,876 --> 0:00:10,206
+Great Accessible Reading
+
+4
+00:00:10,206 --> 0:00:10,836
+Experience.
+
+5
+00:00:11,206 --> 0:00:13,016
+My name is Darren Minifie, and
+
+6
+00:00:13,016 --> 0:00:14,246
+I'm an engineering manager on
+
+7
+00:00:14,246 --> 0:00:15,256
+the Accessibility Team.
+
+8
+00:00:17,036 --> 0:00:18,456
+The hallmark for a great
+
+9
+00:00:18,456 --> 0:00:20,036
+application is an outstanding
+
+10
+00:00:20,036 --> 0:00:20,886
+user interface.
+
+11
+00:00:21,526 --> 0:00:22,906
+This extends to the layout and
+
+12
+00:00:22,906 --> 0:00:25,046
+styling of text especially for
+
+13
+00:00:25,046 --> 0:00:26,706
+apps whose primary focus is the
+
+14
+00:00:26,706 --> 0:00:28,196
+presentation of long form
+
+15
+00:00:28,196 --> 0:00:29,106
+readable content.
+
+16
+00:00:30,426 --> 0:00:31,766
+To implement a custom text
+
+17
+00:00:31,766 --> 0:00:33,476
+layout you often need to turn to
+
+18
+00:00:33,476 --> 0:00:34,836
+lower level technologies such as
+
+19
+00:00:34,836 --> 0:00:36,156
+Core Text and TextKit.
+
+20
+00:00:37,466 --> 0:00:38,606
+In this session, you will learn
+
+21
+00:00:38,606 --> 0:00:40,396
+the APIs and techniques you need
+
+22
+00:00:40,396 --> 0:00:41,726
+to create an equally great
+
+23
+00:00:41,726 --> 0:00:43,106
+accessible reading experience
+
+24
+00:00:43,106 --> 0:00:43,866
+for VoiceOver.
+
+25
+00:00:47,086 --> 0:00:48,326
+We'll begin by talking about the
+
+26
+00:00:48,326 --> 0:00:49,606
+reading content protocol.
+
+27
+00:00:50,246 --> 0:00:51,586
+You use this protocol to make
+
+28
+00:00:51,586 --> 0:00:53,076
+your text content accessible.
+
+29
+00:00:53,846 --> 0:00:55,436
+Next, we'll talk about automatic
+
+30
+00:00:55,436 --> 0:00:57,276
+page turning, which VoiceOver
+
+31
+00:00:57,276 --> 0:00:58,796
+uses to turn the pages in your
+
+32
+00:00:58,846 --> 0:00:59,476
+application.
+
+33
+00:01:00,566 --> 0:01:02,366
+Finally, we'll discuss the APIs
+
+34
+00:01:02,366 --> 0:01:04,226
+you can use to customize the way
+
+35
+00:01:04,226 --> 0:01:05,836
+VoiceOver speaks your content.
+
+36
+00:01:08,766 --> 0:01:09,966
+In the session, we'll use the
+
+37
+00:01:09,966 --> 0:01:11,076
+following sample app to
+
+38
+00:01:11,076 --> 0:01:12,386
+demonstrate these techniques.
+
+39
+00:01:13,826 --> 0:01:15,556
+The app is a simple page-based
+
+40
+00:01:15,556 --> 0:01:16,996
+application where each page
+
+41
+00:01:16,996 --> 0:01:19,256
+consists of an image, a title, a
+
+42
+00:01:19,256 --> 0:01:21,276
+subtitle and some detail text.
+
+43
+00:01:23,146 --> 0:01:24,846
+To make your app accessible, you
+
+44
+00:01:24,876 --> 0:01:25,946
+should first audit it with
+
+45
+00:01:25,946 --> 0:01:26,586
+VoiceOver.
+
+46
+00:01:27,096 --> 0:01:29,556
+A convenient way to do this is
+
+47
+00:01:29,556 --> 0:01:30,576
+to add VoiceOver to your
+
+48
+00:01:30,576 --> 0:01:31,746
+accessibility shortcut.
+
+49
+00:01:32,326 --> 0:01:33,386
+You can do this by launching
+
+50
+00:01:33,386 --> 0:01:36,306
+settings, tapping accessibility,
+
+51
+00:01:36,946 --> 0:01:38,366
+scrolling down to accessibility
+
+52
+00:01:38,366 --> 0:01:40,856
+shortcut and tapping VoiceOver.
+
+53
+00:01:41,926 --> 0:01:43,746
+Now depending on your hardware,
+
+54
+00:01:43,746 --> 0:01:45,216
+you can press the home button or
+
+55
+00:01:45,216 --> 0:01:46,976
+side button 3 times to quickly
+
+56
+00:01:46,976 --> 0:01:48,456
+enable and disable VoiceOver.
+
+57
+00:01:50,556 --> 0:01:51,906
+Let's see how VoiceOver
+
+58
+00:01:51,906 --> 0:01:53,336
+interacts with the sample app.
+
+59
+00:01:53,656 --> 0:01:54,976
+&gt;&gt; VoiceOver on.
+
+60
+00:01:55,516 --> 0:01:57,636
+[ Beeping ]
+
+61
+00:01:58,136 --> 0:01:59,436
+&gt;&gt; As I drag my finger across
+
+62
+00:01:59,436 --> 0:02:00,956
+the screen, VoiceOver plays a
+
+63
+00:01:59,436 --> 0:02:00,956
+the screen, VoiceOver plays a
+
+64
+00:02:00,956 --> 0:02:02,596
+sound effect indicating there is
+
+65
+00:02:02,596 --> 0:02:03,766
+no content to be found.
+
+66
+00:02:04,456 --> 0:02:05,506
+Therefore, the first thing we
+
+67
+00:02:05,506 --> 0:02:06,866
+need to do is make our text
+
+68
+00:02:06,866 --> 0:02:07,946
+content accessible.
+
+69
+00:02:09,616 --> 0:02:11,306
+To make your content accessible,
+
+70
+00:02:11,566 --> 0:02:12,236
+you should use the
+
+71
+00:02:12,236 --> 0:02:14,106
+UIAccessibilityReadingContent
+
+72
+00:02:14,106 --> 0:02:15,236
+Protocol.
+
+73
+00:02:15,236 --> 0:02:17,136
+This protocol consists of 4 core
+
+74
+00:02:17,136 --> 0:02:17,696
+methods.
+
+75
+00:02:19,236 --> 0:02:20,686
+AccessibilityLineNumber(for
+
+76
+00:02:20,686 --> 0:02:22,396
+point asks you to return the
+
+77
+00:02:22,396 --> 0:02:23,816
+line number for a given touch
+
+78
+00:02:23,816 --> 0:02:24,326
+location.
+
+79
+00:02:24,896 --> 0:02:26,606
+AccessibilityContent
+
+80
+00:02:26,606 --> 0:02:27,516
+(forLineNumber and
+
+81
+00:02:27,516 --> 0:02:28,516
+accessibilityFrame
+
+82
+00:02:28,516 --> 0:02:30,526
+(forLineNumber asks for the text
+
+83
+00:02:30,526 --> 0:02:32,166
+content and rect for a given
+
+84
+00:02:32,166 --> 0:02:33,126
+line respectively.
+
+85
+00:02:34,376 --> 0:02:34,986
+Finally,
+
+86
+00:02:34,986 --> 0:02:37,266
+accessibilityPageContent asks
+
+87
+00:02:37,266 --> 0:02:38,756
+you to return the entire pages
+
+88
+00:02:38,756 --> 0:02:39,586
+worth of content.
+
+89
+00:02:41,426 --> 0:02:42,826
+Let's see how we would implement
+
+90
+00:02:42,826 --> 0:02:42,893
+the
+
+91
+00:02:42,893 --> 0:02:44,526
+UIAccessibilityReadingContent
+
+92
+00:02:44,526 --> 0:02:45,886
+Protocol in our sample app.
+
+93
+00:02:47,156 --> 0:02:48,576
+Each page in the sample app is
+
+94
+00:02:48,576 --> 0:02:50,006
+represented by an instance of
+
+95
+00:02:50,006 --> 0:02:51,016
+SessionItemView.
+
+96
+00:02:52,616 --> 0:02:54,926
+This view has 4 sub views; an
+
+97
+00:02:54,926 --> 0:02:57,676
+image view, a title label, an
+
+98
+00:02:57,676 --> 0:02:59,476
+identifier label and a session
+
+99
+00:02:59,476 --> 0:03:00,226
+details view.
+
+100
+00:02:59,476 --> 0:03:00,226
+details view.
+
+101
+00:03:01,816 --> 0:03:03,976
+We additionally declare a layout
+
+102
+00:03:03,976 --> 0:03:04,336
+enum.
+
+103
+00:03:04,566 --> 0:03:05,816
+This will help us in our method
+
+104
+00:03:05,816 --> 0:03:07,126
+implementations that follow.
+
+105
+00:03:09,676 --> 0:03:11,426
+The first thing we need to do is
+
+106
+00:03:11,426 --> 0:03:12,576
+make our page view an
+
+107
+00:03:12,576 --> 0:03:13,676
+accessibility element.
+
+108
+00:03:14,176 --> 0:03:15,356
+We do this by setting
+
+109
+00:03:15,356 --> 0:03:17,066
+isAccessibilityElement to true
+
+110
+00:03:17,366 --> 0:03:18,906
+in the page views initializer.
+
+111
+00:03:21,946 --> 0:03:23,536
+Next, we begin to implement the
+
+112
+00:03:23,536 --> 0:03:24,796
+reading content protocol.
+
+113
+00:03:25,046 --> 0:03:26,456
+Our first method is
+
+114
+00:03:26,456 --> 0:03:27,836
+accessibilityLineNumber(for
+
+115
+00:03:27,836 --> 0:03:28,176
+point.
+
+116
+00:03:29,586 --> 0:03:31,676
+First, we hitTest the page view
+
+117
+00:03:31,676 --> 0:03:33,306
+using the past in line number.
+
+118
+00:03:34,516 --> 0:03:36,106
+If the resulting view is one of
+
+119
+00:03:36,106 --> 0:03:38,546
+our known sub views, we map that
+
+120
+00:03:38,546 --> 0:03:41,086
+to the value of our layout enum.
+
+121
+00:03:41,646 --> 0:03:43,536
+Finally, we return the rawValue
+
+122
+00:03:43,536 --> 0:03:44,846
+as this is the representation
+
+123
+00:03:44,846 --> 0:03:45,976
+VoiceOver understands.
+
+124
+00:03:49,066 --> 0:03:49,966
+Next to implement
+
+125
+00:03:49,966 --> 0:03:51,196
+AccessibilityContent
+
+126
+00:03:51,196 --> 0:03:53,346
+(forLineNumber, we begin by
+
+127
+00:03:53,346 --> 0:03:54,936
+instantiating an instance of the
+
+128
+00:03:54,936 --> 0:03:55,576
+layout enum.
+
+129
+00:03:56,346 --> 0:03:57,606
+We switch over the possible
+
+130
+00:03:57,606 --> 0:03:59,296
+cases and map that to one of our
+
+131
+00:03:59,296 --> 0:04:00,286
+known sub views.
+
+132
+00:03:59,296 --> 0:04:00,286
+known sub views.
+
+133
+00:04:00,886 --> 0:04:02,786
+Finally, we return accessibility
+
+134
+00:04:02,786 --> 0:04:04,406
+label, which returns the text
+
+135
+00:04:04,406 --> 0:04:05,186
+for that sub view.
+
+136
+00:04:07,996 --> 0:04:09,406
+The implementation of
+
+137
+00:04:09,406 --> 0:04:10,476
+accessibilityFrame
+
+138
+00:04:10,476 --> 0:04:12,006
+(forLineNumber is very similar.
+
+139
+00:04:12,366 --> 0:04:14,716
+We begin by creating a new
+
+140
+00:04:14,716 --> 0:04:16,466
+instance of the layout enum with
+
+141
+00:04:16,466 --> 0:04:17,685
+our given raw value.
+
+142
+00:04:18,456 --> 0:04:19,875
+We switch over the possible
+
+143
+00:04:19,875 --> 0:04:21,646
+cases and map that to one of our
+
+144
+00:04:21,646 --> 0:04:22,716
+known sub views.
+
+145
+00:04:23,406 --> 0:04:25,366
+Finally, we return accessibility
+
+146
+00:04:25,366 --> 0:04:26,926
+frame, which represents the rect
+
+147
+00:04:26,926 --> 0:04:27,886
+for a given line.
+
+148
+00:04:30,706 --> 0:04:31,936
+Finally, to implement
+
+149
+00:04:31,936 --> 0:04:34,196
+accessibilityPageContent we
+
+150
+00:04:34,196 --> 0:04:35,726
+gather together the text from
+
+151
+00:04:35,726 --> 0:04:37,176
+our known sub views and return
+
+152
+00:04:37,176 --> 0:04:38,346
+them as a single string.
+
+153
+00:04:41,526 --> 0:04:43,306
+Let's see how the app interacts
+
+154
+00:04:43,306 --> 0:04:44,556
+with VoiceOver with the reading
+
+155
+00:04:44,556 --> 0:04:46,306
+content protocol implemented.
+
+156
+00:04:47,836 --> 0:04:49,016
+&gt;&gt; Accessible drag-and-drop.
+
+157
+00:04:49,656 --> 0:04:50,986
+Session 241.
+
+158
+00:04:51,906 --> 0:04:53,356
+Drag-and-drop is a powerful API
+
+159
+00:04:53,356 --> 0:04:54,556
+that allows apps to share and
+
+160
+00:04:54,556 --> 0:04:55,376
+communicate data.
+
+161
+00:04:55,926 --> 0:04:57,486
+&gt;&gt; This time as I drag my finger
+
+162
+00:04:57,486 --> 0:04:59,366
+across the screen VoiceOver
+
+163
+00:04:59,366 --> 0:05:00,636
+speaks and highlights the
+
+164
+00:04:59,366 --> 0:05:00,636
+speaks and highlights the
+
+165
+00:05:00,636 --> 0:05:01,766
+corresponding text.
+
+166
+00:05:04,736 --> 0:05:06,516
+Next let's talk about automatic
+
+167
+00:05:06,516 --> 0:05:07,286
+page turning.
+
+168
+00:05:08,256 --> 0:05:09,356
+When VoiceOver's read all
+
+169
+00:05:09,356 --> 0:05:10,906
+command is invoked, it's
+
+170
+00:05:10,906 --> 0:05:12,386
+expected that VoiceOver will be
+
+171
+00:05:12,386 --> 0:05:13,836
+able to read all of your content
+
+172
+00:05:13,836 --> 0:05:14,956
+from beginning to end.
+
+173
+00:05:15,566 --> 0:05:16,916
+This may require VoiceOver to
+
+174
+00:05:16,916 --> 0:05:19,306
+turn pages in your app.
+
+175
+00:05:19,306 --> 0:05:20,826
+To implement automatic page
+
+176
+00:05:20,826 --> 0:05:22,576
+turning you need to adopt 2
+
+177
+00:05:22,576 --> 0:05:23,936
+accessibility APIs.
+
+178
+00:05:24,606 --> 0:05:26,076
+First, you should include the
+
+179
+00:05:26,076 --> 0:05:27,756
+causesPageTurn accessibility
+
+180
+00:05:27,756 --> 0:05:28,986
+trait on your page view.
+
+181
+00:05:30,076 --> 0:05:31,396
+Second, you should implement
+
+182
+00:05:31,396 --> 0:05:32,696
+AccessibilityScroll in
+
+183
+00:05:32,696 --> 0:05:33,226
+direction.
+
+184
+00:05:33,716 --> 0:05:35,286
+This gives VoiceOver the ability
+
+185
+00:05:35,286 --> 0:05:36,706
+to turn pages in your app.
+
+186
+00:05:37,936 --> 0:05:39,316
+Let's see how we would implement
+
+187
+00:05:39,316 --> 0:05:40,626
+automatic page turning in our
+
+188
+00:05:40,626 --> 0:05:42,036
+sample app.
+
+189
+00:05:43,236 --> 0:05:44,736
+First, we need to include the
+
+190
+00:05:44,736 --> 0:05:46,386
+causesPageTurn accessibility
+
+191
+00:05:46,386 --> 0:05:46,766
+trait.
+
+192
+00:05:46,916 --> 0:05:48,476
+We do this by setting
+
+193
+00:05:48,476 --> 0:05:50,036
+accessibility trait in the page
+
+194
+00:05:50,036 --> 0:05:50,986
+views initializer.
+
+195
+00:05:53,486 --> 0:05:54,496
+Next, we implement
+
+196
+00:05:54,496 --> 0:05:55,736
+accessibilityScroll and
+
+197
+00:05:55,736 --> 0:05:56,276
+direction.
+
+198
+00:05:56,986 --> 0:05:58,476
+We do this by switching over the
+
+199
+00:05:58,476 --> 0:06:00,096
+possible cases of the direction
+
+200
+00:05:58,476 --> 0:06:00,096
+possible cases of the direction
+
+201
+00:06:00,096 --> 0:06:00,616
+parameter.
+
+202
+00:06:01,396 --> 0:06:03,396
+If the direction is previous or
+
+203
+00:06:03,396 --> 0:06:05,136
+left, we ask our delegate to
+
+204
+00:06:05,136 --> 0:06:06,526
+turn to the previous page.
+
+205
+00:06:07,056 --> 0:06:08,906
+If that's successful, we notify
+
+206
+00:06:08,906 --> 0:06:10,616
+VoiceOver with a pageScrolled
+
+207
+00:06:10,616 --> 0:06:11,396
+notification.
+
+208
+00:06:13,836 --> 0:06:16,196
+Similarly, if the value is right
+
+209
+00:06:16,196 --> 0:06:18,036
+or next, we ask the delegate to
+
+210
+00:06:18,036 --> 0:06:19,896
+turn to the next page and if
+
+211
+00:06:19,896 --> 0:06:21,336
+that's successful, we notify
+
+212
+00:06:21,336 --> 0:06:22,746
+VoiceOver with a pageScrolled
+
+213
+00:06:22,746 --> 0:06:23,536
+notification.
+
+214
+00:06:27,016 --> 0:06:28,846
+Let's see how the app interacts
+
+215
+00:06:28,846 --> 0:06:30,246
+with automatic page turning
+
+216
+00:06:30,246 --> 0:06:31,086
+implemented.
+
+217
+00:06:32,306 --> 0:06:33,496
+&gt;&gt; Accessible drag-and-drop
+
+218
+00:06:33,726 --> 0:06:35,056
+Session 241.
+
+219
+00:06:35,196 --> 0:06:36,656
+Drag-and-drop is a powerful API
+
+220
+00:06:36,656 --> 0:06:37,846
+that allows apps to share and
+
+221
+00:06:37,846 --> 0:06:38,676
+communicate data.
+
+222
+00:06:39,016 --> 0:06:40,176
+No matter how you decide to
+
+223
+00:06:40,176 --> 0:06:41,676
+implant drag-and-drop there's a
+
+224
+00:06:41,676 --> 0:06:42,886
+way to make it work for people
+
+225
+00:06:42,886 --> 0:06:43,986
+with accessibility needs.
+
+226
+00:06:44,406 --> 0:06:45,566
+Learn the details as we dive
+
+227
+00:06:45,566 --> 0:06:46,796
+into accessible drag-and-drop
+
+228
+00:06:46,796 --> 0:06:46,976
+for iOS.
+
+229
+00:06:49,276 --> 0:06:50,666
+AVSpeechSynthesizer.
+
+230
+00:06:50,766 --> 0:06:51,856
+Making iOS talk.
+
+231
+00:06:52,066 --> 0:06:53,376
+Session 236.
+
+232
+00:06:53,816 --> 0:06:56,026
+&gt;&gt; Our final topic is
+
+233
+00:06:56,026 --> 0:06:57,166
+customizing speech.
+
+234
+00:06:57,796 --> 0:06:59,146
+You may want to control the way
+
+235
+00:06:59,146 --> 0:07:00,556
+VoiceOver speaks your app's
+
+236
+00:06:59,146 --> 0:07:00,556
+VoiceOver speaks your app's
+
+237
+00:07:00,556 --> 0:07:01,046
+content.
+
+238
+00:07:01,706 --> 0:07:03,266
+To do this you can use 2
+
+239
+00:07:03,266 --> 0:07:04,616
+alternate methods in the reading
+
+240
+00:07:04,616 --> 0:07:05,656
+content protocol.
+
+241
+00:07:06,316 --> 0:07:08,076
+These method versions return
+
+242
+00:07:08,076 --> 0:07:09,666
+NSAttributedStrings instead of
+
+243
+00:07:09,666 --> 0:07:10,436
+simple strings.
+
+244
+00:07:11,306 --> 0:07:12,486
+By supplying the appropriate
+
+245
+00:07:12,486 --> 0:07:14,296
+accessibility attributes, you
+
+246
+00:07:14,296 --> 0:07:15,876
+can control various aspects
+
+247
+00:07:15,876 --> 0:07:17,376
+about how VoiceOver speaks your
+
+248
+00:07:17,376 --> 0:07:17,876
+content.
+
+249
+00:07:19,556 --> 0:07:21,576
+For example, you may have a
+
+250
+00:07:21,576 --> 0:07:23,006
+passage you would like spoken in
+
+251
+00:07:23,006 --> 0:07:24,166
+a particular language.
+
+252
+00:07:24,626 --> 0:07:26,176
+To do this you can include the
+
+253
+00:07:26,176 --> 0:07:27,886
+accessibilitySpeechLanguage
+
+254
+00:07:27,886 --> 0:07:29,096
+attribute along with the
+
+255
+00:07:29,096 --> 0:07:30,746
+appropriate language identifier.
+
+256
+00:07:31,576 --> 0:07:33,146
+This causes VoiceOver to use the
+
+257
+00:07:33,146 --> 0:07:34,696
+most appropriate voice to speak
+
+258
+00:07:34,696 --> 0:07:35,366
+your content.
+
+259
+00:07:35,706 --> 0:07:38,336
+&gt;&gt; Arc de Triomphe.
+
+260
+00:07:40,216 --> 0:07:41,546
+&gt;&gt; Furthermore, you may want
+
+261
+00:07:41,546 --> 0:07:42,966
+fine-grained control over the
+
+262
+00:07:42,966 --> 0:07:44,276
+way VoiceOver speaks your
+
+263
+00:07:44,276 --> 0:07:44,826
+content.
+
+264
+00:07:45,566 --> 0:07:47,616
+To do this you can supply the
+
+265
+00:07:47,616 --> 0:07:48,996
+IPA representation for your
+
+266
+00:07:48,996 --> 0:07:50,646
+passage along with the
+
+267
+00:07:50,646 --> 0:07:53,156
+accessibilitySpeechIPANotation
+
+268
+00:07:53,236 --> 0:07:53,706
+attribute.
+
+269
+00:07:54,946 --> 0:07:56,786
+&gt;&gt; Yosemite National Park.
+
+270
+00:07:59,126 --> 0:08:01,296
+&gt;&gt; So to create a great reading
+
+271
+00:07:59,126 --> 0:08:01,296
+&gt;&gt; So to create a great reading
+
+272
+00:08:01,296 --> 0:08:02,976
+experience for VoiceOver, you
+
+273
+00:08:02,976 --> 0:08:04,246
+first need to make your text
+
+274
+00:08:04,246 --> 0:08:05,296
+content accessible.
+
+275
+00:08:05,726 --> 0:08:07,106
+You do this by implementing the
+
+276
+00:08:07,106 --> 0:08:09,176
+UIAccessibilityReadingContent
+
+277
+00:08:09,176 --> 0:08:09,726
+protocol.
+
+278
+00:08:10,546 --> 0:08:12,116
+Next, you should implement
+
+279
+00:08:12,116 --> 0:08:13,466
+automatic page turning so
+
+280
+00:08:13,466 --> 0:08:14,736
+VoiceOver can read all of the
+
+281
+00:08:14,736 --> 0:08:15,986
+content in your app from
+
+282
+00:08:15,986 --> 0:08:18,066
+beginning to end.
+
+283
+00:08:18,066 --> 0:08:20,216
+Finally, to control the way
+
+284
+00:08:20,216 --> 0:08:21,836
+VoiceOver speaks your content,
+
+285
+00:08:22,086 --> 0:08:23,606
+you should consider using the NS
+
+286
+00:08:23,606 --> 0:08:25,136
+attributed strings versions of
+
+287
+00:08:25,136 --> 0:08:26,136
+the methods in the reading
+
+288
+00:08:26,136 --> 0:08:27,966
+content protocol and supply the
+
+289
+00:08:27,966 --> 0:08:29,196
+appropriate accessibility
+
+290
+00:08:29,196 --> 0:08:29,866
+attributes.
+
+291
+00:08:31,576 --> 0:08:32,916
+For more information about this
+
+292
+00:08:32,916 --> 0:08:34,226
+topic, please visit the
+
+293
+00:08:34,226 --> 0:08:35,606
+following session URL.
+
+294
+00:08:37,035 --> 0:08:38,166
+Thanks for watching.

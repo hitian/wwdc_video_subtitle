@@ -1,0 +1,5047 @@
+1
+00:00:01,516 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:11,276 --> 0:00:12,886
+&gt;&gt; Hello everyone.
+
+3
+00:00:13,016 --> 0:00:14,756
+[ Applause ]
+
+4
+00:00:14,756 --> 0:00:15,786
+Thank you so much for coming.
+
+5
+00:00:18,096 --> 0:00:19,676
+This is a deep dive session for
+
+6
+00:00:19,676 --> 0:00:20,376
+ARKit.
+
+7
+00:00:20,376 --> 0:00:21,446
+We'll be showing you how we're
+
+8
+00:00:21,446 --> 0:00:22,836
+bringing people into AR.
+
+9
+00:00:24,216 --> 0:00:25,226
+My name is Adrian.
+
+10
+00:00:25,226 --> 0:00:26,496
+And, I'll be joined onstage by
+
+11
+00:00:26,496 --> 0:00:26,966
+Tanmay.
+
+12
+00:00:31,666 --> 0:00:33,216
+Earlier this week, Apple
+
+13
+00:00:33,216 --> 0:00:34,526
+announced the RealityKit
+
+14
+00:00:34,526 --> 0:00:34,896
+framework.
+
+15
+00:00:35,536 --> 0:00:36,736
+This is a new framework for
+
+16
+00:00:36,736 --> 0:00:37,896
+rendering photorealistic
+
+17
+00:00:37,896 --> 0:00:38,366
+content.
+
+18
+00:00:39,166 --> 0:00:40,706
+It has also been built from the
+
+19
+00:00:40,706 --> 0:00:42,136
+ground up to support AR.
+
+20
+00:00:42,816 --> 0:00:46,036
+We also held a What's New
+
+21
+00:00:46,036 --> 0:00:47,806
+session for ARKit 3, where we
+
+22
+00:00:47,806 --> 0:00:49,166
+showed you many of the cool
+
+23
+00:00:49,166 --> 0:00:50,156
+features that we're bringing
+
+24
+00:00:50,156 --> 0:00:51,176
+into ARKit this year.
+
+25
+00:00:52,036 --> 0:00:53,446
+And, for this deep dive, we're
+
+26
+00:00:53,446 --> 0:00:54,806
+going to focus on two of these.
+
+27
+00:00:56,176 --> 0:00:57,536
+First, I'll be showing you how
+
+28
+00:00:57,536 --> 0:00:58,496
+people occlusion works.
+
+29
+00:00:58,786 --> 0:00:59,686
+And then, I'm going to hand it
+
+30
+00:00:59,686 --> 0:01:01,686
+over to Tanmay to give you the
+
+31
+00:00:59,686 --> 0:01:01,686
+over to Tanmay to give you the
+
+32
+00:01:01,686 --> 0:01:03,666
+deep dive of how motion capture
+
+33
+00:01:03,666 --> 0:01:03,956
+works.
+
+34
+00:01:05,436 --> 0:01:06,036
+So, let's begin.
+
+35
+00:01:07,456 --> 0:01:08,636
+What is people occlusion?
+
+36
+00:01:09,276 --> 0:01:12,346
+In ARKit today, we're already
+
+37
+00:01:12,346 --> 0:01:15,036
+able to position rendered
+
+38
+00:01:15,036 --> 0:01:16,246
+content in the real world.
+
+39
+00:01:16,686 --> 0:01:18,076
+However, if we look at the video
+
+40
+00:01:18,076 --> 0:01:19,146
+behind me, we can see that
+
+41
+00:01:19,146 --> 0:01:20,196
+something is clearly wrong.
+
+42
+00:01:21,226 --> 0:01:23,476
+What we would expect, is for the
+
+43
+00:01:23,476 --> 0:01:25,356
+person closer to the camera to
+
+44
+00:01:25,356 --> 0:01:27,416
+occlude the rendered content as
+
+45
+00:01:27,416 --> 0:01:28,846
+it moves behind him.
+
+46
+00:01:28,846 --> 0:01:31,616
+And, with people occlusion,
+
+47
+00:01:32,116 --> 0:01:33,906
+we're bringing just that.
+
+48
+00:01:33,906 --> 0:01:36,346
+We're enabling rendered content
+
+49
+00:01:36,346 --> 0:01:38,296
+and people to correctly occlude
+
+50
+00:01:38,296 --> 0:01:39,276
+each other in the scene.
+
+51
+00:01:39,666 --> 0:01:41,696
+And, to understand what we need
+
+52
+00:01:41,696 --> 0:01:42,936
+to do in order to enable that,
+
+53
+00:01:43,296 --> 0:01:46,456
+I'm going to break down a frame.
+
+54
+00:01:46,676 --> 0:01:47,986
+So, here we have the camera
+
+55
+00:01:47,986 --> 0:01:49,996
+image, and we have two people
+
+56
+00:01:49,996 --> 0:01:51,136
+standing around a table.
+
+57
+00:01:51,826 --> 0:01:53,556
+And, we want to place a rendered
+
+58
+00:01:53,586 --> 0:01:55,046
+object on top of this table.
+
+59
+00:01:56,576 --> 0:01:58,936
+So far, for ARKit 2, the way we
+
+60
+00:01:58,936 --> 0:02:01,786
+position rendered content is by
+
+61
+00:01:58,936 --> 0:02:01,786
+position rendered content is by
+
+62
+00:02:01,786 --> 0:02:03,196
+simply overlaying it on the
+
+63
+00:02:03,196 --> 0:02:03,676
+image.
+
+64
+00:02:04,076 --> 0:02:05,696
+And, when we do it this way, we
+
+65
+00:02:05,696 --> 0:02:07,376
+see that we end up with an
+
+66
+00:02:07,376 --> 0:02:08,596
+incorrect occlusion.
+
+67
+00:02:09,686 --> 0:02:10,705
+This is not what we would
+
+68
+00:02:10,705 --> 0:02:11,246
+expect.
+
+69
+00:02:11,386 --> 0:02:12,966
+And, we want to turn that red
+
+70
+00:02:12,966 --> 0:02:14,566
+cross into a green checkmark.
+
+71
+00:02:15,266 --> 0:02:16,676
+So, the way we do that is, we
+
+72
+00:02:16,676 --> 0:02:18,126
+need to understand there's a
+
+73
+00:02:18,126 --> 0:02:19,676
+person closer to the camera than
+
+74
+00:02:19,676 --> 0:02:20,496
+the rendered object.
+
+75
+00:02:20,496 --> 0:02:23,236
+And, when we do so, we correctly
+
+76
+00:02:23,346 --> 0:02:24,376
+make sure that the rendered
+
+77
+00:02:24,376 --> 0:02:25,456
+object gets occluded.
+
+78
+00:02:25,866 --> 0:02:29,316
+And, this is essentially a depth
+
+79
+00:02:29,376 --> 0:02:30,306
+ordering problem.
+
+80
+00:02:30,496 --> 0:02:32,526
+And, in order to understand how
+
+81
+00:02:32,526 --> 0:02:33,796
+we're going to solve this, I'm
+
+82
+00:02:33,796 --> 0:02:35,016
+going to decompose the scene.
+
+83
+00:02:35,646 --> 0:02:38,756
+So, here's the same image in an
+
+84
+00:02:38,756 --> 0:02:41,076
+oblique angle, and let's explode
+
+85
+00:02:41,336 --> 0:02:42,336
+the scene and look at the
+
+86
+00:02:42,336 --> 0:02:44,806
+different depth planes that we
+
+87
+00:02:44,806 --> 0:02:45,046
+have.
+
+88
+00:02:46,076 --> 0:02:46,966
+We can see that we have
+
+89
+00:02:46,966 --> 0:02:48,106
+different things in different
+
+90
+00:02:48,106 --> 0:02:50,006
+depth planes, mixing real and
+
+91
+00:02:50,216 --> 0:02:50,666
+rendered.
+
+92
+00:02:51,146 --> 0:02:53,006
+And, here we have each person in
+
+93
+00:02:53,006 --> 0:02:55,776
+their own depth plane, with the
+
+94
+00:02:55,776 --> 0:02:57,656
+rendered object in between.
+
+95
+00:02:59,996 --> 0:03:02,006
+For rendered content, the
+
+96
+00:02:59,996 --> 0:03:02,006
+For rendered content, the
+
+97
+00:03:02,006 --> 0:03:03,696
+graphics pipeline already knows
+
+98
+00:03:03,696 --> 0:03:05,696
+exactly where it is, simply by
+
+99
+00:03:05,696 --> 0:03:06,796
+using a depth buffer.
+
+100
+00:03:07,676 --> 0:03:09,366
+And, in order for us to also do
+
+101
+00:03:09,366 --> 0:03:10,756
+the same thing for the real
+
+102
+00:03:10,756 --> 0:03:12,326
+content, we need to understand
+
+103
+00:03:12,666 --> 0:03:13,706
+where the people are in the
+
+104
+00:03:13,706 --> 0:03:14,126
+scene.
+
+105
+00:03:14,296 --> 0:03:16,166
+And, in order to enable this,
+
+106
+00:03:16,526 --> 0:03:18,206
+we're adding two new buffers.
+
+107
+00:03:19,616 --> 0:03:21,486
+We're adding the segmentation
+
+108
+00:03:21,486 --> 0:03:23,136
+buffer, which tells you, per
+
+109
+00:03:23,136 --> 0:03:24,996
+pixel, where a person is in this
+
+110
+00:03:24,996 --> 0:03:25,296
+scene.
+
+111
+00:03:26,296 --> 0:03:27,996
+And, we're also giving you a
+
+112
+00:03:28,026 --> 0:03:30,516
+corresponding depth buffer which
+
+113
+00:03:30,516 --> 0:03:31,966
+tells you where that person is
+
+114
+00:03:32,156 --> 0:03:32,766
+in depth.
+
+115
+00:03:33,306 --> 0:03:36,316
+Now, the amazing thing about
+
+116
+00:03:36,316 --> 0:03:39,006
+this feature is that the way
+
+117
+00:03:39,006 --> 0:03:40,446
+we're generating these buffers
+
+118
+00:03:40,746 --> 0:03:42,316
+is by leveraging the power of
+
+119
+00:03:42,316 --> 0:03:44,616
+the A12 chip and using machine
+
+120
+00:03:44,616 --> 0:03:45,916
+learning in order to generate
+
+121
+00:03:45,916 --> 0:03:47,576
+these buffers, using only the
+
+122
+00:03:47,576 --> 0:03:48,366
+camera image.
+
+123
+00:03:48,886 --> 0:03:51,576
+And so, these two new buffers
+
+124
+00:03:52,686 --> 0:03:54,766
+will be exposed on the ARFrame
+
+125
+00:03:54,826 --> 0:03:56,586
+as two new properties, the
+
+126
+00:03:56,586 --> 0:03:58,156
+segmentationBuffer, and the
+
+127
+00:03:58,156 --> 0:03:59,976
+estimatedDepthData.
+
+128
+00:04:03,186 --> 0:04:04,306
+Since we want to use these
+
+129
+00:04:04,306 --> 0:04:06,346
+buffers for people occlusion, we
+
+130
+00:04:06,346 --> 0:04:08,146
+also have to have them generated
+
+131
+00:04:08,206 --> 0:04:09,796
+at the same cadence as the
+
+132
+00:04:09,796 --> 0:04:10,506
+camera frame.
+
+133
+00:04:11,146 --> 0:04:12,716
+So, when your camera frame is
+
+134
+00:04:12,716 --> 0:04:14,266
+running at 60 frames a second,
+
+135
+00:04:15,076 --> 0:04:16,696
+we are also able to generate
+
+136
+00:04:16,696 --> 0:04:18,426
+these buffers for you at 60
+
+137
+00:04:18,426 --> 0:04:22,076
+frames a second.
+
+138
+00:04:22,076 --> 0:04:23,806
+We would also like these buffers
+
+139
+00:04:23,846 --> 0:04:25,606
+to be at the same resolution as
+
+140
+00:04:25,636 --> 0:04:26,466
+the camera image.
+
+141
+00:04:27,596 --> 0:04:29,526
+However, in order to enable this
+
+142
+00:04:29,526 --> 0:04:31,966
+in real time, the neural network
+
+143
+00:04:31,966 --> 0:04:33,776
+only sees a smaller image.
+
+144
+00:04:33,986 --> 0:04:36,096
+And so, if you take the output
+
+145
+00:04:36,096 --> 0:04:38,106
+of the neural network, and we
+
+146
+00:04:38,106 --> 0:04:39,766
+magnify it, we will see that
+
+147
+00:04:39,766 --> 0:04:41,146
+there's a lot of detail that the
+
+148
+00:04:41,146 --> 0:04:42,426
+neural network just simply did
+
+149
+00:04:42,426 --> 0:04:43,026
+not see.
+
+150
+00:04:44,456 --> 0:04:46,166
+So, in order to compensate for
+
+151
+00:04:46,166 --> 0:04:48,076
+this, we're doing some
+
+152
+00:04:48,076 --> 0:04:49,236
+additional processing.
+
+153
+00:04:50,436 --> 0:04:51,756
+We're applying matting.
+
+154
+00:04:52,136 --> 0:04:55,376
+And, what matting does is, it's
+
+155
+00:04:55,376 --> 0:04:56,616
+basically using the
+
+156
+00:04:56,616 --> 0:04:58,456
+segmentationBuffer as a guide,
+
+157
+00:04:58,456 --> 0:05:00,316
+and then looking at the camera
+
+158
+00:04:58,456 --> 0:05:00,316
+and then looking at the camera
+
+159
+00:05:00,316 --> 0:05:01,616
+image in order to figure out
+
+160
+00:05:01,616 --> 0:05:02,746
+what the missing detail was.
+
+161
+00:05:03,846 --> 0:05:05,986
+And now, with a matted image,
+
+162
+00:05:05,986 --> 0:05:07,846
+we're able to correctly extract
+
+163
+00:05:07,846 --> 0:05:09,686
+the people from the scene, and
+
+164
+00:05:09,686 --> 0:05:10,376
+together with the
+
+165
+00:05:10,376 --> 0:05:12,636
+estimatedDepthData, we can then
+
+166
+00:05:12,636 --> 0:05:13,996
+position them in the correct
+
+167
+00:05:13,996 --> 0:05:14,626
+depth plane.
+
+168
+00:05:15,376 --> 0:05:16,876
+Finally letting us solve the
+
+169
+00:05:16,876 --> 0:05:18,526
+depth ordering problem, and we
+
+170
+00:05:18,526 --> 0:05:20,316
+can then recompose the scene.
+
+171
+00:05:20,966 --> 0:05:23,076
+Now, this is a lot of
+
+172
+00:05:23,076 --> 0:05:25,226
+technology, and we want to make
+
+173
+00:05:25,226 --> 0:05:27,216
+it as easy as possible for you
+
+174
+00:05:27,216 --> 0:05:28,526
+developers to adopt this.
+
+175
+00:05:28,996 --> 0:05:30,446
+So, we're enabling this feature
+
+176
+00:05:30,586 --> 0:05:32,406
+in three different ways.
+
+177
+00:05:33,076 --> 0:05:35,726
+First, we have RealityKit, the
+
+178
+00:05:35,726 --> 0:05:37,276
+new framework that we announced
+
+179
+00:05:37,506 --> 0:05:38,626
+this Dub-dub.
+
+180
+00:05:39,056 --> 0:05:40,216
+However, if you've already been
+
+181
+00:05:40,216 --> 0:05:42,646
+using SceneKit, and we also
+
+182
+00:05:42,646 --> 0:05:43,946
+added support for people
+
+183
+00:05:43,946 --> 0:05:45,916
+occlusion using the ARCSNView.
+
+184
+00:05:46,656 --> 0:05:47,836
+And, in case you have your own
+
+185
+00:05:47,836 --> 0:05:49,846
+renderer, or you're working with
+
+186
+00:05:49,846 --> 0:05:51,626
+a third-party rendering, we're
+
+187
+00:05:51,626 --> 0:05:53,166
+giving you the building blocks
+
+188
+00:05:53,636 --> 0:05:55,436
+to enable incorporating people
+
+189
+00:05:55,436 --> 0:05:57,206
+occlusion into your own app
+
+190
+00:05:57,256 --> 0:05:58,356
+using the power of Metal.
+
+191
+00:05:59,746 --> 0:06:00,986
+So, let's look at how we'd do it
+
+192
+00:05:59,746 --> 0:06:00,986
+So, let's look at how we'd do it
+
+193
+00:06:00,986 --> 0:06:01,706
+in RealityKit.
+
+194
+00:06:03,846 --> 0:06:06,586
+RealityKit is the recommended
+
+195
+00:06:06,586 --> 0:06:07,976
+way if you're going to build a
+
+196
+00:06:07,976 --> 0:06:09,756
+new AR app.
+
+197
+00:06:10,046 --> 0:06:11,756
+It has a new UI element called
+
+198
+00:06:11,756 --> 0:06:14,626
+the ARView, which enables you--
+
+199
+00:06:14,876 --> 0:06:16,366
+gives you an easy-to-use API
+
+200
+00:06:16,366 --> 0:06:19,166
+that brings photorealism to AR,
+
+201
+00:06:19,706 --> 0:06:21,496
+further blending the border
+
+202
+00:06:21,496 --> 0:06:24,036
+between the real and the
+
+203
+00:06:24,036 --> 0:06:24,866
+rendered content.
+
+204
+00:06:25,516 --> 0:06:28,856
+It also has built-in support for
+
+205
+00:06:28,856 --> 0:06:29,626
+people occlusion.
+
+206
+00:06:30,276 --> 0:06:31,476
+And, if you attended the What's
+
+207
+00:06:31,476 --> 0:06:32,966
+New session, you have already
+
+208
+00:06:32,966 --> 0:06:35,076
+seen a live demo of how you can
+
+209
+00:06:35,076 --> 0:06:36,506
+enable people occlusion in
+
+210
+00:06:36,506 --> 0:06:36,876
+ARView.
+
+211
+00:06:37,496 --> 0:06:38,786
+And so, for this deep dive,
+
+212
+00:06:38,876 --> 0:06:39,966
+we'll do a quick recap.
+
+213
+00:06:40,606 --> 0:06:42,226
+Let's look at some code.
+
+214
+00:06:43,296 --> 0:06:45,466
+So, here I have my viewDidLoad
+
+215
+00:06:45,466 --> 0:06:47,136
+function in my view controller.
+
+216
+00:06:47,616 --> 0:06:48,716
+And, the first thing I need to
+
+217
+00:06:48,716 --> 0:06:50,256
+do is to make sure that it's
+
+218
+00:06:50,296 --> 0:06:51,186
+future supported.
+
+219
+00:06:52,396 --> 0:06:53,936
+I do that by checking my
+
+220
+00:06:53,936 --> 0:06:55,996
+configuration, shown as my
+
+221
+00:06:55,996 --> 0:06:57,216
+WorldTrackingConfiguration.
+
+222
+00:06:58,076 --> 0:06:59,506
+And, I need to look for a new
+
+223
+00:06:59,506 --> 0:07:01,286
+property called FrameSemantics.
+
+224
+00:06:59,506 --> 0:07:01,286
+property called FrameSemantics.
+
+225
+00:07:01,536 --> 0:07:02,696
+And, the FrameSemantics we're
+
+226
+00:07:02,696 --> 0:07:03,916
+going to use to enable people
+
+227
+00:07:03,916 --> 0:07:04,686
+occlusion is
+
+228
+00:07:04,726 --> 0:07:06,396
+personSegmentationWithDepth.
+
+229
+00:07:07,756 --> 0:07:08,896
+Once I know that this is
+
+230
+00:07:08,976 --> 0:07:11,836
+supported on my configuration,
+
+231
+00:07:12,706 --> 0:07:14,246
+the only thing I have to do is
+
+232
+00:07:14,246 --> 0:07:15,966
+set the FrameSemantics on my
+
+233
+00:07:15,966 --> 0:07:18,236
+configuration, and then, when
+
+234
+00:07:18,236 --> 0:07:19,886
+the session starts running, the
+
+235
+00:07:19,886 --> 0:07:21,716
+ARView will automatically pick
+
+236
+00:07:21,716 --> 0:07:23,886
+this up, and enable people
+
+237
+00:07:23,886 --> 0:07:25,516
+occlusion for my AR application.
+
+238
+00:07:26,976 --> 0:07:29,056
+So, all we had to do was really
+
+239
+00:07:29,056 --> 0:07:30,446
+to change our configuration,
+
+240
+00:07:30,446 --> 0:07:31,696
+using the new property that
+
+241
+00:07:31,696 --> 0:07:33,046
+we're introducing for this year,
+
+242
+00:07:33,846 --> 0:07:34,696
+FrameSemantics.
+
+243
+00:07:35,106 --> 0:07:36,546
+And, as you saw in the previous
+
+244
+00:07:36,546 --> 0:07:37,676
+example, I was using
+
+245
+00:07:37,676 --> 0:07:39,356
+personSegmentationWithDepth.
+
+246
+00:07:39,916 --> 0:07:41,136
+But, we can also do only
+
+247
+00:07:41,166 --> 0:07:42,536
+PersonSegmentation in case you
+
+248
+00:07:42,536 --> 0:07:43,886
+want to enable a weatherman-like
+
+249
+00:07:43,886 --> 0:07:44,506
+experience.
+
+250
+00:07:45,896 --> 0:07:48,256
+Now, ARView is the recommended
+
+251
+00:07:48,256 --> 0:07:50,806
+way for using people occlusion.
+
+252
+00:07:51,196 --> 0:07:53,156
+And, the reason is, it has a
+
+253
+00:07:53,226 --> 0:07:54,706
+deep renderer integration.
+
+254
+00:07:54,956 --> 0:07:56,596
+And, what that means is the
+
+255
+00:07:56,596 --> 0:07:58,306
+entire graphics pipeline is
+
+256
+00:07:58,306 --> 0:07:59,996
+aware that there are people in
+
+257
+00:07:59,996 --> 0:08:00,516
+the scene.
+
+258
+00:07:59,996 --> 0:08:00,516
+the scene.
+
+259
+00:08:00,996 --> 0:08:02,836
+And, it's therefore able to also
+
+260
+00:08:02,836 --> 0:08:04,666
+handle transparent objects when
+
+261
+00:08:04,666 --> 0:08:05,626
+you're using this feature.
+
+262
+00:08:06,676 --> 0:08:08,486
+It's doing this while also being
+
+263
+00:08:08,486 --> 0:08:10,186
+built for optimal performance.
+
+264
+00:08:10,566 --> 0:08:12,646
+And, if you're wondering what
+
+265
+00:08:12,646 --> 0:08:14,216
+kind of experiences you can
+
+266
+00:08:14,216 --> 0:08:16,126
+enable using people occlusion
+
+267
+00:08:16,296 --> 0:08:17,946
+and RealityKit, I would like to
+
+268
+00:08:18,026 --> 0:08:19,906
+play a short video for you.
+
+269
+00:08:21,516 --> 0:08:35,500
+[ Music ]
+
+270
+00:08:38,046 --> 0:08:39,135
+This is Swiftstrike.
+
+271
+00:08:39,746 --> 0:08:41,405
+It's a really cool demo that
+
+272
+00:08:41,405 --> 0:08:42,395
+we're showing right here in
+
+273
+00:08:42,395 --> 0:08:44,716
+Dub-dub, and I urge everyone to
+
+274
+00:08:44,716 --> 0:08:46,126
+check it out if you haven't done
+
+275
+00:08:46,126 --> 0:08:46,726
+so already.
+
+276
+00:08:48,076 --> 0:08:49,186
+So, what if you've been using
+
+277
+00:08:49,256 --> 0:08:49,696
+SceneKit?
+
+278
+00:08:50,306 --> 0:08:52,606
+Well, let's look at how I would
+
+279
+00:08:52,606 --> 0:08:53,746
+enable people occlusion for
+
+280
+00:08:53,746 --> 0:08:54,176
+SceneKit.
+
+281
+00:08:56,436 --> 0:08:57,816
+If you've already been using
+
+282
+00:08:57,936 --> 0:08:59,776
+ARSCNView, we're enabling people
+
+283
+00:08:59,776 --> 0:09:01,686
+occlusion in very much the same
+
+284
+00:08:59,776 --> 0:09:01,686
+occlusion in very much the same
+
+285
+00:09:01,686 --> 0:09:02,636
+way we're enabling for
+
+286
+00:09:02,636 --> 0:09:03,306
+RealityKit.
+
+287
+00:09:04,056 --> 0:09:05,376
+All we have to do is set the
+
+288
+00:09:05,376 --> 0:09:07,056
+FrameSemantics on our
+
+289
+00:09:07,056 --> 0:09:09,176
+configuration, and the ARSCNView
+
+290
+00:09:09,176 --> 0:09:10,606
+will automatically pick this up.
+
+291
+00:09:11,736 --> 0:09:13,146
+However, there's a difference
+
+292
+00:09:13,146 --> 0:09:14,366
+between the SceneKit
+
+293
+00:09:14,366 --> 0:09:15,896
+implementation and RealityKit,
+
+294
+00:09:16,236 --> 0:09:18,216
+where SceneKit does a
+
+295
+00:09:18,356 --> 0:09:19,896
+post-processing composition.
+
+296
+00:09:20,296 --> 0:09:21,206
+And, what that means for you
+
+297
+00:09:21,206 --> 0:09:23,416
+concretely is it may not work as
+
+298
+00:09:23,416 --> 0:09:24,826
+well with transparent objects,
+
+299
+00:09:24,826 --> 0:09:26,016
+depending on how you write
+
+300
+00:09:26,846 --> 0:09:26,966
+depth.
+
+301
+00:09:28,196 --> 0:09:30,206
+Finally, what if I have my own
+
+302
+00:09:30,206 --> 0:09:31,056
+rendering engine?
+
+303
+00:09:32,276 --> 0:09:33,946
+Well, we want to enable you to
+
+304
+00:09:33,946 --> 0:09:35,646
+incorporate people occlusion
+
+305
+00:09:35,646 --> 0:09:37,006
+into your own rendering engine,
+
+306
+00:09:37,616 --> 0:09:38,756
+or a third-party rendering
+
+307
+00:09:38,756 --> 0:09:39,156
+engine.
+
+308
+00:09:39,756 --> 0:09:42,096
+And, what this gives you is
+
+309
+00:09:42,096 --> 0:09:43,286
+complete control over the
+
+310
+00:09:43,286 --> 0:09:43,896
+composition.
+
+311
+00:09:43,896 --> 0:09:47,126
+We want to give you as much
+
+312
+00:09:47,126 --> 0:09:49,086
+flexibility as possible, while
+
+313
+00:09:49,086 --> 0:09:50,866
+still giving you easy-to-use API
+
+314
+00:09:51,616 --> 0:09:52,876
+in order to incorporate this
+
+315
+00:09:52,876 --> 0:09:53,426
+great feature.
+
+316
+00:09:54,216 --> 0:09:55,566
+So, before I show you how we do
+
+317
+00:09:55,566 --> 0:09:57,256
+this, let's do a quick review.
+
+318
+00:09:58,496 --> 0:10:01,116
+We had the segmentationBuffer
+
+319
+00:09:58,496 --> 0:10:01,116
+We had the segmentationBuffer
+
+320
+00:10:01,116 --> 0:10:02,136
+that came out of the neural
+
+321
+00:10:02,136 --> 0:10:04,386
+network, that was working on a
+
+322
+00:10:04,386 --> 0:10:04,976
+smaller image.
+
+323
+00:10:05,346 --> 0:10:06,816
+And then, we applied matting in
+
+324
+00:10:06,816 --> 0:10:08,196
+order to recapture some of that
+
+325
+00:10:08,196 --> 0:10:08,906
+missing detail.
+
+326
+00:10:10,306 --> 0:10:11,646
+Well, when we do our custom
+
+327
+00:10:11,646 --> 0:10:13,936
+composition, we're providing a
+
+328
+00:10:13,936 --> 0:10:16,086
+new class that will generate
+
+329
+00:10:16,086 --> 0:10:17,346
+this matte for you, using the
+
+330
+00:10:17,386 --> 0:10:19,076
+power of Metal, giving you the
+
+331
+00:10:19,076 --> 0:10:20,596
+matte as a texture for you to
+
+332
+00:10:20,596 --> 0:10:21,596
+incorporate into your own
+
+333
+00:10:21,596 --> 0:10:22,016
+pipeline.
+
+334
+00:10:22,686 --> 0:10:24,296
+Let's look at an example of how
+
+335
+00:10:24,296 --> 0:10:25,786
+we can do just that.
+
+336
+00:10:26,796 --> 0:10:28,416
+So, here I have my custom
+
+337
+00:10:28,416 --> 0:10:29,406
+composition function.
+
+338
+00:10:29,826 --> 0:10:31,626
+And, the first thing I do is to
+
+339
+00:10:31,626 --> 0:10:32,866
+make sure whether this feature
+
+340
+00:10:32,866 --> 0:10:34,276
+is supported.
+
+341
+00:10:34,276 --> 0:10:37,006
+And, once I've done that, all I
+
+342
+00:10:37,006 --> 0:10:38,246
+have to do is call
+
+343
+00:10:38,246 --> 0:10:39,906
+generateMatte, and I give it the
+
+344
+00:10:39,906 --> 0:10:41,646
+frame and the commandBuffer, and
+
+345
+00:10:41,646 --> 0:10:42,836
+it gives me back the Metal
+
+346
+00:10:42,836 --> 0:10:45,146
+texture that I can then use when
+
+347
+00:10:45,146 --> 0:10:46,916
+I do my own custom composition,
+
+348
+00:10:47,566 --> 0:10:49,106
+and finally schedule everything
+
+349
+00:10:49,106 --> 0:10:49,786
+to the GPU.
+
+350
+00:10:50,336 --> 0:10:52,406
+So, the class that we're
+
+351
+00:10:52,406 --> 0:10:54,196
+bringing to ARKit is called
+
+352
+00:10:54,196 --> 0:10:55,906
+ARMatteGenerator, and as you saw
+
+353
+00:10:55,906 --> 0:10:57,586
+in the example, it takes the
+
+354
+00:10:57,586 --> 0:10:58,986
+ARFrame and the commandBuffer,
+
+355
+00:10:58,986 --> 0:11:00,806
+and it gives you back a texture
+
+356
+00:10:58,986 --> 0:11:00,806
+and it gives you back a texture
+
+357
+00:11:00,806 --> 0:11:01,616
+that you can use.
+
+358
+00:11:02,366 --> 0:11:04,286
+However, we're not done yet.
+
+359
+00:11:05,056 --> 0:11:06,976
+Just like the segmentationBuffer
+
+360
+00:11:06,976 --> 0:11:09,276
+was of a lower resolution, the
+
+361
+00:11:09,276 --> 0:11:11,076
+estimatedDepthData is also
+
+362
+00:11:11,076 --> 0:11:13,236
+lower, and if we simply magnify
+
+363
+00:11:13,236 --> 0:11:15,046
+it, and overlay it on our matted
+
+364
+00:11:15,046 --> 0:11:17,686
+image, we will see that there
+
+365
+00:11:17,686 --> 0:11:18,776
+might be a mismatch.
+
+366
+00:11:19,366 --> 0:11:20,836
+We can have depth values where
+
+367
+00:11:20,836 --> 0:11:22,086
+there's no alpha value in the
+
+368
+00:11:22,086 --> 0:11:23,706
+matte, and more importantly, we
+
+369
+00:11:23,706 --> 0:11:25,346
+can have alpha values in the
+
+370
+00:11:25,346 --> 0:11:26,186
+matte where there's no
+
+371
+00:11:26,186 --> 0:11:27,456
+corresponding depth value.
+
+372
+00:11:31,176 --> 0:11:32,626
+Now, since the matte has already
+
+373
+00:11:32,626 --> 0:11:33,976
+recaptured some of the missing
+
+374
+00:11:33,976 --> 0:11:35,526
+detail, we can't really modify
+
+375
+00:11:35,526 --> 0:11:36,486
+the alpha itself.
+
+376
+00:11:36,686 --> 0:11:38,476
+Instead, we need to modify the
+
+377
+00:11:38,476 --> 0:11:39,186
+depth buffer.
+
+378
+00:11:39,746 --> 0:11:42,896
+So, let's go back to my previous
+
+379
+00:11:42,896 --> 0:11:44,426
+example, and see how we do just
+
+380
+00:11:44,426 --> 0:11:45,346
+that.
+
+381
+00:11:45,866 --> 0:11:47,766
+So, here we have the line where
+
+382
+00:11:47,766 --> 0:11:49,306
+I added-- we generated the matte
+
+383
+00:11:49,446 --> 0:11:50,496
+in order for me to use for my
+
+384
+00:11:50,496 --> 0:11:51,526
+custom composition.
+
+385
+00:11:51,906 --> 0:11:53,956
+And so I add an addition
+
+386
+00:11:54,096 --> 0:11:55,356
+function call to
+
+387
+00:11:55,356 --> 0:11:56,736
+generateDilatedDepth.
+
+388
+00:11:57,076 --> 0:11:58,446
+And, much in the same way, it
+
+389
+00:11:58,446 --> 0:11:59,816
+takes the frame in the command
+
+390
+00:11:59,816 --> 0:12:01,516
+buffer, and gives me back a
+
+391
+00:11:59,816 --> 0:12:01,516
+buffer, and gives me back a
+
+392
+00:12:01,566 --> 0:12:01,916
+texture.
+
+393
+00:12:02,536 --> 0:12:05,516
+And, if you look at the API, it
+
+394
+00:12:05,516 --> 0:12:07,106
+looks very similar to how we
+
+395
+00:12:07,106 --> 0:12:09,696
+generated the matte, giving us
+
+396
+00:12:09,756 --> 0:12:11,966
+the texture, taking the frame
+
+397
+00:12:11,966 --> 0:12:12,816
+and the command buffer.
+
+398
+00:12:14,026 --> 0:12:15,926
+And, what this does is ensures
+
+399
+00:12:15,926 --> 0:12:17,876
+that for every alpha value we
+
+400
+00:12:17,876 --> 0:12:19,486
+find in the matte, we will have
+
+401
+00:12:19,486 --> 0:12:21,076
+a corresponding depth value that
+
+402
+00:12:21,076 --> 0:12:22,546
+we can then use when we do our
+
+403
+00:12:22,546 --> 0:12:23,536
+final composition.
+
+404
+00:12:24,956 --> 0:12:27,096
+So, with the dilated depth, and
+
+405
+00:12:27,096 --> 0:12:28,976
+the matte, we're now finally
+
+406
+00:12:28,976 --> 0:12:30,806
+able to move on to composition.
+
+407
+00:12:32,556 --> 0:12:34,536
+Composition is usually done on
+
+408
+00:12:34,536 --> 0:12:36,046
+the GPU in the fragment shader.
+
+409
+00:12:36,516 --> 0:12:37,796
+So, let's look at an example
+
+410
+00:12:37,796 --> 0:12:39,436
+shader of how I bring everything
+
+411
+00:12:39,436 --> 0:12:39,846
+together.
+
+412
+00:12:40,436 --> 0:12:43,726
+I begin by doing what we would
+
+413
+00:12:43,726 --> 0:12:45,716
+usually do for an AR experience.
+
+414
+00:12:46,056 --> 0:12:48,376
+I sample the camera image, as
+
+415
+00:12:48,376 --> 0:12:49,626
+well as the rendered texture,
+
+416
+00:12:50,386 --> 0:12:51,486
+but since we're going to do
+
+417
+00:12:51,486 --> 0:12:53,096
+occlusion, I'm also sampling the
+
+418
+00:12:53,096 --> 0:12:54,446
+rendered depth.
+
+419
+00:12:55,056 --> 0:12:57,186
+And then, I do what I would
+
+420
+00:12:57,216 --> 0:12:58,976
+usually do in AR, I simply
+
+421
+00:12:58,976 --> 0:13:00,636
+overlay the rendered content on
+
+422
+00:12:58,976 --> 0:13:00,636
+overlay the rendered content on
+
+423
+00:13:00,636 --> 0:13:02,856
+the real image, given the
+
+424
+00:13:03,046 --> 0:13:03,766
+rendered alpha.
+
+425
+00:13:05,236 --> 0:13:07,816
+The new part, in order to enable
+
+426
+00:13:07,816 --> 0:13:09,506
+people occlusion, is I also
+
+427
+00:13:09,506 --> 0:13:11,516
+sample my matte, and my
+
+428
+00:13:11,516 --> 0:13:12,336
+dilatedDepth.
+
+429
+00:13:13,556 --> 0:13:16,336
+And then, I make sure to compare
+
+430
+00:13:16,336 --> 0:13:17,936
+the dilatedDepth with the
+
+431
+00:13:17,936 --> 0:13:18,686
+renderedDepth.
+
+432
+00:13:18,686 --> 0:13:20,726
+And, if I find that there's
+
+433
+00:13:20,726 --> 0:13:21,966
+something in the dilatedDepth
+
+434
+00:13:21,966 --> 0:13:23,206
+that's closer to the camera,
+
+435
+00:13:23,206 --> 0:13:24,546
+meaning that there might be a
+
+436
+00:13:24,546 --> 0:13:26,976
+person there, I then mix the
+
+437
+00:13:26,976 --> 0:13:29,276
+camera back, given the value of
+
+438
+00:13:29,276 --> 0:13:29,616
+the matte.
+
+439
+00:13:30,256 --> 0:13:32,166
+However, if the render content
+
+440
+00:13:32,166 --> 0:13:34,536
+is closer to the camera, I
+
+441
+00:13:34,536 --> 0:13:36,106
+simply do what we always do, and
+
+442
+00:13:36,106 --> 0:13:37,856
+have the render content overlaid
+
+443
+00:13:37,856 --> 0:13:38,526
+on top of it.
+
+444
+00:13:38,526 --> 0:13:41,106
+And, with all of this, we're
+
+445
+00:13:41,196 --> 0:13:43,846
+finally able to do people
+
+446
+00:13:43,846 --> 0:13:45,676
+occlusion in our own custom
+
+447
+00:13:45,676 --> 0:13:45,976
+renderer.
+
+448
+00:13:49,516 --> 0:13:54,636
+[ Applause ]
+
+449
+00:13:55,136 --> 0:13:56,696
+Since this feature is using the
+
+450
+00:13:56,696 --> 0:13:59,196
+neural engine, and machine
+
+451
+00:13:59,196 --> 0:14:01,296
+learning, it's supported on A12
+
+452
+00:13:59,196 --> 0:14:01,296
+learning, it's supported on A12
+
+453
+00:14:01,296 --> 0:14:02,286
+devices and later.
+
+454
+00:14:03,826 --> 0:14:05,796
+It also works best in indoor
+
+455
+00:14:05,796 --> 0:14:06,416
+environments.
+
+456
+00:14:07,226 --> 0:14:08,956
+And, in all the videos you saw,
+
+457
+00:14:08,956 --> 0:14:10,316
+you saw people standing in the
+
+458
+00:14:10,316 --> 0:14:12,066
+scene, but this feature also
+
+459
+00:14:12,066 --> 0:14:13,426
+works for your own hands and
+
+460
+00:14:13,426 --> 0:14:13,696
+feet.
+
+461
+00:14:15,006 --> 0:14:16,366
+It also works for multiple
+
+462
+00:14:16,366 --> 0:14:17,176
+people in the scene.
+
+463
+00:14:18,386 --> 0:14:20,066
+Before I hand it over to Tanmay
+
+464
+00:14:20,136 --> 0:14:21,286
+to show you all about motion
+
+465
+00:14:21,286 --> 0:14:24,596
+capture, let's do a quick recap.
+
+466
+00:14:24,596 --> 0:14:26,626
+So, with people occlusion, we're
+
+467
+00:14:26,626 --> 0:14:28,596
+enabling correct occlusion
+
+468
+00:14:28,696 --> 0:14:30,176
+between rendered and real
+
+469
+00:14:30,176 --> 0:14:31,306
+content for people.
+
+470
+00:14:33,136 --> 0:14:34,936
+The recommended way, if you're
+
+471
+00:14:34,936 --> 0:14:36,506
+building a new app, is to use
+
+472
+00:14:36,506 --> 0:14:39,006
+RealityKit and ARView, since
+
+473
+00:14:39,006 --> 0:14:40,716
+this does the deep integration.
+
+474
+00:14:41,706 --> 0:14:43,556
+If you already have an app using
+
+475
+00:14:43,556 --> 0:14:45,156
+SceneKit, we've also added
+
+476
+00:14:45,156 --> 0:14:46,796
+support for people occlusion in
+
+477
+00:14:46,796 --> 0:14:47,806
+the ARSCNView.
+
+478
+00:14:49,246 --> 0:14:50,166
+And, if you have your own
+
+479
+00:14:50,166 --> 0:14:51,736
+renderer, we're providing you
+
+480
+00:14:51,736 --> 0:14:53,266
+with a new API called the
+
+481
+00:14:53,266 --> 0:14:55,436
+ARMatteGenerator, so you can do
+
+482
+00:14:55,436 --> 0:14:56,756
+your own compositing and
+
+483
+00:14:56,756 --> 0:14:58,136
+incorporating into your own
+
+484
+00:14:58,136 --> 0:14:58,526
+renderer.
+
+485
+00:14:59,346 --> 0:15:00,766
+And, with that, I'd like to hand
+
+486
+00:14:59,346 --> 0:15:00,766
+And, with that, I'd like to hand
+
+487
+00:15:00,766 --> 0:15:02,496
+it over to Tanmay to give you a
+
+488
+00:15:02,496 --> 0:15:03,916
+deep dive into motion capture.
+
+489
+00:15:04,516 --> 0:15:10,546
+[ Applause ]
+
+490
+00:15:11,046 --> 0:15:12,156
+&gt;&gt; Thank you, Adrian.
+
+491
+00:15:12,566 --> 0:15:13,436
+Hello everyone.
+
+492
+00:15:13,596 --> 0:15:15,666
+I'm Tanmay, and today I'm going
+
+493
+00:15:15,666 --> 0:15:17,326
+to introduce you to this new
+
+494
+00:15:17,326 --> 0:15:18,766
+piece of technology that we are
+
+495
+00:15:18,766 --> 0:15:20,636
+bringing this year, motion
+
+496
+00:15:20,826 --> 0:15:21,866
+capture.
+
+497
+00:15:22,516 --> 0:15:25,316
+[ Applause ]
+
+498
+00:15:25,816 --> 0:15:28,046
+So, what is motion capture?
+
+499
+00:15:28,746 --> 0:15:30,716
+It's just a process of capturing
+
+500
+00:15:30,716 --> 0:15:31,766
+movement of people.
+
+501
+00:15:33,196 --> 0:15:35,566
+You see a person, you capture
+
+502
+00:15:35,566 --> 0:15:37,516
+all the movements, and you use
+
+503
+00:15:37,566 --> 0:15:39,466
+that motion to animate a virtual
+
+504
+00:15:39,466 --> 0:15:41,926
+character so that the character
+
+505
+00:15:41,926 --> 0:15:43,876
+performs the same set of actions
+
+506
+00:15:43,936 --> 0:15:45,856
+as the person you're looking at.
+
+507
+00:15:45,856 --> 0:15:47,446
+And, we're trying to enable this
+
+508
+00:15:47,446 --> 0:15:49,116
+technology in your applications.
+
+509
+00:15:50,516 --> 0:15:51,636
+Now, let's dive in.
+
+510
+00:15:52,476 --> 0:15:54,326
+We would like the character to
+
+511
+00:15:54,326 --> 0:15:55,646
+mimic the person that you're
+
+512
+00:15:55,646 --> 0:15:56,156
+looking at.
+
+513
+00:15:56,346 --> 0:15:58,146
+But, before we do that, we need
+
+514
+00:15:58,146 --> 0:16:00,456
+to understand what exactly are
+
+515
+00:15:58,146 --> 0:16:00,456
+to understand what exactly are
+
+516
+00:16:00,456 --> 0:16:01,406
+we trying to animate?
+
+517
+00:16:01,816 --> 0:16:03,346
+What does a character entail?
+
+518
+00:16:04,646 --> 0:16:06,066
+So, this is an example of a
+
+519
+00:16:06,066 --> 0:16:06,966
+virtual character.
+
+520
+00:16:06,966 --> 0:16:09,096
+Let's take an x-ray of it and
+
+521
+00:16:09,096 --> 0:16:10,096
+see what's inside it.
+
+522
+00:16:10,756 --> 0:16:13,806
+You can see that it has two main
+
+523
+00:16:13,806 --> 0:16:14,466
+components.
+
+524
+00:16:14,716 --> 0:16:16,186
+The outer coating, which is
+
+525
+00:16:16,326 --> 0:16:17,256
+called a mesh.
+
+526
+00:16:17,576 --> 0:16:19,296
+And, the bony structure inside,
+
+527
+00:16:19,366 --> 0:16:20,776
+which is called a skeleton.
+
+528
+00:16:21,026 --> 0:16:23,686
+And, these two combined together
+
+529
+00:16:23,686 --> 0:16:25,426
+give you the complete character.
+
+530
+00:16:26,766 --> 0:16:28,196
+The skeleton is the driving
+
+531
+00:16:28,196 --> 0:16:30,186
+force behind the entire
+
+532
+00:16:30,186 --> 0:16:30,686
+character.
+
+533
+00:16:31,206 --> 0:16:32,906
+It contains all the limbs that
+
+534
+00:16:32,906 --> 0:16:34,276
+we use for motion, just like
+
+535
+00:16:34,316 --> 0:16:34,706
+people.
+
+536
+00:16:35,606 --> 0:16:37,346
+And so, in order to animate a
+
+537
+00:16:37,346 --> 0:16:39,196
+character, we need to animate
+
+538
+00:16:39,256 --> 0:16:40,496
+the skeleton with the same
+
+539
+00:16:40,496 --> 0:16:40,906
+motion.
+
+540
+00:16:42,066 --> 0:16:43,706
+So, what's the first step here?
+
+541
+00:16:43,986 --> 0:16:44,886
+We have a person.
+
+542
+00:16:45,076 --> 0:16:46,846
+And, the first step here is to
+
+543
+00:16:46,846 --> 0:16:48,296
+have the skeleton mimic this
+
+544
+00:16:48,296 --> 0:16:48,726
+person.
+
+545
+00:16:48,916 --> 0:16:52,186
+And, this is what it looks like.
+
+546
+00:16:52,186 --> 0:16:54,146
+And, once the skeleton moves,
+
+547
+00:16:55,026 --> 0:16:56,566
+the character follows suit.
+
+548
+00:16:57,696 --> 0:17:00,426
+And, you have the entire virtual
+
+549
+00:16:57,696 --> 0:17:00,426
+And, you have the entire virtual
+
+550
+00:17:00,426 --> 0:17:02,116
+character mimicking you
+
+551
+00:17:02,116 --> 0:17:02,876
+automatically.
+
+552
+00:17:03,466 --> 0:17:06,296
+So, how do we do it?
+
+553
+00:17:07,806 --> 0:17:09,306
+How do we animate this skeleton?
+
+554
+00:17:09,665 --> 0:17:12,086
+Given this image, we use machine
+
+555
+00:17:12,086 --> 0:17:14,685
+learning technology to first
+
+556
+00:17:14,685 --> 0:17:16,236
+estimate the pose of the person
+
+557
+00:17:16,236 --> 0:17:16,886
+in the image.
+
+558
+00:17:17,316 --> 0:17:20,185
+And, we use that pose to build a
+
+559
+00:17:20,185 --> 0:17:21,846
+full-fledged, high-fidelity
+
+560
+00:17:21,846 --> 0:17:22,445
+skeleton.
+
+561
+00:17:23,076 --> 0:17:25,756
+And, finally, we use this
+
+562
+00:17:25,796 --> 0:17:27,165
+skeleton, and combine it with a
+
+563
+00:17:27,165 --> 0:17:28,626
+mesh to give you the final
+
+564
+00:17:28,626 --> 0:17:29,156
+character.
+
+565
+00:17:29,456 --> 0:17:32,066
+And, we interface all of this,
+
+566
+00:17:32,146 --> 0:17:33,266
+everything that you're looking
+
+567
+00:17:33,266 --> 0:17:34,626
+here, through ARKit.
+
+568
+00:17:35,336 --> 0:17:39,366
+To get a complete overview, we
+
+569
+00:17:39,366 --> 0:17:40,706
+are introducing the technology
+
+570
+00:17:40,706 --> 0:17:42,616
+of motion capture in this year's
+
+571
+00:17:42,616 --> 0:17:42,976
+ARKit.
+
+572
+00:17:43,716 --> 0:17:45,166
+And, with that, you can track
+
+573
+00:17:45,166 --> 0:17:47,526
+movement of people in real time,
+
+574
+00:17:47,696 --> 0:17:48,676
+on your devices.
+
+575
+00:17:49,666 --> 0:17:51,246
+It works seamlessly with
+
+576
+00:17:51,246 --> 0:17:53,696
+RealityKit, which gives you the
+
+577
+00:17:53,696 --> 0:17:55,576
+ability to drive animated
+
+578
+00:17:55,576 --> 0:17:57,336
+characters, and render them on
+
+579
+00:17:57,336 --> 0:17:58,036
+your screens.
+
+580
+00:17:58,946 --> 0:18:00,386
+It's powered by machine learning
+
+581
+00:17:58,946 --> 0:18:00,386
+It's powered by machine learning
+
+582
+00:18:00,386 --> 0:18:02,076
+and runs smoothly on Apple
+
+583
+00:18:02,076 --> 0:18:02,856
+Neural Engine.
+
+584
+00:18:03,806 --> 0:18:05,616
+And, we have made it available
+
+585
+00:18:05,616 --> 0:18:07,776
+on A12 devices and beyond.
+
+586
+00:18:09,216 --> 0:18:10,356
+So, now you have this
+
+587
+00:18:10,386 --> 0:18:12,316
+technology, what can you use it
+
+588
+00:18:12,376 --> 0:18:12,626
+for?
+
+589
+00:18:12,706 --> 0:18:14,846
+What can you enable with it?
+
+590
+00:18:15,516 --> 0:18:17,036
+Well, for starters, you can
+
+591
+00:18:17,036 --> 0:18:18,726
+always have a virtual character
+
+592
+00:18:18,936 --> 0:18:20,226
+follow and track a person.
+
+593
+00:18:20,546 --> 0:18:21,916
+You can have your own puppet in
+
+594
+00:18:22,056 --> 0:18:22,256
+AR.
+
+595
+00:18:22,256 --> 0:18:24,506
+And, this is something that we
+
+596
+00:18:24,506 --> 0:18:25,856
+enable out of the box.
+
+597
+00:18:26,306 --> 0:18:27,886
+But, beyond that, there are a
+
+598
+00:18:27,886 --> 0:18:29,956
+lot of other use cases as well,
+
+599
+00:18:30,046 --> 0:18:31,106
+that you can enable with it.
+
+600
+00:18:32,006 --> 0:18:34,286
+For example, you can enhance it
+
+601
+00:18:34,286 --> 0:18:35,476
+further by creating your own
+
+602
+00:18:35,476 --> 0:18:37,366
+models for detecting what
+
+603
+00:18:37,366 --> 0:18:38,766
+actions people are doing.
+
+604
+00:18:39,316 --> 0:18:41,996
+You can use it to build tools
+
+605
+00:18:41,996 --> 0:18:44,036
+for analyzing motions like how
+
+606
+00:18:44,036 --> 0:18:46,526
+good a golf swing is, or is your
+
+607
+00:18:46,526 --> 0:18:47,966
+posture correct, or are you
+
+608
+00:18:47,966 --> 0:18:49,466
+performing an exercise in a
+
+609
+00:18:49,466 --> 0:18:51,026
+correct way or not?
+
+610
+00:18:52,536 --> 0:18:54,476
+Also, now since a person has a
+
+611
+00:18:54,476 --> 0:18:56,766
+virtual presence in the scene,
+
+612
+00:18:56,946 --> 0:18:58,506
+you can enable interaction with
+
+613
+00:18:58,506 --> 0:19:00,446
+any virtual object that you
+
+614
+00:18:58,506 --> 0:19:00,446
+any virtual object that you
+
+615
+00:19:00,446 --> 0:19:00,656
+like.
+
+616
+00:19:00,656 --> 0:19:04,096
+And, it's supported for all the
+
+617
+00:19:04,096 --> 0:19:06,806
+virtual objects present in the
+
+618
+00:19:07,376 --> 0:19:07,496
+scene.
+
+619
+00:19:07,496 --> 0:19:09,486
+And, finally, you can also use
+
+620
+00:19:09,486 --> 0:19:11,406
+it for image and video
+
+621
+00:19:11,406 --> 0:19:12,086
+analytics.
+
+622
+00:19:12,406 --> 0:19:14,356
+Because we also provide 2D
+
+623
+00:19:14,356 --> 0:19:15,716
+version of the skeleton as well
+
+624
+00:19:15,906 --> 0:19:17,206
+in image space, and you can
+
+625
+00:19:17,206 --> 0:19:19,136
+build it to use editing tools,
+
+626
+00:19:19,196 --> 0:19:20,816
+or for semantic image
+
+627
+00:19:20,816 --> 0:19:21,536
+understanding.
+
+628
+00:19:21,976 --> 0:19:27,966
+And, this doesn't even cover the
+
+629
+00:19:27,966 --> 0:19:30,126
+entire set of possibilities that
+
+630
+00:19:30,126 --> 0:19:31,926
+you can enable with it remotely.
+
+631
+00:19:32,416 --> 0:19:33,766
+There are so many other things
+
+632
+00:19:33,766 --> 0:19:35,186
+that you can do with it.
+
+633
+00:19:35,866 --> 0:19:37,766
+Now, let me show you how you can
+
+634
+00:19:37,766 --> 0:19:39,236
+leverage motion capture for your
+
+635
+00:19:39,236 --> 0:19:39,966
+applications.
+
+636
+00:19:40,816 --> 0:19:42,926
+Depending on the use cases, we
+
+637
+00:19:42,926 --> 0:19:44,096
+have three different ways of
+
+638
+00:19:44,096 --> 0:19:44,566
+using it.
+
+639
+00:19:45,706 --> 0:19:48,286
+The first one is motion capture
+
+640
+00:19:48,286 --> 0:19:49,156
+in RealityKit.
+
+641
+00:19:50,366 --> 0:19:51,576
+If you just want to quickly
+
+642
+00:19:51,576 --> 0:19:54,086
+animate a character, this
+
+643
+00:19:54,086 --> 0:19:55,696
+high-level API will help you get
+
+644
+00:19:55,696 --> 0:19:55,986
+there.
+
+645
+00:19:56,676 --> 0:19:58,676
+If you want to enable advanced
+
+646
+00:19:58,676 --> 0:20:00,766
+use cases, like activity
+
+647
+00:19:58,676 --> 0:20:00,766
+use cases, like activity
+
+648
+00:20:00,766 --> 0:20:02,426
+recognition, analysis, or
+
+649
+00:20:02,426 --> 0:20:04,136
+interaction with 3D objects in a
+
+650
+00:20:04,136 --> 0:20:06,646
+scene, we've also provided
+
+651
+00:20:06,646 --> 0:20:09,026
+low-level APIs to extract each
+
+652
+00:20:09,026 --> 0:20:10,276
+and every element of the
+
+653
+00:20:10,276 --> 0:20:10,956
+skeleton.
+
+654
+00:20:12,156 --> 0:20:15,196
+And, it's for you to use it.
+
+655
+00:20:15,196 --> 0:20:17,246
+And, finally, if your use case
+
+656
+00:20:17,246 --> 0:20:18,606
+requires 2D versions of the
+
+657
+00:20:18,606 --> 0:20:20,966
+skeleton in image space, maybe
+
+658
+00:20:20,966 --> 0:20:22,366
+for doing semantic image
+
+659
+00:20:22,366 --> 0:20:24,266
+analysis, or for editing tools,
+
+660
+00:20:24,306 --> 0:20:25,866
+or for something else, we've
+
+661
+00:20:25,866 --> 0:20:29,556
+provided access to that as well.
+
+662
+00:20:29,746 --> 0:20:31,156
+So, let's get started with
+
+663
+00:20:31,156 --> 0:20:32,806
+motion capture in RealityKit.
+
+664
+00:20:34,226 --> 0:20:35,926
+As you all know, we introduced
+
+665
+00:20:35,926 --> 0:20:39,146
+RealityKit this year, and given
+
+666
+00:20:39,146 --> 0:20:41,286
+our API in RealityKit, in just
+
+667
+00:20:41,396 --> 0:20:43,106
+few lines of code, you can track
+
+668
+00:20:43,106 --> 0:20:45,616
+a person and add a character to
+
+669
+00:20:45,616 --> 0:20:45,996
+mimic.
+
+670
+00:20:47,526 --> 0:20:49,476
+We've provided a very simple and
+
+671
+00:20:49,476 --> 0:20:51,066
+easy-to-use API for this
+
+672
+00:20:51,116 --> 0:20:51,506
+purpose.
+
+673
+00:20:52,496 --> 0:20:54,106
+You can add your own custom
+
+674
+00:20:54,146 --> 0:20:55,966
+characters as well, based on the
+
+675
+00:20:55,966 --> 0:20:57,406
+structure of our provided
+
+676
+00:20:57,406 --> 0:20:58,006
+example.
+
+677
+00:20:58,516 --> 0:21:01,246
+So, you can use any mesh, any
+
+678
+00:20:58,516 --> 0:21:01,246
+So, you can use any mesh, any
+
+679
+00:21:01,246 --> 0:21:02,406
+character that you want,
+
+680
+00:21:02,556 --> 0:21:06,076
+provided that it is based on the
+
+681
+00:21:06,076 --> 0:21:07,546
+structure of our provided
+
+682
+00:21:07,546 --> 0:21:08,976
+example in the sample bundle.
+
+683
+00:21:10,956 --> 0:21:13,146
+Finally, the tracked person is
+
+684
+00:21:13,146 --> 0:21:15,416
+very easy to access here, via an
+
+685
+00:21:15,416 --> 0:21:17,396
+element called AnchorEntities,
+
+686
+00:21:17,676 --> 0:21:18,766
+which are basically just
+
+687
+00:21:18,766 --> 0:21:20,126
+building blocks of the scene.
+
+688
+00:21:20,666 --> 0:21:22,176
+And, it automatically gathers
+
+689
+00:21:22,356 --> 0:21:24,256
+all the required transforms that
+
+690
+00:21:24,256 --> 0:21:25,526
+we need for motion capture.
+
+691
+00:21:26,146 --> 0:21:32,636
+So, to start with, every element
+
+692
+00:21:32,636 --> 0:21:34,886
+of motion capture that you get
+
+693
+00:21:34,886 --> 0:21:37,406
+in ARView, which as you all
+
+694
+00:21:37,406 --> 0:21:39,326
+know, is the main UI element
+
+695
+00:21:39,396 --> 0:21:41,446
+combining AR and RealityKit
+
+696
+00:21:41,446 --> 0:21:43,686
+together, is powered by a new
+
+697
+00:21:43,686 --> 0:21:45,976
+configuration called
+
+698
+00:21:45,976 --> 0:21:47,666
+ARBodyTrackingConfiguration.
+
+699
+00:21:48,346 --> 0:21:50,376
+And, once you enable this, you
+
+700
+00:21:50,376 --> 0:21:53,196
+start adding anchors containing
+
+701
+00:21:53,196 --> 0:21:55,716
+bodies, and this entire thing is
+
+702
+00:21:55,716 --> 0:21:57,526
+encapsulated in a special type
+
+703
+00:21:57,526 --> 0:21:58,976
+of anchor entity called
+
+704
+00:21:58,976 --> 0:22:00,156
+bodyTrackedEntity.
+
+705
+00:21:58,976 --> 0:22:00,156
+bodyTrackedEntity.
+
+706
+00:22:00,826 --> 0:22:01,786
+So, let me give you a brief
+
+707
+00:22:01,786 --> 0:22:02,986
+description of what this
+
+708
+00:22:02,986 --> 0:22:05,036
+bodyTrackedEntity actually is.
+
+709
+00:22:06,656 --> 0:22:08,616
+A body tracked entity represents
+
+710
+00:22:08,686 --> 0:22:09,886
+one single person.
+
+711
+00:22:10,226 --> 0:22:11,996
+It contains the underlying
+
+712
+00:22:11,996 --> 0:22:14,186
+skeleton and its position.
+
+713
+00:22:14,776 --> 0:22:17,646
+It's tracked in real time and
+
+714
+00:22:17,646 --> 0:22:19,516
+gets updated every frame.
+
+715
+00:22:20,136 --> 0:22:22,136
+And, finally it combines the
+
+716
+00:22:22,136 --> 0:22:23,556
+skeleton to a given [inaudible]
+
+717
+00:22:23,606 --> 0:22:26,076
+mesh automatically and give you
+
+718
+00:22:26,076 --> 0:22:27,296
+the complete character.
+
+719
+00:22:27,296 --> 0:22:30,826
+Now, let's go to the code to
+
+720
+00:22:30,916 --> 0:22:32,386
+animate a character quickly, and
+
+721
+00:22:32,386 --> 0:22:33,616
+you'll see how easy it is.
+
+722
+00:22:33,856 --> 0:22:35,036
+You just have to follow three
+
+723
+00:22:35,036 --> 0:22:35,616
+steps.
+
+724
+00:22:36,586 --> 0:22:38,136
+The first step is to load a
+
+725
+00:22:38,176 --> 0:22:38,676
+character.
+
+726
+00:22:39,876 --> 0:22:42,396
+To automatically load a tracked
+
+727
+00:22:42,396 --> 0:22:45,006
+human, asynchronously, you just
+
+728
+00:22:45,006 --> 0:22:45,616
+need to call
+
+729
+00:22:45,616 --> 0:22:48,336
+entity.loadBodyTrackedAsync
+
+730
+00:22:48,366 --> 0:22:48,786
+function.
+
+731
+00:22:49,956 --> 0:22:52,576
+And, you can use .sync to either
+
+732
+00:22:52,576 --> 0:22:54,466
+catch errors in the received
+
+733
+00:22:54,466 --> 0:22:55,866
+completion block, or if
+
+734
+00:22:55,866 --> 0:22:57,306
+everything works fine, you can
+
+735
+00:22:57,306 --> 0:22:58,406
+get your character in the
+
+736
+00:22:58,406 --> 0:22:59,466
+received value block.
+
+737
+00:22:59,786 --> 0:23:01,396
+And, this character is of the
+
+738
+00:22:59,786 --> 0:23:01,396
+And, this character is of the
+
+739
+00:23:01,396 --> 0:23:02,976
+type bodyTrackedEntity.
+
+740
+00:23:07,086 --> 0:23:10,166
+We have a file called robot.usdz
+
+741
+00:23:10,166 --> 0:23:11,876
+in our sample code bundle, and
+
+742
+00:23:11,906 --> 0:23:13,346
+if you provided the file bot to
+
+743
+00:23:13,346 --> 0:23:15,646
+this file, it will automatically
+
+744
+00:23:15,646 --> 0:23:17,226
+add the skeleton to the robot
+
+745
+00:23:17,226 --> 0:23:18,496
+mesh, and provide you with a
+
+746
+00:23:18,536 --> 0:23:18,996
+character.
+
+747
+00:23:20,516 --> 0:23:22,216
+So, moving on, the second step
+
+748
+00:23:22,216 --> 0:23:24,066
+is to get the location where you
+
+749
+00:23:24,066 --> 0:23:25,436
+would like to put your character
+
+750
+00:23:25,436 --> 0:23:25,656
+on.
+
+751
+00:23:26,846 --> 0:23:28,916
+For example, let's say, if you
+
+752
+00:23:28,916 --> 0:23:30,316
+would like to put the character
+
+753
+00:23:30,316 --> 0:23:31,626
+right on top of the person that
+
+754
+00:23:31,626 --> 0:23:33,446
+you are tracking, you can get
+
+755
+00:23:33,446 --> 0:23:34,586
+the location by using
+
+756
+00:23:34,586 --> 0:23:36,296
+AnchorEntity with the argument
+
+757
+00:23:36,536 --> 0:23:37,186
+.body.
+
+758
+00:23:37,776 --> 0:23:39,516
+And, please note that this is
+
+759
+00:23:39,516 --> 0:23:41,096
+just an example, and it can be
+
+760
+00:23:41,246 --> 0:23:43,626
+any other location as well, be
+
+761
+00:23:43,626 --> 0:23:45,416
+it on the floor, on a tabletop,
+
+762
+00:23:45,416 --> 0:23:46,486
+or anywhere else.
+
+763
+00:23:46,726 --> 0:23:47,966
+You just have to provide an
+
+764
+00:23:48,056 --> 0:23:49,856
+anchor containing that location.
+
+765
+00:23:50,226 --> 0:23:52,546
+And, the character will still
+
+766
+00:23:52,546 --> 0:23:53,406
+mimic the person.
+
+767
+00:23:53,856 --> 0:23:57,566
+And, finally, just add your
+
+768
+00:23:57,566 --> 0:23:59,026
+character to the location, and
+
+769
+00:23:59,496 --> 0:23:59,866
+voila.
+
+770
+00:24:00,416 --> 0:24:02,546
+You can drive your character.
+
+771
+00:24:02,546 --> 0:24:02,976
+It's that simple.
+
+772
+00:24:08,426 --> 0:24:10,286
+So, you might be wondering that,
+
+773
+00:24:10,906 --> 0:24:12,586
+how can you replace this robot
+
+774
+00:24:12,766 --> 0:24:14,216
+with any other custom character
+
+775
+00:24:14,216 --> 0:24:14,696
+that you like?
+
+776
+00:24:15,276 --> 0:24:18,836
+Like I said before, we have a
+
+777
+00:24:18,836 --> 0:24:20,876
+file called robot.usdz.
+
+778
+00:24:21,166 --> 0:24:23,656
+And, this usdz file has an
+
+779
+00:24:23,656 --> 0:24:24,546
+entire structure.
+
+780
+00:24:24,546 --> 0:24:26,286
+And, if your custom model
+
+781
+00:24:26,556 --> 0:24:28,396
+follows the same structure, then
+
+782
+00:24:28,396 --> 0:24:29,096
+you can use it.
+
+783
+00:24:29,756 --> 0:24:32,096
+And, just to let you know that
+
+784
+00:24:32,096 --> 0:24:33,426
+the underlying skeleton that we
+
+785
+00:24:33,426 --> 0:24:35,566
+provide is a very high-fidelity
+
+786
+00:24:35,566 --> 0:24:37,716
+skeleton consisting of 91
+
+787
+00:24:37,716 --> 0:24:38,106
+joints.
+
+788
+00:24:38,586 --> 0:24:41,466
+And, for your information, here
+
+789
+00:24:41,466 --> 0:24:45,316
+are all of them.
+
+790
+00:24:45,526 --> 0:24:46,296
+It's a lot, right?
+
+791
+00:24:46,296 --> 0:24:48,096
+And, these are just regular
+
+792
+00:24:48,096 --> 0:24:50,596
+joints, contained in arms, legs,
+
+793
+00:24:50,596 --> 0:24:51,296
+and so on.
+
+794
+00:24:51,896 --> 0:24:53,936
+And, if your character follows
+
+795
+00:24:53,936 --> 0:24:55,536
+this naming scheme, you can use
+
+796
+00:24:55,536 --> 0:24:56,696
+it directly in RealityKit.
+
+797
+00:25:00,456 --> 0:25:02,746
+That was a quick and easy way to
+
+798
+00:25:02,746 --> 0:25:04,196
+load a tracked person and drive
+
+799
+00:25:04,226 --> 0:25:04,856
+the character.
+
+800
+00:25:05,496 --> 0:25:07,206
+Now, let's move on to low-level
+
+801
+00:25:07,206 --> 0:25:09,016
+APIs for advanced access.
+
+802
+00:25:10,406 --> 0:25:11,826
+Here we will provide you with
+
+803
+00:25:12,176 --> 0:25:13,776
+access to each and every element
+
+804
+00:25:13,776 --> 0:25:14,616
+of the skeleton.
+
+805
+00:25:15,176 --> 0:25:17,386
+And, we interface it through a
+
+806
+00:25:17,386 --> 0:25:20,806
+very easy-to-use API.
+
+807
+00:25:21,046 --> 0:25:22,286
+You can enable all those
+
+808
+00:25:22,286 --> 0:25:23,646
+advanced use cases that we
+
+809
+00:25:23,646 --> 0:25:24,986
+discussed earlier, which
+
+810
+00:25:24,986 --> 0:25:26,736
+requires either using the
+
+811
+00:25:26,736 --> 0:25:29,316
+skeleton data for analysis, or
+
+812
+00:25:29,316 --> 0:25:30,946
+as an input to your models.
+
+813
+00:25:33,656 --> 0:25:35,426
+And, finally the skeleton that
+
+814
+00:25:35,426 --> 0:25:37,856
+we provide is contained in a new
+
+815
+00:25:37,856 --> 0:25:38,996
+type of anchor that we're
+
+816
+00:25:38,996 --> 0:25:40,416
+introducing, called
+
+817
+00:25:40,416 --> 0:25:41,366
+ARBodyAnchor.
+
+818
+00:25:42,566 --> 0:25:44,106
+And, ARBodyAnchor is the
+
+819
+00:25:44,106 --> 0:25:45,716
+starting point of the entire
+
+820
+00:25:45,716 --> 0:25:47,466
+data structure that we provide.
+
+821
+00:25:48,896 --> 0:25:50,106
+And, this is what the data
+
+822
+00:25:50,106 --> 0:25:50,876
+structure looks like.
+
+823
+00:25:51,406 --> 0:25:54,536
+We have ARBodyAnchor on the top,
+
+824
+00:25:54,536 --> 0:25:56,966
+and it contains all the skeletal
+
+825
+00:25:57,796 --> 0:25:58,066
+elements.
+
+826
+00:25:59,976 --> 0:26:01,716
+So, let's just walk through this
+
+827
+00:25:59,976 --> 0:26:01,716
+So, let's just walk through this
+
+828
+00:26:01,716 --> 0:26:05,996
+structure, and start at the top.
+
+829
+00:26:05,996 --> 0:26:07,576
+ARBodyAnchor is just a regular
+
+830
+00:26:07,806 --> 0:26:08,076
+anchor.
+
+831
+00:26:08,236 --> 0:26:09,786
+It contains a geometry.
+
+832
+00:26:10,146 --> 0:26:11,836
+And, in this case, the geometry
+
+833
+00:26:11,836 --> 0:26:13,316
+itself is the skeleton.
+
+834
+00:26:13,316 --> 0:26:14,986
+And, this is what the skeleton
+
+835
+00:26:14,986 --> 0:26:15,446
+looks like.
+
+836
+00:26:15,986 --> 0:26:18,146
+It consists of nodes and edges,
+
+837
+00:26:18,196 --> 0:26:19,676
+just like any other geometry.
+
+838
+00:26:21,076 --> 0:26:22,946
+It also contains a transform.
+
+839
+00:26:23,446 --> 0:26:25,436
+And, this transform is just the
+
+840
+00:26:25,436 --> 0:26:26,616
+location of the anchor in
+
+841
+00:26:26,966 --> 0:26:29,146
+rotation and translation matrix
+
+842
+00:26:29,146 --> 0:26:29,416
+form.
+
+843
+00:26:30,256 --> 0:26:31,656
+Accessing the skeleton is what
+
+844
+00:26:31,656 --> 0:26:32,546
+we're interested in here,
+
+845
+00:26:32,546 --> 0:26:33,036
+mainly.
+
+846
+00:26:33,236 --> 0:26:34,426
+So, let's just get right into
+
+847
+00:26:35,016 --> 0:26:35,086
+it.
+
+848
+00:26:35,776 --> 0:26:37,436
+What is this skeleton that we
+
+849
+00:26:37,436 --> 0:26:38,026
+are showing you?
+
+850
+00:26:38,446 --> 0:26:40,966
+It's a geometry, composed of
+
+851
+00:26:40,966 --> 0:26:42,556
+nodes, which represent the
+
+852
+00:26:42,556 --> 0:26:44,836
+joints, the green points and the
+
+853
+00:26:44,836 --> 0:26:46,156
+yellow points that you see here.
+
+854
+00:26:46,156 --> 0:26:48,236
+And, it contains edges, which
+
+855
+00:26:48,236 --> 0:26:49,766
+represent the bones, the white
+
+856
+00:26:49,766 --> 0:26:50,756
+lines that you see here.
+
+857
+00:26:51,206 --> 0:26:52,776
+They show you how the joints are
+
+858
+00:26:52,826 --> 0:26:53,266
+connected.
+
+859
+00:26:53,266 --> 0:26:56,616
+And, once all the joints are
+
+860
+00:26:56,616 --> 0:26:58,536
+connected, you form this entire
+
+861
+00:26:58,536 --> 0:26:59,086
+geometry.
+
+862
+00:27:00,276 --> 0:27:02,016
+We call this skeleton as
+
+863
+00:27:02,016 --> 0:27:04,056
+ARSkeleton, and you can simply
+
+864
+00:27:04,056 --> 0:27:05,926
+access it by using skeleton
+
+865
+00:27:05,966 --> 0:27:07,596
+property of ARBodyAnchor.
+
+866
+00:27:11,476 --> 0:27:13,266
+The root node of this skeleton,
+
+867
+00:27:13,556 --> 0:27:15,096
+the topmost point in this
+
+868
+00:27:15,176 --> 0:27:16,836
+geometry in the geometry
+
+869
+00:27:16,836 --> 0:27:18,706
+hierarchy, is the hip joint,
+
+870
+00:27:18,926 --> 0:27:19,816
+which you can see here.
+
+871
+00:27:21,086 --> 0:27:22,506
+So, let's move on and have a
+
+872
+00:27:22,506 --> 0:27:23,496
+look at its structural
+
+873
+00:27:23,496 --> 0:27:24,076
+definition.
+
+874
+00:27:25,116 --> 0:27:26,606
+Definition, what we call here,
+
+875
+00:27:26,606 --> 0:27:27,606
+is just a property of the
+
+876
+00:27:27,606 --> 0:27:29,326
+skeleton, containing two
+
+877
+00:27:29,326 --> 0:27:29,926
+components.
+
+878
+00:27:30,586 --> 0:27:32,286
+The names of all the joints
+
+879
+00:27:32,326 --> 0:27:33,406
+present in the skeleton, and the
+
+880
+00:27:33,706 --> 0:27:35,286
+connections between them, which
+
+881
+00:27:35,286 --> 0:27:36,526
+show you how to connect those
+
+882
+00:27:36,526 --> 0:27:37,226
+joints together.
+
+883
+00:27:37,986 --> 0:27:38,986
+So, let's just have a look at
+
+884
+00:27:39,066 --> 0:27:40,186
+both of these properties.
+
+885
+00:27:42,016 --> 0:27:43,676
+Here, we are labeling some of
+
+886
+00:27:43,676 --> 0:27:45,496
+the joints in the skeleton, and
+
+887
+00:27:45,546 --> 0:27:46,786
+as you can see, that these
+
+888
+00:27:46,786 --> 0:27:48,046
+joints have semantically
+
+889
+00:27:48,046 --> 0:27:49,966
+meaningful names, like left
+
+890
+00:27:50,126 --> 0:27:51,496
+shoulder, right shoulder, left
+
+891
+00:27:51,496 --> 0:27:53,306
+hand, right hand, and so on.
+
+892
+00:27:53,536 --> 0:27:54,546
+Similar to people.
+
+893
+00:27:55,566 --> 0:27:57,136
+Here I would like to point out
+
+894
+00:27:57,136 --> 0:27:58,486
+that the green points are the
+
+895
+00:27:58,486 --> 0:28:00,446
+ones that we control and are
+
+896
+00:27:58,486 --> 0:28:00,446
+ones that we control and are
+
+897
+00:28:00,536 --> 0:28:02,116
+estimated from the person that
+
+898
+00:28:02,116 --> 0:28:03,296
+you're looking at, and the
+
+899
+00:28:03,296 --> 0:28:05,056
+yellow ones are not tracked.
+
+900
+00:28:05,426 --> 0:28:06,826
+They just follow the motion of
+
+901
+00:28:06,826 --> 0:28:08,986
+the closest green parent.
+
+902
+00:28:10,816 --> 0:28:12,876
+Zooming in, focus on the right
+
+903
+00:28:12,876 --> 0:28:14,896
+arm, and consider these three
+
+904
+00:28:14,896 --> 0:28:15,356
+joints.
+
+905
+00:28:15,496 --> 0:28:17,106
+Right hand, right elbow and
+
+906
+00:28:17,106 --> 0:28:17,736
+right shoulder.
+
+907
+00:28:18,336 --> 0:28:19,966
+They follow a parent-child
+
+908
+00:28:19,996 --> 0:28:20,606
+relationship.
+
+909
+00:28:21,116 --> 0:28:23,136
+So, your hand is a child of
+
+910
+00:28:23,136 --> 0:28:23,706
+elbow.
+
+911
+00:28:23,706 --> 0:28:24,906
+And elbow is a child of
+
+912
+00:28:24,936 --> 0:28:25,446
+shoulder.
+
+913
+00:28:25,946 --> 0:28:27,666
+And, this continues for rest of
+
+914
+00:28:27,666 --> 0:28:29,416
+the skeleton as well, thus
+
+915
+00:28:29,476 --> 0:28:30,436
+giving you the complete
+
+916
+00:28:30,496 --> 0:28:30,816
+hierarchy.
+
+917
+00:28:36,336 --> 0:28:38,256
+We know now what all the joints
+
+918
+00:28:38,256 --> 0:28:39,626
+are called, and how to connect
+
+919
+00:28:39,626 --> 0:28:39,896
+them.
+
+920
+00:28:40,306 --> 0:28:41,776
+But, how do we get their
+
+921
+00:28:41,776 --> 0:28:42,296
+locations?
+
+922
+00:28:43,036 --> 0:28:44,306
+We've provided two ways to
+
+923
+00:28:44,306 --> 0:28:45,666
+access the locations of all the
+
+924
+00:28:45,666 --> 0:28:45,956
+joints.
+
+925
+00:28:47,256 --> 0:28:49,226
+The first one is relative to its
+
+926
+00:28:49,326 --> 0:28:49,746
+parent.
+
+927
+00:28:50,436 --> 0:28:51,856
+If you want the location of your
+
+928
+00:28:51,856 --> 0:28:53,036
+right hand relative to the
+
+929
+00:28:53,036 --> 0:28:54,696
+elbow, you can have that
+
+930
+00:28:54,696 --> 0:28:55,866
+transform by calling
+
+931
+00:28:55,866 --> 0:28:57,556
+localTransform function, and
+
+932
+00:28:57,596 --> 0:28:59,336
+provide it with the argument
+
+933
+00:28:59,336 --> 0:28:59,776
+.rightHand.
+
+934
+00:29:00,426 --> 0:29:02,986
+And, if you want to transform
+
+935
+00:29:02,986 --> 0:29:04,546
+relative to the root, which in
+
+936
+00:29:04,546 --> 0:29:06,586
+our case is the hip joint, you
+
+937
+00:29:06,586 --> 0:29:07,806
+can call modelTransform
+
+938
+00:29:07,806 --> 0:29:09,986
+function, and provide, again,
+
+939
+00:29:09,986 --> 0:29:12,326
+same argument, .rightHand.
+
+940
+00:29:13,236 --> 0:29:15,496
+Now, if you don't want to access
+
+941
+00:29:15,576 --> 0:29:17,066
+the transforms of all the joints
+
+942
+00:29:17,146 --> 0:29:18,876
+individually, but instead you
+
+943
+00:29:18,876 --> 0:29:20,056
+want a list containing
+
+944
+00:29:20,056 --> 0:29:21,916
+transforms of all the joints,
+
+945
+00:29:22,376 --> 0:29:24,576
+you can also do that by simply
+
+946
+00:29:24,576 --> 0:29:26,466
+using localTransforms property
+
+947
+00:29:26,466 --> 0:29:28,356
+and modelTransforms property.
+
+948
+00:29:28,686 --> 0:29:31,466
+This will give you a list of
+
+949
+00:29:31,466 --> 0:29:33,886
+transforms of all the joints.
+
+950
+00:29:34,456 --> 0:29:36,306
+And, if you want that relative
+
+951
+00:29:36,306 --> 0:29:37,916
+to the parent, you can use
+
+952
+00:29:37,976 --> 0:29:39,846
+localTransforms, and if you want
+
+953
+00:29:39,846 --> 0:29:41,096
+relative to the root, you can
+
+954
+00:29:41,096 --> 0:29:42,126
+use modelTransforms.
+
+955
+00:29:42,266 --> 0:29:45,526
+So, now that we had a good look
+
+956
+00:29:45,526 --> 0:29:47,876
+over the skeleton, let's go to
+
+957
+00:29:47,876 --> 0:29:49,486
+the code and learn how to use
+
+958
+00:29:49,486 --> 0:29:50,696
+each and every element.
+
+959
+00:29:51,176 --> 0:29:54,456
+You start by iterating over all
+
+960
+00:29:54,456 --> 0:29:55,456
+the anchors in the scene.
+
+961
+00:29:56,146 --> 0:29:57,226
+And, just look for the
+
+962
+00:29:57,226 --> 0:29:57,896
+bodyAnchor.
+
+963
+00:29:59,086 --> 0:30:00,446
+Once you have the bodyAnchor,
+
+964
+00:29:59,086 --> 0:30:00,446
+Once you have the bodyAnchor,
+
+965
+00:30:00,726 --> 0:30:02,016
+you might want to know where
+
+966
+00:30:02,016 --> 0:30:03,486
+that bodyAnchor is located in
+
+967
+00:30:03,486 --> 0:30:03,936
+the world.
+
+968
+00:30:05,266 --> 0:30:06,736
+And, you can use the transform
+
+969
+00:30:06,736 --> 0:30:08,046
+property of the bodyAnchor to
+
+970
+00:30:08,046 --> 0:30:10,026
+get that.
+
+971
+00:30:10,026 --> 0:30:12,106
+And, since in our geometry, hip
+
+972
+00:30:12,106 --> 0:30:14,586
+is the root, so the
+
+973
+00:30:14,586 --> 0:30:16,156
+bodyAnchor.transform will give
+
+974
+00:30:16,156 --> 0:30:17,516
+you the world position of the
+
+975
+00:30:17,516 --> 0:30:18,106
+hip joint.
+
+976
+00:30:19,446 --> 0:30:20,476
+Once you have the transform of
+
+977
+00:30:20,476 --> 0:30:21,796
+the anchor, you might need to
+
+978
+00:30:21,796 --> 0:30:22,886
+access the geometry of the
+
+979
+00:30:22,946 --> 0:30:24,486
+anchor, and you can do that by
+
+980
+00:30:24,486 --> 0:30:26,556
+using skeleton property of the
+
+981
+00:30:26,926 --> 0:30:27,236
+anchor.
+
+982
+00:30:27,956 --> 0:30:30,306
+Once you have this geometry, you
+
+983
+00:30:30,306 --> 0:30:31,276
+need all the joints.
+
+984
+00:30:31,386 --> 0:30:32,316
+You need all the nodes.
+
+985
+00:30:32,676 --> 0:30:34,626
+And, to get a list of transforms
+
+986
+00:30:34,626 --> 0:30:36,596
+of all the joints, that is the
+
+987
+00:30:36,596 --> 0:30:37,906
+list of locations of all the
+
+988
+00:30:37,906 --> 0:30:39,506
+joints, you can simply use
+
+989
+00:30:39,586 --> 0:30:41,596
+jointModelTransforms property of
+
+990
+00:30:41,636 --> 0:30:42,166
+the skeleton.
+
+991
+00:30:43,346 --> 0:30:45,076
+Once you have this list, you can
+
+992
+00:30:45,076 --> 0:30:46,706
+iterate over this list and
+
+993
+00:30:46,746 --> 0:30:48,846
+access transform of every
+
+994
+00:30:48,846 --> 0:30:49,346
+element.
+
+995
+00:30:49,476 --> 0:30:51,166
+Or, every joint, in this case.
+
+996
+00:30:52,186 --> 0:30:53,376
+So, iterating over all the
+
+997
+00:30:53,376 --> 0:30:55,916
+joints, you can access the
+
+998
+00:30:55,916 --> 0:30:58,666
+parentIndex of each joint by
+
+999
+00:30:58,666 --> 0:31:00,526
+using the parentIndices property
+
+1000
+00:30:58,666 --> 0:31:00,526
+using the parentIndices property
+
+1001
+00:31:00,796 --> 0:31:01,706
+in the definition.
+
+1002
+00:31:02,316 --> 0:31:03,986
+And, just check if the parent is
+
+1003
+00:31:03,986 --> 0:31:04,496
+not the root.
+
+1004
+00:31:04,496 --> 0:31:06,076
+Because the root is the topmost
+
+1005
+00:31:06,076 --> 0:31:07,086
+point of the hierarchy, so it
+
+1006
+00:31:07,086 --> 0:31:07,956
+doesn't have a parent.
+
+1007
+00:31:08,726 --> 0:31:09,926
+So, if the parent is not the
+
+1008
+00:31:09,926 --> 0:31:13,246
+root, you can access the
+
+1009
+00:31:13,246 --> 0:31:15,446
+transform of the parent by using
+
+1010
+00:31:15,446 --> 0:31:17,176
+the same jointTransforms list,
+
+1011
+00:31:17,676 --> 0:31:19,386
+but just index it with the
+
+1012
+00:31:19,626 --> 0:31:20,436
+parentIndex.
+
+1013
+00:31:21,076 --> 0:31:21,726
+And, that's it.
+
+1014
+00:31:22,316 --> 0:31:24,726
+This gives you every child pair
+
+1015
+00:31:25,256 --> 0:31:27,446
+in the entire hierarchy, and
+
+1016
+00:31:27,576 --> 0:31:29,876
+once you have every child-parent
+
+1017
+00:31:29,876 --> 0:31:31,196
+pair in the hierarchy, you have
+
+1018
+00:31:31,196 --> 0:31:32,176
+the entire hierarchy of the
+
+1019
+00:31:32,176 --> 0:31:32,796
+skeleton.
+
+1020
+00:31:33,576 --> 0:31:35,826
+And, you can now use it however
+
+1021
+00:31:35,826 --> 0:31:36,256
+you want.
+
+1022
+00:31:36,906 --> 0:31:38,326
+So, let's just run this code.
+
+1023
+00:31:38,416 --> 0:31:40,486
+Let's just take this, and simply
+
+1024
+00:31:40,486 --> 0:31:42,486
+draw the skeleton, and see what
+
+1025
+00:31:42,486 --> 0:31:43,766
+it looks like.
+
+1026
+00:31:44,636 --> 0:31:46,206
+This is what it looks like.
+
+1027
+00:31:46,676 --> 0:31:48,366
+All we did was, we took the
+
+1028
+00:31:48,366 --> 0:31:49,306
+entire hierarchy.
+
+1029
+00:31:49,336 --> 0:31:51,336
+We took all parent-child points,
+
+1030
+00:31:51,336 --> 0:31:52,776
+and we just drew the skeleton,
+
+1031
+00:31:52,876 --> 0:31:53,316
+that's it.
+
+1032
+00:31:53,956 --> 0:31:55,046
+And, it starts to mimic the
+
+1033
+00:31:55,046 --> 0:31:56,106
+person automatically.
+
+1034
+00:31:56,806 --> 0:31:58,096
+And, this is the most basic
+
+1035
+00:31:58,096 --> 0:31:59,446
+thing that you can do, because
+
+1036
+00:31:59,946 --> 0:32:00,996
+once you have this entire
+
+1037
+00:31:59,946 --> 0:32:00,996
+once you have this entire
+
+1038
+00:32:00,996 --> 0:32:02,846
+skeleton hierarchy, you can use
+
+1039
+00:32:02,846 --> 0:32:04,626
+it for many other use cases that
+
+1040
+00:32:04,626 --> 0:32:05,536
+we discussed earlier.
+
+1041
+00:32:06,366 --> 0:32:07,856
+This technology is at your
+
+1042
+00:32:07,856 --> 0:32:09,286
+disposal, wherever your
+
+1043
+00:32:09,286 --> 0:32:10,366
+imagination takes you.
+
+1044
+00:32:14,356 --> 0:32:16,426
+So far, we've only talked about
+
+1045
+00:32:16,796 --> 0:32:19,016
+3D objects in world space.
+
+1046
+00:32:19,826 --> 0:32:21,876
+But, in case you want 2D
+
+1047
+00:32:21,876 --> 0:32:23,466
+versions of the skeleton in
+
+1048
+00:32:23,466 --> 0:32:25,716
+image space, we have provided an
+
+1049
+00:32:25,716 --> 0:32:27,176
+API for that as well.
+
+1050
+00:32:28,136 --> 0:32:29,386
+Here, we provide you with
+
+1051
+00:32:29,606 --> 0:32:31,516
+detailed access to each and
+
+1052
+00:32:31,516 --> 0:32:35,156
+every element in 2D space.
+
+1053
+00:32:35,366 --> 0:32:37,276
+We also provide all the skeleton
+
+1054
+00:32:37,276 --> 0:32:39,176
+joints as normalized image
+
+1055
+00:32:39,176 --> 0:32:39,946
+coordinates.
+
+1056
+00:32:40,986 --> 0:32:43,106
+We have a very easy to use API
+
+1057
+00:32:43,326 --> 0:32:44,096
+for this as well.
+
+1058
+00:32:44,096 --> 0:32:47,456
+And, you can use it for semantic
+
+1059
+00:32:47,456 --> 0:32:49,136
+image analysis, or for building
+
+1060
+00:32:49,136 --> 0:32:50,876
+editing tools both for images
+
+1061
+00:32:50,876 --> 0:32:51,596
+and videos.
+
+1062
+00:32:52,276 --> 0:32:55,356
+And, finally this entire
+
+1063
+00:32:55,356 --> 0:32:56,976
+structure is interfaced through
+
+1064
+00:32:56,976 --> 0:32:59,476
+an object called ARBody2D.
+
+1065
+00:33:00,046 --> 0:33:02,896
+And, this is what ARBody2D
+
+1066
+00:33:02,896 --> 0:33:04,216
+object looks like when
+
+1067
+00:33:04,216 --> 0:33:04,906
+visualized.
+
+1068
+00:33:05,686 --> 0:33:08,096
+ARBody2D object contains the
+
+1069
+00:33:08,096 --> 0:33:09,706
+entire skeletal structure.
+
+1070
+00:33:13,556 --> 0:33:15,086
+And, this is what the structure
+
+1071
+00:33:15,086 --> 0:33:15,486
+looks like.
+
+1072
+00:33:16,126 --> 0:33:17,976
+So, you have the object itself
+
+1073
+00:33:17,976 --> 0:33:18,486
+on the top.
+
+1074
+00:33:18,486 --> 0:33:20,216
+And then, again, similar to its
+
+1075
+00:33:20,216 --> 0:33:22,026
+3D counterpart, all the skeletal
+
+1076
+00:33:22,026 --> 0:33:23,346
+elements under that object.
+
+1077
+00:33:24,226 --> 0:33:25,426
+So, let's walk through this
+
+1078
+00:33:25,426 --> 0:33:26,726
+structure, and just learn about
+
+1079
+00:33:26,726 --> 0:33:27,766
+these elements quickly.
+
+1080
+00:33:28,246 --> 0:33:30,906
+Starting with the ARBody2D
+
+1081
+00:33:30,906 --> 0:33:34,016
+object on top, there are two
+
+1082
+00:33:34,016 --> 0:33:35,546
+ways that you can access this
+
+1083
+00:33:35,546 --> 0:33:36,006
+object.
+
+1084
+00:33:36,876 --> 0:33:38,516
+If you're already working in 2D
+
+1085
+00:33:38,516 --> 0:33:40,016
+space, the default way is to
+
+1086
+00:33:40,016 --> 0:33:41,626
+access it via ARFrame.
+
+1087
+00:33:41,826 --> 0:33:43,586
+And, you can simply do that by
+
+1088
+00:33:43,586 --> 0:33:46,296
+using detectedBody property of
+
+1089
+00:33:46,336 --> 0:33:47,086
+the ARFrame.
+
+1090
+00:33:48,486 --> 0:33:50,066
+And, here the person is an
+
+1091
+00:33:50,066 --> 0:33:51,996
+instance of ARBody2D object.
+
+1092
+00:33:53,476 --> 0:33:55,366
+For your convenience, if you're
+
+1093
+00:33:55,366 --> 0:33:57,626
+already working in 3D space, if
+
+1094
+00:33:57,626 --> 0:33:59,046
+you're already working with a 3D
+
+1095
+00:33:59,046 --> 0:34:01,136
+skeleton, and for some reason,
+
+1096
+00:33:59,046 --> 0:34:01,136
+skeleton, and for some reason,
+
+1097
+00:34:01,136 --> 0:34:02,856
+you want the corresponding 2D
+
+1098
+00:34:02,856 --> 0:34:04,846
+skeleton in image space as well,
+
+1099
+00:34:05,766 --> 0:34:07,676
+we have provided a direct way to
+
+1100
+00:34:07,676 --> 0:34:09,505
+access it by simply using
+
+1101
+00:34:09,716 --> 0:34:11,536
+referenceBody property of
+
+1102
+00:34:11,755 --> 0:34:12,576
+ARBodyAnchor.
+
+1103
+00:34:13,746 --> 0:34:15,596
+And, this gives you the ARBody2D
+
+1104
+00:34:15,596 --> 0:34:16,476
+object as well.
+
+1105
+00:34:16,886 --> 0:34:20,446
+After accessing the ARBody2D
+
+1106
+00:34:20,446 --> 0:34:22,516
+object, we can extract skeleton
+
+1107
+00:34:22,516 --> 0:34:24,315
+from it by simply using skeleton
+
+1108
+00:34:24,315 --> 0:34:27,206
+property, and this is the
+
+1109
+00:34:27,206 --> 0:34:28,755
+visualization of that skeleton.
+
+1110
+00:34:30,076 --> 0:34:31,716
+So, like I said, this skeleton
+
+1111
+00:34:31,716 --> 0:34:33,525
+is present in normalized image
+
+1112
+00:34:33,525 --> 0:34:34,056
+space.
+
+1113
+00:34:34,606 --> 0:34:36,876
+So, if this is your image grid,
+
+1114
+00:34:36,876 --> 0:34:39,005
+and the top left is 0,0 and
+
+1115
+00:34:39,005 --> 0:34:40,956
+bottom right is 1,1, all the
+
+1116
+00:34:40,956 --> 0:34:43,436
+points on this diagram are in
+
+1117
+00:34:43,436 --> 0:34:44,906
+the range of 0 and 1.
+
+1118
+00:34:44,985 --> 0:34:46,976
+Both in x and y direction.
+
+1119
+00:34:49,656 --> 0:34:51,255
+The green points that you see
+
+1120
+00:34:51,255 --> 0:34:52,735
+here are called landmarks.
+
+1121
+00:34:53,306 --> 0:34:54,476
+Note that here we don't call
+
+1122
+00:34:54,476 --> 0:34:55,985
+them joints, although they do
+
+1123
+00:34:55,985 --> 0:34:56,826
+represent joints.
+
+1124
+00:34:56,826 --> 0:34:58,046
+We just call them landmarks,
+
+1125
+00:34:58,046 --> 0:35:00,196
+because they are pixel locations
+
+1126
+00:34:58,046 --> 0:35:00,196
+because they are pixel locations
+
+1127
+00:35:00,716 --> 0:35:02,866
+on image.
+
+1128
+00:35:03,106 --> 0:35:05,116
+Similar to the 3D version, it
+
+1129
+00:35:05,116 --> 0:35:06,636
+contains an object called
+
+1130
+00:35:06,636 --> 0:35:08,456
+definition, describing what the
+
+1131
+00:35:08,456 --> 0:35:09,906
+landmarks are called in the
+
+1132
+00:35:09,906 --> 0:35:11,606
+skeleton, and how to connect
+
+1133
+00:35:11,646 --> 0:35:12,336
+those landmarks.
+
+1134
+00:35:12,936 --> 0:35:16,096
+In this skeleton there are 16
+
+1135
+00:35:16,096 --> 0:35:18,366
+joints, and similar to 3D, they
+
+1136
+00:35:18,366 --> 0:35:20,316
+have semantically meaningful
+
+1137
+00:35:20,316 --> 0:35:22,436
+names like left shoulder, right
+
+1138
+00:35:22,436 --> 0:35:24,036
+shoulder, left hand, right hand,
+
+1139
+00:35:24,036 --> 0:35:24,986
+and so on.
+
+1140
+00:35:25,206 --> 0:35:27,166
+The root node is still the hip
+
+1141
+00:35:27,166 --> 0:35:27,706
+joint here.
+
+1142
+00:35:27,876 --> 0:35:31,796
+Again, similar to the 3D.
+
+1143
+00:35:31,956 --> 0:35:34,536
+So, focusing on the right arm,
+
+1144
+00:35:34,716 --> 0:35:36,516
+we can see that the hand is a
+
+1145
+00:35:36,516 --> 0:35:38,116
+child of right elbow, and elbow
+
+1146
+00:35:38,116 --> 0:35:39,416
+is a child of right shoulder.
+
+1147
+00:35:39,416 --> 0:35:41,866
+And, this is, again, similar
+
+1148
+00:35:41,866 --> 0:35:43,266
+parent-child relationship that
+
+1149
+00:35:43,266 --> 0:35:45,246
+you saw in the 3D version as
+
+1150
+00:35:45,246 --> 0:35:45,426
+well.
+
+1151
+00:35:46,096 --> 0:35:47,976
+And, the similar hierarchy is
+
+1152
+00:35:48,036 --> 0:35:48,556
+formed here.
+
+1153
+00:35:49,146 --> 0:35:52,606
+So, having all that information
+
+1154
+00:35:52,606 --> 0:35:54,186
+with us, let's quickly walk
+
+1155
+00:35:54,186 --> 0:35:55,736
+through this structure via code
+
+1156
+00:35:55,736 --> 0:35:56,056
+now.
+
+1157
+00:35:57,106 --> 0:35:59,266
+We start with accessing ARBody2D
+
+1158
+00:35:59,266 --> 0:35:59,706
+object.
+
+1159
+00:36:01,646 --> 0:36:03,726
+So, once you have your ARFRame,
+
+1160
+00:36:03,986 --> 0:36:05,626
+you can simply use detectedBody
+
+1161
+00:36:05,626 --> 0:36:07,656
+property to get ARBody2D object.
+
+1162
+00:36:07,986 --> 0:36:10,296
+And now, once you have ARBody2D
+
+1163
+00:36:10,296 --> 0:36:11,686
+object, you can access the
+
+1164
+00:36:11,686 --> 0:36:13,496
+entire skeletal structure from
+
+1165
+00:36:13,496 --> 0:36:14,936
+underneath it.
+
+1166
+00:36:15,096 --> 0:36:16,546
+You can extract the geometry by
+
+1167
+00:36:16,546 --> 0:36:18,016
+using person.skeleton.
+
+1168
+00:36:18,016 --> 0:36:20,766
+In this case, person refers to
+
+1169
+00:36:20,766 --> 0:36:22,056
+the ARBody2D object.
+
+1170
+00:36:22,276 --> 0:36:23,976
+And, the definition of the
+
+1171
+00:36:23,976 --> 0:36:26,146
+skeleton, which again, comprises
+
+1172
+00:36:26,146 --> 0:36:28,026
+of the names of all the joints,
+
+1173
+00:36:28,026 --> 0:36:29,876
+and the information of how to
+
+1174
+00:36:29,876 --> 0:36:31,786
+connect those joints, is present
+
+1175
+00:36:32,216 --> 0:36:33,696
+in the definition, which you can
+
+1176
+00:36:33,696 --> 0:36:35,426
+access it by using definition
+
+1177
+00:36:35,426 --> 0:36:36,786
+property of the skeleton.
+
+1178
+00:36:37,276 --> 0:36:39,896
+Once you have this information,
+
+1179
+00:36:40,236 --> 0:36:42,146
+you might need to know where
+
+1180
+00:36:42,146 --> 0:36:43,536
+those landmarks are located.
+
+1181
+00:36:43,776 --> 0:36:45,456
+And, similar to the 3D version,
+
+1182
+00:36:45,726 --> 0:36:46,666
+we have a property called
+
+1183
+00:36:46,666 --> 0:36:48,706
+jointLandmarks, which gives you
+
+1184
+00:36:48,706 --> 0:36:51,256
+a list of locations of all those
+
+1185
+00:36:51,256 --> 0:36:52,576
+green points that you see here.
+
+1186
+00:36:53,566 --> 0:36:54,716
+But, please note that, in this
+
+1187
+00:36:54,716 --> 0:36:55,976
+case, the green points are in
+
+1188
+00:36:55,976 --> 0:36:57,716
+2D, so they're in image space.
+
+1189
+00:36:57,716 --> 0:36:59,836
+They're normalized pixel
+
+1190
+00:36:59,836 --> 0:37:00,616
+coordinates.
+
+1191
+00:36:59,836 --> 0:37:00,616
+coordinates.
+
+1192
+00:37:01,056 --> 0:37:02,876
+And, once you have that list,
+
+1193
+00:37:03,006 --> 0:37:04,546
+you can iterate over all these
+
+1194
+00:37:04,546 --> 0:37:05,046
+landmarks.
+
+1195
+00:37:05,726 --> 0:37:07,116
+And, for each landmark, you can
+
+1196
+00:37:07,116 --> 0:37:09,356
+access its parent by calling
+
+1197
+00:37:09,516 --> 0:37:11,366
+parentIndices property in the
+
+1198
+00:37:11,366 --> 0:37:11,946
+definition.
+
+1199
+00:37:12,426 --> 0:37:13,616
+And, again, just check if the
+
+1200
+00:37:13,966 --> 0:37:15,716
+parent is not the root, because
+
+1201
+00:37:15,886 --> 0:37:17,146
+the root is the topmost point of
+
+1202
+00:37:17,146 --> 0:37:17,696
+the hierarchy.
+
+1203
+00:37:18,236 --> 0:37:19,486
+And, if the parent is not the
+
+1204
+00:37:19,486 --> 0:37:21,286
+root, you can access its
+
+1205
+00:37:21,286 --> 0:37:23,106
+transform by using
+
+1206
+00:37:23,106 --> 0:37:24,506
+jointLandmarks list, and
+
+1207
+00:37:24,506 --> 0:37:25,496
+indexing it with the
+
+1208
+00:37:25,496 --> 0:37:26,266
+parentIndex.
+
+1209
+00:37:27,346 --> 0:37:29,916
+And, again, in this way, you
+
+1210
+00:37:29,916 --> 0:37:32,476
+have the transforms of every
+
+1211
+00:37:32,476 --> 0:37:35,016
+child-parent pair in the
+
+1212
+00:37:35,016 --> 0:37:36,016
+skeletal hierarchy.
+
+1213
+00:37:36,256 --> 0:37:37,596
+And, you can, again, use it
+
+1214
+00:37:37,646 --> 0:37:39,206
+however you want, and you can
+
+1215
+00:37:39,206 --> 0:37:40,886
+continue from here and build
+
+1216
+00:37:40,886 --> 0:37:43,876
+your own ideas, which brings us
+
+1217
+00:37:43,906 --> 0:37:44,686
+to the conclusion.
+
+1218
+00:37:45,246 --> 0:37:49,636
+We've introduced motion capture
+
+1219
+00:37:49,886 --> 0:37:51,296
+in AR this year.
+
+1220
+00:37:51,826 --> 0:37:54,766
+We've provided access to tracked
+
+1221
+00:37:55,036 --> 0:37:56,586
+person in real time.
+
+1222
+00:37:57,316 --> 0:38:01,896
+We have provided both 3D and 2D
+
+1223
+00:37:57,316 --> 0:38:01,896
+We have provided both 3D and 2D
+
+1224
+00:38:01,896 --> 0:38:04,536
+skeletons for you guys to use
+
+1225
+00:38:04,536 --> 0:38:07,526
+it, and that is how we interface
+
+1226
+00:38:07,526 --> 0:38:10,446
+the pose of the person.
+
+1227
+00:38:10,606 --> 0:38:11,956
+We've enabled character
+
+1228
+00:38:12,016 --> 0:38:13,846
+animation out of the box.
+
+1229
+00:38:13,846 --> 0:38:16,216
+And, it runs seamlessly in
+
+1230
+00:38:16,216 --> 0:38:16,836
+RealityKit.
+
+1231
+00:38:17,356 --> 0:38:20,926
+We have a RealityKit API that we
+
+1232
+00:38:20,926 --> 0:38:22,766
+discussed earlier for quickly
+
+1233
+00:38:22,826 --> 0:38:25,086
+animating a character, and like
+
+1234
+00:38:25,086 --> 0:38:26,376
+I mentioned earlier as well, you
+
+1235
+00:38:26,376 --> 0:38:27,466
+can use your own custom
+
+1236
+00:38:27,466 --> 0:38:29,516
+characters as well, as long as
+
+1237
+00:38:29,556 --> 0:38:31,246
+it's based on the structure of
+
+1238
+00:38:31,246 --> 0:38:32,296
+our provided example.
+
+1239
+00:38:32,616 --> 0:38:36,146
+And, we've provided an ARKit API
+
+1240
+00:38:36,476 --> 0:38:38,276
+for all the advanced use cases
+
+1241
+00:38:38,276 --> 0:38:39,886
+that you might think of, like
+
+1242
+00:38:39,916 --> 0:38:42,096
+recognition tasks, or analysis
+
+1243
+00:38:42,136 --> 0:38:42,686
+tasks.
+
+1244
+00:38:46,046 --> 0:38:47,436
+And, that brings us to the end
+
+1245
+00:38:47,436 --> 0:38:48,066
+of the session.
+
+1246
+00:38:48,626 --> 0:38:50,456
+We presented two new features in
+
+1247
+00:38:50,456 --> 0:38:52,386
+this session, person occlusion,
+
+1248
+00:38:52,386 --> 0:38:53,446
+and motion capture.
+
+1249
+00:38:53,486 --> 0:38:55,436
+And, we've provided APIs for
+
+1250
+00:38:55,706 --> 0:38:57,616
+both of these features.
+
+1251
+00:38:59,076 --> 0:39:00,726
+For more information from
+
+1252
+00:38:59,076 --> 0:39:00,726
+For more information from
+
+1253
+00:39:00,726 --> 0:39:02,426
+today's session, please visit
+
+1254
+00:39:02,426 --> 0:39:04,296
+our website, and please feel
+
+1255
+00:39:04,296 --> 0:39:05,756
+free to download the sample code
+
+1256
+00:39:05,886 --> 0:39:06,436
+and use it.
+
+1257
+00:39:07,306 --> 0:39:08,946
+We will be in the lab tomorrow,
+
+1258
+00:39:08,946 --> 0:39:10,466
+so come visit us to get all your
+
+1259
+00:39:10,466 --> 0:39:11,366
+questions answered.
+
+1260
+00:39:14,016 --> 0:39:15,126
+[ Applause ]
+
+1261
+00:39:15,126 --> 0:39:15,976
+Thank you.
+
+1262
+00:39:16,508 --> 0:39:18,508
+[ Applause ]

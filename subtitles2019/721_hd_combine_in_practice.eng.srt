@@ -1,0 +1,4751 @@
+1
+00:00:01,176 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:10,286 --> 0:00:10,636
+&gt;&gt; Hello.
+
+3
+00:00:11,516 --> 0:00:16,546
+[ Applause ]
+
+4
+00:00:17,046 --> 0:00:18,896
+Hello. My name is Michael LeHew
+
+5
+00:00:19,376 --> 0:00:20,406
+and I work on the Foundation
+
+6
+00:00:20,406 --> 0:00:21,046
+Team at Apple.
+
+7
+00:00:21,326 --> 0:00:23,286
+And today I'm really excited to
+
+8
+00:00:23,286 --> 0:00:24,656
+talk to you about the new
+
+9
+00:00:24,656 --> 0:00:25,756
+Combine Framework that we're
+
+10
+00:00:25,756 --> 0:00:26,776
+releasing this year.
+
+11
+00:00:27,686 --> 0:00:28,796
+And just to clear things up,
+
+12
+00:00:28,796 --> 0:00:29,696
+we're not talking about
+
+13
+00:00:29,696 --> 0:00:29,976
+tractors.
+
+14
+00:00:32,136 --> 0:00:33,336
+Before I go in-depth, I want to
+
+15
+00:00:33,336 --> 0:00:35,056
+start off with a brief overview
+
+16
+00:00:35,166 --> 0:00:36,606
+of what Combine is all about.
+
+17
+00:00:36,606 --> 0:00:40,446
+Often in our code, we have many
+
+18
+00:00:40,476 --> 0:00:41,536
+places where we have some sort
+
+19
+00:00:41,536 --> 0:00:44,866
+of value or event Publisher and
+
+20
+00:00:44,866 --> 0:00:46,236
+some Subscriber interested in
+
+21
+00:00:46,236 --> 0:00:49,126
+receiving values from that
+
+22
+00:00:49,126 --> 0:00:49,796
+Publisher.
+
+23
+00:00:50,386 --> 0:00:51,946
+And some interested party comes
+
+24
+00:00:51,946 --> 0:00:52,956
+along and establishes a
+
+25
+00:00:52,956 --> 0:00:54,176
+connection between these two
+
+26
+00:00:54,176 --> 0:00:54,706
+parties.
+
+27
+00:00:56,336 --> 0:00:58,626
+Once established, the Subscriber
+
+28
+00:00:59,006 --> 0:01:00,676
+sometimes declares that they are
+
+29
+00:00:59,006 --> 0:01:00,676
+sometimes declares that they are
+
+30
+00:01:00,676 --> 0:01:02,176
+interested in receiving values
+
+31
+00:01:02,176 --> 0:01:05,135
+from that Publisher, after which
+
+32
+00:01:05,135 --> 0:01:06,946
+the Publisher is free to begin
+
+33
+00:01:07,276 --> 0:01:08,736
+sending values downstream.
+
+34
+00:01:09,726 --> 0:01:12,196
+And this goes on until either
+
+35
+00:01:12,196 --> 0:01:13,546
+the Publisher decides to stop
+
+36
+00:01:13,546 --> 0:01:15,326
+sending values, whether because
+
+37
+00:01:15,326 --> 0:01:16,826
+it finished or there was some
+
+38
+00:01:16,826 --> 0:01:18,826
+sort of failure, or by someone
+
+39
+00:01:18,826 --> 0:01:20,126
+choosing to cancel the
+
+40
+00:01:20,126 --> 0:01:20,726
+subscription.
+
+41
+00:01:22,276 --> 0:01:23,916
+And as you've seen, this general
+
+42
+00:01:23,916 --> 0:01:26,006
+shape of communication appears
+
+43
+00:01:26,006 --> 0:01:27,826
+throughout our software, whether
+
+44
+00:01:27,826 --> 0:01:30,126
+it's callbacks or closures or
+
+45
+00:01:30,126 --> 0:01:31,156
+any other situations where
+
+46
+00:01:31,156 --> 0:01:31,586
+there's asynchronous
+
+47
+00:01:31,616 --> 0:01:31,976
+communication.
+
+48
+00:01:34,046 --> 0:01:35,266
+And it's this pattern that
+
+49
+00:01:35,266 --> 0:01:36,676
+Combine is all about.
+
+50
+00:01:39,046 --> 0:01:41,166
+With Combine, we define a
+
+51
+00:01:41,166 --> 0:01:42,856
+unified abstraction that
+
+52
+00:01:42,856 --> 0:01:44,316
+describes API that can process
+
+53
+00:01:44,316 --> 0:01:45,326
+values over time.
+
+54
+00:01:45,986 --> 0:01:48,476
+Let's take a look at the
+
+55
+00:01:48,476 --> 0:01:49,866
+specifics of what it means to be
+
+56
+00:01:49,866 --> 0:01:50,736
+a value Publisher.
+
+57
+00:01:53,046 --> 0:01:53,876
+Now we've already talked a lot
+
+58
+00:01:53,876 --> 0:01:55,096
+about this in our introduction
+
+59
+00:01:55,096 --> 0:01:58,286
+session, but to review, value
+
+60
+00:01:58,286 --> 0:02:00,296
+Publishers in Combine conform to
+
+61
+00:01:58,286 --> 0:02:00,296
+Publishers in Combine conform to
+
+62
+00:02:01,376 --> 0:02:02,426
+the Publisher protocol.
+
+63
+00:02:02,986 --> 0:02:06,586
+They specify two associated
+
+64
+00:02:06,586 --> 0:02:09,606
+type: their output which is the
+
+65
+00:02:09,606 --> 0:02:10,716
+kinds of values that they
+
+66
+00:02:10,716 --> 0:02:12,636
+publish and whether or not they
+
+67
+00:02:12,636 --> 0:02:13,166
+can fail.
+
+68
+00:02:13,756 --> 0:02:15,356
+And I'll have a lot more to say
+
+69
+00:02:15,356 --> 0:02:15,976
+about failure in a bit.
+
+70
+00:02:18,156 --> 0:02:20,626
+Publishers also describe how to
+
+71
+00:02:20,626 --> 0:02:22,326
+attach Subscribers to themselves
+
+72
+00:02:22,846 --> 0:02:23,736
+with the constraint that the
+
+73
+00:02:23,736 --> 0:02:25,346
+associated types must match.
+
+74
+00:02:26,766 --> 0:02:28,706
+And that's it.
+
+75
+00:02:28,946 --> 0:02:29,216
+All right.
+
+76
+00:02:29,216 --> 0:02:31,046
+I think that's enough theory for
+
+77
+00:02:31,046 --> 0:02:31,506
+right now.
+
+78
+00:02:31,806 --> 0:02:33,146
+This session is called Combine
+
+79
+00:02:33,146 --> 0:02:34,556
+in Practice, so let's actually
+
+80
+00:02:34,556 --> 0:02:34,976
+practice.
+
+81
+00:02:38,046 --> 0:02:39,076
+So I have a wizard friend.
+
+82
+00:02:39,296 --> 0:02:41,596
+He's really, really cool and he
+
+83
+00:02:41,706 --> 0:02:43,786
+wants to work on an app together
+
+84
+00:02:43,966 --> 0:02:44,966
+for a new wizard school that
+
+85
+00:02:44,966 --> 0:02:45,516
+he's founding.
+
+86
+00:02:45,516 --> 0:02:48,586
+One of the features that we want
+
+87
+00:02:48,586 --> 0:02:49,986
+to have in this app is going to
+
+88
+00:02:49,986 --> 0:02:51,446
+let you download super neat
+
+89
+00:02:51,446 --> 0:02:52,366
+magic tricks that have been
+
+90
+00:02:52,366 --> 0:02:54,046
+shared by wizards just like him.
+
+91
+00:02:54,436 --> 0:02:55,526
+Now he's not an app developer.
+
+92
+00:02:55,526 --> 0:02:57,346
+He's a wizard, so he gave me a
+
+93
+00:02:57,346 --> 0:02:59,586
+sketch, so this is my UI comp
+
+94
+00:02:59,586 --> 0:03:00,376
+that I get to work with.
+
+95
+00:02:59,586 --> 0:03:00,376
+that I get to work with.
+
+96
+00:03:01,826 --> 0:03:03,496
+Now he is a wizard but he does
+
+97
+00:03:03,496 --> 0:03:04,566
+know how to write code, enough
+
+98
+00:03:04,566 --> 0:03:06,586
+code to go and download a magic
+
+99
+00:03:06,586 --> 0:03:07,396
+trick for me.
+
+100
+00:03:07,396 --> 0:03:08,266
+And so he's going to go off and
+
+101
+00:03:08,266 --> 0:03:08,586
+do that.
+
+102
+00:03:08,586 --> 0:03:09,546
+And what I'm going to do is I'm
+
+103
+00:03:09,546 --> 0:03:10,716
+going to talk about how we are
+
+104
+00:03:10,716 --> 0:03:13,596
+using Combine to get to the
+
+105
+00:03:13,596 --> 0:03:15,076
+application values that we need
+
+106
+00:03:15,426 --> 0:03:17,316
+to say populate this label with
+
+107
+00:03:17,316 --> 0:03:17,976
+the name of a magic trick.
+
+108
+00:03:21,366 --> 0:03:23,166
+With Combine, NotificationCenter
+
+109
+00:03:23,166 --> 0:03:24,646
+will support exposing its
+
+110
+00:03:24,646 --> 0:03:26,316
+notifications with Publishers.
+
+111
+00:03:26,606 --> 0:03:28,166
+And so we'll go ahead and create
+
+112
+00:03:28,166 --> 0:03:29,976
+a Publisher for the notification
+
+113
+00:03:29,976 --> 0:03:31,346
+that my wizard friend is going
+
+114
+00:03:31,346 --> 0:03:31,806
+to deliver.
+
+115
+00:03:32,396 --> 0:03:35,056
+Now the return type of this
+
+116
+00:03:35,056 --> 0:03:36,096
+function is going to be a
+
+117
+00:03:36,096 --> 0:03:38,426
+Publisher, but in Combine what
+
+118
+00:03:38,426 --> 0:03:39,716
+really matters for a Publisher
+
+119
+00:03:39,936 --> 0:03:41,286
+are what its output and failure
+
+120
+00:03:41,286 --> 0:03:41,876
+types are.
+
+121
+00:03:44,046 --> 0:03:45,596
+NotificationCenter Publishers
+
+122
+00:03:45,656 --> 0:03:47,436
+deliver notifications and can
+
+123
+00:03:47,436 --> 0:03:48,166
+never fail.
+
+124
+00:03:48,166 --> 0:03:50,046
+And since we're going to be
+
+125
+00:03:50,046 --> 0:03:51,876
+talking a lot about Publishers,
+
+126
+00:03:52,286 --> 0:03:53,446
+I'm going to use this convention
+
+127
+00:03:53,446 --> 0:03:54,536
+of showing the output of a
+
+128
+00:03:54,536 --> 0:03:56,516
+Publisher on top and the failure
+
+129
+00:03:56,516 --> 0:03:57,836
+on the bottom for the rest of
+
+130
+00:03:57,836 --> 0:03:58,446
+our discussion.
+
+131
+00:03:59,086 --> 0:04:01,726
+So we have a notification
+
+132
+00:03:59,086 --> 0:04:01,726
+So we have a notification
+
+133
+00:04:01,726 --> 0:04:04,056
+Publisher, but what we really
+
+134
+00:04:04,056 --> 0:04:06,096
+want is the data inside that
+
+135
+00:04:06,096 --> 0:04:07,196
+describes the magic trick that
+
+136
+00:04:07,196 --> 0:04:07,976
+we've just downloaded.
+
+137
+00:04:10,216 --> 0:04:11,836
+My friend told me he put the
+
+138
+00:04:11,836 --> 0:04:13,296
+data in the user info dictionary
+
+139
+00:04:13,496 --> 0:04:15,536
+and lucky for us, Combine offers
+
+140
+00:04:15,536 --> 0:04:17,016
+a really useful map function
+
+141
+00:04:17,016 --> 0:04:19,206
+that lets us reach inside and
+
+142
+00:04:19,866 --> 0:04:21,266
+transform the notification to a
+
+143
+00:04:21,266 --> 0:04:21,866
+form we need.
+
+144
+00:04:22,096 --> 0:04:23,246
+This is very similar to
+
+145
+00:04:23,246 --> 0:04:25,366
+operations that already exist on
+
+146
+00:04:25,366 --> 0:04:25,946
+Sequence.
+
+147
+00:04:26,766 --> 0:04:27,786
+And now we can see that we're
+
+148
+00:04:27,786 --> 0:04:28,906
+working with a Publisher whose
+
+149
+00:04:28,906 --> 0:04:30,606
+output is data that can never
+
+150
+00:04:30,606 --> 0:04:31,286
+produce an error.
+
+151
+00:04:35,256 --> 0:04:36,956
+We call functions like map that
+
+152
+00:04:36,956 --> 0:04:38,936
+act on Publishers and return new
+
+153
+00:04:38,936 --> 0:04:40,426
+Publishers' operators.
+
+154
+00:04:40,956 --> 0:04:42,116
+And they come up a lot in
+
+155
+00:04:42,116 --> 0:04:42,526
+Combine.
+
+156
+00:04:43,186 --> 0:04:45,866
+Now my friend also told me that
+
+157
+00:04:45,866 --> 0:04:47,826
+the JSON payload -- or the data
+
+158
+00:04:47,826 --> 0:04:49,926
+will be a JSON payload of a type
+
+159
+00:04:49,926 --> 0:04:50,926
+that we've already defined in
+
+160
+00:04:50,926 --> 0:04:51,706
+our application.
+
+161
+00:04:52,256 --> 0:04:53,656
+So I can use another Combine
+
+162
+00:04:53,656 --> 0:04:55,196
+operator to attempt to decode
+
+163
+00:04:55,196 --> 0:04:56,746
+the data, and we call this
+
+164
+00:04:56,746 --> 0:04:57,596
+operator tryMap.
+
+165
+00:04:58,626 --> 0:05:00,716
+It's just like map except it
+
+166
+00:04:58,626 --> 0:05:00,716
+It's just like map except it
+
+167
+00:05:00,716 --> 0:05:02,106
+adds the ability to transform
+
+168
+00:05:02,156 --> 0:05:04,416
+any errors thrown into a failure
+
+169
+00:05:04,416 --> 0:05:05,116
+in the stream.
+
+170
+00:05:06,146 --> 0:05:07,926
+And indeed, the output of this
+
+171
+00:05:08,016 --> 0:05:09,926
+operator will be a Publisher of
+
+172
+00:05:09,926 --> 0:05:12,246
+magic tricks where the failure
+
+173
+00:05:12,246 --> 0:05:13,546
+conforms to the Swift error
+
+174
+00:05:13,546 --> 0:05:13,976
+protocol.
+
+175
+00:05:16,566 --> 0:05:18,476
+Decoding custom types from data
+
+176
+00:05:18,476 --> 0:05:20,246
+is such a common task that we
+
+177
+00:05:20,286 --> 0:05:21,606
+actually provide an operator
+
+178
+00:05:21,606 --> 0:05:22,836
+that takes care of this for you.
+
+179
+00:05:23,966 --> 0:05:25,356
+Simply call decode.
+
+180
+00:05:28,076 --> 0:05:28,736
+The Publisher's output --
+
+181
+00:05:29,516 --> 0:05:32,546
+[ Applause ]
+
+182
+00:05:33,046 --> 0:05:33,916
+The Publisher's output and
+
+183
+00:05:33,916 --> 0:05:35,026
+failure types will remain
+
+184
+00:05:35,026 --> 0:05:35,856
+exactly the same.
+
+185
+00:05:36,916 --> 0:05:38,246
+Now that we have a Publisher
+
+186
+00:05:38,246 --> 0:05:39,546
+that can fail though, I'd like
+
+187
+00:05:39,546 --> 0:05:40,576
+to talk a little bit more about
+
+188
+00:05:40,576 --> 0:05:43,116
+the things we can do.
+
+189
+00:05:43,356 --> 0:05:45,616
+In Combine, properly reacting to
+
+190
+00:05:45,616 --> 0:05:47,526
+potential failures is incredibly
+
+191
+00:05:47,526 --> 0:05:48,326
+important.
+
+192
+00:05:48,886 --> 0:05:50,536
+Every Publisher and Subscriber
+
+193
+00:05:50,536 --> 0:05:51,836
+gets a chance to describe the
+
+194
+00:05:51,836 --> 0:05:53,096
+exact kinds of failures that
+
+195
+00:05:53,096 --> 0:05:54,486
+they produce or allow.
+
+196
+00:05:55,096 --> 0:05:56,896
+And we built this into Combine
+
+197
+00:05:57,456 --> 0:05:58,986
+because just like Swift, we
+
+198
+00:05:58,986 --> 0:06:00,176
+didn't want to leave error
+
+199
+00:05:58,986 --> 0:06:00,176
+didn't want to leave error
+
+200
+00:06:00,176 --> 0:06:01,116
+handling to be something that
+
+201
+00:06:01,116 --> 0:06:02,666
+was purely convention-based.
+
+202
+00:06:03,636 --> 0:06:04,676
+We tried that in other
+
+203
+00:06:04,676 --> 0:06:05,216
+languages.
+
+204
+00:06:05,216 --> 0:06:06,236
+It didn't work out so well.
+
+205
+00:06:06,986 --> 0:06:08,846
+And so many types describe their
+
+206
+00:06:08,846 --> 0:06:10,256
+failure types as never.
+
+207
+00:06:10,256 --> 0:06:11,496
+And this is to indicate that
+
+208
+00:06:11,496 --> 0:06:12,966
+they can fail or that they
+
+209
+00:06:12,966 --> 0:06:14,296
+expect failure to be handled
+
+210
+00:06:14,296 --> 0:06:15,166
+earlier in the stream.
+
+211
+00:06:15,686 --> 0:06:18,546
+But for everything else, we
+
+212
+00:06:18,546 --> 0:06:20,906
+offer many operators that allow
+
+213
+00:06:20,906 --> 0:06:23,456
+you to react to and recover from
+
+214
+00:06:23,456 --> 0:06:24,836
+failure should it arise.
+
+215
+00:06:25,336 --> 0:06:28,186
+One of the simplest is just to
+
+216
+00:06:28,186 --> 0:06:29,356
+assert that failure can never
+
+217
+00:06:29,356 --> 0:06:29,726
+happen.
+
+218
+00:06:30,816 --> 0:06:32,646
+Not surprisingly, the failure
+
+219
+00:06:32,646 --> 0:06:33,816
+type of the return Publisher
+
+220
+00:06:33,816 --> 0:06:34,696
+will now be never.
+
+221
+00:06:35,426 --> 0:06:38,006
+But let's look at why.
+
+222
+00:06:38,226 --> 0:06:39,426
+Imagine a situation where we
+
+223
+00:06:39,426 --> 0:06:40,576
+have an upstream Publisher
+
+224
+00:06:41,216 --> 0:06:42,686
+connected to a downstream
+
+225
+00:06:42,856 --> 0:06:44,906
+Subscriber with an
+
+226
+00:06:44,906 --> 0:06:46,456
+assertNoFailure operator in the
+
+227
+00:06:46,456 --> 0:06:46,766
+middle.
+
+228
+00:06:47,706 --> 0:06:49,496
+Now this operator will happily
+
+229
+00:06:49,496 --> 0:06:50,836
+just forward values along should
+
+230
+00:06:50,836 --> 0:06:51,576
+they be received.
+
+231
+00:06:52,616 --> 0:06:54,676
+However, if an error arrives
+
+232
+00:06:54,676 --> 0:06:56,766
+from upstream, our program will
+
+233
+00:06:56,766 --> 0:06:58,636
+simply trap, and that's really
+
+234
+00:06:58,636 --> 0:07:00,086
+not the most magical outcome for
+
+235
+00:06:58,636 --> 0:07:00,086
+not the most magical outcome for
+
+236
+00:07:00,086 --> 0:07:00,956
+our wizardly customers.
+
+237
+00:07:04,046 --> 0:07:05,666
+Lucky for us, we have a lot of
+
+238
+00:07:05,666 --> 0:07:06,906
+other operators for working with
+
+239
+00:07:06,906 --> 0:07:07,736
+failure and combine.
+
+240
+00:07:08,586 --> 0:07:10,256
+In addition to asserting, we
+
+241
+00:07:10,256 --> 0:07:11,506
+allow you to attempt to retry
+
+242
+00:07:11,506 --> 0:07:13,626
+the connection to the upstream
+
+243
+00:07:13,626 --> 0:07:15,086
+Publisher or to transform the
+
+244
+00:07:15,086 --> 0:07:16,276
+error to another type.
+
+245
+00:07:16,276 --> 0:07:19,476
+A particularly useful operator
+
+246
+00:07:19,476 --> 0:07:20,146
+is catch.
+
+247
+00:07:20,756 --> 0:07:23,126
+catch lets you provide a closure
+
+248
+00:07:23,126 --> 0:07:24,386
+that defines a recovery
+
+249
+00:07:24,386 --> 0:07:26,476
+Publisher that will be used in
+
+250
+00:07:26,476 --> 0:07:27,806
+the case if failure arose on the
+
+251
+00:07:27,876 --> 0:07:29,506
+original upstream Publisher.
+
+252
+00:07:29,926 --> 0:07:31,466
+I'd like to take a look at how
+
+253
+00:07:31,466 --> 0:07:32,146
+this works.
+
+254
+00:07:32,966 --> 0:07:33,806
+We'll start with a similar
+
+255
+00:07:33,806 --> 0:07:35,176
+picture as before, except
+
+256
+00:07:35,176 --> 0:07:36,806
+instead of assertNoFailure we'll
+
+257
+00:07:36,806 --> 0:07:37,916
+use the catch operator.
+
+258
+00:07:38,876 --> 0:07:41,326
+As before, values will happily
+
+259
+00:07:41,326 --> 0:07:42,406
+forward along down to the
+
+260
+00:07:42,406 --> 0:07:43,586
+downstream Subscriber.
+
+261
+00:07:44,096 --> 0:07:46,756
+However, when an error arrives,
+
+262
+00:07:47,516 --> 0:07:49,116
+the existing upstream connection
+
+263
+00:07:49,406 --> 0:07:50,206
+will be terminated.
+
+264
+00:07:52,266 --> 0:07:53,286
+We'll then call the provided
+
+265
+00:07:53,286 --> 0:07:54,716
+Recovery closure which will
+
+266
+00:07:54,716 --> 0:07:56,566
+produce a new Publisher which we
+
+267
+00:07:56,566 --> 0:07:58,446
+then subscribe to and are free
+
+268
+00:07:58,446 --> 0:07:59,336
+to receive values from
+
+269
+00:07:59,336 --> 0:07:59,866
+henceforth.
+
+270
+00:08:01,076 --> 0:08:03,146
+In this way, the catch operator
+
+271
+00:08:03,146 --> 0:08:04,406
+lets us recover from an error by
+
+272
+00:08:04,406 --> 0:08:05,846
+replacing the original Publisher
+
+273
+00:08:05,846 --> 0:08:06,476
+with a new one.
+
+274
+00:08:07,436 --> 0:08:08,386
+Let's go ahead and use this in
+
+275
+00:08:08,386 --> 0:08:09,596
+our code now.
+
+276
+00:08:11,046 --> 0:08:12,256
+Using catch is pretty much the
+
+277
+00:08:12,256 --> 0:08:13,516
+same as any other operator,
+
+278
+00:08:13,916 --> 0:08:14,736
+although the closure here
+
+279
+00:08:14,736 --> 0:08:15,746
+expects for us to return a
+
+280
+00:08:15,746 --> 0:08:16,266
+Publisher.
+
+281
+00:08:17,636 --> 0:08:19,136
+Combine defines a special
+
+282
+00:08:19,136 --> 0:08:20,656
+Publisher for when you already
+
+283
+00:08:20,656 --> 0:08:21,676
+have a value that you want to
+
+284
+00:08:21,676 --> 0:08:22,116
+publish.
+
+285
+00:08:22,426 --> 0:08:24,746
+We call it Just, as in just
+
+286
+00:08:24,746 --> 0:08:25,576
+publish this value.
+
+287
+00:08:25,706 --> 0:08:26,466
+And it's one of the many
+
+288
+00:08:26,466 --> 0:08:28,346
+examples of Publishers that
+
+289
+00:08:28,346 --> 0:08:30,836
+Combine comes with from the
+
+290
+00:08:30,836 --> 0:08:31,186
+start.
+
+291
+00:08:32,626 --> 0:08:34,395
+And with that, the type of our
+
+292
+00:08:34,395 --> 0:08:35,976
+return Publisher can no longer
+
+293
+00:08:35,976 --> 0:08:36,336
+fail.
+
+294
+00:08:39,046 --> 0:08:39,976
+Now at this point I'd like to
+
+295
+00:08:39,976 --> 0:08:40,616
+review the different
+
+296
+00:08:40,616 --> 0:08:41,676
+transformations we've already
+
+297
+00:08:41,676 --> 0:08:41,936
+done.
+
+298
+00:08:42,486 --> 0:08:45,016
+We started with our Publisher of
+
+299
+00:08:45,016 --> 0:08:47,536
+notifications, which we then
+
+300
+00:08:47,536 --> 0:08:49,206
+mapped over to get to the data
+
+301
+00:08:49,206 --> 0:08:50,276
+that we knew that we wanted to
+
+302
+00:08:50,276 --> 0:08:50,786
+decode.
+
+303
+00:08:52,136 --> 0:08:53,786
+Afterwards, we made use of the
+
+304
+00:08:53,786 --> 0:08:56,346
+decode operator to transform our
+
+305
+00:08:56,346 --> 0:08:57,996
+data into a user-defined type.
+
+306
+00:08:59,366 --> 0:09:00,756
+But because decoding can fail
+
+307
+00:08:59,366 --> 0:09:00,756
+But because decoding can fail
+
+308
+00:09:00,876 --> 0:09:03,926
+for myriad reasons, we account
+
+309
+00:09:03,926 --> 0:09:05,086
+for that by replacing the
+
+310
+00:09:05,086 --> 0:09:06,576
+upstream with a placeholder
+
+311
+00:09:06,736 --> 0:09:07,966
+should failure arise.
+
+312
+00:09:10,276 --> 0:09:13,496
+But wait, once we switch to the
+
+313
+00:09:13,496 --> 0:09:15,106
+Recovery Publisher, we're never
+
+314
+00:09:15,106 --> 0:09:15,696
+going to see another
+
+315
+00:09:15,696 --> 0:09:16,606
+notification again.
+
+316
+00:09:16,976 --> 0:09:18,416
+We terminated that subscription.
+
+317
+00:09:18,416 --> 0:09:20,916
+What we really want is the
+
+318
+00:09:20,916 --> 0:09:22,456
+ability to try to decode and if
+
+319
+00:09:22,456 --> 0:09:23,786
+that fails, use a placeholder
+
+320
+00:09:23,946 --> 0:09:25,086
+while maintaining a connection
+
+321
+00:09:25,086 --> 0:09:26,236
+to the original upstream.
+
+322
+00:09:26,716 --> 0:09:29,586
+Not surprisingly, Combine has an
+
+323
+00:09:29,586 --> 0:09:30,916
+operator for that.
+
+324
+00:09:30,996 --> 0:09:32,046
+We call it flatMap.
+
+325
+00:09:33,836 --> 0:09:35,626
+flatMap works a lot like map,
+
+326
+00:09:36,076 --> 0:09:36,666
+hence the name.
+
+327
+00:09:37,696 --> 0:09:38,646
+You're given values from the
+
+328
+00:09:38,646 --> 0:09:40,226
+upstream Publisher with the
+
+329
+00:09:40,226 --> 0:09:41,376
+expectation though that you're
+
+330
+00:09:41,376 --> 0:09:43,326
+going to produce a new Publisher
+
+331
+00:09:43,416 --> 0:09:44,196
+from that value.
+
+332
+00:09:45,226 --> 0:09:46,356
+flatMap will then handle the
+
+333
+00:09:46,356 --> 0:09:47,876
+details of subscribing to this
+
+334
+00:09:47,876 --> 0:09:49,866
+nested Publisher offering its
+
+335
+00:09:49,866 --> 0:09:50,896
+values downstream.
+
+336
+00:09:52,346 --> 0:09:53,366
+So let's take a look at how this
+
+337
+00:09:53,366 --> 0:09:55,546
+works before we jump back to the
+
+338
+00:09:55,546 --> 0:09:55,926
+code.
+
+339
+00:09:58,176 --> 0:09:59,656
+As before, values are going to
+
+340
+00:09:59,656 --> 0:10:00,906
+arrive from upstream into our
+
+341
+00:09:59,656 --> 0:10:00,906
+arrive from upstream into our
+
+342
+00:10:00,906 --> 0:10:01,936
+flatMap operator.
+
+343
+00:10:03,246 --> 0:10:04,856
+Once there, flatMap will call a
+
+344
+00:10:04,856 --> 0:10:07,136
+closure to transform that value
+
+345
+00:10:07,466 --> 0:10:09,416
+into a new Publisher, and in
+
+346
+00:10:09,416 --> 0:10:10,896
+this case this new Publisher is
+
+347
+00:10:10,896 --> 0:10:14,396
+a Just followed by a decode and
+
+348
+00:10:14,396 --> 0:10:14,886
+a catch.
+
+349
+00:10:15,176 --> 0:10:16,056
+Similar to before.
+
+350
+00:10:17,206 --> 0:10:18,946
+flatMap will then subscribe to
+
+351
+00:10:18,946 --> 0:10:20,576
+this new Publisher, offering the
+
+352
+00:10:20,576 --> 0:10:21,906
+resulting values downstream.
+
+353
+00:10:25,046 --> 0:10:25,686
+I'd like to trace through
+
+354
+00:10:25,686 --> 0:10:27,356
+another value in this flatMap.
+
+355
+00:10:27,866 --> 0:10:31,116
+But this time let's imagine that
+
+356
+00:10:31,116 --> 0:10:32,706
+the decode threw an error during
+
+357
+00:10:32,706 --> 0:10:33,326
+the operation.
+
+358
+00:10:33,906 --> 0:10:35,926
+When the failure reaches the
+
+359
+00:10:35,926 --> 0:10:37,656
+catch, it will then be replaced
+
+360
+00:10:37,656 --> 0:10:38,656
+with the recovery Publisher.
+
+361
+00:10:39,466 --> 0:10:41,086
+And this will be the Publisher
+
+362
+00:10:41,086 --> 0:10:42,206
+that is returned to the flatMap.
+
+363
+00:10:43,276 --> 0:10:44,976
+Thus guaranteeing that that
+
+364
+00:10:44,976 --> 0:10:45,976
+operation can never fail.
+
+365
+00:10:49,046 --> 0:10:50,116
+I'd like to take a look now at
+
+366
+00:10:50,116 --> 0:10:51,046
+using this in code.
+
+367
+00:10:51,426 --> 0:10:52,706
+We'll start where we left off,
+
+368
+00:10:53,566 --> 0:10:56,246
+where we were handling the first
+
+369
+00:10:56,246 --> 0:10:57,186
+error of our stream.
+
+370
+00:10:57,666 --> 0:10:59,506
+But now we'll introduce the
+
+371
+00:10:59,506 --> 0:11:00,356
+flatMap operator.
+
+372
+00:10:59,506 --> 0:11:00,356
+flatMap operator.
+
+373
+00:11:00,476 --> 0:11:01,586
+And it's really a rather simple
+
+374
+00:11:01,586 --> 0:11:02,276
+transformation.
+
+375
+00:11:03,326 --> 0:11:04,766
+As with catch, we'll use just a
+
+376
+00:11:04,766 --> 0:11:06,296
+form, a new Publisher from the
+
+377
+00:11:06,296 --> 0:11:08,376
+data that we received.
+
+378
+00:11:08,376 --> 0:11:09,356
+This is the data that we just
+
+379
+00:11:09,356 --> 0:11:10,476
+decoded from the map operator.
+
+380
+00:11:11,176 --> 0:11:12,666
+Using the nested scope for the
+
+381
+00:11:12,666 --> 0:11:15,096
+flatMap operator, we will
+
+382
+00:11:15,096 --> 0:11:16,596
+return, we will decode, we will
+
+383
+00:11:16,596 --> 0:11:17,926
+catch, return that to the
+
+384
+00:11:17,926 --> 0:11:18,276
+flatMap.
+
+385
+00:11:18,276 --> 0:11:19,606
+Which flatMap will then
+
+386
+00:11:19,606 --> 0:11:21,666
+subscribe to this Publisher, and
+
+387
+00:11:21,666 --> 0:11:24,106
+the resulting Publisher will be
+
+388
+00:11:24,106 --> 0:11:25,846
+a Publisher of magic tricks that
+
+389
+00:11:25,846 --> 0:11:26,466
+can never fail.
+
+390
+00:11:29,356 --> 0:11:30,256
+Now that we've handled our
+
+391
+00:11:30,256 --> 0:11:31,736
+upstream failures, let's go
+
+392
+00:11:31,736 --> 0:11:33,086
+ahead and do what we originally
+
+393
+00:11:33,086 --> 0:11:34,846
+wanted to do, and that is to try
+
+394
+00:11:34,846 --> 0:11:36,336
+to publish this particular magic
+
+395
+00:11:36,336 --> 0:11:36,926
+trick's name.
+
+396
+00:11:37,416 --> 0:11:40,266
+With Combine, this is as simple
+
+397
+00:11:40,266 --> 0:11:42,146
+as using another operator, the
+
+398
+00:11:42,146 --> 0:11:43,376
+Publisher(for:) operator.
+
+399
+00:11:44,136 --> 0:11:45,366
+And we use this to reach inside
+
+400
+00:11:45,366 --> 0:11:46,686
+the ProduceMagicTrick via a
+
+401
+00:11:46,736 --> 0:11:48,976
+type-safe key path, producing a
+
+402
+00:11:48,976 --> 0:11:50,516
+new Publisher, in this case a
+
+403
+00:11:50,556 --> 0:11:51,706
+Publisher of strings.
+
+404
+00:11:55,046 --> 0:11:56,636
+At this point, I want to talk
+
+405
+00:11:56,636 --> 0:11:58,166
+about a final kind of operator
+
+406
+00:11:58,256 --> 0:11:59,166
+that provides some pretty
+
+407
+00:11:59,166 --> 0:12:00,206
+powerful functionality.
+
+408
+00:11:59,166 --> 0:12:00,206
+powerful functionality.
+
+409
+00:12:00,766 --> 0:12:03,476
+We call them scheduled operators
+
+410
+00:12:03,896 --> 0:12:05,106
+and just like scheduling things
+
+411
+00:12:05,106 --> 0:12:06,576
+in real life, scheduled
+
+412
+00:12:06,576 --> 0:12:08,726
+operators help you describe when
+
+413
+00:12:08,726 --> 0:12:10,326
+and where a particular event is
+
+414
+00:12:10,326 --> 0:12:10,766
+delivered.
+
+415
+00:12:13,196 --> 0:12:14,326
+The operators are natively
+
+416
+00:12:14,326 --> 0:12:15,866
+supported by the RunLoop and
+
+417
+00:12:15,866 --> 0:12:18,016
+DispatchQueues and some examples
+
+418
+00:12:18,016 --> 0:12:19,406
+of these operators include
+
+419
+00:12:20,466 --> 0:12:22,616
+operators like delay which defer
+
+420
+00:12:22,616 --> 0:12:24,186
+the delivery of an event until
+
+421
+00:12:24,186 --> 0:12:24,976
+some Future time.
+
+422
+00:12:27,066 --> 0:12:28,066
+There's also throttle that
+
+423
+00:12:28,066 --> 0:12:29,376
+guarantees that events are
+
+424
+00:12:29,376 --> 0:12:30,536
+delivered no faster than a
+
+425
+00:12:30,536 --> 0:12:31,496
+specified rate.
+
+426
+00:12:33,026 --> 0:12:34,186
+We also have operators like
+
+427
+00:12:34,186 --> 0:12:35,676
+receive(on:) which guarantee
+
+428
+00:12:35,676 --> 0:12:37,456
+that downstream received events
+
+429
+00:12:37,456 --> 0:12:38,216
+will be delivered on a
+
+430
+00:12:38,216 --> 0:12:39,686
+particular thread or queue.
+
+431
+00:12:39,686 --> 0:12:42,936
+We'll use that operator now and
+
+432
+00:12:42,936 --> 0:12:44,506
+guarantee that our magic trick's
+
+433
+00:12:44,506 --> 0:12:45,986
+name will always be delivered on
+
+434
+00:12:45,986 --> 0:12:46,586
+the main queue.
+
+435
+00:12:47,746 --> 0:12:48,986
+And we see here that the output
+
+436
+00:12:48,986 --> 0:12:50,636
+and failure types are unchanged.
+
+437
+00:12:51,146 --> 0:12:52,116
+And this ends up being pretty
+
+438
+00:12:52,116 --> 0:12:53,476
+common with scheduled operators.
+
+439
+00:12:54,436 --> 0:12:55,836
+And so let's review the rest of
+
+440
+00:12:55,836 --> 0:12:56,616
+our Publisher chain.
+
+441
+00:12:58,056 --> 0:12:59,686
+We left off with flatMap.
+
+442
+00:13:01,356 --> 0:13:03,206
+And then we used Publisher(for:)
+
+443
+00:13:03,206 --> 0:13:04,726
+to reach inside our magic trick
+
+444
+00:13:04,726 --> 0:13:06,066
+and extract the magic trick's
+
+445
+00:13:06,066 --> 0:13:06,426
+name.
+
+446
+00:13:07,796 --> 0:13:10,646
+Finally, we move our work to the
+
+447
+00:13:10,646 --> 0:13:11,446
+main thread with the
+
+448
+00:13:11,446 --> 0:13:13,376
+receive(on:) operator.
+
+449
+00:13:13,816 --> 0:13:14,806
+And now if we're working with
+
+450
+00:13:14,806 --> 0:13:16,156
+AppKit or UIKit where the UI
+
+451
+00:13:16,156 --> 0:13:17,646
+needs to be updated on the main
+
+452
+00:13:17,646 --> 0:13:18,706
+thread context, we're ready to
+
+453
+00:13:18,706 --> 0:13:18,966
+go.
+
+454
+00:13:18,966 --> 0:13:21,306
+The published values are already
+
+455
+00:13:21,306 --> 0:13:22,546
+on the right thread.
+
+456
+00:13:24,036 --> 0:13:25,576
+And as you've seen, we've been
+
+457
+00:13:25,576 --> 0:13:26,626
+able to do quite a lot with
+
+458
+00:13:26,626 --> 0:13:27,746
+Publishers and their operators
+
+459
+00:13:27,746 --> 0:13:28,236
+so far.
+
+460
+00:13:29,206 --> 0:13:30,446
+We started with an initial
+
+461
+00:13:30,446 --> 0:13:32,546
+recipe with each operator along
+
+462
+00:13:32,546 --> 0:13:34,516
+the way offering a new tweak for
+
+463
+00:13:34,626 --> 0:13:36,236
+producing strongly typed values
+
+464
+00:13:36,236 --> 0:13:36,856
+over time.
+
+465
+00:13:37,396 --> 0:13:39,736
+We've seen that Publishers can
+
+466
+00:13:39,736 --> 0:13:40,606
+produce their values
+
+467
+00:13:40,606 --> 0:13:42,386
+synchronously as was the case of
+
+468
+00:13:42,386 --> 0:13:42,806
+Just.
+
+469
+00:13:43,156 --> 0:13:45,226
+And asynchronously such as
+
+470
+00:13:45,226 --> 0:13:46,126
+NotificationCenter.
+
+471
+00:13:46,676 --> 0:13:48,936
+At this point though, I want to
+
+472
+00:13:48,936 --> 0:13:49,856
+focus on the other side of
+
+473
+00:13:49,856 --> 0:13:50,846
+publishing values.
+
+474
+00:13:51,336 --> 0:13:52,996
+And that is receiving them.
+
+475
+00:13:54,306 --> 0:13:55,096
+I'd like to talk about
+
+476
+00:13:55,096 --> 0:13:55,836
+Subscribers now.
+
+477
+00:13:58,246 --> 0:13:59,306
+Just like Publishers,
+
+478
+00:13:59,586 --> 0:14:01,166
+Subscribers in Combine have two
+
+479
+00:13:59,586 --> 0:14:01,166
+Subscribers in Combine have two
+
+480
+00:14:01,166 --> 0:14:03,326
+associated types: their input
+
+481
+00:14:04,106 --> 0:14:05,376
+and the kinds of failure that
+
+482
+00:14:05,376 --> 0:14:05,836
+they allow.
+
+483
+00:14:07,576 --> 0:14:09,416
+They also describe three event
+
+484
+00:14:09,416 --> 0:14:10,596
+functions for receiving a
+
+485
+00:14:10,596 --> 0:14:13,046
+subscription, values and a
+
+486
+00:14:13,046 --> 0:14:13,606
+completion.
+
+487
+00:14:14,176 --> 0:14:16,516
+The order that these functions
+
+488
+00:14:16,516 --> 0:14:18,186
+will be called is well-defined
+
+489
+00:14:18,416 --> 0:14:19,486
+and comes down to following
+
+490
+00:14:19,576 --> 0:14:20,416
+three rules.
+
+491
+00:14:20,906 --> 0:14:24,426
+Rule number one, in response to
+
+492
+00:14:24,426 --> 0:14:26,246
+a subscribe call, a Publisher
+
+493
+00:14:26,246 --> 0:14:28,476
+will call receive(subscription:)
+
+494
+00:14:28,566 --> 0:14:29,696
+exactly once.
+
+495
+00:14:33,066 --> 0:14:36,216
+Rule number two, a Publisher can
+
+496
+00:14:36,216 --> 0:14:38,246
+then provide zero or more values
+
+497
+00:14:38,246 --> 0:14:39,786
+downstream to the Subscriber
+
+498
+00:14:39,786 --> 0:14:41,446
+after the Subscriber requests
+
+499
+00:14:41,526 --> 0:14:41,766
+them.
+
+500
+00:14:44,346 --> 0:14:46,196
+Rule number three, a Publisher
+
+501
+00:14:46,196 --> 0:14:47,596
+can send at most a single
+
+502
+00:14:47,596 --> 0:14:49,356
+completion and that completion
+
+503
+00:14:49,356 --> 0:14:50,566
+can indicate that the Publisher
+
+504
+00:14:50,566 --> 0:14:52,946
+has finished or that a failure
+
+505
+00:14:52,946 --> 0:14:53,526
+has arisen.
+
+506
+00:14:54,476 --> 0:14:55,646
+And once that completion has
+
+507
+00:14:55,646 --> 0:14:58,216
+been signaled, no further values
+
+508
+00:14:58,216 --> 0:14:58,826
+may be emitted.
+
+509
+00:14:59,406 --> 0:15:01,406
+These three rules can be
+
+510
+00:14:59,406 --> 0:15:01,406
+These three rules can be
+
+511
+00:15:01,406 --> 0:15:02,656
+summarized as follows.
+
+512
+00:15:03,176 --> 0:15:05,806
+A Subscriber will receive a
+
+513
+00:15:05,806 --> 0:15:08,956
+single subscription followed by
+
+514
+00:15:09,116 --> 0:15:11,606
+zero or more values, possibly
+
+515
+00:15:11,606 --> 0:15:12,616
+terminated by a single
+
+516
+00:15:12,616 --> 0:15:14,876
+completion indicating that the
+
+517
+00:15:14,876 --> 0:15:16,146
+publish finished or failed.
+
+518
+00:15:17,306 --> 0:15:19,086
+And I say possibly there because
+
+519
+00:15:19,086 --> 0:15:20,276
+the completion is optional.
+
+520
+00:15:20,866 --> 0:15:22,366
+Many given streams can be
+
+521
+00:15:22,366 --> 0:15:23,576
+potentially infinite, like the
+
+522
+00:15:23,576 --> 0:15:24,936
+NotificationCenter example from
+
+523
+00:15:24,936 --> 0:15:25,346
+before.
+
+524
+00:15:28,356 --> 0:15:30,476
+In Combine, we support many
+
+525
+00:15:30,476 --> 0:15:31,856
+different kinds of Subscribers.
+
+526
+00:15:32,176 --> 0:15:33,386
+And I'd like to show you how
+
+527
+00:15:33,386 --> 0:15:33,856
+they work.
+
+528
+00:15:36,516 --> 0:15:37,596
+Let's go back to our Publisher
+
+529
+00:15:37,596 --> 0:15:40,046
+example, except what we really
+
+530
+00:15:40,046 --> 0:15:42,006
+just need to know right now is
+
+531
+00:15:42,006 --> 0:15:42,916
+the kind of Publisher that we're
+
+532
+00:15:42,916 --> 0:15:43,486
+working with.
+
+533
+00:15:44,096 --> 0:15:45,006
+So let's go ahead and make some
+
+534
+00:15:45,006 --> 0:15:45,316
+room.
+
+535
+00:15:47,316 --> 0:15:48,676
+And add a Subscriber.
+
+536
+00:15:50,206 --> 0:15:50,956
+Here I've added one of the
+
+537
+00:15:50,956 --> 0:15:52,336
+simplest forms of subscription
+
+538
+00:15:52,336 --> 0:15:55,376
+in Combine, key path assignment,
+
+539
+00:15:56,216 --> 0:15:57,846
+using the assign(to: on:)
+
+540
+00:15:57,846 --> 0:15:58,406
+operator.
+
+541
+00:15:58,826 --> 0:16:00,766
+And this will ensure that any
+
+542
+00:15:58,826 --> 0:16:00,766
+And this will ensure that any
+
+543
+00:16:00,766 --> 0:16:02,226
+values emitted by the upstream
+
+544
+00:16:02,226 --> 0:16:03,466
+Publisher will be assigned to
+
+545
+00:16:03,466 --> 0:16:04,846
+the specified key path on the
+
+546
+00:16:04,846 --> 0:16:05,876
+specified object.
+
+547
+00:16:06,316 --> 0:16:08,266
+And from this point, right,
+
+548
+00:16:08,266 --> 0:16:09,636
+we're free to basically take any
+
+549
+00:16:09,636 --> 0:16:10,716
+Publisher and assign to any
+
+550
+00:16:10,716 --> 0:16:11,886
+property from the value which is
+
+551
+00:16:11,926 --> 0:16:12,656
+pretty powerful.
+
+552
+00:16:13,106 --> 0:16:15,886
+This operator also produces a
+
+553
+00:16:15,886 --> 0:16:17,386
+cancellation token that you can
+
+554
+00:16:17,386 --> 0:16:18,656
+later call to terminate the
+
+555
+00:16:18,656 --> 0:16:19,256
+subscription.
+
+556
+00:16:19,256 --> 0:16:22,466
+I'd like to talk a little more
+
+557
+00:16:22,466 --> 0:16:23,356
+about cancellation.
+
+558
+00:16:23,856 --> 0:16:26,386
+We built cancellation into the
+
+559
+00:16:26,386 --> 0:16:28,196
+shape of Combine because it's
+
+560
+00:16:28,196 --> 0:16:29,836
+often advantageous to be able to
+
+561
+00:16:29,836 --> 0:16:31,666
+terminate a subscription before
+
+562
+00:16:31,666 --> 0:16:33,496
+a Publisher is done delivering
+
+563
+00:16:33,526 --> 0:16:34,096
+events.
+
+564
+00:16:35,156 --> 0:16:36,336
+This is especially true when you
+
+565
+00:16:36,336 --> 0:16:37,366
+want to free up resources
+
+566
+00:16:37,366 --> 0:16:38,186
+associated with that
+
+567
+00:16:38,186 --> 0:16:38,816
+subscription.
+
+568
+00:16:39,996 --> 0:16:41,796
+Cancellation of course is best
+
+569
+00:16:41,796 --> 0:16:43,646
+effort, but it offers a means
+
+570
+00:16:43,646 --> 0:16:44,686
+for you to unsubscribe a
+
+571
+00:16:44,686 --> 0:16:45,976
+Subscriber should you need to.
+
+572
+00:16:48,236 --> 0:16:49,546
+We introduce a new protocol for
+
+573
+00:16:49,546 --> 0:16:50,566
+describing things that can
+
+574
+00:16:50,566 --> 0:16:52,546
+cancel or be canceled.
+
+575
+00:16:53,326 --> 0:16:55,306
+And we introduce a really,
+
+576
+00:16:55,306 --> 0:16:56,926
+really super helpful convenience
+
+577
+00:16:57,086 --> 0:16:58,866
+called AnyCancellable which
+
+578
+00:16:58,866 --> 0:17:00,146
+carries the added benefit that
+
+579
+00:16:58,866 --> 0:17:00,146
+carries the added benefit that
+
+580
+00:17:00,356 --> 0:17:01,476
+it will automatically call
+
+581
+00:17:01,476 --> 0:17:02,706
+cancel on deinit.
+
+582
+00:17:04,036 --> 0:17:05,465
+This dramatically decreases the
+
+583
+00:17:05,465 --> 0:17:06,376
+number of times that you're
+
+584
+00:17:06,376 --> 0:17:07,586
+going to need to call cancel
+
+585
+00:17:07,586 --> 0:17:08,246
+explicitly.
+
+586
+00:17:09,056 --> 0:17:10,586
+Just rely on the powerful memory
+
+587
+00:17:10,586 --> 0:17:12,136
+management capabilities already
+
+588
+00:17:12,136 --> 0:17:13,646
+provided by Swift.
+
+589
+00:17:15,296 --> 0:17:16,846
+So let's go ahead and look at a
+
+590
+00:17:16,846 --> 0:17:18,336
+second form of subscription.
+
+591
+00:17:18,846 --> 0:17:21,366
+This is using a sink operator.
+
+592
+00:17:21,796 --> 0:17:23,445
+And these are really fantastic.
+
+593
+00:17:23,445 --> 0:17:24,906
+You just provide a closure and
+
+594
+00:17:24,906 --> 0:17:26,236
+now every value received, your
+
+595
+00:17:26,236 --> 0:17:27,316
+closure's going to get called
+
+596
+00:17:27,316 --> 0:17:28,465
+and you can do whatever side
+
+597
+00:17:28,465 --> 0:17:30,476
+effecty thing you want to do.
+
+598
+00:17:31,236 --> 0:17:34,366
+As with assign, sink will return
+
+599
+00:17:34,436 --> 0:17:36,476
+a cancellable that you can then
+
+600
+00:17:36,476 --> 0:17:37,296
+use to terminate the
+
+601
+00:17:37,296 --> 0:17:37,856
+subscription.
+
+602
+00:17:41,046 --> 0:17:42,076
+A third form of subscription is
+
+603
+00:17:42,116 --> 0:17:43,276
+a little bit of a hybrid.
+
+604
+00:17:43,956 --> 0:17:45,996
+We call them subjects and they
+
+605
+00:17:45,996 --> 0:17:46,826
+behave a little bit like a
+
+606
+00:17:46,826 --> 0:17:48,136
+Publisher and a little bit like
+
+607
+00:17:48,136 --> 0:17:48,756
+a Subscriber.
+
+608
+00:17:50,096 --> 0:17:50,966
+They typically support
+
+609
+00:17:50,966 --> 0:17:52,466
+multicasting their received
+
+610
+00:17:52,466 --> 0:17:54,326
+values, and of particular
+
+611
+00:17:54,326 --> 0:17:56,316
+importance they let you send
+
+612
+00:17:56,316 --> 0:17:57,406
+values imperatively.
+
+613
+00:17:57,776 --> 0:17:59,156
+And this is of paramount
+
+614
+00:17:59,156 --> 0:18:00,596
+importance when you're working
+
+615
+00:17:59,156 --> 0:18:00,596
+importance when you're working
+
+616
+00:18:00,596 --> 0:18:01,926
+with existing code bases.
+
+617
+00:18:03,396 --> 0:18:04,356
+Let's take a look at how they
+
+618
+00:18:04,356 --> 0:18:06,556
+work before showing how we use
+
+619
+00:18:06,556 --> 0:18:07,416
+them in practice.
+
+620
+00:18:07,936 --> 0:18:10,536
+As I mentioned, with a subject,
+
+621
+00:18:10,706 --> 0:18:12,276
+it's often possible to broadcast
+
+622
+00:18:12,276 --> 0:18:13,326
+to multiple downstream
+
+623
+00:18:13,326 --> 0:18:15,686
+Subscribers, as well as
+
+624
+00:18:15,906 --> 0:18:17,196
+imperatively send a value.
+
+625
+00:18:18,276 --> 0:18:20,196
+And any value received will be
+
+626
+00:18:20,196 --> 0:18:21,516
+broadcast to all downstream
+
+627
+00:18:21,516 --> 0:18:21,976
+Subscribers.
+
+628
+00:18:24,156 --> 0:18:25,916
+This is also true if the value
+
+629
+00:18:25,916 --> 0:18:26,756
+is produced by an upstream
+
+630
+00:18:26,756 --> 0:18:26,976
+Publisher.
+
+631
+00:18:30,046 --> 0:18:31,616
+In Combine we support two kinds
+
+632
+00:18:31,916 --> 0:18:34,046
+of subjects, a Passthrough
+
+633
+00:18:34,046 --> 0:18:36,156
+subject which stores no value,
+
+634
+00:18:36,466 --> 0:18:37,716
+and so you'll only see values
+
+635
+00:18:37,716 --> 0:18:38,766
+after you subscribe to the
+
+636
+00:18:38,766 --> 0:18:38,976
+subject.
+
+637
+00:18:41,616 --> 0:18:43,146
+We also support a CurrentValue
+
+638
+00:18:43,146 --> 0:18:43,716
+subject.
+
+639
+00:18:44,526 --> 0:18:46,016
+This maintains a history of the
+
+640
+00:18:46,016 --> 0:18:47,186
+last value that it received,
+
+641
+00:18:47,766 --> 0:18:49,056
+allowing new Subscribers an
+
+642
+00:18:49,056 --> 0:18:50,906
+opportunity to catch up.
+
+643
+00:18:53,066 --> 0:18:53,796
+Now we'll look at these in
+
+644
+00:18:54,156 --> 0:18:54,306
+action.
+
+645
+00:18:54,306 --> 0:18:55,206
+We'll start as before with our
+
+646
+00:18:55,206 --> 0:18:55,706
+Publisher.
+
+647
+00:18:57,256 --> 0:18:58,986
+Creating the subject is as easy
+
+648
+00:18:58,986 --> 0:19:00,326
+as picking which one you want,
+
+649
+00:18:58,986 --> 0:19:00,326
+as picking which one you want,
+
+650
+00:19:00,606 --> 0:19:01,826
+specifying the output and
+
+651
+00:19:01,826 --> 0:19:03,346
+failure types and calling a
+
+652
+00:19:03,346 --> 0:19:03,956
+constructor.
+
+653
+00:19:08,336 --> 0:19:09,916
+Subjects behave like Subscribers
+
+654
+00:19:10,126 --> 0:19:11,416
+in that they can subscribe to an
+
+655
+00:19:11,416 --> 0:19:12,346
+upstream Publisher.
+
+656
+00:19:12,926 --> 0:19:15,906
+As well as like a Publisher by
+
+657
+00:19:15,906 --> 0:19:17,126
+calling any of the operators
+
+658
+00:19:17,126 --> 0:19:18,356
+that I've talked about today,
+
+659
+00:19:18,576 --> 0:19:20,276
+including things like sink, to
+
+660
+00:19:20,276 --> 0:19:22,076
+form Subscribers to themselves.
+
+661
+00:19:22,596 --> 0:19:24,876
+You can even send values
+
+662
+00:19:24,876 --> 0:19:26,206
+imperatively, such as this very
+
+663
+00:19:26,206 --> 0:19:26,896
+magic word.
+
+664
+00:19:28,516 --> 0:19:30,586
+And in fact, subjects arrive so
+
+665
+00:19:30,586 --> 0:19:32,016
+often that we even define
+
+666
+00:19:32,016 --> 0:19:33,456
+operators for injecting subjects
+
+667
+00:19:33,456 --> 0:19:35,176
+into your streams, like Share
+
+668
+00:19:35,516 --> 0:19:36,636
+which injects a Passthrough
+
+669
+00:19:36,636 --> 0:19:39,666
+subject into a stream.
+
+670
+00:19:39,856 --> 0:19:40,886
+Subjects are very, very
+
+671
+00:19:40,886 --> 0:19:41,256
+powerful.
+
+672
+00:19:41,256 --> 0:19:43,796
+You're going to really find lots
+
+673
+00:19:43,796 --> 0:19:44,776
+of cool uses for them.
+
+674
+00:19:44,776 --> 0:19:46,846
+And with that I'd like to
+
+675
+00:19:46,846 --> 0:19:47,876
+actually switch and talk to a
+
+676
+00:19:47,876 --> 0:19:49,236
+fourth and final kind of
+
+677
+00:19:49,236 --> 0:19:52,176
+Subscriber, and that is
+
+678
+00:19:52,456 --> 0:19:53,396
+integrating with SwiftUI.
+
+679
+00:19:55,156 --> 0:19:56,876
+One of the amazing things about
+
+680
+00:19:56,876 --> 0:19:58,656
+SwiftUI is how you only need to
+
+681
+00:19:58,656 --> 0:20:00,526
+describe the dependencies in
+
+682
+00:19:58,656 --> 0:20:00,526
+describe the dependencies in
+
+683
+00:20:00,526 --> 0:20:01,656
+your application and the
+
+684
+00:20:01,656 --> 0:20:02,756
+framework takes care of the
+
+685
+00:20:02,756 --> 0:20:03,226
+rest.
+
+686
+00:20:04,526 --> 0:20:05,866
+From the perspective of Combine,
+
+687
+00:20:06,146 --> 0:20:07,266
+this just means that you need to
+
+688
+00:20:07,266 --> 0:20:08,786
+provide a Publisher that
+
+689
+00:20:08,786 --> 0:20:10,976
+describes when and how your data
+
+690
+00:20:10,976 --> 0:20:11,526
+has changed.
+
+691
+00:20:13,056 --> 0:20:15,306
+To do so, you just simply
+
+692
+00:20:15,306 --> 0:20:16,626
+conform your custom types to the
+
+693
+00:20:16,626 --> 0:20:18,016
+BindableObject protocol.
+
+694
+00:20:19,406 --> 0:20:21,176
+BindableObjects in SwiftUI have
+
+695
+00:20:21,176 --> 0:20:22,286
+a single associated type.
+
+696
+00:20:22,976 --> 0:20:26,596
+It's a Publisher that is
+
+697
+00:20:26,596 --> 0:20:27,926
+constrained to never fail.
+
+698
+00:20:27,926 --> 0:20:29,566
+And this is fantastic for
+
+699
+00:20:29,566 --> 0:20:31,436
+working with UI frameworks
+
+700
+00:20:31,466 --> 0:20:32,786
+because the type system of the
+
+701
+00:20:32,786 --> 0:20:34,076
+language is going to enforce
+
+702
+00:20:34,076 --> 0:20:35,826
+that you handle upstream errors
+
+703
+00:20:35,986 --> 0:20:37,336
+before you get to your
+
+704
+00:20:37,336 --> 0:20:37,766
+Publisher.
+
+705
+00:20:40,096 --> 0:20:41,456
+Finally, you specify one
+
+706
+00:20:41,456 --> 0:20:43,156
+property and this property
+
+707
+00:20:43,446 --> 0:20:45,026
+called didChange yields the
+
+708
+00:20:45,026 --> 0:20:46,536
+actual Publisher that notifies
+
+709
+00:20:46,536 --> 0:20:48,226
+when your type has changed, and
+
+710
+00:20:48,226 --> 0:20:49,196
+that's really it.
+
+711
+00:20:50,476 --> 0:20:52,096
+For more on how data flow works
+
+712
+00:20:52,176 --> 0:20:53,736
+in SwiftUI, I strongly encourage
+
+713
+00:20:53,736 --> 0:20:54,876
+that you check out the Data Flow
+
+714
+00:20:54,876 --> 0:20:56,606
+in SwiftUI talk where we go into
+
+715
+00:20:56,606 --> 0:20:57,816
+considerably more detail about
+
+716
+00:20:57,816 --> 0:20:58,726
+all the great things that are
+
+717
+00:20:58,726 --> 0:20:59,416
+possible here.
+
+718
+00:21:00,386 --> 0:21:02,176
+But for a taste, I'd like to
+
+719
+00:21:02,176 --> 0:21:03,086
+show you how this can work in
+
+720
+00:21:03,086 --> 0:21:03,676
+practice.
+
+721
+00:21:05,166 --> 0:21:06,426
+We'll start with an existing
+
+722
+00:21:06,426 --> 0:21:08,146
+model from within our wizard
+
+723
+00:21:08,146 --> 0:21:09,216
+school application.
+
+724
+00:21:09,866 --> 0:21:12,176
+We'll then add conformance to
+
+725
+00:21:12,176 --> 0:21:12,986
+BindableObject.
+
+726
+00:21:13,326 --> 0:21:14,326
+And here we're going to use a
+
+727
+00:21:14,326 --> 0:21:15,676
+subject to describe when our
+
+728
+00:21:15,676 --> 0:21:17,066
+model object has changed.
+
+729
+00:21:18,146 --> 0:21:19,006
+And we really don't need our
+
+730
+00:21:19,006 --> 0:21:20,656
+subject to signal any specific
+
+731
+00:21:20,656 --> 0:21:23,806
+kinds of values because the
+
+732
+00:21:23,806 --> 0:21:25,146
+framework will figure that out
+
+733
+00:21:25,146 --> 0:21:26,266
+by what we call from our body
+
+734
+00:21:26,266 --> 0:21:26,586
+method.
+
+735
+00:21:26,586 --> 0:21:27,936
+And so we'll choose void as the
+
+736
+00:21:27,936 --> 0:21:29,506
+output type of our subject.
+
+737
+00:21:32,296 --> 0:21:33,666
+Using a subject like this offers
+
+738
+00:21:33,666 --> 0:21:35,636
+a lot of flexibility, since now
+
+739
+00:21:35,636 --> 0:21:36,716
+we can imperatively send
+
+740
+00:21:36,716 --> 0:21:38,806
+messages any time our object has
+
+741
+00:21:38,806 --> 0:21:38,976
+changed.
+
+742
+00:21:41,256 --> 0:21:42,726
+For now, though, let's go ahead
+
+743
+00:21:42,726 --> 0:21:43,546
+and just use a couple of
+
+744
+00:21:43,546 --> 0:21:45,346
+property observers and directly
+
+745
+00:21:45,346 --> 0:21:47,326
+call send on the subject to
+
+746
+00:21:47,326 --> 0:21:48,796
+indicate that our model object
+
+747
+00:21:48,796 --> 0:21:49,966
+has changed when either of our
+
+748
+00:21:49,966 --> 0:21:51,226
+properties has changed.
+
+749
+00:21:51,646 --> 0:21:54,616
+Next, we need to hook this model
+
+750
+00:21:54,616 --> 0:21:57,326
+up to a SwiftUI view which we do
+
+751
+00:21:57,326 --> 0:21:58,036
+with the following.
+
+752
+00:21:59,226 --> 0:22:00,486
+We'll declare a model as being
+
+753
+00:21:59,226 --> 0:22:00,486
+We'll declare a model as being
+
+754
+00:22:00,486 --> 0:22:02,036
+an object binding which allows
+
+755
+00:22:02,036 --> 0:22:03,346
+SwiftUI to automatically
+
+756
+00:22:03,346 --> 0:22:04,646
+discover and subscribe to our
+
+757
+00:22:04,646 --> 0:22:05,206
+Publisher.
+
+758
+00:22:05,936 --> 0:22:08,386
+And then we'll refer to the
+
+759
+00:22:08,386 --> 0:22:10,336
+model's property from within the
+
+760
+00:22:10,336 --> 0:22:10,976
+body property.
+
+761
+00:22:11,966 --> 0:22:12,796
+And that's really it.
+
+762
+00:22:13,886 --> 0:22:15,346
+SwiftUI will automatically
+
+763
+00:22:15,346 --> 0:22:17,166
+generate a new body whenever you
+
+764
+00:22:17,166 --> 0:22:18,226
+signal that your model has
+
+765
+00:22:18,226 --> 0:22:18,686
+changed.
+
+766
+00:22:22,046 --> 0:22:22,876
+Now I've shown you that Combine
+
+767
+00:22:22,876 --> 0:22:24,036
+has a ton of built-in
+
+768
+00:22:24,036 --> 0:22:25,186
+functionality that you can
+
+769
+00:22:25,186 --> 0:22:26,696
+compose to create some pretty
+
+770
+00:22:26,696 --> 0:22:27,436
+powerful things.
+
+771
+00:22:28,536 --> 0:22:30,146
+We are really excited for the
+
+772
+00:22:30,246 --> 0:22:31,576
+kinds of simplifications to
+
+773
+00:22:31,576 --> 0:22:32,686
+asynchronous data flows that are
+
+774
+00:22:32,686 --> 0:22:33,766
+going to be possible with this
+
+775
+00:22:33,766 --> 0:22:34,376
+new framework.
+
+776
+00:22:34,916 --> 0:22:36,876
+And to help show this, my
+
+777
+00:22:36,876 --> 0:22:37,946
+colleague Ben is going to come
+
+778
+00:22:37,946 --> 0:22:38,826
+and talk to you about how to
+
+779
+00:22:38,826 --> 0:22:40,226
+integrate all this great
+
+780
+00:22:40,226 --> 0:22:41,546
+functionality even further into
+
+781
+00:22:41,546 --> 0:22:42,916
+your existing applications.
+
+782
+00:22:43,356 --> 0:22:43,686
+Thank you.
+
+783
+00:22:44,516 --> 0:22:50,316
+[ Applause ]
+
+784
+00:22:50,816 --> 0:22:51,346
+&gt;&gt; Thanks, Michael.
+
+785
+00:22:51,456 --> 0:22:52,806
+I'm excited to be here with
+
+786
+00:22:52,806 --> 0:22:53,976
+y'all today.
+
+787
+00:22:56,066 --> 0:22:57,646
+We designed Combine with
+
+788
+00:22:57,646 --> 0:22:58,746
+composition in mind.
+
+789
+00:22:59,166 --> 0:23:00,126
+As you saw with Michael's
+
+790
+00:22:59,166 --> 0:23:00,126
+As you saw with Michael's
+
+791
+00:23:00,126 --> 0:23:02,696
+example, we took an initial
+
+792
+00:23:02,696 --> 0:23:04,646
+small Publisher and through many
+
+793
+00:23:04,646 --> 0:23:05,776
+different transformations
+
+794
+00:23:06,206 --> 0:23:08,086
+created the eventual Publisher
+
+795
+00:23:08,086 --> 0:23:08,736
+that we wanted.
+
+796
+00:23:08,736 --> 0:23:12,346
+So let's see an example.
+
+797
+00:23:12,956 --> 0:23:14,936
+We have to sign up for our
+
+798
+00:23:14,936 --> 0:23:16,326
+application that we'd like, to
+
+799
+00:23:16,326 --> 0:23:17,856
+allow our wizards to sign up for
+
+800
+00:23:17,856 --> 0:23:18,446
+our wizard school.
+
+801
+00:23:18,446 --> 0:23:20,676
+And we have a few requirements.
+
+802
+00:23:22,116 --> 0:23:23,236
+First, we need to make sure that
+
+803
+00:23:23,236 --> 0:23:24,646
+the username is valid according
+
+804
+00:23:24,646 --> 0:23:25,266
+to our server.
+
+805
+00:23:25,766 --> 0:23:30,076
+Second, we have a password field
+
+806
+00:23:30,146 --> 0:23:31,636
+and a password confirmation.
+
+807
+00:23:31,676 --> 0:23:33,136
+We'd like to ensure both match
+
+808
+00:23:33,936 --> 0:23:34,666
+and are greater than eight
+
+809
+00:23:34,666 --> 0:23:34,976
+characters.
+
+810
+00:23:37,046 --> 0:23:38,176
+And finally we want to make sure
+
+811
+00:23:38,176 --> 0:23:39,836
+that if all of these conditions
+
+812
+00:23:39,836 --> 0:23:41,056
+are met, we can enable or
+
+813
+00:23:41,056 --> 0:23:41,926
+disable our UI.
+
+814
+00:23:43,306 --> 0:23:44,966
+So in this one example, we had
+
+815
+00:23:44,966 --> 0:23:46,636
+asynchronous behaviors, we have
+
+816
+00:23:46,636 --> 0:23:48,076
+some synchronous behaviors that
+
+817
+00:23:48,076 --> 0:23:49,646
+are local to device, and then we
+
+818
+00:23:49,646 --> 0:23:50,506
+need to be able to combine them
+
+819
+00:23:50,506 --> 0:23:51,016
+all together.
+
+820
+00:23:51,016 --> 0:23:52,616
+So let's see how Combine can
+
+821
+00:23:52,616 --> 0:23:53,806
+help us with that.
+
+822
+00:23:56,106 --> 0:23:58,156
+To start off, I'll use Interface
+
+823
+00:23:58,156 --> 0:23:59,606
+Builder to create a target
+
+824
+00:23:59,606 --> 0:24:00,996
+action on the value change
+
+825
+00:23:59,606 --> 0:24:00,996
+action on the value change
+
+826
+00:24:00,996 --> 0:24:02,066
+property for our password
+
+827
+00:24:02,066 --> 0:24:02,466
+fields.
+
+828
+00:24:05,046 --> 0:24:06,246
+And then using that in code,
+
+829
+00:24:07,126 --> 0:24:08,536
+we'll get a signal any time the
+
+830
+00:24:08,536 --> 0:24:10,146
+user's typing into those fields.
+
+831
+00:24:10,676 --> 0:24:12,076
+We'll take the text property of
+
+832
+00:24:12,076 --> 0:24:14,116
+those current values and we'll
+
+833
+00:24:14,116 --> 0:24:15,836
+store it into an ivar.
+
+834
+00:24:16,876 --> 0:24:18,456
+But we wanted to compose these
+
+835
+00:24:18,456 --> 0:24:19,816
+with other behaviors, the
+
+836
+00:24:19,816 --> 0:24:20,676
+synchronous behaviors that we
+
+837
+00:24:20,676 --> 0:24:21,496
+talked about earlier.
+
+838
+00:24:22,456 --> 0:24:23,376
+So how can we do that?
+
+839
+00:24:24,676 --> 0:24:25,476
+It's really easy.
+
+840
+00:24:26,466 --> 0:24:27,776
+By adding Published to our
+
+841
+00:24:27,776 --> 0:24:29,266
+individual properties, we can
+
+842
+00:24:29,266 --> 0:24:30,806
+add a Publisher to any one of
+
+843
+00:24:30,806 --> 0:24:30,946
+them.
+
+844
+00:24:34,066 --> 0:24:35,536
+Published is a property wrapper
+
+845
+00:24:35,536 --> 0:24:37,206
+which uses a new Swift 5.1
+
+846
+00:24:37,206 --> 0:24:39,706
+feature and adds a Publisher to
+
+847
+00:24:39,706 --> 0:24:40,546
+any given property.
+
+848
+00:24:42,106 --> 0:24:43,376
+So let's see how we can use this
+
+849
+00:24:43,376 --> 0:24:44,516
+with some simple examples.
+
+850
+00:24:47,216 --> 0:24:48,946
+The Published property wrapper
+
+851
+00:24:48,946 --> 0:24:50,546
+is added before the given
+
+852
+00:24:50,546 --> 0:24:51,696
+property you'd like to add one
+
+853
+00:24:51,696 --> 0:24:51,936
+to.
+
+854
+00:24:53,326 --> 0:24:54,926
+And when we use it in code, it's
+
+855
+00:24:54,926 --> 0:24:55,966
+just like it was before.
+
+856
+00:24:56,556 --> 0:25:00,056
+We can also store it and we'll
+
+857
+00:24:56,556 --> 0:25:00,056
+We can also store it and we'll
+
+858
+00:25:00,056 --> 0:25:00,886
+get a string value.
+
+859
+00:25:00,886 --> 0:25:02,196
+So in this case, currentPassword
+
+860
+00:25:02,196 --> 0:25:03,976
+is now the string 1234.
+
+861
+00:25:06,166 --> 0:25:07,486
+Where it becomes special is when
+
+862
+00:25:07,486 --> 0:25:08,776
+we refer to it with a dollar
+
+863
+00:25:08,776 --> 0:25:09,426
+prefix.
+
+864
+00:25:09,786 --> 0:25:11,096
+In that case, we're accessing
+
+865
+00:25:11,096 --> 0:25:11,916
+the wrapped value.
+
+866
+00:25:12,616 --> 0:25:14,966
+We than can use all the
+
+867
+00:25:14,966 --> 0:25:16,426
+operators that we normally would
+
+868
+00:25:16,426 --> 0:25:18,186
+on a Publisher or subscribe to
+
+869
+00:25:18,186 --> 0:25:20,216
+it, in this case using sink.
+
+870
+00:25:20,216 --> 0:25:23,756
+And then if we were to set that
+
+871
+00:25:23,756 --> 0:25:25,826
+property again to another great
+
+872
+00:25:25,826 --> 0:25:27,436
+password "password", our
+
+873
+00:25:28,136 --> 0:25:30,046
+Subscribers will get that value
+
+874
+00:25:30,046 --> 0:25:30,726
+when it's changed.
+
+875
+00:25:31,626 --> 0:25:32,796
+Obviously, this person has not
+
+876
+00:25:32,796 --> 0:25:33,676
+paid attention to password
+
+877
+00:25:33,676 --> 0:25:33,966
+hygiene.
+
+878
+00:25:37,196 --> 0:25:38,366
+We talked about needing to have
+
+879
+00:25:38,366 --> 0:25:40,436
+our two Publishers evaluated at
+
+880
+00:25:40,436 --> 0:25:41,776
+the same time.
+
+881
+00:25:44,086 --> 0:25:45,506
+We added our Published property
+
+882
+00:25:45,586 --> 0:25:46,866
+to these and added two
+
+883
+00:25:46,866 --> 0:25:47,946
+Publishers, the published
+
+884
+00:25:47,946 --> 0:25:49,186
+strings and can never fail.
+
+885
+00:25:49,906 --> 0:25:52,506
+What we want to end up with is
+
+886
+00:25:52,506 --> 0:25:54,216
+something that publishes a
+
+887
+00:25:54,216 --> 0:25:56,306
+single validated password.
+
+888
+00:25:58,116 --> 0:25:59,726
+Well, we have an operator for
+
+889
+00:25:59,726 --> 0:26:00,586
+that and it's called
+
+890
+00:25:59,726 --> 0:26:00,586
+that and it's called
+
+891
+00:26:00,936 --> 0:26:01,496
+CombineLatest.
+
+892
+00:26:05,046 --> 0:26:06,106
+So here are our two properties
+
+893
+00:26:06,386 --> 0:26:07,446
+as we talked about before.
+
+894
+00:26:08,096 --> 0:26:09,766
+And using CombineLatest we can
+
+895
+00:26:09,766 --> 0:26:11,366
+refer to the property wrappers
+
+896
+00:26:11,456 --> 0:26:13,486
+with the dollar sign prefix and
+
+897
+00:26:14,176 --> 0:26:16,096
+then we'll get this signal when
+
+898
+00:26:16,166 --> 0:26:17,476
+either one of these changes.
+
+899
+00:26:17,856 --> 0:26:19,176
+So for example, if the user has
+
+900
+00:26:19,176 --> 0:26:21,066
+already typed in the password
+
+901
+00:26:21,136 --> 0:26:22,486
+field and then now is starting
+
+902
+00:26:22,486 --> 0:26:23,306
+to type in the password
+
+903
+00:26:23,306 --> 0:26:24,166
+confirmation field,
+
+904
+00:26:24,686 --> 0:26:25,976
+PasswordAgain will be changing
+
+905
+00:26:25,976 --> 0:26:27,016
+while Password will be the
+
+906
+00:26:27,016 --> 0:26:28,566
+original value that they typed
+
+907
+00:26:28,566 --> 0:26:29,166
+in the first field.
+
+908
+00:26:29,656 --> 0:26:32,156
+We then can use the closure to
+
+909
+00:26:32,156 --> 0:26:33,636
+ensure that we meet our business
+
+910
+00:26:33,636 --> 0:26:34,716
+requirements, in this case if
+
+911
+00:26:34,716 --> 0:26:36,246
+they both match and if they're
+
+912
+00:26:36,246 --> 0:26:38,856
+greater than eight characters.
+
+913
+00:26:38,896 --> 0:26:40,496
+We'll return nil if it's not
+
+914
+00:26:40,496 --> 0:26:41,496
+because we're going to use this
+
+915
+00:26:41,496 --> 0:26:42,676
+signal along with the other
+
+916
+00:26:42,676 --> 0:26:43,886
+signals to determine whether or
+
+917
+00:26:43,886 --> 0:26:44,816
+not our form is valid.
+
+918
+00:26:45,616 --> 0:26:47,156
+And to do that, we'll use nil as
+
+919
+00:26:47,156 --> 0:26:47,636
+our signal.
+
+920
+00:26:50,206 --> 0:26:52,596
+So as you see in the types, the
+
+921
+00:26:52,716 --> 0:26:54,276
+types reflect all the steps we
+
+922
+00:26:54,276 --> 0:26:54,946
+took along the way.
+
+923
+00:26:55,716 --> 0:26:56,726
+You basically can read it
+
+924
+00:26:56,726 --> 0:26:57,726
+exactly like the code.
+
+925
+00:26:58,226 --> 0:27:00,106
+We took two published strings,
+
+926
+00:26:58,226 --> 0:27:00,106
+We took two published strings,
+
+927
+00:27:00,616 --> 0:27:02,116
+we combined their latest values
+
+928
+00:27:02,376 --> 0:27:03,926
+and we ended up with an optional
+
+929
+00:27:03,926 --> 0:27:04,276
+string.
+
+930
+00:27:07,076 --> 0:27:08,216
+But what if we got a requirement
+
+931
+00:27:08,216 --> 0:27:09,146
+that we wanted to make sure that
+
+932
+00:27:09,146 --> 0:27:10,046
+people don't use these bad
+
+933
+00:27:10,046 --> 0:27:12,206
+passwords and we add a map?
+
+934
+00:27:13,256 --> 0:27:14,356
+You'll see that the type changes
+
+935
+00:27:14,356 --> 0:27:14,586
+here.
+
+936
+00:27:15,206 --> 0:27:16,846
+It now says that we combined the
+
+937
+00:27:16,846 --> 0:27:18,156
+latest values of two published
+
+938
+00:27:18,156 --> 0:27:20,076
+strings and then mapped it to
+
+939
+00:27:20,076 --> 0:27:21,536
+result in an optional string.
+
+940
+00:27:23,006 --> 0:27:24,596
+That's awesome and that's great
+
+941
+00:27:24,596 --> 0:27:25,896
+for debugging in almost every
+
+942
+00:27:25,896 --> 0:27:26,676
+other use case.
+
+943
+00:27:27,076 --> 0:27:28,406
+But in this case we're
+
+944
+00:27:28,516 --> 0:27:29,706
+advertising this as an API
+
+945
+00:27:29,826 --> 0:27:31,256
+boundary and we want to compose
+
+946
+00:27:31,256 --> 0:27:32,106
+it with other Publishers.
+
+947
+00:27:32,106 --> 0:27:33,996
+So wouldn't it be great if we
+
+948
+00:27:33,996 --> 0:27:34,946
+could just focus on what's
+
+949
+00:27:34,946 --> 0:27:35,626
+important here?
+
+950
+00:27:35,626 --> 0:27:37,236
+Which is that it is a Publisher
+
+951
+00:27:37,236 --> 0:27:38,626
+of optional strings that can
+
+952
+00:27:38,626 --> 0:27:39,126
+never fail.
+
+953
+00:27:40,576 --> 0:27:43,416
+To do that, we have an operator
+
+954
+00:27:43,416 --> 0:27:45,466
+called eraseToAnyPublisher which
+
+955
+00:27:45,466 --> 0:27:47,226
+then returns an AnyPublisher of
+
+956
+00:27:47,226 --> 0:27:48,856
+optional string never.
+
+957
+00:27:49,346 --> 0:27:51,556
+You'll see that the types
+
+958
+00:27:51,556 --> 0:27:53,016
+haven't changed but it does mean
+
+959
+00:27:53,016 --> 0:27:54,366
+that we can advertise the exact
+
+960
+00:27:54,366 --> 0:27:55,706
+contract we want for our API
+
+961
+00:27:55,836 --> 0:27:57,306
+boundary and hide all the
+
+962
+00:27:57,306 --> 0:27:58,646
+implementation details along the
+
+963
+00:27:58,646 --> 0:27:58,856
+way.
+
+964
+00:28:01,056 --> 0:28:02,246
+So taking a look at what we've
+
+965
+00:28:02,246 --> 0:28:04,376
+done so far, we took our initial
+
+966
+00:28:04,376 --> 0:28:05,816
+properties that were strings, we
+
+967
+00:28:05,816 --> 0:28:07,386
+added a string Publisher to it
+
+968
+00:28:07,676 --> 0:28:09,116
+using the Published property
+
+969
+00:28:09,116 --> 0:28:09,506
+wrapper.
+
+970
+00:28:10,056 --> 0:28:12,486
+We then used CombineLatest to
+
+971
+00:28:12,486 --> 0:28:13,606
+combine the latest values of
+
+972
+00:28:13,606 --> 0:28:15,986
+these two Publishers, and add
+
+973
+00:28:15,986 --> 0:28:16,926
+our business logic.
+
+974
+00:28:17,436 --> 0:28:21,376
+We then used map to filter out
+
+975
+00:28:21,376 --> 0:28:24,696
+those bad passwords and finally
+
+976
+00:28:24,696 --> 0:28:26,046
+we used eraseToAnyPublishser
+
+977
+00:28:26,166 --> 0:28:27,566
+because this is an API boundary
+
+978
+00:28:27,566 --> 0:28:28,506
+and we're going to compose this
+
+979
+00:28:28,506 --> 0:28:28,976
+with other things.
+
+980
+00:28:32,276 --> 0:28:32,666
+So awesome.
+
+981
+00:28:32,746 --> 0:28:33,756
+We have our first Publisher.
+
+982
+00:28:38,046 --> 0:28:40,716
+Moving on to the next, we have
+
+983
+00:28:40,716 --> 0:28:42,146
+some asynchronous activities
+
+984
+00:28:42,146 --> 0:28:43,056
+we'd like to model here.
+
+985
+00:28:43,626 --> 0:28:44,456
+We want to make sure that the
+
+986
+00:28:44,456 --> 0:28:45,606
+username is validated according
+
+987
+00:28:45,606 --> 0:28:46,926
+to our server which is going to
+
+988
+00:28:46,926 --> 0:28:48,546
+have a user typing in rapidly.
+
+989
+00:28:49,176 --> 0:28:51,706
+So like before we add Published
+
+990
+00:28:52,296 --> 0:28:54,096
+to our string property storage,
+
+991
+00:28:54,356 --> 0:28:55,706
+and we're going to hook up a
+
+992
+00:28:55,706 --> 0:28:57,426
+target action for the
+
+993
+00:28:57,426 --> 0:28:58,336
+valueChanged property.
+
+994
+00:28:58,796 --> 0:28:59,726
+But in this case it's a little
+
+995
+00:28:59,726 --> 0:29:01,846
+special, because we don't want
+
+996
+00:28:59,726 --> 0:29:01,846
+special, because we don't want
+
+997
+00:29:01,846 --> 0:29:02,906
+to have a network operation
+
+998
+00:29:02,906 --> 0:29:04,296
+happen every single time the
+
+999
+00:29:04,296 --> 0:29:05,576
+user types a single character.
+
+1000
+00:29:05,976 --> 0:29:07,276
+Otherwise we'd spam our server.
+
+1001
+00:29:07,276 --> 0:29:08,986
+What we want to do is smooth the
+
+1002
+00:29:08,986 --> 0:29:10,706
+signal out just a little bit.
+
+1003
+00:29:11,516 --> 0:29:13,066
+And for that we have debounce.
+
+1004
+00:29:13,826 --> 0:29:16,326
+Debounce allows you to specify a
+
+1005
+00:29:16,326 --> 0:29:17,786
+window by which you'd like to
+
+1006
+00:29:17,786 --> 0:29:19,056
+receive values and not receive
+
+1007
+00:29:19,056 --> 0:29:20,926
+them faster than that.
+
+1008
+00:29:20,926 --> 0:29:22,706
+Let's see how that works as an
+
+1009
+00:29:22,706 --> 0:29:23,126
+example.
+
+1010
+00:29:24,486 --> 0:29:25,486
+So here we have our upstream
+
+1011
+00:29:25,486 --> 0:29:25,986
+Publisher.
+
+1012
+00:29:26,536 --> 0:29:27,496
+In this case that would be a
+
+1013
+00:29:27,496 --> 0:29:29,596
+text field and we have our
+
+1014
+00:29:29,596 --> 0:29:30,526
+debounce in the middle.
+
+1015
+00:29:30,856 --> 0:29:32,396
+If the user types quite quickly,
+
+1016
+00:29:33,436 --> 0:29:34,646
+you'll see the rapid signals.
+
+1017
+00:29:35,566 --> 0:29:36,616
+But then we can smooth that out
+
+1018
+00:29:36,616 --> 0:29:37,656
+to have a single signal within
+
+1019
+00:29:37,656 --> 0:29:38,136
+that window.
+
+1020
+00:29:41,096 --> 0:29:42,456
+That's great, but we can do a
+
+1021
+00:29:42,456 --> 0:29:43,416
+little bit better.
+
+1022
+00:29:45,026 --> 0:29:46,286
+If the user is typing within
+
+1023
+00:29:46,286 --> 0:29:48,516
+that window and the values at
+
+1024
+00:29:48,516 --> 0:29:49,576
+the end are always going to be
+
+1025
+00:29:49,576 --> 0:29:50,606
+the same, there's no reason to
+
+1026
+00:29:50,606 --> 0:29:51,546
+hit the server again to see
+
+1027
+00:29:51,546 --> 0:29:52,776
+whether that same username is
+
+1028
+00:29:52,776 --> 0:29:53,116
+valid.
+
+1029
+00:29:53,116 --> 0:29:55,786
+So if the user types Merlin, we
+
+1030
+00:29:55,786 --> 0:29:58,806
+get that value, deletes the n
+
+1031
+00:29:58,806 --> 0:30:00,726
+and types the n again, Merlin
+
+1032
+00:29:58,806 --> 0:30:00,726
+and types the n again, Merlin
+
+1033
+00:30:00,726 --> 0:30:01,626
+again, we don't need to hit the
+
+1034
+00:30:01,626 --> 0:30:02,206
+server again.
+
+1035
+00:30:02,836 --> 0:30:04,276
+removeDuplicates is our operator
+
+1036
+00:30:04,276 --> 0:30:04,536
+for that.
+
+1037
+00:30:05,206 --> 0:30:06,356
+It will make sure that we don't
+
+1038
+00:30:06,356 --> 0:30:07,746
+get the same values published
+
+1039
+00:30:07,746 --> 0:30:10,446
+over and over again within that
+
+1040
+00:30:11,116 --> 0:30:11,296
+window.
+
+1041
+00:30:11,426 --> 0:30:12,986
+So using in code, we have our
+
+1042
+00:30:12,986 --> 0:30:14,656
+username property that we added
+
+1043
+00:30:14,656 --> 0:30:15,236
+Published to.
+
+1044
+00:30:15,816 --> 0:30:18,126
+We then use the debounce to
+
+1045
+00:30:18,126 --> 0:30:19,206
+smooth out our signal a bit.
+
+1046
+00:30:20,546 --> 0:30:21,486
+And finally remove the
+
+1047
+00:30:21,486 --> 0:30:22,176
+duplicates.
+
+1048
+00:30:22,706 --> 0:30:25,506
+But we haven't handled any of
+
+1049
+00:30:25,506 --> 0:30:26,586
+the asynchronous stuff yet.
+
+1050
+00:30:26,586 --> 0:30:27,756
+We just smoothed our signal out.
+
+1051
+00:30:28,656 --> 0:30:29,646
+What we want to do is actually
+
+1052
+00:30:29,646 --> 0:30:30,586
+hit our server and find out
+
+1053
+00:30:30,586 --> 0:30:31,566
+whether or not this is valid.
+
+1054
+00:30:32,136 --> 0:30:34,546
+For that we have an existing
+
+1055
+00:30:34,546 --> 0:30:35,786
+function in our application
+
+1056
+00:30:35,886 --> 0:30:37,026
+called usernameAvailable.
+
+1057
+00:30:38,106 --> 0:30:39,726
+And what I'd like to do is bring
+
+1058
+00:30:39,726 --> 0:30:40,916
+this in as a Publisher.
+
+1059
+00:30:42,346 --> 0:30:44,226
+So from Michael's example we
+
+1060
+00:30:44,226 --> 0:30:45,496
+learned that flatMap allows you
+
+1061
+00:30:45,496 --> 0:30:47,336
+to take a value from your stream
+
+1062
+00:30:47,536 --> 0:30:48,836
+and then return a new Publisher.
+
+1063
+00:30:49,416 --> 0:30:52,466
+So how can we call this?
+
+1064
+00:30:53,696 --> 0:30:55,296
+Well, for that we have something
+
+1065
+00:30:55,296 --> 0:30:58,026
+called a Future, and when you
+
+1066
+00:30:58,026 --> 0:30:58,966
+construct one you give it a
+
+1067
+00:30:58,966 --> 0:31:00,256
+closure that takes a promise.
+
+1068
+00:30:58,966 --> 0:31:00,256
+closure that takes a promise.
+
+1069
+00:31:01,006 --> 0:31:02,266
+A promise is just another
+
+1070
+00:31:02,266 --> 0:31:04,046
+closure that takes the result,
+
+1071
+00:31:04,046 --> 0:31:05,936
+either as success or a failure.
+
+1072
+00:31:09,046 --> 0:31:10,036
+And when we use it, it's pretty
+
+1073
+00:31:10,036 --> 0:31:10,686
+straightforward.
+
+1074
+00:31:11,666 --> 0:31:12,786
+We call our usernameAvailable
+
+1075
+00:31:12,786 --> 0:31:13,466
+function and when it
+
+1076
+00:31:13,466 --> 0:31:14,916
+asynchronously completes and we
+
+1077
+00:31:14,916 --> 0:31:17,026
+have the value, we fill our
+
+1078
+00:31:17,026 --> 0:31:18,626
+promise with the success in this
+
+1079
+00:31:18,626 --> 0:31:18,996
+case.
+
+1080
+00:31:19,506 --> 0:31:21,006
+And like before, we'll state
+
+1081
+00:31:21,006 --> 0:31:22,676
+that if it's not available, it's
+
+1082
+00:31:22,676 --> 0:31:22,946
+a nil.
+
+1083
+00:31:26,056 --> 0:31:28,146
+So reviewing those steps, we had
+
+1084
+00:31:28,146 --> 0:31:29,126
+our simple Publishers at the
+
+1085
+00:31:29,126 --> 0:31:30,666
+beginning, our username
+
+1086
+00:31:30,666 --> 0:31:31,136
+Publisher.
+
+1087
+00:31:31,536 --> 0:31:32,466
+We debounced it to smooth the
+
+1088
+00:31:32,466 --> 0:31:34,286
+signals out and we removed any
+
+1089
+00:31:34,286 --> 0:31:35,586
+of the duplicates within that
+
+1090
+00:31:35,586 --> 0:31:35,936
+window.
+
+1091
+00:31:37,346 --> 0:31:39,236
+We then used Future to wrap our
+
+1092
+00:31:39,236 --> 0:31:41,006
+existing API that makes an
+
+1093
+00:31:41,006 --> 0:31:42,176
+asynchronous network call.
+
+1094
+00:31:42,176 --> 0:31:45,426
+And we used flatMap to fork our
+
+1095
+00:31:45,426 --> 0:31:46,376
+stream in that way.
+
+1096
+00:31:47,846 --> 0:31:49,556
+Then we erased it to any
+
+1097
+00:31:49,556 --> 0:31:50,716
+Publisher because this is an API
+
+1098
+00:31:50,846 --> 0:31:51,196
+boundary.
+
+1099
+00:31:52,076 --> 0:31:53,276
+And so now we have these two
+
+1100
+00:31:53,276 --> 0:31:54,696
+custom Publishers that we've
+
+1101
+00:31:54,696 --> 0:31:57,066
+made, both validatedPassword and
+
+1102
+00:31:57,066 --> 0:31:58,036
+validatedUsername.
+
+1103
+00:31:58,576 --> 0:32:01,566
+And we're ready to combine them.
+
+1104
+00:31:58,576 --> 0:32:01,566
+And we're ready to combine them.
+
+1105
+00:32:06,046 --> 0:32:07,086
+So now what we want to do is
+
+1106
+00:32:07,086 --> 0:32:08,436
+take these two signals, one
+
+1107
+00:32:08,436 --> 0:32:10,326
+that's local to device and the
+
+1108
+00:32:10,326 --> 0:32:11,406
+other being an asynchronous
+
+1109
+00:32:11,406 --> 0:32:13,496
+network call, and use those to
+
+1110
+00:32:13,496 --> 0:32:14,536
+enable or disable our UI.
+
+1111
+00:32:14,536 --> 0:32:16,496
+Well, we already know how to do
+
+1112
+00:32:16,496 --> 0:32:16,876
+this.
+
+1113
+00:32:18,276 --> 0:32:19,396
+We use the CombineLatest
+
+1114
+00:32:19,396 --> 0:32:19,896
+operator.
+
+1115
+00:32:20,386 --> 0:32:21,726
+We'll take those two Publishers
+
+1116
+00:32:21,726 --> 0:32:22,476
+that we made before.
+
+1117
+00:32:23,836 --> 0:32:24,796
+We'll check that they're valid
+
+1118
+00:32:25,696 --> 0:32:26,886
+and in this case we'll just
+
+1119
+00:32:26,886 --> 0:32:29,026
+return a tuple with our full
+
+1120
+00:32:29,026 --> 0:32:32,136
+credentials as an optional or
+
+1121
+00:32:32,176 --> 0:32:32,956
+nil if they're not.
+
+1122
+00:32:36,166 --> 0:32:37,236
+And actually wiring this up to
+
+1123
+00:32:37,236 --> 0:32:38,436
+your UI is pretty simple.
+
+1124
+00:32:39,636 --> 0:32:41,266
+We wire up an outlet to our Sign
+
+1125
+00:32:41,836 --> 0:32:43,496
+Up button.
+
+1126
+00:32:43,656 --> 0:32:46,666
+We'll create an ivar to store
+
+1127
+00:32:46,666 --> 0:32:48,416
+this subscription so that we
+
+1128
+00:32:48,416 --> 0:32:49,796
+keep it for the entire lifetime
+
+1129
+00:32:49,846 --> 0:32:50,746
+of this ViewController.
+
+1130
+00:32:51,056 --> 0:32:52,036
+Because we want to enable and
+
+1131
+00:32:52,036 --> 0:32:53,856
+disable the button or the entire
+
+1132
+00:32:53,856 --> 0:32:54,706
+time the form is shown.
+
+1133
+00:32:57,056 --> 0:32:57,746
+So we'll store it.
+
+1134
+00:32:58,546 --> 0:32:59,966
+We'll map this to a Boolean
+
+1135
+00:33:00,716 --> 0:33:02,216
+because we want to assign this
+
+1136
+00:33:02,216 --> 0:33:03,396
+to the isEnabled property on the
+
+1137
+00:33:03,396 --> 0:33:03,756
+button.
+
+1138
+00:33:06,156 --> 0:33:08,076
+Finally, we'll use receive(on:)
+
+1139
+00:33:08,076 --> 0:33:09,006
+to switch over to the main
+
+1140
+00:33:09,006 --> 0:33:10,206
+RunLoop which is what we need to
+
+1141
+00:33:10,206 --> 0:33:11,296
+do for any UI code.
+
+1142
+00:33:11,296 --> 0:33:13,716
+And then we'll use the assign
+
+1143
+00:33:13,716 --> 0:33:15,146
+operator to assign it to the
+
+1144
+00:33:15,146 --> 0:33:16,766
+given key path (on:
+
+1145
+00:33:16,766 --> 0:33:17,316
+signupButton).
+
+1146
+00:33:22,106 --> 0:33:22,486
+So awesome.
+
+1147
+00:33:22,486 --> 0:33:23,976
+We have all the parts we need.
+
+1148
+00:33:26,046 --> 0:33:26,906
+So stepping back, we started
+
+1149
+00:33:26,906 --> 0:33:28,246
+with these three very simple
+
+1150
+00:33:28,246 --> 0:33:30,396
+Publishers that just publish
+
+1151
+00:33:30,396 --> 0:33:30,746
+strings.
+
+1152
+00:33:33,086 --> 0:33:35,386
+And then using composition we
+
+1153
+00:33:35,386 --> 0:33:37,036
+built this up from small little
+
+1154
+00:33:37,036 --> 0:33:38,706
+steps as we went along to create
+
+1155
+00:33:38,706 --> 0:33:40,696
+our final chain, and then
+
+1156
+00:33:40,696 --> 0:33:41,976
+compose those and assign them to
+
+1157
+00:33:41,976 --> 0:33:42,446
+the button.
+
+1158
+00:33:43,456 --> 0:33:44,526
+This is really what Combine's
+
+1159
+00:33:44,526 --> 0:33:44,976
+all about.
+
+1160
+00:33:48,076 --> 0:33:49,496
+So I suggest you get started
+
+1161
+00:33:49,496 --> 0:33:49,956
+right away.
+
+1162
+00:33:50,296 --> 0:33:52,576
+Compose small parts of your
+
+1163
+00:33:52,576 --> 0:33:53,606
+application into custom
+
+1164
+00:33:53,606 --> 0:33:55,046
+Publishers, identify small
+
+1165
+00:33:55,046 --> 0:33:56,526
+pieces of logic you can break up
+
+1166
+00:33:56,576 --> 0:33:58,416
+into little tiny Publishers and
+
+1167
+00:33:58,416 --> 0:34:00,026
+use composition along the way to
+
+1168
+00:33:58,416 --> 0:34:00,026
+use composition along the way to
+
+1169
+00:34:00,196 --> 0:34:01,836
+chain them all together.
+
+1170
+00:34:02,656 --> 0:34:03,556
+You can totally adopt
+
+1171
+00:34:03,556 --> 0:34:04,046
+incrementally.
+
+1172
+00:34:04,046 --> 0:34:05,266
+You don't have to change
+
+1173
+00:34:05,266 --> 0:34:07,276
+everything right away or, you
+
+1174
+00:34:07,276 --> 0:34:08,306
+know, you can mix and match.
+
+1175
+00:34:08,306 --> 0:34:09,346
+We saw with Future how you can
+
+1176
+00:34:09,346 --> 0:34:12,226
+bring things in that you already
+
+1177
+00:34:12,226 --> 0:34:14,085
+have today.
+
+1178
+00:34:14,266 --> 0:34:15,596
+You can compose callbacks and
+
+1179
+00:34:15,596 --> 0:34:16,826
+other things using Future like
+
+1180
+00:34:16,826 --> 0:34:17,226
+we saw.
+
+1181
+00:34:20,146 --> 0:34:21,676
+For more information, check out
+
+1182
+00:34:21,676 --> 0:34:24,176
+our Introducing Combine talk and
+
+1183
+00:34:24,176 --> 0:34:25,376
+the Data Flow Through SwiftUI
+
+1184
+00:34:25,376 --> 0:34:26,456
+talk as well.
+
+1185
+00:34:26,456 --> 0:34:27,656
+And we'll be at the AppKit labs
+
+1186
+00:34:27,656 --> 0:34:28,576
+later today as well.
+
+1187
+00:34:29,755 --> 0:34:29,966
+Thank you.
+
+1188
+00:34:30,516 --> 0:34:36,500
+[ Applause ]

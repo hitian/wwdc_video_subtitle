@@ -1,0 +1,6147 @@
+1
+00:00:00,506 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:09,366 --> 0:00:11,366
+[ Applause ]
+
+3
+00:00:11,716 --> 0:00:13,256
+&gt;&gt; So, over the past year, we've
+
+4
+00:00:13,686 --> 0:00:15,256
+been working really hard on
+
+5
+00:00:15,256 --> 0:00:16,926
+adding some great new features
+
+6
+00:00:16,926 --> 0:00:17,656
+to the compiler.
+
+7
+00:00:18,526 --> 0:00:20,906
+I'm Jessica, and today, me and
+
+8
+00:00:20,906 --> 0:00:23,366
+my colleagues, JF and Devin, are
+
+9
+00:00:23,366 --> 0:00:24,516
+going to share some of those
+
+10
+00:00:24,516 --> 0:00:26,376
+great features with all of you.
+
+11
+00:00:27,406 --> 0:00:28,536
+So, we've got a lot of ground to
+
+12
+00:00:28,536 --> 0:00:29,096
+cover today.
+
+13
+00:00:29,646 --> 0:00:30,996
+We're going to talk about new
+
+14
+00:00:30,996 --> 0:00:33,356
+platform support, some low-level
+
+15
+00:00:33,356 --> 0:00:35,466
+code size optimizations, some
+
+16
+00:00:35,466 --> 0:00:36,906
+language-level code size
+
+17
+00:00:36,906 --> 0:00:39,156
+optimizations, some great new
+
+18
+00:00:39,156 --> 0:00:40,956
+diagnostics, and then we're
+
+19
+00:00:40,956 --> 0:00:42,066
+going to finish up with some
+
+20
+00:00:42,066 --> 0:00:43,826
+great new static analyzer checks
+
+21
+00:00:43,826 --> 0:00:45,406
+that will help you find bugs in
+
+22
+00:00:45,406 --> 0:00:45,836
+your code.
+
+23
+00:00:46,276 --> 0:00:48,006
+So, let's get started with new
+
+24
+00:00:48,006 --> 0:00:48,816
+platform support.
+
+25
+00:00:49,966 --> 0:00:51,776
+Specifically, I'd like to talk
+
+26
+00:00:51,776 --> 0:00:53,436
+about the Series 4 Watch.
+
+27
+00:00:55,056 --> 0:00:57,496
+The Series 4 watch usually a
+
+28
+00:00:57,496 --> 0:00:59,786
+fully 64-bit chip.
+
+29
+00:01:00,356 --> 0:01:02,986
+But yet, all of the App Store
+
+30
+00:01:02,986 --> 0:01:04,946
+apps are 32 bit.
+
+31
+00:01:06,276 --> 0:01:08,576
+The curious thing about this is
+
+32
+00:01:08,576 --> 0:01:10,796
+that on day one, all of your
+
+33
+00:01:10,796 --> 0:01:13,286
+apps worked seamlessly on the
+
+34
+00:01:13,286 --> 0:01:14,216
+Series 4 Watch.
+
+35
+00:01:14,846 --> 0:01:17,886
+This seems kind of like magic.
+
+36
+00:01:18,296 --> 0:01:19,596
+You didn't have to recompile
+
+37
+00:01:19,596 --> 0:01:19,936
+anything.
+
+38
+00:01:20,686 --> 0:01:23,956
+But yet, all of the apps worked.
+
+39
+00:01:24,126 --> 0:01:25,276
+How did this happen?
+
+40
+00:01:25,686 --> 0:01:27,256
+Now, it would be awesome if I
+
+41
+00:01:27,256 --> 0:01:28,496
+could get the front row or any
+
+42
+00:01:28,496 --> 0:01:29,456
+row of the audience to give me a
+
+43
+00:01:29,456 --> 0:01:30,986
+drum roll like this, but if you
+
+44
+00:01:30,986 --> 0:01:31,956
+don't want to it's fine.
+
+45
+00:01:32,766 --> 0:01:34,456
+Da da da da da da da da da, the
+
+46
+00:01:34,456 --> 0:01:35,846
+answer is Bitcode.
+
+47
+00:01:35,846 --> 0:01:35,913
+[applause]
+
+48
+00:01:35,913 --> 0:01:39,386
+And I explained absolutely
+
+49
+00:01:39,416 --> 0:01:39,656
+nothing.
+
+50
+00:01:39,656 --> 0:01:42,346
+So, allow me to explain this to
+
+51
+00:01:42,346 --> 0:01:42,486
+you.
+
+52
+00:01:42,646 --> 0:01:45,586
+Let's take some source code,
+
+53
+00:01:45,586 --> 0:01:46,506
+your favorite language.
+
+54
+00:01:46,796 --> 0:01:48,496
+What we're going to do is we're
+
+55
+00:01:48,496 --> 0:01:49,526
+going to hand that off to the
+
+56
+00:01:49,526 --> 0:01:50,066
+compiler.
+
+57
+00:01:50,746 --> 0:01:52,216
+Now, normally what you would do
+
+58
+00:01:52,256 --> 0:01:54,266
+here is you would continue the
+
+59
+00:01:54,266 --> 0:01:56,036
+standard compilation process,
+
+60
+00:01:56,036 --> 0:01:58,136
+and you would get like a binary
+
+61
+00:01:58,136 --> 0:01:59,826
+or something, but we're not
+
+62
+00:01:59,826 --> 0:02:00,366
+going to do that.
+
+63
+00:01:59,826 --> 0:02:00,366
+going to do that.
+
+64
+00:02:00,536 --> 0:02:03,196
+What we're going to do instead
+
+65
+00:02:03,196 --> 0:02:03,966
+is we're going to stop the
+
+66
+00:02:03,966 --> 0:02:05,996
+compilation process early, and
+
+67
+00:02:06,306 --> 0:02:08,576
+we're going to produce LLVM
+
+68
+00:02:08,576 --> 0:02:09,086
+Bitcode.
+
+69
+00:02:09,675 --> 0:02:13,556
+So, what's cool about LLVM
+
+70
+00:02:13,556 --> 0:02:16,416
+Bitcode is it encodes an
+
+71
+00:02:16,416 --> 0:02:18,136
+intermediate state in the
+
+72
+00:02:18,136 --> 0:02:18,706
+compiler.
+
+73
+00:02:19,296 --> 0:02:21,676
+And what you can do with this
+
+74
+00:02:21,676 --> 0:02:24,686
+intermediate state is you can
+
+75
+00:02:24,686 --> 0:02:26,846
+actually pick up the compilation
+
+76
+00:02:26,846 --> 0:02:28,736
+process where you left it off.
+
+77
+00:02:29,826 --> 0:02:31,016
+So, that's what we do, except
+
+78
+00:02:31,466 --> 0:02:33,466
+this time we do it in the App
+
+79
+00:02:33,716 --> 0:02:33,866
+Store.
+
+80
+00:02:35,026 --> 0:02:36,646
+By doing this, we could take one
+
+81
+00:02:36,646 --> 0:02:38,546
+Bitcode for one app and produce
+
+82
+00:02:38,876 --> 0:02:40,576
+two different apps from it, one
+
+83
+00:02:40,576 --> 0:02:42,966
+to run on a 32-bit chip, and one
+
+84
+00:02:42,966 --> 0:02:44,666
+to run on the fancy new 64-bit
+
+85
+00:02:44,666 --> 0:02:45,456
+chip as well.
+
+86
+00:02:47,036 --> 0:02:49,636
+Now, there kind of is a problem
+
+87
+00:02:49,636 --> 0:02:49,946
+here.
+
+88
+00:02:50,596 --> 0:02:51,736
+The problem is is that the
+
+89
+00:02:51,736 --> 0:02:53,726
+compiler doesn't actually know
+
+90
+00:02:53,726 --> 0:02:54,666
+that you're going to be
+
+91
+00:02:54,666 --> 0:02:56,896
+executing code on a 64-bit
+
+92
+00:02:57,006 --> 0:02:59,926
+device, and if it knew that, it
+
+93
+00:02:59,926 --> 0:03:01,036
+could actually leverage that
+
+94
+00:02:59,926 --> 0:03:01,036
+could actually leverage that
+
+95
+00:03:01,036 --> 0:03:03,246
+information to optimize the app
+
+96
+00:03:03,246 --> 0:03:03,776
+even more.
+
+97
+00:03:04,306 --> 0:03:05,666
+And so to get around that, what
+
+98
+00:03:05,666 --> 0:03:07,936
+we do is we collect Bitcode for
+
+99
+00:03:07,936 --> 0:03:09,696
+the 64-bit chip as well.
+
+100
+00:03:10,426 --> 0:03:11,796
+This allows us to create a
+
+101
+00:03:11,796 --> 0:03:14,036
+really, really fast app just
+
+102
+00:03:14,036 --> 0:03:14,696
+from the Bitcode.
+
+103
+00:03:15,366 --> 0:03:17,286
+Now, this is pretty cool.
+
+104
+00:03:17,286 --> 0:03:19,996
+This is like-- this is one of
+
+105
+00:03:19,996 --> 0:03:21,056
+the things that makes compilers
+
+106
+00:03:21,056 --> 0:03:21,856
+kind of magical.
+
+107
+00:03:22,196 --> 0:03:24,766
+It's pretty awesome, eh?
+
+108
+00:03:25,006 --> 0:03:27,196
+Now, let's move onto Code Size
+
+109
+00:03:27,196 --> 0:03:27,956
+Improvements.
+
+110
+00:03:27,956 --> 0:03:28,856
+This is one of my favorite
+
+111
+00:03:28,856 --> 0:03:29,326
+topics.
+
+112
+00:03:30,276 --> 0:03:32,086
+We've been hard at work having
+
+113
+00:03:32,086 --> 0:03:33,546
+the compiler actually produce as
+
+114
+00:03:33,546 --> 0:03:34,686
+small of code as possible for
+
+115
+00:03:34,686 --> 0:03:34,876
+you.
+
+116
+00:03:35,816 --> 0:03:38,196
+Now, code size is pretty
+
+117
+00:03:38,196 --> 0:03:40,686
+important because bigger code
+
+118
+00:03:40,726 --> 0:03:42,976
+means bigger, slower downloads,
+
+119
+00:03:42,976 --> 0:03:45,076
+and bigger apps take up more
+
+120
+00:03:45,076 --> 0:03:47,266
+space on users' devices, and you
+
+121
+00:03:47,266 --> 0:03:48,066
+notice this kind of thing.
+
+122
+00:03:48,686 --> 0:03:51,006
+So, to support users that
+
+123
+00:03:51,006 --> 0:03:53,236
+actually want to prioritize code
+
+124
+00:03:53,236 --> 0:03:56,956
+size over all other metrics, we
+
+125
+00:03:56,956 --> 0:03:59,216
+added a new optimization level
+
+126
+00:03:59,296 --> 0:03:59,926
+to Xcode.
+
+127
+00:04:00,806 --> 0:04:03,666
+And that optimization level is
+
+128
+00:04:03,786 --> 0:04:04,106
+-Oz.
+
+129
+00:04:05,266 --> 0:04:07,226
+And I'm going to keep saying -Oz
+
+130
+00:04:07,226 --> 0:04:09,226
+because I'm Canadian, so we
+
+131
+00:04:09,226 --> 0:04:10,666
+might as well call it Oh Canada.
+
+132
+00:04:11,516 --> 0:04:15,746
+[ Applause ]
+
+133
+00:04:16,245 --> 0:04:17,435
+What I'd like to show you today
+
+134
+00:04:17,435 --> 0:04:18,875
+is an example of the kind of
+
+135
+00:04:18,875 --> 0:04:21,076
+optimization that appears at
+
+136
+00:04:21,766 --> 0:04:23,376
+-Oz, but before doing that, I'm
+
+137
+00:04:24,346 --> 0:04:26,306
+going to do my best to tell all
+
+138
+00:04:26,306 --> 0:04:28,136
+of you how a compiler works in a
+
+139
+00:04:28,136 --> 0:04:28,936
+couple of minutes flat.
+
+140
+00:04:29,526 --> 0:04:33,116
+So, when you compile some code,
+
+141
+00:04:33,116 --> 0:04:35,616
+the initial representation is
+
+142
+00:04:35,616 --> 0:04:37,056
+very, very target independent.
+
+143
+00:04:37,056 --> 0:04:37,806
+It's source code.
+
+144
+00:04:38,626 --> 0:04:39,786
+When you put that into the
+
+145
+00:04:39,786 --> 0:04:42,516
+compiler, it gets lowered to an
+
+146
+00:04:42,516 --> 0:04:43,956
+IR, an intermediate
+
+147
+00:04:43,956 --> 0:04:44,756
+representation.
+
+148
+00:04:45,286 --> 0:04:47,166
+This intermediate representation
+
+149
+00:04:47,166 --> 0:04:48,736
+is still mostly target
+
+150
+00:04:48,736 --> 0:04:51,016
+independent, but it does have
+
+151
+00:04:51,016 --> 0:04:52,286
+some target-dependent features
+
+152
+00:04:52,286 --> 0:04:52,876
+built in.
+
+153
+00:04:53,616 --> 0:04:55,326
+It looks kind of like a generic
+
+154
+00:04:55,326 --> 0:04:55,806
+assembly.
+
+155
+00:04:56,746 --> 0:04:58,676
+At this point, you could just
+
+156
+00:04:58,676 --> 0:05:00,586
+stop the compilation process and
+
+157
+00:04:58,676 --> 0:05:00,586
+stop the compilation process and
+
+158
+00:05:00,586 --> 0:05:02,566
+spit out some Bitcode, but we're
+
+159
+00:05:02,566 --> 0:05:03,266
+not going to do that.
+
+160
+00:05:03,266 --> 0:05:04,126
+We're going to keep going.
+
+161
+00:05:05,616 --> 0:05:07,676
+That representation is further
+
+162
+00:05:07,676 --> 0:05:10,116
+lowered to what we call MIR,
+
+163
+00:05:10,206 --> 0:05:12,276
+which is short for Machine IR.
+
+164
+00:05:13,246 --> 0:05:15,046
+At the end of this process, the
+
+165
+00:05:15,046 --> 0:05:16,846
+Machine IR looks almost
+
+166
+00:05:16,846 --> 0:05:18,366
+identical to the assembly for
+
+167
+00:05:18,366 --> 0:05:20,826
+the target, in this case arm 64
+
+168
+00:05:20,826 --> 0:05:21,286
+assembly.
+
+169
+00:05:21,996 --> 0:05:23,106
+We could put the code side by
+
+170
+00:05:23,106 --> 0:05:23,986
+side, for example.
+
+171
+00:05:25,486 --> 0:05:27,766
+Now, in the optimization that
+
+172
+00:05:27,766 --> 0:05:29,856
+we're going to talk about, we're
+
+173
+00:05:29,856 --> 0:05:31,276
+going to be working with the
+
+174
+00:05:31,276 --> 0:05:34,306
+Machine IR, but for the sake of
+
+175
+00:05:34,306 --> 0:05:35,916
+familiarity, I'm just going to
+
+176
+00:05:35,916 --> 0:05:37,056
+do all of our examples in
+
+177
+00:05:37,056 --> 0:05:38,726
+assembly, because that's less
+
+178
+00:05:38,726 --> 0:05:39,136
+scary.
+
+179
+00:05:39,786 --> 0:05:42,236
+What I'd like to tell you about
+
+180
+00:05:42,496 --> 0:05:43,936
+is the code size optimization
+
+181
+00:05:43,936 --> 0:05:45,226
+called Function Outlining.
+
+182
+00:05:46,626 --> 0:05:48,966
+Function Outlining is one of
+
+183
+00:05:48,966 --> 0:05:50,346
+those optimizations that's going
+
+184
+00:05:50,346 --> 0:05:51,586
+to do everything it can to save
+
+185
+00:05:51,586 --> 0:05:52,426
+you some size.
+
+186
+00:05:52,946 --> 0:05:54,296
+It's very, very late in the
+
+187
+00:05:54,296 --> 0:05:54,916
+compiler.
+
+188
+00:05:55,296 --> 0:05:56,976
+It doesn't actually rely on any
+
+189
+00:05:56,976 --> 0:05:58,306
+sort of a source code language.
+
+190
+00:05:58,956 --> 0:06:00,516
+The best way to explain what
+
+191
+00:05:58,956 --> 0:06:00,516
+The best way to explain what
+
+192
+00:06:00,516 --> 0:06:02,286
+this does is by example.
+
+193
+00:06:03,356 --> 0:06:05,266
+So, let's say that you have some
+
+194
+00:06:05,266 --> 0:06:06,336
+assembly like this.
+
+195
+00:06:07,016 --> 0:06:08,836
+hasse and kakutani are two
+
+196
+00:06:08,836 --> 0:06:10,186
+random functions in some random
+
+197
+00:06:10,376 --> 0:06:10,806
+program.
+
+198
+00:06:11,856 --> 0:06:13,226
+Now, what's interesting about
+
+199
+00:06:13,226 --> 0:06:15,836
+hasse and kakutani is they have
+
+200
+00:06:15,836 --> 0:06:18,026
+some identical instructions.
+
+201
+00:06:19,276 --> 0:06:20,826
+What we can do with this is we
+
+202
+00:06:20,826 --> 0:06:22,226
+could take those identical
+
+203
+00:06:22,226 --> 0:06:25,076
+instructions and factor them out
+
+204
+00:06:25,076 --> 0:06:26,116
+into a new function.
+
+205
+00:06:27,036 --> 0:06:28,726
+After we factor them out into a
+
+206
+00:06:28,726 --> 0:06:31,756
+new function, what we can do is
+
+207
+00:06:31,756 --> 0:06:33,336
+we can replace the sequences
+
+208
+00:06:33,336 --> 0:06:35,586
+that we found with calls or
+
+209
+00:06:35,586 --> 0:06:36,456
+branches.
+
+210
+00:06:37,196 --> 0:06:39,036
+As a result of this, we end up
+
+211
+00:06:39,036 --> 0:06:39,966
+with a smaller program.
+
+212
+00:06:41,056 --> 0:06:42,006
+And how much smaller?
+
+213
+00:06:42,416 --> 0:06:46,446
+Well, up to 25 percent on our
+
+214
+00:06:46,726 --> 0:06:48,376
+test programs.
+
+215
+00:06:48,376 --> 0:06:50,196
+[applause]
+
+216
+00:06:50,196 --> 0:06:51,706
+Now, some of you might be
+
+217
+00:06:51,706 --> 0:06:53,096
+wondering, okay, well where do
+
+218
+00:06:53,096 --> 0:06:54,566
+these savings come from?
+
+219
+00:06:55,126 --> 0:06:56,516
+Is it because of copied and
+
+220
+00:06:56,516 --> 0:06:57,416
+pasted code?
+
+221
+00:06:57,806 --> 0:06:58,966
+Is it because your code needs to
+
+222
+00:06:58,966 --> 0:06:59,816
+be refactored?
+
+223
+00:07:00,406 --> 0:07:01,886
+Well, no, there's actually
+
+224
+00:07:01,886 --> 0:07:03,516
+something a bit deeper happening
+
+225
+00:07:03,516 --> 0:07:03,826
+here.
+
+226
+00:07:04,086 --> 0:07:05,286
+If you do have a bunch of code
+
+227
+00:07:05,286 --> 0:07:07,296
+copied and pasted around, that
+
+228
+00:07:07,356 --> 0:07:08,946
+will impact outlining behavior,
+
+229
+00:07:09,016 --> 0:07:10,496
+but that's not really the most
+
+230
+00:07:10,496 --> 0:07:11,086
+important thing.
+
+231
+00:07:11,726 --> 0:07:13,466
+Let's look at another example.
+
+232
+00:07:14,886 --> 0:07:16,316
+Say you have this function.
+
+233
+00:07:17,456 --> 0:07:18,346
+It doesn't matter what this
+
+234
+00:07:18,346 --> 0:07:20,346
+function does, but what I'd like
+
+235
+00:07:20,346 --> 0:07:23,536
+to address is what happens if we
+
+236
+00:07:23,536 --> 0:07:25,266
+take this function and we put it
+
+237
+00:07:25,266 --> 0:07:26,046
+into the compiler.
+
+238
+00:07:26,346 --> 0:07:27,156
+We get some assembly.
+
+239
+00:07:27,386 --> 0:07:30,516
+Well, you might get something
+
+240
+00:07:30,516 --> 0:07:32,406
+that looks kind of like this.
+
+241
+00:07:33,416 --> 0:07:34,926
+Once again, you don't really
+
+242
+00:07:34,926 --> 0:07:36,106
+need to understand this
+
+243
+00:07:36,106 --> 0:07:38,446
+assembly, but what I'd like to
+
+244
+00:07:38,446 --> 0:07:40,246
+draw attention to is the
+
+245
+00:07:40,246 --> 0:07:42,026
+instructions at the beginning
+
+246
+00:07:42,026 --> 0:07:43,316
+and the end of the function.
+
+247
+00:07:44,796 --> 0:07:46,176
+These are called the function
+
+248
+00:07:46,176 --> 0:07:47,226
+prologue and epilogue.
+
+249
+00:07:47,826 --> 0:07:48,996
+These instructions don't
+
+250
+00:07:48,996 --> 0:07:50,856
+correspond to any individual
+
+251
+00:07:50,856 --> 0:07:51,786
+lines of source code.
+
+252
+00:07:52,666 --> 0:07:53,856
+These are instructions that are
+
+253
+00:07:53,856 --> 0:07:56,356
+inserted by the compiler to meet
+
+254
+00:07:56,356 --> 0:07:57,196
+some sort of system
+
+255
+00:07:57,196 --> 0:07:57,956
+requirements.
+
+256
+00:07:59,376 --> 0:08:00,976
+So, these types of things, like
+
+257
+00:07:59,376 --> 0:08:00,976
+So, these types of things, like
+
+258
+00:08:00,976 --> 0:08:03,806
+these stores and these loads
+
+259
+00:08:04,026 --> 0:08:05,306
+could appear in many places
+
+260
+00:08:05,306 --> 0:08:07,446
+throughout your program, and
+
+261
+00:08:07,446 --> 0:08:09,186
+this is the kind of thing that
+
+262
+00:08:09,186 --> 0:08:10,316
+the outliner can actually
+
+263
+00:08:10,316 --> 0:08:11,986
+leverage to reduce the size of
+
+264
+00:08:12,036 --> 0:08:12,906
+the overall program.
+
+265
+00:08:14,066 --> 0:08:17,136
+There are some gotchas to do
+
+266
+00:08:17,136 --> 0:08:17,656
+with this though.
+
+267
+00:08:18,596 --> 0:08:22,826
+First off, when you outline, you
+
+268
+00:08:22,826 --> 0:08:24,026
+change the control flow of your
+
+269
+00:08:24,026 --> 0:08:24,466
+program.
+
+270
+00:08:25,326 --> 0:08:27,436
+Here, you might initially have
+
+271
+00:08:27,436 --> 0:08:30,206
+ulam called collatz, but then
+
+272
+00:08:30,206 --> 0:08:31,946
+you could outline the call to
+
+273
+00:08:31,946 --> 0:08:32,556
+collatz.
+
+274
+00:08:33,265 --> 0:08:35,626
+The thing about what happens
+
+275
+00:08:35,626 --> 0:08:37,796
+here is we've changed the
+
+276
+00:08:37,796 --> 0:08:38,986
+control of flow of the program.
+
+277
+00:08:40,076 --> 0:08:42,525
+So, the problem with this is
+
+278
+00:08:42,525 --> 0:08:45,856
+what happens if you crash inside
+
+279
+00:08:45,946 --> 0:08:46,586
+collatz?
+
+280
+00:08:47,756 --> 0:08:49,246
+Well, what's going to happen is
+
+281
+00:08:49,246 --> 0:08:50,166
+you're going to go and you're
+
+282
+00:08:50,166 --> 0:08:51,486
+going to take your program and
+
+283
+00:08:51,486 --> 0:08:53,016
+you're going to throw it into
+
+284
+00:08:54,156 --> 0:08:54,756
+LLDB, and you're going to
+
+285
+00:08:54,756 --> 0:08:56,516
+see the added outline function
+
+286
+00:08:56,516 --> 0:08:57,506
+in your back trace.
+
+287
+00:08:57,506 --> 0:08:58,786
+So, this is something you have
+
+288
+00:08:58,846 --> 0:09:00,386
+to watch out for if you're
+
+289
+00:08:58,846 --> 0:09:00,386
+to watch out for if you're
+
+290
+00:09:00,386 --> 0:09:03,126
+actually outlining code.
+
+291
+00:09:03,336 --> 0:09:05,086
+Another thing is that outlining
+
+292
+00:09:05,086 --> 0:09:06,746
+can increase the execution time
+
+293
+00:09:06,746 --> 0:09:07,366
+of your program.
+
+294
+00:09:08,736 --> 0:09:10,306
+You're adding calls, and calls
+
+295
+00:09:10,306 --> 0:09:11,396
+could have an execution time
+
+296
+00:09:11,396 --> 0:09:11,846
+overhead.
+
+297
+00:09:12,786 --> 0:09:14,536
+And this is actually okay though
+
+298
+00:09:14,536 --> 0:09:17,446
+because -Oz prioritizes size
+
+299
+00:09:17,446 --> 0:09:18,816
+over everything else.
+
+300
+00:09:19,296 --> 0:09:20,366
+When you're going through -Oz,
+
+301
+00:09:20,366 --> 0:09:21,766
+you're saying, make it small.
+
+302
+00:09:22,586 --> 0:09:25,296
+Because of this, we don't
+
+303
+00:09:25,296 --> 0:09:26,966
+recommend that you compile
+
+304
+00:09:27,486 --> 0:09:29,036
+performance sensitive code with
+
+305
+00:09:29,036 --> 0:09:29,216
+-Oz.
+
+306
+00:09:30,186 --> 0:09:31,656
+If execution time is king in
+
+307
+00:09:31,656 --> 0:09:33,536
+your program, -Oz is not the
+
+308
+00:09:33,536 --> 0:09:34,426
+best thing to use.
+
+309
+00:09:35,596 --> 0:09:38,256
+However, we do recommend that
+
+310
+00:09:38,306 --> 0:09:39,716
+you use instruments.
+
+311
+00:09:40,316 --> 0:09:41,256
+What instruments is going to
+
+312
+00:09:41,256 --> 0:09:43,226
+tell you is where the hot spots
+
+313
+00:09:43,226 --> 0:09:44,616
+in your program are, and this
+
+314
+00:09:44,616 --> 0:09:46,156
+can allow you to make the best
+
+315
+00:09:46,156 --> 0:09:48,136
+decisions with respect to
+
+316
+00:09:48,136 --> 0:09:49,906
+optimization for your app.
+
+317
+00:09:50,916 --> 0:09:52,596
+The compiler has lots of
+
+318
+00:09:52,596 --> 0:09:53,856
+different optimization levels,
+
+319
+00:09:55,326 --> 0:09:57,036
+and those optimization levels
+
+320
+00:09:58,236 --> 0:09:59,776
+all prioritize different things.
+
+321
+00:10:00,726 --> 0:10:05,616
+For example, -Oz prioritizes
+
+322
+00:10:05,616 --> 0:10:07,516
+size at all cost, and as a
+
+323
+00:10:07,516 --> 0:10:10,406
+result, you might have some
+
+324
+00:10:10,406 --> 0:10:12,176
+slightly slower execution time.
+
+325
+00:10:12,656 --> 0:10:15,896
+But on the other end of the
+
+326
+00:10:15,896 --> 0:10:17,136
+spectrum, you have -O3.
+
+327
+00:10:17,186 --> 0:10:19,626
+-O3 is going to prioritize the
+
+328
+00:10:19,626 --> 0:10:20,966
+execution time of your program
+
+329
+00:10:20,966 --> 0:10:22,866
+at all costs, and as a result,
+
+330
+00:10:22,866 --> 0:10:26,646
+you might get a larger program.
+
+331
+00:10:26,646 --> 0:10:30,676
+-Os is the default optimization
+
+332
+00:10:30,676 --> 0:10:32,856
+level in Xcode because it has a
+
+333
+00:10:33,156 --> 0:10:35,406
+good balance between speed and
+
+334
+00:10:35,406 --> 0:10:35,826
+size.
+
+335
+00:10:36,926 --> 0:10:38,266
+But, you know, you might have
+
+336
+00:10:38,266 --> 0:10:39,866
+different optimization needs,
+
+337
+00:10:39,916 --> 0:10:41,246
+and so you can use instruments
+
+338
+00:10:41,246 --> 0:10:43,686
+to figure this out.
+
+339
+00:10:43,936 --> 0:10:45,416
+The compiler also offers some
+
+340
+00:10:45,416 --> 0:10:47,586
+extra optimizations that I don't
+
+341
+00:10:47,586 --> 0:10:48,826
+have a lot of time to talk about
+
+342
+00:10:48,826 --> 0:10:49,796
+but I would like to cover a
+
+343
+00:10:49,796 --> 0:10:50,896
+little bit about anyway.
+
+344
+00:10:51,446 --> 0:10:54,006
+It offers PGO, which is
+
+345
+00:10:54,056 --> 0:10:55,406
+Profile-Guided Optimization.
+
+346
+00:10:56,376 --> 0:10:58,116
+PGO is pretty cool because it
+
+347
+00:10:58,116 --> 0:10:59,816
+allows you to actually execute
+
+348
+00:10:59,816 --> 0:11:02,016
+your program and then collect
+
+349
+00:10:59,816 --> 0:11:02,016
+your program and then collect
+
+350
+00:11:02,016 --> 0:11:03,466
+information about how your
+
+351
+00:11:03,466 --> 0:11:04,206
+program runs.
+
+352
+00:11:04,636 --> 0:11:06,546
+Then you can use that to guide
+
+353
+00:11:06,656 --> 0:11:08,546
+the compiler when you compile it
+
+354
+00:11:08,546 --> 0:11:08,796
+again.
+
+355
+00:11:10,016 --> 0:11:11,816
+It also offers LTO, which is
+
+356
+00:11:11,816 --> 0:11:12,976
+Link-Time Optimization.
+
+357
+00:11:13,586 --> 0:11:14,926
+What's cool about Link-Time
+
+358
+00:11:14,926 --> 0:11:17,156
+Optimization is at the cost of
+
+359
+00:11:17,156 --> 0:11:18,616
+some compile time, what you can
+
+360
+00:11:18,616 --> 0:11:20,636
+do is you can tell the compiler,
+
+361
+00:11:21,096 --> 0:11:23,496
+okay, let's wait until we have
+
+362
+00:11:23,726 --> 0:11:26,316
+every single file in the program
+
+363
+00:11:26,316 --> 0:11:29,136
+and use that to say provide
+
+364
+00:11:29,136 --> 0:11:30,676
+better inlining and outlining.
+
+365
+00:11:31,206 --> 0:11:32,806
+Optimizations like inlining and
+
+366
+00:11:32,806 --> 0:11:34,476
+outlining do better when they
+
+367
+00:11:34,476 --> 0:11:36,276
+have more context, so LTO could
+
+368
+00:11:36,276 --> 0:11:36,756
+help there.
+
+369
+00:11:37,596 --> 0:11:39,576
+You can also combine these extra
+
+370
+00:11:39,576 --> 0:11:41,776
+optimizations with the existing
+
+371
+00:11:41,776 --> 0:11:43,876
+optimization levels to get some
+
+372
+00:11:43,876 --> 0:11:45,436
+really, really good actual
+
+373
+00:11:45,436 --> 0:11:46,156
+performance.
+
+374
+00:11:47,636 --> 0:11:48,606
+Because I don't have a lot of
+
+375
+00:11:48,686 --> 0:11:49,746
+time to actually cover what
+
+376
+00:11:49,746 --> 0:11:51,786
+these things do, I recommend
+
+377
+00:11:51,786 --> 0:11:53,516
+that you check out the previous
+
+378
+00:11:53,516 --> 0:11:55,116
+What's New in LLVM talk so that
+
+379
+00:11:55,116 --> 0:11:56,986
+you can learn a bit more about
+
+380
+00:11:58,396 --> 0:11:58,496
+them.
+
+381
+00:11:58,716 --> 0:11:59,866
+After all that, you might be
+
+382
+00:11:59,866 --> 0:12:01,336
+wondering, okay, how do I enable
+
+383
+00:11:59,866 --> 0:12:01,336
+wondering, okay, how do I enable
+
+384
+00:12:01,336 --> 0:12:01,516
+-Oz?
+
+385
+00:12:01,516 --> 0:12:03,386
+Well, just go to your project's
+
+386
+00:12:03,536 --> 0:12:05,936
+build settings and select -Oz as
+
+387
+00:12:05,976 --> 0:12:07,196
+the optimization level.
+
+388
+00:12:08,166 --> 0:12:10,256
+You can also enable -Oz or other
+
+389
+00:12:10,256 --> 0:12:12,106
+optimization levels on specific
+
+390
+00:12:12,186 --> 0:12:14,466
+files in Xcode by going to your
+
+391
+00:12:14,466 --> 0:12:16,516
+project's build phases, going to
+
+392
+00:12:16,516 --> 0:12:18,356
+the compile sources list, and
+
+393
+00:12:18,356 --> 0:12:19,636
+setting the compiler flags.
+
+394
+00:12:20,006 --> 0:12:20,366
+All right.
+
+395
+00:12:21,256 --> 0:12:23,136
+So, I just told you a lot of
+
+396
+00:12:23,136 --> 0:12:23,456
+stuff.
+
+397
+00:12:23,456 --> 0:12:24,336
+You're probably wondering, okay,
+
+398
+00:12:24,336 --> 0:12:26,026
+how does this impact my app's
+
+399
+00:12:26,026 --> 0:12:26,566
+code size?
+
+400
+00:12:26,866 --> 0:12:28,246
+How do I figure out this kind of
+
+401
+00:12:28,246 --> 0:12:28,856
+information?
+
+402
+00:12:29,596 --> 0:12:32,996
+Well, to figure out code size, I
+
+403
+00:12:32,996 --> 0:12:34,836
+recommend a little tool called
+
+404
+00:12:35,036 --> 0:12:35,396
+size.
+
+405
+00:12:36,996 --> 0:12:38,326
+I use this tool a lot.
+
+406
+00:12:38,326 --> 0:12:39,606
+It's a nice little terminal app.
+
+407
+00:12:40,146 --> 0:12:41,836
+So, size is going to give you
+
+408
+00:12:41,836 --> 0:12:43,936
+some nice low-level binary
+
+409
+00:12:43,936 --> 0:12:45,946
+information about your app.
+
+410
+00:12:46,516 --> 0:12:47,826
+It is not going to tell you the
+
+411
+00:12:47,826 --> 0:12:49,366
+actual total size of your app,
+
+412
+00:12:49,366 --> 0:12:50,336
+because it doesn't include
+
+413
+00:12:50,386 --> 0:12:52,056
+things like assets, for example.
+
+414
+00:12:52,436 --> 0:12:54,206
+If you have like a giant picture
+
+415
+00:12:54,206 --> 0:12:55,556
+in your app, and you have like a
+
+416
+00:12:55,556 --> 0:12:56,756
+hello world of code, the
+
+417
+00:12:56,756 --> 0:12:58,046
+compiler can't help you with
+
+418
+00:12:59,346 --> 0:12:59,486
+that.
+
+419
+00:12:59,966 --> 0:13:01,206
+But, let's say you want to use
+
+420
+00:12:59,966 --> 0:13:01,206
+But, let's say you want to use
+
+421
+00:13:01,206 --> 0:13:01,686
+size.
+
+422
+00:13:02,426 --> 0:13:03,056
+Here's how you do it.
+
+423
+00:13:03,056 --> 0:13:03,776
+It's easy.
+
+424
+00:13:03,776 --> 0:13:06,106
+You just say size, and here's
+
+425
+00:13:06,106 --> 0:13:07,056
+the path to my binary.
+
+426
+00:13:07,896 --> 0:13:09,316
+What it's going to do is it's
+
+427
+00:13:09,316 --> 0:13:10,276
+going to give you some nice
+
+428
+00:13:10,356 --> 0:13:11,576
+output like this.
+
+429
+00:13:12,306 --> 0:13:13,636
+What it's going to do is it's
+
+430
+00:13:13,636 --> 0:13:14,816
+going to tell you the size of
+
+431
+00:13:14,816 --> 0:13:17,036
+each segment in your binary, and
+
+432
+00:13:17,036 --> 0:13:17,726
+it's going to tell you the
+
+433
+00:13:17,786 --> 0:13:19,226
+overall size of the binary as
+
+434
+00:13:19,226 --> 0:13:19,476
+well.
+
+435
+00:13:20,526 --> 0:13:23,646
+But, the thing is, is each
+
+436
+00:13:23,646 --> 0:13:25,886
+segment in a binary is actually
+
+437
+00:13:25,886 --> 0:13:27,496
+comprised of many sections.
+
+438
+00:13:28,736 --> 0:13:30,706
+I only care about executable
+
+439
+00:13:30,706 --> 0:13:32,166
+instructions in this example.
+
+440
+00:13:32,166 --> 0:13:34,286
+So, what I'm going to do then,
+
+441
+00:13:34,816 --> 0:13:36,416
+is I'm going to give size a
+
+442
+00:13:36,416 --> 0:13:37,446
+couple extra flags.
+
+443
+00:13:38,006 --> 0:13:41,246
+Those extra flags are the -l and
+
+444
+00:13:41,246 --> 0:13:42,336
+the -m flags.
+
+445
+00:13:42,916 --> 0:13:44,836
+When I do this, what size is
+
+446
+00:13:44,836 --> 0:13:46,276
+going to do is it's going to
+
+447
+00:13:46,276 --> 0:13:47,866
+give me a per section breakdown.
+
+448
+00:13:48,406 --> 0:13:49,736
+If I want to find out more about
+
+449
+00:13:49,736 --> 0:13:51,686
+executable instructions, then I
+
+450
+00:13:51,686 --> 0:13:53,456
+can just look at the text
+
+451
+00:13:55,276 --> 0:13:55,496
+section.
+
+452
+00:13:55,606 --> 0:13:57,356
+So, I hope that all of this
+
+453
+00:13:57,356 --> 0:13:58,686
+helps you with gaining some more
+
+454
+00:13:58,686 --> 0:13:59,906
+insight into the code size of
+
+455
+00:13:59,906 --> 0:14:00,946
+your apps.
+
+456
+00:13:59,906 --> 0:14:00,946
+your apps.
+
+457
+00:14:01,036 --> 0:14:02,316
+Now, I'm going to leave, and I'm
+
+458
+00:14:02,316 --> 0:14:03,436
+going to hand it off to my
+
+459
+00:14:03,436 --> 0:14:05,376
+fellow Canadian, JF, who's going
+
+460
+00:14:05,376 --> 0:14:06,126
+to tell you about some
+
+461
+00:14:06,126 --> 0:14:07,506
+language-level Code Size
+
+462
+00:14:07,506 --> 0:14:08,226
+Improvements.
+
+463
+00:14:08,281 --> 0:14:10,281
+[applause]
+
+464
+00:14:10,336 --> 0:14:10,876
+&gt;&gt; Thanks, Jessica.
+
+465
+00:14:11,376 --> 0:14:13,376
+[applause]
+
+466
+00:14:13,876 --> 0:14:14,686
+&gt;&gt; So, I'm Jeff, and I'm going
+
+467
+00:14:14,686 --> 0:14:16,256
+to tell you about Language-Level
+
+468
+00:14:16,256 --> 0:14:16,826
+Optimization.
+
+469
+00:14:17,056 --> 0:14:18,356
+So, Jessica told you about
+
+470
+00:14:18,526 --> 0:14:20,306
+low-level, kind of assembly-ish
+
+471
+00:14:20,306 --> 0:14:22,206
+optimizations, and I'm going to
+
+472
+00:14:22,206 --> 0:14:23,066
+tell you about the stuff that
+
+473
+00:14:23,066 --> 0:14:24,116
+happens when you use the
+
+474
+00:14:24,116 --> 0:14:25,286
+language itself, right, so the
+
+475
+00:14:25,346 --> 0:14:26,496
+constructs that you write your
+
+476
+00:14:26,496 --> 0:14:26,756
+code in.
+
+477
+00:14:26,756 --> 0:14:27,786
+I'm going to tell you about four
+
+478
+00:14:27,786 --> 0:14:28,906
+of those optimizations today
+
+479
+00:14:29,136 --> 0:14:30,626
+that also affect code size.
+
+480
+00:14:31,626 --> 0:14:33,446
+The first one is related to
+
+481
+00:14:33,446 --> 0:14:34,786
+objective C, when you use
+
+482
+00:14:34,786 --> 0:14:35,696
+blocks, right.
+
+483
+00:14:35,696 --> 0:14:36,826
+So blocks has a bunch of
+
+484
+00:14:36,826 --> 0:14:38,456
+associated metadata that the
+
+485
+00:14:38,456 --> 0:14:39,956
+compiler generates for you.
+
+486
+00:14:40,726 --> 0:14:43,016
+It has metadata as well as
+
+487
+00:14:43,016 --> 0:14:44,906
+helper functions, and we'll go
+
+488
+00:14:44,906 --> 0:14:46,266
+into a few examples to see what
+
+489
+00:14:46,266 --> 0:14:46,776
+that looks like.
+
+490
+00:14:47,436 --> 0:14:48,936
+So, say you write some code, and
+
+491
+00:14:49,096 --> 0:14:50,736
+it looks something like this.
+
+492
+00:14:51,306 --> 0:14:51,506
+Right.
+
+493
+00:14:52,036 --> 0:14:53,816
+So, you'll notice that I have
+
+494
+00:14:53,896 --> 0:14:55,226
+two blocks in two different
+
+495
+00:14:55,226 --> 0:14:56,546
+functions, and the code doesn't
+
+496
+00:14:56,546 --> 0:14:57,916
+really matter, but the important
+
+497
+00:14:57,916 --> 0:15:00,086
+bit to notice is that the blocks
+
+498
+00:14:57,916 --> 0:15:00,086
+bit to notice is that the blocks
+
+499
+00:15:00,086 --> 0:15:01,496
+do completely different things,
+
+500
+00:15:01,496 --> 0:15:01,586
+right.
+
+501
+00:15:01,586 --> 0:15:02,706
+The code has nothing to do with
+
+502
+00:15:02,706 --> 0:15:04,146
+each other, but they have fairly
+
+503
+00:15:04,146 --> 0:15:05,456
+similar struct in that the
+
+504
+00:15:05,546 --> 0:15:07,506
+capture for the blocks is
+
+505
+00:15:07,506 --> 0:15:07,886
+similar.
+
+506
+00:15:07,976 --> 0:15:09,696
+In this case, I capture two
+
+507
+00:15:09,766 --> 0:15:11,326
+arc-strong pointers.
+
+508
+00:15:12,196 --> 0:15:13,556
+Now, I told you that there is
+
+509
+00:15:13,556 --> 0:15:15,296
+metadata associated with each
+
+510
+00:15:15,336 --> 0:15:15,756
+block.
+
+511
+00:15:15,756 --> 0:15:16,596
+What does that look like?
+
+512
+00:15:17,146 --> 0:15:18,666
+Well, this is the metadata that
+
+513
+00:15:18,666 --> 0:15:19,856
+we're talking about, right.
+
+514
+00:15:19,856 --> 0:15:21,416
+So the compiler generates this
+
+515
+00:15:21,556 --> 0:15:22,846
+automatically for you when you
+
+516
+00:15:22,846 --> 0:15:24,746
+use blocks to track a bunch of
+
+517
+00:15:24,796 --> 0:15:26,076
+information about the blocks and
+
+518
+00:15:26,076 --> 0:15:27,246
+give them the behavior that the
+
+519
+00:15:27,246 --> 0:15:28,046
+language guarantees.
+
+520
+00:15:28,926 --> 0:15:29,846
+What you'll notice is there's a
+
+521
+00:15:29,846 --> 0:15:30,716
+block size in there.
+
+522
+00:15:30,996 --> 0:15:32,066
+There's a copy helper and a
+
+523
+00:15:32,066 --> 0:15:33,316
+destroy helper, which are two
+
+524
+00:15:33,316 --> 0:15:35,226
+methods that we'll go into in a
+
+525
+00:15:35,226 --> 0:15:36,616
+bit, and there's a block method
+
+526
+00:15:36,616 --> 0:15:37,826
+signature as well as the block
+
+527
+00:15:37,826 --> 0:15:38,566
+layout info.
+
+528
+00:15:38,566 --> 0:15:39,266
+All right.
+
+529
+00:15:39,616 --> 0:15:40,686
+And if you look at the example
+
+530
+00:15:40,686 --> 0:15:42,396
+that I have on the screen, this
+
+531
+00:15:42,396 --> 0:15:44,146
+is actually the synthesized code
+
+532
+00:15:44,146 --> 0:15:45,206
+that the compiler generates.
+
+533
+00:15:45,426 --> 0:15:46,766
+Now, that looks like a bunch of
+
+534
+00:15:46,766 --> 0:15:48,066
+gobbledygook, but what really
+
+535
+00:15:48,066 --> 0:15:50,116
+matters is that the struct
+
+536
+00:15:50,116 --> 0:15:51,856
+itself is the same, so we can
+
+537
+00:15:51,856 --> 0:15:53,326
+duplicate in a lot of cases.
+
+538
+00:15:53,646 --> 0:15:54,896
+Now, you'll notice in this case
+
+539
+00:15:54,896 --> 0:15:56,856
+we can't because despite
+
+540
+00:15:56,856 --> 0:15:58,746
+capturing two arc-strong
+
+541
+00:15:58,806 --> 0:16:00,206
+pointers, there's other captures
+
+542
+00:15:58,806 --> 0:16:00,206
+pointers, there's other captures
+
+543
+00:16:00,206 --> 0:16:01,836
+in there, and the block size
+
+544
+00:16:01,836 --> 0:16:02,686
+itself is different.
+
+545
+00:16:03,286 --> 0:16:03,506
+All right.
+
+546
+00:16:03,746 --> 0:16:05,556
+So, we can't merge these cases,
+
+547
+00:16:05,646 --> 0:16:05,766
+right.
+
+548
+00:16:05,766 --> 0:16:07,086
+But in general, there's some
+
+549
+00:16:07,086 --> 0:16:08,346
+cases where we can end up
+
+550
+00:16:08,346 --> 0:16:09,896
+merging these things, right.
+
+551
+00:16:10,256 --> 0:16:11,896
+You'll notice in this example
+
+552
+00:16:11,896 --> 0:16:14,856
+though, we have the functions,
+
+553
+00:16:14,856 --> 0:16:16,146
+right, so the copy helper and
+
+554
+00:16:16,146 --> 0:16:17,916
+destroy helper can be merged,
+
+555
+00:16:18,486 --> 0:16:18,936
+right.
+
+556
+00:16:19,046 --> 0:16:19,796
+And you'll notice that as of
+
+557
+00:16:19,796 --> 0:16:21,146
+Xcode 11, we do merge them,
+
+558
+00:16:21,356 --> 0:16:21,496
+right.
+
+559
+00:16:21,496 --> 0:16:22,306
+So, those are the same.
+
+560
+00:16:22,746 --> 0:16:23,626
+What does that mean?
+
+561
+00:16:23,626 --> 0:16:25,576
+Well, the copy helper is there
+
+562
+00:16:25,786 --> 0:16:26,676
+to help you when you move a
+
+563
+00:16:26,676 --> 0:16:28,316
+block around, right, and destroy
+
+564
+00:16:28,316 --> 0:16:29,866
+helper is there to help you when
+
+565
+00:16:29,866 --> 0:16:31,386
+the block goes away, right.
+
+566
+00:16:31,636 --> 0:16:32,956
+And the code that the compiler
+
+567
+00:16:32,956 --> 0:16:34,546
+synthesizes when you do this
+
+568
+00:16:35,086 --> 0:16:36,926
+looks about something like this.
+
+569
+00:16:38,016 --> 0:16:38,926
+All right, so in the example I
+
+570
+00:16:38,926 --> 0:16:40,366
+had, you'll remember I said we
+
+571
+00:16:40,366 --> 0:16:42,616
+have two strong arc pointers,
+
+572
+00:16:42,866 --> 0:16:43,776
+and the code we generate is
+
+573
+00:16:43,776 --> 0:16:44,776
+something like that, and we copy
+
+574
+00:16:44,776 --> 0:16:45,226
+it around.
+
+575
+00:16:45,226 --> 0:16:46,726
+You retain, and when you destroy
+
+576
+00:16:46,726 --> 0:16:47,556
+it, you release.
+
+577
+00:16:47,976 --> 0:16:49,236
+Now, there's a bunch of other
+
+578
+00:16:49,236 --> 0:16:51,086
+things that blocks end up having
+
+579
+00:16:51,086 --> 0:16:52,446
+to do when you copy or destroy.
+
+580
+00:16:52,716 --> 0:16:54,266
+You might have C++ objects, in
+
+581
+00:16:54,266 --> 0:16:55,396
+which case you have to color
+
+582
+00:16:55,396 --> 0:16:55,736
+copy constructor.
+
+583
+00:16:56,356 --> 0:16:57,906
+You might have-- and the
+
+584
+00:16:57,906 --> 0:16:58,896
+destructors, right.
+
+585
+00:16:58,896 --> 0:17:00,736
+You might have some weak arc
+
+586
+00:16:58,896 --> 0:17:00,736
+You might have some weak arc
+
+587
+00:17:00,786 --> 0:17:01,266
+pointers.
+
+588
+00:17:01,266 --> 0:17:03,056
+You might have nontrivial C
+
+589
+00:17:03,056 --> 0:17:04,266
+types or something like that,
+
+590
+00:17:04,376 --> 0:17:04,486
+right.
+
+591
+00:17:04,486 --> 0:17:05,156
+So, there's a bunch of other
+
+592
+00:17:05,156 --> 0:17:06,806
+stuff that needs to happen, but
+
+593
+00:17:06,806 --> 0:17:07,986
+basically you write code using
+
+594
+00:17:07,986 --> 0:17:09,445
+blocks, and when the compiler
+
+595
+00:17:09,445 --> 0:17:10,366
+detects that there is
+
+596
+00:17:10,366 --> 0:17:12,096
+redundancy, we try to eliminate
+
+597
+00:17:12,096 --> 0:17:13,195
+as much of it as we can.
+
+598
+00:17:13,695 --> 0:17:15,205
+Now, how much does this pay off?
+
+599
+00:17:15,205 --> 0:17:16,816
+We found that in objective C
+
+600
+00:17:16,816 --> 0:17:18,486
+applications, it's roughly a 2
+
+601
+00:17:18,486 --> 0:17:19,726
+to 7 percent code size
+
+602
+00:17:19,726 --> 0:17:21,486
+reduction, right, and that comes
+
+603
+00:17:21,486 --> 0:17:21,876
+for free.
+
+604
+00:17:22,066 --> 0:17:22,976
+It's just enabled by default.
+
+605
+00:17:23,516 --> 0:17:26,736
+[ Applause ]
+
+606
+00:17:27,236 --> 0:17:28,195
+The second optimization I'm
+
+607
+00:17:28,195 --> 0:17:29,456
+going to tell you about is
+
+608
+00:17:29,456 --> 0:17:31,226
+related to Instance Variables of
+
+609
+00:17:31,226 --> 0:17:33,436
+Direct Subclasses of NSObject.
+
+610
+00:17:33,796 --> 0:17:35,376
+Now, that's a mouthful, and I've
+
+611
+00:17:35,376 --> 0:17:36,376
+got to give you an example and
+
+612
+00:17:36,376 --> 0:17:37,266
+explain what that actually
+
+613
+00:17:37,266 --> 0:17:37,956
+means, all right.
+
+614
+00:17:38,266 --> 0:17:39,326
+So let's say I'm writing a card
+
+615
+00:17:39,326 --> 0:17:40,466
+game, and I write code that
+
+616
+00:17:40,466 --> 0:17:41,356
+looks something like this.
+
+617
+00:17:41,356 --> 0:17:42,876
+The key thing to remember here
+
+618
+00:17:42,876 --> 0:17:44,346
+is I'm deriving directly from
+
+619
+00:17:44,346 --> 0:17:45,386
+NSObject, right.
+
+620
+00:17:45,736 --> 0:17:47,266
+When I write the objective C
+
+621
+00:17:47,266 --> 0:17:49,836
+code, my properties corresponds
+
+622
+00:17:49,866 --> 0:17:51,756
+to instance variables, right.
+
+623
+00:17:51,756 --> 0:17:52,756
+So there's instance variables
+
+624
+00:17:52,756 --> 0:17:54,126
+generated automatically to back
+
+625
+00:17:54,126 --> 0:17:55,216
+up the properties that I have
+
+626
+00:17:55,216 --> 0:17:56,176
+here, right.
+
+627
+00:17:56,626 --> 0:17:58,276
+Now, the class itself that I
+
+628
+00:17:58,276 --> 0:18:00,286
+wrote, the compiler looks at it
+
+629
+00:17:58,276 --> 0:18:00,286
+wrote, the compiler looks at it
+
+630
+00:18:00,286 --> 0:18:01,666
+and generates a struct that
+
+631
+00:18:01,666 --> 0:18:03,096
+looks something like this
+
+632
+00:18:03,096 --> 0:18:03,716
+roughly, right.
+
+633
+00:18:03,846 --> 0:18:06,046
+It lays out the members, one
+
+634
+00:18:06,046 --> 0:18:06,616
+after the other.
+
+635
+00:18:06,926 --> 0:18:09,236
+Now, the thing in objective C is
+
+636
+00:18:09,236 --> 0:18:11,106
+that you can have a base class
+
+637
+00:18:11,236 --> 0:18:12,816
+derived from it and then change
+
+638
+00:18:12,816 --> 0:18:14,906
+the code in one framework to the
+
+639
+00:18:14,906 --> 0:18:17,036
+other, and the base class
+
+640
+00:18:17,096 --> 0:18:18,376
+changes, has new members and
+
+641
+00:18:18,376 --> 0:18:19,396
+whatever, and the derived
+
+642
+00:18:19,436 --> 0:18:20,926
+classes don't break, right.
+
+643
+00:18:20,926 --> 0:18:22,516
+And the objective, in C++ you
+
+644
+00:18:22,516 --> 0:18:23,246
+can't really do that.
+
+645
+00:18:23,246 --> 0:18:25,206
+If you derive, then the base
+
+646
+00:18:25,246 --> 0:18:26,486
+class's layout changes.
+
+647
+00:18:26,486 --> 0:18:27,226
+You have new sizes.
+
+648
+00:18:27,846 --> 0:18:29,166
+Now, here I'm deriving from
+
+649
+00:18:29,246 --> 0:18:29,796
+NSObject.
+
+650
+00:18:30,426 --> 0:18:32,696
+NSObject is effectively part of
+
+651
+00:18:32,696 --> 0:18:34,046
+the ABI of the platform.
+
+652
+00:18:34,156 --> 0:18:35,136
+So, we know it's not going to
+
+653
+00:18:35,136 --> 0:18:36,176
+change, right.
+
+654
+00:18:36,496 --> 0:18:38,546
+So, we have this layout of the
+
+655
+00:18:38,546 --> 0:18:39,986
+class, and when we're
+
+656
+00:18:40,046 --> 0:18:41,596
+implementing the class, right,
+
+657
+00:18:41,596 --> 0:18:43,306
+so implement this initWithName
+
+658
+00:18:43,306 --> 0:18:45,216
+method, I know exactly the
+
+659
+00:18:45,216 --> 0:18:46,496
+layout of everything in my
+
+660
+00:18:46,496 --> 0:18:47,416
+class, right.
+
+661
+00:18:47,666 --> 0:18:49,706
+So, the compiler, as of Xcode
+
+662
+00:18:49,896 --> 0:18:51,586
+11, can go in and say, I know
+
+663
+00:18:51,586 --> 0:18:52,386
+where the offsets are.
+
+664
+00:18:52,386 --> 0:18:53,226
+I can hardcode them.
+
+665
+00:18:53,726 --> 0:18:54,976
+Well, okay, what does that
+
+666
+00:18:54,976 --> 0:18:55,446
+actually mean?
+
+667
+00:18:55,846 --> 0:18:57,316
+So, I look at this initWithName
+
+668
+00:18:57,316 --> 0:18:57,626
+method.
+
+669
+00:18:59,086 --> 0:19:00,246
+It'll look something like this,
+
+670
+00:18:59,086 --> 0:19:00,246
+It'll look something like this,
+
+671
+00:19:00,596 --> 0:19:00,806
+right.
+
+672
+00:19:00,806 --> 0:19:02,816
+So, I have self.name = name.
+
+673
+00:19:02,996 --> 0:19:04,976
+Now, the setter, to generate a
+
+674
+00:19:04,976 --> 0:19:06,256
+code for that looks about
+
+675
+00:19:06,256 --> 0:19:07,856
+something like this before Xcode
+
+676
+00:19:07,856 --> 0:19:08,486
+11, right.
+
+677
+00:19:08,486 --> 0:19:10,536
+So, it synthesizes a lookup into
+
+678
+00:19:10,536 --> 0:19:12,296
+a table to know the offset of
+
+679
+00:19:12,296 --> 0:19:14,106
+the name property or the name
+
+680
+00:19:14,176 --> 0:19:14,826
+IVAR rather.
+
+681
+00:19:15,416 --> 0:19:16,836
+Now, that's a small amount of
+
+682
+00:19:16,836 --> 0:19:18,656
+code, but what we do as of Xcode
+
+683
+00:19:18,656 --> 0:19:19,706
+11 is something like this
+
+684
+00:19:19,706 --> 0:19:20,316
+instead, right.
+
+685
+00:19:20,316 --> 0:19:21,636
+So, we just hardcode the offset
+
+686
+00:19:21,636 --> 0:19:23,506
+when you're implementing the
+
+687
+00:19:23,506 --> 0:19:24,776
+method that's a direct
+
+688
+00:19:24,776 --> 0:19:25,936
+derivative of an S object.
+
+689
+00:19:26,426 --> 0:19:27,036
+That makes sense.
+
+690
+00:19:27,036 --> 0:19:28,056
+We know it's not going to change
+
+691
+00:19:28,056 --> 0:19:28,996
+because we're implementing the
+
+692
+00:19:28,996 --> 0:19:29,886
+thing that you just wrote.
+
+693
+00:19:30,146 --> 0:19:31,346
+And it seems pretty trivial;
+
+694
+00:19:31,346 --> 0:19:32,396
+it's just one instruction out of
+
+695
+00:19:32,396 --> 0:19:32,996
+three, right.
+
+696
+00:19:33,266 --> 0:19:34,506
+But it turns out to be roughly a
+
+697
+00:19:34,506 --> 0:19:35,466
+2 percent saving in
+
+698
+00:19:35,466 --> 0:19:36,146
+applications.
+
+699
+00:19:36,696 --> 0:19:38,416
+It's pretty s sweet.
+
+700
+00:19:38,466 --> 0:19:40,466
+[applause]
+
+701
+00:19:40,516 --> 0:19:41,796
+The next size optimization I'm
+
+702
+00:19:41,886 --> 0:19:43,356
+going to tell you about is
+
+703
+00:19:43,356 --> 0:19:45,146
+improved debuggability for C++
+
+704
+00:19:45,176 --> 0:19:45,516
+types.
+
+705
+00:19:45,516 --> 0:19:46,466
+Now, you're going to go, wait,
+
+706
+00:19:46,466 --> 0:19:47,666
+that's not size.
+
+707
+00:19:47,816 --> 0:19:48,096
+It is.
+
+708
+00:19:48,286 --> 0:19:49,436
+Just let me get to it.
+
+709
+00:19:49,856 --> 0:19:51,246
+So, I say I write some code.
+
+710
+00:19:51,876 --> 0:19:52,956
+Fairly straightforward code
+
+711
+00:19:52,956 --> 0:19:53,186
+here.
+
+712
+00:19:53,426 --> 0:19:54,556
+It's a command line application,
+
+713
+00:19:54,876 --> 0:19:57,336
+right, and what I'm doing is I'm
+
+714
+00:19:57,336 --> 0:19:58,596
+taking the parameters from a
+
+715
+00:19:58,596 --> 0:19:59,866
+command line as strings,
+
+716
+00:20:00,206 --> 0:20:02,156
+transforming them as integers,
+
+717
+00:20:02,206 --> 0:20:03,756
+putting them into a std::vector
+
+718
+00:20:03,866 --> 0:20:05,316
+and then printing them out one
+
+719
+00:20:05,316 --> 0:20:06,166
+after the other, right.
+
+720
+00:20:06,286 --> 0:20:07,196
+Really straightforward demo
+
+721
+00:20:07,196 --> 0:20:07,656
+application.
+
+722
+00:20:08,206 --> 0:20:10,556
+Now, what important here is I'm
+
+723
+00:20:10,556 --> 0:20:11,706
+using the standard library's
+
+724
+00:20:11,826 --> 0:20:12,256
+types.
+
+725
+00:20:12,576 --> 0:20:14,276
+Specifically I'm using vector
+
+726
+00:20:14,326 --> 0:20:15,546
+push back, and I want to go in
+
+727
+00:20:15,546 --> 0:20:16,886
+and put a breakpoint here.
+
+728
+00:20:17,396 --> 0:20:19,226
+Now, this used to not to work
+
+729
+00:20:19,226 --> 0:20:21,226
+really well before Xcode 11.
+
+730
+00:20:21,356 --> 0:20:22,666
+The reason was that we were
+
+731
+00:20:22,666 --> 0:20:25,246
+controlling the visibility of
+
+732
+00:20:25,356 --> 0:20:28,626
+lib C++'s methods just like push
+
+733
+00:20:28,656 --> 0:20:30,656
+back by force inlining them into
+
+734
+00:20:30,656 --> 0:20:31,636
+your code, right.
+
+735
+00:20:31,636 --> 0:20:32,606
+Now, generally that works pretty
+
+736
+00:20:32,606 --> 0:20:32,766
+well.
+
+737
+00:20:32,766 --> 0:20:34,106
+The problem is push back is
+
+738
+00:20:34,106 --> 0:20:35,346
+giant, and then the optimizer
+
+739
+00:20:35,346 --> 0:20:36,906
+goes to town, moves around,
+
+740
+00:20:36,906 --> 0:20:38,106
+deletes some code, and the
+
+741
+00:20:38,106 --> 0:20:39,776
+debugger, when you tell it break
+
+742
+00:20:39,776 --> 0:20:40,796
+on push back, you're not trying
+
+743
+00:20:40,796 --> 0:20:42,106
+to step into push back, you just
+
+744
+00:20:42,106 --> 0:20:43,016
+want to put a breakpoint on that
+
+745
+00:20:43,016 --> 0:20:43,276
+line.
+
+746
+00:20:43,276 --> 0:20:44,466
+The debugger doesn't really know
+
+747
+00:20:44,466 --> 0:20:45,416
+where push back is because it's
+
+748
+00:20:45,466 --> 0:20:46,656
+been splat all over the place,
+
+749
+00:20:46,986 --> 0:20:47,166
+right.
+
+750
+00:20:47,506 --> 0:20:50,536
+So, what we do as of Xcode 11 is
+
+751
+00:20:50,536 --> 0:20:52,046
+that we don't force inlining.
+
+752
+00:20:52,046 --> 0:20:53,916
+We let the inliner decide when
+
+753
+00:20:53,916 --> 0:20:55,036
+inlining should happen instead,
+
+754
+00:20:55,386 --> 0:20:55,496
+right.
+
+755
+00:20:55,496 --> 0:20:56,946
+So, what used to happen in this
+
+756
+00:20:56,946 --> 0:20:58,476
+specific example, before Xcode
+
+757
+00:20:58,476 --> 0:21:00,286
+11 is the breakpoint that you
+
+758
+00:20:58,476 --> 0:21:00,286
+11 is the breakpoint that you
+
+759
+00:21:00,286 --> 0:21:01,516
+put there would actually break
+
+760
+00:21:01,516 --> 0:21:02,856
+on the second loop, right,
+
+761
+00:21:02,856 --> 0:21:04,486
+because the pushbacks are just
+
+762
+00:21:04,486 --> 0:21:04,946
+everywhere now.
+
+763
+00:21:05,226 --> 0:21:07,056
+So, as of Xcode 11, we don't
+
+764
+00:21:07,056 --> 0:21:08,536
+force inlining, and this is what
+
+765
+00:21:08,536 --> 0:21:09,676
+the debugging session would look
+
+766
+00:21:09,676 --> 0:21:09,866
+like.
+
+767
+00:21:10,076 --> 0:21:12,026
+So, say I run lldb, I run my
+
+768
+00:21:12,026 --> 0:21:13,146
+program, and I say put a
+
+769
+00:21:13,146 --> 0:21:14,546
+breakpoint on line 12.
+
+770
+00:21:15,326 --> 0:21:15,506
+Right.
+
+771
+00:21:15,616 --> 0:21:16,526
+Pretty straightforward.
+
+772
+00:21:17,256 --> 0:21:18,426
+Bugger goes in, says yep,
+
+773
+00:21:18,606 --> 0:21:19,216
+breakpoint, got it.
+
+774
+00:21:19,716 --> 0:21:21,366
+Now, I hit run.
+
+775
+00:21:21,366 --> 0:21:22,176
+This is what happens now.
+
+776
+00:21:22,176 --> 0:21:23,606
+All right.
+
+777
+00:21:23,826 --> 0:21:25,976
+So, I break on line 12.
+
+778
+00:21:26,166 --> 0:21:26,376
+Cool.
+
+779
+00:21:26,376 --> 0:21:27,386
+It just works, right.
+
+780
+00:21:27,386 --> 0:21:28,376
+It's kind of a boring demo
+
+781
+00:21:28,506 --> 0:21:31,276
+because it does what you expect.
+
+782
+00:21:31,276 --> 0:21:31,846
+It used not to.
+
+783
+00:21:32,126 --> 0:21:34,206
+So, the cool thing now is I'm
+
+784
+00:21:34,206 --> 0:21:34,946
+talking about code size
+
+785
+00:21:34,946 --> 0:21:35,726
+optimizations, right.
+
+786
+00:21:35,726 --> 0:21:37,156
+Well, this, because we don't
+
+787
+00:21:37,156 --> 0:21:38,356
+force inline really big things,
+
+788
+00:21:38,406 --> 0:21:40,086
+if you use the stl a lot in your
+
+789
+00:21:40,086 --> 0:21:42,336
+code, you create quite a big
+
+790
+00:21:42,336 --> 0:21:43,206
+amount of code bloat.
+
+791
+00:21:43,646 --> 0:21:44,856
+And so what we've measured is on
+
+792
+00:21:44,906 --> 0:21:47,046
+big applications release mode up
+
+793
+00:21:47,046 --> 0:21:48,386
+to a 7 percent code size
+
+794
+00:21:48,386 --> 0:21:49,526
+reduction when you do this.
+
+795
+00:21:49,636 --> 0:21:51,036
+Now, again, this is in release
+
+796
+00:21:51,036 --> 0:21:51,746
+mode, right.
+
+797
+00:21:52,066 --> 0:21:53,166
+So, that's a pretty good amount
+
+798
+00:21:53,166 --> 0:21:55,206
+of code savings and better
+
+799
+00:21:55,206 --> 0:21:55,606
+debugging.
+
+800
+00:21:55,966 --> 0:21:56,456
+That's nice.
+
+801
+00:21:56,806 --> 0:21:58,746
+The last code size saving I want
+
+802
+00:21:58,746 --> 0:22:00,556
+to tell you about is C++ static
+
+803
+00:21:58,746 --> 0:22:00,556
+to tell you about is C++ static
+
+804
+00:22:00,596 --> 0:22:01,546
+destructor suppression.
+
+805
+00:22:02,456 --> 0:22:04,346
+And again, let me walk through
+
+806
+00:22:04,346 --> 0:22:05,466
+an example to show you what I
+
+807
+00:22:05,466 --> 0:22:06,096
+actually mean here.
+
+808
+00:22:06,976 --> 0:22:08,686
+So, say I write some really
+
+809
+00:22:08,686 --> 0:22:09,666
+generic C++ code.
+
+810
+00:22:09,666 --> 0:22:11,266
+Most applications end up having
+
+811
+00:22:11,266 --> 0:22:12,716
+a logger, something like this,
+
+812
+00:22:12,766 --> 0:22:12,976
+right.
+
+813
+00:22:13,266 --> 0:22:14,356
+And when you do logging, you
+
+814
+00:22:14,356 --> 0:22:15,486
+don't want to pass a logger
+
+815
+00:22:15,486 --> 0:22:16,026
+around throughout your
+
+816
+00:22:16,026 --> 0:22:17,256
+application, so you have just a
+
+817
+00:22:17,256 --> 0:22:18,466
+global variable called logger.
+
+818
+00:22:18,856 --> 0:22:20,476
+Fairly straightforward stuff.
+
+819
+00:22:20,596 --> 0:22:21,596
+Now in C++ when you have a
+
+820
+00:22:21,596 --> 0:22:22,986
+global like this, it'll have a
+
+821
+00:22:22,986 --> 0:22:24,426
+destructor that'll run at the
+
+822
+00:22:24,426 --> 0:22:25,536
+end of the application's
+
+823
+00:22:25,536 --> 0:22:26,016
+lifetime.
+
+824
+00:22:26,566 --> 0:22:26,756
+Right.
+
+825
+00:22:27,106 --> 0:22:28,146
+And you'll notice, the logger
+
+826
+00:22:28,146 --> 0:22:29,126
+contains a buffer that's a
+
+827
+00:22:29,126 --> 0:22:30,466
+std::vector of string, so that's
+
+828
+00:22:30,466 --> 0:22:32,206
+what the destructor is going to
+
+829
+00:22:32,206 --> 0:22:32,346
+do.
+
+830
+00:22:32,346 --> 0:22:33,206
+It's going to destroy that
+
+831
+00:22:33,206 --> 0:22:34,516
+vector of strings, right.
+
+832
+00:22:34,786 --> 0:22:35,826
+Straightforward thing so far.
+
+833
+00:22:36,256 --> 0:22:37,526
+Now, I go into my application,
+
+834
+00:22:37,886 --> 0:22:38,896
+and it's a game.
+
+835
+00:22:39,366 --> 0:22:39,556
+Right.
+
+836
+00:22:39,556 --> 0:22:40,666
+So I add this code here.
+
+837
+00:22:40,666 --> 0:22:41,286
+It's just a game.
+
+838
+00:22:41,416 --> 0:22:42,866
+So, again, I just have one
+
+839
+00:22:42,866 --> 0:22:44,636
+application and one game, and so
+
+840
+00:22:44,636 --> 0:22:46,376
+I just have a global here for my
+
+841
+00:22:46,376 --> 0:22:46,626
+game.
+
+842
+00:22:47,126 --> 0:22:48,716
+Totally sensible code, right.
+
+843
+00:22:49,246 --> 0:22:51,996
+Now, the problem is if I go in
+
+844
+00:22:51,996 --> 0:22:53,956
+and I add some logging code to
+
+845
+00:22:53,956 --> 0:22:56,086
+the struct of the game, well,
+
+846
+00:22:56,086 --> 0:22:57,996
+you'll notice, I have the logger
+
+847
+00:22:57,996 --> 0:22:58,626
+that's global.
+
+848
+00:22:58,626 --> 0:22:59,646
+I have the game that's global.
+
+849
+00:23:00,056 --> 0:23:01,386
+That might not work out so well.
+
+850
+00:23:01,576 --> 0:23:03,376
+The reason is in C++, between
+
+851
+00:23:03,376 --> 0:23:05,196
+different translation units, the
+
+852
+00:23:05,196 --> 0:23:06,586
+order in which the destructors
+
+853
+00:23:06,706 --> 0:23:08,336
+are called is not guaranteed,
+
+854
+00:23:08,466 --> 0:23:08,606
+right.
+
+855
+00:23:08,606 --> 0:23:09,776
+In a lot of cases, you'll
+
+856
+00:23:09,776 --> 0:23:11,216
+destroy the logger before you
+
+857
+00:23:11,216 --> 0:23:11,826
+destroy the game.
+
+858
+00:23:11,826 --> 0:23:13,126
+What's going to happen, this is
+
+859
+00:23:13,126 --> 0:23:15,276
+going to crash, not good, right.
+
+860
+00:23:15,656 --> 0:23:16,876
+So, that's kind of a headache
+
+861
+00:23:16,876 --> 0:23:17,336
+right here.
+
+862
+00:23:17,336 --> 0:23:19,066
+And then dig a bit more into how
+
+863
+00:23:19,066 --> 0:23:21,366
+C++ works, and this is my mental
+
+864
+00:23:21,366 --> 0:23:23,236
+view of what that is, right.
+
+865
+00:23:23,546 --> 0:23:25,246
+So, you start adding thread
+
+866
+00:23:25,246 --> 0:23:26,056
+local storage.
+
+867
+00:23:26,056 --> 0:23:27,056
+You start adding threads.
+
+868
+00:23:27,326 --> 0:23:29,336
+There's like the graph for C++
+
+869
+00:23:29,336 --> 0:23:30,986
+destructor ordering is really
+
+870
+00:23:30,986 --> 0:23:31,746
+complicated, and it's
+
+871
+00:23:31,746 --> 0:23:33,036
+complicated enough that even
+
+872
+00:23:33,036 --> 0:23:34,136
+like compiler people who are
+
+873
+00:23:34,136 --> 0:23:35,126
+supposed to know how that works,
+
+874
+00:23:35,666 --> 0:23:36,336
+we have no idea.
+
+875
+00:23:36,336 --> 0:23:37,526
+I had to fix a bug a few months
+
+876
+00:23:37,526 --> 0:23:39,186
+ago in Clang where Clang would
+
+877
+00:23:39,186 --> 0:23:41,266
+in really rare cases crash upon
+
+878
+00:23:41,266 --> 0:23:42,546
+termination when trying to clean
+
+879
+00:23:42,546 --> 0:23:43,586
+itself up, right.
+
+880
+00:23:43,586 --> 0:23:44,766
+That's kind of embarrassing, but
+
+881
+00:23:44,766 --> 0:23:46,226
+it's just to show like it's not
+
+882
+00:23:46,226 --> 0:23:47,786
+like a trivial thing to get
+
+883
+00:23:47,786 --> 0:23:48,676
+destruction order correct.
+
+884
+00:23:48,676 --> 0:23:49,936
+All right.
+
+885
+00:23:50,206 --> 0:23:51,346
+And let's go a bit further.
+
+886
+00:23:51,346 --> 0:23:52,926
+On iOS, this is what the
+
+887
+00:23:52,926 --> 0:23:54,096
+lifecycle in an application
+
+888
+00:23:54,096 --> 0:23:54,446
+looks like.
+
+889
+00:23:54,446 --> 0:23:54,546
+Right.
+
+890
+00:23:54,766 --> 0:23:56,146
+There's not really a logical
+
+891
+00:23:56,206 --> 0:23:57,776
+time for the application to shut
+
+892
+00:23:57,846 --> 0:23:58,116
+down.
+
+893
+00:23:58,246 --> 0:23:59,226
+There's times when it goes to
+
+894
+00:23:59,286 --> 0:24:00,286
+foreground, it goes to
+
+895
+00:23:59,286 --> 0:24:00,286
+foreground, it goes to
+
+896
+00:24:00,286 --> 0:24:01,726
+background, and it goes away,
+
+897
+00:24:01,936 --> 0:24:03,706
+but like destruction, like the
+
+898
+00:24:03,706 --> 0:24:05,056
+application shutting down is not
+
+899
+00:24:05,056 --> 0:24:06,726
+really a thing that makes sense
+
+900
+00:24:06,796 --> 0:24:08,066
+with that type of lifecycle.
+
+901
+00:24:08,546 --> 0:24:09,976
+What you end up having is you
+
+902
+00:24:09,976 --> 0:24:11,776
+implement callbacks, something
+
+903
+00:24:11,776 --> 0:24:13,176
+like this, right, and then
+
+904
+00:24:13,176 --> 0:24:14,026
+you're told you're going to go
+
+905
+00:24:14,026 --> 0:24:14,776
+like in the background, you're
+
+906
+00:24:14,776 --> 0:24:15,516
+going to come back, something
+
+907
+00:24:15,516 --> 0:24:15,806
+like that.
+
+908
+00:24:16,076 --> 0:24:17,376
+Destructors don't really run in
+
+909
+00:24:17,376 --> 0:24:18,456
+a logical place.
+
+910
+00:24:19,086 --> 0:24:20,456
+So, if we go back to the code we
+
+911
+00:24:20,456 --> 0:24:21,156
+had earlier, right.
+
+912
+00:24:21,156 --> 0:24:21,906
+It's an application.
+
+913
+00:24:22,146 --> 0:24:22,856
+It has a logger.
+
+914
+00:24:23,326 --> 0:24:25,026
+This is what we wrote, well
+
+915
+00:24:25,706 --> 0:24:26,886
+there's not really a logical
+
+916
+00:24:26,886 --> 0:24:28,666
+time for this logger to flush
+
+917
+00:24:28,666 --> 0:24:29,676
+its buffer, right.
+
+918
+00:24:30,006 --> 0:24:32,596
+But the, like in the destructor.
+
+919
+00:24:32,696 --> 0:24:33,906
+What you really want to do is
+
+920
+00:24:33,906 --> 0:24:34,676
+say well, if you're going to go
+
+921
+00:24:34,676 --> 0:24:35,816
+in the background, please flush
+
+922
+00:24:35,816 --> 0:24:36,956
+the buffer first, right.
+
+923
+00:24:37,076 --> 0:24:38,466
+So you don't have any cleanup to
+
+924
+00:24:38,466 --> 0:24:39,466
+do in the destructor.
+
+925
+00:24:39,716 --> 0:24:40,766
+It's kind of silly to have a
+
+926
+00:24:40,766 --> 0:24:41,326
+destructor.
+
+927
+00:24:41,466 --> 0:24:42,306
+There's a bunch of code that
+
+928
+00:24:42,306 --> 0:24:43,406
+gets generated for nothing,
+
+929
+00:24:43,816 --> 0:24:43,986
+right.
+
+930
+00:24:44,206 --> 0:24:45,836
+So, we added, as of Xcode 11 is
+
+931
+00:24:45,836 --> 0:24:46,986
+an attribute that allows you to
+
+932
+00:24:46,986 --> 0:24:48,336
+say, hey, don't destroy this
+
+933
+00:24:48,336 --> 0:24:48,906
+thing, right.
+
+934
+00:24:48,966 --> 0:24:49,606
+It's global.
+
+935
+00:24:49,726 --> 0:24:50,346
+It doesn't need to have a
+
+936
+00:24:50,346 --> 0:24:50,806
+destructor.
+
+937
+00:24:51,506 --> 0:24:53,116
+Of course, you're still going to
+
+938
+00:24:53,116 --> 0:24:54,826
+flush manually when a callback
+
+939
+00:24:54,826 --> 0:24:55,916
+happens, and you can go into
+
+940
+00:24:55,916 --> 0:24:58,046
+your entire application in Xcode
+
+941
+00:24:58,046 --> 0:24:59,626
+and use the setting to do that
+
+942
+00:24:59,626 --> 0:25:01,006
+for the entire application.
+
+943
+00:24:59,626 --> 0:25:01,006
+for the entire application.
+
+944
+00:25:01,366 --> 0:25:02,756
+It seems pretty trivial, but it
+
+945
+00:25:02,756 --> 0:25:03,816
+gives you, depending on how much
+
+946
+00:25:03,816 --> 0:25:05,216
+C++ you use in your code, maybe
+
+947
+00:25:05,216 --> 0:25:06,356
+like a 1 percent code size
+
+948
+00:25:06,356 --> 0:25:07,316
+reduction, right, which is
+
+949
+00:25:07,356 --> 0:25:08,386
+pretty nice.
+
+950
+00:25:08,516 --> 0:25:10,626
+So, let's move on from code size
+
+951
+00:25:10,626 --> 0:25:11,836
+reduction and talk about
+
+952
+00:25:11,896 --> 0:25:13,616
+diagnostics instead, right.
+
+953
+00:25:13,616 --> 0:25:15,266
+So, I'm going to tell you about
+
+954
+00:25:15,266 --> 0:25:16,986
+five diagnostics that are all on
+
+955
+00:25:16,986 --> 0:25:19,176
+by default in Xcode 11.
+
+956
+00:25:19,666 --> 0:25:21,386
+The first one is
+
+957
+00:25:21,476 --> 0:25:23,276
+call-to-pure-virtual function
+
+958
+00:25:23,376 --> 0:25:24,786
+from a constructor or a
+
+959
+00:25:24,786 --> 0:25:25,266
+destructor.
+
+960
+00:25:25,666 --> 0:25:26,806
+What does that mean?
+
+961
+00:25:26,806 --> 0:25:27,556
+So let's write some good
+
+962
+00:25:27,556 --> 0:25:29,146
+object-oriented code starting
+
+963
+00:25:29,146 --> 0:25:29,656
+with a table.
+
+964
+00:25:29,656 --> 0:25:30,456
+All right.
+
+965
+00:25:30,636 --> 0:25:32,126
+So, I have this table here, and
+
+966
+00:25:32,126 --> 0:25:33,376
+I go and I want to have a pure
+
+967
+00:25:33,376 --> 0:25:34,586
+virtual function to illustrate
+
+968
+00:25:34,586 --> 0:25:35,246
+what I'm talking about.
+
+969
+00:25:35,246 --> 0:25:36,596
+So, I'm going to go and write
+
+970
+00:25:36,596 --> 0:25:38,216
+this galahad function that's
+
+971
+00:25:38,256 --> 0:25:39,946
+pure virtual, and I'm going to
+
+972
+00:25:39,946 --> 0:25:41,336
+have a destructor for the table,
+
+973
+00:25:41,336 --> 0:25:42,066
+and when the table gets
+
+974
+00:25:42,066 --> 0:25:42,726
+destroyed, I'm going to say,
+
+975
+00:25:42,726 --> 0:25:43,836
+galahad, please go and find the
+
+976
+00:25:43,836 --> 0:25:44,756
+grip, right.
+
+977
+00:25:45,186 --> 0:25:46,036
+It makes a lot of sense.
+
+978
+00:25:46,106 --> 0:25:48,116
+So, I do that, and I get a
+
+979
+00:25:48,156 --> 0:25:48,406
+warning.
+
+980
+00:25:48,916 --> 0:25:49,966
+The reason you get this new
+
+981
+00:25:49,966 --> 0:25:51,736
+warning as of Xcode 11 is
+
+982
+00:25:51,736 --> 0:25:53,336
+because calling a pure virtual
+
+983
+00:25:53,336 --> 0:25:54,566
+function from a constructor or a
+
+984
+00:25:54,566 --> 0:25:56,026
+destructor really doesn't make
+
+985
+00:25:56,026 --> 0:25:56,336
+sense.
+
+986
+00:25:56,336 --> 0:25:57,416
+There's nothing to call.
+
+987
+00:25:57,766 --> 0:25:59,716
+Because the table is the base
+
+988
+00:25:59,716 --> 0:26:01,046
+class, and the most derived
+
+989
+00:25:59,716 --> 0:26:01,046
+class, and the most derived
+
+990
+00:26:01,206 --> 0:26:02,316
+classes have already been
+
+991
+00:26:02,316 --> 0:26:04,236
+destroyed in this case, right.
+
+992
+00:26:04,236 --> 0:26:05,996
+So there's no implementation of
+
+993
+00:26:05,996 --> 0:26:07,586
+this galahad function to call
+
+994
+00:26:07,886 --> 0:26:08,296
+anymore.
+
+995
+00:26:08,986 --> 0:26:10,286
+So, how would you fix this?
+
+996
+00:26:10,286 --> 0:26:11,496
+Well, you could go, and in the
+
+997
+00:26:11,496 --> 0:26:12,596
+derived class that implements
+
+998
+00:26:12,596 --> 0:26:14,206
+galahad, its destructor could
+
+999
+00:26:14,266 --> 0:26:17,156
+call find galahad and return a
+
+1000
+00:26:17,156 --> 0:26:18,506
+grail or something like that.
+
+1001
+00:26:18,616 --> 0:26:19,996
+So that makes some sense.
+
+1002
+00:26:20,586 --> 0:26:20,966
+All right.
+
+1003
+00:26:21,236 --> 0:26:22,036
+Let's move onto another
+
+1004
+00:26:22,036 --> 0:26:22,656
+diagnostic.
+
+1005
+00:26:24,276 --> 0:26:25,416
+Memset with transposed
+
+1006
+00:26:25,416 --> 0:26:26,026
+arguments.
+
+1007
+00:26:26,526 --> 0:26:27,876
+So, say I have this struct
+
+1008
+00:26:27,876 --> 0:26:30,146
+called inbox, right, and I have
+
+1009
+00:26:30,146 --> 0:26:31,116
+a bunch of emails in it.
+
+1010
+00:26:31,236 --> 0:26:32,556
+I come back from vacation, and
+
+1011
+00:26:32,556 --> 0:26:33,666
+I'll get to inbox 0.
+
+1012
+00:26:33,836 --> 0:26:34,566
+What do I do?
+
+1013
+00:26:34,566 --> 0:26:35,696
+Well, I just memset the whole
+
+1014
+00:26:35,696 --> 0:26:36,406
+inbox to 0.
+
+1015
+00:26:36,746 --> 0:26:37,786
+Now, I wrote this code.
+
+1016
+00:26:37,786 --> 0:26:39,136
+Who can spot the bug?
+
+1017
+00:26:40,226 --> 0:26:40,376
+Right.
+
+1018
+00:26:40,376 --> 0:26:41,806
+I've transposed the argument to
+
+1019
+00:26:41,806 --> 0:26:42,336
+memset.
+
+1020
+00:26:42,626 --> 0:26:44,106
+Like, I make that mistake
+
+1021
+00:26:44,106 --> 0:26:45,236
+semi-frequently because I have
+
+1022
+00:26:45,236 --> 0:26:46,616
+no idea what the order of
+
+1023
+00:26:46,616 --> 0:26:47,806
+argument to memset is.
+
+1024
+00:26:47,806 --> 0:26:49,616
+Whether the value I'm trying to
+
+1025
+00:26:49,616 --> 0:26:52,096
+set destruct to is the first
+
+1026
+00:26:52,096 --> 0:26:53,536
+argument or whether it's the
+
+1027
+00:26:53,536 --> 0:26:54,526
+second one, right.
+
+1028
+00:26:54,836 --> 0:26:55,996
+Whether it's the size that I'm
+
+1029
+00:26:55,996 --> 0:26:56,636
+trying to set it to.
+
+1030
+00:26:56,636 --> 0:26:58,176
+And so we now detect that as
+
+1031
+00:26:58,176 --> 0:26:59,296
+Xcode 11, and we tell you about
+
+1032
+00:26:59,296 --> 0:26:59,396
+it.
+
+1033
+00:26:59,696 --> 0:27:00,366
+How do you fix it?
+
+1034
+00:26:59,696 --> 0:27:00,366
+How do you fix it?
+
+1035
+00:27:00,366 --> 0:27:01,236
+It's pretty simple; you just
+
+1036
+00:27:01,316 --> 0:27:02,116
+flip the arguments around,
+
+1037
+00:27:02,786 --> 0:27:02,966
+right.
+
+1038
+00:27:03,476 --> 0:27:04,746
+Now, one thing you might want to
+
+1039
+00:27:04,746 --> 0:27:06,166
+consider here is instead of
+
+1040
+00:27:06,166 --> 0:27:07,446
+using memset, which is hard to
+
+1041
+00:27:07,446 --> 0:27:08,736
+get, and even like look at that
+
+1042
+00:27:08,736 --> 0:27:09,696
+code, it's still not obvious
+
+1043
+00:27:09,696 --> 0:27:10,886
+that it's correct, right.
+
+1044
+00:27:11,256 --> 0:27:12,016
+What you might want to do
+
+1045
+00:27:12,016 --> 0:27:13,196
+instead is use something like
+
+1046
+00:27:13,196 --> 0:27:13,696
+std::fill.
+
+1047
+00:27:13,696 --> 0:27:15,006
+In some cases it makes sense.
+
+1048
+00:27:15,356 --> 0:27:16,256
+You rewrite the code to look
+
+1049
+00:27:16,256 --> 0:27:18,306
+something like that, and now
+
+1050
+00:27:18,306 --> 0:27:19,306
+it's much harder to get wrong,
+
+1051
+00:27:19,306 --> 0:27:20,996
+and it's easier to get what it's
+
+1052
+00:27:21,046 --> 0:27:21,296
+doing.
+
+1053
+00:27:21,686 --> 0:27:21,886
+Right.
+
+1054
+00:27:21,886 --> 0:27:22,466
+So, that's kind of neat.
+
+1055
+00:27:23,266 --> 0:27:24,806
+The third warning I want to tell
+
+1056
+00:27:24,806 --> 0:27:27,536
+you about, return of std move.
+
+1057
+00:27:27,666 --> 0:27:29,356
+So, move is a bit complicated in
+
+1058
+00:27:29,356 --> 0:27:30,766
+C++, but there's a bunch of
+
+1059
+00:27:30,766 --> 0:27:32,406
+diagnostics over time that help
+
+1060
+00:27:32,406 --> 0:27:33,686
+you really use it the proper
+
+1061
+00:27:33,686 --> 0:27:34,496
+way, right.
+
+1062
+00:27:34,856 --> 0:27:35,686
+So, again, let's write an
+
+1063
+00:27:35,686 --> 0:27:37,196
+object-oriented code to
+
+1064
+00:27:37,196 --> 0:27:38,136
+understand what I'm talking
+
+1065
+00:27:38,136 --> 0:27:38,516
+about here.
+
+1066
+00:27:38,676 --> 0:27:40,626
+So, say I have three structs,
+
+1067
+00:27:40,626 --> 0:27:42,636
+lion, goat, and snake, and love
+
+1068
+00:27:42,636 --> 0:27:43,586
+object orientation, I'm going to
+
+1069
+00:27:43,586 --> 0:27:44,696
+compose them into a chimara,
+
+1070
+00:27:45,206 --> 0:27:45,376
+right.
+
+1071
+00:27:45,886 --> 0:27:46,386
+Good code.
+
+1072
+00:27:46,876 --> 0:27:49,356
+So, I go in and assign
+
+1073
+00:27:49,516 --> 0:27:50,536
+bellerophon and I want to go
+
+1074
+00:27:50,536 --> 0:27:51,746
+slay the chimara, and then
+
+1075
+00:27:51,746 --> 0:27:52,986
+return with proof that I've
+
+1076
+00:27:52,986 --> 0:27:53,376
+slain it.
+
+1077
+00:27:53,676 --> 0:27:55,096
+Well, I now have a diagnostic
+
+1078
+00:27:55,096 --> 0:27:56,146
+that tells me, hey, you know
+
+1079
+00:27:56,146 --> 0:27:56,496
+what?
+
+1080
+00:27:56,706 --> 0:27:58,366
+Like you're returning a chimara,
+
+1081
+00:27:58,706 --> 0:28:00,556
+but you're just, like the return
+
+1082
+00:27:58,706 --> 0:28:00,556
+but you're just, like the return
+
+1083
+00:28:00,636 --> 0:28:01,536
+type that you're returning is
+
+1084
+00:28:01,536 --> 0:28:02,936
+actually just a goat, right.
+
+1085
+00:28:02,936 --> 0:28:03,916
+So, I'm going to take that
+
+1086
+00:28:03,916 --> 0:28:05,196
+vector, copy it over, because it
+
+1087
+00:28:05,196 --> 0:28:06,606
+doesn't make sense to slice out
+
+1088
+00:28:06,656 --> 0:28:08,186
+the vector out of the chimara
+
+1089
+00:28:08,186 --> 0:28:10,086
+and put it into a goat instead.
+
+1090
+00:28:10,316 --> 0:28:12,676
+Right. So, what you're doing
+
+1091
+00:28:12,676 --> 0:28:13,956
+here, the code you wrote is
+
+1092
+00:28:13,956 --> 0:28:14,726
+basically what you've been
+
+1093
+00:28:14,726 --> 0:28:15,916
+trained to do related to
+
+1094
+00:28:15,916 --> 0:28:16,586
+std::move.
+
+1095
+00:28:16,786 --> 0:28:18,576
+You're trained to rely on
+
+1096
+00:28:18,576 --> 0:28:19,236
+copy elision, right.
+
+1097
+00:28:19,446 --> 0:28:21,496
+And most times, you don't need
+
+1098
+00:28:21,496 --> 0:28:22,586
+to put a std::move when you do
+
+1099
+00:28:22,586 --> 0:28:22,946
+return.
+
+1100
+00:28:22,946 --> 0:28:24,516
+In this case you do because it
+
+1101
+00:28:24,516 --> 0:28:25,416
+does a copy, right.
+
+1102
+00:28:25,416 --> 0:28:26,596
+The language says returning,
+
+1103
+00:28:26,596 --> 0:28:27,866
+just slicing out a part of the
+
+1104
+00:28:27,866 --> 0:28:29,416
+class is kind of weird anyways.
+
+1105
+00:28:29,666 --> 0:28:31,026
+Move shouldn't be implicit,
+
+1106
+00:28:31,596 --> 0:28:31,806
+right.
+
+1107
+00:28:31,806 --> 0:28:32,966
+So the warning tells that you
+
+1108
+00:28:33,016 --> 0:28:34,606
+probably don't want to do this,
+
+1109
+00:28:34,886 --> 0:28:35,076
+right.
+
+1110
+00:28:35,356 --> 0:28:36,956
+So, first way to fix it, you go
+
+1111
+00:28:36,956 --> 0:28:38,106
+in, you call std::move.
+
+1112
+00:28:39,596 --> 0:28:39,956
+Right.
+
+1113
+00:28:39,956 --> 0:28:41,806
+Now, that will move the vector
+
+1114
+00:28:41,806 --> 0:28:43,186
+into the goat, right.
+
+1115
+00:28:43,186 --> 0:28:44,646
+So it's much more efficient to
+
+1116
+00:28:44,646 --> 0:28:45,476
+do the move this way.
+
+1117
+00:28:46,096 --> 0:28:47,816
+So, another thing you might want
+
+1118
+00:28:47,816 --> 0:28:49,136
+to do is well instead of
+
+1119
+00:28:49,136 --> 0:28:50,426
+returning just the goat and
+
+1120
+00:28:50,426 --> 0:28:51,716
+having like people trust you
+
+1121
+00:28:51,716 --> 0:28:52,666
+that that's actually a chimara,
+
+1122
+00:28:52,896 --> 0:28:53,796
+well you can just return a
+
+1123
+00:28:53,796 --> 0:28:54,116
+chimara.
+
+1124
+00:28:54,116 --> 0:28:55,256
+That makes sense, and here you
+
+1125
+00:28:55,256 --> 0:28:55,986
+get copy elision, right.
+
+1126
+00:28:56,316 --> 0:28:57,826
+If you were to add std::move,
+
+1127
+00:28:57,826 --> 0:28:58,836
+the compiler would tell you that
+
+1128
+00:28:58,836 --> 0:29:00,036
+you're pessimizing things by
+
+1129
+00:28:58,836 --> 0:29:00,036
+you're pessimizing things by
+
+1130
+00:29:00,036 --> 0:29:00,736
+adding the move.
+
+1131
+00:29:01,446 --> 0:29:02,276
+Another thing you might want to
+
+1132
+00:29:02,276 --> 0:29:03,166
+do because you're not sure if
+
+1133
+00:29:03,166 --> 0:29:04,416
+you're going to get a chimara or
+
+1134
+00:29:04,416 --> 0:29:05,766
+not is you might want to return
+
+1135
+00:29:05,766 --> 0:29:06,876
+a std::optional with chimara,
+
+1136
+00:29:06,876 --> 0:29:07,836
+which again does the right
+
+1137
+00:29:07,836 --> 0:29:08,026
+thing.
+
+1138
+00:29:08,026 --> 0:29:09,586
+It's not slicing things out of
+
+1139
+00:29:09,586 --> 0:29:10,616
+the class and so the language
+
+1140
+00:29:10,616 --> 0:29:12,446
+says, yes, this gets implicit
+
+1141
+00:29:13,416 --> 0:29:13,666
+copy elision.
+
+1142
+00:29:13,666 --> 0:29:13,886
+All right.
+
+1143
+00:29:14,186 --> 0:29:15,216
+Another diagnostic I want to
+
+1144
+00:29:15,216 --> 0:29:16,026
+tell you about,
+
+1145
+00:29:16,026 --> 0:29:17,176
+size-of-pointer-div.
+
+1146
+00:29:17,876 --> 0:29:18,616
+What does this look like?
+
+1147
+00:29:18,616 --> 0:29:20,126
+Well, say I write this code.
+
+1148
+00:29:20,716 --> 0:29:21,676
+Totally fine code.
+
+1149
+00:29:21,916 --> 0:29:23,736
+No problem right now, right.
+
+1150
+00:29:23,956 --> 0:29:24,886
+So, what I'm saying is I have
+
+1151
+00:29:24,886 --> 0:29:25,426
+this array.
+
+1152
+00:29:25,936 --> 0:29:27,546
+Take the size of the array
+
+1153
+00:29:27,546 --> 0:29:29,286
+divided by the 0th element, and
+
+1154
+00:29:29,286 --> 0:29:30,276
+that gives you the number of
+
+1155
+00:29:30,276 --> 0:29:31,416
+elements inside the array.
+
+1156
+00:29:31,816 --> 0:29:33,236
+That's really standard code for
+
+1157
+00:29:33,236 --> 0:29:36,166
+C style code, right, a really
+
+1158
+00:29:36,166 --> 0:29:36,876
+common idiom.
+
+1159
+00:29:36,876 --> 0:29:38,716
+So, the problem here is if I
+
+1160
+00:29:38,716 --> 0:29:40,876
+refactor this code and I do
+
+1161
+00:29:40,876 --> 0:29:41,606
+something like this.
+
+1162
+00:29:41,606 --> 0:29:42,976
+So, I pass the array as a
+
+1163
+00:29:42,976 --> 0:29:44,036
+parameter instead.
+
+1164
+00:29:44,596 --> 0:29:46,276
+Well, what happens here is that
+
+1165
+00:29:46,356 --> 0:29:48,366
+the C rules say that the array
+
+1166
+00:29:48,366 --> 0:29:49,596
+now decays to a pointer.
+
+1167
+00:29:49,596 --> 0:29:51,296
+And the new diagnostic tells
+
+1168
+00:29:51,296 --> 0:29:52,456
+you, hey, this probably doesn't
+
+1169
+00:29:52,456 --> 0:29:53,436
+do what you want, right.
+
+1170
+00:29:53,436 --> 0:29:54,826
+This won't return you the number
+
+1171
+00:29:54,886 --> 0:29:55,836
+of elements in the array.
+
+1172
+00:29:56,646 --> 0:29:58,096
+So, that's a problem.
+
+1173
+00:29:58,576 --> 0:29:59,856
+We catch it.
+
+1174
+00:29:59,856 --> 0:30:01,376
+How would you actually fix it?
+
+1175
+00:29:59,856 --> 0:30:01,376
+How would you actually fix it?
+
+1176
+00:30:01,376 --> 0:30:02,836
+Well, you could have written the
+
+1177
+00:30:02,836 --> 0:30:03,606
+code a bit differently.
+
+1178
+00:30:03,606 --> 0:30:05,116
+So, instead of using that idiom,
+
+1179
+00:30:05,716 --> 0:30:06,686
+right, you could have gone in
+
+1180
+00:30:06,986 --> 0:30:07,836
+and used something like
+
+1181
+00:30:07,836 --> 0:30:09,136
+std::size, which means that
+
+1182
+00:30:09,256 --> 0:30:10,886
+instead of refactoring the code
+
+1183
+00:30:10,966 --> 0:30:12,896
+wrongly, you would have caught
+
+1184
+00:30:12,896 --> 0:30:13,916
+that problem when you tried to
+
+1185
+00:30:13,916 --> 0:30:14,676
+refactor it, right.
+
+1186
+00:30:14,676 --> 0:30:16,056
+So std::size just does the right
+
+1187
+00:30:16,136 --> 0:30:16,576
+thing here.
+
+1188
+00:30:16,576 --> 0:30:17,756
+So that's a kind of a neat
+
+1189
+00:30:17,756 --> 0:30:19,996
+warning that catches errors.
+
+1190
+00:30:20,106 --> 0:30:22,006
+The last diagnostic I want to
+
+1191
+00:30:22,006 --> 0:30:22,706
+tell you about is
+
+1192
+00:30:22,706 --> 0:30:24,016
+defaulted-function-delete.
+
+1193
+00:30:24,116 --> 0:30:25,626
+So, again, say I write this
+
+1194
+00:30:25,626 --> 0:30:27,056
+beautiful code here, all right.
+
+1195
+00:30:27,056 --> 0:30:27,726
+So, I have this struct
+
+1196
+00:30:27,726 --> 0:30:28,376
+aberration.
+
+1197
+00:30:28,456 --> 0:30:29,746
+It has some floating eyestalks,
+
+1198
+00:30:29,746 --> 0:30:31,286
+some eyes and mouth, and I'm
+
+1199
+00:30:31,286 --> 0:30:32,346
+like I want to default
+
+1200
+00:30:32,346 --> 0:30:32,866
+aberration.
+
+1201
+00:30:32,976 --> 0:30:33,796
+Please give me a default
+
+1202
+00:30:33,796 --> 0:30:34,206
+aberration.
+
+1203
+00:30:34,616 --> 0:30:35,706
+Well, the compiler comes in now
+
+1204
+00:30:35,706 --> 0:30:37,026
+and tells you, hey I don't know
+
+1205
+00:30:37,026 --> 0:30:38,156
+what a default aberration is.
+
+1206
+00:30:38,156 --> 0:30:39,656
+Why not? Well, I have a float
+
+1207
+00:30:39,656 --> 0:30:40,596
+reference, and I can't
+
+1208
+00:30:40,596 --> 0:30:42,206
+synthesize the fault constructor
+
+1209
+00:30:42,206 --> 0:30:43,106
+for that reference.
+
+1210
+00:30:43,636 --> 0:30:45,466
+It's a type that I can't default
+
+1211
+00:30:45,616 --> 0:30:46,166
+create.
+
+1212
+00:30:46,616 --> 0:30:46,816
+Right.
+
+1213
+00:30:47,096 --> 0:30:48,076
+So there's a bunch of other
+
+1214
+00:30:48,076 --> 0:30:49,606
+ways, not just references in
+
+1215
+00:30:49,606 --> 0:30:51,226
+C++, to create things that can't
+
+1216
+00:30:51,226 --> 0:30:52,506
+be default constructed, and the
+
+1217
+00:30:52,506 --> 0:30:53,826
+compiler now tells you about it.
+
+1218
+00:30:53,966 --> 0:30:54,956
+If you ask for a default
+
+1219
+00:30:54,956 --> 0:30:56,116
+constructor, and I can't give
+
+1220
+00:30:56,116 --> 0:30:57,106
+you a default constructor, it'll
+
+1221
+00:30:57,106 --> 0:30:57,416
+tell you.
+
+1222
+00:30:57,916 --> 0:30:58,846
+So, how would you fix this?
+
+1223
+00:30:58,846 --> 0:31:00,606
+Well, one way is to just create
+
+1224
+00:30:58,846 --> 0:31:00,606
+Well, one way is to just create
+
+1225
+00:31:01,096 --> 0:31:02,416
+the constructor yourself.
+
+1226
+00:31:02,536 --> 0:31:04,066
+As you pass in the eyestalks,
+
+1227
+00:31:04,066 --> 0:31:04,936
+that creates a reference
+
+1228
+00:31:04,936 --> 0:31:05,426
+automatically.
+
+1229
+00:31:05,776 --> 0:31:06,906
+That's kind of neat.
+
+1230
+00:31:06,906 --> 0:31:08,786
+But personally, I think like
+
+1231
+00:31:08,876 --> 0:31:09,736
+beauty is in the eye of the
+
+1232
+00:31:09,736 --> 0:31:11,306
+beholder, but maybe this
+
+1233
+00:31:11,306 --> 0:31:12,346
+aberration should be coded
+
+1234
+00:31:12,346 --> 0:31:14,186
+differently and not have a float
+
+1235
+00:31:14,186 --> 0:31:15,016
+reference, and maybe you should
+
+1236
+00:31:15,016 --> 0:31:16,226
+just do this instead, right.
+
+1237
+00:31:16,226 --> 0:31:17,606
+That makes a lot of sense,
+
+1238
+00:31:17,876 --> 0:31:18,066
+right.
+
+1239
+00:31:18,246 --> 0:31:19,906
+So, now I can default create to
+
+1240
+00:31:19,906 --> 0:31:20,556
+the aberration.
+
+1241
+00:31:21,146 --> 0:31:21,516
+All right.
+
+1242
+00:31:21,516 --> 0:31:23,126
+So, that was the diagnostics I
+
+1243
+00:31:23,126 --> 0:31:23,876
+wanted to the tell you about.
+
+1244
+00:31:23,876 --> 0:31:25,156
+Now, I'm going to hand it off to
+
+1245
+00:31:25,196 --> 0:31:26,176
+Devin, who's going to tell you
+
+1246
+00:31:26,176 --> 0:31:27,406
+about New Static Analyzer
+
+1247
+00:31:27,436 --> 0:31:27,956
+Checks.
+
+1248
+00:31:28,516 --> 0:31:32,546
+[ Applause ]
+
+1249
+00:31:33,046 --> 0:31:34,106
+&gt;&gt; Up until this point in the
+
+1250
+00:31:34,106 --> 0:31:35,676
+talk, the warnings that we've
+
+1251
+00:31:35,676 --> 0:31:36,956
+told you about have come from
+
+1252
+00:31:36,956 --> 0:31:38,476
+the compiler when you build.
+
+1253
+00:31:39,186 --> 0:31:40,566
+But we have other tools that can
+
+1254
+00:31:40,566 --> 0:31:41,556
+help you find bugs.
+
+1255
+00:31:42,516 --> 0:31:43,806
+One of them is the static
+
+1256
+00:31:43,806 --> 0:31:44,286
+analyzer.
+
+1257
+00:31:44,876 --> 0:31:48,656
+The analyzer finds deep bugs in
+
+1258
+00:31:48,656 --> 0:31:50,026
+your code, and it can do it
+
+1259
+00:31:50,076 --> 0:31:51,656
+without even running your app.
+
+1260
+00:31:52,476 --> 0:31:53,966
+This makes it great at testing
+
+1261
+00:31:54,176 --> 0:31:54,956
+and catching those
+
+1262
+00:31:55,136 --> 0:31:57,156
+hard-to-reproduce bugs that you
+
+1263
+00:31:57,156 --> 0:31:58,886
+never even thought to write
+
+1264
+00:31:58,886 --> 0:31:59,386
+tests for.
+
+1265
+00:32:00,136 --> 0:32:01,496
+And it can even show you the
+
+1266
+00:32:01,496 --> 0:32:03,556
+sequence of steps along which
+
+1267
+00:32:03,586 --> 0:32:04,456
+the bug manifests.
+
+1268
+00:32:05,206 --> 0:32:06,646
+This makes it easy to understand
+
+1269
+00:32:06,646 --> 0:32:08,886
+the problem and fix it.
+
+1270
+00:32:09,996 --> 0:32:11,486
+Today, I'm going to tell you
+
+1271
+00:32:11,516 --> 0:32:13,606
+about three new C++ checks that
+
+1272
+00:32:13,606 --> 0:32:14,066
+we've added.
+
+1273
+00:32:14,856 --> 0:32:16,346
+A check for use after move bugs,
+
+1274
+00:32:16,896 --> 0:32:18,216
+a check for dangling C string
+
+1275
+00:32:18,216 --> 0:32:20,506
+pointers with C++ std::string
+
+1276
+00:32:20,536 --> 0:32:22,246
+and to check for reference
+
+1277
+00:32:22,246 --> 0:32:23,606
+counting bugs in the new
+
+1278
+00:32:23,606 --> 0:32:25,556
+DriverKit and in IOKit.
+
+1279
+00:32:26,866 --> 0:32:28,446
+Let's start with use after move.
+
+1280
+00:32:29,116 --> 0:32:34,296
+In C++, moves allow you to avoid
+
+1281
+00:32:34,296 --> 0:32:35,626
+unwanted copies.
+
+1282
+00:32:35,626 --> 0:32:36,956
+And here's an example of where
+
+1283
+00:32:36,956 --> 0:32:39,266
+you might want to do that.
+
+1284
+00:32:39,266 --> 0:32:40,476
+Let's suppose that I have
+
+1285
+00:32:40,526 --> 0:32:42,466
+written a novel, and for those
+
+1286
+00:32:42,466 --> 0:32:43,526
+of you who know me, I can be
+
+1287
+00:32:43,566 --> 0:32:44,586
+quite verbose.
+
+1288
+00:32:45,056 --> 0:32:46,716
+And so, I don't want to pay the
+
+1289
+00:32:46,716 --> 0:32:48,656
+performance cost of copying the
+
+1290
+00:32:48,656 --> 0:32:50,566
+entire text of the novel when I
+
+1291
+00:32:50,566 --> 0:32:51,846
+hand it off to my publisher.
+
+1292
+00:32:52,466 --> 0:32:54,446
+So, I'll use a move.
+
+1293
+00:32:55,786 --> 0:32:57,396
+This moves from the source
+
+1294
+00:32:57,396 --> 0:33:00,526
+variable rather than copying it.
+
+1295
+00:32:57,396 --> 0:33:00,526
+variable rather than copying it.
+
+1296
+00:33:00,526 --> 0:33:01,886
+And what's great about this is
+
+1297
+00:33:01,886 --> 0:33:03,866
+that it allows me to enforce a
+
+1298
+00:33:03,866 --> 0:33:06,056
+unique ownership semantics where
+
+1299
+00:33:06,056 --> 0:33:07,836
+there's no confusion about who
+
+1300
+00:33:07,836 --> 0:33:08,986
+has the latest version of the
+
+1301
+00:33:08,986 --> 0:33:10,936
+novel, me or my publisher.
+
+1302
+00:33:12,236 --> 0:33:13,666
+But I do need to be careful
+
+1303
+00:33:13,666 --> 0:33:16,106
+here, and that's because moves
+
+1304
+00:33:16,106 --> 0:33:17,316
+leave the source in an
+
+1305
+00:33:17,386 --> 0:33:18,856
+unspecified state.
+
+1306
+00:33:19,286 --> 0:33:24,026
+Let's see how this can go wrong.
+
+1307
+00:33:24,226 --> 0:33:26,146
+Suppose I were to add a call to
+
+1308
+00:33:26,146 --> 0:33:28,226
+spell check my novel after I
+
+1309
+00:33:28,226 --> 0:33:29,406
+published it.
+
+1310
+00:33:30,896 --> 0:33:32,656
+This can have unexpected results
+
+1311
+00:33:32,656 --> 0:33:34,526
+or even crash depending on the
+
+1312
+00:33:34,526 --> 0:33:36,266
+implementation of the book type.
+
+1313
+00:33:37,626 --> 0:33:39,666
+Fortunately, the static analyzer
+
+1314
+00:33:39,856 --> 0:33:41,226
+can now catch this bug.
+
+1315
+00:33:41,826 --> 0:33:44,916
+To fix this, what I should do is
+
+1316
+00:33:44,976 --> 0:33:45,986
+reorder the code.
+
+1317
+00:33:46,796 --> 0:33:48,676
+It really does make sense to
+
+1318
+00:33:48,676 --> 0:33:50,776
+spell check the novel before I
+
+1319
+00:33:50,776 --> 0:33:52,046
+publish it.
+
+1320
+00:33:53,456 --> 0:33:54,466
+All right.
+
+1321
+00:33:55,556 --> 0:33:57,386
+Let's move on to dangling
+
+1322
+00:33:57,846 --> 0:34:00,736
+pointers from std::string.
+
+1323
+00:33:57,846 --> 0:34:00,736
+pointers from std::string.
+
+1324
+00:34:00,916 --> 0:34:02,886
+Those of you who have mixed C++
+
+1325
+00:34:02,886 --> 0:34:04,616
+and C strings know that this can
+
+1326
+00:34:04,616 --> 0:34:07,056
+be really tricky, and here's an
+
+1327
+00:34:07,056 --> 0:34:07,456
+example.
+
+1328
+00:34:08,076 --> 0:34:10,156
+I've created this
+
+1329
+00:34:10,216 --> 0:34:11,606
+generateGreeting function.
+
+1330
+00:34:11,656 --> 0:34:13,746
+It takes in a C string name and
+
+1331
+00:34:13,746 --> 0:34:15,706
+returns a C string greeting.
+
+1332
+00:34:16,676 --> 0:34:17,966
+And in the implementation of
+
+1333
+00:34:17,966 --> 0:34:19,626
+this function, I've chosen to
+
+1334
+00:34:19,626 --> 0:34:22,186
+use a C++ std::string because
+
+1335
+00:34:22,186 --> 0:34:23,485
+it's easier to manipulate.
+
+1336
+00:34:24,646 --> 0:34:25,866
+I declare a std::string local
+
+1337
+00:34:25,866 --> 0:34:26,946
+variable, initialize it to
+
+1338
+00:34:26,946 --> 0:34:30,096
+hello, append the passed in name
+
+1339
+00:34:30,766 --> 0:34:32,746
+and then, because the function
+
+1340
+00:34:32,746 --> 0:34:35,456
+returns a C string, I call the c
+
+1341
+00:34:35,456 --> 0:34:38,376
+str method on the C++ string,
+
+1342
+00:34:38,576 --> 0:34:40,016
+and that's where things start to
+
+1343
+00:34:40,016 --> 0:34:40,556
+go wrong.
+
+1344
+00:34:41,485 --> 0:34:42,896
+And the key thing to note here
+
+1345
+00:34:43,156 --> 0:34:45,326
+is that c str returns an inner
+
+1346
+00:34:45,406 --> 0:34:47,585
+pointer to a buffer inside of
+
+1347
+00:34:47,585 --> 0:34:48,335
+the std::string.
+
+1348
+00:34:49,456 --> 0:34:51,476
+And this buffer is deallocated
+
+1349
+00:34:51,716 --> 0:34:53,196
+when the std::string goes out of
+
+1350
+00:34:53,196 --> 0:34:53,525
+scope.
+
+1351
+00:34:54,025 --> 0:34:56,876
+What this means is that I'm
+
+1352
+00:34:56,876 --> 0:34:58,556
+returning a pointer to memory
+
+1353
+00:34:58,686 --> 0:35:00,836
+that will be deallocated, and
+
+1354
+00:34:58,686 --> 0:35:00,836
+that will be deallocated, and
+
+1355
+00:35:00,836 --> 0:35:02,656
+then when I use that memory, the
+
+1356
+00:35:02,656 --> 0:35:03,886
+program could crash.
+
+1357
+00:35:04,416 --> 0:35:07,366
+The static analyzer can now
+
+1358
+00:35:07,366 --> 0:35:08,146
+catch this bug.
+
+1359
+00:35:08,706 --> 0:35:11,896
+So how should I fix this?
+
+1360
+00:35:12,936 --> 0:35:14,846
+Well, we recommend matching the
+
+1361
+00:35:14,846 --> 0:35:17,096
+lifetimes of your C++ and C
+
+1362
+00:35:17,096 --> 0:35:17,696
+strings.
+
+1363
+00:35:18,906 --> 0:35:20,116
+Here, I have changed the
+
+1364
+00:35:20,116 --> 0:35:21,616
+generateGreeting function to
+
+1365
+00:35:21,616 --> 0:35:24,276
+return a std::string, and then I
+
+1366
+00:35:24,276 --> 0:35:26,676
+store the result into a local
+
+1367
+00:35:27,096 --> 0:35:27,346
+variable.
+
+1368
+00:35:28,196 --> 0:35:29,696
+This means that when I call the
+
+1369
+00:35:29,696 --> 0:35:32,406
+c str method that local variable
+
+1370
+00:35:32,726 --> 0:35:34,446
+stays in scope for as long as I
+
+1371
+00:35:34,446 --> 0:35:35,646
+need to use the C string.
+
+1372
+00:35:36,196 --> 0:35:38,306
+In essence, what I have done
+
+1373
+00:35:38,306 --> 0:35:39,526
+here is change the scope of the
+
+1374
+00:35:39,526 --> 0:35:41,556
+std::string to last as long as I
+
+1375
+00:35:41,556 --> 0:35:42,486
+need it.
+
+1376
+00:35:43,196 --> 0:35:45,746
+And I will note that it's often
+
+1377
+00:35:45,746 --> 0:35:47,716
+easier to stay within the C++
+
+1378
+00:35:47,716 --> 0:35:50,586
+world as long as possible and
+
+1379
+00:35:50,586 --> 0:35:51,926
+only get the C string out at
+
+1380
+00:35:51,986 --> 0:35:53,766
+exactly the moment where I need
+
+1381
+00:35:54,376 --> 0:35:54,446
+it.
+
+1382
+00:35:56,256 --> 0:35:56,796
+All right.
+
+1383
+00:35:57,316 --> 0:35:59,316
+So, let's move on to the third
+
+1384
+00:35:59,316 --> 0:36:00,346
+and final check I'm going to
+
+1385
+00:35:59,316 --> 0:36:00,346
+and final check I'm going to
+
+1386
+00:36:00,346 --> 0:36:02,046
+tell you about, for Reference
+
+1387
+00:36:02,046 --> 0:36:04,736
+Counting bugs in DriverKit and
+
+1388
+00:36:05,616 --> 0:36:05,786
+IOKit.
+
+1389
+00:36:07,676 --> 0:36:09,386
+These driver frameworks use
+
+1390
+00:36:09,456 --> 0:36:11,676
+Manual Retain/Release for their
+
+1391
+00:36:11,676 --> 0:36:12,736
+memory management.
+
+1392
+00:36:13,396 --> 0:36:14,436
+And for those of you who are
+
+1393
+00:36:14,436 --> 0:36:16,386
+familiar with CoreFoundation or
+
+1394
+00:36:16,386 --> 0:36:17,806
+with Objective-C without
+
+1395
+00:36:17,806 --> 0:36:18,986
+Automated Reference Counting,
+
+1396
+00:36:19,296 --> 0:36:20,556
+it's very similar.
+
+1397
+00:36:22,006 --> 0:36:23,396
+Manual Retain/Release gives you
+
+1398
+00:36:23,396 --> 0:36:25,066
+a lot of control over memory
+
+1399
+00:36:25,066 --> 0:36:27,096
+management, but it does come
+
+1400
+00:36:27,096 --> 0:36:27,826
+with some additional
+
+1401
+00:36:27,826 --> 0:36:28,786
+responsibilities.
+
+1402
+00:36:30,216 --> 0:36:31,646
+You need to be careful to not
+
+1403
+00:36:31,646 --> 0:36:34,156
+over release memory, because if
+
+1404
+00:36:34,156 --> 0:36:35,626
+you do so, it could be
+
+1405
+00:36:35,626 --> 0:36:37,576
+deallocated, and then when you
+
+1406
+00:36:37,576 --> 0:36:39,636
+use it, your program could
+
+1407
+00:36:41,296 --> 0:36:41,756
+crash.
+
+1408
+00:36:42,056 --> 0:36:43,096
+Similarly, you should not
+
+1409
+00:36:43,096 --> 0:36:44,256
+under-release your memory
+
+1410
+00:36:44,666 --> 0:36:46,176
+because the memory could leak.
+
+1411
+00:36:46,746 --> 0:36:50,046
+Let me give you an example of a
+
+1412
+00:36:50,046 --> 0:36:50,386
+leak.
+
+1413
+00:36:51,756 --> 0:36:53,016
+Here, I've written some code
+
+1414
+00:36:53,146 --> 0:36:55,576
+that allocates a new array of
+
+1415
+00:36:55,576 --> 0:36:56,206
+devices.
+
+1416
+00:36:56,906 --> 0:36:58,596
+It then fills in those devices
+
+1417
+00:36:58,926 --> 0:36:59,796
+and sets them up.
+
+1418
+00:37:01,206 --> 0:37:02,586
+And the key thing to note here
+
+1419
+00:37:02,926 --> 0:37:04,766
+is that OSArray::withCapacity,
+
+1420
+00:37:05,296 --> 0:37:06,926
+it allocates a new array and
+
+1421
+00:37:06,926 --> 0:37:08,446
+returns it retained.
+
+1422
+00:37:09,766 --> 0:37:11,566
+What this means is that the
+
+1423
+00:37:11,566 --> 0:37:13,526
+array will leak if it's not
+
+1424
+00:37:13,586 --> 0:37:14,096
+released.
+
+1425
+00:37:14,636 --> 0:37:18,316
+The analyzer can now catch this
+
+1426
+00:37:18,386 --> 0:37:18,656
+bug.
+
+1427
+00:37:19,226 --> 0:37:21,216
+So, how should I fix this?
+
+1428
+00:37:22,116 --> 0:37:24,056
+All I need to do is make sure to
+
+1429
+00:37:24,276 --> 0:37:26,046
+release the array when I'm done
+
+1430
+00:37:26,766 --> 0:37:28,306
+with it.
+
+1431
+00:37:29,066 --> 0:37:31,236
+Now, the memory management rules
+
+1432
+00:37:31,236 --> 0:37:32,896
+are all based around naming
+
+1433
+00:37:32,896 --> 0:37:34,786
+conventions, and these are very
+
+1434
+00:37:34,786 --> 0:37:36,426
+similar in spirit to
+
+1435
+00:37:36,426 --> 0:37:38,166
+CoreFoundation and Objective-C
+
+1436
+00:37:38,166 --> 0:37:39,566
+under Manual Retain/Release.
+
+1437
+00:37:40,546 --> 0:37:42,516
+But I do want to point out one
+
+1438
+00:37:42,516 --> 0:37:44,436
+key difference for IOKit and
+
+1439
+00:37:44,436 --> 0:37:47,426
+DriverKit, and that is that the
+
+1440
+00:37:47,426 --> 0:37:49,356
+default convention is to return
+
+1441
+00:37:49,506 --> 0:37:50,056
+retained.
+
+1442
+00:37:50,516 --> 0:37:51,786
+Or, as we sometimes call it, at
+
+1443
+00:37:51,946 --> 0:37:52,586
++1.
+
+1444
+00:37:53,726 --> 0:37:55,526
+What this means is that clients
+
+1445
+00:37:55,526 --> 0:37:57,776
+must call release on the result
+
+1446
+00:37:58,016 --> 0:37:59,176
+of a method that they call.
+
+1447
+00:38:00,206 --> 0:38:01,666
+Otherwise, the object could
+
+1448
+00:38:02,356 --> 0:38:02,446
+leak.
+
+1449
+00:38:03,756 --> 0:38:05,616
+An important exception to this
+
+1450
+00:38:05,616 --> 0:38:07,366
+rule is that getters return
+
+1451
+00:38:07,466 --> 0:38:09,566
+unretained, or as we call it, at
+
+1452
+00:38:09,566 --> 0:38:10,206
++0.
+
+1453
+00:38:11,096 --> 0:38:13,146
+Clients should not release the
+
+1454
+00:38:13,146 --> 0:38:17,656
+result of a getter.
+
+1455
+00:38:17,836 --> 0:38:19,536
+Now, you might write code that
+
+1456
+00:38:19,616 --> 0:38:21,756
+differs from this convention,
+
+1457
+00:38:21,756 --> 0:38:22,746
+and here's an example of some
+
+1458
+00:38:22,746 --> 0:38:24,146
+code that I wrote.
+
+1459
+00:38:25,116 --> 0:38:26,766
+This method finds the first
+
+1460
+00:38:26,766 --> 0:38:30,536
+device in an array, and it has
+
+1461
+00:38:30,536 --> 0:38:31,486
+the default convention.
+
+1462
+00:38:31,486 --> 0:38:32,626
+It should return retained.
+
+1463
+00:38:33,896 --> 0:38:34,686
+But if we look at the
+
+1464
+00:38:34,686 --> 0:38:36,996
+implementation, it returns the
+
+1465
+00:38:36,996 --> 0:38:39,666
+result of a getter, and getters
+
+1466
+00:38:39,666 --> 0:38:40,816
+return unretained.
+
+1467
+00:38:41,546 --> 0:38:43,356
+So, there's a mismatch here.
+
+1468
+00:38:44,036 --> 0:38:45,636
+Fortunately, the analyzer can
+
+1469
+00:38:45,636 --> 0:38:47,166
+tell us about this.
+
+1470
+00:38:47,976 --> 0:38:49,396
+So, how should I fix this?
+
+1471
+00:38:50,456 --> 0:38:52,346
+Well, I have three different
+
+1472
+00:38:52,426 --> 0:38:52,996
+options.
+
+1473
+00:38:53,796 --> 0:38:55,666
+The first is to change the
+
+1474
+00:38:55,666 --> 0:38:56,666
+behavior to follow the
+
+1475
+00:38:56,666 --> 0:38:57,216
+convention.
+
+1476
+00:38:58,096 --> 0:38:59,236
+Here, the convention is that the
+
+1477
+00:38:59,236 --> 0:39:00,546
+method should return retained,
+
+1478
+00:38:59,236 --> 0:39:00,546
+method should return retained,
+
+1479
+00:39:00,986 --> 0:39:02,886
+so I could retain the result
+
+1480
+00:39:03,096 --> 0:39:04,566
+before returning it.
+
+1481
+00:39:05,556 --> 0:39:08,076
+Another possibility is to rename
+
+1482
+00:39:08,076 --> 0:39:08,536
+the method.
+
+1483
+00:39:09,646 --> 0:39:10,686
+And if I look at this
+
+1484
+00:39:10,686 --> 0:39:12,796
+findFirstDevice method, it looks
+
+1485
+00:39:12,796 --> 0:39:14,256
+a lot like a getter.
+
+1486
+00:39:14,906 --> 0:39:16,176
+So, I could just rename it to
+
+1487
+00:39:16,176 --> 0:39:17,736
+getFirstDevice, and that would
+
+1488
+00:39:17,736 --> 0:39:18,866
+follow the guidelines.
+
+1489
+00:39:19,386 --> 0:39:22,236
+But you might have a method that
+
+1490
+00:39:22,236 --> 0:39:23,706
+has the behavior that you want,
+
+1491
+00:39:24,006 --> 0:39:25,396
+and it has the perfect name.
+
+1492
+00:39:25,756 --> 0:39:27,556
+You don't want to change it, and
+
+1493
+00:39:27,686 --> 0:39:28,596
+that's okay.
+
+1494
+00:39:29,536 --> 0:39:30,756
+What you should do in this case
+
+1495
+00:39:30,996 --> 0:39:33,166
+is add an annotation to tell
+
+1496
+00:39:33,166 --> 0:39:35,426
+both readers of your code and
+
+1497
+00:39:35,426 --> 0:39:37,206
+the analyzer that you're not
+
+1498
+00:39:37,206 --> 0:39:38,556
+following the convention on
+
+1499
+00:39:38,556 --> 0:39:38,986
+purpose.
+
+1500
+00:39:39,556 --> 0:39:42,546
+In this case, I can add the
+
+1501
+00:39:42,546 --> 0:39:44,176
+DRIVERKIT RETURNS NOT RETAINED
+
+1502
+00:39:44,176 --> 0:39:47,166
+annotation to express my intent.
+
+1503
+00:39:48,496 --> 0:39:50,566
+So, if you have an IOKit driver
+
+1504
+00:39:50,726 --> 0:39:51,826
+or you're writing a new
+
+1505
+00:39:51,826 --> 0:39:54,016
+DriverKit driver, I highly
+
+1506
+00:39:54,016 --> 0:39:55,176
+encourage you to run the
+
+1507
+00:39:55,176 --> 0:39:56,516
+analyzer on your code.
+
+1508
+00:39:57,886 --> 0:39:59,626
+To do that, all you need to do
+
+1509
+00:39:59,626 --> 0:40:01,516
+is go to Xcode's product menu
+
+1510
+00:39:59,626 --> 0:40:01,516
+is go to Xcode's product menu
+
+1511
+00:40:01,806 --> 0:40:03,246
+and choose analyze.
+
+1512
+00:40:04,066 --> 0:40:06,056
+And you can even have Xcode run
+
+1513
+00:40:06,056 --> 0:40:07,736
+the analyzer every time you hit
+
+1514
+00:40:07,736 --> 0:40:09,926
+build by going to your target's
+
+1515
+00:40:09,926 --> 0:40:11,396
+build settings and enabling
+
+1516
+00:40:11,616 --> 0:40:12,916
+Analyze During Build.
+
+1517
+00:40:13,896 --> 0:40:14,786
+This will help you catch your
+
+1518
+00:40:14,786 --> 0:40:16,656
+bugs before you even commit
+
+1519
+00:40:17,286 --> 0:40:17,376
+them.
+
+1520
+00:40:19,716 --> 0:40:21,696
+All right, so we told you about
+
+1521
+00:40:21,696 --> 0:40:22,536
+a lot today.
+
+1522
+00:40:23,546 --> 0:40:25,236
+We showed you how LLVM Bitcode
+
+1523
+00:40:25,236 --> 0:40:27,056
+enabled a seamless 64-bit
+
+1524
+00:40:27,056 --> 0:40:29,376
+transition for watchOS where
+
+1525
+00:40:29,376 --> 0:40:31,456
+your 32-bit apps worked on day
+
+1526
+00:40:31,456 --> 0:40:33,436
+one with Series 4 watches.
+
+1527
+00:40:34,836 --> 0:40:35,976
+We showed you how to reduce code
+
+1528
+00:40:35,976 --> 0:40:37,026
+size with new compiler
+
+1529
+00:40:37,026 --> 0:40:38,096
+optimizations and language
+
+1530
+00:40:38,096 --> 0:40:39,686
+features and how to run the
+
+1531
+00:40:39,686 --> 0:40:42,026
+static analyzer on your code.
+
+1532
+00:40:42,656 --> 0:40:44,406
+For more information, please
+
+1533
+00:40:44,406 --> 0:40:45,666
+check out our session website,
+
+1534
+00:40:46,086 --> 0:40:47,186
+and we really look forward to
+
+1535
+00:40:47,186 --> 0:40:48,676
+talking with you in the labs.
+
+1536
+00:40:49,116 --> 0:40:49,686
+Thank you.
+
+1537
+00:40:50,516 --> 0:40:53,500
+[ Applause ]

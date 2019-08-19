@@ -1,0 +1,5531 @@
+1
+00:00:00,506 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:10,056 --> 0:00:11,296
+&gt;&gt; Good morning everyone.
+
+3
+00:00:11,376 --> 0:00:13,776
+And thank you for joining our
+
+4
+00:00:13,776 --> 0:00:14,226
+session.
+
+5
+00:00:14,886 --> 0:00:16,396
+My name is David Lui, and I'm
+
+6
+00:00:16,396 --> 0:00:18,476
+thrilled to be back here at WWDC
+
+7
+00:00:18,556 --> 0:00:20,816
+to share with you all the new
+
+8
+00:00:20,816 --> 0:00:22,876
+and exciting features in AR
+
+9
+00:00:22,876 --> 0:00:23,686
+Quick Look.
+
+10
+00:00:25,016 --> 0:00:27,386
+Last year, with iOS 12, we
+
+11
+00:00:27,386 --> 0:00:29,076
+introduced AR Quick Look, which
+
+12
+00:00:29,076 --> 0:00:30,776
+set the foundation and provided
+
+13
+00:00:30,776 --> 0:00:33,066
+a great single-model AR
+
+14
+00:00:33,126 --> 0:00:34,496
+previewing experience.
+
+15
+00:00:35,166 --> 0:00:36,706
+We made it really easy to
+
+16
+00:00:36,706 --> 0:00:38,796
+experience 3D content in your
+
+17
+00:00:38,796 --> 0:00:41,106
+world in an immersive and
+
+18
+00:00:41,106 --> 0:00:43,376
+realistic way using physically
+
+19
+00:00:43,376 --> 0:00:44,176
+based rendering.
+
+20
+00:00:44,736 --> 0:00:47,416
+AR Quick Look is built in as
+
+21
+00:00:47,456 --> 0:00:49,736
+part of iOS and is available on
+
+22
+00:00:49,736 --> 0:00:52,456
+the web and in many applications
+
+23
+00:00:52,566 --> 0:00:54,446
+like messages and Apple News.
+
+24
+00:00:55,826 --> 0:00:57,166
+We gave a session last year
+
+25
+00:00:57,166 --> 0:00:58,236
+where you could learn more about
+
+26
+00:00:58,236 --> 0:00:59,586
+how to integrate AR Quick Look
+
+27
+00:01:00,216 --> 0:01:01,876
+into your application and
+
+28
+00:01:01,926 --> 0:01:04,436
+website along with how to create
+
+29
+00:01:04,436 --> 0:01:06,266
+great-looking content for it.
+
+30
+00:01:07,456 --> 0:01:09,096
+So, in this session, we'll go
+
+31
+00:01:09,096 --> 0:01:10,096
+over our integration with
+
+32
+00:01:10,096 --> 0:01:11,836
+Reality Composer and how AR
+
+33
+00:01:11,836 --> 0:01:13,346
+Quick Look views the produced
+
+34
+00:01:13,346 --> 0:01:16,326
+content, improvements to the
+
+35
+00:01:16,326 --> 0:01:19,026
+visual rendering, and experience
+
+36
+00:01:19,026 --> 0:01:20,606
+within AR Quick Look for greater
+
+37
+00:01:20,606 --> 0:01:22,596
+realism and content immersion.
+
+38
+00:01:24,006 --> 0:01:25,206
+Along with how to support all
+
+39
+00:01:25,206 --> 0:01:27,096
+these new features on the web
+
+40
+00:01:27,546 --> 0:01:28,696
+including customizing the
+
+41
+00:01:28,696 --> 0:01:30,626
+preview and experience for your
+
+42
+00:01:30,626 --> 0:01:33,656
+applications, and lastly, our
+
+43
+00:01:33,656 --> 0:01:35,606
+enhanced integration with retail
+
+44
+00:01:35,606 --> 0:01:37,096
+with support for call to action
+
+45
+00:01:37,426 --> 0:01:40,076
+and Apple Pay.
+
+46
+00:01:40,296 --> 0:01:41,716
+So, earlier in the week, we
+
+47
+00:01:41,716 --> 0:01:43,306
+talked about Reality Kit and
+
+48
+00:01:43,306 --> 0:01:45,886
+Reality Composer, our new macOS
+
+49
+00:01:45,956 --> 0:01:48,676
+and iOS tool for simple AR-based
+
+50
+00:01:48,936 --> 0:01:50,766
+content creation, where we can
+
+51
+00:01:50,766 --> 0:01:52,916
+quickly create really amazing,
+
+52
+00:01:53,086 --> 0:01:55,796
+rich content with activity for
+
+53
+00:01:55,796 --> 0:01:56,356
+applications.
+
+54
+00:01:57,236 --> 0:01:59,756
+You can take all that same rich
+
+55
+00:01:59,756 --> 0:02:00,706
+content and share them through
+
+56
+00:01:59,756 --> 0:02:00,706
+content and share them through
+
+57
+00:02:00,706 --> 0:02:02,626
+various applications, all of
+
+58
+00:02:02,626 --> 0:02:04,666
+which can be viewed in AR Quick
+
+59
+00:02:04,666 --> 0:02:04,936
+Look.
+
+60
+00:02:05,766 --> 0:02:06,786
+It's a really great way to
+
+61
+00:02:06,786 --> 0:02:08,346
+easily realize these new
+
+62
+00:02:08,346 --> 0:02:10,506
+interactive experiences and view
+
+63
+00:02:10,506 --> 0:02:11,686
+them in a feature-rich
+
+64
+00:02:11,686 --> 0:02:13,456
+environment all by simply
+
+65
+00:02:13,456 --> 0:02:15,056
+sharing the 3D model file.
+
+66
+00:02:15,056 --> 0:02:18,366
+And we really mean feature rich.
+
+67
+00:02:18,836 --> 0:02:20,716
+In support of Reality Kit and
+
+68
+00:02:20,716 --> 0:02:22,686
+Reality Composer, we added new
+
+69
+00:02:22,686 --> 0:02:24,146
+rendering effects to AR Quick
+
+70
+00:02:24,146 --> 0:02:25,716
+Look like dynamic ray-traced
+
+71
+00:02:25,716 --> 0:02:27,706
+shadows and people occlusion to
+
+72
+00:02:27,706 --> 0:02:29,646
+help improve the realism of 3D
+
+73
+00:02:29,646 --> 0:02:31,216
+content placed in your world.
+
+74
+00:02:32,576 --> 0:02:33,736
+We've also added a lot more
+
+75
+00:02:33,736 --> 0:02:35,196
+capabilities, like multimodel
+
+76
+00:02:35,196 --> 0:02:36,846
+support and a built-in animation
+
+77
+00:02:36,846 --> 0:02:38,616
+scrubber that not only enhances
+
+78
+00:02:38,616 --> 0:02:40,166
+the AR experience but gives you
+
+79
+00:02:40,166 --> 0:02:42,066
+more control over the content.
+
+80
+00:02:43,386 --> 0:02:44,866
+Adopting AR Quick Look is the
+
+81
+00:02:44,866 --> 0:02:46,706
+easiest way to take advantage of
+
+82
+00:02:46,826 --> 0:02:48,696
+all these new features, to bring
+
+83
+00:02:48,696 --> 0:02:51,116
+an amazing AR experience to any
+
+84
+00:02:51,116 --> 0:02:53,446
+application or website and seek
+
+85
+00:02:53,446 --> 0:02:55,426
+content as if it was actually
+
+86
+00:02:55,426 --> 0:02:56,256
+there with you.
+
+87
+00:02:59,146 --> 0:02:59,836
+So, let's get started.
+
+88
+00:03:00,976 --> 0:03:03,326
+AR Quick Look is built around
+
+89
+00:03:03,326 --> 0:03:03,786
+USDZ.
+
+90
+00:03:05,246 --> 0:03:06,986
+Today, people create content for
+
+91
+00:03:06,986 --> 0:03:08,146
+AR Quick Look using their
+
+92
+00:03:08,276 --> 0:03:10,256
+favorite 3D modelling software
+
+93
+00:03:10,256 --> 0:03:13,026
+and exporting that scene as a
+
+94
+00:03:13,026 --> 0:03:13,776
+USDZ file.
+
+95
+00:03:15,046 --> 0:03:16,376
+You can then view that content
+
+96
+00:03:16,716 --> 0:03:18,036
+in AR Quick Look where you can
+
+97
+00:03:18,036 --> 0:03:19,846
+push the object into your world
+
+98
+00:03:19,846 --> 0:03:20,266
+to view it.
+
+99
+00:03:20,266 --> 0:03:23,656
+You can take that same USDZ file
+
+100
+00:03:23,726 --> 0:03:25,436
+and import it into Reality
+
+101
+00:03:25,436 --> 0:03:26,866
+Composer where you can add new
+
+102
+00:03:26,866 --> 0:03:29,436
+behaviors and interactivity that
+
+103
+00:03:29,436 --> 0:03:31,386
+all gets packaged up in our new
+
+104
+00:03:31,386 --> 0:03:33,126
+reality file format.
+
+105
+00:03:33,976 --> 0:03:35,906
+AR Quick Look supports viewing
+
+106
+00:03:36,266 --> 0:03:38,086
+these new reality files and is a
+
+107
+00:03:38,086 --> 0:03:39,446
+great place to play with these
+
+108
+00:03:39,446 --> 0:03:40,296
+experiences.
+
+109
+00:03:41,146 --> 0:03:43,426
+For many users, AR Quick Look is
+
+110
+00:03:43,426 --> 0:03:45,886
+the destination to explore and
+
+111
+00:03:45,886 --> 0:03:48,166
+interact with 3D content as
+
+112
+00:03:48,166 --> 0:03:50,256
+people share these models from
+
+113
+00:03:50,256 --> 0:03:52,646
+one device to another across
+
+114
+00:03:52,646 --> 0:03:53,726
+many applications.
+
+115
+00:03:55,636 --> 0:03:57,756
+Scenes are the fundamental
+
+116
+00:03:57,756 --> 0:03:59,086
+building blocks of reality
+
+117
+00:03:59,086 --> 0:03:59,576
+files.
+
+118
+00:04:00,176 --> 0:04:01,296
+A Reality Composer scene
+
+119
+00:04:01,296 --> 0:04:02,806
+contains a specified anchor
+
+120
+00:04:02,806 --> 0:04:04,646
+type, such as a horizontal or
+
+121
+00:04:04,646 --> 0:04:07,366
+face placement, and one or more
+
+122
+00:04:07,366 --> 0:04:10,056
+objects placed in the scene.
+
+123
+00:04:10,266 --> 0:04:11,666
+These objects can contain any
+
+124
+00:04:11,666 --> 0:04:13,086
+combination of interactive
+
+125
+00:04:13,306 --> 0:04:16,156
+behaviors, captivating audio,
+
+126
+00:04:16,156 --> 0:04:17,995
+and realistic physics.
+
+127
+00:04:18,916 --> 0:04:20,505
+Together, this produces a really
+
+128
+00:04:20,505 --> 0:04:22,456
+compelling stand-alone AR
+
+129
+00:04:22,456 --> 0:04:24,316
+experience represented as a
+
+130
+00:04:24,316 --> 0:04:25,136
+Reality file.
+
+131
+00:04:26,066 --> 0:04:27,586
+So, let's take a closer look at
+
+132
+00:04:27,586 --> 0:04:28,456
+some of these properties.
+
+133
+00:04:30,126 --> 0:04:31,676
+Every scene has an anchor type,
+
+134
+00:04:32,066 --> 0:04:33,486
+which describes how the model
+
+135
+00:04:33,486 --> 0:04:34,596
+should be placed in the world.
+
+136
+00:04:35,276 --> 0:04:36,486
+Last year, AR Quick Look
+
+137
+00:04:36,486 --> 0:04:37,966
+supported horizontal anchors
+
+138
+00:04:38,196 --> 0:04:39,986
+like tables, floors.
+
+139
+00:04:40,136 --> 0:04:42,436
+And this year, we've added
+
+140
+00:04:42,436 --> 0:04:43,996
+support for vertical surfaces
+
+141
+00:04:44,236 --> 0:04:48,026
+like walls as well as faces and
+
+142
+00:04:48,026 --> 0:04:49,796
+known 2D images in your
+
+143
+00:04:49,796 --> 0:04:50,356
+environment.
+
+144
+00:04:52,046 --> 0:04:53,826
+So, let's describe each of these
+
+145
+00:04:53,876 --> 0:04:54,416
+in detail.
+
+146
+00:04:55,876 --> 0:04:57,916
+Horizontal and vertical anchors
+
+147
+00:04:58,166 --> 0:04:59,936
+are found in everyday settings
+
+148
+00:04:59,936 --> 0:05:01,496
+such as tables and floors.
+
+149
+00:04:59,936 --> 0:05:01,496
+such as tables and floors.
+
+150
+00:05:02,246 --> 0:05:04,356
+Since it is so common, objects
+
+151
+00:05:04,356 --> 0:05:05,836
+are placed on the first detected
+
+152
+00:05:05,836 --> 0:05:08,056
+plane, and we make it really
+
+153
+00:05:08,056 --> 0:05:09,566
+easy to go between different
+
+154
+00:05:09,566 --> 0:05:11,396
+surfaces, just like dragging the
+
+155
+00:05:11,396 --> 0:05:13,416
+model from one surface to
+
+156
+00:05:13,416 --> 0:05:13,756
+another.
+
+157
+00:05:15,376 --> 0:05:16,916
+Rotation gestures differ
+
+158
+00:05:16,916 --> 0:05:18,276
+depending on whether the object
+
+159
+00:05:18,556 --> 0:05:20,146
+is on a horizontal surface or a
+
+160
+00:05:20,146 --> 0:05:21,096
+vertical surface.
+
+161
+00:05:22,486 --> 0:05:24,086
+And this behavior applies for
+
+162
+00:05:24,086 --> 0:05:26,266
+both reality files and USDZ
+
+163
+00:05:26,266 --> 0:05:26,666
+files.
+
+164
+00:05:28,716 --> 0:05:29,566
+So, let me show you how to place
+
+165
+00:05:29,566 --> 0:05:31,516
+this picture frame on the wall
+
+166
+00:05:31,516 --> 0:05:32,556
+starting from a horizontal
+
+167
+00:05:32,556 --> 0:05:33,106
+surface.
+
+168
+00:05:33,596 --> 0:05:34,926
+I'll push the frame onto this
+
+169
+00:05:34,926 --> 0:05:36,716
+table, and you can then tap and
+
+170
+00:05:36,716 --> 0:05:38,586
+drag the model over to the couch
+
+171
+00:05:38,826 --> 0:05:40,226
+and position it onto the wall.
+
+172
+00:05:41,256 --> 0:05:42,356
+You can also start looking
+
+173
+00:05:42,356 --> 0:05:43,436
+directly [applause]-- thank you.
+
+174
+00:05:43,516 --> 0:05:45,706
+You can also start looking
+
+175
+00:05:45,706 --> 0:05:47,836
+directly at the wall and pushing
+
+176
+00:05:47,836 --> 0:05:49,166
+the content from your device.
+
+177
+00:05:49,986 --> 0:05:51,956
+It's a really seamless way to go
+
+178
+00:05:51,956 --> 0:05:53,146
+between planes in order to
+
+179
+00:05:53,146 --> 0:05:54,736
+anchor your content in the world
+
+180
+00:05:55,036 --> 0:05:56,486
+as you would like.
+
+181
+00:05:57,336 --> 0:05:59,176
+You can also anchor virtual
+
+182
+00:05:59,176 --> 0:06:00,816
+content to real-world objects
+
+183
+00:05:59,176 --> 0:06:00,816
+content to real-world objects
+
+184
+00:06:00,966 --> 0:06:01,516
+that can move.
+
+185
+00:06:02,046 --> 0:06:03,416
+Like putting on eyeglasses on
+
+186
+00:06:03,416 --> 0:06:04,006
+your face.
+
+187
+00:06:05,026 --> 0:06:06,606
+For these type of experiences,
+
+188
+00:06:06,636 --> 0:06:07,956
+AR Quick Look automatically
+
+189
+00:06:07,956 --> 0:06:09,686
+turns on the front camera and
+
+190
+00:06:09,686 --> 0:06:11,386
+anchors the content based off of
+
+191
+00:06:11,386 --> 0:06:13,176
+how it's authored relative to
+
+192
+00:06:13,176 --> 0:06:14,096
+the center of your face.
+
+193
+00:06:15,556 --> 0:06:16,986
+Face occlusion geometry from
+
+194
+00:06:16,986 --> 0:06:18,976
+ARKit is used in AR Quick Look
+
+195
+00:06:19,146 --> 0:06:20,516
+to realistically obscure the
+
+196
+00:06:20,516 --> 0:06:22,416
+object position on your face so
+
+197
+00:06:22,416 --> 0:06:24,196
+that they will intersect and
+
+198
+00:06:24,196 --> 0:06:26,546
+break the illusion.
+
+199
+00:06:26,646 --> 0:06:28,486
+Once anchored, scale and rotate
+
+200
+00:06:28,486 --> 0:06:30,556
+gestures are disabled to ring
+
+201
+00:06:30,556 --> 0:06:32,456
+true to their authored size and
+
+202
+00:06:32,456 --> 0:06:33,716
+correctly positioned to your
+
+203
+00:06:33,716 --> 0:06:34,166
+face.
+
+204
+00:06:34,956 --> 0:06:36,886
+You can also take selfies with
+
+205
+00:06:36,886 --> 0:06:38,336
+your friends when trying on the
+
+206
+00:06:38,336 --> 0:06:40,046
+same pair of glasses in AR Quick
+
+207
+00:06:40,046 --> 0:06:42,316
+Look and with ARKit 3 this year,
+
+208
+00:06:43,066 --> 0:06:45,026
+there's support for up to three
+
+209
+00:06:45,646 --> 0:06:45,826
+faces.
+
+210
+00:06:46,656 --> 0:06:48,176
+This experience is only
+
+211
+00:06:48,176 --> 0:06:49,826
+available on devices with a
+
+212
+00:06:49,826 --> 0:06:51,926
+front-facing TrueDepth camera.
+
+213
+00:06:52,356 --> 0:06:55,136
+And for other devices, the
+
+214
+00:06:55,136 --> 0:06:56,556
+anchor is treated as if it was a
+
+215
+00:06:56,556 --> 0:06:58,046
+horizontal anchor.
+
+216
+00:07:00,356 --> 0:07:01,776
+So here are some examples of my
+
+217
+00:07:01,776 --> 0:07:02,986
+friends trying on different
+
+218
+00:07:02,986 --> 0:07:04,136
+accessories, such as a
+
+219
+00:07:04,136 --> 0:07:05,786
+masquerade mask, propeller
+
+220
+00:07:05,786 --> 0:07:07,236
+beanie, and this great-looking
+
+221
+00:07:07,236 --> 0:07:08,466
+mustache in AR Quick Look.
+
+222
+00:07:09,126 --> 0:07:10,466
+This makes the content more
+
+223
+00:07:10,466 --> 0:07:11,996
+animated and really feel like
+
+224
+00:07:11,996 --> 0:07:13,716
+it's part of you since it's
+
+225
+00:07:13,716 --> 0:07:15,156
+interacting with using your
+
+226
+00:07:15,156 --> 0:07:15,406
+face.
+
+227
+00:07:16,536 --> 0:07:17,526
+It's a really great way to
+
+228
+00:07:17,606 --> 0:07:19,416
+express yourself and play with
+
+229
+00:07:19,416 --> 0:07:21,326
+these models in a brand-new way.
+
+230
+00:07:21,976 --> 0:07:25,556
+AR Quick Look uses the front
+
+231
+00:07:25,586 --> 0:07:27,826
+camera if there is a single face
+
+232
+00:07:27,826 --> 0:07:28,206
+anchor.
+
+233
+00:07:28,916 --> 0:07:30,136
+If there are any other scenes,
+
+234
+00:07:30,456 --> 0:07:31,626
+then AR Quick Look will fall
+
+235
+00:07:31,626 --> 0:07:32,746
+back treating this as a
+
+236
+00:07:32,746 --> 0:07:34,446
+horizontal anchor experience.
+
+237
+00:07:35,056 --> 0:07:36,916
+So, for example, say you have
+
+238
+00:07:37,106 --> 0:07:39,136
+two face anchor scenes offered
+
+239
+00:07:39,136 --> 0:07:40,466
+in Reality Composer like I have
+
+240
+00:07:40,466 --> 0:07:41,296
+on the left-hand side.
+
+241
+00:07:42,176 --> 0:07:42,966
+So there are two different
+
+242
+00:07:42,966 --> 0:07:43,656
+styles of glasses.
+
+243
+00:07:44,586 --> 0:07:45,836
+When previewed in AR Quick Look
+
+244
+00:07:45,836 --> 0:07:47,146
+on the right-hand side, these
+
+245
+00:07:47,146 --> 0:07:48,396
+glasses will be placed into the
+
+246
+00:07:48,396 --> 0:07:50,556
+world as a horizontal experience
+
+247
+00:07:50,866 --> 0:07:52,176
+so you can compare them side by
+
+248
+00:07:52,176 --> 0:07:52,536
+side.
+
+249
+00:07:53,046 --> 0:07:56,506
+Another type of dynamic anchor
+
+250
+00:07:57,006 --> 0:07:58,456
+is an image anchor, where
+
+251
+00:07:58,456 --> 0:08:00,296
+virtual content can track and
+
+252
+00:07:58,456 --> 0:08:00,296
+virtual content can track and
+
+253
+00:08:00,296 --> 0:08:02,436
+follow a real-world image.
+
+254
+00:08:03,056 --> 0:08:04,646
+In AR Quick Look, we want users
+
+255
+00:08:04,646 --> 0:08:06,066
+to be able to preview the scene
+
+256
+00:08:06,066 --> 0:08:07,426
+in the world without having
+
+257
+00:08:07,426 --> 0:08:09,156
+access to the physical image.
+
+258
+00:08:09,826 --> 0:08:12,486
+So, if no anchor is detected, AR
+
+259
+00:08:12,486 --> 0:08:13,736
+Quick Look will directly place
+
+260
+00:08:13,736 --> 0:08:15,006
+it on the first plane that it
+
+261
+00:08:15,006 --> 0:08:15,406
+finds.
+
+262
+00:08:16,426 --> 0:08:18,806
+And later, when it detects the
+
+263
+00:08:18,806 --> 0:08:20,226
+specified anchor, it will
+
+264
+00:08:20,226 --> 0:08:22,616
+magically move over and attach
+
+265
+00:08:22,616 --> 0:08:23,526
+to the real-world image.
+
+266
+00:08:25,086 --> 0:08:26,876
+And finally, if the anchor
+
+267
+00:08:27,106 --> 0:08:29,246
+disappears, then the scene will
+
+268
+00:08:29,246 --> 0:08:31,136
+reattach to the last plane that
+
+269
+00:08:31,816 --> 0:08:33,246
+it found.
+
+270
+00:08:33,635 --> 0:08:35,676
+One thing to note is that
+
+271
+00:08:35,676 --> 0:08:38,116
+gestures like scale and rotate
+
+272
+00:08:38,556 --> 0:08:39,206
+are disabled.
+
+273
+00:08:41,676 --> 0:08:43,265
+And like fixed anchors, the
+
+274
+00:08:43,265 --> 0:08:44,876
+content remains true to its
+
+275
+00:08:44,876 --> 0:08:45,626
+authored size.
+
+276
+00:08:46,556 --> 0:08:47,486
+So, let's take a look at this
+
+277
+00:08:47,486 --> 0:08:49,216
+toy rocket model I've authored
+
+278
+00:08:49,216 --> 0:08:51,146
+in Reality Composer as an image
+
+279
+00:08:51,146 --> 0:08:52,046
+anchor experience.
+
+280
+00:08:52,636 --> 0:08:54,556
+You can see how the content is
+
+281
+00:08:54,646 --> 0:08:55,906
+anchored to the real-world image
+
+282
+00:08:55,956 --> 0:08:57,296
+and follows each and every
+
+283
+00:08:57,296 --> 0:09:01,166
+movement whether translate or
+
+284
+00:08:57,296 --> 0:09:01,166
+movement whether translate or
+
+285
+00:09:01,166 --> 0:09:01,666
+rotation.
+
+286
+00:09:02,746 --> 0:09:04,446
+We really encourage people to
+
+287
+00:09:04,446 --> 0:09:06,136
+engage with the virtual content
+
+288
+00:09:06,246 --> 0:09:07,366
+and really move around since
+
+289
+00:09:07,366 --> 0:09:09,086
+this is an AR experience.
+
+290
+00:09:10,056 --> 0:09:11,186
+This means directly moving the
+
+291
+00:09:11,186 --> 0:09:12,916
+anchor closer to you, to
+
+292
+00:09:12,916 --> 0:09:15,036
+illustrate change in scale, or
+
+293
+00:09:15,036 --> 0:09:16,656
+rotating the image anchor to
+
+294
+00:09:16,656 --> 0:09:18,066
+view the scene from different
+
+295
+00:09:18,066 --> 0:09:18,666
+perspectives.
+
+296
+00:09:20,836 --> 0:09:22,956
+Now that you've anchored content
+
+297
+00:09:23,176 --> 0:09:24,856
+into your world, you can add
+
+298
+00:09:24,856 --> 0:09:26,646
+behaviors to bring interactivity
+
+299
+00:09:26,796 --> 0:09:27,406
+to your scene.
+
+300
+00:09:28,756 --> 0:09:30,656
+Behaviors are comprised of a
+
+301
+00:09:30,656 --> 0:09:33,106
+trigger and one or more actions,
+
+302
+00:09:34,846 --> 0:09:36,146
+and these are all defined in the
+
+303
+00:09:36,266 --> 0:09:38,556
+bottom behaviors panel in
+
+304
+00:09:38,556 --> 0:09:40,056
+Reality Composer, where we can
+
+305
+00:09:40,056 --> 0:09:42,276
+attach any combination of
+
+306
+00:09:42,276 --> 0:09:43,806
+triggers and action sequences.
+
+307
+00:09:46,146 --> 0:09:47,436
+This is a really great way to
+
+308
+00:09:47,436 --> 0:09:49,066
+provide more interactivity
+
+309
+00:09:49,316 --> 0:09:51,696
+between the user and the virtual
+
+310
+00:09:51,696 --> 0:09:53,586
+content and create a more
+
+311
+00:09:53,586 --> 0:09:55,476
+immersive and engaging user
+
+312
+00:09:55,476 --> 0:09:56,166
+experience.
+
+313
+00:09:58,016 --> 0:09:59,826
+So there's a variety of triggers
+
+314
+00:09:59,826 --> 0:10:01,326
+and actions defined in Reality
+
+315
+00:09:59,826 --> 0:10:01,326
+and actions defined in Reality
+
+316
+00:10:01,326 --> 0:10:03,006
+Kit that's exposed in Reality
+
+317
+00:10:03,006 --> 0:10:04,326
+Composer, and these are all
+
+318
+00:10:04,326 --> 0:10:05,896
+natively supported in AR Quick
+
+319
+00:10:05,896 --> 0:10:06,096
+Look.
+
+320
+00:10:07,416 --> 0:10:09,706
+You can take a Tap trigger and
+
+321
+00:10:09,706 --> 0:10:10,976
+attach it to your bike object
+
+322
+00:10:11,536 --> 0:10:13,016
+where on tap the bike will
+
+323
+00:10:13,016 --> 0:10:15,166
+disassemble, revealing all the
+
+324
+00:10:15,166 --> 0:10:16,866
+individual parts and components,
+
+325
+00:10:17,426 --> 0:10:19,216
+and this is all done by the Move
+
+326
+00:10:19,216 --> 0:10:19,596
+action.
+
+327
+00:10:20,196 --> 0:10:22,996
+You can also attach a Proximity
+
+328
+00:10:22,996 --> 0:10:25,106
+trigger to a boom box where you
+
+329
+00:10:25,106 --> 0:10:26,136
+can get, when you get close to
+
+330
+00:10:26,136 --> 0:10:27,946
+it, music starts playing that I
+
+331
+00:10:27,946 --> 0:10:30,096
+can jam to.
+
+332
+00:10:30,336 --> 0:10:32,096
+One thing to note is that AR
+
+333
+00:10:32,096 --> 0:10:33,046
+Quick Look does not support
+
+334
+00:10:33,086 --> 0:10:36,826
+custom app actions.
+
+335
+00:10:37,176 --> 0:10:38,166
+There's so many things you can
+
+336
+00:10:38,166 --> 0:10:40,396
+make with this, and to learn
+
+337
+00:10:40,396 --> 0:10:41,906
+more about behaviors and how to
+
+338
+00:10:42,046 --> 0:10:43,316
+create interactive AR
+
+339
+00:10:43,316 --> 0:10:45,016
+experiences, check out the
+
+340
+00:10:45,086 --> 0:10:46,796
+Building AR Experiences with
+
+341
+00:10:46,796 --> 0:10:48,556
+Reality Composer session from
+
+342
+00:10:48,556 --> 0:10:48,926
+this year.
+
+343
+00:10:51,616 --> 0:10:53,666
+So, all of these new features I
+
+344
+00:10:53,666 --> 0:10:55,456
+described are all driven from
+
+345
+00:10:55,456 --> 0:10:56,686
+this new Reality File.
+
+346
+00:10:57,586 --> 0:10:59,726
+Reality File is a self-contained
+
+347
+00:10:59,816 --> 0:11:01,386
+format that contains multiple
+
+348
+00:10:59,816 --> 0:11:01,386
+format that contains multiple
+
+349
+00:11:01,386 --> 0:11:03,406
+scenes with any number of
+
+350
+00:11:03,406 --> 0:11:05,666
+objects, along with anchoring
+
+351
+00:11:05,666 --> 0:11:07,346
+type information, like whether
+
+352
+00:11:07,346 --> 0:11:08,296
+the content should be placed on
+
+353
+00:11:08,296 --> 0:11:10,556
+a vertical wall or on a person's
+
+354
+00:11:10,556 --> 0:11:13,456
+face and interactivity data with
+
+355
+00:11:13,456 --> 0:11:15,416
+behaviors like tap triggers and
+
+356
+00:11:15,416 --> 0:11:18,166
+audio actions for realistic and
+
+357
+00:11:18,226 --> 0:11:19,666
+interact AR experience.
+
+358
+00:11:21,686 --> 0:11:23,306
+Reality files work hand in hand
+
+359
+00:11:23,306 --> 0:11:25,406
+with USDZ, and USDZ is the
+
+360
+00:11:25,406 --> 0:11:28,126
+perfect format for sharing and
+
+361
+00:11:28,126 --> 0:11:30,316
+publishing individual 3D models
+
+362
+00:11:30,586 --> 0:11:33,196
+on the web or in your app for
+
+363
+00:11:33,196 --> 0:11:33,886
+use in AR.
+
+364
+00:11:35,406 --> 0:11:36,406
+And if you want to use these
+
+365
+00:11:36,406 --> 0:11:38,026
+USDZ models you've created over
+
+366
+00:11:38,026 --> 0:11:40,226
+the years, to make interactive
+
+367
+00:11:40,226 --> 0:11:41,976
+AR experiences, you can combine
+
+368
+00:11:41,976 --> 0:11:43,666
+them in Reality Composer and
+
+369
+00:11:43,666 --> 0:11:45,026
+export out a reality file.
+
+370
+00:11:46,266 --> 0:11:48,416
+Either format can be viewed in
+
+371
+00:11:48,416 --> 0:11:50,256
+AR Quick Look on iOS 13.
+
+372
+00:11:51,446 --> 0:11:52,566
+Now, I'd like to invite my
+
+373
+00:11:52,566 --> 0:11:53,626
+colleague, Jerry, to give you a
+
+374
+00:11:53,626 --> 0:11:54,876
+demo with these new experiences.
+
+375
+00:11:55,816 --> 0:11:55,966
+Jerry.
+
+376
+00:11:56,516 --> 0:11:59,596
+[ Applause ]
+
+377
+00:12:00,096 --> 0:12:00,556
+&gt;&gt; Thanks, David.
+
+378
+00:12:01,816 --> 0:12:02,756
+Good morning everyone.
+
+379
+00:12:03,066 --> 0:12:04,846
+Today I am very excited to show
+
+380
+00:12:04,846 --> 0:12:06,276
+you previewing Reality Files
+
+381
+00:12:06,576 --> 0:12:10,866
+inside AR Quick Look.
+
+382
+00:12:11,976 --> 0:12:14,296
+Now, yesterday at the Building
+
+383
+00:12:14,296 --> 0:12:16,066
+AR Experiences with Reality
+
+384
+00:12:16,066 --> 0:12:17,746
+Composer, my friend Powell
+
+385
+00:12:17,746 --> 0:12:19,096
+created a quick lesson
+
+386
+00:12:19,356 --> 0:12:20,746
+illustrating different seasons
+
+387
+00:12:20,746 --> 0:12:23,026
+on Earth, and he sent me a copy.
+
+388
+00:12:24,256 --> 0:12:26,236
+So let's go ahead and view that
+
+389
+00:12:26,236 --> 0:12:26,916
+in AR Quick Look.
+
+390
+00:12:40,926 --> 0:12:42,396
+Now, as you may recall, this
+
+391
+00:12:42,396 --> 0:12:44,216
+entire experience is driven
+
+392
+00:12:44,306 --> 0:12:45,626
+through scene start triggers.
+
+393
+00:12:46,616 --> 0:12:48,716
+For example, the moon, it
+
+394
+00:12:48,716 --> 0:12:50,006
+triggers the moon to rotate
+
+395
+00:12:50,006 --> 0:12:51,736
+around the Earth and the Earth
+
+396
+00:12:52,136 --> 0:12:53,686
+to rotate around the sun.
+
+397
+00:12:54,276 --> 0:12:56,896
+As the Earth circles the sun,
+
+398
+00:12:57,466 --> 0:12:59,686
+the appropriate season appears.
+
+399
+00:13:00,176 --> 0:13:04,326
+And this is created using weight
+
+400
+00:13:04,326 --> 0:13:06,556
+action followed by a show
+
+401
+00:13:06,556 --> 0:13:06,846
+action.
+
+402
+00:13:08,426 --> 0:13:09,886
+And after a slight delay, the
+
+403
+00:13:09,886 --> 0:13:12,096
+sign disappears using a hide
+
+404
+00:13:12,096 --> 0:13:12,456
+action.
+
+405
+00:13:16,286 --> 0:13:17,546
+Now, you may have noticed that
+
+406
+00:13:17,546 --> 0:13:19,776
+no matter where I look, the sign
+
+407
+00:13:19,856 --> 0:13:21,666
+is always oriented towards me,
+
+408
+00:13:22,226 --> 0:13:26,706
+and this is achieved by using a
+
+409
+00:13:26,706 --> 0:13:27,466
+look at action.
+
+410
+00:13:34,056 --> 0:13:35,506
+So, that's a quick overview of
+
+411
+00:13:35,506 --> 0:13:36,766
+how easy it is to preview
+
+412
+00:13:36,766 --> 0:13:38,456
+Reality Files, such as this
+
+413
+00:13:38,456 --> 0:13:40,506
+short lesson inside AR Quick
+
+414
+00:13:40,976 --> 0:13:41,086
+Look.
+
+415
+00:13:42,816 --> 0:13:44,426
+And now, I have another demo,
+
+416
+00:13:44,666 --> 0:13:46,136
+and for this, we're going to
+
+417
+00:13:46,136 --> 0:13:47,426
+take a road trip around the
+
+418
+00:13:47,426 --> 0:13:47,996
+solar system.
+
+419
+00:13:53,016 --> 0:13:54,826
+So, in the same session, my
+
+420
+00:13:54,826 --> 0:13:57,196
+friend Avi created a project
+
+421
+00:13:57,246 --> 0:13:59,046
+showing three celestial bodies,
+
+422
+00:13:59,686 --> 0:14:01,456
+the moon, the Earth, and the
+
+423
+00:13:59,686 --> 0:14:01,456
+the moon, the Earth, and the
+
+424
+00:14:01,456 --> 0:14:01,786
+sun.
+
+425
+00:14:02,616 --> 0:14:04,826
+I've expanded upon that to add
+
+426
+00:14:04,826 --> 0:14:06,696
+some more features to show you
+
+427
+00:14:06,766 --> 0:14:08,656
+different behaviors in action.
+
+428
+00:14:09,256 --> 0:14:09,966
+So let's take a look.
+
+429
+00:14:20,076 --> 0:14:21,176
+So the most obvious starting
+
+430
+00:14:21,256 --> 0:14:22,936
+point of our journey is of
+
+431
+00:14:22,936 --> 0:14:23,876
+course the Earth.
+
+432
+00:14:23,876 --> 0:14:26,856
+But unfortunately we cannot get
+
+433
+00:14:26,856 --> 0:14:28,316
+to space inside a car.
+
+434
+00:14:28,776 --> 0:14:29,886
+We need something with a more
+
+435
+00:14:29,886 --> 0:14:30,806
+powerful engine.
+
+436
+00:14:31,326 --> 0:14:32,396
+I think I have an idea.
+
+437
+00:14:33,586 --> 0:14:35,276
+Notice that I can see what
+
+438
+00:14:35,276 --> 0:14:37,456
+triggers I can interact with by
+
+439
+00:14:37,456 --> 0:14:38,666
+looking at the above text.
+
+440
+00:14:38,986 --> 0:14:41,196
+For example, here I can see move
+
+441
+00:14:41,196 --> 0:14:43,676
+closer to activate.
+
+442
+00:14:43,676 --> 0:14:45,136
+So there must be a proximity
+
+443
+00:14:45,136 --> 0:14:45,476
+trigger.
+
+444
+00:14:46,146 --> 0:14:48,426
+Let's go ahead and take a closer
+
+445
+00:14:49,016 --> 0:14:49,106
+look.
+
+446
+00:14:50,936 --> 0:14:51,966
+Oh, hey, it's a rocket.
+
+447
+00:14:52,486 --> 0:14:53,956
+Perfect for going to space.
+
+448
+00:14:54,586 --> 0:14:57,296
+Notice that I, there's a tap
+
+449
+00:14:57,296 --> 0:14:58,966
+trigger here, so I'm going to go
+
+450
+00:14:58,966 --> 0:15:00,406
+ahead and launch the rocket.
+
+451
+00:14:58,966 --> 0:15:00,406
+ahead and launch the rocket.
+
+452
+00:15:01,396 --> 0:15:04,066
+And we have lift off.
+
+453
+00:15:05,186 --> 0:15:08,226
+So now let's set a course for
+
+454
+00:15:08,226 --> 0:15:08,726
+the moon.
+
+455
+00:15:10,406 --> 0:15:11,846
+And let's try to stick to that
+
+456
+00:15:11,846 --> 0:15:12,506
+landing.
+
+457
+00:15:15,586 --> 0:15:16,116
+Nailed it.
+
+458
+00:15:16,996 --> 0:15:18,556
+Oh, look, there's a sign here.
+
+459
+00:15:19,556 --> 0:15:20,606
+Well, good thing we took the
+
+460
+00:15:20,606 --> 0:15:21,776
+rocket, not the car.
+
+461
+00:15:26,796 --> 0:15:29,086
+So the thing about space is that
+
+462
+00:15:29,086 --> 0:15:31,816
+it is hard to view the sizes of
+
+463
+00:15:31,816 --> 0:15:33,716
+celestial bodies because the
+
+464
+00:15:33,716 --> 0:15:35,936
+sizes are so hard it's hard to
+
+465
+00:15:36,476 --> 0:15:36,836
+grasp.
+
+466
+00:15:36,836 --> 0:15:38,416
+However, we can easily
+
+467
+00:15:38,416 --> 0:15:40,546
+illustrate this with the help
+
+468
+00:15:40,716 --> 0:15:40,986
+AR.
+
+469
+00:15:41,936 --> 0:15:44,306
+So, I'm going to tap here and
+
+470
+00:15:44,366 --> 0:15:45,716
+fly up and out of here.
+
+471
+00:15:47,046 --> 0:15:49,666
+And this time, let's go up
+
+472
+00:15:49,666 --> 0:15:51,606
+higher so that we can take an
+
+473
+00:15:51,606 --> 0:15:54,156
+overview look of the moon, the
+
+474
+00:15:54,156 --> 0:15:55,506
+Earth, and the sun.
+
+475
+00:15:56,006 --> 0:16:02,086
+And I'll tap on the sun to get a
+
+476
+00:15:56,006 --> 0:16:02,086
+And I'll tap on the sun to get a
+
+477
+00:16:02,086 --> 0:16:04,406
+better sense.
+
+478
+00:16:04,556 --> 0:16:07,636
+Whoa. And as you can see, the
+
+479
+00:16:07,636 --> 0:16:09,306
+sun is absolutely enormous
+
+480
+00:16:09,456 --> 0:16:10,606
+compared to the size of the
+
+481
+00:16:10,606 --> 0:16:10,836
+Earth.
+
+482
+00:16:11,956 --> 0:16:13,446
+Too bad the distances are not to
+
+483
+00:16:13,446 --> 0:16:15,076
+scale, otherwise it might
+
+484
+00:16:15,126 --> 0:16:16,346
+actually be quite warm in this
+
+485
+00:16:16,346 --> 0:16:16,596
+room.
+
+486
+00:16:21,476 --> 0:16:23,496
+So that's a quick look at how
+
+487
+00:16:23,496 --> 0:16:25,346
+easy it is to view authored
+
+488
+00:16:25,346 --> 0:16:29,206
+content inside Reality, to view
+
+489
+00:16:29,206 --> 0:16:30,906
+rich content authored using
+
+490
+00:16:30,906 --> 0:16:32,786
+Reality Composer and viewed
+
+491
+00:16:32,786 --> 0:16:33,756
+inside AR Quick Look.
+
+492
+00:16:34,286 --> 0:16:37,356
+And we absolutely cannot wait to
+
+493
+00:16:37,356 --> 0:16:39,206
+see what kinds of content that
+
+494
+00:16:39,206 --> 0:16:45,036
+you can create.
+
+495
+00:16:45,606 --> 0:16:46,776
+So, now, let's talk about the
+
+496
+00:16:46,776 --> 0:16:48,706
+visual improvements of AR Quick
+
+497
+00:16:48,706 --> 0:16:49,106
+Look.
+
+498
+00:16:50,936 --> 0:16:52,026
+One of the main goals of AR
+
+499
+00:16:52,026 --> 0:16:53,586
+Quick Look is to create a
+
+500
+00:16:53,586 --> 0:16:56,056
+believable AR experience, and to
+
+501
+00:16:56,056 --> 0:16:58,736
+achieve that, it is important to
+
+502
+00:16:58,736 --> 0:17:00,636
+understand and take into account
+
+503
+00:16:58,736 --> 0:17:00,636
+understand and take into account
+
+504
+00:17:00,976 --> 0:17:02,316
+the surrounding environment of
+
+505
+00:17:02,316 --> 0:17:02,856
+the user.
+
+506
+00:17:04,116 --> 0:17:06,266
+This year, we added a variety of
+
+507
+00:17:06,266 --> 0:17:08,215
+new rendering effects to make
+
+508
+00:17:08,215 --> 0:17:10,116
+the content look as if it is
+
+509
+00:17:10,116 --> 0:17:11,306
+truly part of the world.
+
+510
+00:17:12,576 --> 0:17:14,736
+let's go into some more details,
+
+511
+00:17:14,935 --> 0:17:16,705
+starting off with real-time
+
+512
+00:17:16,705 --> 0:17:17,286
+shadows.
+
+513
+00:17:17,836 --> 0:17:20,566
+Last year, AR Quick Look
+
+514
+00:17:20,616 --> 0:17:22,195
+rendered shadows to make virtual
+
+515
+00:17:22,195 --> 0:17:24,536
+content look as if was part of
+
+516
+00:17:24,536 --> 0:17:24,925
+the world.
+
+517
+00:17:26,376 --> 0:17:27,656
+This year, we made shadows
+
+518
+00:17:27,656 --> 0:17:29,566
+dynamic and rendered in real
+
+519
+00:17:29,636 --> 0:17:29,896
+time.
+
+520
+00:17:30,216 --> 0:17:32,276
+So now shadows can follow your
+
+521
+00:17:32,276 --> 0:17:34,436
+content as if it was part of the
+
+522
+00:17:34,436 --> 0:17:36,496
+world, and this helps bring your
+
+523
+00:17:36,496 --> 0:17:37,966
+animated content to life.
+
+524
+00:17:39,796 --> 0:17:42,016
+By default, projective shadows
+
+525
+00:17:42,056 --> 0:17:43,996
+are used as it provides a good
+
+526
+00:17:43,996 --> 0:17:45,706
+approximation for how shadows
+
+527
+00:17:45,706 --> 0:17:47,116
+look like in the real world.
+
+528
+00:17:47,716 --> 0:17:51,576
+And on higher-end devices, like
+
+529
+00:17:51,576 --> 0:17:53,726
+iPhone 10S, AR Quick Look will
+
+530
+00:17:53,726 --> 0:17:55,396
+use a ray-traced technique,
+
+531
+00:17:56,046 --> 0:17:57,506
+which produces physically
+
+532
+00:17:57,506 --> 0:17:59,926
+correct shadows and looks even
+
+533
+00:17:59,926 --> 0:18:00,286
+better.
+
+534
+00:17:59,926 --> 0:18:00,286
+better.
+
+535
+00:18:05,356 --> 0:18:06,966
+One key difference between
+
+536
+00:18:06,966 --> 0:18:08,366
+ray-traced shadows and
+
+537
+00:18:08,366 --> 0:18:10,256
+projective is that ray-traced
+
+538
+00:18:10,256 --> 0:18:11,946
+technique produces softer
+
+539
+00:18:11,946 --> 0:18:14,076
+shadows and is especially great
+
+540
+00:18:14,336 --> 0:18:16,136
+for objects with fine contact
+
+541
+00:18:16,936 --> 0:18:17,096
+points.
+
+542
+00:18:18,166 --> 0:18:19,766
+Now, we've made great strides in
+
+543
+00:18:19,766 --> 0:18:21,996
+terms of optimizations to enable
+
+544
+00:18:22,046 --> 0:18:23,476
+AR Quick Look to perform
+
+545
+00:18:23,656 --> 0:18:25,956
+real-time ray-tracing of dynamic
+
+546
+00:18:26,026 --> 0:18:28,776
+scenes, all on a mobile device.
+
+547
+00:18:30,146 --> 0:18:31,196
+If you're interested in learning
+
+548
+00:18:31,196 --> 0:18:33,196
+more about ray-traced shadows, I
+
+549
+00:18:33,196 --> 0:18:34,636
+recommend checking out the
+
+550
+00:18:34,636 --> 0:18:36,596
+Ray-tracing with Metal session
+
+551
+00:18:36,926 --> 0:18:38,236
+later today at 11.
+
+552
+00:18:38,916 --> 0:18:41,726
+And since dynamic shadows are
+
+553
+00:18:41,726 --> 0:18:44,346
+rendered in real time on all
+
+554
+00:18:44,346 --> 0:18:46,306
+ARKit supported devices, you do
+
+555
+00:18:46,306 --> 0:18:47,946
+not need to bake in shadows as
+
+556
+00:18:47,996 --> 0:18:48,826
+part of your model.
+
+557
+00:18:52,576 --> 0:18:54,516
+Another new visual effect is
+
+558
+00:18:54,516 --> 0:18:55,296
+cameral noise.
+
+559
+00:18:55,976 --> 0:18:57,856
+In low light situations, you
+
+560
+00:18:57,856 --> 0:19:00,286
+might notice noise in your video
+
+561
+00:18:57,856 --> 0:19:00,286
+might notice noise in your video
+
+562
+00:19:00,496 --> 0:19:01,746
+because there just isn't enough
+
+563
+00:19:01,746 --> 0:19:03,886
+light captured by the camera
+
+564
+00:19:03,886 --> 0:19:04,276
+sensor.
+
+565
+00:19:04,796 --> 0:19:07,116
+Since virtual objects are
+
+566
+00:19:07,116 --> 0:19:08,586
+rendered on top of the camera
+
+567
+00:19:08,586 --> 0:19:10,276
+feed, they will remain free of
+
+568
+00:19:10,276 --> 0:19:13,176
+artifacts, making your content
+
+569
+00:19:13,316 --> 0:19:14,326
+look out of place.
+
+570
+00:19:15,426 --> 0:19:17,086
+Well, now, Reality Kit supports
+
+571
+00:19:17,226 --> 0:19:19,006
+camera grain, so the noise will
+
+572
+00:19:19,006 --> 0:19:20,786
+be added to the virtual content
+
+573
+00:19:21,206 --> 0:19:22,506
+based on the amount of noise in
+
+574
+00:19:22,506 --> 0:19:24,396
+the camera feed to create an
+
+575
+00:19:24,396 --> 0:19:25,856
+effect that the robot is
+
+576
+00:19:25,856 --> 0:19:27,866
+actually part of the scene.
+
+577
+00:19:30,396 --> 0:19:32,216
+This is done by taking the noise
+
+578
+00:19:32,216 --> 0:19:34,536
+texture provided by ARKit and
+
+579
+00:19:34,616 --> 0:19:36,236
+applying that to the virtual
+
+580
+00:19:37,006 --> 0:19:37,246
+content.
+
+581
+00:19:39,576 --> 0:19:41,526
+Camera grain is automatically
+
+582
+00:19:41,526 --> 0:19:43,486
+enabled on all ARKit supported
+
+583
+00:19:43,516 --> 0:19:44,146
+devices.
+
+584
+00:19:47,556 --> 0:19:49,096
+Depending on your model and the
+
+585
+00:19:49,096 --> 0:19:50,896
+environment, some colors may
+
+586
+00:19:50,896 --> 0:19:52,346
+look too bright or blown out,
+
+587
+00:19:52,566 --> 0:19:53,986
+such as the shiny marble.
+
+588
+00:19:54,636 --> 0:19:57,846
+AR Quick Look uses HDR with tone
+
+589
+00:19:57,846 --> 0:19:59,296
+mapping to provide a greater
+
+590
+00:19:59,296 --> 0:20:00,776
+range of brightness and
+
+591
+00:19:59,296 --> 0:20:00,776
+range of brightness and
+
+592
+00:20:00,776 --> 0:20:01,536
+contrast.
+
+593
+00:20:02,016 --> 0:20:05,626
+As you can see, without it, the
+
+594
+00:20:05,626 --> 0:20:07,446
+marble looks too bright and out
+
+595
+00:20:07,446 --> 0:20:08,016
+of place.
+
+596
+00:20:08,736 --> 0:20:11,876
+But with HDR, it blends in with
+
+597
+00:20:11,876 --> 0:20:12,526
+the environment.
+
+598
+00:20:13,256 --> 0:20:15,866
+Under the hood, Reality Kit
+
+599
+00:20:15,976 --> 0:20:17,746
+allocates 16 bits per color
+
+600
+00:20:17,746 --> 0:20:19,986
+channel, and this allows for a
+
+601
+00:20:19,986 --> 0:20:21,936
+greater range of color values to
+
+602
+00:20:21,936 --> 0:20:23,516
+be represented and passed
+
+603
+00:20:23,556 --> 0:20:24,336
+through the shaders.
+
+604
+00:20:24,846 --> 0:20:27,836
+This then gets mapped using a
+
+605
+00:20:27,836 --> 0:20:30,326
+custom tone mapping curve and
+
+606
+00:20:30,496 --> 0:20:31,986
+rendered to the final texture.
+
+607
+00:20:32,646 --> 0:20:35,696
+HDR with tone mapping is
+
+608
+00:20:35,696 --> 0:20:38,286
+available on all A10X devices
+
+609
+00:20:38,446 --> 0:20:39,616
+and later.
+
+610
+00:20:41,956 --> 0:20:42,986
+Now, if you're like me who has
+
+611
+00:20:42,986 --> 0:20:44,406
+tried to grab a virtual object
+
+612
+00:20:44,686 --> 0:20:46,156
+or had people walk in front of
+
+613
+00:20:46,156 --> 0:20:47,836
+them, then you probably noticed
+
+614
+00:20:47,836 --> 0:20:49,266
+that virtual objects are always
+
+615
+00:20:49,436 --> 0:20:51,186
+rendered in front of people when
+
+616
+00:20:51,186 --> 0:20:53,436
+it should be behind, breaking
+
+617
+00:20:53,436 --> 0:20:53,936
+the illusion.
+
+618
+00:20:54,536 --> 0:20:58,366
+Now, with people occlusion, you
+
+619
+00:20:58,366 --> 0:20:59,456
+can create the illusion that
+
+620
+00:20:59,456 --> 0:21:00,666
+someone is actually walking
+
+621
+00:20:59,456 --> 0:21:00,666
+someone is actually walking
+
+622
+00:21:00,726 --> 0:21:02,356
+through a collection of virtual
+
+623
+00:21:02,356 --> 0:21:04,876
+tin toys as if it was right
+
+624
+00:21:04,876 --> 0:21:06,046
+there in your world.
+
+625
+00:21:10,736 --> 0:21:11,966
+This uses the person
+
+626
+00:21:11,966 --> 0:21:13,656
+segmentation data provided by
+
+627
+00:21:13,656 --> 0:21:15,406
+ARKit to know what part of the
+
+628
+00:21:15,406 --> 0:21:17,956
+camera feed should remain drawn
+
+629
+00:21:18,176 --> 0:21:20,266
+on top of the virtual content.
+
+630
+00:21:21,696 --> 0:21:23,726
+People occlusion takes advantage
+
+631
+00:21:23,756 --> 0:21:25,346
+of the Apple neural engine and
+
+632
+00:21:25,346 --> 0:21:27,626
+will be available on all A12
+
+633
+00:21:27,736 --> 0:21:28,856
+devices and later.
+
+634
+00:21:29,546 --> 0:21:32,216
+Now, this is a really hard
+
+635
+00:21:32,216 --> 0:21:33,696
+problem to solve, but if you're
+
+636
+00:21:33,696 --> 0:21:35,046
+curious to learn more, I
+
+637
+00:21:35,046 --> 0:21:36,076
+recommended checking out the
+
+638
+00:21:36,076 --> 0:21:37,816
+Introducing ARKit 3 session.
+
+639
+00:21:41,776 --> 0:21:43,406
+Digital cameras can only focus
+
+640
+00:21:43,406 --> 0:21:45,056
+on a certain distance at any
+
+641
+00:21:45,056 --> 0:21:45,726
+given time.
+
+642
+00:21:46,456 --> 0:21:48,276
+Objects closer or further from
+
+643
+00:21:48,276 --> 0:21:50,346
+this distance will look out of
+
+644
+00:21:50,346 --> 0:21:50,936
+focus.
+
+645
+00:21:51,406 --> 0:21:55,186
+Without this effect all virtual
+
+646
+00:21:55,186 --> 0:21:56,906
+objects will look in focus,
+
+647
+00:21:57,526 --> 0:21:59,026
+which stands out from the camera
+
+648
+00:21:59,086 --> 0:21:59,306
+feed.
+
+649
+00:22:00,626 --> 0:22:02,036
+Reality Kit takes the object's
+
+650
+00:22:02,096 --> 0:22:04,986
+distance into account tor ender
+
+651
+00:22:04,986 --> 0:22:06,936
+it as if it was captured from
+
+652
+00:22:06,936 --> 0:22:07,386
+your camera.
+
+653
+00:22:08,286 --> 0:22:09,316
+And this allows the virtual
+
+654
+00:22:09,316 --> 0:22:11,396
+object to blend in with the rest
+
+655
+00:22:11,496 --> 0:22:13,236
+of the camera feed to make it
+
+656
+00:22:13,896 --> 0:22:15,666
+seem as if it was really there.
+
+657
+00:22:16,156 --> 0:22:19,206
+This is available on all A12X
+
+658
+00:22:21,216 --> 0:22:21,596
+devices.
+
+659
+00:22:21,976 --> 0:22:23,466
+Motion blur is the phenomenon
+
+660
+00:22:23,466 --> 0:22:25,146
+caused by real-world objects
+
+661
+00:22:25,216 --> 0:22:26,616
+moving faster than what the
+
+662
+00:22:26,616 --> 0:22:28,836
+camera can capture, creating a
+
+663
+00:22:28,836 --> 0:22:30,006
+steak-like effects.
+
+664
+00:22:30,536 --> 0:22:33,606
+As you can see in the freeze
+
+665
+00:22:33,606 --> 0:22:35,246
+frame here, the robot on the
+
+666
+00:22:35,246 --> 0:22:37,366
+left does not fit with the scene
+
+667
+00:22:37,506 --> 0:22:38,946
+when motion blur is turned off.
+
+668
+00:22:39,466 --> 0:22:43,396
+Reality Kit applies motion blur
+
+669
+00:22:43,466 --> 0:22:44,916
+to the virtual content by
+
+670
+00:22:44,916 --> 0:22:46,656
+interpolating between textures
+
+671
+00:22:46,836 --> 0:22:49,486
+of two consecutive frames, which
+
+672
+00:22:49,486 --> 0:22:51,906
+depends on the device motion and
+
+673
+00:22:51,906 --> 0:22:53,746
+the length of exposure to better
+
+674
+00:22:53,746 --> 0:22:54,996
+match the camera feed.
+
+675
+00:22:55,586 --> 0:22:58,816
+You'll be able to experience
+
+676
+00:22:58,816 --> 0:23:01,786
+this effect in AR Quick Look on
+
+677
+00:22:58,816 --> 0:23:01,786
+this effect in AR Quick Look on
+
+678
+00:23:01,976 --> 0:23:03,226
+A12X devices.
+
+679
+00:23:05,576 --> 0:23:07,936
+We strive to bring more realism
+
+680
+00:23:07,936 --> 0:23:09,296
+to the virtual content with
+
+681
+00:23:09,296 --> 0:23:10,856
+these new rendering effects, but
+
+682
+00:23:10,856 --> 0:23:12,186
+we also have to keep in mind
+
+683
+00:23:12,436 --> 0:23:15,056
+that these are expensive
+
+684
+00:23:15,056 --> 0:23:16,936
+operations that must be done in
+
+685
+00:23:16,936 --> 0:23:17,466
+real-time.
+
+686
+00:23:18,376 --> 0:23:20,026
+We optimize and finetune the
+
+687
+00:23:20,026 --> 0:23:21,326
+rendering effects to create the
+
+688
+00:23:21,326 --> 0:23:23,856
+best experience at both
+
+689
+00:23:24,186 --> 0:23:26,576
+realistic and performant on all
+
+690
+00:23:26,636 --> 0:23:28,046
+iOS 13 devices.
+
+691
+00:23:28,606 --> 0:23:31,336
+That's why AR Quick Look would
+
+692
+00:23:31,336 --> 0:23:32,776
+automatically apply the best
+
+693
+00:23:32,876 --> 0:23:34,526
+rendering effect for your device
+
+694
+00:23:34,726 --> 0:23:35,976
+so that you can focus on
+
+695
+00:23:35,976 --> 0:23:38,186
+creating rich content and
+
+696
+00:23:38,186 --> 0:23:38,936
+experiences.
+
+697
+00:23:43,626 --> 0:23:45,526
+Now, in addition to making
+
+698
+00:23:45,526 --> 0:23:46,766
+content feel like it is part of
+
+699
+00:23:46,766 --> 0:23:47,916
+the world, we've also made
+
+700
+00:23:47,916 --> 0:23:49,526
+enhancements to the entire view
+
+701
+00:23:49,526 --> 0:23:50,106
+experience.
+
+702
+00:23:51,126 --> 0:23:52,436
+First off, AR Quick Look now
+
+703
+00:23:52,436 --> 0:23:54,636
+launches straight into AR so
+
+704
+00:23:54,636 --> 0:23:56,126
+that you can immediately see and
+
+705
+00:23:56,126 --> 0:23:57,926
+interact with virtual content in
+
+706
+00:23:57,926 --> 0:23:58,396
+your world.
+
+707
+00:23:59,336 --> 0:24:00,876
+For example, you can quickly put
+
+708
+00:23:59,336 --> 0:24:00,876
+For example, you can quickly put
+
+709
+00:24:01,006 --> 0:24:02,816
+virtual objects on detective
+
+710
+00:24:02,876 --> 0:24:05,616
+planes or try on sunglasses and
+
+711
+00:24:06,586 --> 0:24:08,476
+take selfies.
+
+712
+00:24:08,596 --> 0:24:10,026
+We've also made improvement to
+
+713
+00:24:10,086 --> 0:24:11,756
+scene understanding for better
+
+714
+00:24:11,806 --> 0:24:13,566
+and faster plane detection to
+
+715
+00:24:13,616 --> 0:24:15,346
+push the object directly into
+
+716
+00:24:15,346 --> 0:24:17,706
+the world as quickly as
+
+717
+00:24:18,816 --> 0:24:19,046
+possible.
+
+718
+00:24:19,126 --> 0:24:20,226
+We used machine learning to
+
+719
+00:24:20,226 --> 0:24:22,296
+better detect walls as well as
+
+720
+00:24:22,296 --> 0:24:23,976
+to extend the breadth of already
+
+721
+00:24:23,976 --> 0:24:24,846
+detected planes.
+
+722
+00:24:25,376 --> 0:24:29,076
+And just like last year, AR
+
+723
+00:24:29,076 --> 0:24:30,976
+Quick Look securely runs in a
+
+724
+00:24:30,976 --> 0:24:32,826
+sandbox process, separate from
+
+725
+00:24:32,826 --> 0:24:33,326
+the host.
+
+726
+00:24:34,356 --> 0:24:35,776
+By launching straight into AR,
+
+727
+00:24:36,106 --> 0:24:38,416
+websites and apps do not have
+
+728
+00:24:38,416 --> 0:24:40,316
+access to the camera feed or any
+
+729
+00:24:40,316 --> 0:24:41,146
+user activity.
+
+730
+00:24:43,176 --> 0:24:45,626
+And here's a quick video showing
+
+731
+00:24:45,626 --> 0:24:48,526
+how fast this can be.
+
+732
+00:24:48,776 --> 0:24:49,886
+Going to tap on the thumbnail
+
+733
+00:24:50,206 --> 0:24:52,026
+and place a Newton's cradle directly
+
+734
+00:24:52,026 --> 0:24:55,526
+on the table.
+
+735
+00:24:56,136 --> 0:24:57,256
+We've also added support for
+
+736
+00:24:57,256 --> 0:24:59,016
+viewing multiple models through
+
+737
+00:24:59,016 --> 0:25:00,426
+a nested USDZ file.
+
+738
+00:24:59,016 --> 0:25:00,426
+a nested USDZ file.
+
+739
+00:25:01,026 --> 0:25:03,826
+This is a special USDZ which
+
+740
+00:25:03,826 --> 0:25:06,056
+contains metadata and a library
+
+741
+00:25:06,126 --> 0:25:07,226
+of USDZs.
+
+742
+00:25:08,336 --> 0:25:09,666
+This can be useful to create
+
+743
+00:25:09,666 --> 0:25:11,376
+collections of related objects,
+
+744
+00:25:11,486 --> 0:25:13,526
+such as a furniture set, a
+
+745
+00:25:13,526 --> 0:25:15,756
+shopping cart, or in this case,
+
+746
+00:25:15,946 --> 0:25:16,676
+sports equipment.
+
+747
+00:25:17,336 --> 0:25:21,036
+In AR Quick Look, all containing
+
+748
+00:25:21,036 --> 0:25:23,476
+USDZ files are loaded and lined
+
+749
+00:25:23,476 --> 0:25:24,806
+up in ascending height order,
+
+750
+00:25:25,416 --> 0:25:27,056
+which offers a clear method of
+
+751
+00:25:27,056 --> 0:25:29,066
+displaying a variety of
+
+752
+00:25:29,116 --> 0:25:29,986
+different models.
+
+753
+00:25:31,356 --> 0:25:32,176
+And these can then be
+
+754
+00:25:32,176 --> 0:25:33,956
+manipulated independently once
+
+755
+00:25:34,016 --> 0:25:35,736
+placed into the world and
+
+756
+00:25:35,736 --> 0:25:37,766
+arranged to your liking.
+
+757
+00:25:40,456 --> 0:25:42,446
+There's a saying that a picture
+
+758
+00:25:42,486 --> 0:25:44,526
+is worth a thousand words, and a
+
+759
+00:25:44,526 --> 0:25:46,296
+video is perhaps millions.
+
+760
+00:25:46,856 --> 0:25:48,576
+But what about animated AR
+
+761
+00:25:48,576 --> 0:25:49,086
+content?
+
+762
+00:25:50,916 --> 0:25:52,346
+Animations bring a whole new
+
+763
+00:25:52,346 --> 0:25:53,956
+level to the experience, and now
+
+764
+00:25:53,956 --> 0:25:55,676
+users can control the playback
+
+765
+00:25:55,956 --> 0:25:57,506
+of animations such as
+
+766
+00:25:57,566 --> 0:26:01,126
+play/pause, rewind, skip, and
+
+767
+00:25:57,566 --> 0:26:01,126
+play/pause, rewind, skip, and
+
+768
+00:26:01,476 --> 0:26:02,306
+fine scrubbing.
+
+769
+00:26:02,876 --> 0:26:05,586
+And the great thing about
+
+770
+00:26:05,586 --> 0:26:07,486
+viewing AR animated content is
+
+771
+00:26:07,486 --> 0:26:09,126
+that users can rewatch it from
+
+772
+00:26:09,126 --> 0:26:10,626
+different angles, allowing
+
+773
+00:26:10,626 --> 0:26:12,296
+themselves to be the director.
+
+774
+00:26:16,156 --> 0:26:18,206
+For USDZ models, the animation
+
+775
+00:26:18,206 --> 0:26:19,826
+scrubber will be shown if the
+
+776
+00:26:19,826 --> 0:26:21,506
+animation duration is at least
+
+777
+00:26:21,686 --> 0:26:22,376
+10 seconds.
+
+778
+00:26:24,456 --> 0:26:26,646
+And for content less than that,
+
+779
+00:26:27,116 --> 0:26:28,496
+the animation scrubber will be
+
+780
+00:26:28,616 --> 0:26:30,736
+hidden, and the entire animation
+
+781
+00:26:30,796 --> 0:26:33,046
+sequence will continue to loop.
+
+782
+00:26:34,826 --> 0:26:37,516
+For reality files, the animation
+
+783
+00:26:37,516 --> 0:26:38,626
+scrubber will be shown if
+
+784
+00:26:38,626 --> 0:26:40,386
+there's a single on start
+
+785
+00:26:40,386 --> 0:26:42,506
+trigger with at least one
+
+786
+00:26:42,506 --> 0:26:43,446
+animation action.
+
+787
+00:26:44,276 --> 0:26:46,256
+And optionally, you can attach
+
+788
+00:26:46,256 --> 0:26:47,976
+sound action so that it plays
+
+789
+00:26:47,976 --> 0:26:49,176
+along with your animated
+
+790
+00:26:49,176 --> 0:26:49,626
+content.
+
+791
+00:26:50,266 --> 0:26:53,516
+And here's how that would look
+
+792
+00:26:53,516 --> 0:26:55,136
+like in Reality Composer.
+
+793
+00:26:56,576 --> 0:26:58,446
+Tapping on the behaviors panel
+
+794
+00:26:58,886 --> 0:26:59,696
+shows this.
+
+795
+00:27:00,216 --> 0:27:01,886
+So, here I have a single same
+
+796
+00:27:01,886 --> 0:27:04,896
+start trigger followed by one
+
+797
+00:27:04,896 --> 0:27:07,036
+USDZ animation as well as a
+
+798
+00:27:07,036 --> 0:27:11,026
+sound to go along with it.
+
+799
+00:27:11,776 --> 0:27:13,136
+Now, we have a really cool
+
+800
+00:27:13,136 --> 0:27:13,556
+gesture.
+
+801
+00:27:13,776 --> 0:27:15,006
+It's called levitation.
+
+802
+00:27:16,246 --> 0:27:18,206
+Simply swipe up with two fingers
+
+803
+00:27:18,716 --> 0:27:19,926
+to levitate objects up.
+
+804
+00:27:20,836 --> 0:27:22,586
+For example, you can levitate
+
+805
+00:27:22,806 --> 0:27:24,686
+these balloons to decorate your
+
+806
+00:27:24,686 --> 0:27:25,006
+party.
+
+807
+00:27:25,676 --> 0:27:29,216
+AR Quick Look provides a portal
+
+808
+00:27:29,336 --> 0:27:30,846
+for users to enjoy immersive
+
+809
+00:27:30,846 --> 0:27:32,546
+experiences, but wouldn't it be
+
+810
+00:27:32,546 --> 0:27:34,286
+cool to share what you see on
+
+811
+00:27:34,286 --> 0:27:36,126
+the screen with other people?
+
+812
+00:27:37,336 --> 0:27:38,996
+Now, you can record exactly what
+
+813
+00:27:38,996 --> 0:27:41,206
+you see such as organizing that
+
+814
+00:27:41,206 --> 0:27:43,916
+birthday party simply by tapping
+
+815
+00:27:44,036 --> 0:27:45,596
+and holding on the shutter
+
+816
+00:27:45,596 --> 0:27:47,716
+button and release when you're
+
+817
+00:27:47,716 --> 0:27:47,936
+done.
+
+818
+00:27:48,526 --> 0:27:50,216
+Videos are automatically saved
+
+819
+00:27:50,536 --> 0:27:51,426
+to the photos library.
+
+820
+00:27:53,816 --> 0:27:55,456
+We made improvements to macOS
+
+821
+00:27:55,456 --> 0:27:56,996
+Quick Look Viewer as well.
+
+822
+00:27:57,676 --> 0:27:59,066
+In addition to being able to
+
+823
+00:27:59,066 --> 0:28:01,386
+preview USDZ files, it also
+
+824
+00:27:59,066 --> 0:28:01,386
+preview USDZ files, it also
+
+825
+00:28:01,386 --> 0:28:04,236
+supports reality files, and
+
+826
+00:28:04,236 --> 0:28:05,526
+thumbnails will be generated
+
+827
+00:28:06,036 --> 0:28:07,916
+right away so that you can find
+
+828
+00:28:08,106 --> 0:28:09,006
+the files faster.
+
+829
+00:28:10,146 --> 0:28:12,116
+It is built on top of Reality
+
+830
+00:28:12,116 --> 0:28:13,786
+Kit, which uses the same
+
+831
+00:28:13,786 --> 0:28:15,806
+physics-based rendering as iOS,
+
+832
+00:28:16,516 --> 0:28:18,376
+and this provides a consistent
+
+833
+00:28:18,376 --> 0:28:20,736
+previewing experience on all
+
+834
+00:28:20,786 --> 0:28:21,566
+your devices.
+
+835
+00:28:24,216 --> 0:28:25,296
+We think this will make it
+
+836
+00:28:25,296 --> 0:28:27,156
+easier to preview author content
+
+837
+00:28:27,526 --> 0:28:29,206
+and take advantage of all the
+
+838
+00:28:29,206 --> 0:28:31,606
+power and tools available on a
+
+839
+00:28:32,426 --> 0:28:32,526
+Mac.
+
+840
+00:28:33,256 --> 0:28:34,566
+That's a quick run through of
+
+841
+00:28:34,566 --> 0:28:36,156
+all the visual improvements and
+
+842
+00:28:36,156 --> 0:28:37,416
+previewing experience in AR
+
+843
+00:28:37,416 --> 0:28:38,166
+Quick Look.
+
+844
+00:28:38,236 --> 0:28:39,306
+And now I'll hand it back to
+
+845
+00:28:39,306 --> 0:28:41,026
+David, who will talk more about
+
+846
+00:28:41,026 --> 0:28:43,676
+the integrations on the web.
+
+847
+00:28:44,516 --> 0:28:47,566
+[ Applause ]
+
+848
+00:28:48,066 --> 0:28:48,356
+&gt;&gt; Thanks.
+
+849
+00:28:49,286 --> 0:28:50,116
+Thanks Jerry.
+
+850
+00:28:50,606 --> 0:28:52,076
+So we all just saw the new
+
+851
+00:28:52,156 --> 0:28:53,896
+features and improvements added
+
+852
+00:28:53,896 --> 0:28:54,986
+to AR Quick Look this year.
+
+853
+00:28:55,806 --> 0:28:57,106
+So, now, let's talk about how to
+
+854
+00:28:57,106 --> 0:28:58,976
+view those experiences on the
+
+855
+00:28:59,626 --> 0:28:59,726
+web.
+
+856
+00:29:00,276 --> 0:29:02,896
+With iOS 12, you can view USDZ
+
+857
+00:29:02,896 --> 0:29:04,516
+files on the web through AR
+
+858
+00:29:04,516 --> 0:29:04,996
+Quick Look.
+
+859
+00:29:05,626 --> 0:29:06,916
+For your website to support
+
+860
+00:29:06,916 --> 0:29:09,826
+this, simply add HTML markup and
+
+861
+00:29:09,826 --> 0:29:11,066
+specify the MIME type.
+
+862
+00:29:12,276 --> 0:29:13,756
+This automatically adds the AR
+
+863
+00:29:13,756 --> 0:29:15,056
+badge in the top right-hand
+
+864
+00:29:15,056 --> 0:29:16,696
+corner of your thumbnail image
+
+865
+00:29:16,696 --> 0:29:17,756
+to let users know that they can
+
+866
+00:29:17,756 --> 0:29:19,366
+view this content in AR.
+
+867
+00:29:20,156 --> 0:29:21,816
+Tapping on the thumbnail will
+
+868
+00:29:21,816 --> 0:29:22,766
+launch AR Quick Look.
+
+869
+00:29:24,526 --> 0:29:25,786
+This easily transforms your
+
+870
+00:29:25,786 --> 0:29:28,006
+website into a seamless AR
+
+871
+00:29:28,006 --> 0:29:29,776
+viewing experience as there's no
+
+872
+00:29:29,776 --> 0:29:31,146
+need to download any
+
+873
+00:29:31,146 --> 0:29:31,696
+application.
+
+874
+00:29:32,306 --> 0:29:35,446
+Adding support consists of two
+
+875
+00:29:35,446 --> 0:29:35,746
+things.
+
+876
+00:29:36,486 --> 0:29:38,606
+The HTML markup and the MIME
+
+877
+00:29:38,606 --> 0:29:38,836
+type.
+
+878
+00:29:39,606 --> 0:29:40,936
+The first step is to add the
+
+879
+00:29:40,936 --> 0:29:42,566
+HTML markup, which involves
+
+880
+00:29:42,706 --> 0:29:45,846
+adding the rel equals AR
+
+881
+00:29:45,846 --> 0:29:47,666
+attribute to your A link
+
+882
+00:29:47,666 --> 0:29:50,206
+element, allowing Safari to
+
+883
+00:29:50,206 --> 0:29:51,546
+recognize and launch AR Quick
+
+884
+00:29:51,546 --> 0:29:53,076
+Look from the same webpage.
+
+885
+00:29:54,826 --> 0:29:56,236
+The link must contain a single
+
+886
+00:29:56,236 --> 0:29:58,666
+child that is either an image or
+
+887
+00:29:58,666 --> 0:30:00,906
+a picture element, and the image
+
+888
+00:29:58,666 --> 0:30:00,906
+a picture element, and the image
+
+889
+00:30:00,906 --> 0:30:02,116
+that you provide inside the
+
+890
+00:30:02,116 --> 0:30:03,636
+anchor will be used as a
+
+891
+00:30:03,636 --> 0:30:06,416
+thumbnail image for your virtual
+
+892
+00:30:06,966 --> 0:30:07,186
+content.
+
+893
+00:30:09,426 --> 0:30:10,676
+The second step that's needed in
+
+894
+00:30:10,676 --> 0:30:12,696
+order for Safari to recognize AR
+
+895
+00:30:12,696 --> 0:30:14,136
+content is to add the
+
+896
+00:30:14,206 --> 0:30:15,676
+appropriate MIME type when
+
+897
+00:30:15,676 --> 0:30:16,806
+serving that content.
+
+898
+00:30:17,596 --> 0:30:19,396
+To add support for previewing
+
+899
+00:30:19,396 --> 0:30:21,636
+USDZ files on the web, simply
+
+900
+00:30:21,636 --> 0:30:23,256
+add this MIME type for USDZ
+
+901
+00:30:23,256 --> 0:30:23,646
+files.
+
+902
+00:30:24,776 --> 0:30:26,306
+This provides the metadata for
+
+903
+00:30:26,306 --> 0:30:28,646
+Safari to open both regular and
+
+904
+00:30:28,646 --> 0:30:30,756
+nested USDZs directly in AR
+
+905
+00:30:30,756 --> 0:30:31,236
+Quick Look.
+
+906
+00:30:32,406 --> 0:30:33,746
+And likewise, you would need to
+
+907
+00:30:33,746 --> 0:30:35,256
+configure your web server to
+
+908
+00:30:35,256 --> 0:30:36,666
+serve the appropriate headers
+
+909
+00:30:36,666 --> 0:30:37,736
+for reality files.
+
+910
+00:30:38,266 --> 0:30:39,996
+And adding this MIME type will
+
+911
+00:30:39,996 --> 0:30:41,586
+open reality files within AR
+
+912
+00:30:41,586 --> 0:30:43,206
+Quick Look from the web.
+
+913
+00:30:44,536 --> 0:30:46,306
+In addition to downloading
+
+914
+00:30:46,306 --> 0:30:47,696
+content from a server, you can
+
+915
+00:30:47,696 --> 0:30:49,286
+also open up AR Quick Look by
+
+916
+00:30:49,286 --> 0:30:50,496
+passing in local data.
+
+917
+00:30:51,376 --> 0:30:53,066
+One supported format is the data
+
+918
+00:30:53,066 --> 0:30:55,126
+URIs, which allows developers to
+
+919
+00:30:55,126 --> 0:30:56,936
+load content from a base 64
+
+920
+00:30:56,936 --> 0:30:58,246
+encoded data string.
+
+921
+00:30:59,126 --> 0:31:00,436
+So, for example, here's how to
+
+922
+00:30:59,126 --> 0:31:00,436
+So, for example, here's how to
+
+923
+00:31:00,436 --> 0:31:05,506
+load a USDZ file through a data
+
+924
+00:31:05,576 --> 0:31:05,643
+URL.
+
+925
+00:31:05,926 --> 0:31:07,676
+Notice that you specify the same
+
+926
+00:31:07,676 --> 0:31:09,156
+MIME type at the beginning of
+
+927
+00:31:09,156 --> 0:31:11,706
+the data string, and to load a
+
+928
+00:31:11,706 --> 0:31:13,876
+reality file, simply switch the
+
+929
+00:31:13,876 --> 0:31:15,006
+MIME type.
+
+930
+00:31:18,156 --> 0:31:20,156
+Not only that, you can also load
+
+931
+00:31:20,156 --> 0:31:22,276
+data through blob URLs, which
+
+932
+00:31:22,276 --> 0:31:23,716
+are more efficient compared to
+
+933
+00:31:23,716 --> 0:31:25,586
+data URIs since they do not need
+
+934
+00:31:25,586 --> 0:31:27,426
+to be base 64 encoded.
+
+935
+00:31:28,616 --> 0:31:30,816
+The blob URL is never manually
+
+936
+00:31:30,816 --> 0:31:32,566
+created and always generated
+
+937
+00:31:32,566 --> 0:31:34,046
+through an API like drag and
+
+938
+00:31:34,046 --> 0:31:36,576
+drop, file upload, or URL
+
+939
+00:31:36,576 --> 0:31:36,996
+download.
+
+940
+00:31:37,556 --> 0:31:40,846
+We've heard from developers the
+
+941
+00:31:40,946 --> 0:31:42,606
+desire to customize a viewing
+
+942
+00:31:42,606 --> 0:31:44,076
+experience within AR Quick Look.
+
+943
+00:31:44,256 --> 0:31:46,566
+So, starting with iOS 13, we're
+
+944
+00:31:46,646 --> 0:31:48,376
+introducing two customization
+
+945
+00:31:48,376 --> 0:31:50,106
+options that you can modify to
+
+946
+00:31:50,226 --> 0:31:51,896
+tailor the viewer to best fit
+
+947
+00:31:51,896 --> 0:31:53,326
+your content and your
+
+948
+00:31:53,326 --> 0:31:53,866
+application.
+
+949
+00:31:54,686 --> 0:31:56,266
+Developers can choose to disable
+
+950
+00:31:56,266 --> 0:31:58,336
+scaling of virtual content for
+
+951
+00:31:58,336 --> 0:31:59,396
+each model that's being
+
+952
+00:31:59,396 --> 0:32:01,436
+previewed and also provide a
+
+953
+00:31:59,396 --> 0:32:01,436
+previewed and also provide a
+
+954
+00:32:01,436 --> 0:32:03,456
+canonical webpage instead of the
+
+955
+00:32:03,456 --> 0:32:05,276
+actual 3D model that'll be
+
+956
+00:32:05,276 --> 0:32:06,516
+shared through the iOS
+
+957
+00:32:06,576 --> 0:32:07,076
+sharesheet.
+
+958
+00:32:08,126 --> 0:32:09,316
+So, let's take a look at the
+
+959
+00:32:09,316 --> 0:32:11,006
+disable content scaling option.
+
+960
+00:32:12,636 --> 0:32:14,006
+Typically, allowing scaling for
+
+961
+00:32:14,006 --> 0:32:15,606
+virtual content is a great way
+
+962
+00:32:15,656 --> 0:32:17,546
+to preview objects at different
+
+963
+00:32:17,546 --> 0:32:18,826
+sizes and picking the right
+
+964
+00:32:18,826 --> 0:32:20,406
+dimensions to best see your
+
+965
+00:32:20,406 --> 0:32:21,676
+content in the environment that
+
+966
+00:32:21,676 --> 0:32:22,116
+you're in.
+
+967
+00:32:23,336 --> 0:32:24,786
+However, that's not always the
+
+968
+00:32:24,786 --> 0:32:26,546
+case, especially when previewing
+
+969
+00:32:26,916 --> 0:32:29,296
+objects with known fixed sizes
+
+970
+00:32:29,696 --> 0:32:30,346
+like furniture.
+
+971
+00:32:31,886 --> 0:32:32,766
+For these type of products, AR
+
+972
+00:32:32,766 --> 0:32:34,166
+Quick Look makes it really easy
+
+973
+00:32:34,286 --> 0:32:36,276
+for web and app developers to
+
+974
+00:32:36,276 --> 0:32:37,936
+disable content scaling so that
+
+975
+00:32:37,936 --> 0:32:39,546
+users will always view the
+
+976
+00:32:39,546 --> 0:32:41,246
+object at the correct and
+
+977
+00:32:41,246 --> 0:32:42,266
+intended size.
+
+978
+00:32:43,666 --> 0:32:44,886
+So, let's see what this behavior
+
+979
+00:32:44,886 --> 0:32:46,346
+looks like with this nice dining
+
+980
+00:32:46,346 --> 0:32:47,256
+room set that I'm sending to
+
+981
+00:32:47,256 --> 0:32:47,866
+customers.
+
+982
+00:32:48,216 --> 0:32:49,706
+The set comes in a specific
+
+983
+00:32:49,706 --> 0:32:50,726
+dimension that cannot be
+
+984
+00:32:50,726 --> 0:32:51,296
+configured.
+
+985
+00:32:52,416 --> 0:32:53,646
+You can see as I try to scale
+
+986
+00:32:53,646 --> 0:32:54,996
+the dining table set larger or
+
+987
+00:32:54,996 --> 0:32:56,816
+smaller with our two finger
+
+988
+00:32:56,816 --> 0:32:58,656
+pinch gesture that you're met
+
+989
+00:32:58,656 --> 0:33:00,306
+with resistance and that the
+
+990
+00:32:58,656 --> 0:33:00,306
+with resistance and that the
+
+991
+00:33:00,306 --> 0:33:01,746
+object scales back down to its
+
+992
+00:33:01,746 --> 0:33:03,336
+true real-world size.
+
+993
+00:33:04,486 --> 0:33:06,216
+This immediate feedback is super
+
+994
+00:33:06,216 --> 0:33:07,756
+important to let our customers
+
+995
+00:33:07,756 --> 0:33:09,336
+know that the object cannot be
+
+996
+00:33:09,336 --> 0:33:11,156
+scaled and that they're intended
+
+997
+00:33:11,156 --> 0:33:13,026
+to be viewed at this specific
+
+998
+00:33:13,026 --> 0:33:13,366
+size.
+
+999
+00:33:15,296 --> 0:33:17,486
+For the web, the API is exposed
+
+1000
+00:33:17,486 --> 0:33:18,956
+directly through the URL via the
+
+1001
+00:33:18,956 --> 0:33:20,036
+fragment identifier.
+
+1002
+00:33:20,626 --> 0:33:22,116
+The fragment identifier syntax
+
+1003
+00:33:22,376 --> 0:33:24,796
+starts with a hash mark followed
+
+1004
+00:33:24,796 --> 0:33:26,446
+by the parameter option to
+
+1005
+00:33:26,496 --> 0:33:27,696
+customize the AR Quick Look
+
+1006
+00:33:27,696 --> 0:33:29,746
+experience, and in this case,
+
+1007
+00:33:29,976 --> 0:33:31,856
+this allows content scaling
+
+1008
+00:33:31,856 --> 0:33:32,336
+behavior.
+
+1009
+00:33:33,486 --> 0:33:34,786
+The values to these parameters
+
+1010
+00:33:35,156 --> 0:33:36,606
+are Boolean values where 0
+
+1011
+00:33:36,606 --> 0:33:38,326
+represents false, and 1
+
+1012
+00:33:38,326 --> 0:33:39,086
+represents true.
+
+1013
+00:33:40,286 --> 0:33:41,696
+When launched AR Quick Look
+
+1014
+00:33:41,696 --> 0:33:43,216
+processes the fragment
+
+1015
+00:33:43,216 --> 0:33:45,116
+identifier data and ignores any
+
+1016
+00:33:45,116 --> 0:33:48,066
+invalid data along with
+
+1017
+00:33:48,066 --> 0:33:49,186
+parameter names that are not
+
+1018
+00:33:49,186 --> 0:33:50,406
+defined by the syntax.
+
+1019
+00:33:51,246 --> 0:33:52,896
+If the original URL does not
+
+1020
+00:33:52,896 --> 0:33:54,246
+contain a fragment string, AR
+
+1021
+00:33:54,436 --> 0:33:56,206
+Quick Look will launch and load
+
+1022
+00:33:56,206 --> 0:33:58,236
+the 3D content for previewing
+
+1023
+00:33:58,236 --> 0:33:59,536
+using the default behavior,
+
+1024
+00:33:59,976 --> 0:34:01,116
+which is to allow content
+
+1025
+00:33:59,976 --> 0:34:01,116
+which is to allow content
+
+1026
+00:34:01,116 --> 0:34:01,566
+scaling.
+
+1027
+00:34:03,096 --> 0:34:04,316
+Going through the URL fragment
+
+1028
+00:34:04,316 --> 0:34:05,726
+identifier allows for future
+
+1029
+00:34:05,726 --> 0:34:07,026
+customization options and
+
+1030
+00:34:07,026 --> 0:34:08,896
+enhancements to the 3D content
+
+1031
+00:34:08,896 --> 0:34:10,335
+previewing experience, as more
+
+1032
+00:34:10,335 --> 0:34:11,496
+features get added to AR Quick
+
+1033
+00:34:11,496 --> 0:34:11,616
+Look.
+
+1034
+00:34:14,676 --> 0:34:15,966
+Another customization option
+
+1035
+00:34:15,966 --> 0:34:17,505
+that we added is the ability to
+
+1036
+00:34:17,505 --> 0:34:18,846
+enable sharing the canonical
+
+1037
+00:34:18,846 --> 0:34:19,646
+webpage URL.
+
+1038
+00:34:20,356 --> 0:34:21,795
+When challenged and sharing just
+
+1039
+00:34:21,795 --> 0:34:23,985
+3D model file is the lack of
+
+1040
+00:34:24,016 --> 0:34:25,335
+context for where that model
+
+1041
+00:34:25,335 --> 0:34:25,786
+came from.
+
+1042
+00:34:26,716 --> 0:34:27,936
+I know my colleague Jerry is in
+
+1043
+00:34:27,936 --> 0:34:28,926
+the market for a new dining
+
+1044
+00:34:28,926 --> 0:34:30,856
+table, so if I send him an
+
+1045
+00:34:30,856 --> 0:34:32,356
+iMessage to previous 3D model,
+
+1046
+00:34:32,356 --> 0:34:33,676
+he has no idea where to buy it
+
+1047
+00:34:34,096 --> 0:34:35,596
+let alone how much the set even
+
+1048
+00:34:35,596 --> 0:34:36,085
+costs.
+
+1049
+00:34:37,255 --> 0:34:38,666
+For retail products, it's better
+
+1050
+00:34:38,666 --> 0:34:40,186
+to share the link to the product
+
+1051
+00:34:40,186 --> 0:34:41,045
+description page.
+
+1052
+00:34:42,126 --> 0:34:43,456
+And by sharing a product link
+
+1053
+00:34:43,556 --> 0:34:44,636
+instead of a 3D model file
+
+1054
+00:34:44,636 --> 0:34:45,886
+itself, people can go to the
+
+1055
+00:34:45,886 --> 0:34:47,806
+source and get not only more
+
+1056
+00:34:47,806 --> 0:34:49,076
+information but the most
+
+1057
+00:34:49,076 --> 0:34:50,646
+up-to-date information about the
+
+1058
+00:34:50,696 --> 0:34:51,036
+product.
+
+1059
+00:34:52,356 --> 0:34:53,786
+And on iOS 13, AR Quick Look
+
+1060
+00:34:53,786 --> 0:34:55,226
+will automatically share the URL
+
+1061
+00:34:55,226 --> 0:34:57,496
+of the originating website for
+
+1062
+00:34:57,496 --> 0:34:59,246
+the 3D content and applications
+
+1063
+00:34:59,246 --> 0:35:00,866
+can choose to continue sharing
+
+1064
+00:34:59,246 --> 0:35:00,866
+can choose to continue sharing
+
+1065
+00:35:00,866 --> 0:35:03,356
+that 3D model or to provide a
+
+1066
+00:35:03,356 --> 0:35:03,906
+link instead.
+
+1067
+00:35:04,456 --> 0:35:05,386
+This is great to get more
+
+1068
+00:35:05,386 --> 0:35:07,686
+information and learn more about
+
+1069
+00:35:08,416 --> 0:35:09,936
+the content.
+
+1070
+00:35:10,006 --> 0:35:10,596
+Now let's take a look at this
+
+1071
+00:35:10,596 --> 0:35:11,436
+behavior in Safari.
+
+1072
+00:35:12,196 --> 0:35:13,176
+Here, I'm viewing the guitar
+
+1073
+00:35:13,266 --> 0:35:14,356
+from the AR Quick Look gallery.
+
+1074
+00:35:14,356 --> 0:35:16,036
+As I tap on the share button,
+
+1075
+00:35:16,176 --> 0:35:17,216
+you'll see that were now sharing
+
+1076
+00:35:17,216 --> 0:35:18,386
+a reference back to the gallery
+
+1077
+00:35:18,386 --> 0:35:18,796
+website.
+
+1078
+00:35:18,796 --> 0:35:21,586
+And in Apple News, we're
+
+1079
+00:35:21,586 --> 0:35:23,346
+automatically sharing the source
+
+1080
+00:35:23,466 --> 0:35:24,946
+news article as well through the
+
+1081
+00:35:24,946 --> 0:35:25,776
+iOS share sheet.
+
+1082
+00:35:26,236 --> 0:35:27,716
+This is great for shareability
+
+1083
+00:35:27,916 --> 0:35:30,226
+as we pass 3D models around and
+
+1084
+00:35:30,226 --> 0:35:32,486
+for viewing in AR with even more
+
+1085
+00:35:32,486 --> 0:35:33,586
+contextual information.
+
+1086
+00:35:33,786 --> 0:35:36,576
+You can also integrate AR Quick
+
+1087
+00:35:36,576 --> 0:35:38,236
+Look into your iOS applications.
+
+1088
+00:35:38,736 --> 0:35:40,156
+It's really easy to integrate
+
+1089
+00:35:40,156 --> 0:35:41,296
+and get started with viewing 3D
+
+1090
+00:35:41,296 --> 0:35:42,586
+content and placing them into
+
+1091
+00:35:42,586 --> 0:35:42,986
+the world.
+
+1092
+00:35:44,266 --> 0:35:45,386
+Since AR Quick Look is built
+
+1093
+00:35:45,386 --> 0:35:46,886
+into the OS adopting it gives
+
+1094
+00:35:46,886 --> 0:35:49,286
+users a familiar, yet consistent
+
+1095
+00:35:49,286 --> 0:35:50,356
+previewing experience.
+
+1096
+00:35:51,296 --> 0:35:52,566
+You have full control over the
+
+1097
+00:35:52,566 --> 0:35:53,806
+view controller frame and
+
+1098
+00:35:53,806 --> 0:35:55,456
+presentation of AR Quick Look so
+
+1099
+00:35:55,456 --> 0:35:56,396
+you can put it inline with the
+
+1100
+00:35:56,396 --> 0:35:58,286
+rest of your app content or
+
+1101
+00:35:58,286 --> 0:35:59,316
+present it full screen for the
+
+1102
+00:35:59,316 --> 0:36:00,286
+best experience.
+
+1103
+00:35:59,316 --> 0:36:00,286
+best experience.
+
+1104
+00:36:01,276 --> 0:36:02,966
+AR Quick Look is built on top of
+
+1105
+00:36:02,966 --> 0:36:04,396
+the Quick Look framework to
+
+1106
+00:36:04,396 --> 0:36:05,946
+preview and present AR content.
+
+1107
+00:36:06,666 --> 0:36:07,766
+So the same customization
+
+1108
+00:36:07,766 --> 0:36:09,136
+options that are on the web are
+
+1109
+00:36:09,136 --> 0:36:10,506
+also available for your apps
+
+1110
+00:36:10,506 --> 0:36:11,266
+through our new API.
+
+1111
+00:36:12,286 --> 0:36:14,546
+To do so, use the new AR Quick
+
+1112
+00:36:14,546 --> 0:36:15,916
+Look preview item class defined
+
+1113
+00:36:15,916 --> 0:36:17,326
+in the ARKit framework, which
+
+1114
+00:36:17,326 --> 0:36:19,016
+conforms to the QL previewItem.
+
+1115
+00:36:19,816 --> 0:36:20,946
+Simply conform to the
+
+1116
+00:36:20,946 --> 0:36:22,546
+QLPreviewController data source
+
+1117
+00:36:22,546 --> 0:36:24,086
+protocol and return an instance
+
+1118
+00:36:24,126 --> 0:36:25,896
+of an AR QL preview item.
+
+1119
+00:36:27,046 --> 0:36:28,656
+To create one, pass in the file
+
+1120
+00:36:28,656 --> 0:36:30,346
+URL of the 3D content that you
+
+1121
+00:36:30,346 --> 0:36:30,886
+wish to view.
+
+1122
+00:36:32,376 --> 0:36:33,526
+And now, you can optionally
+
+1123
+00:36:33,526 --> 0:36:34,626
+customize and provide the
+
+1124
+00:36:34,656 --> 0:36:37,206
+canonical website URL use of
+
+1125
+00:36:37,206 --> 0:36:39,046
+sharing within AR Quick Look and
+
+1126
+00:36:39,046 --> 0:36:40,906
+whether to allow content scaling
+
+1127
+00:36:40,906 --> 0:36:42,516
+of the virtual content, all
+
+1128
+00:36:42,516 --> 0:36:43,686
+similar to the web fragment
+
+1129
+00:36:43,686 --> 0:36:44,396
+identifier method.
+
+1130
+00:36:45,436 --> 0:36:46,666
+This provides a consistent
+
+1131
+00:36:46,936 --> 0:36:48,976
+developer and API story for both
+
+1132
+00:36:48,976 --> 0:36:50,316
+web and iOS applications.
+
+1133
+00:36:51,926 --> 0:36:53,396
+We have a new documentation and
+
+1134
+00:36:53,476 --> 0:36:54,536
+resources where you can learn
+
+1135
+00:36:54,536 --> 0:36:55,786
+more about the APIs that we've
+
+1136
+00:36:55,786 --> 0:36:57,216
+covered along with details on
+
+1137
+00:36:57,266 --> 0:36:58,416
+how to enable AR Quick Look in
+
+1138
+00:36:58,466 --> 0:36:59,656
+your application and website.
+
+1139
+00:37:00,176 --> 0:37:01,216
+So, check out this link, which
+
+1140
+00:37:01,216 --> 0:37:02,316
+can be found on the developer
+
+1141
+00:37:02,316 --> 0:37:02,646
+portal.
+
+1142
+00:37:04,686 --> 0:37:06,406
+Augmented reality is a really
+
+1143
+00:37:06,406 --> 0:37:08,076
+powerful way to visualize
+
+1144
+00:37:08,076 --> 0:37:09,266
+furniture and see how they fit
+
+1145
+00:37:09,266 --> 0:37:10,056
+within your space.
+
+1146
+00:37:10,276 --> 0:37:11,386
+So, I'll be showing you how to
+
+1147
+00:37:11,386 --> 0:37:13,016
+decorate a kid's bedroom with
+
+1148
+00:37:13,076 --> 0:37:14,146
+these six items.
+
+1149
+00:37:17,616 --> 0:37:19,226
+So, as you can see here, there
+
+1150
+00:37:19,226 --> 0:37:21,236
+are two picture frames, a
+
+1151
+00:37:21,236 --> 0:37:26,286
+basket, a nightstand, a bed, and
+
+1152
+00:37:26,286 --> 0:37:27,046
+a bookshelf.
+
+1153
+00:37:27,416 --> 0:37:29,456
+And all of these object are
+
+1154
+00:37:29,456 --> 0:37:31,656
+packaged together in a single
+
+1155
+00:37:31,656 --> 0:37:34,836
+nested USDZ file.
+
+1156
+00:37:35,316 --> 0:37:36,776
+So let's get started moving this
+
+1157
+00:37:36,776 --> 0:37:36,986
+bed.
+
+1158
+00:37:37,806 --> 0:37:38,786
+You can see how I'm able to
+
+1159
+00:37:38,786 --> 0:37:40,046
+freely move the bed that's
+
+1160
+00:37:40,046 --> 0:37:41,666
+contained in this multiple model
+
+1161
+00:37:41,666 --> 0:37:44,016
+file independently to my desired
+
+1162
+00:37:44,016 --> 0:37:44,846
+location in the room.
+
+1163
+00:37:46,666 --> 0:37:47,546
+Let's go ahead and grab the
+
+1164
+00:37:47,546 --> 0:37:48,946
+picture frames, that's on the
+
+1165
+00:37:48,946 --> 0:37:50,796
+left, and move them closer to
+
+1166
+00:37:50,796 --> 0:37:51,126
+us.
+
+1167
+00:37:51,656 --> 0:37:52,776
+With two fingers, you can see
+
+1168
+00:37:52,776 --> 0:37:54,076
+that we support multimodel
+
+1169
+00:37:54,076 --> 0:37:55,736
+translation, leveraging the
+
+1170
+00:37:55,786 --> 0:37:56,676
+power of multitouch.
+
+1171
+00:37:57,246 --> 0:37:58,646
+This is great for quickly moving
+
+1172
+00:37:58,646 --> 0:38:00,026
+objects around in the world.
+
+1173
+00:37:58,646 --> 0:38:00,026
+objects around in the world.
+
+1174
+00:38:00,656 --> 0:38:04,296
+I will now touch and drag my
+
+1175
+00:38:04,296 --> 0:38:05,696
+favorite picture from the floor
+
+1176
+00:38:05,906 --> 0:38:07,406
+and anchor it so that it sits
+
+1177
+00:38:07,516 --> 0:38:08,316
+right above the bed.
+
+1178
+00:38:09,086 --> 0:38:11,006
+This is all possible now because
+
+1179
+00:38:11,006 --> 0:38:12,596
+by default AR Quick Look detects
+
+1180
+00:38:12,596 --> 0:38:14,016
+and supports placing objects on
+
+1181
+00:38:14,016 --> 0:38:15,386
+both horizontal and vertical
+
+1182
+00:38:15,386 --> 0:38:16,036
+surfaces.
+
+1183
+00:38:16,486 --> 0:38:20,116
+Now let's figure the best place
+
+1184
+00:38:20,296 --> 0:38:21,446
+to put my bookshelf.
+
+1185
+00:38:21,856 --> 0:38:23,226
+I'll grab the bookshelf and
+
+1186
+00:38:23,346 --> 0:38:25,196
+first place it onto the wall.
+
+1187
+00:38:26,696 --> 0:38:29,196
+Now, I really need to compare
+
+1188
+00:38:29,196 --> 0:38:30,736
+where the best spot for it is,
+
+1189
+00:38:30,976 --> 0:38:32,526
+so let's place it back onto the
+
+1190
+00:38:32,526 --> 0:38:32,916
+floor.
+
+1191
+00:38:34,156 --> 0:38:35,626
+So now I'm thinking, I want as
+
+1192
+00:38:35,626 --> 0:38:36,936
+much floor space for the kid as
+
+1193
+00:38:36,936 --> 0:38:38,616
+they grow up and as they collect
+
+1194
+00:38:38,616 --> 0:38:39,146
+more items.
+
+1195
+00:38:39,796 --> 0:38:40,876
+So let's keep it onto the wall
+
+1196
+00:38:40,876 --> 0:38:41,776
+since it really matches the
+
+1197
+00:38:41,776 --> 0:38:43,996
+setting of the picture frame and
+
+1198
+00:38:43,996 --> 0:38:44,816
+the rest of my layout.
+
+1199
+00:38:45,856 --> 0:38:47,386
+I'm able to quickly make these
+
+1200
+00:38:47,586 --> 0:38:49,236
+decisions and see what objects
+
+1201
+00:38:49,236 --> 0:38:50,636
+look like in my room with the
+
+1202
+00:38:50,636 --> 0:38:52,356
+new support in AR Quick Look for
+
+1203
+00:38:52,426 --> 0:38:54,076
+easily moving between horizontal
+
+1204
+00:38:54,076 --> 0:38:55,046
+and vertical surfaces.
+
+1205
+00:38:55,596 --> 0:38:57,796
+So, let's tidy up the rest of
+
+1206
+00:38:57,796 --> 0:39:00,016
+this scene by moving the
+
+1207
+00:38:57,796 --> 0:39:00,016
+this scene by moving the
+
+1208
+00:39:00,016 --> 0:39:01,216
+remaining objects, which is the
+
+1209
+00:39:01,216 --> 0:39:04,686
+basket, and over to the right
+
+1210
+00:39:04,926 --> 0:39:05,726
+near the bookshelf.
+
+1211
+00:39:10,076 --> 0:39:12,026
+I'll also do the same thing with
+
+1212
+00:39:12,026 --> 0:39:13,186
+the nightstand and a picture
+
+1213
+00:39:13,186 --> 0:39:14,486
+frame but move it to the left
+
+1214
+00:39:14,486 --> 0:39:14,976
+side of the bed.
+
+1215
+00:39:29,046 --> 0:39:30,306
+And as Jerry mentioned, there's
+
+1216
+00:39:30,306 --> 0:39:32,086
+a new levity gesture, and this
+
+1217
+00:39:32,086 --> 0:39:33,676
+is extremely powerful for not
+
+1218
+00:39:33,676 --> 0:39:35,066
+only seeing the underside of the
+
+1219
+00:39:35,066 --> 0:39:36,356
+objects but also lifting the
+
+1220
+00:39:36,356 --> 0:39:36,976
+object up.
+
+1221
+00:39:37,546 --> 0:39:39,076
+So I'll go ahead and lift the
+
+1222
+00:39:39,076 --> 0:39:40,356
+picture frame to be slightly
+
+1223
+00:39:40,356 --> 0:39:41,866
+above the nightstand and move it
+
+1224
+00:39:41,866 --> 0:39:43,436
+so that it's positioned just on
+
+1225
+00:39:43,536 --> 0:39:44,316
+top of the stand.
+
+1226
+00:39:45,316 --> 0:39:47,026
+Lastly, I'll rotate the frame so
+
+1227
+00:39:47,026 --> 0:39:48,626
+it's angled towards the bed for
+
+1228
+00:39:48,626 --> 0:39:50,466
+a nice finishing touch.
+
+1229
+00:39:51,716 --> 0:39:53,996
+And now, let's take a look at
+
+1230
+00:39:53,996 --> 0:39:55,086
+the final shot of the kid's
+
+1231
+00:39:55,086 --> 0:39:56,456
+bedroom scene that we've just
+
+1232
+00:39:57,076 --> 0:39:57,186
+made.
+
+1233
+00:40:00,196 --> 0:40:02,216
+This looks absolutely incredible
+
+1234
+00:40:02,216 --> 0:40:03,626
+as a prime example of a retail
+
+1235
+00:40:03,626 --> 0:40:04,776
+experience that can be enabled
+
+1236
+00:40:04,776 --> 0:40:05,496
+in AR Quick Look.
+
+1237
+00:40:06,276 --> 0:40:07,976
+But you might be thinking, I
+
+1238
+00:40:07,976 --> 0:40:09,246
+really wish there was an easy
+
+1239
+00:40:09,246 --> 0:40:10,556
+way for me to buy this after
+
+1240
+00:40:10,556 --> 0:40:11,976
+seeing this in my own space.
+
+1241
+00:40:13,036 --> 0:40:14,066
+And you weren't alone in
+
+1242
+00:40:14,066 --> 0:40:14,656
+thinking that.
+
+1243
+00:40:15,086 --> 0:40:16,336
+We've learned that over the last
+
+1244
+00:40:16,336 --> 0:40:17,456
+year from retailers that when
+
+1245
+00:40:17,456 --> 0:40:19,106
+customers see their products in
+
+1246
+00:40:19,106 --> 0:40:20,266
+their own space, they have
+
+1247
+00:40:20,266 --> 0:40:21,826
+significantly more confidence in
+
+1248
+00:40:21,826 --> 0:40:23,446
+their purchase, which is great
+
+1249
+00:40:23,446 --> 0:40:25,426
+for customers and great for
+
+1250
+00:40:25,426 --> 0:40:25,976
+businesses.
+
+1251
+00:40:26,776 --> 0:40:28,186
+So, this year, we are adding a
+
+1252
+00:40:28,186 --> 0:40:29,576
+support for a customizable call
+
+1253
+00:40:29,576 --> 0:40:31,026
+to action in AR Quick Look
+
+1254
+00:40:31,206 --> 0:40:33,146
+including direct support for
+
+1255
+00:40:33,586 --> 0:40:34,816
+Apple Pay.
+
+1256
+00:40:36,136 --> 0:40:37,806
+With Apple Pay support directly
+
+1257
+00:40:37,806 --> 0:40:38,766
+in AR Quick Look, users can
+
+1258
+00:40:38,766 --> 0:40:40,706
+purchase the actual objects that
+
+1259
+00:40:40,706 --> 0:40:41,786
+they just previewed in the world
+
+1260
+00:40:41,786 --> 0:40:43,606
+with just a single tap.
+
+1261
+00:40:44,196 --> 0:40:45,776
+So, what does this actually look
+
+1262
+00:40:45,776 --> 0:40:45,876
+like?
+
+1263
+00:40:46,256 --> 0:40:47,476
+There's a brand-new view located
+
+1264
+00:40:47,476 --> 0:40:48,486
+at the bottom of AR Quick Look
+
+1265
+00:40:48,486 --> 0:40:50,496
+with two fields, a title and a
+
+1266
+00:40:50,496 --> 0:40:52,516
+subtitle that you can customize
+
+1267
+00:40:52,516 --> 0:40:53,526
+separately to match your
+
+1268
+00:40:53,526 --> 0:40:53,836
+workflow.
+
+1269
+00:40:54,846 --> 0:40:56,036
+The title can describe what it
+
+1270
+00:40:56,036 --> 0:40:57,006
+is that the user is looking at
+
+1271
+00:40:57,006 --> 0:40:58,346
+to buy and you can use a
+
+1272
+00:40:58,346 --> 0:40:59,406
+subtitle field to include the
+
+1273
+00:40:59,476 --> 0:41:01,196
+price and product description.
+
+1274
+00:40:59,476 --> 0:41:01,196
+price and product description.
+
+1275
+00:41:02,646 --> 0:41:03,956
+Underneath the text field is a
+
+1276
+00:41:03,956 --> 0:41:05,206
+reference to the canonical web
+
+1277
+00:41:05,206 --> 0:41:06,726
+domain name to show you where
+
+1278
+00:41:06,726 --> 0:41:07,756
+the product can be found.
+
+1279
+00:41:08,436 --> 0:41:09,606
+And on the right, you can
+
+1280
+00:41:09,606 --> 0:41:10,896
+provide your own call to action,
+
+1281
+00:41:10,936 --> 0:41:13,796
+such as active cart and checkout
+
+1282
+00:41:14,796 --> 0:41:16,356
+along with using any Apple Pay
+
+1283
+00:41:16,356 --> 0:41:17,486
+button with varying different
+
+1284
+00:41:17,486 --> 0:41:19,386
+styles to best fit and match
+
+1285
+00:41:19,556 --> 0:41:20,466
+your shopping workflow.
+
+1286
+00:41:21,706 --> 0:41:22,846
+So this great feature will be
+
+1287
+00:41:22,846 --> 0:41:24,346
+available later this fall, and
+
+1288
+00:41:24,986 --> 0:41:26,206
+we are excited to share that
+
+1289
+00:41:26,206 --> 0:41:27,536
+Warby Parker will be offering
+
+1290
+00:41:27,536 --> 0:41:28,896
+virtual try-on in their website
+
+1291
+00:41:28,896 --> 0:41:30,276
+once Apple Pay support and AR
+
+1292
+00:41:30,276 --> 0:41:31,836
+Quick Look is available later
+
+1293
+00:41:31,836 --> 0:41:32,186
+this year.
+
+1294
+00:41:33,246 --> 0:41:34,586
+Warby Parker was the first to
+
+1295
+00:41:34,586 --> 0:41:35,876
+offer virtual try-on in their
+
+1296
+00:41:35,876 --> 0:41:37,356
+app, and we're excited with the
+
+1297
+00:41:37,356 --> 0:41:38,626
+new updates to AR Quick Look and
+
+1298
+00:41:38,696 --> 0:41:40,456
+iOS 13 they will be extending
+
+1299
+00:41:40,456 --> 0:41:41,926
+their virtual try-on to their
+
+1300
+00:41:41,926 --> 0:41:42,326
+website.
+
+1301
+00:41:42,956 --> 0:41:44,066
+We can't wait to see how other
+
+1302
+00:41:44,066 --> 0:41:45,416
+merchants integrate this into
+
+1303
+00:41:45,416 --> 0:41:46,586
+their retail workflow.
+
+1304
+00:41:48,236 --> 0:41:49,766
+Now, a majority of these models
+
+1305
+00:41:49,766 --> 0:41:51,856
+that we've seen from the keynote
+
+1306
+00:41:52,046 --> 0:41:53,636
+and this session can be found on
+
+1307
+00:41:53,636 --> 0:41:54,576
+our updated AR Quick Look
+
+1308
+00:41:54,576 --> 0:41:55,216
+gallery page.
+
+1309
+00:41:55,836 --> 0:41:57,046
+Here, you'll find a range of
+
+1310
+00:41:57,046 --> 0:41:58,676
+static and animated models that
+
+1311
+00:41:58,676 --> 0:42:00,036
+you can play with, and we'll be
+
+1312
+00:41:58,676 --> 0:42:00,036
+you can play with, and we'll be
+
+1313
+00:42:00,036 --> 0:42:01,656
+adding reality files soon.
+
+1314
+00:42:02,316 --> 0:42:03,606
+So, if you have iOS 13 on the
+
+1315
+00:42:03,606 --> 0:42:05,206
+device, visit this gallery page,
+
+1316
+00:42:05,416 --> 0:42:06,686
+tap on a 3D model, and give them
+
+1317
+00:42:06,686 --> 0:42:06,996
+a try.
+
+1318
+00:42:06,996 --> 0:42:09,686
+And also, if you didn't get the
+
+1319
+00:42:09,686 --> 0:42:10,796
+opportunity to check out the Mac
+
+1320
+00:42:10,896 --> 0:42:12,616
+Pro or the Pro Display XDR in
+
+1321
+00:42:12,646 --> 0:42:13,596
+person from earlier in the
+
+1322
+00:42:13,596 --> 0:42:15,456
+conference, don't fret.
+
+1323
+00:42:16,086 --> 0:42:17,226
+You can view these products in
+
+1324
+00:42:17,226 --> 0:42:18,616
+AR Quick Look and see what they
+
+1325
+00:42:18,616 --> 0:42:19,756
+look like in your workspace.
+
+1326
+00:42:20,276 --> 0:42:21,306
+The models can be found on their
+
+1327
+00:42:21,306 --> 0:42:22,946
+respective product pages.
+
+1328
+00:42:24,296 --> 0:42:25,986
+A Python script to create these
+
+1329
+00:42:25,986 --> 0:42:27,646
+nested USDZ files will be
+
+1330
+00:42:27,646 --> 0:42:29,166
+available soon on the AR Quick
+
+1331
+00:42:29,166 --> 0:42:30,856
+Look gallery page under the USDZ
+
+1332
+00:42:30,856 --> 0:42:31,706
+tools section.
+
+1333
+00:42:32,366 --> 0:42:35,276
+So, in summary, we've added a
+
+1334
+00:42:35,466 --> 0:42:36,796
+ton of capabilities to AR Quick
+
+1335
+00:42:36,796 --> 0:42:37,826
+Look this year to provide and
+
+1336
+00:42:37,826 --> 0:42:39,206
+even more compelling and
+
+1337
+00:42:39,206 --> 0:42:41,846
+believable experience, to view
+
+1338
+00:42:41,846 --> 0:42:42,966
+AR content in the real world.
+
+1339
+00:42:43,696 --> 0:42:44,606
+This started with supporting
+
+1340
+00:42:44,606 --> 0:42:45,866
+reality files, authored in
+
+1341
+00:42:45,866 --> 0:42:47,336
+Reality Composer, where we're
+
+1342
+00:42:47,336 --> 0:42:48,646
+able to reflect the richness
+
+1343
+00:42:48,686 --> 0:42:50,356
+that reality kit provides, like
+
+1344
+00:42:50,356 --> 0:42:52,196
+more anchor types, such as Face
+
+1345
+00:42:52,556 --> 0:42:54,486
+and Real World images and
+
+1346
+00:42:54,486 --> 0:42:56,426
+interactive content behaviors
+
+1347
+00:42:56,646 --> 0:42:57,966
+through the use of triggers and
+
+1348
+00:42:57,966 --> 0:42:58,496
+actions.
+
+1349
+00:42:59,376 --> 0:43:00,586
+We've made the content belong
+
+1350
+00:42:59,376 --> 0:43:00,586
+We've made the content belong
+
+1351
+00:43:00,586 --> 0:43:01,646
+with the world with new
+
+1352
+00:43:01,646 --> 0:43:02,646
+rendering effects like depth of
+
+1353
+00:43:02,646 --> 0:43:05,216
+field, motion blur, and people
+
+1354
+00:43:05,216 --> 0:43:05,536
+occlusion.
+
+1355
+00:43:06,686 --> 0:43:07,786
+We also enhance the viewing
+
+1356
+00:43:07,786 --> 0:43:09,166
+experience with new levity
+
+1357
+00:43:09,166 --> 0:43:10,796
+gestures and built-in animation
+
+1358
+00:43:10,796 --> 0:43:12,026
+scrubber to allow you to have
+
+1359
+00:43:12,096 --> 0:43:13,876
+better control over the content
+
+1360
+00:43:13,876 --> 0:43:15,076
+and its animation sequence.
+
+1361
+00:43:16,436 --> 0:43:17,936
+We've introduced a new API on
+
+1362
+00:43:17,936 --> 0:43:19,426
+both the web and iOS to allow
+
+1363
+00:43:19,426 --> 0:43:21,156
+developers to better customize
+
+1364
+00:43:21,156 --> 0:43:22,206
+their previewing experience for
+
+1365
+00:43:22,206 --> 0:43:22,886
+the workflows.
+
+1366
+00:43:23,206 --> 0:43:26,276
+And lastly, there's better
+
+1367
+00:43:26,276 --> 0:43:27,486
+retail integration with support
+
+1368
+00:43:27,486 --> 0:43:28,696
+for Apple Pay and call to
+
+1369
+00:43:28,696 --> 0:43:30,106
+actions that are coming real
+
+1370
+00:43:30,766 --> 0:43:30,856
+soon.
+
+1371
+00:43:31,676 --> 0:43:33,596
+To learn more and get more
+
+1372
+00:43:33,596 --> 0:43:34,486
+information about the topics
+
+1373
+00:43:34,486 --> 0:43:35,326
+covered in this session, check
+
+1374
+00:43:35,326 --> 0:43:36,326
+out the session's website.
+
+1375
+00:43:36,816 --> 0:43:38,086
+We also have a lab later today
+
+1376
+00:43:38,086 --> 0:43:38,886
+at 11 AM.
+
+1377
+00:43:39,356 --> 0:43:40,806
+So please stop buy and bring any
+
+1378
+00:43:40,806 --> 0:43:41,786
+questions you have about AR
+
+1379
+00:43:41,786 --> 0:43:43,276
+Quick Look, and we'd be happy to
+
+1380
+00:43:43,276 --> 0:43:43,966
+help answer them.
+
+1381
+00:43:44,976 --> 0:43:46,136
+Thank you, and enjoy the rest of
+
+1382
+00:43:46,136 --> 0:43:46,696
+your conference.
+
+1383
+00:43:47,516 --> 0:43:50,500
+[ Applause ]

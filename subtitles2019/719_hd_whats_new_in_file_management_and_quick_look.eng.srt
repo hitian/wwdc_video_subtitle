@@ -1,0 +1,3131 @@
+1
+00:00:00,506 --> 0:00:06,436
+[ Music ]
+
+2
+00:00:06,936 --> 0:00:08,616
+&gt;&gt; Welcome to What's New in File
+
+3
+00:00:08,616 --> 0:00:09,616
+Management and Quick Look.
+
+4
+00:00:09,956 --> 0:00:11,286
+We have a lot of great new API
+
+5
+00:00:11,446 --> 0:00:12,946
+for managing documents and file
+
+6
+00:00:12,946 --> 0:00:13,856
+previews to share with you
+
+7
+00:00:13,856 --> 0:00:13,976
+today.
+
+8
+00:00:16,046 --> 0:00:16,996
+Here are the areas that we're
+
+9
+00:00:16,996 --> 0:00:18,166
+going to cover in this session.
+
+10
+00:00:19,076 --> 0:00:21,126
+First, we'll show how your app
+
+11
+00:00:21,126 --> 0:00:22,366
+can use the document picker to
+
+12
+00:00:22,366 --> 0:00:23,756
+access a directory and its
+
+13
+00:00:23,756 --> 0:00:24,256
+content.
+
+14
+00:00:24,676 --> 0:00:27,056
+We'll also show how your app can
+
+15
+00:00:27,056 --> 0:00:28,836
+properly support files stored on
+
+16
+00:00:28,836 --> 0:00:30,596
+external USB drives or SMB
+
+17
+00:00:30,596 --> 0:00:31,246
+servers.
+
+18
+00:00:32,586 --> 0:00:34,176
+Then also, see how your app can
+
+19
+00:00:34,176 --> 0:00:35,426
+fetch and display rich
+
+20
+00:00:35,426 --> 0:00:36,086
+thumbnails.
+
+21
+00:00:37,796 --> 0:00:39,356
+And you'll see how your app can
+
+22
+00:00:39,356 --> 0:00:40,616
+provide quick editing support
+
+23
+00:00:40,616 --> 0:00:42,676
+for images, PDFs, and videos via
+
+24
+00:00:42,676 --> 0:00:43,146
+Quick Look.
+
+25
+00:00:43,146 --> 0:00:46,586
+We've made it easy to port your
+
+26
+00:00:46,706 --> 0:00:48,746
+iOS app to macOS as the Quick
+
+27
+00:00:48,746 --> 0:00:50,306
+Look Extension APIs are now
+
+28
+00:00:50,306 --> 0:00:51,306
+cross platform.
+
+29
+00:00:51,736 --> 0:00:54,246
+And finally, we'll talk about
+
+30
+00:00:54,246 --> 0:00:56,656
+supporting iPad apps on Mac.
+
+31
+00:00:58,426 --> 0:00:59,986
+So who is this session for?
+
+32
+00:01:00,256 --> 0:01:02,246
+If you are writing a new app or
+
+33
+00:01:02,246 --> 0:01:03,216
+already have an app that
+
+34
+00:01:03,216 --> 0:01:04,616
+presents documents or performs
+
+35
+00:01:04,616 --> 0:01:06,056
+file operations, you're in the
+
+36
+00:01:06,056 --> 0:01:06,706
+right session.
+
+37
+00:01:06,846 --> 0:01:08,726
+You want to learn the best
+
+38
+00:01:08,726 --> 0:01:10,226
+practices to support files
+
+39
+00:01:10,226 --> 0:01:11,886
+stored on removable drives, such
+
+40
+00:01:11,886 --> 0:01:13,416
+as USB and SMB.
+
+41
+00:01:14,086 --> 0:01:15,446
+You may also need your app to
+
+42
+00:01:15,446 --> 0:01:16,886
+recursively access multiple
+
+43
+00:01:16,886 --> 0:01:18,286
+documents within a folder and
+
+44
+00:01:18,286 --> 0:01:20,156
+perform batch file operations.
+
+45
+00:01:21,546 --> 0:01:22,726
+Stick around if you want to
+
+46
+00:01:22,726 --> 0:01:24,096
+learn more about displaying file
+
+47
+00:01:24,096 --> 0:01:25,496
+thumbnails or if you want to
+
+48
+00:01:25,496 --> 0:01:26,946
+provide simple image and video
+
+49
+00:01:26,946 --> 0:01:28,566
+editing in your app.
+
+50
+00:01:29,766 --> 0:01:31,126
+By the way, if you haven't
+
+51
+00:01:31,126 --> 0:01:32,236
+checked it out yet, you should
+
+52
+00:01:32,236 --> 0:01:33,076
+definitely take a look at
+
+53
+00:01:33,076 --> 0:01:34,846
+Managing Documents in Your iOS
+
+54
+00:01:34,846 --> 0:01:38,296
+Apps session from WWDC 2018 in
+
+55
+00:01:38,296 --> 0:01:39,816
+which we detailed step-by-step
+
+56
+00:01:40,176 --> 0:01:40,676
+how to use the
+
+57
+00:01:40,676 --> 0:01:42,336
+UIDocumentBrowserViewController
+
+58
+00:01:42,416 --> 0:01:42,626
+and the
+
+59
+00:01:42,626 --> 0:01:44,086
+UIDocumentPickerViewController.
+
+60
+00:01:45,216 --> 0:01:46,746
+There's also a session, Quick
+
+61
+00:01:46,746 --> 0:01:48,296
+Look Previews from the Ground Up
+
+62
+00:01:48,456 --> 0:01:50,866
+from WWDC 2018, which we highly
+
+63
+00:01:50,866 --> 0:01:51,896
+encourage you to watch if you're
+
+64
+00:01:52,206 --> 0:01:54,006
+interested in presenting file
+
+65
+00:01:54,006 --> 0:01:56,286
+previews on iOS and now macOS.
+
+66
+00:01:56,786 --> 0:02:00,526
+One of the most requested
+
+67
+00:01:56,786 --> 0:02:00,526
+One of the most requested
+
+68
+00:02:00,526 --> 0:02:01,906
+features has been to access an
+
+69
+00:02:01,906 --> 0:02:03,046
+entire directory and its
+
+70
+00:02:03,046 --> 0:02:03,716
+contents.
+
+71
+00:02:04,126 --> 0:02:05,616
+We're really excited that an iOS
+
+72
+00:02:05,616 --> 0:02:06,906
+13 you now can.
+
+73
+00:02:07,846 --> 0:02:09,485
+Features of your app may need to
+
+74
+00:02:09,485 --> 0:02:11,306
+access content of a directory
+
+75
+00:02:11,306 --> 0:02:12,626
+for reading, writing, or
+
+76
+00:02:12,626 --> 0:02:13,636
+creating documents.
+
+77
+00:02:14,286 --> 0:02:15,626
+For instance, an image editor
+
+78
+00:02:15,696 --> 0:02:16,836
+that needs to apply the same
+
+79
+00:02:16,836 --> 0:02:18,396
+change on a batch of images
+
+80
+00:02:18,396 --> 0:02:20,216
+would read every image, apply
+
+81
+00:02:20,216 --> 0:02:21,926
+modifications, and save a new
+
+82
+00:02:21,926 --> 0:02:23,016
+image right next to the
+
+83
+00:02:23,016 --> 0:02:23,386
+original.
+
+84
+00:02:23,826 --> 0:02:27,396
+Prior to iOS 13, an app could
+
+85
+00:02:27,396 --> 0:02:28,736
+access files outside of its
+
+86
+00:02:28,736 --> 0:02:30,216
+application container via the
+
+87
+00:02:30,216 --> 0:02:31,886
+UIDocumentPickerViewController
+
+88
+00:02:32,126 --> 0:02:33,396
+but the user had to pick one
+
+89
+00:02:33,396 --> 0:02:34,166
+file at a time.
+
+90
+00:02:34,956 --> 0:02:37,066
+New in iOS 13, your app can
+
+91
+00:02:37,066 --> 0:02:37,426
+present a
+
+92
+00:02:37,426 --> 0:02:38,976
+UIDocumentPickerViewController
+
+93
+00:02:38,976 --> 0:02:40,386
+to let the user pick a folder.
+
+94
+00:02:40,606 --> 0:02:42,836
+After validation, your app will
+
+95
+00:02:42,836 --> 0:02:44,336
+be granted recursive access to
+
+96
+00:02:44,336 --> 0:02:45,806
+the directory as well as all of
+
+97
+00:02:45,806 --> 0:02:46,566
+its contents.
+
+98
+00:02:47,376 --> 0:02:48,846
+Additionally, you can now set
+
+99
+00:02:48,846 --> 0:02:50,196
+the default directory that is
+
+100
+00:02:50,196 --> 0:02:51,236
+shown on the document picker
+
+101
+00:02:51,236 --> 0:02:51,976
+when presented.
+
+102
+00:02:55,176 --> 0:02:56,526
+Now let's take a look at how you
+
+103
+00:02:56,526 --> 0:02:57,976
+can do that now using a few
+
+104
+00:02:57,976 --> 0:02:59,236
+examples of how to configure the
+
+105
+00:02:59,236 --> 0:03:00,836
+UIDocumentPickerViewController.
+
+106
+00:02:59,236 --> 0:03:00,836
+UIDocumentPickerViewController.
+
+107
+00:03:01,496 --> 0:03:03,296
+To allow folder selection,
+
+108
+00:03:03,596 --> 0:03:05,136
+creating instance initialized
+
+109
+00:03:05,136 --> 0:03:07,126
+with an array containing only
+
+110
+00:03:07,126 --> 0:03:09,076
+the kUTTypeFolder type and then
+
+111
+00:03:09,076 --> 0:03:10,176
+present it.
+
+112
+00:03:11,586 --> 0:03:13,316
+To set the default directory of
+
+113
+00:03:13,316 --> 0:03:14,676
+UIDocumentPickerViewController
+
+114
+00:03:14,676 --> 0:03:16,396
+instance, set its directoryURL
+
+115
+00:03:16,396 --> 0:03:18,246
+property and then present.
+
+116
+00:03:18,286 --> 0:03:21,596
+Now let's take a look at this
+
+117
+00:03:21,596 --> 0:03:22,046
+example.
+
+118
+00:03:22,326 --> 0:03:23,406
+We show you how to enumerate the
+
+119
+00:03:23,406 --> 0:03:25,326
+contents of a folder, but you
+
+120
+00:03:25,326 --> 0:03:26,586
+can use the same example to
+
+121
+00:03:26,586 --> 0:03:28,036
+write a file here using standard
+
+122
+00:03:28,036 --> 0:03:29,006
+File Manager API.
+
+123
+00:03:30,466 --> 0:03:33,096
+Also, make sure to use URL start
+
+124
+00:03:33,096 --> 0:03:34,126
+and stopAccessing
+
+125
+00:03:34,126 --> 0:03:36,806
+SecurityScopedResource calls and
+
+126
+00:03:36,996 --> 0:03:39,066
+use NSFileCoordinator API for
+
+127
+00:03:39,066 --> 0:03:40,466
+reading and writing operations
+
+128
+00:03:40,536 --> 0:03:41,786
+as you can see in the example.
+
+129
+00:03:45,986 --> 0:03:48,526
+In iOS 13, users are in control
+
+130
+00:03:48,526 --> 0:03:49,546
+of which applications have
+
+131
+00:03:49,546 --> 0:03:50,676
+access to folders.
+
+132
+00:03:51,276 --> 0:03:53,136
+This access is listed and can be
+
+133
+00:03:53,136 --> 0:03:54,596
+revoked in the privacy pane
+
+134
+00:03:54,596 --> 0:03:55,806
+under the Files and Folder
+
+135
+00:03:55,806 --> 0:03:56,336
+section.
+
+136
+00:03:57,306 --> 0:03:58,946
+Be aware that because users can
+
+137
+00:03:58,946 --> 0:04:00,916
+revoke access at any time, you
+
+138
+00:03:58,946 --> 0:04:00,916
+revoke access at any time, you
+
+139
+00:04:00,916 --> 0:04:01,976
+need to make sure that your code
+
+140
+00:04:01,976 --> 0:04:03,466
+gracefully handles errors when
+
+141
+00:04:03,466 --> 0:04:04,926
+attempting to open documents or
+
+142
+00:04:04,926 --> 0:04:06,166
+when enumerating folders.
+
+143
+00:04:06,606 --> 0:04:10,636
+In this example, you can see how
+
+144
+00:04:10,636 --> 0:04:11,756
+you can maintain persistent
+
+145
+00:04:11,756 --> 0:04:13,036
+access to a folder across
+
+146
+00:04:13,036 --> 0:04:14,916
+application launches by storing
+
+147
+00:04:15,456 --> 0:04:17,016
+bookmark data and then
+
+148
+00:04:17,016 --> 0:04:19,755
+recreating the URL using the URL
+
+149
+00:04:19,926 --> 0:04:21,776
+resolvingBookmarkData options
+
+150
+00:04:21,776 --> 0:04:22,176
+call.
+
+151
+00:04:26,676 --> 0:04:29,166
+New in iOS 13, we've added
+
+152
+00:04:29,166 --> 0:04:30,936
+support for external USB drives,
+
+153
+00:04:31,056 --> 0:04:33,016
+thumb drives, and SMB servers.
+
+154
+00:04:34,756 --> 0:04:37,936
+Drives formatted as APFS, HFS+,
+
+155
+00:04:38,006 --> 0:04:40,046
+FAT and ExFAT are supported.
+
+156
+00:04:42,516 --> 0:04:44,306
+Drives can be plugged in either
+
+157
+00:04:44,306 --> 0:04:45,686
+on the USBC connector on the
+
+158
+00:04:45,736 --> 0:04:47,956
+iPad Pro or via the SD card
+
+159
+00:04:47,956 --> 0:04:48,716
+reader attachment.
+
+160
+00:04:49,976 --> 0:04:51,526
+They are automatically listed in
+
+161
+00:04:51,526 --> 0:04:53,286
+the sidebar of the files app or
+
+162
+00:04:53,436 --> 0:04:54,416
+in your app with the
+
+163
+00:04:54,416 --> 0:04:55,996
+UIDocumentPickerViewController
+
+164
+00:04:56,126 --> 0:04:57,256
+or document browser.
+
+165
+00:05:00,046 --> 0:05:01,886
+Users can also connect to SMB
+
+166
+00:05:01,886 --> 0:05:03,376
+servers using the Connect to
+
+167
+00:05:03,376 --> 0:05:05,296
+Server action using the same
+
+168
+00:05:05,296 --> 0:05:06,996
+keyboard shortcut as finder or
+
+169
+00:05:07,046 --> 0:05:08,076
+using the sidebar menu.
+
+170
+00:05:12,126 --> 0:05:13,206
+Any client of
+
+171
+00:05:13,206 --> 0:05:14,716
+UIDocumentBrowserViewController
+
+172
+00:05:14,716 --> 0:05:15,776
+API or
+
+173
+00:05:15,836 --> 0:05:17,286
+UIDocumentPickerViewController
+
+174
+00:05:17,286 --> 0:05:18,786
+API get the same support for
+
+175
+00:05:18,786 --> 0:05:20,876
+free as long as the app was
+
+176
+00:05:20,876 --> 0:05:23,166
+built using the iOS 13 SDK or
+
+177
+00:05:23,166 --> 0:05:23,586
+later.
+
+178
+00:05:24,586 --> 0:05:26,066
+However, there are few things
+
+179
+00:05:26,066 --> 0:05:27,286
+you need to check to make sure
+
+180
+00:05:27,286 --> 0:05:29,536
+your app has great support for
+
+181
+00:05:29,536 --> 0:05:30,716
+USB and SMB.
+
+182
+00:05:32,346 --> 0:05:33,796
+There are few assumptions that
+
+183
+00:05:33,796 --> 0:05:34,616
+are no longer true.
+
+184
+00:05:35,386 --> 0:05:36,996
+File access is no longer on a
+
+185
+00:05:36,996 --> 0:05:38,386
+single volume because they can
+
+186
+00:05:38,386 --> 0:05:39,466
+now be stored on external
+
+187
+00:05:39,466 --> 0:05:41,466
+volumes, such as USB drives or
+
+188
+00:05:41,466 --> 0:05:42,346
+SMB servers.
+
+189
+00:05:43,396 --> 0:05:45,096
+Volumes can disappear if the USB
+
+190
+00:05:45,096 --> 0:05:47,266
+drive is unplugged or if the
+
+191
+00:05:47,266 --> 0:05:48,516
+network connection to an SMB
+
+192
+00:05:48,516 --> 0:05:50,006
+server volume is lost.
+
+193
+00:05:51,276 --> 0:05:52,826
+Disk access can be slower than
+
+194
+00:05:52,826 --> 0:05:54,146
+what you expected in the past.
+
+195
+00:05:55,136 --> 0:05:56,186
+An operation that you would
+
+196
+00:05:56,186 --> 0:05:57,706
+assume is instant can now take
+
+197
+00:05:57,706 --> 0:05:59,396
+several seconds or even minutes
+
+198
+00:05:59,396 --> 0:06:00,296
+depending on the network
+
+199
+00:05:59,396 --> 0:06:00,296
+depending on the network
+
+200
+00:06:00,296 --> 0:06:01,766
+conditions or the speed of the
+
+201
+00:06:01,766 --> 0:06:02,546
+USB device.
+
+202
+00:06:03,556 --> 0:06:05,356
+Also, don't assume the
+
+203
+00:06:05,356 --> 0:06:07,176
+underlying file system is always
+
+204
+00:06:07,176 --> 0:06:08,926
+APFS or HFS+.
+
+205
+00:06:10,186 --> 0:06:11,386
+So how does this affect your
+
+206
+00:06:12,096 --> 0:06:12,163
+app?
+
+207
+00:06:14,456 --> 0:06:16,246
+If you need to move a file from
+
+208
+00:06:16,246 --> 0:06:18,106
+one location to another, use the
+
+209
+00:06:18,106 --> 0:06:20,866
+FileManager.moveItem at API and
+
+210
+00:06:21,066 --> 0:06:22,256
+this will take care of moving
+
+211
+00:06:22,256 --> 0:06:23,826
+files across volumes for you.
+
+212
+00:06:25,026 --> 0:06:26,546
+In the past, move and clone
+
+213
+00:06:26,546 --> 0:06:28,036
+operations were always fast.
+
+214
+00:06:28,876 --> 0:06:30,336
+When moving across volumes, the
+
+215
+00:06:30,336 --> 0:06:32,326
+operation can become slower copy
+
+216
+00:06:32,326 --> 0:06:32,836
+and delete.
+
+217
+00:06:33,296 --> 0:06:36,176
+If you use NSTemporaryDirectory
+
+218
+00:06:36,346 --> 0:06:37,866
+to save a temporary version of a
+
+219
+00:06:37,866 --> 0:06:39,906
+file, you should update your
+
+220
+00:06:39,906 --> 0:06:41,626
+code to choose the location of
+
+221
+00:06:41,626 --> 0:06:42,906
+the temporary folder based on
+
+222
+00:06:42,906 --> 0:06:44,166
+the ultimate destination of the
+
+223
+00:06:44,166 --> 0:06:45,136
+files written in it.
+
+224
+00:06:46,446 --> 0:06:47,276
+You can do this with the
+
+225
+00:06:47,276 --> 0:06:48,776
+following File Manager call,
+
+226
+00:06:50,176 --> 0:06:52,156
+File Manager URL for
+
+227
+00:06:52,156 --> 0:06:54,336
+itemReplacementDirectory in
+
+228
+00:06:54,476 --> 0:06:56,816
+userDomainMask appropriateFor
+
+229
+00:06:56,946 --> 0:06:57,456
+URL.
+
+230
+00:06:58,426 --> 0:06:59,316
+This will always give you the
+
+231
+00:06:59,316 --> 0:07:00,656
+right temporary directory to
+
+232
+00:06:59,316 --> 0:07:00,656
+right temporary directory to
+
+233
+00:07:00,656 --> 0:07:01,516
+write files, to.
+
+234
+00:07:02,076 --> 0:07:05,136
+In the past, your app may have
+
+235
+00:07:05,136 --> 0:07:06,756
+assumed that a file may never
+
+236
+00:07:06,756 --> 0:07:08,936
+disappear while it is open and
+
+237
+00:07:08,936 --> 0:07:10,356
+this is no longer true because
+
+238
+00:07:10,356 --> 0:07:12,106
+USB drives can be unplugged and
+
+239
+00:07:12,106 --> 0:07:13,686
+SMB server connections can be
+
+240
+00:07:13,686 --> 0:07:14,296
+interrupted.
+
+241
+00:07:15,126 --> 0:07:16,516
+This may cause your app to fail
+
+242
+00:07:16,516 --> 0:07:17,656
+while reading or writing file
+
+243
+00:07:17,656 --> 0:07:18,276
+contents.
+
+244
+00:07:19,216 --> 0:07:20,926
+Your app should check for errors
+
+245
+00:07:20,926 --> 0:07:21,876
+and fail gracefully.
+
+246
+00:07:22,876 --> 0:07:24,446
+One suggestion is if your app
+
+247
+00:07:24,446 --> 0:07:26,096
+fails to write a file, it could
+
+248
+00:07:26,096 --> 0:07:26,556
+present a
+
+249
+00:07:26,556 --> 0:07:28,126
+UIDocumentPickerViewController
+
+250
+00:07:28,256 --> 0:07:29,296
+to let the user choose an
+
+251
+00:07:29,296 --> 0:07:31,596
+alternate location to save the
+
+252
+00:07:32,406 --> 0:07:32,516
+file.
+
+253
+00:07:32,726 --> 0:07:34,186
+Reading or writing a file stored
+
+254
+00:07:34,186 --> 0:07:35,986
+on a USB drive or on a distant
+
+255
+00:07:35,986 --> 0:07:38,496
+SMB server can be slow so you
+
+256
+00:07:38,496 --> 0:07:39,546
+need to make sure your app
+
+257
+00:07:39,546 --> 0:07:40,846
+doesn't hang while performing a
+
+258
+00:07:40,846 --> 0:07:41,736
+file operation.
+
+259
+00:07:42,196 --> 0:07:43,956
+Always perform file system
+
+260
+00:07:43,956 --> 0:07:45,286
+operations on a background
+
+261
+00:07:45,286 --> 0:07:45,526
+queue.
+
+262
+00:07:46,736 --> 0:07:47,946
+We also recommend that you add
+
+263
+00:07:47,946 --> 0:07:50,076
+UI like an activity indicator to
+
+264
+00:07:50,076 --> 0:07:51,236
+let the user know something is
+
+265
+00:07:51,236 --> 0:07:53,966
+happening, and offering a way
+
+266
+00:07:54,046 --> 0:07:55,456
+for your user to cancel the
+
+267
+00:07:55,456 --> 0:07:56,756
+operation is a great idea.
+
+268
+00:07:57,876 --> 0:07:59,326
+Otherwise the user might feel
+
+269
+00:07:59,326 --> 0:08:00,366
+like the application is
+
+270
+00:07:59,326 --> 0:08:00,366
+like the application is
+
+271
+00:08:00,366 --> 0:08:00,976
+unresponsive.
+
+272
+00:08:01,426 --> 0:08:05,186
+When a document is stored on a
+
+273
+00:08:05,186 --> 0:08:07,216
+USB drive or remote SMB server,
+
+274
+00:08:07,616 --> 0:08:09,686
+LIFS is reported instead of the
+
+275
+00:08:09,686 --> 0:08:10,936
+file system the media is
+
+276
+00:08:10,936 --> 0:08:11,736
+formatted as.
+
+277
+00:08:12,546 --> 0:08:13,606
+It's likely that your app should
+
+278
+00:08:13,606 --> 0:08:14,696
+not worry about the underlying
+
+279
+00:08:14,696 --> 0:08:15,406
+file system.
+
+280
+00:08:16,046 --> 0:08:17,236
+Instead you should check the
+
+281
+00:08:17,236 --> 0:08:18,766
+file system capabilities to know
+
+282
+00:08:18,766 --> 0:08:20,396
+which file system operations are
+
+283
+00:08:20,396 --> 0:08:20,906
+supported.
+
+284
+00:08:21,916 --> 0:08:23,676
+LIFS is a file system
+
+285
+00:08:23,676 --> 0:08:24,986
+abstraction and it do not look
+
+286
+00:08:24,986 --> 0:08:26,196
+for its presence directly.
+
+287
+00:08:27,076 --> 0:08:28,786
+To know more about LIFS, we
+
+288
+00:08:28,786 --> 0:08:30,076
+recommend that you look at the
+
+289
+00:08:30,076 --> 0:08:31,276
+What's New in File Systems
+
+290
+00:08:31,276 --> 0:08:31,756
+session.
+
+291
+00:08:36,116 --> 0:08:38,176
+New in iOS 13, there's
+
+292
+00:08:38,176 --> 0:08:39,756
+additional customization support
+
+293
+00:08:39,756 --> 0:08:39,823
+in
+
+294
+00:08:39,823 --> 0:08:41,395
+UIDocumentBrowserViewController.
+
+295
+00:08:41,556 --> 0:08:45,536
+Let's take a look at this now.
+
+296
+00:08:45,536 --> 0:08:47,016
+Now, you can choose to always
+
+297
+00:08:47,016 --> 0:08:48,486
+show file extensions by setting
+
+298
+00:08:48,486 --> 0:08:49,896
+the shouldShowFileExtensions
+
+299
+00:08:49,896 --> 0:08:50,716
+property to true.
+
+300
+00:08:51,296 --> 0:08:54,066
+The Create Document button can
+
+301
+00:08:54,066 --> 0:08:55,876
+now also be customized to adjust
+
+302
+00:08:55,876 --> 0:08:57,146
+the aspect ratio of the button
+
+303
+00:08:57,146 --> 0:08:58,356
+icon by setting the
+
+304
+00:08:58,356 --> 0:09:00,126
+defaultDocumentAspectRatio
+
+305
+00:08:58,356 --> 0:09:00,126
+defaultDocumentAspectRatio
+
+306
+00:09:00,126 --> 0:09:00,646
+property.
+
+307
+00:09:01,626 --> 0:09:03,536
+And the button titled Text can
+
+308
+00:09:03,536 --> 0:09:04,906
+now be changed by setting the
+
+309
+00:09:04,906 --> 0:09:05,826
+localizedCreate
+
+310
+00:09:05,826 --> 0:09:07,466
+DocumentActionTitle property.
+
+311
+00:09:07,916 --> 0:09:10,206
+And now Lyn will talk about
+
+312
+00:09:10,206 --> 0:09:11,786
+What's New in Quick Look.
+
+313
+00:09:14,476 --> 0:09:16,076
+&gt;&gt; Fetching File Thumbnails in
+
+314
+00:09:16,076 --> 0:09:17,116
+Your App.
+
+315
+00:09:17,386 --> 0:09:18,626
+This is for those of you who
+
+316
+00:09:18,626 --> 0:09:19,976
+want to enhance the appearance
+
+317
+00:09:19,976 --> 0:09:21,166
+of your application by
+
+318
+00:09:21,166 --> 0:09:22,886
+displaying rich file thumbnails.
+
+319
+00:09:24,476 --> 0:09:26,186
+So instead of something like
+
+320
+00:09:26,186 --> 0:09:29,106
+this, you could have something
+
+321
+00:09:29,106 --> 0:09:29,786
+like this.
+
+322
+00:09:31,556 --> 0:09:33,306
+Quick Look thumbnailing is a new
+
+323
+00:09:33,306 --> 0:09:34,956
+cross platform framework for
+
+324
+00:09:34,956 --> 0:09:36,666
+retrieving thumbnail images for
+
+325
+00:09:36,666 --> 0:09:37,606
+file URLs.
+
+326
+00:09:38,276 --> 0:09:40,196
+This is new functionality on iOS
+
+327
+00:09:40,196 --> 0:09:42,106
+and replaces the C API for
+
+328
+00:09:42,106 --> 0:09:43,856
+QLThumbnail on macOS.
+
+329
+00:09:44,656 --> 0:09:45,766
+It also replaces
+
+330
+00:09:45,766 --> 0:09:47,936
+NSURLThumbnailDictionaryKey.
+
+331
+00:09:49,216 --> 0:09:51,326
+iOS and macOS provide built-in
+
+332
+00:09:51,326 --> 0:09:52,846
+support for several file types,
+
+333
+00:09:52,986 --> 0:09:54,986
+such as images, PDFs, text
+
+334
+00:09:54,986 --> 0:09:56,486
+files, videos, et cetera.
+
+335
+00:09:56,806 --> 0:09:59,246
+You can also provide support for
+
+336
+00:09:59,246 --> 0:10:00,486
+your own file types with
+
+337
+00:09:59,246 --> 0:10:00,486
+your own file types with
+
+338
+00:10:00,486 --> 0:10:01,626
+thumbnail extensions.
+
+339
+00:10:04,356 --> 0:10:05,696
+Quick Look thumbnailing is
+
+340
+00:10:05,696 --> 0:10:06,936
+non-UI framework.
+
+341
+00:10:07,576 --> 0:10:09,526
+We don't import UIKit or AppKit
+
+342
+00:10:09,526 --> 0:10:10,086
+by default.
+
+343
+00:10:10,796 --> 0:10:12,526
+We can get CGImages of your
+
+344
+00:10:12,526 --> 0:10:14,176
+thumbnail without either but you
+
+345
+00:10:14,176 --> 0:10:16,476
+can also obtain UIImages on iOS
+
+346
+00:10:16,476 --> 0:10:18,836
+or NSImages on macOS by
+
+347
+00:10:18,836 --> 0:10:20,746
+explicitly linking UIKit or
+
+348
+00:10:20,746 --> 0:10:22,016
+AppKit respectively.
+
+349
+00:10:23,226 --> 0:10:25,286
+It is asynchronous so it won't
+
+350
+00:10:25,286 --> 0:10:26,206
+block while retrieving the
+
+351
+00:10:26,206 --> 0:10:28,706
+thumbnail and it supports
+
+352
+00:10:28,706 --> 0:10:30,366
+cancellation in case you decide
+
+353
+00:10:30,366 --> 0:10:31,366
+you don't want that thumbnail
+
+354
+00:10:31,366 --> 0:10:31,896
+after all.
+
+355
+00:10:34,996 --> 0:10:36,556
+Let's start with a big picture
+
+356
+00:10:36,556 --> 0:10:37,086
+overview.
+
+357
+00:10:37,536 --> 0:10:39,336
+To get a thumbnail, you start by
+
+358
+00:10:39,336 --> 0:10:40,266
+creating a
+
+359
+00:10:40,266 --> 0:10:42,626
+QLThumbnailGenerator.Request and
+
+360
+00:10:42,626 --> 0:10:43,566
+then pass it to a
+
+361
+00:10:43,566 --> 0:10:46,316
+QLThumbnailGenerator specifying
+
+362
+00:10:46,316 --> 0:10:47,736
+if you would like to be notified
+
+363
+00:10:47,736 --> 0:10:49,406
+every time a new representation
+
+364
+00:10:49,406 --> 0:10:51,336
+of the thumbnail is available or
+
+365
+00:10:51,336 --> 0:10:52,156
+only when the best
+
+366
+00:10:52,156 --> 0:10:53,796
+representation you requested is
+
+367
+00:10:53,796 --> 0:10:54,376
+complete.
+
+368
+00:10:54,416 --> 0:10:58,366
+You can request different
+
+369
+00:10:58,366 --> 0:10:59,806
+representations of thumbnails
+
+370
+00:10:59,926 --> 0:11:01,066
+which will have different
+
+371
+00:10:59,926 --> 0:11:01,066
+which will have different
+
+372
+00:11:01,066 --> 0:11:02,636
+quality and performance costs.
+
+373
+00:11:04,066 --> 0:11:05,506
+Icon is the generic image
+
+374
+00:11:05,506 --> 0:11:06,986
+associated with that file type.
+
+375
+00:11:07,586 --> 0:11:08,716
+This will be the same for all
+
+376
+00:11:08,716 --> 0:11:10,016
+files of a given type.
+
+377
+00:11:10,436 --> 0:11:13,306
+Low quality thumbnail is a
+
+378
+00:11:13,306 --> 0:11:14,556
+faster thumbnail that we were
+
+379
+00:11:14,556 --> 0:11:16,456
+able to provide that may not be
+
+380
+00:11:16,456 --> 0:11:18,066
+exactly the size you specified.
+
+381
+00:11:19,026 --> 0:11:20,166
+This typically comes from a
+
+382
+00:11:20,166 --> 0:11:21,886
+cached version of the thumbnail
+
+383
+00:11:21,956 --> 0:11:23,636
+or possibly thumbnails embedded
+
+384
+00:11:23,636 --> 0:11:24,776
+in the file itself.
+
+385
+00:11:26,176 --> 0:11:27,956
+The last representation type
+
+386
+00:11:28,216 --> 0:11:29,796
+thumbnail is a full quality
+
+387
+00:11:29,796 --> 0:11:30,836
+version of the thumbnail,
+
+388
+00:11:31,316 --> 0:11:32,886
+matching the request exactly.
+
+389
+00:11:33,436 --> 0:11:35,196
+This will take the longest to
+
+390
+00:11:35,196 --> 0:11:35,676
+generate.
+
+391
+00:11:37,426 --> 0:11:38,986
+For convenience, you can also
+
+392
+00:11:38,986 --> 0:11:41,196
+specify all to get any type of
+
+393
+00:11:41,196 --> 0:11:42,166
+available thumbnail.
+
+394
+00:11:42,596 --> 0:11:46,426
+When you create a QLThumbnail
+
+395
+00:11:46,426 --> 0:11:48,296
+generation request, you specify
+
+396
+00:11:48,296 --> 0:11:50,486
+size, scale and representation
+
+397
+00:11:50,486 --> 0:11:51,376
+types you would like.
+
+398
+00:11:51,866 --> 0:11:53,926
+You may only care about the full
+
+399
+00:11:53,926 --> 0:11:55,986
+quality thumbnail or you may be
+
+400
+00:11:55,986 --> 0:11:58,176
+OK with an icon or lower quality
+
+401
+00:11:58,176 --> 0:11:58,726
+version.
+
+402
+00:11:58,986 --> 0:12:00,886
+It's best to specify all
+
+403
+00:11:58,986 --> 0:12:00,886
+It's best to specify all
+
+404
+00:12:00,916 --> 0:12:02,476
+representation types that will
+
+405
+00:12:02,476 --> 0:12:04,496
+work for you as not all three
+
+406
+00:12:04,586 --> 0:12:06,086
+types may be available for a
+
+407
+00:12:06,086 --> 0:12:06,876
+given thumbnail.
+
+408
+00:12:09,786 --> 0:12:10,576
+You will get a
+
+409
+00:12:10,576 --> 0:12:12,386
+QLThumbnailRepresentation back
+
+410
+00:12:13,096 --> 0:12:14,386
+which will specify the type of
+
+411
+00:12:14,386 --> 0:12:16,346
+thumbnail it is, icon, low
+
+412
+00:12:16,346 --> 0:12:18,546
+quality or thumbnail and an
+
+413
+00:12:18,546 --> 0:12:20,296
+image which can either be
+
+414
+00:12:20,296 --> 0:12:22,716
+accessed as a CGImage, or if
+
+415
+00:12:22,716 --> 0:12:24,096
+you've linked UIKit on iOS or
+
+416
+00:12:24,096 --> 0:12:26,876
+AppKit on macOS, you can get a
+
+417
+00:12:26,876 --> 0:12:28,466
+UIImage or NS Image
+
+418
+00:12:28,566 --> 0:12:29,186
+respectively.
+
+419
+00:12:29,546 --> 0:12:32,246
+To get that
+
+420
+00:12:32,246 --> 0:12:34,396
+QLThumbnailRepresentation, you
+
+421
+00:12:34,396 --> 0:12:35,926
+pass your thumbnail request to a
+
+422
+00:12:35,926 --> 0:12:37,326
+QLThumbnailGenerator.
+
+423
+00:12:37,676 --> 0:12:39,646
+If you just want the best
+
+424
+00:12:39,646 --> 0:12:41,696
+quality thumbnail available, use
+
+425
+00:12:41,696 --> 0:12:43,296
+generateBestRepresentation.
+
+426
+00:12:43,916 --> 0:12:45,116
+This will call your completion
+
+427
+00:12:45,116 --> 0:12:46,626
+handler with the best version of
+
+428
+00:12:46,626 --> 0:12:47,716
+your thumbnail request that
+
+429
+00:12:47,716 --> 0:12:50,796
+could be created.
+
+430
+00:12:50,796 --> 0:12:52,296
+Or you may prefer to get
+
+431
+00:12:52,296 --> 0:12:54,336
+incremental updates by providing
+
+432
+00:12:54,336 --> 0:12:55,896
+an updateHandler to generate
+
+433
+00:12:55,896 --> 0:12:57,396
+representations that will be
+
+434
+00:12:57,396 --> 0:12:59,326
+called as each representation
+
+435
+00:12:59,326 --> 0:13:00,206
+becomes available.
+
+436
+00:12:59,326 --> 0:13:00,206
+becomes available.
+
+437
+00:13:00,676 --> 0:13:02,566
+You can use this, for example,
+
+438
+00:13:02,566 --> 0:13:04,436
+to update your UI quickly and
+
+439
+00:13:04,506 --> 0:13:05,946
+then improve the quality of what
+
+440
+00:13:05,946 --> 0:13:07,636
+is shown as better thumbnails
+
+441
+00:13:07,916 --> 0:13:08,256
+arrive.
+
+442
+00:13:08,826 --> 0:13:12,446
+So that's enough about thumbnail
+
+443
+00:13:12,446 --> 0:13:13,026
+retrieval.
+
+444
+00:13:13,146 --> 0:13:14,486
+Let's talk about using Quick
+
+445
+00:13:14,486 --> 0:13:16,496
+Look to edit images, PDFs and
+
+446
+00:13:16,496 --> 0:13:17,136
+videos.
+
+447
+00:13:20,146 --> 0:13:21,886
+Quick Look provides API to
+
+448
+00:13:21,886 --> 0:13:23,336
+preview documents of various
+
+449
+00:13:23,336 --> 0:13:24,606
+types of files on iOS.
+
+450
+00:13:25,406 --> 0:13:26,616
+It also allows you to provide
+
+451
+00:13:26,616 --> 0:13:28,156
+custom previews for your own
+
+452
+00:13:28,156 --> 0:13:29,646
+documents via extensions.
+
+453
+00:13:31,116 --> 0:13:33,386
+Now in iOS 13, we've also added
+
+454
+00:13:33,386 --> 0:13:35,186
+support to quickly edit images,
+
+455
+00:13:35,346 --> 0:13:36,906
+PDFs and videos with the
+
+456
+00:13:36,906 --> 0:13:38,236
+QLPreviewController.
+
+457
+00:13:38,616 --> 0:13:42,516
+The QLPreviewController is what
+
+458
+00:13:42,516 --> 0:13:43,956
+you use to preview a file.
+
+459
+00:13:44,316 --> 0:13:46,366
+To make use if it simply
+
+460
+00:13:46,366 --> 0:13:47,526
+allocate an instance of
+
+461
+00:13:47,526 --> 0:13:49,246
+QLPreviewController and set a
+
+462
+00:13:49,246 --> 0:13:50,846
+data source and delegate before
+
+463
+00:13:50,846 --> 0:13:51,486
+presenting it.
+
+464
+00:13:52,416 --> 0:13:53,686
+To learn more about Quick Look
+
+465
+00:13:53,686 --> 0:13:55,386
+and the QLPreviewController, we
+
+466
+00:13:55,386 --> 0:13:56,586
+highly encourage you to check
+
+467
+00:13:56,586 --> 0:13:59,036
+out our WWDC presentation from
+
+468
+00:13:59,036 --> 0:14:01,296
+2018 Quick Look Previews from
+
+469
+00:13:59,036 --> 0:14:01,296
+2018 Quick Look Previews from
+
+470
+00:14:01,296 --> 0:14:01,906
+the Ground Up.
+
+471
+00:14:02,486 --> 0:14:05,886
+New to iOS 13, the
+
+472
+00:14:05,886 --> 0:14:07,376
+QLPreviewController also
+
+473
+00:14:07,376 --> 0:14:09,016
+provides access to Markup, the
+
+474
+00:14:09,426 --> 0:14:11,046
+editing tools available when you
+
+475
+00:14:11,046 --> 0:14:13,376
+preview a document and files or
+
+476
+00:14:13,666 --> 0:14:14,916
+edit an attachment in mail.
+
+477
+00:14:15,426 --> 0:14:18,416
+This is available for images and
+
+478
+00:14:21,016 --> 0:14:21,146
+PDFs.
+
+479
+00:14:21,336 --> 0:14:22,746
+QLPreviewController also
+
+480
+00:14:22,746 --> 0:14:24,146
+provides support for trimming
+
+481
+00:14:24,146 --> 0:14:25,186
+and rotating videos.
+
+482
+00:14:25,596 --> 0:14:28,086
+To use these features, you just
+
+483
+00:14:28,086 --> 0:14:29,406
+have to enable editing mode.
+
+484
+00:14:29,806 --> 0:14:33,836
+All you have to do is implement
+
+485
+00:14:33,836 --> 0:14:35,216
+an optional delegate method
+
+486
+00:14:35,686 --> 0:14:37,416
+editing mode for preview item.
+
+487
+00:14:37,866 --> 0:14:40,336
+By default, editing is disabled
+
+488
+00:14:40,716 --> 0:14:43,046
+but it is possible to enable it
+
+489
+00:14:43,046 --> 0:14:44,646
+on a per item basis.
+
+490
+00:14:45,166 --> 0:14:46,536
+This delegate method allows you
+
+491
+00:14:46,536 --> 0:14:48,516
+to specify both if you want
+
+492
+00:14:48,516 --> 0:14:50,556
+editing capabilities and how you
+
+493
+00:14:50,556 --> 0:14:51,776
+want to handle the resulting
+
+494
+00:14:51,776 --> 0:14:52,286
+file.
+
+495
+00:14:52,816 --> 0:14:56,146
+You can have the
+
+496
+00:14:56,146 --> 0:14:57,886
+QLPreviewController overwrite
+
+497
+00:14:57,886 --> 0:14:59,036
+the original file with the
+
+498
+00:14:59,036 --> 0:15:00,486
+user's edited version.
+
+499
+00:14:59,036 --> 0:15:00,486
+user's edited version.
+
+500
+00:15:00,706 --> 0:15:03,426
+To do so, return updateContents
+
+501
+00:15:03,426 --> 0:15:05,206
+from editing mode for preview
+
+502
+00:15:05,206 --> 0:15:05,666
+item.
+
+503
+00:15:07,556 --> 0:15:09,246
+If you need to react to edits
+
+504
+00:15:09,246 --> 0:15:11,156
+being successfully saved, you
+
+505
+00:15:11,156 --> 0:15:12,796
+can also implement the optional
+
+506
+00:15:12,796 --> 0:15:15,266
+didUpdateContentsof previewItem
+
+507
+00:15:17,806 --> 0:15:18,026
+method.
+
+508
+00:15:18,116 --> 0:15:19,816
+Or you may prefer to use
+
+509
+00:15:19,816 --> 0:15:21,556
+QLPreviewController to create
+
+510
+00:15:21,556 --> 0:15:23,336
+edited copies of the files being
+
+511
+00:15:23,336 --> 0:15:24,716
+previewed and manage them
+
+512
+00:15:24,716 --> 0:15:25,226
+yourself.
+
+513
+00:15:25,826 --> 0:15:28,526
+To do so return createCopy from
+
+514
+00:15:28,526 --> 0:15:30,306
+editing mode for preview item
+
+515
+00:15:30,846 --> 0:15:32,796
+and implement the delegate
+
+516
+00:15:32,796 --> 0:15:35,226
+method that saved edited copy of
+
+517
+00:15:35,316 --> 0:15:36,786
+preview item at modified
+
+518
+00:15:36,786 --> 0:15:37,906
+contents URL.
+
+519
+00:15:42,316 --> 0:15:44,456
+Quick Look Extension APIs on
+
+520
+00:15:44,456 --> 0:15:45,056
+macOS.
+
+521
+00:15:46,556 --> 0:15:47,716
+So we've just talked about
+
+522
+00:15:47,716 --> 0:15:49,476
+getting and using thumbnails and
+
+523
+00:15:49,476 --> 0:15:50,476
+previews for files.
+
+524
+00:15:51,476 --> 0:15:52,466
+Now let's talk about how to
+
+525
+00:15:52,466 --> 0:15:54,046
+provide thumbnails and previews
+
+526
+00:15:54,046 --> 0:15:55,316
+for your own file types.
+
+527
+00:15:55,646 --> 0:15:58,406
+Already on iOS, an app can
+
+528
+00:15:58,406 --> 0:15:59,936
+implement a Quick Look thumbnail
+
+529
+00:15:59,936 --> 0:16:01,626
+and preview extension to provide
+
+530
+00:15:59,936 --> 0:16:01,626
+and preview extension to provide
+
+531
+00:16:01,626 --> 0:16:03,416
+systemwide thumbnail and preview
+
+532
+00:16:03,416 --> 0:16:05,086
+support for its own documents.
+
+533
+00:16:05,716 --> 0:16:06,626
+Now the same Quick Look
+
+534
+00:16:06,626 --> 0:16:08,536
+extension API is available on
+
+535
+00:16:08,536 --> 0:16:09,286
+macOS.
+
+536
+00:16:11,116 --> 0:16:12,806
+Thumbnails are used throughout
+
+537
+00:16:12,806 --> 0:16:14,946
+macOS and iOS to allow users to
+
+538
+00:16:14,946 --> 0:16:16,356
+identify files quickly.
+
+539
+00:16:17,176 --> 0:16:18,626
+For instance, you can see on the
+
+540
+00:16:18,626 --> 0:16:20,306
+screenshot how macOS makes use
+
+541
+00:16:20,306 --> 0:16:21,246
+of them in Finder.
+
+542
+00:16:21,506 --> 0:16:23,686
+MacOS can generate thumbnails
+
+543
+00:16:23,686 --> 0:16:26,176
+for many common file types, but
+
+544
+00:16:26,176 --> 0:16:27,276
+implementing a thumbnail
+
+545
+00:16:27,276 --> 0:16:28,766
+extension allows you to also
+
+546
+00:16:28,766 --> 0:16:30,126
+provide thumbnails for your own
+
+547
+00:16:30,126 --> 0:16:31,996
+file types so that they can have
+
+548
+00:16:31,996 --> 0:16:33,826
+a rich representation in Finder
+
+549
+00:16:33,826 --> 0:16:35,026
+and elsewhere a thumbnail might
+
+550
+00:16:35,026 --> 0:16:35,386
+show.
+
+551
+00:16:35,946 --> 0:16:38,546
+The extension API replaces the
+
+552
+00:16:38,546 --> 0:16:40,446
+old CF plug-in based generator
+
+553
+00:16:40,446 --> 0:16:40,976
+system.
+
+554
+00:16:41,116 --> 0:16:42,566
+If you have a Quick Look
+
+555
+00:16:42,566 --> 0:16:44,506
+generator, consider migrating
+
+556
+00:16:44,506 --> 0:16:44,876
+soon.
+
+557
+00:16:45,206 --> 0:16:47,866
+I say Quick Look extension in a
+
+558
+00:16:47,866 --> 0:16:49,176
+general sense here as the
+
+559
+00:16:49,176 --> 0:16:50,756
+thumbnail extension point comes
+
+560
+00:16:50,756 --> 0:16:51,936
+from Quick Look thumbnailing.
+
+561
+00:16:52,566 --> 0:16:53,996
+This was previously vended from
+
+562
+00:16:53,996 --> 0:16:55,466
+the Quick Look framework on iOS
+
+563
+00:16:56,276 --> 0:16:57,516
+but you might want to consider
+
+564
+00:16:57,516 --> 0:16:58,896
+importing it from the Quick Look
+
+565
+00:16:58,896 --> 0:17:00,126
+thumbnailing instead if you do
+
+566
+00:16:58,896 --> 0:17:00,126
+thumbnailing instead if you do
+
+567
+00:17:00,126 --> 0:17:02,406
+not need UIKit as this will make
+
+568
+00:17:02,406 --> 0:17:03,626
+your extension leaner.
+
+569
+00:17:06,116 --> 0:17:07,915
+To create a thumbnail extension,
+
+570
+00:17:07,996 --> 0:17:09,816
+add a new target in your Xcode
+
+571
+00:17:09,816 --> 0:17:11,156
+project using the thumbnail
+
+572
+00:17:11,156 --> 0:17:12,246
+extension template.
+
+573
+00:17:13,976 --> 0:17:15,586
+After setting up your extension
+
+574
+00:17:15,586 --> 0:17:17,146
+target, you will be able to
+
+575
+00:17:17,146 --> 0:17:18,516
+start implementing your
+
+576
+00:17:18,516 --> 0:17:21,026
+QLThumbnailProvider subclass.
+
+577
+00:17:21,126 --> 0:17:22,316
+You can draw your thumbnail
+
+578
+00:17:22,316 --> 0:17:24,316
+using either a CG context, an
+
+579
+00:17:24,316 --> 0:17:26,106
+AppKit context, or you can
+
+580
+00:17:26,106 --> 0:17:28,415
+provide a file URL to an image.
+
+581
+00:17:31,116 --> 0:17:32,846
+Here's a quick example where we
+
+582
+00:17:32,846 --> 0:17:34,316
+overwrite the provide thumbnail
+
+583
+00:17:34,316 --> 0:17:35,776
+for request handler method.
+
+584
+00:17:36,206 --> 0:17:37,986
+We extensively cover this part
+
+585
+00:17:37,986 --> 0:17:39,466
+of the Quick Look API in our
+
+586
+00:17:39,466 --> 0:17:43,016
+session from WWDC 2017 "Building
+
+587
+00:17:43,016 --> 0:17:44,996
+Great Document-based Apps in iOS
+
+588
+00:17:44,996 --> 0:17:45,496
+11".
+
+589
+00:17:46,016 --> 0:17:47,336
+We highly encourage you to check
+
+590
+00:17:47,336 --> 0:17:47,666
+it out.
+
+591
+00:17:47,996 --> 0:17:50,106
+In a nutshell, you will get a
+
+592
+00:17:50,106 --> 0:17:52,006
+QLFileThumbnailRequest which
+
+593
+00:17:52,006 --> 0:17:54,146
+will have the URL of the file,
+
+594
+00:17:54,356 --> 0:17:56,596
+the maximum and minimum sizes of
+
+595
+00:17:56,596 --> 0:17:58,226
+the thumbnail, and its scale.
+
+596
+00:17:58,766 --> 0:18:00,896
+Use these to create a thumbnail
+
+597
+00:17:58,766 --> 0:18:00,896
+Use these to create a thumbnail
+
+598
+00:18:00,896 --> 0:18:02,466
+matching those specifications.
+
+599
+00:18:04,306 --> 0:18:06,216
+For each thumbnail request, the
+
+600
+00:18:06,216 --> 0:18:07,846
+API expects you to create a
+
+601
+00:18:07,846 --> 0:18:10,006
+QLThumbnailReply which will be
+
+602
+00:18:10,006 --> 0:18:11,286
+used to generate the thumbnail.
+
+603
+00:18:11,526 --> 0:18:13,476
+Pass the QLThumbnailReply to the
+
+604
+00:18:13,476 --> 0:18:14,716
+completion handler above.
+
+605
+00:18:18,346 --> 0:18:19,536
+To debug your thumbnail
+
+606
+00:18:19,536 --> 0:18:21,616
+extension on macOS, you can use
+
+607
+00:18:21,616 --> 0:18:22,436
+QLManage.
+
+608
+00:18:22,466 --> 0:18:24,506
+If you have written Quick Look
+
+609
+00:18:24,506 --> 0:18:26,096
+generators in the past, you may
+
+610
+00:18:26,096 --> 0:18:27,036
+recognize this tool.
+
+611
+00:18:27,036 --> 0:18:29,066
+Build and run your extension
+
+612
+00:18:29,066 --> 0:18:30,746
+target in Xcode to register your
+
+613
+00:18:30,746 --> 0:18:32,106
+extension with the system.
+
+614
+00:18:32,856 --> 0:18:34,606
+Then use QLManage to generate a
+
+615
+00:18:34,606 --> 0:18:36,176
+thumbnail of your file type and
+
+616
+00:18:36,176 --> 0:18:37,536
+attach to your extension in
+
+617
+00:18:37,566 --> 0:18:37,976
+Xcode.
+
+618
+00:18:40,096 --> 0:18:41,866
+Preview Extensions for Files.
+
+619
+00:18:42,196 --> 0:18:44,266
+New this year, Quick Look on
+
+620
+00:18:44,266 --> 0:18:46,286
+macOS also allows you to provide
+
+621
+00:18:46,286 --> 0:18:48,276
+previews for your own file types
+
+622
+00:18:48,276 --> 0:18:49,896
+by implementing a preview
+
+623
+00:18:49,896 --> 0:18:50,646
+extension.
+
+624
+00:18:51,956 --> 0:18:53,406
+Quick Look preview extensions
+
+625
+00:18:53,406 --> 0:18:54,946
+already existed to support Core
+
+626
+00:18:54,946 --> 0:18:55,966
+Spotlight previews.
+
+627
+00:18:56,326 --> 0:18:59,306
+See WWDC 2017's What's New in
+
+628
+00:18:59,306 --> 0:19:00,846
+Core Spotlight for iOS and
+
+629
+00:18:59,306 --> 0:19:00,846
+Core Spotlight for iOS and
+
+630
+00:19:00,846 --> 0:19:01,456
+macOS.
+
+631
+00:19:02,406 --> 0:19:03,596
+This year we've also added
+
+632
+00:19:03,596 --> 0:19:04,826
+support for file previews.
+
+633
+00:19:05,236 --> 0:19:07,906
+With the extension, you can now
+
+634
+00:19:07,906 --> 0:19:09,136
+directly provide a view to
+
+635
+00:19:09,136 --> 0:19:10,196
+display your preview.
+
+636
+00:19:11,146 --> 0:19:12,236
+This is different from the old
+
+637
+00:19:12,236 --> 0:19:13,686
+Quick Look generators in which
+
+638
+00:19:13,686 --> 0:19:15,596
+you provided data or a URL for
+
+639
+00:19:15,596 --> 0:19:16,766
+the system to present.
+
+640
+00:19:17,146 --> 0:19:19,436
+The new extension API allows you
+
+641
+00:19:19,436 --> 0:19:20,556
+greater control over the
+
+642
+00:19:20,556 --> 0:19:21,846
+appearance of your preview.
+
+643
+00:19:22,546 --> 0:19:23,966
+We recommend you migrate off the
+
+644
+00:19:23,966 --> 0:19:25,336
+old Quick Look generators as
+
+645
+00:19:25,336 --> 0:19:26,776
+they will be deprecated in a
+
+646
+00:19:26,776 --> 0:19:27,606
+future release.
+
+647
+00:19:30,436 --> 0:19:32,206
+To create a Preview Extension,
+
+648
+00:19:32,206 --> 0:19:33,826
+add a new target in your project
+
+649
+00:19:33,826 --> 0:19:35,636
+and select the Preview Extension
+
+650
+00:19:35,636 --> 0:19:36,186
+template.
+
+651
+00:19:38,756 --> 0:19:41,066
+The API is identical to iOS
+
+652
+00:19:41,066 --> 0:19:41,996
+Preview extensions.
+
+653
+00:19:41,996 --> 0:19:44,886
+See WWDC 2018's Quick Look
+
+654
+00:19:44,886 --> 0:19:46,036
+Previews from the Ground Up.
+
+655
+00:19:46,436 --> 0:19:48,646
+As a quick summary, you will
+
+656
+00:19:48,646 --> 0:19:49,766
+want to declare the list of
+
+657
+00:19:49,766 --> 0:19:51,006
+supported UTIs in
+
+658
+00:19:51,006 --> 0:19:53,036
+QLSupportedContentTypes in your
+
+659
+00:19:53,036 --> 0:19:53,826
+Info.plist.
+
+660
+00:19:54,966 --> 0:19:57,026
+This must exactly match the UTIs
+
+661
+00:19:57,026 --> 0:19:58,706
+of the files you want previewed.
+
+662
+00:19:59,216 --> 0:20:01,186
+Matching by parent UTI is not
+
+663
+00:19:59,216 --> 0:20:01,186
+Matching by parent UTI is not
+
+664
+00:20:01,186 --> 0:20:01,726
+supported.
+
+665
+00:20:02,136 --> 0:20:03,986
+The template will provide a view
+
+666
+00:20:03,986 --> 0:20:05,246
+controller which will be what
+
+667
+00:20:05,246 --> 0:20:06,756
+you prepare your preview in.
+
+668
+00:20:07,216 --> 0:20:10,366
+Here's a quick example of the
+
+669
+00:20:10,366 --> 0:20:11,466
+view controller template.
+
+670
+00:20:12,176 --> 0:20:14,156
+Implement, preparePreviewofFile
+
+671
+00:20:14,156 --> 0:20:16,126
+at URL to prepare your view
+
+672
+00:20:16,126 --> 0:20:16,696
+controller.
+
+673
+00:20:16,996 --> 0:20:18,356
+And once you're ready, call the
+
+674
+00:20:18,356 --> 0:20:19,256
+completion handler.
+
+675
+00:20:20,026 --> 0:20:21,556
+The QLPreviewView presenting you
+
+676
+00:20:21,556 --> 0:20:23,096
+preview will show a spinning
+
+677
+00:20:23,096 --> 0:20:24,476
+wheel until this completion
+
+678
+00:20:24,476 --> 0:20:25,406
+handler is called.
+
+679
+00:20:25,816 --> 0:20:27,046
+So get your preview ready as
+
+680
+00:20:27,046 --> 0:20:28,166
+quickly as possible.
+
+681
+00:20:30,276 --> 0:20:32,176
+Keep in mind, your preview can
+
+682
+00:20:32,176 --> 0:20:34,036
+be shown in any QLPreviewView
+
+683
+00:20:34,726 --> 0:20:36,166
+which may be the Preview panel,
+
+684
+00:20:36,336 --> 0:20:37,636
+the Column View sidebar,
+
+685
+00:20:37,876 --> 0:20:39,556
+Spotlight or any client of the
+
+686
+00:20:39,556 --> 0:20:41,236
+QLPreviewView at all.
+
+687
+00:20:45,716 --> 0:20:47,546
+To debug, launch your extension
+
+688
+00:20:47,546 --> 0:20:48,486
+target with Xcode.
+
+689
+00:20:48,756 --> 0:20:51,146
+Note that Xcode will lunch the
+
+690
+00:20:51,146 --> 0:20:52,616
+Quick Look simulator by default.
+
+691
+00:20:53,076 --> 0:20:54,586
+This is to aid in debugging Core
+
+692
+00:20:54,586 --> 0:20:55,966
+Spotlight previews which are
+
+693
+00:20:55,966 --> 0:20:57,386
+extension can also provide
+
+694
+00:20:57,386 --> 0:20:57,966
+support for.
+
+695
+00:20:58,516 --> 0:21:00,796
+To debug regular file previews,
+
+696
+00:20:58,516 --> 0:21:00,796
+To debug regular file previews,
+
+697
+00:21:00,796 --> 0:21:02,136
+you can ignore the simulator and
+
+698
+00:21:02,136 --> 0:21:03,616
+invoke your preview with finder
+
+699
+00:21:03,616 --> 0:21:04,496
+or QLManage.
+
+700
+00:21:04,746 --> 0:21:05,976
+As long as your preview
+
+701
+00:21:05,976 --> 0:21:07,066
+extension is launched through
+
+702
+00:21:07,066 --> 0:21:09,016
+Xcode, Xcode will automatically
+
+703
+00:21:09,016 --> 0:21:10,306
+attach to it.
+
+704
+00:21:14,416 --> 0:21:16,036
+Let's talk about supporting iPad
+
+705
+00:21:16,176 --> 0:21:17,936
+apps on Mac.
+
+706
+00:21:17,936 --> 0:21:19,586
+Our document handling APIs are
+
+707
+00:21:19,586 --> 0:21:22,066
+supported in iPad apps on Mac so
+
+708
+00:21:22,066 --> 0:21:22,646
+you can bring your
+
+709
+00:21:22,646 --> 0:21:24,616
+document-based iOS apps to
+
+710
+00:21:24,616 --> 0:21:25,236
+macOS.
+
+711
+00:21:28,036 --> 0:21:28,486
+For
+
+712
+00:21:28,486 --> 0:21:30,316
+UIDocumentPickerViewController
+
+713
+00:21:30,456 --> 0:21:32,216
+use it as you would on iOS and
+
+714
+00:21:32,216 --> 0:21:33,946
+users will automatically get and
+
+715
+00:21:33,946 --> 0:21:35,846
+experience that feels native to
+
+716
+00:21:36,266 --> 0:21:37,196
+macOS.
+
+717
+00:21:37,196 --> 0:21:38,786
+Specifically, the .import and
+
+718
+00:21:38,786 --> 0:21:41,066
+.open modes show an NSOpenPanel
+
+719
+00:21:41,326 --> 0:21:43,736
+and the .exportToService and
+
+720
+00:21:43,736 --> 0:21:45,306
+.moveToService modes show an
+
+721
+00:21:45,306 --> 0:21:46,426
+NSSavePanel.
+
+722
+00:21:48,296 --> 0:21:49,816
+Similarly, for
+
+723
+00:21:49,816 --> 0:21:51,676
+UIDocumentBrowserViewController,
+
+724
+00:21:52,176 --> 0:21:53,706
+users will get an experience
+
+725
+00:21:53,706 --> 0:21:54,656
+that feels native for a
+
+726
+00:21:54,656 --> 0:21:56,456
+document-based app on macOS.
+
+727
+00:21:56,826 --> 0:21:59,336
+The user will get an NSOpenPanel
+
+728
+00:21:59,336 --> 0:22:00,716
+in a separate window just like
+
+729
+00:21:59,336 --> 0:22:00,716
+in a separate window just like
+
+730
+00:22:00,716 --> 0:22:01,666
+they do in TextEdit.
+
+731
+00:22:02,176 --> 0:22:04,406
+There are a few minor runtime
+
+732
+00:22:04,406 --> 0:22:06,456
+differences due to differences
+
+733
+00:22:06,456 --> 0:22:08,146
+between the interfaces on iOS
+
+734
+00:22:08,146 --> 0:22:08,926
+and macOS.
+
+735
+00:22:09,606 --> 0:22:11,016
+A good example of this is the
+
+736
+00:22:11,016 --> 0:22:12,916
+UIDocumentBrowserViewControllers
+
+737
+00:22:12,916 --> 0:22:14,876
+navigation bar which doesn't
+
+738
+00:22:14,876 --> 0:22:15,996
+exist on macOS.
+
+739
+00:22:16,596 --> 0:22:17,776
+Check the documentation for
+
+740
+00:22:17,776 --> 0:22:19,286
+details on what to do for these
+
+741
+00:22:19,286 --> 0:22:20,376
+particular cases.
+
+742
+00:22:21,296 --> 0:22:23,106
+In some cases, you can use new
+
+743
+00:22:23,106 --> 0:22:25,206
+APIs, such as the menu bar API,
+
+744
+00:22:25,356 --> 0:22:26,736
+to help you address these UI
+
+745
+00:22:26,806 --> 0:22:27,576
+differences.
+
+746
+00:22:30,196 --> 0:22:32,226
+Quick Look is also available on
+
+747
+00:22:32,226 --> 0:22:34,186
+iPad apps on Mac.
+
+748
+00:22:34,356 --> 0:22:36,186
+Presenting a QLPreviewController
+
+749
+00:22:36,186 --> 0:22:38,216
+will launch a QLPreviewPanel on
+
+750
+00:22:38,216 --> 0:22:40,476
+macOS to provide a more native
+
+751
+00:22:40,476 --> 0:22:41,466
+Mac experience.
+
+752
+00:22:42,436 --> 0:22:44,316
+Since the QLPreviewPanel is a
+
+753
+00:22:44,316 --> 0:22:45,306
+separate window, you're
+
+754
+00:22:45,306 --> 0:22:46,536
+presenting view controllers
+
+755
+00:22:46,536 --> 0:22:48,656
+content will be visible but it
+
+756
+00:22:48,656 --> 0:22:49,696
+will be great out and
+
+757
+00:22:49,696 --> 0:22:50,596
+non-interactive.
+
+758
+00:22:52,436 --> 0:22:54,376
+Test your iPad apps on Mac to
+
+759
+00:22:54,376 --> 0:22:55,406
+make sure it looks great.
+
+760
+00:22:58,096 --> 0:22:59,716
+One limitation to note of
+
+761
+00:22:59,716 --> 0:23:01,946
+QLPreviewController in iPad apps
+
+762
+00:22:59,716 --> 0:23:01,946
+QLPreviewController in iPad apps
+
+763
+00:23:01,946 --> 0:23:03,706
+on Mac is that embedding the
+
+764
+00:23:03,706 --> 0:23:05,326
+QLPreviewController's view is
+
+765
+00:23:05,326 --> 0:23:07,336
+not fully supported and we will
+
+766
+00:23:07,336 --> 0:23:08,896
+provide a thumbnail instead of a
+
+767
+00:23:08,896 --> 0:23:09,976
+live preview in this case.
+
+768
+00:23:13,046 --> 0:23:14,076
+So what have we learned today?
+
+769
+00:23:14,926 --> 0:23:16,046
+First, we've shown you how to
+
+770
+00:23:16,046 --> 0:23:18,076
+leverage new features of iOS 13
+
+771
+00:23:18,076 --> 0:23:20,066
+in your app, such as accessing
+
+772
+00:23:20,066 --> 0:23:21,826
+multiple files in a directory,
+
+773
+00:23:22,116 --> 0:23:24,356
+supporting USB drives and SMB
+
+774
+00:23:24,356 --> 0:23:24,866
+servers.
+
+775
+00:23:25,806 --> 0:23:27,526
+Then we've taken a look at using
+
+776
+00:23:27,526 --> 0:23:29,136
+Quick Look to display the same
+
+777
+00:23:29,136 --> 0:23:31,196
+rich thumbnails as in the files
+
+778
+00:23:31,196 --> 0:23:33,116
+app, provide Quick Look editing
+
+779
+00:23:33,116 --> 0:23:34,866
+support for images and videos,
+
+780
+00:23:34,906 --> 0:23:36,396
+and provide previews and
+
+781
+00:23:36,396 --> 0:23:37,856
+thumbnails with modern extension
+
+782
+00:23:37,856 --> 0:23:40,266
+API on the Mac.
+
+783
+00:23:40,456 --> 0:23:41,386
+Thank you for watching.

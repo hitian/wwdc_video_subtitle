@@ -1,0 +1,4727 @@
+1
+00:00:00,506 --> 0:00:04,516
+[ Music ]
+
+2
+00:00:05,116 --> 0:00:07,116
+[ Applause ]
+
+3
+00:00:07,216 --> 0:00:07,966
+&gt;&gt; Good morning.
+
+4
+00:00:08,516 --> 0:00:10,806
+[ Applause ]
+
+5
+00:00:11,306 --> 0:00:12,166
+My name's Nick Gillett.
+
+6
+00:00:12,256 --> 0:00:13,716
+I'm an engineer here at Apple on
+
+7
+00:00:13,716 --> 0:00:15,246
+the Core Data team, and it is my
+
+8
+00:00:15,346 --> 0:00:17,046
+pleasure to welcome you to Using
+
+9
+00:00:17,046 --> 0:00:18,556
+Core Data with CloudKit.
+
+10
+00:00:19,496 --> 0:00:20,826
+Today, we're here to talk about
+
+11
+00:00:20,826 --> 0:00:22,746
+a belief that I have that all of
+
+12
+00:00:22,746 --> 0:00:24,326
+my data should be available to
+
+13
+00:00:24,326 --> 0:00:26,036
+me on whatever device I have,
+
+14
+00:00:26,066 --> 0:00:27,516
+wherever I am in the world.
+
+15
+00:00:28,166 --> 0:00:30,796
+And to make this a reality, we
+
+16
+00:00:30,796 --> 0:00:32,756
+have to make it a lot easier for
+
+17
+00:00:32,756 --> 0:00:34,286
+you to add this functionality to
+
+18
+00:00:34,286 --> 0:00:35,346
+your applications.
+
+19
+00:00:36,096 --> 0:00:37,346
+I'm sure many of you came in
+
+20
+00:00:37,346 --> 0:00:39,016
+today with an iPhone, and you
+
+21
+00:00:39,016 --> 0:00:40,716
+may also have a Mac at home.
+
+22
+00:00:41,176 --> 0:00:42,826
+You may even be toting around a
+
+23
+00:00:42,826 --> 0:00:44,506
+MacBook or a MacBook Pro in your
+
+24
+00:00:44,506 --> 0:00:45,616
+backpack while you're here at
+
+25
+00:00:45,616 --> 0:00:46,326
+the conference.
+
+26
+00:00:46,906 --> 0:00:48,906
+And the data that we create on
+
+27
+00:00:48,906 --> 0:00:50,816
+all of these devices is
+
+28
+00:00:50,816 --> 0:00:52,106
+naturally trapped.
+
+29
+00:00:52,766 --> 0:00:52,976
+Right?
+
+30
+00:00:52,976 --> 0:00:54,656
+There's no easy way for us to
+
+31
+00:00:54,656 --> 0:00:55,956
+move it from one device to
+
+32
+00:00:55,956 --> 0:00:57,496
+another without some type of
+
+33
+00:00:57,496 --> 0:00:58,546
+user interaction.
+
+34
+00:00:59,196 --> 0:01:01,306
+Now, to solve this, we typically
+
+35
+00:00:59,196 --> 0:01:01,306
+Now, to solve this, we typically
+
+36
+00:01:01,306 --> 0:01:03,066
+want to turn to cloud storage.
+
+37
+00:01:03,446 --> 0:01:05,266
+Because it offers us the promise
+
+38
+00:01:05,385 --> 0:01:06,756
+of moving data that's on one
+
+39
+00:01:06,756 --> 0:01:08,556
+device seamlessly and
+
+40
+00:01:08,556 --> 0:01:10,096
+transparently to all of the
+
+41
+00:01:10,096 --> 0:01:11,496
+other devices we own.
+
+42
+00:01:12,076 --> 0:01:13,956
+And cloud storage has benefits
+
+43
+00:01:13,956 --> 0:01:15,726
+even if we only happen to have a
+
+44
+00:01:15,726 --> 0:01:16,836
+single device.
+
+45
+00:01:17,086 --> 0:01:17,306
+Right?
+
+46
+00:01:17,306 --> 0:01:18,986
+As our applications create data
+
+47
+00:01:18,986 --> 0:01:20,926
+on this device, it can be backed
+
+48
+00:01:20,926 --> 0:01:22,466
+up in the cloud and stored.
+
+49
+00:01:22,966 --> 0:01:24,136
+So that when we get a new
+
+50
+00:01:24,136 --> 0:01:26,396
+device, whether by choice or by
+
+51
+00:01:26,396 --> 0:01:28,176
+accident -- ask me how I know --
+
+52
+00:01:28,336 --> 0:01:30,326
+on the way out of the store,
+
+53
+00:01:30,326 --> 0:01:32,026
+that device can be restored to
+
+54
+00:01:32,026 --> 0:01:33,626
+the one that we always knew and
+
+55
+00:01:33,626 --> 0:01:33,976
+loved.
+
+56
+00:01:34,546 --> 0:01:36,316
+And it may surprise you to learn
+
+57
+00:01:36,316 --> 0:01:37,406
+that there are some existing
+
+58
+00:01:37,406 --> 0:01:39,066
+technologies on our platforms
+
+59
+00:01:39,066 --> 0:01:40,056
+that can help us with this
+
+60
+00:01:40,056 --> 0:01:40,556
+problem.
+
+61
+00:01:40,556 --> 0:01:43,406
+For example, Core Data provides
+
+62
+00:01:43,406 --> 0:01:44,936
+a robust set of APIs for
+
+63
+00:01:44,936 --> 0:01:46,526
+managing data locally in your
+
+64
+00:01:46,526 --> 0:01:48,766
+applications and on disc.
+
+65
+00:01:48,766 --> 0:01:50,076
+And the CloudKit framework
+
+66
+00:01:50,306 --> 0:01:51,666
+provides access to one of the
+
+67
+00:01:51,666 --> 0:01:53,246
+world's largest distributed
+
+68
+00:01:53,246 --> 0:01:54,026
+databases.
+
+69
+00:01:54,526 --> 0:01:55,726
+Both of these frameworks are
+
+70
+00:01:55,726 --> 0:01:57,186
+available on all of our Apple
+
+71
+00:01:57,276 --> 0:01:57,976
+platforms.
+
+72
+00:01:58,236 --> 0:02:00,106
+And because of that, enable us
+
+73
+00:01:58,236 --> 0:02:00,106
+And because of that, enable us
+
+74
+00:02:00,106 --> 0:02:01,786
+to build a wide variety of
+
+75
+00:02:01,786 --> 0:02:02,526
+applications.
+
+76
+00:02:03,316 --> 0:02:04,806
+In fact, these frameworks are
+
+77
+00:02:04,806 --> 0:02:06,116
+actually quite similar.
+
+78
+00:02:06,666 --> 0:02:08,235
+They even express themselves
+
+79
+00:02:08,235 --> 0:02:09,925
+using a common set of patterns
+
+80
+00:02:09,925 --> 0:02:10,826
+and paradigms.
+
+81
+00:02:11,276 --> 0:02:13,106
+Modeling their APIs in terms of
+
+82
+00:02:13,106 --> 0:02:15,646
+objects, models, and stores.
+
+83
+00:02:16,346 --> 0:02:18,726
+Now, in Core Data, we call these
+
+84
+00:02:18,726 --> 0:02:20,126
+objects instances of
+
+85
+00:02:20,156 --> 0:02:21,726
+NSManagedObject, and they're
+
+86
+00:02:21,726 --> 0:02:23,096
+what gives our application
+
+87
+00:02:23,096 --> 0:02:25,066
+access to values that we store
+
+88
+00:02:25,296 --> 0:02:25,926
+on disc.
+
+89
+00:02:26,636 --> 0:02:28,956
+CloudKit similarly exposes a
+
+90
+00:02:29,076 --> 0:02:31,086
+CKRecord, which is a key value
+
+91
+00:02:31,086 --> 0:02:32,606
+like store for accessing data
+
+92
+00:02:32,606 --> 0:02:34,166
+that you've stored in the cloud.
+
+93
+00:02:35,036 --> 0:02:37,026
+These objects are described by
+
+94
+00:02:37,026 --> 0:02:38,466
+what we like to call a model.
+
+95
+00:02:38,906 --> 0:02:40,736
+And in Core Data we call that an
+
+96
+00:02:40,796 --> 0:02:42,856
+NSManagedObjectModel, which you
+
+97
+00:02:42,856 --> 0:02:44,686
+can create in code or using the
+
+98
+00:02:44,686 --> 0:02:46,106
+model editor in Xcode.
+
+99
+00:02:46,926 --> 0:02:49,176
+Quite similarly, CloudKit uses a
+
+100
+00:02:49,176 --> 0:02:49,586
+Schema.
+
+101
+00:02:50,196 --> 0:02:51,696
+And the CloudKit schema can be
+
+102
+00:02:51,696 --> 0:02:53,096
+defined either by CloudKit
+
+103
+00:02:53,136 --> 0:02:55,626
+dynamically as you use CKRecords
+
+104
+00:02:55,626 --> 0:02:56,846
+in the development environment
+
+105
+00:02:57,246 --> 0:02:59,056
+or using the CloudKit dashboard.
+
+106
+00:02:59,796 --> 0:03:01,776
+Finally, objects are persisted
+
+107
+00:02:59,796 --> 0:03:01,776
+Finally, objects are persisted
+
+108
+00:03:01,776 --> 0:03:03,686
+to use the Core Data vernacular,
+
+109
+00:03:04,116 --> 0:03:05,856
+in what we like to call a store.
+
+110
+00:03:06,266 --> 0:03:07,906
+In Core Data those are instances
+
+111
+00:03:07,906 --> 0:03:09,396
+of NSPersistentStore.
+
+112
+00:03:09,756 --> 0:03:12,436
+But in CloudKit, CKRecord's are
+
+113
+00:03:12,436 --> 0:03:15,146
+stored in a CKRecordZone or in a
+
+114
+00:03:15,246 --> 0:03:16,166
+CKDatabase.
+
+115
+00:03:16,866 --> 0:03:18,696
+And so, as you can see and
+
+116
+00:03:18,696 --> 0:03:19,956
+indeed as many of you have
+
+117
+00:03:20,076 --> 0:03:20,976
+pointed out to me over the
+
+118
+00:03:20,976 --> 0:03:22,926
+years, it would be great if we
+
+119
+00:03:22,926 --> 0:03:24,786
+could make it easier to combine
+
+120
+00:03:24,786 --> 0:03:26,416
+these two conceptually similar
+
+121
+00:03:26,416 --> 0:03:27,106
+frameworks.
+
+122
+00:03:27,776 --> 0:03:29,216
+And so to show you just how much
+
+123
+00:03:29,276 --> 0:03:30,436
+easier we've made that this
+
+124
+00:03:30,436 --> 0:03:31,586
+year, I'd like to take you
+
+125
+00:03:31,626 --> 0:03:32,996
+through what it's like to create
+
+126
+00:03:32,996 --> 0:03:34,526
+a brand new application in
+
+127
+00:03:34,576 --> 0:03:34,996
+Xcode.
+
+128
+00:03:35,296 --> 0:03:37,406
+Here you can see, I have Xcode
+
+129
+00:03:37,406 --> 0:03:37,766
+open.
+
+130
+00:03:38,176 --> 0:03:39,666
+And I'm going to create a new
+
+131
+00:03:39,786 --> 0:03:42,216
+iOS project as a Master Detail
+
+132
+00:03:42,216 --> 0:03:42,926
+application.
+
+133
+00:03:43,416 --> 0:03:44,356
+I like Master Detail
+
+134
+00:03:44,356 --> 0:03:45,636
+applications because they give
+
+135
+00:03:45,636 --> 0:03:47,646
+us a great UI to build on top of
+
+136
+00:03:47,646 --> 0:03:49,246
+when exploring features of Core
+
+137
+00:03:49,246 --> 0:03:49,596
+Data.
+
+138
+00:03:50,086 --> 0:03:51,896
+So, I'll select it and click
+
+139
+00:03:51,896 --> 0:03:52,326
+Next.
+
+140
+00:03:53,126 --> 0:03:54,636
+And then give my application a
+
+141
+00:03:54,636 --> 0:03:54,956
+name.
+
+142
+00:03:55,186 --> 0:03:57,436
+In this case, just WWDC Demo.
+
+143
+00:03:58,106 --> 0:03:59,476
+And, because we're here to hear
+
+144
+00:03:59,476 --> 0:04:01,246
+about Core Data, we'll check the
+
+145
+00:03:59,476 --> 0:04:01,246
+about Core Data, we'll check the
+
+146
+00:04:01,246 --> 0:04:02,546
+Core Data checkbox.
+
+147
+00:04:03,066 --> 0:04:05,176
+New in Xcode 11 is this checkbox
+
+148
+00:04:05,176 --> 0:04:06,346
+called Use CloudKit.
+
+149
+00:04:06,826 --> 0:04:08,346
+And this tells Xcode that we
+
+150
+00:04:08,346 --> 0:04:09,746
+want to generate an application
+
+151
+00:04:09,746 --> 0:04:11,336
+that's designed to use both Core
+
+152
+00:04:11,336 --> 0:04:12,646
+Data and CloudKit.
+
+153
+00:04:12,806 --> 0:04:14,876
+So, let's check that, and then
+
+154
+00:04:14,876 --> 0:04:16,536
+we'll click Next and find our
+
+155
+00:04:16,536 --> 0:04:17,946
+application somewhere to live on
+
+156
+00:04:17,946 --> 0:04:18,676
+the file system.
+
+157
+00:04:19,676 --> 0:04:21,495
+After we tap Create, Xcode
+
+158
+00:04:21,495 --> 0:04:22,996
+generates the application for
+
+159
+00:04:22,996 --> 0:04:23,196
+us.
+
+160
+00:04:23,396 --> 0:04:24,716
+And if you've ever built a
+
+161
+00:04:24,716 --> 0:04:26,246
+CloudKit application before,
+
+162
+00:04:26,806 --> 0:04:27,716
+you'll know that there are a
+
+163
+00:04:27,716 --> 0:04:29,266
+couple additional things we need
+
+164
+00:04:29,266 --> 0:04:30,866
+to add to this before it's ready
+
+165
+00:04:30,866 --> 0:04:31,986
+to build and run.
+
+166
+00:04:32,476 --> 0:04:33,546
+These come in the form of
+
+167
+00:04:33,546 --> 0:04:35,606
+Capabilities, which we add using
+
+168
+00:04:35,606 --> 0:04:37,226
+the Signing &amp; Capabilities tab.
+
+169
+00:04:37,766 --> 0:04:38,786
+We need to add two.
+
+170
+00:04:39,396 --> 0:04:40,796
+The first is the iCloud
+
+171
+00:04:40,916 --> 0:04:41,516
+capability.
+
+172
+00:04:41,706 --> 0:04:42,936
+So, I'll add that by clicking
+
+173
+00:04:42,936 --> 0:04:43,776
+this plus (+) next to
+
+174
+00:04:43,776 --> 0:04:46,206
+Capability, type iCloud, and hit
+
+175
+00:04:46,206 --> 0:04:46,556
+Enter.
+
+176
+00:04:47,256 --> 0:04:49,706
+When I do that, I can hit the
+
+177
+00:04:49,706 --> 0:04:51,436
+CloudKit checkbox and you'll see
+
+178
+00:04:51,436 --> 0:04:52,486
+that that adds push
+
+179
+00:04:52,486 --> 0:04:54,366
+notifications for me as well.
+
+180
+00:04:54,856 --> 0:04:56,556
+Xcode has also automatically
+
+181
+00:04:56,556 --> 0:04:58,036
+created an iCloud container
+
+182
+00:04:58,036 --> 0:05:00,076
+identifier for my application to
+
+183
+00:04:58,036 --> 0:05:00,076
+identifier for my application to
+
+184
+00:05:00,076 --> 0:05:01,056
+use.
+
+185
+00:05:01,276 --> 0:05:02,396
+Next, we want to add a
+
+186
+00:05:02,476 --> 0:05:03,926
+background mode capability.
+
+187
+00:05:04,446 --> 0:05:05,396
+And to do that, I'll hit the
+
+188
+00:05:05,396 --> 0:05:06,636
+plus (+) again, and type
+
+189
+00:05:06,696 --> 0:05:07,726
+Background, and hit Enter.
+
+190
+00:05:08,266 --> 0:05:09,616
+And the reason we do this is to
+
+191
+00:05:09,616 --> 0:05:11,276
+enable remote notifications,
+
+192
+00:05:11,276 --> 0:05:12,836
+which allow our application to
+
+193
+00:05:12,836 --> 0:05:14,756
+receive push notifications when
+
+194
+00:05:14,756 --> 0:05:15,506
+it's not running.
+
+195
+00:05:16,356 --> 0:05:18,086
+So, let's run this application
+
+196
+00:05:18,126 --> 0:05:19,826
+and see what Xcode has created
+
+197
+00:05:19,826 --> 0:05:20,316
+for us.
+
+198
+00:05:21,506 --> 0:05:22,706
+Here you can see that we have a
+
+199
+00:05:22,706 --> 0:05:24,636
+very simple application with two
+
+200
+00:05:24,636 --> 0:05:25,446
+view controllers.
+
+201
+00:05:25,556 --> 0:05:27,096
+A table view on the left and a
+
+202
+00:05:27,096 --> 0:05:28,356
+detail view controller on the
+
+203
+00:05:28,356 --> 0:05:28,636
+right.
+
+204
+00:05:29,316 --> 0:05:30,836
+And I can add some data to this
+
+205
+00:05:30,836 --> 0:05:32,296
+application using the plus (+)
+
+206
+00:05:32,296 --> 0:05:33,346
+button in the upper right-hand
+
+207
+00:05:33,346 --> 0:05:33,756
+corner.
+
+208
+00:05:34,286 --> 0:05:35,746
+By default, Xcode generates a
+
+209
+00:05:35,746 --> 0:05:37,596
+very simple Core Data data model
+
+210
+00:05:37,686 --> 0:05:39,096
+for us that's just a simple
+
+211
+00:05:39,136 --> 0:05:39,766
+timestamp.
+
+212
+00:05:40,506 --> 0:05:42,276
+But, we're here to see what it's
+
+213
+00:05:42,276 --> 0:05:43,806
+like to add sync functionality.
+
+214
+00:05:44,076 --> 0:05:45,606
+And to do that, we need another
+
+215
+00:05:45,606 --> 0:05:46,636
+device.
+
+216
+00:05:46,766 --> 0:05:48,186
+So, let's run the application on
+
+217
+00:05:48,236 --> 0:05:48,816
+our iPhone.
+
+218
+00:05:49,246 --> 0:05:50,516
+And you can see that we have the
+
+219
+00:05:50,516 --> 0:05:52,576
+master view controller and all
+
+220
+00:05:52,576 --> 0:05:54,436
+of the data that we added on our
+
+221
+00:05:54,436 --> 0:05:55,446
+iPad.
+
+222
+00:05:55,976 --> 0:05:57,426
+Now let's add some data using
+
+223
+00:05:57,426 --> 0:05:57,856
+our phone.
+
+224
+00:05:58,376 --> 0:06:00,366
+And of course, watch that sync
+
+225
+00:05:58,376 --> 0:06:00,366
+And of course, watch that sync
+
+226
+00:06:00,426 --> 0:06:01,796
+back to the iPad.
+
+227
+00:06:02,306 --> 0:06:04,066
+Now, because I have a magic push
+
+228
+00:06:04,066 --> 0:06:05,596
+notification in this controller,
+
+229
+00:06:05,596 --> 0:06:06,996
+I can make this happen whenever
+
+230
+00:06:06,996 --> 0:06:07,496
+I want.
+
+231
+00:06:08,216 --> 0:06:09,566
+But let's see something that's a
+
+232
+00:06:09,566 --> 0:06:11,106
+little bit more realistic.
+
+233
+00:06:11,106 --> 0:06:13,156
+I'm going to delete all the data
+
+234
+00:06:13,156 --> 0:06:14,336
+from this application that was
+
+235
+00:06:14,336 --> 0:06:16,426
+added on my iPhone from the
+
+236
+00:06:16,536 --> 0:06:17,016
+iPad.
+
+237
+00:06:17,016 --> 0:06:18,206
+These top four rows.
+
+238
+00:06:18,746 --> 0:06:20,346
+And then, I'll do the same thing
+
+239
+00:06:20,446 --> 0:06:22,146
+from the iPhone, deleting all
+
+240
+00:06:22,146 --> 0:06:23,736
+the data that was added from the
+
+241
+00:06:23,816 --> 0:06:24,476
+iPad.
+
+242
+00:06:25,326 --> 0:06:27,616
+Now, previously I used a magic
+
+243
+00:06:27,686 --> 0:06:28,596
+push notification.
+
+244
+00:06:28,816 --> 0:06:29,966
+But I'm not going to touch the
+
+245
+00:06:29,966 --> 0:06:30,916
+controller anymore.
+
+246
+00:06:31,056 --> 0:06:32,756
+I'll just let this video play so
+
+247
+00:06:32,756 --> 0:06:34,326
+that you can see what it was
+
+248
+00:06:34,326 --> 0:06:35,866
+like to actually watch these two
+
+249
+00:06:35,866 --> 0:06:37,786
+devices converge when I filmed
+
+250
+00:06:37,816 --> 0:06:38,846
+this.
+
+251
+00:06:40,536 --> 0:06:40,796
+Right?
+
+252
+00:06:41,806 --> 0:06:43,086
+Now, as contrived as that might
+
+253
+00:06:43,146 --> 0:06:44,396
+be, it's pretty awesome that in
+
+254
+00:06:44,396 --> 0:06:46,476
+a few simple clicks we've built
+
+255
+00:06:46,476 --> 0:06:47,936
+an application that syncs end to
+
+256
+00:06:47,936 --> 0:06:49,366
+end using both Core Data and
+
+257
+00:06:49,366 --> 0:06:49,896
+CloudKit.
+
+258
+00:06:50,486 --> 0:06:51,526
+And I'd be doing you a
+
+259
+00:06:51,526 --> 0:06:52,666
+disservice if somewhere in the
+
+260
+00:06:52,666 --> 0:06:54,236
+application delegate I'd hidden
+
+261
+00:06:54,286 --> 0:06:55,806
+15,000 lines of code.
+
+262
+00:06:56,366 --> 0:06:57,956
+So, let's see what that looks
+
+263
+00:06:57,956 --> 0:06:58,126
+like.
+
+264
+00:06:59,836 --> 0:07:01,526
+Now, this is a pretty standard
+
+265
+00:06:59,836 --> 0:07:01,526
+Now, this is a pretty standard
+
+266
+00:07:01,526 --> 0:07:02,716
+application delegate.
+
+267
+00:07:02,806 --> 0:07:04,086
+In fact, if you've ever built a
+
+268
+00:07:04,086 --> 0:07:05,496
+Core Data application before
+
+269
+00:07:05,496 --> 0:07:07,326
+using Xcode, it'll look very
+
+270
+00:07:07,326 --> 0:07:09,246
+familiar to you, including this
+
+271
+00:07:09,246 --> 0:07:10,726
+area where we set up the Core
+
+272
+00:07:10,726 --> 0:07:11,766
+Data stack.
+
+273
+00:07:12,166 --> 0:07:13,376
+The only thing that's different
+
+274
+00:07:13,376 --> 0:07:14,996
+about this application is some
+
+275
+00:07:14,996 --> 0:07:16,676
+new API in Core Data this year
+
+276
+00:07:17,066 --> 0:07:17,426
+called
+
+277
+00:07:17,426 --> 0:07:19,086
+NSPersistentCloudKitContainer,
+
+278
+00:07:19,626 --> 0:07:20,786
+which is designed to help you
+
+279
+00:07:20,786 --> 0:07:22,266
+manage Core Data stores that are
+
+280
+00:07:22,266 --> 0:07:24,686
+backed by a CloudKit database.
+
+281
+00:07:26,216 --> 0:07:28,236
+Now, if you've ever built a Core
+
+282
+00:07:28,236 --> 0:07:29,626
+Data application before using
+
+283
+00:07:29,766 --> 0:07:31,556
+Xcode you will have seen
+
+284
+00:07:31,666 --> 0:07:33,216
+NSPersistentContainer here
+
+285
+00:07:33,216 --> 0:07:34,466
+instead, which is
+
+286
+00:07:34,616 --> 0:07:36,276
+NSPersistentCloudKitContainer's
+
+287
+00:07:36,276 --> 0:07:37,606
+superclass.
+
+288
+00:07:37,816 --> 0:07:39,636
+Because of that, you can add
+
+289
+00:07:39,636 --> 0:07:41,086
+CloudKit functionality to your
+
+290
+00:07:41,086 --> 0:07:42,736
+existing Core Data applications
+
+291
+00:07:42,786 --> 0:07:44,426
+by changing as little as one
+
+292
+00:07:44,426 --> 0:07:45,036
+line of code.
+
+293
+00:07:45,336 --> 0:07:46,716
+What exactly is
+
+294
+00:07:46,866 --> 0:07:48,576
+NSPersistentCloudKitContainer?
+
+295
+00:07:49,426 --> 0:07:51,836
+Well, it's an encapsulation of a
+
+296
+00:07:51,836 --> 0:07:53,466
+set of really common patterns
+
+297
+00:07:53,466 --> 0:07:54,896
+that we saw everyone have to
+
+298
+00:07:54,986 --> 0:07:56,346
+build when they wanted to
+
+299
+00:07:56,346 --> 0:07:57,966
+implement end-to-end sync using
+
+300
+00:07:57,966 --> 0:07:58,496
+CloudKit.
+
+301
+00:07:58,976 --> 0:08:00,316
+And it's designed to save you
+
+302
+00:07:58,976 --> 0:08:00,316
+And it's designed to save you
+
+303
+00:08:00,316 --> 0:08:02,296
+thousands of lines of code.
+
+304
+00:08:03,636 --> 0:08:05,276
+It's also a foundation that we
+
+305
+00:08:05,276 --> 0:08:06,676
+hope to be able to build on with
+
+306
+00:08:06,756 --> 0:08:08,366
+you iteratively in the years to
+
+307
+00:08:08,366 --> 0:08:08,656
+come.
+
+308
+00:08:09,066 --> 0:08:11,436
+And of course, to do that -- get
+
+309
+00:08:11,436 --> 0:08:13,236
+ready, here it comes -- we need
+
+310
+00:08:13,236 --> 0:08:13,596
+your help.
+
+311
+00:08:15,376 --> 0:08:16,566
+We're going to need feedback
+
+312
+00:08:16,566 --> 0:08:17,206
+about how
+
+313
+00:08:17,356 --> 0:08:18,696
+NSPersistentCloudKitContainer
+
+314
+00:08:18,696 --> 0:08:20,696
+works for you and what features
+
+315
+00:08:20,696 --> 0:08:22,246
+it's missing, or whether or not
+
+316
+00:08:22,246 --> 0:08:23,776
+its existing features are enough
+
+317
+00:08:23,776 --> 0:08:24,786
+to meet the needs of your
+
+318
+00:08:24,786 --> 0:08:25,626
+applications.
+
+319
+00:08:25,856 --> 0:08:27,396
+So, let's look at a little bit
+
+320
+00:08:27,666 --> 0:08:28,866
+-- a few of those features in
+
+321
+00:08:28,866 --> 0:08:29,296
+detail.
+
+322
+00:08:30,266 --> 0:08:31,796
+NSPersistentCloudKitContainer
+
+323
+00:08:31,796 --> 0:08:33,566
+provides your application with a
+
+324
+00:08:33,566 --> 0:08:34,385
+local replica.
+
+325
+00:08:34,806 --> 0:08:36,936
+A complete mirror if you will of
+
+326
+00:08:36,936 --> 0:08:38,126
+the Core Data -- or the CloudKit
+
+327
+00:08:38,155 --> 0:08:39,486
+database that backs it.
+
+328
+00:08:40,265 --> 0:08:42,596
+And, it also implements a robust
+
+329
+00:08:42,596 --> 0:08:44,135
+scheduling and error recovery
+
+330
+00:08:44,135 --> 0:08:45,076
+event loop so that your
+
+331
+00:08:45,076 --> 0:08:46,116
+application doesn't have to
+
+332
+00:08:46,116 --> 0:08:47,716
+worry about any operations.
+
+333
+00:08:47,886 --> 0:08:49,986
+Finally, it handles the
+
+334
+00:08:49,986 --> 0:08:51,876
+transformation between instances
+
+335
+00:08:51,916 --> 0:08:53,096
+of NSManagedObject, that I
+
+336
+00:08:53,096 --> 0:08:55,636
+mentioned earlier, and CKRecord.
+
+337
+00:08:57,406 --> 0:08:58,596
+Now, a local replica is
+
+338
+00:08:58,596 --> 0:08:59,676
+important for a number of
+
+339
+00:08:59,676 --> 0:09:00,236
+reasons.
+
+340
+00:08:59,676 --> 0:09:00,236
+reasons.
+
+341
+00:09:01,096 --> 0:09:02,056
+But it means that as your
+
+342
+00:09:02,056 --> 0:09:03,676
+application works with objects,
+
+343
+00:09:03,866 --> 0:09:05,056
+it will be writing them to a
+
+344
+00:09:05,056 --> 0:09:07,426
+local store file managed by Core
+
+345
+00:09:07,426 --> 0:09:07,766
+Data.
+
+346
+00:09:08,256 --> 0:09:09,626
+And, it will be reading them
+
+347
+00:09:09,626 --> 0:09:11,006
+from that file as well.
+
+348
+00:09:11,006 --> 0:09:13,216
+And this is because of the
+
+349
+00:09:13,256 --> 0:09:14,176
+difference between the
+
+350
+00:09:14,176 --> 0:09:15,956
+performance profile of the local
+
+351
+00:09:15,956 --> 0:09:18,056
+database versus cloud storage.
+
+352
+00:09:18,536 --> 0:09:18,706
+Right?
+
+353
+00:09:18,706 --> 0:09:19,646
+When we think in terms of
+
+354
+00:09:19,646 --> 0:09:21,116
+latency of accessing a local
+
+355
+00:09:21,116 --> 0:09:23,396
+file, we can read from a file on
+
+356
+00:09:23,396 --> 0:09:24,796
+disc in milliseconds at the
+
+357
+00:09:24,796 --> 0:09:25,926
+worst case.
+
+358
+00:09:26,126 --> 0:09:27,256
+Whereas, over the network, it
+
+359
+00:09:27,256 --> 0:09:28,806
+might take us seconds or minutes
+
+360
+00:09:28,806 --> 0:09:29,786
+to fetch the data that our
+
+361
+00:09:29,786 --> 0:09:30,846
+application needs.
+
+362
+00:09:31,496 --> 0:09:33,066
+Likewise, the local store file
+
+363
+00:09:33,066 --> 0:09:34,396
+can provide your application
+
+364
+00:09:34,396 --> 0:09:36,146
+with much higher bandwidth,
+
+365
+00:09:36,146 --> 0:09:37,756
+measured even on our iPhone
+
+366
+00:09:37,756 --> 0:09:39,606
+devices in gigabytes per second,
+
+367
+00:09:40,096 --> 0:09:41,396
+whereas the cloud is sometimes
+
+368
+00:09:41,396 --> 0:09:42,876
+limited to megabytes or
+
+369
+00:09:42,876 --> 0:09:44,066
+kilobytes per second of
+
+370
+00:09:44,066 --> 0:09:45,116
+available bandwidth.
+
+371
+00:09:46,316 --> 0:09:47,816
+Now, this local replica
+
+372
+00:09:47,816 --> 0:09:49,876
+necessarily adds a significant
+
+373
+00:09:49,876 --> 0:09:51,926
+amount of complexity, and that's
+
+374
+00:09:51,926 --> 0:09:52,056
+why
+
+375
+00:09:52,146 --> 0:09:53,776
+NSPersistentCloudKitContainer
+
+376
+00:09:53,776 --> 0:09:55,536
+implements a robust scheduling
+
+377
+00:09:55,536 --> 0:09:56,826
+and error recovery event loop
+
+378
+00:09:56,826 --> 0:09:57,336
+for you.
+
+379
+00:09:57,796 --> 0:09:59,136
+So that as your application
+
+380
+00:09:59,136 --> 0:10:00,666
+writes data to the local store,
+
+381
+00:09:59,136 --> 0:10:00,666
+writes data to the local store,
+
+382
+00:10:01,116 --> 0:10:02,736
+NSPersistentCloudKitContainer
+
+383
+00:10:02,736 --> 0:10:04,046
+automatically moves those
+
+384
+00:10:04,136 --> 0:10:04,956
+objects up to the cloud.
+
+385
+00:10:06,376 --> 0:10:08,126
+And, when something changes in
+
+386
+00:10:08,126 --> 0:10:08,846
+CloudKit,
+
+387
+00:10:08,846 --> 0:10:10,336
+NSPersistentCloudKitContainer
+
+388
+00:10:10,336 --> 0:10:11,816
+will schedule work on the system
+
+389
+00:10:12,216 --> 0:10:14,086
+to bring those objects down and
+
+390
+00:10:14,086 --> 0:10:15,136
+import them into your local
+
+391
+00:10:15,136 --> 0:10:16,926
+database, making them available
+
+392
+00:10:16,926 --> 0:10:17,846
+to your application.
+
+393
+00:10:18,776 --> 0:10:20,846
+Of course, during this process,
+
+394
+00:10:20,846 --> 0:10:22,546
+your objects are necessarily
+
+395
+00:10:22,546 --> 0:10:24,116
+transformed from instances of
+
+396
+00:10:24,116 --> 0:10:26,426
+NSManagedObject into instances
+
+397
+00:10:26,426 --> 0:10:27,946
+of CKRecord by
+
+398
+00:10:28,056 --> 0:10:29,726
+NSPersistentCloudKitContainer.
+
+399
+00:10:30,736 --> 0:10:32,606
+And likewise, when something
+
+400
+00:10:32,606 --> 0:10:34,016
+changes in the cloud, those
+
+401
+00:10:34,016 --> 0:10:35,086
+CKRecord's will be made
+
+402
+00:10:35,086 --> 0:10:37,106
+available to you as instances of
+
+403
+00:10:37,196 --> 0:10:38,636
+NSManagedObject in your local
+
+404
+00:10:38,636 --> 0:10:39,296
+store file.
+
+405
+00:10:41,096 --> 0:10:41,726
+And that's what
+
+406
+00:10:41,726 --> 0:10:43,146
+NSPersistentCloudKitContainer
+
+407
+00:10:43,246 --> 0:10:44,486
+brings to your application.
+
+408
+00:10:44,856 --> 0:10:46,406
+It's a complete local replica of
+
+409
+00:10:46,406 --> 0:10:47,676
+everything in the private
+
+410
+00:10:47,676 --> 0:10:49,106
+database in CloudKit.
+
+411
+00:10:49,706 --> 0:10:50,706
+You should know, though, that we
+
+412
+00:10:50,706 --> 0:10:53,116
+do manage a specific custom zone
+
+413
+00:10:53,406 --> 0:10:54,506
+for Core Data syncing.
+
+414
+00:10:55,096 --> 0:10:57,566
+We implement automatic
+
+415
+00:10:57,566 --> 0:10:58,876
+scheduling so that you don't
+
+416
+00:10:58,876 --> 0:11:00,576
+have to worry about optimizing
+
+417
+00:10:58,876 --> 0:11:00,576
+have to worry about optimizing
+
+418
+00:11:00,576 --> 0:11:02,156
+any operations or scheduling
+
+419
+00:11:02,156 --> 0:11:02,886
+them in the system.
+
+420
+00:11:03,356 --> 0:11:04,856
+And, I think more importantly,
+
+421
+00:11:04,916 --> 0:11:05,966
+you don't have to worry about
+
+422
+00:11:05,966 --> 0:11:07,436
+implementing any error recovery
+
+423
+00:11:07,436 --> 0:11:08,866
+logic in your application.
+
+424
+00:11:10,066 --> 0:11:11,956
+Finally, we implement automatic
+
+425
+00:11:11,956 --> 0:11:12,986
+serialization from
+
+426
+00:11:12,986 --> 0:11:15,286
+NSManagedObject to CKRecord.
+
+427
+00:11:15,626 --> 0:11:17,106
+And we use your NSManagedObject
+
+428
+00:11:17,106 --> 0:11:18,576
+model to figure out how to do
+
+429
+00:11:18,576 --> 0:11:18,916
+this.
+
+430
+00:11:20,476 --> 0:11:22,876
+But it'd be obtuse of me to
+
+431
+00:11:22,876 --> 0:11:24,256
+stand up here and tell you that
+
+432
+00:11:24,256 --> 0:11:25,176
+once you've adopted
+
+433
+00:11:25,236 --> 0:11:26,916
+NSPersistentCloudKitContainer,
+
+434
+00:11:26,966 --> 0:11:28,066
+you're done, and you have a
+
+435
+00:11:28,066 --> 0:11:29,616
+fully functioning application.
+
+436
+00:11:29,696 --> 0:11:31,666
+So, I'd like to spend the rest
+
+437
+00:11:31,666 --> 0:11:33,026
+of the talk thinking about what
+
+438
+00:11:33,026 --> 0:11:34,736
+it means for you to build on top
+
+439
+00:11:34,736 --> 0:11:34,866
+of
+
+440
+00:11:34,936 --> 0:11:36,486
+NSPersistentCloudKitContainer.
+
+441
+00:11:36,986 --> 0:11:38,216
+And I think that starts with
+
+442
+00:11:38,266 --> 0:11:39,656
+building great applications that
+
+443
+00:11:39,656 --> 0:11:40,886
+are powered by Core Data.
+
+444
+00:11:41,836 --> 0:11:43,356
+Later, we'll also look at how
+
+445
+00:11:43,356 --> 0:11:44,906
+you can extend the foundation
+
+446
+00:11:44,906 --> 0:11:45,966
+that we've built into
+
+447
+00:11:46,056 --> 0:11:48,026
+NSPersistentCloudKitContainer to
+
+448
+00:11:48,026 --> 0:11:49,496
+customize it to your needs.
+
+449
+00:11:50,746 --> 0:11:52,256
+Now, for me, building great
+
+450
+00:11:52,256 --> 0:11:53,616
+applications with Core Data
+
+451
+00:11:54,066 --> 0:11:55,746
+starts by absorbing a lot of
+
+452
+00:11:55,746 --> 0:11:56,326
+knowledge.
+
+453
+00:11:56,846 --> 0:11:58,396
+And, to that end, we've written
+
+454
+00:11:58,396 --> 0:12:00,286
+a ton of documentation this year
+
+455
+00:11:58,396 --> 0:12:00,286
+a ton of documentation this year
+
+456
+00:12:00,286 --> 0:12:00,956
+about how
+
+457
+00:12:01,016 --> 0:12:02,496
+NSPersistentCloudKitContainer
+
+458
+00:12:02,496 --> 0:12:04,476
+works and how you can integrate
+
+459
+00:12:04,476 --> 0:12:05,806
+it into your applications.
+
+460
+00:12:07,376 --> 0:12:08,526
+There are some features of Core
+
+461
+00:12:08,526 --> 0:12:10,276
+Data that I feel go really well
+
+462
+00:12:10,276 --> 0:12:10,376
+with
+
+463
+00:12:10,416 --> 0:12:12,076
+NSPersistentCloudKitContainer.
+
+464
+00:12:12,596 --> 0:12:13,266
+Things like the
+
+465
+00:12:13,376 --> 0:12:14,776
+FetchResultsController, which
+
+466
+00:12:14,776 --> 0:12:16,376
+helps you build scalable user
+
+467
+00:12:16,376 --> 0:12:17,486
+interfaces backed by a
+
+468
+00:12:17,486 --> 0:12:18,956
+significant amount of data.
+
+469
+00:12:19,796 --> 0:12:21,726
+And query generations which help
+
+470
+00:12:21,726 --> 0:12:23,446
+you stabilize those user
+
+471
+00:12:23,446 --> 0:12:24,966
+interfaces against changes that
+
+472
+00:12:24,966 --> 0:12:25,876
+might be happening in the
+
+473
+00:12:25,876 --> 0:12:26,436
+background.
+
+474
+00:12:27,196 --> 0:12:28,276
+Like say from
+
+475
+00:12:28,316 --> 0:12:29,776
+NSPersistentCloudKitContainer.
+
+476
+00:12:30,846 --> 0:12:32,866
+And finally, there's history
+
+477
+00:12:32,866 --> 0:12:34,176
+tracking, which we introduced a
+
+478
+00:12:34,176 --> 0:12:35,506
+few years ago to help you
+
+479
+00:12:35,506 --> 0:12:36,956
+understand what's changed in the
+
+480
+00:12:36,956 --> 0:12:37,576
+database.
+
+481
+00:12:37,956 --> 0:12:38,226
+And with
+
+482
+00:12:38,256 --> 0:12:39,756
+NSPersistentCloudKitContainer,
+
+483
+00:12:39,756 --> 0:12:41,486
+you can use it to decide whether
+
+484
+00:12:41,486 --> 0:12:42,816
+or not any of those background
+
+485
+00:12:42,816 --> 0:12:44,636
+updates are relevant to what
+
+486
+00:12:44,636 --> 0:12:46,146
+your user's currently doing.
+
+487
+00:12:47,026 --> 0:12:48,216
+We'll be covering these and a
+
+488
+00:12:48,216 --> 0:12:49,946
+whole lot more in our session on
+
+489
+00:12:49,946 --> 0:12:51,326
+Thursday at 3 pm.
+
+490
+00:12:51,966 --> 0:12:53,636
+And, to go along with that,
+
+491
+00:12:53,636 --> 0:12:55,216
+we're also introducing a new
+
+492
+00:12:55,216 --> 0:12:56,776
+sample application this year
+
+493
+00:12:57,086 --> 0:12:58,136
+that's designed to give you
+
+494
+00:12:58,136 --> 0:12:59,566
+something to hold in your hands,
+
+495
+00:12:59,566 --> 0:13:00,306
+to feel how
+
+496
+00:12:59,566 --> 0:13:00,306
+to feel how
+
+497
+00:13:00,366 --> 0:13:01,846
+NSPersistentCloudKitContainer
+
+498
+00:13:01,846 --> 0:13:03,816
+works along with all these other
+
+499
+00:13:03,816 --> 0:13:04,926
+features of Core Data.
+
+500
+00:13:05,546 --> 0:13:07,016
+It's designed to manage a set of
+
+501
+00:13:07,116 --> 0:13:07,746
+posts.
+
+502
+00:13:07,986 --> 0:13:09,506
+And posts are a theme that we've
+
+503
+00:13:09,506 --> 0:13:10,806
+been building on over the last
+
+504
+00:13:10,806 --> 0:13:11,896
+few years in Core Data.
+
+505
+00:13:12,786 --> 0:13:13,046
+Right?
+
+506
+00:13:13,096 --> 0:13:14,536
+They're a great object for
+
+507
+00:13:14,536 --> 0:13:15,726
+helping us understand how
+
+508
+00:13:15,876 --> 0:13:17,206
+different pieces of your object
+
+509
+00:13:17,206 --> 0:13:18,716
+graph will be affected by
+
+510
+00:13:18,716 --> 0:13:19,306
+CloudKit.
+
+511
+00:13:19,836 --> 0:13:21,186
+Here you can see that our data
+
+512
+00:13:21,186 --> 0:13:22,166
+model is pretty simple.
+
+513
+00:13:22,476 --> 0:13:22,726
+Right?
+
+514
+00:13:22,776 --> 0:13:24,046
+We have a title and some
+
+515
+00:13:24,046 --> 0:13:24,426
+content.
+
+516
+00:13:24,426 --> 0:13:26,116
+And then, we have a set of tags
+
+517
+00:13:26,116 --> 0:13:27,406
+that we can associate to each
+
+518
+00:13:27,446 --> 0:13:28,266
+post.
+
+519
+00:13:28,326 --> 0:13:29,606
+The application will even let
+
+520
+00:13:29,606 --> 0:13:31,016
+you see what it's like to manage
+
+521
+00:13:31,016 --> 0:13:32,156
+photos with CloudKit.
+
+522
+00:13:32,506 --> 0:13:34,286
+Allowing you to attach files
+
+523
+00:13:34,286 --> 0:13:35,746
+from the device's Photo Library
+
+524
+00:13:35,746 --> 0:13:39,716
+to a post.
+
+525
+00:13:39,896 --> 0:13:42,376
+Now, let's talk about what it's
+
+526
+00:13:42,376 --> 0:13:43,586
+like to build on top of
+
+527
+00:13:43,656 --> 0:13:45,206
+NSPersistentCloudKitContainer.
+
+528
+00:13:45,696 --> 0:13:47,606
+And, as you might expect, this
+
+529
+00:13:47,606 --> 0:13:49,186
+is a fairly dense section of the
+
+530
+00:13:49,186 --> 0:13:49,606
+talk.
+
+531
+00:13:50,106 --> 0:13:51,236
+But you should know that our
+
+532
+00:13:51,236 --> 0:13:52,966
+documentation covers in more
+
+533
+00:13:52,966 --> 0:13:54,266
+detail a lot of things that
+
+534
+00:13:54,266 --> 0:13:55,486
+we're going to talk about today.
+
+535
+00:13:56,006 --> 0:13:57,776
+So, don't worry if some of this
+
+536
+00:13:57,776 --> 0:13:58,676
+goes right out the window.
+
+537
+00:13:58,796 --> 0:14:02,516
+There are a number of ways that
+
+538
+00:13:58,796 --> 0:14:02,516
+There are a number of ways that
+
+539
+00:14:02,516 --> 0:14:04,626
+we see clients internally extend
+
+540
+00:14:04,786 --> 0:14:06,276
+NSPersistentCloudKitContainer,
+
+541
+00:14:06,876 --> 0:14:08,086
+beginning with working with
+
+542
+00:14:08,086 --> 0:14:09,096
+multiple stores.
+
+543
+00:14:10,006 --> 0:14:11,916
+And, we also see that clients
+
+544
+00:14:11,916 --> 0:14:13,306
+like to customize the schema
+
+545
+00:14:13,306 --> 0:14:14,206
+that they've been using with
+
+546
+00:14:14,206 --> 0:14:15,836
+CloudKit, and indeed, the one
+
+547
+00:14:15,836 --> 0:14:16,586
+that we use with
+
+548
+00:14:16,616 --> 0:14:18,216
+NSPersistentCloudKitContainer.
+
+549
+00:14:18,826 --> 0:14:20,166
+This of course, as you may know,
+
+550
+00:14:20,166 --> 0:14:21,756
+is because CloudKit is available
+
+551
+00:14:21,756 --> 0:14:23,446
+on a number of different
+
+552
+00:14:23,496 --> 0:14:25,436
+platforms, not only at Apple but
+
+553
+00:14:25,436 --> 0:14:27,056
+also using Web Services or
+
+554
+00:14:27,056 --> 0:14:27,706
+JavaScript.
+
+555
+00:14:28,286 --> 0:14:29,466
+And so, you should be able to
+
+556
+00:14:29,526 --> 0:14:30,006
+work with
+
+557
+00:14:30,036 --> 0:14:31,496
+NSPersistentCloudKitContainer's
+
+558
+00:14:31,496 --> 0:14:33,366
+objects even if you're not doing
+
+559
+00:14:33,366 --> 0:14:34,736
+so on one of our platforms.
+
+560
+00:14:35,686 --> 0:14:37,316
+Finally, we'll take a look at
+
+561
+00:14:37,406 --> 0:14:39,146
+Data Modeling for collaboration.
+
+562
+00:14:40,656 --> 0:14:42,176
+Now, there are a number of great
+
+563
+00:14:42,176 --> 0:14:43,606
+reasons why we might want to use
+
+564
+00:14:43,606 --> 0:14:44,626
+multiple stores in our
+
+565
+00:14:44,626 --> 0:14:45,486
+application.
+
+566
+00:14:45,486 --> 0:14:46,856
+Especially when working with
+
+567
+00:14:46,856 --> 0:14:48,126
+network backed stores.
+
+568
+00:14:48,816 --> 0:14:50,086
+Multiple stores can help us
+
+569
+00:14:50,186 --> 0:14:51,676
+segregate our data between
+
+570
+00:14:51,676 --> 0:14:53,046
+distinct use cases in our
+
+571
+00:14:53,046 --> 0:14:53,636
+application.
+
+572
+00:14:54,206 --> 0:14:56,926
+And, they can help us provide
+
+573
+00:14:57,086 --> 0:14:58,646
+different types of constraints.
+
+574
+00:14:59,536 --> 0:14:59,786
+Right?
+
+575
+00:14:59,786 --> 0:15:01,146
+So, if we wanted to have one
+
+576
+00:14:59,786 --> 0:15:01,146
+So, if we wanted to have one
+
+577
+00:15:01,146 --> 0:15:02,786
+store file that manages a very
+
+578
+00:15:02,786 --> 0:15:04,126
+specific set of validation
+
+579
+00:15:04,126 --> 0:15:05,786
+constraints, maybe to validate
+
+580
+00:15:05,786 --> 0:15:07,476
+user input, we can use a
+
+581
+00:15:07,476 --> 0:15:09,266
+separate store for that.
+
+582
+00:15:10,766 --> 0:15:12,316
+Multiple stores are also a great
+
+583
+00:15:12,316 --> 0:15:14,426
+way to throttle or coalesce data
+
+584
+00:15:14,426 --> 0:15:15,856
+that's written very frequently
+
+585
+00:15:15,856 --> 0:15:16,526
+on device.
+
+586
+00:15:17,446 --> 0:15:18,586
+And this can happen when you're
+
+587
+00:15:18,586 --> 0:15:19,426
+reading something from the
+
+588
+00:15:19,426 --> 0:15:21,066
+device that's generated maybe by
+
+589
+00:15:21,066 --> 0:15:22,556
+the device itself or by an
+
+590
+00:15:22,556 --> 0:15:23,776
+algorithm that you have which
+
+591
+00:15:23,856 --> 0:15:24,546
+creates data.
+
+592
+00:15:25,206 --> 0:15:26,726
+If this algorithm generates data
+
+593
+00:15:26,726 --> 0:15:28,216
+at a very high rate, it can be
+
+594
+00:15:28,216 --> 0:15:29,866
+very expensive to constantly
+
+595
+00:15:29,866 --> 0:15:31,286
+sync all of that data up to
+
+596
+00:15:31,286 --> 0:15:31,796
+CloudKit.
+
+597
+00:15:32,406 --> 0:15:34,006
+And so, we see clients inject
+
+598
+00:15:34,006 --> 0:15:36,136
+another store file into the mix
+
+599
+00:15:36,136 --> 0:15:37,866
+and use that to coalesce this
+
+600
+00:15:37,866 --> 0:15:39,606
+data until its ready to be
+
+601
+00:15:39,606 --> 0:15:41,366
+analyzed and then uploaded to
+
+602
+00:15:41,366 --> 0:15:42,186
+CloudKit later.
+
+603
+00:15:42,936 --> 0:15:46,316
+To show you how this works and
+
+604
+00:15:46,316 --> 0:15:47,566
+how Core Data can make this easy
+
+605
+00:15:47,566 --> 0:15:49,186
+for you, we're going to leverage
+
+606
+00:15:49,186 --> 0:15:50,316
+a feature of
+
+607
+00:15:50,346 --> 0:15:51,786
+NSManagedObjectModel called
+
+608
+00:15:51,786 --> 0:15:52,706
+Configurations.
+
+609
+00:15:53,366 --> 0:15:55,856
+And here you can see we have our
+
+610
+00:15:55,856 --> 0:15:56,656
+sample apps,
+
+611
+00:15:56,906 --> 0:15:58,626
+NSManagedObjectModel in the
+
+612
+00:15:58,626 --> 0:15:59,886
+model editor in Xcode.
+
+613
+00:16:00,526 --> 0:16:02,016
+Now, let's say that I want to
+
+614
+00:16:02,016 --> 0:16:04,056
+add locations to the post.
+
+615
+00:16:04,156 --> 0:16:04,396
+Right?
+
+616
+00:16:04,396 --> 0:16:05,836
+I want to record the location
+
+617
+00:16:05,836 --> 0:16:06,966
+where a post was created
+
+618
+00:16:07,376 --> 0:16:08,476
+whenever that happens.
+
+619
+00:16:08,976 --> 0:16:10,806
+But locations can be generated
+
+620
+00:16:10,806 --> 0:16:12,716
+at a high rate by the system and
+
+621
+00:16:12,716 --> 0:16:14,616
+I don't need them unless a post
+
+622
+00:16:14,616 --> 0:16:16,106
+is actually being created at
+
+623
+00:16:16,106 --> 0:16:16,866
+that location.
+
+624
+00:16:16,966 --> 0:16:19,036
+So, let's separate them from the
+
+625
+00:16:19,036 --> 0:16:20,036
+rest of the data model.
+
+626
+00:16:21,416 --> 0:16:22,996
+I'll start off by adding a new
+
+627
+00:16:22,996 --> 0:16:24,706
+entity by clicking this plus (+)
+
+628
+00:16:24,706 --> 0:16:26,496
+in the lower left-hand corner to
+
+629
+00:16:26,496 --> 0:16:28,156
+store my location information.
+
+630
+00:16:28,786 --> 0:16:30,176
+Now, my location's going to be
+
+631
+00:16:30,176 --> 0:16:30,796
+pretty simple.
+
+632
+00:16:30,796 --> 0:16:31,796
+It's just going to include a
+
+633
+00:16:31,796 --> 0:16:34,036
+latitude and longitude that are
+
+634
+00:16:34,036 --> 0:16:35,416
+both doubles that are exposed to
+
+635
+00:16:35,416 --> 0:16:36,476
+me by the Core Location
+
+636
+00:16:36,476 --> 0:16:36,946
+framework.
+
+637
+00:16:37,296 --> 0:16:38,546
+Of course, yours may include
+
+638
+00:16:38,546 --> 0:16:39,986
+other things like altitude or
+
+639
+00:16:39,986 --> 0:16:41,000
+accuracy.
+
+640
+00:16:45,126 --> 0:16:46,336
+Now we want to segregate these
+
+641
+00:16:46,336 --> 0:16:47,836
+locations from the rest of our
+
+642
+00:16:47,836 --> 0:16:48,166
+data.
+
+643
+00:16:48,406 --> 0:16:50,006
+And to do that I'll create a new
+
+644
+00:16:50,006 --> 0:16:52,326
+configuration, again, by hitting
+
+645
+00:16:52,326 --> 0:16:53,526
+this plus (+) button, but this
+
+646
+00:16:53,526 --> 0:16:55,496
+time holding down my click to
+
+647
+00:16:55,496 --> 0:16:56,886
+expose a menu that allows me to
+
+648
+00:16:56,886 --> 0:16:58,036
+add a configuration.
+
+649
+00:16:58,916 --> 0:17:00,106
+I'll call this configuration
+
+650
+00:16:58,916 --> 0:17:00,106
+I'll call this configuration
+
+651
+00:17:00,106 --> 0:17:01,946
+Cloud and add all four of the
+
+652
+00:17:01,946 --> 0:17:03,196
+entities that I actually want to
+
+653
+00:17:03,196 --> 0:17:05,165
+sync to it.
+
+654
+00:17:06,036 --> 0:17:07,376
+Here you can see that now the
+
+655
+00:17:07,376 --> 0:17:09,396
+Cloud configuration has just the
+
+656
+00:17:09,396 --> 0:17:10,566
+entities that I want to be
+
+657
+00:17:10,566 --> 0:17:11,445
+synced with CloudKit.
+
+658
+00:17:12,076 --> 0:17:13,526
+Let's create a new one called
+
+659
+00:17:13,526 --> 0:17:14,915
+Local that will store our
+
+660
+00:17:14,915 --> 0:17:15,886
+location objects.
+
+661
+00:17:22,566 --> 0:17:23,925
+And, in just a few lines of
+
+662
+00:17:24,026 --> 0:17:25,205
+code, we can put this to work
+
+663
+00:17:25,205 --> 0:17:27,406
+for us, empowering Core Data to
+
+664
+00:17:27,406 --> 0:17:28,986
+tell our stores automatically
+
+665
+00:17:28,986 --> 0:17:30,056
+what types of objects they
+
+666
+00:17:30,056 --> 0:17:30,526
+stored.
+
+667
+00:17:30,526 --> 0:17:32,506
+At the top you can see we create
+
+668
+00:17:32,506 --> 0:17:33,186
+an instance of
+
+669
+00:17:33,186 --> 0:17:34,686
+NSPersistentCloudKitContainer,
+
+670
+00:17:35,166 --> 0:17:36,506
+and then, we leverage something
+
+671
+00:17:36,506 --> 0:17:36,796
+called
+
+672
+00:17:36,856 --> 0:17:38,396
+NSPersistentStoreDescription,
+
+673
+00:17:38,896 --> 0:17:39,566
+which tells
+
+674
+00:17:39,566 --> 0:17:41,126
+NSPersistentCloudKitContainer
+
+675
+00:17:41,126 --> 0:17:42,506
+about the types of stores that
+
+676
+00:17:42,506 --> 0:17:43,196
+it's managing.
+
+677
+00:17:43,946 --> 0:17:45,036
+We create an instance of
+
+678
+00:17:45,036 --> 0:17:46,526
+NSPersistentStoreDescription
+
+679
+00:17:46,936 --> 0:17:48,296
+that points at the file called
+
+680
+00:17:48,296 --> 0:17:49,936
+local.sqlite to hold our
+
+681
+00:17:49,936 --> 0:17:51,056
+location information.
+
+682
+00:17:51,526 --> 0:17:52,866
+And, we assign it the
+
+683
+00:17:52,866 --> 0:17:54,486
+configuration of local that we
+
+684
+00:17:54,486 --> 0:17:55,286
+just created.
+
+685
+00:17:56,066 --> 0:17:57,856
+Then we set up our cloud store.
+
+686
+00:17:58,366 --> 0:18:00,346
+Similarly, we create an instance
+
+687
+00:17:58,366 --> 0:18:00,346
+Similarly, we create an instance
+
+688
+00:18:00,386 --> 0:18:01,946
+of NSPersistentStoreDescription
+
+689
+00:18:02,316 --> 0:18:03,706
+and we point it to a different
+
+690
+00:18:03,706 --> 0:18:05,416
+file; cloud.sqlite.
+
+691
+00:18:06,056 --> 0:18:06,706
+Then we give it the
+
+692
+00:18:06,706 --> 0:18:08,786
+configuration Cloud, which tells
+
+693
+00:18:08,786 --> 0:18:10,306
+NSPersistentCloudKitContainer
+
+694
+00:18:10,306 --> 0:18:12,766
+that only the entities like
+
+695
+00:18:12,766 --> 0:18:14,596
+post, and tags, and attachments,
+
+696
+00:18:14,596 --> 0:18:16,256
+and image data should be stored
+
+697
+00:18:16,256 --> 0:18:16,906
+in the store.
+
+698
+00:18:17,936 --> 0:18:19,996
+Finally, we assign it an
+
+699
+00:18:19,996 --> 0:18:21,356
+instance of NSPersistent
+
+700
+00:18:21,356 --> 0:18:23,706
+CloudKitContainerOptions, which
+
+701
+00:18:23,706 --> 0:18:24,086
+tells
+
+702
+00:18:24,226 --> 0:18:25,776
+NSPersistentCloudKitContainer
+
+703
+00:18:25,916 --> 0:18:27,916
+what iCloud container identifier
+
+704
+00:18:28,286 --> 0:18:29,596
+this store should be synced
+
+705
+00:18:29,596 --> 0:18:29,776
+with.
+
+706
+00:18:30,386 --> 0:18:32,336
+Last but not least, we assign
+
+707
+00:18:32,336 --> 0:18:33,736
+these two store descriptions to
+
+708
+00:18:33,736 --> 0:18:35,256
+the PersistentStoreDescription's
+
+709
+00:18:35,486 --> 0:18:36,366
+property of
+
+710
+00:18:36,466 --> 0:18:37,866
+NSPersistentCloudKitContainer.
+
+711
+00:18:38,886 --> 0:18:39,196
+And with
+
+712
+00:18:39,306 --> 0:18:40,806
+NSPersistentCloudKitContainer we
+
+713
+00:18:40,806 --> 0:18:42,246
+can take this even further.
+
+714
+00:18:42,946 --> 0:18:44,766
+We already have local store and
+
+715
+00:18:44,766 --> 0:18:45,396
+a cloud store.
+
+716
+00:18:45,396 --> 0:18:47,066
+But what if we want to share
+
+717
+00:18:47,066 --> 0:18:48,666
+some data in CloudKit across
+
+718
+00:18:48,666 --> 0:18:50,156
+multiple applications we happen
+
+719
+00:18:50,156 --> 0:18:50,676
+to work on?
+
+720
+00:18:51,226 --> 0:18:51,516
+Well,
+
+721
+00:18:51,546 --> 0:18:53,006
+NSPersistentCloudKitContainer
+
+722
+00:18:53,006 --> 0:18:54,196
+supports that as well.
+
+723
+00:18:54,856 --> 0:18:56,356
+In fact, because you're using
+
+724
+00:18:56,356 --> 0:18:57,876
+Core Data, your application will
+
+725
+00:18:57,946 --> 0:18:59,636
+easily be able to handle all the
+
+726
+00:18:59,636 --> 0:19:01,156
+data from these stores at the
+
+727
+00:18:59,636 --> 0:19:01,156
+data from these stores at the
+
+728
+00:19:01,156 --> 0:19:01,876
+same time.
+
+729
+00:19:02,456 --> 0:19:04,216
+And, Core Data will
+
+730
+00:19:04,216 --> 0:19:05,556
+automatically help you write
+
+731
+00:19:05,796 --> 0:19:07,186
+data that you insert into the
+
+732
+00:19:07,186 --> 0:19:08,216
+correct store file
+
+733
+00:19:08,416 --> 0:19:09,196
+automatically.
+
+734
+00:19:10,476 --> 0:19:11,846
+We can do this by just adding
+
+735
+00:19:11,916 --> 0:19:12,896
+three lines of code.
+
+736
+00:19:13,386 --> 0:19:13,586
+Right?
+
+737
+00:19:13,586 --> 0:19:15,056
+We create a new StoreDescription
+
+738
+00:19:15,056 --> 0:19:16,266
+that points to our shared store
+
+739
+00:19:16,266 --> 0:19:17,636
+file and give it a new
+
+740
+00:19:17,636 --> 0:19:18,856
+configuration that we might
+
+741
+00:19:18,856 --> 0:19:20,046
+create called shared.
+
+742
+00:19:20,736 --> 0:19:22,466
+Finally, we assign it a new
+
+743
+00:19:22,466 --> 0:19:23,846
+instance of NSPersistent
+
+744
+00:19:23,846 --> 0:19:25,546
+CloudKitContainer Options that
+
+745
+00:19:25,546 --> 0:19:27,406
+identifies the container we want
+
+746
+00:19:27,406 --> 0:19:28,956
+our shared data to be stored in;
+
+747
+00:19:29,296 --> 0:19:29,826
+in this case,
+
+748
+00:19:29,826 --> 0:19:32,696
+iCloud.com.wwdc.shared.
+
+749
+00:19:33,366 --> 0:19:34,626
+And of course, last but not
+
+750
+00:19:34,626 --> 0:19:36,776
+least, we assign it to
+
+751
+00:19:36,776 --> 0:19:38,116
+PersistentStoreDescriptions.
+
+752
+00:19:38,486 --> 0:19:40,246
+Now let's talk about the schema.
+
+753
+00:19:41,036 --> 0:19:43,586
+And, I want to cover a few
+
+754
+00:19:43,686 --> 0:19:44,956
+points about the schema that I
+
+755
+00:19:44,956 --> 0:19:45,886
+think are sort of the
+
+756
+00:19:45,886 --> 0:19:46,436
+highlights.
+
+757
+00:19:46,436 --> 0:19:47,476
+The most important things that
+
+758
+00:19:47,476 --> 0:19:48,486
+you need to know when you're
+
+759
+00:19:48,566 --> 0:19:49,686
+looking at the records that we
+
+760
+00:19:49,686 --> 0:19:50,576
+create in CloudKit.
+
+761
+00:19:51,556 --> 0:19:52,816
+I'll start off by talking about
+
+762
+00:19:52,816 --> 0:19:54,736
+how we manage record types and
+
+763
+00:19:54,736 --> 0:19:56,416
+how we manage entities, which
+
+764
+00:19:56,416 --> 0:19:57,526
+are what you create in your
+
+765
+00:19:57,526 --> 0:19:58,776
+NSManagedObjectModel.
+
+766
+00:19:59,466 --> 0:20:01,126
+Then, we'll look at how we
+
+767
+00:19:59,466 --> 0:20:01,126
+Then, we'll look at how we
+
+768
+00:20:01,126 --> 0:20:02,616
+implement a feature called Asset
+
+769
+00:20:02,616 --> 0:20:04,546
+Externalization, which allows
+
+770
+00:20:04,546 --> 0:20:05,826
+you to seamlessly store
+
+771
+00:20:05,826 --> 0:20:07,566
+arbitrarily large values in
+
+772
+00:20:07,566 --> 0:20:08,626
+CloudKit using
+
+773
+00:20:08,656 --> 0:20:09,936
+NSPersistentCloudKitContainer.
+
+774
+00:20:10,436 --> 0:20:12,846
+Finally, we'll talk about how we
+
+775
+00:20:12,846 --> 0:20:14,916
+manage relationships and how
+
+776
+00:20:14,916 --> 0:20:16,166
+that might be different from the
+
+777
+00:20:16,166 --> 0:20:17,566
+CloudKit experience you're used
+
+778
+00:20:17,566 --> 0:20:17,766
+to.
+
+779
+00:20:18,726 --> 0:20:20,976
+To do that, we're going to use
+
+780
+00:20:20,976 --> 0:20:22,526
+the ManageObjectModel for our
+
+781
+00:20:22,526 --> 0:20:23,596
+sample application.
+
+782
+00:20:23,966 --> 0:20:25,106
+And I'm going to start off by
+
+783
+00:20:25,106 --> 0:20:26,816
+focusing on the post entity.
+
+784
+00:20:27,356 --> 0:20:28,546
+You can see that it has two
+
+785
+00:20:28,546 --> 0:20:30,746
+attributes; a title string and a
+
+786
+00:20:30,746 --> 0:20:31,486
+content string.
+
+787
+00:20:31,946 --> 0:20:33,066
+And it also has two
+
+788
+00:20:33,066 --> 0:20:35,326
+relationships to the attachment
+
+789
+00:20:35,326 --> 0:20:36,386
+and tag entities.
+
+790
+00:20:37,386 --> 0:20:39,206
+Core Data generates an actual
+
+791
+00:20:39,206 --> 0:20:40,906
+class for you to use in code as
+
+792
+00:20:40,906 --> 0:20:42,586
+a subclass of NSManagedObject
+
+793
+00:20:42,586 --> 0:20:43,596
+that looks like this.
+
+794
+00:20:44,216 --> 0:20:45,736
+And you can see that all of the
+
+795
+00:20:45,736 --> 0:20:47,406
+attributes and relationships are
+
+796
+00:20:47,406 --> 0:20:49,756
+represented on that class.
+
+797
+00:20:49,756 --> 0:20:51,636
+Now, this is the record that we
+
+798
+00:20:51,636 --> 0:20:53,266
+will generate in CloudKit that
+
+799
+00:20:53,266 --> 0:20:55,146
+goes along with this post.
+
+800
+00:20:55,936 --> 0:20:57,156
+And these are some example
+
+801
+00:20:57,156 --> 0:20:58,326
+values that I've used to
+
+802
+00:20:58,756 --> 0:21:00,396
+populate this record and make it
+
+803
+00:20:58,756 --> 0:21:00,396
+populate this record and make it
+
+804
+00:21:00,396 --> 0:21:02,496
+what we call fully materialized.
+
+805
+00:21:03,436 --> 0:21:04,836
+Now, there are some things that
+
+806
+00:21:04,836 --> 0:21:05,786
+I want to highlight to you
+
+807
+00:21:05,786 --> 0:21:06,236
+first.
+
+808
+00:21:06,716 --> 0:21:07,466
+The record ID.
+
+809
+00:21:07,996 --> 0:21:09,956
+Core Data owns the record ID for
+
+810
+00:21:09,956 --> 0:21:11,286
+all of the objects that it
+
+811
+00:21:11,286 --> 0:21:12,436
+creates in CloudKit.
+
+812
+00:21:12,866 --> 0:21:14,356
+And, for each one, we will
+
+813
+00:21:14,356 --> 0:21:16,836
+generate a simple UUID to use as
+
+814
+00:21:16,836 --> 0:21:17,776
+its record name.
+
+815
+00:21:18,336 --> 0:21:19,806
+When the Record Name is combined
+
+816
+00:21:19,806 --> 0:21:21,816
+with a zone identifier you get a
+
+817
+00:21:21,816 --> 0:21:22,806
+CKRecord ID.
+
+818
+00:21:23,076 --> 0:21:26,126
+At the bottom, you'll see how
+
+819
+00:21:26,126 --> 0:21:27,446
+Core Data manages type
+
+820
+00:21:27,446 --> 0:21:28,156
+information.
+
+821
+00:21:28,826 --> 0:21:30,556
+And, there are two interesting
+
+822
+00:21:30,556 --> 0:21:31,126
+things here.
+
+823
+00:21:31,656 --> 0:21:33,516
+The first is, what the heck are
+
+824
+00:21:33,516 --> 0:21:34,866
+all these CD under bars?
+
+825
+00:21:35,906 --> 0:21:37,276
+This is Core Data's way of
+
+826
+00:21:37,276 --> 0:21:38,776
+segregating the things that it
+
+827
+00:21:38,776 --> 0:21:41,296
+manages to be separate from ones
+
+828
+00:21:41,296 --> 0:21:42,706
+that either CloudKit implements
+
+829
+00:21:42,706 --> 0:21:44,386
+for you -- you wouldn't believe
+
+830
+00:21:44,386 --> 0:21:46,166
+how many people add modify date
+
+831
+00:21:46,166 --> 0:21:47,236
+to their CKRecord.
+
+832
+00:21:48,006 --> 0:21:49,386
+Or, ones that you might add
+
+833
+00:21:49,386 --> 0:21:49,906
+yourself.
+
+834
+00:21:50,056 --> 0:21:51,906
+And so, we prefix everything;
+
+835
+00:21:51,906 --> 0:21:53,576
+the record type and all of our
+
+836
+00:21:53,676 --> 0:21:55,466
+field names with CD under bar.
+
+837
+00:21:56,386 --> 0:21:58,666
+But, in the CD entityName field,
+
+838
+00:21:59,046 --> 0:22:01,096
+we keep the real entity name of
+
+839
+00:21:59,046 --> 0:22:01,096
+we keep the real entity name of
+
+840
+00:22:01,096 --> 0:22:03,786
+the object that this record goes
+
+841
+00:22:03,786 --> 0:22:03,966
+with.
+
+842
+00:22:04,896 --> 0:22:06,206
+And we do this so that we can
+
+843
+00:22:06,206 --> 0:22:07,386
+implement a feature called
+
+844
+00:22:07,386 --> 0:22:09,346
+entityInheritance, wherein you
+
+845
+00:22:09,346 --> 0:22:11,406
+could have subclasses of a post,
+
+846
+00:22:11,406 --> 0:22:11,936
+let's say.
+
+847
+00:22:12,456 --> 0:22:15,056
+Perhaps an image post, or a
+
+848
+00:22:15,056 --> 0:22:15,946
+video post.
+
+849
+00:22:16,556 --> 0:22:18,186
+The actual entities will always
+
+850
+00:22:18,186 --> 0:22:19,826
+be identified by the CD under
+
+851
+00:22:19,826 --> 0:22:21,156
+bar entityName field.
+
+852
+00:22:22,096 --> 0:22:23,296
+And we do this so that you can
+
+853
+00:22:23,296 --> 0:22:26,156
+implement CK queries that get at
+
+854
+00:22:26,156 --> 0:22:28,156
+all of the entity hierarchies
+
+855
+00:22:28,156 --> 0:22:30,126
+you're interested in by querying
+
+856
+00:22:30,126 --> 0:22:31,196
+a single record type.
+
+857
+00:22:32,456 --> 0:22:33,486
+Now let's look at how we
+
+858
+00:22:33,486 --> 0:22:35,016
+implement these two strings.
+
+859
+00:22:35,066 --> 0:22:36,576
+Because these are variable
+
+860
+00:22:36,576 --> 0:22:38,166
+length fields and our
+
+861
+00:22:38,166 --> 0:22:39,666
+translation of them to CloudKit
+
+862
+00:22:39,666 --> 0:22:41,696
+has some interesting quirks.
+
+863
+00:22:43,336 --> 0:22:44,516
+You'll see that we've inflated
+
+864
+00:22:44,516 --> 0:22:46,246
+them to four total fields.
+
+865
+00:22:46,586 --> 0:22:48,306
+And the reason for this, is that
+
+866
+00:22:48,366 --> 0:22:49,946
+this is how we implement asset
+
+867
+00:22:49,946 --> 0:22:51,006
+externalization.
+
+868
+00:22:51,716 --> 0:22:52,816
+Here you can see that we have
+
+869
+00:22:52,866 --> 0:22:54,506
+both a CD under bar content
+
+870
+00:22:54,576 --> 0:22:56,796
+field and a CD under bar content
+
+871
+00:22:56,796 --> 0:22:58,326
+under bar CKAsset.
+
+872
+00:22:58,806 --> 0:23:00,416
+This allows us to store strings
+
+873
+00:22:58,806 --> 0:23:00,416
+This allows us to store strings
+
+874
+00:23:00,456 --> 0:23:02,106
+that are arbitrarily large.
+
+875
+00:23:02,466 --> 0:23:04,666
+Anywhere from simple kilobytes
+
+876
+00:23:04,666 --> 0:23:06,146
+all the way up to hundreds of
+
+877
+00:23:06,146 --> 0:23:08,006
+megabytes or even gigabytes in
+
+878
+00:23:08,006 --> 0:23:08,356
+length.
+
+879
+00:23:09,626 --> 0:23:11,036
+And when I said that this record
+
+880
+00:23:11,036 --> 0:23:11,976
+is what we call fully
+
+881
+00:23:11,976 --> 0:23:13,446
+materialized, what I mean is
+
+882
+00:23:13,446 --> 0:23:15,516
+that you won't ever actually see
+
+883
+00:23:15,516 --> 0:23:16,716
+all four of these fields at the
+
+884
+00:23:16,746 --> 0:23:17,586
+same time.
+
+885
+00:23:18,206 --> 0:23:19,286
+If the strings are all very
+
+886
+00:23:19,286 --> 0:23:20,676
+short, then you'll just see CD
+
+887
+00:23:20,676 --> 0:23:22,406
+under bar content and CD under
+
+888
+00:23:22,406 --> 0:23:23,686
+bar title in the record.
+
+889
+00:23:24,216 --> 0:23:25,456
+But, if one of them grows to be
+
+890
+00:23:25,456 --> 0:23:27,656
+very large, approximately larger
+
+891
+00:23:27,656 --> 0:23:30,446
+than 750 kilobytes, or if the
+
+892
+00:23:30,446 --> 0:23:32,316
+total size of the record exceeds
+
+893
+00:23:32,566 --> 0:23:34,296
+CloudKit's maximum 1 megabyte
+
+894
+00:23:34,296 --> 0:23:36,706
+limit, you'll begin to see asset
+
+895
+00:23:36,706 --> 0:23:38,686
+fields, or in this case, CD
+
+896
+00:23:38,686 --> 0:23:40,106
+under bar content under bar
+
+897
+00:23:40,246 --> 0:23:42,276
+CKAsset in the record instead.
+
+898
+00:23:43,016 --> 0:23:44,326
+If you're consuming our records
+
+899
+00:23:44,326 --> 0:23:45,546
+on your own, then you'll need to
+
+900
+00:23:45,576 --> 0:23:47,316
+check both places to see whether
+
+901
+00:23:47,316 --> 0:23:48,946
+or not a value has been set for
+
+902
+00:23:48,946 --> 0:23:50,000
+a specific attribute.
+
+903
+00:23:54,066 --> 0:23:55,356
+Now let's take a look at the
+
+904
+00:23:55,356 --> 0:23:57,016
+relationships on a post.
+
+905
+00:23:57,546 --> 0:23:58,576
+You can see here that they're
+
+906
+00:23:58,576 --> 0:24:00,796
+both instances of NSSet in the
+
+907
+00:23:58,576 --> 0:24:00,796
+both instances of NSSet in the
+
+908
+00:24:00,796 --> 0:24:02,356
+object that Core Data generates
+
+909
+00:24:02,356 --> 0:24:03,626
+for you to use in your code.
+
+910
+00:24:04,126 --> 0:24:05,976
+And this is because a post has
+
+911
+00:24:06,086 --> 0:24:07,536
+to-- what we call too many
+
+912
+00:24:07,536 --> 0:24:08,456
+relationships.
+
+913
+00:24:08,936 --> 0:24:10,226
+That means that a post can be
+
+914
+00:24:10,226 --> 0:24:12,406
+assigned too many attachments or
+
+915
+00:24:12,616 --> 0:24:14,366
+it can have many tags associated
+
+916
+00:24:14,366 --> 0:24:14,946
+with it.
+
+917
+00:24:15,446 --> 0:24:16,846
+The attachments relationship is
+
+918
+00:24:16,846 --> 0:24:17,686
+what we like to call a
+
+919
+00:24:17,686 --> 0:24:19,126
+Many-To-One, because an
+
+920
+00:24:19,126 --> 0:24:20,656
+attachment can only be assigned
+
+921
+00:24:20,656 --> 0:24:21,646
+to one post.
+
+922
+00:24:23,266 --> 0:24:24,686
+When we generate code for this,
+
+923
+00:24:24,686 --> 0:24:26,016
+you'll see that there's an NSSet
+
+924
+00:24:26,016 --> 0:24:27,876
+on the post, but there's only a
+
+925
+00:24:27,876 --> 0:24:30,346
+single post object declared on
+
+926
+00:24:30,566 --> 0:24:32,406
+the attachment ManageObject.
+
+927
+00:24:33,506 --> 0:24:35,126
+And this is the record they will
+
+928
+00:24:35,156 --> 0:24:36,876
+generate for an attachment.
+
+929
+00:24:37,366 --> 0:24:39,316
+You can see that it has a UUID,
+
+930
+00:24:39,316 --> 0:24:40,526
+an entity name, and a record
+
+931
+00:24:40,526 --> 0:24:42,576
+type just like a post does, but
+
+932
+00:24:42,576 --> 0:24:43,886
+you'll also see an additional
+
+933
+00:24:43,886 --> 0:24:46,196
+field called CD under bar post.
+
+934
+00:24:46,576 --> 0:24:47,546
+This is how we store the
+
+935
+00:24:47,546 --> 0:24:49,576
+relationship for a Two-One
+
+936
+00:24:49,576 --> 0:24:50,316
+relationship.
+
+937
+00:24:51,046 --> 0:24:53,446
+The UUID of the related record
+
+938
+00:24:53,446 --> 0:24:55,076
+in CloudKit will always be
+
+939
+00:24:55,076 --> 0:24:56,916
+stored on the object it's linked
+
+940
+00:24:56,916 --> 0:24:57,236
+to.
+
+941
+00:24:57,806 --> 0:24:59,696
+And, you might be wondering why
+
+942
+00:24:59,696 --> 0:25:00,726
+we don't do this with
+
+943
+00:24:59,696 --> 0:25:00,726
+we don't do this with
+
+944
+00:25:00,726 --> 0:25:02,006
+CKReference instead.
+
+945
+00:25:02,006 --> 0:25:04,076
+And that's because CKReference
+
+946
+00:25:04,076 --> 0:25:05,536
+has some limitations that we
+
+947
+00:25:05,536 --> 0:25:07,116
+don't think work well for Core
+
+948
+00:25:07,116 --> 0:25:07,906
+Data clients.
+
+949
+00:25:08,386 --> 0:25:11,036
+Namely that it's limited to 750
+
+950
+00:25:11,036 --> 0:25:11,996
+total objects.
+
+951
+00:25:12,376 --> 0:25:13,686
+But by storing a relationship
+
+952
+00:25:13,756 --> 0:25:15,426
+this way, you can hold as many
+
+953
+00:25:15,426 --> 0:25:16,496
+will fit in your CloudKit
+
+954
+00:25:16,496 --> 0:25:17,006
+container.
+
+955
+00:25:17,626 --> 0:25:20,166
+Now let's look at a Many-To-Many
+
+956
+00:25:20,166 --> 0:25:20,866
+relationship.
+
+957
+00:25:21,156 --> 0:25:22,336
+In this case, the one between a
+
+958
+00:25:22,336 --> 0:25:23,736
+post and its tags.
+
+959
+00:25:24,976 --> 0:25:26,226
+You can see that there are two
+
+960
+00:25:26,306 --> 0:25:29,146
+NSSet's on this object and this
+
+961
+00:25:29,146 --> 0:25:31,326
+is because both objects can be
+
+962
+00:25:31,326 --> 0:25:33,156
+related to many of the other
+
+963
+00:25:33,156 --> 0:25:33,436
+type.
+
+964
+00:25:33,436 --> 0:25:35,586
+But when we generate the records
+
+965
+00:25:35,586 --> 0:25:37,186
+for these objects, there aren't
+
+966
+00:25:37,186 --> 0:25:39,116
+any fields that we materialized
+
+967
+00:25:39,116 --> 0:25:40,426
+to hold this relationship.
+
+968
+00:25:41,176 --> 0:25:43,556
+Instead, Core Data materializes
+
+969
+00:25:43,556 --> 0:25:44,976
+a custom join record.
+
+970
+00:25:45,406 --> 0:25:46,626
+Now, if you're familiar with
+
+971
+00:25:46,656 --> 0:25:48,566
+relational databases, you'll
+
+972
+00:25:48,566 --> 0:25:49,866
+recognize this concept.
+
+973
+00:25:50,026 --> 0:25:51,816
+It's basically an extrapolation
+
+974
+00:25:51,816 --> 0:25:53,876
+of a row in a join table.
+
+975
+00:25:54,466 --> 0:25:57,276
+And it's called a CDMR or Core
+
+976
+00:25:57,276 --> 0:25:58,466
+Data Mirrored Relationship.
+
+977
+00:25:59,176 --> 0:26:01,426
+A CDMR contains a set of twoples
+
+978
+00:25:59,176 --> 0:26:01,426
+A CDMR contains a set of twoples
+
+979
+00:26:01,426 --> 0:26:02,736
+that are designed to describe
+
+980
+00:26:02,736 --> 0:26:04,166
+the two objects that are linked,
+
+981
+00:26:04,566 --> 0:26:06,106
+beginning with the entity names
+
+982
+00:26:06,106 --> 0:26:07,306
+of the two objects that are
+
+983
+00:26:07,306 --> 0:26:09,446
+linked, and their record names.
+
+984
+00:26:09,916 --> 0:26:11,856
+Now, as I said before, this is
+
+985
+00:26:11,856 --> 0:26:13,216
+not the record ID.
+
+986
+00:26:13,596 --> 0:26:15,156
+This is the record name that you
+
+987
+00:26:15,156 --> 0:26:16,576
+have to combine with a zone
+
+988
+00:26:16,576 --> 0:26:18,436
+identifier to get the identity
+
+989
+00:26:18,436 --> 0:26:20,716
+of the records that have been
+
+990
+00:26:20,716 --> 0:26:22,536
+linked by the CDMR.
+
+991
+00:26:22,946 --> 0:26:25,536
+Finally, we also encapsulate the
+
+992
+00:26:25,536 --> 0:26:27,306
+exact relationships that were
+
+993
+00:26:27,306 --> 0:26:28,546
+used to make this link.
+
+994
+00:26:30,996 --> 0:26:32,496
+So why am I spending so much
+
+995
+00:26:32,536 --> 0:26:33,396
+time talking about
+
+996
+00:26:33,396 --> 0:26:34,126
+relationships?
+
+997
+00:26:35,486 --> 0:26:38,326
+Well, they have a huge impact on
+
+998
+00:26:38,416 --> 0:26:39,846
+how we model our data for
+
+999
+00:26:39,846 --> 0:26:40,676
+collaboration.
+
+1000
+00:26:41,346 --> 0:26:42,926
+And I need to be very clear
+
+1001
+00:26:42,926 --> 0:26:45,586
+here, collaboration is not
+
+1002
+00:26:45,586 --> 0:26:46,676
+conflict resolution.
+
+1003
+00:26:47,296 --> 0:26:49,006
+Conflict resolution is
+
+1004
+00:26:49,006 --> 0:26:50,586
+implemented automatically by
+
+1005
+00:26:50,586 --> 0:26:52,246
+NSPersistentCloudKitContainer
+
+1006
+00:26:52,296 --> 0:26:53,956
+using a last writer wins merge
+
+1007
+00:26:53,956 --> 0:26:54,486
+policy.
+
+1008
+00:26:55,166 --> 0:26:56,546
+And the reason we do this, is
+
+1009
+00:26:56,546 --> 0:26:57,796
+that the job of conflict
+
+1010
+00:26:57,796 --> 0:27:00,036
+resolution is to keep the object
+
+1011
+00:26:57,796 --> 0:27:00,036
+resolution is to keep the object
+
+1012
+00:27:00,086 --> 0:27:01,726
+graph and the data in CloudKit
+
+1013
+00:27:02,086 --> 0:27:03,546
+consistent with how you've
+
+1014
+00:27:03,546 --> 0:27:04,466
+modeled your data.
+
+1015
+00:27:05,286 --> 0:27:07,806
+But, over the years we've heard
+
+1016
+00:27:07,806 --> 0:27:08,716
+that this can be a little
+
+1017
+00:27:08,716 --> 0:27:09,396
+frustrating.
+
+1018
+00:27:09,936 --> 0:27:12,686
+So, let's take a look at how you
+
+1019
+00:27:12,686 --> 0:27:13,966
+can implement better merge
+
+1020
+00:27:13,966 --> 0:27:15,726
+behavior and align that merge
+
+1021
+00:27:15,766 --> 0:27:17,136
+behavior with your specific
+
+1022
+00:27:17,136 --> 0:27:19,296
+customer use cases using
+
+1023
+00:27:19,296 --> 0:27:20,846
+relationships.
+
+1024
+00:27:22,436 --> 0:27:24,176
+To do that, we're going to use
+
+1025
+00:27:24,176 --> 0:27:25,616
+our post application again.
+
+1026
+00:27:26,016 --> 0:27:27,456
+And I'm going to create a post,
+
+1027
+00:27:27,906 --> 0:27:29,066
+but I'm not going to assign it
+
+1028
+00:27:29,066 --> 0:27:29,826
+any content.
+
+1029
+00:27:30,866 --> 0:27:32,516
+I'll let it sync over to another
+
+1030
+00:27:32,516 --> 0:27:34,726
+device let's say, and then I'll
+
+1031
+00:27:34,726 --> 0:27:36,406
+make some edits on each device
+
+1032
+00:27:36,406 --> 0:27:37,436
+at the same time.
+
+1033
+00:27:38,016 --> 0:27:39,316
+Now, this is what we would
+
+1034
+00:27:39,316 --> 0:27:40,816
+traditionally term to be a
+
+1035
+00:27:40,816 --> 0:27:41,406
+conflict.
+
+1036
+00:27:41,936 --> 0:27:44,116
+But, actually, this is a great
+
+1037
+00:27:44,116 --> 0:27:45,446
+example of two devices
+
+1038
+00:27:45,446 --> 0:27:47,156
+attempting to collaborate on a
+
+1039
+00:27:47,156 --> 0:27:47,676
+value.
+
+1040
+00:27:48,416 --> 0:27:48,866
+Now,
+
+1041
+00:27:48,936 --> 0:27:50,606
+NSPersistentCloudKitContainer
+
+1042
+00:27:51,036 --> 0:27:52,196
+seeing that something has
+
+1043
+00:27:52,196 --> 0:27:53,686
+changed in CloudKit while it was
+
+1044
+00:27:53,686 --> 0:27:55,796
+away, will resolve this to
+
+1045
+00:27:55,796 --> 0:27:57,656
+preserve one of the two values.
+
+1046
+00:27:57,656 --> 0:27:57,856
+Right?
+
+1047
+00:27:57,956 --> 0:27:59,326
+Using a last writer wins merge
+
+1048
+00:27:59,326 --> 0:27:59,876
+policy.
+
+1049
+00:28:00,366 --> 0:28:01,276
+Which means that we'll either
+
+1050
+00:28:01,276 --> 0:28:03,376
+get collaboration is great or
+
+1051
+00:28:03,826 --> 0:28:04,806
+everyone should do it.
+
+1052
+00:28:05,156 --> 0:28:05,956
+And it's true.
+
+1053
+00:28:07,446 --> 0:28:09,056
+Of course, you might be thinking
+
+1054
+00:28:09,056 --> 0:28:10,586
+that -- well, this is kind of
+
+1055
+00:28:10,586 --> 0:28:10,896
+dumb.
+
+1056
+00:28:11,436 --> 0:28:12,566
+Why don't you just concatenate
+
+1057
+00:28:12,596 --> 0:28:13,776
+the two strings together, Core
+
+1058
+00:28:13,776 --> 0:28:14,056
+Data?
+
+1059
+00:28:14,696 --> 0:28:15,576
+And we could.
+
+1060
+00:28:16,026 --> 0:28:17,346
+Except that if you took our
+
+1061
+00:28:17,346 --> 0:28:18,906
+advice over the years and
+
+1062
+00:28:18,906 --> 0:28:20,506
+implemented incremental saving
+
+1063
+00:28:20,856 --> 0:28:21,806
+you might end up with something
+
+1064
+00:28:21,806 --> 0:28:23,966
+like this, which is not what
+
+1065
+00:28:23,966 --> 0:28:25,016
+anyone expects.
+
+1066
+00:28:25,556 --> 0:28:26,796
+And it's not even English.
+
+1067
+00:28:28,446 --> 0:28:30,206
+So, how can we do better?
+
+1068
+00:28:30,206 --> 0:28:30,496
+Right?
+
+1069
+00:28:30,536 --> 0:28:31,966
+Clearly this is a problem that's
+
+1070
+00:28:31,966 --> 0:28:33,426
+very important to us and it's
+
+1071
+00:28:33,426 --> 0:28:35,056
+very dear to our customers.
+
+1072
+00:28:35,806 --> 0:28:37,716
+Well, let's look at our post
+
+1073
+00:28:37,716 --> 0:28:38,866
+entity and see if there's some
+
+1074
+00:28:38,866 --> 0:28:40,356
+changes we can make that would
+
+1075
+00:28:40,356 --> 0:28:41,046
+make this better.
+
+1076
+00:28:41,716 --> 0:28:44,936
+The first thing to do is to stop
+
+1077
+00:28:44,936 --> 0:28:46,536
+creating collisions on flat
+
+1078
+00:28:46,536 --> 0:28:47,126
+values.
+
+1079
+00:28:47,676 --> 0:28:49,986
+Content is simply a flat string
+
+1080
+00:28:50,026 --> 0:28:51,156
+and there's nothing that we can
+
+1081
+00:28:51,156 --> 0:28:52,806
+infer about the merge behavior
+
+1082
+00:28:52,806 --> 0:28:54,096
+that you want for that string,
+
+1083
+00:28:54,096 --> 0:28:55,236
+simply from looking at it.
+
+1084
+00:28:56,356 --> 0:28:58,716
+But, if we break it up as a
+
+1085
+00:28:58,716 --> 0:29:01,406
+relationship, multiple devices
+
+1086
+00:28:58,716 --> 0:29:01,406
+relationship, multiple devices
+
+1087
+00:29:01,406 --> 0:29:03,636
+can contribute contributions to
+
+1088
+00:29:03,636 --> 0:29:05,096
+the content field all by
+
+1089
+00:29:05,096 --> 0:29:05,816
+themselves.
+
+1090
+00:29:06,336 --> 0:29:07,846
+And because of the way we store
+
+1091
+00:29:07,846 --> 0:29:10,096
+Two-One relationships, many
+
+1092
+00:29:10,096 --> 0:29:11,416
+devices can contribute these
+
+1093
+00:29:11,416 --> 0:29:13,246
+objects at the same time without
+
+1094
+00:29:13,246 --> 0:29:14,946
+creating a collision on the post
+
+1095
+00:29:14,946 --> 0:29:15,836
+object itself.
+
+1096
+00:29:16,936 --> 0:29:18,566
+So, here I've broken it up as a
+
+1097
+00:29:18,566 --> 0:29:20,776
+very simple post content entity
+
+1098
+00:29:21,126 --> 0:29:22,366
+with a simple string.
+
+1099
+00:29:23,556 --> 0:29:25,756
+Now, because of how we store
+
+1100
+00:29:25,756 --> 0:29:27,536
+Two-One relationships, these
+
+1101
+00:29:27,536 --> 0:29:29,456
+will be combined by devices on
+
+1102
+00:29:29,456 --> 0:29:29,986
+their own.
+
+1103
+00:29:30,176 --> 0:29:30,366
+Right?
+
+1104
+00:29:30,366 --> 0:29:31,796
+We need to traverse them in
+
+1105
+00:29:31,796 --> 0:29:33,066
+order to assemble the final
+
+1106
+00:29:33,066 --> 0:29:33,546
+value.
+
+1107
+00:29:34,056 --> 0:29:35,726
+And we call this eventual
+
+1108
+00:29:35,726 --> 0:29:36,506
+consistency.
+
+1109
+00:29:36,926 --> 0:29:38,896
+As both devices contribute post
+
+1110
+00:29:38,896 --> 0:29:40,026
+content objects, they'll
+
+1111
+00:29:40,026 --> 0:29:41,186
+download the post content
+
+1112
+00:29:41,186 --> 0:29:42,736
+objects from the other device
+
+1113
+00:29:42,736 --> 0:29:45,026
+and concatenate them or merge
+
+1114
+00:29:45,026 --> 0:29:46,516
+them, or whatever topology you
+
+1115
+00:29:46,516 --> 0:29:48,326
+want to apply to this problem to
+
+1116
+00:29:48,326 --> 0:29:49,606
+assemble the final value.
+
+1117
+00:29:50,926 --> 0:29:52,786
+But we want that to be the same
+
+1118
+00:29:52,786 --> 0:29:54,766
+across all devices and a
+
+1119
+00:29:54,836 --> 0:29:56,136
+difference in download order
+
+1120
+00:29:56,136 --> 0:29:57,526
+could create a different final
+
+1121
+00:29:57,526 --> 0:29:57,966
+value.
+
+1122
+00:29:58,476 --> 0:30:00,536
+So, we can order them say with
+
+1123
+00:29:58,476 --> 0:30:00,536
+So, we can order them say with
+
+1124
+00:30:00,536 --> 0:30:02,216
+something as trivial as a date.
+
+1125
+00:30:02,806 --> 0:30:04,306
+In this way, the devices can
+
+1126
+00:30:04,306 --> 0:30:05,876
+order the post content objects
+
+1127
+00:30:05,876 --> 0:30:07,466
+before they do a concatenation
+
+1128
+00:30:07,466 --> 0:30:08,966
+using a simple sort descriptor
+
+1129
+00:30:08,966 --> 0:30:10,716
+in Core Data, giving them a
+
+1130
+00:30:10,716 --> 0:30:12,186
+consistent ordering and merge
+
+1131
+00:30:12,186 --> 0:30:14,336
+behavior across all devices.
+
+1132
+00:30:15,216 --> 0:30:17,106
+But, I'm a bit of a distributed
+
+1133
+00:30:17,106 --> 0:30:20,166
+systems nerd and time is evil.
+
+1134
+00:30:21,296 --> 0:30:22,826
+In fact, a devices notion of
+
+1135
+00:30:22,826 --> 0:30:24,276
+time might not even line up if
+
+1136
+00:30:24,276 --> 0:30:24,976
+they're in your house together.
+
+1137
+00:30:26,716 --> 0:30:28,716
+So, we can take this a step
+
+1138
+00:30:28,716 --> 0:30:30,256
+further and implement a full
+
+1139
+00:30:30,256 --> 0:30:32,306
+causal tree by leveraging a
+
+1140
+00:30:32,306 --> 0:30:33,546
+relationship to a parent
+
+1141
+00:30:33,546 --> 0:30:35,446
+contribution and giving the
+
+1142
+00:30:35,446 --> 0:30:37,226
+entity some information about
+
+1143
+00:30:37,226 --> 0:30:38,476
+the device that's making the
+
+1144
+00:30:38,476 --> 0:30:39,626
+actual contribution.
+
+1145
+00:30:40,326 --> 0:30:42,006
+In this way, we've implemented a
+
+1146
+00:30:42,006 --> 0:30:43,326
+rough sketch of something called
+
+1147
+00:30:43,326 --> 0:30:44,956
+the conflict-free replicated
+
+1148
+00:30:44,956 --> 0:30:45,526
+data type.
+
+1149
+00:30:46,026 --> 0:30:47,626
+And this is an awesome emerging
+
+1150
+00:30:47,626 --> 0:30:49,376
+field of computer science that
+
+1151
+00:30:49,376 --> 0:30:51,246
+allows us to deploy algorithms
+
+1152
+00:30:51,526 --> 0:30:52,866
+to create consistent merge
+
+1153
+00:30:52,866 --> 0:30:54,426
+behavior across different
+
+1154
+00:30:54,426 --> 0:30:55,806
+user-user scenarios.
+
+1155
+00:30:56,316 --> 0:31:00,006
+And that has been Using Core
+
+1156
+00:30:56,316 --> 0:31:00,006
+And that has been Using Core
+
+1157
+00:31:00,006 --> 0:31:02,216
+Data with CloudKit.
+
+1158
+00:31:02,216 --> 0:31:03,206
+It's been my pleasure to show
+
+1159
+00:31:03,206 --> 0:31:03,386
+you
+
+1160
+00:31:03,516 --> 0:31:05,046
+NSPersistentCloudKitContainer
+
+1161
+00:31:05,116 --> 0:31:06,846
+and how you can easily implement
+
+1162
+00:31:06,846 --> 0:31:07,886
+sync functionality in your
+
+1163
+00:31:07,886 --> 0:31:08,886
+applications with it.
+
+1164
+00:31:09,726 --> 0:31:10,876
+We've also got some great new
+
+1165
+00:31:10,876 --> 0:31:12,316
+sample code and documentation
+
+1166
+00:31:12,386 --> 0:31:13,546
+for you this year that I hope
+
+1167
+00:31:13,636 --> 0:31:15,046
+gives you a great experience
+
+1168
+00:31:15,046 --> 0:31:16,466
+with all of these new APIs.
+
+1169
+00:31:17,076 --> 0:31:19,516
+And finally, I can't wait to see
+
+1170
+00:31:19,516 --> 0:31:20,396
+what you build with
+
+1171
+00:31:20,396 --> 0:31:21,946
+NSPersistentCloudKitContainer
+
+1172
+00:31:22,266 --> 0:31:24,476
+and how you extend it.
+
+1173
+00:31:24,626 --> 0:31:26,356
+We'll be in a ton of labs this
+
+1174
+00:31:26,356 --> 0:31:26,556
+year.
+
+1175
+00:31:27,356 --> 0:31:28,366
+Every day this week.
+
+1176
+00:31:28,546 --> 0:31:30,026
+And as you know, we have a talk
+
+1177
+00:31:30,026 --> 0:31:31,846
+on 3 o'clock that covers a lot
+
+1178
+00:31:31,846 --> 0:31:33,316
+more features in Core Data in
+
+1179
+00:31:33,316 --> 0:31:33,846
+Thursday.
+
+1180
+00:31:35,196 --> 0:31:36,246
+Thanks a lot, and I hope you
+
+1181
+00:31:36,246 --> 0:31:37,976
+have an awesome WWDC.
+
+1182
+00:31:38,516 --> 0:31:42,500
+[ Applause ]

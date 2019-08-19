@@ -1,0 +1,5383 @@
+1
+00:00:00,506 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:09,516 --> 0:00:15,606
+[ Applause ]
+
+3
+00:00:16,106 --> 0:00:18,036
+&gt;&gt; Hello and good afternoon.
+
+4
+00:00:19,086 --> 0:00:20,006
+I'm Chris Dreessen.
+
+5
+00:00:20,246 --> 0:00:21,716
+I work on the Cocoa Frameworks.
+
+6
+00:00:22,076 --> 0:00:22,966
+And we're going to be talking
+
+7
+00:00:22,966 --> 0:00:24,836
+about what's new in AppKit this
+
+8
+00:00:24,836 --> 0:00:25,036
+year.
+
+9
+00:00:26,026 --> 0:00:27,796
+So, let's dive in.
+
+10
+00:00:28,236 --> 0:00:30,816
+We have a lot of functionality.
+
+11
+00:00:30,886 --> 0:00:32,406
+We have some additions to
+
+12
+00:00:32,406 --> 0:00:34,056
+NSColor, some additions to
+
+13
+00:00:34,056 --> 0:00:34,646
+NSScreen.
+
+14
+00:00:35,086 --> 0:00:36,746
+We have a whole grab bag of
+
+15
+00:00:36,746 --> 0:00:38,976
+features to help you with text
+
+16
+00:00:38,976 --> 0:00:39,686
+and fonts.
+
+17
+00:00:40,356 --> 0:00:41,916
+We're going to do a little pub
+
+18
+00:00:41,916 --> 0:00:43,286
+crawl right here in this
+
+19
+00:00:43,286 --> 0:00:43,776
+session.
+
+20
+00:00:43,806 --> 0:00:44,916
+We're going to talk about
+
+21
+00:00:44,916 --> 0:00:46,456
+toolbar and Touch Bar and
+
+22
+00:00:46,456 --> 0:00:47,026
+sidebar.
+
+23
+00:00:47,026 --> 0:00:49,996
+And then we're going to talk
+
+24
+00:00:49,996 --> 0:00:51,446
+about some new control
+
+25
+00:00:51,446 --> 0:00:52,936
+functionality in AppKit and
+
+26
+00:00:52,936 --> 0:00:54,056
+macOS 10.15.
+
+27
+00:00:54,266 --> 0:00:55,956
+And we'll wrap up our section on
+
+28
+00:00:55,956 --> 0:00:58,946
+AppKit by talking about NSEvent.
+
+29
+00:00:58,946 --> 0:01:00,836
+We'll take a small jump and go
+
+30
+00:00:58,946 --> 0:01:00,836
+We'll take a small jump and go
+
+31
+00:01:00,836 --> 0:01:02,226
+into some foundation features
+
+32
+00:01:02,486 --> 0:01:03,606
+including some geometry
+
+33
+00:01:03,606 --> 0:01:05,105
+enhancements and new formatters
+
+34
+00:01:05,226 --> 0:01:06,706
+to make localization easier than
+
+35
+00:01:06,706 --> 0:01:07,006
+ever.
+
+36
+00:01:07,516 --> 0:01:09,186
+And then we'll wrap things up
+
+37
+00:01:09,186 --> 0:01:10,246
+with some notes on system
+
+38
+00:01:10,246 --> 0:01:14,006
+extensions in macOS 10.15.
+
+39
+00:01:14,136 --> 0:01:15,846
+So, before we do that, though,
+
+40
+00:01:15,846 --> 0:01:18,616
+let's go ahead and address the
+
+41
+00:01:18,616 --> 0:01:18,996
+big thing.
+
+42
+00:01:18,996 --> 0:01:22,586
+In macOS 10.15, AppKit is not
+
+43
+00:01:22,586 --> 0:01:24,016
+the only UI framework on the
+
+44
+00:01:24,016 --> 0:01:24,546
+system.
+
+45
+00:01:24,896 --> 0:01:26,676
+We have two new UI frameworks
+
+46
+00:01:26,676 --> 0:01:27,296
+joining us.
+
+47
+00:01:28,246 --> 0:01:30,116
+So, one of these you've probably
+
+48
+00:01:30,116 --> 0:01:31,356
+already heard of and that's
+
+49
+00:01:31,356 --> 0:01:31,706
+UIKit.
+
+50
+00:01:31,706 --> 0:01:35,156
+In macOS 10.15, you can
+
+51
+00:01:35,156 --> 0:01:37,416
+recompile your apps and run your
+
+52
+00:01:37,476 --> 0:01:38,546
+iPad apps on the Mac.
+
+53
+00:01:39,206 --> 0:01:40,766
+And if you have a
+
+54
+00:01:40,766 --> 0:01:42,556
+well-maintained AppKit app, this
+
+55
+00:01:42,556 --> 0:01:44,376
+is probably not going to be very
+
+56
+00:01:44,376 --> 0:01:45,236
+interesting for you.
+
+57
+00:01:45,986 --> 0:01:48,446
+But, if you have an iPad app
+
+58
+00:01:48,446 --> 0:01:49,706
+you've never brought to the Mac
+
+59
+00:01:49,706 --> 0:01:50,976
+or you've had an iPad app you've
+
+60
+00:01:50,976 --> 0:01:52,236
+been investing a lot in the last
+
+61
+00:01:52,236 --> 0:01:53,626
+decade, not so much the Mac,
+
+62
+00:01:53,946 --> 0:01:55,436
+this could be very neat.
+
+63
+00:01:55,616 --> 0:01:58,046
+You will still use AppKit to add
+
+64
+00:01:58,046 --> 0:01:59,306
+the finishing touches to your
+
+65
+00:01:59,306 --> 0:02:00,446
+UIKit app for things like
+
+66
+00:01:59,306 --> 0:02:00,446
+UIKit app for things like
+
+67
+00:02:00,446 --> 0:02:02,006
+toolbar and Touch Bar support.
+
+68
+00:02:02,616 --> 0:02:05,026
+But we think that can be very
+
+69
+00:02:05,026 --> 0:02:05,446
+interesting.
+
+70
+00:02:05,446 --> 0:02:07,936
+The other new framework-- and
+
+71
+00:02:07,936 --> 0:02:09,006
+we're really excited about
+
+72
+00:02:09,006 --> 0:02:10,366
+this-- is SwiftUI.
+
+73
+00:02:11,126 --> 0:02:13,206
+And SwiftUI is this neat
+
+74
+00:02:13,206 --> 0:02:15,206
+declarative way of describing
+
+75
+00:02:15,206 --> 0:02:16,536
+your user interfaces and the
+
+76
+00:02:16,536 --> 0:02:18,366
+transitions between them, ways
+
+77
+00:02:18,366 --> 0:02:19,726
+of binding them to your model
+
+78
+00:02:19,726 --> 0:02:20,856
+data.
+
+79
+00:02:20,856 --> 0:02:22,656
+And this we think is a great way
+
+80
+00:02:22,656 --> 0:02:23,496
+for making UIs.
+
+81
+00:02:23,496 --> 0:02:25,066
+It's Swift native and supports
+
+82
+00:02:25,066 --> 0:02:26,136
+all sorts of Swift language
+
+83
+00:02:26,136 --> 0:02:27,166
+features that we really like.
+
+84
+00:02:27,876 --> 0:02:29,236
+Again, this is something you
+
+85
+00:02:29,236 --> 0:02:30,236
+will use in conjunction with
+
+86
+00:02:30,236 --> 0:02:30,686
+AppKit.
+
+87
+00:02:30,686 --> 0:02:31,876
+You will embed it in view
+
+88
+00:02:31,876 --> 0:02:33,326
+hierarchies potentially all over
+
+89
+00:02:33,326 --> 0:02:33,816
+the place.
+
+90
+00:02:33,986 --> 0:02:35,956
+So, there are sessions about of
+
+91
+00:02:35,956 --> 0:02:37,066
+these frameworks all throughout
+
+92
+00:02:37,066 --> 0:02:38,156
+the week and we think you'll
+
+93
+00:02:38,156 --> 0:02:40,626
+enjoy them.
+
+94
+00:02:40,816 --> 0:02:42,386
+On to AppKit.
+
+95
+00:02:42,386 --> 0:02:45,966
+So, in macOS 10.15, we have some
+
+96
+00:02:45,966 --> 0:02:47,566
+new system colors in NSColor.
+
+97
+00:02:47,566 --> 0:02:49,436
+We have teal and indigo.
+
+98
+00:02:49,576 --> 0:02:51,786
+These are system colors which
+
+99
+00:02:51,786 --> 0:02:53,056
+means they're actually dynamic.
+
+100
+00:02:53,116 --> 0:02:54,536
+Depending on which appearance
+
+101
+00:02:54,536 --> 0:02:56,146
+you use they can look
+
+102
+00:02:56,146 --> 0:02:56,586
+differently.
+
+103
+00:02:57,666 --> 0:02:59,806
+But we think these are great
+
+104
+00:02:59,806 --> 0:03:00,916
+colors and you'll enjoy using
+
+105
+00:02:59,806 --> 0:03:00,916
+colors and you'll enjoy using
+
+106
+00:03:00,916 --> 0:03:01,586
+them in your apps.
+
+107
+00:03:02,966 --> 0:03:04,326
+We also have an under the hood
+
+108
+00:03:04,326 --> 0:03:05,816
+change in NSColor we want to
+
+109
+00:03:05,816 --> 0:03:06,546
+talk about.
+
+110
+00:03:06,736 --> 0:03:08,606
+And that's-- that NSColor is now
+
+111
+00:03:08,606 --> 0:03:10,486
+using the tagged pointer system
+
+112
+00:03:10,676 --> 0:03:13,116
+we also use for NSNumber and
+
+113
+00:03:13,246 --> 0:03:13,796
+NSString.
+
+114
+00:03:13,836 --> 0:03:15,486
+And what is a tagged pointer?
+
+115
+00:03:15,936 --> 0:03:18,236
+Well, normally for NSColor, we
+
+116
+00:03:18,236 --> 0:03:19,216
+would store the various
+
+117
+00:03:19,216 --> 0:03:20,396
+component values or other
+
+118
+00:03:20,396 --> 0:03:22,116
+information as eye bars in an
+
+119
+00:03:22,116 --> 0:03:23,226
+allocated object.
+
+120
+00:03:23,226 --> 0:03:25,216
+And with tagged pointers, we
+
+121
+00:03:25,216 --> 0:03:26,126
+instead condense that
+
+122
+00:03:26,126 --> 0:03:27,536
+information down to a smaller
+
+123
+00:03:27,536 --> 0:03:29,176
+number of bits and store in the
+
+124
+00:03:29,176 --> 0:03:29,916
+pointer itself.
+
+125
+00:03:30,296 --> 0:03:31,546
+So, there's no separate
+
+126
+00:03:31,546 --> 0:03:32,146
+allocation.
+
+127
+00:03:32,866 --> 0:03:34,286
+If you had code that was very
+
+128
+00:03:34,286 --> 0:03:35,376
+heavily allocating or
+
+129
+00:03:35,376 --> 0:03:37,086
+deallocating NSColors, you're
+
+130
+00:03:37,086 --> 0:03:38,186
+going to notice a performance
+
+131
+00:03:38,186 --> 0:03:39,616
+one from this, so we're excited
+
+132
+00:03:39,616 --> 0:03:39,786
+here.
+
+133
+00:03:41,446 --> 0:03:43,426
+Generally, that's going to be an
+
+134
+00:03:43,426 --> 0:03:45,016
+invisible change for you but
+
+135
+00:03:45,016 --> 0:03:46,176
+there is a case I want to point
+
+136
+00:03:47,146 --> 0:03:47,426
+out.
+
+137
+00:03:47,426 --> 0:03:48,746
+If you're accessing a derived
+
+138
+00:03:48,816 --> 0:03:49,856
+property of the color, for
+
+139
+00:03:49,856 --> 0:03:52,296
+example the CGColor, with the
+
+140
+00:03:52,296 --> 0:03:54,256
+non-tagged version, that could
+
+141
+00:03:54,256 --> 0:03:55,666
+be cached as an eye bar in the
+
+142
+00:03:55,666 --> 0:03:57,036
+color and it's possible the
+
+143
+00:03:57,036 --> 0:03:58,966
+CGColor would live as long as
+
+144
+00:03:58,966 --> 0:03:59,466
+the NSColor.
+
+145
+00:04:00,446 --> 0:04:01,786
+In the snippet we have on
+
+146
+00:04:01,786 --> 0:04:04,086
+screen, you could see that we
+
+147
+00:04:04,086 --> 0:04:05,496
+passed that CGColor to a
+
+148
+00:04:05,496 --> 0:04:07,376
+ContextSetFillColorWithColor,
+
+149
+00:04:07,376 --> 0:04:09,096
+and that would have worked OK in
+
+150
+00:04:09,096 --> 0:04:09,576
+the past.
+
+151
+00:04:10,166 --> 0:04:11,836
+With tagged pointers, using it
+
+152
+00:04:11,836 --> 0:04:13,176
+outside the autorelease pool is
+
+153
+00:04:13,176 --> 0:04:14,216
+potentially hazardous.
+
+154
+00:04:14,216 --> 0:04:15,806
+So, it'd be a good hygiene not
+
+155
+00:04:15,806 --> 0:04:17,266
+to do that anyway but something
+
+156
+00:04:17,266 --> 0:04:21,096
+to be aware of just in case.
+
+157
+00:04:22,226 --> 0:04:24,886
+So, a lot of us have used color
+
+158
+00:04:24,886 --> 0:04:25,196
+panel.
+
+159
+00:04:25,936 --> 0:04:27,986
+And there is a near and dear to
+
+160
+00:04:27,986 --> 0:04:29,726
+us eyedropper tool in the color
+
+161
+00:04:29,726 --> 0:04:31,276
+panel that lets you click it and
+
+162
+00:04:31,276 --> 0:04:32,996
+bring up a magnifier like this
+
+163
+00:04:33,186 --> 0:04:34,706
+and then select a specific color
+
+164
+00:04:34,706 --> 0:04:36,836
+on screen to read the RGB values
+
+165
+00:04:36,836 --> 0:04:36,986
+of.
+
+166
+00:04:37,136 --> 0:04:40,686
+In macOS 10.15, we're exposing
+
+167
+00:04:40,686 --> 0:04:42,076
+this functionality to you too
+
+168
+00:04:42,436 --> 0:04:43,526
+with a new class called
+
+169
+00:04:43,626 --> 0:04:44,546
+NSColorSampler.
+
+170
+00:04:45,306 --> 0:04:47,096
+So, NSColorSampler is very
+
+171
+00:04:47,096 --> 0:04:47,476
+simple.
+
+172
+00:04:47,586 --> 0:04:49,206
+It has a single class method on
+
+173
+00:04:49,206 --> 0:04:50,226
+it called Show.
+
+174
+00:04:50,736 --> 0:04:52,246
+You pass a block to show and we
+
+175
+00:04:52,246 --> 0:04:53,286
+will call you back with the
+
+176
+00:04:53,286 --> 0:04:54,736
+selected color or nil if the
+
+177
+00:04:54,736 --> 0:04:56,466
+user canceled out of this.
+
+178
+00:04:56,746 --> 0:04:58,456
+And we're really excited to
+
+179
+00:04:58,456 --> 0:04:59,466
+share our implementation with
+
+180
+00:04:59,466 --> 0:04:59,816
+you too.
+
+181
+00:04:59,996 --> 0:05:01,606
+If you have your own
+
+182
+00:04:59,996 --> 0:05:01,606
+If you have your own
+
+183
+00:05:01,606 --> 0:05:02,896
+implementation something to be
+
+184
+00:05:02,896 --> 0:05:05,986
+aware of in macOS 10.15 is that
+
+185
+00:05:05,986 --> 0:05:07,496
+Screen Recording is going to
+
+186
+00:05:07,546 --> 0:05:08,856
+prompt for user permission.
+
+187
+00:05:09,066 --> 0:05:10,876
+And this is something that
+
+188
+00:05:10,876 --> 0:05:12,096
+doesn't happen if you use
+
+189
+00:05:12,236 --> 0:05:13,636
+NSColorSampler itself.
+
+190
+00:05:15,976 --> 0:05:18,846
+There's another NSColor API that
+
+191
+00:05:18,846 --> 0:05:19,916
+we find incredibly useful.
+
+192
+00:05:19,916 --> 0:05:21,306
+We call it the Dynamic Color
+
+193
+00:05:21,306 --> 0:05:21,796
+Provider.
+
+194
+00:05:22,296 --> 0:05:23,636
+And it's really just a new
+
+195
+00:05:23,636 --> 0:05:25,246
+initializer on NSColor.
+
+196
+00:05:25,496 --> 0:05:27,236
+It takes two arguments.
+
+197
+00:05:27,606 --> 0:05:28,846
+One of these arguments is a
+
+198
+00:05:28,846 --> 0:05:31,086
+block and that block accepts an
+
+199
+00:05:31,086 --> 0:05:31,726
+NSAppearance.
+
+200
+00:05:32,776 --> 0:05:34,316
+When we go to resolve the color
+
+201
+00:05:34,526 --> 0:05:35,596
+either because we're drawing it
+
+202
+00:05:35,596 --> 0:05:37,036
+in a bitmap context or writing
+
+203
+00:05:37,036 --> 0:05:38,396
+it to a file or using it as a
+
+204
+00:05:38,396 --> 0:05:39,516
+layer background color, we're
+
+205
+00:05:39,976 --> 0:05:41,696
+going to call this block with
+
+206
+00:05:41,696 --> 0:05:42,526
+whatever appearance is
+
+207
+00:05:42,526 --> 0:05:43,636
+appropriate at the time.
+
+208
+00:05:44,386 --> 0:05:46,496
+In our snippet on screen, we use
+
+209
+00:05:46,496 --> 0:05:47,736
+the NSAppearance bestMatch
+
+210
+00:05:47,736 --> 0:05:49,066
+method to tell us whether the
+
+211
+00:05:49,066 --> 0:05:50,926
+requested appearance was more
+
+212
+00:05:50,926 --> 0:05:53,596
+like aqua or more like darkAqua.
+
+213
+00:05:53,596 --> 0:05:55,066
+And we have hard-coded colors
+
+214
+00:05:55,066 --> 0:05:56,056
+for each of those cases.
+
+215
+00:05:57,026 --> 0:05:58,326
+This can be very useful where
+
+216
+00:05:58,326 --> 0:05:58,956
+you want to have some
+
+217
+00:05:58,956 --> 0:06:00,336
+programatic decisions and
+
+218
+00:05:58,956 --> 0:06:00,336
+programatic decisions and
+
+219
+00:06:00,336 --> 0:06:02,576
+dynamism in your use of NSColor
+
+220
+00:06:02,576 --> 0:06:04,106
+in your application and this is
+
+221
+00:06:04,106 --> 0:06:05,216
+much simpler than trying to
+
+222
+00:06:05,216 --> 0:06:06,806
+propagate a hard-coded literal
+
+223
+00:06:06,806 --> 0:06:08,506
+color across a view hierarchy on
+
+224
+00:06:08,506 --> 0:06:09,206
+appearance change.
+
+225
+00:06:09,926 --> 0:06:12,106
+So I mentioned there were two
+
+226
+00:06:12,106 --> 0:06:12,686
+arguments.
+
+227
+00:06:13,076 --> 0:06:14,516
+The other argument is a name.
+
+228
+00:06:14,696 --> 0:06:17,006
+And the name is very significant
+
+229
+00:06:17,406 --> 0:06:18,516
+for coding purposes.
+
+230
+00:06:18,736 --> 0:06:20,176
+If you send one of these colors
+
+231
+00:06:20,176 --> 0:06:21,396
+over an NSConnection-- an
+
+232
+00:06:21,466 --> 0:06:23,486
+NSXPCConnection, when we decode
+
+233
+00:06:23,486 --> 0:06:24,496
+it we're going to look it up by
+
+234
+00:06:24,496 --> 0:06:24,826
+name.
+
+235
+00:06:25,006 --> 0:06:26,346
+So it's also important to
+
+236
+00:06:26,346 --> 0:06:27,436
+register that color on both
+
+237
+00:06:27,436 --> 0:06:27,976
+sides of the connection.
+
+238
+00:06:31,616 --> 0:06:33,186
+So colors are great.
+
+239
+00:06:33,186 --> 0:06:33,996
+NSColor is great.
+
+240
+00:06:34,166 --> 0:06:35,126
+And they're all better with
+
+241
+00:06:35,126 --> 0:06:36,176
+screens to view them on.
+
+242
+00:06:36,966 --> 0:06:37,866
+So we'll talk about some
+
+243
+00:06:37,866 --> 0:06:38,886
+NSScreen improvements.
+
+244
+00:06:39,316 --> 0:06:41,326
+If you're ever implemented a
+
+245
+00:06:41,326 --> 0:06:42,876
+screen picker control, you may
+
+246
+00:06:42,876 --> 0:06:43,796
+have wanted to have a
+
+247
+00:06:43,796 --> 0:06:45,766
+user-facing string to identify
+
+248
+00:06:45,766 --> 0:06:46,956
+an NSScreen with.
+
+249
+00:06:47,316 --> 0:06:48,916
+And if you use the inherited
+
+250
+00:06:48,916 --> 0:06:50,276
+description method from
+
+251
+00:06:50,306 --> 0:06:52,276
+NSObject, your users probably
+
+252
+00:06:52,276 --> 0:06:54,216
+were not content with NSScreen
+
+253
+00:06:54,216 --> 0:06:57,386
+0x6000261e460.
+
+254
+00:06:58,956 --> 0:07:00,906
+So, in macOS 10.15,
+
+255
+00:06:58,956 --> 0:07:00,906
+So, in macOS 10.15,
+
+256
+00:07:01,066 --> 0:07:03,236
+NSScreen.localizedName will give
+
+257
+00:07:03,236 --> 0:07:05,396
+you a nice human readable string
+
+258
+00:07:05,576 --> 0:07:06,636
+to describe that screen.
+
+259
+00:07:08,296 --> 0:07:11,296
+All right, talking about screens
+
+260
+00:07:11,296 --> 0:07:11,946
+more generally.
+
+261
+00:07:12,166 --> 0:07:13,646
+Over the last many years,
+
+262
+00:07:13,646 --> 0:07:15,026
+screens have been getting
+
+263
+00:07:15,026 --> 0:07:16,486
+brighter and brighter and
+
+264
+00:07:16,486 --> 0:07:16,836
+brighter.
+
+265
+00:07:17,246 --> 0:07:18,856
+And there are very few people
+
+266
+00:07:19,236 --> 0:07:20,846
+who run their screens at max
+
+267
+00:07:20,886 --> 0:07:21,646
+brightness anymore.
+
+268
+00:07:21,826 --> 0:07:24,626
+And if we apply this to a
+
+269
+00:07:24,626 --> 0:07:26,626
+specific picture, we can imagine
+
+270
+00:07:26,626 --> 0:07:28,376
+that black is a zero component
+
+271
+00:07:28,376 --> 0:07:30,326
+value and one is the white
+
+272
+00:07:30,326 --> 0:07:31,056
+component value.
+
+273
+00:07:31,366 --> 0:07:33,516
+And as we dim that screen, we're
+
+274
+00:07:33,516 --> 0:07:34,906
+sort of compressing what one
+
+275
+00:07:34,906 --> 0:07:36,176
+means in absolute terms.
+
+276
+00:07:36,176 --> 0:07:38,086
+We are emitting fewer photons
+
+277
+00:07:38,086 --> 0:07:39,556
+per unit value in our software.
+
+278
+00:07:40,726 --> 0:07:42,416
+But that monitor hasn't lost
+
+279
+00:07:42,416 --> 0:07:43,606
+that ability to produce bright
+
+280
+00:07:43,606 --> 0:07:44,126
+colors.
+
+281
+00:07:44,686 --> 0:07:46,796
+We can instead allow Extended
+
+282
+00:07:46,796 --> 0:07:48,776
+Dynamic Range content, content
+
+283
+00:07:48,776 --> 0:07:50,046
+that isn't clamped in the zero
+
+284
+00:07:50,046 --> 0:07:51,716
+to one range and keep using the
+
+285
+00:07:51,716 --> 0:07:53,096
+maximum brightness potential of
+
+286
+00:07:53,096 --> 0:07:55,056
+that monitor to make some images
+
+287
+00:07:55,316 --> 0:07:56,706
+where we have things brighter
+
+288
+00:07:56,876 --> 0:07:58,066
+than our reference white point.
+
+289
+00:07:58,186 --> 0:08:00,596
+And this isn't actually a new
+
+290
+00:07:58,186 --> 0:08:00,596
+And this isn't actually a new
+
+291
+00:08:00,596 --> 0:08:01,016
+feature.
+
+292
+00:08:01,146 --> 0:08:01,986
+This is something you've been
+
+293
+00:08:01,986 --> 0:08:03,586
+able to do on a number of Macs
+
+294
+00:08:03,796 --> 0:08:05,206
+since macOS 10.11.
+
+295
+00:08:06,056 --> 0:08:07,526
+There's two APIs that would help
+
+296
+00:08:07,526 --> 0:08:08,046
+you do this.
+
+297
+00:08:09,096 --> 0:08:10,596
+One of them is
+
+298
+00:08:10,596 --> 0:08:12,416
+NSScreen.maximumExtended
+
+299
+00:08:12,416 --> 0:08:14,436
+DynamicRangeColorComponentValue.
+
+300
+00:08:15,596 --> 0:08:16,576
+It actually does stuff.
+
+301
+00:08:16,576 --> 0:08:17,846
+It's not just the longest
+
+302
+00:08:17,846 --> 0:08:19,116
+Objective-C property name you've
+
+303
+00:08:19,116 --> 0:08:19,576
+ever seen.
+
+304
+00:08:20,066 --> 0:08:22,626
+And what we would do is when
+
+305
+00:08:22,626 --> 0:08:23,946
+your system was in the Extended
+
+306
+00:08:23,946 --> 0:08:25,626
+Dynamic Range mode, it would go
+
+307
+00:08:25,626 --> 0:08:26,856
+ahead and tell you the maximum
+
+308
+00:08:26,856 --> 0:08:28,216
+component value you could use
+
+309
+00:08:28,216 --> 0:08:29,596
+before clipping would happen, so
+
+310
+00:08:29,596 --> 0:08:31,786
+that could be 1.3 for example.
+
+311
+00:08:33,236 --> 0:08:34,426
+If the system wasn't in this
+
+312
+00:08:34,426 --> 0:08:37,006
+mode, it would just return 1.0.
+
+313
+00:08:37,296 --> 0:08:38,596
+So you put the system in this
+
+314
+00:08:38,596 --> 0:08:40,076
+mode using a different API and
+
+315
+00:08:40,176 --> 0:08:41,936
+that is CAMetalLayer.wants
+
+316
+00:08:41,936 --> 0:08:43,586
+ExtendedDynamicRangeContent.
+
+317
+00:08:44,196 --> 0:08:45,046
+There is also an API
+
+318
+00:08:45,366 --> 0:08:46,626
+NSOpenGLView called
+
+319
+00:08:46,626 --> 0:08:47,816
+wantsExtendedDynamic
+
+320
+00:08:47,816 --> 0:08:49,426
+RangeOpenGLSurface.
+
+321
+00:08:49,426 --> 0:08:50,476
+And when either of those is set
+
+322
+00:08:50,476 --> 0:08:51,866
+to true, you can get that extra
+
+323
+00:08:51,866 --> 0:08:52,856
+headroom from this API.
+
+324
+00:08:53,906 --> 0:08:55,936
+So something we've added in
+
+325
+00:08:55,936 --> 0:08:58,426
+macOS 10.15 isn't even longer
+
+326
+00:08:58,426 --> 0:08:59,576
+Objective-C property name.
+
+327
+00:08:59,706 --> 0:09:02,216
+The important bit is actually
+
+328
+00:08:59,706 --> 0:09:02,216
+The important bit is actually
+
+329
+00:09:02,216 --> 0:09:02,736
+shorter.
+
+330
+00:09:02,936 --> 0:09:04,426
+That's the maximum potential
+
+331
+00:09:04,426 --> 0:09:04,736
+piece.
+
+332
+00:09:05,376 --> 0:09:06,646
+And this will tell you that
+
+333
+00:09:06,646 --> 0:09:08,086
+headroom, that maximum value,
+
+334
+00:09:08,336 --> 0:09:10,066
+even if the system isn't in the
+
+335
+00:09:10,126 --> 0:09:11,926
+extended dynamic range mode, and
+
+336
+00:09:12,376 --> 0:09:14,426
+that can be very useful if you
+
+337
+00:09:14,426 --> 0:09:15,436
+are working with extended
+
+338
+00:09:15,436 --> 0:09:16,736
+dynamic range content, you might
+
+339
+00:09:16,736 --> 0:09:18,486
+have multiple possible pipelines
+
+340
+00:09:18,486 --> 0:09:19,716
+you can send your image data
+
+341
+00:09:19,716 --> 0:09:20,036
+through.
+
+342
+00:09:20,526 --> 0:09:22,136
+And a floating-point pipeline
+
+343
+00:09:22,136 --> 0:09:23,596
+for extended content is probably
+
+344
+00:09:23,596 --> 0:09:25,496
+more expensive than a BGRA
+
+345
+00:09:25,496 --> 0:09:26,566
+pipeline, for example.
+
+346
+00:09:26,616 --> 0:09:28,146
+So knowing that you have that
+
+347
+00:09:28,146 --> 0:09:29,286
+headroom to play with ahead of
+
+348
+00:09:29,286 --> 0:09:31,216
+time let you conditionalize that
+
+349
+00:09:31,216 --> 0:09:31,606
+support.
+
+350
+00:09:32,916 --> 0:09:35,296
+So there's another API I want to
+
+351
+00:09:35,296 --> 0:09:37,586
+talk about specifically for the
+
+352
+00:09:37,586 --> 0:09:38,716
+new Apple display we saw
+
+353
+00:09:38,716 --> 0:09:39,176
+yesterday.
+
+354
+00:09:39,776 --> 0:09:41,606
+And that display is absolutely
+
+355
+00:09:41,606 --> 0:09:43,366
+amazing because of how bright it
+
+356
+00:09:43,366 --> 0:09:43,706
+can get.
+
+357
+00:09:43,746 --> 0:09:45,316
+It can sustain a thousand nits
+
+358
+00:09:45,316 --> 0:09:45,906
+indefinitely.
+
+359
+00:09:46,576 --> 0:09:48,446
+And because of that ability, we
+
+360
+00:09:48,446 --> 0:09:49,646
+like to say it's a reference
+
+361
+00:09:49,646 --> 0:09:50,576
+quality display.
+
+362
+00:09:50,606 --> 0:09:52,466
+We can say that for a specific
+
+363
+00:09:52,636 --> 0:09:53,846
+component value, there were will
+
+364
+00:09:53,846 --> 0:09:55,496
+be an absolute number of nits
+
+365
+00:09:55,496 --> 0:09:56,166
+for that pixel.
+
+366
+00:09:56,366 --> 0:09:58,836
+Now, it's very bright but it's
+
+367
+00:09:58,836 --> 0:09:59,976
+not infinitely bright.
+
+368
+00:10:00,046 --> 0:10:02,946
+If you go ahead and produce a
+
+369
+00:10:02,946 --> 0:10:04,346
+bright enough pixel value, it
+
+370
+00:10:04,346 --> 0:10:05,266
+won't actually be able to
+
+371
+00:10:05,266 --> 0:10:06,776
+represent it and that reference
+
+372
+00:10:06,776 --> 0:10:08,036
+quality attribute we talked
+
+373
+00:10:08,036 --> 0:10:09,616
+about will be compromised.
+
+374
+00:10:09,616 --> 0:10:10,836
+We'll have to scale the image
+
+375
+00:10:10,836 --> 0:10:12,506
+content down to fit in the
+
+376
+00:10:12,506 --> 0:10:13,596
+brightness range available.
+
+377
+00:10:14,046 --> 0:10:15,226
+And that's what the NSScreen
+
+378
+00:10:15,226 --> 0:10:16,516
+maximum reference value is
+
+379
+00:10:16,516 --> 0:10:16,966
+telling you.
+
+380
+00:10:17,016 --> 0:10:18,736
+If you exceed this value, you're
+
+381
+00:10:18,736 --> 0:10:19,856
+not going to be able to dish out
+
+382
+00:10:19,856 --> 0:10:20,946
+absolute nits anymore.
+
+383
+00:10:24,056 --> 0:10:27,536
+OK. So I mentioned CAMetalLayer
+
+384
+00:10:27,536 --> 0:10:28,506
+as part of a way of getting
+
+385
+00:10:28,506 --> 0:10:29,976
+extended dynamic range content.
+
+386
+00:10:30,456 --> 0:10:31,776
+And I want to point out
+
+387
+00:10:31,776 --> 0:10:33,256
+something that if you're using
+
+388
+00:10:33,256 --> 0:10:35,096
+MetalLayer on the Mac today, you
+
+389
+00:10:35,096 --> 0:10:36,906
+should be doing, and that you
+
+390
+00:10:36,906 --> 0:10:38,066
+should be paying attention to
+
+391
+00:10:38,066 --> 0:10:39,656
+which screen and which metal
+
+392
+00:10:39,656 --> 0:10:41,166
+device you're going to see
+
+393
+00:10:41,166 --> 0:10:42,096
+MetalLayer is going to be
+
+394
+00:10:42,096 --> 0:10:42,686
+displayed on.
+
+395
+00:10:42,686 --> 0:10:44,666
+That's a little convoluted.
+
+396
+00:10:44,756 --> 0:10:46,376
+You have to get your window and
+
+397
+00:10:46,376 --> 0:10:47,686
+your window screen and your
+
+398
+00:10:47,686 --> 0:10:48,946
+screen's device description.
+
+399
+00:10:49,296 --> 0:10:50,836
+And then you have to ask it for
+
+400
+00:10:50,836 --> 0:10:52,226
+this hard-coded string that you
+
+401
+00:10:52,226 --> 0:10:53,526
+found on our documentation but
+
+402
+00:10:53,526 --> 0:10:54,986
+we never exported in any of our
+
+403
+00:10:54,986 --> 0:10:55,326
+headers.
+
+404
+00:10:56,476 --> 0:10:57,806
+And finally you'll pass that CD
+
+405
+00:10:57,806 --> 0:10:59,356
+direct display to figure out
+
+406
+00:10:59,356 --> 0:11:00,246
+which device to use.
+
+407
+00:10:59,356 --> 0:11:00,246
+which device to use.
+
+408
+00:11:00,956 --> 0:11:02,136
+And it's worth it because that
+
+409
+00:11:02,136 --> 0:11:03,746
+will allow you to avoid moving
+
+410
+00:11:03,746 --> 0:11:05,776
+the data between GPUs across the
+
+411
+00:11:05,776 --> 0:11:08,256
+system bus but we've made this
+
+412
+00:11:08,256 --> 0:11:09,526
+better in macOS 10.15.
+
+413
+00:11:10,206 --> 0:11:12,316
+CAMetalLayer and MetalView have
+
+414
+00:11:12,316 --> 0:11:13,646
+a new preferred device property
+
+415
+00:11:13,646 --> 0:11:14,806
+that will answer that question
+
+416
+00:11:14,806 --> 0:11:15,066
+for you.
+
+417
+00:11:16,536 --> 0:11:17,676
+It really reduces your code
+
+418
+00:11:17,676 --> 0:11:18,276
+around this.
+
+419
+00:11:18,716 --> 0:11:20,426
+So we're excited that you get to
+
+420
+00:11:20,426 --> 0:11:21,106
+use that this year.
+
+421
+00:11:21,316 --> 0:11:24,236
+And that covers what we wanted
+
+422
+00:11:24,236 --> 0:11:25,226
+to say about screens.
+
+423
+00:11:25,456 --> 0:11:27,586
+And now we're going to go into a
+
+424
+00:11:27,586 --> 0:11:28,886
+whole diversity of text
+
+425
+00:11:28,886 --> 0:11:29,316
+features.
+
+426
+00:11:30,086 --> 0:11:31,696
+The first of these I want to
+
+427
+00:11:31,696 --> 0:11:34,346
+mention is NSTextView uses
+
+428
+00:11:34,346 --> 0:11:35,946
+adaptive color mapping for dark
+
+429
+00:11:35,946 --> 0:11:36,486
+appearance.
+
+430
+00:11:36,986 --> 0:11:38,076
+And this is a feature that you
+
+431
+00:11:38,076 --> 0:11:39,506
+can turn on and off and text at
+
+432
+00:11:39,506 --> 0:11:39,656
+it.
+
+433
+00:11:39,696 --> 0:11:41,466
+I have snapshots of them in both
+
+434
+00:11:41,466 --> 0:11:42,576
+the aqua and darkAqua
+
+435
+00:11:42,576 --> 0:11:44,596
+appearances using colors from
+
+436
+00:11:44,596 --> 0:11:46,156
+the system crown crayon picker.
+
+437
+00:11:46,156 --> 0:11:47,256
+And you can see that when this
+
+438
+00:11:47,256 --> 0:11:49,056
+feature is activated, snow and
+
+439
+00:11:49,056 --> 0:11:50,346
+licorice for example almost
+
+440
+00:11:50,346 --> 0:11:51,276
+invert colors.
+
+441
+00:11:51,536 --> 0:11:54,286
+Meanwhile the more saturated and
+
+442
+00:11:54,286 --> 0:11:56,176
+vibrant colors retain that same
+
+443
+00:11:56,176 --> 0:11:57,526
+color character but changed
+
+444
+00:11:57,526 --> 0:11:59,226
+brightness to better match the
+
+445
+00:11:59,226 --> 0:12:00,006
+appearance therein.
+
+446
+00:11:59,226 --> 0:12:00,006
+appearance therein.
+
+447
+00:12:01,356 --> 0:12:02,576
+So this can be very useful for
+
+448
+00:12:02,576 --> 0:12:03,746
+making text use with plain
+
+449
+00:12:03,746 --> 0:12:04,796
+content where you want them to
+
+450
+00:12:04,796 --> 0:12:05,746
+fit in with the current
+
+451
+00:12:05,746 --> 0:12:06,166
+appearance.
+
+452
+00:12:06,586 --> 0:12:07,766
+And it can be very useful for
+
+453
+00:12:07,766 --> 0:12:09,506
+each text documents where the
+
+454
+00:12:09,506 --> 0:12:11,086
+desire to make them fit it is
+
+455
+00:12:11,086 --> 0:12:12,396
+more important than making them
+
+456
+00:12:12,396 --> 0:12:14,626
+appear exactly as they will on a
+
+457
+00:12:14,626 --> 0:12:15,716
+printed page for example.
+
+458
+00:12:16,436 --> 0:12:17,666
+Generally, we think this is the
+
+459
+00:12:17,666 --> 0:12:19,466
+right thing to do but if you
+
+460
+00:12:19,466 --> 0:12:20,626
+have an app that's focused
+
+461
+00:12:20,626 --> 0:12:21,796
+around authoring rich text
+
+462
+00:12:21,796 --> 0:12:23,836
+content, you probably want to
+
+463
+00:12:23,836 --> 0:12:25,636
+either opt out or offer the user
+
+464
+00:12:25,636 --> 0:12:27,316
+the ability to turn this off so
+
+465
+00:12:27,316 --> 0:12:28,946
+they can decide that they want a
+
+466
+00:12:28,946 --> 0:12:30,876
+representation matching printed
+
+467
+00:12:31,346 --> 0:12:33,976
+content more than their screen.
+
+468
+00:12:34,036 --> 0:12:35,746
+So I think most people in this
+
+469
+00:12:35,746 --> 0:12:36,546
+room are familiar with
+
+470
+00:12:36,596 --> 0:12:38,246
+NSSpellChecker if not as a
+
+471
+00:12:38,246 --> 0:12:39,656
+developer then as a user.
+
+472
+00:12:40,426 --> 0:12:42,656
+And in macOS 10.15, we're happy
+
+473
+00:12:42,656 --> 0:12:44,066
+to announce that NSSpellChecker
+
+474
+00:12:44,066 --> 0:12:44,836
+has a successor.
+
+475
+00:12:44,926 --> 0:12:47,276
+And that successor is
+
+476
+00:12:47,406 --> 0:12:48,526
+NSTextCheckingController.
+
+477
+00:12:49,556 --> 0:12:51,896
+So, NSSpellChecker works with
+
+478
+00:12:51,896 --> 0:12:53,376
+NSTextView but
+
+479
+00:12:53,376 --> 0:12:55,226
+NSTextCheckingController works
+
+480
+00:12:55,226 --> 0:12:56,406
+for the variety of systems we
+
+481
+00:12:56,406 --> 0:12:58,736
+use in UIKit and WebKit and
+
+482
+00:12:58,736 --> 0:12:59,406
+AppKit.
+
+483
+00:12:59,406 --> 0:13:00,636
+And you can use it yourself by
+
+484
+00:12:59,406 --> 0:13:00,636
+And you can use it yourself by
+
+485
+00:13:00,636 --> 0:13:02,036
+implementing the NSText checking
+
+486
+00:13:02,036 --> 0:13:03,616
+client protocol.
+
+487
+00:13:03,976 --> 0:13:05,036
+But in addition to spell
+
+488
+00:13:05,036 --> 0:13:06,276
+checking it does other things.
+
+489
+00:13:06,276 --> 0:13:07,236
+It does grammar checking.
+
+490
+00:13:07,516 --> 0:13:09,606
+It can do data detection to find
+
+491
+00:13:09,606 --> 0:13:10,956
+URLs and phone numbers and
+
+492
+00:13:10,956 --> 0:13:11,366
+dates.
+
+493
+00:13:11,926 --> 0:13:13,736
+And you can control all of that
+
+494
+00:13:13,736 --> 0:13:15,896
+and configure whether it's going
+
+495
+00:13:15,896 --> 0:13:16,916
+to a merely highlight
+
+496
+00:13:16,916 --> 0:13:18,516
+misspellings or automatically
+
+497
+00:13:18,516 --> 0:13:19,036
+correct them.
+
+498
+00:13:19,496 --> 0:13:20,706
+So we think it's a very flexible
+
+499
+00:13:20,706 --> 0:13:22,176
+API and if you're big on text
+
+500
+00:13:22,176 --> 0:13:23,546
+input, it's something worth
+
+501
+00:13:23,546 --> 0:13:24,666
+checking out.
+
+502
+00:13:25,356 --> 0:13:27,246
+The small edition related to
+
+503
+00:13:27,246 --> 0:13:29,506
+text is that almost all of the
+
+504
+00:13:29,596 --> 0:13:31,396
+NSText related classes support
+
+505
+00:13:31,396 --> 0:13:32,226
+secure coding now.
+
+506
+00:13:32,566 --> 0:13:34,386
+So if you wanted to use these as
+
+507
+00:13:34,386 --> 0:13:36,786
+part of a vocabulary over NSText
+
+508
+00:13:36,786 --> 0:13:39,126
+PC connection, they will work
+
+509
+00:13:39,126 --> 0:13:39,746
+splendidly.
+
+510
+00:13:42,596 --> 0:13:45,566
+We're probably all familiar with
+
+511
+00:13:45,626 --> 0:13:47,776
+NSFont and slightly few of us
+
+512
+00:13:47,776 --> 0:13:48,486
+are familiar with
+
+513
+00:13:48,486 --> 0:13:49,396
+NSFontDescriptor.
+
+514
+00:13:49,886 --> 0:13:52,836
+NSFontDescriptor is a neat class
+
+515
+00:13:53,206 --> 0:13:54,666
+that lets us look up and
+
+516
+00:13:54,666 --> 0:13:56,296
+transform fonts using sort of
+
+517
+00:13:56,296 --> 0:13:57,756
+semantic attributes about them.
+
+518
+00:13:58,226 --> 0:13:59,706
+So I made a little sample up
+
+519
+00:13:59,706 --> 0:13:59,976
+here.
+
+520
+00:14:00,746 --> 0:14:02,806
+And the top row is a font I've
+
+521
+00:14:02,806 --> 0:14:04,246
+hard-coded in Interface Builder.
+
+522
+00:14:04,806 --> 0:14:06,466
+But the subsequent rows I've
+
+523
+00:14:06,466 --> 0:14:07,516
+configured using the
+
+524
+00:14:07,516 --> 0:14:08,946
+NSFontDescriptor system design
+
+525
+00:14:08,946 --> 0:14:11,036
+API which is new in macOS 10.15.
+
+526
+00:14:11,356 --> 0:14:13,506
+And lets me go ahead and say, I
+
+527
+00:14:13,506 --> 0:14:14,856
+want to switch to a rounder font
+
+528
+00:14:14,856 --> 0:14:16,436
+or a Serif version or a
+
+529
+00:14:16,436 --> 0:14:17,256
+monospaced font.
+
+530
+00:14:17,256 --> 0:14:19,586
+And there's a session about this
+
+531
+00:14:19,586 --> 0:14:20,526
+which we'll go on to much
+
+532
+00:14:20,526 --> 0:14:21,806
+greater detail about it but we
+
+533
+00:14:21,806 --> 0:14:23,276
+think this is a great way of
+
+534
+00:14:23,276 --> 0:14:24,676
+stylizing your applications.
+
+535
+00:14:25,006 --> 0:14:30,516
+So, if anyone has a
+
+536
+00:14:30,516 --> 0:14:32,956
+cross-platform app where they
+
+537
+00:14:32,956 --> 0:14:34,556
+are writing rich text documents
+
+538
+00:14:34,736 --> 0:14:36,896
+on both macOS and iOS or even in
+
+539
+00:14:36,896 --> 0:14:38,286
+app that has not cross-platform
+
+540
+00:14:38,286 --> 0:14:39,506
+where they are reading documents
+
+541
+00:14:39,506 --> 0:14:41,346
+from the other platform, you may
+
+542
+00:14:41,346 --> 0:14:43,226
+have hit a situation where even
+
+543
+00:14:43,226 --> 0:14:44,466
+though the document is
+
+544
+00:14:44,466 --> 0:14:46,226
+specifying the same font sizes,
+
+545
+00:14:46,526 --> 0:14:47,686
+they visually look very
+
+546
+00:14:47,686 --> 0:14:48,046
+different.
+
+547
+00:14:48,166 --> 0:14:49,746
+And that's because we have very
+
+548
+00:14:49,746 --> 0:14:50,836
+different screen densities
+
+549
+00:14:50,866 --> 0:14:52,406
+between our iOS devices and Mac
+
+550
+00:14:52,406 --> 0:14:52,946
+devices.
+
+551
+00:14:53,136 --> 0:14:57,076
+In macOS 10.15, we have new
+
+552
+00:14:57,076 --> 0:14:59,316
+attributed string APIs that you
+
+553
+00:14:59,316 --> 0:15:00,756
+can use when reading and writing
+
+554
+00:14:59,316 --> 0:15:00,756
+can use when reading and writing
+
+555
+00:15:01,056 --> 0:15:02,616
+attributed strings to rich text
+
+556
+00:15:02,616 --> 0:15:03,176
+documents.
+
+557
+00:15:03,736 --> 0:15:05,426
+And you can tell us what the
+
+558
+00:15:05,426 --> 0:15:07,106
+source and destination operating
+
+559
+00:15:07,106 --> 0:15:08,696
+systems are and we will
+
+560
+00:15:08,696 --> 0:15:11,066
+automatically adjust font sizes
+
+561
+00:15:11,436 --> 0:15:12,636
+to make them appear visually the
+
+562
+00:15:12,636 --> 0:15:12,986
+same.
+
+563
+00:15:13,816 --> 0:15:15,576
+In this case we brought our 160
+
+564
+00:15:15,576 --> 0:15:17,186
+point font down to 120 point
+
+565
+00:15:17,516 --> 0:15:18,636
+which is roughly where they're
+
+566
+00:15:18,636 --> 0:15:20,186
+visually the same height.
+
+567
+00:15:21,476 --> 0:15:25,096
+The last text feature I want to
+
+568
+00:15:25,096 --> 0:15:27,076
+talk about is an addition to
+
+569
+00:15:27,076 --> 0:15:29,086
+NSLayoutManager called
+
+570
+00:15:29,086 --> 0:15:30,326
+usesDefaultHyphenation.
+
+571
+00:15:30,996 --> 0:15:32,856
+And in the past, you'd be able
+
+572
+00:15:32,856 --> 0:15:34,306
+to get the NSText Class that's
+
+573
+00:15:34,306 --> 0:15:36,046
+hyphenate for you by using an
+
+574
+00:15:36,046 --> 0:15:38,296
+NSParagraph style to control the
+
+575
+00:15:38,296 --> 0:15:39,306
+threshold of hyphenation.
+
+576
+00:15:40,016 --> 0:15:41,606
+This layout manager property is
+
+577
+00:15:41,606 --> 0:15:42,816
+a little bit easier to use.
+
+578
+00:15:43,106 --> 0:15:44,306
+It defaults to off, in which
+
+579
+00:15:44,306 --> 0:15:45,726
+case you get no hyphenation like
+
+580
+00:15:45,726 --> 0:15:46,266
+on the left.
+
+581
+00:15:46,626 --> 0:15:47,876
+And if you set in on it we'll
+
+582
+00:15:47,876 --> 0:15:48,866
+pick up a default value for
+
+583
+00:15:48,866 --> 0:15:49,376
+hyphenation.
+
+584
+00:15:49,566 --> 0:15:50,636
+And you can see on the right
+
+585
+00:15:50,706 --> 0:15:51,616
+that we've hyphenated
+
+586
+00:15:51,756 --> 0:15:52,646
+encyclopedia and
+
+587
+00:15:52,786 --> 0:15:53,936
+internationalization.
+
+588
+00:15:55,726 --> 0:15:57,756
+So we think these text APIs will
+
+589
+00:15:57,756 --> 0:15:59,116
+really help you polish the
+
+590
+00:15:59,116 --> 0:16:00,416
+corners and edges around your
+
+591
+00:15:59,116 --> 0:16:00,416
+corners and edges around your
+
+592
+00:16:00,416 --> 0:16:00,976
+text systems.
+
+593
+00:16:04,446 --> 0:16:05,726
+We have some great new stuff in
+
+594
+00:16:05,856 --> 0:16:06,436
+NSToolbar.
+
+595
+00:16:07,546 --> 0:16:09,376
+The first edition is a new
+
+596
+00:16:09,376 --> 0:16:11,836
+property on NSToolbarItem called
+
+597
+00:16:11,836 --> 0:16:12,566
+isBordered.
+
+598
+00:16:14,256 --> 0:16:15,756
+In the past, if you wanted to
+
+599
+00:16:15,756 --> 0:16:17,106
+get this push button style
+
+600
+00:16:17,106 --> 0:16:19,586
+appearance in an NSToolbar, you
+
+601
+00:16:19,586 --> 0:16:20,876
+would have to allocate your own
+
+602
+00:16:21,076 --> 0:16:22,606
+NS-- or instance of NS button
+
+603
+00:16:22,746 --> 0:16:24,376
+and configure it and then you'd
+
+604
+00:16:24,376 --> 0:16:26,296
+use it as a custom view on your
+
+605
+00:16:26,296 --> 0:16:26,896
+toolbar item.
+
+606
+00:16:27,046 --> 0:16:28,876
+And that would work but it was
+
+607
+00:16:28,876 --> 0:16:30,446
+extra effort for you and
+
+608
+00:16:30,446 --> 0:16:31,766
+additionally you couldn't take
+
+609
+00:16:31,766 --> 0:16:33,586
+advantage of NSToolbarItems
+
+610
+00:16:33,586 --> 0:16:35,536
+built in support for automatic
+
+611
+00:16:35,536 --> 0:16:36,936
+enabling and disabling.
+
+612
+00:16:37,806 --> 0:16:39,366
+But if you go ahead and use this
+
+613
+00:16:39,366 --> 0:16:40,846
+isBordered property, you'll get
+
+614
+00:16:40,846 --> 0:16:41,706
+all of that for free.
+
+615
+00:16:42,876 --> 0:16:45,516
+Additionally, NSToolbarItem has
+
+616
+00:16:45,516 --> 0:16:47,376
+a new title property which lets
+
+617
+00:16:47,376 --> 0:16:48,836
+you configure your toolbar items
+
+618
+00:16:49,216 --> 0:16:50,676
+to be a string-based buttons
+
+619
+00:16:50,676 --> 0:16:52,386
+instead of iconic ones.
+
+620
+00:16:52,856 --> 0:16:54,196
+And this is distinct from the
+
+621
+00:16:54,196 --> 0:16:55,416
+label property which would
+
+622
+00:16:55,416 --> 0:16:57,386
+appear below these buttons if we
+
+623
+00:16:57,386 --> 0:16:58,456
+had configured the toolbar as
+
+624
+00:16:58,456 --> 0:16:59,226
+your labels as well.
+
+625
+00:16:59,316 --> 0:17:02,946
+And that is not the NSToolbar
+
+626
+00:16:59,316 --> 0:17:02,946
+And that is not the NSToolbar
+
+627
+00:17:02,946 --> 0:17:04,306
+related class to gain
+
+628
+00:17:04,306 --> 0:17:05,986
+functionality in macOS 10.15.
+
+629
+00:17:07,056 --> 0:17:08,806
+We have also added a number of
+
+630
+00:17:08,806 --> 0:17:10,556
+features to NSToolbarItem group
+
+631
+00:17:10,556 --> 0:17:11,965
+to make it incredibly versatile
+
+632
+00:17:11,965 --> 0:17:12,376
+and useful.
+
+633
+00:17:12,846 --> 0:17:14,356
+And the first of these is a
+
+634
+00:17:14,356 --> 0:17:15,486
+number of convenience
+
+635
+00:17:15,486 --> 0:17:17,175
+constructors for it, and these
+
+636
+00:17:17,175 --> 0:17:18,486
+are just going to let you build
+
+637
+00:17:18,486 --> 0:17:20,886
+the same great toolbar UIs in
+
+638
+00:17:20,886 --> 0:17:21,866
+fewer lines of code.
+
+639
+00:17:22,096 --> 0:17:24,175
+But NSToolbarItem group has
+
+640
+00:17:24,175 --> 0:17:25,526
+become more flexible at the same
+
+641
+00:17:25,526 --> 0:17:25,896
+time.
+
+642
+00:17:26,566 --> 0:17:27,606
+If you look at the image on the
+
+643
+00:17:27,606 --> 0:17:29,226
+right side of the screen, you
+
+644
+00:17:29,226 --> 0:17:30,716
+can see that it now has support
+
+645
+00:17:30,716 --> 0:17:32,146
+for representing its items as a
+
+646
+00:17:32,146 --> 0:17:34,026
+segmented control and it can
+
+647
+00:17:34,026 --> 0:17:36,056
+also represent them as pull-down
+
+648
+00:17:36,056 --> 0:17:37,136
+and pop-up menus too.
+
+649
+00:17:37,546 --> 0:17:39,046
+And so this makes it a very
+
+650
+00:17:39,046 --> 0:17:40,146
+versatile toolbar control
+
+651
+00:17:40,146 --> 0:17:42,476
+because of the way is uses the
+
+652
+00:17:42,476 --> 0:17:43,446
+other toolbar items as
+
+653
+00:17:43,446 --> 0:17:44,846
+vocabulary, we can also
+
+654
+00:17:44,846 --> 0:17:46,246
+automatically create a collapsed
+
+655
+00:17:46,246 --> 0:17:47,916
+representation for when you have
+
+656
+00:17:47,916 --> 0:17:49,546
+too many toolbar items for the
+
+657
+00:17:49,546 --> 0:17:50,826
+window widths.
+
+658
+00:17:54,436 --> 0:17:56,416
+There is a very similar effect
+
+659
+00:17:56,416 --> 0:17:57,596
+you can get using a new
+
+660
+00:17:57,746 --> 0:17:59,306
+NSMenuToolbarItem class.
+
+661
+00:18:00,016 --> 0:18:01,756
+And this is much like the menu
+
+662
+00:18:01,756 --> 0:18:03,476
+item representations of the
+
+663
+00:18:03,476 --> 0:18:06,056
+toolbar item group but it uses
+
+664
+00:18:06,056 --> 0:18:07,716
+an NSMenu as currency instead.
+
+665
+00:18:08,396 --> 0:18:09,966
+And that's significant because
+
+666
+00:18:09,966 --> 0:18:11,506
+you can use NSMenu features like
+
+667
+00:18:11,506 --> 0:18:14,276
+submenus or separator items or
+
+668
+00:18:14,276 --> 0:18:15,556
+even the ability to use a custom
+
+669
+00:18:15,556 --> 0:18:16,676
+view for your menu items.
+
+670
+00:18:16,866 --> 0:18:19,536
+So it's a very powerful tool if
+
+671
+00:18:19,536 --> 0:18:20,776
+you want to have sophisticated
+
+672
+00:18:20,776 --> 0:18:22,486
+drill-down behaviors in your
+
+673
+00:18:24,256 --> 0:18:24,646
+toolbar.
+
+674
+00:18:24,746 --> 0:18:26,346
+NSTouchBar has also received a
+
+675
+00:18:26,346 --> 0:18:28,246
+few enhancements in macOS 10.15.
+
+676
+00:18:28,876 --> 0:18:29,876
+The first of these I want to
+
+677
+00:18:29,876 --> 0:18:32,156
+note is a new class property on
+
+678
+00:18:32,216 --> 0:18:33,726
+NSTouchBar itself and that's
+
+679
+00:18:33,726 --> 0:18:35,086
+isAutomaticCustomize
+
+680
+00:18:35,086 --> 0:18:36,346
+TouchBarMenuItemEndabled.
+
+681
+00:18:36,896 --> 0:18:38,216
+And that will sound familiar NS
+
+682
+00:18:38,216 --> 0:18:40,106
+application has that exact same
+
+683
+00:18:40,106 --> 0:18:40,556
+property.
+
+684
+00:18:41,446 --> 0:18:42,946
+You could use this Touch Bar one
+
+685
+00:18:43,446 --> 0:18:44,916
+in a code where you want to
+
+686
+00:18:44,916 --> 0:18:46,056
+defactor in such a way to not
+
+687
+00:18:46,056 --> 0:18:47,346
+reference the NSApplication.
+
+688
+00:18:47,666 --> 0:18:49,146
+And one example of that is if
+
+689
+00:18:49,146 --> 0:18:49,986
+you're writing UIKit
+
+690
+00:18:49,986 --> 0:18:51,316
+application, you're not going to
+
+691
+00:18:51,316 --> 0:18:52,796
+have an NSApplication instance
+
+692
+00:18:52,796 --> 0:18:53,526
+to talk to anyway.
+
+693
+00:18:54,166 --> 0:18:57,886
+A more significant control is
+
+694
+00:18:57,886 --> 0:19:00,166
+the new NSStepper Touch Bar Item
+
+695
+00:18:57,886 --> 0:19:00,166
+the new NSStepper Touch Bar Item
+
+696
+00:19:00,166 --> 0:19:00,606
+class.
+
+697
+00:19:01,286 --> 0:19:03,296
+Just like an onscreen stepper,
+
+698
+00:19:03,576 --> 0:19:04,696
+this is very useful for when
+
+699
+00:19:04,696 --> 0:19:06,206
+you're doing a discrete entry
+
+700
+00:19:06,206 --> 0:19:07,566
+for things such as dates and
+
+701
+00:19:07,566 --> 0:19:09,766
+numbers but given the larger
+
+702
+00:19:09,766 --> 0:19:11,046
+size in the Touch Bar and the
+
+703
+00:19:11,046 --> 0:19:12,706
+horizontal layout, you can also
+
+704
+00:19:12,706 --> 0:19:13,966
+use this for new applications
+
+705
+00:19:13,966 --> 0:19:15,996
+like visually selecting the tool
+
+706
+00:19:15,996 --> 0:19:17,136
+on a drawing app.
+
+707
+00:19:17,416 --> 0:19:18,606
+So we're really excited about
+
+708
+00:19:18,606 --> 0:19:19,856
+this new Touch Bar Item class.
+
+709
+00:19:19,856 --> 0:19:21,186
+We think you'll be able to put
+
+710
+00:19:21,186 --> 0:19:22,326
+it to good use in your
+
+711
+00:19:22,326 --> 0:19:23,016
+applications.
+
+712
+00:19:24,236 --> 0:19:26,446
+NSSlider Touch Bar Item has a
+
+713
+00:19:26,446 --> 0:19:28,906
+few small enhancements too.
+
+714
+00:19:28,906 --> 0:19:30,296
+You may have experienced a case
+
+715
+00:19:30,296 --> 0:19:31,556
+were used an NSSlider Touch Bar
+
+716
+00:19:31,556 --> 0:19:32,746
+Item and it was a little bit too
+
+717
+00:19:32,746 --> 0:19:33,776
+small for your taste.
+
+718
+00:19:34,666 --> 0:19:36,276
+You could fix this by grabbing
+
+719
+00:19:36,276 --> 0:19:38,166
+the slider from the Touch Bar
+
+720
+00:19:38,166 --> 0:19:39,936
+Item instance and adding auto
+
+721
+00:19:39,936 --> 0:19:40,946
+layout constraints to it.
+
+722
+00:19:40,946 --> 0:19:44,416
+In macOS 10.15, you can just set
+
+723
+00:19:44,416 --> 0:19:45,346
+the minimum slider width
+
+724
+00:19:45,346 --> 0:19:46,546
+directly on the item and we'll
+
+725
+00:19:46,546 --> 0:19:47,456
+take care of that for you.
+
+726
+00:19:48,396 --> 0:19:50,516
+Similarly, if your slider has
+
+727
+00:19:50,596 --> 0:19:52,346
+global ambitions, you can now
+
+728
+00:19:52,346 --> 0:19:53,876
+check them by using the maximum
+
+729
+00:19:53,876 --> 0:19:54,736
+slider width property.
+
+730
+00:19:56,256 --> 0:19:59,146
+And lastly, we'll talk a little
+
+731
+00:19:59,146 --> 0:19:59,976
+bit about sidebar metrics.
+
+732
+00:20:00,086 --> 0:20:03,196
+In macOS 10.15 you can toggle
+
+733
+00:20:03,196 --> 0:20:05,026
+the size of a sidebar using the
+
+734
+00:20:05,026 --> 0:20:06,316
+setting and the general pane of
+
+735
+00:20:06,316 --> 0:20:07,196
+system preferences.
+
+736
+00:20:07,306 --> 0:20:09,986
+And we default to medium but you
+
+737
+00:20:09,986 --> 0:20:11,596
+can also use small and large.
+
+738
+00:20:12,436 --> 0:20:13,536
+And I want to call this out
+
+739
+00:20:13,536 --> 0:20:14,856
+because if you haven't known
+
+740
+00:20:14,856 --> 0:20:16,046
+about this feature you maybe
+
+741
+00:20:16,046 --> 0:20:17,666
+have not been including artwork
+
+742
+00:20:17,666 --> 0:20:18,836
+appropriate for the small and
+
+743
+00:20:18,836 --> 0:20:19,466
+large sizes.
+
+744
+00:20:19,466 --> 0:20:20,816
+So if you're using bitmap
+
+745
+00:20:20,816 --> 0:20:21,906
+artwork, go ahead and have
+
+746
+00:20:21,906 --> 0:20:23,686
+representations for that or use
+
+747
+00:20:23,686 --> 0:20:24,866
+a resolution independent
+
+748
+00:20:24,866 --> 0:20:25,206
+version.
+
+749
+00:20:25,446 --> 0:20:27,506
+Similarly, there's a new feature
+
+750
+00:20:27,506 --> 0:20:29,356
+in macOS 10.15 to allow
+
+751
+00:20:29,356 --> 0:20:30,886
+automatically picking the light
+
+752
+00:20:30,886 --> 0:20:32,186
+and the dark appearance, that's
+
+753
+00:20:32,186 --> 0:20:33,946
+also available in the general
+
+754
+00:20:33,946 --> 0:20:34,013
+[inaudible].
+
+755
+00:20:34,013 --> 0:20:38,776
+OK. We covered controls for
+
+756
+00:20:38,776 --> 0:20:40,326
+toolbars and Touch Bars.
+
+757
+00:20:40,326 --> 0:20:41,876
+Let's talk about some controls
+
+758
+00:20:41,876 --> 0:20:43,346
+that are more broadly
+
+759
+00:20:43,406 --> 0:20:43,966
+applicable.
+
+760
+00:20:45,196 --> 0:20:46,776
+The first of these, we're
+
+761
+00:20:46,776 --> 0:20:47,646
+excited to announce this is
+
+762
+00:20:47,796 --> 0:20:48,336
+NSSwitch.
+
+763
+00:20:48,606 --> 0:20:50,716
+And NSSwitch is a full subclass
+
+764
+00:20:50,716 --> 0:20:51,326
+of NSControl.
+
+765
+00:20:51,586 --> 0:20:52,806
+It supports bindings, it
+
+766
+00:20:52,806 --> 0:20:55,846
+supports formatters, but it
+
+767
+00:20:55,846 --> 0:20:57,966
+exists alongside the existing
+
+768
+00:20:57,966 --> 0:20:59,016
+check box functionality.
+
+769
+00:20:59,626 --> 0:21:01,046
+A question you probably have in
+
+770
+00:20:59,626 --> 0:21:01,046
+A question you probably have in
+
+771
+00:21:01,046 --> 0:21:02,316
+your mind is when should I use
+
+772
+00:21:02,316 --> 0:21:03,686
+NSSwitch and when should I use a
+
+773
+00:21:03,686 --> 0:21:04,306
+checkbox?
+
+774
+00:21:04,786 --> 0:21:06,286
+And if you are already using a
+
+775
+00:21:06,286 --> 0:21:07,886
+checkbox, you should probably
+
+776
+00:21:07,886 --> 0:21:09,046
+keep using a checkbox.
+
+777
+00:21:09,046 --> 0:21:10,116
+They're generally the right
+
+778
+00:21:10,116 --> 0:21:10,846
+control to use.
+
+779
+00:21:11,746 --> 0:21:13,796
+We think NSSwitches are better
+
+780
+00:21:13,796 --> 0:21:15,076
+used when you have a really
+
+781
+00:21:15,076 --> 0:21:16,556
+heavy toggle, something that's
+
+782
+00:21:16,556 --> 0:21:17,846
+toggling a lot of functionality
+
+783
+00:21:17,846 --> 0:21:19,096
+on and off.
+
+784
+00:21:19,096 --> 0:21:20,876
+And in this example I have here,
+
+785
+00:21:21,216 --> 0:21:22,806
+we have a master toggle on the
+
+786
+00:21:22,806 --> 0:21:23,826
+left which is going to enable
+
+787
+00:21:24,066 --> 0:21:26,026
+all of the individual sharing
+
+788
+00:21:26,026 --> 0:21:26,976
+services on the right.
+
+789
+00:21:32,046 --> 0:21:34,386
+In macOS 10.15, we've invested a
+
+790
+00:21:34,386 --> 0:21:35,326
+lot of effort in
+
+791
+00:21:35,326 --> 0:21:36,086
+NSCollectionView.
+
+792
+00:21:36,426 --> 0:21:37,826
+And one of the things we're
+
+793
+00:21:37,826 --> 0:21:39,796
+excited to talk about is
+
+794
+00:21:39,796 --> 0:21:40,776
+compositional layout.
+
+795
+00:21:40,776 --> 0:21:42,956
+And in this scheme, you no
+
+796
+00:21:42,956 --> 0:21:44,256
+longer need to subclass
+
+797
+00:21:44,316 --> 0:21:46,096
+NSCollectionView layout to
+
+798
+00:21:46,096 --> 0:21:46,646
+modify it.
+
+799
+00:21:46,646 --> 0:21:48,976
+There are number of interesting
+
+800
+00:21:48,976 --> 0:21:51,276
+features you can throw in, such
+
+801
+00:21:51,276 --> 0:21:53,036
+as container-relative sizing,
+
+802
+00:21:53,316 --> 0:21:54,896
+layout breaks and sections as
+
+803
+00:21:54,896 --> 0:21:56,586
+well as nestable groups, and
+
+804
+00:21:56,586 --> 0:21:57,916
+also making individual sections
+
+805
+00:21:57,916 --> 0:21:58,546
+scrollable.
+
+806
+00:21:58,886 --> 0:22:00,326
+And of course, all of that works
+
+807
+00:21:58,886 --> 0:22:00,326
+And of course, all of that works
+
+808
+00:22:00,326 --> 0:22:01,756
+in both right to left and left
+
+809
+00:22:01,756 --> 0:22:02,536
+to right languages.
+
+810
+00:22:04,326 --> 0:22:05,676
+There's also a new collection
+
+811
+00:22:05,676 --> 0:22:07,306
+view feature called diffable
+
+812
+00:22:07,306 --> 0:22:08,016
+data sources.
+
+813
+00:22:08,076 --> 0:22:11,196
+And these are identifier-based
+
+814
+00:22:11,196 --> 0:22:12,556
+data sources that let us track
+
+815
+00:22:12,556 --> 0:22:13,636
+things like the addition or
+
+816
+00:22:13,636 --> 0:22:15,156
+removal of items or the movement
+
+817
+00:22:15,156 --> 0:22:16,826
+of an item between two locations
+
+818
+00:22:17,136 --> 0:22:18,536
+and we can automatically infer
+
+819
+00:22:18,536 --> 0:22:19,926
+the right animations to use.
+
+820
+00:22:20,396 --> 0:22:21,466
+So this means you won't have to
+
+821
+00:22:21,466 --> 0:22:23,356
+use performBatchUpdates or
+
+822
+00:22:23,356 --> 0:22:24,626
+reloadData.
+
+823
+00:22:27,796 --> 0:22:30,136
+OK, backing away from specific
+
+824
+00:22:30,136 --> 0:22:32,346
+controls to an IB feature.
+
+825
+00:22:32,546 --> 0:22:34,996
+IB storyboards are a really
+
+826
+00:22:34,996 --> 0:22:36,666
+great way of connecting the
+
+827
+00:22:36,666 --> 0:22:38,166
+various view controllers in your
+
+828
+00:22:38,166 --> 0:22:38,756
+application.
+
+829
+00:22:40,346 --> 0:22:42,836
+And historically, your view
+
+830
+00:22:42,836 --> 0:22:44,076
+controller would be initialized
+
+831
+00:22:44,076 --> 0:22:45,256
+through in it with coder and
+
+832
+00:22:45,256 --> 0:22:46,656
+you'd have to find a different
+
+833
+00:22:46,656 --> 0:22:48,456
+way of getting different
+
+834
+00:22:48,456 --> 0:22:49,296
+information into the view
+
+835
+00:22:49,296 --> 0:22:49,746
+controller.
+
+836
+00:22:49,746 --> 0:22:51,956
+That wasn't necessarily
+
+837
+00:22:51,956 --> 0:22:53,076
+difficult but it did mean your
+
+838
+00:22:53,076 --> 0:22:54,396
+code was factored maybe more
+
+839
+00:22:54,396 --> 0:22:55,406
+broadly than you wanted.
+
+840
+00:22:55,756 --> 0:22:57,506
+If you look at the snippet here
+
+841
+00:22:57,506 --> 0:22:59,116
+you can I have a function called
+
+842
+00:22:59,116 --> 0:23:01,926
+showPetDetails and this returns
+
+843
+00:22:59,116 --> 0:23:01,926
+showPetDetails and this returns
+
+844
+00:23:01,926 --> 0:23:03,566
+a new view controller passing
+
+845
+00:23:03,566 --> 0:23:06,586
+along a coder from IB as well as
+
+846
+00:23:06,586 --> 0:23:07,876
+inserting our own notion of a
+
+847
+00:23:07,876 --> 0:23:08,756
+selected pet name.
+
+848
+00:23:10,256 --> 0:23:11,316
+So this is a great way of
+
+849
+00:23:11,316 --> 0:23:12,316
+bundling those separate
+
+850
+00:23:12,316 --> 0:23:13,696
+initialization and configuration
+
+851
+00:23:13,696 --> 0:23:14,116
+steps.
+
+852
+00:23:14,936 --> 0:23:16,506
+And the other important thing to
+
+853
+00:23:16,506 --> 0:23:18,146
+note about this is there's this
+
+854
+00:23:18,266 --> 0:23:20,246
+IBSegueAction annotation
+
+855
+00:23:20,246 --> 0:23:21,216
+attached to this function.
+
+856
+00:23:21,776 --> 0:23:23,786
+And by doing that, we can go to
+
+857
+00:23:23,786 --> 0:23:25,046
+the connections inspector and
+
+858
+00:23:25,046 --> 0:23:26,726
+interface builder for our segue
+
+859
+00:23:27,386 --> 0:23:28,796
+and wire it up directly to this
+
+860
+00:23:28,796 --> 0:23:29,096
+method.
+
+861
+00:23:30,206 --> 0:23:31,646
+So we think this is very useful
+
+862
+00:23:31,886 --> 0:23:33,376
+for adding extra configuration
+
+863
+00:23:33,376 --> 0:23:34,426
+into your view controllers and
+
+864
+00:23:34,426 --> 0:23:34,976
+storyboards.
+
+865
+00:23:40,636 --> 0:23:43,006
+So, a great feature of all
+
+866
+00:23:43,006 --> 0:23:44,606
+AppKit controls is how they
+
+867
+00:23:44,606 --> 0:23:45,496
+support auto layout.
+
+868
+00:23:46,096 --> 0:23:47,656
+They automatically know how to
+
+869
+00:23:47,656 --> 0:23:49,176
+measure their content and feed
+
+870
+00:23:49,176 --> 0:23:50,406
+that into auto layout engine.
+
+871
+00:23:50,406 --> 0:23:52,516
+And that means that you can do
+
+872
+00:23:52,516 --> 0:23:54,066
+things like change the strings
+
+873
+00:23:54,066 --> 0:23:55,496
+on these text fields and buttons
+
+874
+00:23:55,716 --> 0:23:56,786
+and auto layout would just
+
+875
+00:23:56,786 --> 0:23:58,446
+automatically reflow view
+
+876
+00:23:58,446 --> 0:23:59,926
+hierarchy and window for us to
+
+877
+00:23:59,926 --> 0:24:00,366
+look great.
+
+878
+00:23:59,926 --> 0:24:00,366
+look great.
+
+879
+00:24:02,756 --> 0:24:05,136
+Sometimes, though, there are UIs
+
+880
+00:24:05,136 --> 0:24:07,026
+where that's actually not
+
+881
+00:24:07,026 --> 0:24:07,586
+important.
+
+882
+00:24:07,796 --> 0:24:09,656
+So in this grid view, it's the
+
+883
+00:24:09,656 --> 0:24:11,516
+grid that is determining the
+
+884
+00:24:11,516 --> 0:24:13,206
+size of everything else and the
+
+885
+00:24:13,206 --> 0:24:14,916
+intrinsic size of these labels
+
+886
+00:24:14,916 --> 0:24:16,016
+doesn't actually matter.
+
+887
+00:24:16,996 --> 0:24:18,426
+But normally, AppKit would still
+
+888
+00:24:18,426 --> 0:24:19,556
+go ahead and measure these
+
+889
+00:24:19,556 --> 0:24:20,696
+controls and feed them into the
+
+890
+00:24:20,696 --> 0:24:22,036
+auto layout engine even though
+
+891
+00:24:22,036 --> 0:24:23,376
+they won't affect the final
+
+892
+00:24:23,376 --> 0:24:23,726
+result.
+
+893
+00:24:24,316 --> 0:24:28,106
+In macOS 10.15, you can turn
+
+894
+00:24:28,106 --> 0:24:28,496
+that off.
+
+895
+00:24:29,306 --> 0:24:31,156
+NSView gains two new properties
+
+896
+00:24:31,456 --> 0:24:32,746
+to turn off the measurement
+
+897
+00:24:32,786 --> 0:24:34,276
+behaviors for both horizontal
+
+898
+00:24:34,276 --> 0:24:35,406
+and vertical axis.
+
+899
+00:24:35,846 --> 0:24:36,996
+And we think that can be a great
+
+900
+00:24:36,996 --> 0:24:38,246
+way of getting back some
+
+901
+00:24:38,246 --> 0:24:40,176
+performance in UIs where you
+
+902
+00:24:40,176 --> 0:24:41,276
+know the intrinsic size of the
+
+903
+00:24:41,276 --> 0:24:42,556
+control isn't going to matter.
+
+904
+00:24:42,916 --> 0:24:48,226
+There's one other controller
+
+905
+00:24:48,226 --> 0:24:49,166
+related thing I want to talk
+
+906
+00:24:49,166 --> 0:24:50,356
+about and it's a bit more broad
+
+907
+00:24:50,356 --> 0:24:51,056
+than NSControl.
+
+908
+00:24:51,056 --> 0:24:53,596
+That's NSResponder and its
+
+909
+00:24:53,596 --> 0:24:56,026
+behavior relating to block
+
+910
+00:24:56,026 --> 0:24:56,406
+capture.
+
+911
+00:24:57,266 --> 0:24:58,876
+So if you look at our snippet on
+
+912
+00:24:58,876 --> 0:25:00,686
+screen, you can see we have two
+
+913
+00:24:58,876 --> 0:25:00,686
+screen, you can see we have two
+
+914
+00:25:00,686 --> 0:25:01,126
+blocks.
+
+915
+00:25:01,126 --> 0:25:02,796
+We have an outer block that's
+
+916
+00:25:02,796 --> 0:25:03,806
+going to be executed on the
+
+917
+00:25:03,806 --> 0:25:05,756
+background thread and we have an
+
+918
+00:25:05,756 --> 0:25:07,216
+inner block that's going to be
+
+919
+00:25:07,216 --> 0:25:08,496
+executed on the main thread.
+
+920
+00:25:09,046 --> 0:25:10,196
+And this is a fairly common
+
+921
+00:25:10,196 --> 0:25:10,576
+pattern.
+
+922
+00:25:10,576 --> 0:25:12,016
+We do our work in the background
+
+923
+00:25:12,496 --> 0:25:13,746
+and then we go ahead and assign
+
+924
+00:25:13,746 --> 0:25:14,876
+the results of that work, to the
+
+925
+00:25:14,876 --> 0:25:16,196
+UI on the main thread.
+
+926
+00:25:16,976 --> 0:25:19,706
+But this snippet in macOS 10.14
+
+927
+00:25:20,076 --> 0:25:21,626
+could have led to crashes and
+
+928
+00:25:21,626 --> 0:25:22,146
+the corruption.
+
+929
+00:25:22,746 --> 0:25:24,276
+And that's because if the only
+
+930
+00:25:24,276 --> 0:25:26,136
+thing retaining this field is
+
+931
+00:25:26,136 --> 0:25:27,996
+these blocks, the order of
+
+932
+00:25:27,996 --> 0:25:29,156
+destruction of the blocks isn't
+
+933
+00:25:29,156 --> 0:25:29,606
+defined.
+
+934
+00:25:30,346 --> 0:25:31,906
+If the outer block, deallocates
+
+935
+00:25:31,906 --> 0:25:33,356
+last, the text field will
+
+936
+00:25:33,356 --> 0:25:34,696
+deallocate on a background
+
+937
+00:25:34,696 --> 0:25:36,716
+thread and the text field by
+
+938
+00:25:36,716 --> 0:25:38,326
+virtue of being a responder is
+
+939
+00:25:38,326 --> 0:25:39,526
+part of the responder chain.
+
+940
+00:25:39,866 --> 0:25:40,966
+It can be part of the view
+
+941
+00:25:40,966 --> 0:25:42,496
+hierarchy or the key view loop,
+
+942
+00:25:42,886 --> 0:25:44,246
+so there's all these global data
+
+943
+00:25:44,246 --> 0:25:45,456
+structures that aren't safe to
+
+944
+00:25:45,456 --> 0:25:47,096
+modify from the background which
+
+945
+00:25:47,096 --> 0:25:47,876
+is what dealloc would do.
+
+946
+00:25:47,876 --> 0:25:52,306
+In macOS 10.15, this isn't a
+
+947
+00:25:52,306 --> 0:25:52,766
+problem.
+
+948
+00:25:53,126 --> 0:25:54,886
+NSResponder will automatically
+
+949
+00:25:54,886 --> 0:25:56,646
+move the dealloc method for it
+
+950
+00:25:56,646 --> 0:25:58,266
+and its descendants to the main
+
+951
+00:25:58,266 --> 0:25:58,636
+thread.
+
+952
+00:25:59,486 --> 0:26:00,766
+So it becomes safe to capture
+
+953
+00:25:59,486 --> 0:26:00,766
+So it becomes safe to capture
+
+954
+00:26:00,766 --> 0:26:02,136
+these in blocks without being
+
+955
+00:26:02,136 --> 0:26:03,216
+concerned about where those
+
+956
+00:26:03,216 --> 0:26:04,126
+blocks are released.
+
+957
+00:26:04,126 --> 0:26:05,646
+And we think this is going to
+
+958
+00:26:06,006 --> 0:26:07,396
+remove a whole complex set of
+
+959
+00:26:07,466 --> 0:26:08,766
+crashes from many of your apps
+
+960
+00:26:09,096 --> 0:26:10,536
+where the corruption from doing
+
+961
+00:26:10,536 --> 0:26:11,586
+work on a background thread
+
+962
+00:26:11,896 --> 0:26:13,326
+isn't visible until seconds or
+
+963
+00:26:13,326 --> 0:26:13,956
+minutes afterward.
+
+964
+00:26:21,586 --> 0:26:23,386
+So, I want to talk about open
+
+965
+00:26:23,386 --> 0:26:24,546
+and safe panels for a moment.
+
+966
+00:26:25,416 --> 0:26:27,976
+We have a fairly broad change in
+
+967
+00:26:27,976 --> 0:26:29,036
+macOS 10.15.
+
+968
+00:26:29,836 --> 0:26:31,826
+And that's that open and safe
+
+969
+00:26:31,826 --> 0:26:34,156
+panels are now using a separate
+
+970
+00:26:34,156 --> 0:26:34,666
+process.
+
+971
+00:26:35,366 --> 0:26:37,256
+This is a behavior that's
+
+972
+00:26:37,256 --> 0:26:38,256
+already been present for
+
+973
+00:26:38,256 --> 0:26:40,256
+sandboxed applications and we've
+
+974
+00:26:40,256 --> 0:26:41,256
+simply brought it over to the
+
+975
+00:26:41,256 --> 0:26:41,986
+remaining apps.
+
+976
+00:26:43,026 --> 0:26:44,386
+Generally, this should be a
+
+977
+00:26:44,386 --> 0:26:45,106
+silent change.
+
+978
+00:26:45,106 --> 0:26:45,816
+We don't think you're going to
+
+979
+00:26:45,816 --> 0:26:48,096
+notice anything here apart from
+
+980
+00:26:48,096 --> 0:26:49,366
+some performance and security
+
+981
+00:26:49,366 --> 0:26:50,266
+benefits.
+
+982
+00:26:50,366 --> 0:26:51,596
+However, if you were
+
+983
+00:26:51,596 --> 0:26:53,286
+sub-classing open and safe panel
+
+984
+00:26:53,286 --> 0:26:54,806
+and relying on specific view
+
+985
+00:26:54,806 --> 0:26:56,426
+hierarchy configurations, you
+
+986
+00:26:56,426 --> 0:26:58,116
+might run into problems and we'd
+
+987
+00:26:58,116 --> 0:26:59,446
+be happy to see you in the labs
+
+988
+00:26:59,446 --> 0:27:00,706
+to talk about those and help
+
+989
+00:26:59,446 --> 0:27:00,706
+to talk about those and help
+
+990
+00:27:00,706 --> 0:27:00,976
+work through them.
+
+991
+00:27:05,256 --> 0:27:06,966
+We also have some new NSWorspace
+
+992
+00:27:06,966 --> 0:27:10,246
+methods in macOS 10.15.
+
+993
+00:27:10,246 --> 0:27:11,436
+These are methods that can open
+
+994
+00:27:11,436 --> 0:27:13,276
+one or more URLs or open an
+
+995
+00:27:13,276 --> 0:27:13,946
+application.
+
+996
+00:27:14,526 --> 0:27:15,596
+And that will sound familiar
+
+997
+00:27:15,596 --> 0:27:16,996
+because you'll think NSWorspace
+
+998
+00:27:16,996 --> 0:27:18,536
+already has methods to do that.
+
+999
+00:27:18,926 --> 0:27:21,166
+It does but the new methods are
+
+1000
+00:27:21,166 --> 0:27:21,826
+asynchronous.
+
+1001
+00:27:21,906 --> 0:27:23,056
+So they're not going to block
+
+1002
+00:27:23,056 --> 0:27:23,836
+the main thread at all.
+
+1003
+00:27:24,396 --> 0:27:25,676
+When the application finishes
+
+1004
+00:27:25,676 --> 0:27:27,086
+launching or the operation is
+
+1005
+00:27:27,086 --> 0:27:28,436
+canceled, we will call you back
+
+1006
+00:27:28,436 --> 0:27:29,536
+using a completion handler.
+
+1007
+00:27:29,656 --> 0:27:31,436
+And in addition to be an
+
+1008
+00:27:31,436 --> 0:27:33,406
+asynchronous, these methods also
+
+1009
+00:27:33,406 --> 0:27:35,016
+offer a high degree of control
+
+1010
+00:27:35,256 --> 0:27:36,916
+over how we launch those URLs
+
+1011
+00:27:37,086 --> 0:27:37,906
+and applications.
+
+1012
+00:27:38,036 --> 0:27:40,516
+And that control is achieved
+
+1013
+00:27:40,886 --> 0:27:42,746
+through the new NSWorspace open
+
+1014
+00:27:42,746 --> 0:27:43,886
+configuration object.
+
+1015
+00:27:44,256 --> 0:27:46,936
+This is just a sampling of the
+
+1016
+00:27:46,936 --> 0:27:48,626
+knobs it has to play with but
+
+1017
+00:27:48,626 --> 0:27:50,196
+you can control whether the user
+
+1018
+00:27:50,196 --> 0:27:51,296
+needs to participate on this
+
+1019
+00:27:51,336 --> 0:27:51,806
+process.
+
+1020
+00:27:51,806 --> 0:27:53,306
+So for example, if you're
+
+1021
+00:27:53,306 --> 0:27:54,676
+requesting a server mount or if
+
+1022
+00:27:54,676 --> 0:27:55,776
+we don't know what application
+
+1023
+00:27:55,776 --> 0:27:57,126
+to use, the user might need to
+
+1024
+00:27:57,126 --> 0:27:59,036
+pick which application and you
+
+1025
+00:27:59,036 --> 0:28:00,036
+can instead suppress that
+
+1026
+00:27:59,036 --> 0:28:00,036
+can instead suppress that
+
+1027
+00:28:00,036 --> 0:28:01,216
+behavior and just cancel the
+
+1028
+00:28:01,216 --> 0:28:01,946
+open process.
+
+1029
+00:28:02,046 --> 0:28:04,036
+You can also control whether an
+
+1030
+00:28:04,036 --> 0:28:05,666
+application or document is added
+
+1031
+00:28:05,666 --> 0:28:06,476
+to the Recents menu.
+
+1032
+00:28:07,266 --> 0:28:08,836
+And there's an entire variety of
+
+1033
+00:28:08,836 --> 0:28:09,936
+things for controlling which
+
+1034
+00:28:09,936 --> 0:28:11,276
+applications can be hidden on
+
+1035
+00:28:11,276 --> 0:28:12,856
+launch or which are activated in
+
+1036
+00:28:12,856 --> 0:28:13,886
+the background or foreground.
+
+1037
+00:28:14,566 --> 0:28:16,256
+So we think whatever your URL
+
+1038
+00:28:16,256 --> 0:28:17,676
+application opening needs,
+
+1039
+00:28:17,966 --> 0:28:19,416
+NSWorspace will accommodate it
+
+1040
+00:28:19,416 --> 0:28:21,006
+wonderfully in macOS 10.15.
+
+1041
+00:28:25,656 --> 0:28:27,686
+We're going to talk events for a
+
+1042
+00:28:27,686 --> 0:28:28,106
+little bit.
+
+1043
+00:28:28,106 --> 0:28:30,536
+And there's a feature I want to
+
+1044
+00:28:30,536 --> 0:28:30,926
+show you.
+
+1045
+00:28:31,216 --> 0:28:33,176
+And this is-- if you hover your
+
+1046
+00:28:33,176 --> 0:28:36,096
+mouse over the green button in
+
+1047
+00:28:36,096 --> 0:28:37,656
+the window title bar, you're
+
+1048
+00:28:37,656 --> 0:28:38,706
+going to get this new menu.
+
+1049
+00:28:39,216 --> 0:28:40,506
+And the first set of options
+
+1050
+00:28:40,746 --> 0:28:42,106
+concerns things like making a
+
+1051
+00:28:42,106 --> 0:28:43,356
+window full screen or
+
+1052
+00:28:43,386 --> 0:28:44,926
+positioning it in a shared full
+
+1053
+00:28:44,926 --> 0:28:45,686
+screen space.
+
+1054
+00:28:46,046 --> 0:28:47,286
+And those are fairly useful.
+
+1055
+00:28:47,776 --> 0:28:49,006
+But there's another feature that
+
+1056
+00:28:49,006 --> 0:28:50,936
+I think is even more useful and
+
+1057
+00:28:50,936 --> 0:28:52,136
+that's the ability to move a
+
+1058
+00:28:52,136 --> 0:28:53,486
+window to another display.
+
+1059
+00:28:53,636 --> 0:28:56,176
+As someone who is constantly
+
+1060
+00:28:56,176 --> 0:28:57,526
+moving their laptop to different
+
+1061
+00:28:57,526 --> 0:28:59,056
+external monitors, I found this
+
+1062
+00:28:59,056 --> 0:29:01,296
+to be incredibly useful but you
+
+1063
+00:28:59,056 --> 0:29:01,296
+to be incredibly useful but you
+
+1064
+00:29:01,296 --> 0:29:02,486
+don't actually have to use a
+
+1065
+00:29:02,486 --> 0:29:05,086
+conventional display, iPads will
+
+1066
+00:29:05,086 --> 0:29:06,466
+function as additional displays
+
+1067
+00:29:06,466 --> 0:29:06,936
+now too.
+
+1068
+00:29:08,626 --> 0:29:09,536
+So you kind of see where I'm
+
+1069
+00:29:09,536 --> 0:29:10,456
+going with this given that the
+
+1070
+00:29:10,456 --> 0:29:12,066
+iPad application is named pencil
+
+1071
+00:29:12,066 --> 0:29:13,296
+draw and we have this beautiful
+
+1072
+00:29:13,296 --> 0:29:14,726
+cursive script on there.
+
+1073
+00:29:15,596 --> 0:29:17,106
+This supports Apple Pencil so
+
+1074
+00:29:17,106 --> 0:29:19,456
+many iPads can now function as
+
+1075
+00:29:19,456 --> 0:29:21,146
+tablet devices for Macs.
+
+1076
+00:29:22,076 --> 0:29:23,656
+So in macOS 10.15, we're going
+
+1077
+00:29:23,656 --> 0:29:25,286
+to have many more tablet users.
+
+1078
+00:29:25,976 --> 0:29:27,676
+If you've been thinking about
+
+1079
+00:29:27,676 --> 0:29:28,986
+adding tablet support to your
+
+1080
+00:29:28,986 --> 0:29:30,716
+app at any point in the last
+
+1081
+00:29:30,716 --> 0:29:32,726
+many years, now is a great time
+
+1082
+00:29:32,726 --> 0:29:33,336
+to adopt it.
+
+1083
+00:29:33,336 --> 0:29:35,186
+So I'm going to show what you
+
+1084
+00:29:35,186 --> 0:29:36,666
+need to know to do that.
+
+1085
+00:29:37,676 --> 0:29:40,836
+Tablet events come in basically
+
+1086
+00:29:40,836 --> 0:29:41,926
+as normal mouse events.
+
+1087
+00:29:43,646 --> 0:29:44,866
+There's a difference though and
+
+1088
+00:29:44,866 --> 0:29:46,286
+that's if you pay attention to
+
+1089
+00:29:46,326 --> 0:29:47,706
+the NSEvents subtype field,
+
+1090
+00:29:48,026 --> 0:29:49,726
+there is a tablet point value
+
+1091
+00:29:49,726 --> 0:29:49,906
+there.
+
+1092
+00:29:50,036 --> 0:29:52,226
+And when you see a tablet point
+
+1093
+00:29:52,226 --> 0:29:53,876
+event it, one, comes from a
+
+1094
+00:29:53,876 --> 0:29:56,226
+tablet but it's also going to
+
+1095
+00:29:56,226 --> 0:29:57,466
+have pressure information
+
+1096
+00:29:57,466 --> 0:29:57,956
+attached.
+
+1097
+00:29:58,596 --> 0:29:59,596
+And paying attention to that
+
+1098
+00:29:59,596 --> 0:30:01,016
+pressure information is critical
+
+1099
+00:29:59,596 --> 0:30:01,016
+pressure information is critical
+
+1100
+00:30:01,016 --> 0:30:02,236
+for making things like that nice
+
+1101
+00:30:02,236 --> 0:30:03,716
+cursive stroke where you have
+
+1102
+00:30:03,946 --> 0:30:05,506
+different pen width throughout
+
+1103
+00:30:05,796 --> 0:30:05,866
+it.
+
+1104
+00:30:07,176 --> 0:30:09,186
+If you've used the pencil APIs
+
+1105
+00:30:09,186 --> 0:30:11,026
+on iOS in the past, there was
+
+1106
+00:30:11,236 --> 0:30:12,846
+something that you could do by
+
+1107
+00:30:12,846 --> 0:30:13,956
+registering a handler to
+
+1108
+00:30:13,956 --> 0:30:15,946
+retroactively receive updates to
+
+1109
+00:30:15,946 --> 0:30:17,826
+pressure in the past.
+
+1110
+00:30:17,826 --> 0:30:19,076
+That is not present on the Mac.
+
+1111
+00:30:19,176 --> 0:30:20,226
+You can just pay attention to
+
+1112
+00:30:20,226 --> 0:30:21,576
+the pressure field in the
+
+1113
+00:30:21,576 --> 0:30:22,366
+NSEvent.
+
+1114
+00:30:25,096 --> 0:30:26,586
+There's another convention
+
+1115
+00:30:26,666 --> 0:30:28,056
+related to the Apple Pencil I
+
+1116
+00:30:28,056 --> 0:30:28,696
+want to mention.
+
+1117
+00:30:29,316 --> 0:30:30,666
+And this is that you can double
+
+1118
+00:30:30,666 --> 0:30:32,476
+tap it the side of the pencil
+
+1119
+00:30:32,956 --> 0:30:34,696
+and it will switch whatever the
+
+1120
+00:30:34,696 --> 0:30:35,846
+current tool is in the drawing
+
+1121
+00:30:35,846 --> 0:30:36,576
+app for example.
+
+1122
+00:30:37,156 --> 0:30:38,406
+And we call this the change mode
+
+1123
+00:30:38,406 --> 0:30:38,676
+event.
+
+1124
+00:30:39,206 --> 0:30:40,416
+There's a new event type for it
+
+1125
+00:30:40,416 --> 0:30:41,766
+on this event and there's a new
+
+1126
+00:30:41,766 --> 0:30:43,416
+responder method to handle
+
+1127
+00:30:43,416 --> 0:30:44,756
+directing that through the
+
+1128
+00:30:44,756 --> 0:30:45,526
+responder chain.
+
+1129
+00:30:46,716 --> 0:30:49,866
+In many cases, you might want to
+
+1130
+00:30:49,866 --> 0:30:51,426
+have tablet functionality that
+
+1131
+00:30:51,426 --> 0:30:53,116
+isn't actually anchored in a
+
+1132
+00:30:53,116 --> 0:30:54,676
+responder subclass like a view
+
+1133
+00:30:54,936 --> 0:30:56,616
+but you might still want to
+
+1134
+00:30:56,616 --> 0:30:58,026
+handle events directly and
+
+1135
+00:30:58,026 --> 0:30:59,456
+there's a way you can accomplish
+
+1136
+00:30:59,456 --> 0:31:01,206
+this using the existing local
+
+1137
+00:30:59,456 --> 0:31:01,206
+this using the existing local
+
+1138
+00:31:01,206 --> 0:31:02,086
+event monitor API.
+
+1139
+00:31:03,256 --> 0:31:04,556
+So if you look at the snippet on
+
+1140
+00:31:04,556 --> 0:31:06,336
+the bottom of the screen, you
+
+1141
+00:31:06,476 --> 0:31:08,276
+can see that we use the NSEvent
+
+1142
+00:31:08,276 --> 0:31:09,726
+add local event monitor for
+
+1143
+00:31:09,726 --> 0:31:12,326
+events function to catch these
+
+1144
+00:31:12,326 --> 0:31:13,256
+change mode events.
+
+1145
+00:31:13,356 --> 0:31:14,706
+And then we just cycle through
+
+1146
+00:31:14,706 --> 0:31:16,106
+our tools and we return the
+
+1147
+00:31:16,106 --> 0:31:17,646
+event allowing it to flow
+
+1148
+00:31:17,646 --> 0:31:18,186
+through the rest of the
+
+1149
+00:31:18,186 --> 0:31:18,886
+responder chain.
+
+1150
+00:31:19,006 --> 0:31:21,496
+So that can be a great way of
+
+1151
+00:31:21,496 --> 0:31:23,506
+factoring your code more
+
+1152
+00:31:23,506 --> 0:31:23,926
+usefully.
+
+1153
+00:31:27,746 --> 0:31:30,836
+OK. Let's talk about a
+
+1154
+00:31:30,836 --> 0:31:31,766
+foundation feature.
+
+1155
+00:31:32,296 --> 0:31:33,526
+We have some new geometry data
+
+1156
+00:31:33,526 --> 0:31:33,916
+types.
+
+1157
+00:31:33,916 --> 0:31:35,036
+I know normally when we get into
+
+1158
+00:31:35,036 --> 0:31:36,496
+foundation everyone is on the
+
+1159
+00:31:36,496 --> 0:31:37,136
+edge of their seat.
+
+1160
+00:31:37,796 --> 0:31:39,276
+This year, you can pick which
+
+1161
+00:31:39,276 --> 0:31:42,736
+edge of the seat you're on
+
+1162
+00:31:42,736 --> 0:31:43,086
+[laughter].
+
+1163
+00:31:43,086 --> 0:31:44,366
+The data types are
+
+1164
+00:31:44,366 --> 0:31:45,896
+NSDirectionalRectEdge,
+
+1165
+00:31:46,366 --> 0:31:48,446
+NSDirectionalEdgeInsets, and
+
+1166
+00:31:48,566 --> 0:31:49,336
+NSRectAlignment.
+
+1167
+00:31:49,446 --> 0:31:51,176
+And instead of working in
+
+1168
+00:31:51,176 --> 0:31:53,106
+currency like min-X or max-X or
+
+1169
+00:31:53,106 --> 0:31:54,946
+left and right, these are using
+
+1170
+00:31:55,036 --> 0:31:56,606
+leading and trailing identifiers
+
+1171
+00:31:56,606 --> 0:31:57,026
+instead.
+
+1172
+00:31:57,216 --> 0:31:58,806
+So they'll automatically flip
+
+1173
+00:31:58,806 --> 0:32:00,486
+based on context in the left to
+
+1174
+00:31:58,806 --> 0:32:00,486
+based on context in the left to
+
+1175
+00:32:00,486 --> 0:32:02,106
+right or right to left system.
+
+1176
+00:32:02,376 --> 0:32:04,546
+And NSCollectionVeiw uses these
+
+1177
+00:32:04,546 --> 0:32:05,876
+exactly for this purpose.
+
+1178
+00:32:06,006 --> 0:32:07,246
+We think you'll be able to adopt
+
+1179
+00:32:07,246 --> 0:32:08,136
+them directly in your
+
+1180
+00:32:08,136 --> 0:32:08,976
+applications too.
+
+1181
+00:32:12,936 --> 0:32:14,456
+Another foundation feature I
+
+1182
+00:32:14,456 --> 0:32:15,466
+want to talk about that will
+
+1183
+00:32:15,466 --> 0:32:17,036
+help with localization is new
+
+1184
+00:32:17,036 --> 0:32:17,766
+formatters.
+
+1185
+00:32:18,906 --> 0:32:20,576
+The first of these is the
+
+1186
+00:32:20,576 --> 0:32:23,436
+NSRelativeDateFormatter.
+
+1187
+00:32:23,436 --> 0:32:25,096
+And NSRelativeDateFormatter has
+
+1188
+00:32:25,096 --> 0:32:26,256
+two important properties, a
+
+1189
+00:32:26,256 --> 0:32:28,176
+dateTimeStyle which allows you
+
+1190
+00:32:28,226 --> 0:32:29,416
+to pick whether you're sort of
+
+1191
+00:32:29,416 --> 0:32:30,536
+working in absolute units or
+
+1192
+00:32:30,536 --> 0:32:31,986
+more colloquial terms, the one
+
+1193
+00:32:31,986 --> 0:32:33,536
+week ago versus last week, as
+
+1194
+00:32:33,786 --> 0:32:35,096
+well as the unitStyle
+
+1195
+00:32:35,096 --> 0:32:37,336
+controlling how verbose or how
+
+1196
+00:32:37,416 --> 0:32:39,486
+terse our languages.
+
+1197
+00:32:42,056 --> 0:32:43,376
+There's also a new
+
+1198
+00:32:43,436 --> 0:32:44,686
+NSListFormatter class.
+
+1199
+00:32:45,416 --> 0:32:46,506
+And NSListFormatter is
+
+1200
+00:32:46,506 --> 0:32:47,826
+interesting in that instead of
+
+1201
+00:32:47,826 --> 0:32:49,676
+formatting sort of a scalar
+
+1202
+00:32:49,676 --> 0:32:51,606
+object, it will format an array
+
+1203
+00:32:51,606 --> 0:32:52,636
+of objects instead.
+
+1204
+00:32:52,636 --> 0:32:55,206
+And it will do that by using a
+
+1205
+00:32:55,206 --> 0:32:56,856
+separate item formatter for each
+
+1206
+00:32:56,856 --> 0:32:57,776
+object individually.
+
+1207
+00:32:58,646 --> 0:33:01,316
+The value the ListFormatter adds
+
+1208
+00:32:58,646 --> 0:33:01,316
+The value the ListFormatter adds
+
+1209
+00:33:01,316 --> 0:33:02,546
+is in knowing where to place the
+
+1210
+00:33:02,546 --> 0:33:04,196
+commas between the individual
+
+1211
+00:33:04,196 --> 0:33:06,226
+formatted strings as well as
+
+1212
+00:33:06,226 --> 0:33:07,366
+whether an Oxford comma is
+
+1213
+00:33:07,366 --> 0:33:08,646
+necessary or a conjunction.
+
+1214
+00:33:08,996 --> 0:33:10,906
+There's a section covering this
+
+1215
+00:33:10,906 --> 0:33:12,256
+in much greater detail later,
+
+1216
+00:33:12,336 --> 0:33:14,046
+which I encourage you to check
+
+1217
+00:33:14,046 --> 0:33:14,926
+out.
+
+1218
+00:33:17,116 --> 0:33:19,356
+Foundation also has a new
+
+1219
+00:33:19,356 --> 0:33:20,746
+feature we're very excited about
+
+1220
+00:33:20,746 --> 0:33:21,516
+called Combine.
+
+1221
+00:33:21,566 --> 0:33:24,826
+And Combine is a Swift API for
+
+1222
+00:33:24,826 --> 0:33:26,356
+connecting properties of the
+
+1223
+00:33:26,356 --> 0:33:27,886
+objects in your applications to
+
+1224
+00:33:27,886 --> 0:33:29,876
+other properties in your
+
+1225
+00:33:29,876 --> 0:33:30,406
+application.
+
+1226
+00:33:31,246 --> 0:33:33,386
+So a specific example I want to
+
+1227
+00:33:33,386 --> 0:33:35,666
+show is this awakeFromNib method
+
+1228
+00:33:35,666 --> 0:33:37,336
+we've implemented where we go
+
+1229
+00:33:37,336 --> 0:33:38,766
+ahead and we bind to the name
+
+1230
+00:33:38,766 --> 0:33:40,296
+property from our model object
+
+1231
+00:33:40,666 --> 0:33:42,266
+to the value of an NSTextField.
+
+1232
+00:33:42,266 --> 0:33:44,136
+And whenever that name changes,
+
+1233
+00:33:44,336 --> 0:33:45,326
+that text field is going to
+
+1234
+00:33:45,326 --> 0:33:46,186
+update its string.
+
+1235
+00:33:46,756 --> 0:33:48,696
+So this is incredibly powerful.
+
+1236
+00:33:48,996 --> 0:33:50,526
+It has applications beyond just
+
+1237
+00:33:50,526 --> 0:33:51,236
+UI binding.
+
+1238
+00:33:51,556 --> 0:33:52,616
+And there's another section
+
+1239
+00:33:52,616 --> 0:33:54,136
+dedicated to specifically this
+
+1240
+00:33:54,136 --> 0:33:54,926
+that we think is going to be
+
+1241
+00:33:54,926 --> 0:33:55,536
+fantastic.
+
+1242
+00:33:56,366 --> 0:33:57,616
+So go ahead and check that out
+
+1243
+00:33:57,616 --> 0:33:57,956
+this week too.
+
+1244
+00:34:02,056 --> 0:34:04,076
+And finally, I want to mention
+
+1245
+00:34:04,076 --> 0:34:04,996
+some changes in system
+
+1246
+00:34:04,996 --> 0:34:06,316
+extensions for Mac OS.
+
+1247
+00:34:07,476 --> 0:34:08,916
+We have a small addition to the
+
+1248
+00:34:08,916 --> 0:34:11,036
+system extension family in the
+
+1249
+00:34:11,036 --> 0:34:13,306
+form of a non-UI file provider
+
+1250
+00:34:13,306 --> 0:34:14,116
+action extension.
+
+1251
+00:34:14,636 --> 0:34:16,735
+And if you are familiar with UI
+
+1252
+00:34:16,735 --> 0:34:18,735
+base file-- or file provider
+
+1253
+00:34:18,735 --> 0:34:20,146
+action extension, this is the
+
+1254
+00:34:20,146 --> 0:34:21,786
+same thing but sometimes you
+
+1255
+00:34:21,786 --> 0:34:23,255
+just don't need that extra UI.
+
+1256
+00:34:23,366 --> 0:34:24,876
+You can do without it and this
+
+1257
+00:34:24,876 --> 0:34:25,876
+satisfies that need.
+
+1258
+00:34:27,696 --> 0:34:29,686
+Something else that we think is
+
+1259
+00:34:29,686 --> 0:34:31,755
+even more interesting is there's
+
+1260
+00:34:31,755 --> 0:34:33,525
+functionality that in the past
+
+1261
+00:34:33,525 --> 0:34:34,335
+you would have had to use a
+
+1262
+00:34:34,335 --> 0:34:35,706
+kernel extension to add at the
+
+1263
+00:34:35,706 --> 0:34:36,056
+OS.
+
+1264
+00:34:36,156 --> 0:34:37,636
+And we've now made system
+
+1265
+00:34:37,636 --> 0:34:39,545
+extensions to do similar things.
+
+1266
+00:34:40,196 --> 0:34:41,616
+We have new network extensions.
+
+1267
+00:34:41,985 --> 0:34:43,585
+We have DriverKit to help
+
+1268
+00:34:43,585 --> 0:34:45,106
+writing certain types of device
+
+1269
+00:34:45,106 --> 0:34:45,606
+drivers.
+
+1270
+00:34:46,056 --> 0:34:47,356
+And we have a new endpoint
+
+1271
+00:34:47,356 --> 0:34:48,626
+security system that will help
+
+1272
+00:34:48,626 --> 0:34:49,775
+write antivirus software.
+
+1273
+00:34:50,396 --> 0:34:51,556
+So if you have been writing
+
+1274
+00:34:51,556 --> 0:34:52,696
+kernel extension all these
+
+1275
+00:34:52,696 --> 0:34:53,755
+years, we think these will be
+
+1276
+00:34:53,755 --> 0:34:54,815
+very useful for you.
+
+1277
+00:34:55,315 --> 0:34:57,106
+We're excited with a security
+
+1278
+00:34:57,106 --> 0:34:58,016
+enhancements we get to make
+
+1279
+00:34:58,016 --> 0:34:59,046
+around this and we think you'll
+
+1280
+00:34:59,046 --> 0:35:00,256
+be excited about not doing
+
+1281
+00:34:59,046 --> 0:35:00,256
+be excited about not doing
+
+1282
+00:35:00,256 --> 0:35:03,096
+kernel-mode debugging anymore.
+
+1283
+00:35:03,806 --> 0:35:06,226
+So, that covers our additions.
+
+1284
+00:35:06,916 --> 0:35:09,066
+I want to remind you of many of
+
+1285
+00:35:09,066 --> 0:35:10,446
+the great things that we covered
+
+1286
+00:35:10,446 --> 0:35:10,696
+today.
+
+1287
+00:35:11,496 --> 0:35:12,816
+We had additions for NSColor
+
+1288
+00:35:12,816 --> 0:35:14,046
+including new dynamic system
+
+1289
+00:35:14,046 --> 0:35:15,746
+colors, new ways of embedding
+
+1290
+00:35:15,746 --> 0:35:17,396
+your own programmatic dynamism,
+
+1291
+00:35:17,396 --> 0:35:19,786
+under the NSColor system as well
+
+1292
+00:35:19,786 --> 0:35:20,996
+as the ColorSampler class you
+
+1293
+00:35:20,996 --> 0:35:22,466
+can use yourself for picking
+
+1294
+00:35:22,466 --> 0:35:23,756
+colors directly from the screen.
+
+1295
+00:35:24,436 --> 0:35:27,346
+We covered a number of APIs and
+
+1296
+00:35:27,346 --> 0:35:28,946
+NSScreen including those for you
+
+1297
+00:35:28,946 --> 0:35:30,376
+to make a great usage of
+
+1298
+00:35:30,376 --> 0:35:31,616
+extended dynamic range.
+
+1299
+00:35:31,686 --> 0:35:34,506
+And we have an entire variety of
+
+1300
+00:35:34,506 --> 0:35:35,436
+text enhancements.
+
+1301
+00:35:35,496 --> 0:35:38,066
+If you want your apps to look
+
+1302
+00:35:38,066 --> 0:35:39,546
+great in Dark Mode and you're
+
+1303
+00:35:39,696 --> 0:35:41,016
+presenting either simple or rich
+
+1304
+00:35:41,016 --> 0:35:43,356
+text, the Dark Mode enhancements
+
+1305
+00:35:43,356 --> 0:35:44,656
+are going to great, the text
+
+1306
+00:35:44,656 --> 0:35:45,636
+tracking controllers will let
+
+1307
+00:35:45,636 --> 0:35:46,946
+you enrich your own text engines
+
+1308
+00:35:46,946 --> 0:35:49,066
+like never before, and our
+
+1309
+00:35:49,066 --> 0:35:51,316
+compatibility between iOS and
+
+1310
+00:35:51,316 --> 0:35:53,506
+Mac OS regarding text sizing is
+
+1311
+00:35:53,506 --> 0:35:55,326
+very useful especially given the
+
+1312
+00:35:55,326 --> 0:35:56,636
+presence of UIKit on the Mac
+
+1313
+00:35:56,636 --> 0:35:56,946
+this year.
+
+1314
+00:35:57,916 --> 0:36:00,786
+We covered controls like
+
+1315
+00:35:57,916 --> 0:36:00,786
+We covered controls like
+
+1316
+00:36:00,876 --> 0:36:02,596
+NSSwitch as well as collection
+
+1317
+00:36:02,596 --> 0:36:02,826
+view.
+
+1318
+00:36:03,026 --> 0:36:04,416
+And we definitely encourage you
+
+1319
+00:36:04,416 --> 0:36:05,446
+to check out the collection view
+
+1320
+00:36:05,446 --> 0:36:06,566
+section because collection view
+
+1321
+00:36:06,566 --> 0:36:07,846
+has become a very important part
+
+1322
+00:36:07,846 --> 0:36:08,976
+of our UI vocabulary.
+
+1323
+00:36:10,386 --> 0:36:11,126
+We covered some great
+
+1324
+00:36:11,126 --> 0:36:12,416
+enhancement for NSToolbar
+
+1325
+00:36:12,706 --> 0:36:13,556
+allowing you to make push
+
+1326
+00:36:13,556 --> 0:36:15,696
+buttons more easily and more
+
+1327
+00:36:15,696 --> 0:36:17,996
+versatile ways of using the tool
+
+1328
+00:36:17,996 --> 0:36:18,746
+bar item group.
+
+1329
+00:36:18,746 --> 0:36:23,006
+And then we've also covered some
+
+1330
+00:36:23,006 --> 0:36:24,136
+things for handling tablet
+
+1331
+00:36:24,136 --> 0:36:25,936
+events in NSEvent and specific
+
+1332
+00:36:25,936 --> 0:36:27,106
+support for the Apple Pencil.
+
+1333
+00:36:27,536 --> 0:36:28,716
+And again, with so many more
+
+1334
+00:36:28,716 --> 0:36:30,046
+tablet users coming to the Mac
+
+1335
+00:36:30,046 --> 0:36:31,586
+in the near future, we think if
+
+1336
+00:36:31,586 --> 0:36:33,326
+your app can use tablets, it's a
+
+1337
+00:36:33,376 --> 0:36:34,196
+great feature to add.
+
+1338
+00:36:34,326 --> 0:36:36,446
+And we wrapped up with the
+
+1339
+00:36:36,446 --> 0:36:38,906
+localization enhancements for NS
+
+1340
+00:36:38,906 --> 0:36:40,166
+or for foundation geometry data
+
+1341
+00:36:40,166 --> 0:36:41,886
+types and then new formatters.
+
+1342
+00:36:43,286 --> 0:36:44,886
+So we hope you're excited to
+
+1343
+00:36:44,886 --> 0:36:45,626
+adopt these too.
+
+1344
+00:36:46,166 --> 0:36:47,386
+And please have a great week.
+
+1345
+00:36:47,556 --> 0:36:48,976
+Thank you very much.
+
+1346
+00:36:49,516 --> 0:36:56,500
+[ Applause ]

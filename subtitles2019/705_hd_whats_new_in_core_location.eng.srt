@@ -1,0 +1,4687 @@
+1
+00:00:00,506 --> 0:00:05,500
+[ Music ]
+
+2
+00:00:11,076 --> 0:00:14,866
+&gt;&gt; Hello. [applause] Welcome to
+
+3
+00:00:14,866 --> 0:00:16,376
+What's New in Core Location.
+
+4
+00:00:16,826 --> 0:00:18,366
+My name is Adam Driscoll, and
+
+5
+00:00:18,366 --> 0:00:19,326
+I'm an engineer on the Core
+
+6
+00:00:19,326 --> 0:00:20,106
+Location team.
+
+7
+00:00:20,966 --> 0:00:22,526
+I'm excited to walk you through
+
+8
+00:00:22,526 --> 0:00:23,416
+the improvements we've made to
+
+9
+00:00:23,416 --> 0:00:25,986
+Core Location, new in iOS 13.
+
+10
+00:00:27,276 --> 0:00:28,836
+So, I think this is where we all
+
+11
+00:00:28,836 --> 0:00:30,066
+start out as developers.
+
+12
+00:00:30,176 --> 0:00:31,396
+We want to make our users happy,
+
+13
+00:00:32,165 --> 0:00:35,586
+and we have an app to do it.
+
+14
+00:00:35,586 --> 0:00:36,706
+And then, because you're here at
+
+15
+00:00:36,706 --> 0:00:37,976
+my talk today, I'm going to
+
+16
+00:00:37,976 --> 0:00:39,726
+assume that the user's location
+
+17
+00:00:39,726 --> 0:00:40,926
+is an important ingredient in
+
+18
+00:00:40,926 --> 0:00:42,606
+how your app can make your users
+
+19
+00:00:42,606 --> 0:00:42,936
+happy.
+
+20
+00:00:43,466 --> 0:00:45,036
+So, you'll want to use Core
+
+21
+00:00:45,036 --> 0:00:45,506
+Location.
+
+22
+00:00:47,676 --> 0:00:48,966
+Probably you already know that
+
+23
+00:00:48,966 --> 0:00:50,426
+your app will require the user's
+
+24
+00:00:50,466 --> 0:00:51,476
+permission to access their
+
+25
+00:00:51,476 --> 0:00:53,846
+location via Core Location, so
+
+26
+00:00:53,846 --> 0:00:54,896
+zooming in a little further,
+
+27
+00:00:56,036 --> 0:00:57,836
+you're going to need to request
+
+28
+00:00:57,896 --> 0:01:00,166
+and react to the user's choices
+
+29
+00:00:57,896 --> 0:01:00,166
+and react to the user's choices
+
+30
+00:01:00,166 --> 0:01:01,526
+via our authorization prompting
+
+31
+00:01:01,526 --> 0:01:03,836
+system and then use the rest of
+
+32
+00:01:03,836 --> 0:01:05,306
+our API to do its thing.
+
+33
+00:01:05,986 --> 0:01:08,026
+Well, this is what we're here to
+
+34
+00:01:08,026 --> 0:01:09,966
+talk about today, because in iOS
+
+35
+00:01:10,016 --> 0:01:12,266
+13 our authorization system and
+
+36
+00:01:12,266 --> 0:01:13,486
+the options it presents has
+
+37
+00:01:13,486 --> 0:01:16,736
+changed, and so has our API in
+
+38
+00:01:16,816 --> 0:01:18,146
+the area of [inaudible].
+
+39
+00:01:20,106 --> 0:01:21,066
+Concretely then, we're going to
+
+40
+00:01:21,066 --> 0:01:22,576
+talk about always authorization,
+
+41
+00:01:23,046 --> 0:01:25,086
+which now works a little bit
+
+42
+00:01:25,656 --> 0:01:26,066
+differently,
+
+43
+00:01:26,066 --> 0:01:27,396
+WhenInUse Authorization which
+
+44
+00:01:27,396 --> 0:01:29,736
+can now do more,
+
+45
+00:01:29,956 --> 0:01:31,306
+Temporary Authorization, which
+
+46
+00:01:31,306 --> 0:01:31,976
+is brand new,
+
+47
+00:01:31,976 --> 0:01:33,556
+and we hope you and your user's
+
+48
+00:01:33,556 --> 0:01:33,936
+will love it.
+
+49
+00:01:35,126 --> 0:01:36,196
+And then I'm going to invite my
+
+50
+00:01:36,196 --> 0:01:37,686
+colleague, Andrea, up on stage
+
+51
+00:01:37,686 --> 0:01:38,356
+to walk you through the
+
+52
+00:01:38,356 --> 0:01:39,736
+applications of these things,
+
+53
+00:01:39,806 --> 0:01:41,596
+concretely, in the context of
+
+54
+00:01:41,596 --> 0:01:42,216
+beacon ranging.
+
+55
+00:01:43,406 --> 0:01:44,366
+All right.
+
+56
+00:01:44,366 --> 0:01:45,466
+Let's get started by looking at
+
+57
+00:01:45,466 --> 0:01:47,336
+that prompt I just used.
+
+58
+00:01:49,536 --> 0:01:51,156
+You may also recognize this from
+
+59
+00:01:51,156 --> 0:01:52,196
+the State of the Union talk.
+
+60
+00:01:53,886 --> 0:01:56,456
+In iOS 13, every new user
+
+61
+00:01:56,586 --> 0:01:58,106
+authorization interaction starts
+
+62
+00:01:58,106 --> 0:01:58,736
+with this prompt.
+
+63
+00:01:59,366 --> 0:02:01,986
+I do want to call out the option
+
+64
+00:01:59,366 --> 0:02:01,986
+I do want to call out the option
+
+65
+00:02:01,986 --> 0:02:03,006
+we're not going to talk too much
+
+66
+00:02:03,006 --> 0:02:04,006
+about today, which is at the
+
+67
+00:02:04,006 --> 0:02:05,116
+bottom there, don't allow.
+
+68
+00:02:06,096 --> 0:02:07,556
+If the user selects don't allow,
+
+69
+00:02:07,556 --> 0:02:08,425
+then your app will not have
+
+70
+00:02:08,425 --> 0:02:09,716
+access to their location, and it
+
+71
+00:02:09,716 --> 0:02:10,856
+will not be able to prompt
+
+72
+00:02:10,856 --> 0:02:11,116
+again.
+
+73
+00:02:11,856 --> 0:02:13,436
+So, you're probably already
+
+74
+00:02:13,436 --> 0:02:14,816
+thinking this, but be mindful
+
+75
+00:02:14,816 --> 0:02:15,946
+about when you present this
+
+76
+00:02:16,046 --> 0:02:17,626
+prompt-- when you request for
+
+77
+00:02:17,626 --> 0:02:18,806
+this prompt to be presented to
+
+78
+00:02:18,806 --> 0:02:19,336
+your users.
+
+79
+00:02:20,026 --> 0:02:21,356
+Do it at a time when users will
+
+80
+00:02:21,356 --> 0:02:22,706
+best understand why you need
+
+81
+00:02:22,706 --> 0:02:24,496
+access to their location and be
+
+82
+00:02:24,496 --> 0:02:26,146
+most favorably disposed to
+
+83
+00:02:26,146 --> 0:02:26,586
+granting it.
+
+84
+00:02:27,966 --> 0:02:29,126
+Okay, but the agenda said we're
+
+85
+00:02:29,126 --> 0:02:30,276
+here to talk about always right
+
+86
+00:02:30,276 --> 0:02:31,986
+now, and there's no allow always
+
+87
+00:02:31,986 --> 0:02:34,166
+authorization option on this
+
+88
+00:02:34,166 --> 0:02:34,546
+prompt.
+
+89
+00:02:35,006 --> 0:02:36,006
+So, is it a mystery?
+
+90
+00:02:37,056 --> 0:02:38,556
+Well, if we look at how your app
+
+91
+00:02:38,556 --> 0:02:40,516
+would request the display of
+
+92
+00:02:40,516 --> 0:02:41,356
+this prompt, I think that
+
+93
+00:02:41,356 --> 0:02:42,506
+mystery will begin to unravel.
+
+94
+00:02:43,386 --> 0:02:45,026
+So, first up, you're going to
+
+95
+00:02:45,026 --> 0:02:46,536
+need a CL location manager, and
+
+96
+00:02:46,536 --> 0:02:47,526
+it needs to live for a little
+
+97
+00:02:47,526 --> 0:02:47,816
+while.
+
+98
+00:02:47,966 --> 0:02:50,056
+So, if you have a simple app,
+
+99
+00:02:50,096 --> 0:02:51,096
+setting it as an instance
+
+100
+00:02:51,096 --> 0:02:52,296
+variable on your application
+
+101
+00:02:52,296 --> 0:02:54,246
+delegate is a good place to put
+
+102
+00:02:55,346 --> 0:02:55,426
+it.
+
+103
+00:02:55,696 --> 0:02:57,006
+Then, your app would call one of
+
+104
+00:02:57,006 --> 0:02:57,926
+these two methods, either
+
+105
+00:02:57,926 --> 0:02:58,796
+request when in-use
+
+106
+00:02:58,796 --> 0:03:00,336
+authorization or request always
+
+107
+00:02:58,796 --> 0:03:00,336
+authorization or request always
+
+108
+00:03:00,336 --> 0:03:01,086
+authorization.
+
+109
+00:03:01,866 --> 0:03:03,966
+For this walk-through, let's say
+
+110
+00:03:04,266 --> 0:03:05,096
+it requests always
+
+111
+00:03:05,096 --> 0:03:05,766
+authorization.
+
+112
+00:03:07,116 --> 0:03:08,836
+In iOS 12, this would result in
+
+113
+00:03:08,836 --> 0:03:10,026
+a prompt that actually provided
+
+114
+00:03:10,026 --> 0:03:11,476
+the user both options, both when
+
+115
+00:03:11,476 --> 0:03:13,086
+in use authorization and always
+
+116
+00:03:13,086 --> 0:03:14,666
+authorization, but now in iOS
+
+117
+00:03:14,716 --> 0:03:16,736
+13, it provides this one, which
+
+118
+00:03:16,736 --> 0:03:17,816
+does not have an option for
+
+119
+00:03:17,816 --> 0:03:18,206
+always.
+
+120
+00:03:19,466 --> 0:03:21,866
+However, Core Location remembers
+
+121
+00:03:21,866 --> 0:03:24,536
+what your app asked for, so if
+
+122
+00:03:24,536 --> 0:03:25,386
+you asked for always
+
+123
+00:03:25,386 --> 0:03:26,646
+authorization and the user
+
+124
+00:03:26,646 --> 0:03:27,876
+grants the most permanent
+
+125
+00:03:28,186 --> 0:03:29,426
+positive thing they can here,
+
+126
+00:03:29,426 --> 0:03:30,726
+which is allow while in use,
+
+127
+00:03:32,216 --> 0:03:33,626
+then that's what you'll get.
+
+128
+00:03:33,626 --> 0:03:34,786
+Apple will receive when in use
+
+129
+00:03:34,786 --> 0:03:36,176
+authorization, but it will also
+
+130
+00:03:36,176 --> 0:03:37,806
+enter what we call provisional
+
+131
+00:03:37,806 --> 0:03:38,816
+always authorization.
+
+132
+00:03:39,426 --> 0:03:40,856
+So, let's see how that will all
+
+133
+00:03:40,936 --> 0:03:42,000
+play out.
+
+134
+00:03:45,156 --> 0:03:46,836
+So, on the top of this timeline
+
+135
+00:03:46,836 --> 0:03:48,056
+here we have in blue what the
+
+136
+00:03:48,056 --> 0:03:51,346
+user will see and in green below
+
+137
+00:03:51,346 --> 0:03:52,636
+what your app will see.
+
+138
+00:03:52,896 --> 0:03:53,786
+Because under provisional
+
+139
+00:03:53,786 --> 0:03:55,546
+authorization, these two are
+
+140
+00:03:55,576 --> 0:03:56,716
+actually different.
+
+141
+00:03:57,616 --> 0:03:59,466
+So, your app asked for always
+
+142
+00:03:59,466 --> 0:04:03,126
+authorization, and then the user
+
+143
+00:03:59,466 --> 0:04:03,126
+authorization, and then the user
+
+144
+00:04:03,126 --> 0:04:04,266
+granted it when in use.
+
+145
+00:04:04,866 --> 0:04:07,636
+Now, if the user goes to
+
+146
+00:04:07,636 --> 0:04:09,176
+settings, they'll see that your
+
+147
+00:04:09,176 --> 0:04:10,236
+app has when in use
+
+148
+00:04:10,236 --> 0:04:10,916
+authorization.
+
+149
+00:04:12,196 --> 0:04:13,876
+But, Core Location has called
+
+150
+00:04:13,876 --> 0:04:15,166
+your delegate back and told that
+
+151
+00:04:15,166 --> 0:04:15,956
+it received always
+
+152
+00:04:15,956 --> 0:04:16,616
+authorization.
+
+153
+00:04:17,716 --> 0:04:18,935
+So, we hope this will make it
+
+154
+00:04:18,935 --> 0:04:20,076
+really simple and obvious what
+
+155
+00:04:20,076 --> 0:04:21,076
+your app should do in this
+
+156
+00:04:21,076 --> 0:04:21,576
+context.
+
+157
+00:04:22,416 --> 0:04:23,336
+It should use it's always
+
+158
+00:04:23,376 --> 0:04:23,936
+powers.
+
+159
+00:04:24,156 --> 0:04:25,796
+It should whatever it needed
+
+160
+00:04:25,796 --> 0:04:28,356
+always authorization to do.
+
+161
+00:04:28,586 --> 0:04:29,616
+We'll get more into what that
+
+162
+00:04:29,616 --> 0:04:31,536
+might be later when we talk
+
+163
+00:04:31,536 --> 0:04:33,056
+about when in use authorization,
+
+164
+00:04:33,176 --> 0:04:35,746
+but for example, maybe it would
+
+165
+00:04:35,746 --> 0:04:38,136
+set up some GEO fences and then
+
+166
+00:04:38,386 --> 0:04:41,046
+start doing automation behavior
+
+167
+00:04:41,046 --> 0:04:42,286
+for the user in the background
+
+168
+00:04:42,286 --> 0:04:43,226
+based on their location.
+
+169
+00:04:45,216 --> 0:04:47,376
+Okay, if it does that, then Core
+
+170
+00:04:47,376 --> 0:04:48,666
+Location will monitor for those
+
+171
+00:04:48,666 --> 0:04:52,186
+GEO fences, and then at some
+
+172
+00:04:52,186 --> 0:04:53,586
+point the user will enter or
+
+173
+00:04:53,586 --> 0:04:55,086
+exit one of them, and an event
+
+174
+00:04:55,086 --> 0:04:55,896
+will be generated.
+
+175
+00:04:57,526 --> 0:04:58,766
+Normally, this event would be
+
+176
+00:04:58,766 --> 0:05:00,416
+delivered to your location
+
+177
+00:04:58,766 --> 0:05:00,416
+delivered to your location
+
+178
+00:05:00,416 --> 0:05:02,316
+manager delegate, but because
+
+179
+00:05:02,316 --> 0:05:03,786
+your authorization is
+
+180
+00:05:03,846 --> 0:05:06,346
+provisional, instead, Core
+
+181
+00:05:06,346 --> 0:05:08,016
+Location holds onto it and waits
+
+182
+00:05:08,016 --> 0:05:09,436
+for a good time to ask the user
+
+183
+00:05:09,726 --> 0:05:10,966
+if they want to upgrade your app
+
+184
+00:05:11,006 --> 0:05:12,086
+to always authorization.
+
+185
+00:05:12,626 --> 0:05:17,946
+That prompt looks like this, and
+
+186
+00:05:17,996 --> 0:05:19,036
+finally we see a button at the
+
+187
+00:05:19,036 --> 0:05:20,536
+bottom that does allow always
+
+188
+00:05:20,536 --> 0:05:21,276
+authorization.
+
+189
+00:05:21,976 --> 0:05:23,756
+So your app has been thinking it
+
+190
+00:05:23,756 --> 0:05:24,976
+has always authorization all
+
+191
+00:05:24,976 --> 0:05:27,126
+this time, and the user has been
+
+192
+00:05:27,126 --> 0:05:28,256
+thinking that is has when in use
+
+193
+00:05:28,256 --> 0:05:28,996
+authorization.
+
+194
+00:05:29,846 --> 0:05:30,716
+This prompt is how we get
+
+195
+00:05:30,716 --> 0:05:32,416
+everybody back together all on
+
+196
+00:05:32,416 --> 0:05:33,726
+the same page in agreement.
+
+197
+00:05:34,246 --> 0:05:38,596
+Now, if this prompt were to
+
+198
+00:05:38,596 --> 0:05:39,616
+appear at a time when the user
+
+199
+00:05:39,616 --> 0:05:41,106
+does not understand why your app
+
+200
+00:05:41,226 --> 0:05:42,616
+needs access to their location
+
+201
+00:05:43,366 --> 0:05:44,456
+or they do not want your app to
+
+202
+00:05:44,456 --> 0:05:45,786
+have access to their location in
+
+203
+00:05:45,786 --> 0:05:47,566
+the background, then they can at
+
+204
+00:05:47,566 --> 0:05:48,636
+this point respond that they'd
+
+205
+00:05:48,636 --> 0:05:49,816
+like to keep your app in when in
+
+206
+00:05:49,816 --> 0:05:50,736
+use authorization.
+
+207
+00:05:53,126 --> 0:05:54,646
+But, if you and your users are
+
+208
+00:05:54,646 --> 0:05:55,756
+on the same page and they like
+
+209
+00:05:55,756 --> 0:05:57,606
+what they see, they can also
+
+210
+00:05:58,026 --> 0:05:58,936
+grant your app always
+
+211
+00:05:58,936 --> 0:06:01,486
+authorization from here.
+
+212
+00:05:58,936 --> 0:06:01,486
+authorization from here.
+
+213
+00:06:01,696 --> 0:06:03,076
+Either way, the provisional
+
+214
+00:06:03,076 --> 0:06:04,296
+authorization period ends.
+
+215
+00:06:05,326 --> 0:06:06,646
+If your app ends up with always
+
+216
+00:06:06,646 --> 0:06:08,026
+authorization, then it will also
+
+217
+00:06:08,026 --> 0:06:09,876
+receive the event that started
+
+218
+00:06:09,876 --> 0:06:10,626
+this process.
+
+219
+00:06:11,746 --> 0:06:12,866
+If it ends up with when in use
+
+220
+00:06:12,866 --> 0:06:16,526
+authorization, it will not.
+
+221
+00:06:16,526 --> 0:06:19,186
+Okay, let's talk details.
+
+222
+00:06:19,296 --> 0:06:20,476
+So, first remember that while
+
+223
+00:06:20,476 --> 0:06:22,216
+your app is provisionally always
+
+224
+00:06:22,216 --> 0:06:24,396
+authorized, Core Location will
+
+225
+00:06:24,396 --> 0:06:26,036
+be monitoring for and generating
+
+226
+00:06:26,036 --> 0:06:26,826
+events that your app is
+
+227
+00:06:26,826 --> 0:06:28,366
+interested in but not delivering
+
+228
+00:06:28,366 --> 0:06:30,096
+them to your app unless doing so
+
+229
+00:06:30,186 --> 0:06:31,976
+would be consistent with the
+
+230
+00:06:31,976 --> 0:06:33,176
+when in use authorization it
+
+231
+00:06:33,176 --> 0:06:34,696
+actually has.
+
+232
+00:06:36,456 --> 0:06:38,736
+Second, the prompt that the user
+
+233
+00:06:38,736 --> 0:06:40,006
+can grant your app always
+
+234
+00:06:40,006 --> 0:06:41,536
+authorization from will occur
+
+235
+00:06:41,536 --> 0:06:42,006
+later.
+
+236
+00:06:42,636 --> 0:06:46,766
+And third, you can only start
+
+237
+00:06:46,806 --> 0:06:47,886
+this process once.
+
+238
+00:06:50,536 --> 0:06:52,216
+However, you can, as in this
+
+239
+00:06:52,216 --> 0:06:54,986
+example, request always
+
+240
+00:06:54,986 --> 0:06:56,326
+authorization right from the
+
+241
+00:06:56,326 --> 0:06:59,046
+beginning, or you can request
+
+242
+00:06:59,046 --> 0:07:00,866
+when in use authorization first
+
+243
+00:06:59,046 --> 0:07:00,866
+when in use authorization first
+
+244
+00:07:00,866 --> 0:07:02,136
+and then at some later point
+
+245
+00:07:02,176 --> 0:07:03,666
+when maybe the user interacts
+
+246
+00:07:03,666 --> 0:07:04,946
+with a feature of your app that
+
+247
+00:07:04,946 --> 0:07:06,416
+warrants it, seek always
+
+248
+00:07:06,416 --> 0:07:09,036
+authorization later as an
+
+249
+00:07:09,136 --> 0:07:09,586
+upgrade.
+
+250
+00:07:10,116 --> 0:07:13,376
+Okay, so Core Location is
+
+251
+00:07:13,376 --> 0:07:14,906
+monitoring and consuming events
+
+252
+00:07:14,956 --> 0:07:16,056
+that your app is interested in.
+
+253
+00:07:16,566 --> 0:07:17,706
+Let's talk about when they'll be
+
+254
+00:07:17,706 --> 0:07:18,706
+delivered to your app and when
+
+255
+00:07:18,706 --> 0:07:19,346
+they'll be dropped.
+
+256
+00:07:20,006 --> 0:07:22,576
+So first, as we've seen, they'll
+
+257
+00:07:22,576 --> 0:07:24,096
+be delivered if you app receives
+
+258
+00:07:24,096 --> 0:07:25,596
+always authorization ultimately
+
+259
+00:07:26,106 --> 0:07:27,536
+and not if it receives a when in
+
+260
+00:07:27,536 --> 0:07:28,416
+use authorization.
+
+261
+00:07:28,926 --> 0:07:31,446
+But they also won't be delivered
+
+262
+00:07:31,446 --> 0:07:32,796
+if the user just hasn't chosen
+
+263
+00:07:32,796 --> 0:07:32,986
+yet.
+
+264
+00:07:34,366 --> 0:07:36,036
+Now, Core Location waits for a
+
+265
+00:07:36,086 --> 0:07:37,506
+time when we think that the user
+
+266
+00:07:37,506 --> 0:07:39,426
+is not busy in order to maximize
+
+267
+00:07:39,466 --> 0:07:40,466
+their ability to understand
+
+268
+00:07:40,466 --> 0:07:41,916
+what's going on and minimize the
+
+269
+00:07:41,916 --> 0:07:42,596
+chance that they'll give a
+
+270
+00:07:42,596 --> 0:07:43,726
+get-out-of-my-way kind of
+
+271
+00:07:43,726 --> 0:07:44,326
+response.
+
+272
+00:07:45,676 --> 0:07:47,736
+So, during this time, if more
+
+273
+00:07:47,736 --> 0:07:48,726
+events are generated on that
+
+274
+00:07:48,726 --> 0:07:49,786
+basis, if you're monitoring
+
+275
+00:07:49,786 --> 0:07:51,546
+requests, then those events will
+
+276
+00:07:51,546 --> 0:07:53,766
+displace the ones that came
+
+277
+00:07:53,766 --> 0:07:55,076
+earlier, and the earlier ones
+
+278
+00:07:55,076 --> 0:07:55,656
+will be dropped.
+
+279
+00:07:56,866 --> 0:07:58,646
+And then finally Core Location
+
+280
+00:07:58,646 --> 0:08:00,466
+will drop the event part for
+
+281
+00:07:58,646 --> 0:08:00,466
+will drop the event part for
+
+282
+00:08:00,466 --> 0:08:02,236
+anything that's become just too
+
+283
+00:08:02,236 --> 0:08:02,536
+old.
+
+284
+00:08:03,246 --> 0:08:04,206
+That's because it may not be
+
+285
+00:08:04,206 --> 0:08:05,316
+relevant for your use case
+
+286
+00:08:05,316 --> 0:08:06,646
+anymore, but it also is
+
+287
+00:08:06,646 --> 0:08:07,996
+definitely not in the user's
+
+288
+00:08:07,996 --> 0:08:09,336
+perspective, in the user's mind
+
+289
+00:08:09,336 --> 0:08:10,766
+space anymore , so it doesn't
+
+290
+00:08:10,766 --> 0:08:11,666
+help them understand what's
+
+291
+00:08:11,666 --> 0:08:12,106
+going on.
+
+292
+00:08:12,886 --> 0:08:16,226
+So, finally, to be clear, I know
+
+293
+00:08:16,226 --> 0:08:18,146
+that this process will result in
+
+294
+00:08:18,146 --> 0:08:19,476
+dropped events at the beginning
+
+295
+00:08:19,476 --> 0:08:22,776
+for many use cases, but we think
+
+296
+00:08:22,776 --> 0:08:24,856
+it's really important for, but
+
+297
+00:08:24,896 --> 0:08:26,296
+please plan on this, because
+
+298
+00:08:26,356 --> 0:08:27,476
+you're just getting to know
+
+299
+00:08:27,526 --> 0:08:30,016
+users in this case, and by
+
+300
+00:08:30,156 --> 0:08:31,436
+pursuing always authorization,
+
+301
+00:08:31,436 --> 0:08:32,366
+you're asking for a lot of
+
+302
+00:08:32,366 --> 0:08:33,000
+trust.
+
+303
+00:08:35,666 --> 0:08:35,916
+All right.
+
+304
+00:08:35,916 --> 0:08:37,106
+I want to mention at this point
+
+305
+00:08:37,206 --> 0:08:38,356
+that the availability and
+
+306
+00:08:38,356 --> 0:08:39,466
+treatment of always
+
+307
+00:08:39,466 --> 0:08:40,566
+authorization varies by
+
+308
+00:08:40,566 --> 0:08:41,106
+platform.
+
+309
+00:08:42,876 --> 0:08:44,906
+So, tvOS only supports when in
+
+310
+00:08:44,906 --> 0:08:48,586
+use authorization, and watchOS
+
+311
+00:08:48,586 --> 0:08:50,006
+only really needs when in use
+
+312
+00:08:50,006 --> 0:08:50,766
+authorization.
+
+313
+00:08:52,106 --> 0:08:53,586
+That's because access to the
+
+314
+00:08:53,586 --> 0:08:54,816
+background runtime is very
+
+315
+00:08:54,816 --> 0:08:56,256
+tightly constrained on watchOS,
+
+316
+00:08:56,316 --> 0:08:58,016
+and most of our API does not
+
+317
+00:08:58,016 --> 0:08:59,176
+provide launching behavior.
+
+318
+00:09:01,006 --> 0:09:02,486
+Plus, context like the watch
+
+319
+00:09:02,486 --> 0:09:03,816
+face are effectively always in
+
+320
+00:09:03,816 --> 0:09:06,256
+use, so if you're working on a
+
+321
+00:09:06,256 --> 0:09:07,406
+complication, you're app
+
+322
+00:09:07,406 --> 0:09:08,606
+probably will not need always
+
+323
+00:09:08,606 --> 0:09:11,566
+authorization, but, probably
+
+324
+00:09:12,306 --> 0:09:13,176
+will not need always
+
+325
+00:09:13,176 --> 0:09:14,146
+authorization.
+
+326
+00:09:15,026 --> 0:09:17,376
+So, macOS similarly does not
+
+327
+00:09:17,376 --> 0:09:18,736
+support always authorization per
+
+328
+00:09:18,736 --> 0:09:21,386
+se, but prompting is automatic,
+
+329
+00:09:21,386 --> 0:09:22,756
+so you'll not have to request
+
+330
+00:09:22,756 --> 0:09:23,476
+authorization.
+
+331
+00:09:26,066 --> 0:09:27,946
+Which means that for iPad apps
+
+332
+00:09:27,946 --> 0:09:29,926
+on the Mac, when in use
+
+333
+00:09:29,926 --> 0:09:30,996
+authorization and always
+
+334
+00:09:30,996 --> 0:09:32,186
+authorization are effectively
+
+335
+00:09:32,186 --> 0:09:32,586
+equivalent.
+
+336
+00:09:33,876 --> 0:09:35,766
+Your UIKit code can and should
+
+337
+00:09:35,766 --> 0:09:37,296
+use whichever request, whichever
+
+338
+00:09:37,296 --> 0:09:38,326
+one makes sense from its
+
+339
+00:09:38,326 --> 0:09:40,196
+perspective on iOS when it's
+
+340
+00:09:40,196 --> 0:09:44,106
+running on the Mac.
+
+341
+00:09:44,316 --> 0:09:44,636
+All right.
+
+342
+00:09:44,676 --> 0:09:46,056
+So that's always authorization.
+
+343
+00:09:46,666 --> 0:09:47,886
+Now, we've already come up a
+
+344
+00:09:47,886 --> 0:09:49,706
+couple of times on this question
+
+345
+00:09:49,706 --> 0:09:51,306
+of what would your app need
+
+346
+00:09:51,306 --> 0:09:53,006
+always authorization for anyway.
+
+347
+00:09:53,616 --> 0:09:55,686
+Well, let's take a look at when
+
+348
+00:09:55,686 --> 0:09:56,826
+in use authorization and I think
+
+349
+00:09:56,826 --> 0:09:56,976
+we'll see.
+
+350
+00:10:00,716 --> 0:10:02,186
+So, I think I already, I
+
+351
+00:10:02,246 --> 0:10:03,926
+implied, but you probably
+
+352
+00:10:03,926 --> 0:10:05,746
+already guessed that if your app
+
+353
+00:10:05,936 --> 0:10:07,506
+asked for when in use
+
+354
+00:10:07,506 --> 0:10:08,846
+authorization, requests when in
+
+355
+00:10:08,846 --> 0:10:10,166
+use authorization up front and
+
+356
+00:10:10,306 --> 0:10:11,426
+the user granted it at this
+
+357
+00:10:11,426 --> 0:10:12,756
+prompt, then your app had
+
+358
+00:10:12,756 --> 0:10:13,446
+received when in use
+
+359
+00:10:13,446 --> 0:10:14,476
+authorization with no
+
+360
+00:10:14,476 --> 0:10:16,296
+provisional period and no
+
+361
+00:10:16,496 --> 0:10:19,606
+followup prompt.
+
+362
+00:10:19,606 --> 0:10:20,736
+And it would also have saved up
+
+363
+00:10:20,736 --> 0:10:21,766
+its opportunity to ask for
+
+364
+00:10:21,766 --> 0:10:22,896
+always later when maybe you
+
+365
+00:10:22,896 --> 0:10:24,056
+introduce a killer new feature
+
+366
+00:10:24,056 --> 0:10:25,506
+that really needs it.
+
+367
+00:10:26,256 --> 0:10:28,066
+So, how far can you go before
+
+368
+00:10:28,066 --> 0:10:29,156
+you have to start calling that
+
+369
+00:10:29,156 --> 0:10:30,846
+new feature killer and asking
+
+370
+00:10:30,846 --> 0:10:31,956
+for always authorization to
+
+371
+00:10:31,956 --> 0:10:33,046
+power it?
+
+372
+00:10:35,316 --> 0:10:38,326
+In iOS 12 and in early releases,
+
+373
+00:10:38,376 --> 0:10:40,216
+this table provided the answer
+
+374
+00:10:40,216 --> 0:10:40,426
+there.
+
+375
+00:10:41,756 --> 0:10:43,316
+As you can see, an app with when
+
+376
+00:10:43,316 --> 0:10:45,196
+in use authorization can receive
+
+377
+00:10:45,196 --> 0:10:47,536
+location updates, it can arrange
+
+378
+00:10:47,586 --> 0:10:49,906
+beacons, it can even receive
+
+379
+00:10:50,006 --> 0:10:51,546
+continuous location updates in
+
+380
+00:10:51,546 --> 0:10:53,046
+the background after starting
+
+381
+00:10:53,046 --> 0:10:55,426
+them in the foreground through
+
+382
+00:10:55,426 --> 0:10:57,726
+the use of the blue bar or pill
+
+383
+00:10:58,196 --> 0:10:59,536
+the background usage indicator.
+
+384
+00:11:00,146 --> 0:11:03,036
+But it could not start location
+
+385
+00:11:03,036 --> 0:11:03,926
+updates directly from the
+
+386
+00:11:03,926 --> 0:11:05,766
+background, and it could not use
+
+387
+00:11:05,766 --> 0:11:07,276
+any of our monitoring APIs,
+
+388
+00:11:07,276 --> 0:11:08,376
+which have the potential to
+
+389
+00:11:08,376 --> 0:11:10,536
+launch it in the background with
+
+390
+00:11:10,536 --> 0:11:11,736
+location-related information.
+
+391
+00:11:12,526 --> 0:11:14,316
+So what's a consistent feature
+
+392
+00:11:14,316 --> 0:11:14,586
+here?
+
+393
+00:11:15,836 --> 0:11:16,696
+Well, you'll notice that
+
+394
+00:11:17,386 --> 0:11:18,666
+services near the top of this
+
+395
+00:11:18,666 --> 0:11:20,586
+chart only function when your
+
+396
+00:11:20,716 --> 0:11:21,636
+app is in use.
+
+397
+00:11:24,156 --> 0:11:25,416
+While services near the bottom
+
+398
+00:11:26,736 --> 0:11:28,106
+function, have the potential to
+
+399
+00:11:28,136 --> 0:11:29,166
+deliver location related
+
+400
+00:11:29,166 --> 0:11:30,446
+information even when your app
+
+401
+00:11:30,446 --> 0:11:32,046
+is not in use.
+
+402
+00:11:34,576 --> 0:11:35,866
+So, in iOS 12, they're not
+
+403
+00:11:35,866 --> 0:11:37,246
+available to apps, which only
+
+404
+00:11:37,246 --> 0:11:38,506
+have authorization while they're
+
+405
+00:11:38,506 --> 0:11:41,146
+in use, but what if these
+
+406
+00:11:41,146 --> 0:11:42,326
+services at the bottom could run
+
+407
+00:11:42,326 --> 0:11:43,216
+in a mode where they don't
+
+408
+00:11:43,216 --> 0:11:44,486
+deliver related information to
+
+409
+00:11:44,486 --> 0:11:45,956
+your app unless it is in use?
+
+410
+00:11:46,936 --> 0:11:47,756
+In this case, they'd be
+
+411
+00:11:47,756 --> 0:11:48,986
+compatible with when in use
+
+412
+00:11:48,986 --> 0:11:50,816
+authorization, and we can stop
+
+413
+00:11:50,816 --> 0:11:52,536
+thinking so much about what
+
+414
+00:11:52,536 --> 0:11:55,426
+services your app is allowed to
+
+415
+00:11:55,426 --> 0:11:56,656
+use and start thinking more
+
+416
+00:11:56,656 --> 0:11:57,766
+about whether, just whether it's
+
+417
+00:11:57,816 --> 0:11:58,896
+in use or not.
+
+418
+00:11:59,506 --> 0:12:01,786
+So, that's what we've done in
+
+419
+00:11:59,506 --> 0:12:01,786
+So, that's what we've done in
+
+420
+00:12:01,916 --> 0:12:02,716
+iOS 13.
+
+421
+00:12:03,606 --> 0:12:04,866
+Each of these green checkmarks
+
+422
+00:12:04,866 --> 0:12:07,556
+now describes complete access to
+
+423
+00:12:07,626 --> 0:12:09,236
+all of our API including
+
+424
+00:12:09,236 --> 0:12:10,446
+significant location change
+
+425
+00:12:10,446 --> 0:12:12,696
+monitoring, region monitoring,
+
+426
+00:12:13,266 --> 0:12:14,636
+visit monitoring.
+
+427
+00:12:15,946 --> 0:12:17,486
+If your app is in use, it will
+
+428
+00:12:17,486 --> 0:12:18,466
+receive that significant
+
+429
+00:12:18,466 --> 0:12:20,296
+location change, that region
+
+430
+00:12:20,296 --> 0:12:23,196
+entry, that visit exit, and if
+
+431
+00:12:23,196 --> 0:12:25,286
+it's not, it will not.
+
+432
+00:12:27,136 --> 0:12:29,646
+So, under iOS 12, if you knew
+
+433
+00:12:30,026 --> 0:12:31,466
+your app needed to do region
+
+434
+00:12:31,466 --> 0:12:32,386
+monitoring, you might have
+
+435
+00:12:32,386 --> 0:12:33,376
+stopped thinking right there
+
+436
+00:12:33,376 --> 0:12:34,676
+about what kind of authorization
+
+437
+00:12:34,676 --> 0:12:35,066
+you needed.
+
+438
+00:12:36,476 --> 0:12:37,916
+But now, in iOS 13, you should
+
+439
+00:12:37,916 --> 0:12:38,766
+think a little deeper.
+
+440
+00:12:40,356 --> 0:12:41,416
+Whatever you need to do, will
+
+441
+00:12:41,416 --> 0:12:42,906
+the user know your doing it, can
+
+442
+00:12:43,826 --> 0:12:45,546
+the user be involved directly in
+
+443
+00:12:45,546 --> 0:12:45,966
+doing it?
+
+444
+00:12:47,456 --> 0:12:49,286
+In sort, when in use
+
+445
+00:12:49,286 --> 0:12:50,676
+authorization will be sufficient
+
+446
+00:12:50,676 --> 0:12:53,016
+for your app's needs if it will
+
+447
+00:12:53,056 --> 0:12:58,246
+or can be in use at the time.
+
+448
+00:12:58,466 --> 0:12:58,756
+Okay.
+
+449
+00:12:58,756 --> 0:13:00,796
+So, when is your app in use?
+
+450
+00:12:58,756 --> 0:13:00,796
+So, when is your app in use?
+
+451
+00:13:01,106 --> 0:13:04,256
+Well, at some point on this
+
+452
+00:13:04,256 --> 0:13:05,186
+timeline, your app will enter
+
+453
+00:13:05,186 --> 0:13:07,756
+the foreground, and from then,
+
+454
+00:13:07,826 --> 0:13:09,006
+until it enters the background,
+
+455
+00:13:09,006 --> 0:13:12,516
+it's considered in use, and then
+
+456
+00:13:12,516 --> 0:13:14,046
+actually for a few seconds more.
+
+457
+00:13:14,436 --> 0:13:15,726
+So this is the grace period
+
+458
+00:13:15,776 --> 0:13:16,986
+that's intended to cover your
+
+459
+00:13:16,986 --> 0:13:19,316
+app for race cases when the
+
+460
+00:13:19,316 --> 0:13:21,606
+event that you need location for
+
+461
+00:13:21,606 --> 0:13:22,926
+happens right before the user
+
+462
+00:13:22,926 --> 0:13:24,776
+leaves your app, but it's very
+
+463
+00:13:24,776 --> 0:13:27,006
+short, so try not to depend on
+
+464
+00:13:27,006 --> 0:13:29,106
+it too much.
+
+465
+00:13:29,446 --> 0:13:30,926
+Then your app will remain out of
+
+466
+00:13:30,956 --> 0:13:32,296
+use until it next enters the
+
+467
+00:13:32,376 --> 0:13:33,506
+foreground and this process
+
+468
+00:13:33,506 --> 0:13:34,006
+repeats.
+
+469
+00:13:39,176 --> 0:13:39,506
+Okay.
+
+470
+00:13:39,506 --> 0:13:42,656
+So, if you add location updates
+
+471
+00:13:42,706 --> 0:13:44,956
+to the list of background modes
+
+472
+00:13:44,956 --> 0:13:46,976
+that your app supports in Xcode,
+
+473
+00:13:47,766 --> 0:13:49,026
+then you can also get into this
+
+474
+00:13:49,026 --> 0:13:51,236
+situation where after your app
+
+475
+00:13:51,236 --> 0:13:52,786
+enters the foreground and
+
+476
+00:13:53,996 --> 0:13:55,646
+becomes in use, you start
+
+477
+00:13:55,646 --> 0:13:57,166
+updating your location, and then
+
+478
+00:13:57,166 --> 0:13:58,566
+you set the allows background
+
+479
+00:13:58,566 --> 0:14:00,316
+location updates property to
+
+480
+00:13:58,566 --> 0:14:00,316
+location updates property to
+
+481
+00:14:00,316 --> 0:14:01,726
+true on your location manager.
+
+482
+00:14:02,886 --> 0:14:03,956
+And then when you app enters the
+
+483
+00:14:03,956 --> 0:14:05,886
+background, that blue background
+
+484
+00:14:05,886 --> 0:14:08,386
+usage indicator will show, and
+
+485
+00:14:08,386 --> 0:14:10,256
+your app will continue to be in
+
+486
+00:14:10,256 --> 0:14:11,396
+use throughout its period in the
+
+487
+00:14:11,396 --> 0:14:12,986
+background until it enters the
+
+488
+00:14:12,986 --> 0:14:14,336
+foreground again.
+
+489
+00:14:16,636 --> 0:14:17,856
+Then, at some point you set
+
+490
+00:14:17,856 --> 0:14:18,976
+allows background location
+
+491
+00:14:18,976 --> 0:14:20,196
+updates to false, and that's
+
+492
+00:14:20,196 --> 0:14:21,326
+sufficient to return to the
+
+493
+00:14:21,326 --> 0:14:22,776
+usual behavior where the next
+
+494
+00:14:22,776 --> 0:14:24,566
+time your app leaves the
+
+495
+00:14:24,656 --> 0:14:26,296
+foreground, it will cease to be
+
+496
+00:14:26,296 --> 0:14:27,000
+in use.
+
+497
+00:14:31,516 --> 0:14:31,826
+All right.
+
+498
+00:14:31,826 --> 0:14:32,966
+What about complications?
+
+499
+00:14:33,576 --> 0:14:35,026
+Well, the complications on the
+
+500
+00:14:35,026 --> 0:14:36,106
+current watch face are
+
+501
+00:14:36,106 --> 0:14:37,336
+effectively always in use.
+
+502
+00:14:37,886 --> 0:14:42,176
+Note though that like the grace
+
+503
+00:14:42,176 --> 0:14:43,676
+period in the background usage
+
+504
+00:14:43,676 --> 0:14:46,036
+indicator period, this is a dark
+
+505
+00:14:46,036 --> 0:14:48,826
+green color, and your app is not
+
+506
+00:14:48,826 --> 0:14:50,266
+considered in use enough to
+
+507
+00:14:50,266 --> 0:14:51,756
+request an authorization prompt
+
+508
+00:14:51,956 --> 0:14:54,296
+in this state or to do anything
+
+509
+00:14:54,296 --> 0:14:55,766
+but receive location updates.
+
+510
+00:14:56,666 --> 0:14:58,066
+So, if you're working on a
+
+511
+00:14:58,066 --> 0:14:59,326
+complication, your app probably
+
+512
+00:14:59,326 --> 0:15:00,516
+will not require always
+
+513
+00:14:59,326 --> 0:15:00,516
+will not require always
+
+514
+00:15:00,516 --> 0:15:02,266
+authorization, but you will need
+
+515
+00:15:02,266 --> 0:15:03,466
+to seek authorization from your
+
+516
+00:15:03,466 --> 0:15:05,000
+app context.
+
+517
+00:15:07,076 --> 0:15:08,896
+There's one other case I'd like
+
+518
+00:15:08,896 --> 0:15:10,116
+to draw your attention to
+
+519
+00:15:10,116 --> 0:15:11,896
+because it provides a lot of
+
+520
+00:15:12,026 --> 0:15:13,246
+additional power to when in use
+
+521
+00:15:13,246 --> 0:15:15,036
+authorization in those cases
+
+522
+00:15:15,036 --> 0:15:16,646
+where you can afford to directly
+
+523
+00:15:16,646 --> 0:15:17,336
+involve the user.
+
+524
+00:15:17,676 --> 0:15:19,636
+So, if you can do that, then you
+
+525
+00:15:19,636 --> 0:15:21,206
+can create a local notification
+
+526
+00:15:21,256 --> 0:15:23,256
+with a UN location notification
+
+527
+00:15:23,256 --> 0:15:25,756
+trigger that names a region of
+
+528
+00:15:26,546 --> 0:15:27,000
+interest.
+
+529
+00:15:28,346 --> 0:15:30,216
+Then, when the user enters that
+
+530
+00:15:30,216 --> 0:15:32,496
+region, that notification will
+
+531
+00:15:32,496 --> 0:15:33,456
+become relevant and will be
+
+532
+00:15:33,456 --> 0:15:34,246
+displayed to them.
+
+533
+00:15:35,786 --> 0:15:37,066
+Note that at this point up to
+
+534
+00:15:37,066 --> 0:15:38,106
+this point your app has not
+
+535
+00:15:38,106 --> 0:15:39,396
+received any information about
+
+536
+00:15:39,396 --> 0:15:40,556
+where the location, where the
+
+537
+00:15:40,556 --> 0:15:43,086
+user is, and you're not told
+
+538
+00:15:43,086 --> 0:15:45,016
+when this notification presents
+
+539
+00:15:45,016 --> 0:15:46,346
+or doesn't present.
+
+540
+00:15:47,626 --> 0:15:49,146
+However, at this point, if the
+
+541
+00:15:49,146 --> 0:15:51,006
+user taps through from that
+
+542
+00:15:51,006 --> 0:15:52,656
+notification and launches your
+
+543
+00:15:52,656 --> 0:15:54,376
+app, boom, your app is in the
+
+544
+00:15:54,376 --> 0:15:54,896
+foreground.
+
+545
+00:15:55,026 --> 0:15:56,376
+It's in use in the regular way,
+
+546
+00:15:56,616 --> 0:15:57,776
+right at the context where you
+
+547
+00:15:57,776 --> 0:16:01,446
+needed it to be.
+
+548
+00:15:57,776 --> 0:16:01,446
+needed it to be.
+
+549
+00:16:02,026 --> 0:16:03,416
+Okay, so remember, all the Core
+
+550
+00:16:03,416 --> 0:16:05,246
+Location API surfaces are now
+
+551
+00:16:05,246 --> 0:16:07,076
+available to all clients under
+
+552
+00:16:07,076 --> 0:16:09,086
+at least some circumstances, and
+
+553
+00:16:09,086 --> 0:16:10,606
+you can use local notifications
+
+554
+00:16:10,676 --> 0:16:12,366
+or the blue background usage
+
+555
+00:16:12,366 --> 0:16:14,416
+indicator to get or stay in
+
+556
+00:16:14,416 --> 0:16:15,596
+those circumstances as
+
+557
+00:16:15,596 --> 0:16:19,226
+appropriate, which means you
+
+558
+00:16:19,226 --> 0:16:20,076
+should now need always
+
+559
+00:16:20,076 --> 0:16:21,546
+authorization only for those
+
+560
+00:16:21,546 --> 0:16:23,236
+cases, those kinds of automation
+
+561
+00:16:23,236 --> 0:16:24,966
+where the user can't or doesn't
+
+562
+00:16:25,036 --> 0:16:26,676
+want to be involved before your
+
+563
+00:16:26,676 --> 0:16:27,000
+app is.
+
+564
+00:16:29,526 --> 0:16:30,556
+We hope that this will help you
+
+565
+00:16:30,556 --> 0:16:31,916
+make your authorization story
+
+566
+00:16:31,916 --> 0:16:33,186
+more comfortable for all those
+
+567
+00:16:33,186 --> 0:16:35,206
+users in other cases.
+
+568
+00:16:39,126 --> 0:16:41,186
+Okay, and there's one more way
+
+569
+00:16:41,386 --> 0:16:42,436
+in which we've made a temporary
+
+570
+00:16:42,436 --> 0:16:43,786
+authorization, when in use
+
+571
+00:16:43,786 --> 0:16:45,506
+authorization cooler, and that's
+
+572
+00:16:45,646 --> 0:16:46,516
+that we allowed it to be
+
+573
+00:16:46,516 --> 0:16:47,086
+temporary.
+
+574
+00:16:48,026 --> 0:16:49,456
+So, that's what the middle
+
+575
+00:16:49,456 --> 0:16:50,606
+button on this prompt does.
+
+576
+00:16:55,456 --> 0:16:56,746
+Let's take a look at all the
+
+577
+00:16:56,746 --> 0:16:59,026
+states that your authorization
+
+578
+00:16:59,026 --> 0:17:00,056
+states that your app can be in
+
+579
+00:16:59,026 --> 0:17:00,056
+states that your app can be in
+
+580
+00:17:00,056 --> 0:17:01,226
+and some of the transitions that
+
+581
+00:17:01,356 --> 0:17:02,626
+you can make between the VR
+
+582
+00:17:02,626 --> 0:17:04,616
+prompting system so that we can
+
+583
+00:17:04,616 --> 0:17:06,406
+figure out where this temporary
+
+584
+00:17:06,406 --> 0:17:07,496
+authorization fits into the
+
+585
+00:17:07,496 --> 0:17:07,836
+picture.
+
+586
+00:17:08,506 --> 0:17:11,996
+So, starting with the way this
+
+587
+00:17:11,996 --> 0:17:13,455
+works in iOS 12, when your app
+
+588
+00:17:13,715 --> 0:17:15,486
+first enters to foreground, its
+
+589
+00:17:15,486 --> 0:17:17,965
+state is not determined, which
+
+590
+00:17:17,965 --> 0:17:18,705
+means that it does not have
+
+591
+00:17:18,705 --> 0:17:20,455
+access-- by the way we're going
+
+592
+00:17:20,455 --> 0:17:21,806
+to have more permanent states
+
+593
+00:17:21,806 --> 0:17:24,086
+off to the sides and more highly
+
+594
+00:17:24,165 --> 0:17:25,465
+authorized states up to the top.
+
+595
+00:17:25,465 --> 0:17:26,925
+So not determined is at the
+
+596
+00:17:26,925 --> 0:17:27,306
+bottom.
+
+597
+00:17:27,526 --> 0:17:29,216
+Your app cannot access location,
+
+598
+00:17:29,446 --> 0:17:31,706
+the user's location, but it's
+
+599
+00:17:31,706 --> 0:17:32,446
+not denied.
+
+600
+00:17:33,246 --> 0:17:34,206
+It's not determined.
+
+601
+00:17:35,796 --> 0:17:36,836
+So, crucially, in a not
+
+602
+00:17:36,836 --> 0:17:38,066
+determined state, your app can
+
+603
+00:17:38,066 --> 0:17:39,566
+request an authorization prompt,
+
+604
+00:17:40,276 --> 0:17:41,366
+and as soon as it does, then it
+
+605
+00:17:41,366 --> 0:17:42,806
+may be denied, and then it will
+
+606
+00:17:42,806 --> 0:17:44,206
+not be able to prompt again, but
+
+607
+00:17:44,516 --> 0:17:45,926
+the user could also grant a when
+
+608
+00:17:45,926 --> 0:17:49,596
+in use authorization, and if you
+
+609
+00:17:50,086 --> 0:17:52,136
+request always authorization
+
+610
+00:17:52,136 --> 0:17:53,226
+from there, you can get into
+
+611
+00:17:53,226 --> 0:17:56,096
+always authorization, or you can
+
+612
+00:17:56,096 --> 0:17:57,076
+ask directly for always
+
+613
+00:17:57,076 --> 0:17:57,846
+authorization from the
+
+614
+00:17:57,846 --> 0:17:58,166
+beginning.
+
+615
+00:17:59,316 --> 0:18:00,776
+So, that's iOS 12.
+
+616
+00:17:59,316 --> 0:18:00,776
+So, that's iOS 12.
+
+617
+00:18:01,886 --> 0:18:06,746
+Now, in iOS 13, we've seen that
+
+618
+00:18:07,686 --> 0:18:09,336
+the path to always authorization
+
+619
+00:18:09,336 --> 0:18:11,306
+involves a new temporary state
+
+620
+00:18:11,506 --> 0:18:12,726
+called provisional always
+
+621
+00:18:12,726 --> 0:18:14,356
+authorization, which functions a
+
+622
+00:18:14,356 --> 0:18:15,826
+lot like always authorization
+
+623
+00:18:16,526 --> 0:18:17,956
+but from which a transition back
+
+624
+00:18:18,136 --> 0:18:19,396
+to when in use authorization is
+
+625
+00:18:19,396 --> 0:18:20,126
+also possible.
+
+626
+00:18:20,126 --> 0:18:23,916
+Well, a temporary authorization
+
+627
+00:18:23,916 --> 0:18:24,926
+works very similarly.
+
+628
+00:18:25,736 --> 0:18:27,586
+It's a temporary state that
+
+629
+00:18:27,856 --> 0:18:29,166
+behaves a lot like when in use
+
+630
+00:18:29,166 --> 0:18:30,866
+authorization but from which a
+
+631
+00:18:30,866 --> 0:18:32,576
+return to not determined state
+
+632
+00:18:33,186 --> 0:18:35,536
+always happens as soon as your
+
+633
+00:18:35,536 --> 0:18:37,000
+app is no longer in use.
+
+634
+00:18:42,336 --> 0:18:43,886
+Okay, so temporary, a when in
+
+635
+00:18:43,886 --> 0:18:45,906
+use authorization is temporary,
+
+636
+00:18:46,666 --> 0:18:50,726
+but otherwise it works just like
+
+637
+00:18:50,726 --> 0:18:51,916
+when in use authorization.
+
+638
+00:18:52,056 --> 0:18:54,126
+So, your location manager's
+
+639
+00:18:54,126 --> 0:18:55,096
+delegate will be called back
+
+640
+00:18:55,096 --> 0:18:56,626
+with location manager did change
+
+641
+00:18:56,626 --> 0:18:58,996
+authorization to authorize when
+
+642
+00:18:58,996 --> 0:19:01,116
+in use and then again later with
+
+643
+00:18:58,996 --> 0:19:01,116
+in use and then again later with
+
+644
+00:19:01,366 --> 0:19:01,986
+not determined.
+
+645
+00:19:02,506 --> 0:19:05,226
+But the key is, after that
+
+646
+00:19:05,376 --> 0:19:07,036
+happens, your app can and should
+
+647
+00:19:07,036 --> 0:19:08,416
+request authorization again the
+
+648
+00:19:08,416 --> 0:19:09,416
+next time it needs it.
+
+649
+00:19:14,936 --> 0:19:16,286
+And the main thing to remember
+
+650
+00:19:16,286 --> 0:19:18,036
+is just that authorization with
+
+651
+00:19:18,036 --> 0:19:18,776
+temporary when in use
+
+652
+00:19:18,776 --> 0:19:20,566
+authorization is closely tied to
+
+653
+00:19:20,566 --> 0:19:22,586
+when exactly your app is in use,
+
+654
+00:19:23,236 --> 0:19:24,836
+and also because you can request
+
+655
+00:19:24,836 --> 0:19:26,376
+it again, it's more closely tied
+
+656
+00:19:26,416 --> 0:19:27,766
+to where in your app's flow you
+
+657
+00:19:27,766 --> 0:19:29,596
+actually need location access.
+
+658
+00:19:31,066 --> 0:19:32,986
+So, let's look at some of those
+
+659
+00:19:33,186 --> 0:19:34,906
+green in usage charts again now
+
+660
+00:19:34,906 --> 0:19:35,426
+in this light.
+
+661
+00:19:36,006 --> 0:19:38,916
+So here's the most basic case,
+
+662
+00:19:39,076 --> 0:19:40,006
+but we'll make it even more
+
+663
+00:19:40,006 --> 0:19:41,446
+basic by pulling that second
+
+664
+00:19:41,446 --> 0:19:43,186
+region of usage up close to the
+
+665
+00:19:43,186 --> 0:19:43,686
+first one.
+
+666
+00:19:45,316 --> 0:19:46,356
+Now, while your app is
+
+667
+00:19:46,436 --> 0:19:48,546
+foreground and in use, let's say
+
+668
+00:19:48,546 --> 0:19:50,966
+the user interacts in a way that
+
+669
+00:19:51,326 --> 0:19:52,426
+makes you know that your app
+
+670
+00:19:52,426 --> 0:19:52,976
+will need authorization,
+
+671
+00:19:53,446 --> 0:19:55,576
+so you request authorization at
+
+672
+00:19:55,606 --> 0:19:56,086
+that point.
+
+673
+00:19:56,576 --> 0:19:58,986
+And the user grants it-- with
+
+674
+00:19:58,986 --> 0:20:00,406
+the allow once, the user grants
+
+675
+00:19:58,986 --> 0:20:00,406
+the allow once, the user grants
+
+676
+00:20:00,406 --> 0:20:01,326
+a temporary when in use
+
+677
+00:20:01,326 --> 0:20:01,996
+authorization.
+
+678
+00:20:03,326 --> 0:20:04,516
+In that case, your app will have
+
+679
+00:20:04,516 --> 0:20:05,776
+when in use authorization
+
+680
+00:20:06,296 --> 0:20:07,296
+through the remainder of that
+
+681
+00:20:07,296 --> 0:20:09,226
+foreground period, across that
+
+682
+00:20:09,226 --> 0:20:10,506
+brief dip into the background,
+
+683
+00:20:10,906 --> 0:20:11,776
+and then through the next
+
+684
+00:20:11,776 --> 0:20:13,436
+foreground period all the way
+
+685
+00:20:13,436 --> 0:20:14,756
+until it fully enters the
+
+686
+00:20:14,756 --> 0:20:16,500
+background at the end.
+
+687
+00:20:21,486 --> 0:20:22,306
+All right, but what happens if
+
+688
+00:20:22,306 --> 0:20:23,976
+that gap in the middle opens up
+
+689
+00:20:23,976 --> 0:20:24,996
+a little bit more and your app
+
+690
+00:20:25,026 --> 0:20:26,476
+really ceases to be in use in
+
+691
+00:20:26,476 --> 0:20:26,846
+between.
+
+692
+00:20:28,186 --> 0:20:30,456
+Then, the user does that thing,
+
+693
+00:20:31,236 --> 0:20:32,816
+you request authorization, you
+
+694
+00:20:32,816 --> 0:20:34,986
+receive a temporary when in use
+
+695
+00:20:34,986 --> 0:20:36,656
+authorization, but it's going to
+
+696
+00:20:36,656 --> 0:20:38,096
+lapse when you enter into the
+
+697
+00:20:38,096 --> 0:20:38,616
+background.
+
+698
+00:20:39,146 --> 0:20:42,006
+So, you're probably thinking,
+
+699
+00:20:42,006 --> 0:20:44,116
+okay, when do I ask for
+
+700
+00:20:44,316 --> 0:20:45,836
+authorization again in that
+
+701
+00:20:45,886 --> 0:20:47,556
+second period of in useness?
+
+702
+00:20:47,776 --> 0:20:48,606
+Should I do it as soon as I
+
+703
+00:20:48,606 --> 0:20:49,396
+enter the foreground?
+
+704
+00:20:50,916 --> 0:20:51,696
+No, you shouldn't.
+
+705
+00:20:51,696 --> 0:20:53,586
+You should instead keep in mind
+
+706
+00:20:53,746 --> 0:20:54,946
+what it was that caused you to
+
+707
+00:20:54,946 --> 0:20:55,926
+ask for authorization in the
+
+708
+00:20:55,926 --> 0:20:56,546
+first place.
+
+709
+00:20:57,586 --> 0:20:58,836
+For example, maybe the user
+
+710
+00:20:58,836 --> 0:21:00,456
+asked that you keep a MAT view
+
+711
+00:20:58,836 --> 0:21:00,456
+asked that you keep a MAT view
+
+712
+00:21:00,456 --> 0:21:01,366
+updated with their current
+
+713
+00:21:01,366 --> 0:21:02,946
+location or that you GEO tag a
+
+714
+00:21:02,946 --> 0:21:03,886
+message they're sending.
+
+715
+00:21:04,476 --> 0:21:08,146
+If they do that again in the
+
+716
+00:21:08,216 --> 0:21:09,576
+second usage period, then ask
+
+717
+00:21:09,576 --> 0:21:11,176
+for authorization to do it in
+
+718
+00:21:11,176 --> 0:21:12,206
+order to support them with that
+
+719
+00:21:12,206 --> 0:21:12,726
+request.
+
+720
+00:21:12,896 --> 0:21:14,446
+If they don't, don't.
+
+721
+00:21:15,306 --> 0:21:17,196
+The key is, if the user doesn't
+
+722
+00:21:17,196 --> 0:21:18,866
+expect you to continue using
+
+723
+00:21:18,866 --> 0:21:20,106
+their location from the previous
+
+724
+00:21:20,106 --> 0:21:21,926
+time, don't ask again as soon as
+
+725
+00:21:21,926 --> 0:21:22,706
+you enter the foreground.
+
+726
+00:21:24,956 --> 0:21:25,296
+Okay.
+
+727
+00:21:25,606 --> 0:21:28,716
+But, sometimes maybe you're
+
+728
+00:21:28,716 --> 0:21:31,366
+tracking a user's run or helping
+
+729
+00:21:31,366 --> 0:21:32,716
+them navigate, and the user will
+
+730
+00:21:32,716 --> 0:21:34,456
+expect you to continue accessing
+
+731
+00:21:34,456 --> 0:21:37,646
+their location even after across
+
+732
+00:21:37,756 --> 0:21:40,076
+periods of time in the
+
+733
+00:21:40,076 --> 0:21:40,556
+background.
+
+734
+00:21:41,176 --> 0:21:41,766
+Well, in that case we're
+
+735
+00:21:41,766 --> 0:21:43,106
+probably in this situation
+
+736
+00:21:43,106 --> 0:21:46,086
+whereas after you start that run
+
+737
+00:21:46,136 --> 0:21:48,126
+and you ask for authorization to
+
+738
+00:21:48,126 --> 0:21:49,816
+record it, and you receive
+
+739
+00:21:49,816 --> 0:21:50,816
+temporary when in use
+
+740
+00:21:50,816 --> 0:21:52,206
+authorization, you're going to
+
+741
+00:21:52,206 --> 0:21:53,616
+be starting location updates.
+
+742
+00:21:53,616 --> 0:21:54,406
+You're going to be setting
+
+743
+00:21:54,406 --> 0:21:55,706
+allows back on location updates
+
+744
+00:21:55,706 --> 0:21:56,126
+to true.
+
+745
+00:21:56,696 --> 0:21:57,956
+And so when your app enters the
+
+746
+00:21:57,956 --> 0:21:59,946
+background, that blue background
+
+747
+00:21:59,946 --> 0:22:01,446
+usage indicator will show, and
+
+748
+00:21:59,946 --> 0:22:01,446
+usage indicator will show, and
+
+749
+00:22:01,446 --> 0:22:03,116
+your app will remain in use and
+
+750
+00:22:03,116 --> 0:22:04,576
+therefore continue to have its
+
+751
+00:22:04,576 --> 0:22:05,436
+temporary when in use
+
+752
+00:22:05,436 --> 0:22:06,816
+authorization uninterrupted
+
+753
+00:22:06,866 --> 0:22:08,246
+across that background session.
+
+754
+00:22:09,876 --> 0:22:11,166
+Then, when [inaudible] in the
+
+755
+00:22:11,216 --> 0:22:13,146
+foreground again, end the run or
+
+756
+00:22:13,146 --> 0:22:14,666
+end the navigation session, you
+
+757
+00:22:14,736 --> 0:22:16,206
+set allows background location
+
+758
+00:22:16,206 --> 0:22:17,886
+updates to false again, and we
+
+759
+00:22:17,886 --> 0:22:19,276
+return to the normal situation.
+
+760
+00:22:19,876 --> 0:22:22,846
+Okay, I do want to call out that
+
+761
+00:22:22,846 --> 0:22:24,376
+there is a valid use case for
+
+762
+00:22:24,376 --> 0:22:25,626
+requesting authorization more or
+
+763
+00:22:25,626 --> 0:22:26,486
+less as soon as you enter the
+
+764
+00:22:26,486 --> 0:22:28,326
+foreground, which is if the user
+
+765
+00:22:28,326 --> 0:22:29,806
+expects your app to always have
+
+766
+00:22:29,806 --> 0:22:31,306
+authorization, always be
+
+767
+00:22:31,396 --> 0:22:32,506
+updating a map with their
+
+768
+00:22:32,506 --> 0:22:34,096
+location, but only when they're
+
+769
+00:22:34,096 --> 0:22:35,296
+directly interacting with it.
+
+770
+00:22:36,256 --> 0:22:37,276
+In those cases, when you enter
+
+771
+00:22:37,276 --> 0:22:38,376
+the foreground, request
+
+772
+00:22:38,376 --> 0:22:40,046
+authorization, but don't set
+
+773
+00:22:40,046 --> 0:22:41,126
+allows background location
+
+774
+00:22:41,126 --> 0:22:42,876
+updates then you won't get the
+
+775
+00:22:42,876 --> 0:22:44,256
+background usage indicator, and
+
+776
+00:22:44,256 --> 0:22:45,276
+your authorization will just
+
+777
+00:22:45,276 --> 0:22:46,236
+lapse when you enter the
+
+778
+00:22:46,236 --> 0:22:46,686
+background.
+
+779
+00:22:47,206 --> 0:22:49,766
+Then when you come to the
+
+780
+00:22:49,816 --> 0:22:51,336
+foreground again, repeat.
+
+781
+00:22:52,966 --> 0:22:55,596
+Now, ask yourself seriously
+
+782
+00:22:55,596 --> 0:22:56,726
+though, if the user really wants
+
+783
+00:22:56,726 --> 0:22:57,266
+you to do this.
+
+784
+00:22:57,336 --> 0:22:58,006
+Maybe they do.
+
+785
+00:22:58,536 --> 0:22:59,986
+In such cases, you're likely to
+
+786
+00:22:59,986 --> 0:23:02,156
+end up in more permanent when in
+
+787
+00:22:59,986 --> 0:23:02,156
+end up in more permanent when in
+
+788
+00:23:02,156 --> 0:23:03,936
+use authorization sooner or
+
+789
+00:23:03,936 --> 0:23:05,496
+later, but it makes sense to
+
+790
+00:23:05,496 --> 0:23:07,276
+still ask in this way for that
+
+791
+00:23:07,276 --> 0:23:08,436
+period of time before users are
+
+792
+00:23:08,436 --> 0:23:09,746
+sure if they want to grant that
+
+793
+00:23:09,786 --> 0:23:10,586
+or not.
+
+794
+00:23:15,136 --> 0:23:16,686
+Okay, so we've seen that when in
+
+795
+00:23:16,686 --> 0:23:18,106
+use authorization can now handle
+
+796
+00:23:18,106 --> 0:23:19,576
+some uses such as region
+
+797
+00:23:19,576 --> 0:23:23,356
+monitoring and that temporary
+
+798
+00:23:23,356 --> 0:23:24,456
+authorization can bring them
+
+799
+00:23:24,456 --> 0:23:25,836
+that power even on a
+
+800
+00:23:25,836 --> 0:23:27,686
+case-by-case basis, and I
+
+801
+00:23:27,686 --> 0:23:28,866
+promised you some revamped
+
+802
+00:23:28,896 --> 0:23:29,766
+beacon ranging API.
+
+803
+00:23:30,546 --> 0:23:31,656
+So I'd like to invite my
+
+804
+00:23:31,656 --> 0:23:33,086
+colleague, Andre Guzzo, up on
+
+805
+00:23:33,086 --> 0:23:34,336
+stage to walk you through that.
+
+806
+00:23:34,716 --> 0:23:34,976
+Andre.
+
+807
+00:23:35,516 --> 0:23:41,176
+[ Applause ]
+
+808
+00:23:41,676 --> 0:23:42,426
+&gt;&gt; Hi everybody.
+
+809
+00:23:42,726 --> 0:23:44,406
+My name is Andre Guzzo.
+
+810
+00:23:44,596 --> 0:23:46,376
+I'm a software engineer in the
+
+811
+00:23:46,376 --> 0:23:49,286
+Core Location team, and I'm here
+
+812
+00:23:49,286 --> 0:23:50,706
+today to talk to you about
+
+813
+00:23:50,706 --> 0:23:51,496
+beacon ranging.
+
+814
+00:23:52,396 --> 0:23:54,886
+We'll see what's changed in the
+
+815
+00:23:54,886 --> 0:23:57,776
+API in iOS 13 and I will walk
+
+816
+00:23:57,776 --> 0:24:01,466
+you through a simple example on
+
+817
+00:23:57,776 --> 0:24:01,466
+you through a simple example on
+
+818
+00:24:01,516 --> 0:24:03,256
+how to use beacon ranging and
+
+819
+00:24:03,256 --> 0:24:04,786
+provide a great location
+
+820
+00:24:04,786 --> 0:24:07,206
+experience to your users without
+
+821
+00:24:07,206 --> 0:24:08,066
+the need of always
+
+822
+00:24:08,066 --> 0:24:08,796
+authorization.
+
+823
+00:24:10,576 --> 0:24:12,796
+Let's start with a refresher
+
+824
+00:24:12,796 --> 0:24:13,746
+about beacon ranging.
+
+825
+00:24:13,746 --> 0:24:14,896
+What is beacon ranging?
+
+826
+00:24:15,596 --> 0:24:18,456
+We introduced it in iOS 7 as an
+
+827
+00:24:18,456 --> 0:24:19,626
+extension of the regional
+
+828
+00:24:19,626 --> 0:24:23,476
+monitoring API and as a way to
+
+829
+00:24:23,476 --> 0:24:25,476
+provide a new dimension of
+
+830
+00:24:25,476 --> 0:24:27,166
+location aware experience to
+
+831
+00:24:27,166 --> 0:24:28,016
+your users.
+
+832
+00:24:30,146 --> 0:24:31,056
+It's part of the region
+
+833
+00:24:31,056 --> 0:24:33,626
+monitoring API because you want
+
+834
+00:24:34,656 --> 0:24:36,026
+to use region monitoring in
+
+835
+00:24:36,026 --> 0:24:37,596
+order to initiate ranging.
+
+836
+00:24:37,756 --> 0:24:40,066
+You want to assure you are in an
+
+837
+00:24:40,066 --> 0:24:41,376
+area where your beacons are
+
+838
+00:24:41,376 --> 0:24:43,276
+visible before you start ranging
+
+839
+00:24:43,276 --> 0:24:45,886
+for them to not waste resources.
+
+840
+00:24:47,156 --> 0:24:48,976
+And region monitoring since its
+
+841
+00:24:48,976 --> 0:24:51,796
+introduction has required always
+
+842
+00:24:51,796 --> 0:24:52,746
+authorization.
+
+843
+00:24:52,746 --> 0:24:55,226
+Now in iOS 13, it can be used
+
+844
+00:24:55,226 --> 0:24:56,716
+with when in use authorization
+
+845
+00:24:56,716 --> 0:24:57,186
+instead.
+
+846
+00:24:57,736 --> 0:25:02,046
+So, as I said, we introduced
+
+847
+00:24:57,736 --> 0:25:02,046
+So, as I said, we introduced
+
+848
+00:25:02,046 --> 0:25:03,706
+beacon ranging as an extension
+
+849
+00:25:03,706 --> 0:25:04,666
+of region monitoring.
+
+850
+00:25:04,786 --> 0:25:06,566
+So in order to represent a
+
+851
+00:25:06,566 --> 0:25:08,776
+region which is defined by the
+
+852
+00:25:08,776 --> 0:25:11,336
+presence of beacons, we have
+
+853
+00:25:11,336 --> 0:25:14,616
+extended the CL region object
+
+854
+00:25:14,616 --> 0:25:16,486
+into the CL beacon region, and
+
+855
+00:25:16,486 --> 0:25:17,866
+among other properties, we
+
+856
+00:25:17,866 --> 0:25:19,646
+included what actually
+
+857
+00:25:19,646 --> 0:25:22,586
+identifies a beacon, which is
+
+858
+00:25:22,586 --> 0:25:23,836
+[inaudible] major and minor.
+
+859
+00:25:25,786 --> 0:25:28,246
+And you would pass this data
+
+860
+00:25:28,246 --> 0:25:30,616
+type to the beacon ranging API
+
+861
+00:25:30,616 --> 0:25:35,346
+in iOS 12 and previous releases.
+
+862
+00:25:35,346 --> 0:25:36,836
+But let's focus on this
+
+863
+00:25:36,836 --> 0:25:37,976
+[inaudible] it identifies
+
+864
+00:25:37,976 --> 0:25:39,216
+exactly one beacon.
+
+865
+00:25:39,466 --> 0:25:41,276
+Well, you might configure the
+
+866
+00:25:41,276 --> 0:25:42,476
+same [inaudible] on multiple
+
+867
+00:25:42,476 --> 0:25:43,706
+beacons, but it would appear
+
+868
+00:25:43,706 --> 0:25:44,686
+like a bigger beacon.
+
+869
+00:25:45,456 --> 0:25:47,866
+So, when I'm defining a region
+
+870
+00:25:47,866 --> 0:25:49,756
+with all the elements of the
+
+871
+00:25:49,756 --> 0:25:50,356
+[inaudible], I'm actually
+
+872
+00:25:50,356 --> 0:25:51,956
+defining a region with exactly
+
+873
+00:25:51,956 --> 0:25:53,526
+that beacon matching the
+
+874
+00:25:53,526 --> 0:25:54,686
+[inaudible].
+
+875
+00:25:54,686 --> 0:25:56,346
+But in the beacon region case,
+
+876
+00:25:56,346 --> 0:25:58,836
+we can omit the minor and major
+
+877
+00:25:58,836 --> 0:26:00,526
+number, which is equivalent to
+
+878
+00:25:58,836 --> 0:26:00,526
+number, which is equivalent to
+
+879
+00:26:00,526 --> 0:26:01,616
+using a wild card.
+
+880
+00:26:01,746 --> 0:26:03,996
+So, I can omit the minor number,
+
+881
+00:26:03,996 --> 0:26:05,976
+and now my region is defined by
+
+882
+00:26:05,976 --> 0:26:07,876
+all the beacons sharing the same
+
+883
+00:26:07,876 --> 0:26:09,786
+UUID and major number.
+
+884
+00:26:09,786 --> 0:26:12,246
+In the same way, I can omit the
+
+885
+00:26:12,246 --> 0:26:14,326
+major, and now I extended my
+
+886
+00:26:14,326 --> 0:26:15,616
+region to include all the
+
+887
+00:26:15,616 --> 0:26:17,876
+beacons that have just the same
+
+888
+00:26:17,876 --> 0:26:19,866
+UUID but different major and
+
+889
+00:26:19,866 --> 0:26:20,706
+minor numbers.
+
+890
+00:26:21,736 --> 0:26:24,076
+This is why in iOS 13 we
+
+891
+00:26:24,076 --> 0:26:27,386
+introduced a data type CL Beacon
+
+892
+00:26:27,386 --> 0:26:29,776
+Identity Constraint, in order to
+
+893
+00:26:29,776 --> 0:26:32,596
+represent the meaning of
+
+894
+00:26:32,596 --> 0:26:34,556
+[inaudible], which is telling me
+
+895
+00:26:34,636 --> 0:26:35,806
+what are the beacons I'm
+
+896
+00:26:35,806 --> 0:26:37,266
+interested into and that are
+
+897
+00:26:37,266 --> 0:26:38,436
+defining my region.
+
+898
+00:26:39,626 --> 0:26:42,506
+And now, you will use this
+
+899
+00:26:42,506 --> 0:26:44,536
+identity constraint, this data
+
+900
+00:26:44,536 --> 0:26:45,826
+type, when you create your
+
+901
+00:26:45,826 --> 0:26:46,556
+beacon region.
+
+902
+00:26:47,106 --> 0:26:49,056
+And you can later get an
+
+903
+00:26:49,056 --> 0:26:51,876
+instance of this data type when
+
+904
+00:26:51,876 --> 0:26:54,426
+you will need it to access the
+
+905
+00:26:54,426 --> 0:26:57,116
+new beacon ranging API where
+
+906
+00:26:57,116 --> 0:26:58,556
+this data type is expected.
+
+907
+00:27:02,176 --> 0:27:04,386
+So, let's now see how this works
+
+908
+00:27:04,386 --> 0:27:06,566
+in practice by making a simple
+
+909
+00:27:06,566 --> 0:27:07,186
+example.
+
+910
+00:27:09,796 --> 0:27:10,876
+Imagine we are building an
+
+911
+00:27:10,876 --> 0:27:13,946
+application to be used while
+
+912
+00:27:13,946 --> 0:27:15,186
+visiting a museum.
+
+913
+00:27:16,246 --> 0:27:18,616
+We want to provide the visitor
+
+914
+00:27:18,616 --> 0:27:20,206
+with details about the object
+
+915
+00:27:20,206 --> 0:27:21,556
+he's standing in front of
+
+916
+00:27:22,746 --> 0:27:24,966
+without the need of having him
+
+917
+00:27:24,966 --> 0:27:26,756
+typing in some long name or
+
+918
+00:27:26,756 --> 0:27:28,156
+browsing through the catalogue.
+
+919
+00:27:29,336 --> 0:27:30,956
+To achieve this, we are going to
+
+920
+00:27:30,956 --> 0:27:32,806
+install our beacons in the
+
+921
+00:27:32,806 --> 0:27:34,756
+museum in the exhibition rooms.
+
+922
+00:27:35,846 --> 0:27:37,646
+We will use the same UUID for
+
+923
+00:27:37,646 --> 0:27:38,956
+all the beacons that we will
+
+924
+00:27:38,956 --> 0:27:40,886
+deploy in our museum.
+
+925
+00:27:42,106 --> 0:27:44,006
+We will configure a specific
+
+926
+00:27:44,006 --> 0:27:45,516
+major number for each of the
+
+927
+00:27:45,516 --> 0:27:48,366
+exhibition rooms and a minor
+
+928
+00:27:48,366 --> 0:27:50,106
+number for the specific object
+
+929
+00:27:50,186 --> 0:27:51,106
+inside the room.
+
+930
+00:27:51,986 --> 0:27:53,986
+Then, we need to be able to
+
+931
+00:27:53,986 --> 0:27:56,176
+determine when the visitor is or
+
+932
+00:27:56,176 --> 0:27:57,636
+not in one of the exhibition
+
+933
+00:27:57,636 --> 0:27:57,756
+rooms.
+
+934
+00:27:57,756 --> 0:27:59,066
+We don't want to be ranging
+
+935
+00:27:59,066 --> 0:28:00,076
+while the visitor is in the
+
+936
+00:27:59,066 --> 0:28:00,076
+while the visitor is in the
+
+937
+00:28:00,076 --> 0:28:02,726
+cafeteria doing something else.
+
+938
+00:28:02,896 --> 0:28:03,956
+We want to be ranging for
+
+939
+00:28:03,956 --> 0:28:06,556
+beacons when we know he is one
+
+940
+00:28:06,556 --> 0:28:07,726
+of the exhibition room and
+
+941
+00:28:07,726 --> 0:28:08,816
+engaged with the visit.
+
+942
+00:28:08,816 --> 0:28:11,176
+At that point, we need to
+
+943
+00:28:11,176 --> 0:28:12,566
+determine what is the object
+
+944
+00:28:12,566 --> 0:28:15,336
+closest to the visitor and
+
+945
+00:28:15,336 --> 0:28:17,026
+provide details about that one.
+
+946
+00:28:19,276 --> 0:28:22,506
+Finally, all this happens while
+
+947
+00:28:22,506 --> 0:28:25,176
+our application is in use.
+
+948
+00:28:25,736 --> 0:28:28,626
+We can safely assume that since
+
+949
+00:28:28,626 --> 0:28:30,416
+it's a guide for the visit to
+
+950
+00:28:30,416 --> 0:28:31,496
+the museum, the visitor will
+
+951
+00:28:31,496 --> 0:28:33,396
+probably be already engaged with
+
+952
+00:28:33,396 --> 0:28:35,476
+our app, but if we want to
+
+953
+00:28:35,476 --> 0:28:37,616
+remind the visitor about our
+
+954
+00:28:37,616 --> 0:28:39,266
+application, we can use a local
+
+955
+00:28:39,626 --> 0:28:42,536
+notification to trigger a
+
+956
+00:28:42,536 --> 0:28:44,076
+notification when the visitor
+
+957
+00:28:44,076 --> 0:28:45,366
+arrives physically to the
+
+958
+00:28:45,366 --> 0:28:47,156
+museum, so he has a choice to
+
+959
+00:28:47,426 --> 0:28:49,476
+tap through and start our
+
+960
+00:28:49,476 --> 0:28:50,436
+application.
+
+961
+00:28:52,526 --> 0:28:54,076
+So, let's see what our app would
+
+962
+00:28:54,076 --> 0:28:54,676
+look like.
+
+963
+00:28:55,016 --> 0:28:56,826
+This diagram represents the
+
+964
+00:28:56,826 --> 0:28:58,486
+state of our application while
+
+965
+00:28:58,486 --> 0:28:59,466
+it's being used.
+
+966
+00:29:00,486 --> 0:29:01,876
+We will be monitoring for our
+
+967
+00:29:01,876 --> 0:29:03,626
+beacon defined region and react
+
+968
+00:29:03,786 --> 0:29:06,126
+to enter and exit events, and
+
+969
+00:29:06,126 --> 0:29:07,906
+while we are ranging, we will
+
+970
+00:29:07,906 --> 0:29:09,766
+receive updates about the
+
+971
+00:29:09,766 --> 0:29:11,546
+proximity of our beacons.
+
+972
+00:29:12,006 --> 0:29:17,026
+Let's focus on the first state,
+
+973
+00:29:17,026 --> 0:29:19,116
+so how do we define our
+
+974
+00:29:19,116 --> 0:29:20,386
+beacon-defined region.
+
+975
+00:29:20,996 --> 0:29:22,196
+As I said, we are going to
+
+976
+00:29:22,196 --> 0:29:23,906
+install beacons in all the
+
+977
+00:29:23,906 --> 0:29:25,806
+exhibition rooms, and we will
+
+978
+00:29:25,806 --> 0:29:27,256
+use the same UUID for all the
+
+979
+00:29:27,256 --> 0:29:29,316
+beacons and then major for the
+
+980
+00:29:29,716 --> 0:29:31,626
+exhibition room and minor for
+
+981
+00:29:31,626 --> 0:29:32,636
+the specific object.
+
+982
+00:29:33,656 --> 0:29:35,356
+Since we are interested in
+
+983
+00:29:35,356 --> 0:29:36,756
+determining when the visitor
+
+984
+00:29:36,756 --> 0:29:38,956
+enters any of our exhibition
+
+985
+00:29:38,956 --> 0:29:40,936
+rooms, we will omit major and
+
+986
+00:29:40,936 --> 0:29:42,866
+minor, and we will just provide
+
+987
+00:29:42,866 --> 0:29:45,166
+the UUID when creating our
+
+988
+00:29:45,166 --> 0:29:46,816
+beacon region.
+
+989
+00:29:47,026 --> 0:29:49,086
+Let's see how this looks into
+
+990
+00:29:49,086 --> 0:29:49,426
+code.
+
+991
+00:29:49,426 --> 0:29:52,506
+First of all, we are going to
+
+992
+00:29:52,506 --> 0:29:53,786
+ensure we have when in use
+
+993
+00:29:53,786 --> 0:29:54,566
+authorization.
+
+994
+00:29:56,006 --> 0:29:58,546
+Then we will create our beacon
+
+995
+00:29:58,546 --> 0:30:01,846
+constraint by providing only the
+
+996
+00:29:58,546 --> 0:30:01,846
+constraint by providing only the
+
+997
+00:30:01,846 --> 0:30:02,106
+UUID.
+
+998
+00:30:03,586 --> 0:30:05,656
+Then we create our beacon region
+
+999
+00:30:05,736 --> 0:30:07,616
+with a new API by providing the
+
+1000
+00:30:07,616 --> 0:30:09,596
+constraint as argument, and we
+
+1001
+00:30:09,596 --> 0:30:11,000
+can start monitoring for it.
+
+1002
+00:30:14,106 --> 0:30:15,636
+At this point, we are able to
+
+1003
+00:30:15,636 --> 0:30:17,276
+determine when the visitor is
+
+1004
+00:30:17,276 --> 0:30:19,156
+inside or outside one of our
+
+1005
+00:30:19,156 --> 0:30:20,476
+exhibition rooms.
+
+1006
+00:30:20,896 --> 0:30:22,946
+And so we just need to react to
+
+1007
+00:30:22,946 --> 0:30:25,176
+the state change.
+
+1008
+00:30:25,306 --> 0:30:27,536
+We have to start ranging when
+
+1009
+00:30:27,536 --> 0:30:29,126
+the visitor enters one of the
+
+1010
+00:30:29,126 --> 0:30:32,406
+exhibition rooms and stop
+
+1011
+00:30:32,406 --> 0:30:33,936
+ranging when he leaves one of
+
+1012
+00:30:33,936 --> 0:30:34,796
+the exhibition rooms.
+
+1013
+00:30:35,296 --> 0:30:39,176
+We achieve this by defining our
+
+1014
+00:30:39,176 --> 0:30:42,796
+delegate method, and in the
+
+1015
+00:30:42,796 --> 0:30:44,746
+delegate method, we will react
+
+1016
+00:30:44,746 --> 0:30:46,166
+accordingly to the state.
+
+1017
+00:30:46,166 --> 0:30:47,726
+If we are inside, we will start
+
+1018
+00:30:47,726 --> 0:30:48,416
+ranging.
+
+1019
+00:30:48,416 --> 0:30:50,076
+If we outside, we will stop
+
+1020
+00:30:50,076 --> 0:30:50,576
+ranging.
+
+1021
+00:30:51,076 --> 0:30:52,936
+And as you see we are providing
+
+1022
+00:30:52,936 --> 0:30:55,066
+the beacon identity constraint
+
+1023
+00:30:55,156 --> 0:30:57,066
+we just introduced that you can
+
+1024
+00:30:57,066 --> 0:30:59,000
+retrieve through the region.
+
+1025
+00:31:00,046 --> 0:31:01,016
+Note that this delegate method
+
+1026
+00:31:01,016 --> 0:31:02,846
+will be called, also the first
+
+1027
+00:31:02,846 --> 0:31:04,876
+time you start monitoring, in
+
+1028
+00:31:04,876 --> 0:31:06,146
+order for you to know your
+
+1029
+00:31:06,146 --> 0:31:08,866
+initial state, so if the visitor
+
+1030
+00:31:08,866 --> 0:31:10,186
+starts your application while
+
+1031
+00:31:10,186 --> 0:31:11,246
+he's already in one of the
+
+1032
+00:31:11,246 --> 0:31:13,876
+exhibition rooms, you will have
+
+1033
+00:31:13,876 --> 0:31:15,836
+your delegate being called with
+
+1034
+00:31:15,836 --> 0:31:16,606
+the state inside.
+
+1035
+00:31:16,606 --> 0:31:18,426
+So, you will be aware about
+
+1036
+00:31:18,426 --> 0:31:18,606
+that.
+
+1037
+00:31:21,656 --> 0:31:23,406
+Okay, now that we know how to
+
+1038
+00:31:23,406 --> 0:31:25,636
+react to entrance and exits from
+
+1039
+00:31:25,636 --> 0:31:27,386
+the exhibition rooms, let's see
+
+1040
+00:31:27,386 --> 0:31:28,806
+what we have to do when we are
+
+1041
+00:31:28,806 --> 0:31:30,396
+inside in order to determine
+
+1042
+00:31:30,396 --> 0:31:32,146
+what the object closest to the
+
+1043
+00:31:32,146 --> 0:31:32,736
+visitor.
+
+1044
+00:31:34,846 --> 0:31:36,416
+We want to provide information
+
+1045
+00:31:36,416 --> 0:31:38,156
+about what the visitor is
+
+1046
+00:31:38,156 --> 0:31:39,426
+actually standing in front of,
+
+1047
+00:31:40,056 --> 0:31:41,526
+and we want to know if the
+
+1048
+00:31:41,526 --> 0:31:42,596
+visitor moves inside the
+
+1049
+00:31:42,596 --> 0:31:44,076
+exhibition room what is the new
+
+1050
+00:31:44,076 --> 0:31:47,666
+object closest to him.
+
+1051
+00:31:47,666 --> 0:31:48,986
+We only need to define our
+
+1052
+00:31:48,986 --> 0:31:49,796
+delegate method.
+
+1053
+00:31:49,796 --> 0:31:51,276
+It will be periodically called
+
+1054
+00:31:51,686 --> 0:31:53,506
+with a status update on the
+
+1055
+00:31:53,506 --> 0:31:56,316
+proximity of your beacons, and
+
+1056
+00:31:56,316 --> 0:31:57,466
+you will receive a list of
+
+1057
+00:31:57,466 --> 0:31:59,446
+beacons already categorized by
+
+1058
+00:31:59,446 --> 0:32:00,256
+proximity.
+
+1059
+00:31:59,446 --> 0:32:00,256
+proximity.
+
+1060
+00:32:00,256 --> 0:32:03,256
+So, it's very easy to know which
+
+1061
+00:32:03,256 --> 0:32:05,146
+one is the closest beacon and
+
+1062
+00:32:05,146 --> 0:32:06,026
+act accordingly.
+
+1063
+00:32:08,776 --> 0:32:11,006
+So we have seen what do we need
+
+1064
+00:32:11,006 --> 0:32:13,196
+to do while our app is being
+
+1065
+00:32:13,196 --> 0:32:16,506
+used, but as I said, we might
+
+1066
+00:32:16,506 --> 0:32:17,976
+want to engage the visitor when
+
+1067
+00:32:17,976 --> 0:32:18,946
+he arrives to the museum.
+
+1068
+00:32:18,946 --> 0:32:20,386
+Most likely, they downloaded our
+
+1069
+00:32:20,386 --> 0:32:21,886
+application the day before or a
+
+1070
+00:32:21,886 --> 0:32:22,746
+few days earlier.
+
+1071
+00:32:23,796 --> 0:32:25,516
+So we might want to remind him
+
+1072
+00:32:25,606 --> 0:32:27,196
+to launch our application while
+
+1073
+00:32:27,196 --> 0:32:28,396
+he is inside the museum.
+
+1074
+00:32:28,926 --> 0:32:30,646
+We are going to use user local
+
+1075
+00:32:30,646 --> 0:32:33,056
+notification for that, which is
+
+1076
+00:32:33,156 --> 0:32:34,856
+triggered by the location.
+
+1077
+00:32:38,176 --> 0:32:39,586
+So, we will need to create an
+
+1078
+00:32:39,586 --> 0:32:41,366
+actual geographical region by
+
+1079
+00:32:41,366 --> 0:32:42,856
+providing the geographical
+
+1080
+00:32:42,856 --> 0:32:44,316
+coordinates of our museum.
+
+1081
+00:32:46,646 --> 0:32:49,316
+Then, I actually declare that
+
+1082
+00:32:49,316 --> 0:32:51,066
+I'm interested only in arrivals.
+
+1083
+00:32:51,066 --> 0:32:53,506
+You might want to register your
+
+1084
+00:32:53,506 --> 0:32:55,076
+notification also for departures
+
+1085
+00:32:55,076 --> 0:32:56,526
+if you want to take any action
+
+1086
+00:32:56,526 --> 0:32:58,016
+in that case.
+
+1087
+00:32:58,346 --> 0:32:59,936
+And then we use the user
+
+1088
+00:32:59,936 --> 0:33:03,176
+notification API to register our
+
+1089
+00:32:59,936 --> 0:33:03,176
+notification API to register our
+
+1090
+00:33:03,176 --> 0:33:04,066
+local notification.
+
+1091
+00:33:08,286 --> 0:33:09,386
+Okay, so this is all.
+
+1092
+00:33:10,696 --> 0:33:13,036
+We had a brief refresher about
+
+1093
+00:33:13,036 --> 0:33:14,206
+what is beacon ranging.
+
+1094
+00:33:14,206 --> 0:33:16,196
+We have seen what change in iOS
+
+1095
+00:33:16,246 --> 0:33:19,156
+13 in the beacon ranging API and
+
+1096
+00:33:19,156 --> 0:33:21,306
+a simple example on how to
+
+1097
+00:33:21,306 --> 0:33:23,106
+provide a great location aware
+
+1098
+00:33:23,106 --> 0:33:25,066
+experience by using beacon
+
+1099
+00:33:25,066 --> 0:33:26,976
+ranging only when in use
+
+1100
+00:33:26,976 --> 0:33:27,756
+authorization.
+
+1101
+00:33:28,266 --> 0:33:29,936
+And now, back to my colleague,
+
+1102
+00:33:29,936 --> 0:33:31,626
+Adam, for a final summary.
+
+1103
+00:33:32,516 --> 0:33:39,256
+[ Applause ]
+
+1104
+00:33:39,756 --> 0:33:40,566
+&gt;&gt; Thanks Andre.
+
+1105
+00:33:41,026 --> 0:33:43,136
+So, what are the three things
+
+1106
+00:33:43,136 --> 0:33:44,776
+that we need to think about?
+
+1107
+00:33:45,596 --> 0:33:49,226
+First is location authorization
+
+1108
+00:33:49,226 --> 0:33:49,946
+has changed.
+
+1109
+00:33:50,296 --> 0:33:51,466
+It works in some new ways.
+
+1110
+00:33:51,586 --> 0:33:52,696
+We hope that it will actually
+
+1111
+00:33:52,696 --> 0:33:54,136
+really fit your app better and
+
+1112
+00:33:54,136 --> 0:33:55,156
+help you to increase the
+
+1113
+00:33:55,156 --> 0:33:57,026
+confidence that users have in
+
+1114
+00:33:57,026 --> 0:33:58,986
+interacting with your app by
+
+1115
+00:33:58,986 --> 0:33:59,966
+letting them know that their
+
+1116
+00:34:00,116 --> 0:34:02,146
+privacy is being carefully
+
+1117
+00:34:02,146 --> 0:34:02,476
+guarded.
+
+1118
+00:34:04,126 --> 0:34:05,056
+That means there is a call to
+
+1119
+00:34:05,056 --> 0:34:07,106
+action here to test, test your
+
+1120
+00:34:07,106 --> 0:34:07,356
+app.
+
+1121
+00:34:08,065 --> 0:34:09,545
+Try living on it with granting
+
+1122
+00:34:09,545 --> 0:34:11,206
+only temporary authorization,
+
+1123
+00:34:11,286 --> 0:34:12,136
+temporary when in use
+
+1124
+00:34:12,136 --> 0:34:12,835
+authorization.
+
+1125
+00:34:12,976 --> 0:34:13,646
+Does it work?
+
+1126
+00:34:14,436 --> 0:34:15,326
+Is it irritating?
+
+1127
+00:34:16,005 --> 0:34:17,295
+What could you do to improve
+
+1128
+00:34:17,576 --> 0:34:19,376
+this experience for your users
+
+1129
+00:34:19,376 --> 0:34:20,306
+so that they don't have to
+
+1130
+00:34:20,306 --> 0:34:22,606
+decide to grant or deny your app
+
+1131
+00:34:22,916 --> 0:34:24,126
+permanent authorization to
+
+1132
+00:34:24,126 --> 0:34:25,466
+access their location before
+
+1133
+00:34:25,466 --> 0:34:25,976
+they're ready?
+
+1134
+00:34:26,516 --> 0:34:29,446
+And then, in the spirit of
+
+1135
+00:34:29,485 --> 0:34:32,116
+testing, ranging has a new way
+
+1136
+00:34:32,116 --> 0:34:33,896
+to help make you, help you make
+
+1137
+00:34:34,206 --> 0:34:35,795
+location-related experiences
+
+1138
+00:34:35,795 --> 0:34:37,516
+that are really great, and we
+
+1139
+00:34:37,516 --> 0:34:40,496
+have a sample in the toolkit
+
+1140
+00:34:40,596 --> 0:34:42,456
+today, which is really great for
+
+1141
+00:34:42,456 --> 0:34:44,246
+the new ranging, exploring the
+
+1142
+00:34:44,246 --> 0:34:45,396
+new ranging APIs.
+
+1143
+00:34:45,716 --> 0:34:47,246
+Very minimal, just what you need
+
+1144
+00:34:47,246 --> 0:34:48,000
+to know.
+
+1145
+00:34:51,106 --> 0:34:52,946
+So, if you have questions, we
+
+1146
+00:34:52,946 --> 0:34:54,186
+have two labs this week.
+
+1147
+00:34:54,255 --> 0:34:57,466
+One is in an hour or something.
+
+1148
+00:34:57,466 --> 0:34:58,426
+I don't know what time it is.
+
+1149
+00:34:58,426 --> 0:35:01,076
+There's 11:00 to 1:00 today, and
+
+1150
+00:34:58,426 --> 0:35:01,076
+There's 11:00 to 1:00 today, and
+
+1151
+00:35:01,076 --> 0:35:02,806
+the other one is 1:00 to 3:00
+
+1152
+00:35:02,806 --> 0:35:03,000
+tomorrow.
+
+1153
+00:35:04,476 --> 0:35:05,666
+And you've already about
+
+1154
+00:35:05,666 --> 0:35:06,816
+temporary authorization in the
+
+1155
+00:35:06,816 --> 0:35:08,686
+keynote, and in the state of the
+
+1156
+00:35:08,686 --> 0:35:10,326
+union, and now this is the third
+
+1157
+00:35:10,376 --> 0:35:11,356
+time, so if you'd like to hear
+
+1158
+00:35:11,356 --> 0:35:12,326
+it a fourth time, they're going
+
+1159
+00:35:12,326 --> 0:35:13,716
+to cover it in designing for
+
+1160
+00:35:13,716 --> 0:35:16,166
+privacy today at 2:00.
+
+1161
+00:35:16,316 --> 0:35:17,606
+There's also, in the rest of the
+
+1162
+00:35:17,606 --> 0:35:19,186
+week, a couple of mapping
+
+1163
+00:35:19,186 --> 0:35:21,906
+related talks, both indoor and
+
+1164
+00:35:21,906 --> 0:35:23,106
+outdoor that pair really well
+
+1165
+00:35:23,106 --> 0:35:24,626
+with Core Location, but they
+
+1166
+00:35:24,626 --> 0:35:25,926
+don't fit on this slide.
+
+1167
+00:35:26,306 --> 0:35:27,846
+So, the most important thing is,
+
+1168
+00:35:27,876 --> 0:35:29,156
+enjoy your time here the rest of
+
+1169
+00:35:29,156 --> 0:35:32,176
+the week in WWDC19, and we look
+
+1170
+00:35:32,176 --> 0:35:33,636
+forward to seeing you in the
+
+1171
+00:35:33,636 --> 0:35:33,976
+labs.
+
+1172
+00:35:34,516 --> 0:35:39,500
+[ Applause ]

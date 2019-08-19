@@ -1,0 +1,3475 @@
+1
+00:00:00,506 --> 0:00:05,516
+[ Music ]
+
+2
+00:00:06,516 --> 0:00:09,976
+[ Applause ]
+
+3
+00:00:10,476 --> 0:00:12,676
+&gt;&gt; With iOS 13, the way that we
+
+4
+00:00:12,676 --> 0:00:14,976
+design and build apps is going
+
+5
+00:00:14,976 --> 0:00:16,726
+to change in some subtle but
+
+6
+00:00:16,786 --> 0:00:17,736
+significant ways.
+
+7
+00:00:18,816 --> 0:00:20,796
+Dark Mode brings a new approach
+
+8
+00:00:21,066 --> 0:00:22,506
+to how we work with colors,
+
+9
+00:00:22,826 --> 0:00:24,296
+images, and text.
+
+10
+00:00:25,186 --> 0:00:27,436
+The new card-style sheets not
+
+11
+00:00:27,436 --> 0:00:29,536
+only present modal presentations
+
+12
+00:00:29,536 --> 0:00:31,186
+in a different way, but they
+
+13
+00:00:31,186 --> 0:00:32,756
+change how we interact with them
+
+14
+00:00:32,826 --> 0:00:33,326
+as well.
+
+15
+00:00:34,266 --> 0:00:36,286
+And the new contextual menu
+
+16
+00:00:36,286 --> 0:00:39,676
+control makes it easy to quickly
+
+17
+00:00:39,676 --> 0:00:41,336
+access contextually relevant
+
+18
+00:00:41,336 --> 0:00:43,106
+functionality with ease.
+
+19
+00:00:43,476 --> 0:00:45,346
+Now, between these three topics,
+
+20
+00:00:45,346 --> 0:00:46,426
+we've got a lot of ground to
+
+21
+00:00:46,426 --> 0:00:48,696
+cover, so let's dive in with
+
+22
+00:00:48,766 --> 0:00:49,286
+Dark Mode.
+
+23
+00:00:50,746 --> 0:00:52,726
+Now, last year we introduced
+
+24
+00:00:52,726 --> 0:00:55,606
+Dark Mode on macOS, and it was
+
+25
+00:00:55,606 --> 0:00:56,506
+pretty popular.
+
+26
+00:00:57,206 --> 0:00:58,976
+For many years, photo and video
+
+27
+00:00:58,976 --> 0:01:01,086
+apps have used dark interfaces
+
+28
+00:00:58,976 --> 0:01:01,086
+apps have used dark interfaces
+
+29
+00:01:01,346 --> 0:01:02,896
+because they allow people to see
+
+30
+00:01:02,986 --> 0:01:05,325
+photos and videos with clarity.
+
+31
+00:01:06,406 --> 0:01:08,066
+Dark UIs are great for dark
+
+32
+00:01:08,066 --> 0:01:09,986
+lighting conditions; it's much
+
+33
+00:01:09,986 --> 0:01:11,966
+easier for our eyes to adjust
+
+34
+00:01:12,256 --> 0:01:13,896
+between a dark screen and the
+
+35
+00:01:13,896 --> 0:01:15,196
+world around us.
+
+36
+00:01:15,936 --> 0:01:17,736
+And, functional reasons aside,
+
+37
+00:01:18,156 --> 0:01:19,896
+some people just prefer dark
+
+38
+00:01:19,896 --> 0:01:21,746
+interfaces as a matter of
+
+39
+00:01:21,866 --> 0:01:22,916
+personal preference.
+
+40
+00:01:24,376 --> 0:01:26,776
+Dark Mode on iOS uses a fully
+
+41
+00:01:26,776 --> 0:01:28,566
+black background to provide
+
+42
+00:01:28,616 --> 0:01:30,986
+maximal contrast with text and
+
+43
+00:01:30,986 --> 0:01:32,456
+other foreground elements.
+
+44
+00:01:33,376 --> 0:01:35,076
+Black backgrounds blend in
+
+45
+00:01:35,126 --> 0:01:36,316
+seamlessly with the hardware
+
+46
+00:01:36,316 --> 0:01:38,736
+bezel to make your UI feel more
+
+47
+00:01:38,736 --> 0:01:40,476
+expansive and integrated with
+
+48
+00:01:40,476 --> 0:01:41,426
+the hardware itself.
+
+49
+00:01:42,856 --> 0:01:45,086
+In general, all of your apps
+
+50
+00:01:45,086 --> 0:01:46,646
+should support Dark Mode.
+
+51
+00:01:47,276 --> 0:01:48,566
+When the people using your app
+
+52
+00:01:48,566 --> 0:01:50,046
+have set their device to be in
+
+53
+00:01:50,046 --> 0:01:51,876
+Dark Mode, they'll expect your
+
+54
+00:01:51,876 --> 0:01:53,416
+app to change as well.
+
+55
+00:01:54,436 --> 0:01:55,726
+Now, supporting Dark Mode
+
+56
+00:01:55,726 --> 0:01:57,966
+involves moving towards the
+
+57
+00:01:57,966 --> 0:02:00,856
+updated iOS design system which
+
+58
+00:01:57,966 --> 0:02:00,856
+updated iOS design system which
+
+59
+00:02:00,856 --> 0:02:02,596
+has been fully overhauled for
+
+60
+00:02:02,596 --> 0:02:03,576
+iOS 13.
+
+61
+00:02:04,226 --> 0:02:05,276
+Now, just so we're all on the
+
+62
+00:02:05,276 --> 0:02:07,246
+same page, "design system"
+
+63
+00:02:07,246 --> 0:02:08,636
+basically just means a set of
+
+64
+00:02:08,726 --> 0:02:11,776
+parts like colors, fonts, and
+
+65
+00:02:11,776 --> 0:02:13,766
+glyphs that work together in a
+
+66
+00:02:13,766 --> 0:02:15,526
+logical and consistent manor.
+
+67
+00:02:16,586 --> 0:02:19,216
+A rational -- excuse me -- and
+
+68
+00:02:19,216 --> 0:02:20,926
+consistent design system helps
+
+69
+00:02:20,966 --> 0:02:22,996
+people to learn and use apps
+
+70
+00:02:23,376 --> 0:02:23,996
+with ease.
+
+71
+00:02:24,976 --> 0:02:26,546
+By integrating with the iOS
+
+72
+00:02:26,626 --> 0:02:28,576
+design system, your app will
+
+73
+00:02:28,706 --> 0:02:31,146
+feel more familiar to people and
+
+74
+00:02:31,146 --> 0:02:32,326
+be more understandable.
+
+75
+00:02:33,306 --> 0:02:34,746
+Now, before we get into all of
+
+76
+00:02:34,746 --> 0:02:36,726
+the details, I'd like to share
+
+77
+00:02:36,726 --> 0:02:38,316
+some of the key design goals
+
+78
+00:02:38,616 --> 0:02:40,306
+that guided the design team's
+
+79
+00:02:40,306 --> 0:02:40,766
+efforts.
+
+80
+00:02:42,076 --> 0:02:44,046
+First and foremost, they wanted
+
+81
+00:02:44,266 --> 0:02:46,296
+iOS to remain familiar and
+
+82
+00:02:46,296 --> 0:02:46,926
+intuitive.
+
+83
+00:02:47,786 --> 0:02:49,486
+The iOS design system has
+
+84
+00:02:49,486 --> 0:02:51,986
+received a complete makeover but
+
+85
+00:02:51,986 --> 0:02:53,406
+the end result is still
+
+86
+00:02:53,446 --> 0:02:54,846
+recognizably iOS.
+
+87
+00:02:56,256 --> 0:02:58,296
+They sought to provide more
+
+88
+00:02:58,296 --> 0:02:59,626
+internal consistency.
+
+89
+00:03:00,266 --> 0:03:02,226
+All of the built-in apps were
+
+90
+00:03:02,286 --> 0:03:04,016
+redesigned to bring them into
+
+91
+00:03:04,016 --> 0:03:06,106
+alignment with each other, using
+
+92
+00:03:06,106 --> 0:03:07,396
+all of the components that we'll
+
+93
+00:03:07,396 --> 0:03:08,816
+be talking about with you today.
+
+94
+00:03:10,126 --> 0:03:11,596
+They also wanted the new design
+
+95
+00:03:11,596 --> 0:03:13,366
+system to include a range of
+
+96
+00:03:13,406 --> 0:03:15,056
+color options to help
+
+97
+00:03:15,056 --> 0:03:16,776
+successfully articulate
+
+98
+00:03:17,046 --> 0:03:19,026
+information hierarchy, to allow
+
+99
+00:03:19,026 --> 0:03:20,746
+the most important elements to
+
+100
+00:03:20,746 --> 0:03:23,066
+be the strongest and the less
+
+101
+00:03:23,066 --> 0:03:24,566
+important elements to recede.
+
+102
+00:03:25,866 --> 0:03:27,896
+They also put accessibility on
+
+103
+00:03:27,946 --> 0:03:29,586
+equal footing with these other
+
+104
+00:03:29,616 --> 0:03:30,086
+goals.
+
+105
+00:03:30,896 --> 0:03:32,846
+The new system fully supports
+
+106
+00:03:32,926 --> 0:03:35,696
+bold text and increased contrast
+
+107
+00:03:35,696 --> 0:03:37,046
+accessibility modes.
+
+108
+00:03:38,336 --> 0:03:40,846
+And, lastly, they wanted the new
+
+109
+00:03:40,846 --> 0:03:42,636
+design system to be simple,
+
+110
+00:03:42,846 --> 0:03:44,706
+straightforward, and easy to
+
+111
+00:03:44,706 --> 0:03:45,196
+implement.
+
+112
+00:03:46,156 --> 0:03:47,896
+All right, now let's get into
+
+113
+00:03:47,966 --> 0:03:48,636
+the specifics.
+
+114
+00:03:49,926 --> 0:03:51,606
+Color seems like the right place
+
+115
+00:03:51,696 --> 0:03:52,036
+to start.
+
+116
+00:03:53,186 --> 0:03:55,746
+Every app has a background, and
+
+117
+00:03:55,746 --> 0:03:58,256
+most apps have text and glyphs.
+
+118
+00:03:59,006 --> 0:04:00,676
+And some apps have separator
+
+119
+00:03:59,006 --> 0:04:00,676
+And some apps have separator
+
+120
+00:04:00,676 --> 0:04:04,096
+lines and grouping boxes to help
+
+121
+00:04:04,096 --> 0:04:05,986
+organize all of that content.
+
+122
+00:04:07,166 --> 0:04:08,126
+Now, when describing these
+
+123
+00:04:08,126 --> 0:04:10,496
+colors, we can naturally talk
+
+124
+00:04:10,496 --> 0:04:12,236
+about them by their values.
+
+125
+00:04:12,806 --> 0:04:14,176
+The text is black, the
+
+126
+00:04:14,176 --> 0:04:16,916
+background is white, etc., etc.
+
+127
+00:04:17,886 --> 0:04:19,016
+Now, as your interface gets a
+
+128
+00:04:19,016 --> 0:04:20,805
+little bit more complicated, the
+
+129
+00:04:20,805 --> 0:04:22,125
+length of that color palette
+
+130
+00:04:22,556 --> 0:04:23,136
+extends.
+
+131
+00:04:23,756 --> 0:04:25,506
+But that's not really an issue.
+
+132
+00:04:26,476 --> 0:04:28,356
+However, when you add support
+
+133
+00:04:28,706 --> 0:04:31,116
+for separate appearance, you now
+
+134
+00:04:31,116 --> 0:04:33,366
+have two parallel sets of colors
+
+135
+00:04:33,826 --> 0:04:35,386
+to keep in sync with each other
+
+136
+00:04:35,386 --> 0:04:35,916
+and manage.
+
+137
+00:04:37,066 --> 0:04:38,316
+At this point, it becomes
+
+138
+00:04:38,316 --> 0:04:40,356
+helpful to think about color in
+
+139
+00:04:40,356 --> 0:04:41,996
+a more abstract way.
+
+140
+00:04:42,946 --> 0:04:44,636
+This is where semantic colors
+
+141
+00:04:44,636 --> 0:04:45,176
+comes in.
+
+142
+00:04:46,566 --> 0:04:48,346
+A semantic color describes the
+
+143
+00:04:48,456 --> 0:04:50,936
+purpose of a color rather than
+
+144
+00:04:50,936 --> 0:04:52,246
+what its value is.
+
+145
+00:04:53,476 --> 0:04:54,996
+Because semantic colors are
+
+146
+00:04:54,996 --> 0:04:56,776
+extracted away from their exact
+
+147
+00:04:56,776 --> 0:04:59,636
+appearance, they can work both
+
+148
+00:04:59,686 --> 0:05:00,766
+-- they're dynamic.
+
+149
+00:04:59,686 --> 0:05:00,766
+-- they're dynamic.
+
+150
+00:05:01,706 --> 0:05:03,446
+So, a background color can be
+
+151
+00:05:03,496 --> 0:05:05,726
+black in Dark Mode and white in
+
+152
+00:05:05,726 --> 0:05:06,946
+Light Mode.
+
+153
+00:05:07,536 --> 0:05:09,196
+So instead of maintaining two
+
+154
+00:05:09,196 --> 0:05:10,656
+separate lists of colors for
+
+155
+00:05:10,686 --> 0:05:12,686
+Light and Dark Modes, you can
+
+156
+00:05:12,686 --> 0:05:14,716
+apply semantic colors from the
+
+157
+00:05:14,716 --> 0:05:16,626
+system palette to UI elements
+
+158
+00:05:17,046 --> 0:05:17,976
+and their appearance will
+
+159
+00:05:17,976 --> 0:05:19,696
+automatically adapt between
+
+160
+00:05:19,696 --> 0:05:21,896
+Light and Dark Modes, which is
+
+161
+00:05:21,956 --> 0:05:22,786
+pretty convenient.
+
+162
+00:05:23,896 --> 0:05:26,106
+iOS 13 includes a palette of
+
+163
+00:05:26,106 --> 0:05:27,846
+semantic colors for you to use.
+
+164
+00:05:28,866 --> 0:05:30,106
+Many of these colors have
+
+165
+00:05:30,196 --> 0:05:32,476
+primary, secondary, tertiary,
+
+166
+00:05:32,726 --> 0:05:34,136
+and quaternary values.
+
+167
+00:05:35,116 --> 0:05:36,566
+These variants are used to
+
+168
+00:05:36,566 --> 0:05:38,496
+express information hierarchy.
+
+169
+00:05:39,296 --> 0:05:40,666
+Label color has the most
+
+170
+00:05:40,666 --> 0:05:42,546
+contrast with the background, so
+
+171
+00:05:42,546 --> 0:05:43,586
+it's going to advance into the
+
+172
+00:05:43,656 --> 0:05:44,786
+foreground and grab your
+
+173
+00:05:44,786 --> 0:05:46,486
+attention and should be used for
+
+174
+00:05:46,486 --> 0:05:48,236
+primary elements like titles,
+
+175
+00:05:48,946 --> 0:05:51,016
+secondary for subtitles,
+
+176
+00:05:51,016 --> 0:05:52,556
+tertiary for placeholder text,
+
+177
+00:05:52,976 --> 0:05:55,056
+quaternary for disabled text.
+
+178
+00:05:56,126 --> 0:05:57,916
+The same basic principle applies
+
+179
+00:05:57,916 --> 0:05:59,046
+to background colors.
+
+180
+00:05:59,756 --> 0:06:01,546
+System background is a primary
+
+181
+00:05:59,756 --> 0:06:01,546
+System background is a primary
+
+182
+00:06:01,546 --> 0:06:02,926
+background color, and it's pure
+
+183
+00:06:02,926 --> 0:06:04,286
+white in Light Mode and Pure
+
+184
+00:06:04,286 --> 0:06:05,326
+Black in Dark Mode.
+
+185
+00:06:05,956 --> 0:06:08,426
+Secondary and tertiary system
+
+186
+00:06:08,426 --> 0:06:10,456
+background colors allow you to
+
+187
+00:06:10,456 --> 0:06:11,876
+structure information
+
+188
+00:06:11,956 --> 0:06:12,856
+hierarchically.
+
+189
+00:06:13,846 --> 0:06:15,776
+There's also a parallel set of
+
+190
+00:06:15,776 --> 0:06:17,216
+background colors for grouped
+
+191
+00:06:17,356 --> 0:06:18,096
+table views.
+
+192
+00:06:19,046 --> 0:06:20,696
+Now, if you observe closely,
+
+193
+00:06:21,176 --> 0:06:22,416
+you'll note that the colors
+
+194
+00:06:22,416 --> 0:06:24,266
+aren't simply inverted between
+
+195
+00:06:24,266 --> 0:06:25,286
+Light and Dark Modes.
+
+196
+00:06:25,956 --> 0:06:27,366
+The table row backgrounds are
+
+197
+00:06:27,366 --> 0:06:28,326
+lighter in both.
+
+198
+00:06:29,116 --> 0:06:30,616
+There was a concerted effort to
+
+199
+00:06:30,616 --> 0:06:32,676
+select a palette of colors that
+
+200
+00:06:32,676 --> 0:06:34,836
+assured contrast while at the
+
+201
+00:06:34,836 --> 0:06:37,036
+same time keeping apps looking
+
+202
+00:06:37,036 --> 0:06:38,826
+similar between Light and Dark
+
+203
+00:06:38,826 --> 0:06:39,136
+Modes.
+
+204
+00:06:40,676 --> 0:06:42,126
+When you're designing for Dark
+
+205
+00:06:42,126 --> 0:06:43,776
+Mode, it's often helpful to
+
+206
+00:06:43,776 --> 0:06:45,126
+think about the lights as having
+
+207
+00:06:45,126 --> 0:06:46,736
+been dimmed rather than
+
+208
+00:06:46,736 --> 0:06:48,386
+everything being flipped inside
+
+209
+00:06:49,296 --> 0:06:49,366
+out.
+
+210
+00:06:50,056 --> 0:06:52,216
+The new system palette includes
+
+211
+00:06:52,216 --> 0:06:53,906
+fill colors and separator
+
+212
+00:06:53,906 --> 0:06:54,336
+colors.
+
+213
+00:06:55,026 --> 0:06:56,656
+All of the fill colors and one
+
+214
+00:06:56,656 --> 0:06:57,876
+of the separator colors are
+
+215
+00:06:57,876 --> 0:07:00,116
+semi-transparent, which helps
+
+216
+00:06:57,876 --> 0:07:00,116
+semi-transparent, which helps
+
+217
+00:07:00,116 --> 0:07:02,056
+them to contrast well against
+
+218
+00:07:02,196 --> 0:07:04,066
+variable background colors.
+
+219
+00:07:05,346 --> 0:07:07,026
+The new palette includes six,
+
+220
+00:07:07,466 --> 0:07:09,166
+fully opaque gray values.
+
+221
+00:07:09,696 --> 0:07:11,276
+These colors are best used when
+
+222
+00:07:11,276 --> 0:07:12,426
+transparency would lead to
+
+223
+00:07:12,486 --> 0:07:14,046
+undesirable results.
+
+224
+00:07:14,716 --> 0:07:16,216
+So, for example, when drawing
+
+225
+00:07:16,216 --> 0:07:17,576
+intersecting grid lines,
+
+226
+00:07:18,146 --> 0:07:20,006
+overlapping semi-transparent
+
+227
+00:07:20,006 --> 0:07:21,856
+colors can create distracting
+
+228
+00:07:22,086 --> 0:07:23,256
+optical illusions.
+
+229
+00:07:24,216 --> 0:07:26,896
+And, if elements overlap, solid
+
+230
+00:07:26,896 --> 0:07:28,666
+colors are really helpful and
+
+231
+00:07:28,666 --> 0:07:29,876
+prevent things from looking
+
+232
+00:07:30,106 --> 0:07:31,346
+disabled or broken.
+
+233
+00:07:32,856 --> 0:07:34,536
+These colors are used throughout
+
+234
+00:07:34,536 --> 0:07:35,906
+the system for basically
+
+235
+00:07:36,076 --> 0:07:38,136
+everything, and we encourage you
+
+236
+00:07:38,136 --> 0:07:39,636
+to use them in your apps.
+
+237
+00:07:40,526 --> 0:07:42,126
+To get you started, you can
+
+238
+00:07:42,126 --> 0:07:44,036
+check out the full color palette
+
+239
+00:07:44,036 --> 0:07:45,676
+in the Apple Design Resources
+
+240
+00:07:45,946 --> 0:07:46,916
+and the Human Interface
+
+241
+00:07:46,956 --> 0:07:47,546
+Guidelines.
+
+242
+00:07:48,016 --> 0:07:49,536
+I'll have more information about
+
+243
+00:07:49,536 --> 0:07:50,386
+those at the end of the
+
+244
+00:07:50,386 --> 0:07:51,096
+presentation.
+
+245
+00:07:52,246 --> 0:07:53,836
+As before, we will continue to
+
+246
+00:07:53,836 --> 0:07:55,776
+provide tint colors for you to
+
+247
+00:07:55,776 --> 0:07:57,456
+use as your app's tint color.
+
+248
+00:07:57,976 --> 0:07:59,566
+These tint colors are dynamic,
+
+249
+00:08:00,156 --> 0:08:01,636
+meaning that they have variants
+
+250
+00:08:01,636 --> 0:08:03,366
+for Light and Dark Modes.
+
+251
+00:08:04,856 --> 0:08:05,776
+Each tint color has
+
+252
+00:08:05,776 --> 0:08:07,256
+high-contrast variants.
+
+253
+00:08:07,656 --> 0:08:09,046
+When they increase contrast,
+
+254
+00:08:09,046 --> 0:08:10,836
+accessibility setting is
+
+255
+00:08:10,836 --> 0:08:11,326
+enabled.
+
+256
+00:08:12,796 --> 0:08:14,516
+Tint colors get lighter in Dark
+
+257
+00:08:14,516 --> 0:08:17,386
+Mode and darker in Light Mode.
+
+258
+00:08:18,766 --> 0:08:20,566
+Now, if you opt to pick your own
+
+259
+00:08:20,566 --> 0:08:22,766
+tint color, try to select colors
+
+260
+00:08:22,806 --> 0:08:24,336
+that work well in both modes.
+
+261
+00:08:25,796 --> 0:08:27,266
+A color that works well in Light
+
+262
+00:08:27,336 --> 0:08:28,676
+Mode, though, might have
+
+263
+00:08:28,766 --> 0:08:30,986
+insufficient contrast in Dark
+
+264
+00:08:30,986 --> 0:08:32,956
+Mode, and vice versa.
+
+265
+00:08:33,846 --> 0:08:35,626
+Even when colors seem to you
+
+266
+00:08:35,626 --> 0:08:36,696
+like they're going to work well
+
+267
+00:08:36,696 --> 0:08:38,856
+in both modes, it's always best
+
+268
+00:08:38,856 --> 0:08:40,145
+to check your colors with an
+
+269
+00:08:40,145 --> 0:08:41,635
+online color contrast
+
+270
+00:08:41,635 --> 0:08:42,376
+calculator.
+
+271
+00:08:43,106 --> 0:08:44,756
+Now, because tint colors can be
+
+272
+00:08:44,756 --> 0:08:47,066
+dynamic, you can have two
+
+273
+00:08:47,066 --> 0:08:48,746
+slightly different colors for
+
+274
+00:08:48,746 --> 0:08:51,016
+Light and Dark Modes, and when
+
+275
+00:08:51,016 --> 0:08:52,816
+you're picking those colors, aim
+
+276
+00:08:52,816 --> 0:08:55,736
+for a contrast ratio of 4.5 to 1
+
+277
+00:08:56,086 --> 0:08:56,726
+or higher.
+
+278
+00:08:57,996 --> 0:09:00,636
+Strong color contrast improves
+
+279
+00:08:57,996 --> 0:09:00,636
+Strong color contrast improves
+
+280
+00:09:00,636 --> 0:09:02,666
+the accessibility and usability
+
+281
+00:09:02,826 --> 0:09:04,416
+of your apps.
+
+282
+00:09:04,936 --> 0:09:06,406
+The system palette should
+
+283
+00:09:06,406 --> 0:09:08,036
+basically have you covered for
+
+284
+00:09:08,036 --> 0:09:08,956
+most of your needs.
+
+285
+00:09:09,706 --> 0:09:11,336
+But, of course, you're going to
+
+286
+00:09:11,336 --> 0:09:12,766
+have to define your own colors
+
+287
+00:09:12,766 --> 0:09:13,316
+as well.
+
+288
+00:09:14,076 --> 0:09:16,046
+Perhaps you have user-selectable
+
+289
+00:09:16,046 --> 0:09:17,696
+label colors or status
+
+290
+00:09:17,696 --> 0:09:18,316
+indicators.
+
+291
+00:09:19,106 --> 0:09:20,906
+As with tint colors, any color
+
+292
+00:09:20,906 --> 0:09:21,686
+can be dynamic.
+
+293
+00:09:22,646 --> 0:09:24,226
+Given that the perception of
+
+294
+00:09:24,226 --> 0:09:25,806
+color is influenced by the
+
+295
+00:09:25,866 --> 0:09:26,896
+background that it's shown
+
+296
+00:09:26,896 --> 0:09:28,886
+against, you'll want to make
+
+297
+00:09:28,886 --> 0:09:30,836
+some adjustments to help keep
+
+298
+00:09:30,876 --> 0:09:32,356
+those color values looking
+
+299
+00:09:32,436 --> 0:09:35,026
+similar between modes or to make
+
+300
+00:09:35,026 --> 0:09:36,006
+sure that there's enough
+
+301
+00:09:36,056 --> 0:09:37,816
+contrast in both modes.
+
+302
+00:09:39,496 --> 0:09:40,696
+Now, all this time I've been
+
+303
+00:09:40,696 --> 0:09:42,256
+talking about Light and Dark
+
+304
+00:09:42,306 --> 0:09:44,296
+Modes, and as you may know,
+
+305
+00:09:44,296 --> 0:09:45,236
+that's a little bit of an
+
+306
+00:09:45,236 --> 0:09:46,426
+oversimplification.
+
+307
+00:09:46,806 --> 0:09:48,566
+There's actually two sets of
+
+308
+00:09:48,566 --> 0:09:49,906
+background colors that are
+
+309
+00:09:49,906 --> 0:09:52,176
+called "base" and "elevated."
+
+310
+00:09:53,346 --> 0:09:55,256
+As the names imply, these
+
+311
+00:09:55,256 --> 0:09:56,916
+background colors are about
+
+312
+00:09:56,916 --> 0:09:58,396
+layering interfaces.
+
+313
+00:09:59,596 --> 0:10:01,606
+When two light interfaces are
+
+314
+00:09:59,596 --> 0:10:01,606
+When two light interfaces are
+
+315
+00:10:01,606 --> 0:10:04,026
+layered, a simple, diffuse drop
+
+316
+00:10:04,026 --> 0:10:06,166
+shadow is all you need to create
+
+317
+00:10:06,166 --> 0:10:07,746
+visual separation between the
+
+318
+00:10:07,746 --> 0:10:08,106
+two.
+
+319
+00:10:08,856 --> 0:10:10,816
+With dark interfaces, drop
+
+320
+00:10:10,816 --> 0:10:12,446
+shadows are slightly less
+
+321
+00:10:12,446 --> 0:10:13,046
+effective.
+
+322
+00:10:15,536 --> 0:10:17,036
+System background colors will
+
+323
+00:10:17,036 --> 0:10:19,416
+use the darker or base values
+
+324
+00:10:19,416 --> 0:10:20,726
+for background apps or
+
+325
+00:10:20,726 --> 0:10:22,716
+interfaces and the lighter,
+
+326
+00:10:22,716 --> 0:10:24,446
+elevated values for apps or
+
+327
+00:10:24,446 --> 0:10:26,226
+interfaces that are in the
+
+328
+00:10:26,226 --> 0:10:26,756
+foreground.
+
+329
+00:10:27,616 --> 0:10:29,076
+So take, for example, the
+
+330
+00:10:29,076 --> 0:10:29,866
+Contacts app.
+
+331
+00:10:30,336 --> 0:10:31,936
+It's using the base set of color
+
+332
+00:10:31,936 --> 0:10:33,496
+values when drawn on its own,
+
+333
+00:10:33,986 --> 0:10:35,416
+but when the same interface is
+
+334
+00:10:35,456 --> 0:10:36,496
+brought up in a modal
+
+335
+00:10:36,496 --> 0:10:38,156
+presentation in the phone app,
+
+336
+00:10:38,546 --> 0:10:40,456
+it uses the elevated background
+
+337
+00:10:40,456 --> 0:10:40,846
+colors.
+
+338
+00:10:41,836 --> 0:10:43,106
+Okay, let's look at a slightly
+
+339
+00:10:43,106 --> 0:10:44,396
+more complicated example.
+
+340
+00:10:45,006 --> 0:10:47,146
+Here's Mail running on an iPad.
+
+341
+00:10:47,496 --> 0:10:50,036
+On its own, Mail is drawn using
+
+342
+00:10:50,036 --> 0:10:51,436
+the base set of background
+
+343
+00:10:51,436 --> 0:10:51,826
+colors.
+
+344
+00:10:52,936 --> 0:10:54,446
+When we bring in Contacts in a
+
+345
+00:10:54,446 --> 0:10:56,186
+slide-over, we see that it's
+
+346
+00:10:56,186 --> 0:10:57,706
+being drawn with the elevated
+
+347
+00:10:57,706 --> 0:10:59,066
+set of background colors.
+
+348
+00:10:59,786 --> 0:11:02,336
+Now, the lighter appearance of
+
+349
+00:10:59,786 --> 0:11:02,336
+Now, the lighter appearance of
+
+350
+00:11:02,336 --> 0:11:04,526
+contacts helps it stand out from
+
+351
+00:11:04,526 --> 0:11:06,516
+Mail and advances it into the
+
+352
+00:11:06,516 --> 0:11:07,136
+foreground.
+
+353
+00:11:07,736 --> 0:11:11,046
+When Contacts is displayed side
+
+354
+00:11:11,046 --> 0:11:12,856
+by side in multitasking with
+
+355
+00:11:12,856 --> 0:11:14,946
+Mail, they are both drawn with
+
+356
+00:11:15,026 --> 0:11:16,416
+the elevated set of background
+
+357
+00:11:16,416 --> 0:11:16,886
+colors.
+
+358
+00:11:17,306 --> 0:11:19,186
+This helps provide contrast with
+
+359
+00:11:19,186 --> 0:11:20,836
+that splitter down the middle
+
+360
+00:11:21,116 --> 0:11:22,826
+and keeps the two apps from
+
+361
+00:11:22,826 --> 0:11:24,176
+blending together.
+
+362
+00:11:24,176 --> 0:11:27,556
+When we compose an email in
+
+363
+00:11:27,556 --> 0:11:29,036
+Mail, it comes up in a sheet.
+
+364
+00:11:29,696 --> 0:11:31,136
+This too is drawn with the
+
+365
+00:11:31,136 --> 0:11:33,636
+elevated background colors, but
+
+366
+00:11:33,636 --> 0:11:35,366
+the main app UI Mail looks a
+
+367
+00:11:35,366 --> 0:11:37,286
+little bit darker because modal
+
+368
+00:11:37,286 --> 0:11:39,486
+presentations draw an overlay
+
+369
+00:11:39,486 --> 0:11:41,036
+layer to dim their background
+
+370
+00:11:41,036 --> 0:11:43,796
+content and they cast a little
+
+371
+00:11:43,796 --> 0:11:45,736
+bit of a drop shadow.
+
+372
+00:11:45,926 --> 0:11:47,436
+Now, because background colors
+
+373
+00:11:47,436 --> 0:11:48,606
+change when your app is
+
+374
+00:11:48,606 --> 0:11:50,756
+elevated, you have to be mindful
+
+375
+00:11:50,756 --> 0:11:52,316
+that some of the darker colors
+
+376
+00:11:52,346 --> 0:11:53,626
+that you might use, even from
+
+377
+00:11:53,626 --> 0:11:55,216
+the system palette, may not
+
+378
+00:11:55,216 --> 0:11:56,156
+contrast well.
+
+379
+00:11:56,586 --> 0:11:58,176
+You always have to check your
+
+380
+00:11:58,176 --> 0:12:00,806
+designs when they're in elevated
+
+381
+00:11:58,176 --> 0:12:00,806
+designs when they're in elevated
+
+382
+00:12:00,806 --> 0:12:01,166
+state.
+
+383
+00:12:02,676 --> 0:12:04,906
+Again, semi-opaque fill and
+
+384
+00:12:04,906 --> 0:12:06,336
+separator colors are going to be
+
+385
+00:12:06,336 --> 0:12:07,336
+your best friends here.
+
+386
+00:12:07,956 --> 0:12:09,486
+They adapt gracefully between
+
+387
+00:12:09,486 --> 0:12:11,556
+base and elevated backgrounds.
+
+388
+00:12:12,656 --> 0:12:15,566
+Okay, moving on to materials.
+
+389
+00:12:16,596 --> 0:12:18,386
+Materials have been overhauled
+
+390
+00:12:18,386 --> 0:12:20,336
+and refined with iOS 13.
+
+391
+00:12:20,936 --> 0:12:22,566
+There are now four materials for
+
+392
+00:12:22,566 --> 0:12:24,496
+you to choose from with a range
+
+393
+00:12:24,496 --> 0:12:27,106
+of translucency levels: thick,
+
+394
+00:12:27,446 --> 0:12:29,816
+regular, thin, and ultra-thin.
+
+395
+00:12:30,916 --> 0:12:33,446
+These materials have been
+
+396
+00:12:33,446 --> 0:12:34,926
+designed to work well against a
+
+397
+00:12:34,926 --> 0:12:36,856
+variety of background contexts.
+
+398
+00:12:37,816 --> 0:12:39,136
+Their appearance will change
+
+399
+00:12:39,136 --> 0:12:41,416
+dynamically based on whether
+
+400
+00:12:41,416 --> 0:12:42,746
+someone is using your app in
+
+401
+00:12:42,746 --> 0:12:43,816
+Light or Dark Mode.
+
+402
+00:12:44,566 --> 0:12:45,986
+You can select which material
+
+403
+00:12:45,986 --> 0:12:47,196
+you want based on how much
+
+404
+00:12:47,296 --> 0:12:48,956
+separation you want from the
+
+405
+00:12:48,956 --> 0:12:50,936
+background, how much is most
+
+406
+00:12:50,936 --> 0:12:51,566
+appropriate.
+
+407
+00:12:52,596 --> 0:12:54,446
+The default material is regular,
+
+408
+00:12:54,446 --> 0:12:55,966
+and it's going to work well in
+
+409
+00:12:55,966 --> 0:12:57,246
+most circumstances.
+
+410
+00:12:57,906 --> 0:12:59,526
+But if you're presenting content
+
+411
+00:12:59,966 --> 0:13:01,826
+against this material that needs
+
+412
+00:12:59,966 --> 0:13:01,826
+against this material that needs
+
+413
+00:13:01,826 --> 0:13:03,136
+a little bit more contrast, you
+
+414
+00:13:03,136 --> 0:13:04,696
+can use the thicker material.
+
+415
+00:13:05,736 --> 0:13:07,326
+For lighter-weight interactions,
+
+416
+00:13:07,326 --> 0:13:10,206
+maybe with simpler content, thin
+
+417
+00:13:10,206 --> 0:13:11,476
+and ultra-thin might be the
+
+418
+00:13:11,476 --> 0:13:12,226
+right way to go.
+
+419
+00:13:12,736 --> 0:13:14,226
+Which material is right for your
+
+420
+00:13:14,226 --> 0:13:15,916
+app just really depends on the
+
+421
+00:13:15,916 --> 0:13:17,376
+content that's being displayed
+
+422
+00:13:17,696 --> 0:13:19,386
+inside of it.
+
+423
+00:13:19,476 --> 0:13:21,536
+Speaking of which, light and
+
+424
+00:13:21,536 --> 0:13:22,536
+dark materials have an
+
+425
+00:13:22,536 --> 0:13:24,166
+accompanying set of vibrancy
+
+426
+00:13:24,166 --> 0:13:26,466
+values for labels, fills, and
+
+427
+00:13:26,466 --> 0:13:27,516
+separator colors.
+
+428
+00:13:28,206 --> 0:13:29,796
+Vibrancy is a visual affect
+
+429
+00:13:29,856 --> 0:13:31,816
+that's used throughout iOS and
+
+430
+00:13:31,816 --> 0:13:33,136
+other Apple platforms.
+
+431
+00:13:33,936 --> 0:13:35,576
+With system materials, it's
+
+432
+00:13:35,676 --> 0:13:37,726
+typically best to use vibrancy
+
+433
+00:13:38,086 --> 0:13:39,546
+rather than solid colors.
+
+434
+00:13:40,186 --> 0:13:41,146
+Because depending on the
+
+435
+00:13:41,146 --> 0:13:43,716
+background context, solid colors
+
+436
+00:13:43,716 --> 0:13:45,496
+can get really muddy and can
+
+437
+00:13:45,496 --> 0:13:47,886
+lead to some serious legibility
+
+438
+00:13:47,886 --> 0:13:48,356
+issues.
+
+439
+00:13:49,456 --> 0:13:51,166
+Vibrancy helps to maintain that
+
+440
+00:13:51,166 --> 0:13:53,186
+contrast regardless of what's in
+
+441
+00:13:53,186 --> 0:13:53,756
+the background.
+
+442
+00:13:54,906 --> 0:13:56,666
+The updated visual design system
+
+443
+00:13:56,666 --> 0:13:59,076
+for iOS also includes changes to
+
+444
+00:13:59,076 --> 0:14:01,236
+controls and bars.
+
+445
+00:13:59,076 --> 0:14:01,236
+controls and bars.
+
+446
+00:14:02,686 --> 0:14:05,036
+Visual attributes like shape and
+
+447
+00:14:05,036 --> 0:14:07,006
+color have been brought into
+
+448
+00:14:07,406 --> 0:14:08,816
+greater alignment for more
+
+449
+00:14:08,816 --> 0:14:10,846
+internal consistency.
+
+450
+00:14:11,606 --> 0:14:13,096
+Controls are now drawn with
+
+451
+00:14:13,186 --> 0:14:15,156
+semantic colors so that they
+
+452
+00:14:15,156 --> 0:14:17,066
+gracefully adapt between Light
+
+453
+00:14:17,066 --> 0:14:18,346
+and Dark Modes.
+
+454
+00:14:19,836 --> 0:14:22,216
+If you use UIKit controls, you
+
+455
+00:14:22,216 --> 0:14:23,786
+get the benefits of all of this
+
+456
+00:14:23,786 --> 0:14:24,286
+for free.
+
+457
+00:14:25,336 --> 0:14:27,276
+If you spent time recreating
+
+458
+00:14:27,276 --> 0:14:28,976
+what UIKit gives you for free,
+
+459
+00:14:29,356 --> 0:14:31,456
+with custom controls, you may
+
+460
+00:14:31,456 --> 0:14:33,736
+want to, I don't know how to say
+
+461
+00:14:33,736 --> 0:14:34,836
+this, but stop doing that.
+
+462
+00:14:35,516 --> 0:14:37,516
+[ Laughter ]
+
+463
+00:14:38,516 --> 0:14:41,506
+[ Applause ]
+
+464
+00:14:42,006 --> 0:14:45,216
+Recreating what UIKit gives you
+
+465
+00:14:45,216 --> 0:14:47,396
+for free takes a lot of effort
+
+466
+00:14:47,396 --> 0:14:48,966
+and time, it's hard to do right,
+
+467
+00:14:49,286 --> 0:14:50,636
+and there's very little upside
+
+468
+00:14:50,686 --> 0:14:51,026
+for you.
+
+469
+00:14:52,306 --> 0:14:54,566
+But of course, custom controls
+
+470
+00:14:54,566 --> 0:14:55,776
+are often necessary.
+
+471
+00:14:56,116 --> 0:14:57,506
+UIKit does not provide
+
+472
+00:14:57,506 --> 0:14:58,816
+everything that you need.
+
+473
+00:14:59,316 --> 0:15:00,646
+For example, UIKit doesn't
+
+474
+00:14:59,316 --> 0:15:00,646
+For example, UIKit doesn't
+
+475
+00:15:00,646 --> 0:15:02,046
+provide a rating indicator.
+
+476
+00:15:02,526 --> 0:15:03,766
+So, when you're making custom
+
+477
+00:15:03,766 --> 0:15:05,956
+controls, you should use the
+
+478
+00:15:05,956 --> 0:15:08,076
+system palette so that you don't
+
+479
+00:15:08,076 --> 0:15:09,386
+have to do two different color
+
+480
+00:15:09,386 --> 0:15:10,776
+treatments for Light and Dark
+
+481
+00:15:10,876 --> 0:15:11,216
+Mode.
+
+482
+00:15:12,686 --> 0:15:14,776
+Navigation bars have also been
+
+483
+00:15:14,776 --> 0:15:15,426
+updated.
+
+484
+00:15:16,006 --> 0:15:17,546
+By default, they're now drawn
+
+485
+00:15:17,946 --> 0:15:19,406
+for large titles without the
+
+486
+00:15:19,406 --> 0:15:21,186
+background and shadow.
+
+487
+00:15:22,316 --> 0:15:24,596
+This allows the title to connect
+
+488
+00:15:24,866 --> 0:15:26,636
+seamlessly with the content that
+
+489
+00:15:26,636 --> 0:15:27,426
+it's labeling.
+
+490
+00:15:27,996 --> 0:15:30,586
+When content scrolls underneath
+
+491
+00:15:30,636 --> 0:15:32,026
+the navigation bar, the
+
+492
+00:15:32,026 --> 0:15:33,596
+background and shadow will fade
+
+493
+00:15:33,596 --> 0:15:34,126
+back in.
+
+494
+00:15:35,216 --> 0:15:36,616
+Now, large title bars,
+
+495
+00:15:37,086 --> 0:15:38,866
+navigation bars work especially
+
+496
+00:15:38,866 --> 0:15:40,226
+well with this visual treatment,
+
+497
+00:15:40,816 --> 0:15:42,256
+but it can be used for default
+
+498
+00:15:42,256 --> 0:15:43,616
+navigation bars as well.
+
+499
+00:15:44,346 --> 0:15:45,406
+So, in the Settings app, for
+
+500
+00:15:45,406 --> 0:15:47,366
+example, the master view's
+
+501
+00:15:47,366 --> 0:15:49,006
+navigation bar uses a large
+
+502
+00:15:49,006 --> 0:15:51,006
+title and it has no background
+
+503
+00:15:51,006 --> 0:15:51,606
+or shadow.
+
+504
+00:15:52,576 --> 0:15:54,646
+The standard navigation bar is
+
+505
+00:15:54,646 --> 0:15:56,226
+stylized to match.
+
+506
+00:15:57,346 --> 0:15:59,006
+Now, while a seamless navigation
+
+507
+00:15:59,006 --> 0:16:01,196
+bar looks great, it's not always
+
+508
+00:15:59,006 --> 0:16:01,196
+bar looks great, it's not always
+
+509
+00:16:01,196 --> 0:16:02,376
+going to be appropriate.
+
+510
+00:16:03,076 --> 0:16:04,706
+That background is completely
+
+511
+00:16:04,706 --> 0:16:06,056
+transparent, so if you've tucked
+
+512
+00:16:06,056 --> 0:16:07,056
+anything underneath the
+
+513
+00:16:07,056 --> 0:16:08,526
+navigation bar, it's going to
+
+514
+00:16:08,526 --> 0:16:10,366
+show right through, and it's
+
+515
+00:16:10,586 --> 0:16:11,586
+probably not going to look very
+
+516
+00:16:11,586 --> 0:16:13,836
+good so don't use a treatment
+
+517
+00:16:13,836 --> 0:16:14,156
+then.
+
+518
+00:16:14,716 --> 0:16:16,336
+And if you have a really dense
+
+519
+00:16:16,336 --> 0:16:17,736
+interface with a lot of controls
+
+520
+00:16:17,736 --> 0:16:19,126
+and navigation bar next to the
+
+521
+00:16:19,126 --> 0:16:21,666
+content area, the clear visual
+
+522
+00:16:21,666 --> 0:16:23,286
+delineation that's provided by
+
+523
+00:16:23,286 --> 0:16:24,746
+that shadow can be really
+
+524
+00:16:24,746 --> 0:16:24,976
+helpful.
+
+525
+00:16:26,026 --> 0:16:28,286
+Okay. So, before we move on,
+
+526
+00:16:28,546 --> 0:16:30,016
+there's one more big feature
+
+527
+00:16:30,016 --> 0:16:31,166
+that I'd like to discuss with
+
+528
+00:16:31,166 --> 0:16:34,426
+you related to Dark Mode.
+
+529
+00:16:34,426 --> 0:16:36,006
+iOS has always provided a
+
+530
+00:16:36,006 --> 0:16:37,926
+handful of symbols for things
+
+531
+00:16:37,926 --> 0:16:39,666
+like table rows and toolbars.
+
+532
+00:16:40,666 --> 0:16:41,696
+When shown against a dark
+
+533
+00:16:41,696 --> 0:16:43,686
+background, the previous set of
+
+534
+00:16:43,686 --> 0:16:45,516
+symbols did not hold up very
+
+535
+00:16:45,516 --> 0:16:47,836
+well; they often looked a little
+
+536
+00:16:47,836 --> 0:16:48,576
+too thin.
+
+537
+00:16:49,256 --> 0:16:51,976
+So, the design team redesigned
+
+538
+00:16:52,186 --> 0:16:53,856
+all of the symbols in this
+
+539
+00:16:54,006 --> 0:16:54,756
+design system.
+
+540
+00:16:55,616 --> 0:16:57,486
+And what's really cool, as many
+
+541
+00:16:57,486 --> 0:16:59,196
+of you may know already, we're
+
+542
+00:16:59,196 --> 0:17:00,606
+making all of those glyphs
+
+543
+00:16:59,196 --> 0:17:00,606
+making all of those glyphs
+
+544
+00:17:00,606 --> 0:17:02,586
+available for you to use with SF
+
+545
+00:17:02,986 --> 0:17:03,316
+Symbols.
+
+546
+00:17:04,506 --> 0:17:07,256
+SF Symbols includes over 1500
+
+547
+00:17:07,256 --> 0:17:07,695
+symbols.
+
+548
+00:17:08,596 --> 0:17:10,455
+And this isn't just a new set of
+
+549
+00:17:10,536 --> 0:17:12,646
+glyphs; this represents a
+
+550
+00:17:12,646 --> 0:17:14,746
+completely new way to think
+
+551
+00:17:14,746 --> 0:17:16,665
+about and design glyphs.
+
+552
+00:17:17,656 --> 0:17:19,856
+As the name suggests, SF Symbols
+
+553
+00:17:19,856 --> 0:17:21,965
+are designed to match the visual
+
+554
+00:17:21,965 --> 0:17:23,996
+design characteristics of San
+
+555
+00:17:24,046 --> 0:17:26,566
+Francisco, the system font for
+
+556
+00:17:26,566 --> 0:17:28,816
+iOS and other Apple platforms.
+
+557
+00:17:29,976 --> 0:17:31,796
+They can literally be typed out
+
+558
+00:17:32,046 --> 0:17:33,416
+so that they can be displayed
+
+559
+00:17:33,416 --> 0:17:34,936
+inline with text.
+
+560
+00:17:35,676 --> 0:17:37,236
+They have imbedded baseline
+
+561
+00:17:37,236 --> 0:17:39,446
+values to assure proper vertical
+
+562
+00:17:39,446 --> 0:17:41,036
+alignment relative to text.
+
+563
+00:17:41,876 --> 0:17:43,416
+And every SF symbol offers
+
+564
+00:17:43,416 --> 0:17:46,226
+small, medium and large-scale
+
+565
+00:17:46,226 --> 0:17:48,046
+variants relative to the current
+
+566
+00:17:48,046 --> 0:17:50,096
+size for different contexts.
+
+567
+00:17:51,256 --> 0:17:52,956
+And every symbol comes in nine
+
+568
+00:17:52,956 --> 0:17:54,876
+weights just like the SF font.
+
+569
+00:17:55,846 --> 0:17:57,976
+Because they're vector based, SF
+
+570
+00:17:57,976 --> 0:18:00,826
+Symbols can scale with text when
+
+571
+00:17:57,976 --> 0:18:00,826
+Symbols can scale with text when
+
+572
+00:18:00,826 --> 0:18:03,736
+used with dynamic type.
+
+573
+00:18:03,936 --> 0:18:05,956
+And by offering multiple
+
+574
+00:18:05,956 --> 0:18:07,766
+weights, SF Symbols will become
+
+575
+00:18:07,766 --> 0:18:09,886
+bolder when the bold text
+
+576
+00:18:09,886 --> 0:18:11,396
+accessibility setting is
+
+577
+00:18:11,396 --> 0:18:11,846
+enabled.
+
+578
+00:18:13,156 --> 0:18:14,926
+Now, when designing comps of
+
+579
+00:18:14,926 --> 0:18:17,326
+your app, you can use the new SF
+
+580
+00:18:17,486 --> 0:18:19,216
+Symbols app to browse or search
+
+581
+00:18:19,216 --> 0:18:21,256
+for symbols, copy the ones that
+
+582
+00:18:21,256 --> 0:18:23,266
+you want to use, go over to your
+
+583
+00:18:23,266 --> 0:18:25,146
+design comp, and just paste them
+
+584
+00:18:25,146 --> 0:18:26,676
+in to a text layer.
+
+585
+00:18:26,676 --> 0:18:29,796
+The updated iOS Apple Design
+
+586
+00:18:29,836 --> 0:18:32,106
+Resources for Sketch is already
+
+587
+00:18:32,106 --> 0:18:33,686
+set up to work with symbols.
+
+588
+00:18:34,656 --> 0:18:36,026
+To swap out the symbols for this
+
+589
+00:18:36,066 --> 0:18:38,316
+tab bar, for example, you just
+
+590
+00:18:38,536 --> 0:18:40,696
+select the tab bar, go to the
+
+591
+00:18:40,696 --> 0:18:43,256
+inspector, and paste it in to an
+
+592
+00:18:43,256 --> 0:18:44,706
+override for the buttons.
+
+593
+00:18:45,926 --> 0:18:46,886
+I've been playing with this
+
+594
+00:18:46,886 --> 0:18:48,706
+feature for a few months now,
+
+595
+00:18:49,126 --> 0:18:50,656
+and I have to tell you, it's
+
+596
+00:18:50,656 --> 0:18:51,916
+totally game-changing.
+
+597
+00:18:52,946 --> 0:18:54,296
+Now, if the set of symbols that
+
+598
+00:18:54,356 --> 0:18:56,216
+we provide, 1500, isn't enough,
+
+599
+00:18:56,646 --> 0:18:57,836
+you can actually generate a
+
+600
+00:18:57,836 --> 0:18:59,686
+template in SVG, go into
+
+601
+00:18:59,686 --> 0:19:01,536
+Illustrator or Sketch and make
+
+602
+00:18:59,686 --> 0:19:01,536
+Illustrator or Sketch and make
+
+603
+00:19:01,536 --> 0:19:03,236
+modifications to design your own
+
+604
+00:19:03,236 --> 0:19:04,926
+and get all the same benefits
+
+605
+00:19:05,146 --> 0:19:06,096
+that I just described.
+
+606
+00:19:06,726 --> 0:19:07,546
+It's really cool.
+
+607
+00:19:08,546 --> 0:19:11,486
+Okay. Now moving on to modal
+
+608
+00:19:11,486 --> 0:19:12,246
+presentations.
+
+609
+00:19:13,496 --> 0:19:15,136
+Modal presentations are often
+
+610
+00:19:15,136 --> 0:19:17,056
+called sheets because of the way
+
+611
+00:19:17,056 --> 0:19:18,896
+they slide up over the screen.
+
+612
+00:19:19,646 --> 0:19:21,406
+This animation informs people
+
+613
+00:19:21,636 --> 0:19:23,046
+that they've shifted from one
+
+614
+00:19:23,046 --> 0:19:25,816
+mode to another or into a new
+
+615
+00:19:25,816 --> 0:19:27,246
+modality of your app.
+
+616
+00:19:28,506 --> 0:19:31,346
+With iOS 13, sheets have a new
+
+617
+00:19:31,416 --> 0:19:33,686
+card-like appearance that's used
+
+618
+00:19:33,686 --> 0:19:34,606
+throughout the system.
+
+619
+00:19:35,406 --> 0:19:37,106
+This style is now the default.
+
+620
+00:19:37,236 --> 0:19:39,986
+And the benefit of this style is
+
+621
+00:19:39,986 --> 0:19:41,446
+that it gives this little peek
+
+622
+00:19:41,446 --> 0:19:42,656
+of what's in the background,
+
+623
+00:19:43,166 --> 0:19:45,036
+which is a helpful reminder that
+
+624
+00:19:45,036 --> 0:19:46,826
+there's a different UI that
+
+625
+00:19:46,826 --> 0:19:48,556
+accommodates a different task or
+
+626
+00:19:48,556 --> 0:19:49,966
+mode of the app that's still in
+
+627
+00:19:49,966 --> 0:19:50,586
+the background.
+
+628
+00:19:51,446 --> 0:19:52,796
+With the full-screen modal
+
+629
+00:19:52,896 --> 0:19:55,066
+sheet, you can sometimes forget
+
+630
+00:19:55,066 --> 0:19:56,236
+what you were doing before.
+
+631
+00:19:56,756 --> 0:19:59,706
+Card-style modal sheets can be
+
+632
+00:19:59,706 --> 0:20:01,296
+dismissed by swiping down
+
+633
+00:19:59,706 --> 0:20:01,296
+dismissed by swiping down
+
+634
+00:20:01,356 --> 0:20:02,676
+anywhere on the screen.
+
+635
+00:20:02,676 --> 0:20:04,386
+And that dismiss gesture is
+
+636
+00:20:04,386 --> 0:20:05,586
+often going to be easier than
+
+637
+00:20:05,586 --> 0:20:07,066
+tapping a button in the
+
+638
+00:20:07,066 --> 0:20:07,896
+navigation bar.
+
+639
+00:20:09,206 --> 0:20:10,616
+As with swiping to go back,
+
+640
+00:20:11,106 --> 0:20:12,346
+pulling down to dismiss
+
+641
+00:20:12,636 --> 0:20:14,106
+facilitates one-handed
+
+642
+00:20:14,106 --> 0:20:16,396
+operation, which is particularly
+
+643
+00:20:16,396 --> 0:20:17,696
+convenient on devices with
+
+644
+00:20:17,696 --> 0:20:18,546
+larger displays.
+
+645
+00:20:19,606 --> 0:20:21,346
+Now, you may wonder, "How does
+
+646
+00:20:21,406 --> 0:20:22,616
+this work with scrolling?"
+
+647
+00:20:23,536 --> 0:20:24,966
+When the content area has been
+
+648
+00:20:24,966 --> 0:20:27,156
+scrolled, swiping down will
+
+649
+00:20:27,156 --> 0:20:28,446
+scroll it back to the top.
+
+650
+00:20:29,116 --> 0:20:30,166
+When scrolled all the way back
+
+651
+00:20:30,166 --> 0:20:32,086
+to the top, continuing to swipe
+
+652
+00:20:32,246 --> 0:20:33,846
+will dismiss the modal
+
+653
+00:20:33,846 --> 0:20:34,546
+presentation.
+
+654
+00:20:35,876 --> 0:20:37,756
+But at any time, you can pull
+
+655
+00:20:37,756 --> 0:20:38,946
+down from the top edge of the
+
+656
+00:20:38,946 --> 0:20:40,176
+card to dismiss.
+
+657
+00:20:41,416 --> 0:20:43,046
+Now, if this gesture is
+
+658
+00:20:43,076 --> 0:20:45,136
+problematic for any reason, like
+
+659
+00:20:45,136 --> 0:20:46,166
+you have a control in the
+
+660
+00:20:46,166 --> 0:20:48,076
+content area that works with
+
+661
+00:20:48,076 --> 0:20:50,046
+vertical swiping, it can be
+
+662
+00:20:50,176 --> 0:20:50,766
+prevented.
+
+663
+00:20:51,886 --> 0:20:53,676
+It can also be prevented when
+
+664
+00:20:53,676 --> 0:20:55,196
+there's a mandatory decision
+
+665
+00:20:55,476 --> 0:20:57,146
+that's required in the modal
+
+666
+00:20:57,146 --> 0:20:58,426
+presentation itself.
+
+667
+00:20:59,186 --> 0:21:00,706
+So, for example, here we either
+
+668
+00:20:59,186 --> 0:21:00,706
+So, for example, here we either
+
+669
+00:21:00,706 --> 0:21:02,486
+need to cancel or add.
+
+670
+00:21:03,686 --> 0:21:04,906
+And if we pull down, it will
+
+671
+00:21:04,906 --> 0:21:07,946
+just bounce right back.
+
+672
+00:21:07,946 --> 0:21:09,556
+In cases where people must make
+
+673
+00:21:09,556 --> 0:21:11,036
+a decision before leaving a
+
+674
+00:21:11,036 --> 0:21:13,296
+modal context, you can prevent
+
+675
+00:21:13,296 --> 0:21:15,706
+that dismiss gesture and display
+
+676
+00:21:15,706 --> 0:21:17,366
+an action sheet asking people
+
+677
+00:21:17,366 --> 0:21:19,596
+how they wish to proceed, which
+
+678
+00:21:19,596 --> 0:21:21,086
+is actually pretty convenient.
+
+679
+00:21:22,276 --> 0:21:23,616
+Now, in case you're wondering,
+
+680
+00:21:23,996 --> 0:21:25,146
+all of what I just described
+
+681
+00:21:25,146 --> 0:21:26,746
+here doesn't mean that you don't
+
+682
+00:21:26,746 --> 0:21:28,796
+need to have buttons for modal
+
+683
+00:21:28,796 --> 0:21:29,976
+cards anymore.
+
+684
+00:21:30,816 --> 0:21:32,306
+Buttons are critical for letting
+
+685
+00:21:32,306 --> 0:21:33,906
+people know that they can close
+
+686
+00:21:33,906 --> 0:21:34,496
+the modal.
+
+687
+00:21:35,076 --> 0:21:36,376
+Buttons are also necessary for
+
+688
+00:21:36,376 --> 0:21:37,676
+accessibility reasons.
+
+689
+00:21:38,306 --> 0:21:39,716
+And people might not be familiar
+
+690
+00:21:39,716 --> 0:21:41,416
+with using the gesture yet or
+
+691
+00:21:41,416 --> 0:21:42,016
+don't want to.
+
+692
+00:21:42,606 --> 0:21:43,756
+And when the content area's been
+
+693
+00:21:43,756 --> 0:21:45,376
+scrolled down, tapping a button
+
+694
+00:21:45,376 --> 0:21:46,296
+might actually be more
+
+695
+00:21:46,296 --> 0:21:46,866
+convenient.
+
+696
+00:21:47,956 --> 0:21:50,176
+Similarly, seeing negative and
+
+697
+00:21:50,176 --> 0:21:51,776
+affirmative action pairs at the
+
+698
+00:21:51,926 --> 0:21:53,716
+top of the screen lets people
+
+699
+00:21:53,716 --> 0:21:55,536
+know what choices they have to
+
+700
+00:21:55,536 --> 0:21:57,236
+act within this modal
+
+701
+00:21:57,286 --> 0:21:59,426
+presentation, what actions they
+
+702
+00:21:59,426 --> 0:21:59,746
+can take.
+
+703
+00:22:00,696 --> 0:22:02,066
+Now, we think the new card style
+
+704
+00:22:02,066 --> 0:22:03,296
+is pretty great, which is why
+
+705
+00:22:03,296 --> 0:22:05,136
+it's now the default for iOS.
+
+706
+00:22:06,106 --> 0:22:07,186
+But they're not always
+
+707
+00:22:07,186 --> 0:22:07,806
+appropriate.
+
+708
+00:22:08,586 --> 0:22:11,116
+For some tasks, like editing a
+
+709
+00:22:11,116 --> 0:22:12,586
+picture or marking up a
+
+710
+00:22:12,586 --> 0:22:14,406
+screenshot, you really want to
+
+711
+00:22:14,406 --> 0:22:16,376
+maximize screen space and
+
+712
+00:22:16,376 --> 0:22:18,066
+minimize visual distraction.
+
+713
+00:22:18,856 --> 0:22:20,366
+For workflows like this, you
+
+714
+00:22:20,366 --> 0:22:21,476
+should use the optional
+
+715
+00:22:21,566 --> 0:22:22,826
+full-screen presentation.
+
+716
+00:22:23,776 --> 0:22:25,866
+And one final comment about
+
+717
+00:22:25,866 --> 0:22:29,266
+modal presentations: modals are
+
+718
+00:22:29,266 --> 0:22:30,466
+for switching modes.
+
+719
+00:22:31,346 --> 0:22:32,926
+Don't use them just because you
+
+720
+00:22:32,926 --> 0:22:34,536
+like the animation or the visual
+
+721
+00:22:34,536 --> 0:22:35,416
+style of them.
+
+722
+00:22:36,486 --> 0:22:37,776
+So, a good example of modal
+
+723
+00:22:37,776 --> 0:22:39,276
+sheet use is from Calendar.
+
+724
+00:22:39,966 --> 0:22:41,666
+Calendar has two primary modes:
+
+725
+00:22:42,226 --> 0:22:44,716
+viewing events in a grid or list
+
+726
+00:22:45,106 --> 0:22:47,266
+and then creating or editing
+
+727
+00:22:47,556 --> 0:22:48,046
+events.
+
+728
+00:22:49,316 --> 0:22:50,826
+Viewing your calendar involves
+
+729
+00:22:51,176 --> 0:22:52,766
+scanning all the events that are
+
+730
+00:22:53,136 --> 0:22:54,716
+in your calendar and then
+
+731
+00:22:54,716 --> 0:22:56,466
+selecting them to see detail.
+
+732
+00:22:57,186 --> 0:22:58,286
+Since we're still in the viewing
+
+733
+00:22:58,286 --> 0:23:00,666
+mode, a child view is used for
+
+734
+00:22:58,286 --> 0:23:00,666
+mode, a child view is used for
+
+735
+00:23:00,666 --> 0:23:02,276
+displaying those details.
+
+736
+00:23:03,006 --> 0:23:05,366
+As the name suggests, a child is
+
+737
+00:23:05,366 --> 0:23:07,156
+an extension of the parent view.
+
+738
+00:23:07,986 --> 0:23:09,086
+A child view should be a
+
+739
+00:23:09,086 --> 0:23:11,686
+continuation of the task or
+
+740
+00:23:11,686 --> 0:23:13,556
+workflow that was started in
+
+741
+00:23:13,556 --> 0:23:14,406
+that parent view.
+
+742
+00:23:15,316 --> 0:23:16,516
+When creating or editing an
+
+743
+00:23:16,516 --> 0:23:18,646
+event, a modal sheet signals to
+
+744
+00:23:18,646 --> 0:23:19,686
+the people who are using
+
+745
+00:23:19,686 --> 0:23:21,266
+Calendar that they've switched
+
+746
+00:23:21,266 --> 0:23:22,956
+into a distinct and new
+
+747
+00:23:22,956 --> 0:23:23,556
+workflow.
+
+748
+00:23:24,346 --> 0:23:26,756
+Okay. Now for our final iOS
+
+749
+00:23:26,816 --> 0:23:28,596
+design topic, and that's
+
+750
+00:23:28,896 --> 0:23:29,986
+contextual menus.
+
+751
+00:23:30,646 --> 0:23:33,526
+With the introduction of 3D
+
+752
+00:23:33,526 --> 0:23:35,826
+Touch a few years ago came a new
+
+753
+00:23:35,826 --> 0:23:37,616
+interaction called Peek and Pop.
+
+754
+00:23:38,476 --> 0:23:40,296
+Peek and Pop was primarily about
+
+755
+00:23:40,296 --> 0:23:41,756
+getting a larger preview of
+
+756
+00:23:41,816 --> 0:23:42,366
+content.
+
+757
+00:23:43,866 --> 0:23:45,826
+If available, actions could be
+
+758
+00:23:45,826 --> 0:23:47,946
+accessed by swiping that preview
+
+759
+00:23:47,946 --> 0:23:48,406
+upwards.
+
+760
+00:23:49,726 --> 0:23:51,366
+Contextual menu shifts things
+
+761
+00:23:51,556 --> 0:23:53,966
+around a bit and puts the focus
+
+762
+00:23:54,086 --> 0:23:54,996
+on actions.
+
+763
+00:23:56,366 --> 0:23:57,556
+Actions are presented
+
+764
+00:23:57,596 --> 0:23:58,386
+immediately.
+
+765
+00:23:59,206 --> 0:24:01,296
+Contextual menus also work on
+
+766
+00:23:59,206 --> 0:24:01,296
+Contextual menus also work on
+
+767
+00:24:01,296 --> 0:24:02,186
+all devices.
+
+768
+00:24:03,096 --> 0:24:05,326
+Peek and Pop only worked with 3D
+
+769
+00:24:05,326 --> 0:24:07,056
+Touch, so it wasn't available on
+
+770
+00:24:07,056 --> 0:24:09,036
+any iPads and some iPhones.
+
+771
+00:24:09,846 --> 0:24:11,456
+While 3D Touch makes contextual
+
+772
+00:24:11,456 --> 0:24:13,326
+menus appear more quickly, the
+
+773
+00:24:13,326 --> 0:24:14,916
+gesture to get a contextual menu
+
+774
+00:24:14,916 --> 0:24:16,386
+is just tap and hold, and you
+
+775
+00:24:16,386 --> 0:24:18,016
+can do that on any touch device.
+
+776
+00:24:18,986 --> 0:24:20,546
+Contextual menus are comprised
+
+777
+00:24:20,546 --> 0:24:23,146
+of two parts: there's a menu of
+
+778
+00:24:23,146 --> 0:24:24,916
+commands that can be performed
+
+779
+00:24:24,916 --> 0:24:27,896
+on an item or selection, and an
+
+780
+00:24:27,896 --> 0:24:29,936
+optional preview of the selected
+
+781
+00:24:29,936 --> 0:24:31,246
+item that'll be affected.
+
+782
+00:24:32,166 --> 0:24:33,646
+That preview can be a helpful
+
+783
+00:24:33,646 --> 0:24:35,546
+reminder of what item will be
+
+784
+00:24:35,546 --> 0:24:37,066
+affected by those menu of
+
+785
+00:24:37,106 --> 0:24:37,566
+commands.
+
+786
+00:24:38,806 --> 0:24:39,936
+The exact appearance of
+
+787
+00:24:39,936 --> 0:24:42,006
+contextual menus will change
+
+788
+00:24:42,006 --> 0:24:43,246
+based on device size and
+
+789
+00:24:43,246 --> 0:24:44,046
+orientation.
+
+790
+00:24:44,696 --> 0:24:46,996
+On iPhone, the preview and phone
+
+791
+00:24:47,276 --> 0:24:50,586
+are stacked, in portrait, and
+
+792
+00:24:50,586 --> 0:24:51,656
+the same thing on iPad when
+
+793
+00:24:51,656 --> 0:24:53,316
+there's three commands or fewer.
+
+794
+00:24:53,636 --> 0:24:54,826
+Otherwise, the menu and preview
+
+795
+00:24:54,826 --> 0:24:56,006
+are displayed side by side.
+
+796
+00:24:56,776 --> 0:24:58,106
+Contextual menus will appear
+
+797
+00:24:58,106 --> 0:24:59,796
+directly above the object they
+
+798
+00:24:59,796 --> 0:25:01,946
+affect or as close to it as
+
+799
+00:24:59,796 --> 0:25:01,946
+affect or as close to it as
+
+800
+00:25:01,976 --> 0:25:02,466
+possible.
+
+801
+00:25:04,046 --> 0:25:06,096
+As with macOS contextual menus,
+
+802
+00:25:06,466 --> 0:25:07,956
+you can choose the order of menu
+
+803
+00:25:07,956 --> 0:25:08,476
+commands.
+
+804
+00:25:09,026 --> 0:25:10,416
+It's best to put the most
+
+805
+00:25:10,526 --> 0:25:11,936
+frequently used or accessed
+
+806
+00:25:11,936 --> 0:25:13,256
+commands at the top so that
+
+807
+00:25:13,256 --> 0:25:14,736
+they're easier to access.
+
+808
+00:25:15,476 --> 0:25:16,666
+Otherwise, you should group
+
+809
+00:25:16,836 --> 0:25:18,606
+commands because they're heavily
+
+810
+00:25:18,606 --> 0:25:19,666
+related with each other.
+
+811
+00:25:20,146 --> 0:25:21,666
+So, it totally makes sense that
+
+812
+00:25:21,666 --> 0:25:23,676
+cut, copy, and paste are near
+
+813
+00:25:23,676 --> 0:25:24,136
+each other.
+
+814
+00:25:25,266 --> 0:25:27,116
+You can also use separators to
+
+815
+00:25:27,116 --> 0:25:29,466
+create visually distinct groups.
+
+816
+00:25:30,316 --> 0:25:32,506
+And iOS contextual menus can be
+
+817
+00:25:32,586 --> 0:25:34,846
+hierarchical, meaning that some
+
+818
+00:25:34,846 --> 0:25:36,176
+of these options can lead to a
+
+819
+00:25:36,286 --> 0:25:38,166
+secondary submenu.
+
+820
+00:25:39,406 --> 0:25:41,576
+Contextual menus on iOS also
+
+821
+00:25:41,576 --> 0:25:43,536
+include glyphs to help people
+
+822
+00:25:43,536 --> 0:25:44,506
+find what they're looking for
+
+823
+00:25:44,506 --> 0:25:46,836
+more quickly, and they allow you
+
+824
+00:25:46,836 --> 0:25:48,426
+to warn people about destructive
+
+825
+00:25:48,426 --> 0:25:50,436
+actions by labeling them in red.
+
+826
+00:25:50,546 --> 0:25:53,596
+You should try to add contextual
+
+827
+00:25:53,596 --> 0:25:55,496
+menus to every object in your
+
+828
+00:25:55,866 --> 0:25:55,976
+app.
+
+829
+00:25:57,066 --> 0:25:58,566
+Think about macOS.
+
+830
+00:25:59,216 --> 0:26:01,956
+You expect every object in every
+
+831
+00:25:59,216 --> 0:26:01,956
+You expect every object in every
+
+832
+00:26:01,956 --> 0:26:04,106
+app to have a contextual menu.
+
+833
+00:26:04,916 --> 0:26:06,676
+They're great way to learn what
+
+834
+00:26:06,676 --> 0:26:08,496
+actions can be performed on an
+
+835
+00:26:08,496 --> 0:26:08,976
+object.
+
+836
+00:26:09,886 --> 0:26:12,276
+And the more iOS apps add
+
+837
+00:26:12,276 --> 0:26:14,346
+contextual menus, the more
+
+838
+00:26:14,346 --> 0:26:16,756
+people will expect every app to
+
+839
+00:26:16,756 --> 0:26:18,216
+support contextual menus,
+
+840
+00:26:18,776 --> 0:26:19,606
+including yours.
+
+841
+00:26:21,056 --> 0:26:23,386
+Okay, one final comment about
+
+842
+00:26:23,386 --> 0:26:24,346
+contextual menus.
+
+843
+00:26:24,976 --> 0:26:26,826
+The actions they contain should
+
+844
+00:26:26,826 --> 0:26:28,276
+still be available somewhere
+
+845
+00:26:28,276 --> 0:26:29,956
+else in your main interface.
+
+846
+00:26:30,756 --> 0:26:32,566
+Contextual menus are powerful
+
+847
+00:26:32,566 --> 0:26:35,666
+and convenient, but people might
+
+848
+00:26:35,666 --> 0:26:38,766
+not always think to access them.
+
+849
+00:26:38,976 --> 0:26:41,116
+Now, I can't wait to see what
+
+850
+00:26:41,116 --> 0:26:43,536
+you do with Dark Mode, updated
+
+851
+00:26:43,666 --> 0:26:46,126
+modal presentations and the new
+
+852
+00:26:46,126 --> 0:26:47,076
+contextual menu.
+
+853
+00:26:47,906 --> 0:26:49,166
+For more information and
+
+854
+00:26:49,166 --> 0:26:50,426
+resources, go to
+
+855
+00:26:50,426 --> 0:26:52,786
+developer.apple.com/design.
+
+856
+00:26:53,286 --> 0:26:54,646
+There you can find the updated
+
+857
+00:26:54,646 --> 0:26:57,856
+SF font, the SF Symbols app, and
+
+858
+00:26:57,946 --> 0:27:00,286
+the updated iOS Design Resources
+
+859
+00:26:57,946 --> 0:27:00,286
+the updated iOS Design Resources
+
+860
+00:27:00,286 --> 0:27:00,976
+for Sketch.
+
+861
+00:27:01,646 --> 0:27:03,476
+The Adobe Photoshop and Adobe XD
+
+862
+00:27:03,596 --> 0:27:05,756
+resources will be coming later
+
+863
+00:27:05,756 --> 0:27:06,306
+this summer.
+
+864
+00:27:07,006 --> 0:27:10,276
+Also, check out the Apple Human
+
+865
+00:27:10,276 --> 0:27:11,816
+Interface Guidelines for more
+
+866
+00:27:11,816 --> 0:27:14,036
+details about everything that I
+
+867
+00:27:14,036 --> 0:27:14,986
+covered today.
+
+868
+00:27:16,006 --> 0:27:17,666
+Okay. Thank you for your time.
+
+869
+00:27:18,508 --> 0:27:20,508
+[ Applause ]

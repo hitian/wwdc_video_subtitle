@@ -1,0 +1,6143 @@
+1
+00:00:00,506 --> 0:00:05,460
+[ Music ]
+
+2
+00:00:07,096 --> 0:00:07,976
+&gt;&gt; Good afternoon.
+
+3
+00:00:08,516 --> 0:00:14,716
+[ Applause ]
+
+4
+00:00:15,216 --> 0:00:16,085
+Hello, everyone.
+
+5
+00:00:16,346 --> 0:00:18,076
+And welcome to our session on
+
+6
+00:00:18,076 --> 0:00:19,636
+introducing ARKit 3.
+
+7
+00:00:20,046 --> 0:00:21,286
+My name is Andreas.
+
+8
+00:00:21,606 --> 0:00:23,106
+I'm an engineer on the ARKit
+
+9
+00:00:23,146 --> 0:00:23,466
+team.
+
+10
+00:00:23,926 --> 0:00:25,196
+And I couldn't be more excited
+
+11
+00:00:25,196 --> 0:00:26,896
+to be here today to tell you all
+
+12
+00:00:26,896 --> 0:00:29,666
+about the third major release of
+
+13
+00:00:29,666 --> 0:00:30,016
+ARKit.
+
+14
+00:00:32,046 --> 0:00:33,926
+When we introduced ARKit in
+
+15
+00:00:33,926 --> 0:00:37,196
+2017, we made iOS the largest AR
+
+16
+00:00:37,196 --> 0:00:39,976
+platform in the world, bringing
+
+17
+00:00:39,976 --> 0:00:42,116
+AR to hundreds of millions of
+
+18
+00:00:42,216 --> 0:00:43,076
+iOS devices.
+
+19
+00:00:43,236 --> 0:00:45,496
+And this is really significant
+
+20
+00:00:45,496 --> 0:00:47,516
+for you because that's the wide
+
+21
+00:00:47,516 --> 0:00:49,506
+audience that you can reach with
+
+22
+00:00:49,506 --> 0:00:50,966
+the apps and the games you
+
+23
+00:00:50,966 --> 0:00:52,896
+write.
+
+24
+00:00:53,176 --> 0:00:54,626
+Our mission has been from the
+
+25
+00:00:54,626 --> 0:00:55,946
+beginning to make it really
+
+26
+00:00:56,066 --> 0:00:58,056
+simple for you to write your
+
+27
+00:00:58,056 --> 0:01:00,106
+first augmented reality app even
+
+28
+00:00:58,056 --> 0:01:00,106
+first augmented reality app even
+
+29
+00:01:00,106 --> 0:01:01,186
+if you're a new developer.
+
+30
+00:01:01,186 --> 0:01:03,626
+But we also want to give you the
+
+31
+00:01:03,696 --> 0:01:05,906
+tools at hand that you need to
+
+32
+00:01:05,906 --> 0:01:07,726
+create really advanced and
+
+33
+00:01:07,726 --> 0:01:09,126
+sophisticated experiences.
+
+34
+00:01:09,126 --> 0:01:12,116
+So if you look at the App Store
+
+35
+00:01:12,116 --> 0:01:14,716
+today, we can see that you did
+
+36
+00:01:14,716 --> 0:01:15,896
+an amazing job.
+
+37
+00:01:15,896 --> 0:01:17,216
+You built great apps and great
+
+38
+00:01:17,216 --> 0:01:17,606
+games.
+
+39
+00:01:18,126 --> 0:01:19,426
+So let's just have a look at a
+
+40
+00:01:19,426 --> 0:01:22,956
+few of them now.
+
+41
+00:01:22,956 --> 0:01:25,086
+Bringing your game idea into AR
+
+42
+00:01:25,086 --> 0:01:26,866
+can make them so much more
+
+43
+00:01:26,866 --> 0:01:28,626
+engaging and physical, like
+
+44
+00:01:28,626 --> 0:01:29,426
+Angry Birds.
+
+45
+00:01:29,776 --> 0:01:31,226
+You can now play it in AR,
+
+46
+00:01:31,226 --> 0:01:32,446
+actually work around those
+
+47
+00:01:32,446 --> 0:01:35,146
+structures and identify the best
+
+48
+00:01:35,146 --> 0:01:38,076
+spot to shoot and then have to
+
+49
+00:01:38,076 --> 0:01:39,436
+slingshot right into your own
+
+50
+00:01:39,436 --> 0:01:41,616
+hand and fire off those angry
+
+51
+00:01:41,676 --> 0:01:41,926
+birds.
+
+52
+00:01:45,196 --> 0:01:47,426
+ARKit also works really well for
+
+53
+00:01:47,426 --> 0:01:48,806
+large scale use cases.
+
+54
+00:01:49,416 --> 0:01:51,476
+iScape is a tool for outdoor
+
+55
+00:01:51,476 --> 0:01:52,236
+landscaping.
+
+56
+00:01:52,236 --> 0:01:54,856
+We can place bushes and trees
+
+57
+00:01:54,856 --> 0:01:56,116
+and watch your next garden
+
+58
+00:01:56,116 --> 0:01:57,776
+remodeling project come to life
+
+59
+00:01:57,776 --> 0:02:00,426
+in AR right in your own garden
+
+60
+00:01:57,776 --> 0:02:00,426
+in AR right in your own garden
+
+61
+00:02:00,506 --> 0:02:02,976
+or backyard.
+
+62
+00:02:03,056 --> 0:02:05,706
+Last year, with ARKit 2, we
+
+63
+00:02:05,706 --> 0:02:08,746
+introduced USDZ, a new 3D file
+
+64
+00:02:08,746 --> 0:02:11,766
+format for exchanging formats
+
+65
+00:02:11,766 --> 0:02:13,106
+right made for AR.
+
+66
+00:02:14,126 --> 0:02:16,116
+Wayfair uses this to place
+
+67
+00:02:16,116 --> 0:02:17,876
+virtual furniture right in your
+
+68
+00:02:17,876 --> 0:02:18,136
+home.
+
+69
+00:02:18,136 --> 0:02:21,266
+But leveraging ARKit's advanced
+
+70
+00:02:21,366 --> 0:02:22,806
+scene understanding features
+
+71
+00:02:22,806 --> 0:02:24,226
+like environment texturing,
+
+72
+00:02:24,396 --> 0:02:25,646
+these objects really blend
+
+73
+00:02:25,646 --> 0:02:27,626
+nicely with your living room.
+
+74
+00:02:27,776 --> 0:02:31,236
+And Lego is making use of
+
+75
+00:02:31,236 --> 0:02:33,026
+ARKit's 3D object detection
+
+76
+00:02:33,026 --> 0:02:33,836
+capabilities.
+
+77
+00:02:35,326 --> 0:02:37,006
+It finds your physical Lego set
+
+78
+00:02:37,006 --> 0:02:38,696
+and enhances it in AR.
+
+79
+00:02:38,696 --> 0:02:40,706
+And thanks to ARKit's multi-user
+
+80
+00:02:40,706 --> 0:02:42,456
+support, you can even play
+
+81
+00:02:42,456 --> 0:02:44,906
+together with your friends.
+
+82
+00:02:45,396 --> 0:02:47,486
+So these are just a few examples
+
+83
+00:02:47,486 --> 0:02:48,686
+of what you have created.
+
+84
+00:02:49,476 --> 0:02:52,366
+ARKit helps you to take care all
+
+85
+00:02:52,786 --> 0:02:54,296
+of the technical details, do the
+
+86
+00:02:54,296 --> 0:02:56,266
+heavy-lifting for you to make
+
+87
+00:02:56,266 --> 0:02:57,886
+augmented reality work so that
+
+88
+00:02:58,016 --> 0:02:59,886
+you can really focus on creating
+
+89
+00:03:00,186 --> 0:03:01,676
+the great experiences around
+
+90
+00:03:01,916 --> 0:03:02,216
+them.
+
+91
+00:03:03,016 --> 0:03:04,986
+Let's do a quick recap of the
+
+92
+00:03:05,186 --> 0:03:06,256
+three main pillars of
+
+93
+00:03:06,256 --> 0:03:08,036
+functionality that ARKit
+
+94
+00:03:08,166 --> 0:03:09,046
+provides to you.
+
+95
+00:03:10,806 --> 0:03:12,376
+First, there is tracking.
+
+96
+00:03:12,376 --> 0:03:16,206
+Tracking determines where your
+
+97
+00:03:16,206 --> 0:03:17,886
+device is with regard to the
+
+98
+00:03:17,886 --> 0:03:19,886
+environment so that virtual
+
+99
+00:03:19,966 --> 0:03:21,596
+content can be positioned
+
+100
+00:03:21,706 --> 0:03:24,026
+accurately and updated correctly
+
+101
+00:03:24,026 --> 0:03:25,516
+on top of the camera image in
+
+102
+00:03:25,516 --> 0:03:26,046
+real time.
+
+103
+00:03:27,186 --> 0:03:28,876
+This creates then the illusion
+
+104
+00:03:29,136 --> 0:03:30,876
+that virtual content is actually
+
+105
+00:03:30,996 --> 0:03:32,736
+placed in the real world.
+
+106
+00:03:33,906 --> 0:03:35,576
+ARKit also provides you with
+
+107
+00:03:35,636 --> 0:03:37,116
+different tracking technologies
+
+108
+00:03:37,116 --> 0:03:38,766
+such as road World Tracking,
+
+109
+00:03:39,136 --> 0:03:42,306
+face tracking or image tracking.
+
+110
+00:03:42,996 --> 0:03:44,736
+On top of tracking, we have
+
+111
+00:03:44,886 --> 0:03:45,766
+scene understanding.
+
+112
+00:03:47,606 --> 0:03:49,036
+With scene understanding, you
+
+113
+00:03:49,036 --> 0:03:51,696
+can identify surfaces, images,
+
+114
+00:03:51,826 --> 0:03:54,266
+and 3D objects in the scene and
+
+115
+00:03:54,266 --> 0:03:56,006
+attach virtual content right on
+
+116
+00:03:56,076 --> 0:03:56,566
+top of them.
+
+117
+00:03:58,196 --> 0:03:59,696
+Scene understanding also learns
+
+118
+00:03:59,696 --> 0:04:01,416
+about the lighting and even
+
+119
+00:03:59,696 --> 0:04:01,416
+about the lighting and even
+
+120
+00:04:01,456 --> 0:04:03,556
+textures in the environment to
+
+121
+00:04:03,556 --> 0:04:04,976
+help make your content look
+
+122
+00:04:05,346 --> 0:04:06,226
+really realistic.
+
+123
+00:04:06,486 --> 0:04:09,016
+And finally, rendering.
+
+124
+00:04:09,146 --> 0:04:10,836
+It brings your 3D content to
+
+125
+00:04:10,836 --> 0:04:11,266
+life.
+
+126
+00:04:12,806 --> 0:04:14,066
+We've been supporting different
+
+127
+00:04:14,066 --> 0:04:15,686
+renderers like SceneKit,
+
+128
+00:04:15,986 --> 0:04:17,406
+SpriteKit, and Metal.
+
+129
+00:04:17,446 --> 0:04:19,906
+And now, this year also
+
+130
+00:04:20,166 --> 0:04:22,176
+RealityKit, designed from the
+
+131
+00:04:22,176 --> 0:04:24,226
+ground up with augmented reality
+
+132
+00:04:24,226 --> 0:04:24,666
+in mind.
+
+133
+00:04:27,416 --> 0:04:29,046
+So with this year's release of
+
+134
+00:04:29,046 --> 0:04:30,886
+ARKit, they're making a huge
+
+135
+00:04:30,886 --> 0:04:31,536
+leap forward.
+
+136
+00:04:32,416 --> 0:04:34,526
+Not only are your experiences
+
+137
+00:04:34,766 --> 0:04:36,236
+going to look even better and
+
+138
+00:04:36,316 --> 0:04:38,616
+feel more natural, you will also
+
+139
+00:04:38,616 --> 0:04:40,886
+be able to create entirely new
+
+140
+00:04:40,886 --> 0:04:43,396
+experiences for use cases that
+
+141
+00:04:43,396 --> 0:04:44,936
+haven't been possible before.
+
+142
+00:04:45,056 --> 0:04:47,646
+Thanks to many new features
+
+143
+00:04:47,756 --> 0:04:49,706
+we're bringing with ARKit 3,
+
+144
+00:04:50,796 --> 0:04:53,116
+like people occlusion, motion
+
+145
+00:04:53,116 --> 0:04:55,286
+capture, collaborative sessions,
+
+146
+00:04:55,826 --> 0:04:57,396
+simultaneous use of the front
+
+147
+00:04:57,396 --> 0:04:59,246
+and back camera, tracking
+
+148
+00:04:59,246 --> 0:05:00,836
+multiple faces, and many more.
+
+149
+00:04:59,246 --> 0:05:00,836
+multiple faces, and many more.
+
+150
+00:05:01,616 --> 0:05:02,966
+We've got a lot to cover so
+
+151
+00:05:02,966 --> 0:05:05,586
+let's dive right in and we're
+
+152
+00:05:05,586 --> 0:05:07,986
+starting with people occlusion.
+
+153
+00:05:07,986 --> 0:05:11,806
+Let's have a look at this scene
+
+154
+00:05:11,856 --> 0:05:12,066
+here.
+
+155
+00:05:13,356 --> 0:05:14,406
+So in order to create a
+
+156
+00:05:14,406 --> 0:05:16,846
+convincing AR experience, it's
+
+157
+00:05:16,846 --> 0:05:18,586
+important to position virtual
+
+158
+00:05:18,736 --> 0:05:21,226
+content accurately and also to
+
+159
+00:05:21,226 --> 0:05:22,536
+match the real world lighting.
+
+160
+00:05:23,626 --> 0:05:25,076
+So let's bring in a virtual
+
+161
+00:05:25,406 --> 0:05:26,966
+espresso machine here and put it
+
+162
+00:05:26,966 --> 0:05:27,746
+right on the table.
+
+163
+00:05:29,146 --> 0:05:31,066
+But wait, when people are in the
+
+164
+00:05:31,176 --> 0:05:32,616
+frame, as in this example, it
+
+165
+00:05:32,646 --> 0:05:34,356
+can easily break the illusion,
+
+166
+00:05:34,996 --> 0:05:35,956
+because you would expect the
+
+167
+00:05:36,086 --> 0:05:37,996
+person on the front to actually
+
+168
+00:05:38,136 --> 0:05:39,356
+cover the espresso machine.
+
+169
+00:05:41,266 --> 0:05:43,186
+So with ARKit 3 and people
+
+170
+00:05:43,306 --> 0:05:45,336
+occlusion, you can now solve
+
+171
+00:05:45,406 --> 0:05:45,996
+that problem.
+
+172
+00:05:47,106 --> 0:05:49,106
+[ Applause ]
+
+173
+00:05:49,236 --> 0:05:49,526
+Thank you.
+
+174
+00:05:51,766 --> 0:05:53,326
+So let's have a look at how this
+
+175
+00:05:53,326 --> 0:05:53,666
+is done.
+
+176
+00:05:55,546 --> 0:05:57,356
+Virtual content by default is
+
+177
+00:05:57,356 --> 0:05:59,256
+rendered on top of the camera
+
+178
+00:05:59,256 --> 0:05:59,736
+image.
+
+179
+00:05:59,826 --> 0:06:03,096
+As you can see here, for pure
+
+180
+00:05:59,826 --> 0:06:03,096
+As you can see here, for pure
+
+181
+00:06:03,236 --> 0:06:04,726
+tabletop experience, this is
+
+182
+00:06:04,726 --> 0:06:06,296
+fine, but if any people in the
+
+183
+00:06:06,296 --> 0:06:07,626
+frame are in front of that
+
+184
+00:06:07,626 --> 0:06:09,806
+object, the augmentation doesn't
+
+185
+00:06:09,806 --> 0:06:10,816
+look correct anymore.
+
+186
+00:06:12,046 --> 0:06:14,566
+So what ARKit 3 now does for you
+
+187
+00:06:15,456 --> 0:06:17,396
+is, thanks to machine learning,
+
+188
+00:06:17,676 --> 0:06:19,316
+recognized people present in the
+
+189
+00:06:19,316 --> 0:06:21,266
+frame and then create a separate
+
+190
+00:06:21,266 --> 0:06:23,506
+layer that has only the pixels
+
+191
+00:06:24,026 --> 0:06:25,176
+containing these people.
+
+192
+00:06:25,556 --> 0:06:26,976
+We call that segmentation.
+
+193
+00:06:28,286 --> 0:06:30,226
+Then we can render that layer on
+
+194
+00:06:30,226 --> 0:06:31,216
+top of everything else.
+
+195
+00:06:31,456 --> 0:06:33,806
+Let's have a look at the
+
+196
+00:06:33,806 --> 0:06:34,776
+composite image.
+
+197
+00:06:35,416 --> 0:06:36,696
+It's looking much better now.
+
+198
+00:06:37,676 --> 0:06:38,786
+But if you look closely, it's
+
+199
+00:06:38,786 --> 0:06:39,996
+still not entirely correct.
+
+200
+00:06:41,206 --> 0:06:42,836
+So the person the front is now
+
+201
+00:06:43,146 --> 0:06:45,106
+occluding the espresso machine.
+
+202
+00:06:46,246 --> 0:06:47,506
+But if you zoom in here, then
+
+203
+00:06:47,506 --> 0:06:49,086
+you can see that also the person
+
+204
+00:06:49,086 --> 0:06:51,066
+in the back is rendered on top
+
+205
+00:06:51,066 --> 0:06:53,206
+of the virtual object, although
+
+206
+00:06:53,306 --> 0:06:54,876
+she is actually standing behind
+
+207
+00:06:54,876 --> 0:06:55,376
+the table.
+
+208
+00:06:55,856 --> 0:06:57,616
+So the virtual model in that
+
+209
+00:06:57,706 --> 0:06:59,756
+case should occlude her, not the
+
+210
+00:06:59,756 --> 0:07:00,406
+other way around.
+
+211
+00:06:59,756 --> 0:07:00,406
+other way around.
+
+212
+00:07:00,406 --> 0:07:04,446
+Now, that happened because we
+
+213
+00:07:04,446 --> 0:07:06,396
+did not take the distance of
+
+214
+00:07:06,516 --> 0:07:07,886
+people from the camera into
+
+215
+00:07:08,036 --> 0:07:08,316
+account.
+
+216
+00:07:10,786 --> 0:07:12,816
+When ARKit 3 uses advanced
+
+217
+00:07:12,816 --> 0:07:14,246
+machine learning to do an
+
+218
+00:07:14,246 --> 0:07:15,716
+additional depth estimation
+
+219
+00:07:15,716 --> 0:07:18,446
+step, with this estimate, how
+
+220
+00:07:18,446 --> 0:07:19,886
+far does segmented people are
+
+221
+00:07:19,886 --> 0:07:22,306
+away from the camera, we can now
+
+222
+00:07:22,346 --> 0:07:23,786
+correct the rendering order and
+
+223
+00:07:23,786 --> 0:07:26,016
+make sure to render only people
+
+224
+00:07:26,016 --> 0:07:27,656
+upfront if they are actually
+
+225
+00:07:27,686 --> 0:07:28,586
+closer to the camera.
+
+226
+00:07:28,746 --> 0:07:31,286
+And thanks to the power of Apple
+
+227
+00:07:31,286 --> 0:07:33,606
+Neural Engine, we are able to do
+
+228
+00:07:33,606 --> 0:07:35,826
+this on every frame in real
+
+229
+00:07:35,966 --> 0:07:36,206
+time.
+
+230
+00:07:36,206 --> 0:07:40,736
+So let's have a look at the
+
+231
+00:07:40,736 --> 0:07:41,876
+composite image now.
+
+232
+00:07:42,636 --> 0:07:43,436
+You see that people are
+
+233
+00:07:43,536 --> 0:07:44,946
+occluding the virtual content
+
+234
+00:07:45,246 --> 0:07:47,186
+just as you would expect
+
+235
+00:07:47,186 --> 0:07:49,016
+resulting in a convincing AR
+
+236
+00:07:49,016 --> 0:07:49,676
+experience.
+
+237
+00:07:50,356 --> 0:07:52,356
+[ Applause ]
+
+238
+00:07:52,696 --> 0:07:53,316
+That is great.
+
+239
+00:07:53,566 --> 0:07:53,976
+Thank you.
+
+240
+00:07:58,146 --> 0:08:00,946
+So people occlusion enables
+
+241
+00:07:58,146 --> 0:08:00,946
+So people occlusion enables
+
+242
+00:08:00,946 --> 0:08:02,346
+virtual content to be rendered
+
+243
+00:08:02,376 --> 0:08:03,186
+behind people.
+
+244
+00:08:04,296 --> 0:08:05,856
+It works also for multiple
+
+245
+00:08:05,906 --> 0:08:08,276
+people in the scene, and it even
+
+246
+00:08:08,276 --> 0:08:09,726
+works if people are only
+
+247
+00:08:09,796 --> 0:08:11,936
+partially visible like in the
+
+248
+00:08:11,936 --> 0:08:13,696
+example before the woman behind
+
+249
+00:08:13,696 --> 0:08:15,766
+the table actually was not
+
+250
+00:08:15,766 --> 0:08:17,806
+visible with the full body but
+
+251
+00:08:17,806 --> 0:08:18,726
+it still is working.
+
+252
+00:08:19,816 --> 0:08:21,196
+Now, this is really significant
+
+253
+00:08:21,196 --> 0:08:23,166
+because it does not only make
+
+254
+00:08:23,166 --> 0:08:25,226
+your experiences look way more
+
+255
+00:08:25,226 --> 0:08:27,686
+realistic than before, it also
+
+256
+00:08:27,976 --> 0:08:29,356
+means for you that you can now
+
+257
+00:08:29,356 --> 0:08:31,386
+create experiences that haven't
+
+258
+00:08:31,386 --> 0:08:32,556
+been impossible before.
+
+259
+00:08:33,446 --> 0:08:34,566
+For example, think of a
+
+260
+00:08:34,566 --> 0:08:36,655
+multiplayer game where you have
+
+261
+00:08:36,966 --> 0:08:38,556
+people in the frame together
+
+262
+00:08:38,856 --> 0:08:40,666
+with your virtual content.
+
+263
+00:08:42,976 --> 0:08:44,786
+People occlusion is integrated
+
+264
+00:08:44,876 --> 0:08:48,106
+right in ARView and ARSCNView as
+
+265
+00:08:48,106 --> 0:08:48,396
+well.
+
+266
+00:08:48,396 --> 0:08:51,616
+And thanks to depth estimation,
+
+267
+00:08:51,736 --> 0:08:53,326
+we can provide you with an
+
+268
+00:08:53,326 --> 0:08:55,456
+approximation of the distance of
+
+269
+00:08:55,516 --> 0:08:57,506
+the people detected with regard
+
+270
+00:08:57,706 --> 0:09:00,436
+to the camera.
+
+271
+00:08:57,706 --> 0:09:00,436
+to the camera.
+
+272
+00:09:00,436 --> 0:09:02,106
+We're using Apple Neural Engine
+
+273
+00:09:02,556 --> 0:09:03,266
+to do that work.
+
+274
+00:09:03,796 --> 0:09:05,236
+So people occlusion will work on
+
+275
+00:09:05,236 --> 0:09:08,076
+devices with an A12 processor or
+
+276
+00:09:08,076 --> 0:09:08,346
+later.
+
+277
+00:09:08,346 --> 0:09:12,706
+So let's have a look at how to
+
+278
+00:09:12,706 --> 0:09:13,806
+turn this on in API.
+
+279
+00:09:14,716 --> 0:09:16,996
+We have a new property on
+
+280
+00:09:17,146 --> 0:09:18,966
+ARConfiguration called
+
+281
+00:09:18,966 --> 0:09:20,106
+FrameSemantics.
+
+282
+00:09:21,256 --> 0:09:23,086
+This will give you different
+
+283
+00:09:23,146 --> 0:09:25,036
+kinds of semantic information of
+
+284
+00:09:25,096 --> 0:09:26,256
+what's in the current frame.
+
+285
+00:09:27,686 --> 0:09:29,416
+You can also check if a certain
+
+286
+00:09:29,416 --> 0:09:31,336
+semantic is available on the
+
+287
+00:09:31,516 --> 0:09:33,616
+specific configuration or device
+
+288
+00:09:34,246 --> 0:09:36,326
+with an additional method on the
+
+289
+00:09:36,326 --> 0:09:37,176
+ARConfiguration.
+
+290
+00:09:38,646 --> 0:09:40,306
+Specific for people occlusion,
+
+291
+00:09:40,426 --> 0:09:41,936
+there are two methods available
+
+292
+00:09:41,936 --> 0:09:46,096
+that you can use.
+
+293
+00:09:46,316 --> 0:09:47,756
+One option is person
+
+294
+00:09:47,756 --> 0:09:48,476
+segmentation.
+
+295
+00:09:49,186 --> 0:09:51,096
+This will-- you provide just
+
+296
+00:09:51,356 --> 0:09:52,986
+with the segmentation of people
+
+297
+00:09:53,436 --> 0:09:55,146
+rendered on top of the camera
+
+298
+00:09:55,146 --> 0:09:55,606
+image.
+
+299
+00:09:56,826 --> 0:09:58,096
+That's the best choice if you
+
+300
+00:09:58,096 --> 0:09:59,826
+know that people will always be
+
+301
+00:09:59,826 --> 0:10:01,736
+standing upfront and your
+
+302
+00:09:59,826 --> 0:10:01,736
+standing upfront and your
+
+303
+00:10:01,736 --> 0:10:03,676
+virtual content will always be
+
+304
+00:10:03,856 --> 0:10:04,826
+behind those people.
+
+305
+00:10:05,476 --> 0:10:07,386
+For example, a green screen use
+
+306
+00:10:07,386 --> 0:10:09,026
+case just that you don't need a
+
+307
+00:10:09,026 --> 0:10:10,346
+green screen anymore now.
+
+308
+00:10:10,616 --> 0:10:13,486
+And the other option is person
+
+309
+00:10:13,486 --> 0:10:15,316
+segmentation with depth.
+
+310
+00:10:16,016 --> 0:10:17,266
+This will provide you with
+
+311
+00:10:17,406 --> 0:10:19,666
+additional depth estimation of
+
+312
+00:10:19,816 --> 0:10:21,616
+how far those people are away
+
+313
+00:10:21,616 --> 0:10:22,326
+from the camera.
+
+314
+00:10:23,266 --> 0:10:24,866
+That's the best choice if people
+
+315
+00:10:24,866 --> 0:10:26,546
+might be visible together with
+
+316
+00:10:26,586 --> 0:10:29,236
+virtual content either behind or
+
+317
+00:10:29,236 --> 0:10:33,286
+in front of that content.
+
+318
+00:10:33,386 --> 0:10:34,876
+If you do your own rendering
+
+319
+00:10:35,046 --> 0:10:37,506
+using Metal or for advanced used
+
+320
+00:10:37,506 --> 0:10:39,616
+cases, you can also directly
+
+321
+00:10:39,616 --> 0:10:42,106
+access the pixel buffers with
+
+322
+00:10:42,106 --> 0:10:43,576
+the segmentation and the
+
+323
+00:10:43,576 --> 0:10:45,996
+estimated depth data on every
+
+324
+00:10:45,996 --> 0:10:46,516
+ARFrame.
+
+325
+00:10:47,756 --> 0:10:50,446
+So now, let me show you how
+
+326
+00:10:50,446 --> 0:10:52,196
+people occlusion works in a live
+
+327
+00:10:52,286 --> 0:10:52,976
+demo.
+
+328
+00:10:56,516 --> 0:11:02,056
+[ Applause ]
+
+329
+00:10:56,516 --> 0:11:02,056
+[ Applause ]
+
+330
+00:11:02,556 --> 0:11:04,356
+So here in Xcode, I have a small
+
+331
+00:11:04,356 --> 0:11:06,706
+sample project using the new
+
+332
+00:11:06,706 --> 0:11:07,656
+RealityKit API.
+
+333
+00:11:08,816 --> 0:11:10,256
+And let me quickly walk you
+
+334
+00:11:10,256 --> 0:11:11,456
+through what it does.
+
+335
+00:11:12,806 --> 0:11:15,296
+So in our viewDidLoad method,
+
+336
+00:11:15,636 --> 0:11:17,666
+we're creating an AnchorEntity
+
+337
+00:11:18,456 --> 0:11:19,926
+looking for horizontal planes
+
+338
+00:11:20,486 --> 0:11:21,936
+and we're adding this anchor
+
+339
+00:11:21,936 --> 0:11:25,146
+entity to the scene.
+
+340
+00:11:25,146 --> 0:11:27,386
+Then, we're retrieving a URL of
+
+341
+00:11:27,386 --> 0:11:30,816
+a model to load and load it
+
+342
+00:11:31,186 --> 0:11:33,136
+using ModelEntity's asynchronous
+
+343
+00:11:33,136 --> 0:11:34,536
+mode loading API.
+
+344
+00:11:34,536 --> 0:11:38,386
+We add the entity as a child of
+
+345
+00:11:38,386 --> 0:11:42,466
+our anchor, and also install
+
+346
+00:11:42,466 --> 0:11:44,216
+gestures so that I will be able
+
+347
+00:11:44,266 --> 0:11:46,276
+to drag the object around on the
+
+348
+00:11:46,326 --> 0:11:46,736
+plane.
+
+349
+00:11:47,976 --> 0:11:49,996
+So what this does, thanks to
+
+350
+00:11:49,996 --> 0:11:51,886
+RealityKit, is automatically
+
+351
+00:11:52,006 --> 0:11:53,126
+setup a World Tracking
+
+352
+00:11:53,126 --> 0:11:55,406
+configuration because we know
+
+353
+00:11:55,406 --> 0:11:57,476
+that we need World Tracking for
+
+354
+00:11:57,646 --> 0:11:58,536
+plane estimation.
+
+355
+00:11:59,116 --> 0:12:00,916
+And then, as soon as a plane is
+
+356
+00:11:59,116 --> 0:12:00,916
+And then, as soon as a plane is
+
+357
+00:12:00,956 --> 0:12:02,366
+detected, the content will
+
+358
+00:12:02,366 --> 0:12:03,586
+automatically be placed.
+
+359
+00:12:04,636 --> 0:12:07,596
+Now, this is not using people
+
+360
+00:12:07,596 --> 0:12:08,296
+occlusion yet.
+
+361
+00:12:09,516 --> 0:12:11,386
+But I have already a stop to
+
+362
+00:12:11,386 --> 0:12:12,106
+turn this on.
+
+363
+00:12:12,866 --> 0:12:13,266
+It's called
+
+364
+00:12:13,266 --> 0:12:14,986
+togglePeopleOcclusion and what I
+
+365
+00:12:14,986 --> 0:12:16,556
+want to implement is a method
+
+366
+00:12:16,786 --> 0:12:18,326
+that lets me switch people
+
+367
+00:12:18,326 --> 0:12:19,946
+occlusion on and off when the
+
+368
+00:12:19,946 --> 0:12:21,136
+user taps the screen.
+
+369
+00:12:22,256 --> 0:12:23,986
+So let's go ahead and implement
+
+370
+00:12:23,986 --> 0:12:24,376
+it now.
+
+371
+00:12:25,046 --> 0:12:28,306
+So the first thing I'm going to
+
+372
+00:12:28,436 --> 0:12:31,756
+do is actually check if my World
+
+373
+00:12:31,756 --> 0:12:34,076
+Tracking configuration supports
+
+374
+00:12:34,656 --> 0:12:35,946
+the person segmentation with
+
+375
+00:12:36,046 --> 0:12:37,296
+depth frame semantics.
+
+376
+00:12:38,176 --> 0:12:39,406
+It's recommended that you do
+
+377
+00:12:39,406 --> 0:12:42,776
+that always because if the code
+
+378
+00:12:42,776 --> 0:12:44,846
+is run on a device that it does
+
+379
+00:12:44,846 --> 0:12:47,166
+not have Apple Neural Engine and
+
+380
+00:12:47,286 --> 0:12:48,426
+this frame semantic is not
+
+381
+00:12:48,426 --> 0:12:50,646
+supported, we want to gracefully
+
+382
+00:12:50,646 --> 0:12:53,396
+handle that case.
+
+383
+00:12:53,606 --> 0:12:56,066
+So if that's the case, we would
+
+384
+00:12:56,066 --> 0:12:57,186
+just display a message to the
+
+385
+00:12:57,186 --> 0:12:58,506
+user that people occlusion is
+
+386
+00:12:58,546 --> 0:13:00,496
+not available on that device.
+
+387
+00:12:58,546 --> 0:13:00,496
+not available on that device.
+
+388
+00:13:03,456 --> 0:13:05,186
+And let's actually move on and
+
+389
+00:13:05,186 --> 0:13:06,826
+implement the toggle.
+
+390
+00:13:08,056 --> 0:13:09,386
+I'm going to do a switch
+
+391
+00:13:09,386 --> 0:13:11,436
+statement on the frameSemantics
+
+392
+00:13:11,506 --> 0:13:13,026
+property of our configuration
+
+393
+00:13:13,026 --> 0:13:13,276
+here.
+
+394
+00:13:13,916 --> 0:13:14,496
+And if
+
+395
+00:13:14,546 --> 0:13:16,586
+personSegmentationWithDepth is
+
+396
+00:13:16,586 --> 0:13:19,036
+part of the frameSemantics, then
+
+397
+00:13:19,036 --> 0:13:22,116
+we remove it and tell the user
+
+398
+00:13:22,116 --> 0:13:23,306
+that people occlusion is now
+
+399
+00:13:23,406 --> 0:13:23,786
+turned off.
+
+400
+00:13:24,446 --> 0:13:28,486
+And I just need to implement the
+
+401
+00:13:28,486 --> 0:13:29,436
+other case as well.
+
+402
+00:13:30,046 --> 0:13:30,986
+If you don't have person
+
+403
+00:13:30,986 --> 0:13:32,756
+segmentation enable then, we
+
+404
+00:13:32,756 --> 0:13:35,416
+insert the frameSemantics into
+
+405
+00:13:36,356 --> 0:13:38,096
+different semantics property and
+
+406
+00:13:38,096 --> 0:13:39,696
+display a message that we now
+
+407
+00:13:39,786 --> 0:13:42,766
+turn people occlusion on.
+
+408
+00:13:43,346 --> 0:13:45,856
+Now, I need to rerun the updated
+
+409
+00:13:45,886 --> 0:13:47,326
+configuration on my session.
+
+410
+00:13:48,516 --> 0:13:51,086
+So let me retrieve the session
+
+411
+00:13:51,806 --> 0:13:55,136
+from the ARView and call run
+
+412
+00:13:55,676 --> 0:13:57,196
+with a configuration that I've
+
+413
+00:13:57,256 --> 0:13:58,826
+just updated here.
+
+414
+00:14:00,036 --> 0:14:01,786
+So now, the implementation of my
+
+415
+00:14:01,786 --> 0:14:03,936
+togglePeopleOcclusion method is
+
+416
+00:14:03,936 --> 0:14:06,446
+finished, now I need to make
+
+417
+00:14:06,446 --> 0:14:08,116
+sure that it's actually called
+
+418
+00:14:08,776 --> 0:14:10,146
+when the user taps the screen.
+
+419
+00:14:11,336 --> 0:14:12,696
+I already installed a tap
+
+420
+00:14:12,696 --> 0:14:14,786
+gesture recognizer and here in
+
+421
+00:14:14,786 --> 0:14:18,476
+my onTap method, I just call
+
+422
+00:14:19,796 --> 0:14:20,736
+togglePeopleOcclusion.
+
+423
+00:14:21,396 --> 0:14:24,266
+And that's all I need to do.
+
+424
+00:14:25,376 --> 0:14:27,236
+And now, let me go ahead and
+
+425
+00:14:28,556 --> 0:14:31,466
+build that code and run it on my
+
+426
+00:14:31,466 --> 0:14:33,086
+device here.
+
+427
+00:14:34,346 --> 0:14:36,876
+And we already see that the
+
+428
+00:14:36,926 --> 0:14:39,166
+plane was detected and the
+
+429
+00:14:39,166 --> 0:14:40,066
+content placed.
+
+430
+00:14:40,066 --> 0:14:41,856
+I can also move it around,
+
+431
+00:14:41,976 --> 0:14:43,856
+thanks to the gestures that I've
+
+432
+00:14:43,856 --> 0:14:44,226
+added.
+
+433
+00:14:45,026 --> 0:14:46,886
+You see that RealityKit has
+
+434
+00:14:46,886 --> 0:14:48,966
+added a nice grounding shadow.
+
+435
+00:14:49,726 --> 0:14:52,806
+And now, let's actually have a
+
+436
+00:14:52,806 --> 0:14:53,806
+look at people occlusion.
+
+437
+00:14:53,946 --> 0:14:54,966
+Right now, it's still turned
+
+438
+00:14:54,966 --> 0:14:55,176
+off.
+
+439
+00:14:55,176 --> 0:14:57,366
+So if I bring in my hand now,
+
+440
+00:14:57,486 --> 0:14:58,676
+you see that the content is
+
+441
+00:14:58,676 --> 0:15:00,106
+always rendered on top.
+
+442
+00:14:58,676 --> 0:15:00,106
+always rendered on top.
+
+443
+00:15:00,426 --> 0:15:01,736
+This is the behavior that you
+
+444
+00:15:01,736 --> 0:15:04,616
+know from ARKit 2.
+
+445
+00:15:04,856 --> 0:15:06,856
+Now, let me turn it on and bring
+
+446
+00:15:06,856 --> 0:15:07,736
+in my hand again.
+
+447
+00:15:07,736 --> 0:15:10,156
+And you'll see that now
+
+448
+00:15:10,206 --> 0:15:10,966
+[applause] the virtual object is
+
+449
+00:15:11,176 --> 0:15:12,866
+actually covered.
+
+450
+00:15:14,516 --> 0:15:18,466
+[ Applause ]
+
+451
+00:15:18,966 --> 0:15:21,646
+And that's people occlusion in
+
+452
+00:15:21,646 --> 0:15:22,236
+the ARKit 3.
+
+453
+00:15:27,786 --> 0:15:32,276
+[Applause] Thank you.
+
+454
+00:15:32,276 --> 0:15:34,656
+So, let's talk about another
+
+455
+00:15:34,656 --> 0:15:36,666
+exciting new feature of ARKit 3
+
+456
+00:15:37,116 --> 0:15:38,616
+which is motion capture.
+
+457
+00:15:39,746 --> 0:15:42,736
+With motion capture, you can
+
+458
+00:15:42,786 --> 0:15:45,056
+track the body of a person which
+
+459
+00:15:45,056 --> 0:15:46,696
+can then for example be mapped
+
+460
+00:15:46,696 --> 0:15:48,666
+to a virtual character in real
+
+461
+00:15:48,706 --> 0:15:49,046
+time.
+
+462
+00:15:49,966 --> 0:15:51,156
+Now, this could only be done
+
+463
+00:15:51,156 --> 0:15:52,626
+with external setup and special
+
+464
+00:15:52,626 --> 0:15:53,776
+equipment before.
+
+465
+00:15:54,466 --> 0:15:56,636
+Now, with the ARKit 3, it just
+
+466
+00:15:56,706 --> 0:15:58,566
+takes few lines of code and
+
+467
+00:15:58,566 --> 0:16:00,456
+works right on your iPad or
+
+468
+00:15:58,566 --> 0:16:00,456
+works right on your iPad or
+
+469
+00:16:00,456 --> 0:16:00,806
+iPhone.
+
+470
+00:16:03,476 --> 0:16:06,086
+So, motion capture let's you
+
+471
+00:16:06,126 --> 0:16:08,876
+track a human body both in 2D
+
+472
+00:16:09,156 --> 0:16:10,026
+and in 3D.
+
+473
+00:16:10,586 --> 0:16:12,976
+And it provides you with a
+
+474
+00:16:12,976 --> 0:16:15,186
+skeleton representation of that
+
+475
+00:16:15,186 --> 0:16:15,676
+person.
+
+476
+00:16:16,286 --> 0:16:19,786
+This, for example, enables to
+
+477
+00:16:19,786 --> 0:16:21,256
+drive a virtual character.
+
+478
+00:16:22,036 --> 0:16:23,796
+And this is made possible by
+
+479
+00:16:23,796 --> 0:16:24,856
+advanced machine learning
+
+480
+00:16:24,856 --> 0:16:26,716
+algorithms running on Apple
+
+481
+00:16:26,716 --> 0:16:27,426
+Neural Engine.
+
+482
+00:16:28,116 --> 0:16:29,586
+So it's available on devices
+
+483
+00:16:29,586 --> 0:16:31,496
+with an A12 or later processor.
+
+484
+00:16:32,656 --> 0:16:34,606
+Let's look at 2D body detection
+
+485
+00:16:34,606 --> 0:16:35,076
+first.
+
+486
+00:16:35,676 --> 0:16:39,286
+How to turn this on?
+
+487
+00:16:40,336 --> 0:16:42,186
+We have a new frame semantics
+
+488
+00:16:42,186 --> 0:16:43,866
+option called bodyDetection.
+
+489
+00:16:44,746 --> 0:16:46,396
+This is supported on the World
+
+490
+00:16:46,396 --> 0:16:48,666
+Tracking configuration and on
+
+491
+00:16:48,666 --> 0:16:50,206
+image and orientation tracking
+
+492
+00:16:50,206 --> 0:16:51,416
+configurations as well.
+
+493
+00:16:52,276 --> 0:16:53,506
+So you'll simply add this to
+
+494
+00:16:53,506 --> 0:16:55,336
+your frame semantics and call
+
+495
+00:16:55,336 --> 0:16:56,036
+run on the session.
+
+496
+00:16:57,636 --> 0:16:58,486
+Now, let's have a look at the
+
+497
+00:16:58,486 --> 0:17:02,696
+data we will be getting back.
+
+498
+00:16:58,486 --> 0:17:02,696
+data we will be getting back.
+
+499
+00:17:02,696 --> 0:17:05,116
+Every ARFrame delivers an object
+
+500
+00:17:05,165 --> 0:17:07,945
+of type ARBody2D in the
+
+501
+00:17:07,945 --> 0:17:10,596
+detectedBody property if a
+
+502
+00:17:10,596 --> 0:17:12,506
+person was detected.
+
+503
+00:17:13,376 --> 0:17:15,425
+This object contains a 2D
+
+504
+00:17:15,425 --> 0:17:15,996
+skeleton.
+
+505
+00:17:17,455 --> 0:17:19,106
+And the skeleton will provide
+
+506
+00:17:19,106 --> 0:17:21,016
+you with all the joint landmarks
+
+507
+00:17:21,076 --> 0:17:22,896
+in normalized image space.
+
+508
+00:17:23,876 --> 0:17:24,896
+They are being returned in a
+
+509
+00:17:24,896 --> 0:17:26,896
+flat hierarchy in an array
+
+510
+00:17:27,026 --> 0:17:28,246
+because this is most efficient
+
+511
+00:17:28,286 --> 0:17:29,036
+for processing.
+
+512
+00:17:29,846 --> 0:17:31,386
+But you will also be getting a
+
+513
+00:17:31,386 --> 0:17:32,486
+skeleton definition.
+
+514
+00:17:33,406 --> 0:17:34,706
+And thanks to the skeleton
+
+515
+00:17:34,706 --> 0:17:36,416
+definition, you have all the
+
+516
+00:17:36,416 --> 0:17:38,786
+information how to interpret the
+
+517
+00:17:38,786 --> 0:17:39,656
+skeleton data.
+
+518
+00:17:40,446 --> 0:17:41,826
+In particular, it contains
+
+519
+00:17:41,826 --> 0:17:43,356
+information about the hierarchy
+
+520
+00:17:43,356 --> 0:17:45,426
+of joints, for example, the fact
+
+521
+00:17:45,676 --> 0:17:47,466
+that the hand joint is a child
+
+522
+00:17:47,466 --> 0:17:48,386
+of the elbow joint.
+
+523
+00:17:49,786 --> 0:17:51,176
+And you will also be provided
+
+524
+00:17:51,266 --> 0:17:53,486
+with names for joints that can
+
+525
+00:17:53,486 --> 0:17:55,266
+then be used for easier access.
+
+526
+00:17:55,936 --> 0:17:57,796
+So let's have a look at how this
+
+527
+00:17:57,826 --> 0:17:58,256
+looks like.
+
+528
+00:17:59,056 --> 0:18:00,406
+Here's a person we detected in
+
+529
+00:17:59,056 --> 0:18:00,406
+Here's a person we detected in
+
+530
+00:18:00,406 --> 0:18:01,006
+our frame.
+
+531
+00:18:01,926 --> 0:18:03,526
+And that's the 2D skeleton
+
+532
+00:18:03,526 --> 0:18:05,426
+provided by ARKit.
+
+533
+00:18:06,016 --> 0:18:08,256
+As mentioned before, important
+
+534
+00:18:08,256 --> 0:18:10,056
+joints are named to make it easy
+
+535
+00:18:10,056 --> 0:18:11,986
+for you to find out the position
+
+536
+00:18:11,986 --> 0:18:13,036
+of a particular one you're
+
+537
+00:18:13,036 --> 0:18:14,846
+interested in, for example, the
+
+538
+00:18:14,846 --> 0:18:17,446
+head or the right hand.
+
+539
+00:18:18,636 --> 0:18:19,996
+So this was 2D.
+
+540
+00:18:20,626 --> 0:18:22,646
+Now, let's have a look at 3D
+
+541
+00:18:22,646 --> 0:18:24,166
+motion capture.
+
+542
+00:18:25,216 --> 0:18:26,766
+3D motion capture let's you
+
+543
+00:18:26,766 --> 0:18:29,286
+track a human body in 3D space
+
+544
+00:18:29,936 --> 0:18:31,046
+and it provides you with a
+
+545
+00:18:31,266 --> 0:18:32,496
+three-dimensional skeleton
+
+546
+00:18:32,496 --> 0:18:33,376
+representation.
+
+547
+00:18:34,656 --> 0:18:36,496
+It also provides you scale
+
+548
+00:18:36,496 --> 0:18:38,516
+estimation to let you determine
+
+549
+00:18:38,516 --> 0:18:40,016
+the size of the person that is
+
+550
+00:18:40,076 --> 0:18:40,696
+being tracked.
+
+551
+00:18:41,746 --> 0:18:43,866
+And the 3D skeleton is anchored
+
+552
+00:18:44,186 --> 0:18:45,256
+in world coordinates.
+
+553
+00:18:46,516 --> 0:18:48,186
+Let's see how to use this in
+
+554
+00:18:48,186 --> 0:18:48,496
+API.
+
+555
+00:18:52,006 --> 0:18:53,276
+We are introducing a new
+
+556
+00:18:53,336 --> 0:18:55,226
+configuration called
+
+557
+00:18:55,226 --> 0:18:56,806
+ARBodyTrackingConfiguration.
+
+558
+00:18:58,426 --> 0:19:00,346
+So this lets you use 3D body
+
+559
+00:18:58,426 --> 0:19:00,346
+So this lets you use 3D body
+
+560
+00:19:00,346 --> 0:19:02,856
+tracking but it also provides
+
+561
+00:19:03,186 --> 0:19:05,476
+the 2D body detection that we
+
+562
+00:19:05,476 --> 0:19:06,476
+have seen before.
+
+563
+00:19:06,916 --> 0:19:09,346
+So the frame semantics is turned
+
+564
+00:19:09,346 --> 0:19:10,706
+on by default in that
+
+565
+00:19:10,706 --> 0:19:11,486
+configuration.
+
+566
+00:19:12,686 --> 0:19:14,626
+In addition, this configuration
+
+567
+00:19:14,686 --> 0:19:16,236
+also tracks the device's
+
+568
+00:19:16,296 --> 0:19:18,666
+position and orientation and
+
+569
+00:19:18,666 --> 0:19:20,166
+provides selected World Tracking
+
+570
+00:19:20,166 --> 0:19:21,866
+features such as plane
+
+571
+00:19:21,866 --> 0:19:23,926
+estimation or image detection.
+
+572
+00:19:24,746 --> 0:19:26,756
+So with that, you have even more
+
+573
+00:19:26,756 --> 0:19:28,666
+possibilities in what you can do
+
+574
+00:19:29,316 --> 0:19:31,226
+using body tracking in your AR
+
+575
+00:19:32,016 --> 0:19:32,086
+app.
+
+576
+00:19:33,516 --> 0:19:35,716
+In order to set it up, you
+
+577
+00:19:35,716 --> 0:19:37,426
+simply create the body tracking
+
+578
+00:19:37,426 --> 0:19:39,846
+configuration and run it on your
+
+579
+00:19:39,846 --> 0:19:40,256
+session.
+
+580
+00:19:41,396 --> 0:19:43,096
+Note that we also have API to
+
+581
+00:19:43,146 --> 0:19:45,076
+check if that configuration is
+
+582
+00:19:45,076 --> 0:19:49,136
+supported on the current device.
+
+583
+00:19:49,306 --> 0:19:51,746
+So, now, when ARKit is running
+
+584
+00:19:52,076 --> 0:19:54,026
+and detects a person, it will
+
+585
+00:19:54,026 --> 0:19:57,286
+add a new type of anchor, an
+
+586
+00:19:57,286 --> 0:19:58,026
+ARBodyAnchor.
+
+587
+00:20:00,096 --> 0:20:02,366
+This will be provided to you in
+
+588
+00:20:02,366 --> 0:20:03,546
+the session that that anchor's
+
+589
+00:20:03,546 --> 0:20:05,186
+called back just like any other
+
+590
+00:20:05,186 --> 0:20:06,436
+anchor types that you know.
+
+591
+00:20:07,786 --> 0:20:09,526
+And just like any anchor, it
+
+592
+00:20:09,526 --> 0:20:11,796
+also has a transform providing
+
+593
+00:20:11,796 --> 0:20:13,066
+you with a position and
+
+594
+00:20:13,066 --> 0:20:15,136
+orientation of the detected
+
+595
+00:20:15,206 --> 0:20:17,306
+person in world coordinates.
+
+596
+00:20:17,856 --> 0:20:19,576
+In addition, you will be getting
+
+597
+00:20:19,686 --> 0:20:22,296
+the scale factor and a reference
+
+598
+00:20:22,676 --> 0:20:23,826
+to the 3D skeleton.
+
+599
+00:20:24,446 --> 0:20:28,636
+Let's have a look at how this
+
+600
+00:20:28,636 --> 0:20:29,176
+looks like.
+
+601
+00:20:29,846 --> 0:20:31,056
+You see already that it's much
+
+602
+00:20:31,056 --> 0:20:32,916
+more detailed than the 2D
+
+603
+00:20:32,916 --> 0:20:33,406
+skeleton.
+
+604
+00:20:34,436 --> 0:20:35,626
+So the yellow joints are the
+
+605
+00:20:35,626 --> 0:20:37,036
+ones that will be delivered to
+
+606
+00:20:37,036 --> 0:20:38,976
+the user with motion capture
+
+607
+00:20:38,976 --> 0:20:39,316
+data.
+
+608
+00:20:40,396 --> 0:20:42,516
+The white ones are leaf joints
+
+609
+00:20:42,876 --> 0:20:44,326
+that our additionally available
+
+610
+00:20:44,326 --> 0:20:45,046
+in the skeleton.
+
+611
+00:20:46,096 --> 0:20:47,936
+These are not actively tracked
+
+612
+00:20:48,246 --> 0:20:49,806
+so the transform is static with
+
+613
+00:20:49,806 --> 0:20:51,156
+regard to the tracked parent.
+
+614
+00:20:51,846 --> 0:20:53,486
+But of course, you can direct
+
+615
+00:20:53,486 --> 0:20:55,666
+the access each of those joints
+
+616
+00:20:56,006 --> 0:20:58,016
+and retrieve their road
+
+617
+00:20:58,016 --> 0:20:58,766
+coordinates.
+
+618
+00:21:00,016 --> 0:21:01,606
+Again, we also have labels for
+
+619
+00:21:01,606 --> 0:21:04,056
+the most important once, an API
+
+620
+00:21:04,326 --> 0:21:06,066
+to query them by name so that
+
+621
+00:21:06,066 --> 0:21:08,826
+you can easily find out about a
+
+622
+00:21:08,826 --> 0:21:10,076
+particular joint you're
+
+623
+00:21:10,076 --> 0:21:11,456
+interested in.
+
+624
+00:21:12,016 --> 0:21:13,686
+Now, I'm sure that you can come
+
+625
+00:21:13,686 --> 0:21:15,486
+up with a lot of great use cases
+
+626
+00:21:15,746 --> 0:21:18,376
+for this new API, but I want to
+
+627
+00:21:18,376 --> 0:21:20,026
+talk about one particular use
+
+628
+00:21:20,056 --> 0:21:21,866
+case that might be interesting
+
+629
+00:21:21,866 --> 0:21:24,256
+for many of you, which is
+
+630
+00:21:24,346 --> 0:21:26,036
+animating 3D characters.
+
+631
+00:21:27,696 --> 0:21:30,256
+By using ARKit in combination
+
+632
+00:21:30,256 --> 0:21:32,736
+with RealityKit, you can drive a
+
+633
+00:21:32,736 --> 0:21:34,986
+model based on the 3D skeleton
+
+634
+00:21:34,986 --> 0:21:36,646
+pose and it's really simple to
+
+635
+00:21:36,646 --> 0:21:36,836
+do.
+
+636
+00:21:37,936 --> 0:21:41,486
+All you need is a rigged mesh.
+
+637
+00:21:42,586 --> 0:21:43,916
+You can find an example for that
+
+638
+00:21:43,916 --> 0:21:45,506
+in one of our sample apps that
+
+639
+00:21:45,506 --> 0:21:46,646
+you can download on the session
+
+640
+00:21:46,646 --> 0:21:48,606
+home page, but of course, you're
+
+641
+00:21:48,606 --> 0:21:50,586
+also free to make your own in a
+
+642
+00:21:50,586 --> 0:21:51,886
+content creation tool of your
+
+643
+00:21:51,886 --> 0:21:52,296
+choice.
+
+644
+00:21:52,826 --> 0:21:55,836
+Let's see how easy it is to do
+
+645
+00:21:55,836 --> 0:21:56,576
+that in code.
+
+646
+00:21:56,856 --> 0:21:58,406
+It's built right in RealityKit
+
+647
+00:21:58,406 --> 0:21:58,756
+API.
+
+648
+00:21:59,736 --> 0:22:01,036
+And the major class we will be
+
+649
+00:21:59,736 --> 0:22:01,036
+And the major class we will be
+
+650
+00:22:01,036 --> 0:22:03,686
+using is the BodyTrackedEntity.
+
+651
+00:22:04,296 --> 0:22:08,596
+So here is a code example using
+
+652
+00:22:08,596 --> 0:22:09,486
+RealityKit API.
+
+653
+00:22:09,486 --> 0:22:12,056
+The first thing you're going to
+
+654
+00:22:12,056 --> 0:22:14,676
+do is create an AnchorEntity of
+
+655
+00:22:14,736 --> 0:22:16,966
+type body and add this anchor to
+
+656
+00:22:16,966 --> 0:22:17,376
+the scene.
+
+657
+00:22:18,786 --> 0:22:21,016
+Next, you're going to load the
+
+658
+00:22:21,016 --> 0:22:21,736
+model.
+
+659
+00:22:22,036 --> 0:22:23,496
+In our case, it's called robot.
+
+660
+00:22:24,606 --> 0:22:26,136
+We're using the asynchronous
+
+661
+00:22:26,136 --> 0:22:27,386
+loading API for that.
+
+662
+00:22:27,826 --> 0:22:29,076
+And in the completion handler,
+
+663
+00:22:29,516 --> 0:22:30,776
+you will be getting the
+
+664
+00:22:30,776 --> 0:22:32,806
+BodyTrackedEntity that we now
+
+665
+00:22:32,866 --> 0:22:35,076
+just need to add as a child to
+
+666
+00:22:35,076 --> 0:22:35,906
+our bodyAnchor.
+
+667
+00:22:36,896 --> 0:22:38,196
+And that's already all you need
+
+668
+00:22:38,196 --> 0:22:39,126
+to do.
+
+669
+00:22:39,666 --> 0:22:42,516
+So as soon as ARKit now adds the
+
+670
+00:22:42,516 --> 0:22:44,536
+AR body anchor to the session,
+
+671
+00:22:45,846 --> 0:22:48,176
+the 3D pose of the skeleton will
+
+672
+00:22:48,176 --> 0:22:50,386
+automatically be applied to the
+
+673
+00:22:50,386 --> 0:22:52,276
+virtual model in real time.
+
+674
+00:22:53,466 --> 0:22:54,916
+And that's how simple it is to
+
+675
+00:22:54,916 --> 0:22:56,896
+do motion capture with ARKit 3.
+
+676
+00:22:58,316 --> 0:23:03,936
+[Applause] Thank you.
+
+677
+00:22:58,316 --> 0:23:03,936
+[Applause] Thank you.
+
+678
+00:23:03,936 --> 0:23:06,436
+So, now, let's talk about
+
+679
+00:23:06,436 --> 0:23:09,226
+simultaneous front and back
+
+680
+00:23:10,116 --> 0:23:10,526
+camera.
+
+681
+00:23:10,526 --> 0:23:12,166
+ARKit lets you to World Tracking
+
+682
+00:23:12,166 --> 0:23:14,316
+with the back-facing camera and
+
+683
+00:23:14,316 --> 0:23:16,056
+face tracking with the 2Depth
+
+684
+00:23:16,056 --> 0:23:17,326
+camera system on the front.
+
+685
+00:23:18,176 --> 0:23:20,116
+Now, one really highly requested
+
+686
+00:23:20,116 --> 0:23:22,386
+feature from you was to enable
+
+687
+00:23:22,386 --> 0:23:24,896
+user experiences with the front
+
+688
+00:23:24,896 --> 0:23:26,456
+and the back camera together.
+
+689
+00:23:27,316 --> 0:23:29,706
+Now, with ARKit 3, you can do
+
+690
+00:23:30,506 --> 0:23:30,666
+that.
+
+691
+00:23:31,956 --> 0:23:33,426
+So with this new feature, you
+
+692
+00:23:33,426 --> 0:23:35,596
+can build AR experiences using
+
+693
+00:23:35,676 --> 0:23:37,696
+both cameras at the same time.
+
+694
+00:23:37,996 --> 0:23:39,336
+And what this means for you is,
+
+695
+00:23:39,866 --> 0:23:41,666
+that you can now build two new
+
+696
+00:23:41,716 --> 0:23:42,866
+types of use cases.
+
+697
+00:23:43,896 --> 0:23:45,976
+First, you can create World
+
+698
+00:23:45,976 --> 0:23:47,106
+Tracking experiences.
+
+699
+00:23:47,106 --> 0:23:48,816
+So, using the back-facing
+
+700
+00:23:48,886 --> 0:23:51,156
+camera, but also benefit from
+
+701
+00:23:51,156 --> 0:23:53,446
+face data captured with the
+
+702
+00:23:53,446 --> 0:23:54,096
+front camera.
+
+703
+00:23:55,106 --> 0:23:56,746
+And you can create Face Tracking
+
+704
+00:23:56,746 --> 0:23:59,086
+experiences that make use of the
+
+705
+00:23:59,216 --> 0:24:00,826
+full device orientation and
+
+706
+00:23:59,216 --> 0:24:00,826
+full device orientation and
+
+707
+00:24:00,826 --> 0:24:02,496
+position in 6 degrees of
+
+708
+00:24:02,586 --> 0:24:02,956
+freedom.
+
+709
+00:24:03,406 --> 0:24:06,896
+All of this is supported on A12
+
+710
+00:24:06,896 --> 0:24:08,546
+devices and later.
+
+711
+00:24:08,806 --> 0:24:10,956
+Let's see an example.
+
+712
+00:24:11,426 --> 0:24:12,586
+So here we're running World
+
+713
+00:24:12,586 --> 0:24:14,196
+Tracking with plane estimation
+
+714
+00:24:14,806 --> 0:24:16,836
+but we also placed a face mesh
+
+715
+00:24:16,836 --> 0:24:18,656
+on top of the plane and are
+
+716
+00:24:18,656 --> 0:24:20,586
+updating it in real time with
+
+717
+00:24:20,636 --> 0:24:23,186
+the facial expressions captured
+
+718
+00:24:23,186 --> 0:24:24,216
+through the front camera.
+
+719
+00:24:24,216 --> 0:24:27,436
+So let' see how to use
+
+720
+00:24:27,516 --> 0:24:29,266
+concurrent front and back camera
+
+721
+00:24:30,296 --> 0:24:31,336
+in API.
+
+722
+00:24:31,546 --> 0:24:33,026
+First, let's create a World
+
+723
+00:24:33,026 --> 0:24:34,066
+Tracking configuration.
+
+724
+00:24:34,416 --> 0:24:36,416
+Now, the configuration that I
+
+725
+00:24:36,506 --> 0:24:38,706
+choose determines which camera
+
+726
+00:24:38,706 --> 0:24:40,406
+stream is actually displayed on
+
+727
+00:24:40,406 --> 0:24:40,926
+the screen.
+
+728
+00:24:41,206 --> 0:24:43,196
+So in that case, it would be the
+
+729
+00:24:43,196 --> 0:24:44,256
+back-facing camera.
+
+730
+00:24:45,666 --> 0:24:47,756
+Now I'm turning on the new
+
+731
+00:24:47,916 --> 0:24:50,386
+userFaceTrackingEnabled property
+
+732
+00:24:50,586 --> 0:24:52,046
+and run the session.
+
+733
+00:24:52,366 --> 0:24:57,046
+This will cause that I receive
+
+734
+00:24:57,176 --> 0:24:58,156
+face anchors.
+
+735
+00:24:58,276 --> 0:25:01,326
+And I can then use any
+
+736
+00:24:58,276 --> 0:25:01,326
+And I can then use any
+
+737
+00:25:01,326 --> 0:25:02,876
+information from that anchors
+
+738
+00:25:03,066 --> 0:25:05,496
+like the face mesh, land shapes,
+
+739
+00:25:05,926 --> 0:25:08,666
+or the anchors transform itself.
+
+740
+00:25:09,236 --> 0:25:11,496
+Now, note, since we are working
+
+741
+00:25:11,666 --> 0:25:13,646
+with world coordinates here, the
+
+742
+00:25:13,646 --> 0:25:15,256
+user face transfer will be
+
+743
+00:25:15,256 --> 0:25:17,646
+placed behind the camera, which
+
+744
+00:25:17,646 --> 0:25:19,196
+means that in order to visualize
+
+745
+00:25:19,256 --> 0:25:20,486
+the face, you would need to
+
+746
+00:25:20,616 --> 0:25:22,156
+translate it to a location
+
+747
+00:25:22,156 --> 0:25:25,636
+somewhere in front of the
+
+748
+00:25:25,846 --> 0:25:26,366
+camera.
+
+749
+00:25:26,366 --> 0:25:28,316
+Now, let's also look at the face
+
+750
+00:25:28,366 --> 0:25:29,486
+tracking configuration.
+
+751
+00:25:30,366 --> 0:25:31,746
+You create your face tracking
+
+752
+00:25:31,746 --> 0:25:33,646
+configuration just as you would
+
+753
+00:25:33,686 --> 0:25:35,676
+do it always and set
+
+754
+00:25:36,056 --> 0:25:37,496
+worldTrackingEnabled to true.
+
+755
+00:25:38,226 --> 0:25:40,276
+And then, after you run the
+
+756
+00:25:40,276 --> 0:25:42,876
+configuration, you can access in
+
+757
+00:25:42,876 --> 0:25:45,216
+every frame, for example, in the
+
+758
+00:25:45,216 --> 0:25:46,696
+session that update frame
+
+759
+00:25:46,856 --> 0:25:50,386
+callback the transform of the
+
+760
+00:25:50,386 --> 0:25:51,586
+current camera position.
+
+761
+00:25:52,216 --> 0:25:54,506
+And you can then use that for
+
+762
+00:25:54,616 --> 0:25:55,746
+whatever use case you have in
+
+763
+00:25:55,746 --> 0:25:56,116
+mind.
+
+764
+00:25:56,326 --> 0:25:58,626
+And that's simultaneous front
+
+765
+00:25:58,626 --> 0:26:00,076
+and back camera in ARKit 3.
+
+766
+00:25:58,626 --> 0:26:00,076
+and back camera in ARKit 3.
+
+767
+00:26:01,036 --> 0:26:02,376
+We think that you will be able
+
+768
+00:26:02,526 --> 0:26:04,516
+to enable many great new use
+
+769
+00:26:04,516 --> 0:26:06,126
+cases with this new API.
+
+770
+00:26:07,281 --> 0:26:09,281
+[ Applause ]
+
+771
+00:26:09,546 --> 0:26:09,746
+Thank you.
+
+772
+00:26:10,421 --> 0:26:12,421
+[ Applause ]
+
+773
+00:26:12,826 --> 0:26:14,446
+And now, let me hand it over
+
+774
+00:26:14,446 --> 0:26:16,506
+Thomas who will tell you all
+
+775
+00:26:16,506 --> 0:26:17,816
+about collaborative sessions.
+
+776
+00:26:20,516 --> 0:26:22,636
+[ Applause ]
+
+777
+00:26:23,136 --> 0:26:23,426
+&gt;&gt; Thank you.
+
+778
+00:26:24,366 --> 0:26:25,056
+Thank you, Andreas.
+
+779
+00:26:25,416 --> 0:26:26,386
+Good afternoon, everyone.
+
+780
+00:26:26,736 --> 0:26:28,156
+My name is Thomas and I'm part
+
+781
+00:26:28,156 --> 0:26:28,876
+of the ARKit team.
+
+782
+00:26:29,506 --> 0:26:30,526
+So let's talk about
+
+783
+00:26:30,526 --> 0:26:31,686
+collaborative sessions.
+
+784
+00:26:32,216 --> 0:26:35,276
+In ARKit 2, you could create
+
+785
+00:26:35,666 --> 0:26:37,786
+multiuser experiences with the
+
+786
+00:26:37,786 --> 0:26:39,606
+ability to save and load world
+
+787
+00:26:39,606 --> 0:26:40,086
+maps.
+
+788
+00:26:40,726 --> 0:26:42,046
+You had to save a map on one
+
+789
+00:26:42,046 --> 0:26:43,686
+device and send it to another
+
+790
+00:26:43,686 --> 0:26:45,756
+one in order for your users to
+
+791
+00:26:45,756 --> 0:26:47,036
+jump into the same experience
+
+792
+00:26:47,036 --> 0:26:47,276
+again.
+
+793
+00:26:48,586 --> 0:26:50,556
+It was a one map -- one-time map
+
+794
+00:26:50,556 --> 0:26:52,026
+sharing experience, and after
+
+795
+00:26:52,026 --> 0:26:54,306
+that point, most of the users
+
+796
+00:26:54,306 --> 0:26:55,186
+wouldn't be in the same--
+
+797
+00:26:55,296 --> 0:26:56,616
+wouldn't share the same
+
+798
+00:26:56,616 --> 0:26:57,506
+information anymore.
+
+799
+00:26:58,006 --> 0:26:59,786
+Well, with collaborative
+
+800
+00:26:59,786 --> 0:27:02,816
+sessions in ARKit 3, we now
+
+801
+00:26:59,786 --> 0:27:02,816
+sessions in ARKit 3, we now
+
+802
+00:27:02,816 --> 0:27:04,416
+continuously share your mapping
+
+803
+00:27:04,416 --> 0:27:05,886
+information across the network.
+
+804
+00:27:07,226 --> 0:27:09,016
+This allows you to create ad hoc
+
+805
+00:27:09,016 --> 0:27:11,366
+multiuser experiences where your
+
+806
+00:27:11,366 --> 0:27:13,986
+users are more easily accessing
+
+807
+00:27:13,986 --> 0:27:14,686
+the same session.
+
+808
+00:27:15,896 --> 0:27:18,076
+Additionally, we also allow you
+
+809
+00:27:18,826 --> 0:27:20,626
+to share or we actually share
+
+810
+00:27:20,626 --> 0:27:22,556
+ARAnchors across all devices.
+
+811
+00:27:23,186 --> 0:27:24,226
+All those anchors are
+
+812
+00:27:24,226 --> 0:27:26,016
+identifiable with anchor's
+
+813
+00:27:26,016 --> 0:27:28,216
+session IDs on those ones.
+
+814
+00:27:29,536 --> 0:27:31,386
+Note that at this point, most--
+
+815
+00:27:31,386 --> 0:27:32,846
+all the coordinate systems are
+
+816
+00:27:32,846 --> 0:27:34,016
+independent from each others
+
+817
+00:27:34,016 --> 0:27:35,116
+even though we still share the
+
+818
+00:27:35,116 --> 0:27:37,206
+information under the hood.
+
+819
+00:27:37,406 --> 0:27:38,976
+Let me show you how this works.
+
+820
+00:27:41,566 --> 0:27:44,156
+So in this video here, we can
+
+821
+00:27:44,156 --> 0:27:44,956
+see two users.
+
+822
+00:27:45,016 --> 0:27:46,246
+Pay attention to the colors.
+
+823
+00:27:46,246 --> 0:27:47,656
+One user will be showing feature
+
+824
+00:27:47,656 --> 0:27:49,826
+points in green and another user
+
+825
+00:27:49,826 --> 0:27:51,016
+will be showing feature points
+
+826
+00:27:51,016 --> 0:27:52,896
+in red.
+
+827
+00:27:53,086 --> 0:27:53,976
+As they move around the
+
+828
+00:27:53,976 --> 0:27:56,976
+environment, they're starting to
+
+829
+00:27:56,976 --> 0:27:59,556
+map the environment and add more
+
+830
+00:27:59,556 --> 0:28:00,986
+feature points do it.
+
+831
+00:27:59,556 --> 0:28:00,986
+feature points do it.
+
+832
+00:28:01,976 --> 0:28:03,746
+At this point, and this is the
+
+833
+00:28:03,746 --> 0:28:05,316
+internal representation of their
+
+834
+00:28:05,316 --> 0:28:07,186
+internal maps, they don't know
+
+835
+00:28:07,186 --> 0:28:08,246
+about each other's maps.
+
+836
+00:28:08,506 --> 0:28:13,616
+As they move around, they gather
+
+837
+00:28:13,616 --> 0:28:14,576
+more feature points.
+
+838
+00:28:17,796 --> 0:28:19,026
+When they gather more feature
+
+839
+00:28:19,026 --> 0:28:20,776
+points in the scene and you can
+
+840
+00:28:20,776 --> 0:28:21,876
+see the internal maps, and pay
+
+841
+00:28:21,876 --> 0:28:23,426
+attention to the color and their
+
+842
+00:28:23,426 --> 0:28:25,416
+final matching point, then those
+
+843
+00:28:25,416 --> 0:28:27,256
+internal map will then merge
+
+844
+00:28:27,256 --> 0:28:28,806
+into each others and will only
+
+845
+00:28:28,806 --> 0:28:30,716
+form one map only, which means
+
+846
+00:28:30,716 --> 0:28:32,366
+that each users will now
+
+847
+00:28:32,366 --> 0:28:34,996
+understand each others and scene
+
+848
+00:28:34,996 --> 0:28:36,056
+understanding.
+
+849
+00:28:36,056 --> 0:28:40,206
+As they move around, they map
+
+850
+00:28:40,206 --> 0:28:41,346
+even more information.
+
+851
+00:28:42,606 --> 0:28:43,786
+And they continue sharing that
+
+852
+00:28:43,786 --> 0:28:45,106
+under the hood.
+
+853
+00:28:46,316 --> 0:28:48,766
+Additionally, ARKit 3 provides
+
+854
+00:28:48,766 --> 0:28:51,016
+you with like AR participant
+
+855
+00:28:51,016 --> 0:28:52,596
+anchors that allows you to
+
+856
+00:28:53,056 --> 0:28:54,786
+understand where another user is
+
+857
+00:28:54,786 --> 0:28:55,906
+in real time in your
+
+858
+00:28:55,906 --> 0:28:56,386
+environment.
+
+859
+00:28:57,226 --> 0:28:59,106
+This is really handy if you want
+
+860
+00:28:59,106 --> 0:29:00,646
+to display for example an icon
+
+861
+00:28:59,106 --> 0:29:00,646
+to display for example an icon
+
+862
+00:29:00,646 --> 0:29:01,796
+or something to represent that
+
+863
+00:29:01,796 --> 0:29:02,066
+user.
+
+864
+00:29:02,616 --> 0:29:07,436
+As mentioned earlier, ARKit 3
+
+865
+00:29:07,436 --> 0:29:09,076
+also share ARAnchors under the
+
+866
+00:29:09,076 --> 0:29:11,656
+hood, meaning that if you share
+
+867
+00:29:11,656 --> 0:29:13,406
+or add an anchor on one device,
+
+868
+00:29:13,406 --> 0:29:15,026
+it will automatically show up on
+
+869
+00:29:15,026 --> 0:29:15,696
+the other device.
+
+870
+00:29:17,106 --> 0:29:18,126
+Let's now have a look at how it
+
+871
+00:29:18,126 --> 0:29:18,846
+works in code.
+
+872
+00:29:20,576 --> 0:29:22,066
+As Andreas mentioned earlier,
+
+873
+00:29:22,096 --> 0:29:23,596
+ARKit is really well integrated
+
+874
+00:29:23,596 --> 0:29:24,406
+with RealityKit.
+
+875
+00:29:25,386 --> 0:29:26,876
+If you want to enable the
+
+876
+00:29:26,876 --> 0:29:27,916
+collaborative session with
+
+877
+00:29:27,916 --> 0:29:29,366
+RealityKit, it's pretty simple.
+
+878
+00:29:30,276 --> 0:29:31,556
+You first need to setup your
+
+879
+00:29:31,556 --> 0:29:33,126
+Multipeer Connectivity session.
+
+880
+00:29:33,506 --> 0:29:36,326
+Multipeer Connectivity framework
+
+881
+00:29:36,326 --> 0:29:37,346
+is an Apple framework that
+
+882
+00:29:37,346 --> 0:29:38,676
+allows you for discovery and
+
+883
+00:29:38,676 --> 0:29:40,196
+peer-to-peer connections.
+
+884
+00:29:40,196 --> 0:29:43,126
+Then, you need to pass this
+
+885
+00:29:43,126 --> 0:29:45,116
+Multipeer Connectivity session
+
+886
+00:29:45,116 --> 0:29:47,416
+to the AR scenes view
+
+887
+00:29:47,746 --> 0:29:48,826
+synchronization service.
+
+888
+00:29:49,316 --> 0:29:53,806
+And finally, as every ARKit
+
+889
+00:29:53,806 --> 0:29:55,456
+experiences, you have to setup
+
+890
+00:29:55,506 --> 0:29:55,786
+your
+
+891
+00:29:55,786 --> 0:29:57,286
+ARWorldTrackingConfiguration,
+
+892
+00:29:57,436 --> 0:29:59,576
+set the isCollaborationEnabled
+
+893
+00:29:59,576 --> 0:30:01,566
+flag to true and run that
+
+894
+00:29:59,576 --> 0:30:01,566
+flag to true and run that
+
+895
+00:30:01,566 --> 0:30:02,706
+configuration on the session.
+
+896
+00:30:03,236 --> 0:30:03,836
+And that's it.
+
+897
+00:30:06,696 --> 0:30:08,196
+So what's going to happen then?
+
+898
+00:30:09,416 --> 0:30:11,046
+So ARKit when sending up the
+
+899
+00:30:11,046 --> 0:30:13,286
+isCollaborationEnabled flag to
+
+900
+00:30:13,796 --> 0:30:16,336
+true will essentially -- and
+
+901
+00:30:16,336 --> 0:30:17,466
+running that configuration on
+
+902
+00:30:17,466 --> 0:30:18,836
+the session -- will essentially
+
+903
+00:30:18,836 --> 0:30:22,506
+create a new method on the
+
+904
+00:30:22,506 --> 0:30:24,006
+ARSessionDelegate for you to be
+
+905
+00:30:24,006 --> 0:30:24,936
+transferring that data.
+
+906
+00:30:25,576 --> 0:30:27,016
+In the RealityKit use case,
+
+907
+00:30:27,016 --> 0:30:28,686
+we'll take care of it, but if
+
+908
+00:30:28,686 --> 0:30:29,906
+you're using ARKit in another
+
+909
+00:30:29,906 --> 0:30:31,646
+renderer, then we'll-- you'll
+
+910
+00:30:31,646 --> 0:30:33,056
+have to send that data across
+
+911
+00:30:33,056 --> 0:30:33,596
+the network.
+
+912
+00:30:35,576 --> 0:30:36,916
+This data is called AR
+
+913
+00:30:36,916 --> 0:30:37,756
+collaboration data.
+
+914
+00:30:39,006 --> 0:30:41,036
+ARKit can create at any point in
+
+915
+00:30:41,036 --> 0:30:43,226
+time an AR collaboration data
+
+916
+00:30:43,226 --> 0:30:45,106
+package that you then have to
+
+917
+00:30:45,106 --> 0:30:47,526
+forward again to other users.
+
+918
+00:30:47,886 --> 0:30:49,396
+This is not limited to only two
+
+919
+00:30:49,396 --> 0:30:49,886
+users.
+
+920
+00:30:49,886 --> 0:30:51,916
+You can have a large amount of
+
+921
+00:30:51,916 --> 0:30:53,456
+users in that session.
+
+922
+00:30:54,676 --> 0:30:57,676
+During that process, ARKit will
+
+923
+00:30:57,676 --> 0:30:59,196
+generate additional AR
+
+924
+00:30:59,196 --> 0:31:00,746
+collaboration data that you will
+
+925
+00:30:59,196 --> 0:31:00,746
+collaboration data that you will
+
+926
+00:31:00,746 --> 0:31:02,776
+have to forward to other devices
+
+927
+00:31:02,776 --> 0:31:03,816
+and broadcast that data.
+
+928
+00:31:07,876 --> 0:31:09,406
+Let's see how that works in
+
+929
+00:31:09,906 --> 0:31:10,006
+code.
+
+930
+00:31:11,296 --> 0:31:13,236
+So you first need to setup your
+
+931
+00:31:13,236 --> 0:31:14,736
+multipeer connectivity in this
+
+932
+00:31:14,736 --> 0:31:17,236
+example, or you can also setup
+
+933
+00:31:17,236 --> 0:31:18,606
+any framework-- any network
+
+934
+00:31:18,606 --> 0:31:19,716
+framework of your choice and
+
+935
+00:31:19,716 --> 0:31:20,856
+make sure that your devices are
+
+936
+00:31:20,856 --> 0:31:21,866
+sharing the same session.
+
+937
+00:31:22,336 --> 0:31:25,676
+When they do, then you need to
+
+938
+00:31:25,676 --> 0:31:26,366
+enable the
+
+939
+00:31:26,366 --> 0:31:27,826
+ARWorldTrackingConfiguration
+
+940
+00:31:27,826 --> 0:31:29,686
+with this isCollaborationEnabled
+
+941
+00:31:29,686 --> 0:31:30,396
+flag to true.
+
+942
+00:31:31,706 --> 0:31:33,466
+When this is the case, you need
+
+943
+00:31:33,466 --> 0:31:34,436
+to run-- then run the
+
+944
+00:31:34,436 --> 0:31:35,216
+configuration.
+
+945
+00:31:36,296 --> 0:31:38,856
+At this point, you will then
+
+946
+00:31:38,856 --> 0:31:40,196
+have a new method available
+
+947
+00:31:40,196 --> 0:31:41,806
+under delegate for you where you
+
+948
+00:31:41,806 --> 0:31:43,356
+will be receiving some
+
+949
+00:31:43,356 --> 0:31:44,296
+collaboration data.
+
+950
+00:31:44,776 --> 0:31:49,066
+Upon receiving that data, you
+
+951
+00:31:49,066 --> 0:31:50,296
+need to make sure to broadcast
+
+952
+00:31:50,296 --> 0:31:52,406
+it on the network to other users
+
+953
+00:31:52,726 --> 0:31:53,546
+that are also in this
+
+954
+00:31:53,576 --> 0:31:54,496
+collaboration session.
+
+955
+00:31:54,976 --> 0:31:58,376
+Upon the reception of that data
+
+956
+00:31:58,826 --> 0:32:00,516
+on the other devices, you need
+
+957
+00:31:58,826 --> 0:32:00,516
+on the other devices, you need
+
+958
+00:32:00,516 --> 0:32:02,936
+to update URL session so that it
+
+959
+00:32:02,936 --> 0:32:04,016
+knows about this new data.
+
+960
+00:32:04,406 --> 0:32:05,566
+And that's it.
+
+961
+00:32:07,436 --> 0:32:09,266
+This collaboration session data
+
+962
+00:32:10,276 --> 0:32:12,456
+automatically exchange all the
+
+963
+00:32:12,456 --> 0:32:14,226
+user created ARAnchors.
+
+964
+00:32:15,566 --> 0:32:18,126
+Each anchors is identifiable by
+
+965
+00:32:18,126 --> 0:32:20,506
+a session ID so that you can
+
+966
+00:32:20,506 --> 0:32:21,706
+make sure to understand from
+
+967
+00:32:21,706 --> 0:32:23,686
+which device or which AR session
+
+968
+00:32:24,136 --> 0:32:25,316
+the anchor is coming from.
+
+969
+00:32:25,836 --> 0:32:28,426
+As mentioned earlier, the
+
+970
+00:32:28,426 --> 0:32:30,386
+ARParticipantAnchor represents
+
+971
+00:32:30,386 --> 0:32:32,626
+in real time the participant
+
+972
+00:32:32,626 --> 0:32:34,586
+position which can be very handy
+
+973
+00:32:34,586 --> 0:32:35,706
+in some of your use cases.
+
+974
+00:32:39,296 --> 0:32:40,536
+So this is how you create
+
+975
+00:32:40,536 --> 0:32:41,436
+collaborative sessions.
+
+976
+00:32:42,516 --> 0:32:48,546
+[ Applause ]
+
+977
+00:32:49,046 --> 0:32:50,906
+Let's now talk about coaching.
+
+978
+00:32:51,636 --> 0:32:53,316
+When you create an experience,
+
+979
+00:32:53,556 --> 0:32:55,586
+an AR experience, coaching is
+
+980
+00:32:55,586 --> 0:32:56,436
+really important.
+
+981
+00:32:57,056 --> 0:32:58,056
+You really want to guide your
+
+982
+00:32:58,056 --> 0:33:00,336
+users whether they are new or
+
+983
+00:32:58,056 --> 0:33:00,336
+users whether they are new or
+
+984
+00:33:00,336 --> 0:33:02,546
+returning users into your AR
+
+985
+00:33:02,546 --> 0:33:03,176
+experience.
+
+986
+00:33:04,036 --> 0:33:05,256
+It's not a trivial process.
+
+987
+00:33:05,656 --> 0:33:07,216
+And sometimes, it's hard for you
+
+988
+00:33:07,216 --> 0:33:09,256
+to understand or even to guide
+
+989
+00:33:09,256 --> 0:33:11,766
+the user to that new experience.
+
+990
+00:33:13,136 --> 0:33:14,626
+Throughout that process, you
+
+991
+00:33:14,626 --> 0:33:15,726
+have to react to certain
+
+992
+00:33:15,726 --> 0:33:16,656
+tracking events.
+
+993
+00:33:16,846 --> 0:33:17,956
+Sometimes the tracking gets
+
+994
+00:33:17,956 --> 0:33:19,216
+limited because the user moves
+
+995
+00:33:19,216 --> 0:33:21,836
+way too fast.
+
+996
+00:33:21,836 --> 0:33:23,266
+So far, we've been providing you
+
+997
+00:33:23,266 --> 0:33:25,336
+with human interface guideline
+
+998
+00:33:25,976 --> 0:33:28,276
+that allowed you to provide some
+
+999
+00:33:28,276 --> 0:33:29,536
+guidelines for the onboarding
+
+1000
+00:33:29,536 --> 0:33:30,166
+experiences.
+
+1001
+00:33:31,736 --> 0:33:33,346
+Well this year, we're embedding
+
+1002
+00:33:33,346 --> 0:33:34,836
+that in the UI view
+
+1003
+00:33:38,206 --> 0:33:39,686
+and we call it the AR Coaching
+
+1004
+00:33:39,686 --> 0:33:39,906
+View.
+
+1005
+00:33:40,406 --> 0:33:43,746
+This is a built-in overlay that
+
+1006
+00:33:43,746 --> 0:33:45,186
+you can directly embed in your
+
+1007
+00:33:45,186 --> 0:33:46,106
+AR applications.
+
+1008
+00:33:46,746 --> 0:33:48,386
+It guides your users to a really
+
+1009
+00:33:48,386 --> 0:33:49,646
+good tracking experience.
+
+1010
+00:33:50,176 --> 0:33:53,146
+It provides a consistent design
+
+1011
+00:33:53,676 --> 0:33:55,096
+throughout your applications so
+
+1012
+00:33:55,096 --> 0:33:56,406
+that your users are very
+
+1013
+00:33:56,406 --> 0:33:57,846
+familiar with it.
+
+1014
+00:33:58,496 --> 0:33:59,886
+You actually may have seen that
+
+1015
+00:33:59,886 --> 0:34:00,726
+design before.
+
+1016
+00:33:59,886 --> 0:34:00,726
+design before.
+
+1017
+00:34:00,946 --> 0:34:02,836
+We have it AR Quick Look and in
+
+1018
+00:34:03,346 --> 0:34:03,496
+Measure.
+
+1019
+00:34:05,296 --> 0:34:07,906
+This new UI overlay
+
+1020
+00:34:07,906 --> 0:34:09,906
+automatically activates and
+
+1021
+00:34:09,906 --> 0:34:11,446
+deactivate base on the different
+
+1022
+00:34:11,446 --> 0:34:12,246
+tracking events.
+
+1023
+00:34:13,036 --> 0:34:14,826
+And you can also adjust certain
+
+1024
+00:34:14,826 --> 0:34:15,576
+coaching goals.
+
+1025
+00:34:16,255 --> 0:34:17,146
+Let's have a look at some of
+
+1026
+00:34:17,146 --> 0:34:17,686
+those overlays.
+
+1027
+00:34:17,686 --> 0:34:21,235
+So in the AR Coaching View, we
+
+1028
+00:34:21,985 --> 0:34:23,206
+have multiple overlays.
+
+1029
+00:34:24,036 --> 0:34:25,846
+The onboarding UI provides the
+
+1030
+00:34:25,846 --> 0:34:28,065
+users the ability to understand
+
+1031
+00:34:28,065 --> 0:34:29,235
+what you're looking for, and in
+
+1032
+00:34:29,235 --> 0:34:30,246
+this case, surfaces.
+
+1033
+00:34:30,835 --> 0:34:32,106
+Most of the time your experience
+
+1034
+00:34:32,106 --> 0:34:33,335
+require a surface to place
+
+1035
+00:34:33,335 --> 0:34:34,235
+content on to it.
+
+1036
+00:34:34,235 --> 0:34:36,556
+So if you enable plane detection
+
+1037
+00:34:36,556 --> 0:34:37,956
+on your configuration, then this
+
+1038
+00:34:37,956 --> 0:34:39,146
+overlay will automatically show
+
+1039
+00:34:39,146 --> 0:34:39,946
+up.
+
+1040
+00:34:41,335 --> 0:34:42,846
+Secondly, we have another
+
+1041
+00:34:42,846 --> 0:34:45,576
+overlay that provides the user
+
+1042
+00:34:45,576 --> 0:34:46,936
+with the ability to understand
+
+1043
+00:34:46,936 --> 0:34:48,005
+that they have to move around a
+
+1044
+00:34:48,005 --> 0:34:49,126
+little bit more to gather
+
+1045
+00:34:49,126 --> 0:34:50,746
+additional features so that
+
+1046
+00:34:50,746 --> 0:34:52,565
+tracking can works best.
+
+1047
+00:34:53,216 --> 0:34:55,426
+And then finally, we have
+
+1048
+00:34:55,426 --> 0:34:57,536
+another overlay which helps your
+
+1049
+00:34:57,536 --> 0:34:59,156
+user relocalize against certain
+
+1050
+00:34:59,156 --> 0:35:00,766
+environments in case of your
+
+1051
+00:34:59,156 --> 0:35:00,766
+environments in case of your
+
+1052
+00:35:00,766 --> 0:35:03,116
+lost tracking for example, or if
+
+1053
+00:35:03,116 --> 0:35:03,936
+the app went into the
+
+1054
+00:35:03,936 --> 0:35:04,446
+background.
+
+1055
+00:35:05,066 --> 0:35:08,306
+Let's look at one example.
+
+1056
+00:35:11,346 --> 0:35:12,876
+So, in this example, we're
+
+1057
+00:35:12,876 --> 0:35:14,646
+asking a user to move the device
+
+1058
+00:35:14,646 --> 0:35:16,466
+around to find a new plane, and
+
+1059
+00:35:16,466 --> 0:35:17,886
+as soon as the user is moving
+
+1060
+00:35:17,886 --> 0:35:19,566
+around and gathering more
+
+1061
+00:35:19,566 --> 0:35:21,636
+feature, then the content can be
+
+1062
+00:35:21,706 --> 0:35:23,446
+placed and the view deactivates
+
+1063
+00:35:23,446 --> 0:35:24,116
+automatically.
+
+1064
+00:35:24,596 --> 0:35:25,586
+So you don't have to do
+
+1065
+00:35:25,586 --> 0:35:26,086
+anything.
+
+1066
+00:35:26,086 --> 0:35:26,836
+Everything is handled
+
+1067
+00:35:26,836 --> 0:35:27,526
+automatically.
+
+1068
+00:35:28,516 --> 0:35:32,966
+[ Applause ]
+
+1069
+00:35:33,466 --> 0:35:36,166
+Let's have a look at how you can
+
+1070
+00:35:36,166 --> 0:35:36,646
+set that up.
+
+1071
+00:35:37,376 --> 0:35:38,886
+Again, this is really easy.
+
+1072
+00:35:39,636 --> 0:35:41,686
+As is it's a simple UI view, you
+
+1073
+00:35:41,686 --> 0:35:43,306
+have to set it up as a child of
+
+1074
+00:35:43,346 --> 0:35:44,506
+another UI view.
+
+1075
+00:35:44,766 --> 0:35:46,386
+Ideally, you set it as a child
+
+1076
+00:35:46,386 --> 0:35:47,826
+of the AR view.
+
+1077
+00:35:48,436 --> 0:35:50,676
+Then, you need to connect this
+
+1078
+00:35:50,676 --> 0:35:53,036
+session to the coaching view so
+
+1079
+00:35:53,036 --> 0:35:54,076
+that the coaching view knows
+
+1080
+00:35:54,076 --> 0:35:57,386
+what events to react to.
+
+1081
+00:35:57,386 --> 0:35:58,296
+Or you need to connect the
+
+1082
+00:35:58,296 --> 0:36:00,866
+session provider outlet of the
+
+1083
+00:35:58,296 --> 0:36:00,866
+session provider outlet of the
+
+1084
+00:36:00,866 --> 0:36:02,016
+coaching view to the session
+
+1085
+00:36:02,016 --> 0:36:04,326
+provider itself if you're using
+
+1086
+00:36:04,326 --> 0:36:07,556
+a storyboard for example.
+
+1087
+00:36:07,626 --> 0:36:09,416
+Optionally, you can set a bunch
+
+1088
+00:36:09,416 --> 0:36:10,556
+of delegates if you want to
+
+1089
+00:36:10,556 --> 0:36:12,336
+react to certain events that the
+
+1090
+00:36:12,336 --> 0:36:13,156
+view is giving you.
+
+1091
+00:36:13,686 --> 0:36:18,146
+And finally, you can also
+
+1092
+00:36:18,146 --> 0:36:19,706
+provide a set of specific
+
+1093
+00:36:19,706 --> 0:36:21,606
+coaching goals if you want to
+
+1094
+00:36:21,606 --> 0:36:23,166
+disable certain functionalities.
+
+1095
+00:36:23,686 --> 0:36:26,596
+Let's look at some of those
+
+1096
+00:36:26,596 --> 0:36:26,976
+delegates.
+
+1097
+00:36:30,296 --> 0:36:32,666
+So we have three new methods on
+
+1098
+00:36:32,666 --> 0:36:33,806
+the AR Coaching View--
+
+1099
+00:36:33,806 --> 0:36:35,346
+CoachingOverlayViewDelegate.
+
+1100
+00:36:35,826 --> 0:36:37,146
+Two of them can react to
+
+1101
+00:36:37,146 --> 0:36:38,516
+activation and deactivation.
+
+1102
+00:36:38,516 --> 0:36:40,476
+So you can choose if you want to
+
+1103
+00:36:40,476 --> 0:36:41,636
+still enable that throughout the
+
+1104
+00:36:41,636 --> 0:36:43,016
+experience or if you think, for
+
+1105
+00:36:43,016 --> 0:36:45,376
+example, that if a user had that
+
+1106
+00:36:45,466 --> 0:36:47,306
+once, it doesn't need to know
+
+1107
+00:36:47,306 --> 0:36:47,696
+anymore.
+
+1108
+00:36:49,106 --> 0:36:50,916
+Additionally, you can react to
+
+1109
+00:36:50,916 --> 0:36:52,866
+certain relocalization abort
+
+1110
+00:36:52,866 --> 0:36:56,946
+requests by default the UI view,
+
+1111
+00:36:56,946 --> 0:36:58,506
+the coaching view will actually
+
+1112
+00:36:58,506 --> 0:37:01,106
+give you or give your users a
+
+1113
+00:36:58,506 --> 0:37:01,106
+give you or give your users a
+
+1114
+00:37:01,106 --> 0:37:02,946
+new UI bottom that-- where they
+
+1115
+00:37:03,066 --> 0:37:04,266
+can actually relocalize and
+
+1116
+00:37:04,266 --> 0:37:05,636
+restart the session or reset the
+
+1117
+00:37:05,636 --> 0:37:06,786
+tracking for example.
+
+1118
+00:37:07,806 --> 0:37:09,676
+So this new view is really handy
+
+1119
+00:37:09,756 --> 0:37:11,746
+for your applications so that
+
+1120
+00:37:11,746 --> 0:37:12,596
+you can make sure that you've
+
+1121
+00:37:12,596 --> 0:37:14,006
+got that consistent design and
+
+1122
+00:37:14,006 --> 0:37:14,676
+help your users.
+
+1123
+00:37:15,306 --> 0:37:18,196
+Let's now talk about Face
+
+1124
+00:37:18,196 --> 0:37:18,596
+Tracking.
+
+1125
+00:37:19,316 --> 0:37:21,996
+In ARKit 1, we enabled Face
+
+1126
+00:37:21,996 --> 0:37:23,306
+Tracking with the ability to
+
+1127
+00:37:23,306 --> 0:37:24,386
+track one face.
+
+1128
+00:37:25,396 --> 0:37:27,456
+While in ARKit 2, we have the
+
+1129
+00:37:27,456 --> 0:37:28,786
+ability to the multi-face
+
+1130
+00:37:28,786 --> 0:37:30,186
+tracking up to three faces
+
+1131
+00:37:30,216 --> 0:37:31,516
+concurrently.
+
+1132
+00:37:32,536 --> 0:37:36,476
+Additionally, you can also make
+
+1133
+00:37:36,476 --> 0:37:38,196
+sure to recognize the person
+
+1134
+00:37:38,196 --> 0:37:39,576
+when he leaves the frame and
+
+1135
+00:37:39,576 --> 0:37:41,466
+comes back again giving you the
+
+1136
+00:37:41,466 --> 0:37:43,656
+same face anchor ID again.
+
+1137
+00:37:47,516 --> 0:37:52,546
+[ Applause ]
+
+1138
+00:37:53,046 --> 0:37:55,796
+So multi-Face Tracking tracks up
+
+1139
+00:37:55,796 --> 0:37:59,036
+to three faces concurrently and
+
+1140
+00:37:59,186 --> 0:38:00,826
+provides you with a persistent
+
+1141
+00:37:59,186 --> 0:38:00,826
+provides you with a persistent
+
+1142
+00:38:00,826 --> 0:38:02,986
+face anchor ID so that you can
+
+1143
+00:38:02,986 --> 0:38:04,496
+make sure to recognize one user
+
+1144
+00:38:04,496 --> 0:38:05,376
+throughout the session.
+
+1145
+00:38:06,016 --> 0:38:07,616
+If you restart a new session,
+
+1146
+00:38:08,436 --> 0:38:09,846
+then this ID disappears and a
+
+1147
+00:38:09,846 --> 0:38:11,206
+new one comes up.
+
+1148
+00:38:12,536 --> 0:38:14,266
+To enable this, this is really
+
+1149
+00:38:14,266 --> 0:38:14,776
+easy.
+
+1150
+00:38:15,446 --> 0:38:17,036
+We have two new properties on
+
+1151
+00:38:17,036 --> 0:38:18,856
+the ARFaceTrackingConfiguration.
+
+1152
+00:38:20,206 --> 0:38:21,386
+The first one allows you to
+
+1153
+00:38:21,386 --> 0:38:23,756
+query how many multiple faces
+
+1154
+00:38:23,756 --> 0:38:25,386
+can be tracked concurrently in
+
+1155
+00:38:25,386 --> 0:38:26,646
+one session on that specific
+
+1156
+00:38:26,646 --> 0:38:27,286
+device.
+
+1157
+00:38:27,846 --> 0:38:29,416
+And the other one allows you to
+
+1158
+00:38:29,416 --> 0:38:31,046
+set the number of track faces
+
+1159
+00:38:31,096 --> 0:38:31,766
+that you want to track
+
+1160
+00:38:31,766 --> 0:38:32,356
+concurrently.
+
+1161
+00:38:32,856 --> 0:38:35,976
+And that's Multi-Face Tracking.
+
+1162
+00:38:36,516 --> 0:38:40,956
+[ Applause ]
+
+1163
+00:38:41,456 --> 0:38:43,096
+Let's now talk about a new
+
+1164
+00:38:43,246 --> 0:38:45,306
+tracking configuration that we
+
+1165
+00:38:45,806 --> 0:38:47,506
+called ARPositional
+
+1166
+00:38:47,506 --> 0:38:48,556
+TrackingConfiguration.
+
+1167
+00:38:49,486 --> 0:38:50,606
+So this new tracking
+
+1168
+00:38:50,606 --> 0:38:53,416
+configuration is intended for
+
+1169
+00:38:53,416 --> 0:38:54,906
+tracking only use cases.
+
+1170
+00:38:55,846 --> 0:38:58,096
+You often had a use case where
+
+1171
+00:38:58,096 --> 0:39:00,066
+it didn't really need the camera
+
+1172
+00:38:58,096 --> 0:39:00,066
+it didn't really need the camera
+
+1173
+00:39:00,096 --> 0:39:01,416
+backdrop to be rendered for
+
+1174
+00:39:01,416 --> 0:39:01,846
+example.
+
+1175
+00:39:03,206 --> 0:39:04,786
+Well, this is made for that use
+
+1176
+00:39:04,826 --> 0:39:05,146
+case.
+
+1177
+00:39:06,376 --> 0:39:07,816
+We can achieve a low power
+
+1178
+00:39:07,816 --> 0:39:09,956
+consumption with the ability to
+
+1179
+00:39:09,956 --> 0:39:13,006
+lower the capture frame rate and
+
+1180
+00:39:13,006 --> 0:39:15,426
+also the camera resolution by
+
+1181
+00:39:15,426 --> 0:39:16,596
+still keeping your rendering
+
+1182
+00:39:16,596 --> 0:39:18,546
+rate at 60 hertz.
+
+1183
+00:39:21,956 --> 0:39:24,536
+Next, let's talk about some of
+
+1184
+00:39:24,566 --> 0:39:25,376
+the scene understanding
+
+1185
+00:39:25,376 --> 0:39:27,626
+improvements we've made this
+
+1186
+00:39:28,476 --> 0:39:28,636
+year.
+
+1187
+00:39:29,966 --> 0:39:31,166
+Image detection and image
+
+1188
+00:39:31,166 --> 0:39:32,216
+tracking has been around for
+
+1189
+00:39:32,216 --> 0:39:33,366
+some time now.
+
+1190
+00:39:34,086 --> 0:39:35,816
+We can now this year detect up
+
+1191
+00:39:35,816 --> 0:39:38,056
+to 100 images at the same time.
+
+1192
+00:39:38,616 --> 0:39:42,226
+We also provide you with the
+
+1193
+00:39:42,316 --> 0:39:44,316
+ability to detect the scale of
+
+1194
+00:39:44,316 --> 0:39:46,306
+an printed image for example.
+
+1195
+00:39:47,386 --> 0:39:49,016
+Oftentimes, when new application
+
+1196
+00:39:49,016 --> 0:39:51,346
+require a user to use an image
+
+1197
+00:39:51,346 --> 0:39:52,696
+to place content and scale that
+
+1198
+00:39:52,696 --> 0:39:55,216
+content accordingly, the image
+
+1199
+00:39:55,216 --> 0:39:56,226
+might be printed with a
+
+1200
+00:39:56,226 --> 0:39:57,456
+different size for example or
+
+1201
+00:39:57,456 --> 0:39:58,726
+different paper size.
+
+1202
+00:39:59,426 --> 0:40:01,086
+With this automatic scale
+
+1203
+00:39:59,426 --> 0:40:01,086
+With this automatic scale
+
+1204
+00:40:01,086 --> 0:40:03,516
+estimation, you can now detect
+
+1205
+00:40:03,516 --> 0:40:05,986
+the physical size and adjust the
+
+1206
+00:40:05,986 --> 0:40:06,736
+scale accordingly.
+
+1207
+00:40:06,736 --> 0:40:10,786
+We also have the ability to
+
+1208
+00:40:10,786 --> 0:40:14,356
+query at run time the quality of
+
+1209
+00:40:14,356 --> 0:40:15,666
+an image that you're passing to
+
+1210
+00:40:15,666 --> 0:40:17,196
+ARKit when you want to create a
+
+1211
+00:40:17,196 --> 0:40:19,096
+new AR reference image.
+
+1212
+00:40:21,516 --> 0:40:23,376
+We've also made improvements to
+
+1213
+00:40:23,376 --> 0:40:24,806
+our object detection algorithms.
+
+1214
+00:40:25,966 --> 0:40:27,756
+With machine learning, we can
+
+1215
+00:40:27,756 --> 0:40:29,536
+enhance that object detection
+
+1216
+00:40:29,536 --> 0:40:32,656
+algorithms and provide you with
+
+1217
+00:40:32,656 --> 0:40:34,896
+a faster recognition, and also
+
+1218
+00:40:34,896 --> 0:40:36,626
+in more robust environments, in
+
+1219
+00:40:36,626 --> 0:40:37,466
+more-- in different
+
+1220
+00:40:37,466 --> 0:40:38,006
+environments.
+
+1221
+00:40:38,326 --> 0:40:39,976
+Oftentimes, you had to scan a
+
+1222
+00:40:40,286 --> 0:40:41,396
+specific object in an
+
+1223
+00:40:41,396 --> 0:40:42,346
+environment so that it works
+
+1224
+00:40:42,346 --> 0:40:43,456
+perfectly in another one.
+
+1225
+00:40:44,226 --> 0:40:45,116
+Now, this is a bit more
+
+1226
+00:40:45,116 --> 0:40:45,586
+flexible.
+
+1227
+00:40:48,456 --> 0:40:51,166
+Finally, another area of scene
+
+1228
+00:40:51,166 --> 0:40:52,246
+understanding which is really
+
+1229
+00:40:52,246 --> 0:40:54,616
+important is plane estimation.
+
+1230
+00:40:55,376 --> 0:40:56,536
+Oftentimes, you need plane
+
+1231
+00:40:56,536 --> 0:40:58,706
+estimation to place content.
+
+1232
+00:40:58,856 --> 0:40:59,926
+Well, with machine learning,
+
+1233
+00:41:00,476 --> 0:41:01,686
+we're actually making that even
+
+1234
+00:41:01,686 --> 0:41:04,006
+more accurate and we're making
+
+1235
+00:41:04,006 --> 0:41:05,956
+that even more robust to detect
+
+1236
+00:41:05,956 --> 0:41:06,996
+planes and faster.
+
+1237
+00:41:07,566 --> 0:41:10,356
+Let's have a look at an example.
+
+1238
+00:41:10,986 --> 0:41:16,406
+With machine learning, not only
+
+1239
+00:41:16,406 --> 0:41:18,756
+we can extend those planes on
+
+1240
+00:41:18,756 --> 0:41:19,956
+the ground when features are
+
+1241
+00:41:19,956 --> 0:41:21,886
+detected but the flow is
+
+1242
+00:41:21,886 --> 0:41:23,466
+actually going even further.
+
+1243
+00:41:23,746 --> 0:41:26,056
+But we can also with the ability
+
+1244
+00:41:26,056 --> 0:41:27,526
+to detect-- we also have the
+
+1245
+00:41:27,526 --> 0:41:29,676
+ability detect walls on the side
+
+1246
+00:41:30,026 --> 0:41:31,276
+when no feature points our
+
+1247
+00:41:31,276 --> 0:41:31,676
+present.
+
+1248
+00:41:32,166 --> 0:41:33,576
+And this is thanks to machine
+
+1249
+00:41:34,076 --> 0:41:34,276
+learning.
+
+1250
+00:41:36,516 --> 0:41:41,376
+[ Applause ]
+
+1251
+00:41:41,876 --> 0:41:44,056
+As you can see here-- As you
+
+1252
+00:41:44,056 --> 0:41:45,146
+can-- You saw on the previous
+
+1253
+00:41:45,146 --> 0:41:46,646
+video, we had a couple of
+
+1254
+00:41:46,696 --> 0:41:48,326
+classifications on the planes.
+
+1255
+00:41:49,026 --> 0:41:50,166
+Well, this is done again with
+
+1256
+00:41:50,166 --> 0:41:50,886
+machine learning.
+
+1257
+00:41:50,996 --> 0:41:52,336
+And last year, we introduced
+
+1258
+00:41:52,816 --> 0:41:54,446
+five different classifications,
+
+1259
+00:41:55,136 --> 0:41:56,956
+wall, floor, ceiling, table, and
+
+1260
+00:41:56,956 --> 0:41:57,366
+seat.
+
+1261
+00:41:58,466 --> 0:41:59,806
+Well, this year, we're adding
+
+1262
+00:41:59,936 --> 0:42:01,026
+two additional ones.
+
+1263
+00:41:59,936 --> 0:42:01,026
+two additional ones.
+
+1264
+00:42:01,406 --> 0:42:03,106
+We are adding the ability to
+
+1265
+00:42:03,106 --> 0:42:05,886
+detect doors and windows.
+
+1266
+00:42:07,296 --> 0:42:09,406
+As mentioned earlier, plane
+
+1267
+00:42:09,406 --> 0:42:10,676
+classification is really
+
+1268
+00:42:10,676 --> 0:42:12,526
+important-- Or plane estimation
+
+1269
+00:42:12,526 --> 0:42:13,566
+is really important to place
+
+1270
+00:42:13,566 --> 0:42:14,696
+content on your-- in the world.
+
+1271
+00:42:14,696 --> 0:42:16,586
+This is actually ideal for
+
+1272
+00:42:16,586 --> 0:42:17,256
+object placement.
+
+1273
+00:42:17,526 --> 0:42:18,716
+You always your objects to be
+
+1274
+00:42:18,716 --> 0:42:19,566
+placed on a surface.
+
+1275
+00:42:20,896 --> 0:42:21,916
+Well, this year with the new
+
+1276
+00:42:21,916 --> 0:42:25,126
+raycasting API, you can now even
+
+1277
+00:42:25,126 --> 0:42:26,556
+easier place your content like
+
+1278
+00:42:26,746 --> 0:42:28,976
+more precisely and is even more
+
+1279
+00:42:28,976 --> 0:42:29,506
+flexible.
+
+1280
+00:42:30,866 --> 0:42:32,486
+It supports any kind of surface
+
+1281
+00:42:32,486 --> 0:42:32,956
+alignment.
+
+1282
+00:42:33,286 --> 0:42:34,566
+So you're not always bound to
+
+1283
+00:42:34,566 --> 0:42:36,116
+vertical and horizontal anymore.
+
+1284
+00:42:38,156 --> 0:42:40,036
+But also, you can track your
+
+1285
+00:42:40,036 --> 0:42:40,966
+raycast all the time.
+
+1286
+00:42:42,716 --> 0:42:44,466
+Meaning that as ARKit-- or as
+
+1287
+00:42:44,466 --> 0:42:45,486
+you move your device around,
+
+1288
+00:42:45,486 --> 0:42:47,066
+ARKit detects more information
+
+1289
+00:42:47,066 --> 0:42:49,456
+about the environment, it can
+
+1290
+00:42:49,666 --> 0:42:51,486
+accurately place your object on
+
+1291
+00:42:51,486 --> 0:42:52,986
+top of the physical surface such
+
+1292
+00:42:52,986 --> 0:42:54,026
+as those planes are evolving.
+
+1293
+00:42:54,546 --> 0:42:57,016
+Let's see how you can enable
+
+1294
+00:42:57,016 --> 0:42:57,806
+that in ARKit.
+
+1295
+00:43:00,336 --> 0:43:01,906
+Well, it sounds we're creating a
+
+1296
+00:43:01,906 --> 0:43:02,816
+raycast query.
+
+1297
+00:43:03,526 --> 0:43:05,806
+A raycast query has three
+
+1298
+00:43:05,806 --> 0:43:06,466
+parameters.
+
+1299
+00:43:06,596 --> 0:43:08,096
+The first one decides from where
+
+1300
+00:43:08,096 --> 0:43:08,956
+you want to perform that
+
+1301
+00:43:08,956 --> 0:43:09,536
+raycast.
+
+1302
+00:43:10,106 --> 0:43:11,246
+In this example, we're doing
+
+1303
+00:43:11,246 --> 0:43:12,266
+this from the screenCenter.
+
+1304
+00:43:12,266 --> 0:43:15,896
+Then you need to tell it like
+
+1305
+00:43:16,126 --> 0:43:18,686
+what you want to allow in order
+
+1306
+00:43:18,686 --> 0:43:20,606
+to place that content or get the
+
+1307
+00:43:20,606 --> 0:43:21,366
+transforms back.
+
+1308
+00:43:21,936 --> 0:43:25,406
+And additionally, you need tell
+
+1309
+00:43:25,406 --> 0:43:26,566
+it which alignment you want.
+
+1310
+00:43:26,746 --> 0:43:29,296
+It can be horizontal, vertical,
+
+1311
+00:43:29,566 --> 0:43:30,686
+or any.
+
+1312
+00:43:32,616 --> 0:43:34,756
+Then you need to pass that query
+
+1313
+00:43:35,076 --> 0:43:36,616
+on to the trackedRaycast method
+
+1314
+00:43:36,616 --> 0:43:38,206
+on your AR session.
+
+1315
+00:43:40,056 --> 0:43:41,976
+This method has a callback that
+
+1316
+00:43:41,976 --> 0:43:43,836
+will allow you to react to the
+
+1317
+00:43:43,836 --> 0:43:45,406
+new transform and result giving
+
+1318
+00:43:45,406 --> 0:43:47,746
+to you with that raycast so that
+
+1319
+00:43:47,746 --> 0:43:49,026
+you can adjust your content or
+
+1320
+00:43:49,026 --> 0:43:49,996
+your anchors accordingly.
+
+1321
+00:43:50,456 --> 0:43:53,436
+And then finally, when you are
+
+1322
+00:43:53,436 --> 0:43:55,146
+done with this raycast, you can
+
+1323
+00:43:55,146 --> 0:43:55,696
+just stop it.
+
+1324
+00:43:56,346 --> 0:43:58,966
+And those are some of the
+
+1325
+00:43:58,966 --> 0:44:00,236
+scene-- Those are some of the
+
+1326
+00:43:58,966 --> 0:44:00,236
+scene-- Those are some of the
+
+1327
+00:44:00,236 --> 0:44:01,856
+raycasting improvements that
+
+1328
+00:44:01,886 --> 0:44:02,466
+we've done this year.
+
+1329
+00:44:07,256 --> 0:44:08,666
+Let's move on with some of the
+
+1330
+00:44:08,666 --> 0:44:10,366
+visual coherence enhancement
+
+1331
+00:44:10,416 --> 0:44:11,346
+we've made.
+
+1332
+00:44:12,216 --> 0:44:16,456
+So this year, we have this new
+
+1333
+00:44:16,456 --> 0:44:18,696
+ARView that allows you to
+
+1334
+00:44:18,696 --> 0:44:19,986
+activate and deactivate
+
+1335
+00:44:20,216 --> 0:44:22,116
+different render options on
+
+1336
+00:44:22,116 --> 0:44:22,456
+demand.
+
+1337
+00:44:23,396 --> 0:44:24,766
+It also can also be
+
+1338
+00:44:25,056 --> 0:44:26,876
+automatically deactivated and
+
+1339
+00:44:26,876 --> 0:44:28,556
+activated based on your device
+
+1340
+00:44:28,556 --> 0:44:29,226
+capability.
+
+1341
+00:44:30,076 --> 0:44:31,636
+Let's look at an example of
+
+1342
+00:44:31,636 --> 0:44:31,936
+this.
+
+1343
+00:44:32,266 --> 0:44:34,826
+You've probably seen that video
+
+1344
+00:44:34,826 --> 0:44:35,496
+before.
+
+1345
+00:44:35,496 --> 0:44:37,016
+Look at how the Quadrocopter
+
+1346
+00:44:37,016 --> 0:44:38,426
+actually moves around and how
+
+1347
+00:44:38,426 --> 0:44:39,646
+the objects are moving as well
+
+1348
+00:44:39,646 --> 0:44:42,066
+on the surface and how real all
+
+1349
+00:44:42,066 --> 0:44:43,646
+of these looks like.
+
+1350
+00:44:44,276 --> 0:44:45,716
+When everything disappears, you
+
+1351
+00:44:47,256 --> 0:44:49,156
+actually don't even realize that
+
+1352
+00:44:49,156 --> 0:44:50,176
+those objects were virtual.
+
+1353
+00:44:50,666 --> 0:44:52,726
+Let's look at some of those
+
+1354
+00:44:52,726 --> 0:44:54,866
+visual coherence enhancements
+
+1355
+00:44:54,866 --> 0:44:55,196
+we've made.
+
+1356
+00:44:55,736 --> 0:44:57,956
+Let's look again at the
+
+1357
+00:44:57,956 --> 0:44:59,396
+beginning of that video and
+
+1358
+00:44:59,396 --> 0:45:00,936
+let's pause for a second when
+
+1359
+00:44:59,396 --> 0:45:00,936
+let's pause for a second when
+
+1360
+00:45:00,936 --> 0:45:02,316
+those balls are rolling on the
+
+1361
+00:45:02,796 --> 0:45:02,986
+table.
+
+1362
+00:45:04,376 --> 0:45:05,926
+Here you can see the depth of
+
+1363
+00:45:06,006 --> 0:45:08,256
+field effect which is a new
+
+1364
+00:45:08,256 --> 0:45:09,736
+feature of RealityKit.
+
+1365
+00:45:11,226 --> 0:45:13,216
+Your AR experience are designed
+
+1366
+00:45:13,216 --> 0:45:15,226
+for, you know, small and big
+
+1367
+00:45:15,226 --> 0:45:15,746
+rooms.
+
+1368
+00:45:16,316 --> 0:45:19,196
+The camera on your iOS device
+
+1369
+00:45:19,196 --> 0:45:20,696
+always adjust their focus to the
+
+1370
+00:45:20,696 --> 0:45:23,266
+environment, while the depth of
+
+1371
+00:45:23,266 --> 0:45:25,436
+field feature allows to adjust
+
+1372
+00:45:25,436 --> 0:45:26,776
+the focus on the virtual
+
+1373
+00:45:26,776 --> 0:45:27,886
+contents so that it matches
+
+1374
+00:45:27,946 --> 0:45:29,596
+perfectly with your physical
+
+1375
+00:45:29,596 --> 0:45:31,626
+one, so that the object blends
+
+1376
+00:45:31,676 --> 0:45:36,306
+perfectly in the environment.
+
+1377
+00:45:36,306 --> 0:45:37,416
+Additionally, when you move the
+
+1378
+00:45:37,416 --> 0:45:39,026
+camera quickly or when the
+
+1379
+00:45:39,026 --> 0:45:41,566
+object moves quickly, you can
+
+1380
+00:45:41,566 --> 0:45:43,356
+see that blurriness occurring.
+
+1381
+00:45:44,496 --> 0:45:46,516
+Well-- And then most of the time
+
+1382
+00:45:46,516 --> 0:45:48,626
+when you have a regular renderer
+
+1383
+00:45:48,626 --> 0:45:50,986
+and no motion blur effect, then
+
+1384
+00:45:50,986 --> 0:45:52,896
+your virtual content stands out.
+
+1385
+00:45:54,346 --> 0:45:55,386
+And it doesn't really blend
+
+1386
+00:45:55,386 --> 0:45:56,436
+nicely in the environment.
+
+1387
+00:45:57,096 --> 0:45:58,356
+Well, thanks to VIO camera
+
+1388
+00:45:58,356 --> 0:46:01,226
+motion and the sense of
+
+1389
+00:45:58,356 --> 0:46:01,226
+motion and the sense of
+
+1390
+00:46:01,226 --> 0:46:03,386
+parameters, then we can
+
+1391
+00:46:03,386 --> 0:46:06,116
+synthesize the motion blur.
+
+1392
+00:46:06,436 --> 0:46:07,746
+And we can apply it on the
+
+1393
+00:46:07,746 --> 0:46:10,506
+visual object so that it blends
+
+1394
+00:46:10,586 --> 0:46:11,696
+perfectly in your environment.
+
+1395
+00:46:11,696 --> 0:46:15,506
+This is a variable on ARSCNView
+
+1396
+00:46:15,506 --> 0:46:16,596
+and on the ARView as well.
+
+1397
+00:46:16,716 --> 0:46:20,446
+Let's look again at this example
+
+1398
+00:46:20,446 --> 0:46:21,686
+where everything looks really
+
+1399
+00:46:21,686 --> 0:46:21,876
+good.
+
+1400
+00:46:55,616 --> 0:46:56,996
+Two additional APIs that we're
+
+1401
+00:46:57,056 --> 0:46:58,646
+making available for visual
+
+1402
+00:46:58,646 --> 0:47:00,306
+coherence enhancement this year
+
+1403
+00:46:58,646 --> 0:47:00,306
+coherence enhancement this year
+
+1404
+00:47:00,616 --> 0:47:03,176
+are HDR environment textures and
+
+1405
+00:47:03,176 --> 0:47:03,756
+camera grain.
+
+1406
+00:47:06,286 --> 0:47:07,996
+When you place your content, you
+
+1407
+00:47:07,996 --> 0:47:08,956
+really want that content to
+
+1408
+00:47:08,956 --> 0:47:10,026
+reflect the real world.
+
+1409
+00:47:11,296 --> 0:47:13,206
+Well, with high-dynamic-range,
+
+1410
+00:47:13,986 --> 0:47:16,226
+you can capture even in bright
+
+1411
+00:47:16,226 --> 0:47:17,236
+light environment those
+
+1412
+00:47:17,356 --> 0:47:18,746
+highlights or higher highlights
+
+1413
+00:47:19,376 --> 0:47:20,576
+that makes your contents more
+
+1414
+00:47:20,576 --> 0:47:21,076
+vibrant.
+
+1415
+00:47:22,626 --> 0:47:23,846
+Well, with ARKit this year, we
+
+1416
+00:47:23,846 --> 0:47:25,386
+can actually request for those
+
+1417
+00:47:25,386 --> 0:47:26,666
+HDR environment textures so that
+
+1418
+00:47:26,666 --> 0:47:28,576
+your content looks even better.
+
+1419
+00:47:29,896 --> 0:47:31,916
+Additionally, we also have a
+
+1420
+00:47:31,916 --> 0:47:32,846
+camera grain API.
+
+1421
+00:47:33,786 --> 0:47:36,236
+You'll probably notice when you
+
+1422
+00:47:36,236 --> 0:47:38,026
+have an AR experience in a very
+
+1423
+00:47:38,026 --> 0:47:39,506
+low light environment how your
+
+1424
+00:47:39,806 --> 0:47:41,856
+other content looks really shiny
+
+1425
+00:47:42,176 --> 0:47:43,046
+compared to the camera.
+
+1426
+00:47:44,906 --> 0:47:46,476
+Every camera produce some grain.
+
+1427
+00:47:46,786 --> 0:47:48,056
+And especially in low lights,
+
+1428
+00:47:48,126 --> 0:47:51,216
+this grain can be a bit heavier.
+
+1429
+00:47:51,856 --> 0:47:53,336
+Where with this new camera grain
+
+1430
+00:47:53,336 --> 0:47:55,906
+API, we can make sure to apply
+
+1431
+00:47:56,716 --> 0:47:58,686
+the same grain patterns on your
+
+1432
+00:47:58,686 --> 0:48:00,576
+virtual content so that it
+
+1433
+00:47:58,686 --> 0:48:00,576
+virtual content so that it
+
+1434
+00:48:00,576 --> 0:48:02,386
+blends nicely and doesn't stand
+
+1435
+00:48:03,316 --> 0:48:03,386
+out.
+
+1436
+00:48:04,516 --> 0:48:06,296
+So those are some of the visual
+
+1437
+00:48:06,296 --> 0:48:07,746
+coherence enhancement for this
+
+1438
+00:48:07,746 --> 0:48:07,916
+year.
+
+1439
+00:48:07,916 --> 0:48:10,966
+But we didn't stop there.
+
+1440
+00:48:11,776 --> 0:48:13,156
+I think there's one feature that
+
+1441
+00:48:13,156 --> 0:48:13,866
+a lot of you have been
+
+1442
+00:48:13,866 --> 0:48:14,456
+requesting.
+
+1443
+00:48:16,146 --> 0:48:17,076
+When you develop an AR
+
+1444
+00:48:17,076 --> 0:48:19,076
+experience, you'll always have
+
+1445
+00:48:19,116 --> 0:48:21,506
+or often in order to prototype
+
+1446
+00:48:21,506 --> 0:48:23,236
+or to test your experience go to
+
+1447
+00:48:23,236 --> 0:48:24,266
+a certain location.
+
+1448
+00:48:26,356 --> 0:48:28,386
+And most of the time when you go
+
+1449
+00:48:28,386 --> 0:48:29,386
+there, you'd come back to your
+
+1450
+00:48:29,386 --> 0:48:30,186
+desk, you develop your
+
+1451
+00:48:30,186 --> 0:48:31,146
+experience, you want to come
+
+1452
+00:48:31,146 --> 0:48:31,696
+back again.
+
+1453
+00:48:31,866 --> 0:48:34,216
+Well, this year with the Reality
+
+1454
+00:48:34,216 --> 0:48:36,876
+Composer app, you can now record
+
+1455
+00:48:36,966 --> 0:48:38,976
+an experience or a sequence.
+
+1456
+00:48:40,076 --> 0:48:41,216
+Meaning that you can go to your
+
+1457
+00:48:41,266 --> 0:48:42,936
+favorite place so where-- the
+
+1458
+00:48:43,006 --> 0:48:44,556
+place where your experience will
+
+1459
+00:48:44,556 --> 0:48:47,366
+be happening to capture the
+
+1460
+00:48:47,366 --> 0:48:48,206
+environment.
+
+1461
+00:48:48,706 --> 0:48:50,376
+ARKit will make sure to save the
+
+1462
+00:48:50,376 --> 0:48:52,596
+sensor data alongside the video
+
+1463
+00:48:52,596 --> 0:48:56,436
+stream into a movie file
+
+1464
+00:48:56,436 --> 0:48:58,906
+container so that you can take
+
+1465
+00:48:58,996 --> 0:49:02,946
+it with you and put it in Xcode.
+
+1466
+00:48:58,996 --> 0:49:02,946
+it with you and put it in Xcode.
+
+1467
+00:49:03,076 --> 0:49:06,256
+At that point, the Xcode scheme
+
+1468
+00:49:06,256 --> 0:49:08,156
+settings now have like one new
+
+1469
+00:49:08,156 --> 0:49:10,126
+additional feature or a new
+
+1470
+00:49:10,226 --> 0:49:12,256
+field that allows you to select
+
+1471
+00:49:12,256 --> 0:49:13,456
+that file.
+
+1472
+00:49:16,106 --> 0:49:18,336
+When that file is selected and
+
+1473
+00:49:18,336 --> 0:49:19,976
+then you press Run on the device
+
+1474
+00:49:19,976 --> 0:49:23,906
+that is attached to Xcode, then
+
+1475
+00:49:24,046 --> 0:49:25,656
+you can replay that experience
+
+1476
+00:49:25,656 --> 0:49:26,316
+at your desk.
+
+1477
+00:49:26,936 --> 0:49:28,636
+This is ideal for prototyping,
+
+1478
+00:49:29,256 --> 0:49:31,336
+and even better for tweaking
+
+1479
+00:49:31,336 --> 0:49:32,736
+your AR configuration with
+
+1480
+00:49:32,736 --> 0:49:34,136
+different parameters and trying
+
+1481
+00:49:34,136 --> 0:49:35,366
+to see how the experience looks
+
+1482
+00:49:35,366 --> 0:49:35,526
+like.
+
+1483
+00:49:36,076 --> 0:49:37,676
+You can even react to certain
+
+1484
+00:49:37,676 --> 0:49:37,976
+tracking--
+
+1485
+00:49:38,516 --> 0:49:46,456
+[ Applause ]
+
+1486
+00:49:46,956 --> 0:49:48,376
+So this is great.
+
+1487
+00:49:48,376 --> 0:49:50,136
+I think you've got a lot of
+
+1488
+00:49:50,136 --> 0:49:51,776
+different tools this year in
+
+1489
+00:49:51,776 --> 0:49:54,456
+ARKit 3 where you can enhance
+
+1490
+00:49:54,456 --> 0:49:56,296
+your multiuser experiences with
+
+1491
+00:49:56,356 --> 0:49:57,556
+collaborative sessions,
+
+1492
+00:49:57,996 --> 0:49:59,246
+multiple-face tracking.
+
+1493
+00:50:00,096 --> 0:50:02,356
+You can improve the realism of
+
+1494
+00:50:02,406 --> 0:50:03,986
+all your AR apps with
+
+1495
+00:50:03,986 --> 0:50:06,746
+RealityKit's new coherence
+
+1496
+00:50:06,746 --> 0:50:08,676
+effect, and also the new visual
+
+1497
+00:50:08,676 --> 0:50:09,616
+effects on the
+
+1498
+00:50:09,616 --> 0:50:10,926
+ARWorldTrackingConfiguration.
+
+1499
+00:50:12,396 --> 0:50:13,916
+You can enable new use cases
+
+1500
+00:50:14,996 --> 0:50:18,086
+with the new motion capture, and
+
+1501
+00:50:18,086 --> 0:50:19,706
+also the simultaneous face and
+
+1502
+00:50:19,706 --> 0:50:20,396
+back camera.
+
+1503
+00:50:21,536 --> 0:50:23,396
+And, of course, there are lots
+
+1504
+00:50:23,396 --> 0:50:25,086
+of improvements under the hood
+
+1505
+00:50:25,356 --> 0:50:26,416
+on existing features.
+
+1506
+00:50:26,756 --> 0:50:28,526
+As an example, with object
+
+1507
+00:50:28,526 --> 0:50:29,676
+detection and machine learning.
+
+1508
+00:50:30,266 --> 0:50:33,456
+And least-- last but not the
+
+1509
+00:50:33,456 --> 0:50:36,676
+least, the record and replay
+
+1510
+00:50:36,676 --> 0:50:38,446
+workflow I think will make your
+
+1511
+00:50:38,446 --> 0:50:39,966
+design and your experience
+
+1512
+00:50:39,966 --> 0:50:41,246
+prototyping even better than
+
+1513
+00:50:41,246 --> 0:50:41,716
+before.
+
+1514
+00:50:41,716 --> 0:50:44,956
+So I'm really looking forward
+
+1515
+00:50:44,956 --> 0:50:46,296
+for you to go and download our
+
+1516
+00:50:46,296 --> 0:50:47,526
+samples on the website.
+
+1517
+00:50:49,036 --> 0:50:50,556
+We also have a couple of labs,
+
+1518
+00:50:50,946 --> 0:50:52,476
+one tomorrow and one on
+
+1519
+00:50:52,576 --> 0:50:54,416
+Thursday, where I hope you will
+
+1520
+00:50:54,416 --> 0:50:55,466
+be coming and asking us the
+
+1521
+00:50:55,526 --> 0:50:57,756
+questions you have or just to
+
+1522
+00:50:57,756 --> 0:50:58,016
+chat.
+
+1523
+00:50:59,166 --> 0:51:01,136
+And then we also have two
+
+1524
+00:50:59,166 --> 0:51:01,136
+And then we also have two
+
+1525
+00:51:01,136 --> 0:51:03,016
+in-depth sessions, one of which
+
+1526
+00:51:03,016 --> 0:51:04,856
+is around bringing people into
+
+1527
+00:51:04,856 --> 0:51:07,046
+AR which we'll talk more about
+
+1528
+00:51:07,046 --> 0:51:08,166
+people occlusion and motion
+
+1529
+00:51:08,166 --> 0:51:08,616
+capture.
+
+1530
+00:51:09,086 --> 0:51:10,676
+And the second one is about
+
+1531
+00:51:10,746 --> 0:51:12,146
+collaborative AR experiences.
+
+1532
+00:51:12,806 --> 0:51:15,416
+I hope you enjoy the rest of the
+
+1533
+00:51:15,416 --> 0:51:15,946
+conference.
+
+1534
+00:51:17,336 --> 0:51:18,096
+Have a great day.
+
+1535
+00:51:18,416 --> 0:51:18,616
+Bye.
+
+1536
+00:51:19,516 --> 0:51:22,500
+[ Applause ]

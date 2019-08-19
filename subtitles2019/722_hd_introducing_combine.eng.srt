@@ -1,0 +1,2803 @@
+1
+00:00:01,516 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:12,516 --> 0:00:14,626
+[ Applause ]
+
+3
+00:00:15,126 --> 0:00:16,916
+&gt;&gt; Hello. Thank you.
+
+4
+00:00:17,546 --> 0:00:18,816
+My name is Tony Parker, I'm the
+
+5
+00:00:18,816 --> 0:00:19,986
+manager of the Foundation Team
+
+6
+00:00:19,986 --> 0:00:21,866
+at Apple, and today I'm excited
+
+7
+00:00:21,866 --> 0:00:22,856
+to have the privilege to
+
+8
+00:00:22,856 --> 0:00:23,926
+introduce you to our newest
+
+9
+00:00:23,926 --> 0:00:24,436
+framework.
+
+10
+00:00:24,526 --> 0:00:25,696
+It's called Combine.
+
+11
+00:00:26,556 --> 0:00:27,816
+Let's talk about asynchronous
+
+12
+00:00:27,816 --> 0:00:28,246
+programing.
+
+13
+00:00:29,536 --> 0:00:30,706
+Here I have an app that I'm
+
+14
+00:00:30,706 --> 0:00:32,256
+working on that allows students
+
+15
+00:00:32,256 --> 0:00:34,016
+to sign up for my brand-new
+
+16
+00:00:34,016 --> 0:00:34,866
+wizarding school.
+
+17
+00:00:35,266 --> 0:00:36,156
+And as you can see, it's got
+
+18
+00:00:36,156 --> 0:00:37,446
+some pretty simple requirements.
+
+19
+00:00:38,316 --> 0:00:39,536
+First, we need to have a valid
+
+20
+00:00:39,536 --> 0:00:40,696
+username which we're going to
+
+21
+00:00:40,696 --> 0:00:41,816
+check by making a network
+
+22
+00:00:41,816 --> 0:00:43,016
+request to our server.
+
+23
+00:00:43,526 --> 0:00:44,526
+We also need of course to have
+
+24
+00:00:44,526 --> 0:00:45,736
+matching passwords which is
+
+25
+00:00:45,736 --> 0:00:46,656
+something that we can check
+
+26
+00:00:46,656 --> 0:00:47,546
+locally in the app.
+
+27
+00:00:48,396 --> 0:00:49,336
+And while we do all of these
+
+28
+00:00:49,336 --> 0:00:50,256
+things, of course we need to
+
+29
+00:00:50,256 --> 0:00:51,896
+maintain a responsive user
+
+30
+00:00:51,896 --> 0:00:53,446
+interface, not blocking the main
+
+31
+00:00:53,446 --> 0:00:53,786
+thread.
+
+32
+00:00:54,346 --> 0:00:56,386
+So let's try using it and see
+
+33
+00:00:56,386 --> 0:00:57,016
+how this works.
+
+34
+00:00:57,776 --> 0:00:59,726
+First, I'm going to start typing
+
+35
+00:00:59,726 --> 0:01:01,506
+the username like, I don't know.
+
+36
+00:00:59,726 --> 0:01:01,506
+the username like, I don't know.
+
+37
+00:01:01,506 --> 0:01:02,386
+How about Merlin.
+
+38
+00:01:02,706 --> 0:01:04,126
+Seems like a pretty good wizard
+
+39
+00:01:04,126 --> 0:01:04,406
+name.
+
+40
+00:01:04,896 --> 0:01:06,236
+And already there's plenty of
+
+41
+00:01:06,236 --> 0:01:08,046
+asynchronous behaviors going on.
+
+42
+00:01:08,306 --> 0:01:09,996
+I used Target/Action to listen
+
+43
+00:01:09,996 --> 0:01:11,586
+for notifications about the user
+
+44
+00:01:11,586 --> 0:01:12,036
+typing.
+
+45
+00:01:12,726 --> 0:01:14,576
+I use a timer to wait for the
+
+46
+00:01:14,576 --> 0:01:16,126
+user to stop typing just for a
+
+47
+00:01:16,126 --> 0:01:18,566
+little bit so I don't overwhelm
+
+48
+00:01:18,726 --> 0:01:20,286
+my server with network requests.
+
+49
+00:01:20,776 --> 0:01:21,846
+And finally, I use something
+
+50
+00:01:21,846 --> 0:01:23,526
+like KVO to listen for progress
+
+51
+00:01:23,526 --> 0:01:24,996
+updates about that asynchronous
+
+52
+00:01:24,996 --> 0:01:25,606
+operation.
+
+53
+00:01:25,956 --> 0:01:28,536
+Now if we continue, we'll find
+
+54
+00:01:28,536 --> 0:01:29,646
+out that we get a response from
+
+55
+00:01:29,646 --> 0:01:30,986
+that request and we have to
+
+56
+00:01:30,986 --> 0:01:31,496
+update our UI.
+
+57
+00:01:31,496 --> 0:01:33,596
+So I pick a new username and
+
+58
+00:01:33,596 --> 0:01:35,146
+then my super-secret secure
+
+59
+00:01:35,146 --> 0:01:37,056
+password of 12345.
+
+60
+00:01:37,586 --> 0:01:38,506
+Please don't use that password,
+
+61
+00:01:38,506 --> 0:01:39,556
+just for demo purposes.
+
+62
+00:01:40,966 --> 0:01:42,716
+But here now we've done a lot
+
+63
+00:01:42,716 --> 0:01:43,756
+more asynchronous work.
+
+64
+00:01:43,816 --> 0:01:45,346
+We had to wait for the response
+
+65
+00:01:45,346 --> 0:01:46,786
+for our URL session request.
+
+66
+00:01:47,226 --> 0:01:49,306
+We had to merge that result with
+
+67
+00:01:49,436 --> 0:01:50,566
+the result of our synchronous
+
+68
+00:01:50,566 --> 0:01:52,236
+checking and finally I had to do
+
+69
+00:01:52,236 --> 0:01:53,576
+all of those things -- once all
+
+70
+00:01:53,576 --> 0:01:54,636
+of those things were completed,
+
+71
+00:01:54,636 --> 0:01:56,396
+I had to update my UI again
+
+72
+00:01:56,396 --> 0:01:57,706
+using something like KVC.
+
+73
+00:02:00,446 --> 0:02:02,126
+So across the Cocoa SDK you'll
+
+74
+00:02:02,126 --> 0:02:04,266
+find plenty of asynchronous
+
+75
+00:02:04,266 --> 0:02:04,956
+interfaces.
+
+76
+00:02:05,216 --> 0:02:06,166
+Some you saw here like
+
+77
+00:02:06,166 --> 0:02:07,596
+Target/Action, but there's a lot
+
+78
+00:02:07,596 --> 0:02:08,346
+more, including
+
+79
+00:02:08,346 --> 0:02:10,106
+NotificationCenter and lots of
+
+80
+00:02:10,106 --> 0:02:11,136
+ad-hoc callbacks.
+
+81
+00:02:11,136 --> 0:02:12,326
+These are API's that take a
+
+82
+00:02:12,326 --> 0:02:13,906
+closure or completion block.
+
+83
+00:02:14,286 --> 0:02:15,076
+All of these things have
+
+84
+00:02:15,076 --> 0:02:16,566
+important and different use
+
+85
+00:02:16,566 --> 0:02:17,036
+cases.
+
+86
+00:02:17,526 --> 0:02:18,546
+But sometimes when you need to
+
+87
+00:02:18,546 --> 0:02:20,086
+compose them together, it can be
+
+88
+00:02:20,086 --> 0:02:20,956
+a little bit challenging.
+
+89
+00:02:21,846 --> 0:02:23,846
+So with Combine we set out not
+
+90
+00:02:23,846 --> 0:02:25,386
+to replace all of these but
+
+91
+00:02:25,386 --> 0:02:26,906
+instead to find what was common
+
+92
+00:02:26,906 --> 0:02:27,486
+amongst them.
+
+93
+00:02:28,256 --> 0:02:30,056
+And that's what Combine is, a
+
+94
+00:02:30,056 --> 0:02:31,916
+unified declarative API for
+
+95
+00:02:32,376 --> 0:02:34,476
+processing values over time.
+
+96
+00:02:35,036 --> 0:02:37,376
+Combine is written in and for
+
+97
+00:02:37,376 --> 0:02:37,756
+Swift.
+
+98
+00:02:38,256 --> 0:02:39,506
+That means we can take advantage
+
+99
+00:02:39,556 --> 0:02:41,396
+of Swift features like Generics.
+
+100
+00:02:42,006 --> 0:02:43,166
+Generics let us reduce the
+
+101
+00:02:43,166 --> 0:02:44,696
+amount of boilerplate code that
+
+102
+00:02:44,696 --> 0:02:45,276
+you need to write.
+
+103
+00:02:45,886 --> 0:02:47,056
+It also means that we can write
+
+104
+00:02:47,266 --> 0:02:48,716
+generic algorithms about
+
+105
+00:02:48,716 --> 0:02:50,386
+asynchronous behaviors once and
+
+106
+00:02:50,386 --> 0:02:52,016
+have them apply to all kinds of
+
+107
+00:02:52,016 --> 0:02:52,856
+different asynchronous
+
+108
+00:02:52,856 --> 0:02:53,516
+interfaces.
+
+109
+00:02:54,896 --> 0:02:56,456
+Combine is also type safe,
+
+110
+00:02:56,596 --> 0:02:58,096
+allowing us to catch errors at
+
+111
+00:02:58,246 --> 0:02:59,606
+compile time instead of at
+
+112
+00:02:59,606 --> 0:02:59,886
+runtime.
+
+113
+00:02:59,886 --> 0:03:02,556
+Our main design point about
+
+114
+00:02:59,886 --> 0:03:02,556
+Our main design point about
+
+115
+00:03:02,556 --> 0:03:03,556
+Combine is that it is
+
+116
+00:03:03,556 --> 0:03:04,656
+composition first.
+
+117
+00:03:05,056 --> 0:03:06,956
+What that means is that the core
+
+118
+00:03:06,956 --> 0:03:08,436
+concepts are simple and easy to
+
+119
+00:03:08,436 --> 0:03:09,936
+understand, but when you put
+
+120
+00:03:09,936 --> 0:03:11,166
+them together, you can make
+
+121
+00:03:11,166 --> 0:03:12,246
+something that's more than the
+
+122
+00:03:12,246 --> 0:03:13,146
+sum of its parts.
+
+123
+00:03:14,276 --> 0:03:15,366
+And finally, Combine is
+
+124
+00:03:15,406 --> 0:03:17,716
+request-driven, allowing you the
+
+125
+00:03:17,716 --> 0:03:19,046
+opportunity to more carefully
+
+126
+00:03:19,046 --> 0:03:20,456
+manage the memory usage and
+
+127
+00:03:20,456 --> 0:03:21,506
+performance of your app.
+
+128
+00:03:22,746 --> 0:03:24,076
+So let's talk about those key
+
+129
+00:03:24,076 --> 0:03:24,706
+concepts.
+
+130
+00:03:24,986 --> 0:03:26,596
+There's only three: Publishers,
+
+131
+00:03:26,636 --> 0:03:28,356
+Subscribers and Operators.
+
+132
+00:03:28,396 --> 0:03:29,746
+And we'll go over each in turn.
+
+133
+00:03:30,366 --> 0:03:31,736
+First, Publishers.
+
+134
+00:03:32,956 --> 0:03:34,586
+Publishers are the declarative
+
+135
+00:03:34,586 --> 0:03:35,636
+part of Combine's API.
+
+136
+00:03:36,476 --> 0:03:38,296
+They describe how values and
+
+137
+00:03:38,296 --> 0:03:39,456
+errors are produced.
+
+138
+00:03:39,636 --> 0:03:40,656
+They're not necessarily the
+
+139
+00:03:40,656 --> 0:03:42,006
+thing that actually produces
+
+140
+00:03:42,006 --> 0:03:42,176
+them.
+
+141
+00:03:43,026 --> 0:03:44,486
+That means as descriptions, they
+
+142
+00:03:44,486 --> 0:03:46,666
+are value types which in Swift
+
+143
+00:03:46,666 --> 0:03:48,036
+means we use a struct.
+
+144
+00:03:49,256 --> 0:03:51,326
+Publishers also allow for
+
+145
+00:03:51,326 --> 0:03:53,366
+registration of a Subscriber;
+
+146
+00:03:53,366 --> 0:03:54,476
+that will be something that
+
+147
+00:03:54,476 --> 0:03:55,926
+receives these values over time.
+
+148
+00:03:57,176 --> 0:03:58,246
+Here's the protocol.
+
+149
+00:03:58,636 --> 0:03:59,576
+It's called Publisher.
+
+150
+00:03:59,976 --> 0:04:01,796
+It has two associated types: the
+
+151
+00:03:59,976 --> 0:04:01,796
+It has two associated types: the
+
+152
+00:04:01,796 --> 0:04:03,266
+Output, that's the kind of value
+
+153
+00:04:03,266 --> 0:04:05,206
+that it produces, and the
+
+154
+00:04:05,206 --> 0:04:06,276
+Failure which is the kind of
+
+155
+00:04:06,276 --> 0:04:07,346
+errors that it produces.
+
+156
+00:04:07,896 --> 0:04:08,996
+If it's not possible for a
+
+157
+00:04:08,996 --> 0:04:10,276
+Publisher to produce an error,
+
+158
+00:04:10,496 --> 0:04:11,876
+then you can use the type never
+
+159
+00:04:11,936 --> 0:04:13,606
+for that associated type.
+
+160
+00:04:14,906 --> 0:04:16,786
+Publisher has one key function.
+
+161
+00:04:16,856 --> 0:04:18,046
+It's called Subscribe.
+
+162
+00:04:18,676 --> 0:04:19,826
+As you can tell from the generic
+
+163
+00:04:19,826 --> 0:04:21,226
+constraints on this function,
+
+164
+00:04:21,676 --> 0:04:22,686
+Subscribe requires the
+
+165
+00:04:22,686 --> 0:04:24,046
+Subscriber's Input to match the
+
+166
+00:04:24,046 --> 0:04:25,546
+Publisher's Output, and the
+
+167
+00:04:25,546 --> 0:04:26,736
+Subscriber's Failure to match
+
+168
+00:04:26,736 --> 0:04:27,586
+the Publisher's Failure.
+
+169
+00:04:28,116 --> 0:04:30,526
+Here's an example of a
+
+170
+00:04:30,526 --> 0:04:31,116
+Publisher.
+
+171
+00:04:31,356 --> 0:04:32,386
+This is our new Publisher for
+
+172
+00:04:32,386 --> 0:04:33,196
+NotificationCenter.
+
+173
+00:04:34,106 --> 0:04:35,756
+As you can see, it's a struct
+
+174
+00:04:36,076 --> 0:04:38,406
+and its Output type is
+
+175
+00:04:38,406 --> 0:04:40,336
+Notifications and its Failure
+
+176
+00:04:40,336 --> 0:04:40,956
+type is Never.
+
+177
+00:04:41,896 --> 0:04:43,046
+It is initialized with three
+
+178
+00:04:43,046 --> 0:04:45,186
+things, which center, which name
+
+179
+00:04:45,186 --> 0:04:46,036
+and which object.
+
+180
+00:04:46,626 --> 0:04:47,496
+If you're familiar with our
+
+181
+00:04:47,496 --> 0:04:48,936
+existing NotificationCenter API,
+
+182
+00:04:49,436 --> 0:04:50,456
+they should look very familiar.
+
+183
+00:04:50,836 --> 0:04:51,876
+So again, we're not replacing
+
+184
+00:04:51,876 --> 0:04:52,776
+NotificationCenter.
+
+185
+00:04:52,936 --> 0:04:55,106
+We're just adapting it.
+
+186
+00:04:55,376 --> 0:04:56,526
+Next, Subscribers.
+
+187
+00:04:57,266 --> 0:04:58,826
+Subscribers are the counterpart
+
+188
+00:04:58,826 --> 0:04:59,586
+to Publishers.
+
+189
+00:05:00,056 --> 0:05:01,426
+They are what receive values,
+
+190
+00:05:01,476 --> 0:05:03,086
+including the completion if the
+
+191
+00:05:03,086 --> 0:05:04,066
+Publisher is finite.
+
+192
+00:05:05,036 --> 0:05:06,496
+Because Subscribers usually act
+
+193
+00:05:06,496 --> 0:05:08,426
+and mutate state upon receipt of
+
+194
+00:05:08,426 --> 0:05:10,326
+values, we use reference types
+
+195
+00:05:10,386 --> 0:05:11,596
+in Swift which means they are
+
+196
+00:05:11,596 --> 0:05:12,216
+classes.
+
+197
+00:05:13,226 --> 0:05:14,036
+Here's the protocol for
+
+198
+00:05:14,036 --> 0:05:14,606
+Subscriber.
+
+199
+00:05:15,126 --> 0:05:16,446
+As you can see, it has the same
+
+200
+00:05:16,446 --> 0:05:18,096
+two associated types: Input and
+
+201
+00:05:18,096 --> 0:05:18,476
+Failure.
+
+202
+00:05:18,596 --> 0:05:19,636
+Again, if the Subscriber is
+
+203
+00:05:19,636 --> 0:05:21,696
+unable to receive Failures, then
+
+204
+00:05:21,696 --> 0:05:22,776
+you can use the type Never.
+
+205
+00:05:23,646 --> 0:05:25,036
+And three key functions.
+
+206
+00:05:25,746 --> 0:05:27,036
+It can receive a subscription.
+
+207
+00:05:27,536 --> 0:05:28,896
+A subscription is how a
+
+208
+00:05:28,896 --> 0:05:30,266
+Subscriber controls the flow of
+
+209
+00:05:30,266 --> 0:05:31,666
+data from a Publisher to a
+
+210
+00:05:31,666 --> 0:05:32,226
+Subscriber.
+
+211
+00:05:32,956 --> 0:05:34,076
+It can also of course receive
+
+212
+00:05:34,076 --> 0:05:34,716
+Input.
+
+213
+00:05:34,986 --> 0:05:36,156
+And finally, if the Publisher
+
+214
+00:05:36,156 --> 0:05:37,296
+that it is connected to is
+
+215
+00:05:37,296 --> 0:05:38,806
+finite, then it can receive a
+
+216
+00:05:38,806 --> 0:05:40,196
+Completion which can be either
+
+217
+00:05:40,466 --> 0:05:41,576
+Finished or Failure.
+
+218
+00:05:41,726 --> 0:05:44,946
+Here is an example Subscriber.
+
+219
+00:05:45,836 --> 0:05:46,956
+This one is called Assign.
+
+220
+00:05:47,766 --> 0:05:50,406
+Assign is a class and it's
+
+221
+00:05:50,406 --> 0:05:51,816
+initialized with an instance of
+
+222
+00:05:51,816 --> 0:05:53,336
+a class, an instance of an
+
+223
+00:05:53,336 --> 0:05:55,826
+object and a type safe key path
+
+224
+00:05:55,906 --> 0:05:56,756
+into that object.
+
+225
+00:05:57,486 --> 0:05:59,086
+What it does is when it receives
+
+226
+00:05:59,086 --> 0:06:00,796
+input, it writes it out to that
+
+227
+00:05:59,086 --> 0:06:00,796
+input, it writes it out to that
+
+228
+00:06:00,796 --> 0:06:01,986
+property on that object.
+
+229
+00:06:02,556 --> 0:06:03,856
+Because in Swift there's no way
+
+230
+00:06:03,856 --> 0:06:04,886
+to handle an error when you're
+
+231
+00:06:04,886 --> 0:06:06,216
+just writing a property value,
+
+232
+00:06:06,656 --> 0:06:07,946
+we set the failure type of
+
+233
+00:06:07,946 --> 0:06:08,786
+Assign to Never.
+
+234
+00:06:09,406 --> 0:06:11,366
+Let's talk about how these fit
+
+235
+00:06:11,366 --> 0:06:11,746
+together.
+
+236
+00:06:13,086 --> 0:06:14,096
+So you may have some kind of
+
+237
+00:06:14,096 --> 0:06:16,076
+controller object or other type
+
+238
+00:06:16,386 --> 0:06:18,176
+which holds your Subscriber, and
+
+239
+00:06:18,176 --> 0:06:19,486
+that will be responsible for
+
+240
+00:06:19,486 --> 0:06:21,116
+calling Subscribe with the
+
+241
+00:06:21,116 --> 0:06:23,126
+Subscriber to the Publisher,
+
+242
+00:06:23,986 --> 0:06:24,586
+attaching it.
+
+243
+00:06:25,626 --> 0:06:26,806
+At that point, the Publisher
+
+244
+00:06:26,806 --> 0:06:28,886
+will send a subscription to the
+
+245
+00:06:28,886 --> 0:06:30,696
+Subscriber which the Subscriber
+
+246
+00:06:30,696 --> 0:06:33,096
+will use to make a request from
+
+247
+00:06:33,096 --> 0:06:34,446
+the Publisher for a certain
+
+248
+00:06:34,446 --> 0:06:36,176
+number of values or unlimited.
+
+249
+00:06:36,766 --> 0:06:38,536
+At that point, the Publisher is
+
+250
+00:06:38,536 --> 0:06:39,956
+free to send that number of
+
+251
+00:06:39,956 --> 0:06:41,566
+values or less to the
+
+252
+00:06:41,566 --> 0:06:42,156
+Subscriber.
+
+253
+00:06:42,476 --> 0:06:43,666
+And again, if the Publisher is
+
+254
+00:06:43,666 --> 0:06:45,416
+finite, then it will eventually
+
+255
+00:06:45,416 --> 0:06:47,086
+send a Completion or an Error.
+
+256
+00:06:48,346 --> 0:06:50,916
+So again, one subscription, zero
+
+257
+00:06:50,916 --> 0:06:52,776
+or more values and a single
+
+258
+00:06:52,776 --> 0:06:53,286
+Completion.
+
+259
+00:06:53,866 --> 0:06:56,786
+So returning to our example,
+
+260
+00:06:57,096 --> 0:06:58,966
+let's say that I have a model
+
+261
+00:06:58,966 --> 0:07:00,816
+object called Wizard and all I
+
+262
+00:06:58,966 --> 0:07:00,816
+object called Wizard and all I
+
+263
+00:07:00,816 --> 0:07:02,466
+care about today is what grade
+
+264
+00:07:02,466 --> 0:07:03,196
+that wizard is in.
+
+265
+00:07:03,796 --> 0:07:04,786
+Let's start with Merlin who is
+
+266
+00:07:04,786 --> 0:07:05,746
+currently in fifth grade.
+
+267
+00:07:06,266 --> 0:07:09,356
+What I want to do is listen for
+
+268
+00:07:09,356 --> 0:07:10,906
+a notification about my students
+
+269
+00:07:10,906 --> 0:07:12,736
+graduating, and once they've
+
+270
+00:07:12,736 --> 0:07:14,566
+graduated, I want to update my
+
+271
+00:07:14,666 --> 0:07:15,766
+model object's value.
+
+272
+00:07:16,526 --> 0:07:17,326
+So I start with a
+
+273
+00:07:17,326 --> 0:07:19,566
+NotificationCenter Publisher on
+
+274
+00:07:19,566 --> 0:07:21,636
+the default center about
+
+275
+00:07:21,636 --> 0:07:22,826
+graduation of Merlin.
+
+276
+00:07:24,276 --> 0:07:26,086
+Next, I create an Assign
+
+277
+00:07:26,086 --> 0:07:27,646
+Subscriber and tell it to write
+
+278
+00:07:27,646 --> 0:07:29,466
+the new grade to Merlin's grade
+
+279
+00:07:29,466 --> 0:07:30,646
+property.
+
+280
+00:07:32,656 --> 0:07:34,476
+Next, I can use Subscribe to
+
+281
+00:07:34,476 --> 0:07:35,016
+attach them.
+
+282
+00:07:35,286 --> 0:07:36,996
+However, as you might expect,
+
+283
+00:07:36,996 --> 0:07:37,766
+this doesn't compile.
+
+284
+00:07:37,766 --> 0:07:39,626
+And the reason is because the
+
+285
+00:07:39,626 --> 0:07:40,466
+types don't match.
+
+286
+00:07:41,346 --> 0:07:42,416
+NotificationCenter makes
+
+287
+00:07:42,416 --> 0:07:44,996
+notifications but Assign being
+
+288
+00:07:44,996 --> 0:07:46,056
+configured to write to an
+
+289
+00:07:46,056 --> 0:07:47,686
+integer property expects an
+
+290
+00:07:47,686 --> 0:07:48,086
+integer.
+
+291
+00:07:48,876 --> 0:07:50,416
+So what we need is something in
+
+292
+00:07:50,416 --> 0:07:52,086
+the middle to convert between
+
+293
+00:07:52,086 --> 0:07:53,586
+notifications and integers.
+
+294
+00:07:54,286 --> 0:07:56,456
+What that is, is an Operator.
+
+295
+00:07:57,426 --> 0:07:58,866
+Operators are Publishers until
+
+296
+00:07:58,866 --> 0:07:59,666
+they adopt the Publisher
+
+297
+00:07:59,666 --> 0:08:00,406
+protocol.
+
+298
+00:07:59,666 --> 0:08:00,406
+protocol.
+
+299
+00:08:00,596 --> 0:08:01,786
+And they are also declarative
+
+300
+00:08:01,946 --> 0:08:03,106
+and therefore value types.
+
+301
+00:08:03,756 --> 0:08:04,816
+What they do is describe a
+
+302
+00:08:04,816 --> 0:08:06,466
+behavior for changing values,
+
+303
+00:08:06,586 --> 0:08:08,336
+adding values, removing values
+
+304
+00:08:08,336 --> 0:08:10,006
+or any number of different kinds
+
+305
+00:08:10,006 --> 0:08:10,856
+of behaviors.
+
+306
+00:08:11,796 --> 0:08:12,936
+And subscribe to another
+
+307
+00:08:12,936 --> 0:08:14,386
+Publisher which we call the
+
+308
+00:08:14,386 --> 0:08:16,996
+upstream, and send the result to
+
+309
+00:08:16,996 --> 0:08:18,226
+a Subscriber, which we call the
+
+310
+00:08:18,226 --> 0:08:18,696
+downstream.
+
+311
+00:08:18,696 --> 0:08:21,196
+Here is an example of an
+
+312
+00:08:21,196 --> 0:08:21,696
+Operator.
+
+313
+00:08:22,276 --> 0:08:23,086
+This one is one that you'll
+
+314
+00:08:23,086 --> 0:08:24,236
+become very familiar with when
+
+315
+00:08:24,236 --> 0:08:24,856
+you use Combine.
+
+316
+00:08:25,046 --> 0:08:25,846
+It's called Map.
+
+317
+00:08:26,666 --> 0:08:28,716
+Map is a struct that is
+
+318
+00:08:28,716 --> 0:08:30,466
+initialized with which upstream
+
+319
+00:08:30,466 --> 0:08:31,916
+it connects to and how to
+
+320
+00:08:31,916 --> 0:08:33,606
+convert its upstream's output
+
+321
+00:08:33,606 --> 0:08:34,566
+into its own output.
+
+322
+00:08:35,496 --> 0:08:36,596
+Because Map doesn't generate
+
+323
+00:08:36,596 --> 0:08:37,905
+Failures of its own, it simply
+
+324
+00:08:37,905 --> 0:08:39,265
+mirrors its upstream's Failure
+
+325
+00:08:39,265 --> 0:08:40,566
+type and it will just pass it
+
+326
+00:08:40,566 --> 0:08:40,796
+through.
+
+327
+00:08:41,606 --> 0:08:43,116
+So with Map we have the tool we
+
+328
+00:08:43,116 --> 0:08:44,275
+need to convert between
+
+329
+00:08:44,275 --> 0:08:45,676
+notifications and integers.
+
+330
+00:08:46,516 --> 0:08:46,976
+Let's see how.
+
+331
+00:08:47,826 --> 0:08:49,176
+So keeping the same Publisher
+
+332
+00:08:49,176 --> 0:08:50,836
+and Subscriber and before, I'm
+
+333
+00:08:50,836 --> 0:08:52,926
+adding this converter which as
+
+334
+00:08:52,926 --> 0:08:53,876
+you can see is configured to
+
+335
+00:08:53,876 --> 0:08:54,496
+connect to the
+
+336
+00:08:54,496 --> 0:08:56,226
+graduationPublisher and has a
+
+337
+00:08:56,226 --> 0:08:56,726
+closure.
+
+338
+00:08:57,106 --> 0:08:58,286
+That closure receives a
+
+339
+00:08:58,286 --> 0:09:00,286
+notification and looks for a
+
+340
+00:08:58,286 --> 0:09:00,286
+notification and looks for a
+
+341
+00:09:00,286 --> 0:09:01,836
+user info key called NewGrade.
+
+342
+00:09:02,696 --> 0:09:04,256
+If it's there, and if it's an
+
+343
+00:09:04,256 --> 0:09:05,626
+integer, then we return it from
+
+344
+00:09:05,626 --> 0:09:06,116
+this closure.
+
+345
+00:09:06,756 --> 0:09:08,336
+If it's not there, or if it's
+
+346
+00:09:08,336 --> 0:09:09,666
+not an integer, the new use a
+
+347
+00:09:09,666 --> 0:09:10,856
+default value of zero.
+
+348
+00:09:11,506 --> 0:09:12,416
+What that means is that no
+
+349
+00:09:12,416 --> 0:09:13,616
+matter what, the result of this
+
+350
+00:09:13,616 --> 0:09:15,366
+closure is an integer and
+
+351
+00:09:15,366 --> 0:09:17,816
+therefore I can connect this to
+
+352
+00:09:17,986 --> 0:09:18,586
+the Subscriber.
+
+353
+00:09:18,586 --> 0:09:20,756
+And everything connects,
+
+354
+00:09:21,006 --> 0:09:22,146
+compiles and works.
+
+355
+00:09:23,286 --> 0:09:24,236
+Now all of this construction
+
+356
+00:09:24,236 --> 0:09:26,486
+syntax can get a bit verbose, so
+
+357
+00:09:26,486 --> 0:09:27,736
+we also have a more fluent
+
+358
+00:09:27,736 --> 0:09:28,316
+syntax.
+
+359
+00:09:28,726 --> 0:09:29,516
+Here's how it works.
+
+360
+00:09:30,056 --> 0:09:32,856
+As an extension on the Publisher
+
+361
+00:09:32,856 --> 0:09:34,376
+protocol, meaning it's available
+
+362
+00:09:34,376 --> 0:09:36,806
+to all Publishers, we added a
+
+363
+00:09:36,806 --> 0:09:38,726
+series of functions named after
+
+364
+00:09:39,076 --> 0:09:39,866
+each Operator.
+
+365
+00:09:40,366 --> 0:09:41,216
+Here is the one for Map.
+
+366
+00:09:42,056 --> 0:09:44,376
+As you can see, its arguments
+
+367
+00:09:44,416 --> 0:09:45,526
+are everything needed to
+
+368
+00:09:45,526 --> 0:09:47,236
+initialize a Map except for
+
+369
+00:09:47,236 --> 0:09:47,726
+upstream.
+
+370
+00:09:48,016 --> 0:09:49,616
+And the reason is because as an
+
+371
+00:09:49,616 --> 0:09:51,166
+extension on Publisher we can
+
+372
+00:09:51,166 --> 0:09:52,106
+simply use self.
+
+373
+00:09:53,436 --> 0:09:54,446
+Now this may seem like a pretty
+
+374
+00:09:54,446 --> 0:09:55,906
+trivial convenience, but
+
+375
+00:09:55,906 --> 0:09:57,596
+actually this is what's really
+
+376
+00:09:57,596 --> 0:09:59,156
+going to transform how you think
+
+377
+00:09:59,156 --> 0:10:00,466
+about asynchronous programing in
+
+378
+00:09:59,156 --> 0:10:00,466
+about asynchronous programing in
+
+379
+00:10:00,466 --> 0:10:00,826
+your app.
+
+380
+00:10:01,556 --> 0:10:03,196
+Let's return to our example but
+
+381
+00:10:03,196 --> 0:10:04,346
+use the new syntax.
+
+382
+00:10:04,926 --> 0:10:07,306
+So here I am starting with the
+
+383
+00:10:07,306 --> 0:10:08,856
+NotificationCenter Publisher for
+
+384
+00:10:08,856 --> 0:10:09,976
+graduated on Merlin.
+
+385
+00:10:11,426 --> 0:10:13,066
+Once I receive a notification, I
+
+386
+00:10:13,126 --> 0:10:15,696
+then map it using the same
+
+387
+00:10:15,696 --> 0:10:18,236
+closure as we saw earlier, and
+
+388
+00:10:18,236 --> 0:10:20,276
+then I assign it to the grade
+
+389
+00:10:20,276 --> 0:10:21,316
+property on Merlin.
+
+390
+00:10:22,096 --> 0:10:23,286
+And you can see this syntax
+
+391
+00:10:23,366 --> 0:10:24,526
+provides a very linear,
+
+392
+00:10:24,526 --> 0:10:26,236
+easy-to-understand flow of what
+
+393
+00:10:26,236 --> 0:10:27,396
+happens step-by-step.
+
+394
+00:10:28,436 --> 0:10:30,346
+Assign returns something called
+
+395
+00:10:30,346 --> 0:10:31,046
+a cancelable.
+
+396
+00:10:31,476 --> 0:10:33,016
+Cancelation is also built into
+
+397
+00:10:33,016 --> 0:10:33,466
+combine.
+
+398
+00:10:34,086 --> 0:10:35,746
+Cancelation allows you to tear
+
+399
+00:10:35,746 --> 0:10:36,966
+down the sequence of Publishers
+
+400
+00:10:36,966 --> 0:10:38,346
+and Subscribers early if you
+
+401
+00:10:38,346 --> 0:10:38,746
+need to.
+
+402
+00:10:40,466 --> 0:10:42,236
+So this step-by-step syntax is
+
+403
+00:10:42,286 --> 0:10:43,886
+really the heart of how you use
+
+404
+00:10:43,886 --> 0:10:44,306
+Combine.
+
+405
+00:10:45,016 --> 0:10:46,626
+Each step describes the next set
+
+406
+00:10:46,626 --> 0:10:47,916
+of instructions in a chain.
+
+407
+00:10:48,416 --> 0:10:50,026
+Transforming values as they make
+
+408
+00:10:50,026 --> 0:10:51,046
+their way from the first
+
+409
+00:10:51,046 --> 0:10:52,396
+Publisher through a series of
+
+410
+00:10:52,396 --> 0:10:54,286
+Operators and ending in a
+
+411
+00:10:54,286 --> 0:10:54,906
+Subscriber.
+
+412
+00:10:55,026 --> 0:10:56,626
+And we have a lot of these
+
+413
+00:10:56,626 --> 0:10:57,216
+Operators.
+
+414
+00:10:57,756 --> 0:10:58,746
+We call them our Declarative
+
+415
+00:10:58,746 --> 0:10:59,566
+Operator API.
+
+416
+00:11:00,456 --> 0:11:01,166
+They include functional
+
+417
+00:11:01,166 --> 0:11:02,396
+transformations like Map.
+
+418
+00:11:02,676 --> 0:11:04,096
+We also have Filter and Reduce,
+
+419
+00:11:04,536 --> 0:11:05,886
+list operations like taking the
+
+420
+00:11:05,886 --> 0:11:07,906
+first, second or fifth element
+
+421
+00:11:07,986 --> 0:11:08,716
+of the Publisher.
+
+422
+00:11:09,456 --> 0:11:11,056
+Error handling like turning an
+
+423
+00:11:11,056 --> 0:11:12,536
+error into a default or
+
+424
+00:11:12,536 --> 0:11:13,456
+placement value.
+
+425
+00:11:14,146 --> 0:11:15,586
+Thread or Q Movement, for
+
+426
+00:11:15,586 --> 0:11:17,596
+example moving heavy processing
+
+427
+00:11:17,596 --> 0:11:19,076
+work to a background thread or
+
+428
+00:11:19,146 --> 0:11:20,486
+UI work to the main thread.
+
+429
+00:11:21,166 --> 0:11:22,466
+And scheduling and time,
+
+430
+00:11:22,466 --> 0:11:23,746
+including integration with from
+
+431
+00:11:23,746 --> 0:11:25,706
+loop, dispatch queue, support
+
+432
+00:11:25,706 --> 0:11:27,736
+for timer, timeouts and more.
+
+433
+00:11:28,506 --> 0:11:29,656
+And with so many of these
+
+434
+00:11:29,656 --> 0:11:31,136
+operators available, it can be
+
+435
+00:11:31,326 --> 0:11:32,486
+perhaps a bit overwhelming to
+
+436
+00:11:32,486 --> 0:11:33,936
+think about how you will
+
+437
+00:11:33,936 --> 0:11:35,426
+navigate amongst these.
+
+438
+00:11:36,046 --> 0:11:37,536
+So what I encourage you to do is
+
+439
+00:11:37,536 --> 0:11:39,136
+return to our core design
+
+440
+00:11:39,136 --> 0:11:40,466
+principle about Combine, and
+
+441
+00:11:40,466 --> 0:11:42,326
+that is composition.
+
+442
+00:11:43,756 --> 0:11:45,896
+Instead of providing a few
+
+443
+00:11:45,896 --> 0:11:47,866
+operators that do a lot, we
+
+444
+00:11:47,866 --> 0:11:49,246
+provide a lot of operators that
+
+445
+00:11:49,246 --> 0:11:50,456
+just do a little bit each,
+
+446
+00:11:50,456 --> 0:11:51,256
+making them easier to
+
+447
+00:11:51,256 --> 0:11:51,856
+understand.
+
+448
+00:11:52,926 --> 0:11:54,706
+So to help you navigate amongst
+
+449
+00:11:54,706 --> 0:11:56,176
+all these operators, we drew
+
+450
+00:11:56,176 --> 0:11:57,746
+inspiration for their names from
+
+451
+00:11:57,746 --> 0:11:59,436
+the existing Swift Collection
+
+452
+00:11:59,536 --> 0:11:59,976
+APIs.
+
+453
+00:12:01,256 --> 0:12:01,676
+Here's how.
+
+454
+00:12:02,696 --> 0:12:04,416
+Let's imagine a quadrant graph.
+
+455
+00:12:04,416 --> 0:12:06,346
+So on one side I have
+
+456
+00:12:06,416 --> 0:12:08,056
+synchronous APIs and the other
+
+457
+00:12:08,056 --> 0:12:08,816
+asynchronous.
+
+458
+00:12:09,346 --> 0:12:10,946
+On the top I have single values
+
+459
+00:12:11,006 --> 0:12:12,616
+and on the bottom I have many
+
+460
+00:12:12,616 --> 0:12:13,146
+values.
+
+461
+00:12:14,456 --> 0:12:15,756
+So in Swift, if you need to
+
+462
+00:12:15,756 --> 0:12:16,906
+represent an integer
+
+463
+00:12:17,006 --> 0:12:18,136
+synchronously, you might use
+
+464
+00:12:18,136 --> 0:12:19,186
+something like int.
+
+465
+00:12:19,886 --> 0:12:21,016
+If you need to represent many
+
+466
+00:12:21,016 --> 0:12:22,426
+integers synchronously, you
+
+467
+00:12:22,426 --> 0:12:23,436
+would use something like an
+
+468
+00:12:23,516 --> 0:12:24,216
+array of integers.
+
+469
+00:12:25,036 --> 0:12:26,086
+In Combine we took these
+
+470
+00:12:26,086 --> 0:12:27,886
+concepts and mapped them into
+
+471
+00:12:27,886 --> 0:12:28,936
+the asynchronous world.
+
+472
+00:12:29,496 --> 0:12:30,506
+So if you need to represent a
+
+473
+00:12:30,506 --> 0:12:32,266
+single value asynchronously, it
+
+474
+00:12:32,266 --> 0:12:34,046
+comes later, we have a future.
+
+475
+00:12:34,416 --> 0:12:35,836
+If you need to represent many
+
+476
+00:12:35,836 --> 0:12:37,616
+values asynchronously, that's a
+
+477
+00:12:37,616 --> 0:12:38,076
+Publisher.
+
+478
+00:12:39,046 --> 0:12:40,426
+So what that means is that if
+
+479
+00:12:40,426 --> 0:12:41,246
+you're looking for a particular
+
+480
+00:12:41,246 --> 0:12:42,416
+kind of operation that you
+
+481
+00:12:42,416 --> 0:12:43,976
+already know how to do with an
+
+482
+00:12:44,076 --> 0:12:46,346
+array, try using that name on a
+
+483
+00:12:46,346 --> 0:12:46,856
+Publisher.
+
+484
+00:12:47,616 --> 0:12:48,596
+Let me show you an example.
+
+485
+00:12:50,176 --> 0:12:53,366
+So here I chose to use a default
+
+486
+00:12:53,366 --> 0:12:55,346
+value of zero if the key was not
+
+487
+00:12:55,346 --> 0:12:56,536
+present or if it was not an
+
+488
+00:12:56,536 --> 0:12:56,896
+integer.
+
+489
+00:12:57,296 --> 0:12:58,316
+Maybe instead it would be a
+
+490
+00:12:58,316 --> 0:12:59,896
+better idea to not allow this
+
+491
+00:12:59,896 --> 0:13:02,216
+bad value to progress and end up
+
+492
+00:12:59,896 --> 0:13:02,216
+bad value to progress and end up
+
+493
+00:13:02,216 --> 0:13:03,566
+written into my model object.
+
+494
+00:13:04,356 --> 0:13:06,526
+So one thing I could do is allow
+
+495
+00:13:06,526 --> 0:13:08,266
+this closure to return nil and
+
+496
+00:13:08,266 --> 0:13:09,946
+then filter out the nil values.
+
+497
+00:13:10,706 --> 0:13:12,536
+Well, in Swift 4.1, the standard
+
+498
+00:13:12,536 --> 0:13:13,816
+library introduced a name for
+
+499
+00:13:13,816 --> 0:13:14,626
+that operation.
+
+500
+00:13:14,716 --> 0:13:15,866
+It's called compactMap.
+
+501
+00:13:16,236 --> 0:13:17,926
+And so Publisher has one too.
+
+502
+00:13:18,216 --> 0:13:19,406
+And it behaves in a very similar
+
+503
+00:13:19,406 --> 0:13:19,686
+way.
+
+504
+00:13:20,126 --> 0:13:21,126
+If you return nil from this
+
+505
+00:13:21,126 --> 0:13:22,826
+closure, then compactMap will
+
+506
+00:13:22,826 --> 0:13:24,336
+filter it out, keeping it from
+
+507
+00:13:24,336 --> 0:13:25,356
+progressing further down the
+
+508
+00:13:25,356 --> 0:13:25,776
+stream.
+
+509
+00:13:27,116 --> 0:13:28,236
+Let's build up our step-by-step
+
+510
+00:13:28,236 --> 0:13:30,066
+instructions using a few more
+
+511
+00:13:30,066 --> 0:13:30,966
+familiar names.
+
+512
+00:13:33,386 --> 0:13:34,956
+Let's say that only students in
+
+513
+00:13:35,006 --> 0:13:36,286
+fifth grade or higher are
+
+514
+00:13:36,286 --> 0:13:37,326
+allowed in my school.
+
+515
+00:13:37,526 --> 0:13:39,486
+I can do that using Filter.
+
+516
+00:13:40,166 --> 0:13:41,586
+Filter takes a predicate and
+
+517
+00:13:41,586 --> 0:13:43,246
+only allows elements that pass
+
+518
+00:13:43,246 --> 0:13:44,406
+that predicate to proceed.
+
+519
+00:13:44,796 --> 0:13:45,686
+This is exactly the same
+
+520
+00:13:45,686 --> 0:13:47,306
+behavior as Filter on Array.
+
+521
+00:13:48,286 --> 0:13:49,476
+Let's say furthermore that
+
+522
+00:13:49,476 --> 0:13:50,556
+you're only allowed to graduate
+
+523
+00:13:50,556 --> 0:13:51,906
+a maximum of three times.
+
+524
+00:13:52,896 --> 0:13:55,046
+So on Array, if you need to take
+
+525
+00:13:55,046 --> 0:13:56,006
+the first three elements, you
+
+526
+00:13:56,006 --> 0:13:57,206
+could use prefix 3.
+
+527
+00:13:57,726 --> 0:13:58,916
+On a Publisher, if you want to
+
+528
+00:13:58,916 --> 0:14:00,016
+receive the first three elements
+
+529
+00:13:58,916 --> 0:14:00,016
+receive the first three elements
+
+530
+00:14:00,016 --> 0:14:02,126
+only, you can use prefix of 3.
+
+531
+00:14:02,806 --> 0:14:04,116
+What it does is after it
+
+532
+00:14:04,116 --> 0:14:05,476
+receives three values, it will
+
+533
+00:14:05,476 --> 0:14:07,116
+Cancel the upstream and send a
+
+534
+00:14:07,116 --> 0:14:08,316
+Completion to the downstream.
+
+535
+00:14:08,886 --> 0:14:11,756
+So stepping back, let's see what
+
+536
+00:14:11,756 --> 0:14:12,346
+we have here.
+
+537
+00:14:12,826 --> 0:14:13,906
+We have a NotificationCenter
+
+538
+00:14:13,906 --> 0:14:14,946
+Publisher that listens for
+
+539
+00:14:14,946 --> 0:14:16,516
+graduations on Merlin.
+
+540
+00:14:17,746 --> 0:14:19,806
+Once he graduates, we will fetch
+
+541
+00:14:19,806 --> 0:14:21,136
+the NewGrade out of that
+
+542
+00:14:21,136 --> 0:14:22,256
+property, out of that
+
+543
+00:14:22,256 --> 0:14:22,946
+Notification.
+
+544
+00:14:23,136 --> 0:14:24,736
+And then we will make sure that
+
+545
+00:14:24,736 --> 0:14:25,986
+the value is greater than fifth
+
+546
+00:14:25,986 --> 0:14:27,306
+grade and that it has only
+
+547
+00:14:27,306 --> 0:14:28,506
+happened a maximum of three
+
+548
+00:14:28,506 --> 0:14:30,476
+times before finally assigning
+
+549
+00:14:30,476 --> 0:14:32,296
+it to the grade property on
+
+550
+00:14:32,296 --> 0:14:32,686
+Merlin.
+
+551
+00:14:35,806 --> 0:14:37,496
+Now Map and Filter are great
+
+552
+00:14:37,496 --> 0:14:38,716
+APIs but they're primarily for
+
+553
+00:14:38,716 --> 0:14:39,806
+synchronous behaviors.
+
+554
+00:14:40,516 --> 0:14:41,826
+Combine really starts to shine
+
+555
+00:14:41,826 --> 0:14:42,506
+when you're working in
+
+556
+00:14:42,506 --> 0:14:43,396
+asynchronous world.
+
+557
+00:14:44,186 --> 0:14:45,546
+So here are two more operators
+
+558
+00:14:45,546 --> 0:14:46,526
+that I'm going to talk about
+
+559
+00:14:46,526 --> 0:14:47,536
+that can be really useful for
+
+560
+00:14:47,536 --> 0:14:47,796
+that.
+
+561
+00:14:48,216 --> 0:14:48,986
+First, Zip.
+
+562
+00:14:50,156 --> 0:14:52,216
+So let's say in my app before
+
+563
+00:14:52,216 --> 0:14:54,026
+the user is allowed to continue,
+
+564
+00:14:54,276 --> 0:14:55,456
+they need to wait for their wand
+
+565
+00:14:55,456 --> 0:14:56,766
+to be created which is three
+
+566
+00:14:56,766 --> 0:14:58,026
+long-running asynchronous
+
+567
+00:14:58,026 --> 0:14:59,106
+operations like this.
+
+568
+00:15:00,466 --> 0:15:02,826
+So the Continue button becomes
+
+569
+00:15:02,826 --> 0:15:04,206
+enabled once all three things
+
+570
+00:15:04,206 --> 0:15:04,716
+are finished.
+
+571
+00:15:05,306 --> 0:15:06,546
+This is a job for Zip.
+
+572
+00:15:07,486 --> 0:15:09,166
+Zip converts several upstream
+
+573
+00:15:09,166 --> 0:15:11,056
+inputs into a single tuple.
+
+574
+00:15:12,286 --> 0:15:13,776
+Because it requires input from
+
+575
+00:15:13,866 --> 0:15:15,266
+all of its upstreams in order to
+
+576
+00:15:15,266 --> 0:15:17,046
+proceed, it makes it a kind of
+
+577
+00:15:17,046 --> 0:15:19,586
+when/and operation as in, when
+
+578
+00:15:19,586 --> 0:15:21,206
+this and this and this have
+
+579
+00:15:21,236 --> 0:15:22,406
+finished, do this other thing.
+
+580
+00:15:23,786 --> 0:15:25,226
+So for example, my first
+
+581
+00:15:25,226 --> 0:15:27,386
+Publisher produces A, and then
+
+582
+00:15:27,386 --> 0:15:28,346
+when my second Publisher
+
+583
+00:15:28,346 --> 0:15:30,296
+produces a 1, I now have enough
+
+584
+00:15:30,296 --> 0:15:31,826
+information to create a tuple
+
+585
+00:15:32,406 --> 0:15:34,186
+and send that value downstream
+
+586
+00:15:34,336 --> 0:15:34,976
+to my Subscriber.
+
+587
+00:15:37,396 --> 0:15:38,736
+In my app, I use the version of
+
+588
+00:15:38,736 --> 0:15:40,126
+Zip that takes three upstreams
+
+589
+00:15:40,466 --> 0:15:43,036
+to await the result of three
+
+590
+00:15:43,306 --> 0:15:44,636
+asynchronous operations that
+
+591
+00:15:44,636 --> 0:15:45,996
+each give me a Boolean result.
+
+592
+00:15:46,546 --> 0:15:47,906
+So I map the tuple into a single
+
+593
+00:15:47,906 --> 0:15:49,626
+Boolean and here I've written it
+
+594
+00:15:49,626 --> 0:15:51,166
+into the isEnabled property on
+
+595
+00:15:51,166 --> 0:15:52,516
+the button to turn it on.
+
+596
+00:15:55,046 --> 0:15:56,646
+So after you're done waiting for
+
+597
+00:15:56,646 --> 0:15:58,296
+your wand to be created, like
+
+598
+00:15:58,326 --> 0:15:59,736
+everybody else, my students have
+
+599
+00:15:59,776 --> 0:16:01,076
+to agree to a set of terms and
+
+600
+00:15:59,776 --> 0:16:01,076
+to agree to a set of terms and
+
+601
+00:16:01,076 --> 0:16:02,296
+conditions before they are
+
+602
+00:16:02,296 --> 0:16:03,736
+allowed to proceed to playing
+
+603
+00:16:03,736 --> 0:16:04,566
+with their wands.
+
+604
+00:16:05,206 --> 0:16:06,486
+What that means is that all
+
+605
+00:16:06,486 --> 0:16:07,896
+three of these switches have to
+
+606
+00:16:07,896 --> 0:16:09,236
+be enabled before the Play
+
+607
+00:16:09,236 --> 0:16:09,996
+button is enabled.
+
+608
+00:16:10,426 --> 0:16:11,946
+However, if one of them is then
+
+609
+00:16:11,946 --> 0:16:13,866
+later disabled, we need to
+
+610
+00:16:14,216 --> 0:16:15,316
+disable the button.
+
+611
+00:16:15,856 --> 0:16:17,336
+This is a job for Combine
+
+612
+00:16:17,336 --> 0:16:17,706
+Latest.
+
+613
+00:16:18,576 --> 0:16:19,856
+Like Zip, it converts several
+
+614
+00:16:19,856 --> 0:16:21,286
+upstream inputs into a single
+
+615
+00:16:21,286 --> 0:16:21,646
+value.
+
+616
+00:16:22,276 --> 0:16:23,916
+However, unlike Zip, it requires
+
+617
+00:16:23,916 --> 0:16:25,136
+an input from any of its
+
+618
+00:16:25,176 --> 0:16:27,086
+upstreams to proceed, making it
+
+619
+00:16:27,086 --> 0:16:28,856
+a kind of when/or operation.
+
+620
+00:16:29,646 --> 0:16:30,826
+In order to support that, it
+
+621
+00:16:30,826 --> 0:16:32,226
+stores the last value that it's
+
+622
+00:16:32,226 --> 0:16:33,626
+received from each upstream.
+
+623
+00:16:34,056 --> 0:16:35,226
+And it's also configured with a
+
+624
+00:16:35,226 --> 0:16:36,706
+closure that lets you convert
+
+625
+00:16:36,706 --> 0:16:38,016
+that into a single downstream
+
+626
+00:16:38,016 --> 0:16:38,386
+value.
+
+627
+00:16:39,906 --> 0:16:41,066
+So for example, when my first
+
+628
+00:16:41,066 --> 0:16:43,166
+Publisher produces A, and my
+
+629
+00:16:43,166 --> 0:16:45,926
+second Publisher produces A1, I
+
+630
+00:16:45,926 --> 0:16:47,346
+then run my closure which
+
+631
+00:16:47,346 --> 0:16:48,996
+stringifies this and sends it
+
+632
+00:16:48,996 --> 0:16:49,586
+downstream.
+
+633
+00:16:50,246 --> 0:16:51,656
+Later, when the second Publisher
+
+634
+00:16:51,656 --> 0:16:53,486
+produces a new value, I can
+
+635
+00:16:53,486 --> 0:16:55,716
+combine it with the value from
+
+636
+00:16:55,716 --> 0:16:56,686
+previously from the first
+
+637
+00:16:56,686 --> 0:16:58,186
+Publisher and send that new
+
+638
+00:16:58,186 --> 0:16:58,816
+value down.
+
+639
+00:16:59,636 --> 0:17:01,036
+That means that I get new events
+
+640
+00:16:59,636 --> 0:17:01,036
+That means that I get new events
+
+641
+00:17:01,316 --> 0:17:02,836
+as any upstream changes.
+
+642
+00:17:04,146 --> 0:17:06,346
+So in my example app, I used a
+
+643
+00:17:06,346 --> 0:17:07,626
+version of CombineLatest which
+
+644
+00:17:07,626 --> 0:17:09,566
+takes three upstreams, the
+
+645
+00:17:09,566 --> 0:17:11,386
+Boolean states of all three of
+
+646
+00:17:11,386 --> 0:17:12,886
+those switches as they change,
+
+647
+00:17:13,296 --> 0:17:14,215
+convert them into a single
+
+648
+00:17:14,215 --> 0:17:15,965
+Boolean value again and write
+
+649
+00:17:15,965 --> 0:17:17,356
+that to the isEnabled property
+
+650
+00:17:17,516 --> 0:17:18,276
+on my Play button.
+
+651
+00:17:19,185 --> 0:17:20,406
+That means that if any of them
+
+652
+00:17:20,445 --> 0:17:22,086
+are false, the result is false.
+
+653
+00:17:22,366 --> 0:17:23,596
+But if all of them are true,
+
+654
+00:17:23,906 --> 0:17:25,455
+then the result is true, thus
+
+655
+00:17:25,455 --> 0:17:28,296
+enabling the button.
+
+656
+00:17:28,465 --> 0:17:30,186
+So we designed Combine to be
+
+657
+00:17:30,186 --> 0:17:31,766
+adoptable incrementally in your
+
+658
+00:17:31,766 --> 0:17:31,976
+app.
+
+659
+00:17:32,036 --> 0:17:32,816
+You don't have to convert
+
+660
+00:17:32,816 --> 0:17:34,126
+everything over to use this.
+
+661
+00:17:34,576 --> 0:17:36,086
+So to get started, I have a few
+
+662
+00:17:36,086 --> 0:17:37,356
+suggestions on places that you
+
+663
+00:17:37,356 --> 0:17:38,756
+might find in your app today
+
+664
+00:17:39,196 --> 0:17:40,676
+that you can use Combine for.
+
+665
+00:17:41,286 --> 0:17:42,766
+For example, if you use
+
+666
+00:17:42,766 --> 0:17:44,456
+NotificationCenter, you receive
+
+667
+00:17:44,456 --> 0:17:46,116
+notifications and then you look
+
+668
+00:17:46,186 --> 0:17:47,536
+inside them to decide whether to
+
+669
+00:17:47,536 --> 0:17:49,836
+act or not, try using Filter.
+
+670
+00:17:50,416 --> 0:17:52,716
+If you weight the result of
+
+671
+00:17:52,716 --> 0:17:54,446
+several asynchronous operations,
+
+672
+00:17:54,816 --> 0:17:57,576
+then you can use Zip, including
+
+673
+00:17:57,576 --> 0:17:58,516
+network operations.
+
+674
+00:17:59,426 --> 0:18:02,096
+And finally, if you use URL
+
+675
+00:17:59,426 --> 0:18:02,096
+And finally, if you use URL
+
+676
+00:18:02,096 --> 0:18:03,876
+Session to receive some data and
+
+677
+00:18:04,096 --> 0:18:05,496
+then you convert that data into
+
+678
+00:18:05,496 --> 0:18:06,956
+your own objects using JSON
+
+679
+00:18:06,956 --> 0:18:08,556
+Decoder, we have an operator
+
+680
+00:18:08,556 --> 0:18:09,416
+that will help with that as
+
+681
+00:18:09,416 --> 0:18:09,896
+well.
+
+682
+00:18:09,896 --> 0:18:10,976
+It's called Decode.
+
+683
+00:18:13,616 --> 0:18:15,066
+So we went over the basics
+
+684
+00:18:15,096 --> 0:18:15,506
+today.
+
+685
+00:18:15,646 --> 0:18:17,146
+Publishers, Subscribers and
+
+686
+00:18:17,146 --> 0:18:17,766
+Operators.
+
+687
+00:18:18,156 --> 0:18:19,536
+However, there's a lot more to
+
+688
+00:18:19,536 --> 0:18:19,866
+Combine.
+
+689
+00:18:20,316 --> 0:18:22,336
+And that includes error handling
+
+690
+00:18:22,336 --> 0:18:24,746
+and cancelation, schedulers and
+
+691
+00:18:24,746 --> 0:18:26,856
+time, and some great design
+
+692
+00:18:26,856 --> 0:18:29,206
+patterns including using Combine
+
+693
+00:18:29,276 --> 0:18:30,836
+in different modules or between
+
+694
+00:18:30,836 --> 0:18:31,886
+different areas of your app.
+
+695
+00:18:31,886 --> 0:18:33,436
+And of course integration with
+
+696
+00:18:33,436 --> 0:18:33,786
+SwiftUI.
+
+697
+00:18:33,786 --> 0:18:36,296
+For more on that, please watch
+
+698
+00:18:36,296 --> 0:18:37,656
+Combine In Practice.
+
+699
+00:18:39,136 --> 0:18:39,926
+That's all I have today.
+
+700
+00:18:39,926 --> 0:18:40,876
+Thank you so much for your time.
+
+701
+00:18:41,516 --> 0:18:45,500
+[ Applause ]

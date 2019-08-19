@@ -1,0 +1,5147 @@
+1
+00:00:00,506 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:07,516 --> 0:00:11,286
+[ Applause ]
+
+3
+00:00:11,786 --> 0:00:12,636
+&gt;&gt; Hello and good afternoon
+
+4
+00:00:12,636 --> 0:00:13,076
+everyone.
+
+5
+00:00:13,546 --> 0:00:14,736
+Welcome to our session on
+
+6
+00:00:14,736 --> 0:00:15,976
+Natural Language Processing.
+
+7
+00:00:16,566 --> 0:00:18,266
+I'm Vivek, and I'll be jointly
+
+8
+00:00:18,266 --> 0:00:19,656
+presenting this session with my
+
+9
+00:00:19,656 --> 0:00:20,806
+colleague, Doug Davidson.
+
+10
+00:00:21,646 --> 0:00:23,086
+Let's get started.
+
+11
+00:00:23,716 --> 0:00:26,076
+As you know, text is ubiquitous.
+
+12
+00:00:26,836 --> 0:00:27,796
+You see it everywhere.
+
+13
+00:00:28,436 --> 0:00:29,826
+If you think of how users
+
+14
+00:00:29,826 --> 0:00:31,256
+interact with text in apps,
+
+15
+00:00:31,906 --> 0:00:33,286
+there are two primary modes in
+
+16
+00:00:33,286 --> 0:00:34,796
+which they interact.
+
+17
+00:00:34,796 --> 0:00:36,376
+One, is through Natural Language
+
+18
+00:00:36,456 --> 0:00:38,996
+input, wherein the user is
+
+19
+00:00:39,036 --> 0:00:41,036
+writing text or generating text
+
+20
+00:00:41,266 --> 0:00:42,296
+within the application.
+
+21
+00:00:43,176 --> 0:00:44,326
+For instance, the user may be
+
+22
+00:00:44,326 --> 0:00:46,136
+typing text on the keyboard
+
+23
+00:00:46,136 --> 0:00:48,266
+inside the app.
+
+24
+00:00:48,526 --> 0:00:49,996
+Examples of apps are, for
+
+25
+00:00:49,996 --> 0:00:51,506
+example, messages where you're
+
+26
+00:00:51,506 --> 0:00:53,566
+writing text and sharing it with
+
+27
+00:00:53,566 --> 0:00:55,456
+other people, notes, or any
+
+28
+00:00:55,456 --> 0:00:56,956
+productivity app where you're
+
+29
+00:00:56,956 --> 0:00:58,156
+writing text as part of the
+
+30
+00:00:58,156 --> 0:00:58,776
+application.
+
+31
+00:01:00,246 --> 0:01:01,136
+The other sort of user
+
+32
+00:01:01,136 --> 0:01:03,126
+interaction with text in apps is
+
+33
+00:01:03,126 --> 0:01:05,626
+through Natural Language output
+
+34
+00:01:06,046 --> 0:01:07,696
+wherein the app presents the
+
+35
+00:01:07,696 --> 0:01:09,126
+text content to the user, and
+
+36
+00:01:09,286 --> 0:01:11,176
+the user is consuming or reading
+
+37
+00:01:11,176 --> 0:01:11,706
+this text.
+
+38
+00:01:12,836 --> 0:01:14,256
+If you think of an application,
+
+39
+00:01:14,436 --> 0:01:17,346
+like Apple News, the information
+
+40
+00:01:17,346 --> 0:01:18,466
+or text is presented to the
+
+41
+00:01:18,466 --> 0:01:20,106
+user, and the user is reading
+
+42
+00:01:20,106 --> 0:01:20,796
+this information.
+
+43
+00:01:21,666 --> 0:01:24,116
+So, both in cases of text input
+
+44
+00:01:24,226 --> 0:01:26,686
+and text output, in order to
+
+45
+00:01:26,686 --> 0:01:28,366
+extract actionable intelligence
+
+46
+00:01:28,546 --> 0:01:30,346
+out of raw text, Natural
+
+47
+00:01:30,346 --> 0:01:31,686
+Language processing is really
+
+48
+00:01:31,686 --> 0:01:32,146
+important.
+
+49
+00:01:32,146 --> 0:01:34,816
+And last year, we introduced the
+
+50
+00:01:34,816 --> 0:01:36,086
+Natural Language Framework.
+
+51
+00:01:36,796 --> 0:01:38,236
+The Natural Language Framework
+
+52
+00:01:38,406 --> 0:01:41,016
+is the NLP workhorse for all
+
+53
+00:01:41,016 --> 0:01:42,346
+things across all Apple
+
+54
+00:01:42,346 --> 0:01:42,796
+platforms.
+
+55
+00:01:43,406 --> 0:01:44,476
+So, we provide several
+
+56
+00:01:44,546 --> 0:01:46,256
+fundamental NLP building blocks
+
+57
+00:01:46,696 --> 0:01:48,276
+such as language identification,
+
+58
+00:01:48,276 --> 0:01:49,796
+tokenization, part of speech
+
+59
+00:01:49,796 --> 0:01:51,666
+tagging, and so on, and we
+
+60
+00:01:51,666 --> 0:01:53,036
+present these functionalities
+
+61
+00:01:53,036 --> 0:01:54,846
+and provide this across several
+
+62
+00:01:54,846 --> 0:01:55,796
+different languages.
+
+63
+00:01:55,796 --> 0:01:58,456
+And we do this by seamlessly
+
+64
+00:01:58,456 --> 0:02:00,156
+blending linguistics and machine
+
+65
+00:01:58,456 --> 0:02:00,156
+blending linguistics and machine
+
+66
+00:02:00,156 --> 0:02:01,516
+learning so that you can just
+
+67
+00:02:01,516 --> 0:02:03,356
+focus on building your apps by
+
+68
+00:02:03,356 --> 0:02:05,526
+using these APIs, and we do all
+
+69
+00:02:05,526 --> 0:02:07,066
+of the heavy lifting under the
+
+70
+00:02:07,616 --> 0:02:07,706
+hood.
+
+71
+00:02:08,336 --> 0:02:09,955
+Now, if you step back and look
+
+72
+00:02:09,955 --> 0:02:11,306
+at all of these functionalities,
+
+73
+00:02:11,536 --> 0:02:13,466
+actually if you look at most NLP
+
+74
+00:02:13,466 --> 0:02:14,936
+functionalities, they can be
+
+75
+00:02:14,936 --> 0:02:16,676
+broken down into two broad
+
+76
+00:02:17,006 --> 0:02:19,176
+categories of tasks.
+
+77
+00:02:19,176 --> 0:02:20,936
+One is text classification.
+
+78
+00:02:21,066 --> 0:02:22,796
+And the objective in text
+
+79
+00:02:22,796 --> 0:02:24,866
+classification is given a piece
+
+80
+00:02:24,866 --> 0:02:26,286
+of text, and this text can
+
+81
+00:02:26,286 --> 0:02:28,266
+either be a sentence, can be a
+
+82
+00:02:28,266 --> 0:02:30,256
+paragraph, or a document, you
+
+83
+00:02:30,256 --> 0:02:31,566
+would like to assign labels to
+
+84
+00:02:31,566 --> 0:02:33,336
+this piece of text, and these
+
+85
+00:02:33,336 --> 0:02:35,096
+labels can be sentiment labels,
+
+86
+00:02:35,096 --> 0:02:36,486
+topic labels, or any labels that
+
+87
+00:02:36,486 --> 0:02:37,096
+you want to assign.
+
+88
+00:02:38,426 --> 0:02:40,036
+The other category of tasks by
+
+89
+00:02:40,036 --> 0:02:41,696
+NLP is called word tagging.
+
+90
+00:02:41,696 --> 0:02:43,576
+And the task here or the
+
+91
+00:02:43,576 --> 0:02:45,176
+objective here is given a
+
+92
+00:02:45,176 --> 0:02:46,756
+sequence of words or what we
+
+93
+00:02:46,756 --> 0:02:48,606
+call is tokens, we would like to
+
+94
+00:02:48,606 --> 0:02:50,796
+assign a label to every token in
+
+95
+00:02:50,796 --> 0:02:51,456
+this sequence.
+
+96
+00:02:51,656 --> 0:02:54,366
+And this year, we have exciting
+
+97
+00:02:54,366 --> 0:02:55,986
+new APIs in both text
+
+98
+00:02:55,986 --> 0:02:57,476
+classification as well as word
+
+99
+00:02:57,476 --> 0:02:57,776
+tagging.
+
+100
+00:02:57,776 --> 0:02:59,646
+Let's start off with the first
+
+101
+00:02:59,646 --> 0:03:00,976
+one, which is sentiment
+
+102
+00:02:59,646 --> 0:03:00,976
+one, which is sentiment
+
+103
+00:03:00,976 --> 0:03:01,616
+analysis.
+
+104
+00:03:02,356 --> 0:03:04,016
+Sentiment analysis is a text
+
+105
+00:03:04,016 --> 0:03:05,666
+classification API, this is a
+
+106
+00:03:05,666 --> 0:03:07,946
+new API, and it works this way.
+
+107
+00:03:08,536 --> 0:03:09,766
+What you do is you bring your
+
+108
+00:03:09,766 --> 0:03:11,496
+text, and you pass your text to
+
+109
+00:03:11,496 --> 0:03:14,016
+this API, and the API analyzes
+
+110
+00:03:14,046 --> 0:03:15,816
+the text and gives you out a
+
+111
+00:03:15,816 --> 0:03:16,656
+sentiment score.
+
+112
+00:03:17,466 --> 0:03:18,666
+Now this sentiment score
+
+113
+00:03:18,786 --> 0:03:20,536
+captures the degree of sentiment
+
+114
+00:03:20,536 --> 0:03:21,686
+that is contained in your text.
+
+115
+00:03:22,786 --> 0:03:24,106
+You provide a sentiment score
+
+116
+00:03:24,106 --> 0:03:26,626
+from -1 to +1, which indicates
+
+117
+00:03:26,626 --> 0:03:27,516
+the degree of sentiment.
+
+118
+00:03:28,216 --> 0:03:29,516
+For instance, if you have -1, it
+
+119
+00:03:29,516 --> 0:03:31,396
+indicates a very strong negative
+
+120
+00:03:31,396 --> 0:03:33,256
+sentiment, and +1 indicates a
+
+121
+00:03:33,256 --> 0:03:34,336
+very positive sentiment.
+
+122
+00:03:34,886 --> 0:03:36,056
+So, essentially we provide the
+
+123
+00:03:36,056 --> 0:03:37,506
+score and let you calibrate the
+
+124
+00:03:37,506 --> 0:03:38,846
+score for your application.
+
+125
+00:03:39,036 --> 0:03:41,356
+As an example, if you had a
+
+126
+00:03:41,356 --> 0:03:42,836
+sentence such as we had a fun
+
+127
+00:03:42,836 --> 0:03:44,386
+time in Hawaii with the family,
+
+128
+00:03:44,586 --> 0:03:45,946
+the API might give you a score
+
+129
+00:03:45,946 --> 0:03:48,166
+of 0.8, which shows that this
+
+130
+00:03:48,166 --> 0:03:50,476
+sentence is a positive sentence.
+
+131
+00:03:51,616 --> 0:03:52,756
+In contrast, if you had a
+
+132
+00:03:52,796 --> 0:03:54,266
+sentence such as we had a not so
+
+133
+00:03:54,266 --> 0:03:55,656
+fun time in Hawaii because mom
+
+134
+00:03:55,656 --> 0:03:57,166
+twisted her ankle, well that's
+
+135
+00:03:57,166 --> 0:03:59,156
+not positive, so you get a score
+
+136
+00:03:59,156 --> 0:04:00,956
+of minus 0.8, and you can
+
+137
+00:03:59,156 --> 0:04:00,956
+of minus 0.8, and you can
+
+138
+00:04:00,956 --> 0:04:02,446
+calibrate that to be a negative
+
+139
+00:04:02,446 --> 0:04:02,836
+sentiment.
+
+140
+00:04:04,126 --> 0:04:05,466
+This is great; how do you use
+
+141
+00:04:05,466 --> 0:04:05,576
+it?
+
+142
+00:04:06,376 --> 0:04:07,676
+It's really simple to use.
+
+143
+00:04:08,006 --> 0:04:09,646
+So those of you who are used to
+
+144
+00:04:09,646 --> 0:04:11,036
+using NaturalLanguage, this is
+
+145
+00:04:11,036 --> 0:04:11,886
+extremely easy.
+
+146
+00:04:12,416 --> 0:04:13,736
+You import NaturalLanguage.
+
+147
+00:04:14,236 --> 0:04:15,496
+You create an instance of
+
+148
+00:04:15,536 --> 0:04:17,766
+NLTagger and all that you do now
+
+149
+00:04:17,836 --> 0:04:19,646
+is specify a new tag scheme.
+
+150
+00:04:19,786 --> 0:04:21,676
+And the new tag scheme is called
+
+151
+00:04:21,676 --> 0:04:22,456
+sentiment score.
+
+152
+00:04:23,266 --> 0:04:25,116
+Once you do this, you attach the
+
+153
+00:04:25,116 --> 0:04:26,466
+string that you want to analyze
+
+154
+00:04:26,466 --> 0:04:28,256
+to the tagger, and you simply
+
+155
+00:04:28,256 --> 0:04:29,576
+ask for the sentiment score
+
+156
+00:04:29,906 --> 0:04:31,666
+either at the sentence level or
+
+157
+00:04:31,666 --> 0:04:32,446
+the paragraph level.
+
+158
+00:04:33,476 --> 0:04:34,996
+Now let's see this in action.
+
+159
+00:04:36,316 --> 0:04:37,576
+So what we have here is a
+
+160
+00:04:37,576 --> 0:04:38,516
+hypothetical app.
+
+161
+00:04:38,876 --> 0:04:40,106
+It's a cheese application.
+
+162
+00:04:40,596 --> 0:04:42,766
+And as part of this application,
+
+163
+00:04:42,766 --> 0:04:44,246
+users can do a bunch of things.
+
+164
+00:04:44,536 --> 0:04:45,726
+They can write notes about
+
+165
+00:04:45,726 --> 0:04:46,136
+cheese.
+
+166
+00:04:46,416 --> 0:04:47,946
+They can write reviews, express
+
+167
+00:04:47,946 --> 0:04:49,016
+their opinions about different
+
+168
+00:04:49,016 --> 0:04:49,756
+kinds of cheese.
+
+169
+00:04:50,176 --> 0:04:51,496
+So, even though this application
+
+170
+00:04:51,496 --> 0:04:53,156
+is about cheese, there's nothing
+
+171
+00:04:53,156 --> 0:04:53,886
+cheesy about it.
+
+172
+00:04:53,886 --> 0:04:55,436
+It really deals with the finer
+
+173
+00:04:55,436 --> 0:04:56,276
+points of cheese.
+
+174
+00:04:56,656 --> 0:04:57,846
+And what I'm going to show you
+
+175
+00:04:57,846 --> 0:05:00,646
+here is a user writing a review,
+
+176
+00:04:57,846 --> 0:05:00,646
+here is a user writing a review,
+
+177
+00:05:01,066 --> 0:05:03,006
+and as the user is writing the
+
+178
+00:05:03,006 --> 0:05:05,036
+review, the text gets passed to
+
+179
+00:05:05,036 --> 0:05:06,286
+the sentiment classification
+
+180
+00:05:06,286 --> 0:05:09,246
+API, we get a score, and we
+
+181
+00:05:09,316 --> 0:05:10,746
+color the text based on the
+
+182
+00:05:10,746 --> 0:05:11,416
+sentiment score.
+
+183
+00:05:11,726 --> 0:05:13,646
+So, let's see, if you were to
+
+184
+00:05:13,646 --> 0:05:15,496
+type something like fantastic
+
+185
+00:05:16,336 --> 0:05:19,016
+taste, really delicious, you can
+
+186
+00:05:19,016 --> 0:05:19,926
+see this is a positive
+
+187
+00:05:19,926 --> 0:05:20,386
+sentiment.
+
+188
+00:05:21,796 --> 0:05:24,886
+In contrast, if you said great
+
+189
+00:05:24,886 --> 0:05:28,306
+at first but a horrible
+
+190
+00:05:28,306 --> 0:05:30,296
+aftertaste, you see that this is
+
+191
+00:05:30,296 --> 0:05:32,006
+a negative sentiment, right.
+
+192
+00:05:32,276 --> 0:05:33,936
+And what you also realize here
+
+193
+00:05:33,936 --> 0:05:35,726
+is all of this can be happening
+
+194
+00:05:35,726 --> 0:05:36,386
+in real time.
+
+195
+00:05:36,746 --> 0:05:38,046
+That's because the API is
+
+196
+00:05:38,046 --> 0:05:39,156
+extremely performing.
+
+197
+00:05:39,556 --> 0:05:41,126
+It uses a Neural Network model
+
+198
+00:05:41,126 --> 0:05:43,206
+underneath, and it's hardware
+
+199
+00:05:43,206 --> 0:05:44,516
+activated across all Apple
+
+200
+00:05:44,516 --> 0:05:46,336
+platforms, so essentially, you
+
+201
+00:05:46,336 --> 0:05:47,616
+can do this in real time.
+
+202
+00:05:48,756 --> 0:05:49,846
+And we support the sentiment
+
+203
+00:05:49,846 --> 0:05:51,936
+analysis API in seven different
+
+204
+00:05:51,936 --> 0:05:53,966
+languages, English, French,
+
+205
+00:05:54,016 --> 0:05:55,596
+Italian, German, Spanish,
+
+206
+00:05:55,636 --> 0:05:57,176
+Portuguese, and simplified
+
+207
+00:05:57,176 --> 0:05:57,646
+Chinese.
+
+208
+00:05:58,176 --> 0:05:58,916
+I think you're really going to
+
+209
+00:05:58,916 --> 0:05:59,436
+like this.
+
+210
+00:06:00,516 --> 0:06:06,546
+[ Applause ]
+
+211
+00:06:07,046 --> 0:06:08,126
+And, of course, all of this is
+
+212
+00:06:08,126 --> 0:06:09,656
+happening completely on device,
+
+213
+00:06:09,656 --> 0:06:11,026
+and the user data never has to
+
+214
+00:06:11,026 --> 0:06:11,536
+leave the device.
+
+215
+00:06:11,896 --> 0:06:13,216
+We bring all that power on
+
+216
+00:06:13,216 --> 0:06:13,786
+device to you.
+
+217
+00:06:14,756 --> 0:06:16,306
+I like to just spend a brief
+
+218
+00:06:16,306 --> 0:06:17,926
+moment on language assets.
+
+219
+00:06:18,296 --> 0:06:19,746
+As I mentioned, the NLP
+
+220
+00:06:19,746 --> 0:06:21,246
+functionalities are quite
+
+221
+00:06:21,896 --> 0:06:23,476
+diverse, and we provide this in
+
+222
+00:06:23,476 --> 0:06:24,646
+several different languages.
+
+223
+00:06:25,176 --> 0:06:26,186
+Now, for users of our
+
+224
+00:06:26,186 --> 0:06:28,006
+applications, we make sure that
+
+225
+00:06:28,006 --> 0:06:29,986
+they always have the assets in
+
+226
+00:06:29,986 --> 0:06:31,136
+the language they're interested
+
+227
+00:06:31,136 --> 0:06:31,286
+in.
+
+228
+00:06:31,856 --> 0:06:33,316
+But for you, for development
+
+229
+00:06:33,316 --> 0:06:34,686
+purposes, you might be
+
+230
+00:06:34,686 --> 0:06:36,546
+interested in getting assets on
+
+231
+00:06:36,546 --> 0:06:36,846
+demand.
+
+232
+00:06:36,846 --> 0:06:38,266
+This is in fact a very common
+
+233
+00:06:38,266 --> 0:06:39,286
+request that we've heard from
+
+234
+00:06:39,286 --> 0:06:40,716
+several of you, and we're
+
+235
+00:06:40,716 --> 0:06:42,746
+introducing a new convenience
+
+236
+00:06:42,746 --> 0:06:44,236
+API called Request Assets.
+
+237
+00:06:44,686 --> 0:06:46,076
+So, you can trigger off a
+
+238
+00:06:46,076 --> 0:06:48,336
+download for a particular asset
+
+239
+00:06:48,576 --> 0:06:49,216
+on demand.
+
+240
+00:06:49,436 --> 0:06:50,896
+You just specify the language
+
+241
+00:06:50,896 --> 0:06:51,836
+and the tag scheme that you're
+
+242
+00:06:51,836 --> 0:06:53,306
+interested in, and we'll fork
+
+243
+00:06:53,306 --> 0:06:54,076
+off a download in the
+
+244
+00:06:54,076 --> 0:06:55,186
+background, and the next
+
+245
+00:06:55,276 --> 0:06:56,476
+opportune moment you're going to
+
+246
+00:06:56,476 --> 0:06:57,736
+get the assets on your device.
+
+247
+00:06:57,736 --> 0:06:59,376
+So, this is really going to help
+
+248
+00:06:59,376 --> 0:07:00,226
+you with development and
+
+249
+00:06:59,376 --> 0:07:00,226
+you with development and
+
+250
+00:07:00,226 --> 0:07:01,866
+increase your productivity as
+
+251
+00:07:01,866 --> 0:07:03,476
+you're building your apps.
+
+252
+00:07:05,156 --> 0:07:06,366
+So, we talked about text
+
+253
+00:07:06,366 --> 0:07:07,226
+classification.
+
+254
+00:07:07,226 --> 0:07:08,616
+Now let's shift our attention to
+
+255
+00:07:08,616 --> 0:07:09,856
+Word Tagging.
+
+256
+00:07:10,956 --> 0:07:12,486
+To just refresh your memory,
+
+257
+00:07:12,486 --> 0:07:14,616
+Word Tagging is a task where
+
+258
+00:07:14,616 --> 0:07:16,116
+given a sequence of tokens we'd
+
+259
+00:07:16,116 --> 0:07:17,576
+like to assign a label to every
+
+260
+00:07:17,576 --> 0:07:18,896
+single token in the sequence.
+
+261
+00:07:19,086 --> 0:07:21,776
+As an example here, we could
+
+262
+00:07:21,856 --> 0:07:23,056
+assign a bunch of tokens
+
+263
+00:07:23,056 --> 0:07:24,246
+different labels.
+
+264
+00:07:24,376 --> 0:07:25,546
+Timothy is a person name.
+
+265
+00:07:25,546 --> 0:07:27,326
+Switzerland is a location, and
+
+266
+00:07:27,326 --> 0:07:28,736
+we have a bunch of nouns here in
+
+267
+00:07:28,736 --> 0:07:29,366
+this sentence.
+
+268
+00:07:30,466 --> 0:07:31,226
+Now, this is great.
+
+269
+00:07:31,226 --> 0:07:32,736
+If you're just looking to do
+
+270
+00:07:32,736 --> 0:07:34,556
+named entity recognition using
+
+271
+00:07:34,556 --> 0:07:36,346
+our APIs or part of speech
+
+272
+00:07:36,346 --> 0:07:37,976
+tagging using our APIs, this is
+
+273
+00:07:37,976 --> 0:07:39,616
+fine, but there are several
+
+274
+00:07:39,616 --> 0:07:41,006
+instances where you want to do
+
+275
+00:07:41,006 --> 0:07:42,386
+something that's more customized
+
+276
+00:07:42,386 --> 0:07:43,096
+to your task.
+
+277
+00:07:43,826 --> 0:07:44,736
+You don't want to know just
+
+278
+00:07:44,736 --> 0:07:46,456
+Gruyere cheese are two nouns,
+
+279
+00:07:46,816 --> 0:07:48,296
+but what you want to do is you
+
+280
+00:07:48,296 --> 0:07:49,256
+want to know that it's Swiss
+
+281
+00:07:49,256 --> 0:07:49,626
+cheese.
+
+282
+00:07:49,736 --> 0:07:50,426
+Of course, we are building a
+
+283
+00:07:50,426 --> 0:07:52,106
+cheese application, you want to
+
+284
+00:07:52,106 --> 0:07:53,136
+get this information out.
+
+285
+00:07:53,856 --> 0:07:55,626
+But, the default tagger doesn't
+
+286
+00:07:55,626 --> 0:07:56,696
+have any information about
+
+287
+00:07:56,756 --> 0:07:57,966
+cheese, so how are we going to
+
+288
+00:07:57,966 --> 0:07:58,846
+provide this information?
+
+289
+00:07:59,446 --> 0:08:00,926
+So, we have a new functionality
+
+290
+00:07:59,446 --> 0:08:00,926
+So, we have a new functionality
+
+291
+00:08:01,336 --> 0:08:02,526
+in Natural Language Framework
+
+292
+00:08:02,526 --> 0:08:04,366
+that we call a Text Catalog.
+
+293
+00:08:05,646 --> 0:08:07,326
+A Text Catalog is very simple.
+
+294
+00:08:07,866 --> 0:08:09,446
+What you do is you provide your
+
+295
+00:08:09,446 --> 0:08:11,446
+custom list, and this can be a
+
+296
+00:08:11,446 --> 0:08:13,036
+very large list of entities.
+
+297
+00:08:13,276 --> 0:08:14,546
+For each of the entities in your
+
+298
+00:08:14,546 --> 0:08:15,666
+list, you have a label.
+
+299
+00:08:16,556 --> 0:08:18,476
+In practice, these lists can be
+
+300
+00:08:18,476 --> 0:08:20,026
+millions or even like, you know,
+
+301
+00:08:20,026 --> 0:08:21,046
+a couple of hundred millions.
+
+302
+00:08:21,856 --> 0:08:23,416
+What you do is you pass this
+
+303
+00:08:23,676 --> 0:08:25,646
+sort of a dictionary into Create
+
+304
+00:08:25,646 --> 0:08:27,596
+ML, create an instance of
+
+305
+00:08:27,596 --> 0:08:29,316
+MLGazetteer, and Gazetteer is
+
+306
+00:08:29,316 --> 0:08:30,746
+just a terminology that we use
+
+307
+00:08:31,026 --> 0:08:32,196
+interchangeably with Text
+
+308
+00:08:32,196 --> 0:08:34,015
+Catalog, and what you get as an
+
+309
+00:08:34,015 --> 0:08:35,436
+output is a Text Catalog.
+
+310
+00:08:35,785 --> 0:08:37,145
+Now, this is an extremely
+
+311
+00:08:37,216 --> 0:08:39,006
+compressed and efficient form of
+
+312
+00:08:39,006 --> 0:08:40,066
+the input dictionary that you
+
+313
+00:08:40,066 --> 0:08:40,456
+provided.
+
+314
+00:08:41,015 --> 0:08:43,736
+It's very simple to use.
+
+315
+00:08:43,856 --> 0:08:45,056
+What you do is you provide this
+
+316
+00:08:45,056 --> 0:08:45,486
+dictionary.
+
+317
+00:08:45,486 --> 0:08:46,956
+As I mentioned, we can't show
+
+318
+00:08:46,956 --> 0:08:48,066
+your million entries here.
+
+319
+00:08:48,066 --> 0:08:49,166
+We're just showing as an example
+
+320
+00:08:49,166 --> 0:08:50,546
+a few entries, but this can be
+
+321
+00:08:50,546 --> 0:08:52,086
+an extremely large dictionary.
+
+322
+00:08:53,406 --> 0:08:54,916
+Once you do that, you can create
+
+323
+00:08:54,916 --> 0:08:56,946
+an instance of MLGazetteer, pass
+
+324
+00:08:56,946 --> 0:08:58,846
+the dictionary, and you write it
+
+325
+00:08:58,846 --> 0:08:59,326
+out to disc.
+
+326
+00:08:59,776 --> 0:09:01,026
+It looks really innocuous.
+
+327
+00:08:59,776 --> 0:09:01,026
+It looks really innocuous.
+
+328
+00:09:01,026 --> 0:09:02,386
+You might be thinking, I'm just
+
+329
+00:09:02,386 --> 0:09:03,386
+writing a dictionary to disc.
+
+330
+00:09:03,386 --> 0:09:04,236
+What are you doing here?
+
+331
+00:09:05,176 --> 0:09:06,866
+Something magical happens when
+
+332
+00:09:06,866 --> 0:09:07,896
+you make the right call.
+
+333
+00:09:08,516 --> 0:09:10,536
+Create ML calls Natural Language
+
+334
+00:09:10,596 --> 0:09:12,246
+under the hood, and Natural
+
+335
+00:09:12,246 --> 0:09:13,916
+Language takes this very large
+
+336
+00:09:13,956 --> 0:09:15,566
+dictionary and compresses it
+
+337
+00:09:15,706 --> 0:09:17,306
+into a bloom filter, which is an
+
+338
+00:09:17,306 --> 0:09:18,286
+extremely compact
+
+339
+00:09:18,286 --> 0:09:19,946
+representation, and what you get
+
+340
+00:09:19,946 --> 0:09:21,586
+as an output is a Text Catalog.
+
+341
+00:09:22,426 --> 0:09:24,046
+In fact, we've used this to
+
+342
+00:09:24,046 --> 0:09:25,146
+create effect internally.
+
+343
+00:09:25,146 --> 0:09:27,466
+We've been able to compress
+
+344
+00:09:27,876 --> 0:09:29,166
+almost all the person,
+
+345
+00:09:29,166 --> 0:09:30,986
+organization, and location names
+
+346
+00:09:30,986 --> 0:09:32,536
+in Wikipedia, which is almost
+
+347
+00:09:32,536 --> 0:09:33,916
+two and a half million names,
+
+348
+00:09:34,306 --> 0:09:35,726
+into two megabytes on disc.
+
+349
+00:09:36,136 --> 0:09:39,206
+Sort of implicitly you've been
+
+350
+00:09:39,206 --> 0:09:40,136
+using this model.
+
+351
+00:09:40,356 --> 0:09:41,466
+When you call the named entity
+
+352
+00:09:41,466 --> 0:09:42,476
+recognition API in
+
+353
+00:09:42,476 --> 0:09:44,306
+NaturalLanguage, in conjunction
+
+354
+00:09:44,306 --> 0:09:45,386
+with the statistical model,
+
+355
+00:09:45,386 --> 0:09:47,146
+you're using this bloom filter
+
+356
+00:09:47,146 --> 0:09:48,636
+and Gazetteer and now we are
+
+357
+00:09:48,636 --> 0:09:51,816
+bringing that power to you.
+
+358
+00:09:51,896 --> 0:09:53,906
+Once you create a Gazetteer or a
+
+359
+00:09:53,906 --> 0:09:55,726
+Text Catalog, using it is
+
+360
+00:09:55,726 --> 0:09:57,276
+extremely easy.
+
+361
+00:09:58,116 --> 0:09:59,666
+You create an instance of
+
+362
+00:09:59,696 --> 0:10:01,376
+MLGazetteer by specifying the
+
+363
+00:09:59,696 --> 0:10:01,376
+MLGazetteer by specifying the
+
+364
+00:10:01,376 --> 0:10:03,576
+path to the Text Catalog that
+
+365
+00:10:03,576 --> 0:10:06,616
+you just wrote out to disc.
+
+366
+00:10:06,616 --> 0:10:08,036
+You can work with your favorite
+
+367
+00:10:08,036 --> 0:10:08,706
+tag scheme here.
+
+368
+00:10:08,706 --> 0:10:09,826
+It can be lexical class.
+
+369
+00:10:09,826 --> 0:10:11,246
+It can be name type, any tag
+
+370
+00:10:11,246 --> 0:10:12,836
+scheme, and you can simply
+
+371
+00:10:12,836 --> 0:10:14,286
+attach your Gazetteer to this
+
+372
+00:10:14,286 --> 0:10:14,756
+tag scheme.
+
+373
+00:10:15,636 --> 0:10:17,696
+Once you do this, every time you
+
+374
+00:10:17,696 --> 0:10:19,456
+have a piece of text, this
+
+375
+00:10:19,456 --> 0:10:20,976
+customized Gazetteer is going to
+
+376
+00:10:20,976 --> 0:10:22,736
+override the default tags that
+
+377
+00:10:22,736 --> 0:10:23,916
+NaturalLanguage provides.
+
+378
+00:10:25,246 --> 0:10:26,886
+Consequently, you can customize
+
+379
+00:10:26,886 --> 0:10:27,526
+your application.
+
+380
+00:10:28,646 --> 0:10:29,456
+Now, if you go back to the
+
+381
+00:10:29,486 --> 0:10:30,876
+cheese application, and if you
+
+382
+00:10:30,876 --> 0:10:32,626
+have a sentence such as lighter
+
+383
+00:10:32,626 --> 0:10:34,196
+than Camembert or Vacherin, you
+
+384
+00:10:34,196 --> 0:10:36,796
+can use your Text Catalog for
+
+385
+00:10:36,846 --> 0:10:39,956
+cheese and identify that one is
+
+386
+00:10:39,956 --> 0:10:41,116
+a French cheese, and the other
+
+387
+00:10:41,116 --> 0:10:42,596
+is a Swiss cheese, and you can
+
+388
+00:10:42,596 --> 0:10:44,076
+perhaps hyperlink it and create
+
+389
+00:10:44,076 --> 0:10:45,586
+a much more cooler application
+
+390
+00:10:45,586 --> 0:10:46,116
+out of this.
+
+391
+00:10:46,586 --> 0:10:49,306
+So that's one way to use Text
+
+392
+00:10:49,306 --> 0:10:51,686
+Catalog in a word tagger in
+
+393
+00:10:51,686 --> 0:10:52,726
+NaturalLanguage for this
+
+394
+00:10:52,726 --> 0:10:53,066
+release.
+
+395
+00:10:53,626 --> 0:10:56,386
+So we've talked about text
+
+396
+00:10:56,386 --> 0:10:57,246
+classification.
+
+397
+00:10:57,246 --> 0:10:58,676
+We've talked about word tagging.
+
+398
+00:10:59,356 --> 0:11:01,086
+But the field of NLP has moved
+
+399
+00:10:59,356 --> 0:11:01,086
+But the field of NLP has moved
+
+400
+00:11:01,086 --> 0:11:02,846
+significantly in the past few
+
+401
+00:11:02,846 --> 0:11:04,676
+years, and there have been the
+
+402
+00:11:04,676 --> 0:11:06,036
+without catalysts for this
+
+403
+00:11:06,126 --> 0:11:06,586
+change.
+
+404
+00:11:07,436 --> 0:11:08,916
+One is the notion of Word
+
+405
+00:11:08,916 --> 0:11:10,876
+Embeddings, and Word Embeddings
+
+406
+00:11:10,946 --> 0:11:12,006
+are nothing but vector
+
+407
+00:11:12,006 --> 0:11:13,206
+representation of words.
+
+408
+00:11:13,206 --> 0:11:15,876
+And the other one is the use of
+
+409
+00:11:15,876 --> 0:11:17,986
+Neural Networks in NLP.
+
+410
+00:11:19,056 --> 0:11:21,056
+We are delighted to tell you
+
+411
+00:11:21,386 --> 0:11:22,576
+that we are bringing both these
+
+412
+00:11:22,576 --> 0:11:24,056
+things to your apps in
+
+413
+00:11:24,056 --> 0:11:25,366
+NaturalLanguage this year.
+
+414
+00:11:25,946 --> 0:11:28,446
+So, let's start off with Word
+
+415
+00:11:28,446 --> 0:11:28,956
+Embeddings.
+
+416
+00:11:29,436 --> 0:11:30,166
+Thank you.
+
+417
+00:11:31,596 --> 0:11:33,606
+Before we jump or dive into Word
+
+418
+00:11:33,606 --> 0:11:34,996
+Embeddings, I'd like to spend a
+
+419
+00:11:34,996 --> 0:11:36,426
+couple of slides talking about
+
+420
+00:11:36,426 --> 0:11:37,726
+what an embedding is.
+
+421
+00:11:37,726 --> 0:11:40,336
+At a conceptual level, embedding
+
+422
+00:11:40,336 --> 0:11:41,896
+is nothing but a mapping from a
+
+423
+00:11:41,896 --> 0:11:43,946
+discrete set of objects into a
+
+424
+00:11:43,946 --> 0:11:44,726
+continuous vector
+
+425
+00:11:44,726 --> 0:11:45,376
+representation.
+
+426
+00:11:46,046 --> 0:11:47,186
+So, you have these bunch of
+
+427
+00:11:47,186 --> 0:11:48,026
+discrete objects.
+
+428
+00:11:48,466 --> 0:11:50,356
+Each object in this set can be
+
+429
+00:11:50,356 --> 0:11:51,816
+represented by some sort of a
+
+430
+00:11:51,816 --> 0:11:52,536
+finite vector.
+
+431
+00:11:52,536 --> 0:11:54,176
+In this example, we're showing
+
+432
+00:11:54,176 --> 0:11:55,466
+it with a 3-dimensional vector.
+
+433
+00:11:56,146 --> 0:11:57,096
+Three dimensions because it's
+
+434
+00:11:57,146 --> 0:11:59,236
+easy to plot and visualize, but
+
+435
+00:11:59,236 --> 0:12:01,176
+in reality, these vectors can be
+
+436
+00:11:59,236 --> 0:12:01,176
+in reality, these vectors can be
+
+437
+00:12:01,176 --> 0:12:02,476
+of arbitrary dimensions.
+
+438
+00:12:02,786 --> 0:12:04,556
+You can have 100 dimensions, 300
+
+439
+00:12:04,556 --> 0:12:05,966
+dimensions, or in some cases
+
+440
+00:12:06,266 --> 0:12:07,656
+even 1000 dimensional vector.
+
+441
+00:12:08,756 --> 0:12:10,146
+Now, the neat property about
+
+442
+00:12:10,146 --> 0:12:11,926
+these embeddings is that when
+
+443
+00:12:11,926 --> 0:12:13,326
+you plot these embeddings,
+
+444
+00:12:14,176 --> 0:12:15,456
+objects that are similar
+
+445
+00:12:15,556 --> 0:12:16,896
+semantically are clustered
+
+446
+00:12:16,896 --> 0:12:17,316
+together.
+
+447
+00:12:18,446 --> 0:12:19,976
+So, in this example, if you had
+
+448
+00:12:19,976 --> 0:12:21,306
+to look at the paint can and the
+
+449
+00:12:21,306 --> 0:12:22,826
+paint roller, they are clustered
+
+450
+00:12:22,826 --> 0:12:23,246
+together.
+
+451
+00:12:24,376 --> 0:12:25,716
+Or, if you had to look at the
+
+452
+00:12:25,716 --> 0:12:27,166
+sneakers and the high heels,
+
+453
+00:12:27,376 --> 0:12:28,276
+they are clustered together.
+
+454
+00:12:28,716 --> 0:12:30,206
+So, this is a very neat property
+
+455
+00:12:30,206 --> 0:12:30,896
+of embeddings.
+
+456
+00:12:31,096 --> 0:12:33,086
+And this property of embeddings
+
+457
+00:12:33,086 --> 0:12:34,806
+is not only proof of words but
+
+458
+00:12:34,806 --> 0:12:36,046
+actually across several
+
+459
+00:12:36,046 --> 0:12:37,126
+different modalities.
+
+460
+00:12:37,646 --> 0:12:38,576
+You can think of image
+
+461
+00:12:38,576 --> 0:12:39,066
+embeddings.
+
+462
+00:12:39,166 --> 0:12:40,826
+When you take an image and pass
+
+463
+00:12:40,826 --> 0:12:42,876
+it through a VGG network or any
+
+464
+00:12:42,876 --> 0:12:43,946
+sort of a convolution Neural
+
+465
+00:12:43,946 --> 0:12:45,456
+Network, the feature that you
+
+466
+00:12:45,456 --> 0:12:47,266
+get as an output is nothing but
+
+467
+00:12:47,266 --> 0:12:48,046
+an image embedding.
+
+468
+00:12:48,986 --> 0:12:49,836
+Similarly, you can have
+
+469
+00:12:49,836 --> 0:12:51,696
+embeddings for words, for
+
+470
+00:12:51,696 --> 0:12:54,016
+phrases, and when you work with
+
+471
+00:12:54,016 --> 0:12:55,676
+recommendation systems where
+
+472
+00:12:55,676 --> 0:12:57,136
+you're working with song titles
+
+473
+00:12:57,136 --> 0:12:58,656
+or product names, they are
+
+474
+00:12:58,656 --> 0:13:00,076
+represented by using a vector.
+
+475
+00:12:58,656 --> 0:13:00,076
+represented by using a vector.
+
+476
+00:13:00,526 --> 0:13:01,456
+So, they are nothing but just
+
+477
+00:13:01,506 --> 0:13:02,066
+embeddings.
+
+478
+00:13:02,926 --> 0:13:04,326
+So, in summary, embedding is
+
+479
+00:13:04,326 --> 0:13:06,506
+nothing but a mapping from a
+
+480
+00:13:06,506 --> 0:13:08,376
+string into a continuous
+
+481
+00:13:08,376 --> 0:13:09,996
+sequence of numbers or a vector
+
+482
+00:13:09,996 --> 0:13:10,556
+of numbers.
+
+483
+00:13:11,076 --> 0:13:15,026
+We've actually used these
+
+484
+00:13:15,066 --> 0:13:16,836
+embeddings very successfully in
+
+485
+00:13:16,836 --> 0:13:18,656
+iOS 12, and let me tell you how
+
+486
+00:13:18,656 --> 0:13:19,836
+we use this in Photos.
+
+487
+00:13:21,226 --> 0:13:23,236
+In Photos search, when you type
+
+488
+00:13:23,316 --> 0:13:24,426
+a particular term that you're
+
+489
+00:13:24,426 --> 0:13:26,366
+looking for, maybe pictures of a
+
+490
+00:13:26,416 --> 0:13:28,506
+thunderstorm, what we do
+
+491
+00:13:28,506 --> 0:13:29,936
+underneath the hood is all the
+
+492
+00:13:29,936 --> 0:13:31,756
+images in your photo library are
+
+493
+00:13:31,756 --> 0:13:33,086
+indexed by using a convolution
+
+494
+00:13:33,086 --> 0:13:33,626
+Neural Network.
+
+495
+00:13:33,626 --> 0:13:35,106
+And the output of the
+
+496
+00:13:35,106 --> 0:13:36,466
+convolution Neural Network is
+
+497
+00:13:36,466 --> 0:13:37,696
+fixed to some certain number of
+
+498
+00:13:37,696 --> 0:13:39,566
+classes, perhaps to 1000 classes
+
+499
+00:13:39,566 --> 0:13:40,556
+or 2000 classes.
+
+500
+00:13:41,426 --> 0:13:42,406
+Now, if your convolution Neural
+
+501
+00:13:42,406 --> 0:13:43,666
+Network doesn't know what
+
+502
+00:13:43,666 --> 0:13:45,506
+thunderstorm is, you will never
+
+503
+00:13:45,506 --> 0:13:46,716
+find the pictures that were
+
+504
+00:13:46,716 --> 0:13:48,476
+indexed because they didn't have
+
+505
+00:13:48,476 --> 0:13:50,396
+the term thunderstorm, but with
+
+506
+00:13:50,396 --> 0:13:52,466
+the power of Word Embeddings, we
+
+507
+00:13:52,466 --> 0:13:53,646
+know that thunderstorm is
+
+508
+00:13:53,646 --> 0:13:55,076
+actually related to sky and
+
+509
+00:13:55,076 --> 0:13:56,986
+cloudy, and those are labels
+
+510
+00:13:57,876 --> 0:13:58,936
+that your convolution Neural
+
+511
+00:13:58,936 --> 0:13:59,996
+Network understands.
+
+512
+00:14:00,386 --> 0:14:02,266
+So, by doing this, in iOS 12,
+
+513
+00:14:02,266 --> 0:14:04,366
+you're able to enable fuzzy
+
+514
+00:14:04,366 --> 0:14:06,416
+search in Photos search by using
+
+515
+00:14:06,416 --> 0:14:07,076
+Word Embeddings.
+
+516
+00:14:07,706 --> 0:14:09,396
+So, as a consequence of this,
+
+517
+00:14:09,666 --> 0:14:11,676
+you can find the images through
+
+518
+00:14:11,676 --> 0:14:12,876
+the power of Word Embeddings.
+
+519
+00:14:12,876 --> 0:14:14,006
+In fact, it can be applied to
+
+520
+00:14:14,006 --> 0:14:15,216
+any search application.
+
+521
+00:14:15,466 --> 0:14:16,716
+If you want to do fuzzy search
+
+522
+00:14:16,716 --> 0:14:18,226
+and you have a string, you can
+
+523
+00:14:18,226 --> 0:14:19,426
+use the Word Embedding to get
+
+524
+00:14:19,426 --> 0:14:20,756
+neighbors related to that
+
+525
+00:14:20,756 --> 0:14:21,946
+original word.
+
+526
+00:14:22,656 --> 0:14:24,826
+Having said that, what can you
+
+527
+00:14:24,826 --> 0:14:25,846
+do with an embedding?
+
+528
+00:14:26,676 --> 0:14:27,696
+There are four primary
+
+529
+00:14:27,696 --> 0:14:29,066
+operations that you can do with
+
+530
+00:14:29,066 --> 0:14:29,716
+Word Embeddings.
+
+531
+00:14:30,556 --> 0:14:32,486
+One is, given a word, you can
+
+532
+00:14:32,716 --> 0:14:33,926
+obviously get the vector for
+
+533
+00:14:33,926 --> 0:14:34,466
+that word.
+
+534
+00:14:35,576 --> 0:14:37,486
+Given two words, you can find
+
+535
+00:14:37,486 --> 0:14:38,716
+the distance between two words
+
+536
+00:14:39,116 --> 0:14:40,356
+because for each of those words,
+
+537
+00:14:40,356 --> 0:14:41,156
+you can look at the
+
+538
+00:14:41,156 --> 0:14:42,356
+corresponding vectors.
+
+539
+00:14:42,616 --> 0:14:44,446
+So, if I say dog and cat and ask
+
+540
+00:14:44,446 --> 0:14:45,576
+for the distance, I'm going to
+
+541
+00:14:45,576 --> 0:14:46,816
+get a distance, and that
+
+542
+00:14:46,816 --> 0:14:47,866
+distance is going to be pretty
+
+543
+00:14:47,866 --> 0:14:48,996
+close to each other.
+
+544
+00:14:49,886 --> 0:14:51,976
+If I say dog and a boot, those
+
+545
+00:14:51,976 --> 0:14:53,706
+are fairly distant in the
+
+546
+00:14:53,706 --> 0:14:55,246
+semantic space, and you're going
+
+547
+00:14:55,246 --> 0:14:56,426
+to get something that's much
+
+548
+00:14:56,606 --> 0:14:57,366
+higher distance.
+
+549
+00:14:58,546 --> 0:14:59,696
+The third thing that you can do
+
+550
+00:14:59,696 --> 0:15:01,086
+is get the nearest neighbors for
+
+551
+00:14:59,696 --> 0:15:01,086
+is get the nearest neighbors for
+
+552
+00:15:01,086 --> 0:15:02,916
+a word, and this probably is by
+
+553
+00:15:02,916 --> 0:15:04,676
+far the most popular way of
+
+554
+00:15:04,676 --> 0:15:06,106
+using word embeddings, and the
+
+555
+00:15:06,106 --> 0:15:07,516
+Photos search application that I
+
+556
+00:15:07,516 --> 0:15:08,886
+just showed you was doing
+
+557
+00:15:08,886 --> 0:15:10,236
+exactly that.
+
+558
+00:15:10,236 --> 0:15:11,736
+Given a word, you're looking for
+
+559
+00:15:11,736 --> 0:15:12,936
+nearest neighbors of a word.
+
+560
+00:15:12,936 --> 0:15:15,836
+Last but not the least is you
+
+561
+00:15:15,836 --> 0:15:17,056
+can also get the nearest
+
+562
+00:15:17,246 --> 0:15:19,376
+neighbors for a vector, so let's
+
+563
+00:15:19,376 --> 0:15:20,776
+assume that you have a sentence,
+
+564
+00:15:20,836 --> 0:15:22,116
+and you have multiple words in
+
+565
+00:15:22,116 --> 0:15:23,726
+the sentence, and for each of
+
+566
+00:15:23,726 --> 0:15:25,176
+the words in the sentence, you
+
+567
+00:15:25,176 --> 0:15:26,276
+can get the word embedding, you
+
+568
+00:15:26,326 --> 0:15:27,516
+can sum it up.
+
+569
+00:15:27,516 --> 0:15:28,886
+So what you get is a new vector,
+
+570
+00:15:28,886 --> 0:15:31,036
+and given that vector, you can
+
+571
+00:15:31,036 --> 0:15:32,466
+ask for all the words that are
+
+572
+00:15:32,466 --> 0:15:33,266
+close to that vector.
+
+573
+00:15:33,266 --> 0:15:35,046
+That's a neat way of using Word
+
+574
+00:15:35,046 --> 0:15:35,576
+Embeddings too.
+
+575
+00:15:35,576 --> 0:15:38,186
+So a lot of stuff about Word
+
+576
+00:15:38,186 --> 0:15:39,396
+Embeddings, but the most
+
+577
+00:15:39,396 --> 0:15:40,476
+important thing is we are
+
+578
+00:15:40,476 --> 0:15:42,436
+providing this easy for you to
+
+579
+00:15:42,436 --> 0:15:43,786
+use on the OS.
+
+580
+00:15:44,076 --> 0:15:45,326
+So, we're delighted to tell you
+
+581
+00:15:45,456 --> 0:15:46,906
+that these Word Embeddings come
+
+582
+00:15:46,906 --> 0:15:48,396
+on the OS in seven different
+
+583
+00:15:48,396 --> 0:15:50,206
+languages for you to use, and
+
+584
+00:15:50,206 --> 0:15:51,426
+all of the functionalities I
+
+585
+00:15:51,456 --> 0:15:53,366
+just mentioned, you can use it
+
+586
+00:15:53,496 --> 0:15:54,946
+with one or two lines of code.
+
+587
+00:15:55,386 --> 0:15:56,686
+So, we're supporting it in seven
+
+588
+00:15:56,686 --> 0:15:58,406
+languages from English, Spanish,
+
+589
+00:15:58,406 --> 0:15:59,686
+French, Italian, German,
+
+590
+00:15:59,766 --> 0:16:01,226
+Portuguese, and simplified
+
+591
+00:15:59,766 --> 0:16:01,226
+Portuguese, and simplified
+
+592
+00:16:01,226 --> 0:16:01,706
+Chinese.
+
+593
+00:16:02,986 --> 0:16:04,146
+Now, this is great.
+
+594
+00:16:04,146 --> 0:16:05,546
+The OS embeddings are generally
+
+595
+00:16:05,626 --> 0:16:07,536
+framed on general corpora, large
+
+596
+00:16:07,536 --> 0:16:09,016
+amounts of text, billions and
+
+597
+00:16:09,016 --> 0:16:09,866
+billions of words.
+
+598
+00:16:10,406 --> 0:16:11,936
+So, they have a general notion
+
+599
+00:16:12,056 --> 0:16:14,126
+of what a relationship with a
+
+600
+00:16:14,126 --> 0:16:15,156
+particular word is.
+
+601
+00:16:15,876 --> 0:16:17,226
+But many a time, you want to do
+
+602
+00:16:17,226 --> 0:16:18,216
+something that's even more
+
+603
+00:16:18,296 --> 0:16:18,716
+custom.
+
+604
+00:16:19,846 --> 0:16:21,016
+So, perhaps you're working with
+
+605
+00:16:21,216 --> 0:16:22,366
+different sort of domains,
+
+606
+00:16:22,926 --> 0:16:24,206
+something in the medical domain
+
+607
+00:16:24,206 --> 0:16:25,566
+or the legal domain or the
+
+608
+00:16:25,566 --> 0:16:26,316
+financial domain.
+
+609
+00:16:27,046 --> 0:16:28,286
+So, if your domain is very
+
+610
+00:16:28,286 --> 0:16:30,316
+different, and the vocabulary of
+
+611
+00:16:30,316 --> 0:16:31,916
+words that you want to use in
+
+612
+00:16:31,916 --> 0:16:33,076
+your application is extremely
+
+613
+00:16:33,076 --> 0:16:34,806
+different, or maybe you just
+
+614
+00:16:34,806 --> 0:16:36,076
+want to train a word embedding
+
+615
+00:16:36,076 --> 0:16:37,426
+for a language that's not
+
+616
+00:16:37,426 --> 0:16:39,746
+supported on the OS, how do you
+
+617
+00:16:39,746 --> 0:16:40,886
+do that?
+
+618
+00:16:40,886 --> 0:16:41,966
+We have a provision for that
+
+619
+00:16:42,076 --> 0:16:42,466
+too.
+
+620
+00:16:43,366 --> 0:16:45,096
+You can use and bring custom
+
+621
+00:16:45,096 --> 0:16:45,786
+word embeddings.
+
+622
+00:16:46,506 --> 0:16:47,246
+So, those of you who are
+
+623
+00:16:47,246 --> 0:16:48,466
+familiar with word embeddings
+
+624
+00:16:48,466 --> 0:16:50,166
+and have seen this field evolve,
+
+625
+00:16:50,166 --> 0:16:51,856
+there are many third-party tools
+
+626
+00:16:51,856 --> 0:16:53,576
+to train your own embedding such
+
+627
+00:16:53,576 --> 0:16:55,866
+as word2vec, GloVe, fasttext.
+
+628
+00:16:56,366 --> 0:16:57,906
+So, you can bring your own text
+
+629
+00:16:58,306 --> 0:16:59,666
+or you can even use a Custom
+
+630
+00:16:59,666 --> 0:17:01,726
+Neural Network that you train
+
+631
+00:16:59,666 --> 0:17:01,726
+Neural Network that you train
+
+632
+00:17:01,726 --> 0:17:01,793
+in Keras TensorFlow or PyTorch.
+
+633
+00:17:01,793 --> 0:17:04,756
+So, go from raw data, you can
+
+634
+00:17:04,756 --> 0:17:06,756
+build your own embeddings, or
+
+635
+00:17:06,756 --> 0:17:07,935
+you can go to any one of these
+
+636
+00:17:07,935 --> 0:17:09,256
+websites and download their
+
+637
+00:17:09,256 --> 0:17:10,526
+pretrained word embeddings.
+
+638
+00:17:11,205 --> 0:17:13,106
+Now, the challenge there is when
+
+639
+00:17:13,106 --> 0:17:14,185
+you download any of these
+
+640
+00:17:14,185 --> 0:17:15,425
+embeddings, they are very, very
+
+641
+00:17:15,425 --> 0:17:15,866
+large.
+
+642
+00:17:16,256 --> 0:17:17,336
+They're 1 gigabyte or 2
+
+643
+00:17:17,336 --> 0:17:18,306
+gigabytes in size.
+
+644
+00:17:18,695 --> 0:17:19,826
+But you want to use it in your
+
+645
+00:17:19,826 --> 0:17:20,896
+app in a very compact and
+
+646
+00:17:20,896 --> 0:17:22,945
+efficient way, and we do just
+
+647
+00:17:23,006 --> 0:17:23,266
+that.
+
+648
+00:17:23,266 --> 0:17:25,336
+When you bring these embeddings
+
+649
+00:17:25,606 --> 0:17:26,915
+from third-party applications
+
+650
+00:17:26,915 --> 0:17:28,406
+and they're really large, we
+
+651
+00:17:28,406 --> 0:17:30,076
+automatically compress them into
+
+652
+00:17:30,076 --> 0:17:32,296
+a very compact format, and once
+
+653
+00:17:32,296 --> 0:17:33,576
+you have this compact format,
+
+654
+00:17:33,746 --> 0:17:35,446
+you can use it just like how you
+
+655
+00:17:35,446 --> 0:17:36,716
+use the OS embeddings.
+
+656
+00:17:37,436 --> 0:17:38,666
+But to tell you how you use
+
+657
+00:17:38,666 --> 0:17:40,206
+these embeddings, both the OS as
+
+658
+00:17:40,206 --> 0:17:41,746
+well as the custom, I'm going to
+
+659
+00:17:41,746 --> 0:17:42,836
+turn it over to Doug, who is
+
+660
+00:17:42,936 --> 0:17:45,666
+going to do a demo and then walk
+
+661
+00:17:45,666 --> 0:17:46,426
+you through the rest of the
+
+662
+00:17:46,426 --> 0:17:46,786
+session.
+
+663
+00:17:47,426 --> 0:17:48,066
+Over to you, Doug.
+
+664
+00:17:49,516 --> 0:17:55,836
+[ Applause ]
+
+665
+00:17:56,336 --> 0:17:57,036
+&gt;&gt; All right.
+
+666
+00:17:57,036 --> 0:17:58,196
+So, let's go over to the demo
+
+667
+00:17:58,196 --> 0:18:00,066
+machine here, and let's see some
+
+668
+00:17:58,196 --> 0:18:00,066
+machine here, and let's see some
+
+669
+00:18:00,066 --> 0:18:00,976
+of this in action.
+
+670
+00:18:01,656 --> 0:18:02,986
+So, the first thing I've done
+
+671
+00:18:02,986 --> 0:18:04,796
+here is to write a very tiny
+
+672
+00:18:04,796 --> 0:18:06,496
+demo application that helps us
+
+673
+00:18:06,496 --> 0:18:08,566
+explore Word Embeddings.
+
+674
+00:18:08,606 --> 0:18:10,456
+So, I type a word in here, and
+
+675
+00:18:10,456 --> 0:18:11,636
+it shows us the nearest
+
+676
+00:18:11,636 --> 0:18:13,676
+neighbor, nearest neighbors of
+
+677
+00:18:13,676 --> 0:18:15,296
+that word in embedding space.
+
+678
+00:18:15,636 --> 0:18:16,826
+Let's start by using the
+
+679
+00:18:16,826 --> 0:18:18,976
+built-in OS Word Embeddings for
+
+680
+00:18:18,976 --> 0:18:19,456
+English.
+
+681
+00:18:19,806 --> 0:18:21,466
+So, I type a word like chair,
+
+682
+00:18:21,666 --> 0:18:23,076
+and we see the nearest neighbors
+
+683
+00:18:23,076 --> 0:18:24,476
+of chair are words that are
+
+684
+00:18:24,476 --> 0:18:25,886
+similar in meaning to chair,
+
+685
+00:18:25,886 --> 0:18:28,246
+sofa, couch, and so forth, or I
+
+686
+00:18:28,246 --> 0:18:29,636
+could type in something like
+
+687
+00:18:29,716 --> 0:18:31,116
+bicycle.
+
+688
+00:18:31,796 --> 0:18:33,466
+And the nearest neighbors, bike
+
+689
+00:18:33,466 --> 0:18:34,666
+and motorcycle and so forth,
+
+690
+00:18:34,666 --> 0:18:36,166
+these are words that are close
+
+691
+00:18:36,166 --> 0:18:38,596
+in meaning to bicycle or maybe
+
+692
+00:18:39,216 --> 0:18:39,596
+book.
+
+693
+00:18:40,406 --> 0:18:41,256
+And we get words that are
+
+694
+00:18:41,256 --> 0:18:42,576
+similar in meaning to book.
+
+695
+00:18:43,026 --> 0:18:44,616
+So, what we can see from this,
+
+696
+00:18:44,936 --> 0:18:46,746
+we can understand that the
+
+697
+00:18:46,746 --> 0:18:48,316
+built-in OS Word Embeddings
+
+698
+00:18:48,716 --> 0:18:50,826
+represent the ordinary meanings
+
+699
+00:18:50,826 --> 0:18:52,936
+of words and the language and
+
+700
+00:18:53,006 --> 0:18:54,736
+recognize the similarity of
+
+701
+00:18:54,776 --> 0:18:57,876
+meanings as expressed in general
+
+702
+00:18:57,876 --> 0:18:59,206
+text in that language.
+
+703
+00:19:00,206 --> 0:19:02,596
+But, of course, what I'm really
+
+704
+00:19:02,596 --> 0:19:04,686
+interested in here is knowing
+
+705
+00:19:05,066 --> 0:19:06,216
+what do these embeddings
+
+706
+00:19:06,216 --> 0:19:08,916
+understand about cheese, because
+
+707
+00:19:08,916 --> 0:19:09,976
+we're dealing with a cheese
+
+708
+00:19:09,976 --> 0:19:10,726
+application here.
+
+709
+00:19:11,426 --> 0:19:12,936
+So, let me type in a cheese
+
+710
+00:19:12,936 --> 0:19:13,246
+word.
+
+711
+00:19:14,556 --> 0:19:16,156
+And take a look here, and what I
+
+712
+00:19:16,156 --> 0:19:18,996
+can see right away is that these
+
+713
+00:19:18,996 --> 0:19:21,446
+built-in embeddings do know what
+
+714
+00:19:21,446 --> 0:19:23,846
+cheese is, but I'm very
+
+715
+00:19:23,846 --> 0:19:24,506
+disappointed.
+
+716
+00:19:24,966 --> 0:19:26,196
+I can see these embeddings know
+
+717
+00:19:26,196 --> 0:19:27,566
+nothing about the finer points
+
+718
+00:19:27,566 --> 0:19:28,206
+of cheese.
+
+719
+00:19:29,406 --> 0:19:31,086
+Otherwise, they would never have
+
+720
+00:19:31,086 --> 0:19:32,796
+put these particular cheeses and
+
+721
+00:19:32,796 --> 0:19:34,086
+cheese-related things together.
+
+722
+00:19:34,086 --> 0:19:35,436
+They don't go together at all.
+
+723
+00:19:36,236 --> 0:19:37,706
+What I really want here is
+
+724
+00:19:37,706 --> 0:19:39,136
+something that understands the
+
+725
+00:19:39,136 --> 0:19:40,486
+relationships of cheeses.
+
+726
+00:19:40,776 --> 0:19:42,046
+So, I've taken the opportunity
+
+727
+00:19:42,046 --> 0:19:44,316
+to train my own custom cheese
+
+728
+00:19:44,316 --> 0:19:46,446
+embedding that puts cheeses
+
+729
+00:19:46,446 --> 0:19:47,316
+together based on their
+
+730
+00:19:47,316 --> 0:19:48,016
+similarity.
+
+731
+00:19:48,936 --> 0:19:50,116
+And let's switch over to it.
+
+732
+00:19:51,436 --> 0:19:52,616
+So, here are the neighbors of
+
+733
+00:19:52,616 --> 0:19:54,276
+cheddar in my own custom cheese
+
+734
+00:19:54,276 --> 0:19:54,716
+embedding.
+
+735
+00:19:54,966 --> 0:19:55,806
+This is much better.
+
+736
+00:19:56,586 --> 0:19:57,786
+We can see that it puts near
+
+737
+00:19:57,786 --> 0:19:59,646
+cheddar, it puts some fine
+
+738
+00:20:00,216 --> 0:20:01,596
+cheeses that are similar to
+
+739
+00:20:01,596 --> 0:20:03,446
+cheddar in texture like our
+
+740
+00:20:03,446 --> 0:20:05,096
+Lancashires, Double Gloucester,
+
+741
+00:20:05,096 --> 0:20:05,676
+and Cheshire.
+
+742
+00:20:06,666 --> 0:20:07,826
+So this is something that we can
+
+743
+00:20:07,826 --> 0:20:09,356
+use in our cheese application.
+
+744
+00:20:09,946 --> 0:20:10,896
+So, let's take a look at the
+
+745
+00:20:10,896 --> 0:20:12,886
+cheese application now.
+
+746
+00:20:15,426 --> 0:20:16,476
+So, I've been trying out some
+
+747
+00:20:16,476 --> 0:20:17,646
+ideas for our cheese
+
+748
+00:20:17,646 --> 0:20:18,266
+application.
+
+749
+00:20:18,266 --> 0:20:20,676
+Let's see how this looks.
+
+750
+00:20:21,226 --> 0:20:22,276
+So, when the user types
+
+751
+00:20:22,276 --> 0:20:23,406
+something in, the first thing
+
+752
+00:20:23,406 --> 0:20:25,486
+I'm going to do is get a
+
+753
+00:20:25,486 --> 0:20:27,826
+sentiment score on it to see and
+
+754
+00:20:27,826 --> 0:20:30,066
+check does this represent a
+
+755
+00:20:30,066 --> 0:20:31,446
+sentence with a positive
+
+756
+00:20:31,446 --> 0:20:34,146
+sentiment, and if it does, then
+
+757
+00:20:34,146 --> 0:20:35,436
+I'm going to go through it using
+
+758
+00:20:35,436 --> 0:20:39,156
+my tagger using, of course, our
+
+759
+00:20:39,156 --> 0:20:41,776
+custom cheese Gazetteer to see
+
+760
+00:20:41,776 --> 0:20:43,116
+whether the user mentioned any
+
+761
+00:20:43,146 --> 0:20:44,656
+cheeses in it.
+
+762
+00:20:45,356 --> 0:20:47,076
+And so I'll look for a cheese,
+
+763
+00:20:47,126 --> 0:20:48,826
+and if the user did mention a
+
+764
+00:20:48,826 --> 0:20:50,736
+cheese, then I'm going to pass
+
+765
+00:20:50,736 --> 0:20:52,296
+it through my custom cheese
+
+766
+00:20:52,296 --> 0:20:55,146
+embedding to find similar
+
+767
+00:20:55,146 --> 0:20:56,366
+related cheeses.
+
+768
+00:20:57,426 --> 0:20:58,336
+Sounds plausible?
+
+769
+00:20:58,336 --> 0:21:01,386
+Let's try it out.
+
+770
+00:20:58,336 --> 0:21:01,386
+Let's try it out.
+
+771
+00:21:01,656 --> 0:21:02,726
+Let's bring up our cheese
+
+772
+00:21:02,726 --> 0:21:08,816
+application, and so I visited
+
+773
+00:21:08,816 --> 0:21:10,136
+the Netherlands last year, and I
+
+774
+00:21:10,136 --> 0:21:11,796
+fell in love with Dutch cheeses,
+
+775
+00:21:11,796 --> 0:21:15,826
+so I'm going to tell my app
+
+776
+00:21:16,636 --> 0:21:16,986
+that.
+
+777
+00:21:16,986 --> 0:21:19,616
+So, this is a certainly a
+
+778
+00:21:19,616 --> 0:21:20,686
+sentence with a positive
+
+779
+00:21:20,686 --> 0:21:22,716
+sentiment, and it does reference
+
+780
+00:21:22,716 --> 0:21:24,006
+a particular cheese.
+
+781
+00:21:24,416 --> 0:21:27,586
+So, I go through, and now my app
+
+782
+00:21:27,876 --> 0:21:29,336
+can make recommendations of
+
+783
+00:21:29,336 --> 0:21:31,216
+cheeses that are similar to the
+
+784
+00:21:31,216 --> 0:21:32,296
+one that I mentioned here.
+
+785
+00:21:33,376 --> 0:21:35,186
+So, this shows of the power of
+
+786
+00:21:35,226 --> 0:21:36,946
+Word Embeddings, but even more
+
+787
+00:21:36,946 --> 0:21:39,166
+than that, it shows how the
+
+788
+00:21:39,166 --> 0:21:40,626
+natural, various NaturalLanguage
+
+789
+00:21:40,626 --> 0:21:43,566
+APIs can come together for
+
+790
+00:21:43,566 --> 0:21:44,906
+application functionality.
+
+791
+00:21:46,516 --> 0:21:50,736
+[ Applause ]
+
+792
+00:21:51,236 --> 0:21:52,656
+So, now, let's go back to the
+
+793
+00:21:52,656 --> 0:21:54,976
+slides, and I want to review
+
+794
+00:21:54,976 --> 0:21:57,496
+briefly how this looks in API.
+
+795
+00:21:58,466 --> 0:22:00,546
+So, if you want to use a
+
+796
+00:21:58,466 --> 0:22:00,546
+So, if you want to use a
+
+797
+00:22:00,666 --> 0:22:02,926
+built-in OS Word Embedding, it's
+
+798
+00:22:02,926 --> 0:22:03,546
+very simple.
+
+799
+00:22:03,806 --> 0:22:04,996
+All you do is ask for it.
+
+800
+00:22:05,206 --> 0:22:06,696
+Ask for the word embedding for a
+
+801
+00:22:06,696 --> 0:22:07,876
+particular language, and we'll
+
+802
+00:22:07,876 --> 0:22:08,346
+give it to you.
+
+803
+00:22:08,346 --> 0:22:10,976
+Once you have one of these NL
+
+804
+00:22:10,976 --> 0:22:12,766
+embedding objects, there are
+
+805
+00:22:12,766 --> 0:22:13,936
+various things you can do with
+
+806
+00:22:13,936 --> 0:22:14,106
+it.
+
+807
+00:22:14,536 --> 0:22:15,736
+You can, of course, get the
+
+808
+00:22:15,736 --> 0:22:16,886
+components, the vector
+
+809
+00:22:16,886 --> 0:22:18,866
+components, corresponding to any
+
+810
+00:22:18,866 --> 0:22:19,856
+particular entry.
+
+811
+00:22:21,136 --> 0:22:22,476
+You can find the distance
+
+812
+00:22:22,476 --> 0:22:24,326
+between two words, be it short
+
+813
+00:22:24,326 --> 0:22:26,436
+or far, in embedding space.
+
+814
+00:22:27,346 --> 0:22:28,936
+And as we saw in our cheese
+
+815
+00:22:28,936 --> 0:22:30,676
+application, you can go through
+
+816
+00:22:30,676 --> 0:22:32,166
+and find the nearest neighbors
+
+817
+00:22:32,596 --> 0:22:35,296
+of any particular item in this
+
+818
+00:22:35,426 --> 0:22:37,186
+embedding space.
+
+819
+00:22:37,796 --> 0:22:40,436
+If you want to use a custom word
+
+820
+00:22:40,436 --> 0:22:43,346
+embedding, then to create it,
+
+821
+00:22:43,346 --> 0:22:46,496
+you go over to Create ML, and
+
+822
+00:22:46,546 --> 0:22:48,486
+you need, of course, all of the
+
+823
+00:22:48,486 --> 0:22:50,316
+vectors that represent your
+
+824
+00:22:50,316 --> 0:22:50,846
+embedding.
+
+825
+00:22:51,186 --> 0:22:52,596
+I can't really show them all to
+
+826
+00:22:52,596 --> 0:22:53,986
+you right here in the slide
+
+827
+00:22:53,986 --> 0:22:55,536
+because there are 50 or 100
+
+828
+00:22:55,856 --> 0:22:57,736
+components long, but here's an
+
+829
+00:22:57,736 --> 0:22:59,906
+example of what they look like.
+
+830
+00:22:59,906 --> 0:23:01,146
+In practice, you're probably
+
+831
+00:22:59,906 --> 0:23:01,146
+In practice, you're probably
+
+832
+00:23:01,176 --> 0:23:02,396
+going to be bringing them in
+
+833
+00:23:02,396 --> 0:23:04,486
+from a file using the various
+
+834
+00:23:04,486 --> 0:23:06,656
+Create ML facilities for loading
+
+835
+00:23:06,656 --> 0:23:07,746
+data from files.
+
+836
+00:23:08,076 --> 0:23:12,476
+And then you just create a word
+
+837
+00:23:12,476 --> 0:23:15,336
+embedding object from it and
+
+838
+00:23:15,336 --> 0:23:16,376
+write it out to disc.
+
+839
+00:23:16,376 --> 0:23:18,056
+Now, what's going on when you do
+
+840
+00:23:18,056 --> 0:23:18,376
+this?
+
+841
+00:23:19,036 --> 0:23:22,256
+Well, in practice, these
+
+842
+00:23:22,256 --> 0:23:23,796
+embeddings tend to be quite
+
+843
+00:23:23,796 --> 0:23:25,936
+large, hundreds of dimensions
+
+844
+00:23:25,936 --> 0:23:27,206
+times thousands of entries.
+
+845
+00:23:27,206 --> 0:23:30,066
+It could be huge, and they could
+
+846
+00:23:30,066 --> 0:23:32,206
+take a lot of space on disc,
+
+847
+00:23:32,776 --> 0:23:34,846
+naively and be expensive to
+
+848
+00:23:34,846 --> 0:23:35,286
+search.
+
+849
+00:23:35,856 --> 0:23:38,336
+But when you compile them into
+
+850
+00:23:38,336 --> 0:23:41,416
+our word embedding object, then
+
+851
+00:23:41,416 --> 0:23:43,836
+under the hood what we do is we
+
+852
+00:23:43,836 --> 0:23:46,346
+use a product quantization
+
+853
+00:23:46,346 --> 0:23:47,906
+technique to achieve a high
+
+854
+00:23:47,906 --> 0:23:50,856
+degree of compression, and we
+
+855
+00:23:50,856 --> 0:23:53,336
+add indexes so you can do fast
+
+856
+00:23:53,506 --> 0:23:55,456
+searching for nearest neighbors,
+
+857
+00:23:55,456 --> 0:23:56,926
+as you saw in our examples.
+
+858
+00:23:57,606 --> 0:23:59,196
+Just try this out.
+
+859
+00:23:59,626 --> 0:24:00,926
+We took some very large
+
+860
+00:23:59,626 --> 0:24:00,926
+We took some very large
+
+861
+00:24:00,926 --> 0:24:02,766
+embeddings that are readily
+
+862
+00:24:02,766 --> 0:24:04,256
+available as open source.
+
+863
+00:24:04,446 --> 0:24:06,456
+This is some GloVe and fasttext
+
+864
+00:24:06,456 --> 0:24:06,916
+embeddings.
+
+865
+00:24:06,916 --> 0:24:08,876
+These are a gigabyte or 2
+
+866
+00:24:08,876 --> 0:24:11,046
+gigabytes in uncompressed form.
+
+867
+00:24:11,686 --> 0:24:13,956
+When we put them into our NL
+
+868
+00:24:13,956 --> 0:24:15,606
+embedding compressed format,
+
+869
+00:24:16,206 --> 0:24:17,736
+they're only tens of megabytes,
+
+870
+00:24:18,136 --> 0:24:19,086
+and you can search through them
+
+871
+00:24:19,086 --> 0:24:20,146
+for nearest neighbors in just a
+
+872
+00:24:20,146 --> 0:24:21,176
+couple of milliseconds.
+
+873
+00:24:23,056 --> 0:24:23,976
+Closer to home--
+
+874
+00:24:24,516 --> 0:24:27,716
+[ Applause ]
+
+875
+00:24:28,216 --> 0:24:30,146
+For an example, closer to home,
+
+876
+00:24:30,266 --> 0:24:32,406
+Apple does a lot with podcasts,
+
+877
+00:24:32,536 --> 0:24:34,516
+so our podcast group, we talked
+
+878
+00:24:34,516 --> 0:24:36,616
+to them, and they, as it
+
+879
+00:24:36,616 --> 0:24:38,226
+happens, have an embedding for
+
+880
+00:24:38,226 --> 0:24:40,426
+podcasts that represents the
+
+881
+00:24:40,426 --> 0:24:42,786
+similarity of various podcasts,
+
+882
+00:24:42,786 --> 0:24:43,686
+one to another.
+
+883
+00:24:44,346 --> 0:24:46,196
+So, we thought we'd try it out
+
+884
+00:24:46,226 --> 0:24:48,186
+and see what would happen if we
+
+885
+00:24:48,186 --> 0:24:49,886
+took this embedding and put it
+
+886
+00:24:49,886 --> 0:24:51,826
+into our NL embedding format.
+
+887
+00:24:52,456 --> 0:24:54,156
+So this embedding represents
+
+888
+00:24:54,156 --> 0:24:57,466
+66,000 different podcasts, and
+
+889
+00:24:57,466 --> 0:24:59,486
+source form is 167 megabytes,
+
+890
+00:24:59,526 --> 0:25:00,906
+but we compress it down to just
+
+891
+00:24:59,526 --> 0:25:00,906
+but we compress it down to just
+
+892
+00:25:00,906 --> 0:25:02,976
+3 megabytes on disc.
+
+893
+00:25:03,326 --> 0:25:05,716
+So what NL embedding does is it
+
+894
+00:25:05,716 --> 0:25:08,246
+makes it practical to include
+
+895
+00:25:08,246 --> 0:25:10,376
+these embeddings and use them on
+
+896
+00:25:11,036 --> 0:25:12,616
+, on the device, in your
+
+897
+00:25:12,616 --> 0:25:13,236
+application.
+
+898
+00:25:16,716 --> 0:25:17,276
+All right.
+
+899
+00:25:17,996 --> 0:25:19,716
+So, next I want to switch and
+
+900
+00:25:19,716 --> 0:25:22,646
+talk about another thing that's
+
+901
+00:25:22,646 --> 0:25:24,976
+related to Word Embeddings, and
+
+902
+00:25:24,976 --> 0:25:26,886
+that is Transfer Learning for
+
+903
+00:25:26,956 --> 0:25:28,036
+Text Classification.
+
+904
+00:25:29,356 --> 0:25:31,886
+So, I'd like to start by talking
+
+905
+00:25:31,886 --> 0:25:33,516
+a little bit about what we do,
+
+906
+00:25:33,516 --> 0:25:36,806
+what it is we do when we train a
+
+907
+00:25:36,806 --> 0:25:37,936
+text classifier.
+
+908
+00:25:39,176 --> 0:25:40,886
+So, when we're training a text
+
+909
+00:25:40,886 --> 0:25:44,076
+classifier, we give it a set of
+
+910
+00:25:44,076 --> 0:25:47,096
+examples for various classes.
+
+911
+00:25:47,636 --> 0:25:50,476
+You can pass that in to Create
+
+912
+00:25:50,476 --> 0:25:50,826
+ML.
+
+913
+00:25:50,826 --> 0:25:52,346
+Create ML will call on Natural
+
+914
+00:25:52,346 --> 0:25:52,946
+Language.
+
+915
+00:25:53,506 --> 0:25:55,766
+We will trained a classifier and
+
+916
+00:25:55,876 --> 0:25:58,136
+out will come a Core ML model.
+
+917
+00:25:58,506 --> 0:26:00,686
+And what we hope is that these
+
+918
+00:25:58,506 --> 0:26:00,686
+And what we hope is that these
+
+919
+00:26:00,686 --> 0:26:04,256
+examples will give sufficient
+
+920
+00:26:04,576 --> 0:26:06,626
+information about the various
+
+921
+00:26:06,686 --> 0:26:08,546
+classes that the model can
+
+922
+00:26:08,546 --> 0:26:11,916
+generalize to classify examples
+
+923
+00:26:11,916 --> 0:26:12,926
+that it hasn't seen.
+
+924
+00:26:13,406 --> 0:26:15,126
+And, of course, we have already
+
+925
+00:26:15,366 --> 0:26:17,786
+shipped this last year, and we
+
+926
+00:26:17,786 --> 0:26:20,566
+have algorithms for training
+
+927
+00:26:20,566 --> 0:26:23,136
+these models, most notably our
+
+928
+00:26:23,136 --> 0:26:24,846
+standard algorithm is what we
+
+929
+00:26:24,846 --> 0:26:26,926
+call the maxEnt algorithm, based
+
+930
+00:26:26,926 --> 0:26:27,966
+on logistic compression.
+
+931
+00:26:28,336 --> 0:26:30,266
+It's very fast, robust, and
+
+932
+00:26:30,266 --> 0:26:30,816
+effective.
+
+933
+00:26:31,666 --> 0:26:35,126
+But one thing about it is it
+
+934
+00:26:35,126 --> 0:26:36,876
+doesn't know anything except
+
+935
+00:26:36,876 --> 0:26:39,076
+what it learns from the training
+
+936
+00:26:39,076 --> 0:26:41,846
+data that you give it.
+
+937
+00:26:42,116 --> 0:26:45,566
+So, you have to make sure that
+
+938
+00:26:45,566 --> 0:26:46,876
+the training material you give
+
+939
+00:26:46,876 --> 0:26:50,736
+it covers essentially all of the
+
+940
+00:26:50,736 --> 0:26:52,296
+sort of things that you expect
+
+941
+00:26:52,296 --> 0:26:55,156
+to see in examples in practice.
+
+942
+00:26:55,386 --> 0:26:57,336
+So, in some sense, we've done
+
+943
+00:26:57,336 --> 0:26:58,736
+the easy part of creating the
+
+944
+00:26:58,736 --> 0:27:00,136
+algorithm and left you the hard
+
+945
+00:26:58,736 --> 0:27:00,136
+algorithm and left you the hard
+
+946
+00:27:00,136 --> 0:27:02,276
+part of producing the training
+
+947
+00:27:02,966 --> 0:27:03,096
+data.
+
+948
+00:27:03,716 --> 0:27:06,916
+But, wouldn't it be nice if we
+
+949
+00:27:06,916 --> 0:27:09,216
+could take advantage of prior
+
+950
+00:27:09,216 --> 0:27:11,386
+knowledge of the language and
+
+951
+00:27:12,316 --> 0:27:14,736
+then maybe use that in
+
+952
+00:27:14,766 --> 0:27:16,966
+conjunction with some smaller
+
+953
+00:27:16,966 --> 0:27:18,526
+amount of training material that
+
+954
+00:27:18,526 --> 0:27:21,366
+you have to provide in order to
+
+955
+00:27:21,366 --> 0:27:24,616
+train a model that would combine
+
+956
+00:27:24,696 --> 0:27:26,886
+these two and so hopefully
+
+957
+00:27:26,886 --> 0:27:28,736
+understand more about the
+
+958
+00:27:28,736 --> 0:27:31,176
+examples it's going to see with
+
+959
+00:27:31,176 --> 0:27:32,496
+less in the way of training
+
+960
+00:27:32,496 --> 0:27:33,046
+material.
+
+961
+00:27:34,426 --> 0:27:36,686
+And so this is the promise of
+
+962
+00:27:36,856 --> 0:27:37,866
+Transfer Learning.
+
+963
+00:27:38,576 --> 0:27:41,036
+This is a highly active research
+
+964
+00:27:41,036 --> 0:27:43,876
+area in NLP, and I'm happy to
+
+965
+00:27:43,876 --> 0:27:45,786
+say we have a solution for this
+
+966
+00:27:46,136 --> 0:27:47,326
+that we're delivering now.
+
+967
+00:27:48,286 --> 0:27:50,426
+Again, NaturalLanguage trains a
+
+968
+00:27:50,426 --> 0:27:52,396
+model, and the outcome is a Core
+
+969
+00:27:52,396 --> 0:27:52,946
+ML model.
+
+970
+00:27:53,326 --> 0:27:54,916
+But how are we going to
+
+971
+00:27:54,916 --> 0:27:56,966
+incorporate previous knowledge
+
+972
+00:27:56,966 --> 0:27:57,696
+of the language?
+
+973
+00:27:58,026 --> 0:27:58,886
+Where are we going to get it?
+
+974
+00:27:59,946 --> 0:28:03,966
+Well, Word Embeddings provide a
+
+975
+00:27:59,946 --> 0:28:03,966
+Well, Word Embeddings provide a
+
+976
+00:28:04,006 --> 0:28:05,806
+great deal of knowledge of the
+
+977
+00:28:05,806 --> 0:28:06,376
+language.
+
+978
+00:28:06,376 --> 0:28:07,656
+In particular, they know quite a
+
+979
+00:28:07,656 --> 0:28:10,626
+bit about the meaning of words.
+
+980
+00:28:11,296 --> 0:28:13,996
+So, our solution uses Word
+
+981
+00:28:13,996 --> 0:28:16,026
+Embeddings, takes the training
+
+982
+00:28:16,026 --> 0:28:18,056
+material you provide, puts them
+
+983
+00:28:18,056 --> 0:28:19,466
+through the Word Embeddings, and
+
+984
+00:28:19,466 --> 0:28:21,686
+then on top of that we train a
+
+985
+00:28:21,686 --> 0:28:25,596
+Neural Network model, and that
+
+986
+00:28:26,096 --> 0:28:27,986
+is what we provide as a Transfer
+
+987
+00:28:27,986 --> 0:28:30,026
+Learning Text Classification
+
+988
+00:28:30,026 --> 0:28:30,456
+model.
+
+989
+00:28:31,556 --> 0:28:32,686
+Now, there's a lot of work going
+
+990
+00:28:32,686 --> 0:28:34,716
+on here, but if you want to use
+
+991
+00:28:34,716 --> 0:28:36,786
+it, all you have to do is ask
+
+992
+00:28:36,786 --> 0:28:37,156
+for it.
+
+993
+00:28:38,496 --> 0:28:42,416
+You just change one parameter in
+
+994
+00:28:42,416 --> 0:28:43,566
+the specification of the
+
+995
+00:28:43,566 --> 0:28:45,436
+algorithm that you want when
+
+996
+00:28:45,436 --> 0:28:46,516
+training a Transfer Learning
+
+997
+00:28:46,516 --> 0:28:46,876
+model.
+
+998
+00:28:47,216 --> 0:28:48,566
+Now, there are a few different
+
+999
+00:28:48,566 --> 0:28:49,366
+options here.
+
+1000
+00:28:50,056 --> 0:28:52,776
+So, the first one, most obvious
+
+1001
+00:28:52,776 --> 0:28:54,696
+is, you can use the built-in OS
+
+1002
+00:28:54,696 --> 0:28:56,806
+Word Embeddings that represent
+
+1003
+00:28:57,296 --> 0:29:00,486
+the ordinary meaning of words,
+
+1004
+00:28:57,296 --> 0:29:00,486
+the ordinary meaning of words,
+
+1005
+00:29:00,656 --> 0:29:02,696
+and if you have a custom Word
+
+1006
+00:29:02,696 --> 0:29:03,936
+Embeddings, you could also use
+
+1007
+00:29:03,936 --> 0:29:06,106
+that as well.
+
+1008
+00:29:06,306 --> 0:29:10,066
+We know that a given word can
+
+1009
+00:29:10,066 --> 0:29:11,236
+have very different meanings,
+
+1010
+00:29:11,236 --> 0:29:12,456
+depending on how it appears in
+
+1011
+00:29:12,456 --> 0:29:13,586
+the context of a sentence.
+
+1012
+00:29:14,016 --> 0:29:15,316
+So, for example, Apple in these
+
+1013
+00:29:15,316 --> 0:29:16,526
+two sentences has very different
+
+1014
+00:29:16,526 --> 0:29:16,896
+meanings.
+
+1015
+00:29:18,206 --> 0:29:20,586
+So, what we'd like is to have an
+
+1016
+00:29:20,586 --> 0:29:22,356
+embedding for Transfer Learning
+
+1017
+00:29:22,356 --> 0:29:24,766
+purposes that gives different
+
+1018
+00:29:25,386 --> 0:29:28,816
+values for these words depending
+
+1019
+00:29:28,816 --> 0:29:31,226
+on their meaning and context.
+
+1020
+00:29:31,226 --> 0:29:32,366
+And, of course, an ordinary word
+
+1021
+00:29:32,366 --> 0:29:34,966
+embedding, it just maps words to
+
+1022
+00:29:34,966 --> 0:29:37,306
+vectors, and it will give the
+
+1023
+00:29:37,306 --> 0:29:39,036
+same value for the word no
+
+1024
+00:29:39,036 --> 0:29:40,076
+matter how it appears.
+
+1025
+00:29:41,466 --> 0:29:44,876
+But, what we have done is
+
+1026
+00:29:44,876 --> 0:29:46,866
+trained a specialized embedding
+
+1027
+00:29:46,976 --> 0:29:50,356
+that gives different values for
+
+1028
+00:29:50,356 --> 0:29:51,656
+the words depending on their
+
+1029
+00:29:51,656 --> 0:29:52,866
+meaning and context.
+
+1030
+00:29:53,446 --> 0:29:54,886
+Now, to give you some idea of
+
+1031
+00:29:54,886 --> 0:29:56,086
+how fast the field is moving,
+
+1032
+00:29:56,086 --> 0:29:57,456
+this is something that was just
+
+1033
+00:29:57,456 --> 0:30:00,166
+researched a year ago, and we're
+
+1034
+00:29:57,456 --> 0:30:00,166
+researched a year ago, and we're
+
+1035
+00:30:00,166 --> 0:30:03,156
+delivering it now.
+
+1036
+00:30:03,376 --> 0:30:04,796
+And again, if you want to use
+
+1037
+00:30:04,796 --> 0:30:06,546
+it, you just ask for it.
+
+1038
+00:30:07,076 --> 0:30:08,486
+You specify the dynamic
+
+1039
+00:30:08,486 --> 0:30:08,956
+embedding.
+
+1040
+00:30:09,186 --> 0:30:10,426
+So, the dynamic embedding
+
+1041
+00:30:10,956 --> 0:30:13,366
+changes the value of the
+
+1042
+00:30:13,366 --> 0:30:15,106
+embedding for words depending on
+
+1043
+00:30:15,106 --> 0:30:17,766
+their sentence context, and this
+
+1044
+00:30:17,766 --> 0:30:20,016
+is a very powerful technique for
+
+1045
+00:30:20,016 --> 0:30:21,566
+doing Transfer Learning for Test
+
+1046
+00:30:21,566 --> 0:30:22,296
+Classification.
+
+1047
+00:30:23,546 --> 0:30:25,206
+Well, let's see it.
+
+1048
+00:30:27,056 --> 0:30:27,676
+All right.
+
+1049
+00:30:27,906 --> 0:30:30,716
+So, here what I have is some
+
+1050
+00:30:30,716 --> 0:30:32,636
+fairly standard code for
+
+1051
+00:30:32,676 --> 0:30:34,566
+training a Text Classifier using
+
+1052
+00:30:34,566 --> 0:30:37,236
+Create ML, and what I'm going to
+
+1053
+00:30:37,236 --> 0:30:39,056
+be training, this is based on a
+
+1054
+00:30:39,056 --> 0:30:41,326
+dataset using an Open Source
+
+1055
+00:30:41,766 --> 0:30:43,836
+encyclopedia called DBpedia.
+
+1056
+00:30:44,676 --> 0:30:46,486
+It has short entries about many
+
+1057
+00:30:46,486 --> 0:30:47,426
+different topics.
+
+1058
+00:30:47,496 --> 0:30:49,456
+Some of them are people,
+
+1059
+00:30:49,456 --> 0:30:51,096
+artists, writers, plants,
+
+1060
+00:30:51,096 --> 0:30:52,616
+animals, and so forth, and the
+
+1061
+00:30:52,616 --> 0:30:55,146
+task here is to determine from
+
+1062
+00:30:55,146 --> 0:30:56,746
+the entry what the
+
+1063
+00:30:56,876 --> 0:30:59,186
+classification is, whether it's
+
+1064
+00:30:59,186 --> 0:31:01,396
+a person or writer or artist,
+
+1065
+00:30:59,186 --> 0:31:01,396
+a person or writer or artist,
+
+1066
+00:31:01,396 --> 0:31:01,886
+etc.
+
+1067
+00:31:01,956 --> 0:31:04,186
+And there are 14 different
+
+1068
+00:31:04,186 --> 0:31:05,546
+classes here, and I'm going to
+
+1069
+00:31:05,546 --> 0:31:07,036
+try and train a classifier using
+
+1070
+00:31:07,036 --> 0:31:08,406
+only 200 examples.
+
+1071
+00:31:08,906 --> 0:31:11,016
+So, it's a fairly difficult task
+
+1072
+00:31:11,016 --> 0:31:13,766
+here, and so let's just-- let's
+
+1073
+00:31:13,766 --> 0:31:15,656
+try it with our existing maxEnt
+
+1074
+00:31:15,776 --> 0:31:16,236
+model.
+
+1075
+00:31:17,356 --> 0:31:19,006
+So, I'll fire it off.
+
+1076
+00:31:19,436 --> 0:31:21,316
+It starts, and it's done.
+
+1077
+00:31:22,776 --> 0:31:25,296
+Very fast and easy, and on our
+
+1078
+00:31:25,296 --> 0:31:29,026
+training-- if we take a look at
+
+1079
+00:31:29,026 --> 0:31:30,966
+our performance on our test set,
+
+1080
+00:31:31,286 --> 0:31:34,116
+we see it got 77% accuracy.
+
+1081
+00:31:35,116 --> 0:31:39,566
+That's okay, but can we do
+
+1082
+00:31:39,676 --> 0:31:39,796
+better?
+
+1083
+00:31:39,796 --> 0:31:41,756
+Well, let's make one little
+
+1084
+00:31:41,756 --> 0:31:43,926
+change to our code here.
+
+1085
+00:31:44,266 --> 0:31:46,856
+Instead of using the maxEnt
+
+1086
+00:31:46,856 --> 0:31:47,986
+model, we're going to use the
+
+1087
+00:31:47,986 --> 0:31:49,526
+Transfer Learning with Dynamic
+
+1088
+00:31:49,526 --> 0:31:53,266
+Embeddings, and let's start it.
+
+1089
+00:31:54,736 --> 0:31:56,186
+Now, as I mentioned, this is
+
+1090
+00:31:56,186 --> 0:31:57,956
+training a Neural Network model,
+
+1091
+00:31:58,136 --> 0:31:59,526
+so it takes a little bit longer,
+
+1092
+00:32:00,256 --> 0:32:02,606
+so while it's training, let's
+
+1093
+00:32:02,606 --> 0:32:04,286
+just take a little closer look
+
+1094
+00:32:04,326 --> 0:32:05,596
+at the data that we're training
+
+1095
+00:32:05,596 --> 0:32:05,916
+on.
+
+1096
+00:32:06,326 --> 0:32:08,196
+As it turns out, when you're
+
+1097
+00:32:08,196 --> 0:32:09,646
+training Neural Network models,
+
+1098
+00:32:09,916 --> 0:32:11,556
+it's important to pay close
+
+1099
+00:32:11,556 --> 0:32:13,616
+attention to the data that you
+
+1100
+00:32:13,616 --> 0:32:14,216
+train it on.
+
+1101
+00:32:14,596 --> 0:32:17,166
+So, notice that this data is a
+
+1102
+00:32:17,276 --> 0:32:19,386
+random sample across the various
+
+1103
+00:32:19,386 --> 0:32:22,646
+classes, and I've arranged it so
+
+1104
+00:32:22,646 --> 0:32:23,846
+that they're roughly the same
+
+1105
+00:32:23,846 --> 0:32:25,996
+number of instances for each
+
+1106
+00:32:26,046 --> 0:32:26,676
+class.
+
+1107
+00:32:27,186 --> 0:32:28,346
+It's a balanced set.
+
+1108
+00:32:29,366 --> 0:32:30,626
+This is our training set.
+
+1109
+00:32:30,626 --> 0:32:31,926
+In addition, we also have a
+
+1110
+00:32:31,926 --> 0:32:34,146
+separate validation set that is
+
+1111
+00:32:34,146 --> 0:32:36,226
+similarly a random sampling of
+
+1112
+00:32:36,226 --> 0:32:38,546
+examples across classes, maybe
+
+1113
+00:32:38,546 --> 0:32:39,756
+not quite as large as the
+
+1114
+00:32:39,756 --> 0:32:41,296
+training set, but balanced.
+
+1115
+00:32:41,986 --> 0:32:43,246
+And the validation set is
+
+1116
+00:32:43,306 --> 0:32:44,886
+particularly important in this
+
+1117
+00:32:44,886 --> 0:32:45,536
+kind of training.
+
+1118
+00:32:45,996 --> 0:32:48,466
+Neural Network training has a
+
+1119
+00:32:48,516 --> 0:32:50,846
+tendency to over fitting, where
+
+1120
+00:32:50,846 --> 0:32:52,666
+it more or less memorizes the
+
+1121
+00:32:52,666 --> 0:32:53,916
+training material and doesn't
+
+1122
+00:32:54,056 --> 0:32:54,816
+generalize.
+
+1123
+00:32:55,096 --> 0:32:56,616
+The validation set helps keep it
+
+1124
+00:32:56,616 --> 0:32:57,976
+honest and make sure it
+
+1125
+00:32:57,976 --> 0:32:59,316
+continues to generalize.
+
+1126
+00:33:00,146 --> 0:33:01,376
+And then, of course, we also
+
+1127
+00:33:01,376 --> 0:33:03,946
+have a separate test set that's
+
+1128
+00:33:03,946 --> 0:33:05,846
+similarly randomly sampled and
+
+1129
+00:33:05,846 --> 0:33:08,056
+balanced, and of course there
+
+1130
+00:33:08,056 --> 0:33:10,196
+can't be any overlap between the
+
+1131
+00:33:10,196 --> 0:33:12,006
+training validation test sets.
+
+1132
+00:33:12,006 --> 0:33:12,796
+That would be cheating.
+
+1133
+00:33:13,966 --> 0:33:16,606
+And the test set we need to see
+
+1134
+00:33:16,606 --> 0:33:17,576
+how well we're doing, in
+
+1135
+00:33:17,576 --> 0:33:19,586
+particular in this case, we need
+
+1136
+00:33:19,586 --> 0:33:22,296
+it so that we can see whether
+
+1137
+00:33:22,296 --> 0:33:24,646
+the Transfer Learning model is
+
+1138
+00:33:24,646 --> 0:33:27,766
+doing better than our maxEnt
+
+1139
+00:33:27,766 --> 0:33:28,126
+model.
+
+1140
+00:33:28,596 --> 0:33:29,866
+And it looks like it's finished
+
+1141
+00:33:29,866 --> 0:33:31,046
+now, so let's take a look and
+
+1142
+00:33:31,046 --> 0:33:31,326
+see.
+
+1143
+00:33:31,606 --> 0:33:36,486
+And we can see here that the
+
+1144
+00:33:36,486 --> 0:33:38,576
+Transfer Learning has achieved
+
+1145
+00:33:38,576 --> 0:33:41,106
+an accuracy of 86.5%, much
+
+1146
+00:33:41,186 --> 0:33:45,976
+better than our maxEnt model.
+
+1147
+00:33:46,516 --> 0:33:51,796
+[ Applause ]
+
+1148
+00:33:52,296 --> 0:33:55,996
+So, how does this apply to our
+
+1149
+00:33:55,996 --> 0:33:56,976
+cheese application?
+
+1150
+00:33:57,056 --> 0:33:59,536
+Well, what I've done is I've
+
+1151
+00:33:59,576 --> 0:34:01,746
+taken my cheese tasting notes,
+
+1152
+00:33:59,576 --> 0:34:01,746
+taken my cheese tasting notes,
+
+1153
+00:34:03,146 --> 0:34:05,726
+and I labeled them each by the
+
+1154
+00:34:05,756 --> 0:34:07,116
+cheese that they referred to,
+
+1155
+00:34:07,396 --> 0:34:09,626
+and I use that to train a cheese
+
+1156
+00:34:09,626 --> 0:34:10,676
+classifier model.
+
+1157
+00:34:10,676 --> 0:34:13,196
+And so my cheese classifier
+
+1158
+00:34:13,196 --> 0:34:16,146
+model can take a sentence and
+
+1159
+00:34:16,246 --> 0:34:18,216
+try to classify it and determine
+
+1160
+00:34:18,216 --> 0:34:20,156
+which cheese it most closely
+
+1161
+00:34:20,156 --> 0:34:20,866
+refers to.
+
+1162
+00:34:21,016 --> 0:34:24,036
+And I put that into my cheese
+
+1163
+00:34:24,036 --> 0:34:27,936
+application, and so, what I'm
+
+1164
+00:34:27,936 --> 0:34:28,826
+going to do in the cheese
+
+1165
+00:34:28,826 --> 0:34:32,366
+application is if the user
+
+1166
+00:34:32,366 --> 0:34:33,545
+didn't refer to a specific
+
+1167
+00:34:33,585 --> 0:34:34,936
+cheese, then I'm going to try to
+
+1168
+00:34:34,936 --> 0:34:36,136
+figure out which cheese they
+
+1169
+00:34:36,136 --> 0:34:36,746
+might want.
+
+1170
+00:34:37,255 --> 0:34:39,456
+And all I do is ask the model
+
+1171
+00:34:39,456 --> 0:34:41,306
+for the label for the text.
+
+1172
+00:34:42,076 --> 0:34:43,226
+And very simple.
+
+1173
+00:34:43,226 --> 0:34:45,000
+Let's try it out.
+
+1174
+00:35:01,046 --> 0:35:02,336
+So, I'm going to type in
+
+1175
+00:35:02,336 --> 0:35:03,000
+something here.
+
+1176
+00:35:15,486 --> 0:35:18,936
+And we'll let the cheese
+
+1177
+00:35:18,936 --> 0:35:20,966
+classifier work on it.
+
+1178
+00:35:21,516 --> 0:35:23,536
+And so the cheese classifier
+
+1179
+00:35:23,696 --> 0:35:24,996
+determined that this is most
+
+1180
+00:35:25,046 --> 0:35:26,716
+closely resembling Camembert,
+
+1181
+00:35:27,066 --> 0:35:29,066
+and then my cheese embedding has
+
+1182
+00:35:29,066 --> 0:35:30,516
+recommended some other cheeses
+
+1183
+00:35:30,516 --> 0:35:31,936
+that are very similar, Brie and
+
+1184
+00:35:31,936 --> 0:35:32,756
+so on and so forth.
+
+1185
+00:35:34,156 --> 0:35:36,000
+Or, maybe I say--
+
+1186
+00:35:45,386 --> 0:35:46,826
+Something firm and sharp and it
+
+1187
+00:35:46,826 --> 0:35:47,946
+recognizes that as resembling
+
+1188
+00:35:48,286 --> 0:35:49,826
+cheddar, and it recommends some
+
+1189
+00:35:50,036 --> 0:35:50,966
+similar cheeses to us.
+
+1190
+00:35:51,001 --> 0:35:53,001
+[applause]
+
+1191
+00:35:53,036 --> 0:35:54,386
+So, this again shows us the
+
+1192
+00:35:54,426 --> 0:35:57,596
+power of Text Classification in
+
+1193
+00:35:57,596 --> 0:35:59,746
+combination with the other
+
+1194
+00:35:59,956 --> 0:36:01,486
+NaturalLanguage APIs.
+
+1195
+00:35:59,956 --> 0:36:01,486
+NaturalLanguage APIs.
+
+1196
+00:36:01,736 --> 0:36:03,276
+So, I'd like to finish off with
+
+1197
+00:36:03,276 --> 0:36:05,366
+some considerations for the use
+
+1198
+00:36:05,456 --> 0:36:07,656
+of the Text Classification.
+
+1199
+00:36:07,656 --> 0:36:09,266
+First of all, we need to note
+
+1200
+00:36:09,266 --> 0:36:10,756
+the languages that are supported
+
+1201
+00:36:11,166 --> 0:36:12,846
+for transfer learning, either
+
+1202
+00:36:12,846 --> 0:36:14,956
+via Static Embeddings or the
+
+1203
+00:36:14,956 --> 0:36:17,746
+special Dynamic Embeddings that
+
+1204
+00:36:17,886 --> 0:36:19,576
+take context into account.
+
+1205
+00:36:20,026 --> 0:36:23,196
+And then I want to talk a bit
+
+1206
+00:36:23,196 --> 0:36:25,056
+about, more about data.
+
+1207
+00:36:26,326 --> 0:36:28,446
+So, the first commandment when
+
+1208
+00:36:28,446 --> 0:36:29,626
+dealing with data is that you
+
+1209
+00:36:29,626 --> 0:36:31,676
+need to understand the domain
+
+1210
+00:36:31,676 --> 0:36:32,296
+you're working with.
+
+1211
+00:36:33,506 --> 0:36:35,036
+What kind of text do you expect
+
+1212
+00:36:35,036 --> 0:36:36,176
+to see in practice?
+
+1213
+00:36:36,396 --> 0:36:37,626
+Is it going to be sentence
+
+1214
+00:36:37,626 --> 0:36:39,086
+fragments, full sentences,
+
+1215
+00:36:39,086 --> 0:36:41,556
+multiple sentences, and make
+
+1216
+00:36:41,556 --> 0:36:43,576
+sure that your training data is
+
+1217
+00:36:43,576 --> 0:36:45,526
+as similar as possible to the
+
+1218
+00:36:45,526 --> 0:36:47,106
+text that you expect to see and
+
+1219
+00:36:47,106 --> 0:36:48,576
+try to classify in practice.
+
+1220
+00:36:49,646 --> 0:36:52,026
+And covers as much as possible
+
+1221
+00:36:52,286 --> 0:36:53,646
+of the variations that you're
+
+1222
+00:36:53,646 --> 0:36:55,866
+likely to see when you encounter
+
+1223
+00:36:55,866 --> 0:36:57,776
+this text in your application.
+
+1224
+00:36:58,906 --> 0:37:02,746
+And, as we saw in our DBpedia
+
+1225
+00:36:58,906 --> 0:37:02,746
+And, as we saw in our DBpedia
+
+1226
+00:37:02,746 --> 0:37:04,806
+example, you want to make sure
+
+1227
+00:37:05,266 --> 0:37:08,806
+that you have randomly sampled
+
+1228
+00:37:08,806 --> 0:37:11,316
+as much as possible distinct
+
+1229
+00:37:11,316 --> 0:37:13,606
+sets for training, for
+
+1230
+00:37:13,606 --> 0:37:15,266
+validation, and tests.
+
+1231
+00:37:15,766 --> 0:37:17,696
+This is basic data hygiene.
+
+1232
+00:37:18,096 --> 0:37:21,706
+And how do you know which
+
+1233
+00:37:21,706 --> 0:37:23,306
+algorithm will be best for your
+
+1234
+00:37:23,306 --> 0:37:23,916
+case?
+
+1235
+00:37:24,336 --> 0:37:25,616
+Well, in general, you'll have to
+
+1236
+00:37:25,616 --> 0:37:28,426
+try it, but some guidelines.
+
+1237
+00:37:28,626 --> 0:37:29,886
+You can start with the maxEnt
+
+1238
+00:37:29,886 --> 0:37:30,466
+classifier.
+
+1239
+00:37:30,466 --> 0:37:31,456
+It's very fast.
+
+1240
+00:37:31,456 --> 0:37:32,606
+It will give you an answer.
+
+1241
+00:37:33,766 --> 0:37:35,206
+But what does a maxEnt
+
+1242
+00:37:35,206 --> 0:37:36,356
+classifier do?
+
+1243
+00:37:36,896 --> 0:37:38,926
+A maxEnt classifier works by
+
+1244
+00:37:38,926 --> 0:37:41,556
+noticing the words that are used
+
+1245
+00:37:42,146 --> 0:37:44,056
+most often in the training
+
+1246
+00:37:44,056 --> 0:37:44,556
+material.
+
+1247
+00:37:45,096 --> 0:37:46,806
+So, for example, if you're
+
+1248
+00:37:46,806 --> 0:37:49,756
+trying to train positive and
+
+1249
+00:37:49,756 --> 0:37:51,486
+negative, it might notice words
+
+1250
+00:37:51,486 --> 0:37:52,676
+like love and happy are
+
+1251
+00:37:52,736 --> 0:37:54,166
+positive, hate and unhappy
+
+1252
+00:37:54,166 --> 0:37:54,666
+negative.
+
+1253
+00:37:55,326 --> 0:37:57,406
+And if the examples you
+
+1254
+00:37:57,406 --> 0:37:59,106
+encounter in practice use these
+
+1255
+00:37:59,106 --> 0:38:00,426
+same words, then the maxEnt
+
+1256
+00:37:59,106 --> 0:38:00,426
+same words, then the maxEnt
+
+1257
+00:38:00,426 --> 0:38:01,876
+classifier is going to work very
+
+1258
+00:38:01,876 --> 0:38:02,146
+well.
+
+1259
+00:38:02,676 --> 0:38:08,146
+What the Transfer Learning does
+
+1260
+00:38:08,456 --> 0:38:10,076
+is it notices the meaning of
+
+1261
+00:38:10,076 --> 0:38:10,546
+words.
+
+1262
+00:38:11,056 --> 0:38:12,906
+So if the examples you encounter
+
+1263
+00:38:12,906 --> 0:38:14,476
+in practice are likely to
+
+1264
+00:38:14,476 --> 0:38:16,926
+express a similar meaning with
+
+1265
+00:38:17,016 --> 0:38:20,426
+different words, then that is
+
+1266
+00:38:20,426 --> 0:38:21,786
+the case where Transfer Learning
+
+1267
+00:38:21,786 --> 0:38:24,476
+shines and it's likely to do
+
+1268
+00:38:24,476 --> 0:38:27,156
+better than the simple maxEnt
+
+1269
+00:38:27,156 --> 0:38:27,546
+model.
+
+1270
+00:38:28,046 --> 0:38:33,086
+So, to summarize, we have new
+
+1271
+00:38:33,086 --> 0:38:35,676
+APIs available for Sentiment
+
+1272
+00:38:35,676 --> 0:38:38,706
+Analysis, for Text Catalogs with
+
+1273
+00:38:38,706 --> 0:38:41,906
+MLGazetteer, for Word Embeddings
+
+1274
+00:38:41,996 --> 0:38:45,376
+with NL embedding, and we have a
+
+1275
+00:38:45,376 --> 0:38:47,306
+new type of text classification,
+
+1276
+00:38:47,466 --> 0:38:49,046
+a particularly powerful new type
+
+1277
+00:38:49,716 --> 0:38:51,736
+that takes advantage of Transfer
+
+1278
+00:38:51,736 --> 0:38:52,056
+Learning.
+
+1279
+00:38:53,096 --> 0:38:55,226
+I hope you'll take advantage of
+
+1280
+00:38:55,226 --> 0:38:58,086
+these in your applications, and
+
+1281
+00:38:58,426 --> 0:38:59,566
+there's much more information
+
+1282
+00:38:59,566 --> 0:39:01,496
+available online, and there are
+
+1283
+00:38:59,566 --> 0:39:01,496
+available online, and there are
+
+1284
+00:39:01,496 --> 0:39:04,256
+other related sessions that you
+
+1285
+00:39:04,256 --> 0:39:05,256
+can take a look at.
+
+1286
+00:39:06,356 --> 0:39:06,796
+Thank you.
+
+1287
+00:39:07,516 --> 0:39:12,500
+[ Applause ]

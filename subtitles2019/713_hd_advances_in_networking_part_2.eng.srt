@@ -1,0 +1,7851 @@
+1
+00:00:00,506 --> 0:00:04,516
+[ Music ]
+
+2
+00:00:05,516 --> 0:00:07,546
+[ Applause ]
+
+3
+00:00:08,045 --> 0:00:10,456
+&gt;&gt; Hello and welcome to Advances
+
+4
+00:00:10,456 --> 0:00:11,786
+in Networking Part 2.
+
+5
+00:00:12,356 --> 0:00:13,686
+If you couldn't join us for Part
+
+6
+00:00:13,686 --> 0:00:15,056
+1, it will be available for
+
+7
+00:00:15,056 --> 0:00:16,766
+streaming soon on the app and on
+
+8
+00:00:16,766 --> 0:00:17,046
+the web.
+
+9
+00:00:18,486 --> 0:00:19,806
+I'm Eric Kinnear from Internet
+
+10
+00:00:19,806 --> 0:00:20,456
+Technologies.
+
+11
+00:00:20,706 --> 0:00:21,866
+I'll be joined today by my
+
+12
+00:00:21,866 --> 0:00:23,506
+colleagues Tommy and Stuart.
+
+13
+00:00:23,986 --> 0:00:26,566
+We've got a lot to cover in Part
+
+14
+00:00:26,566 --> 0:00:26,746
+2.
+
+15
+00:00:27,226 --> 0:00:28,336
+We're going to start by
+
+16
+00:00:28,336 --> 0:00:29,946
+expanding the horizons of what
+
+17
+00:00:29,946 --> 0:00:31,036
+you can do with Bonjour
+
+18
+00:00:31,036 --> 0:00:31,466
+browsing.
+
+19
+00:00:32,235 --> 0:00:33,146
+We'll talk about how you can
+
+20
+00:00:33,146 --> 0:00:35,236
+achieve efficient and easy
+
+21
+00:00:35,236 --> 0:00:36,886
+message transport by building
+
+22
+00:00:36,886 --> 0:00:37,726
+framing protocols.
+
+23
+00:00:38,406 --> 0:00:39,556
+We'll take a look at some new
+
+24
+00:00:39,726 --> 0:00:41,126
+and improved metric collection.
+
+25
+00:00:41,356 --> 0:00:42,746
+And we'll finish off with some
+
+26
+00:00:42,746 --> 0:00:44,286
+status updates and some best
+
+27
+00:00:44,286 --> 0:00:45,866
+practices to help networking in
+
+28
+00:00:45,866 --> 0:00:47,766
+your app become the best it can
+
+29
+00:00:47,766 --> 0:00:47,986
+be.
+
+30
+00:00:49,476 --> 0:00:50,846
+Before we begin, a brief
+
+31
+00:00:50,846 --> 0:00:51,246
+reminder.
+
+32
+00:00:52,646 --> 0:00:54,506
+If you're using URLSession and
+
+33
+00:00:54,506 --> 0:00:55,876
+Network.framework, you'll be
+
+34
+00:00:55,876 --> 0:00:56,786
+able to take advantage of
+
+35
+00:00:56,876 --> 0:00:57,946
+everything we're talking about
+
+36
+00:00:57,946 --> 0:00:58,166
+today.
+
+37
+00:00:59,116 --> 0:01:00,826
+If you're not, these are some
+
+38
+00:00:59,116 --> 0:01:00,826
+If you're not, these are some
+
+39
+00:01:00,826 --> 0:01:02,146
+additional reasons why you
+
+40
+00:01:02,146 --> 0:01:03,256
+should switch to a more modern
+
+41
+00:01:03,256 --> 0:01:05,525
+networking API.
+
+42
+00:01:05,786 --> 0:01:07,546
+Let's jump right in with Bonjour
+
+43
+00:01:09,676 --> 0:01:09,876
+browsing.
+
+44
+00:01:09,986 --> 0:01:11,666
+Bonjour is how you advertise and
+
+45
+00:01:11,666 --> 0:01:12,876
+discover services on the
+
+46
+00:01:12,876 --> 0:01:13,256
+network.
+
+47
+00:01:13,656 --> 0:01:15,666
+It's used anytime you print with
+
+48
+00:01:15,666 --> 0:01:17,886
+AirPrint, connect to an
+
+49
+00:01:17,886 --> 0:01:19,906
+airplane-enabled device, use
+
+50
+00:01:19,906 --> 0:01:21,356
+HomeKit to automate your home,
+
+51
+00:01:21,776 --> 0:01:23,356
+really anytime you are
+
+52
+00:01:23,356 --> 0:01:24,726
+connecting to something without
+
+53
+00:01:24,726 --> 0:01:26,456
+typing in an IP address or a
+
+54
+00:01:26,456 --> 0:01:26,946
+host name.
+
+55
+00:01:27,766 --> 0:01:29,306
+And as you know, Bonjour is
+
+56
+00:01:29,306 --> 0:01:30,426
+available on all Apple
+
+57
+00:01:30,426 --> 0:01:30,976
+platforms.
+
+58
+00:01:31,546 --> 0:01:33,156
+And it's also available on
+
+59
+00:01:33,156 --> 0:01:36,226
+Linux, Android, Chrome OS, it's
+
+60
+00:01:36,226 --> 0:01:37,566
+how Chromecast does discovery.
+
+61
+00:01:38,486 --> 0:01:39,886
+What you may not know is that
+
+62
+00:01:39,886 --> 0:01:41,476
+Microsoft also quietly added
+
+63
+00:01:41,476 --> 0:01:43,346
+Bonjour support to Windows 10
+
+64
+00:01:43,346 --> 0:01:44,426
+back in 2015.
+
+65
+00:01:45,316 --> 0:01:46,076
+And since then the
+
+66
+00:01:46,076 --> 0:01:47,216
+implementation has matured.
+
+67
+00:01:48,066 --> 0:01:49,416
+This means that Bonjour is now
+
+68
+00:01:49,416 --> 0:01:51,006
+available on every major
+
+69
+00:01:51,006 --> 0:01:51,456
+platform.
+
+70
+00:01:53,876 --> 0:01:55,866
+Today, we've got some exciting
+
+71
+00:01:55,866 --> 0:01:56,866
+enhancements to share in this
+
+72
+00:01:56,866 --> 0:01:57,196
+area.
+
+73
+00:01:57,706 --> 0:01:59,416
+Sometimes you're on one network
+
+74
+00:02:00,006 --> 0:02:00,846
+and you'd like to discover
+
+75
+00:02:00,846 --> 0:02:02,336
+services that are available on a
+
+76
+00:02:02,336 --> 0:02:03,016
+different network.
+
+77
+00:02:03,606 --> 0:02:04,996
+Say you've got a device and
+
+78
+00:02:04,996 --> 0:02:06,226
+you'd like to print to a printer
+
+79
+00:02:06,726 --> 0:02:08,286
+that's on a different subnet and
+
+80
+00:02:08,286 --> 0:02:09,356
+multiple hops away.
+
+81
+00:02:10,196 --> 0:02:11,616
+Right now, you would send
+
+82
+00:02:11,616 --> 0:02:13,286
+multicast packets on your local
+
+83
+00:02:13,286 --> 0:02:14,546
+network and you wouldn't hear
+
+84
+00:02:14,546 --> 0:02:15,436
+anything back.
+
+85
+00:02:16,606 --> 0:02:18,026
+A discovery proxy solves this
+
+86
+00:02:18,026 --> 0:02:18,386
+problem.
+
+87
+00:02:19,356 --> 0:02:20,986
+You can now send unicast packets
+
+88
+00:02:21,216 --> 0:02:22,486
+over to the discovery proxy.
+
+89
+00:02:22,956 --> 0:02:24,176
+It will send out the multicast
+
+90
+00:02:24,176 --> 0:02:25,386
+packets on the destination
+
+91
+00:02:25,386 --> 0:02:27,556
+subnet, receive the response and
+
+92
+00:02:27,556 --> 0:02:28,806
+proxy the results back to you.
+
+93
+00:02:29,636 --> 0:02:30,956
+Now you can connect directly to
+
+94
+00:02:30,956 --> 0:02:32,736
+your printer and voila, we've
+
+95
+00:02:32,736 --> 0:02:34,976
+got our document.
+
+96
+00:02:35,516 --> 0:02:37,946
+[ Applause ]
+
+97
+00:02:38,446 --> 0:02:39,756
+We're excited to announce that
+
+98
+00:02:39,756 --> 0:02:41,506
+the code for this on the client
+
+99
+00:02:41,506 --> 0:02:42,776
+side is included in your
+
+100
+00:02:42,776 --> 0:02:44,846
+developer seed and a server
+
+101
+00:02:44,846 --> 0:02:46,446
+implementation along with
+
+102
+00:02:46,446 --> 0:02:47,846
+instruction for setting it up
+
+103
+00:02:48,106 --> 0:02:49,176
+are available on GitHub.
+
+104
+00:02:49,786 --> 0:02:52,596
+Let's take a look at what this
+
+105
+00:02:52,596 --> 0:02:53,346
+means for your app.
+
+106
+00:02:54,686 --> 0:02:55,956
+Previously, it's been the
+
+107
+00:02:55,956 --> 0:02:57,436
+recommendation that when
+
+108
+00:02:57,436 --> 0:02:58,566
+browsing you should specifying
+
+109
+00:02:58,566 --> 0:02:59,416
+nil for a domain.
+
+110
+00:03:00,166 --> 0:03:01,236
+And this continues to be the
+
+111
+00:03:01,236 --> 0:03:02,836
+case and the right answer for
+
+112
+00:03:02,836 --> 0:03:03,986
+almost every situation.
+
+113
+00:03:05,096 --> 0:03:06,156
+In the past you may not have
+
+114
+00:03:06,156 --> 0:03:07,596
+noticed much difference, but now
+
+115
+00:03:07,596 --> 0:03:08,546
+this starts to have a bigger
+
+116
+00:03:08,546 --> 0:03:11,226
+effect, specifying local will
+
+117
+00:03:11,226 --> 0:03:13,716
+explicitly prevent discovery of
+
+118
+00:03:13,806 --> 0:03:15,896
+any remote or proxied services.
+
+119
+00:03:16,716 --> 0:03:18,046
+This is probably not what you
+
+120
+00:03:18,046 --> 0:03:18,316
+want.
+
+121
+00:03:18,316 --> 0:03:19,856
+So double check that your browse
+
+122
+00:03:19,856 --> 0:03:21,226
+calls aren't inadvertently
+
+123
+00:03:21,226 --> 0:03:22,136
+specifying a domain.
+
+124
+00:03:23,546 --> 0:03:24,316
+And while you're browsing
+
+125
+00:03:24,316 --> 0:03:25,316
+services while building your
+
+126
+00:03:25,746 --> 0:03:26,616
+app, let's take a look at how
+
+127
+00:03:26,616 --> 0:03:27,486
+some new features in
+
+128
+00:03:27,486 --> 0:03:29,366
+Network.framework can make
+
+129
+00:03:29,486 --> 0:03:31,346
+browsing for Bonjour even easier
+
+130
+00:03:31,596 --> 0:03:32,696
+especially in Swift.
+
+131
+00:03:34,226 --> 0:03:35,536
+Last year, we introduced
+
+132
+00:03:35,536 --> 0:03:37,276
+NWListener and NWConnection
+
+133
+00:03:37,516 --> 0:03:38,586
+along with Network.framework.
+
+134
+00:03:39,286 --> 0:03:40,876
+For example, you can have an
+
+135
+00:03:40,876 --> 0:03:42,646
+NWListener advertising a Bonjour
+
+136
+00:03:42,646 --> 0:03:44,186
+service and you can have an
+
+137
+00:03:44,226 --> 0:03:45,886
+NWConnection connects to a
+
+138
+00:03:45,886 --> 0:03:46,996
+Bonjour service endpoint.
+
+139
+00:03:47,986 --> 0:03:49,056
+But you had to use one of the
+
+140
+00:03:49,056 --> 0:03:50,666
+other Bonjour browsing APIs to
+
+141
+00:03:50,666 --> 0:03:52,366
+discover the available services.
+
+142
+00:03:53,006 --> 0:03:54,426
+And once you found one, you had
+
+143
+00:03:54,426 --> 0:03:55,616
+to do a bunch of work to convert
+
+144
+00:03:55,616 --> 0:03:56,696
+it into an endpoint that you
+
+145
+00:03:56,696 --> 0:03:57,786
+could use with your connection.
+
+146
+00:03:59,046 --> 0:04:00,596
+Today, we are thrilled to
+
+147
+00:03:59,046 --> 0:04:00,596
+Today, we are thrilled to
+
+148
+00:04:00,596 --> 0:04:02,246
+announce native browsing support
+
+149
+00:04:02,466 --> 0:04:03,526
+in Network.framework via the
+
+150
+00:04:03,526 --> 0:04:04,826
+NWBrowser object.
+
+151
+00:04:06,016 --> 0:04:07,786
+Browser joints connection and
+
+152
+00:04:07,786 --> 0:04:09,416
+listener to cover the entire
+
+153
+00:04:09,416 --> 0:04:11,536
+workflow from advertise to
+
+154
+00:04:11,536 --> 0:04:13,866
+discover to connect, all using
+
+155
+00:04:13,866 --> 0:04:14,876
+the Network.framework objects
+
+156
+00:04:14,906 --> 0:04:15,766
+that you're already familiar
+
+157
+00:04:15,766 --> 0:04:15,966
+with.
+
+158
+00:04:19,156 --> 0:04:20,916
+Browser provides native service
+
+159
+00:04:20,916 --> 0:04:22,616
+discovery in Network.framework
+
+160
+00:04:23,276 --> 0:04:25,386
+using a modern dispatch-based
+
+161
+00:04:25,386 --> 0:04:27,176
+API that's optimized to work
+
+162
+00:04:27,176 --> 0:04:28,686
+incredibly well in Swift.
+
+163
+00:04:29,486 --> 0:04:30,796
+It also includes optional
+
+164
+00:04:30,796 --> 0:04:32,596
+support for TXT records.
+
+165
+00:04:33,426 --> 0:04:34,816
+So if your application needs it,
+
+166
+00:04:34,996 --> 0:04:36,476
+you can ensure that a TXT record
+
+167
+00:04:36,476 --> 0:04:37,936
+is requested for every
+
+168
+00:04:37,936 --> 0:04:38,736
+discovered endpoint.
+
+169
+00:04:39,226 --> 0:04:42,396
+Let's take a look at how we use
+
+170
+00:04:42,396 --> 0:04:42,846
+our browser.
+
+171
+00:04:43,866 --> 0:04:45,596
+We can init it using a Bonjour
+
+172
+00:04:45,596 --> 0:04:46,946
+service type that we'd like to
+
+173
+00:04:46,946 --> 0:04:48,696
+discover and some NWParameters
+
+174
+00:04:48,696 --> 0:04:50,026
+which is how you tell it what
+
+175
+00:04:50,026 --> 0:04:51,016
+you'd like to-- how you'd like
+
+176
+00:04:51,016 --> 0:04:52,426
+to browse, the same way you do
+
+177
+00:04:52,426 --> 0:04:53,396
+all other Network.framework
+
+178
+00:04:53,396 --> 0:04:53,896
+objects.
+
+179
+00:04:54,506 --> 0:04:55,596
+Next, you can set a
+
+180
+00:04:55,596 --> 0:04:56,916
+browseResultsChangedHandler
+
+181
+00:04:57,876 --> 0:04:59,286
+which will be called to deliver
+
+182
+00:04:59,546 --> 0:05:00,806
+the list of available endpoints
+
+183
+00:04:59,546 --> 0:05:00,806
+the list of available endpoints
+
+184
+00:05:00,806 --> 0:05:01,546
+that have been discovered.
+
+185
+00:05:02,306 --> 0:05:03,856
+And finally, just like other
+
+186
+00:05:03,856 --> 0:05:05,206
+Network.framework objects, you
+
+187
+00:05:05,206 --> 0:05:07,046
+start the browser on a dispatch
+
+188
+00:05:07,046 --> 0:05:07,866
+queue where you'd like to
+
+189
+00:05:07,866 --> 0:05:08,956
+receive those callbacks.
+
+190
+00:05:09,486 --> 0:05:11,906
+Let's take a closer look at the
+
+191
+00:05:11,906 --> 0:05:13,026
+browseResultsChangedHandler.
+
+192
+00:05:13,946 --> 0:05:14,846
+You have two options.
+
+193
+00:05:15,176 --> 0:05:17,026
+First, you can provide a handler
+
+194
+00:05:17,366 --> 0:05:18,846
+that receives the detailed list
+
+195
+00:05:18,846 --> 0:05:19,966
+of all changes that have
+
+196
+00:05:19,966 --> 0:05:20,786
+happened in that update.
+
+197
+00:05:21,436 --> 0:05:23,206
+This aligns very closely with
+
+198
+00:05:23,206 --> 0:05:24,546
+the lower level APIs and
+
+199
+00:05:24,546 --> 0:05:26,066
+provides you full visibility
+
+200
+00:05:26,276 --> 0:05:27,496
+into everything that changed.
+
+201
+00:05:28,056 --> 0:05:29,696
+Endpoints can be added or
+
+202
+00:05:29,696 --> 0:05:31,686
+removed and they can also have
+
+203
+00:05:31,686 --> 0:05:32,886
+their inner details changed.
+
+204
+00:05:33,716 --> 0:05:34,926
+Those changes are represented by
+
+205
+00:05:34,926 --> 0:05:35,546
+flags.
+
+206
+00:05:36,436 --> 0:05:38,076
+And in this case, we'll check
+
+207
+00:05:38,076 --> 0:05:39,696
+for interfaces being added or
+
+208
+00:05:39,696 --> 0:05:40,906
+removed as endpoints are
+
+209
+00:05:40,906 --> 0:05:42,026
+discovered over additional
+
+210
+00:05:42,026 --> 0:05:42,586
+interfaces.
+
+211
+00:05:43,136 --> 0:05:45,996
+You can also choose to provide a
+
+212
+00:05:45,996 --> 0:05:47,916
+handler that just looks at the
+
+213
+00:05:47,916 --> 0:05:49,916
+latest list of results that have
+
+214
+00:05:49,956 --> 0:05:50,596
+been discovered.
+
+215
+00:05:51,476 --> 0:05:52,786
+Be careful if you do this
+
+216
+00:05:52,986 --> 0:05:53,916
+because this handler will be
+
+217
+00:05:53,916 --> 0:05:55,636
+called repeatedly as the list of
+
+218
+00:05:55,636 --> 0:05:57,076
+available endpoints changes.
+
+219
+00:05:57,676 --> 0:05:58,516
+So make sure that you're
+
+220
+00:05:58,516 --> 0:05:59,846
+updating the state and the rest
+
+221
+00:05:59,846 --> 0:06:00,626
+of your application
+
+222
+00:05:59,846 --> 0:06:00,626
+of your application
+
+223
+00:06:00,626 --> 0:06:01,246
+appropriately.
+
+224
+00:06:05,096 --> 0:06:06,566
+Let's see an example of the
+
+225
+00:06:06,566 --> 0:06:07,576
+NWBrowser in action.
+
+226
+00:06:08,476 --> 0:06:09,976
+We're going to make an app that
+
+227
+00:06:09,976 --> 0:06:12,126
+provides a service discovery and
+
+228
+00:06:12,126 --> 0:06:13,756
+secure connectivity between two
+
+229
+00:06:13,756 --> 0:06:14,246
+devices.
+
+230
+00:06:15,206 --> 0:06:16,236
+In our case we're going to make
+
+231
+00:06:16,236 --> 0:06:17,426
+it a tic-tac-toe game.
+
+232
+00:06:17,856 --> 0:06:18,856
+But you could use this for
+
+233
+00:06:18,856 --> 0:06:19,846
+pretty much anything else.
+
+234
+00:06:21,136 --> 0:06:22,516
+We're going to use an NWListener
+
+235
+00:06:22,516 --> 0:06:23,666
+to advertise games to nearby
+
+236
+00:06:23,666 --> 0:06:25,246
+players, we're going to use
+
+237
+00:06:25,246 --> 0:06:26,866
+NWBrowser to browse for the
+
+238
+00:06:26,866 --> 0:06:28,746
+games that are available nearby,
+
+239
+00:06:29,036 --> 0:06:30,346
+and we're going to take one of
+
+240
+00:06:30,346 --> 0:06:31,416
+those browse results once the
+
+241
+00:06:31,416 --> 0:06:32,616
+user picks a game they'd like to
+
+242
+00:06:32,616 --> 0:06:32,856
+join.
+
+243
+00:06:32,856 --> 0:06:34,486
+And we're going to pass it an
+
+244
+00:06:34,486 --> 0:06:36,536
+NWConnection to connect back to
+
+245
+00:06:36,536 --> 0:06:36,946
+our listener.
+
+246
+00:06:36,946 --> 0:06:39,416
+Let's take a look at this in
+
+247
+00:06:39,416 --> 0:06:39,976
+Xcode.
+
+248
+00:06:47,416 --> 0:06:49,376
+Here I've got my application and
+
+249
+00:06:49,376 --> 0:06:50,476
+we've already written a bunch of
+
+250
+00:06:50,516 --> 0:06:52,716
+code to handle doing some
+
+251
+00:06:52,716 --> 0:06:54,706
+different views displaying a
+
+252
+00:06:54,706 --> 0:06:56,006
+list of available games to the
+
+253
+00:06:56,006 --> 0:06:57,256
+user, letting them host the
+
+254
+00:06:57,256 --> 0:06:58,366
+game, stuff like that.
+
+255
+00:06:58,626 --> 0:06:59,866
+So, here we can just focus on
+
+256
+00:06:59,866 --> 0:07:00,286
+the browser.
+
+257
+00:06:59,866 --> 0:07:00,286
+the browser.
+
+258
+00:07:00,856 --> 0:07:02,816
+I've got a class called
+
+259
+00:07:02,886 --> 0:07:04,656
+PeerBrowser, which I'm going to
+
+260
+00:07:04,656 --> 0:07:06,676
+use to manage my NWBrowser and
+
+261
+00:07:06,676 --> 0:07:08,006
+provide a PeerBrowserDelegate
+
+262
+00:07:08,006 --> 0:07:09,716
+that will pass the list of
+
+263
+00:07:09,716 --> 0:07:11,406
+discovered endpoints too so the
+
+264
+00:07:11,406 --> 0:07:12,846
+UI can display them to the user.
+
+265
+00:07:14,536 --> 0:07:15,936
+First, I need to add my
+
+266
+00:07:15,936 --> 0:07:17,656
+NWBrowser as an instance
+
+267
+00:07:17,656 --> 0:07:18,806
+property on the PeerBrowser.
+
+268
+00:07:21,216 --> 0:07:22,766
+Next, we see that when the
+
+269
+00:07:22,766 --> 0:07:24,706
+PeerBrowser is initted, it will
+
+270
+00:07:24,706 --> 0:07:26,166
+immediately call startBrowsing.
+
+271
+00:07:27,126 --> 0:07:28,666
+We need to fill that in.
+
+272
+00:07:29,916 --> 0:07:31,846
+First, I'm going to create some
+
+273
+00:07:31,846 --> 0:07:33,576
+NWParameters which is the same
+
+274
+00:07:33,576 --> 0:07:34,916
+objects that you use with other
+
+275
+00:07:34,916 --> 0:07:36,206
+Network.framework objects to
+
+276
+00:07:36,206 --> 0:07:37,296
+describe how you'd like to
+
+277
+00:07:37,296 --> 0:07:38,126
+interact with the network.
+
+278
+00:07:38,716 --> 0:07:39,636
+In this case the default
+
+279
+00:07:39,636 --> 0:07:41,146
+parameters are just fine but
+
+280
+00:07:41,376 --> 0:07:43,046
+we'll set includePeerToPeer to
+
+281
+00:07:43,046 --> 0:07:45,276
+true so that we can discover
+
+282
+00:07:45,276 --> 0:07:46,926
+other available games even if
+
+283
+00:07:46,926 --> 0:07:48,406
+the devices aren't on the same
+
+284
+00:07:48,406 --> 0:07:49,066
+physical network.
+
+285
+00:07:52,576 --> 0:07:55,006
+Next, we'll create our NWBrowser
+
+286
+00:07:56,236 --> 0:07:58,076
+browsing for a service type of
+
+287
+00:07:58,126 --> 0:07:59,216
+tictactoe.tcp.
+
+288
+00:07:59,216 --> 0:08:01,356
+And we'll make sure to specify
+
+289
+00:07:59,216 --> 0:08:01,356
+And we'll make sure to specify
+
+290
+00:08:01,356 --> 0:08:02,286
+nil for the domain.
+
+291
+00:08:03,616 --> 0:08:04,856
+We'll use the parameters that we
+
+292
+00:08:04,856 --> 0:08:06,536
+created earlier and save it off
+
+293
+00:08:06,536 --> 0:08:07,296
+into our peer browser.
+
+294
+00:08:07,806 --> 0:08:10,066
+Next, we'll set a
+
+295
+00:08:10,066 --> 0:08:11,876
+stateUpdateHandler just like we
+
+296
+00:08:11,876 --> 0:08:12,826
+do with other Network.framework
+
+297
+00:08:12,826 --> 0:08:14,756
+objects to receive updates about
+
+298
+00:08:14,756 --> 0:08:15,966
+the state of our browser if
+
+299
+00:08:15,966 --> 0:08:17,366
+there's any errors, how it's
+
+300
+00:08:17,366 --> 0:08:18,866
+going, things like that, and
+
+301
+00:08:20,936 --> 0:08:21,996
+then we'll set our
+
+302
+00:08:21,996 --> 0:08:23,166
+browseResultsChangedHandler.
+
+303
+00:08:24,226 --> 0:08:25,096
+Here it's really simple.
+
+304
+00:08:25,436 --> 0:08:26,946
+We take the list of results, we
+
+305
+00:08:26,946 --> 0:08:28,216
+pass them off to our delegate to
+
+306
+00:08:28,216 --> 0:08:29,776
+be displayed in the UI, and we
+
+307
+00:08:29,776 --> 0:08:30,806
+make sure that our delegate is
+
+308
+00:08:30,806 --> 0:08:32,826
+coded in such a way that it
+
+309
+00:08:32,826 --> 0:08:34,275
+refreshes the UI every time this
+
+310
+00:08:34,275 --> 0:08:35,275
+happens so we can always
+
+311
+00:08:35,275 --> 0:08:36,885
+represent the latest list of
+
+312
+00:08:36,885 --> 0:08:37,736
+discovered endpoints.
+
+313
+00:08:41,556 --> 0:08:43,785
+Finally, we start the browser on
+
+314
+00:08:43,785 --> 0:08:44,996
+the main queue since that's
+
+315
+00:08:44,996 --> 0:08:45,876
+where we'd like to receive our
+
+316
+00:08:45,876 --> 0:08:46,276
+updates.
+
+317
+00:08:46,786 --> 0:08:49,696
+And that's it.
+
+318
+00:08:50,236 --> 0:08:51,726
+With just that code, we're able
+
+319
+00:08:51,726 --> 0:08:53,546
+to bring up an NWBrowser, have
+
+320
+00:08:53,546 --> 0:08:54,996
+it discover nearby games
+
+321
+00:08:55,256 --> 0:08:56,376
+potentially over peer to peer
+
+322
+00:08:56,376 --> 0:08:58,076
+links and display a list of
+
+323
+00:08:58,076 --> 0:08:59,626
+available games to the user so
+
+324
+00:08:59,626 --> 0:09:00,456
+they can choose which one to
+
+325
+00:08:59,626 --> 0:09:00,456
+they can choose which one to
+
+326
+00:09:00,456 --> 0:09:00,856
+connect to.
+
+327
+00:09:00,856 --> 0:09:05,466
+We'll talk a little bit later
+
+328
+00:09:05,466 --> 0:09:06,226
+about our listener and
+
+329
+00:09:06,226 --> 0:09:07,796
+connection, but all of this code
+
+330
+00:09:07,796 --> 0:09:08,846
+is available for download as
+
+331
+00:09:08,846 --> 0:09:10,376
+sample code off the website.
+
+332
+00:09:10,376 --> 0:09:12,266
+And there's one thing I want to
+
+333
+00:09:12,266 --> 0:09:13,846
+touch on before we try it out.
+
+334
+00:09:14,786 --> 0:09:16,966
+We've got our NWParameters that
+
+335
+00:09:16,966 --> 0:09:17,886
+we're going to use with our
+
+336
+00:09:17,886 --> 0:09:18,926
+listeners and connections.
+
+337
+00:09:19,506 --> 0:09:20,536
+And earlier I mentioned that we
+
+338
+00:09:20,536 --> 0:09:21,806
+want to make sure that our
+
+339
+00:09:21,806 --> 0:09:23,416
+connection between these devices
+
+340
+00:09:23,416 --> 0:09:24,866
+is secure so that nobody else
+
+341
+00:09:24,866 --> 0:09:26,066
+can see what moves we're making
+
+342
+00:09:26,246 --> 0:09:27,636
+or worse, modify one of the
+
+343
+00:09:27,636 --> 0:09:28,296
+player's moves.
+
+344
+00:09:29,586 --> 0:09:30,676
+We're going to do that by
+
+345
+00:09:30,676 --> 0:09:31,736
+defining an extension to
+
+346
+00:09:31,736 --> 0:09:34,526
+NWParameters and creating a
+
+347
+00:09:34,526 --> 0:09:35,666
+convenience initializer.
+
+348
+00:09:36,976 --> 0:09:38,386
+It takes a passcode as a string.
+
+349
+00:09:39,396 --> 0:09:40,556
+We're going to display to the
+
+350
+00:09:40,556 --> 0:09:42,836
+host of the game a passcode and
+
+351
+00:09:42,896 --> 0:09:44,036
+ask the person that wants to
+
+352
+00:09:44,036 --> 0:09:45,146
+play with them to type in that
+
+353
+00:09:45,146 --> 0:09:46,976
+passcode and then use that to
+
+354
+00:09:46,976 --> 0:09:48,436
+derive a pre-shared key that we
+
+355
+00:09:48,436 --> 0:09:49,806
+can use to secure the connection
+
+356
+00:09:50,056 --> 0:09:50,346
+with TOS.
+
+357
+00:09:50,346 --> 0:09:53,556
+In order to this, we need to
+
+358
+00:09:53,556 --> 0:09:55,956
+create both TCP and TLS options
+
+359
+00:09:56,336 --> 0:09:57,236
+in our initializer.
+
+360
+00:09:57,966 --> 0:09:59,666
+Let's start with TLS.
+
+361
+00:10:01,726 --> 0:10:03,046
+Here we defined a function that
+
+362
+00:10:03,046 --> 0:10:04,266
+creates TLS options.
+
+363
+00:10:04,476 --> 0:10:06,126
+We pass at the passcode and for
+
+364
+00:10:06,126 --> 0:10:07,076
+now we start with just the
+
+365
+00:10:07,076 --> 0:10:08,226
+default TLS options.
+
+366
+00:10:09,656 --> 0:10:11,786
+Next, we use the new CryptoKit
+
+367
+00:10:11,786 --> 0:10:12,976
+framework, which is available
+
+368
+00:10:12,976 --> 0:10:14,586
+this year, to derive an
+
+369
+00:10:14,586 --> 0:10:16,676
+authentication key and code from
+
+370
+00:10:17,806 --> 0:10:20,656
+that passcode.
+
+371
+00:10:20,776 --> 0:10:22,326
+We'll add that pre-shared key to
+
+372
+00:10:22,326 --> 0:10:24,066
+our set protocol options and
+
+373
+00:10:24,266 --> 0:10:25,556
+we'll also make sure to add a
+
+374
+00:10:25,556 --> 0:10:27,186
+TLS cipher suite that supports
+
+375
+00:10:27,186 --> 0:10:28,236
+the use of pre-shared keys.
+
+376
+00:10:28,816 --> 0:10:31,716
+We can return our TLS options.
+
+377
+00:10:32,266 --> 0:10:34,386
+And up here we're ready to go
+
+378
+00:10:34,386 --> 0:10:35,836
+with our TCP options.
+
+379
+00:10:38,456 --> 0:10:40,146
+We'll use a default TCP options
+
+380
+00:10:40,146 --> 0:10:41,276
+for most things but we'll also
+
+381
+00:10:41,276 --> 0:10:41,966
+enable keepalive.
+
+382
+00:10:43,186 --> 0:10:45,026
+We then init our NWParameters
+
+383
+00:10:45,026 --> 0:10:46,276
+with the TLS options that we
+
+384
+00:10:46,276 --> 0:10:47,966
+just created down below, and
+
+385
+00:10:47,966 --> 0:10:50,426
+those pretty much default TCP
+
+386
+00:10:51,206 --> 0:10:51,396
+options.
+
+387
+00:10:51,516 --> 0:10:52,656
+Finally, the last thing we want
+
+388
+00:10:52,656 --> 0:10:55,786
+to do is set include peer to
+
+389
+00:10:55,786 --> 0:10:57,486
+peer here so that our connection
+
+390
+00:10:57,486 --> 0:10:58,936
+and our listener will also be
+
+391
+00:10:58,936 --> 0:11:00,006
+able to connect to nearby
+
+392
+00:10:58,936 --> 0:11:00,006
+able to connect to nearby
+
+393
+00:11:00,006 --> 0:11:01,406
+devices even when they're not on
+
+394
+00:11:01,406 --> 0:11:01,976
+the same network.
+
+395
+00:11:02,506 --> 0:11:07,546
+So that's it, let's try it out.
+
+396
+00:11:07,756 --> 0:11:09,206
+If I go over here, we can see
+
+397
+00:11:09,206 --> 0:11:10,276
+that I've got two devices
+
+398
+00:11:10,586 --> 0:11:11,966
+running the app and we've
+
+399
+00:11:11,966 --> 0:11:13,116
+already got our UI there for
+
+400
+00:11:13,116 --> 0:11:13,856
+hosting a game.
+
+401
+00:11:14,416 --> 0:11:15,656
+And the browser has already
+
+402
+00:11:15,656 --> 0:11:17,236
+started browsing and is
+
+403
+00:11:17,236 --> 0:11:18,476
+displaying searching for games
+
+404
+00:11:18,476 --> 0:11:19,576
+since we haven't found anything
+
+405
+00:11:20,146 --> 0:11:20,266
+yet.
+
+406
+00:11:21,276 --> 0:11:23,106
+If I come up and type in my name
+
+407
+00:11:24,376 --> 0:11:26,516
+and tap host game, you can see
+
+408
+00:11:26,596 --> 0:11:28,316
+I'm given the passcode and our
+
+409
+00:11:28,316 --> 0:11:29,726
+browseResultsChangedHandler has
+
+410
+00:11:29,726 --> 0:11:31,396
+been called with the list of
+
+411
+00:11:31,396 --> 0:11:32,786
+discovered endpoints, in this
+
+412
+00:11:32,786 --> 0:11:34,296
+case the game that I'm hosting,
+
+413
+00:11:34,516 --> 0:11:35,456
+and we've displayed that for the
+
+414
+00:11:35,456 --> 0:11:35,806
+user.
+
+415
+00:11:36,116 --> 0:11:36,716
+It's that easy.
+
+416
+00:11:37,316 --> 0:11:41,526
+If I tap on join game, I'm
+
+417
+00:11:41,526 --> 0:11:42,866
+presented the opportunity to
+
+418
+00:11:42,866 --> 0:11:45,526
+type in the passcode.
+
+419
+00:11:45,526 --> 0:11:47,386
+And now when I confirm that,
+
+420
+00:11:47,806 --> 0:11:49,276
+we'll see that we've created the
+
+421
+00:11:49,276 --> 0:11:51,166
+pre-shared key, used it to
+
+422
+00:11:51,166 --> 0:11:52,276
+connect back to the listener,
+
+423
+00:11:52,746 --> 0:11:54,366
+and hopefully the game will flip
+
+424
+00:11:54,366 --> 0:11:55,216
+around and ready to play.
+
+425
+00:11:56,656 --> 0:11:57,036
+There we go.
+
+426
+00:11:58,516 --> 0:12:01,500
+[ Applause ]
+
+427
+00:11:58,516 --> 0:12:01,500
+[ Applause ]
+
+428
+00:12:08,236 --> 0:12:09,756
+So far, we've built the
+
+429
+00:12:09,756 --> 0:12:11,426
+beginnings of our app and
+
+430
+00:12:11,426 --> 0:12:12,836
+established connectivity between
+
+431
+00:12:12,836 --> 0:12:13,646
+the two devices.
+
+432
+00:12:14,386 --> 0:12:15,846
+We used an NWListener to
+
+433
+00:12:15,846 --> 0:12:17,276
+advertise a Bonjour service of
+
+434
+00:12:17,316 --> 0:12:18,246
+tictactoe.tcp.
+
+435
+00:12:18,246 --> 0:12:21,856
+We used an NWBrowser to browse
+
+436
+00:12:21,856 --> 0:12:23,316
+for available games and display
+
+437
+00:12:23,316 --> 0:12:24,016
+those to the user.
+
+438
+00:12:24,456 --> 0:12:25,866
+And we were able to take the
+
+439
+00:12:25,866 --> 0:12:27,236
+result that we got back from the
+
+440
+00:12:27,236 --> 0:12:29,186
+browser and pass it directly to
+
+441
+00:12:29,186 --> 0:12:30,956
+our NWConnection to connect back
+
+442
+00:12:30,996 --> 0:12:32,346
+to the listener and establish a
+
+443
+00:12:32,346 --> 0:12:33,926
+secure connection between those
+
+444
+00:12:33,926 --> 0:12:34,546
+two devices.
+
+445
+00:12:35,596 --> 0:12:36,816
+Of course in order to play the
+
+446
+00:12:36,816 --> 0:12:38,336
+game, the two devices actually
+
+447
+00:12:38,336 --> 0:12:39,446
+have to be able to communicate
+
+448
+00:12:39,686 --> 0:12:41,686
+to share the game state, tell
+
+449
+00:12:41,686 --> 0:12:42,666
+each other about moves that the
+
+450
+00:12:42,666 --> 0:12:44,236
+players making, and things like
+
+451
+00:12:44,236 --> 0:12:44,456
+that.
+
+452
+00:12:45,276 --> 0:12:46,726
+In order to that, I'd like to
+
+453
+00:12:46,726 --> 0:12:48,216
+invite Tommy up to the stage to
+
+454
+00:12:48,216 --> 0:12:49,496
+walk us through building custom
+
+455
+00:12:49,496 --> 0:12:50,466
+framing protocols.
+
+456
+00:12:51,516 --> 0:12:56,316
+[ Applause ]
+
+457
+00:12:56,816 --> 0:12:57,556
+&gt;&gt; All right.
+
+458
+00:12:57,556 --> 0:12:58,786
+Thank you, Eric.
+
+459
+00:12:59,796 --> 0:13:01,416
+So today, I'd like to share with
+
+460
+00:12:59,796 --> 0:13:01,416
+So today, I'd like to share with
+
+461
+00:13:01,466 --> 0:13:04,006
+you an exciting new way that you
+
+462
+00:13:04,006 --> 0:13:05,846
+can extend your network
+
+463
+00:13:05,846 --> 0:13:08,786
+connections with custom protocol
+
+464
+00:13:08,786 --> 0:13:10,776
+framing code that you write that
+
+465
+00:13:10,776 --> 0:13:12,916
+runs on the same thread as the
+
+466
+00:13:12,916 --> 0:13:13,956
+rest of the protocols in the
+
+467
+00:13:13,956 --> 0:13:15,706
+networking stack.
+
+468
+00:13:16,116 --> 0:13:17,806
+So, in order to finish the game
+
+469
+00:13:17,806 --> 0:13:19,666
+that Eric just started, we need
+
+470
+00:13:19,666 --> 0:13:21,236
+to define a way for the two
+
+471
+00:13:21,236 --> 0:13:22,776
+games to send commands between
+
+472
+00:13:22,776 --> 0:13:23,236
+each other.
+
+473
+00:13:23,856 --> 0:13:24,966
+When one player wants to make a
+
+474
+00:13:24,966 --> 0:13:26,366
+move, he needs to send a message
+
+475
+00:13:26,366 --> 0:13:27,066
+to the other side.
+
+476
+00:13:28,206 --> 0:13:29,896
+To do this we're going to need a
+
+477
+00:13:29,896 --> 0:13:30,386
+protocol.
+
+478
+00:13:30,966 --> 0:13:33,546
+So here's what our protocol is
+
+479
+00:13:33,546 --> 0:13:34,276
+going to look like.
+
+480
+00:13:34,836 --> 0:13:37,686
+It's a simple type-length-value
+
+481
+00:13:37,686 --> 0:13:38,996
+or TLV protocol.
+
+482
+00:13:40,016 --> 0:13:42,196
+So we have a 4-byte type which
+
+483
+00:13:42,196 --> 0:13:44,156
+may be make a move.
+
+484
+00:13:44,936 --> 0:13:47,116
+The player wants to put a given
+
+485
+00:13:47,116 --> 0:13:48,586
+character at a given location on
+
+486
+00:13:48,586 --> 0:13:49,716
+our tic-tac-toe board.
+
+487
+00:13:50,296 --> 0:13:52,796
+We have a 4-byte length which
+
+488
+00:13:52,796 --> 0:13:54,026
+indicates the length of the rest
+
+489
+00:13:54,026 --> 0:13:54,626
+of the message.
+
+490
+00:13:55,166 --> 0:13:57,656
+And then after that we have the
+
+491
+00:13:57,656 --> 0:13:58,726
+body of the message.
+
+492
+00:13:59,086 --> 0:14:00,326
+And in this case it could be
+
+493
+00:13:59,086 --> 0:14:00,326
+And in this case it could be
+
+494
+00:14:00,436 --> 0:14:03,066
+place the monkey face at row 1
+
+495
+00:14:03,066 --> 0:14:03,696
+column 2.
+
+496
+00:14:04,506 --> 0:14:05,456
+And then it's going to repeat
+
+497
+00:14:05,456 --> 0:14:07,546
+like that on TLS byte-stream.
+
+498
+00:14:10,196 --> 0:14:11,706
+So you may have noticed that
+
+499
+00:14:11,956 --> 0:14:13,906
+this protocol, even though we're
+
+500
+00:14:13,906 --> 0:14:15,736
+running on top of a TLS
+
+501
+00:14:15,736 --> 0:14:17,456
+byte-stream which itself is not
+
+502
+00:14:17,456 --> 0:14:20,206
+structured is using structured
+
+503
+00:14:20,206 --> 0:14:20,946
+messages.
+
+504
+00:14:21,556 --> 0:14:22,906
+The application is not thinking
+
+505
+00:14:22,906 --> 0:14:25,026
+in terms of byte-streams but
+
+506
+00:14:25,026 --> 0:14:26,916
+well-delineated pieces of
+
+507
+00:14:26,916 --> 0:14:27,506
+information.
+
+508
+00:14:28,696 --> 0:14:29,976
+And almost all networking
+
+509
+00:14:29,976 --> 0:14:31,616
+applications do this.
+
+510
+00:14:32,806 --> 0:14:34,666
+They either have a header and a
+
+511
+00:14:34,666 --> 0:14:37,246
+body or they have a delimiter
+
+512
+00:14:37,666 --> 0:14:38,906
+that goes somewhere to define
+
+513
+00:14:38,906 --> 0:14:39,686
+the boundaries of their
+
+514
+00:14:39,686 --> 0:14:40,336
+messages.
+
+515
+00:14:41,756 --> 0:14:45,446
+However, traditional transport
+
+516
+00:14:45,446 --> 0:14:47,266
+networking APIs like sockets
+
+517
+00:14:47,536 --> 0:14:49,986
+didn't give you a way to easily
+
+518
+00:14:49,986 --> 0:14:51,806
+read out messages on a
+
+519
+00:14:51,806 --> 0:14:52,336
+connection.
+
+520
+00:14:52,536 --> 0:14:53,586
+You had to do that all yourself
+
+521
+00:14:53,586 --> 0:14:54,236
+in the application.
+
+522
+00:14:55,166 --> 0:14:57,436
+So, to take a look at how this
+
+523
+00:14:57,466 --> 0:14:59,646
+problem plays out let's look at
+
+524
+00:14:59,646 --> 0:15:01,026
+the relationship of your
+
+525
+00:14:59,646 --> 0:15:01,026
+the relationship of your
+
+526
+00:15:01,026 --> 0:15:02,846
+application to the rest of the
+
+527
+00:15:02,846 --> 0:15:03,526
+networking stack.
+
+528
+00:15:03,666 --> 0:15:05,426
+So up on top you have your
+
+529
+00:15:05,426 --> 0:15:06,006
+application.
+
+530
+00:15:07,186 --> 0:15:08,746
+And it is communicating with the
+
+531
+00:15:08,746 --> 0:15:10,586
+networking stack via the API.
+
+532
+00:15:11,806 --> 0:15:13,846
+So in Network.framework, we have
+
+533
+00:15:14,366 --> 0:15:18,086
+running TLS and TCP all within
+
+534
+00:15:18,086 --> 0:15:20,306
+one shared thread inside your
+
+535
+00:15:20,306 --> 0:15:20,936
+application.
+
+536
+00:15:21,346 --> 0:15:22,486
+This is the user space
+
+537
+00:15:22,486 --> 0:15:23,496
+networking stack that we
+
+538
+00:15:23,496 --> 0:15:24,706
+introduced last year.
+
+539
+00:15:25,786 --> 0:15:27,896
+Let's zoom in to see how your
+
+540
+00:15:27,896 --> 0:15:30,266
+application reads messages when
+
+541
+00:15:30,266 --> 0:15:33,196
+it's on top of a byte-stream.
+
+542
+00:15:33,376 --> 0:15:34,916
+So if you have a protocol like
+
+543
+00:15:34,916 --> 0:15:36,146
+the one that we're using for
+
+544
+00:15:36,146 --> 0:15:38,106
+tic-tac-toe, you may have a
+
+545
+00:15:38,216 --> 0:15:39,086
+fixed-length header.
+
+546
+00:15:39,796 --> 0:15:41,056
+And the simple thing you can do
+
+547
+00:15:41,056 --> 0:15:43,246
+here is to read exactly the
+
+548
+00:15:43,246 --> 0:15:44,186
+length of your header.
+
+549
+00:15:45,246 --> 0:15:46,336
+Receive 8 bytes.
+
+550
+00:15:47,236 --> 0:15:48,286
+So this is a fixed length.
+
+551
+00:15:48,286 --> 0:15:49,266
+You know what's going to happen.
+
+552
+00:15:49,796 --> 0:15:51,456
+And the stack will call you back
+
+553
+00:15:51,456 --> 0:15:52,716
+when you have your full header.
+
+554
+00:15:53,396 --> 0:15:55,156
+This allows you to determine the
+
+555
+00:15:55,156 --> 0:15:55,986
+length of the rest of the
+
+556
+00:15:55,986 --> 0:15:56,436
+message.
+
+557
+00:15:56,786 --> 0:15:58,776
+So you can read exactly that and
+
+558
+00:15:58,776 --> 0:16:00,216
+then go back and forth reading
+
+559
+00:15:58,776 --> 0:16:00,216
+then go back and forth reading
+
+560
+00:16:00,216 --> 0:16:02,796
+body, header, body, header,
+
+561
+00:16:02,986 --> 0:16:03,296
+body.
+
+562
+00:16:03,826 --> 0:16:07,796
+So this is great, but you may
+
+563
+00:16:07,796 --> 0:16:08,966
+have noticed that we have
+
+564
+00:16:08,966 --> 0:16:10,816
+multiple back and forths at
+
+565
+00:16:10,816 --> 0:16:12,696
+least two for every single
+
+566
+00:16:12,696 --> 0:16:13,226
+message.
+
+567
+00:16:13,776 --> 0:16:15,356
+If you have a more complex
+
+568
+00:16:15,356 --> 0:16:16,896
+protocol, maybe you have a
+
+569
+00:16:16,896 --> 0:16:18,936
+variable-length header or you
+
+570
+00:16:18,936 --> 0:16:20,576
+have a delimiter, this can
+
+571
+00:16:20,576 --> 0:16:22,226
+become even more inefficient,
+
+572
+00:16:22,726 --> 0:16:23,876
+even though it's simple for your
+
+573
+00:16:23,876 --> 0:16:25,786
+application to write its logic.
+
+574
+00:16:27,056 --> 0:16:28,716
+If you care about efficiency a
+
+575
+00:16:28,716 --> 0:16:30,206
+lot, you have another option.
+
+576
+00:16:30,836 --> 0:16:32,366
+You could receive as much as
+
+577
+00:16:32,366 --> 0:16:33,436
+possible at one time.
+
+578
+00:16:34,176 --> 0:16:35,936
+But now you have a bunch of
+
+579
+00:16:35,936 --> 0:16:36,906
+other problems to deal with.
+
+580
+00:16:37,766 --> 0:16:39,506
+Now, you need to handle the case
+
+581
+00:16:39,506 --> 0:16:40,716
+in which you don't receive a
+
+582
+00:16:40,716 --> 0:16:42,046
+complete message all in one
+
+583
+00:16:42,046 --> 0:16:42,396
+chunk.
+
+584
+00:16:43,226 --> 0:16:44,476
+Or maybe you receive multiple
+
+585
+00:16:44,476 --> 0:16:46,856
+messages in one go, or maybe you
+
+586
+00:16:46,856 --> 0:16:48,976
+receive only part of your
+
+587
+00:16:48,976 --> 0:16:50,466
+header, you only have two or
+
+588
+00:16:50,466 --> 0:16:51,536
+three bytes of your length
+
+589
+00:16:51,536 --> 0:16:51,936
+field.
+
+590
+00:16:51,936 --> 0:16:53,186
+You need to save it off,
+
+591
+00:16:53,186 --> 0:16:55,186
+reconstruct the field and parse
+
+592
+00:16:55,186 --> 0:16:55,796
+it out again.
+
+593
+00:16:56,926 --> 0:16:58,876
+Getting this fully correct and
+
+594
+00:16:58,876 --> 0:17:00,356
+handling every possible edge
+
+595
+00:16:58,876 --> 0:17:00,356
+handling every possible edge
+
+596
+00:17:00,356 --> 0:17:02,776
+case can be really difficult.
+
+597
+00:17:03,186 --> 0:17:04,486
+And it's common to have subtle
+
+598
+00:17:04,486 --> 0:17:06,256
+bugs that only show up when your
+
+599
+00:17:06,256 --> 0:17:07,656
+users actually use your
+
+600
+00:17:07,656 --> 0:17:08,685
+application in the field.
+
+601
+00:17:10,756 --> 0:17:11,376
+All right.
+
+602
+00:17:11,526 --> 0:17:12,816
+So, it's a bit of a bleak
+
+603
+00:17:12,816 --> 0:17:14,106
+picture at this point.
+
+604
+00:17:14,506 --> 0:17:16,386
+How do we get the best of both
+
+605
+00:17:16,386 --> 0:17:16,695
+worlds?
+
+606
+00:17:16,695 --> 0:17:18,786
+How can we have a way to be both
+
+607
+00:17:18,786 --> 0:17:21,425
+efficient and have simple code
+
+608
+00:17:21,425 --> 0:17:22,675
+that's easily testable and
+
+609
+00:17:22,675 --> 0:17:23,256
+composable?
+
+610
+00:17:24,056 --> 0:17:25,915
+Well, I'm really excited to
+
+611
+00:17:25,915 --> 0:17:28,215
+share that now in iOS 13 and
+
+612
+00:17:28,215 --> 0:17:29,986
+macOS Catalina, you'll be able
+
+613
+00:17:29,986 --> 0:17:32,226
+to write your own protocol code
+
+614
+00:17:32,756 --> 0:17:34,466
+that runs on the same networking
+
+615
+00:17:34,466 --> 0:17:35,986
+thread to handle this problem.
+
+616
+00:17:36,376 --> 0:17:38,116
+So, this is an unprecedented
+
+617
+00:17:38,116 --> 0:17:39,916
+step forward in the amount of
+
+618
+00:17:39,916 --> 0:17:41,446
+flexibility that you have to
+
+619
+00:17:41,446 --> 0:17:43,796
+define your messages within a
+
+620
+00:17:43,796 --> 0:17:44,976
+transport networking API
+
+621
+00:17:44,976 --> 0:17:45,706
+[applause].
+
+622
+00:17:45,706 --> 0:17:50,446
+Thank you.
+
+623
+00:17:50,446 --> 0:17:51,386
+And you get to do this all
+
+624
+00:17:51,386 --> 0:17:52,926
+within NWConnection.
+
+625
+00:17:53,086 --> 0:17:54,546
+And so, to the application on
+
+626
+00:17:54,546 --> 0:17:56,126
+top, it's just as if you're
+
+627
+00:17:56,126 --> 0:17:57,596
+reading and writing datagrams
+
+628
+00:17:57,596 --> 0:17:59,206
+like a basic connection.
+
+629
+00:18:00,736 --> 0:18:02,356
+So let's look at the world now.
+
+630
+00:18:03,066 --> 0:18:04,116
+Still have your application.
+
+631
+00:18:04,166 --> 0:18:05,686
+It's still sending and receiving
+
+632
+00:18:05,816 --> 0:18:07,456
+but now you have your framing
+
+633
+00:18:07,456 --> 0:18:09,556
+code that's running within the
+
+634
+00:18:09,556 --> 0:18:11,736
+same thread as TLS and TCP.
+
+635
+00:18:12,216 --> 0:18:13,146
+So you can now call
+
+636
+00:18:13,886 --> 0:18:14,846
+receiveMessage.
+
+637
+00:18:15,226 --> 0:18:16,596
+And it will get exactly one
+
+638
+00:18:16,596 --> 0:18:17,626
+callback when you have a
+
+639
+00:18:17,976 --> 0:18:19,346
+complete message that your
+
+640
+00:18:19,346 --> 0:18:20,966
+application can fully process.
+
+641
+00:18:21,596 --> 0:18:22,656
+You can do this over and over
+
+642
+00:18:22,656 --> 0:18:22,976
+again.
+
+643
+00:18:23,266 --> 0:18:25,466
+One call per message and really,
+
+644
+00:18:25,466 --> 0:18:27,246
+really easy to debug and
+
+645
+00:18:27,246 --> 0:18:28,386
+understand what's going on.
+
+646
+00:18:28,926 --> 0:18:31,696
+So, this is great.
+
+647
+00:18:31,866 --> 0:18:33,966
+And if your-- You may be asking
+
+648
+00:18:33,966 --> 0:18:35,916
+right now what can I actually
+
+649
+00:18:35,916 --> 0:18:38,046
+implement as one of these
+
+650
+00:18:38,046 --> 0:18:38,796
+framing protocols?
+
+651
+00:18:38,796 --> 0:18:39,746
+What are the restrictions?
+
+652
+00:18:39,856 --> 0:18:42,076
+So, the good news is, is that
+
+653
+00:18:42,276 --> 0:18:43,786
+pretty much anything that
+
+654
+00:18:43,786 --> 0:18:45,976
+encapsulates or encodes
+
+655
+00:18:45,976 --> 0:18:47,636
+application data to transform it
+
+656
+00:18:48,176 --> 0:18:49,986
+can be written as a framing
+
+657
+00:18:49,986 --> 0:18:50,466
+protocol.
+
+658
+00:18:51,146 --> 0:18:53,146
+You can even send your own
+
+659
+00:18:53,146 --> 0:18:54,916
+messages that do not correspond
+
+660
+00:18:55,026 --> 0:18:56,736
+to application data, if you need
+
+661
+00:18:56,736 --> 0:18:58,886
+to do a handshake or if you need
+
+662
+00:18:59,076 --> 0:19:00,336
+to implement some sort of
+
+663
+00:18:59,076 --> 0:19:00,336
+to implement some sort of
+
+664
+00:19:00,376 --> 0:19:01,606
+keepalive on the connection.
+
+665
+00:19:02,156 --> 0:19:04,436
+And the protocols that you're
+
+666
+00:19:04,436 --> 0:19:06,026
+implementing here can be
+
+667
+00:19:06,026 --> 0:19:09,026
+standard IETF official protocols
+
+668
+00:19:09,616 --> 0:19:10,476
+or they could be something
+
+669
+00:19:10,476 --> 0:19:12,016
+custom just for your app like
+
+670
+00:19:12,066 --> 0:19:13,326
+what we're going to be doing for
+
+671
+00:19:13,326 --> 0:19:14,226
+a tic-tac-toe game.
+
+672
+00:19:15,096 --> 0:19:16,456
+So if you want to build a
+
+673
+00:19:16,456 --> 0:19:17,776
+protocol, you have two steps.
+
+674
+00:19:18,446 --> 0:19:21,116
+First, you implement a reusable
+
+675
+00:19:21,116 --> 0:19:22,566
+piece of code that defines your
+
+676
+00:19:22,566 --> 0:19:23,286
+message framing.
+
+677
+00:19:23,836 --> 0:19:24,796
+This is the protocol.
+
+678
+00:19:25,716 --> 0:19:28,486
+And then you add that protocol
+
+679
+00:19:28,886 --> 0:19:30,776
+into your connection's protocol
+
+680
+00:19:30,776 --> 0:19:32,416
+stacks so that you can use it
+
+681
+00:19:32,416 --> 0:19:34,366
+for connection establishment as
+
+682
+00:19:34,366 --> 0:19:36,086
+well as sending and receiving
+
+683
+00:19:36,186 --> 0:19:36,626
+message.
+
+684
+00:19:37,176 --> 0:19:38,196
+All right.
+
+685
+00:19:38,416 --> 0:19:40,786
+So let's go on to step 1.
+
+686
+00:19:41,016 --> 0:19:41,596
+We're going to start
+
+687
+00:19:41,696 --> 0:19:43,446
+implementing framing protocols.
+
+688
+00:19:44,786 --> 0:19:47,096
+What you do here is create a
+
+689
+00:19:47,096 --> 0:19:48,926
+class that conforms to
+
+690
+00:19:48,926 --> 0:19:51,066
+ProtocolFramerImplementation.
+
+691
+00:19:51,896 --> 0:19:52,846
+And there are many things you
+
+692
+00:19:52,846 --> 0:19:54,166
+can do within this class.
+
+693
+00:19:55,136 --> 0:19:56,886
+But the two most important
+
+694
+00:19:56,886 --> 0:19:58,216
+things to remember are to
+
+695
+00:19:58,216 --> 0:20:00,456
+handleOutput, to send messages;
+
+696
+00:19:58,216 --> 0:20:00,456
+handleOutput, to send messages;
+
+697
+00:20:00,786 --> 0:20:02,326
+and to handleInput, to parse
+
+698
+00:20:02,326 --> 0:20:02,956
+messages.
+
+699
+00:20:03,516 --> 0:20:04,926
+If you can do these two things,
+
+700
+00:20:05,256 --> 0:20:06,546
+hooray, you are a framer.
+
+701
+00:20:07,736 --> 0:20:08,806
+Let's take a look at the code.
+
+702
+00:20:09,506 --> 0:20:11,636
+So, here we have my protocol.
+
+703
+00:20:12,266 --> 0:20:13,486
+It's going to conform to
+
+704
+00:20:13,486 --> 0:20:15,276
+ProtocolFramerImplementation.
+
+705
+00:20:16,526 --> 0:20:17,356
+And the first thing that I
+
+706
+00:20:17,356 --> 0:20:19,976
+recommend you do is create a
+
+707
+00:20:20,096 --> 0:20:21,346
+definition object.
+
+708
+00:20:21,446 --> 0:20:23,476
+And this is a handle to your
+
+709
+00:20:23,476 --> 0:20:25,046
+protocol that you can use
+
+710
+00:20:25,366 --> 0:20:26,476
+throughout the rest of your app.
+
+711
+00:20:27,096 --> 0:20:28,826
+It refers to your protocols you
+
+712
+00:20:28,826 --> 0:20:30,166
+can add it into connections.
+
+713
+00:20:30,626 --> 0:20:34,106
+Next you can handle a lot of the
+
+714
+00:20:34,106 --> 0:20:36,156
+basic callback events.
+
+715
+00:20:36,626 --> 0:20:37,886
+One of the most important ones
+
+716
+00:20:37,886 --> 0:20:39,226
+here is start.
+
+717
+00:20:39,576 --> 0:20:41,576
+Start will get called anytime
+
+718
+00:20:41,576 --> 0:20:43,436
+your protocol is loaded into a
+
+719
+00:20:43,436 --> 0:20:45,366
+connection as being used to
+
+720
+00:20:45,446 --> 0:20:46,286
+bring it up.
+
+721
+00:20:47,036 --> 0:20:48,706
+If you need to do a handshake to
+
+722
+00:20:48,706 --> 0:20:49,806
+exchange something with the
+
+723
+00:20:49,806 --> 0:20:51,416
+other side, you can implement it
+
+724
+00:20:51,416 --> 0:20:51,726
+here.
+
+725
+00:20:52,626 --> 0:20:54,636
+Or if like our tic-tac-toe game
+
+726
+00:20:54,636 --> 0:20:55,916
+you have a very simple protocol,
+
+727
+00:20:56,016 --> 0:20:57,386
+you don't need to do any setup,
+
+728
+00:20:57,726 --> 0:20:58,996
+just mark the connection ready
+
+729
+00:20:59,076 --> 0:20:59,636
+immediately.
+
+730
+00:21:00,896 --> 0:21:02,806
+So once you've done this, you
+
+731
+00:21:02,806 --> 0:21:04,736
+now have to handleOutput and
+
+732
+00:21:04,736 --> 0:21:05,356
+handleInput.
+
+733
+00:21:05,686 --> 0:21:06,796
+Let's dive into these.
+
+734
+00:21:09,196 --> 0:21:11,156
+So here is what handleOutput
+
+735
+00:21:11,186 --> 0:21:11,666
+looks like.
+
+736
+00:21:12,416 --> 0:21:13,316
+You will get called with
+
+737
+00:21:13,316 --> 0:21:16,036
+handleOutput every time the
+
+738
+00:21:16,036 --> 0:21:17,966
+application sends a message.
+
+739
+00:21:18,546 --> 0:21:19,906
+And you'll be given the message
+
+740
+00:21:19,906 --> 0:21:22,116
+metadata with some custom values
+
+741
+00:21:22,116 --> 0:21:25,036
+if you need them, along with the
+
+742
+00:21:25,036 --> 0:21:26,106
+length of the message the
+
+743
+00:21:26,106 --> 0:21:27,356
+application is trying to send.
+
+744
+00:21:27,986 --> 0:21:31,016
+So, if you have a header body
+
+745
+00:21:31,016 --> 0:21:32,626
+protocol, like what we're using,
+
+746
+00:21:33,686 --> 0:21:35,886
+you can first create your header
+
+747
+00:21:35,886 --> 0:21:38,186
+structure and try to serialize
+
+748
+00:21:38,186 --> 0:21:38,666
+some data.
+
+749
+00:21:39,686 --> 0:21:41,266
+So this can include your type
+
+750
+00:21:41,846 --> 0:21:42,836
+that you get maybe from the
+
+751
+00:21:42,836 --> 0:21:44,666
+message metadata along with the
+
+752
+00:21:44,666 --> 0:21:47,166
+length that was passed to you
+
+753
+00:21:47,166 --> 0:21:48,036
+into handleOutput.
+
+754
+00:21:48,476 --> 0:21:51,086
+You combine these into data and
+
+755
+00:21:51,086 --> 0:21:52,466
+then you call writeOutput.
+
+756
+00:21:52,896 --> 0:21:54,656
+WriteOutput will queue your
+
+757
+00:21:54,656 --> 0:21:56,506
+bytes on to the output stream,
+
+758
+00:21:56,876 --> 0:21:58,276
+but they won't get sent quite
+
+759
+00:22:00,596 --> 0:22:00,706
+yet.
+
+760
+00:22:00,986 --> 0:22:03,086
+Next you need to write the body.
+
+761
+00:22:03,226 --> 0:22:04,876
+And in this case we don't need
+
+762
+00:22:04,876 --> 0:22:06,356
+to transform the application
+
+763
+00:22:06,356 --> 0:22:06,916
+data at all.
+
+764
+00:22:07,316 --> 0:22:08,136
+We can just call
+
+765
+00:22:08,326 --> 0:22:09,876
+writeOutputNoCopy.
+
+766
+00:22:11,086 --> 0:22:13,236
+This allows us to just take the
+
+767
+00:22:13,236 --> 0:22:14,546
+direct application bytes and
+
+768
+00:22:14,546 --> 0:22:15,686
+then queue them on the stream.
+
+769
+00:22:16,496 --> 0:22:17,476
+When we return from
+
+770
+00:22:17,476 --> 0:22:20,116
+handleOutput, all of the bytes
+
+771
+00:22:20,166 --> 0:22:21,536
+will be sent out to connection.
+
+772
+00:22:22,016 --> 0:22:22,206
+All right.
+
+773
+00:22:23,276 --> 0:22:25,176
+So let's move on to handling
+
+774
+00:22:25,246 --> 0:22:25,636
+input.
+
+775
+00:22:26,416 --> 0:22:28,606
+Handling input is similar but a
+
+776
+00:22:28,606 --> 0:22:29,806
+little bit more complicated.
+
+777
+00:22:30,856 --> 0:22:31,626
+You'll be called with
+
+778
+00:22:31,626 --> 0:22:33,906
+handleInput anytime your
+
+779
+00:22:33,906 --> 0:22:36,806
+application has received new
+
+780
+00:22:36,806 --> 0:22:37,896
+bytes on the connection.
+
+781
+00:22:38,506 --> 0:22:40,346
+And if you're doing a header
+
+782
+00:22:40,496 --> 0:22:42,556
+body type protocol, you have two
+
+783
+00:22:42,556 --> 0:22:42,956
+jobs.
+
+784
+00:22:42,956 --> 0:22:45,206
+You need to parse the header and
+
+785
+00:22:45,206 --> 0:22:46,306
+then you need to parse the body.
+
+786
+00:22:46,966 --> 0:22:48,516
+So, let's start with parsing the
+
+787
+00:22:48,516 --> 0:22:48,756
+header.
+
+788
+00:22:49,376 --> 0:22:50,986
+Here we have a fixed-length
+
+789
+00:22:50,986 --> 0:22:52,036
+header for our protocol.
+
+790
+00:22:52,036 --> 0:22:53,236
+We're going to have exactly 8
+
+791
+00:22:53,236 --> 0:22:53,726
+bytes.
+
+792
+00:22:54,216 --> 0:22:55,526
+And what we do is we call
+
+793
+00:22:55,606 --> 0:22:57,436
+parseInput to start inspecting
+
+794
+00:22:57,436 --> 0:22:58,456
+the stream of bytes that have
+
+795
+00:22:58,506 --> 0:22:59,486
+come into the connection.
+
+796
+00:23:00,406 --> 0:23:01,446
+And we can call it with a
+
+797
+00:23:01,446 --> 0:23:03,556
+minimum and a maximum of 8 bytes
+
+798
+00:23:03,586 --> 0:23:05,026
+because we want to look exactly
+
+799
+00:23:05,026 --> 0:23:05,826
+at that 8-byte header.
+
+800
+00:23:06,456 --> 0:23:09,076
+If this succeeds, you'll be
+
+801
+00:23:09,076 --> 0:23:10,796
+called in the block and you'll
+
+802
+00:23:10,796 --> 0:23:12,066
+be able to look at the actual
+
+803
+00:23:12,066 --> 0:23:13,826
+buffer bytes, parse out your
+
+804
+00:23:13,826 --> 0:23:15,796
+values, save them off into local
+
+805
+00:23:15,796 --> 0:23:17,576
+variables if you need to.
+
+806
+00:23:18,156 --> 0:23:20,706
+The return value to parse input
+
+807
+00:23:21,416 --> 0:23:22,786
+indicates how many bytes you
+
+808
+00:23:22,786 --> 0:23:24,486
+want to increment the input
+
+809
+00:23:24,486 --> 0:23:25,086
+cursor by.
+
+810
+00:23:25,186 --> 0:23:26,896
+You say, I am done handling
+
+811
+00:23:26,896 --> 0:23:27,846
+these 8 bytes.
+
+812
+00:23:27,916 --> 0:23:29,046
+We don't need to see them again.
+
+813
+00:23:29,046 --> 0:23:30,196
+We don't need to deliver them to
+
+814
+00:23:30,196 --> 0:23:30,896
+the application.
+
+815
+00:23:31,306 --> 0:23:34,936
+Move on. Now you can handle the
+
+816
+00:23:34,936 --> 0:23:36,986
+case in which not all 8 bytes
+
+817
+00:23:36,986 --> 0:23:37,806
+were available yet.
+
+818
+00:23:38,296 --> 0:23:41,346
+In this case, the parseInput
+
+819
+00:23:41,416 --> 0:23:43,416
+function will fail and you can
+
+820
+00:23:43,506 --> 0:23:45,246
+just wait for more bytes to
+
+821
+00:23:45,246 --> 0:23:45,936
+become available.
+
+822
+00:23:46,726 --> 0:23:48,616
+The return value from
+
+823
+00:23:48,616 --> 0:23:51,216
+handleInput indicates the number
+
+824
+00:23:51,216 --> 0:23:52,786
+of bytes that need to be present
+
+825
+00:23:52,786 --> 0:23:54,066
+before you can successfully do
+
+826
+00:23:54,066 --> 0:23:54,546
+more work.
+
+827
+00:23:54,976 --> 0:23:56,476
+So in this case we're telling
+
+828
+00:23:56,476 --> 0:23:57,796
+the connection, make sure
+
+829
+00:23:57,796 --> 0:23:59,496
+there's 8 bytes before you wake
+
+830
+00:23:59,496 --> 0:24:01,376
+me up again.
+
+831
+00:23:59,496 --> 0:24:01,376
+me up again.
+
+832
+00:24:01,556 --> 0:24:04,376
+If you are able to successfully
+
+833
+00:24:04,376 --> 0:24:06,706
+read out your header, you can
+
+834
+00:24:06,706 --> 0:24:09,426
+create a message object that you
+
+835
+00:24:09,426 --> 0:24:10,276
+can deliver up to the
+
+836
+00:24:10,276 --> 0:24:11,826
+application along with the data.
+
+837
+00:24:12,456 --> 0:24:14,796
+This allows you to put in any
+
+838
+00:24:14,796 --> 0:24:16,846
+custom values, types or other
+
+839
+00:24:16,896 --> 0:24:18,446
+indicators that you want to send
+
+840
+00:24:18,516 --> 0:24:19,326
+up to your application.
+
+841
+00:24:19,936 --> 0:24:23,766
+And then lastly you call
+
+842
+00:24:23,766 --> 0:24:25,326
+deliverInput or
+
+843
+00:24:25,326 --> 0:24:27,506
+deliverInputNoCopy in this case.
+
+844
+00:24:28,096 --> 0:24:29,866
+This allows you to mark the next
+
+845
+00:24:29,866 --> 0:24:31,656
+certain range of bytes as
+
+846
+00:24:31,656 --> 0:24:32,916
+application data that should be
+
+847
+00:24:32,916 --> 0:24:34,596
+delivered directly up to the
+
+848
+00:24:34,596 --> 0:24:35,186
+application.
+
+849
+00:24:35,736 --> 0:24:39,086
+And this returns Boolean value
+
+850
+00:24:39,086 --> 0:24:41,446
+to indicate whether or not all
+
+851
+00:24:41,446 --> 0:24:43,006
+of the bytes were available and
+
+852
+00:24:43,136 --> 0:24:45,296
+successfully were sent up or if
+
+853
+00:24:45,296 --> 0:24:46,656
+the connection is going to wait.
+
+854
+00:24:47,096 --> 0:24:48,766
+So you can actually deliverInput
+
+855
+00:24:48,766 --> 0:24:50,116
+of a message that's a megabyte
+
+856
+00:24:50,116 --> 0:24:51,506
+long, a gigabyte long if you
+
+857
+00:24:51,506 --> 0:24:53,476
+need to, and will keep on
+
+858
+00:24:53,476 --> 0:24:54,866
+streaming those bytes up as part
+
+859
+00:24:54,866 --> 0:24:56,336
+of that one message and you
+
+860
+00:24:56,336 --> 0:24:57,426
+don't need to wait for all the
+
+861
+00:24:57,426 --> 0:24:59,166
+bytes to be present or handle
+
+862
+00:24:59,166 --> 0:24:59,956
+them yourself.
+
+863
+00:25:02,466 --> 0:25:04,676
+OK. So, I know it's a lot of
+
+864
+00:25:04,676 --> 0:25:06,176
+code, but I think we're ready to
+
+865
+00:25:06,176 --> 0:25:08,266
+go and implement the protocol
+
+866
+00:25:08,266 --> 0:25:09,786
+for our game tic-tac-toe.
+
+867
+00:25:19,176 --> 0:25:19,886
+OK. All right.
+
+868
+00:25:20,806 --> 0:25:22,546
+So this is the same game that
+
+869
+00:25:22,666 --> 0:25:24,076
+Eric began earlier.
+
+870
+00:25:24,906 --> 0:25:26,676
+But I'm now creating a new class
+
+871
+00:25:26,816 --> 0:25:28,326
+which I'm calling game protocol
+
+872
+00:25:28,396 --> 0:25:29,966
+and this is going to conform to
+
+873
+00:25:29,966 --> 0:25:31,766
+ProtocolFramerImplementation.
+
+874
+00:25:32,266 --> 0:25:34,786
+I have defined two different
+
+875
+00:25:34,786 --> 0:25:36,616
+types for my game.
+
+876
+00:25:36,616 --> 0:25:37,836
+I want to have two different
+
+877
+00:25:37,836 --> 0:25:38,726
+commands that we send.
+
+878
+00:25:39,696 --> 0:25:41,336
+One is to select the character.
+
+879
+00:25:41,826 --> 0:25:43,826
+So the first step of the game is
+
+880
+00:25:43,826 --> 0:25:45,176
+that the player will decide
+
+881
+00:25:45,276 --> 0:25:46,766
+which emoji family they want to
+
+882
+00:25:46,766 --> 0:25:46,976
+be.
+
+883
+00:25:46,976 --> 0:25:48,346
+Do they want to be a monkey or a
+
+884
+00:25:48,346 --> 0:25:48,726
+bird?
+
+885
+00:25:49,986 --> 0:25:51,496
+And then once each character has
+
+886
+00:25:51,496 --> 0:25:53,566
+selected their character, they
+
+887
+00:25:53,566 --> 0:25:55,216
+can start sending moves.
+
+888
+00:25:55,516 --> 0:25:57,006
+And this would be a longer body.
+
+889
+00:25:57,006 --> 0:25:59,026
+It will include the character
+
+890
+00:25:59,026 --> 0:26:01,436
+along with the row and column
+
+891
+00:25:59,026 --> 0:26:01,436
+along with the row and column
+
+892
+00:26:01,436 --> 0:26:02,026
+values.
+
+893
+00:26:03,996 --> 0:26:04,666
+All right.
+
+894
+00:26:04,666 --> 0:26:06,826
+So, I remember that the first
+
+895
+00:26:06,826 --> 0:26:07,936
+thing I need to do when I'm
+
+896
+00:26:07,936 --> 0:26:10,836
+implementing a protocol is
+
+897
+00:26:11,046 --> 0:26:12,126
+create a definition.
+
+898
+00:26:12,126 --> 0:26:15,446
+And this is a handle based on my
+
+899
+00:26:15,446 --> 0:26:17,846
+object that registers my object
+
+900
+00:26:17,896 --> 0:26:20,236
+with the system and allows me to
+
+901
+00:26:20,236 --> 0:26:21,796
+use this in connections.
+
+902
+00:26:26,476 --> 0:26:28,476
+Next, I handle all of the basic
+
+903
+00:26:28,476 --> 0:26:29,226
+callbacks.
+
+904
+00:26:29,576 --> 0:26:30,876
+And here again, because I don't
+
+905
+00:26:30,876 --> 0:26:32,646
+need to have my own handshake,
+
+906
+00:26:32,926 --> 0:26:34,456
+when I get called with start, I
+
+907
+00:26:35,026 --> 0:26:37,576
+can return a start result of
+
+908
+00:26:37,576 --> 0:26:37,806
+ready.
+
+909
+00:26:40,026 --> 0:26:42,246
+Next, let's handle sending and
+
+910
+00:26:42,246 --> 0:26:43,796
+encapsulating my messages.
+
+911
+00:26:47,616 --> 0:26:49,696
+Here I'm going to define my
+
+912
+00:26:49,696 --> 0:26:51,296
+implementation of handleOutput.
+
+913
+00:26:55,696 --> 0:26:58,416
+So my header is an 8-byte header
+
+914
+00:26:58,666 --> 0:26:59,946
+that includes a type and a
+
+915
+00:26:59,946 --> 0:27:00,436
+length.
+
+916
+00:26:59,946 --> 0:27:00,436
+length.
+
+917
+00:27:00,626 --> 0:27:02,366
+So first I need to know what is
+
+918
+00:27:02,366 --> 0:27:04,786
+my type, and this I get from the
+
+919
+00:27:04,786 --> 0:27:06,326
+message that the application
+
+920
+00:27:06,326 --> 0:27:06,636
+sent.
+
+921
+00:27:06,636 --> 0:27:08,426
+And we'll see that later on.
+
+922
+00:27:08,926 --> 0:27:12,376
+I've created a custom extension
+
+923
+00:27:12,376 --> 0:27:14,386
+to the framer message to extract
+
+924
+00:27:14,426 --> 0:27:16,456
+my particular enum type out so
+
+925
+00:27:16,886 --> 0:27:18,646
+that I can know if this is a
+
+926
+00:27:18,686 --> 0:27:20,356
+character selection or a move.
+
+927
+00:27:21,096 --> 0:27:22,896
+So once I have the type, I can
+
+928
+00:27:22,896 --> 0:27:25,426
+instantiate my struct, my game
+
+929
+00:27:25,426 --> 0:27:27,126
+protocol header with the type
+
+930
+00:27:27,906 --> 0:27:29,956
+and the length that I was passed
+
+931
+00:27:29,956 --> 0:27:30,796
+in handleOutput.
+
+932
+00:27:32,096 --> 0:27:33,736
+I've already written code to
+
+933
+00:27:34,096 --> 0:27:35,776
+encode that data that I got the
+
+934
+00:27:35,776 --> 0:27:38,286
+type and the length as an 8-byte
+
+935
+00:27:38,476 --> 0:27:39,466
+range of bytes.
+
+936
+00:27:39,786 --> 0:27:42,006
+And I call writeOutput to queue
+
+937
+00:27:42,006 --> 0:27:43,356
+that in the output stream.
+
+938
+00:27:43,856 --> 0:27:47,676
+And the last thing I need to do
+
+939
+00:27:47,706 --> 0:27:48,896
+now that I've written my header
+
+940
+00:27:49,116 --> 0:27:50,516
+is write the body.
+
+941
+00:27:50,986 --> 0:27:51,846
+And here I just call
+
+942
+00:27:51,846 --> 0:27:53,606
+writeOutputNoCopy and indicate
+
+943
+00:27:53,606 --> 0:27:55,956
+that the next range bytes are
+
+944
+00:27:55,956 --> 0:27:57,046
+going to be the body of this
+
+945
+00:27:57,046 --> 0:27:57,516
+message.
+
+946
+00:27:58,736 --> 0:28:00,256
+And so once this returns, those
+
+947
+00:27:58,736 --> 0:28:00,256
+And so once this returns, those
+
+948
+00:28:00,256 --> 0:28:01,586
+bytes will be sent and I'm ready
+
+949
+00:28:01,586 --> 0:28:03,306
+to handle more messages either
+
+950
+00:28:03,306 --> 0:28:04,086
+in or out.
+
+951
+00:28:04,676 --> 0:28:08,656
+OK. So that was writing.
+
+952
+00:28:08,656 --> 0:28:10,746
+Now on reading, I'm going to
+
+953
+00:28:10,746 --> 0:28:11,646
+handleInput.
+
+954
+00:28:14,536 --> 0:28:16,886
+So first I want to read out and
+
+955
+00:28:16,886 --> 0:28:17,676
+parse my header.
+
+956
+00:28:18,126 --> 0:28:19,836
+So have a fixed sized header.
+
+957
+00:28:20,066 --> 0:28:21,346
+It's going to be 8 bytes.
+
+958
+00:28:22,546 --> 0:28:24,486
+I'm going to try to parse out a
+
+959
+00:28:24,486 --> 0:28:26,696
+minimum of eight and a maximum
+
+960
+00:28:26,696 --> 0:28:28,816
+of eight and I'll get called
+
+961
+00:28:28,816 --> 0:28:32,276
+with my buffer whenever those 8
+
+962
+00:28:32,276 --> 0:28:34,296
+bytes are available.
+
+963
+00:28:34,916 --> 0:28:37,156
+So here I validate that the
+
+964
+00:28:37,156 --> 0:28:39,196
+buffer is valid and then I
+
+965
+00:28:39,196 --> 0:28:42,296
+create my structure to parse out
+
+966
+00:28:42,296 --> 0:28:44,146
+those 8 bytes into the type and
+
+967
+00:28:44,146 --> 0:28:44,776
+length field.
+
+968
+00:28:46,716 --> 0:28:47,746
+Once I've successfully done
+
+969
+00:28:47,746 --> 0:28:49,556
+that, I indicate that I want to
+
+970
+00:28:49,586 --> 0:28:51,996
+increment my input cursor by 8
+
+971
+00:28:52,056 --> 0:28:53,486
+bytes to say that I've consumed
+
+972
+00:28:53,486 --> 0:28:54,166
+these bytes.
+
+973
+00:28:54,276 --> 0:28:59,036
+I'm done with them.
+
+974
+00:28:59,256 --> 0:29:01,236
+Now, I do need to also handle
+
+975
+00:28:59,256 --> 0:29:01,236
+Now, I do need to also handle
+
+976
+00:29:01,236 --> 0:29:02,746
+the case in which I didn't
+
+977
+00:29:02,746 --> 0:29:04,596
+successfully parse all 8 bytes.
+
+978
+00:29:04,786 --> 0:29:06,106
+Maybe only 5 bytes were
+
+979
+00:29:06,106 --> 0:29:06,596
+available.
+
+980
+00:29:07,636 --> 0:29:08,876
+And so parse will have failed
+
+981
+00:29:09,436 --> 0:29:10,926
+and I will return from handle
+
+982
+00:29:10,926 --> 0:29:13,726
+input and indicate that I need
+
+983
+00:29:13,726 --> 0:29:15,246
+to wait for 8 bytes to be
+
+984
+00:29:15,246 --> 0:29:18,166
+available before I do more work.
+
+985
+00:29:18,716 --> 0:29:20,026
+But if I did get past this
+
+986
+00:29:20,066 --> 0:29:21,786
+point, I know that I have a
+
+987
+00:29:21,786 --> 0:29:23,886
+valid header that I can use to
+
+988
+00:29:23,886 --> 0:29:25,466
+deliver up the rest of the
+
+989
+00:29:25,466 --> 0:29:25,976
+application data.
+
+990
+00:29:29,756 --> 0:29:31,546
+So now I'm going to create a
+
+991
+00:29:31,546 --> 0:29:32,516
+message object.
+
+992
+00:29:32,806 --> 0:29:34,326
+I'm going to store within that
+
+993
+00:29:34,326 --> 0:29:36,496
+message object my specific
+
+994
+00:29:36,496 --> 0:29:37,986
+message type.
+
+995
+00:29:40,176 --> 0:29:44,066
+And lastly, I will call
+
+996
+00:29:44,066 --> 0:29:47,006
+deliverInput with no copying and
+
+997
+00:29:47,006 --> 0:29:48,976
+just tell the connection those
+
+998
+00:29:48,976 --> 0:29:50,706
+next bytes that I parsed out
+
+999
+00:29:50,746 --> 0:29:52,266
+based on the length, those are
+
+1000
+00:29:52,266 --> 0:29:53,506
+going to be the application
+
+1001
+00:29:53,506 --> 0:29:55,256
+data, and when your application
+
+1002
+00:29:55,256 --> 0:29:56,586
+receives a message, they'll
+
+1003
+00:29:56,586 --> 0:29:58,106
+receive exactly that chunk.
+
+1004
+00:29:59,026 --> 0:30:00,266
+So that's all I need to do.
+
+1005
+00:29:59,026 --> 0:30:00,266
+So that's all I need to do.
+
+1006
+00:30:00,396 --> 0:30:01,606
+That's my full protocol.
+
+1007
+00:30:01,606 --> 0:30:04,236
+I am ready to learn how to int
+
+1008
+00:30:04,346 --> 0:30:05,316
+input that into my game
+
+1009
+00:30:05,316 --> 0:30:05,846
+connections.
+
+1010
+00:30:09,181 --> 0:30:11,181
+[ Aapplause ]
+
+1011
+00:30:11,346 --> 0:30:11,586
+All right.
+
+1012
+00:30:14,756 --> 0:30:16,706
+So, the good news is that this
+
+1013
+00:30:16,706 --> 0:30:17,826
+part is really easy.
+
+1014
+00:30:18,516 --> 0:30:20,166
+So all you have to do to add
+
+1015
+00:30:20,236 --> 0:30:21,116
+your protocol into your
+
+1016
+00:30:21,116 --> 0:30:23,966
+connections and reuse it is take
+
+1017
+00:30:23,966 --> 0:30:25,426
+that definition you made earlier
+
+1018
+00:30:26,316 --> 0:30:28,306
+and create some protocol options
+
+1019
+00:30:28,396 --> 0:30:29,516
+using that definition.
+
+1020
+00:30:30,016 --> 0:30:32,426
+So protocol options are the
+
+1021
+00:30:32,476 --> 0:30:33,966
+things that protocol stacks are
+
+1022
+00:30:33,966 --> 0:30:34,426
+made out of.
+
+1023
+00:30:35,036 --> 0:30:37,016
+You have your TCP options, your
+
+1024
+00:30:37,016 --> 0:30:38,546
+TLS options, and now you have
+
+1025
+00:30:38,546 --> 0:30:39,806
+your own custom protocol
+
+1026
+00:30:39,806 --> 0:30:40,396
+options.
+
+1027
+00:30:41,036 --> 0:30:42,576
+So when you create your
+
+1028
+00:30:42,576 --> 0:30:43,816
+parameters for your connection,
+
+1029
+00:30:43,996 --> 0:30:45,766
+let's say you're using TLS as
+
+1030
+00:30:45,766 --> 0:30:46,946
+you should to be secure,
+
+1031
+00:30:48,226 --> 0:30:50,806
+alongside TLS in your protocol
+
+1032
+00:30:50,806 --> 0:30:53,096
+stack, you can add directly into
+
+1033
+00:30:53,096 --> 0:30:54,446
+that array of application
+
+1034
+00:30:54,446 --> 0:30:56,626
+protocols your own protocol on
+
+1035
+00:30:56,626 --> 0:30:56,926
+top.
+
+1036
+00:30:57,696 --> 0:30:58,736
+And you can add multiple of
+
+1037
+00:30:58,736 --> 0:31:00,506
+these to have multiple layers of
+
+1038
+00:30:58,736 --> 0:31:00,506
+these to have multiple layers of
+
+1039
+00:31:00,506 --> 0:31:01,406
+framing going on.
+
+1040
+00:31:02,046 --> 0:31:03,206
+And this is the same place that
+
+1041
+00:31:03,206 --> 0:31:04,806
+if you want to use WebSocket,
+
+1042
+00:31:05,346 --> 0:31:06,676
+which is a new system
+
+1043
+00:31:06,676 --> 0:31:07,996
+implementation that we have for
+
+1044
+00:31:07,996 --> 0:31:09,746
+you this year, you can add it
+
+1045
+00:31:09,746 --> 0:31:10,496
+into your connection.
+
+1046
+00:31:11,886 --> 0:31:14,586
+So WebSocket itself is
+
+1047
+00:31:14,766 --> 0:31:16,976
+implemented as a protocol framer
+
+1048
+00:31:17,266 --> 0:31:19,226
+using exactly the same API that
+
+1049
+00:31:19,556 --> 0:31:21,036
+you have available to you now.
+
+1050
+00:31:21,356 --> 0:31:22,506
+So it shows you just how
+
+1051
+00:31:22,506 --> 0:31:24,786
+powerful a framing protocol can
+
+1052
+00:31:24,786 --> 0:31:25,006
+be.
+
+1053
+00:31:25,736 --> 0:31:26,596
+But if you don't want to go
+
+1054
+00:31:26,596 --> 0:31:27,556
+through the work of writing your
+
+1055
+00:31:27,556 --> 0:31:29,386
+own, you can use WebSocket.
+
+1056
+00:31:33,546 --> 0:31:34,726
+So one point I want to make here
+
+1057
+00:31:34,726 --> 0:31:36,666
+is that some applications need
+
+1058
+00:31:36,666 --> 0:31:38,926
+to use different protocol stacks
+
+1059
+00:31:39,256 --> 0:31:40,456
+in different situations.
+
+1060
+00:31:41,366 --> 0:31:43,156
+And framing protocols are a
+
+1061
+00:31:43,156 --> 0:31:46,136
+really great way to make the
+
+1062
+00:31:46,136 --> 0:31:47,436
+contract between your
+
+1063
+00:31:47,436 --> 0:31:48,806
+application and the networking
+
+1064
+00:31:48,806 --> 0:31:51,006
+connection the same even when
+
+1065
+00:31:51,006 --> 0:31:52,066
+you're using different protocol
+
+1066
+00:31:52,066 --> 0:31:52,596
+stacks.
+
+1067
+00:31:53,466 --> 0:31:54,916
+So to give you an example of
+
+1068
+00:31:54,916 --> 0:31:57,176
+this, we use this on our system
+
+1069
+00:31:57,516 --> 0:31:58,026
+for DNS.
+
+1070
+00:31:58,936 --> 0:32:01,506
+So DNS usually sends datagram
+
+1071
+00:31:58,936 --> 0:32:01,506
+So DNS usually sends datagram
+
+1072
+00:32:01,506 --> 0:32:04,206
+messages over UDP.
+
+1073
+00:32:05,876 --> 0:32:08,306
+But occasionally, DNS needs to
+
+1074
+00:32:08,306 --> 0:32:10,256
+run on top of the stream like
+
+1075
+00:32:10,256 --> 0:32:10,736
+TCP.
+
+1076
+00:32:11,236 --> 0:32:12,846
+And when it does this, there's a
+
+1077
+00:32:12,846 --> 0:32:14,596
+protocol that just has a very
+
+1078
+00:32:14,596 --> 0:32:17,356
+basic length body format to
+
+1079
+00:32:17,356 --> 0:32:19,726
+encode DNS over TCP.
+
+1080
+00:32:20,726 --> 0:32:23,206
+So we wrote a framer to define
+
+1081
+00:32:23,206 --> 0:32:26,216
+this simple encapsulation so
+
+1082
+00:32:26,216 --> 0:32:28,106
+that we can have the same code
+
+1083
+00:32:28,106 --> 0:32:31,316
+on top that sends DNS datagrams
+
+1084
+00:32:31,456 --> 0:32:32,716
+that doesn't have to care about
+
+1085
+00:32:32,716 --> 0:32:34,626
+whether it's going over UDP or
+
+1086
+00:32:34,626 --> 0:32:36,526
+TCP and it can just be the same
+
+1087
+00:32:36,526 --> 0:32:36,876
+logic.
+
+1088
+00:32:37,396 --> 0:32:38,236
+So this is a great way to
+
+1089
+00:32:38,236 --> 0:32:40,676
+separate out the concerns and be
+
+1090
+00:32:40,676 --> 0:32:41,946
+able to debug the parts of your
+
+1091
+00:32:41,946 --> 0:32:43,196
+application separately.
+
+1092
+00:32:43,766 --> 0:32:47,506
+So now that we've added our
+
+1093
+00:32:47,506 --> 0:32:48,776
+framing protocol onto our
+
+1094
+00:32:48,776 --> 0:32:50,706
+connections, we're ready to send
+
+1095
+00:32:50,706 --> 0:32:52,306
+and receive messages and we can
+
+1096
+00:32:52,306 --> 0:32:55,086
+use custom values as we're going
+
+1097
+00:32:55,086 --> 0:32:56,166
+to be using in our game.
+
+1098
+00:32:57,476 --> 0:33:00,256
+So Framer.Message lets you store
+
+1099
+00:32:57,476 --> 0:33:00,256
+So Framer.Message lets you store
+
+1100
+00:33:00,256 --> 0:33:02,896
+key value pairs of any object
+
+1101
+00:33:02,896 --> 0:33:05,436
+type so that you can add in your
+
+1102
+00:33:05,436 --> 0:33:07,366
+own custom values to decorate
+
+1103
+00:33:07,886 --> 0:33:10,586
+your send operations and receive
+
+1104
+00:33:10,586 --> 0:33:12,196
+that information inside your
+
+1105
+00:33:12,196 --> 0:33:12,646
+protocol.
+
+1106
+00:33:13,586 --> 0:33:15,416
+So you can create a message and
+
+1107
+00:33:15,486 --> 0:33:16,906
+then when you've set it up how
+
+1108
+00:33:16,906 --> 0:33:18,516
+you like, you can add it to the
+
+1109
+00:33:18,546 --> 0:33:21,476
+context that you're sending your
+
+1110
+00:33:21,476 --> 0:33:22,126
+data on.
+
+1111
+00:33:22,676 --> 0:33:25,006
+So every send operation already
+
+1112
+00:33:25,006 --> 0:33:28,186
+has content along with context.
+
+1113
+00:33:28,526 --> 0:33:30,376
+And so the context describes how
+
+1114
+00:33:30,376 --> 0:33:31,396
+you want to send your data.
+
+1115
+00:33:31,856 --> 0:33:33,546
+So your Framer.Message is just a
+
+1116
+00:33:33,546 --> 0:33:37,096
+new way to send data.
+
+1117
+00:33:37,276 --> 0:33:38,936
+Receiving is very similar.
+
+1118
+00:33:39,046 --> 0:33:40,936
+When you call receiveMessage,
+
+1119
+00:33:41,776 --> 0:33:43,196
+you receive along with your
+
+1120
+00:33:43,196 --> 0:33:44,936
+content the context that
+
+1121
+00:33:44,936 --> 0:33:46,766
+describes how this data was
+
+1122
+00:33:46,766 --> 0:33:47,276
+received.
+
+1123
+00:33:48,056 --> 0:33:49,746
+And you can look using the
+
+1124
+00:33:49,746 --> 0:33:52,026
+definition of your protocol at
+
+1125
+00:33:52,126 --> 0:33:53,956
+the specific message values that
+
+1126
+00:33:53,956 --> 0:33:56,196
+your protocol framer delivered
+
+1127
+00:33:56,196 --> 0:33:57,116
+to you.
+
+1128
+00:33:58,006 --> 0:34:00,786
+OK. I think we are ready to go
+
+1129
+00:33:58,006 --> 0:34:00,786
+OK. I think we are ready to go
+
+1130
+00:34:00,936 --> 0:34:04,556
+finish our tic-tac-toe game.
+
+1131
+00:34:05,316 --> 0:34:05,826
+All right.
+
+1132
+00:34:06,696 --> 0:34:08,726
+So we've already finished our
+
+1133
+00:34:08,726 --> 0:34:09,565
+game protocol.
+
+1134
+00:34:10,206 --> 0:34:12,985
+To add it into our connections,
+
+1135
+00:34:13,045 --> 0:34:14,795
+I'm going to go back to the
+
+1136
+00:34:14,795 --> 0:34:16,496
+parameters that Eric set up
+
+1137
+00:34:16,556 --> 0:34:17,025
+earlier.
+
+1138
+00:34:17,025 --> 0:34:18,166
+So he already set up our
+
+1139
+00:34:18,166 --> 0:34:21,065
+connections to use TCP and TLS
+
+1140
+00:34:21,106 --> 0:34:22,216
+with our passcode.
+
+1141
+00:34:24,106 --> 0:34:28,085
+Now, all I need to do is just
+
+1142
+00:34:28,085 --> 0:34:29,036
+add these two lines in.
+
+1143
+00:34:29,036 --> 0:34:30,406
+We're going to create some
+
+1144
+00:34:30,406 --> 0:34:32,286
+options based on my game
+
+1145
+00:34:32,286 --> 0:34:34,696
+protocol definition and just
+
+1146
+00:34:34,696 --> 0:34:36,485
+insert them into the array of
+
+1147
+00:34:36,485 --> 0:34:37,956
+application protocols I want to
+
+1148
+00:34:37,956 --> 0:34:38,716
+use in my connection.
+
+1149
+00:34:39,386 --> 0:34:41,036
+Now when the connection starts
+
+1150
+00:34:41,036 --> 0:34:42,396
+up between those two devices, it
+
+1151
+00:34:42,646 --> 0:34:44,985
+will be ready to start encoding
+
+1152
+00:34:44,985 --> 0:34:46,616
+messages over that stream.
+
+1153
+00:34:47,096 --> 0:34:51,576
+Now I'm also going to do a
+
+1154
+00:34:51,576 --> 0:34:53,346
+couple convenience functions
+
+1155
+00:34:53,346 --> 0:34:54,676
+within my connection to make it
+
+1156
+00:34:54,746 --> 0:34:56,116
+easier for my application to
+
+1157
+00:34:56,116 --> 0:34:57,896
+send and receive my custom
+
+1158
+00:34:57,896 --> 0:34:58,786
+message types.
+
+1159
+00:34:59,836 --> 0:35:01,326
+So here I have a connection
+
+1160
+00:34:59,836 --> 0:35:01,326
+So here I have a connection
+
+1161
+00:35:01,326 --> 0:35:03,856
+object that sets up an
+
+1162
+00:35:03,856 --> 0:35:05,646
+NWConnection using the
+
+1163
+00:35:05,646 --> 0:35:07,216
+parameters that we just defined.
+
+1164
+00:35:08,346 --> 0:35:09,726
+Whenever the connection becomes
+
+1165
+00:35:09,726 --> 0:35:11,326
+ready, it's going to start
+
+1166
+00:35:11,326 --> 0:35:13,496
+receiving messages from the
+
+1167
+00:35:13,496 --> 0:35:13,786
+peer.
+
+1168
+00:35:15,286 --> 0:35:16,746
+So we need to receive next
+
+1169
+00:35:16,746 --> 0:35:17,876
+message and implement this.
+
+1170
+00:35:21,376 --> 0:35:23,316
+So what I'm going to do here is
+
+1171
+00:35:23,316 --> 0:35:24,776
+take my connection and call
+
+1172
+00:35:24,776 --> 0:35:25,766
+receiveMessage on it.
+
+1173
+00:35:26,716 --> 0:35:28,116
+I'm going to get the content
+
+1174
+00:35:28,276 --> 0:35:29,656
+along with the context.
+
+1175
+00:35:30,516 --> 0:35:31,596
+So I'm going to take that
+
+1176
+00:35:31,596 --> 0:35:34,506
+context and look at the specific
+
+1177
+00:35:34,506 --> 0:35:37,086
+metadata for my protocol, the
+
+1178
+00:35:37,086 --> 0:35:38,476
+game protocol definition.
+
+1179
+00:35:39,516 --> 0:35:40,856
+And that will give me my message
+
+1180
+00:35:40,856 --> 0:35:43,266
+object and allow me to deliver
+
+1181
+00:35:43,266 --> 0:35:44,986
+the message type along with the
+
+1182
+00:35:44,986 --> 0:35:46,146
+data up to the application.
+
+1183
+00:35:47,116 --> 0:35:48,436
+And then of course once I've
+
+1184
+00:35:48,436 --> 0:35:49,616
+successfully received one
+
+1185
+00:35:49,616 --> 0:35:51,136
+message, I'm going to call
+
+1186
+00:35:51,136 --> 0:35:52,776
+receiveNextMessage to do it all
+
+1187
+00:35:52,776 --> 0:35:53,236
+over again.
+
+1188
+00:35:56,016 --> 0:35:57,676
+I'm also going to define some
+
+1189
+00:35:57,946 --> 0:35:59,236
+helpers for sending.
+
+1190
+00:35:59,646 --> 0:36:01,096
+So whenever the application
+
+1191
+00:35:59,646 --> 0:36:01,096
+So whenever the application
+
+1192
+00:36:01,096 --> 0:36:02,206
+decides that the player is
+
+1193
+00:36:02,206 --> 0:36:04,466
+selecting a character, we can
+
+1194
+00:36:04,466 --> 0:36:07,716
+create a message and add the
+
+1195
+00:36:07,716 --> 0:36:09,306
+selected character type to it,
+
+1196
+00:36:10,096 --> 0:36:11,946
+add that on to our context and
+
+1197
+00:36:11,946 --> 0:36:12,406
+send it.
+
+1198
+00:36:12,916 --> 0:36:15,826
+I can do the same thing for
+
+1199
+00:36:15,826 --> 0:36:16,816
+sending a move, have a
+
+1200
+00:36:16,816 --> 0:36:18,486
+convenience here to say that I
+
+1201
+00:36:18,486 --> 0:36:20,106
+wanted to send a move, and then
+
+1202
+00:36:20,106 --> 0:36:21,846
+just take the application data
+
+1203
+00:36:22,316 --> 0:36:23,556
+and send it down the connection.
+
+1204
+00:36:24,626 --> 0:36:25,626
+So that's all we need to do.
+
+1205
+00:36:25,886 --> 0:36:27,606
+I think we're ready to play the
+
+1206
+00:36:27,606 --> 0:36:28,616
+game and I think we're going to
+
+1207
+00:36:28,616 --> 0:36:29,416
+need some help to this.
+
+1208
+00:36:29,416 --> 0:36:30,626
+So Eric, come back on stage.
+
+1209
+00:36:32,456 --> 0:36:33,156
+All right.
+
+1210
+00:36:34,336 --> 0:36:35,896
+So here Eric had already started
+
+1211
+00:36:35,896 --> 0:36:38,476
+hosting a game but I want to be
+
+1212
+00:36:38,476 --> 0:36:39,546
+the one hosting this one.
+
+1213
+00:36:40,726 --> 0:36:41,136
+Here we go.
+
+1214
+00:36:41,136 --> 0:36:42,946
+So Eric, how about you type in
+
+1215
+00:36:42,946 --> 0:36:47,406
+that passcode, 5176.
+
+1216
+00:36:47,906 --> 0:36:48,686
+Don't tell anyone [laughter].
+
+1217
+00:36:49,906 --> 0:36:51,116
+All right.
+
+1218
+00:36:51,116 --> 0:36:52,826
+So now we have a secure
+
+1219
+00:36:52,826 --> 0:36:53,896
+connection set up.
+
+1220
+00:36:54,286 --> 0:36:55,336
+It's using TLS.
+
+1221
+00:36:55,826 --> 0:36:57,666
+And when Eric selects a
+
+1222
+00:36:57,666 --> 0:36:59,746
+character-- he chose birds--
+
+1223
+00:37:00,536 --> 0:37:02,136
+he's sending the select
+
+1224
+00:37:02,636 --> 0:37:04,556
+character message across and I
+
+1225
+00:37:04,556 --> 0:37:06,806
+call receiveMessage over here, I
+
+1226
+00:37:06,806 --> 0:37:07,926
+receive that he selected that,
+
+1227
+00:37:07,926 --> 0:37:08,936
+I'm going to choose to be
+
+1228
+00:37:08,936 --> 0:37:10,246
+monkeys, why not.
+
+1229
+00:37:11,066 --> 0:37:13,566
+At this point, Eric will select
+
+1230
+00:37:14,326 --> 0:37:16,186
+a box to play and choose a
+
+1231
+00:37:16,186 --> 0:37:16,806
+character.
+
+1232
+00:37:17,846 --> 0:37:18,116
+All right.
+
+1233
+00:37:18,116 --> 0:37:20,846
+So he sent the move message over
+
+1234
+00:37:20,846 --> 0:37:21,276
+to me.
+
+1235
+00:37:21,626 --> 0:37:22,616
+I can receive a message.
+
+1236
+00:37:22,616 --> 0:37:23,846
+I get that it's a move.
+
+1237
+00:37:23,846 --> 0:37:25,946
+I know where he's placed it and
+
+1238
+00:37:25,946 --> 0:37:29,606
+I can decide, all right, there's
+
+1239
+00:37:29,606 --> 0:37:30,936
+a monkey up in the top corner,
+
+1240
+00:37:31,386 --> 0:37:32,476
+what's he going to do next?
+
+1241
+00:37:33,786 --> 0:37:35,066
+Uh-oh, he's looking like he's
+
+1242
+00:37:35,106 --> 0:37:36,076
+racing for the win.
+
+1243
+00:37:36,256 --> 0:37:36,866
+I don't know.
+
+1244
+00:37:36,906 --> 0:37:38,336
+I can't look at this.
+
+1245
+00:37:38,756 --> 0:37:39,896
+Tic-tac-toe is hard.
+
+1246
+00:37:40,376 --> 0:37:42,236
+It sounds like birds got the
+
+1247
+00:37:42,296 --> 0:37:42,736
+day.
+
+1248
+00:37:43,446 --> 0:37:45,636
+But as you can see, it's really
+
+1249
+00:37:45,636 --> 0:37:47,496
+easy to build this type of game
+
+1250
+00:37:47,496 --> 0:37:50,076
+and there's hopefully a lot more
+
+1251
+00:37:50,076 --> 0:37:51,666
+nuanced games you can build with
+
+1252
+00:37:51,666 --> 0:37:53,196
+this and lots of other
+
+1253
+00:37:53,196 --> 0:37:53,846
+applications.
+
+1254
+00:37:53,846 --> 0:37:54,896
+So we're really excited to see
+
+1255
+00:37:54,896 --> 0:37:55,236
+what you do.
+
+1256
+00:37:56,516 --> 0:38:02,616
+[ Applause ]
+
+1257
+00:37:56,516 --> 0:38:02,616
+[ Applause ]
+
+1258
+00:38:03,116 --> 0:38:04,546
+All right.
+
+1259
+00:38:07,116 --> 0:38:08,856
+So before I move on, I want to
+
+1260
+00:38:08,856 --> 0:38:10,276
+make one last comment about
+
+1261
+00:38:10,276 --> 0:38:11,316
+framing protocols.
+
+1262
+00:38:11,936 --> 0:38:14,156
+So, many of you have been asking
+
+1263
+00:38:14,156 --> 0:38:16,976
+how you can use techniques like
+
+1264
+00:38:17,136 --> 0:38:19,236
+STARTTLS with your
+
+1265
+00:38:19,236 --> 0:38:20,326
+NWConnections.
+
+1266
+00:38:20,776 --> 0:38:23,406
+So STARTTLS is a technique that
+
+1267
+00:38:23,406 --> 0:38:25,026
+comes from the SMTP mail
+
+1268
+00:38:25,026 --> 0:38:25,556
+protocol.
+
+1269
+00:38:25,556 --> 0:38:29,586
+And it allows you to talk to a
+
+1270
+00:38:29,586 --> 0:38:31,406
+legacy server that you don't
+
+1271
+00:38:31,406 --> 0:38:32,916
+know whether or not it supports
+
+1272
+00:38:32,996 --> 0:38:35,186
+TLS and secure connections and
+
+1273
+00:38:35,186 --> 0:38:36,576
+do an initial handshake with it.
+
+1274
+00:38:37,106 --> 0:38:39,096
+And then if TLS is supported,
+
+1275
+00:38:39,096 --> 0:38:40,956
+you can add it part way through
+
+1276
+00:38:40,956 --> 0:38:41,586
+your connection.
+
+1277
+00:38:41,856 --> 0:38:43,476
+Now there wasn't a good way to
+
+1278
+00:38:43,476 --> 0:38:45,196
+do this before, but framing
+
+1279
+00:38:45,196 --> 0:38:46,456
+protocols gives you a great
+
+1280
+00:38:46,456 --> 0:38:46,876
+solution.
+
+1281
+00:38:47,856 --> 0:38:50,726
+So, if you create a STARTTLS
+
+1282
+00:38:50,726 --> 0:38:52,206
+framing protocol and add it into
+
+1283
+00:38:52,206 --> 0:38:53,526
+your connection, when your
+
+1284
+00:38:53,526 --> 0:38:55,806
+application starts, you can
+
+1285
+00:38:55,916 --> 0:38:57,186
+begin a handshake with the
+
+1286
+00:38:57,186 --> 0:38:58,376
+server to determine whether or
+
+1287
+00:38:58,376 --> 0:38:59,606
+not it supports TLS.
+
+1288
+00:39:00,416 --> 0:39:01,386
+And then we allow you to
+
+1289
+00:39:01,386 --> 0:39:02,956
+dynamically add in other
+
+1290
+00:39:02,956 --> 0:39:04,836
+protocols onto the stack above
+
+1291
+00:39:04,836 --> 0:39:06,746
+your framing protocol before you
+
+1292
+00:39:06,746 --> 0:39:07,286
+call ready.
+
+1293
+00:39:07,956 --> 0:39:09,156
+This way the application can
+
+1294
+00:39:09,156 --> 0:39:11,736
+remain unchanged and not have to
+
+1295
+00:39:11,736 --> 0:39:13,436
+worry about adding TLS part way
+
+1296
+00:39:13,436 --> 0:39:13,866
+through.
+
+1297
+00:39:14,216 --> 0:39:15,926
+It can just happen automatically
+
+1298
+00:39:16,226 --> 0:39:17,446
+with your framing protocol.
+
+1299
+00:39:18,246 --> 0:39:19,216
+So we think it's a really
+
+1300
+00:39:19,216 --> 0:39:19,936
+elegant solution.
+
+1301
+00:39:21,516 --> 0:39:22,256
+All right.
+
+1302
+00:39:23,576 --> 0:39:24,366
+Let's move on.
+
+1303
+00:39:25,006 --> 0:39:27,146
+So, we've talked about Bonjour,
+
+1304
+00:39:27,146 --> 0:39:28,836
+how we can make better
+
+1305
+00:39:28,836 --> 0:39:30,276
+peer-to-peer connections and use
+
+1306
+00:39:30,276 --> 0:39:31,456
+wide-area discovery.
+
+1307
+00:39:31,686 --> 0:39:33,406
+We talked about framing
+
+1308
+00:39:33,406 --> 0:39:34,136
+protocols.
+
+1309
+00:39:35,086 --> 0:39:36,136
+But now I want to take a bit of
+
+1310
+00:39:36,136 --> 0:39:38,166
+a step back and look at how you
+
+1311
+00:39:38,166 --> 0:39:40,096
+can collect metrics about the
+
+1312
+00:39:40,096 --> 0:39:42,306
+connections within your app.
+
+1313
+00:39:43,356 --> 0:39:45,046
+So collecting metrics is really,
+
+1314
+00:39:45,046 --> 0:39:45,726
+really critical.
+
+1315
+00:39:46,876 --> 0:39:50,006
+It allows you to validate that
+
+1316
+00:39:50,006 --> 0:39:52,836
+when you add new features into
+
+1317
+00:39:52,836 --> 0:39:54,736
+your app or onto your server
+
+1318
+00:39:55,446 --> 0:39:56,366
+that are supposed to help you
+
+1319
+00:39:56,366 --> 0:39:57,546
+get better performance that
+
+1320
+00:39:57,546 --> 0:39:58,656
+they're really doing it, like
+
+1321
+00:39:58,656 --> 0:39:59,936
+you're having the effects that
+
+1322
+00:39:59,936 --> 0:40:00,566
+you want.
+
+1323
+00:39:59,936 --> 0:40:00,566
+you want.
+
+1324
+00:40:01,526 --> 0:40:03,756
+But it also helps you identify
+
+1325
+00:40:04,346 --> 0:40:06,196
+problems that your users may be
+
+1326
+00:40:06,196 --> 0:40:08,016
+encountering out in the real
+
+1327
+00:40:08,016 --> 0:40:09,946
+world that you don't notice on
+
+1328
+00:40:10,826 --> 0:40:12,056
+your desk.
+
+1329
+00:40:12,516 --> 0:40:14,606
+So this year, we have a lot of
+
+1330
+00:40:14,606 --> 0:40:16,206
+great new metrics to help you
+
+1331
+00:40:16,206 --> 0:40:17,396
+analyze your connections even
+
+1332
+00:40:17,396 --> 0:40:17,696
+more.
+
+1333
+00:40:18,446 --> 0:40:20,426
+URLSession already has many
+
+1334
+00:40:20,426 --> 0:40:22,236
+fantastic metrics but you'll be
+
+1335
+00:40:22,236 --> 0:40:23,476
+able to get even more.
+
+1336
+00:40:23,546 --> 0:40:24,996
+And for the first time in
+
+1337
+00:40:24,996 --> 0:40:26,496
+Network.framework, you will
+
+1338
+00:40:26,496 --> 0:40:28,286
+inspect your connections to
+
+1339
+00:40:28,286 --> 0:40:30,486
+understand many aspects of their
+
+1340
+00:40:30,486 --> 0:40:31,166
+performance.
+
+1341
+00:40:32,926 --> 0:40:35,326
+So in URLSession, you can
+
+1342
+00:40:35,326 --> 0:40:37,016
+already get a timing breakdown
+
+1343
+00:40:37,286 --> 0:40:40,896
+of DNS, TCP, TLS, and HTTP
+
+1344
+00:40:40,896 --> 0:40:43,016
+messages within your app.
+
+1345
+00:40:44,456 --> 0:40:46,086
+Now you'll be able to introspect
+
+1346
+00:40:46,386 --> 0:40:48,726
+even more connection properties
+
+1347
+00:40:49,706 --> 0:40:53,006
+along with the amount of data
+
+1348
+00:40:53,006 --> 0:40:54,146
+that you're sending for
+
+1349
+00:40:54,146 --> 0:40:55,866
+individual requests and
+
+1350
+00:40:55,866 --> 0:40:56,546
+responses.
+
+1351
+00:40:58,816 --> 0:41:00,376
+And in Network.framework, you'll
+
+1352
+00:40:58,816 --> 0:41:00,376
+And in Network.framework, you'll
+
+1353
+00:41:00,376 --> 0:41:01,856
+be able to access a connection
+
+1354
+00:41:01,856 --> 0:41:03,506
+establishment report that
+
+1355
+00:41:03,506 --> 0:41:04,966
+summarizes everything that
+
+1356
+00:41:04,966 --> 0:41:06,396
+happened during your connection
+
+1357
+00:41:06,396 --> 0:41:08,966
+bring up along with data
+
+1358
+00:41:08,966 --> 0:41:10,946
+transfer reports that allow you
+
+1359
+00:41:10,946 --> 0:41:12,236
+to look at the performance of
+
+1360
+00:41:12,346 --> 0:41:14,386
+individual periods of time over
+
+1361
+00:41:14,386 --> 0:41:15,036
+your connection.
+
+1362
+00:41:15,106 --> 0:41:16,666
+And you have multiple of these
+
+1363
+00:41:16,666 --> 0:41:17,836
+running at the same time.
+
+1364
+00:41:18,426 --> 0:41:21,546
+So let's start with URLSession.
+
+1365
+00:41:21,996 --> 0:41:25,116
+As a reminder, all of the
+
+1366
+00:41:25,116 --> 0:41:26,596
+metrics in URLSession are
+
+1367
+00:41:26,596 --> 0:41:27,356
+available in the
+
+1368
+00:41:27,356 --> 0:41:29,226
+didFinishCollectingMetrics
+
+1369
+00:41:29,416 --> 0:41:30,116
+delegate call.
+
+1370
+00:41:32,096 --> 0:41:34,086
+So, here are some of the new
+
+1371
+00:41:34,086 --> 0:41:36,016
+things that you can access are
+
+1372
+00:41:36,016 --> 0:41:37,326
+the endpoints of the connection,
+
+1373
+00:41:38,276 --> 0:41:40,566
+the local and remote addresses
+
+1374
+00:41:40,566 --> 0:41:41,236
+and ports.
+
+1375
+00:41:41,646 --> 0:41:43,756
+You can also check out the
+
+1376
+00:41:43,756 --> 0:41:45,036
+security properties.
+
+1377
+00:41:45,396 --> 0:41:48,836
+Are you using TLS 1.3, the
+
+1378
+00:41:48,836 --> 0:41:50,986
+latest most secure and most
+
+1379
+00:41:50,986 --> 0:41:52,436
+performant version of TLS?
+
+1380
+00:41:52,436 --> 0:41:55,886
+You can also check the path
+
+1381
+00:41:55,886 --> 0:41:56,666
+properties.
+
+1382
+00:41:57,636 --> 0:41:59,546
+So, this tells you things like
+
+1383
+00:41:59,796 --> 0:42:01,606
+did your connection use a
+
+1384
+00:41:59,796 --> 0:42:01,606
+did your connection use a
+
+1385
+00:42:01,606 --> 0:42:03,446
+constrained low data mode
+
+1386
+00:42:03,446 --> 0:42:05,656
+network, or did you use an
+
+1387
+00:42:05,656 --> 0:42:07,586
+expensive cellular network?
+
+1388
+00:42:10,216 --> 0:42:12,266
+The equivalent metrics within
+
+1389
+00:42:12,456 --> 0:42:14,586
+Network.framework are in the
+
+1390
+00:42:14,586 --> 0:42:15,506
+establishment report.
+
+1391
+00:42:16,346 --> 0:42:17,776
+So this is available to you any
+
+1392
+00:42:17,776 --> 0:42:19,056
+time after your connection has
+
+1393
+00:42:19,056 --> 0:42:20,816
+moved into the ready state.
+
+1394
+00:42:20,926 --> 0:42:23,416
+And this gives you a breakdown
+
+1395
+00:42:23,486 --> 0:42:26,426
+if your DNS times, your protocol
+
+1396
+00:42:26,426 --> 0:42:29,216
+handshakes for TCP and TLS, as
+
+1397
+00:42:29,216 --> 0:42:30,526
+well as whether or not you used
+
+1398
+00:42:30,526 --> 0:42:31,006
+a proxy.
+
+1399
+00:42:31,536 --> 0:42:33,576
+Here's how it looks in code.
+
+1400
+00:42:33,856 --> 0:42:34,986
+So you take your connection and
+
+1401
+00:42:34,986 --> 0:42:35,476
+you call
+
+1402
+00:42:35,676 --> 0:42:37,146
+requestEstablishmentReport.
+
+1403
+00:42:37,806 --> 0:42:39,886
+And this takes a queue on which
+
+1404
+00:42:39,886 --> 0:42:41,516
+it will deliver the report.
+
+1405
+00:42:42,696 --> 0:42:43,986
+Once you have that you can check
+
+1406
+00:42:43,986 --> 0:42:45,136
+the overall time that the
+
+1407
+00:42:45,136 --> 0:42:45,776
+connection took.
+
+1408
+00:42:46,296 --> 0:42:48,486
+You can check the individual
+
+1409
+00:42:48,486 --> 0:42:49,626
+resolution steps.
+
+1410
+00:42:49,836 --> 0:42:51,306
+So if you were connecting by a
+
+1411
+00:42:51,306 --> 0:42:53,416
+Bonjour name, it may be
+
+1412
+00:42:53,416 --> 0:42:55,056
+resolving Bonjour names into
+
+1413
+00:42:55,056 --> 0:42:56,886
+host names and host names into
+
+1414
+00:42:56,886 --> 0:42:58,756
+addresses, and you can look at
+
+1415
+00:42:58,786 --> 0:42:59,966
+the timing breakdown on each of
+
+1416
+00:42:59,966 --> 0:43:00,626
+those steps.
+
+1417
+00:42:59,966 --> 0:43:00,626
+those steps.
+
+1418
+00:43:01,136 --> 0:43:03,806
+And you can also look at the
+
+1419
+00:43:03,806 --> 0:43:06,286
+individual timings for a TCP,
+
+1420
+00:43:06,346 --> 0:43:08,256
+TLS, as well as the round-trip
+
+1421
+00:43:08,256 --> 0:43:09,126
+times they observed.
+
+1422
+00:43:09,346 --> 0:43:13,476
+One point that I want to
+
+1423
+00:43:13,476 --> 0:43:14,306
+highlight that's really
+
+1424
+00:43:14,306 --> 0:43:15,386
+important to the overall
+
+1425
+00:43:15,386 --> 0:43:16,566
+performance of your connection
+
+1426
+00:43:16,566 --> 0:43:18,936
+establishment is the amount of
+
+1427
+00:43:18,936 --> 0:43:20,756
+time that it takes to resolve
+
+1428
+00:43:20,886 --> 0:43:23,376
+DNS and the source of where your
+
+1429
+00:43:23,376 --> 0:43:25,166
+DNS resolution came.
+
+1430
+00:43:27,386 --> 0:43:30,286
+So, many servers have a very
+
+1431
+00:43:30,286 --> 0:43:32,876
+short time to live configured on
+
+1432
+00:43:32,876 --> 0:43:34,046
+their DNS records.
+
+1433
+00:43:34,446 --> 0:43:36,846
+And they do this such that if a
+
+1434
+00:43:36,846 --> 0:43:39,866
+server goes down or the server
+
+1435
+00:43:39,866 --> 0:43:40,886
+wants to load balance over
+
+1436
+00:43:40,946 --> 0:43:43,246
+another IP address, it can
+
+1437
+00:43:43,246 --> 0:43:44,956
+quickly change the IP address
+
+1438
+00:43:44,956 --> 0:43:47,546
+record and have clients adjust
+
+1439
+00:43:47,546 --> 0:43:49,056
+and start using the new address.
+
+1440
+00:43:50,166 --> 0:43:52,116
+The downside, though, is that
+
+1441
+00:43:52,116 --> 0:43:53,806
+this really can hurt client
+
+1442
+00:43:53,806 --> 0:43:54,546
+performance.
+
+1443
+00:43:55,736 --> 0:43:57,666
+With a short time to live, a
+
+1444
+00:43:57,666 --> 0:43:59,546
+client will almost always have
+
+1445
+00:43:59,616 --> 0:44:01,646
+to take the round trip to do
+
+1446
+00:43:59,616 --> 0:44:01,646
+to take the round trip to do
+
+1447
+00:44:01,646 --> 0:44:04,236
+DNS, to request the address for
+
+1448
+00:44:04,236 --> 0:44:06,106
+the host name that you are
+
+1449
+00:44:06,106 --> 0:44:06,766
+connecting to.
+
+1450
+00:44:07,286 --> 0:44:11,066
+And this can be particularly bad
+
+1451
+00:44:11,366 --> 0:44:12,866
+for clients that have a high
+
+1452
+00:44:12,866 --> 0:44:13,636
+latency link.
+
+1453
+00:44:14,286 --> 0:44:16,396
+This is going to add hundreds of
+
+1454
+00:44:16,396 --> 0:44:17,946
+milliseconds or even seconds on
+
+1455
+00:44:17,946 --> 0:44:19,156
+to their connection times.
+
+1456
+00:44:19,786 --> 0:44:22,126
+And the worst part is most of
+
+1457
+00:44:22,126 --> 0:44:23,816
+the time, the server address has
+
+1458
+00:44:23,816 --> 0:44:26,256
+not changed at all, and so this
+
+1459
+00:44:26,256 --> 0:44:27,296
+is a wasted round trip.
+
+1460
+00:44:28,426 --> 0:44:30,906
+So, optimistic DNS is a solution
+
+1461
+00:44:30,906 --> 0:44:33,016
+that we released last year that
+
+1462
+00:44:33,016 --> 0:44:34,256
+solves this problem.
+
+1463
+00:44:35,786 --> 0:44:37,636
+Optimistic DNS allows your
+
+1464
+00:44:37,636 --> 0:44:39,636
+connection to optimistically
+
+1465
+00:44:39,916 --> 0:44:42,376
+connect to the last known good
+
+1466
+00:44:42,376 --> 0:44:43,846
+IP address for that host name,
+
+1467
+00:44:44,816 --> 0:44:46,716
+in parallel with issuing a new
+
+1468
+00:44:46,716 --> 0:44:48,586
+query for the host name's
+
+1469
+00:44:48,636 --> 0:44:49,766
+current address.
+
+1470
+00:44:51,146 --> 0:44:52,776
+If nothing has changed, which is
+
+1471
+00:44:52,776 --> 0:44:55,246
+almost always the case, the
+
+1472
+00:44:55,246 --> 0:44:56,456
+connection will just establish
+
+1473
+00:44:56,456 --> 0:44:58,356
+to the old IP address.
+
+1474
+00:44:58,676 --> 0:45:00,016
+But if something has changed
+
+1475
+00:44:58,676 --> 0:45:00,016
+But if something has changed
+
+1476
+00:45:00,016 --> 0:45:01,266
+you'll still get the new IP
+
+1477
+00:45:01,266 --> 0:45:02,316
+address and connect to it
+
+1478
+00:45:02,316 --> 0:45:02,776
+instead.
+
+1479
+00:45:03,376 --> 0:45:05,126
+We have been doing a lot of
+
+1480
+00:45:05,126 --> 0:45:06,676
+measurements on this and testing
+
+1481
+00:45:07,206 --> 0:45:08,996
+and it is a really great
+
+1482
+00:45:08,996 --> 0:45:09,456
+solution.
+
+1483
+00:45:09,456 --> 0:45:11,126
+And so this year, it is on by
+
+1484
+00:45:11,126 --> 0:45:12,976
+default for connections using
+
+1485
+00:45:12,976 --> 0:45:14,156
+Network.framework and
+
+1486
+00:45:14,156 --> 0:45:14,936
+URLSession.
+
+1487
+00:45:16,736 --> 0:45:17,866
+When you're looking at your
+
+1488
+00:45:17,866 --> 0:45:19,146
+establishment report, you can
+
+1489
+00:45:19,146 --> 0:45:21,046
+tell whether or not you used
+
+1490
+00:45:21,046 --> 0:45:22,986
+optimistic DNS by looking at the
+
+1491
+00:45:22,986 --> 0:45:23,636
+source.
+
+1492
+00:45:24,116 --> 0:45:25,216
+And if it says it's from the
+
+1493
+00:45:25,216 --> 0:45:27,746
+expired cache, that means we
+
+1494
+00:45:27,746 --> 0:45:29,656
+ended up using and benefiting
+
+1495
+00:45:29,746 --> 0:45:30,966
+from optimistic DNS.
+
+1496
+00:45:31,726 --> 0:45:34,566
+I want to show you a bit how you
+
+1497
+00:45:34,566 --> 0:45:36,416
+can use metrics to look at the
+
+1498
+00:45:36,416 --> 0:45:38,196
+performance of your connections
+
+1499
+00:45:38,196 --> 0:45:39,926
+and the benefit of optimistic
+
+1500
+00:45:39,926 --> 0:45:47,196
+DNS and TLS 1.3.
+
+1501
+00:45:47,426 --> 0:45:49,766
+OK. So here I have an
+
+1502
+00:45:49,766 --> 0:45:51,556
+application that's a very basic
+
+1503
+00:45:51,556 --> 0:45:53,666
+app to collect connection
+
+1504
+00:45:53,666 --> 0:45:54,216
+metrics.
+
+1505
+00:45:54,346 --> 0:45:56,526
+All it does is run a probe to a
+
+1506
+00:45:56,526 --> 0:45:57,286
+given website.
+
+1507
+00:45:57,756 --> 0:45:58,006
+All right.
+
+1508
+00:45:58,656 --> 0:46:00,186
+So here it is.
+
+1509
+00:45:58,656 --> 0:46:00,186
+So here it is.
+
+1510
+00:46:00,186 --> 0:46:01,836
+I clicked Run Probe and I
+
+1511
+00:46:01,836 --> 0:46:03,306
+connected and it's pretty fast.
+
+1512
+00:46:03,306 --> 0:46:07,156
+I'm doing this on a great Wi-Fi
+
+1513
+00:46:07,716 --> 0:46:07,916
+network.
+
+1514
+00:46:08,506 --> 0:46:10,336
+But if you want to test a more
+
+1515
+00:46:10,336 --> 0:46:12,176
+realistic scenario or see the
+
+1516
+00:46:12,176 --> 0:46:13,496
+effects of different network
+
+1517
+00:46:13,496 --> 0:46:15,606
+conditions, you are now able to
+
+1518
+00:46:16,146 --> 0:46:18,026
+within the devices and
+
+1519
+00:46:18,026 --> 0:46:20,806
+simulators panel of Xcode access
+
+1520
+00:46:20,806 --> 0:46:23,226
+device conditions and simulate
+
+1521
+00:46:23,646 --> 0:46:24,976
+different network link
+
+1522
+00:46:24,976 --> 0:46:25,626
+conditions.
+
+1523
+00:46:25,806 --> 0:46:26,886
+So you can see what it's like
+
+1524
+00:46:26,886 --> 0:46:29,226
+potentially for your users in
+
+1525
+00:46:29,446 --> 0:46:30,416
+different scenarios [applause].
+
+1526
+00:46:31,196 --> 0:46:33,286
+Yes, it's great.
+
+1527
+00:46:35,736 --> 0:46:37,126
+So let's see what it looks like
+
+1528
+00:46:37,296 --> 0:46:39,096
+to have a high latency DNS link.
+
+1529
+00:46:40,256 --> 0:46:41,826
+So I clicked Start and you can
+
+1530
+00:46:41,826 --> 0:46:42,936
+tell that it's running because I
+
+1531
+00:46:42,936 --> 0:46:45,496
+have this gray box up in the
+
+1532
+00:46:45,496 --> 0:46:46,426
+upper left hand corner.
+
+1533
+00:46:47,546 --> 0:46:50,266
+So now, let's run that probe
+
+1534
+00:46:50,266 --> 0:46:50,716
+again.
+
+1535
+00:46:50,716 --> 0:46:53,086
+So it was fast.
+
+1536
+00:46:53,796 --> 0:46:54,326
+That's great.
+
+1537
+00:46:54,546 --> 0:46:55,926
+But you'll notice that it came
+
+1538
+00:46:55,926 --> 0:46:57,486
+from the expired cache.
+
+1539
+00:46:57,966 --> 0:46:59,226
+So this means that we ended up
+
+1540
+00:46:59,276 --> 0:47:00,616
+using optimistic DNS.
+
+1541
+00:46:59,276 --> 0:47:00,616
+using optimistic DNS.
+
+1542
+00:47:01,486 --> 0:47:04,476
+So optimistic DNS is on by
+
+1543
+00:47:04,476 --> 0:47:06,196
+default but you-- we let you
+
+1544
+00:47:06,196 --> 0:47:07,626
+turn it off if you don't think
+
+1545
+00:47:07,626 --> 0:47:08,826
+it's appropriate for your
+
+1546
+00:47:08,826 --> 0:47:09,236
+server.
+
+1547
+00:47:09,956 --> 0:47:11,186
+So let's run the probe again.
+
+1548
+00:47:11,836 --> 0:47:14,796
+You can feel the seconds go by.
+
+1549
+00:47:15,796 --> 0:47:17,766
+So, this is potentially a bit
+
+1550
+00:47:17,766 --> 0:47:18,606
+exaggerated.
+
+1551
+00:47:18,696 --> 0:47:19,936
+Hopefully your users don't have
+
+1552
+00:47:19,936 --> 0:47:21,986
+three seconds of DNS latency but
+
+1553
+00:47:21,986 --> 0:47:23,526
+it can make a huge difference.
+
+1554
+00:47:24,146 --> 0:47:26,956
+Let's go to a bit more realistic
+
+1555
+00:47:26,956 --> 0:47:30,086
+scenario now, something like an
+
+1556
+00:47:30,086 --> 0:47:31,836
+average 3G network.
+
+1557
+00:47:32,496 --> 0:47:35,956
+I'm going to start this and run
+
+1558
+00:47:35,956 --> 0:47:37,166
+the probe one more time.
+
+1559
+00:47:37,766 --> 0:47:40,436
+So it wasn't quite as snappy as
+
+1560
+00:47:40,436 --> 0:47:41,356
+the first time I ran it.
+
+1561
+00:47:42,096 --> 0:47:43,726
+Overall you can see that I have
+
+1562
+00:47:43,726 --> 0:47:45,866
+about 600 milliseconds for the
+
+1563
+00:47:45,866 --> 0:47:46,846
+connection to establish.
+
+1564
+00:47:47,306 --> 0:47:51,786
+And TLS alone took around little
+
+1565
+00:47:51,786 --> 0:47:53,416
+bit less than 300 milliseconds,
+
+1566
+00:47:53,416 --> 0:47:56,826
+so about half of that time.
+
+1567
+00:47:57,016 --> 0:47:59,006
+So our server is configured to
+
+1568
+00:47:59,006 --> 0:48:00,506
+support TLS 1.3.
+
+1569
+00:47:59,006 --> 0:48:00,506
+support TLS 1.3.
+
+1570
+00:48:00,906 --> 0:48:04,166
+Now TLS 1.3 generally only takes
+
+1571
+00:48:04,206 --> 0:48:06,066
+one round trip to do the full
+
+1572
+00:48:06,066 --> 0:48:06,486
+handshake.
+
+1573
+00:48:06,776 --> 0:48:08,146
+It's great improvement.
+
+1574
+00:48:09,086 --> 0:48:10,286
+But if your server doesn't
+
+1575
+00:48:10,286 --> 0:48:11,946
+support TLS 1.3, if it only
+
+1576
+00:48:11,946 --> 0:48:14,806
+supports TLS 1.2 or if you're
+
+1577
+00:48:14,806 --> 0:48:18,416
+using an API on your app that
+
+1578
+00:48:18,416 --> 0:48:22,476
+doesn't support TLS 1.3, you may
+
+1579
+00:48:22,476 --> 0:48:24,836
+see scenarios more like this in
+
+1580
+00:48:24,836 --> 0:48:27,326
+which TLS alone is now taking
+
+1581
+00:48:27,616 --> 0:48:29,466
+over 500 milliseconds, taking an
+
+1582
+00:48:29,466 --> 0:48:30,246
+extra round trip.
+
+1583
+00:48:31,166 --> 0:48:31,906
+And you can see that the
+
+1584
+00:48:31,906 --> 0:48:34,286
+connection time is almost-- it's
+
+1585
+00:48:34,286 --> 0:48:35,576
+over three-quarters of a second,
+
+1586
+00:48:35,656 --> 0:48:36,496
+almost at a second.
+
+1587
+00:48:36,926 --> 0:48:37,946
+And if you have many
+
+1588
+00:48:37,946 --> 0:48:39,796
+connections, this can really add
+
+1589
+00:48:39,796 --> 0:48:42,466
+up to perceivable user latency.
+
+1590
+00:48:43,216 --> 0:48:44,376
+So we encourage you that
+
+1591
+00:48:44,376 --> 0:48:45,326
+whenever you're testing your
+
+1592
+00:48:45,326 --> 0:48:47,576
+app, do a run through network
+
+1593
+00:48:47,576 --> 0:48:49,276
+link conditioner and try out
+
+1594
+00:48:49,276 --> 0:48:50,856
+some of these scenarios and
+
+1595
+00:48:50,856 --> 0:48:52,746
+validate that your app performs
+
+1596
+00:48:52,746 --> 0:48:53,026
+well.
+
+1597
+00:49:01,196 --> 0:49:02,476
+So the other category of
+
+1598
+00:49:02,476 --> 0:49:04,546
+metrics, have to do with the
+
+1599
+00:49:04,546 --> 0:49:05,956
+data transfer after the
+
+1600
+00:49:05,956 --> 0:49:07,186
+connection is established.
+
+1601
+00:49:08,356 --> 0:49:10,576
+So in URLSession, you are now
+
+1602
+00:49:10,576 --> 0:49:12,456
+going to be able to access more
+
+1603
+00:49:12,456 --> 0:49:13,566
+metrics about the number of
+
+1604
+00:49:13,566 --> 0:49:15,496
+bytes that you sent in the
+
+1605
+00:49:15,496 --> 0:49:17,186
+header and the body of your
+
+1606
+00:49:17,186 --> 0:49:19,606
+requests as well as the number
+
+1607
+00:49:19,606 --> 0:49:21,356
+of bytes that your receive in
+
+1608
+00:49:21,356 --> 0:49:23,856
+the headers and bodies of your
+
+1609
+00:49:23,856 --> 0:49:24,686
+responses.
+
+1610
+00:49:25,606 --> 0:49:27,286
+And this is really important if
+
+1611
+00:49:27,286 --> 0:49:29,866
+you are choosing a different URL
+
+1612
+00:49:30,126 --> 0:49:32,916
+to download less data in a low
+
+1613
+00:49:32,916 --> 0:49:35,946
+data mode network scenario, use
+
+1614
+00:49:36,026 --> 0:49:37,196
+this to validate that you're
+
+1615
+00:49:37,256 --> 0:49:38,976
+actually saving your user's
+
+1616
+00:49:39,986 --> 0:49:40,106
+bytes.
+
+1617
+00:49:42,796 --> 0:49:44,616
+In Network.framework, you can
+
+1618
+00:49:44,616 --> 0:49:46,506
+now access a data transfer
+
+1619
+00:49:46,506 --> 0:49:48,426
+report that summarizes the
+
+1620
+00:49:48,426 --> 0:49:50,536
+performance in terms of bytes
+
+1621
+00:49:50,926 --> 0:49:52,886
+and packets and round trip times
+
+1622
+00:49:53,416 --> 0:49:56,026
+for a given period of time on
+
+1623
+00:49:56,026 --> 0:49:56,606
+your connection.
+
+1624
+00:49:56,986 --> 0:49:58,136
+You can have multiple of these
+
+1625
+00:49:58,136 --> 0:49:59,156
+running at the same time and
+
+1626
+00:49:59,246 --> 0:50:00,236
+they should correspond to your
+
+1627
+00:49:59,246 --> 0:50:00,236
+they should correspond to your
+
+1628
+00:50:00,236 --> 0:50:00,976
+application's activity.
+
+1629
+00:50:01,236 --> 0:50:03,116
+So if you send a burst of
+
+1630
+00:50:03,116 --> 0:50:05,176
+traffic, have that be within a
+
+1631
+00:50:05,176 --> 0:50:06,236
+data transfer report.
+
+1632
+00:50:06,896 --> 0:50:08,576
+And it's not as interesting to
+
+1633
+00:50:08,656 --> 0:50:11,446
+take reports of idle periods.
+
+1634
+00:50:11,976 --> 0:50:14,176
+The way that you do this is that
+
+1635
+00:50:14,176 --> 0:50:15,956
+at any point you can call start
+
+1636
+00:50:15,956 --> 0:50:18,266
+data transfer report on your
+
+1637
+00:50:18,266 --> 0:50:18,776
+connection.
+
+1638
+00:50:19,286 --> 0:50:21,896
+This begins gathering data about
+
+1639
+00:50:21,896 --> 0:50:23,366
+your connection's performance.
+
+1640
+00:50:24,336 --> 0:50:25,946
+And when you're done sending a
+
+1641
+00:50:25,946 --> 0:50:27,126
+bunch of data, you can call
+
+1642
+00:50:27,126 --> 0:50:27,606
+collect.
+
+1643
+00:50:28,316 --> 0:50:29,746
+This will summarize all of the
+
+1644
+00:50:29,746 --> 0:50:31,606
+data and give you a report.
+
+1645
+00:50:32,836 --> 0:50:34,936
+Now, if you're using multipath
+
+1646
+00:50:34,996 --> 0:50:36,996
+protocols, this will give you a
+
+1647
+00:50:36,996 --> 0:50:39,446
+breakdown of the amounts that
+
+1648
+00:50:39,446 --> 0:50:41,456
+were sent over each link that
+
+1649
+00:50:41,456 --> 0:50:42,556
+the multipath protocol was
+
+1650
+00:50:42,556 --> 0:50:42,976
+using.
+
+1651
+00:50:43,896 --> 0:50:45,006
+But many of you may be
+
+1652
+00:50:45,006 --> 0:50:46,526
+interested just in the aggregate
+
+1653
+00:50:46,656 --> 0:50:47,316
+path report.
+
+1654
+00:50:48,716 --> 0:50:50,506
+Here you can look at the number
+
+1655
+00:50:50,506 --> 0:50:51,566
+of packets that you sent and
+
+1656
+00:50:51,566 --> 0:50:53,386
+received, the number of bytes
+
+1657
+00:50:53,386 --> 0:50:55,036
+that were transferred, as well
+
+1658
+00:50:55,036 --> 0:50:56,696
+as the round-trip time details
+
+1659
+00:50:56,696 --> 0:50:57,336
+that you observed.
+
+1660
+00:50:58,806 --> 0:51:00,756
+So this is metrics we were
+
+1661
+00:50:58,806 --> 0:51:00,756
+So this is metrics we were
+
+1662
+00:51:00,756 --> 0:51:02,306
+really excited to see people
+
+1663
+00:51:02,306 --> 0:51:04,316
+adopt more metrics and help
+
+1664
+00:51:04,416 --> 0:51:05,606
+improve the performance of their
+
+1665
+00:51:05,666 --> 0:51:06,076
+apps.
+
+1666
+00:51:06,966 --> 0:51:08,726
+And to leave us with some great
+
+1667
+00:51:08,726 --> 0:51:10,386
+advice and new updates, I'd like
+
+1668
+00:51:10,386 --> 0:51:11,416
+to invite Stuart up to the
+
+1669
+00:51:11,416 --> 0:51:11,856
+stage.
+
+1670
+00:51:12,516 --> 0:51:14,866
+[ Applause ]
+
+1671
+00:51:15,366 --> 0:51:16,116
+&gt;&gt; Thank you, Tommy.
+
+1672
+00:51:17,516 --> 0:51:19,286
+It is my pleasure and privilege
+
+1673
+00:51:19,606 --> 0:51:21,306
+to present the wrap-up for what
+
+1674
+00:51:21,306 --> 0:51:23,326
+has been two hours of really
+
+1675
+00:51:23,326 --> 0:51:24,766
+great networking information
+
+1676
+00:51:24,766 --> 0:51:26,046
+from my fellow presenters.
+
+1677
+00:51:26,916 --> 0:51:29,986
+I'm going to start off with iPad
+
+1678
+00:51:29,986 --> 0:51:30,906
+apps for Mac.
+
+1679
+00:51:31,956 --> 0:51:33,046
+I know a lot of you are excited
+
+1680
+00:51:33,046 --> 0:51:33,666
+about this.
+
+1681
+00:51:34,206 --> 0:51:35,626
+When it comes to networking,
+
+1682
+00:51:36,296 --> 0:51:36,936
+there are very little
+
+1683
+00:51:36,936 --> 0:51:38,726
+differences on Apple platforms.
+
+1684
+00:51:39,536 --> 0:51:41,056
+One thing you will want to be
+
+1685
+00:51:41,056 --> 0:51:44,626
+aware of is in your Xcode
+
+1686
+00:51:44,626 --> 0:51:47,166
+settings, when you check the box
+
+1687
+00:51:47,166 --> 0:51:51,036
+for Mac, you will now see some
+
+1688
+00:51:51,036 --> 0:51:51,826
+new options.
+
+1689
+00:51:52,216 --> 0:51:54,786
+By default, outgoing connections
+
+1690
+00:51:54,786 --> 0:51:56,306
+are allowed but if you want
+
+1691
+00:51:56,366 --> 0:51:57,636
+incoming connections for your
+
+1692
+00:51:57,636 --> 0:51:59,296
+app as well, you have to check
+
+1693
+00:51:59,296 --> 0:51:59,916
+that box.
+
+1694
+00:52:05,696 --> 0:52:07,976
+On watchOS, we have new
+
+1695
+00:52:07,976 --> 0:52:09,396
+networking capabilities.
+
+1696
+00:52:11,036 --> 0:52:12,946
+Applications that do audio
+
+1697
+00:52:12,946 --> 0:52:16,016
+streaming using AVFoundation can
+
+1698
+00:52:16,016 --> 0:52:18,756
+now use direct networking, as
+
+1699
+00:52:18,756 --> 0:52:20,696
+long as they're using URLSession
+
+1700
+00:52:21,046 --> 0:52:22,136
+or Network.framework.
+
+1701
+00:52:23,036 --> 0:52:24,576
+Sockets is not available.
+
+1702
+00:52:30,156 --> 0:52:33,226
+We are also introducing TLS 1.3
+
+1703
+00:52:33,636 --> 0:52:34,516
+which gives you lots of
+
+1704
+00:52:34,516 --> 0:52:35,196
+benefits.
+
+1705
+00:52:36,136 --> 0:52:38,166
+TLS 1.3 has better connection
+
+1706
+00:52:38,166 --> 0:52:38,866
+performance.
+
+1707
+00:52:39,036 --> 0:52:42,106
+TLS 1.2 typically has two round
+
+1708
+00:52:42,106 --> 0:52:43,466
+trips to set up a connection.
+
+1709
+00:52:43,546 --> 0:52:46,066
+TLS 1.3 almost always does it in
+
+1710
+00:52:46,066 --> 0:52:46,806
+one round trip.
+
+1711
+00:52:48,146 --> 0:52:51,646
+TLS 1.2 used cryptographic
+
+1712
+00:52:51,646 --> 0:52:53,236
+algorithms that were believed to
+
+1713
+00:52:53,236 --> 0:52:54,896
+be good at the time but have
+
+1714
+00:52:54,896 --> 0:52:55,986
+since been shown type of
+
+1715
+00:52:55,986 --> 0:52:56,586
+weaknesses.
+
+1716
+00:52:56,586 --> 0:52:58,096
+And this is not just an academic
+
+1717
+00:52:58,096 --> 0:52:58,756
+concern.
+
+1718
+00:52:58,806 --> 0:52:59,966
+These have been exploited in
+
+1719
+00:52:59,966 --> 0:53:00,486
+practice.
+
+1720
+00:52:59,966 --> 0:53:00,486
+practice.
+
+1721
+00:53:01,676 --> 0:53:03,566
+Those have all been removed in
+
+1722
+00:53:03,566 --> 0:53:07,026
+TLS 1.3 and all the
+
+1723
+00:53:07,026 --> 0:53:08,866
+cryptographic algorithms in TLS
+
+1724
+00:53:08,866 --> 0:53:11,726
+1.3 support authenticated
+
+1725
+00:53:11,726 --> 0:53:13,696
+encryption with associated data
+
+1726
+00:53:13,986 --> 0:53:14,996
+and forward secrecy.
+
+1727
+00:53:16,176 --> 0:53:18,626
+And finally, you all know that
+
+1728
+00:53:18,626 --> 0:53:19,966
+privacy is very important to
+
+1729
+00:53:19,966 --> 0:53:20,466
+Apple.
+
+1730
+00:53:20,986 --> 0:53:23,416
+TLS 1.3 has much better privacy.
+
+1731
+00:53:24,176 --> 0:53:26,796
+Many of their header fields and
+
+1732
+00:53:27,006 --> 0:53:30,166
+certificates in TLS 1.2 was sent
+
+1733
+00:53:30,166 --> 0:53:30,706
+in the clear.
+
+1734
+00:53:31,186 --> 0:53:32,926
+Those are now all encrypted in
+
+1735
+00:53:32,926 --> 0:53:34,076
+TLS 1.3.
+
+1736
+00:53:34,686 --> 0:53:38,276
+So, the call to action is start
+
+1737
+00:53:38,276 --> 0:53:39,736
+using TLS 1.3 on your
+
+1738
+00:53:39,736 --> 0:53:41,856
+applications and of course, make
+
+1739
+00:53:41,856 --> 0:53:43,456
+sure your servers are updated to
+
+1740
+00:53:43,456 --> 0:53:46,996
+support TLS 1.3 too.
+
+1741
+00:53:47,616 --> 0:53:49,476
+Now, you all know the importance
+
+1742
+00:53:49,476 --> 0:53:50,476
+of privacy to Apple.
+
+1743
+00:53:51,146 --> 0:53:52,936
+And one of the things we
+
+1744
+00:53:52,936 --> 0:53:56,416
+realized is that accessing Wi-Fi
+
+1745
+00:53:56,416 --> 0:53:58,456
+information can be used to infer
+
+1746
+00:53:58,456 --> 0:53:59,286
+locations.
+
+1747
+00:53:59,916 --> 0:54:02,936
+So starting now, to access that
+
+1748
+00:53:59,916 --> 0:54:02,936
+So starting now, to access that
+
+1749
+00:54:02,936 --> 0:54:05,066
+Wi-Fi information, you will need
+
+1750
+00:54:05,456 --> 0:54:07,586
+the same kind of privileges that
+
+1751
+00:54:07,586 --> 0:54:09,126
+you need to get other location
+
+1752
+00:54:09,126 --> 0:54:09,736
+information.
+
+1753
+00:54:10,786 --> 0:54:12,626
+The first step is in Xcode you
+
+1754
+00:54:12,626 --> 0:54:14,716
+have to add the capability to
+
+1755
+00:54:14,716 --> 0:54:16,846
+access Wi-Fi information to add
+
+1756
+00:54:16,846 --> 0:54:18,666
+the entitlement to your project,
+
+1757
+00:54:18,666 --> 0:54:22,266
+and then your app must meet one
+
+1758
+00:54:22,266 --> 0:54:23,706
+of three other criteria.
+
+1759
+00:54:23,706 --> 0:54:26,086
+If the user has given your app
+
+1760
+00:54:26,386 --> 0:54:28,496
+location access, then you can
+
+1761
+00:54:28,496 --> 0:54:29,786
+access the Wi-Fi network
+
+1762
+00:54:29,786 --> 0:54:30,416
+information.
+
+1763
+00:54:31,556 --> 0:54:33,356
+If your app is the currently
+
+1764
+00:54:33,356 --> 0:54:35,766
+enabled VPN app on the device,
+
+1765
+00:54:36,376 --> 0:54:37,816
+you can access the information.
+
+1766
+00:54:37,986 --> 0:54:40,146
+And finally, if your app is in
+
+1767
+00:54:40,146 --> 0:54:42,276
+any hotspot configuration app,
+
+1768
+00:54:42,676 --> 0:54:44,036
+then it can also access the
+
+1769
+00:54:44,036 --> 0:54:45,396
+information but only for the
+
+1770
+00:54:45,396 --> 0:54:47,276
+networks that it has configured.
+
+1771
+00:54:48,496 --> 0:54:49,896
+For more information you can
+
+1772
+00:54:49,896 --> 0:54:51,436
+also see the Wi-Fi framework.
+
+1773
+00:54:52,066 --> 0:54:55,996
+You've heard many times today
+
+1774
+00:54:55,996 --> 0:54:57,096
+I'm going to finish with a
+
+1775
+00:54:57,096 --> 0:54:58,846
+reminder about the importance of
+
+1776
+00:54:58,846 --> 0:54:59,896
+using the network link
+
+1777
+00:54:59,896 --> 0:55:00,356
+conditioner.
+
+1778
+00:54:59,896 --> 0:55:00,356
+conditioner.
+
+1779
+00:55:02,166 --> 0:55:03,716
+It's very easy when you're
+
+1780
+00:55:03,716 --> 0:55:05,446
+developing your application in
+
+1781
+00:55:05,446 --> 0:55:08,666
+the simulator on a Mac with
+
+1782
+00:55:08,666 --> 0:55:10,296
+gigabit ethernet in it or
+
+1783
+00:55:10,296 --> 0:55:12,276
+talking to a local server on
+
+1784
+00:55:12,276 --> 0:55:12,816
+loop-back.
+
+1785
+00:55:13,396 --> 0:55:15,686
+When you have a server with zero
+
+1786
+00:55:15,786 --> 0:55:18,216
+latency and infinite bandwidth,
+
+1787
+00:55:18,776 --> 0:55:19,796
+it's not surprising that it
+
+1788
+00:55:19,796 --> 0:55:20,496
+performs well.
+
+1789
+00:55:20,496 --> 0:55:21,746
+But if you build your
+
+1790
+00:55:21,746 --> 0:55:23,276
+application that way, it can be
+
+1791
+00:55:23,276 --> 0:55:25,996
+very misleading and you can find
+
+1792
+00:55:25,996 --> 0:55:27,836
+out later when your app is in
+
+1793
+00:55:27,836 --> 0:55:29,186
+the hands of real users that it
+
+1794
+00:55:29,186 --> 0:55:30,336
+doesn't perform very well.
+
+1795
+00:55:31,006 --> 0:55:33,566
+If you get in the habit of going
+
+1796
+00:55:33,826 --> 0:55:36,736
+to device conditions and
+
+1797
+00:55:37,406 --> 0:55:40,706
+selecting a realistic network
+
+1798
+00:55:40,706 --> 0:55:42,816
+link condition, right from the
+
+1799
+00:55:42,816 --> 0:55:44,056
+start when you're developing
+
+1800
+00:55:44,056 --> 0:55:46,396
+your application and always test
+
+1801
+00:55:46,396 --> 0:55:47,626
+and run your application
+
+1802
+00:55:47,936 --> 0:55:49,516
+simulating realistic network
+
+1803
+00:55:49,516 --> 0:55:52,866
+conditions, then those bugs will
+
+1804
+00:55:52,866 --> 0:55:54,986
+not even happen in the first
+
+1805
+00:55:56,876 --> 0:55:57,106
+place.
+
+1806
+00:55:57,186 --> 0:55:59,056
+Another message we've been
+
+1807
+00:55:59,056 --> 0:56:01,706
+giving you for many years is to
+
+1808
+00:55:59,056 --> 0:56:01,706
+giving you for many years is to
+
+1809
+00:56:01,706 --> 0:56:04,966
+avoid pre-flight checks.
+
+1810
+00:56:05,186 --> 0:56:08,936
+Using constraints such as allow
+
+1811
+00:56:08,936 --> 0:56:10,696
+cellular or allow expansive
+
+1812
+00:56:10,696 --> 0:56:12,546
+networks gives you much better
+
+1813
+00:56:12,546 --> 0:56:13,216
+control.
+
+1814
+00:56:13,366 --> 0:56:14,756
+It's much easier to use.
+
+1815
+00:56:14,926 --> 0:56:16,606
+Once you start writing your apps
+
+1816
+00:56:16,606 --> 0:56:18,606
+this way, you'll wonder why you
+
+1817
+00:56:18,606 --> 0:56:19,986
+ever did pre-flight checks.
+
+1818
+00:56:20,236 --> 0:56:22,326
+And besides, pre-flight checks
+
+1819
+00:56:22,326 --> 0:56:24,156
+can never work reliably because
+
+1820
+00:56:24,156 --> 0:56:25,056
+they always have raised
+
+1821
+00:56:25,056 --> 0:56:25,636
+conditions.
+
+1822
+00:56:26,526 --> 0:56:28,666
+So to illustrate that, I'm going
+
+1823
+00:56:28,666 --> 0:56:30,556
+to use an example.
+
+1824
+00:56:30,556 --> 0:56:32,476
+This is an app that I really
+
+1825
+00:56:32,476 --> 0:56:32,776
+like.
+
+1826
+00:56:33,316 --> 0:56:36,136
+And to illustrate this, I've
+
+1827
+00:56:36,636 --> 0:56:38,356
+given them a deliberately
+
+1828
+00:56:38,626 --> 0:56:41,366
+exaggerated example of what it
+
+1829
+00:56:41,366 --> 0:56:42,506
+might do if it was a badly
+
+1830
+00:56:42,506 --> 0:56:43,166
+written app.
+
+1831
+00:56:43,736 --> 0:56:45,036
+This is telling the user to make
+
+1832
+00:56:45,176 --> 0:56:46,646
+sure that we're on Wi-Fi then
+
+1833
+00:56:46,646 --> 0:56:47,376
+click the button.
+
+1834
+00:56:48,056 --> 0:56:49,536
+But the user has no way to
+
+1835
+00:56:49,536 --> 0:56:51,836
+control what path the network
+
+1836
+00:56:51,836 --> 0:56:52,926
+connection will take, what they
+
+1837
+00:56:53,366 --> 0:56:55,556
+will typically do is look for
+
+1838
+00:56:55,556 --> 0:56:57,016
+the Wi-Fi bars and hope for the
+
+1839
+00:56:57,016 --> 0:56:57,406
+best.
+
+1840
+00:56:58,226 --> 0:57:00,016
+But as you learned today,
+
+1841
+00:56:58,226 --> 0:57:00,016
+But as you learned today,
+
+1842
+00:57:01,536 --> 0:57:03,336
+knowing in advance how Wi-Fi is
+
+1843
+00:57:03,336 --> 0:57:04,956
+going to perform until you try
+
+1844
+00:57:05,786 --> 0:57:06,776
+is impossible.
+
+1845
+00:57:07,516 --> 0:57:09,696
+And the device may think it's on
+
+1846
+00:57:09,696 --> 0:57:11,286
+Wi-Fi but when it tries to use
+
+1847
+00:57:11,286 --> 0:57:13,396
+it, it turns out not to work.
+
+1848
+00:57:13,496 --> 0:57:15,906
+Now, when Wi-Fi Assist switches
+
+1849
+00:57:15,906 --> 0:57:18,036
+you from Wi-Fi to cellular,
+
+1850
+00:57:18,036 --> 0:57:19,776
+those Wi-Fi bars will disappear
+
+1851
+00:57:20,236 --> 0:57:21,496
+but by then it's too late, your
+
+1852
+00:57:21,496 --> 0:57:22,746
+connection has already happened.
+
+1853
+00:57:23,546 --> 0:57:28,816
+So, don't make the user guess.
+
+1854
+00:57:29,256 --> 0:57:30,436
+Don't just make connections and
+
+1855
+00:57:30,436 --> 0:57:31,136
+hope for the best.
+
+1856
+00:57:31,706 --> 0:57:32,576
+Let me show you how this
+
+1857
+00:57:32,576 --> 0:57:35,096
+application actually works.
+
+1858
+00:57:35,386 --> 0:57:36,886
+It makes its connections
+
+1859
+00:57:37,796 --> 0:57:39,656
+constrained to not allow
+
+1860
+00:57:39,656 --> 0:57:40,576
+cellular access.
+
+1861
+00:57:41,176 --> 0:57:44,816
+And starting in iOS 13, it can
+
+1862
+00:57:44,816 --> 0:57:47,186
+actually use the
+
+1863
+00:57:47,186 --> 0:57:49,036
+allowsExpensiveNetworkAccess
+
+1864
+00:57:49,186 --> 0:57:50,956
+control to let the system decide
+
+1865
+00:57:51,096 --> 0:57:52,486
+which is an expensive network.
+
+1866
+00:57:53,666 --> 0:57:55,226
+It also sets
+
+1867
+00:57:55,226 --> 0:57:56,656
+waitsForConnectivity equals
+
+1868
+00:57:56,656 --> 0:57:57,076
+true.
+
+1869
+00:57:57,466 --> 0:57:58,866
+That means the application
+
+1870
+00:57:59,196 --> 0:58:00,376
+doesn't have to retry
+
+1871
+00:57:59,196 --> 0:58:00,376
+doesn't have to retry
+
+1872
+00:58:00,446 --> 0:58:01,276
+repeatedly.
+
+1873
+00:58:01,586 --> 0:58:02,766
+The system will just wait
+
+1874
+00:58:02,766 --> 0:58:04,046
+patiently for as long as it
+
+1875
+00:58:04,046 --> 0:58:05,216
+takes for that connection to
+
+1876
+00:58:05,216 --> 0:58:05,726
+succeed.
+
+1877
+00:58:07,306 --> 0:58:09,876
+When the application tries to
+
+1878
+00:58:09,876 --> 0:58:11,896
+connect, if there is no Wi-Fi,
+
+1879
+00:58:12,526 --> 0:58:14,506
+its taskIsWaitingForConnectivity
+
+1880
+00:58:14,506 --> 0:58:16,776
+delegate gets called and that's
+
+1881
+00:58:16,776 --> 0:58:18,616
+when it can display UI giving
+
+1882
+00:58:18,616 --> 0:58:20,906
+the user the choice either move
+
+1883
+00:58:20,906 --> 0:58:22,516
+to somewhere with Wi-Fi or you
+
+1884
+00:58:22,516 --> 0:58:23,986
+can press the button if you want
+
+1885
+00:58:23,986 --> 0:58:25,166
+to go ahead and use cellular
+
+1886
+00:58:25,166 --> 0:58:25,576
+data.
+
+1887
+00:58:26,896 --> 0:58:29,126
+Some news about deprecations.
+
+1888
+00:58:30,236 --> 0:58:31,786
+If any of you are still using
+
+1889
+00:58:31,786 --> 0:58:35,046
+PAC files using the file or FTP
+
+1890
+00:58:35,226 --> 0:58:36,946
+URL schemes, those are no longer
+
+1891
+00:58:36,946 --> 0:58:37,476
+supported.
+
+1892
+00:58:38,656 --> 0:58:40,366
+If any of you are still using
+
+1893
+00:58:40,366 --> 0:58:41,906
+SPDY, SPDY was a great
+
+1894
+00:58:41,906 --> 0:58:44,176
+experimental protocol, that has
+
+1895
+00:58:44,176 --> 0:58:46,496
+now been replaced by HTTP 2,
+
+1896
+00:58:47,006 --> 0:58:48,786
+that's what Apple supports and
+
+1897
+00:58:48,786 --> 0:58:49,506
+that's where everything should
+
+1898
+00:58:49,506 --> 0:58:50,726
+be moving towards.
+
+1899
+00:58:51,516 --> 0:58:54,066
+And Secure Transport does not
+
+1900
+00:58:54,066 --> 0:58:56,906
+support TLS 1.3 and it will
+
+1901
+00:58:56,906 --> 0:58:59,636
+never support TLS 1.3 so another
+
+1902
+00:58:59,636 --> 0:59:01,646
+reason to move to URLSession or
+
+1903
+00:58:59,636 --> 0:59:01,646
+reason to move to URLSession or
+
+1904
+00:59:01,646 --> 0:59:02,536
+Network.framework.
+
+1905
+00:59:03,066 --> 0:59:08,156
+So to wrap up, this morning we
+
+1906
+00:59:08,156 --> 0:59:10,606
+talked about wide-area Bonjour
+
+1907
+00:59:10,606 --> 0:59:17,756
+discovery and how to advertise a
+
+1908
+00:59:17,756 --> 0:59:18,796
+tic-tac-toe game.
+
+1909
+00:59:19,076 --> 0:59:22,386
+Some of you may have wondered if
+
+1910
+00:59:22,386 --> 0:59:23,816
+that service type underscore
+
+1911
+00:59:23,816 --> 0:59:26,546
+tic-tac-toe was registered with
+
+1912
+00:59:26,546 --> 0:59:26,796
+Ayana.
+
+1913
+00:59:27,056 --> 0:59:28,786
+The answer is yes it is, you can
+
+1914
+00:59:28,786 --> 0:59:29,716
+check on the website [laughter].
+
+1915
+00:59:33,376 --> 0:59:34,736
+Tommy talked about building
+
+1916
+00:59:34,736 --> 0:59:37,086
+framing protocols and collecting
+
+1917
+00:59:37,086 --> 0:59:39,436
+metrics that make it easier for
+
+1918
+00:59:39,436 --> 0:59:40,936
+you to write your applications
+
+1919
+00:59:41,396 --> 0:59:42,536
+and make it easy for you to
+
+1920
+00:59:42,536 --> 0:59:43,616
+measure performance.
+
+1921
+00:59:44,226 --> 0:59:48,226
+And this morning, we talked
+
+1922
+00:59:48,226 --> 0:59:50,506
+about low data mode that lets
+
+1923
+00:59:50,506 --> 0:59:52,206
+you respect your user's wishes
+
+1924
+00:59:52,206 --> 0:59:53,836
+about when to conserve data.
+
+1925
+00:59:54,526 --> 0:59:56,006
+We talked about combining
+
+1926
+00:59:56,006 --> 0:59:57,636
+URLSession which is a great way
+
+1927
+00:59:57,636 --> 0:59:59,356
+to chain asynchronous operations
+
+1928
+00:59:59,356 --> 0:59:59,866
+together.
+
+1929
+00:59:59,866 --> 1:00:01,976
+And we talked about WebSocket.
+
+1930
+00:59:59,866 --> 1:00:01,976
+And we talked about WebSocket.
+
+1931
+01:00:02,046 --> 1:00:04,776
+If you have web-based
+
+1932
+01:00:04,776 --> 1:00:06,466
+applications that use WebSocket
+
+1933
+01:00:06,466 --> 1:00:08,126
+to talk to the server, you can
+
+1934
+01:00:08,126 --> 1:00:09,726
+now use that same server with
+
+1935
+01:00:09,726 --> 1:00:11,876
+your native iOS apps.
+
+1936
+01:00:12,886 --> 1:00:14,816
+And Christoph Paasch told us all
+
+1937
+01:00:14,816 --> 1:00:16,376
+about mobility improvements with
+
+1938
+01:00:16,376 --> 1:00:20,626
+multipath TCP and Wi-Fi Assist.
+
+1939
+01:00:21,486 --> 1:00:23,946
+And on that note, many of you
+
+1940
+01:00:24,456 --> 1:00:27,446
+will know that ACM SIGCOMM is
+
+1941
+01:00:27,806 --> 1:00:30,906
+the world's leading academic
+
+1942
+01:00:31,116 --> 1:00:32,546
+conference for network research.
+
+1943
+01:00:34,036 --> 1:00:35,686
+And every year they have the
+
+1944
+01:00:35,686 --> 1:00:37,446
+Networking Systems Award that
+
+1945
+01:00:37,446 --> 1:00:39,366
+recognizes the work that's had
+
+1946
+01:00:39,366 --> 1:00:41,756
+the biggest impact in the area
+
+1947
+01:00:41,756 --> 1:00:42,586
+of networking.
+
+1948
+01:00:43,336 --> 1:00:45,286
+And this year, today, they
+
+1949
+01:00:45,516 --> 1:00:47,536
+announced that this year's award
+
+1950
+01:00:47,996 --> 1:00:49,566
+goes to Christoph Paasch and the
+
+1951
+01:00:49,566 --> 1:00:51,346
+rest of the team for multipath
+
+1952
+01:00:51,426 --> 1:00:51,676
+TCP.
+
+1953
+01:00:52,516 --> 1:01:00,886
+[ Applause ]
+
+1954
+01:00:52,516 --> 1:01:00,886
+[ Applause ]
+
+1955
+01:01:01,386 --> 1:01:02,606
+We would love to see you all
+
+1956
+01:01:02,606 --> 1:01:04,376
+tomorrow in the networking lab.
+
+1957
+01:01:04,986 --> 1:01:07,036
+And if any of you are currently
+
+1958
+01:01:07,036 --> 1:01:08,076
+writing network kernel
+
+1959
+01:01:08,076 --> 1:01:09,786
+extensions, definitely go to
+
+1960
+01:01:09,786 --> 1:01:11,746
+tomorrow's session about network
+
+1961
+01:01:11,746 --> 1:01:13,426
+extensions for modern macOS.
+
+1962
+01:01:13,706 --> 1:01:13,976
+Thank you.
+
+1963
+01:01:14,516 --> 1:01:17,500
+[ Applause ]

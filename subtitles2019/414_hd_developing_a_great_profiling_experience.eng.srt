@@ -1,0 +1,5467 @@
+1
+00:00:01,516 --> 0:00:05,500
+[ Music ]
+
+2
+00:00:09,516 --> 0:00:14,546
+[ Applause ]
+
+3
+00:00:15,046 --> 0:00:16,276
+&gt;&gt; Good afternoon and welcome to
+
+4
+00:00:16,276 --> 0:00:17,536
+our session on Developing a
+
+5
+00:00:17,536 --> 0:00:18,886
+Great Profiling Experience.
+
+6
+00:00:19,316 --> 0:00:20,406
+I'm Daniel Delwood and I'll be
+
+7
+00:00:20,406 --> 0:00:21,656
+joined by Kasper Harasim
+
+8
+00:00:21,656 --> 0:00:22,116
+[phonetic].
+
+9
+00:00:22,116 --> 0:00:23,036
+And today we're here to talk
+
+10
+00:00:23,036 --> 0:00:24,286
+about making great Custom
+
+11
+00:00:24,286 --> 0:00:25,186
+Instruments packages.
+
+12
+00:00:26,546 --> 0:00:28,256
+Now as developers, we all strive
+
+13
+00:00:28,256 --> 0:00:29,366
+to create excellent,
+
+14
+00:00:29,536 --> 0:00:31,026
+maintainable, modular and
+
+15
+00:00:31,026 --> 0:00:31,666
+reusable code.
+
+16
+00:00:32,156 --> 0:00:33,106
+And we've all used frameworks
+
+17
+00:00:33,166 --> 0:00:34,766
+designed by others and created
+
+18
+00:00:34,766 --> 0:00:35,786
+code that we want others to be
+
+19
+00:00:35,786 --> 0:00:36,786
+able to use well.
+
+20
+00:00:38,016 --> 0:00:39,436
+And good API design and
+
+21
+00:00:39,436 --> 0:00:40,966
+documentation are critical to
+
+22
+00:00:40,966 --> 0:00:42,646
+the user's experience with your
+
+23
+00:00:42,646 --> 0:00:43,136
+framework.
+
+24
+00:00:43,596 --> 0:00:45,066
+But my hope is today that you
+
+25
+00:00:45,066 --> 0:00:46,036
+consider developing an
+
+26
+00:00:46,036 --> 0:00:47,196
+Instruments package as well.
+
+27
+00:00:48,226 --> 0:00:50,276
+To see why, take Metal as an
+
+28
+00:00:50,276 --> 0:00:50,996
+example.
+
+29
+00:00:51,376 --> 0:00:53,106
+API design is central and the
+
+30
+00:00:53,106 --> 0:00:54,446
+calls are organized around a set
+
+31
+00:00:54,446 --> 0:00:56,426
+of core concepts, devices,
+
+32
+00:00:56,476 --> 0:00:57,876
+command buffers, textures and
+
+33
+00:00:57,876 --> 0:00:58,116
+more.
+
+34
+00:00:58,136 --> 0:01:00,326
+But that's not the whole story.
+
+35
+00:00:58,136 --> 0:01:00,326
+But that's not the whole story.
+
+36
+00:01:00,906 --> 0:01:02,356
+An API surface expresses what's
+
+37
+00:01:02,426 --> 0:01:04,385
+possible, but documentation and
+
+38
+00:01:04,385 --> 0:01:06,436
+example code are how others
+
+39
+00:01:06,436 --> 0:01:08,116
+learn to compose these concepts
+
+40
+00:01:08,176 --> 0:01:08,906
+into a great app.
+
+41
+00:01:09,516 --> 0:01:10,946
+But that's not the whole story
+
+42
+00:01:10,946 --> 0:01:11,256
+either.
+
+43
+00:01:12,046 --> 0:01:13,006
+Both of the first two help
+
+44
+00:01:13,006 --> 0:01:14,836
+developers write code using your
+
+45
+00:01:14,916 --> 0:01:15,876
+classes or framework.
+
+46
+00:01:15,976 --> 0:01:17,546
+But what happens when something
+
+47
+00:01:17,546 --> 0:01:17,996
+goes wrong?
+
+48
+00:01:18,726 --> 0:01:20,326
+Well, custom Instruments are a
+
+49
+00:01:20,326 --> 0:01:22,246
+way for you as the author to
+
+50
+00:01:22,246 --> 0:01:23,316
+teach others how to debug,
+
+51
+00:01:23,766 --> 0:01:25,426
+optimize and really get the most
+
+52
+00:01:25,426 --> 0:01:26,346
+out of your APIs.
+
+53
+00:01:26,856 --> 0:01:28,096
+If you've used the Metal System
+
+54
+00:01:28,096 --> 0:01:29,266
+Trace template in Instruments,
+
+55
+00:01:29,686 --> 0:01:30,536
+then you've seen some of what's
+
+56
+00:01:30,606 --> 0:01:31,126
+possible.
+
+57
+00:01:31,406 --> 0:01:33,186
+Creating visual tools designed
+
+58
+00:01:33,216 --> 0:01:34,836
+specifically for the concepts
+
+59
+00:01:34,836 --> 0:01:36,396
+and APIs that you define.
+
+60
+00:01:36,646 --> 0:01:39,216
+An Instruments package is a way
+
+61
+00:01:39,216 --> 0:01:40,786
+for you to build transparency
+
+62
+00:01:41,196 --> 0:01:42,416
+that under the hood your
+
+63
+00:01:42,416 --> 0:01:43,496
+framework is tested,
+
+64
+00:01:43,626 --> 0:01:44,446
+understandable and
+
+65
+00:01:44,446 --> 0:01:45,066
+well-supported.
+
+66
+00:01:45,516 --> 0:01:46,626
+And investing that time to
+
+67
+00:01:46,706 --> 0:01:48,156
+create a custom instrument helps
+
+68
+00:01:48,256 --> 0:01:50,216
+create confidence and trust that
+
+69
+00:01:50,216 --> 0:01:51,676
+the code's doing exactly what
+
+70
+00:01:51,676 --> 0:01:52,216
+you expect.
+
+71
+00:01:53,396 --> 0:01:54,886
+Tools are also a great way to
+
+72
+00:01:54,886 --> 0:01:56,596
+develop a cost model to know
+
+73
+00:01:56,596 --> 0:01:58,006
+which calls are expensive and
+
+74
+00:01:58,006 --> 0:01:58,896
+which are inexpensive.
+
+75
+00:01:59,466 --> 0:02:00,426
+And when there's a performance
+
+76
+00:01:59,466 --> 0:02:00,426
+And when there's a performance
+
+77
+00:02:00,426 --> 0:02:01,866
+problem, they're the best way to
+
+78
+00:02:01,866 --> 0:02:02,996
+differentiate between a
+
+79
+00:02:02,996 --> 0:02:04,496
+framework bug or a bug in the
+
+80
+00:02:04,496 --> 0:02:06,386
+client code.
+
+81
+00:02:06,686 --> 0:02:08,506
+Most importantly though, an
+
+82
+00:02:08,506 --> 0:02:10,265
+instrument is an opportunity for
+
+83
+00:02:10,265 --> 0:02:11,596
+you to tell your story.
+
+84
+00:02:11,596 --> 0:02:14,106
+An Instruments package is your
+
+85
+00:02:14,106 --> 0:02:15,246
+chance to explain what's going
+
+86
+00:02:15,246 --> 0:02:17,206
+on to help visualize important
+
+87
+00:02:17,206 --> 0:02:18,786
+metrics and help users quickly
+
+88
+00:02:18,786 --> 0:02:20,086
+find problems when they arise.
+
+89
+00:02:20,966 --> 0:02:23,026
+So today, we're going to cover
+
+90
+00:02:23,026 --> 0:02:23,696
+how to build great
+
+91
+00:02:23,696 --> 0:02:24,946
+instrumentation from the inside
+
+92
+00:02:24,946 --> 0:02:26,266
+out, starting from the inside
+
+93
+00:02:26,266 --> 0:02:27,946
+out of developing great trace
+
+94
+00:02:27,996 --> 0:02:29,066
+points in your framework, and
+
+95
+00:02:29,376 --> 0:02:30,396
+then building on them with
+
+96
+00:02:30,396 --> 0:02:32,446
+schemas, modeling and structure
+
+97
+00:02:32,746 --> 0:02:34,356
+inside Instruments before
+
+98
+00:02:34,356 --> 0:02:35,426
+finally moving on to talking
+
+99
+00:02:35,426 --> 0:02:36,846
+about visualization and the
+
+100
+00:02:36,846 --> 0:02:37,466
+instrument's UI.
+
+101
+00:02:38,266 --> 0:02:40,486
+So with tracing, modeling and
+
+102
+00:02:40,486 --> 0:02:41,896
+visualization as our roadmap for
+
+103
+00:02:41,896 --> 0:02:44,426
+today, let's dive right in and
+
+104
+00:02:44,426 --> 0:02:46,266
+talk about OSSignpost.
+
+105
+00:02:47,896 --> 0:02:49,746
+Now OSSignpost is a low-cost
+
+106
+00:02:49,746 --> 0:02:51,076
+tracing primitive introduced in
+
+107
+00:02:51,076 --> 0:02:52,086
+2018.
+
+108
+00:02:52,486 --> 0:02:53,856
+And signposts come in two
+
+109
+00:02:53,856 --> 0:02:55,466
+different kinds: .events and
+
+110
+00:02:55,466 --> 0:02:56,016
+intervals.
+
+111
+00:02:56,786 --> 0:02:58,176
+Now they support recording any
+
+112
+00:02:58,176 --> 0:02:59,356
+kind of data through their
+
+113
+00:02:59,416 --> 0:03:01,326
+printf like formatString in
+
+114
+00:02:59,416 --> 0:03:01,326
+printf like formatString in
+
+115
+00:03:01,326 --> 0:03:01,896
+arguments.
+
+116
+00:03:02,356 --> 0:03:03,646
+And different from printf, all
+
+117
+00:03:03,646 --> 0:03:05,496
+signposts are named with a
+
+118
+00:03:05,496 --> 0:03:06,106
+static string.
+
+119
+00:03:07,926 --> 0:03:09,816
+Now in Swift, OSSignpost is just
+
+120
+00:03:09,816 --> 0:03:11,036
+one core API with three
+
+121
+00:03:11,036 --> 0:03:13,256
+different types: begin, end and
+
+122
+00:03:13,256 --> 0:03:13,446
+event.
+
+123
+00:03:13,446 --> 0:03:15,936
+And in C, their interface is
+
+124
+00:03:15,936 --> 0:03:17,416
+exposed through three helpful
+
+125
+00:03:17,416 --> 0:03:17,956
+macros.
+
+126
+00:03:19,076 --> 0:03:20,646
+Now it's important to note that
+
+127
+00:03:20,646 --> 0:03:22,826
+OSSignpost is built on OSLog
+
+128
+00:03:23,386 --> 0:03:24,206
+which means that much of the
+
+129
+00:03:24,206 --> 0:03:25,106
+tracing behavior and
+
+130
+00:03:25,106 --> 0:03:27,356
+configurability is determined by
+
+131
+00:03:27,356 --> 0:03:28,406
+the provided log handle.
+
+132
+00:03:29,436 --> 0:03:30,816
+Now log handles are effectively
+
+133
+00:03:30,816 --> 0:03:32,136
+named spaces for your tracing.
+
+134
+00:03:32,676 --> 0:03:34,196
+They allow you to specify
+
+135
+00:03:34,296 --> 0:03:36,566
+subsystem and category and
+
+136
+00:03:36,566 --> 0:03:39,136
+together with that static name
+
+137
+00:03:39,136 --> 0:03:41,006
+for each signpost, this provides
+
+138
+00:03:41,046 --> 0:03:42,296
+the logical structure and
+
+139
+00:03:42,296 --> 0:03:43,836
+hierarchy for your trace points.
+
+140
+00:03:46,046 --> 0:03:47,036
+Now custom Instruments are built
+
+141
+00:03:47,036 --> 0:03:48,546
+on OSSignpost for two main
+
+142
+00:03:48,546 --> 0:03:48,946
+reasons.
+
+143
+00:03:49,656 --> 0:03:51,026
+First, they're temporal.
+
+144
+00:03:52,076 --> 0:03:54,016
+All signposts, whether .events
+
+145
+00:03:54,016 --> 0:03:56,206
+or intervals, implicitly record
+
+146
+00:03:56,206 --> 0:03:57,756
+a high-accuracy timestamp.
+
+147
+00:03:59,816 --> 0:04:00,776
+It's also important to have
+
+148
+00:03:59,816 --> 0:04:00,776
+It's also important to have
+
+149
+00:04:00,856 --> 0:04:02,056
+first class support for
+
+150
+00:04:02,056 --> 0:04:03,396
+overlapping intervals in our
+
+151
+00:04:03,466 --> 0:04:04,556
+highly-concurrent world.
+
+152
+00:04:04,786 --> 0:04:06,636
+And OSSignpost does this with
+
+153
+00:04:06,636 --> 0:04:07,526
+Signpost IDs.
+
+154
+00:04:08,266 --> 0:04:10,816
+These record enough context for
+
+155
+00:04:10,816 --> 0:04:12,186
+matching up the related events,
+
+156
+00:04:12,476 --> 0:04:14,016
+even when the begin or end event
+
+157
+00:04:14,076 --> 0:04:15,836
+happen on different threads or
+
+158
+00:04:15,836 --> 0:04:16,745
+different dispatch queues.
+
+159
+00:04:17,366 --> 0:04:19,406
+Now the second reason for
+
+160
+00:04:19,406 --> 0:04:20,906
+OSSignpost is that they're
+
+161
+00:04:20,906 --> 0:04:21,606
+low-cost.
+
+162
+00:04:22,236 --> 0:04:23,726
+The logging mechanism is
+
+163
+00:04:23,726 --> 0:04:25,096
+designed with efficiency in mind
+
+164
+00:04:25,576 --> 0:04:27,446
+and it records a minimal amount
+
+165
+00:04:27,446 --> 0:04:28,636
+of data whenever you admit an
+
+166
+00:04:28,636 --> 0:04:29,516
+OSSignpost.
+
+167
+00:04:30,236 --> 0:04:31,586
+Now there are optimizations
+
+168
+00:04:31,586 --> 0:04:33,766
+around static strings, so things
+
+169
+00:04:33,766 --> 0:04:35,016
+like your format string and your
+
+170
+00:04:35,016 --> 0:04:37,076
+signpost name are actually
+
+171
+00:04:37,076 --> 0:04:38,906
+emitted as just an offset into
+
+172
+00:04:38,906 --> 0:04:40,066
+your binary text segment.
+
+173
+00:04:40,776 --> 0:04:41,826
+Now in fact the overhead of
+
+174
+00:04:41,826 --> 0:04:44,716
+OSSignpost is low enough that in
+
+175
+00:04:44,716 --> 0:04:46,486
+most cases you can leave them in
+
+176
+00:04:46,486 --> 0:04:47,406
+production code.
+
+177
+00:04:47,886 --> 0:04:49,056
+So this is what makes them
+
+178
+00:04:49,056 --> 0:04:50,966
+useful for building tools that
+
+179
+00:04:50,966 --> 0:04:52,726
+debug optimized code in addition
+
+180
+00:04:52,726 --> 0:04:54,146
+to helping you solve problems at
+
+181
+00:04:54,146 --> 0:04:55,546
+your desk.
+
+182
+00:04:56,136 --> 0:04:57,136
+Now when Instruments record
+
+183
+00:04:57,136 --> 0:04:58,666
+signpost data, you'll get access
+
+184
+00:04:58,696 --> 0:05:00,766
+to all the explicitly specified
+
+185
+00:04:58,696 --> 0:05:00,766
+to all the explicitly specified
+
+186
+00:05:00,866 --> 0:05:02,756
+fields including that format
+
+187
+00:05:02,756 --> 0:05:03,796
+string and then the arguments
+
+188
+00:05:03,796 --> 0:05:04,306
+you provide.
+
+189
+00:05:05,226 --> 0:05:06,546
+But in Instruments you'll also
+
+190
+00:05:06,546 --> 0:05:07,786
+get access to all of the
+
+191
+00:05:07,786 --> 0:05:09,306
+implicitly specified fields.
+
+192
+00:05:09,786 --> 0:05:11,766
+Things like the timestamp or the
+
+193
+00:05:11,766 --> 0:05:12,926
+calling thread which comes in
+
+194
+00:05:12,926 --> 0:05:13,496
+really useful.
+
+195
+00:05:13,906 --> 0:05:15,746
+If you're using a log handle
+
+196
+00:05:15,746 --> 0:05:17,566
+that has backtraces enabled,
+
+197
+00:05:18,056 --> 0:05:20,136
+then the call stack will also be
+
+198
+00:05:20,136 --> 0:05:21,746
+recorded and made available to
+
+199
+00:05:21,746 --> 0:05:22,426
+you in Instruments.
+
+200
+00:05:23,796 --> 0:05:25,186
+So when adding tracing to your
+
+201
+00:05:25,186 --> 0:05:26,346
+code, it's important to note
+
+202
+00:05:26,346 --> 0:05:28,596
+that OSLog and OSSignpost
+
+203
+00:05:28,596 --> 0:05:30,286
+behaves in three different
+
+204
+00:05:30,806 --> 0:05:30,926
+modes.
+
+205
+00:05:31,366 --> 0:05:34,686
+By default, OSLog is -- each
+
+206
+00:05:34,686 --> 0:05:36,436
+OSLog handle has signposts
+
+207
+00:05:36,436 --> 0:05:36,866
+enabled.
+
+208
+00:05:37,416 --> 0:05:39,096
+And so they're still low-cost
+
+209
+00:05:39,096 --> 0:05:40,296
+and only logged to a ring
+
+210
+00:05:40,296 --> 0:05:40,666
+buffer.
+
+211
+00:05:41,936 --> 0:05:43,146
+Now when Instruments or another
+
+212
+00:05:43,196 --> 0:05:45,606
+client requests to display this
+
+213
+00:05:45,606 --> 0:05:48,506
+data immediately, the OSLog
+
+214
+00:05:48,506 --> 0:05:49,736
+system goes into a streaming
+
+215
+00:05:49,736 --> 0:05:51,546
+mode which is a bit higher-cost.
+
+216
+00:05:53,106 --> 0:05:54,266
+This year though there are two
+
+217
+00:05:54,266 --> 0:05:56,776
+new dynamic categories that are
+
+218
+00:05:56,776 --> 0:05:57,886
+only enabled when Instruments is
+
+219
+00:05:57,886 --> 0:05:58,386
+recording.
+
+220
+00:05:59,126 --> 0:06:01,876
+Now these dynamic categories are
+
+221
+00:05:59,126 --> 0:06:01,876
+Now these dynamic categories are
+
+222
+00:06:01,876 --> 0:06:04,096
+configured to record stack
+
+223
+00:06:04,096 --> 0:06:05,696
+traces for the second one which
+
+224
+00:06:05,966 --> 0:06:07,056
+adds a little bit of additional
+
+225
+00:06:07,056 --> 0:06:07,466
+overhead.
+
+226
+00:06:08,006 --> 0:06:09,226
+So with this in mind, what is
+
+227
+00:06:09,256 --> 0:06:11,376
+the actual cost of OSSignpost?
+
+228
+00:06:13,056 --> 0:06:15,166
+Well, many factors impact the
+
+229
+00:06:15,166 --> 0:06:16,336
+real-world performance.
+
+230
+00:06:16,636 --> 0:06:17,946
+Things like device type,
+
+231
+00:06:17,946 --> 0:06:20,246
+hardware model, OS version,
+
+232
+00:06:20,246 --> 0:06:22,166
+system load, thermals and more.
+
+233
+00:06:22,776 --> 0:06:23,936
+So it's hard to give an exact
+
+234
+00:06:23,936 --> 0:06:24,306
+number.
+
+235
+00:06:24,906 --> 0:06:26,116
+But I'd like to give some order
+
+236
+00:06:26,116 --> 0:06:27,436
+of magnitude approximations on a
+
+237
+00:06:27,436 --> 0:06:29,066
+logarithmic scale, because I
+
+238
+00:06:29,066 --> 0:06:29,696
+think it's useful for
+
+239
+00:06:29,696 --> 0:06:30,866
+understanding the relative
+
+240
+00:06:30,866 --> 0:06:31,406
+costs.
+
+241
+00:06:32,036 --> 0:06:33,636
+If we look at Signposts in a
+
+242
+00:06:33,636 --> 0:06:35,836
+release build, all of them clock
+
+243
+00:06:35,836 --> 0:06:37,136
+in at under a microsecond.
+
+244
+00:06:37,476 --> 0:06:39,186
+The new off-by-default dynamic
+
+245
+00:06:39,186 --> 0:06:40,926
+categories are actually in the
+
+246
+00:06:40,926 --> 0:06:42,136
+low nanosecond range.
+
+247
+00:06:43,256 --> 0:06:45,536
+Now when Instruments is
+
+248
+00:06:45,536 --> 0:06:46,946
+recording in deferred or last
+
+249
+00:06:46,946 --> 0:06:49,336
+few second mode, these dynamic
+
+250
+00:06:49,336 --> 0:06:50,836
+categories turn on to match the
+
+251
+00:06:50,836 --> 0:06:52,226
+behavior of the on-by-default
+
+252
+00:06:52,226 --> 0:06:52,866
+categories.
+
+253
+00:06:53,166 --> 0:06:55,336
+And they are the same expense
+
+254
+00:06:55,336 --> 0:06:57,536
+except for that dynamic stacks
+
+255
+00:06:57,536 --> 0:06:58,886
+category which is a little bit
+
+256
+00:06:58,886 --> 0:07:00,076
+more expensive in the low
+
+257
+00:06:58,886 --> 0:07:00,076
+more expensive in the low
+
+258
+00:07:00,076 --> 0:07:01,866
+microsecond range due to the
+
+259
+00:07:01,866 --> 0:07:02,806
+recording a call stack.
+
+260
+00:07:03,446 --> 0:07:05,436
+Now when streaming mode is
+
+261
+00:07:05,436 --> 0:07:07,186
+required though, all of these
+
+262
+00:07:07,186 --> 0:07:08,426
+become significantly more
+
+263
+00:07:08,426 --> 0:07:10,496
+expensive, moving into the tens
+
+264
+00:07:10,496 --> 0:07:11,426
+of microseconds range.
+
+265
+00:07:12,086 --> 0:07:16,936
+So with this in mind, what can
+
+266
+00:07:16,936 --> 0:07:18,126
+you do to minimize the
+
+267
+00:07:18,126 --> 0:07:19,276
+OSSignpost overhead while
+
+268
+00:07:19,276 --> 0:07:20,706
+recording if you're concerned
+
+269
+00:07:20,706 --> 0:07:22,666
+about that runtime cost or they
+
+270
+00:07:22,666 --> 0:07:23,506
+start showing up in your
+
+271
+00:07:23,506 --> 0:07:23,986
+profiles?
+
+272
+00:07:25,136 --> 0:07:26,446
+Well, there's two easy things
+
+273
+00:07:26,506 --> 0:07:26,926
+you can do.
+
+274
+00:07:27,446 --> 0:07:28,956
+First of all, you can use
+
+275
+00:07:28,956 --> 0:07:30,386
+Instruments' deferred or last few
+
+276
+00:07:30,386 --> 0:07:31,496
+seconds mode instead of
+
+277
+00:07:31,496 --> 0:07:32,096
+immediate mode.
+
+278
+00:07:32,586 --> 0:07:34,046
+This keeps OSSignpost out of
+
+279
+00:07:34,046 --> 0:07:35,826
+that streaming mode and reduces
+
+280
+00:07:35,826 --> 0:07:36,386
+the overhead.
+
+281
+00:07:36,566 --> 0:07:37,796
+And it's easy to configure a
+
+282
+00:07:37,796 --> 0:07:39,386
+template to record in one of
+
+283
+00:07:39,386 --> 0:07:40,796
+these modes when you open it.
+
+284
+00:07:43,506 --> 0:07:45,736
+Also, if you use the new dynamic
+
+285
+00:07:45,736 --> 0:07:47,196
+tracing categories, that's a
+
+286
+00:07:47,196 --> 0:07:48,686
+great way to minimize overhead
+
+287
+00:07:48,686 --> 0:07:49,726
+while not recording.
+
+288
+00:07:49,726 --> 0:07:51,926
+Because the signposts will be
+
+289
+00:07:52,246 --> 0:07:53,966
+off by default.
+
+290
+00:07:54,746 --> 0:07:55,776
+They can only be enabled by
+
+291
+00:07:55,776 --> 0:07:57,396
+custom instruments, so this data
+
+292
+00:07:57,396 --> 0:07:58,786
+also won't crowd the tracks in
+
+293
+00:07:58,786 --> 0:08:01,596
+the built-in OSSignpost tool.
+
+294
+00:07:58,786 --> 0:08:01,596
+the built-in OSSignpost tool.
+
+295
+00:08:02,476 --> 0:08:04,406
+So as the author of a framework
+
+296
+00:08:04,406 --> 0:08:05,806
+or a subsystem, just how many
+
+297
+00:08:05,806 --> 0:08:07,376
+signposts is it reasonable to
+
+298
+00:08:07,376 --> 0:08:08,486
+emit while you're profiling?
+
+299
+00:08:09,086 --> 0:08:10,086
+Well, you can emit a lot.
+
+300
+00:08:10,086 --> 0:08:11,176
+But let's assume a very
+
+301
+00:08:11,176 --> 0:08:12,486
+conservative goal of staying
+
+302
+00:08:12,486 --> 0:08:15,226
+under 1% CPU of even a single
+
+303
+00:08:15,226 --> 0:08:16,726
+core while you're profiling.
+
+304
+00:08:17,136 --> 0:08:20,576
+And then let's assume that the
+
+305
+00:08:20,896 --> 0:08:22,256
+signposts have a rough cost,
+
+306
+00:08:22,256 --> 0:08:24,456
+about half a microsecond per
+
+307
+00:08:24,456 --> 0:08:25,336
+signpost enabled.
+
+308
+00:08:26,486 --> 0:08:28,016
+Well, that math works out to
+
+309
+00:08:28,016 --> 0:08:29,456
+20,000 signposts per second.
+
+310
+00:08:30,306 --> 0:08:31,956
+And even in a display-link
+
+311
+00:08:31,956 --> 0:08:33,876
+context on an iPad Pro running
+
+312
+00:08:33,876 --> 0:08:36,155
+at 120 frames per second, that's
+
+313
+00:08:36,155 --> 0:08:38,076
+still enough for 83 intervals
+
+314
+00:08:38,405 --> 0:08:39,035
+per frame.
+
+315
+00:08:40,676 --> 0:08:43,066
+Now again, the real-world
+
+316
+00:08:43,066 --> 0:08:45,626
+performance will change and
+
+317
+00:08:45,626 --> 0:08:46,696
+these are just estimates.
+
+318
+00:08:47,096 --> 0:08:48,836
+So it's important to remember
+
+319
+00:08:48,836 --> 0:08:49,916
+that signposts are a shared
+
+320
+00:08:49,916 --> 0:08:50,556
+resource.
+
+321
+00:08:51,226 --> 0:08:53,046
+The more you use, the more it
+
+322
+00:08:53,046 --> 0:08:54,246
+will impact the logging system.
+
+323
+00:08:54,686 --> 0:08:56,706
+That said, they're designed to
+
+324
+00:08:56,706 --> 0:08:58,146
+allow for this high-rate tracing
+
+325
+00:08:58,146 --> 0:08:59,806
+and it can come in really useful
+
+326
+00:08:59,806 --> 0:09:00,406
+sometimes.
+
+327
+00:08:59,806 --> 0:09:00,406
+sometimes.
+
+328
+00:09:00,996 --> 0:09:02,216
+Sometimes it's the key to
+
+329
+00:09:02,216 --> 0:09:04,016
+figuring out a pipeline install
+
+330
+00:09:04,316 --> 0:09:05,746
+or an ordering issue in your
+
+331
+00:09:05,746 --> 0:09:06,086
+code.
+
+332
+00:09:06,956 --> 0:09:08,446
+Keep in mind though that you may
+
+333
+00:09:08,446 --> 0:09:10,066
+want to separate signposts out
+
+334
+00:09:10,496 --> 0:09:12,176
+into different categories per
+
+335
+00:09:12,176 --> 0:09:12,766
+audience.
+
+336
+00:09:13,406 --> 0:09:15,336
+It's likely that your clients of
+
+337
+00:09:15,336 --> 0:09:16,496
+your framework will need less
+
+338
+00:09:16,566 --> 0:09:18,046
+detail than contributors of your
+
+339
+00:09:18,046 --> 0:09:19,686
+framework who might need tracing
+
+340
+00:09:19,686 --> 0:09:21,016
+of more implementation details.
+
+341
+00:09:21,336 --> 0:09:23,236
+And if you split your trace
+
+342
+00:09:23,236 --> 0:09:24,816
+points across multiple log
+
+343
+00:09:24,816 --> 0:09:26,796
+handles, this allows your tools
+
+344
+00:09:26,796 --> 0:09:28,096
+to only enable the necessary
+
+345
+00:09:28,096 --> 0:09:28,456
+subset.
+
+346
+00:09:29,866 --> 0:09:31,636
+Now as tracing is the basis for
+
+347
+00:09:31,636 --> 0:09:32,586
+instrumentation, I want to
+
+348
+00:09:32,586 --> 0:09:33,656
+quickly cover four best
+
+349
+00:09:33,656 --> 0:09:34,256
+practices.
+
+350
+00:09:36,286 --> 0:09:37,526
+First and most importantly,
+
+351
+00:09:38,186 --> 0:09:40,256
+always end any intervals you
+
+352
+00:09:40,256 --> 0:09:40,636
+begin.
+
+353
+00:09:41,326 --> 0:09:42,626
+It's critical for correctness
+
+354
+00:09:43,536 --> 0:09:45,326
+and permanently open intervals
+
+355
+00:09:45,326 --> 0:09:46,116
+can really slow down
+
+356
+00:09:46,116 --> 0:09:47,406
+Instruments' analysis as well.
+
+357
+00:09:48,426 --> 0:09:50,116
+In this example, we have
+
+358
+00:09:50,266 --> 0:09:52,336
+OSSignpost calls wrapping an
+
+359
+00:09:52,576 --> 0:09:53,956
+expensive and potentially
+
+360
+00:09:53,956 --> 0:09:55,586
+error-throwing piece of code.
+
+361
+00:09:56,456 --> 0:09:58,176
+The problem is that if an error
+
+362
+00:09:58,176 --> 0:09:59,956
+is thrown, then control flow
+
+363
+00:09:59,956 --> 0:10:01,926
+jumps to the catch scope and
+
+364
+00:09:59,956 --> 0:10:01,926
+jumps to the catch scope and
+
+365
+00:10:01,926 --> 0:10:03,526
+skips our end signpost entirely.
+
+366
+00:10:05,036 --> 0:10:06,466
+Now Swift's defer statement is
+
+367
+00:10:06,466 --> 0:10:07,696
+really a great way to handle
+
+368
+00:10:07,696 --> 0:10:08,546
+this, making sure that
+
+369
+00:10:08,546 --> 0:10:10,866
+regardless of early returns or
+
+370
+00:10:10,866 --> 0:10:14,016
+errors being thrown, that
+
+371
+00:10:14,016 --> 0:10:15,696
+OSSignpost end call will still
+
+372
+00:10:15,696 --> 0:10:16,866
+be called when we exit the
+
+373
+00:10:16,866 --> 0:10:17,416
+current scope.
+
+374
+00:10:18,696 --> 0:10:21,396
+So second, for efficiency, avoid
+
+375
+00:10:21,396 --> 0:10:22,936
+logging identical data in both
+
+376
+00:10:23,006 --> 0:10:25,146
+the begin and end trace points
+
+377
+00:10:25,326 --> 0:10:26,566
+and log it in the first point
+
+378
+00:10:26,566 --> 0:10:27,306
+it's available.
+
+379
+00:10:27,956 --> 0:10:29,396
+This avoids that duplicate work
+
+380
+00:10:29,766 --> 0:10:31,266
+and it gives Instruments a value
+
+381
+00:10:31,266 --> 0:10:32,196
+as soon as possible.
+
+382
+00:10:32,576 --> 0:10:34,196
+In this example, we don't need
+
+383
+00:10:34,196 --> 0:10:37,376
+to repeat the request number or
+
+384
+00:10:37,376 --> 0:10:40,236
+raw size, and instead of using
+
+385
+00:10:40,236 --> 0:10:41,826
+the request number to match up
+
+386
+00:10:41,826 --> 0:10:43,306
+the intervals in case of
+
+387
+00:10:43,306 --> 0:10:45,436
+overlap, these points could
+
+388
+00:10:45,436 --> 0:10:47,906
+actually use and generate a
+
+389
+00:10:47,906 --> 0:10:49,966
+unique Signpost ID for this log
+
+390
+00:10:49,966 --> 0:10:51,876
+handle per interval pair.
+
+391
+00:10:53,126 --> 0:10:55,196
+So third, avoid doing
+
+392
+00:10:55,196 --> 0:10:57,786
+unnecessary work when signposts
+
+393
+00:10:57,826 --> 0:10:58,496
+aren't enabled.
+
+394
+00:10:59,366 --> 0:11:00,696
+If your log handle is configured
+
+395
+00:10:59,366 --> 0:11:00,696
+If your log handle is configured
+
+396
+00:11:00,696 --> 0:11:01,746
+to use one of the dynamic
+
+397
+00:11:01,746 --> 0:11:03,326
+tracing categories, then the
+
+398
+00:11:03,366 --> 0:11:04,716
+signposts enabled property will
+
+399
+00:11:04,716 --> 0:11:05,536
+indicate whether or not
+
+400
+00:11:05,536 --> 0:11:06,536
+Instruments is recording at the
+
+401
+00:11:06,536 --> 0:11:08,466
+time, which means it's a great
+
+402
+00:11:08,466 --> 0:11:11,126
+way to put your expensive data
+
+403
+00:11:11,206 --> 0:11:13,026
+computation behind that
+
+404
+00:11:13,326 --> 0:11:15,666
+OSSignpost-enabled check.
+
+405
+00:11:16,656 --> 0:11:19,506
+Fourth, only trace data that you
+
+406
+00:11:19,506 --> 0:11:20,516
+actually need for your tools.
+
+407
+00:11:21,436 --> 0:11:22,266
+Think about your guard
+
+408
+00:11:22,266 --> 0:11:23,406
+statements and preconditions,
+
+409
+00:11:23,966 --> 0:11:25,096
+because sometimes you'll want to
+
+410
+00:11:25,096 --> 0:11:26,686
+trace these to include the short
+
+411
+00:11:26,686 --> 0:11:26,996
+intervals.
+
+412
+00:11:27,526 --> 0:11:28,936
+For example, if you've got a
+
+413
+00:11:28,936 --> 0:11:30,466
+method and you want to see the
+
+414
+00:11:30,466 --> 0:11:31,756
+difference between a cash hit
+
+415
+00:11:31,756 --> 0:11:32,636
+and a cash miss.
+
+416
+00:11:33,696 --> 0:11:34,766
+But other times these early
+
+417
+00:11:34,766 --> 0:11:36,366
+returns will be uninteresting.
+
+418
+00:11:36,926 --> 0:11:39,156
+And for these cases, consider
+
+419
+00:11:39,156 --> 0:11:41,146
+moving the signpost after the
+
+420
+00:11:41,146 --> 0:11:42,846
+preconditions to reduce the
+
+421
+00:11:42,846 --> 0:11:44,976
+amount of data you send to the
+
+422
+00:11:44,976 --> 0:11:45,756
+signpost system.
+
+423
+00:11:46,896 --> 0:11:48,466
+Now with all these tips, it's
+
+424
+00:11:48,466 --> 0:11:50,126
+important to remember that trace
+
+425
+00:11:50,166 --> 0:11:51,866
+points are really the basis for
+
+426
+00:11:51,866 --> 0:11:52,836
+all of the tools that you build
+
+427
+00:11:52,836 --> 0:11:53,466
+on top.
+
+428
+00:11:53,726 --> 0:11:54,856
+And most of the time they'll be
+
+429
+00:11:54,916 --> 0:11:56,546
+present in your production code.
+
+430
+00:11:56,546 --> 0:11:57,996
+So that's why it's important to
+
+431
+00:11:57,996 --> 0:11:59,526
+think about performance and
+
+432
+00:11:59,526 --> 0:12:00,706
+maintainability of your trace
+
+433
+00:11:59,526 --> 0:12:00,706
+maintainability of your trace
+
+434
+00:12:00,756 --> 0:12:01,106
+points.
+
+435
+00:12:01,916 --> 0:12:03,246
+And since they're at the core,
+
+436
+00:12:03,576 --> 0:12:05,076
+changes to your signpost calls
+
+437
+00:12:05,076 --> 0:12:06,116
+might result in needing to
+
+438
+00:12:06,116 --> 0:12:07,286
+change the tools that you build
+
+439
+00:12:07,286 --> 0:12:07,756
+on top.
+
+440
+00:12:08,386 --> 0:12:10,546
+So to keep your trace points
+
+441
+00:12:10,546 --> 0:12:12,196
+stable, avoid tracing
+
+442
+00:12:12,196 --> 0:12:14,126
+implementation details and try
+
+443
+00:12:14,126 --> 0:12:15,576
+to add your OSSignpost calls
+
+444
+00:12:16,166 --> 0:12:17,516
+closer to the API layer when
+
+445
+00:12:17,516 --> 0:12:18,006
+possible.
+
+446
+00:12:18,986 --> 0:12:20,066
+Now moving your trace points
+
+447
+00:12:20,066 --> 0:12:21,216
+around your code base isn't a
+
+448
+00:12:21,216 --> 0:12:21,706
+problem.
+
+449
+00:12:21,706 --> 0:12:22,776
+Now you don't need to worry
+
+450
+00:12:22,776 --> 0:12:24,206
+about compiler optimizations
+
+451
+00:12:24,206 --> 0:12:25,376
+like inlining that might move
+
+452
+00:12:25,376 --> 0:12:25,896
+them for you.
+
+453
+00:12:26,886 --> 0:12:28,616
+The things that you need to make
+
+454
+00:12:28,616 --> 0:12:31,496
+sure don't change are the static
+
+455
+00:12:31,496 --> 0:12:34,606
+strings, specifically I mean the
+
+456
+00:12:34,816 --> 0:12:37,216
+subsystem, the category, the
+
+457
+00:12:37,216 --> 0:12:39,266
+signpost name or the format
+
+458
+00:12:39,266 --> 0:12:39,546
+string.
+
+459
+00:12:39,786 --> 0:12:41,096
+If you change any of these,
+
+460
+00:12:41,186 --> 0:12:41,926
+you'll need to remember to
+
+461
+00:12:41,926 --> 0:12:43,276
+update your Instruments package
+
+462
+00:12:43,276 --> 0:12:43,536
+as well.
+
+463
+00:12:44,596 --> 0:12:46,326
+So with that, let's move on to
+
+464
+00:12:46,326 --> 0:12:48,266
+talking about modeling and
+
+465
+00:12:48,266 --> 0:12:50,386
+adding structure to your data
+
+466
+00:12:50,386 --> 0:12:50,976
+within Instruments.
+
+467
+00:12:53,166 --> 0:12:54,416
+Instruments' architecture is
+
+468
+00:12:54,466 --> 0:12:55,786
+based on everything being stored
+
+469
+00:12:55,786 --> 0:12:56,336
+in tables.
+
+470
+00:12:56,896 --> 0:12:57,986
+And schemas define the
+
+471
+00:12:57,986 --> 0:12:59,506
+structures of those tables, all
+
+472
+00:12:59,506 --> 0:13:00,236
+of which are measured by
+
+473
+00:12:59,506 --> 0:13:00,236
+of which are measured by
+
+474
+00:13:00,236 --> 0:13:01,106
+Instruments instant analysis
+
+475
+00:13:01,106 --> 0:13:01,326
+core.
+
+476
+00:13:01,916 --> 0:13:03,996
+For more in-depth intro to
+
+477
+00:13:03,996 --> 0:13:05,466
+Instruments architecture, I'd
+
+478
+00:13:05,506 --> 0:13:07,046
+recommend the Creating Custom
+
+479
+00:13:07,046 --> 0:13:08,476
+Instruments talk from 2018.
+
+480
+00:13:08,726 --> 0:13:09,816
+For now though, let's look at
+
+481
+00:13:09,816 --> 0:13:11,276
+where modeling fits into
+
+482
+00:13:11,276 --> 0:13:12,946
+creating a profiling experience.
+
+483
+00:13:13,586 --> 0:13:15,846
+On the left, we've covered
+
+484
+00:13:15,846 --> 0:13:17,076
+OSSignpost which is one of the
+
+485
+00:13:17,076 --> 0:13:18,326
+main data sources that
+
+486
+00:13:18,326 --> 0:13:19,316
+Instruments records from.
+
+487
+00:13:20,076 --> 0:13:21,056
+This data is filled in the
+
+488
+00:13:21,056 --> 0:13:22,626
+tables with the pre-defined
+
+489
+00:13:22,626 --> 0:13:24,016
+schema for use by your Custom
+
+490
+00:13:24,016 --> 0:13:24,486
+Instruments.
+
+491
+00:13:26,156 --> 0:13:27,426
+Modeling is that next phase in
+
+492
+00:13:27,426 --> 0:13:27,906
+the middle.
+
+493
+00:13:28,006 --> 0:13:29,946
+A modeler observes data from one
+
+494
+00:13:29,946 --> 0:13:31,956
+or more input tables, reasons
+
+495
+00:13:31,956 --> 0:13:34,596
+about it and then emits data to
+
+496
+00:13:34,596 --> 0:13:36,026
+one or more output tables of
+
+497
+00:13:36,026 --> 0:13:36,926
+your specification.
+
+498
+00:13:38,146 --> 0:13:38,986
+The modeler is where your
+
+499
+00:13:38,986 --> 0:13:40,696
+domain-specific logic resides,
+
+500
+00:13:41,196 --> 0:13:42,486
+and the schemas of the output
+
+501
+00:13:42,486 --> 0:13:45,106
+tables are yours to specify
+
+502
+00:13:45,106 --> 0:13:46,956
+which types and formatters to
+
+503
+00:13:46,956 --> 0:13:47,626
+apply to your data.
+
+504
+00:13:49,406 --> 0:13:50,626
+The final step on the right is
+
+505
+00:13:50,626 --> 0:13:52,606
+visualization which is described
+
+506
+00:13:52,606 --> 0:13:54,376
+in XML to the standard UI in
+
+507
+00:13:54,376 --> 0:13:54,956
+Instruments.
+
+508
+00:13:55,456 --> 0:13:56,886
+It's where you specify how to
+
+509
+00:13:56,946 --> 0:13:58,116
+graph and display the data in
+
+510
+00:13:58,116 --> 0:13:59,186
+your modeler's output tables.
+
+511
+00:13:59,886 --> 0:14:01,156
+Things like which columns to
+
+512
+00:13:59,886 --> 0:14:01,156
+Things like which columns to
+
+513
+00:14:01,156 --> 0:14:02,436
+plot and uses the value.
+
+514
+00:14:02,436 --> 0:14:03,836
+Or which columns to use for
+
+515
+00:14:03,836 --> 0:14:04,526
+labels in color.
+
+516
+00:14:05,596 --> 0:14:06,716
+Since all of the custom
+
+517
+00:14:06,716 --> 0:14:07,966
+instrument's visualization is
+
+518
+00:14:08,046 --> 0:14:10,086
+based on your schemas and your
+
+519
+00:14:10,086 --> 0:14:12,016
+modelers' output, it's important
+
+520
+00:14:12,016 --> 0:14:13,606
+to talk through that process of
+
+521
+00:14:13,606 --> 0:14:15,546
+checking that your OSSignpost
+
+522
+00:14:15,546 --> 0:14:17,486
+trace point are good, and then
+
+523
+00:14:17,656 --> 0:14:19,066
+how to get this data into your
+
+524
+00:14:19,066 --> 0:14:19,886
+custom-defined schema.
+
+525
+00:14:23,056 --> 0:14:24,216
+So all data in a custom
+
+526
+00:14:24,216 --> 0:14:25,406
+instrument must be stored in
+
+527
+00:14:25,406 --> 0:14:27,326
+tables that handle data in one
+
+528
+00:14:27,326 --> 0:14:27,986
+of two ways.
+
+529
+00:14:28,836 --> 0:14:30,266
+Point schemas have a timestamp
+
+530
+00:14:30,266 --> 0:14:32,766
+column, and interval schemas
+
+531
+00:14:32,866 --> 0:14:34,216
+have both a timestamp and a
+
+532
+00:14:34,216 --> 0:14:34,866
+duration column.
+
+533
+00:14:35,706 --> 0:14:37,246
+This means you'll need to define
+
+534
+00:14:37,246 --> 0:14:38,666
+at least one pointer interval
+
+535
+00:14:38,666 --> 0:14:40,396
+schema and then give names and
+
+536
+00:14:40,396 --> 0:14:41,186
+types to the rest of the
+
+537
+00:14:41,186 --> 0:14:41,566
+columns.
+
+538
+00:14:42,766 --> 0:14:44,226
+Now the data will be filled in
+
+539
+00:14:44,536 --> 0:14:46,766
+by modeling rules that operate
+
+540
+00:14:46,766 --> 0:14:47,396
+on the input data.
+
+541
+00:14:47,396 --> 0:14:49,006
+And these rules are expressed in
+
+542
+00:14:49,006 --> 0:14:49,756
+Eclipse language.
+
+543
+00:14:50,446 --> 0:14:51,306
+The good news is that
+
+544
+00:14:51,516 --> 0:14:53,616
+Instruments provides a few
+
+545
+00:14:53,616 --> 0:14:55,546
+schemas that will auto-generate
+
+546
+00:14:55,546 --> 0:14:56,016
+modelers.
+
+547
+00:14:56,486 --> 0:14:57,716
+So you don't have to jump into
+
+548
+00:14:57,716 --> 0:14:58,946
+writing Eclipse code until you
+
+549
+00:14:58,946 --> 0:14:59,276
+want to.
+
+550
+00:15:00,616 --> 0:15:02,466
+In fact, if you're just starting
+
+551
+00:15:02,466 --> 0:15:03,386
+and you want to make sure that
+
+552
+00:15:03,386 --> 0:15:05,086
+your data's correct, Instruments
+
+553
+00:15:05,086 --> 0:15:06,626
+provides a built-in OSSignpost
+
+554
+00:15:06,626 --> 0:15:08,606
+tool in the library that's great
+
+555
+00:15:08,606 --> 0:15:10,196
+for recording and checking that
+
+556
+00:15:10,196 --> 0:15:12,046
+your OSSignpost intervals look
+
+557
+00:15:12,146 --> 0:15:12,586
+reasonable.
+
+558
+00:15:12,586 --> 0:15:14,316
+And the inspector can help you
+
+559
+00:15:14,316 --> 0:15:15,526
+verify that the raw data is
+
+560
+00:15:15,526 --> 0:15:16,656
+exactly what you expect.
+
+561
+00:15:17,766 --> 0:15:19,136
+Now once you've checked your
+
+562
+00:15:19,266 --> 0:15:21,096
+data, a new instruments target
+
+563
+00:15:21,576 --> 0:15:22,616
+is a great way to start for
+
+564
+00:15:22,616 --> 0:15:23,266
+building your own tool.
+
+565
+00:15:23,266 --> 0:15:25,506
+With Xcode's built-in XML
+
+566
+00:15:25,506 --> 0:15:27,506
+snippets for custom instruments,
+
+567
+00:15:27,876 --> 0:15:29,776
+you're only a few elements away
+
+568
+00:15:30,006 --> 0:15:31,336
+from an automatic modeler and an
+
+569
+00:15:31,436 --> 0:15:32,586
+instrument in the library.
+
+570
+00:15:32,586 --> 0:15:34,076
+And the best way to see what
+
+571
+00:15:34,076 --> 0:15:35,466
+this looks like is with a demo.
+
+572
+00:15:35,466 --> 0:15:37,406
+And for that, I'd like to invite
+
+573
+00:15:37,586 --> 0:15:38,936
+up Kasper.
+
+574
+00:15:39,516 --> 0:15:44,546
+[ Applause ]
+
+575
+00:15:45,046 --> 0:15:45,546
+&gt;&gt; Thank you, Daniel.
+
+576
+00:15:45,546 --> 0:15:46,326
+And hello, everyone.
+
+577
+00:15:49,046 --> 0:15:50,366
+Our Solar System application on
+
+578
+00:15:50,366 --> 0:15:51,816
+the Mac is dealing with a large
+
+579
+00:15:51,816 --> 0:15:53,866
+amount of data about planets,
+
+580
+00:15:54,366 --> 0:15:56,386
+images, videos and binary data.
+
+581
+00:15:57,116 --> 0:15:58,916
+In order to optimize this usage,
+
+582
+00:15:59,126 --> 0:16:00,626
+I built a framework called solar
+
+583
+00:15:59,126 --> 0:16:00,626
+I built a framework called solar
+
+584
+00:16:00,626 --> 0:16:02,206
+compression that uses samples
+
+585
+00:16:02,206 --> 0:16:03,546
+compression library to
+
+586
+00:16:03,546 --> 0:16:05,296
+efficiently encode and decode
+
+587
+00:16:05,296 --> 0:16:06,126
+data from the disk.
+
+588
+00:16:07,166 --> 0:16:08,246
+Now I want to build
+
+589
+00:16:08,246 --> 0:16:09,616
+instrumentation for my framework
+
+590
+00:16:09,896 --> 0:16:11,006
+to provide insights to the
+
+591
+00:16:11,006 --> 0:16:11,816
+future users.
+
+592
+00:16:13,046 --> 0:16:14,206
+We have two concepts that are
+
+593
+00:16:14,206 --> 0:16:15,616
+worth tracking and presenting
+
+594
+00:16:15,616 --> 0:16:16,146
+visually.
+
+595
+00:16:16,626 --> 0:16:18,816
+Firstly, CompressionManager is
+
+596
+00:16:18,816 --> 0:16:19,886
+an object that coordinates
+
+597
+00:16:19,886 --> 0:16:20,816
+compression tasks.
+
+598
+00:16:21,476 --> 0:16:22,596
+It's created with a number of
+
+599
+00:16:22,646 --> 0:16:24,266
+channels which specifies how
+
+600
+00:16:24,266 --> 0:16:25,816
+many tasks can be executed
+
+601
+00:16:25,816 --> 0:16:26,396
+concurrently.
+
+602
+00:16:27,606 --> 0:16:28,986
+Secondly, I would like to
+
+603
+00:16:28,986 --> 0:16:30,436
+measure how well compression did
+
+604
+00:16:30,436 --> 0:16:32,086
+for specific file types and
+
+605
+00:16:32,086 --> 0:16:33,626
+algorithms by capturing
+
+606
+00:16:33,626 --> 0:16:34,516
+compression ratio.
+
+607
+00:16:35,296 --> 0:16:37,166
+By examining this, users can
+
+608
+00:16:37,166 --> 0:16:38,356
+decide whether it's worth it to
+
+609
+00:16:38,356 --> 0:16:39,156
+compress their data.
+
+610
+00:16:39,156 --> 0:16:41,916
+I wrote intervals that represent
+
+611
+00:16:41,916 --> 0:16:43,636
+this concept of my framework in
+
+612
+00:16:43,636 --> 0:16:45,836
+OSSignpost API, so let's jump to
+
+613
+00:16:45,836 --> 0:16:46,926
+the CompressionManager Swift
+
+614
+00:16:46,926 --> 0:16:47,876
+file to take a look.
+
+615
+00:16:49,216 --> 0:16:50,656
+Firstly, let's take a look at
+
+616
+00:16:50,656 --> 0:16:51,306
+the log handle.
+
+617
+00:16:51,776 --> 0:16:53,156
+My log handle specifies my
+
+618
+00:16:53,156 --> 0:16:54,786
+framework's bundle identifier as
+
+619
+00:16:54,786 --> 0:16:56,906
+a subsystem and my class name as
+
+620
+00:16:56,906 --> 0:16:57,666
+a category.
+
+621
+00:16:59,296 --> 0:17:01,356
+Compress and decompress are part
+
+622
+00:16:59,296 --> 0:17:01,356
+Compress and decompress are part
+
+623
+00:17:01,356 --> 0:17:02,566
+of the public interface of
+
+624
+00:17:02,566 --> 0:17:03,516
+compression manager.
+
+625
+00:17:04,626 --> 0:17:05,965
+They both start by creating
+
+626
+00:17:05,965 --> 0:17:07,536
+compression work item instance
+
+627
+00:17:07,665 --> 0:17:08,976
+which encapsulates information
+
+628
+00:17:08,976 --> 0:17:10,415
+about certain compression tasks.
+
+629
+00:17:11,236 --> 0:17:12,816
+Next, they call into private
+
+630
+00:17:12,816 --> 0:17:14,026
+SubmitWorkItemMethod.
+
+631
+00:17:15,796 --> 0:17:17,156
+Because compression channels can
+
+632
+00:17:17,156 --> 0:17:18,705
+be busy with work, there might
+
+633
+00:17:18,705 --> 0:17:20,486
+be significant time between
+
+634
+00:17:20,486 --> 0:17:22,185
+compression item creation and
+
+635
+00:17:22,185 --> 0:17:23,215
+execution on the channel.
+
+636
+00:17:23,836 --> 0:17:24,996
+And this is the perfect place to
+
+637
+00:17:24,996 --> 0:17:26,175
+start measuring this delay.
+
+638
+00:17:27,236 --> 0:17:28,376
+We'll do it by calling our
+
+639
+00:17:28,376 --> 0:17:30,346
+signpost of type begin with
+
+640
+00:17:30,346 --> 0:17:31,576
+CompressionItemWait name.
+
+641
+00:17:33,026 --> 0:17:34,466
+Next, we can see our guard
+
+642
+00:17:34,466 --> 0:17:36,136
+condition here which ensures
+
+643
+00:17:36,136 --> 0:17:37,966
+that source file exists before
+
+644
+00:17:37,966 --> 0:17:38,976
+we proceed any further.
+
+645
+00:17:39,866 --> 0:17:41,066
+Following Daniel's advice, I
+
+646
+00:17:41,066 --> 0:17:42,366
+will move it to the top of the
+
+647
+00:17:42,366 --> 0:17:43,856
+function to ensure that my
+
+648
+00:17:43,856 --> 0:17:45,246
+intervals are always closed.
+
+649
+00:17:46,686 --> 0:17:47,926
+Next, we have
+
+650
+00:17:48,016 --> 0:17:50,216
+ExecuteWorkItemMethod which is
+
+651
+00:17:50,216 --> 0:17:51,866
+called when the compression task
+
+652
+00:17:51,866 --> 0:17:53,136
+is ready to be executed on the
+
+653
+00:17:53,136 --> 0:17:53,486
+channel.
+
+654
+00:17:53,776 --> 0:17:56,486
+At first we need to indicate end
+
+655
+00:17:56,486 --> 0:17:58,256
+of the wait time for the item by
+
+656
+00:17:58,256 --> 0:17:59,846
+calling our signpost of type end
+
+657
+00:18:00,286 --> 0:18:01,466
+with the same name as before.
+
+658
+00:18:02,046 --> 0:18:04,726
+Next, we indicate beginning of
+
+659
+00:18:04,726 --> 0:18:05,936
+the compression with
+
+660
+00:18:05,936 --> 0:18:07,396
+CompressionExecution signpost.
+
+661
+00:18:08,256 --> 0:18:09,606
+In the metadata, we have such
+
+662
+00:18:09,606 --> 0:18:11,466
+things like algorithm, the kind
+
+663
+00:18:11,466 --> 0:18:13,876
+of operation, information about
+
+664
+00:18:13,876 --> 0:18:16,306
+the source, destination, channel
+
+665
+00:18:16,306 --> 0:18:17,156
+and calling thread.
+
+666
+00:18:18,346 --> 0:18:20,236
+As we learned before, OSSignpost
+
+667
+00:18:20,236 --> 0:18:22,146
+implicitly records several
+
+668
+00:18:22,146 --> 0:18:24,386
+parameters including thread so
+
+669
+00:18:24,386 --> 0:18:25,616
+you are safe to remove the
+
+670
+00:18:25,706 --> 0:18:25,966
+thread now.
+
+671
+00:18:31,456 --> 0:18:33,216
+Next, we create destination file
+
+672
+00:18:33,766 --> 0:18:36,266
+and synchronously execute
+
+673
+00:18:36,316 --> 0:18:37,326
+compression operation.
+
+674
+00:18:37,806 --> 0:18:39,846
+After it's finished, we log it
+
+675
+00:18:39,846 --> 0:18:41,436
+and attach destination file
+
+676
+00:18:41,436 --> 0:18:41,726
+size.
+
+677
+00:18:42,616 --> 0:18:43,686
+This is another place where I
+
+678
+00:18:43,686 --> 0:18:44,826
+can improve on my signpost
+
+679
+00:18:44,826 --> 0:18:45,456
+invocations.
+
+680
+00:18:46,026 --> 0:18:46,986
+You can notice that
+
+681
+00:18:46,986 --> 0:18:48,606
+StartCompressionMethod over here
+
+682
+00:18:48,806 --> 0:18:49,676
+is a throwing one.
+
+683
+00:18:50,206 --> 0:18:51,706
+And if it does throw an error,
+
+684
+00:18:52,126 --> 0:18:53,326
+the signpost invocation here
+
+685
+00:18:53,326 --> 0:18:54,086
+will not be called.
+
+686
+00:18:55,066 --> 0:18:56,196
+To prevent this from happening,
+
+687
+00:18:56,466 --> 0:18:58,006
+I can introduce the defer block
+
+688
+00:18:58,006 --> 0:19:02,146
+over here and move my code to be
+
+689
+00:18:58,006 --> 0:19:02,146
+over here and move my code to be
+
+690
+00:19:02,146 --> 0:19:04,146
+sure that the intervals are
+
+691
+00:19:04,146 --> 0:19:04,786
+always closed.
+
+692
+00:19:07,656 --> 0:19:09,676
+Now let's see our signpost in
+
+693
+00:19:09,676 --> 0:19:11,446
+Instruments by using Xcode's
+
+694
+00:19:11,506 --> 0:19:11,956
+Profile action.
+
+695
+00:19:19,416 --> 0:19:20,276
+Let's start with a blank
+
+696
+00:19:20,326 --> 0:19:23,396
+template, add our signpost
+
+697
+00:19:23,396 --> 0:19:26,656
+instrument to it and record for
+
+698
+00:19:26,786 --> 0:19:27,966
+just a few seconds.
+
+699
+00:19:32,366 --> 0:19:33,576
+We can now examine the data.
+
+700
+00:19:33,786 --> 0:19:35,876
+I will expand our signpost
+
+701
+00:19:35,876 --> 0:19:37,256
+instrument to see all of the
+
+702
+00:19:37,256 --> 0:19:38,306
+recorded subsystems.
+
+703
+00:19:39,856 --> 0:19:41,646
+Here's our Solar Compression
+
+704
+00:19:41,646 --> 0:19:41,866
+one.
+
+705
+00:19:42,046 --> 0:19:44,166
+I can extend it further to see
+
+706
+00:19:44,166 --> 0:19:45,816
+my Compression Manager category.
+
+707
+00:19:47,056 --> 0:19:48,846
+Now I can resize this track to
+
+708
+00:19:48,846 --> 0:19:50,406
+fit all of the contained graphs
+
+709
+00:19:50,456 --> 0:19:51,466
+by using Control-Z.
+
+710
+00:19:52,896 --> 0:19:54,346
+Let's pinch to zoom to examine
+
+711
+00:19:54,346 --> 0:19:55,456
+the data in more detail.
+
+712
+00:19:56,116 --> 0:19:58,826
+On the top we have all of the
+
+713
+00:19:58,826 --> 0:20:00,556
+Compression Execution signposts.
+
+714
+00:19:58,826 --> 0:20:00,556
+Compression Execution signposts.
+
+715
+00:20:01,416 --> 0:20:02,656
+And on the bottom we see all of
+
+716
+00:20:02,656 --> 0:20:03,926
+the intervals for the waiting
+
+717
+00:20:03,926 --> 0:20:04,396
+tasks.
+
+718
+00:20:04,956 --> 0:20:06,676
+And we can notice some patterns
+
+719
+00:20:06,676 --> 0:20:07,136
+over here.
+
+720
+00:20:08,466 --> 0:20:10,366
+For example, at most two tasks
+
+721
+00:20:10,436 --> 0:20:11,726
+are executing at once, so
+
+722
+00:20:12,386 --> 0:20:14,086
+probably application code is
+
+723
+00:20:14,086 --> 0:20:15,436
+using two compression channels.
+
+724
+00:20:16,886 --> 0:20:19,206
+Also we can see some spikes over
+
+725
+00:20:19,286 --> 0:20:21,396
+here that indicate that a lot of
+
+726
+00:20:21,396 --> 0:20:22,516
+tasks are waiting to be
+
+727
+00:20:22,516 --> 0:20:22,946
+compressed.
+
+728
+00:20:25,446 --> 0:20:27,656
+OSSignpost is a great tool for
+
+729
+00:20:27,656 --> 0:20:29,276
+analysis of your own signposts,
+
+730
+00:20:29,546 --> 0:20:30,656
+but usually doesn't provide
+
+731
+00:20:30,656 --> 0:20:32,666
+enough context for analyzing
+
+732
+00:20:32,666 --> 0:20:33,506
+them by your framework's
+
+733
+00:20:33,506 --> 0:20:33,936
+audience.
+
+734
+00:20:35,076 --> 0:20:36,926
+To improve on this, I built
+
+735
+00:20:36,926 --> 0:20:39,756
+Solar Compression instrument
+
+736
+00:20:39,976 --> 0:20:41,426
+that uses custom instruments.
+
+737
+00:20:42,366 --> 0:20:43,916
+But putting these two signposts
+
+738
+00:20:44,156 --> 0:20:45,986
+into two separate tables and
+
+739
+00:20:45,986 --> 0:20:47,136
+adjusting instrument-standard
+
+740
+00:20:47,186 --> 0:20:48,996
+UI, I managed to improve on our
+
+741
+00:20:48,996 --> 0:20:49,776
+visualization.
+
+742
+00:20:50,296 --> 0:20:51,536
+Let's open trace document
+
+743
+00:20:51,656 --> 0:20:52,946
+containing this instrument now.
+
+744
+00:20:59,046 --> 0:21:00,616
+On the bottom line we see all of
+
+745
+00:20:59,046 --> 0:21:00,616
+On the bottom line we see all of
+
+746
+00:21:00,616 --> 0:21:01,976
+the waiting tasks which are
+
+747
+00:21:01,976 --> 0:21:03,276
+represented similarly to the
+
+748
+00:21:03,276 --> 0:21:04,306
+OSSignpost instrument.
+
+749
+00:21:07,316 --> 0:21:08,926
+On the top we see all of the
+
+750
+00:21:08,926 --> 0:21:10,536
+execution intervals now
+
+751
+00:21:10,536 --> 0:21:12,286
+separated by a channel so we can
+
+752
+00:21:12,286 --> 0:21:13,616
+indeed see that there are two
+
+753
+00:21:13,616 --> 0:21:14,566
+channels available.
+
+754
+00:21:16,216 --> 0:21:17,956
+On the bottom over here I see
+
+755
+00:21:17,956 --> 0:21:19,296
+all of the compression tasks
+
+756
+00:21:19,536 --> 0:21:20,416
+with information on the
+
+757
+00:21:20,416 --> 0:21:22,596
+interval, source path, file
+
+758
+00:21:22,596 --> 0:21:24,326
+sizes, compression ratio, et
+
+759
+00:21:24,326 --> 0:21:24,666
+cetera.
+
+760
+00:21:25,806 --> 0:21:27,046
+There's one task that brings my
+
+761
+00:21:27,046 --> 0:21:27,596
+attention.
+
+762
+00:21:27,886 --> 0:21:29,326
+It's pretty long and it's
+
+763
+00:21:29,376 --> 0:21:31,356
+colored in red, which means that
+
+764
+00:21:31,356 --> 0:21:32,646
+the compression for this ratio
+
+765
+00:21:32,646 --> 0:21:34,676
+for this task was slow.
+
+766
+00:21:34,676 --> 0:21:35,786
+To easily see what kind of task
+
+767
+00:21:35,786 --> 0:21:37,506
+it is, I can switch to active
+
+768
+00:21:37,506 --> 0:21:40,336
+tasks detail which is set up to
+
+769
+00:21:40,336 --> 0:21:41,896
+only show intervals that are
+
+770
+00:21:41,896 --> 0:21:43,476
+intersecting my inspection head.
+
+771
+00:21:43,476 --> 0:21:45,876
+I can move my inspection head
+
+772
+00:21:45,876 --> 0:21:48,796
+and analyze a task.
+
+773
+00:21:48,796 --> 0:21:50,076
+It seems that we are trying to
+
+774
+00:21:50,076 --> 0:21:52,066
+compress zip archive and the
+
+775
+00:21:52,066 --> 0:21:53,986
+file size decreased by a bit
+
+776
+00:21:53,986 --> 0:21:54,976
+over 1%.
+
+777
+00:21:55,606 --> 0:21:57,016
+That doesn't seem much and maybe
+
+778
+00:21:57,016 --> 0:21:58,036
+you shouldn't be compressing it
+
+779
+00:21:58,036 --> 0:21:58,326
+at all.
+
+780
+00:22:00,546 --> 0:22:02,306
+Next, let's see task summary
+
+781
+00:22:02,306 --> 0:22:03,726
+detail which aggregates all of
+
+782
+00:22:03,726 --> 0:22:04,766
+the compression tasks.
+
+783
+00:22:05,286 --> 0:22:06,906
+It provides three aggregation
+
+784
+00:22:06,906 --> 0:22:09,426
+levels: compression kind, source
+
+785
+00:22:09,426 --> 0:22:11,046
+extension and algorithm.
+
+786
+00:22:12,286 --> 0:22:13,666
+On the right we see different
+
+787
+00:22:13,666 --> 0:22:15,406
+statistical information such as
+
+788
+00:22:15,496 --> 0:22:16,786
+average compression ratio,
+
+789
+00:22:17,086 --> 0:22:19,586
+duration or total saved space.
+
+790
+00:22:20,556 --> 0:22:22,406
+This detail is very useful for
+
+791
+00:22:22,406 --> 0:22:23,516
+comparing between different
+
+792
+00:22:23,516 --> 0:22:25,206
+algorithms or looking at how
+
+793
+00:22:25,206 --> 0:22:27,026
+compression ratio changes along
+
+794
+00:22:27,026 --> 0:22:27,786
+with the file type.
+
+795
+00:22:28,736 --> 0:22:30,556
+For example, we can see that our
+
+796
+00:22:30,556 --> 0:22:33,246
+JPEG file size decreased by on
+
+797
+00:22:33,246 --> 0:22:35,986
+average by 34% which seems
+
+798
+00:22:35,986 --> 0:22:37,026
+pretty good for already
+
+799
+00:22:37,026 --> 0:22:38,066
+heavily-compressed file.
+
+800
+00:22:38,066 --> 0:22:40,966
+Now let's take a look at how it
+
+801
+00:22:40,966 --> 0:22:42,836
+all looks in the Instrument
+
+802
+00:22:42,836 --> 0:22:43,376
+Inspector.
+
+803
+00:22:47,236 --> 0:22:48,996
+We have OSSignpost table over
+
+804
+00:22:48,996 --> 0:22:51,356
+here which is a point schema.
+
+805
+00:22:51,946 --> 0:22:54,286
+It looks at all of our begin and
+
+806
+00:22:54,286 --> 0:22:54,986
+end events.
+
+807
+00:22:56,356 --> 0:22:58,166
+We also have two tables for our
+
+808
+00:22:58,166 --> 0:22:59,506
+signposts.
+
+809
+00:23:00,256 --> 0:23:02,156
+Here is our execution table.
+
+810
+00:23:02,446 --> 0:23:03,966
+It contains all of the data
+
+811
+00:23:03,966 --> 0:23:05,826
+about tasks that we logged, but
+
+812
+00:23:05,826 --> 0:23:07,396
+now it's formatted according to
+
+813
+00:23:07,396 --> 0:23:08,736
+the engineering types that we
+
+814
+00:23:08,736 --> 0:23:09,126
+assigned.
+
+815
+00:23:09,696 --> 0:23:13,296
+On the right over here we can
+
+816
+00:23:13,296 --> 0:23:14,816
+see that this table is directly
+
+817
+00:23:14,816 --> 0:23:15,866
+consumed by the UI.
+
+818
+00:23:19,406 --> 0:23:20,406
+I'm pretty happy about my
+
+819
+00:23:20,406 --> 0:23:21,306
+instruments so far.
+
+820
+00:23:21,896 --> 0:23:22,976
+One thing I would like to
+
+821
+00:23:22,976 --> 0:23:24,556
+improve on is how the waiting
+
+822
+00:23:24,556 --> 0:23:25,746
+tasks are represented.
+
+823
+00:23:26,516 --> 0:23:27,736
+Instead of seeing specific
+
+824
+00:23:27,736 --> 0:23:29,166
+intervals, I would like to have
+
+825
+00:23:29,286 --> 0:23:31,396
+some way of summarizing them to
+
+826
+00:23:31,496 --> 0:23:32,946
+clearly point out the areas of
+
+827
+00:23:33,036 --> 0:23:33,536
+higher load.
+
+828
+00:23:34,396 --> 0:23:35,366
+I think that Daniel might have
+
+829
+00:23:35,366 --> 0:23:36,746
+some ideas on how to achieve it.
+
+830
+00:23:37,426 --> 0:23:37,796
+Daniel?
+
+831
+00:23:41,516 --> 0:23:45,796
+[ Applause ]
+
+832
+00:23:46,296 --> 0:23:46,946
+&gt;&gt; Thanks, Kasper.
+
+833
+00:23:46,946 --> 0:23:48,996
+As Kasper showed, the OSSignpost
+
+834
+00:23:48,996 --> 0:23:50,276
+instrument in the library and
+
+835
+00:23:50,476 --> 0:23:52,316
+the Inspector are great ways to
+
+836
+00:23:52,316 --> 0:23:54,006
+visualize your raw data and to
+
+837
+00:23:54,006 --> 0:23:55,246
+check that instrument sees the
+
+838
+00:23:55,246 --> 0:23:56,046
+data you expect.
+
+839
+00:23:56,646 --> 0:23:58,496
+And even without diving into
+
+840
+00:23:58,496 --> 0:23:59,496
+writing a custom Eclipse
+
+841
+00:23:59,496 --> 0:24:01,066
+modeler, Kasper was able to
+
+842
+00:23:59,496 --> 0:24:01,066
+modeler, Kasper was able to
+
+843
+00:24:01,116 --> 0:24:02,126
+present an instrument that
+
+844
+00:24:02,126 --> 0:24:03,306
+presented his data in a more
+
+845
+00:24:03,306 --> 0:24:04,896
+meaningful way using his
+
+846
+00:24:04,976 --> 0:24:05,986
+framework's compression
+
+847
+00:24:05,986 --> 0:24:06,646
+concepts.
+
+848
+00:24:07,066 --> 0:24:08,586
+There were just four trace
+
+849
+00:24:08,586 --> 0:24:10,686
+points and two OSSignpost
+
+850
+00:24:10,686 --> 0:24:11,486
+interval schemas.
+
+851
+00:24:12,336 --> 0:24:13,906
+That said, it wasn't quite the
+
+852
+00:24:13,906 --> 0:24:15,476
+profiling experience he wanted
+
+853
+00:24:15,476 --> 0:24:15,846
+to create.
+
+854
+00:24:16,596 --> 0:24:18,396
+Now custom modelers are a great
+
+855
+00:24:18,396 --> 0:24:19,736
+way for tailoring that
+
+856
+00:24:19,736 --> 0:24:20,406
+experience.
+
+857
+00:24:20,826 --> 0:24:22,406
+They all you to fuse data for
+
+858
+00:24:22,406 --> 0:24:23,926
+multiple log handles and even
+
+859
+00:24:23,926 --> 0:24:25,296
+use data from built-in tables.
+
+860
+00:24:25,936 --> 0:24:27,236
+They enable you to embed more
+
+861
+00:24:27,356 --> 0:24:29,326
+complex logic, to maintain
+
+862
+00:24:29,326 --> 0:24:31,076
+state, and the reason about the
+
+863
+00:24:31,076 --> 0:24:32,526
+order of events.
+
+864
+00:24:32,886 --> 0:24:33,996
+Writing your own custom modeler
+
+865
+00:24:33,996 --> 0:24:35,306
+can also be useful for some of
+
+866
+00:24:35,306 --> 0:24:37,416
+the more custom graphing and
+
+867
+00:24:37,506 --> 0:24:38,576
+detailed use schemas.
+
+868
+00:24:39,206 --> 0:24:40,826
+The point schema, interval
+
+869
+00:24:40,826 --> 0:24:42,456
+schema and modeler tags are a
+
+870
+00:24:42,456 --> 0:24:44,086
+great way to get started, but
+
+871
+00:24:44,086 --> 0:24:45,016
+it's a deep subject we don't
+
+872
+00:24:45,016 --> 0:24:45,886
+have time to cover in this
+
+873
+00:24:45,886 --> 0:24:46,206
+session.
+
+874
+00:24:46,526 --> 0:24:48,046
+For more on custom modeling
+
+875
+00:24:48,046 --> 0:24:50,046
+though, the 2019 Modeling and
+
+876
+00:24:50,046 --> 0:24:51,606
+Custom Instruments talk goes
+
+877
+00:24:51,606 --> 0:24:52,926
+into a lot more depth and it
+
+878
+00:24:52,926 --> 0:24:53,826
+comes with sample code.
+
+879
+00:24:54,666 --> 0:24:56,246
+So let's move on to talking
+
+880
+00:24:56,246 --> 0:24:58,826
+about the UI part of a profiling
+
+881
+00:24:58,826 --> 0:25:01,056
+experience, visualization.
+
+882
+00:24:58,826 --> 0:25:01,056
+experience, visualization.
+
+883
+00:25:02,426 --> 0:25:03,736
+Visualization is all about the
+
+884
+00:25:03,736 --> 0:25:06,106
+chance for you as the author to
+
+885
+00:25:06,106 --> 0:25:07,076
+tell your story to the
+
+886
+00:25:07,076 --> 0:25:08,076
+developers who will use your
+
+887
+00:25:08,076 --> 0:25:08,336
+code.
+
+888
+00:25:08,336 --> 0:25:10,386
+And the most important principle
+
+889
+00:25:10,386 --> 0:25:12,896
+to remember is that data is not
+
+890
+00:25:12,896 --> 0:25:14,286
+the same thing as a story.
+
+891
+00:25:15,216 --> 0:25:17,326
+Just as Kasper showed by looking
+
+892
+00:25:17,326 --> 0:25:18,726
+at the built-in OSSignpost
+
+893
+00:25:18,726 --> 0:25:20,876
+graphs, raw intervals are only
+
+894
+00:25:20,876 --> 0:25:21,866
+good at conveying meaning to
+
+895
+00:25:21,866 --> 0:25:22,356
+their author.
+
+896
+00:25:23,356 --> 0:25:25,106
+Users of your tool aren't going
+
+897
+00:25:25,106 --> 0:25:26,616
+to intuitively know whether a
+
+898
+00:25:26,616 --> 0:25:28,896
+gap in the timeline is good or
+
+899
+00:25:28,896 --> 0:25:31,066
+bad or what processing phase was
+
+900
+00:25:31,106 --> 0:25:32,126
+supposed to come next but
+
+901
+00:25:32,126 --> 0:25:32,536
+didn't.
+
+902
+00:25:33,606 --> 0:25:34,366
+As the developer of an
+
+903
+00:25:34,366 --> 0:25:35,966
+instruments package, you get to
+
+904
+00:25:35,966 --> 0:25:37,416
+go beyond just building
+
+905
+00:25:37,416 --> 0:25:38,816
+visualization showing what
+
+906
+00:25:38,816 --> 0:25:39,326
+happened.
+
+907
+00:25:39,946 --> 0:25:41,406
+You get to teach and diagnose.
+
+908
+00:25:41,926 --> 0:25:43,136
+You get to help your users find
+
+909
+00:25:43,136 --> 0:25:44,186
+problems even when you're not
+
+910
+00:25:44,186 --> 0:25:44,416
+there.
+
+911
+00:25:45,756 --> 0:25:47,236
+And visualization isn't just
+
+912
+00:25:47,236 --> 0:25:48,046
+about the graph either.
+
+913
+00:25:48,546 --> 0:25:49,606
+Sometimes the best way to
+
+914
+00:25:49,606 --> 0:25:51,466
+communicate a problem is with a
+
+915
+00:25:51,466 --> 0:25:53,126
+right set of statistical data or
+
+916
+00:25:53,126 --> 0:25:55,136
+with a well-crafted textual
+
+917
+00:25:55,136 --> 0:25:56,676
+narrative of exactly what went
+
+918
+00:25:56,676 --> 0:25:56,976
+wrong.
+
+919
+00:25:58,256 --> 0:26:00,196
+The reason that graphing is so
+
+920
+00:25:58,256 --> 0:26:00,196
+The reason that graphing is so
+
+921
+00:26:00,196 --> 0:26:01,876
+important though is that most of
+
+922
+00:26:01,876 --> 0:26:02,826
+the time it's the user's
+
+923
+00:26:02,826 --> 0:26:03,436
+starting point.
+
+924
+00:26:03,816 --> 0:26:04,886
+It's the first page to your
+
+925
+00:26:04,886 --> 0:26:05,516
+story's book.
+
+926
+00:26:06,636 --> 0:26:08,216
+Visualization should help others
+
+927
+00:26:08,216 --> 0:26:10,266
+learn, understand and debug, and
+
+928
+00:26:10,266 --> 0:26:11,906
+the selfish motivation is that
+
+929
+00:26:11,976 --> 0:26:13,656
+good tools also speed up triage.
+
+930
+00:26:14,306 --> 0:26:15,006
+That's the goal of
+
+931
+00:26:15,006 --> 0:26:16,836
+visualization, making problems
+
+932
+00:26:16,836 --> 0:26:17,266
+apparent.
+
+933
+00:26:17,986 --> 0:26:19,206
+Graphs are the first summary
+
+934
+00:26:19,206 --> 0:26:20,476
+that you'll see and they should
+
+935
+00:26:20,476 --> 0:26:21,546
+draw your eyes to areas of
+
+936
+00:26:21,546 --> 0:26:22,036
+importance.
+
+937
+00:26:22,646 --> 0:26:23,896
+And once you've started digging
+
+938
+00:26:23,896 --> 0:26:25,406
+in, that's where detail views
+
+939
+00:26:25,406 --> 0:26:27,206
+and metrics should be centered
+
+940
+00:26:27,206 --> 0:26:28,736
+around those core concepts in
+
+941
+00:26:28,736 --> 0:26:29,806
+your code.
+
+942
+00:26:29,986 --> 0:26:31,456
+Now since Instruments deals with
+
+943
+00:26:31,926 --> 0:26:33,086
+two types of time-ordered data,
+
+944
+00:26:33,316 --> 0:26:34,756
+points and intervals, I want to
+
+945
+00:26:34,756 --> 0:26:35,976
+talk through ways of displaying
+
+946
+00:26:35,976 --> 0:26:36,886
+both.
+
+947
+00:26:37,856 --> 0:26:40,106
+To summarize .events, it helps
+
+948
+00:26:40,106 --> 0:26:41,566
+to evaluate their importance.
+
+949
+00:26:42,076 --> 0:26:43,766
+If they're all relatively equal,
+
+950
+00:26:44,006 --> 0:26:45,596
+then a histogram is a really
+
+951
+00:26:45,596 --> 0:26:46,926
+great way to show the density of
+
+952
+00:26:46,926 --> 0:26:48,156
+events on a timeline.
+
+953
+00:26:48,726 --> 0:26:50,346
+The taller bars immediately
+
+954
+00:26:50,346 --> 0:26:51,556
+convey at a quick glance where
+
+955
+00:26:51,556 --> 0:26:52,936
+to start and where to zoom in.
+
+956
+00:26:53,416 --> 0:26:54,656
+And for custom instruments, the
+
+957
+00:26:54,656 --> 0:26:55,706
+graphing behavior is easy to
+
+958
+00:26:55,706 --> 0:26:56,276
+customize.
+
+959
+00:26:57,076 --> 0:26:58,466
+The histogram element allows you
+
+960
+00:26:58,466 --> 0:26:59,716
+to specify the width of each
+
+961
+00:26:59,716 --> 0:27:01,626
+time bucket and there's a best
+
+962
+00:26:59,716 --> 0:27:01,626
+time bucket and there's a best
+
+963
+00:27:01,626 --> 0:27:03,286
+for resolution element that lets
+
+964
+00:27:03,286 --> 0:27:04,306
+you use a histogram when the
+
+965
+00:27:04,306 --> 0:27:06,406
+user zooms out and then swap for
+
+966
+00:27:06,406 --> 0:27:08,286
+a plot of the individual events
+
+967
+00:27:08,426 --> 0:27:10,826
+when the user zooms in.
+
+968
+00:27:12,036 --> 0:27:14,236
+Now, when .events vary in
+
+969
+00:27:14,266 --> 0:27:15,956
+importance, it's sometimes
+
+970
+00:27:15,956 --> 0:27:17,346
+helpful to dedicate a lane to
+
+971
+00:27:17,346 --> 0:27:18,896
+the critical events.
+
+972
+00:27:19,946 --> 0:27:21,546
+Multiple graphs and detail views
+
+973
+00:27:21,656 --> 0:27:22,986
+can reference data from the same
+
+974
+00:27:22,986 --> 0:27:24,916
+table, so specifying the top
+
+975
+00:27:24,916 --> 0:27:26,696
+plot just means describing to
+
+976
+00:27:26,696 --> 0:27:28,226
+Instruments how to slice and
+
+977
+00:27:28,226 --> 0:27:29,756
+choose which values to display
+
+978
+00:27:29,756 --> 0:27:30,306
+from the table.
+
+979
+00:27:30,736 --> 0:27:32,306
+Now both of these can be
+
+980
+00:27:32,306 --> 0:27:34,066
+accomplished purely in XML and
+
+981
+00:27:34,066 --> 0:27:35,006
+without a custom modeler.
+
+982
+00:27:37,216 --> 0:27:38,786
+Tabular summaries of either
+
+983
+00:27:38,826 --> 0:27:40,406
+point or interval data are your
+
+984
+00:27:40,406 --> 0:27:41,756
+opportunity to define what
+
+985
+00:27:41,756 --> 0:27:42,596
+metrics are important.
+
+986
+00:27:43,486 --> 0:27:45,116
+Within aggregation detail view,
+
+987
+00:27:45,266 --> 0:27:46,656
+there are functions like Min,
+
+988
+00:27:46,656 --> 0:27:48,026
+Max, Average and Standard
+
+989
+00:27:48,026 --> 0:27:50,016
+Deviation for combining values.
+
+990
+00:27:50,746 --> 0:27:52,256
+And new users will look to these
+
+991
+00:27:52,296 --> 0:27:54,456
+summaries that you provide for
+
+992
+00:27:54,456 --> 0:27:56,366
+guidance on what's important and
+
+993
+00:27:56,366 --> 0:27:57,246
+what to optimize.
+
+994
+00:27:57,936 --> 0:27:59,696
+So even display attributes like
+
+995
+00:28:00,246 --> 0:28:01,456
+what the title of the columns
+
+996
+00:28:01,456 --> 0:28:03,026
+are or what order they appear in
+
+997
+00:28:03,336 --> 0:28:03,876
+really matter.
+
+998
+00:28:04,536 --> 0:28:07,356
+Now when users dig further into
+
+999
+00:28:07,356 --> 0:28:08,856
+the details, the narrative
+
+1000
+00:28:08,856 --> 0:28:10,586
+engineering type is a great way
+
+1001
+00:28:10,766 --> 0:28:11,896
+to explain what's going on.
+
+1002
+00:28:12,576 --> 0:28:14,156
+It allows you to use natural
+
+1003
+00:28:14,156 --> 0:28:15,196
+language and other type
+
+1004
+00:28:15,256 --> 0:28:17,616
+formatters to explain runtime
+
+1005
+00:28:17,616 --> 0:28:18,536
+behavior in a way that's
+
+1006
+00:28:18,536 --> 0:28:19,076
+approachable.
+
+1007
+00:28:19,706 --> 0:28:21,806
+These views are a great way to
+
+1008
+00:28:21,806 --> 0:28:23,626
+tell users what was expected to
+
+1009
+00:28:23,626 --> 0:28:25,936
+happen and didn't, or when
+
+1010
+00:28:25,936 --> 0:28:27,116
+something interesting happened
+
+1011
+00:28:27,116 --> 0:28:27,876
+that they might want to
+
+1012
+00:28:27,876 --> 0:28:28,676
+investigate further.
+
+1013
+00:28:30,046 --> 0:28:31,976
+So plotting interval data can be
+
+1014
+00:28:31,976 --> 0:28:32,536
+a bit trickier.
+
+1015
+00:28:33,736 --> 0:28:35,816
+Unlike points, intervals won't
+
+1016
+00:28:35,816 --> 0:28:36,816
+usually fit within a single
+
+1017
+00:28:36,816 --> 0:28:37,936
+vertical space because of
+
+1018
+00:28:37,936 --> 0:28:38,336
+overlap.
+
+1019
+00:28:38,766 --> 0:28:41,566
+If you can plan for a fixed or
+
+1020
+00:28:41,566 --> 0:28:42,776
+bounded number of overlapping
+
+1021
+00:28:42,776 --> 0:28:44,306
+intervals, there are two ways to
+
+1022
+00:28:44,306 --> 0:28:46,176
+split a lane into multiple
+
+1023
+00:28:46,176 --> 0:28:47,376
+visual areas vertically.
+
+1024
+00:28:48,286 --> 0:28:49,996
+Qualified plots are useful for
+
+1025
+00:28:49,996 --> 0:28:51,296
+splitting lanes into multiple
+
+1026
+00:28:51,296 --> 0:28:52,496
+spaces with a single title,
+
+1027
+00:28:53,236 --> 0:28:55,476
+while instance plots are useful
+
+1028
+00:28:55,476 --> 0:28:56,686
+for each getting their own
+
+1029
+00:28:56,686 --> 0:28:57,026
+title.
+
+1030
+00:28:57,026 --> 0:29:00,056
+Now the OSSignpost tool uses
+
+1031
+00:28:57,026 --> 0:29:00,056
+Now the OSSignpost tool uses
+
+1032
+00:29:00,056 --> 0:29:00,916
+both of these techniques
+
+1033
+00:29:00,916 --> 0:29:02,436
+together, but it only works well
+
+1034
+00:29:02,436 --> 0:29:04,046
+when there is a limited number
+
+1035
+00:29:04,046 --> 0:29:05,106
+of overlapping intervals to
+
+1036
+00:29:05,106 --> 0:29:05,446
+display.
+
+1037
+00:29:06,416 --> 0:29:07,226
+When there are a lot,
+
+1038
+00:29:08,126 --> 0:29:09,986
+hierarchies, new in Instruments
+
+1039
+00:29:09,986 --> 0:29:11,446
+11, may be the way to go.
+
+1040
+00:29:12,456 --> 0:29:13,576
+Separating trace data into
+
+1041
+00:29:13,576 --> 0:29:15,776
+nested tracks makes it easier to
+
+1042
+00:29:15,866 --> 0:29:18,206
+filter, to find and even pin
+
+1043
+00:29:18,206 --> 0:29:19,146
+just what you're looking for,
+
+1044
+00:29:19,706 --> 0:29:20,776
+especially when the number of
+
+1045
+00:29:20,776 --> 0:29:22,236
+graphing contexts is large.
+
+1046
+00:29:23,176 --> 0:29:24,766
+But whether or not you provide a
+
+1047
+00:29:24,766 --> 0:29:25,786
+hierarchy of tracks, it's
+
+1048
+00:29:25,786 --> 0:29:26,906
+important to plan for
+
+1049
+00:29:26,906 --> 0:29:28,256
+summarizing your interval data
+
+1050
+00:29:28,846 --> 0:29:30,516
+either at each level of your
+
+1051
+00:29:30,516 --> 0:29:32,386
+hierarchy or as the primary
+
+1052
+00:29:32,386 --> 0:29:33,276
+graph of your instrument.
+
+1053
+00:29:33,736 --> 0:29:36,986
+For simple interval data, it
+
+1054
+00:29:36,986 --> 0:29:38,016
+might be tempting to apply the
+
+1055
+00:29:38,016 --> 0:29:39,636
+same solution as for points,
+
+1056
+00:29:40,086 --> 0:29:41,186
+using a histogram element.
+
+1057
+00:29:42,386 --> 0:29:43,706
+However, this only works well if
+
+1058
+00:29:43,706 --> 0:29:44,846
+you have short intervals as the
+
+1059
+00:29:44,846 --> 0:29:46,876
+histogram element aggregates by
+
+1060
+00:29:46,936 --> 0:29:48,106
+start time.
+
+1061
+00:29:48,336 --> 0:29:49,846
+With longer intervals, this can
+
+1062
+00:29:49,846 --> 0:29:52,276
+cause a left-sided skew and it
+
+1063
+00:29:52,276 --> 0:29:53,346
+produces very large values.
+
+1064
+00:29:54,836 --> 0:29:56,006
+More importantly, when you graph
+
+1065
+00:29:56,056 --> 0:29:59,046
+things that have duration, don't
+
+1066
+00:29:59,046 --> 0:30:01,006
+graph time on the Y axis as it's
+
+1067
+00:29:59,046 --> 0:30:01,006
+graph time on the Y axis as it's
+
+1068
+00:30:01,406 --> 0:30:02,546
+already the X axis.
+
+1069
+00:30:03,446 --> 0:30:05,206
+Metrics like percent utilization
+
+1070
+00:30:05,206 --> 0:30:06,246
+are better for displaying this
+
+1071
+00:30:06,296 --> 0:30:08,296
+kind of data.
+
+1072
+00:30:08,756 --> 0:30:10,606
+Now in more real-world usage,
+
+1073
+00:30:10,696 --> 0:30:11,866
+intervals overlap a lot more,
+
+1074
+00:30:12,386 --> 0:30:13,646
+and so I want to show three
+
+1075
+00:30:13,646 --> 0:30:16,136
+examples of summary graphs and
+
+1076
+00:30:16,136 --> 0:30:17,806
+how the represented concept in
+
+1077
+00:30:17,806 --> 0:30:18,826
+your framework and usage
+
+1078
+00:30:18,826 --> 0:30:20,686
+patterns that you want can
+
+1079
+00:30:20,686 --> 0:30:22,036
+impact your table schemas and
+
+1080
+00:30:22,066 --> 0:30:23,376
+held determine the presentation
+
+1081
+00:30:23,376 --> 0:30:23,676
+style.
+
+1082
+00:30:25,126 --> 0:30:26,586
+So for some scenarios,
+
+1083
+00:30:26,746 --> 0:30:28,566
+persistent overlap indicates
+
+1084
+00:30:28,686 --> 0:30:29,966
+high resource utilization.
+
+1085
+00:30:30,606 --> 0:30:31,816
+And for this kind of data, a
+
+1086
+00:30:31,816 --> 0:30:33,326
+quantized load average is a good
+
+1087
+00:30:33,326 --> 0:30:35,036
+way to visualize it, even
+
+1088
+00:30:35,036 --> 0:30:36,216
+coloring some extreme values.
+
+1089
+00:30:37,316 --> 0:30:39,026
+Now Eclipse modelers and
+
+1090
+00:30:39,026 --> 0:30:39,736
+Instruments are great at
+
+1091
+00:30:39,736 --> 0:30:40,836
+maintaining state and fusing
+
+1092
+00:30:40,836 --> 0:30:42,396
+data, so combining that
+
+1093
+00:30:42,396 --> 0:30:44,516
+OSSignpost event stream with the
+
+1094
+00:30:44,516 --> 0:30:46,306
+input from an internal timer
+
+1095
+00:30:46,306 --> 0:30:48,676
+tag, a modeler can calculate and
+
+1096
+00:30:48,676 --> 0:30:50,346
+emit a quantized utilization
+
+1097
+00:30:50,346 --> 0:30:51,666
+average when a timer signal
+
+1098
+00:30:51,666 --> 0:30:51,966
+arrives.
+
+1099
+00:30:52,486 --> 0:30:53,896
+Now the output table of a
+
+1100
+00:30:53,896 --> 0:30:55,956
+modeler might look like this,
+
+1101
+00:30:55,956 --> 0:30:57,166
+expressing just four columns of
+
+1102
+00:30:57,166 --> 0:30:58,926
+data to draw the plot that you
+
+1103
+00:30:58,926 --> 0:31:01,146
+see, including a utilization
+
+1104
+00:30:58,926 --> 0:31:01,146
+see, including a utilization
+
+1105
+00:31:01,146 --> 0:31:02,706
+column for determining the
+
+1106
+00:31:02,706 --> 0:31:04,886
+plot's value and a severity
+
+1107
+00:31:04,886 --> 0:31:06,106
+column for determining color.
+
+1108
+00:31:06,656 --> 0:31:09,966
+Now for other scenarios, lots of
+
+1109
+00:31:10,006 --> 0:31:10,996
+quickly running intervals might
+
+1110
+00:31:11,026 --> 0:31:12,236
+be more important because they
+
+1111
+00:31:12,236 --> 0:31:13,786
+represent inefficient use of
+
+1112
+00:31:13,786 --> 0:31:14,286
+your framework.
+
+1113
+00:31:15,316 --> 0:31:16,796
+Looking at the same data as the
+
+1114
+00:31:16,796 --> 0:31:19,056
+last example, a better graph
+
+1115
+00:31:19,116 --> 0:31:20,486
+might be based on the modeler
+
+1116
+00:31:20,486 --> 0:31:21,956
+counting the number of unique
+
+1117
+00:31:21,956 --> 0:31:23,656
+intervals seen within a specific
+
+1118
+00:31:23,656 --> 0:31:24,236
+time period.
+
+1119
+00:31:24,986 --> 0:31:26,796
+Now the modeler's output table
+
+1120
+00:31:26,796 --> 0:31:27,806
+would look very similar to the
+
+1121
+00:31:27,806 --> 0:31:30,616
+last, but the user's eye is
+
+1122
+00:31:30,646 --> 0:31:32,156
+immediately drawn to a very
+
+1123
+00:31:32,266 --> 0:31:33,516
+different area of the timeline
+
+1124
+00:31:33,876 --> 0:31:34,906
+which helps with zooming in and
+
+1125
+00:31:34,906 --> 0:31:36,066
+investigating the cause of these
+
+1126
+00:31:36,066 --> 0:31:36,636
+short intervals.
+
+1127
+00:31:37,246 --> 0:31:39,506
+And both of the first two
+
+1128
+00:31:39,506 --> 0:31:41,576
+examples summarize the data into
+
+1129
+00:31:41,576 --> 0:31:42,796
+10-millisecond groups.
+
+1130
+00:31:43,006 --> 0:31:45,096
+But what if the exact periods of
+
+1131
+00:31:45,096 --> 0:31:46,216
+the overlap are important,
+
+1132
+00:31:46,456 --> 0:31:48,346
+differentiating between one, two
+
+1133
+00:31:48,346 --> 0:31:50,356
+or more concurrent intervals?
+
+1134
+00:31:51,396 --> 0:31:52,576
+Well, instead of quantizing
+
+1135
+00:31:52,926 --> 0:31:55,186
+based on time, a more helpful
+
+1136
+00:31:55,186 --> 0:31:58,166
+graph might categorize these by
+
+1137
+00:31:58,166 --> 0:31:59,726
+degree of overlap and show the
+
+1138
+00:31:59,726 --> 0:32:01,076
+exact durations.
+
+1139
+00:31:59,726 --> 0:32:01,076
+exact durations.
+
+1140
+00:32:02,956 --> 0:32:05,136
+A modeler tracking just the
+
+1141
+00:32:05,136 --> 0:32:07,366
+OSSignpost events could output
+
+1142
+00:32:07,366 --> 0:32:08,316
+an additional table with a
+
+1143
+00:32:08,316 --> 0:32:09,226
+custom interval schema.
+
+1144
+00:32:10,436 --> 0:32:12,486
+And this time, the schema would
+
+1145
+00:32:12,486 --> 0:32:13,476
+be filled in with a variable
+
+1146
+00:32:13,476 --> 0:32:14,906
+duration and a description
+
+1147
+00:32:14,906 --> 0:32:16,016
+column for use as a label.
+
+1148
+00:32:17,236 --> 0:32:18,946
+So all three of these are just
+
+1149
+00:32:18,946 --> 0:32:20,926
+examples but hopefully they help
+
+1150
+00:32:20,926 --> 0:32:22,506
+to show that when it comes to
+
+1151
+00:32:22,506 --> 0:32:23,656
+the presentation of your data,
+
+1152
+00:32:24,176 --> 0:32:25,626
+the concepts matter when you're
+
+1153
+00:32:25,626 --> 0:32:26,626
+designing a graphing schema.
+
+1154
+00:32:26,626 --> 0:32:29,096
+Now for many cases an
+
+1155
+00:32:29,096 --> 0:32:30,546
+automatically generated modeler
+
+1156
+00:32:30,766 --> 0:32:31,606
+will give you the power and
+
+1157
+00:32:31,606 --> 0:32:33,116
+flexibility you need to create
+
+1158
+00:32:33,116 --> 0:32:33,986
+the right experience.
+
+1159
+00:32:34,706 --> 0:32:35,876
+But there will definitely be
+
+1160
+00:32:35,876 --> 0:32:37,326
+times when you want to have more
+
+1161
+00:32:37,326 --> 0:32:38,956
+than one input or output.
+
+1162
+00:32:39,506 --> 0:32:40,826
+And for those cases in some of
+
+1163
+00:32:40,826 --> 0:32:42,436
+the example tables I've showed,
+
+1164
+00:32:42,966 --> 0:32:44,816
+custom modelers can provide that
+
+1165
+00:32:44,816 --> 0:32:45,796
+additional control and
+
+1166
+00:32:45,796 --> 0:32:47,466
+flexibility to express their
+
+1167
+00:32:47,466 --> 0:32:50,006
+concepts visually or textually,
+
+1168
+00:32:50,006 --> 0:32:51,886
+enrich narratives and graphs and
+
+1169
+00:32:51,886 --> 0:32:52,206
+details.
+
+1170
+00:32:53,066 --> 0:32:54,526
+So now I'm excited to hand it
+
+1171
+00:32:54,526 --> 0:32:55,646
+back to Kasper to see what
+
+1172
+00:32:55,646 --> 0:32:56,756
+visualizations he's come up
+
+1173
+00:32:57,466 --> 0:32:57,886
+with.
+
+1174
+00:32:58,516 --> 0:33:02,376
+[ Applause ]
+
+1175
+00:32:58,516 --> 0:33:02,376
+[ Applause ]
+
+1176
+00:33:02,876 --> 0:33:03,516
+&gt;&gt; Thank you, Daniel.
+
+1177
+00:33:04,216 --> 0:33:06,226
+I played around with custom
+
+1178
+00:33:06,226 --> 0:33:07,886
+modelers and managed to improve
+
+1179
+00:33:07,886 --> 0:33:09,476
+on our existing instrumentation.
+
+1180
+00:33:10,036 --> 0:33:10,656
+Let's take a look.
+
+1181
+00:33:11,126 --> 0:33:12,876
+I will start with the Solar
+
+1182
+00:33:12,876 --> 0:33:13,996
+Conversion template that I
+
+1183
+00:33:13,996 --> 0:33:14,336
+crafted.
+
+1184
+00:33:18,046 --> 0:33:19,836
+It now includes a file system
+
+1185
+00:33:19,836 --> 0:33:21,526
+activity instrument to provide
+
+1186
+00:33:21,526 --> 0:33:22,796
+some additional information
+
+1187
+00:33:23,026 --> 0:33:24,586
+about I/O operations overhead
+
+1188
+00:33:24,706 --> 0:33:26,106
+when using compression library.
+
+1189
+00:33:27,296 --> 0:33:27,886
+Let's record.
+
+1190
+00:33:30,046 --> 0:33:31,316
+Now I'm recording in the
+
+1191
+00:33:31,316 --> 0:33:33,426
+windowed mode to reduce the
+
+1192
+00:33:33,426 --> 0:33:34,836
+overhead of the recording.
+
+1193
+00:33:36,276 --> 0:33:38,606
+Instrument is transferring all
+
+1194
+00:33:38,606 --> 0:33:40,116
+the data from the host and
+
+1195
+00:33:40,116 --> 0:33:40,936
+running the modelers.
+
+1196
+00:33:46,056 --> 0:33:47,206
+Let's examine the data now.
+
+1197
+00:33:47,846 --> 0:33:50,096
+I can immediately see that
+
+1198
+00:33:50,096 --> 0:33:51,566
+there's some correlation between
+
+1199
+00:33:51,566 --> 0:33:53,436
+file system activity and my
+
+1200
+00:33:53,436 --> 0:33:54,896
+execution signpost over here.
+
+1201
+00:33:55,536 --> 0:33:57,636
+Let's focus on the longer zip
+
+1202
+00:33:57,636 --> 0:33:58,626
+compression task that we
+
+1203
+00:33:58,626 --> 0:33:59,376
+analyzed before.
+
+1204
+00:34:00,466 --> 0:34:01,826
+It was good to have it colored
+
+1205
+00:34:01,826 --> 0:34:03,266
+on the red to get the user's
+
+1206
+00:34:03,266 --> 0:34:03,756
+attention.
+
+1207
+00:34:04,056 --> 0:34:05,446
+But even better it would be to
+
+1208
+00:34:05,486 --> 0:34:06,736
+provide some additional
+
+1209
+00:34:06,736 --> 0:34:08,656
+information by using narratives.
+
+1210
+00:34:09,966 --> 0:34:11,726
+I wrote modeler to detect low
+
+1211
+00:34:11,726 --> 0:34:13,735
+compression ratio situations and
+
+1212
+00:34:13,735 --> 0:34:15,156
+present some possible solutions.
+
+1213
+00:34:15,826 --> 0:34:18,156
+Let's take a look at the
+
+1214
+00:34:18,156 --> 0:34:19,606
+suggestions detail to take a
+
+1215
+00:34:19,606 --> 0:34:20,806
+look at the output of this
+
+1216
+00:34:20,806 --> 0:34:21,505
+modeler.
+
+1217
+00:34:25,295 --> 0:34:27,246
+This modeler -- and we get one
+
+1218
+00:34:27,396 --> 0:34:27,966
+suggestion.
+
+1219
+00:34:28,366 --> 0:34:30,356
+It's saying that file size for
+
+1220
+00:34:30,656 --> 0:34:32,696
+archive zip deceased by a bit
+
+1221
+00:34:32,696 --> 0:34:33,766
+over 1%.
+
+1222
+00:34:34,386 --> 0:34:35,876
+And compression may not be
+
+1223
+00:34:35,876 --> 0:34:37,036
+necessary for this file.
+
+1224
+00:34:38,016 --> 0:34:39,716
+It's also hinting that if speed
+
+1225
+00:34:39,716 --> 0:34:41,335
+is not an issue, I should try
+
+1226
+00:34:41,335 --> 0:34:43,716
+using LZMA algorithm which may
+
+1227
+00:34:43,716 --> 0:34:45,025
+provide higher compression
+
+1228
+00:34:45,025 --> 0:34:45,466
+ratio.
+
+1229
+00:34:46,306 --> 0:34:47,186
+That seems useful.
+
+1230
+00:34:47,186 --> 0:34:49,005
+I can now try to change the
+
+1231
+00:34:49,005 --> 0:34:50,775
+algorithm, record again and
+
+1232
+00:34:50,775 --> 0:34:51,976
+reevaluate the results.
+
+1233
+00:34:54,076 --> 0:34:55,136
+Let's take a look at how the
+
+1234
+00:34:55,136 --> 0:34:56,376
+waiting tasks are summarized.
+
+1235
+00:34:57,005 --> 0:34:58,996
+I'm calculating average load of
+
+1236
+00:34:58,996 --> 0:34:59,886
+the waiting tasks.
+
+1237
+00:35:00,536 --> 0:35:03,376
+This way users can clearly point
+
+1238
+00:35:03,376 --> 0:35:04,776
+out the areas of higher load.
+
+1239
+00:35:05,926 --> 0:35:07,406
+Let's take a look at this area
+
+1240
+00:35:07,406 --> 0:35:08,786
+which is colored in red.
+
+1241
+00:35:10,216 --> 0:35:12,136
+It seems that a lot of tasks are
+
+1242
+00:35:12,136 --> 0:35:13,726
+waiting on average, but as they
+
+1243
+00:35:13,726 --> 0:35:15,236
+get executed on the channels
+
+1244
+00:35:15,236 --> 0:35:16,816
+here, the number is going down.
+
+1245
+00:35:17,976 --> 0:35:19,816
+Users can analyze areas like
+
+1246
+00:35:19,816 --> 0:35:21,906
+that and if necessary increase
+
+1247
+00:35:21,906 --> 0:35:22,886
+the number of compression
+
+1248
+00:35:22,886 --> 0:35:24,286
+channels to achieve higher level
+
+1249
+00:35:24,286 --> 0:35:25,076
+of concurrency.
+
+1250
+00:35:26,576 --> 0:35:28,256
+Actually, this conclusion would
+
+1251
+00:35:28,256 --> 0:35:29,736
+be a good candidate for another
+
+1252
+00:35:29,736 --> 0:35:31,106
+suggestion in our detail.
+
+1253
+00:35:31,106 --> 0:35:34,136
+Now let's take a look at how it
+
+1254
+00:35:34,136 --> 0:35:36,146
+all plays out in Instrument
+
+1255
+00:35:36,146 --> 0:35:36,656
+Inspector.
+
+1256
+00:35:37,776 --> 0:35:39,006
+Let's search for our Solar
+
+1257
+00:35:39,006 --> 0:35:42,096
+Compression execution table and
+
+1258
+00:35:42,186 --> 0:35:43,076
+take a look at the binding
+
+1259
+00:35:43,076 --> 0:35:43,596
+solution.
+
+1260
+00:35:46,076 --> 0:35:49,006
+OSSignpost point schema data is
+
+1261
+00:35:49,066 --> 0:35:51,656
+transferred by OSSignpost
+
+1262
+00:35:51,656 --> 0:35:53,616
+auto-generated modeler into our
+
+1263
+00:35:53,616 --> 0:35:55,006
+Solar Compression execution
+
+1264
+00:35:55,006 --> 0:35:55,416
+table.
+
+1265
+00:35:56,056 --> 0:35:57,686
+It's right here as we saw before
+
+1266
+00:35:57,686 --> 0:35:58,846
+consumed by the UI.
+
+1267
+00:35:59,546 --> 0:36:01,056
+We also have this new entity
+
+1268
+00:35:59,546 --> 0:36:01,056
+We also have this new entity
+
+1269
+00:36:01,056 --> 0:36:02,176
+over here which is our
+
+1270
+00:36:02,176 --> 0:36:03,136
+suggestions modeler.
+
+1271
+00:36:03,596 --> 0:36:05,196
+It's transferring intervals from
+
+1272
+00:36:05,196 --> 0:36:07,206
+the compression execution table
+
+1273
+00:36:07,796 --> 0:36:10,336
+into the suggestions in the
+
+1274
+00:36:10,336 --> 0:36:11,946
+point schema which is later
+
+1275
+00:36:12,146 --> 0:36:15,516
+driving the narrative detail.
+
+1276
+00:36:15,676 --> 0:36:17,476
+Now I'm happy about how this
+
+1277
+00:36:17,476 --> 0:36:19,046
+Instruments conveys the concepts
+
+1278
+00:36:19,046 --> 0:36:20,856
+of my library and I feel that we
+
+1279
+00:36:20,856 --> 0:36:21,786
+are ready to ship it to our
+
+1280
+00:36:21,786 --> 0:36:22,246
+users.
+
+1281
+00:36:22,896 --> 0:36:23,886
+Let's go back to the slides.
+
+1282
+00:36:28,516 --> 0:36:32,776
+[ Applause ]
+
+1283
+00:36:33,276 --> 0:36:34,396
+Creating great profiling
+
+1284
+00:36:34,396 --> 0:36:36,186
+experience is about giving your
+
+1285
+00:36:36,186 --> 0:36:37,466
+users a path to explore.
+
+1286
+00:36:38,426 --> 0:36:39,956
+They should start with a useful
+
+1287
+00:36:39,956 --> 0:36:41,376
+template which is set up to
+
+1288
+00:36:41,376 --> 0:36:42,726
+provide necessary instruments
+
+1289
+00:36:42,726 --> 0:36:43,766
+for looking at the issue.
+
+1290
+00:36:44,646 --> 0:36:46,216
+Remember that if your code is
+
+1291
+00:36:46,216 --> 0:36:47,756
+sensitive to information that is
+
+1292
+00:36:47,756 --> 0:36:49,406
+exposed by other instrumentation
+
+1293
+00:36:49,756 --> 0:36:51,766
+such as sampling, system tracing
+
+1294
+00:36:51,966 --> 0:36:53,986
+or priority activity, you should
+
+1295
+00:36:53,986 --> 0:36:55,226
+include this in your template.
+
+1296
+00:36:56,326 --> 0:36:57,696
+When analyzing the recording,
+
+1297
+00:36:58,016 --> 0:36:59,436
+top-level graphs should quickly
+
+1298
+00:36:59,436 --> 0:37:01,316
+draw user attention to where the
+
+1299
+00:36:59,436 --> 0:37:01,316
+draw user attention to where the
+
+1300
+00:37:01,316 --> 0:37:02,556
+problems might be in the
+
+1301
+00:37:02,556 --> 0:37:03,416
+execution timeline.
+
+1302
+00:37:03,976 --> 0:37:05,916
+And details should lead them to
+
+1303
+00:37:05,916 --> 0:37:07,126
+the main cause of the issue,
+
+1304
+00:37:07,466 --> 0:37:08,636
+often providing meaningful
+
+1305
+00:37:08,636 --> 0:37:09,076
+hints.
+
+1306
+00:37:09,636 --> 0:37:12,016
+To help you develop even better
+
+1307
+00:37:12,016 --> 0:37:13,806
+profiling experience, this year
+
+1308
+00:37:13,806 --> 0:37:14,896
+we've introduced two new
+
+1309
+00:37:14,896 --> 0:37:16,396
+features in Instruments, the
+
+1310
+00:37:16,396 --> 0:37:17,686
+first of which is the concept of
+
+1311
+00:37:17,686 --> 0:37:18,746
+hierarchical tracks.
+
+1312
+00:37:19,666 --> 0:37:21,666
+One example is OSSignpost
+
+1313
+00:37:21,666 --> 0:37:23,316
+instrument visible here which
+
+1314
+00:37:23,316 --> 0:37:25,546
+exposes underlying subsystem and
+
+1315
+00:37:25,546 --> 0:37:27,126
+category name space through the
+
+1316
+00:37:27,196 --> 0:37:27,716
+hierarchy.
+
+1317
+00:37:29,176 --> 0:37:31,056
+Hierarchies are part of custom
+
+1318
+00:37:31,056 --> 0:37:32,616
+instruments and any hierarchy
+
+1319
+00:37:32,616 --> 0:37:34,026
+that you saw today can be
+
+1320
+00:37:34,026 --> 0:37:35,486
+created by your own instrument.
+
+1321
+00:37:37,296 --> 0:37:38,856
+We also have a new way of
+
+1322
+00:37:38,856 --> 0:37:40,056
+customizing your profiling
+
+1323
+00:37:40,056 --> 0:37:41,846
+workflow through creating custom
+
+1324
+00:37:41,846 --> 0:37:42,626
+track scopes.
+
+1325
+00:37:43,996 --> 0:37:45,176
+These allow you to take a look
+
+1326
+00:37:45,176 --> 0:37:46,536
+at data gathered in your trace
+
+1327
+00:37:46,536 --> 0:37:47,826
+document from different
+
+1328
+00:37:47,826 --> 0:37:49,596
+perspectives by applying track
+
+1329
+00:37:49,596 --> 0:37:51,476
+filters or choosing different
+
+1330
+00:37:51,476 --> 0:37:52,766
+track branches for each scope.
+
+1331
+00:37:54,176 --> 0:37:55,756
+If I'm only interested in seeing
+
+1332
+00:37:55,756 --> 0:37:57,496
+system calls and signposts for
+
+1333
+00:37:57,496 --> 0:37:59,336
+compression library, or
+
+1334
+00:37:59,336 --> 0:38:01,926
+analyzing virtual memory impact
+
+1335
+00:37:59,336 --> 0:38:01,926
+analyzing virtual memory impact
+
+1336
+00:38:01,926 --> 0:38:03,836
+of the application, I can create
+
+1337
+00:38:03,836 --> 0:38:05,406
+scopes that filter out other
+
+1338
+00:38:05,406 --> 0:38:07,166
+tracks and keep coming back to
+
+1339
+00:38:07,166 --> 0:38:07,426
+them.
+
+1340
+00:38:08,816 --> 0:38:10,476
+Like here I can save them in my
+
+1341
+00:38:10,476 --> 0:38:12,296
+template to share with my team
+
+1342
+00:38:12,516 --> 0:38:14,246
+or instrument audience.
+
+1343
+00:38:15,616 --> 0:38:16,796
+Tools in the form of
+
+1344
+00:38:16,846 --> 0:38:18,376
+instrumentation are a way to
+
+1345
+00:38:18,376 --> 0:38:19,836
+take experience of interacting
+
+1346
+00:38:19,836 --> 0:38:21,556
+with your framework from good to
+
+1347
+00:38:21,556 --> 0:38:23,156
+great and from unknown to
+
+1348
+00:38:23,156 --> 0:38:23,726
+trusted.
+
+1349
+00:38:24,676 --> 0:38:26,036
+They are your opportunity to
+
+1350
+00:38:26,096 --> 0:38:27,466
+tell stories about concepts
+
+1351
+00:38:27,466 --> 0:38:28,576
+existing in your framework.
+
+1352
+00:38:29,766 --> 0:38:31,466
+They should educate people and
+
+1353
+00:38:31,466 --> 0:38:32,956
+help catch easy mistakes.
+
+1354
+00:38:34,056 --> 0:38:35,746
+Whenever clients get performance
+
+1355
+00:38:35,746 --> 0:38:37,566
+debugging issues, they should
+
+1356
+00:38:37,566 --> 0:38:39,076
+turn to tools to see the answer.
+
+1357
+00:38:39,426 --> 0:38:41,166
+And this interaction will
+
+1358
+00:38:41,166 --> 0:38:42,676
+increase their confidence and
+
+1359
+00:38:42,676 --> 0:38:43,646
+trust in your library.
+
+1360
+00:38:44,306 --> 0:38:46,636
+To learn more about Custom
+
+1361
+00:38:46,636 --> 0:38:48,016
+Instruments, please visit
+
+1362
+00:38:48,016 --> 0:38:49,206
+Instruments Developer Help.
+
+1363
+00:38:49,956 --> 0:38:51,106
+We also recommend looking at
+
+1364
+00:38:51,106 --> 0:38:52,056
+these other sessions.
+
+1365
+00:38:52,836 --> 0:38:54,086
+Thank you and have a great rest
+
+1366
+00:38:54,086 --> 0:38:54,706
+of the conference.
+
+1367
+00:38:55,516 --> 0:38:58,500
+[ Applause ]

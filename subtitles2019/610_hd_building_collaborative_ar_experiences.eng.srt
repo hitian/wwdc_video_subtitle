@@ -1,0 +1,4823 @@
+1
+00:00:00,506 --> 0:00:05,500
+[ Music ]
+
+2
+00:00:11,516 --> 0:00:16,500
+[ Applause ]
+
+3
+00:00:20,726 --> 0:00:21,896
+&gt;&gt; Good afternoon, everyone.
+
+4
+00:00:22,516 --> 0:00:23,706
+Welcome to the session.
+
+5
+00:00:24,886 --> 0:00:26,446
+Today, I would like to talk
+
+6
+00:00:26,446 --> 0:00:28,966
+about multiuser AR in ARKit 3.
+
+7
+00:00:30,056 --> 0:00:31,086
+My name is Kuen-han.
+
+8
+00:00:31,506 --> 0:00:32,566
+I'm a ARKit engineer.
+
+9
+00:00:33,166 --> 0:00:35,056
+I would like to show you all the
+
+10
+00:00:35,056 --> 0:00:36,926
+enhancement we made in ARKit 3,
+
+11
+00:00:37,326 --> 0:00:39,406
+so building a multiuser AR app
+
+12
+00:00:39,406 --> 0:00:41,276
+becomes easy and intuitive.
+
+13
+00:00:42,726 --> 0:00:43,736
+So, you can focus on all the
+
+14
+00:00:43,736 --> 0:00:45,126
+amazing content within your app.
+
+15
+00:00:46,386 --> 0:00:47,676
+Are you interested in bringing
+
+16
+00:00:47,676 --> 0:00:49,096
+more people to the AR world?
+
+17
+00:00:49,746 --> 0:00:51,176
+Then, this talk is for you.
+
+18
+00:00:52,246 --> 0:00:52,766
+Let's begin.
+
+19
+00:00:57,116 --> 0:00:59,286
+Building a shared AR experience
+
+20
+00:00:59,526 --> 0:01:00,706
+is about synchronization.
+
+21
+00:00:59,526 --> 0:01:00,706
+is about synchronization.
+
+22
+00:01:01,546 --> 0:01:03,056
+Like the SwiftStrike video you
+
+23
+00:01:03,056 --> 0:01:05,236
+are seeing here, not only we
+
+24
+00:01:05,236 --> 0:01:06,386
+need to keep tracking the
+
+25
+00:01:06,386 --> 0:01:08,436
+location of the bowling pin but,
+
+26
+00:01:08,436 --> 0:01:09,686
+also, we need to track the
+
+27
+00:01:09,686 --> 0:01:11,006
+location of the user and their
+
+28
+00:01:11,006 --> 0:01:12,116
+interaction with the ball.
+
+29
+00:01:13,016 --> 0:01:14,856
+But sometimes, track that
+
+30
+00:01:14,856 --> 0:01:16,986
+information can be tricky and
+
+31
+00:01:16,986 --> 0:01:18,386
+complicated to make it right.
+
+32
+00:01:19,146 --> 0:01:21,686
+And that is what ARKit 3 want to
+
+33
+00:01:21,686 --> 0:01:22,286
+solve for you.
+
+34
+00:01:23,386 --> 0:01:25,156
+In ARKit 3, we introduce
+
+35
+00:01:25,236 --> 0:01:26,706
+collaborative session, which
+
+36
+00:01:26,706 --> 0:01:28,466
+makes sharing 3D content
+
+37
+00:01:28,466 --> 0:01:29,336
+location easy.
+
+38
+00:01:29,856 --> 0:01:32,566
+And with RealityKit, all the
+
+39
+00:01:32,716 --> 0:01:33,966
+game setups and physics
+
+40
+00:01:33,966 --> 0:01:35,596
+simulation can be synchronized
+
+41
+00:01:35,596 --> 0:01:36,766
+automatically under hood.
+
+42
+00:01:37,176 --> 0:01:38,396
+So, you can focus on your
+
+43
+00:01:38,396 --> 0:01:38,856
+content.
+
+44
+00:01:39,816 --> 0:01:41,076
+Let's look at today's agenda.
+
+45
+00:01:43,616 --> 0:01:45,726
+First, we're going to introduce
+
+46
+00:01:45,896 --> 0:01:47,816
+the collaborative session, a new
+
+47
+00:01:47,816 --> 0:01:50,156
+way to build multiuser app in
+
+48
+00:01:50,156 --> 0:01:50,606
+ARKit 3.
+
+49
+00:01:51,586 --> 0:01:53,436
+Next, we're going to dive into
+
+50
+00:01:53,506 --> 0:01:55,216
+some best practices for using
+
+51
+00:01:55,216 --> 0:01:57,436
+ARAnchors, especially in the
+
+52
+00:01:57,436 --> 0:01:59,236
+context of multiuser AR.
+
+53
+00:02:00,176 --> 0:02:01,886
+Last, David is going to
+
+54
+00:02:01,886 --> 0:02:03,376
+introduce you the SwiftStrike.
+
+55
+00:02:04,246 --> 0:02:06,896
+By utilizing ARKit 3 and
+
+56
+00:02:07,076 --> 0:02:09,526
+RealityKit, SwiftStrike provide
+
+57
+00:02:09,526 --> 0:02:11,536
+a new level of multiuser AR game
+
+58
+00:02:11,536 --> 0:02:12,106
+experience.
+
+59
+00:02:12,726 --> 0:02:14,436
+Let's start from collaborative
+
+60
+00:02:14,506 --> 0:02:14,876
+session.
+
+61
+00:02:17,116 --> 0:02:19,446
+To begin with, let's recap last
+
+62
+00:02:19,476 --> 0:02:21,216
+year's multiuser AR feature we
+
+63
+00:02:21,216 --> 0:02:23,946
+delivered in ARKit 2, Map Save
+
+64
+00:02:24,566 --> 0:02:25,456
+and Load.
+
+65
+00:02:25,656 --> 0:02:27,256
+In ARKit 2, we delivered Map
+
+66
+00:02:27,296 --> 0:02:28,926
+Save and Load which is designed
+
+67
+00:02:29,006 --> 0:02:30,946
+for persistent AR experience.
+
+68
+00:02:31,376 --> 0:02:33,316
+The user can record their
+
+69
+00:02:33,316 --> 0:02:34,866
+current AR experience and
+
+70
+00:02:34,866 --> 0:02:36,516
+recontinue after loading the
+
+71
+00:02:37,086 --> 0:02:37,246
+map.
+
+72
+00:02:37,556 --> 0:02:39,126
+The same feature can also be
+
+73
+00:02:39,126 --> 0:02:40,866
+used for multiuser AR.
+
+74
+00:02:41,896 --> 0:02:42,796
+Within this feature, we
+
+75
+00:02:42,796 --> 0:02:43,936
+introduced a data structure
+
+76
+00:02:43,936 --> 0:02:45,826
+called the ARWorldMap which
+
+77
+00:02:45,826 --> 0:02:47,796
+contains map of 3D landmarks
+
+78
+00:02:48,146 --> 0:02:49,566
+that are used for camera
+
+79
+00:02:49,626 --> 0:02:50,476
+position tracking.
+
+80
+00:02:50,986 --> 0:02:53,226
+And also, a list of ARAnchors
+
+81
+00:02:53,506 --> 0:02:55,516
+which represents the 3D corners
+
+82
+00:02:55,796 --> 0:02:56,886
+of your virtual content.
+
+83
+00:02:57,706 --> 0:02:59,266
+Within this example, we have a
+
+84
+00:02:59,356 --> 0:03:01,266
+tabletop scene and we load the
+
+85
+00:02:59,356 --> 0:03:01,266
+tabletop scene and we load the
+
+86
+00:03:01,266 --> 0:03:02,576
+ARWorldMap on top of it.
+
+87
+00:03:02,906 --> 0:03:04,406
+So, we have several three
+
+88
+00:03:04,406 --> 0:03:05,756
+landmarks on the table and two
+
+89
+00:03:05,756 --> 0:03:06,476
+ARAnchors.
+
+90
+00:03:08,196 --> 0:03:10,586
+When you use this feature for
+
+91
+00:03:10,586 --> 0:03:13,496
+multiuser AR, each user loaded
+
+92
+00:03:13,616 --> 0:03:15,046
+from the same ARWorldMap.
+
+93
+00:03:15,796 --> 0:03:17,776
+Then, ARKit will use the three
+
+94
+00:03:17,776 --> 0:03:19,576
+landmarks within the ARWorldMap,
+
+95
+00:03:19,806 --> 0:03:21,276
+try to localize the device
+
+96
+00:03:21,276 --> 0:03:22,856
+itself against to the map.
+
+97
+00:03:24,006 --> 0:03:25,786
+Once ARKit managed to do that,
+
+98
+00:03:26,276 --> 0:03:27,986
+the user can start to see the
+
+99
+00:03:27,986 --> 0:03:29,236
+same virtual content at the
+
+100
+00:03:29,236 --> 0:03:30,336
+right physical location.
+
+101
+00:03:31,796 --> 0:03:33,586
+This feature provides a good
+
+102
+00:03:33,586 --> 0:03:35,076
+multiuser AR experience.
+
+103
+00:03:35,426 --> 0:03:36,786
+If you already pre-map the
+
+104
+00:03:36,786 --> 0:03:38,546
+environment and also have all
+
+105
+00:03:38,546 --> 0:03:40,136
+the anchors you need saved in
+
+106
+00:03:40,136 --> 0:03:40,916
+the ARWorldMap.
+
+107
+00:03:41,926 --> 0:03:44,226
+However, any new information
+
+108
+00:03:44,226 --> 0:03:45,886
+that ARKit gathered afterwards
+
+109
+00:03:45,966 --> 0:03:47,406
+won't be shared.
+
+110
+00:03:48,116 --> 0:03:50,106
+For instance, one of the user
+
+111
+00:03:50,106 --> 0:03:51,896
+may keep exploring the table on
+
+112
+00:03:51,896 --> 0:03:54,666
+one side and putting one extra
+
+113
+00:03:54,666 --> 0:03:56,636
+anchor while the other user
+
+114
+00:03:56,636 --> 0:03:57,256
+doing the same.
+
+115
+00:03:58,316 --> 0:03:59,956
+Those newly learned map
+
+116
+00:03:59,956 --> 0:04:01,786
+information and ARAnchors won't
+
+117
+00:03:59,956 --> 0:04:01,786
+information and ARAnchors won't
+
+118
+00:04:01,786 --> 0:04:03,306
+be visible to all the users.
+
+119
+00:04:03,956 --> 0:04:05,836
+So, that makes this feature as a
+
+120
+00:04:05,836 --> 0:04:07,756
+one-time sharing AR experience
+
+121
+00:04:08,176 --> 0:04:09,936
+and is not optimized for unseen
+
+122
+00:04:09,936 --> 0:04:11,686
+environment beyond the pre-map
+
+123
+00:04:11,686 --> 0:04:12,056
+area.
+
+124
+00:04:12,146 --> 0:04:15,076
+And that is what collaborative
+
+125
+00:04:15,076 --> 0:04:16,446
+session want to solve for you.
+
+126
+00:04:19,516 --> 0:04:21,435
+Collaborative session is mainly
+
+127
+00:04:21,435 --> 0:04:23,386
+designed for the live multiuser
+
+128
+00:04:23,386 --> 0:04:24,086
+AR experience.
+
+129
+00:04:24,776 --> 0:04:26,446
+All the learned map information
+
+130
+00:04:26,446 --> 0:04:27,746
+and anchors are shared
+
+131
+00:04:27,746 --> 0:04:29,076
+continuously throughout the full
+
+132
+00:04:29,076 --> 0:04:29,446
+session.
+
+133
+00:04:30,086 --> 0:04:32,076
+That means any user can add
+
+134
+00:04:32,076 --> 0:04:33,876
+anchor at any point of time and
+
+135
+00:04:33,876 --> 0:04:35,046
+that will reflect on all the
+
+136
+00:04:35,046 --> 0:04:35,686
+users' screen.
+
+137
+00:04:35,956 --> 0:04:38,666
+And also, every user exploring
+
+138
+00:04:38,666 --> 0:04:40,396
+the map together, that means
+
+139
+00:04:40,496 --> 0:04:42,056
+they are benefit each other to
+
+140
+00:04:42,056 --> 0:04:44,446
+have the best tracking and also
+
+141
+00:04:44,446 --> 0:04:45,656
+most consistent tracking
+
+142
+00:04:45,656 --> 0:04:46,196
+experience.
+
+143
+00:04:46,686 --> 0:04:48,846
+That means this feature is
+
+144
+00:04:48,936 --> 0:04:50,656
+friendly for unseen environment.
+
+145
+00:04:51,026 --> 0:04:52,356
+You can also use this feature
+
+146
+00:04:52,356 --> 0:04:55,106
+with or without the map.
+
+147
+00:04:55,106 --> 0:04:57,356
+In addition, this feature use a
+
+148
+00:04:57,356 --> 0:04:58,896
+decentralized design with
+
+149
+00:04:58,896 --> 0:05:00,266
+peer-to-peer communication
+
+150
+00:04:58,896 --> 0:05:00,266
+peer-to-peer communication
+
+151
+00:05:00,266 --> 0:05:01,566
+pattern, similar to
+
+152
+00:05:01,566 --> 0:05:02,946
+MultipeerConnectivity.
+
+153
+00:05:03,416 --> 0:05:05,276
+Therefore, there is not host
+
+154
+00:05:05,496 --> 0:05:06,876
+user within the session.
+
+155
+00:05:07,796 --> 0:05:09,436
+Any user can come join the
+
+156
+00:05:09,496 --> 0:05:11,426
+session or leave the session at
+
+157
+00:05:11,426 --> 0:05:13,126
+any point of time without
+
+158
+00:05:13,206 --> 0:05:15,316
+interrupting others' user AR
+
+159
+00:05:15,316 --> 0:05:16,126
+experiences.
+
+160
+00:05:17,186 --> 0:05:18,336
+Let's see one example.
+
+161
+00:05:20,376 --> 0:05:23,426
+Here, we have two users running
+
+162
+00:05:23,426 --> 0:05:24,916
+in collaborative sessions.
+
+163
+00:05:25,926 --> 0:05:27,456
+They both start their own AR
+
+164
+00:05:27,456 --> 0:05:28,126
+experiences.
+
+165
+00:05:28,226 --> 0:05:30,716
+At the beginning, they both do a
+
+166
+00:05:30,776 --> 0:05:32,516
+small world exploration and put
+
+167
+00:05:32,516 --> 0:05:33,646
+in one ARAnchor.
+
+168
+00:05:33,646 --> 0:05:36,696
+As the user keeps exploring the
+
+169
+00:05:36,696 --> 0:05:38,456
+environment, once they start
+
+170
+00:05:38,546 --> 0:05:40,136
+seeing the area other use have
+
+171
+00:05:40,136 --> 0:05:42,376
+explored before, the user can
+
+172
+00:05:42,376 --> 0:05:44,216
+start seeing the ARAnchors added
+
+173
+00:05:44,266 --> 0:05:44,766
+by others.
+
+174
+00:05:45,236 --> 0:05:46,566
+In this case, the first user
+
+175
+00:05:46,566 --> 0:05:47,996
+starts seeing the yellow cube,
+
+176
+00:05:48,166 --> 0:05:49,366
+while the second user starts
+
+177
+00:05:49,366 --> 0:05:50,386
+seeing the purple cube.
+
+178
+00:05:50,386 --> 0:05:53,276
+Afterwards, any anchors that
+
+179
+00:05:53,276 --> 0:05:54,746
+added by the users will
+
+180
+00:05:54,746 --> 0:05:56,176
+immediately shows up on the
+
+181
+00:05:56,176 --> 0:05:56,836
+other's screen.
+
+182
+00:05:58,016 --> 0:06:00,126
+Because the sharing happens live
+
+183
+00:05:58,016 --> 0:06:00,126
+Because the sharing happens live
+
+184
+00:06:00,126 --> 0:06:02,006
+continuously, so there is no
+
+185
+00:06:02,006 --> 0:06:03,736
+interruption for the users' AR
+
+186
+00:06:03,736 --> 0:06:04,226
+experience.
+
+187
+00:06:04,346 --> 0:06:06,766
+And also, even most of the
+
+188
+00:06:06,766 --> 0:06:08,616
+existing multiuser AR app
+
+189
+00:06:08,616 --> 0:06:10,096
+requires a host user within the
+
+190
+00:06:10,136 --> 0:06:10,446
+session.
+
+191
+00:06:11,196 --> 0:06:13,216
+With collaborative session, now
+
+192
+00:06:13,216 --> 0:06:14,946
+it enables the new possibility
+
+193
+00:06:14,946 --> 0:06:16,336
+to build a decentralized
+
+194
+00:06:16,336 --> 0:06:18,336
+multiuser AR app.
+
+195
+00:06:18,766 --> 0:06:20,626
+Next, I'm going to dive into
+
+196
+00:06:20,626 --> 0:06:22,116
+more about this decentralized
+
+197
+00:06:22,116 --> 0:06:23,776
+design and how does it affect
+
+198
+00:06:24,016 --> 0:06:25,586
+the current systems within
+
+199
+00:06:25,586 --> 0:06:26,406
+collaborative session.
+
+200
+00:06:30,236 --> 0:06:31,646
+In this decentralized design,
+
+201
+00:06:32,206 --> 0:06:34,136
+there is no host user within the
+
+202
+00:06:34,136 --> 0:06:34,516
+session.
+
+203
+00:06:34,846 --> 0:06:36,926
+That means each user can start
+
+204
+00:06:36,966 --> 0:06:38,976
+their own AR experiences before
+
+205
+00:06:39,306 --> 0:06:41,016
+they start to receiving each
+
+206
+00:06:41,016 --> 0:06:41,346
+other.
+
+207
+00:06:41,836 --> 0:06:43,176
+So, that means each user can
+
+208
+00:06:43,176 --> 0:06:44,026
+have their own AR world
+
+209
+00:06:44,026 --> 0:06:44,826
+coordinates.
+
+210
+00:06:45,386 --> 0:06:46,736
+In this example, we have two
+
+211
+00:06:46,736 --> 0:06:48,256
+user running collaborative
+
+212
+00:06:48,256 --> 0:06:48,676
+session.
+
+213
+00:06:49,136 --> 0:06:51,436
+Each user start doing the small
+
+214
+00:06:51,436 --> 0:06:52,536
+world exploration and putting
+
+215
+00:06:52,536 --> 0:06:53,976
+one Anchor on each side of the
+
+216
+00:06:53,976 --> 0:06:54,306
+table.
+
+217
+00:06:55,516 --> 0:06:58,166
+Then, within the collaborative
+
+218
+00:06:58,166 --> 0:07:00,726
+session the ARKit will transmit
+
+219
+00:06:58,166 --> 0:07:00,726
+session the ARKit will transmit
+
+220
+00:07:00,726 --> 0:07:02,156
+the so-called the collaboration
+
+221
+00:07:02,156 --> 0:07:03,996
+data pushes a piece of your
+
+222
+00:07:03,996 --> 0:07:05,506
+ARWorldMap information to all
+
+223
+00:07:05,506 --> 0:07:07,366
+the other users and save it as
+
+224
+00:07:07,366 --> 0:07:09,526
+external maps.
+
+225
+00:07:09,526 --> 0:07:11,816
+Then, as the user keep exploring
+
+226
+00:07:11,816 --> 0:07:13,806
+the environment, once they start
+
+227
+00:07:13,806 --> 0:07:15,586
+to see the same area others have
+
+228
+00:07:15,586 --> 0:07:18,366
+seen before, ARKit will utilize
+
+229
+00:07:18,946 --> 0:07:21,066
+those 3D landmarks in the common
+
+230
+00:07:21,066 --> 0:07:23,336
+area and try to localize itself
+
+231
+00:07:23,336 --> 0:07:24,676
+against the external map.
+
+232
+00:07:25,306 --> 0:07:26,856
+When they succeed, those
+
+233
+00:07:26,856 --> 0:07:29,196
+external maps will merge locally
+
+234
+00:07:29,236 --> 0:07:30,726
+into each user's local
+
+235
+00:07:30,726 --> 0:07:31,086
+coordinate.
+
+236
+00:07:32,056 --> 0:07:34,306
+Note that at this point, user
+
+237
+00:07:34,306 --> 0:07:36,106
+still have different world
+
+238
+00:07:36,106 --> 0:07:36,496
+coordinate.
+
+239
+00:07:36,846 --> 0:07:39,286
+But because ARAnchors is
+
+240
+00:07:39,376 --> 0:07:41,316
+attached to the map so the user
+
+241
+00:07:41,316 --> 0:07:43,596
+can still see the virtual object
+
+242
+00:07:43,596 --> 0:07:44,956
+at the right physical location.
+
+243
+00:07:45,256 --> 0:07:47,926
+And that is why it is important
+
+244
+00:07:48,096 --> 0:07:50,336
+to use ARAnchor in collaborative
+
+245
+00:07:50,336 --> 0:07:50,716
+session.
+
+246
+00:07:52,086 --> 0:07:53,976
+So, let's take a look how to use
+
+247
+00:07:53,976 --> 0:07:55,996
+collaborative session in ARKit
+
+248
+00:07:58,116 --> 0:07:58,226
+3.
+
+249
+00:07:58,436 --> 0:07:59,826
+In order to use collaborative
+
+250
+00:07:59,826 --> 0:08:01,666
+session, first you need to make
+
+251
+00:07:59,826 --> 0:08:01,666
+session, first you need to make
+
+252
+00:08:01,666 --> 0:08:03,176
+sure all the users are in the
+
+253
+00:08:03,256 --> 0:08:04,366
+same networking layer.
+
+254
+00:08:05,016 --> 0:08:06,526
+This networking layer can be
+
+255
+00:08:06,606 --> 0:08:08,866
+either MultipeerConnectivity or
+
+256
+00:08:08,866 --> 0:08:10,476
+any other alternative solution
+
+257
+00:08:10,696 --> 0:08:12,186
+that provides reliable
+
+258
+00:08:12,186 --> 0:08:12,766
+communication.
+
+259
+00:08:13,916 --> 0:08:15,456
+Once they are in the same
+
+260
+00:08:15,456 --> 0:08:17,076
+networking layer, they can
+
+261
+00:08:17,076 --> 0:08:18,346
+transmit information to each
+
+262
+00:08:18,346 --> 0:08:18,676
+other.
+
+263
+00:08:19,176 --> 0:08:21,156
+Then, you simply need to enable
+
+264
+00:08:21,226 --> 0:08:23,006
+collaboration in your own AR
+
+265
+00:08:23,006 --> 0:08:23,446
+session.
+
+266
+00:08:24,146 --> 0:08:26,146
+Once that is enabled, your AR
+
+267
+00:08:26,196 --> 0:08:28,126
+session will periodically
+
+268
+00:08:28,126 --> 0:08:29,436
+generate the collaboration data
+
+269
+00:08:29,436 --> 0:08:30,376
+as I mentioned before.
+
+270
+00:08:30,706 --> 0:08:31,816
+Then, it is the app's
+
+271
+00:08:31,876 --> 0:08:33,796
+responsibility to transmit this
+
+272
+00:08:33,796 --> 0:08:35,306
+data to all the other users.
+
+273
+00:08:35,366 --> 0:08:39,135
+That is the only new code you
+
+274
+00:08:39,135 --> 0:08:41,366
+need to add in ARKit 3 in order
+
+275
+00:08:41,366 --> 0:08:42,655
+to use collaborative session.
+
+276
+00:08:43,126 --> 0:08:44,346
+Let's take a look.
+
+277
+00:08:46,116 --> 0:08:47,906
+To begin with, you need to
+
+278
+00:08:47,906 --> 0:08:49,076
+create a AR world tracking
+
+279
+00:08:49,076 --> 0:08:49,706
+configuration.
+
+280
+00:08:50,176 --> 0:08:51,806
+Then, you simply set the
+
+281
+00:08:51,806 --> 0:08:53,936
+isCollaborationEnabled to true.
+
+282
+00:08:54,636 --> 0:08:57,286
+Then, you just run a session.run
+
+283
+00:08:57,376 --> 0:08:58,866
+to run your AR session.
+
+284
+00:08:59,356 --> 0:09:02,006
+If you are using RealityKit,
+
+285
+00:08:59,356 --> 0:09:02,006
+If you are using RealityKit,
+
+286
+00:09:02,126 --> 0:09:03,446
+this is the only new code you
+
+287
+00:09:03,446 --> 0:09:04,766
+need to add to use collaborative
+
+288
+00:09:04,766 --> 0:09:05,116
+session.
+
+289
+00:09:05,606 --> 0:09:07,256
+If you are not using RealityKit,
+
+290
+00:09:07,546 --> 0:09:08,866
+then you need to implement
+
+291
+00:09:09,386 --> 0:09:10,726
+additional two delegate
+
+292
+00:09:10,726 --> 0:09:11,926
+functions to transmit the
+
+293
+00:09:11,926 --> 0:09:12,676
+collaboration data.
+
+294
+00:09:13,406 --> 0:09:15,396
+The first delegate function is
+
+295
+00:09:15,396 --> 0:09:15,906
+ARSession
+
+296
+00:09:15,906 --> 0:09:18,356
+didOutputcollaborationData.
+
+297
+00:09:18,356 --> 0:09:19,736
+When your own AR session create
+
+298
+00:09:19,736 --> 0:09:20,696
+this collaboration data, you
+
+299
+00:09:20,696 --> 0:09:21,856
+need to transmit to all the
+
+300
+00:09:21,856 --> 0:09:22,526
+other users.
+
+301
+00:09:22,986 --> 0:09:25,186
+Here, we have one example using
+
+302
+00:09:25,186 --> 0:09:26,286
+MultipeerConnectivity.
+
+303
+00:09:27,216 --> 0:09:28,756
+If your networking solution
+
+304
+00:09:28,936 --> 0:09:30,666
+replies a failure to transmit
+
+305
+00:09:30,666 --> 0:09:33,026
+this data, then it is your app's
+
+306
+00:09:33,076 --> 0:09:34,556
+responsibility to transmit this
+
+307
+00:09:34,556 --> 0:09:36,546
+data again to make sure the data
+
+308
+00:09:36,546 --> 0:09:37,116
+is delivered.
+
+309
+00:09:38,316 --> 0:09:40,756
+Then, once you receive this
+
+310
+00:09:40,756 --> 0:09:43,036
+data, you simply need to call
+
+311
+00:09:43,096 --> 0:09:44,936
+arSession.update delegate
+
+312
+00:09:44,936 --> 0:09:47,036
+function to pass this received
+
+313
+00:09:47,036 --> 0:09:48,896
+data to your underlying AR
+
+314
+00:09:48,896 --> 0:09:49,256
+session.
+
+315
+00:09:50,266 --> 0:09:51,536
+By implementing these two
+
+316
+00:09:51,536 --> 0:09:53,146
+delegate functions, you complete
+
+317
+00:09:53,146 --> 0:09:54,436
+the flow to transmit
+
+318
+00:09:54,716 --> 0:09:55,576
+collaboration data.
+
+319
+00:09:58,316 --> 0:09:59,886
+Once the collaboration data
+
+320
+00:09:59,886 --> 0:10:01,436
+transmission is running in the
+
+321
+00:09:59,886 --> 0:10:01,436
+transmission is running in the
+
+322
+00:10:01,436 --> 0:10:03,076
+background, the transmission
+
+323
+00:10:03,076 --> 0:10:04,526
+will happens throughout the
+
+324
+00:10:04,526 --> 0:10:04,926
+whole session.
+
+325
+00:10:05,896 --> 0:10:07,706
+Then, for each user, they just
+
+326
+00:10:07,706 --> 0:10:09,196
+start their own AR experience,
+
+327
+00:10:09,196 --> 0:10:09,766
+as before.
+
+328
+00:10:09,816 --> 0:10:12,696
+As I mentioned earlier, the
+
+329
+00:10:12,696 --> 0:10:15,046
+shared AR experience will begin
+
+330
+00:10:15,046 --> 0:10:16,626
+after the user can localize
+
+331
+00:10:16,686 --> 0:10:18,426
+itself against the other user's
+
+332
+00:10:18,426 --> 0:10:18,686
+map.
+
+333
+00:10:19,546 --> 0:10:21,606
+When that happen, your own AR
+
+334
+00:10:21,606 --> 0:10:23,066
+session will start to receive
+
+335
+00:10:23,126 --> 0:10:25,086
+the first ARAnchors added by
+
+336
+00:10:25,086 --> 0:10:27,226
+others which can be served as
+
+337
+00:10:27,226 --> 0:10:28,896
+indication of the beginning of
+
+338
+00:10:28,896 --> 0:10:30,376
+your shared AR experiences.
+
+339
+00:10:31,496 --> 0:10:32,806
+Let's look at some new
+
+340
+00:10:32,806 --> 0:10:34,686
+properties for ARAnchors in
+
+341
+00:10:34,686 --> 0:10:35,506
+collaborative session.
+
+342
+00:10:35,966 --> 0:10:40,336
+Within collaborative session,
+
+343
+00:10:40,986 --> 0:10:42,936
+all the user created ARAnchors
+
+344
+00:10:43,086 --> 0:10:44,656
+are lifetime are synchronized.
+
+345
+00:10:45,196 --> 0:10:46,736
+That means the user can add or
+
+346
+00:10:46,736 --> 0:10:48,416
+remove the anchors at any point
+
+347
+00:10:48,416 --> 0:10:50,076
+of time and that will reflect to
+
+348
+00:10:50,076 --> 0:10:50,966
+all the other users.
+
+349
+00:10:50,966 --> 0:10:53,486
+And also, we add a session
+
+350
+00:10:53,486 --> 0:10:55,686
+identifier to each ARAnchor
+
+351
+00:10:55,986 --> 0:10:57,976
+which can be used as a indicator
+
+352
+00:10:57,976 --> 0:11:00,386
+who is the original creator of
+
+353
+00:10:57,976 --> 0:11:00,386
+who is the original creator of
+
+354
+00:11:00,426 --> 0:11:02,486
+this ARAnchor, so your app can
+
+355
+00:11:02,486 --> 0:11:03,426
+react accordingly.
+
+356
+00:11:03,426 --> 0:11:06,986
+Last, only the user created
+
+357
+00:11:06,986 --> 0:11:08,106
+ARAnchors are shared.
+
+358
+00:11:08,166 --> 0:11:10,256
+That excludes all the subclass
+
+359
+00:11:10,256 --> 0:11:11,706
+ARAnchors, including
+
+360
+00:11:11,956 --> 0:11:14,166
+ARImageAnchor, ARPlaneAnchor,
+
+361
+00:11:14,286 --> 0:11:15,346
+and ARObjectAnchor.
+
+362
+00:11:15,346 --> 0:11:17,746
+That also excludes the user
+
+363
+00:11:17,746 --> 0:11:19,486
+subclass ARAnchor which were
+
+364
+00:11:19,486 --> 0:11:21,886
+used to attach user data within
+
+365
+00:11:21,886 --> 0:11:22,626
+Map Save and Load.
+
+366
+00:11:22,756 --> 0:11:25,316
+At the beginning, you may think
+
+367
+00:11:25,436 --> 0:11:27,176
+this is the drawback of this, of
+
+368
+00:11:27,226 --> 0:11:28,906
+this collaborative session
+
+369
+00:11:28,906 --> 0:11:29,316
+design.
+
+370
+00:11:29,586 --> 0:11:30,216
+But don't worry.
+
+371
+00:11:30,936 --> 0:11:31,996
+This is where collaborative
+
+372
+00:11:31,996 --> 0:11:33,976
+session and RealityKit plays
+
+373
+00:11:34,016 --> 0:11:36,346
+well hand-in-hand.
+
+374
+00:11:36,346 --> 0:11:38,666
+By using RealityKit, you can
+
+375
+00:11:38,666 --> 0:11:40,446
+attach your user data to
+
+376
+00:11:40,446 --> 0:11:41,976
+corresponding entity component.
+
+377
+00:11:42,546 --> 0:11:44,176
+Once you attach your user entity
+
+378
+00:11:44,216 --> 0:11:45,576
+to the corresponding ARAnchor,
+
+379
+00:11:45,916 --> 0:11:47,046
+all those information will be
+
+380
+00:11:47,046 --> 0:11:48,106
+synchronized under hood,
+
+381
+00:11:48,256 --> 0:11:49,626
+including all the physical
+
+382
+00:11:50,136 --> 0:11:51,636
+simulation, scene change, and
+
+383
+00:11:51,636 --> 0:11:52,166
+sound effects.
+
+384
+00:11:53,156 --> 0:11:54,246
+For more information, you may
+
+385
+00:11:54,246 --> 0:11:55,826
+want to check Introducing
+
+386
+00:11:55,826 --> 0:11:57,666
+RealityKit and Reality Composer
+
+387
+00:11:57,906 --> 0:11:59,356
+that we present in Tuesday.
+
+388
+00:11:59,836 --> 0:12:03,266
+So, let's take a look about the
+
+389
+00:11:59,836 --> 0:12:03,266
+So, let's take a look about the
+
+390
+00:12:03,266 --> 0:12:05,836
+code, how to use ARAnchor in
+
+391
+00:12:05,836 --> 0:12:09,446
+collaborative session.
+
+392
+00:12:09,476 --> 0:12:10,706
+Now, within collaborative
+
+393
+00:12:10,706 --> 0:12:12,116
+session, when you receive
+
+394
+00:12:12,326 --> 0:12:14,586
+ARSession didAddAnchors
+
+395
+00:12:14,586 --> 0:12:16,526
+delegate function, you may want to check
+
+396
+00:12:16,746 --> 0:12:18,326
+the session identifier to see
+
+397
+00:12:18,326 --> 0:12:20,056
+whether this anchor is added by
+
+398
+00:12:20,056 --> 0:12:21,636
+yourself or added by others.
+
+399
+00:12:22,526 --> 0:12:24,476
+Same thing when you receive the
+
+400
+00:12:24,476 --> 0:12:26,366
+ARSession didRemove anchor.
+
+401
+00:12:26,676 --> 0:12:27,866
+You may also want to check
+
+402
+00:12:27,866 --> 0:12:29,176
+whether it's removed by yourself
+
+403
+00:12:29,176 --> 0:12:31,606
+or by others, so your app can
+
+404
+00:12:31,606 --> 0:12:32,536
+react accordingly.
+
+405
+00:12:32,536 --> 0:12:35,716
+So, that summarize the ARAnchor
+
+406
+00:12:36,146 --> 0:12:37,386
+which represents the 3D
+
+407
+00:12:37,386 --> 0:12:38,406
+[inaudible] existence of your
+
+408
+00:12:38,406 --> 0:12:39,056
+virtual object.
+
+409
+00:12:40,006 --> 0:12:41,516
+Further, in collaborative
+
+410
+00:12:41,516 --> 0:12:43,646
+session it's also important to
+
+411
+00:12:43,646 --> 0:12:45,556
+know other users' position.
+
+412
+00:12:46,126 --> 0:12:47,776
+For that, we introduce a new
+
+413
+00:12:47,776 --> 0:12:48,676
+anchor called
+
+414
+00:12:49,216 --> 0:12:50,786
+ARParticipantAnchor.
+
+415
+00:12:52,136 --> 0:12:54,576
+ARParticipantAnchor represents
+
+416
+00:12:54,576 --> 0:12:56,486
+other users' location within
+
+417
+00:12:56,486 --> 0:12:57,696
+your own world coordinates.
+
+418
+00:12:58,606 --> 0:13:00,566
+It has a high frame rate update
+
+419
+00:12:58,606 --> 0:13:00,566
+It has a high frame rate update
+
+420
+00:13:00,566 --> 0:13:02,366
+rate, same as other users' AR
+
+421
+00:13:02,366 --> 0:13:02,776
+frame rate.
+
+422
+00:13:04,046 --> 0:13:05,936
+This ARParticipantAnchor is
+
+423
+00:13:05,936 --> 0:13:08,056
+ultimately created by your own
+
+424
+00:13:08,056 --> 0:13:09,866
+AR session when it managed to
+
+425
+00:13:09,866 --> 0:13:11,296
+localize itself against the
+
+426
+00:13:11,296 --> 0:13:13,516
+other user's map which means you
+
+427
+00:13:13,516 --> 0:13:14,836
+can also use this
+
+428
+00:13:14,836 --> 0:13:16,266
+ARParticipantAnchor as
+
+429
+00:13:16,266 --> 0:13:18,406
+indication of the beginning of
+
+430
+00:13:18,436 --> 0:13:19,886
+your shared AR experience.
+
+431
+00:13:21,356 --> 0:13:23,196
+By using ARAnchor and
+
+432
+00:13:23,196 --> 0:13:25,106
+ARParticipantAnchor, you can
+
+433
+00:13:25,106 --> 0:13:26,846
+correctly visualize other users'
+
+434
+00:13:26,926 --> 0:13:28,786
+3D content in your own world
+
+435
+00:13:28,786 --> 0:13:29,176
+coordinate.
+
+436
+00:13:29,746 --> 0:13:32,826
+So, that is how you would use
+
+437
+00:13:32,876 --> 0:13:34,246
+collaborative session in ARKit
+
+438
+00:13:34,246 --> 0:13:34,516
+3.
+
+439
+00:13:35,186 --> 0:13:36,646
+Let's look at some practical
+
+440
+00:13:36,646 --> 0:13:38,916
+advice how to start a shared AR
+
+441
+00:13:38,916 --> 0:13:40,106
+experience using collaborative
+
+442
+00:13:40,106 --> 0:13:40,466
+session.
+
+443
+00:13:43,046 --> 0:13:45,456
+As I mentioned before, a shared
+
+444
+00:13:45,456 --> 0:13:47,376
+AR experience will begin after
+
+445
+00:13:47,376 --> 0:13:49,236
+each users localize their self
+
+446
+00:13:49,236 --> 0:13:50,246
+in other users' map.
+
+447
+00:13:50,466 --> 0:13:52,026
+That means they have to see the
+
+448
+00:13:52,026 --> 0:13:53,416
+area other user have seen
+
+449
+00:13:53,416 --> 0:13:53,776
+before.
+
+450
+00:13:54,366 --> 0:13:56,146
+But sometimes, depends on users'
+
+451
+00:13:56,196 --> 0:13:57,806
+motion, this could take time.
+
+452
+00:13:58,586 --> 0:13:59,826
+If you want the user to have
+
+453
+00:14:00,146 --> 0:14:01,716
+shared experience faster, we
+
+454
+00:14:01,716 --> 0:14:02,576
+have two advice.
+
+455
+00:14:03,766 --> 0:14:05,956
+First, it is recommended to have
+
+456
+00:14:05,956 --> 0:14:07,626
+one of the user approach to the
+
+457
+00:14:07,626 --> 0:14:09,076
+other user to have the same
+
+458
+00:14:09,076 --> 0:14:09,936
+camera perspective.
+
+459
+00:14:10,616 --> 0:14:12,096
+For instance, in this example,
+
+460
+00:14:12,336 --> 0:14:13,536
+we have two users seeing the
+
+461
+00:14:13,596 --> 0:14:15,126
+table but they are seeing in
+
+462
+00:14:15,126 --> 0:14:15,876
+cross direction.
+
+463
+00:14:16,336 --> 0:14:19,026
+Then, it's not likely for ARKit
+
+464
+00:14:19,026 --> 0:14:20,806
+to localize them self to begin
+
+465
+00:14:20,806 --> 0:14:21,886
+the shared AR experience.
+
+466
+00:14:22,526 --> 0:14:24,476
+However, if you have two users
+
+467
+00:14:24,476 --> 0:14:25,766
+stand side-by-side and looking
+
+468
+00:14:25,766 --> 0:14:27,596
+at the same direction, then it
+
+469
+00:14:27,596 --> 0:14:29,256
+is more likely for ARKit to
+
+470
+00:14:29,256 --> 0:14:31,406
+localize and also to start a
+
+471
+00:14:31,406 --> 0:14:32,866
+shared AR experience.
+
+472
+00:14:34,016 --> 0:14:36,026
+Second, while you are doing
+
+473
+00:14:36,026 --> 0:14:38,396
+this, it is the best to have one
+
+474
+00:14:38,396 --> 0:14:40,316
+your user stay in map-tracking
+
+475
+00:14:40,376 --> 0:14:40,766
+status.
+
+476
+00:14:41,136 --> 0:14:42,266
+That is, ARFrame
+
+477
+00:14:42,266 --> 0:14:43,426
+WorldMappingStatus mapped.
+
+478
+00:14:44,396 --> 0:14:46,546
+By doing this, you make sure one
+
+479
+00:14:46,546 --> 0:14:48,206
+of the user is actually seeing
+
+480
+00:14:48,206 --> 0:14:49,956
+the 3D landmarks that are stored
+
+481
+00:14:49,956 --> 0:14:51,256
+inside the ARWorldMap,
+
+482
+00:14:51,636 --> 0:14:53,006
+therefore, when the other user
+
+483
+00:14:53,006 --> 0:14:55,056
+approach it is more likely they
+
+484
+00:14:55,056 --> 0:14:56,936
+can use those three landmarks to
+
+485
+00:14:56,936 --> 0:14:58,376
+localize them self and start a
+
+486
+00:14:58,376 --> 0:14:59,596
+shared AR experience.
+
+487
+00:15:00,916 --> 0:15:02,726
+Let's see one example.
+
+488
+00:15:04,156 --> 0:15:06,526
+Here, we have two users running
+
+489
+00:15:06,526 --> 0:15:07,556
+in collaborative session.
+
+490
+00:15:08,036 --> 0:15:10,236
+The first user simply do a small
+
+491
+00:15:10,236 --> 0:15:12,006
+world exploration and adding one
+
+492
+00:15:12,006 --> 0:15:13,296
+ARAnchor and stay in
+
+493
+00:15:13,566 --> 0:15:15,056
+map-tracking status.
+
+494
+00:15:15,746 --> 0:15:17,516
+While the other user simply
+
+495
+00:15:17,516 --> 0:15:19,116
+approach the first user and see
+
+496
+00:15:19,116 --> 0:15:20,636
+the same view, then they will
+
+497
+00:15:20,636 --> 0:15:22,236
+start seeing the same anchors
+
+498
+00:15:22,566 --> 0:15:24,696
+which is used to also indicate
+
+499
+00:15:24,886 --> 0:15:26,506
+the beginning of your shared AR
+
+500
+00:15:26,506 --> 0:15:27,056
+experience.
+
+501
+00:15:28,256 --> 0:15:30,546
+This device is also applicable
+
+502
+00:15:30,546 --> 0:15:32,296
+for last year Map Save and Load.
+
+503
+00:15:32,616 --> 0:15:34,006
+So, you may want to put this
+
+504
+00:15:34,006 --> 0:15:35,656
+advice in your app to recommend
+
+505
+00:15:36,246 --> 0:15:38,106
+the motion of two user so user
+
+506
+00:15:38,106 --> 0:15:39,656
+can start their shared AR
+
+507
+00:15:39,656 --> 0:15:41,176
+experience faster.
+
+508
+00:15:42,096 --> 0:15:43,956
+So, that summarize our
+
+509
+00:15:43,956 --> 0:15:45,736
+introduction and suggestion for
+
+510
+00:15:45,736 --> 0:15:47,246
+using collaborative session.
+
+511
+00:15:47,746 --> 0:15:50,616
+Our API is simple and intuitive.
+
+512
+00:15:51,376 --> 0:15:53,036
+With RealityKit, you only need
+
+513
+00:15:53,036 --> 0:15:54,556
+to add a few lines to enable the
+
+514
+00:15:54,556 --> 0:15:55,116
+experience.
+
+515
+00:15:55,596 --> 0:15:57,266
+I encourage you to give it a try
+
+516
+00:15:57,326 --> 0:15:59,606
+and see the new multiuser AR
+
+517
+00:15:59,606 --> 0:16:00,856
+experience in ARKit 3.
+
+518
+00:15:59,606 --> 0:16:00,856
+experience in ARKit 3.
+
+519
+00:16:02,186 --> 0:16:05,216
+Next, I would like to talk about
+
+520
+00:16:05,276 --> 0:16:07,236
+the best practices for using
+
+521
+00:16:07,266 --> 0:16:07,956
+ARAnchors.
+
+522
+00:16:07,956 --> 0:16:12,686
+As I mentioned before, ARAnchors
+
+523
+00:16:12,836 --> 0:16:14,356
+are the main way to share
+
+524
+00:16:14,356 --> 0:16:15,816
+virtual content within
+
+525
+00:16:15,816 --> 0:16:16,646
+collaborative session.
+
+526
+00:16:17,656 --> 0:16:19,916
+Here, we have three simple but
+
+527
+00:16:19,916 --> 0:16:22,346
+effective suggestions for using
+
+528
+00:16:22,346 --> 0:16:22,906
+ARAnchor.
+
+529
+00:16:23,686 --> 0:16:25,836
+To begin with, let's look back
+
+530
+00:16:25,836 --> 0:16:27,306
+the ARWorldMap.
+
+531
+00:16:28,856 --> 0:16:31,116
+As I mentioned before, each
+
+532
+00:16:31,176 --> 0:16:33,556
+ARWorldMap consists collection
+
+533
+00:16:33,556 --> 0:16:36,276
+with 3D map landmarks and, also,
+
+534
+00:16:36,276 --> 0:16:37,546
+list of ARAnchors.
+
+535
+00:16:38,276 --> 0:16:39,696
+In addition, we also save
+
+536
+00:16:39,696 --> 0:16:41,536
+collection of camera poses.
+
+537
+00:16:42,126 --> 0:16:43,806
+Those camera poses represent the
+
+538
+00:16:43,806 --> 0:16:45,646
+camera view when three landmarks
+
+539
+00:16:45,706 --> 0:16:46,506
+are first observed.
+
+540
+00:16:47,116 --> 0:16:48,606
+For instance, in this example,
+
+541
+00:16:48,606 --> 0:16:50,816
+we have five camera poses where
+
+542
+00:16:51,016 --> 0:16:52,286
+they are created when the three
+
+543
+00:16:52,286 --> 0:16:53,966
+landmarks are first created.
+
+544
+00:16:55,116 --> 0:16:57,676
+So, with this camera view we can
+
+545
+00:16:57,736 --> 0:16:59,516
+segment the three landmarks into
+
+546
+00:16:59,516 --> 0:17:00,966
+different groups to present
+
+547
+00:16:59,516 --> 0:17:00,966
+different groups to present
+
+548
+00:17:00,966 --> 0:17:03,046
+different parts of the map.
+
+549
+00:17:03,916 --> 0:17:06,126
+Once you have those views, when
+
+550
+00:17:06,126 --> 0:17:09,886
+the user added one ARAnchor, the
+
+551
+00:17:09,886 --> 0:17:11,326
+user will provide a global
+
+552
+00:17:11,326 --> 0:17:12,816
+position of this ARAnchor
+
+553
+00:17:13,026 --> 0:17:14,175
+respect to the world coordinate.
+
+554
+00:17:14,886 --> 0:17:16,856
+However, what is actually save
+
+555
+00:17:17,036 --> 0:17:19,046
+within our ARWorldMap is the
+
+556
+00:17:19,046 --> 0:17:20,546
+relative position of this
+
+557
+00:17:20,546 --> 0:17:22,256
+ARAnchor to the one of the
+
+558
+00:17:22,256 --> 0:17:22,935
+nearest view.
+
+559
+00:17:23,596 --> 0:17:26,536
+It is this relative positions
+
+560
+00:17:26,606 --> 0:17:27,986
+we're keeping inside the
+
+561
+00:17:27,986 --> 0:17:30,346
+ARWorldMap and also transmit in
+
+562
+00:17:30,346 --> 0:17:31,446
+the collaborative session.
+
+563
+00:17:31,726 --> 0:17:33,756
+To make sure, even if issues are
+
+564
+00:17:33,756 --> 0:17:34,996
+have different world coordinate,
+
+565
+00:17:35,296 --> 0:17:36,896
+they still can see the ARAnchor
+
+566
+00:17:37,006 --> 0:17:38,306
+at the right physical location.
+
+567
+00:17:39,196 --> 0:17:40,666
+So, once again, that is why it
+
+568
+00:17:40,666 --> 0:17:43,016
+is important to use ARAnchors in
+
+569
+00:17:43,016 --> 0:17:43,786
+collaborative session.
+
+570
+00:17:45,286 --> 0:17:46,776
+With this knowledge in mind,
+
+571
+00:17:47,046 --> 0:17:48,666
+let's look at our best practices
+
+572
+00:17:48,666 --> 0:17:50,296
+for using ARAnchor.
+
+573
+00:17:52,476 --> 0:17:55,586
+First, always respond to the
+
+574
+00:17:55,586 --> 0:17:56,656
+ARAnchor update.
+
+575
+00:17:56,706 --> 0:17:59,546
+As AR [inaudible] exploring the
+
+576
+00:17:59,546 --> 0:18:01,246
+map more and more, it will
+
+577
+00:17:59,546 --> 0:18:01,246
+map more and more, it will
+
+578
+00:18:01,356 --> 0:18:02,686
+optimize the 3D landmarks
+
+579
+00:18:02,766 --> 0:18:04,546
+position by fine-tune the camera
+
+580
+00:18:04,546 --> 0:18:05,346
+pose location.
+
+581
+00:18:05,896 --> 0:18:08,036
+When that happen, your ARAnchor
+
+582
+00:18:08,036 --> 0:18:09,426
+position will change as well
+
+583
+00:18:09,856 --> 0:18:11,116
+because it is attached to the
+
+584
+00:18:11,116 --> 0:18:11,376
+view.
+
+585
+00:18:12,216 --> 0:18:14,346
+So, you need to react to those
+
+586
+00:18:14,346 --> 0:18:15,926
+anchor update function so you
+
+587
+00:18:15,926 --> 0:18:18,076
+can change your virtual object
+
+588
+00:18:18,456 --> 0:18:19,426
+position accordingly.
+
+589
+00:18:20,406 --> 0:18:22,616
+Second, when you place your
+
+590
+00:18:22,616 --> 0:18:24,116
+virtual object, it is the best
+
+591
+00:18:24,226 --> 0:18:25,886
+to place virtual object near to
+
+592
+00:18:25,886 --> 0:18:27,766
+the ARAnchor but not far away
+
+593
+00:18:27,766 --> 0:18:29,576
+from the ARAnchor.
+
+594
+00:18:29,576 --> 0:18:30,846
+The reasoning is the same as
+
+595
+00:18:30,926 --> 0:18:31,366
+before.
+
+596
+00:18:31,736 --> 0:18:33,146
+When the anchor update happens,
+
+597
+00:18:33,346 --> 0:18:34,716
+if you have virtual object far
+
+598
+00:18:34,716 --> 0:18:36,296
+away from the ARAnchor, then you
+
+599
+00:18:36,296 --> 0:18:37,516
+could experience a large and
+
+600
+00:18:37,516 --> 0:18:38,866
+spatial update to your virtual
+
+601
+00:18:38,866 --> 0:18:40,576
+object which is not desirable.
+
+602
+00:18:41,006 --> 0:18:42,676
+So, it is the best to place your
+
+603
+00:18:42,676 --> 0:18:44,326
+virtual object near to the
+
+604
+00:18:44,326 --> 0:18:46,176
+ARAnchor, so you can represent
+
+605
+00:18:46,176 --> 0:18:47,726
+the tracking quality correctly.
+
+606
+00:18:47,726 --> 0:18:52,016
+Last, if you have multiple
+
+607
+00:18:52,016 --> 0:18:53,446
+independent virtual objects,
+
+608
+00:18:53,906 --> 0:18:55,816
+then it is recommended to use
+
+609
+00:18:55,816 --> 0:18:57,906
+multiple ARAnchors so they will
+
+610
+00:18:57,906 --> 0:18:59,326
+attach to different parts of the
+
+611
+00:18:59,326 --> 0:18:59,676
+maps.
+
+612
+00:19:00,026 --> 0:19:01,716
+Therefore, make sure virtual
+
+613
+00:19:01,716 --> 0:19:03,446
+object to corresponding ARAnchor
+
+614
+00:19:03,446 --> 0:19:04,456
+distance is small.
+
+615
+00:19:05,576 --> 0:19:07,586
+However, if you have a scenario
+
+616
+00:19:07,616 --> 0:19:09,306
+where you have multiple virtual
+
+617
+00:19:09,306 --> 0:19:10,486
+objects that you want to
+
+618
+00:19:10,486 --> 0:19:12,366
+maintain their relative
+
+619
+00:19:12,396 --> 0:19:12,836
+distance.
+
+620
+00:19:13,276 --> 0:19:15,386
+Then, it is legitimate to use
+
+621
+00:19:15,456 --> 0:19:17,666
+one single ARAnchor to represent
+
+622
+00:19:17,666 --> 0:19:19,616
+them all as long as they are not
+
+623
+00:19:19,616 --> 0:19:20,916
+far away from the anchors.
+
+624
+00:19:21,466 --> 0:19:25,176
+So, that summarize our best
+
+625
+00:19:25,246 --> 0:19:26,946
+practices for using ARAnchors.
+
+626
+00:19:27,996 --> 0:19:29,016
+By following those best
+
+627
+00:19:29,096 --> 0:19:30,956
+practices, you can utilize the
+
+628
+00:19:30,956 --> 0:19:32,956
+best tracking quality that ARKit
+
+629
+00:19:32,956 --> 0:19:34,386
+provides to your app.
+
+630
+00:19:36,496 --> 0:19:38,026
+Next, we're going to move to
+
+631
+00:19:38,026 --> 0:19:39,486
+David to talk about SwiftStrike.
+
+632
+00:19:40,411 --> 0:19:42,411
+[ Applause ]
+
+633
+00:19:42,806 --> 0:19:43,026
+&gt;&gt; Thanks.
+
+634
+00:19:43,226 --> 0:19:43,456
+Well done.
+
+635
+00:19:45,136 --> 0:19:45,796
+Hi, everyone.
+
+636
+00:19:45,876 --> 0:19:47,396
+I'm David and I'm here to talk
+
+637
+00:19:47,396 --> 0:19:48,926
+to you about SwiftStrike which
+
+638
+00:19:48,926 --> 0:19:50,426
+is the new multiplayer AR
+
+639
+00:19:50,426 --> 0:19:52,176
+experience that we developed for
+
+640
+00:19:52,176 --> 0:19:54,276
+the show here at WWDC 2019.
+
+641
+00:19:55,136 --> 0:19:56,306
+We were inspired by the work we
+
+642
+00:19:56,306 --> 0:19:58,196
+did last year with SwiftShot and
+
+643
+00:19:58,196 --> 0:19:59,666
+we wanted to build something new
+
+644
+00:19:59,786 --> 0:20:01,446
+that leveraged RealityKit and
+
+645
+00:19:59,786 --> 0:20:01,446
+that leveraged RealityKit and
+
+646
+00:20:01,446 --> 0:20:02,676
+ARKit 3 to deliver an all-new
+
+647
+00:20:02,676 --> 0:20:02,976
+experience.
+
+648
+00:20:03,246 --> 0:20:05,676
+We have a Tabletop version
+
+649
+00:20:05,676 --> 0:20:06,826
+that's available as sample code
+
+650
+00:20:06,826 --> 0:20:07,076
+now.
+
+651
+00:20:07,476 --> 0:20:08,586
+And we're working on releasing
+
+652
+00:20:08,586 --> 0:20:09,846
+the full version as sample code
+
+653
+00:20:09,846 --> 0:20:10,296
+in the future.
+
+654
+00:20:11,206 --> 0:20:13,656
+If you want to, you can also go
+
+655
+00:20:13,776 --> 0:20:15,006
+look at last year's session
+
+656
+00:20:15,006 --> 0:20:15,846
+about SwiftShot.
+
+657
+00:20:15,846 --> 0:20:16,906
+I'm going to talk a little bit
+
+658
+00:20:16,906 --> 0:20:18,086
+about a couple of things we did
+
+659
+00:20:18,086 --> 0:20:20,156
+in SwiftShot and compare and
+
+660
+00:20:20,156 --> 0:20:21,236
+contrast what we're doing this
+
+661
+00:20:21,236 --> 0:20:21,396
+year.
+
+662
+00:20:21,396 --> 0:20:22,226
+So, you may want to take a look
+
+663
+00:20:22,326 --> 0:20:24,296
+at that.
+
+664
+00:20:24,296 --> 0:20:25,356
+Now, there's a lot that goes
+
+665
+00:20:25,356 --> 0:20:26,336
+into building a game like
+
+666
+00:20:26,336 --> 0:20:26,956
+SwiftStrike.
+
+667
+00:20:26,986 --> 0:20:28,316
+There's sound design, asset
+
+668
+00:20:28,316 --> 0:20:30,716
+design, animations, all kinds of
+
+669
+00:20:30,716 --> 0:20:31,006
+things.
+
+670
+00:20:31,506 --> 0:20:32,536
+I'm really going to focus on
+
+671
+00:20:32,536 --> 0:20:33,466
+three areas here.
+
+672
+00:20:34,266 --> 0:20:35,996
+How we use RealityKit networking
+
+673
+00:20:36,146 --> 0:20:37,466
+to get the shared experience up
+
+674
+00:20:37,466 --> 0:20:37,916
+and running.
+
+675
+00:20:38,406 --> 0:20:40,286
+The physics simulation to make
+
+676
+00:20:40,286 --> 0:20:41,346
+sure that the game played and
+
+677
+00:20:41,346 --> 0:20:41,796
+was fun.
+
+678
+00:20:42,266 --> 0:20:45,206
+And also, a little bit about how
+
+679
+00:20:45,206 --> 0:20:46,626
+we designed the game around the
+
+680
+00:20:46,626 --> 0:20:49,216
+new capabilities of RealityKit
+
+681
+00:20:49,216 --> 0:20:51,376
+and ARKit 3.
+
+682
+00:20:51,586 --> 0:20:52,666
+So, first, RealityKit
+
+683
+00:20:52,666 --> 0:20:53,086
+networking.
+
+684
+00:20:53,756 --> 0:20:55,186
+RealityKit networking is based
+
+685
+00:20:55,186 --> 0:20:56,176
+on the entity-component
+
+686
+00:20:56,176 --> 0:20:57,496
+architecture that's built into
+
+687
+00:20:57,496 --> 0:20:58,126
+RealityKit.
+
+688
+00:20:58,726 --> 0:20:59,776
+As you write and change
+
+689
+00:20:59,776 --> 0:21:00,636
+components, they're
+
+690
+00:20:59,776 --> 0:21:00,636
+components, they're
+
+691
+00:21:00,636 --> 0:21:01,836
+automatically synchronized
+
+692
+00:21:01,936 --> 0:21:03,026
+across the network for you
+
+693
+00:21:03,406 --> 0:21:04,666
+including all the physics state.
+
+694
+00:21:04,986 --> 0:21:06,126
+You don't have to do any of that
+
+695
+00:21:06,126 --> 0:21:06,736
+code yourself.
+
+696
+00:21:07,956 --> 0:21:09,136
+You can also define custom
+
+697
+00:21:09,136 --> 0:21:12,146
+components for your own apps,
+
+698
+00:21:12,146 --> 0:21:13,746
+application, or game, game
+
+699
+00:21:13,746 --> 0:21:14,036
+logic.
+
+700
+00:21:14,036 --> 0:21:14,926
+And it will take care of the
+
+701
+00:21:14,926 --> 0:21:15,916
+synchronization for you, as
+
+702
+00:21:15,916 --> 0:21:16,076
+well.
+
+703
+00:21:17,146 --> 0:21:18,956
+It used MultipeerConnectivity as
+
+704
+00:21:18,956 --> 0:21:19,746
+the network layer.
+
+705
+00:21:19,746 --> 0:21:21,176
+This is built into all iOS and
+
+706
+00:21:21,176 --> 0:21:22,136
+macOS devices.
+
+707
+00:21:22,136 --> 0:21:23,606
+It's easy to set up and get
+
+708
+00:21:23,606 --> 0:21:23,816
+going.
+
+709
+00:21:25,046 --> 0:21:26,646
+And it, all you have to do is
+
+710
+00:21:26,646 --> 0:21:27,806
+create that network session,
+
+711
+00:21:28,106 --> 0:21:29,676
+hand it to the ARView object,
+
+712
+00:21:29,676 --> 0:21:31,286
+and it takes care of the rest.
+
+713
+00:21:31,666 --> 0:21:33,076
+That includes moving the
+
+714
+00:21:33,076 --> 0:21:34,566
+collaborative mapping data that
+
+715
+00:21:34,566 --> 0:21:35,966
+Kuen-han talked about with the
+
+716
+00:21:35,966 --> 0:21:37,506
+new ARKit 3 collaborative
+
+717
+00:21:37,506 --> 0:21:37,766
+mapping.
+
+718
+00:21:37,946 --> 0:21:42,016
+And so, in SwiftStrike, we
+
+719
+00:21:42,016 --> 0:21:43,276
+discovered that the best way to
+
+720
+00:21:43,276 --> 0:21:45,186
+get things working you know,
+
+721
+00:21:45,586 --> 0:21:46,636
+MultipeerConnectivity,
+
+722
+00:21:46,636 --> 0:21:49,226
+RealityKit are all hostless,
+
+723
+00:21:49,426 --> 0:21:51,336
+true peer-to-peer systems.
+
+724
+00:21:51,706 --> 0:21:52,876
+We discovered that for our game
+
+725
+00:21:52,876 --> 0:21:53,976
+to really get things working we
+
+726
+00:21:53,976 --> 0:21:55,436
+needed to define one device as
+
+727
+00:21:55,466 --> 0:21:55,906
+the host.
+
+728
+00:21:56,466 --> 0:21:58,216
+It's the one that keeps track of
+
+729
+00:21:58,216 --> 0:21:59,526
+what the state of the game is
+
+730
+00:21:59,956 --> 0:22:01,256
+and how the physics is working.
+
+731
+00:21:59,956 --> 0:22:01,256
+and how the physics is working.
+
+732
+00:22:01,856 --> 0:22:03,346
+The other devices participate
+
+733
+00:22:03,346 --> 0:22:05,266
+and provide input and also
+
+734
+00:22:05,266 --> 0:22:06,576
+receive the information from the
+
+735
+00:22:06,576 --> 0:22:07,846
+host about where the game is
+
+736
+00:22:08,486 --> 0:22:08,676
+running.
+
+737
+00:22:09,996 --> 0:22:11,256
+So, again, about custom
+
+738
+00:22:11,256 --> 0:22:12,456
+components in RealityKit.
+
+739
+00:22:12,776 --> 0:22:13,886
+They're really easy to set up.
+
+740
+00:22:14,436 --> 0:22:17,186
+You define a struct.
+
+741
+00:22:17,496 --> 0:22:18,476
+You register the components
+
+742
+00:22:18,476 --> 0:22:19,806
+before you instantiate the
+
+743
+00:22:19,806 --> 0:22:20,216
+ARView.
+
+744
+00:22:20,716 --> 0:22:22,096
+And you comply with the Swift
+
+745
+00:22:22,146 --> 0:22:22,986
+Codable protocol.
+
+746
+00:22:23,366 --> 0:22:24,226
+That provides all the
+
+747
+00:22:24,226 --> 0:22:26,146
+information RealityKit needs to
+
+748
+00:22:26,146 --> 0:22:27,596
+serialize your structure and
+
+749
+00:22:27,596 --> 0:22:28,506
+send it across the network.
+
+750
+00:22:29,066 --> 0:22:32,246
+So, here's one way we use that
+
+751
+00:22:32,246 --> 0:22:34,106
+in the game.
+
+752
+00:22:34,946 --> 0:22:35,756
+We've discovered through
+
+753
+00:22:35,756 --> 0:22:37,256
+playtesting in SwiftStrike, it
+
+754
+00:22:37,256 --> 0:22:38,236
+was really important to make
+
+755
+00:22:38,236 --> 0:22:39,906
+sure that both players were
+
+756
+00:22:39,906 --> 0:22:40,916
+positioned in their starting
+
+757
+00:22:40,916 --> 0:22:42,416
+spot when the game starts.
+
+758
+00:22:42,786 --> 0:22:43,906
+Otherwise, it was possible for
+
+759
+00:22:43,906 --> 0:22:44,996
+one player to get an advantage,
+
+760
+00:22:44,996 --> 0:22:46,566
+be closer to the ball, and kind
+
+761
+00:22:46,566 --> 0:22:47,936
+of get around the other user.
+
+762
+00:22:48,926 --> 0:22:50,296
+So, we have an object we call
+
+763
+00:22:50,296 --> 0:22:50,986
+the Match object.
+
+764
+00:22:50,986 --> 0:22:52,676
+It keeps track of whether or not
+
+765
+00:22:52,676 --> 0:22:54,016
+each player is in the starting
+
+766
+00:22:54,016 --> 0:22:56,096
+space or not and then, decides
+
+767
+00:22:56,096 --> 0:22:56,866
+when to launch the ball.
+
+768
+00:22:56,866 --> 0:22:59,316
+That state is also synchronized
+
+769
+00:22:59,316 --> 0:23:01,026
+over the clients so that we can
+
+770
+00:22:59,316 --> 0:23:01,026
+over the clients so that we can
+
+771
+00:23:01,026 --> 0:23:02,546
+present instructions to them
+
+772
+00:23:02,546 --> 0:23:04,386
+using UIKit as to where they
+
+773
+00:23:04,386 --> 0:23:04,866
+need to stand.
+
+774
+00:23:06,056 --> 0:23:07,776
+The component also maintains a
+
+775
+00:23:07,776 --> 0:23:08,966
+log of all those states.
+
+776
+00:23:09,356 --> 0:23:10,436
+There's not many that it goes
+
+777
+00:23:10,436 --> 0:23:11,566
+through, and it helps ensure
+
+778
+00:23:11,566 --> 0:23:13,236
+that every client will see every
+
+779
+00:23:13,236 --> 0:23:14,276
+state as it occurs.
+
+780
+00:23:14,826 --> 0:23:18,126
+So, here's an example of that in
+
+781
+00:23:18,126 --> 0:23:18,296
+work.
+
+782
+00:23:19,676 --> 0:23:21,196
+We wait until both players have
+
+783
+00:23:21,196 --> 0:23:22,656
+gotten into position before we
+
+784
+00:23:22,656 --> 0:23:23,196
+launch the ball.
+
+785
+00:23:23,926 --> 0:23:25,786
+Once they have, the ball
+
+786
+00:23:25,786 --> 0:23:27,896
+launches and the game begins.
+
+787
+00:23:28,496 --> 0:23:32,256
+Here's the code that we used to
+
+788
+00:23:32,256 --> 0:23:32,566
+do that.
+
+789
+00:23:33,256 --> 0:23:34,446
+First, is the component we
+
+790
+00:23:34,446 --> 0:23:34,766
+define.
+
+791
+00:23:34,906 --> 0:23:35,856
+The MatchStateComponent.
+
+792
+00:23:36,416 --> 0:23:38,636
+It conforms to both the
+
+793
+00:23:38,636 --> 0:23:40,486
+RealityKit component protocol
+
+794
+00:23:41,296 --> 0:23:42,956
+and the Swift Codable protocol.
+
+795
+00:23:43,556 --> 0:23:47,126
+We define a transition within
+
+796
+00:23:47,126 --> 0:23:47,276
+it.
+
+797
+00:23:47,276 --> 0:23:48,006
+And there's an array of
+
+798
+00:23:48,006 --> 0:23:48,636
+transitions.
+
+799
+00:23:48,916 --> 0:23:50,686
+So, each device gets a full log
+
+800
+00:23:50,776 --> 0:23:52,396
+of all the Match states as they
+
+801
+00:23:52,396 --> 0:23:52,916
+go forward.
+
+802
+00:23:53,256 --> 0:23:54,436
+You can respond appropriately.
+
+803
+00:23:56,396 --> 0:23:58,176
+Before we get started, we
+
+804
+00:23:58,176 --> 0:24:00,026
+register our component with AR,
+
+805
+00:23:58,176 --> 0:24:00,026
+register our component with AR,
+
+806
+00:24:00,106 --> 0:24:01,906
+with RealityKit so that it is
+
+807
+00:24:01,906 --> 0:24:03,196
+ready to start synchronizing it.
+
+808
+00:24:03,906 --> 0:24:04,926
+That's all we need to do.
+
+809
+00:24:05,176 --> 0:24:06,986
+Now, changes to the component on
+
+810
+00:24:06,986 --> 0:24:08,706
+the host are automatically
+
+811
+00:24:08,776 --> 0:24:09,816
+synchronized over to the
+
+812
+00:24:09,816 --> 0:24:10,176
+clients.
+
+813
+00:24:10,636 --> 0:24:13,936
+On the client, we, we then use
+
+814
+00:24:13,936 --> 0:24:14,596
+that.
+
+815
+00:24:14,596 --> 0:24:16,366
+We create a, a MatchObserver
+
+816
+00:24:16,366 --> 0:24:18,046
+object that watches that
+
+817
+00:24:18,046 --> 0:24:19,736
+component for changes and then,
+
+818
+00:24:19,736 --> 0:24:20,876
+broadcasts them out to all
+
+819
+00:24:20,876 --> 0:24:21,736
+interested parties.
+
+820
+00:24:22,556 --> 0:24:23,466
+We're using the combined
+
+821
+00:24:23,506 --> 0:24:24,256
+framework for this.
+
+822
+00:24:24,336 --> 0:24:25,406
+It's a great alternative to
+
+823
+00:24:25,406 --> 0:24:27,526
+using delegation and really
+
+824
+00:24:27,526 --> 0:24:28,826
+gives you a lot of flexibility.
+
+825
+00:24:29,106 --> 0:24:30,446
+I'd recommend looking in on some
+
+826
+00:24:30,446 --> 0:24:31,966
+of the combined sessions from
+
+827
+00:24:31,966 --> 0:24:32,236
+this year.
+
+828
+00:24:36,046 --> 0:24:37,076
+So, when we were doing
+
+829
+00:24:37,076 --> 0:24:38,596
+SwiftStrike, we kind of started
+
+830
+00:24:38,596 --> 0:24:39,636
+by bringing over a lot of the
+
+831
+00:24:39,636 --> 0:24:40,576
+code from SwiftShot.
+
+832
+00:24:40,576 --> 0:24:42,646
+And if you watched the session
+
+833
+00:24:42,646 --> 0:24:43,786
+from last year, we spent a lot
+
+834
+00:24:43,786 --> 0:24:45,496
+of time talking about how we
+
+835
+00:24:45,496 --> 0:24:46,746
+synchronized the physics data,
+
+836
+00:24:46,746 --> 0:24:48,586
+how we encoded it, how we really
+
+837
+00:24:48,586 --> 0:24:50,016
+compressed it and made it tight
+
+838
+00:24:50,086 --> 0:24:51,196
+to limit our network usage.
+
+839
+00:24:51,946 --> 0:24:54,036
+So, here's a list of most of the
+
+840
+00:24:54,036 --> 0:24:56,176
+classes or types that we had to
+
+841
+00:24:56,176 --> 0:24:57,766
+implement that.
+
+842
+00:24:57,766 --> 0:24:59,516
+Well, RealityKit does the
+
+843
+00:24:59,516 --> 0:25:01,406
+Physics, PhysicsSync for us.
+
+844
+00:24:59,516 --> 0:25:01,406
+Physics, PhysicsSync for us.
+
+845
+00:25:01,406 --> 0:25:04,216
+And using custom components, it
+
+846
+00:25:04,216 --> 0:25:05,596
+can also synchronize game state
+
+847
+00:25:05,596 --> 0:25:05,976
+for us.
+
+848
+00:25:07,176 --> 0:25:09,946
+So, we deleted all of that.
+
+849
+00:25:09,946 --> 0:25:11,266
+Didn't need it, anymore.
+
+850
+00:25:11,356 --> 0:25:13,306
+And then, we took a look at the
+
+851
+00:25:13,306 --> 0:25:15,156
+messages that were left, which
+
+852
+00:25:15,156 --> 0:25:16,536
+were really only about deciding
+
+853
+00:25:16,536 --> 0:25:17,536
+whether to use collaborative
+
+854
+00:25:17,536 --> 0:25:18,736
+mapping or world map sharing to
+
+855
+00:25:18,736 --> 0:25:19,826
+get the game started.
+
+856
+00:25:19,826 --> 0:25:21,216
+It only gets set once.
+
+857
+00:25:21,926 --> 0:25:22,676
+So, they don't need to be
+
+858
+00:25:22,676 --> 0:25:23,646
+tightly encoded.
+
+859
+00:25:24,396 --> 0:25:27,286
+So, sad to say, I deleted the
+
+860
+00:25:27,286 --> 0:25:29,366
+BitStream code.
+
+861
+00:25:29,826 --> 0:25:32,856
+That's about 1500 lines of code
+
+862
+00:25:33,316 --> 0:25:34,496
+that we were able to get rid of
+
+863
+00:25:34,496 --> 0:25:36,036
+and that's lines of code that
+
+864
+00:25:36,036 --> 0:25:36,986
+you won't have to write,
+
+865
+00:25:36,986 --> 0:25:38,836
+anymore, thanks to RealityKit
+
+866
+00:25:38,836 --> 0:25:40,336
+networking, to get your shared
+
+867
+00:25:40,336 --> 0:25:41,846
+AR experience up and running.
+
+868
+00:25:42,516 --> 0:25:46,500
+[ Applause ]
+
+869
+00:25:48,046 --> 0:25:49,206
+Next, let's talk about the
+
+870
+00:25:49,206 --> 0:25:51,756
+physics simulation itself.
+
+871
+00:25:51,856 --> 0:25:53,376
+That synchronization, as I said,
+
+872
+00:25:53,376 --> 0:25:55,346
+is handled by RealityKit using
+
+873
+00:25:55,346 --> 0:25:56,466
+its built-in physics engine.
+
+874
+00:25:57,436 --> 0:25:58,496
+On any of these, you can
+
+875
+00:25:58,496 --> 0:26:00,096
+configure the physics properties
+
+876
+00:25:58,496 --> 0:26:00,096
+configure the physics properties
+
+877
+00:26:00,146 --> 0:26:02,216
+by setting up components.
+
+878
+00:26:02,686 --> 0:26:03,836
+We set up the rigid body.
+
+879
+00:26:03,956 --> 0:26:05,136
+That defines the shape of the
+
+880
+00:26:05,136 --> 0:26:06,116
+object in the scene.
+
+881
+00:26:06,606 --> 0:26:08,546
+You define collision masks that
+
+882
+00:26:08,696 --> 0:26:10,276
+configure which device, which
+
+883
+00:26:10,276 --> 0:26:11,306
+objects in your scene can
+
+884
+00:26:11,306 --> 0:26:12,456
+collide with which other
+
+885
+00:26:12,456 --> 0:26:12,996
+objects.
+
+886
+00:26:12,996 --> 0:26:15,006
+And then, also, the additional
+
+887
+00:26:15,006 --> 0:26:16,156
+physical properties of the
+
+888
+00:26:16,156 --> 0:26:16,526
+object.
+
+889
+00:26:16,936 --> 0:26:18,376
+The mass, the friction, the
+
+890
+00:26:18,376 --> 0:26:19,196
+restitution.
+
+891
+00:26:19,466 --> 0:26:21,726
+All of those play into getting
+
+892
+00:26:21,726 --> 0:26:22,656
+that right to get a great
+
+893
+00:26:22,656 --> 0:26:23,366
+experience.
+
+894
+00:26:23,876 --> 0:26:27,236
+In SwiftStrike, the host device
+
+895
+00:26:27,266 --> 0:26:28,346
+owns the simulation.
+
+896
+00:26:28,786 --> 0:26:30,556
+But the client devices provide
+
+897
+00:26:30,556 --> 0:26:31,866
+information about where each
+
+898
+00:26:31,866 --> 0:26:33,586
+individual player is to make the
+
+899
+00:26:33,586 --> 0:26:34,166
+game happen.
+
+900
+00:26:34,166 --> 0:26:35,086
+And I'll talk about how that
+
+901
+00:26:35,086 --> 0:26:35,646
+works, later on.
+
+902
+00:26:35,746 --> 0:26:38,736
+Now, in SwiftStrike, most of the
+
+903
+00:26:38,736 --> 0:26:39,846
+objects are pretty simple.
+
+904
+00:26:39,996 --> 0:26:42,206
+The ball is the sphere, the, the
+
+905
+00:26:42,346 --> 0:26:44,306
+you know, the play surface is a
+
+906
+00:26:44,356 --> 0:26:44,796
+plane.
+
+907
+00:26:45,106 --> 0:26:46,516
+We put walls on the sides to
+
+908
+00:26:46,516 --> 0:26:47,556
+make sure the ball doesn't fly
+
+909
+00:26:47,556 --> 0:26:47,826
+out.
+
+910
+00:26:48,766 --> 0:26:50,706
+But there's one object that we
+
+911
+00:26:50,706 --> 0:26:51,816
+really needed to get right,
+
+912
+00:26:51,816 --> 0:26:52,566
+that's a little bit more
+
+913
+00:26:52,566 --> 0:26:53,416
+complicated than that.
+
+914
+00:26:53,416 --> 0:26:54,756
+And that's the bowling pin.
+
+915
+00:26:56,276 --> 0:26:57,346
+You know, really needed this to
+
+916
+00:26:57,346 --> 0:26:58,826
+bounce true and sound right for
+
+917
+00:26:58,826 --> 0:27:00,296
+the game to be compelling.
+
+918
+00:26:58,826 --> 0:27:00,296
+the game to be compelling.
+
+919
+00:27:01,366 --> 0:27:04,216
+This is the just the wire frame
+
+920
+00:27:04,216 --> 0:27:05,916
+of the 3D model our technical
+
+921
+00:27:05,916 --> 0:27:07,066
+art has provided for us.
+
+922
+00:27:07,926 --> 0:27:09,066
+And this is then updated to make
+
+923
+00:27:09,066 --> 0:27:10,116
+it really look great when it
+
+924
+00:27:10,116 --> 0:27:10,696
+renders.
+
+925
+00:27:11,336 --> 0:27:12,686
+But really, it's far too much
+
+926
+00:27:12,686 --> 0:27:14,166
+data for the physics simulation.
+
+927
+00:27:14,896 --> 0:27:16,486
+We wanted to take this and make
+
+928
+00:27:16,486 --> 0:27:18,316
+it a lot simpler while still
+
+929
+00:27:18,316 --> 0:27:19,946
+maintaining a great bowling pin
+
+930
+00:27:19,946 --> 0:27:20,446
+kind of feel.
+
+931
+00:27:21,046 --> 0:27:23,696
+So, here's kind of what we did
+
+932
+00:27:23,696 --> 0:27:24,666
+with that.
+
+933
+00:27:24,666 --> 0:27:26,236
+We used a combination of the
+
+934
+00:27:26,236 --> 0:27:28,006
+primitive shapes as that's part
+
+935
+00:27:28,006 --> 0:27:28,876
+of RealityKit because it's
+
+936
+00:27:28,876 --> 0:27:30,326
+networking the spheres at the
+
+937
+00:27:30,366 --> 0:27:31,156
+top and in the middle.
+
+938
+00:27:31,656 --> 0:27:33,916
+And then, we also built convex
+
+939
+00:27:33,916 --> 0:27:36,936
+hulls around the pin to give it
+
+940
+00:27:37,106 --> 0:27:39,326
+a base to stand on and, and the
+
+941
+00:27:39,326 --> 0:27:40,506
+neck to bounce of off other
+
+942
+00:27:40,506 --> 0:27:40,766
+things.
+
+943
+00:27:41,346 --> 0:27:42,356
+You know, when you're doing a
+
+944
+00:27:42,356 --> 0:27:43,986
+physics simulation, you want to
+
+945
+00:27:43,986 --> 0:27:45,256
+be careful to use primitives
+
+946
+00:27:45,256 --> 0:27:46,136
+whenever you can.
+
+947
+00:27:46,566 --> 0:27:47,676
+If you can't, make sure that
+
+948
+00:27:47,676 --> 0:27:49,086
+your convex hulls are relatively
+
+949
+00:27:49,136 --> 0:27:49,406
+simple.
+
+950
+00:27:49,636 --> 0:27:50,616
+This will give you the best
+
+951
+00:27:50,616 --> 0:27:51,246
+performance.
+
+952
+00:27:52,156 --> 0:27:53,746
+So, we spent a lot of time
+
+953
+00:27:53,746 --> 0:27:54,616
+tuning this to get the right
+
+954
+00:27:54,616 --> 0:27:55,176
+combination.
+
+955
+00:27:55,806 --> 0:27:58,286
+So here's what that looked like
+
+956
+00:27:58,286 --> 0:27:59,356
+all together in the data.
+
+957
+00:28:00,326 --> 0:28:02,136
+But of course, on the court, you
+
+958
+00:28:02,136 --> 0:28:04,306
+just see the great looking pin
+
+959
+00:28:04,416 --> 0:28:04,846
+itself.
+
+960
+00:28:05,536 --> 0:28:07,796
+RealityKit's physically based
+
+961
+00:28:07,796 --> 0:28:09,256
+rendering really gives a good
+
+962
+00:28:09,256 --> 0:28:11,446
+shine on it and makes it looks
+
+963
+00:28:11,446 --> 0:28:11,636
+great.
+
+964
+00:28:12,176 --> 0:28:12,716
+Thank you.
+
+965
+00:28:13,516 --> 0:28:16,796
+[ Applause ]
+
+966
+00:28:17,296 --> 0:28:18,496
+So, last thing, let's talk a
+
+967
+00:28:18,496 --> 0:28:20,206
+little bit about the game
+
+968
+00:28:20,206 --> 0:28:20,576
+design.
+
+969
+00:28:20,836 --> 0:28:22,366
+And that has three areas.
+
+970
+00:28:22,526 --> 0:28:23,736
+You know, designing for People
+
+971
+00:28:23,736 --> 0:28:26,216
+Occlusion, building an on-site
+
+972
+00:28:26,216 --> 0:28:28,046
+experience, and defining a
+
+973
+00:28:28,046 --> 0:28:29,666
+control mechanism for the game
+
+974
+00:28:29,666 --> 0:28:30,006
+itself.
+
+975
+00:28:31,536 --> 0:28:33,436
+When we learned about ARKit 3's
+
+976
+00:28:33,436 --> 0:28:35,026
+Person Occlusion, we knew right
+
+977
+00:28:35,026 --> 0:28:36,586
+away that we wanted this year's
+
+978
+00:28:36,586 --> 0:28:38,046
+game to be a full-size
+
+979
+00:28:38,046 --> 0:28:38,746
+experience.
+
+980
+00:28:39,106 --> 0:28:40,796
+And we designed it so that you
+
+981
+00:28:40,896 --> 0:28:42,426
+see Person Occlusion happening
+
+982
+00:28:42,656 --> 0:28:43,506
+right from the start.
+
+983
+00:28:44,156 --> 0:28:45,526
+When you're in starting position
+
+984
+00:28:45,716 --> 0:28:46,836
+you see the ball in front of
+
+985
+00:28:46,836 --> 0:28:48,556
+you, you see the other player,
+
+986
+00:28:48,556 --> 0:28:50,196
+and you see the pins behind the
+
+987
+00:28:50,196 --> 0:28:50,696
+other player.
+
+988
+00:28:51,136 --> 0:28:52,686
+Right away, Person Occlusion is
+
+989
+00:28:52,686 --> 0:28:53,516
+a big part of the game.
+
+990
+00:28:54,556 --> 0:28:56,586
+Previously, building an AR
+
+991
+00:28:56,586 --> 0:28:58,246
+experience, you had to kind of
+
+992
+00:28:58,246 --> 0:28:59,476
+make sure that you didn't get a
+
+993
+00:28:59,476 --> 0:29:01,436
+person between the camera and
+
+994
+00:28:59,476 --> 0:29:01,436
+person between the camera and
+
+995
+00:29:01,436 --> 0:29:01,926
+the content.
+
+996
+00:29:02,236 --> 0:29:03,546
+And then, so SwiftShot pretty
+
+997
+00:29:03,546 --> 0:29:04,976
+much had to be a Tabletop game
+
+998
+00:29:04,976 --> 0:29:05,426
+last year.
+
+999
+00:29:06,836 --> 0:29:08,296
+With SwiftStrike and Person
+
+1000
+00:29:08,296 --> 0:29:10,246
+Occlusion, now you've got a lot
+
+1001
+00:29:10,246 --> 0:29:11,866
+more possibilities as to how you
+
+1002
+00:29:11,866 --> 0:29:12,886
+want to include the virtual
+
+1003
+00:29:12,926 --> 0:29:15,006
+content in your, in your game.
+
+1004
+00:29:15,586 --> 0:29:20,116
+Now, a full-size game requires a
+
+1005
+00:29:20,116 --> 0:29:21,656
+full-size space to play it in.
+
+1006
+00:29:22,266 --> 0:29:22,946
+So, we worked with the
+
+1007
+00:29:22,946 --> 0:29:25,436
+facilities team and had a custom
+
+1008
+00:29:25,436 --> 0:29:26,556
+floor installed here at the
+
+1009
+00:29:26,556 --> 0:29:28,226
+Convention Center for people to
+
+1010
+00:29:28,226 --> 0:29:28,646
+play on.
+
+1011
+00:29:29,386 --> 0:29:31,156
+The wood flooring not only
+
+1012
+00:29:31,156 --> 0:29:33,346
+evokes a bowling alley but also
+
+1013
+00:29:33,346 --> 0:29:34,776
+provides lots of great feature
+
+1014
+00:29:34,776 --> 0:29:36,286
+points for the ARKit tracking.
+
+1015
+00:29:36,876 --> 0:29:38,366
+So, you get a nice stable
+
+1016
+00:29:38,616 --> 0:29:39,066
+display.
+
+1017
+00:29:40,656 --> 0:29:42,536
+We also used the image on the
+
+1018
+00:29:42,536 --> 0:29:43,986
+logo in the center of the court
+
+1019
+00:29:44,346 --> 0:29:45,466
+to position the gameboard
+
+1020
+00:29:45,466 --> 0:29:46,566
+property properly.
+
+1021
+00:29:47,166 --> 0:29:49,856
+ARKit image anchors are used to
+
+1022
+00:29:49,856 --> 0:29:51,326
+find that location, put the
+
+1023
+00:29:51,326 --> 0:29:51,886
+board there.
+
+1024
+00:29:52,016 --> 0:29:53,436
+So, every time it starts the
+
+1025
+00:29:53,436 --> 0:29:55,156
+game is correctly positioned and
+
+1026
+00:29:55,156 --> 0:29:55,976
+people are ready to go.
+
+1027
+00:29:57,376 --> 0:30:00,386
+Now, for the AR localization,
+
+1028
+00:29:57,376 --> 0:30:00,386
+Now, for the AR localization,
+
+1029
+00:30:00,656 --> 0:30:02,276
+we're using a combination of
+
+1030
+00:30:02,276 --> 0:30:04,066
+ARKit world maps and
+
+1031
+00:30:04,106 --> 0:30:04,906
+collaborative data.
+
+1032
+00:30:05,716 --> 0:30:06,976
+The players start with a world
+
+1033
+00:30:06,976 --> 0:30:08,446
+map on their device that they
+
+1034
+00:30:08,446 --> 0:30:09,906
+load and get localized very
+
+1035
+00:30:09,906 --> 0:30:10,316
+quickly.
+
+1036
+00:30:10,636 --> 0:30:12,466
+And then, they start sharing
+
+1037
+00:30:12,466 --> 0:30:14,956
+collaborative data after that.
+
+1038
+00:30:14,956 --> 0:30:17,256
+So, they get up fast with the
+
+1039
+00:30:17,256 --> 0:30:18,836
+Quick Start and then, maintain
+
+1040
+00:30:18,836 --> 0:30:20,586
+that over time as the devices
+
+1041
+00:30:20,586 --> 0:30:22,136
+share the data about the world
+
+1042
+00:30:22,676 --> 0:30:25,376
+around them.
+
+1043
+00:30:25,556 --> 0:30:26,716
+Finally, let's talk about the
+
+1044
+00:30:26,716 --> 0:30:27,496
+control mechanism.
+
+1045
+00:30:28,216 --> 0:30:29,516
+With SwiftShot last year, we
+
+1046
+00:30:29,516 --> 0:30:30,566
+thought we had a pretty simple
+
+1047
+00:30:30,566 --> 0:30:31,366
+control mechanism.
+
+1048
+00:30:31,526 --> 0:30:34,666
+Right. Just tap to grab, pull to
+
+1049
+00:30:34,666 --> 0:30:34,976
+release.
+
+1050
+00:30:36,226 --> 0:30:37,536
+We made it even simpler this
+
+1051
+00:30:37,536 --> 0:30:37,726
+year.
+
+1052
+00:30:37,876 --> 0:30:38,716
+You don't have to touch the
+
+1053
+00:30:38,716 --> 0:30:40,456
+screen; you just move it to push
+
+1054
+00:30:40,506 --> 0:30:40,806
+the ball.
+
+1055
+00:30:41,916 --> 0:30:42,756
+We discovered through game
+
+1056
+00:30:42,756 --> 0:30:44,396
+playtesting that it was great if
+
+1057
+00:30:44,396 --> 0:30:47,126
+the faster push, faster movement
+
+1058
+00:30:47,436 --> 0:30:48,556
+would mean a bigger push on the
+
+1059
+00:30:48,556 --> 0:30:48,866
+ball.
+
+1060
+00:30:48,866 --> 0:30:50,356
+Give it a kick and make it
+
+1061
+00:30:50,356 --> 0:30:51,426
+really bounce past the other
+
+1062
+00:30:51,426 --> 0:30:51,626
+player.
+
+1063
+00:30:52,236 --> 0:30:54,886
+The other thing we discovered
+
+1064
+00:30:54,886 --> 0:30:56,106
+though in our playtesting was
+
+1065
+00:30:56,106 --> 0:30:57,546
+every once in a while, the ball
+
+1066
+00:30:57,546 --> 0:30:58,426
+would roll right through you.
+
+1067
+00:30:58,826 --> 0:30:59,696
+And that wasn't great.
+
+1068
+00:31:00,636 --> 0:31:01,586
+So, instead, we added an
+
+1069
+00:31:01,586 --> 0:31:03,576
+invisible physics body located
+
+1070
+00:31:03,576 --> 0:31:04,386
+where the player is.
+
+1071
+00:31:04,386 --> 0:31:06,916
+And then, we discovered that we
+
+1072
+00:31:06,916 --> 0:31:07,966
+could just win the game by
+
+1073
+00:31:07,966 --> 0:31:09,186
+running around and knocking over
+
+1074
+00:31:09,186 --> 0:31:10,376
+all the, all the other players'
+
+1075
+00:31:10,376 --> 0:31:10,646
+pins.
+
+1076
+00:31:11,836 --> 0:31:13,156
+So, instead, we're using
+
+1077
+00:31:13,156 --> 0:31:14,996
+collision masks to filter that
+
+1078
+00:31:14,996 --> 0:31:15,186
+out.
+
+1079
+00:31:16,076 --> 0:31:17,536
+The ball will collide with the
+
+1080
+00:31:17,576 --> 0:31:19,596
+pins and with a person, but the
+
+1081
+00:31:19,596 --> 0:31:20,976
+pins and the person won't
+
+1082
+00:31:20,976 --> 0:31:21,846
+collide with each other.
+
+1083
+00:31:21,846 --> 0:31:24,386
+That was some of the ways that
+
+1084
+00:31:24,386 --> 0:31:25,946
+we used the networking system
+
+1085
+00:31:25,946 --> 0:31:27,676
+and the physics to really get,
+
+1086
+00:31:27,676 --> 0:31:30,166
+get a great, great experience.
+
+1087
+00:31:31,576 --> 0:31:32,876
+Now, one of the things that we
+
+1088
+00:31:32,876 --> 0:31:34,396
+needed to solve then, is how do
+
+1089
+00:31:34,396 --> 0:31:36,016
+we get the input from this
+
+1090
+00:31:36,016 --> 0:31:38,216
+device moving around onto the
+
+1091
+00:31:38,216 --> 0:31:40,406
+device while maintaining control
+
+1092
+00:31:40,406 --> 0:31:42,086
+over when the paddle is active
+
+1093
+00:31:42,296 --> 0:31:43,986
+and how much force it's applying
+
+1094
+00:31:44,296 --> 0:31:45,076
+on the host.
+
+1095
+00:31:45,296 --> 0:31:47,436
+And so, we solved this using the
+
+1096
+00:31:47,436 --> 0:31:49,136
+ownership support within
+
+1097
+00:31:49,136 --> 0:31:49,806
+RealityKit.
+
+1098
+00:31:50,386 --> 0:31:53,556
+When the host starts the AR
+
+1099
+00:31:53,556 --> 0:31:55,906
+session, it creates a
+
+1100
+00:31:56,106 --> 0:31:58,386
+AnchorEntity as all content
+
+1101
+00:31:58,516 --> 0:32:00,546
+within RealityKit is all
+
+1102
+00:31:58,516 --> 0:32:00,546
+within RealityKit is all
+
+1103
+00:32:00,546 --> 0:32:02,426
+parented to an AnchorEntity that
+
+1104
+00:32:02,426 --> 0:32:03,616
+the host maintains ownership
+
+1105
+00:32:03,616 --> 0:32:03,906
+over.
+
+1106
+00:32:04,956 --> 0:32:07,306
+When the Client joins, it adds
+
+1107
+00:32:07,306 --> 0:32:09,896
+another entity to the scene that
+
+1108
+00:32:09,896 --> 0:32:10,286
+we call the
+
+1109
+00:32:10,286 --> 0:32:12,436
+PlayerLocationEntity, using the
+
+1110
+00:32:12,436 --> 0:32:14,806
+subclassing support with
+
+1111
+00:32:14,806 --> 0:32:15,416
+RealityKit.
+
+1112
+00:32:16,866 --> 0:32:18,436
+This maintains ownership by the
+
+1113
+00:32:18,546 --> 0:32:20,596
+Client, so the Client can update
+
+1114
+00:32:20,596 --> 0:32:22,106
+its location with every frame.
+
+1115
+00:32:22,546 --> 0:32:24,176
+And that's parented to the
+
+1116
+00:32:24,176 --> 0:32:25,616
+AnchorEntity so it appears in
+
+1117
+00:32:25,616 --> 0:32:26,236
+all the devices.
+
+1118
+00:32:26,486 --> 0:32:29,336
+As a child of that, we add the
+
+1119
+00:32:29,396 --> 0:32:30,146
+PaddleEntity.
+
+1120
+00:32:30,246 --> 0:32:33,156
+And it's parented to the
+
+1121
+00:32:33,156 --> 0:32:34,266
+PlayerLocationEntity.
+
+1122
+00:32:34,496 --> 0:32:36,476
+So, as the player moves around,
+
+1123
+00:32:36,896 --> 0:32:38,306
+the PlayerLocationEntity
+
+1124
+00:32:38,306 --> 0:32:39,456
+location gets updated.
+
+1125
+00:32:39,736 --> 0:32:41,366
+And that moves the PaddleEntity
+
+1126
+00:32:41,366 --> 0:32:43,336
+that the host maintains control
+
+1127
+00:32:43,336 --> 0:32:45,296
+over what, what actions the
+
+1128
+00:32:45,296 --> 0:32:46,466
+PaddleEntity takes.
+
+1129
+00:32:46,806 --> 0:32:48,456
+It can turn it on and off and
+
+1130
+00:32:48,456 --> 0:32:49,576
+make sure that the gameplay
+
+1131
+00:32:50,086 --> 0:32:51,256
+remains fun for everybody.
+
+1132
+00:32:52,736 --> 0:32:56,256
+So, let's look at that, that,
+
+1133
+00:32:56,256 --> 0:32:58,556
+how all that came together with
+
+1134
+00:32:58,606 --> 0:33:00,286
+ARKit 3 and RealityKit to make a
+
+1135
+00:32:58,606 --> 0:33:00,286
+ARKit 3 and RealityKit to make a
+
+1136
+00:33:00,286 --> 0:33:01,916
+great gameplay experience.
+
+1137
+00:33:07,176 --> 0:33:08,606
+Here again, is part of the video
+
+1138
+00:33:09,056 --> 0:33:12,216
+from the State of the Union on
+
+1139
+00:33:14,476 --> 0:33:15,556
+Monday showing everyone playing
+
+1140
+00:33:15,556 --> 0:33:15,856
+the game.
+
+1141
+00:33:16,146 --> 0:33:18,006
+And Adam is, once again, the
+
+1142
+00:33:19,056 --> 0:33:19,206
+winner.
+
+1143
+00:33:19,376 --> 0:33:22,546
+Now, when we, we're building
+
+1144
+00:33:22,546 --> 0:33:25,096
+this, we started to learn about
+
+1145
+00:33:25,096 --> 0:33:25,876
+the other things that were
+
+1146
+00:33:25,876 --> 0:33:26,776
+coming out this year.
+
+1147
+00:33:27,086 --> 0:33:28,326
+And one of those was Dark Mode
+
+1148
+00:33:28,326 --> 0:33:28,776
+in iOS.
+
+1149
+00:33:28,866 --> 0:33:31,216
+And we decided we needed to take
+
+1150
+00:33:31,216 --> 0:33:32,026
+that a step further.
+
+1151
+00:33:32,396 --> 0:33:34,736
+And so, we implemented Cosmic
+
+1152
+00:33:34,776 --> 0:33:35,916
+Mode in SwiftStrike.
+
+1153
+00:33:36,596 --> 0:33:37,826
+We swapped out the assets,
+
+1154
+00:33:38,096 --> 0:33:40,136
+darkened the video feed, and
+
+1155
+00:33:40,136 --> 0:33:42,226
+used some cards with
+
+1156
+00:33:42,226 --> 0:33:43,666
+billboarding effect to really
+
+1157
+00:33:43,666 --> 0:33:44,476
+give a glow effect.
+
+1158
+00:33:44,916 --> 0:33:45,976
+Let's take a look at that.
+
+1159
+00:33:50,216 --> 0:33:51,006
+Here we go.
+
+1160
+00:33:51,646 --> 0:33:54,826
+Took me a few tries to get the
+
+1161
+00:33:54,826 --> 0:33:55,596
+winner on the first try.
+
+1162
+00:33:57,516 --> 0:34:02,500
+[ Applause ]
+
+1163
+00:33:57,516 --> 0:34:02,500
+[ Applause ]
+
+1164
+00:34:04,056 --> 0:34:05,036
+So, that's SwiftStrike.
+
+1165
+00:34:06,026 --> 0:34:07,326
+So, in summary of what we talked
+
+1166
+00:34:07,326 --> 0:34:09,255
+about today, Kuen-han covered
+
+1167
+00:34:09,346 --> 0:34:10,735
+the new collaborative session
+
+1168
+00:34:10,735 --> 0:34:13,946
+sharing feature in ARKit 3 and
+
+1169
+00:34:13,946 --> 0:34:15,646
+how that enables much easier
+
+1170
+00:34:15,646 --> 0:34:17,386
+localization and new shared
+
+1171
+00:34:17,386 --> 0:34:18,096
+experiences.
+
+1172
+00:34:18,556 --> 0:34:19,755
+We talked about the best ways to
+
+1173
+00:34:19,755 --> 0:34:21,585
+use ARAnchors to position
+
+1174
+00:34:21,585 --> 0:34:22,896
+content within your AR
+
+1175
+00:34:22,896 --> 0:34:23,436
+experience.
+
+1176
+00:34:23,815 --> 0:34:25,016
+And then, we talked about
+
+1177
+00:34:25,016 --> 0:34:26,656
+SwiftStrike, our new game for,
+
+1178
+00:34:26,726 --> 0:34:27,585
+for 2019.
+
+1179
+00:34:28,966 --> 0:34:30,396
+We've done a Tabletop version
+
+1180
+00:34:30,396 --> 0:34:32,076
+using Reality Composer and the
+
+1181
+00:34:32,076 --> 0:34:33,235
+source for that is available
+
+1182
+00:34:33,235 --> 0:34:33,436
+now.
+
+1183
+00:34:33,436 --> 0:34:35,795
+You can get more information
+
+1184
+00:34:35,795 --> 0:34:37,136
+about that by looking at the
+
+1185
+00:34:37,136 --> 0:34:38,766
+''Building AR Experiences with
+
+1186
+00:34:38,766 --> 0:34:39,926
+Reality Composer'' session.
+
+1187
+00:34:39,926 --> 0:34:41,636
+And we're planning to release
+
+1188
+00:34:41,706 --> 0:34:43,005
+the codes, the source for the
+
+1189
+00:34:43,005 --> 0:34:45,045
+full version of SwiftStrike with
+
+1190
+00:34:45,045 --> 0:34:46,346
+the features seen.
+
+1191
+00:34:47,206 --> 0:34:48,616
+For more information, you can
+
+1192
+00:34:48,616 --> 0:34:49,696
+look at our URL for this
+
+1193
+00:34:49,696 --> 0:34:50,065
+session.
+
+1194
+00:34:50,716 --> 0:34:52,806
+Kuen-han and I will both be at
+
+1195
+00:34:52,806 --> 0:34:54,676
+the ARKit and RealityKit labs,
+
+1196
+00:34:54,676 --> 0:34:55,946
+immediately after the session at
+
+1197
+00:34:55,946 --> 0:34:56,446
+3:00.
+
+1198
+00:34:56,446 --> 0:34:58,316
+And also, for those of you who
+
+1199
+00:34:58,316 --> 0:34:59,376
+have gotten really good as
+
+1200
+00:34:59,376 --> 0:35:00,786
+SwiftStrike, we're having a
+
+1201
+00:34:59,376 --> 0:35:00,786
+SwiftStrike, we're having a
+
+1202
+00:35:00,786 --> 0:35:02,936
+tournament on Friday at 12:30.
+
+1203
+00:35:03,536 --> 0:35:05,076
+So, we hope you all come and
+
+1204
+00:35:05,146 --> 0:35:06,966
+participate and see that.
+
+1205
+00:35:06,966 --> 0:35:07,386
+Thank you.
+
+1206
+00:35:08,516 --> 0:35:11,506
+[ Applause ]

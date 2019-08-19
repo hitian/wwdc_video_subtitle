@@ -1,0 +1,5663 @@
+1
+00:00:01,176 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:10,516 --> 0:00:15,556
+[ Applause ]
+
+3
+00:00:16,056 --> 0:00:16,476
+&gt;&gt; Good morning.
+
+4
+00:00:16,936 --> 0:00:18,146
+My name is Julio Gonzalez.
+
+5
+00:00:18,436 --> 0:00:19,766
+I manage the Type Engineering
+
+6
+00:00:19,826 --> 0:00:21,206
+Team and it's great to be here
+
+7
+00:00:21,206 --> 0:00:22,606
+with you today to share with you
+
+8
+00:00:22,886 --> 0:00:24,326
+all the new advances that we
+
+9
+00:00:24,326 --> 0:00:26,896
+have for text and fonts in iOS.
+
+10
+00:00:28,346 --> 0:00:30,326
+We have a full agenda today.
+
+11
+00:00:31,136 --> 0:00:33,166
+I'll start by showing you some
+
+12
+00:00:33,166 --> 0:00:34,736
+access to some new system fonts
+
+13
+00:00:34,906 --> 0:00:36,456
+for your apps.
+
+14
+00:00:37,216 --> 0:00:39,126
+I will then continue by showing
+
+15
+00:00:39,126 --> 0:00:40,956
+you what it takes to build an
+
+16
+00:00:40,956 --> 0:00:42,346
+app that can make fonts
+
+17
+00:00:42,346 --> 0:00:44,316
+available systemwide as well as
+
+18
+00:00:44,356 --> 0:00:46,266
+how to make an app access those
+
+19
+00:00:46,266 --> 0:00:47,136
+very same fonts.
+
+20
+00:00:48,466 --> 0:00:49,696
+Then, we'll talk about some new
+
+21
+00:00:49,696 --> 0:00:51,316
+mechanisms that we have for apps
+
+22
+00:00:51,396 --> 0:00:52,146
+to select fonts.
+
+23
+00:00:53,336 --> 0:00:55,176
+And we'll end up by talking
+
+24
+00:00:55,176 --> 0:00:56,576
+about some text scaling
+
+25
+00:00:56,576 --> 0:00:58,936
+considerations that you may have
+
+26
+00:00:59,076 --> 0:01:00,696
+as you bring your iPad apps to
+
+27
+00:00:59,076 --> 0:01:00,696
+as you bring your iPad apps to
+
+28
+00:01:00,696 --> 0:01:01,026
+the Mac.
+
+29
+00:01:02,326 --> 0:01:03,306
+Let's get started.
+
+30
+00:01:04,146 --> 0:01:05,816
+We'll be making available three
+
+31
+00:01:05,816 --> 0:01:07,676
+new system fonts in all the new
+
+32
+00:01:07,676 --> 0:01:08,116
+releases.
+
+33
+00:01:09,166 --> 0:01:10,786
+The first one is a rounded
+
+34
+00:01:10,786 --> 0:01:12,616
+system font which you can see
+
+35
+00:01:12,616 --> 0:01:14,886
+here being used by the schedule
+
+36
+00:01:14,886 --> 0:01:16,296
+label at the very top of the
+
+37
+00:01:16,296 --> 0:01:17,086
+Reminders app.
+
+38
+00:01:18,276 --> 0:01:20,296
+There is also a serif system
+
+39
+00:01:20,296 --> 0:01:21,466
+font that we're making available
+
+40
+00:01:22,026 --> 0:01:23,666
+which you see here being used in
+
+41
+00:01:23,666 --> 0:01:25,766
+multiple places in the Books
+
+42
+00:01:25,766 --> 0:01:26,386
+application.
+
+43
+00:01:27,336 --> 0:01:29,216
+Finally, we're making available
+
+44
+00:01:29,306 --> 0:01:31,036
+the monospaced system font which
+
+45
+00:01:31,036 --> 0:01:32,966
+you may have seen before used in
+
+46
+00:01:32,966 --> 0:01:33,686
+Swift Playgrounds.
+
+47
+00:01:34,556 --> 0:01:36,176
+I encourage you to consult the
+
+48
+00:01:36,176 --> 0:01:38,176
+Human Interface Guidelines to
+
+49
+00:01:38,176 --> 0:01:39,786
+see what are the best uses of
+
+50
+00:01:39,786 --> 0:01:41,386
+these system fonts in your
+
+51
+00:01:41,386 --> 0:01:42,336
+application UIs.
+
+52
+00:01:43,876 --> 0:01:45,376
+You can get access to the system
+
+53
+00:01:45,376 --> 0:01:47,436
+fonts by new APIs in
+
+54
+00:01:47,436 --> 0:01:48,506
+UIFontDescriptor.
+
+55
+00:01:49,386 --> 0:01:50,576
+We've defined four new
+
+56
+00:01:50,576 --> 0:01:51,076
+constants.
+
+57
+00:01:51,796 --> 0:01:53,536
+The first one, the default is
+
+58
+00:01:53,596 --> 0:01:55,086
+the standard system sans serif
+
+59
+00:01:55,086 --> 0:01:57,346
+system font that you've all used
+
+60
+00:01:57,346 --> 0:01:58,046
+throughout the years.
+
+61
+00:01:58,476 --> 0:01:59,596
+And then, we've defined a
+
+62
+00:01:59,646 --> 0:02:01,246
+constant for each of the new
+
+63
+00:01:59,646 --> 0:02:01,246
+constant for each of the new
+
+64
+00:02:01,466 --> 0:02:02,676
+system fonts that we're making
+
+65
+00:02:02,676 --> 0:02:03,056
+available.
+
+66
+00:02:04,226 --> 0:02:05,646
+You can use these constants with
+
+67
+00:02:05,646 --> 0:02:07,146
+a new method called withDesign
+
+68
+00:02:07,546 --> 0:02:09,816
+whose purpose is to transform a
+
+69
+00:02:09,816 --> 0:02:11,616
+font descriptor from one design
+
+70
+00:02:11,656 --> 0:02:12,086
+to another.
+
+71
+00:02:12,726 --> 0:02:14,416
+It's fairly simple to use.
+
+72
+00:02:14,736 --> 0:02:15,386
+You start with a font
+
+73
+00:02:15,386 --> 0:02:15,906
+descriptor.
+
+74
+00:02:15,906 --> 0:02:16,976
+In this case, we're getting a
+
+75
+00:02:17,036 --> 0:02:19,556
+font descriptor from a bold
+
+76
+00:02:19,556 --> 0:02:20,566
+system font that we've
+
+77
+00:02:20,566 --> 0:02:21,496
+instantiated.
+
+78
+00:02:22,166 --> 0:02:24,046
+And then, what we want to do is
+
+79
+00:02:24,046 --> 0:02:25,796
+actually obtain a rounded system
+
+80
+00:02:25,796 --> 0:02:26,046
+font.
+
+81
+00:02:26,286 --> 0:02:28,826
+So, we make the withDesign call
+
+82
+00:02:29,086 --> 0:02:30,706
+with the rounded constant.
+
+83
+00:02:31,136 --> 0:02:32,796
+And if that's successful, we're
+
+84
+00:02:32,796 --> 0:02:34,476
+able to instantiate our rounded
+
+85
+00:02:34,556 --> 0:02:35,386
+bold system font.
+
+86
+00:02:35,946 --> 0:02:37,946
+Notice we instantiated the
+
+87
+00:02:38,006 --> 0:02:39,876
+system font using a high-level
+
+88
+00:02:39,876 --> 0:02:40,046
+API.
+
+89
+00:02:40,366 --> 0:02:41,716
+We did not instantiate the
+
+90
+00:02:41,756 --> 0:02:43,526
+system font by using its name
+
+91
+00:02:44,166 --> 0:02:45,246
+which leads me to the next
+
+92
+00:02:45,296 --> 0:02:45,646
+topic.
+
+93
+00:02:46,886 --> 0:02:48,636
+We've noticed that many apps
+
+94
+00:02:49,286 --> 0:02:51,406
+still today instantiate system
+
+95
+00:02:51,406 --> 0:02:52,206
+fonts by name.
+
+96
+00:02:52,946 --> 0:02:53,816
+This is something that in the
+
+97
+00:02:53,816 --> 0:02:55,526
+past we've strongly discouraged
+
+98
+00:02:55,526 --> 0:02:56,356
+apps to do.
+
+99
+00:02:56,906 --> 0:02:58,526
+So, it's starting with the new
+
+100
+00:02:58,526 --> 0:03:00,506
+releases, any such font
+
+101
+00:02:58,526 --> 0:03:00,506
+releases, any such font
+
+102
+00:03:00,506 --> 0:03:01,876
+instantiation will fail.
+
+103
+00:03:02,306 --> 0:03:03,886
+You need to use one of the
+
+104
+00:03:03,886 --> 0:03:06,206
+high-level system calls to
+
+105
+00:03:06,396 --> 0:03:07,756
+instantiate such fonts.
+
+106
+00:03:08,436 --> 0:03:09,106
+You know that you're
+
+107
+00:03:09,106 --> 0:03:10,576
+instantiating a system font by
+
+108
+00:03:10,576 --> 0:03:13,336
+name because if you look at the
+
+109
+00:03:13,336 --> 0:03:14,726
+name that you're passing with if
+
+110
+00:03:14,726 --> 0:03:16,166
+it starts with a dot, you're
+
+111
+00:03:16,166 --> 0:03:19,716
+using a, an Apple private name.
+
+112
+00:03:20,526 --> 0:03:21,876
+Now, there are many good reasons
+
+113
+00:03:21,876 --> 0:03:23,206
+to instantiate fonts by name.
+
+114
+00:03:23,826 --> 0:03:25,206
+That's how you get access to
+
+115
+00:03:25,326 --> 0:03:26,826
+custom system fonts in your apps
+
+116
+00:03:27,316 --> 0:03:29,226
+as well as if you are parsing a
+
+117
+00:03:29,226 --> 0:03:30,366
+document, that's how you would
+
+118
+00:03:30,986 --> 0:03:32,036
+instantiate a font that the
+
+119
+00:03:32,036 --> 0:03:32,706
+document needs.
+
+120
+00:03:33,496 --> 0:03:34,916
+Now, we've also noticed that
+
+121
+00:03:34,916 --> 0:03:37,496
+many apps are not handling
+
+122
+00:03:37,546 --> 0:03:39,266
+properly font instantiation by
+
+123
+00:03:39,266 --> 0:03:39,536
+name.
+
+124
+00:03:40,916 --> 0:03:41,946
+Sometimes, they crash.
+
+125
+00:03:41,946 --> 0:03:43,226
+And the reason is, is because
+
+126
+00:03:43,226 --> 0:03:44,856
+they don't actually look at the
+
+127
+00:03:44,856 --> 0:03:46,896
+return of the instantiation.
+
+128
+00:03:46,896 --> 0:03:47,986
+They assume that it's always
+
+129
+00:03:47,986 --> 0:03:48,596
+going to succeed.
+
+130
+00:03:49,406 --> 0:03:51,496
+As we change fonts in the OS for
+
+131
+00:03:51,496 --> 0:03:53,526
+some of our fonts, or we remove
+
+132
+00:03:53,586 --> 0:03:55,456
+fonts from the OS, those, those
+
+133
+00:03:55,456 --> 0:03:56,646
+fonts are no longer present.
+
+134
+00:03:56,706 --> 0:03:58,256
+So, your apps cannot assume that
+
+135
+00:03:58,256 --> 0:04:00,626
+a font that isn't in one version
+
+136
+00:03:58,256 --> 0:04:00,626
+a font that isn't in one version
+
+137
+00:04:00,626 --> 0:04:01,886
+of the OS will be in another.
+
+138
+00:04:02,426 --> 0:04:03,956
+You need to pay attention to the
+
+139
+00:04:03,956 --> 0:04:05,816
+result of the instantiation and
+
+140
+00:04:05,816 --> 0:04:07,206
+take appropriate action in the
+
+141
+00:04:07,206 --> 0:04:08,706
+app and substitute that with
+
+142
+00:04:08,706 --> 0:04:10,026
+another font if necessary.
+
+143
+00:04:10,626 --> 0:04:13,616
+With that, I'd like to switch
+
+144
+00:04:13,616 --> 0:04:15,346
+subjects to something that I as
+
+145
+00:04:15,346 --> 0:04:16,896
+a user and as a developer of
+
+146
+00:04:16,896 --> 0:04:17,906
+fonts have been waiting for a
+
+147
+00:04:17,906 --> 0:04:18,516
+long time.
+
+148
+00:04:18,875 --> 0:04:20,926
+And that is the ability for apps
+
+149
+00:04:20,995 --> 0:04:22,246
+to be able to install fonts
+
+150
+00:04:22,246 --> 0:04:24,866
+systemwide in the OS.
+
+151
+00:04:25,156 --> 0:04:26,976
+So, we call these apps Font
+
+152
+00:04:26,976 --> 0:04:27,736
+Provider Apps.
+
+153
+00:04:28,256 --> 0:04:30,406
+And basically, they are apps
+
+154
+00:04:30,406 --> 0:04:31,576
+that you submit to the Store
+
+155
+00:04:31,876 --> 0:04:33,166
+which can make fonts available
+
+156
+00:04:33,166 --> 0:04:34,466
+systemwide in the OS.
+
+157
+00:04:35,036 --> 0:04:36,276
+Along with those apps, we've
+
+158
+00:04:36,386 --> 0:04:39,146
+created a very simple UI setting
+
+159
+00:04:39,846 --> 0:04:41,196
+in which users can browse the
+
+160
+00:04:41,256 --> 0:04:43,456
+fonts that applications have
+
+161
+00:04:43,456 --> 0:04:44,826
+installed as well as remove
+
+162
+00:04:44,866 --> 0:04:46,006
+fonts that they no longer want
+
+163
+00:04:46,006 --> 0:04:46,446
+to use.
+
+164
+00:04:47,686 --> 0:04:48,856
+To create one of these apps,
+
+165
+00:04:48,886 --> 0:04:50,556
+there are two things that the
+
+166
+00:04:50,556 --> 0:04:51,286
+app needs to do.
+
+167
+00:04:51,486 --> 0:04:52,426
+First, it must obtain
+
+168
+00:04:52,426 --> 0:04:53,046
+entitlement.
+
+169
+00:04:53,766 --> 0:04:55,656
+And second, as the app gets
+
+170
+00:04:55,656 --> 0:04:57,386
+submitted to the store, it needs
+
+171
+00:04:57,386 --> 0:04:58,956
+to be submitted with all the
+
+172
+00:04:58,956 --> 0:05:00,356
+fonts that the app can make
+
+173
+00:04:58,956 --> 0:05:00,356
+fonts that the app can make
+
+174
+00:05:00,356 --> 0:05:01,436
+available to the OS.
+
+175
+00:05:02,176 --> 0:05:02,946
+This is important.
+
+176
+00:05:02,946 --> 0:05:05,006
+The fonts need to be part of
+
+177
+00:05:05,006 --> 0:05:06,386
+your bundle, or they could be
+
+178
+00:05:06,526 --> 0:05:07,946
+part of an asset catalog.
+
+179
+00:05:08,686 --> 0:05:10,706
+The key thing is that the OS
+
+180
+00:05:10,776 --> 0:05:12,356
+will not let a font provider
+
+181
+00:05:12,356 --> 0:05:15,156
+application install any
+
+182
+00:05:15,156 --> 0:05:15,966
+arbitrary fonts.
+
+183
+00:05:16,616 --> 0:05:18,486
+As you submit your fonts to the
+
+184
+00:05:18,486 --> 0:05:20,386
+store for validation, it'll run
+
+185
+00:05:20,386 --> 0:05:21,676
+through a similar validation
+
+186
+00:05:21,676 --> 0:05:23,606
+that like what we do in, in
+
+187
+00:05:23,796 --> 0:05:24,656
+macOS in Font Book.
+
+188
+00:05:25,096 --> 0:05:26,276
+One of the things we do is we
+
+189
+00:05:26,276 --> 0:05:28,346
+check for the type of the format
+
+190
+00:05:28,346 --> 0:05:29,466
+of the, of the font.
+
+191
+00:05:30,116 --> 0:05:31,296
+We support all the modern
+
+192
+00:05:31,296 --> 0:05:34,476
+formats; ttf, otf, ttc, and all
+
+193
+00:05:34,476 --> 0:05:35,486
+of its modern variants.
+
+194
+00:05:35,876 --> 0:05:38,026
+What we do not support are old
+
+195
+00:05:38,026 --> 0:05:39,426
+font formats such as suitcase
+
+196
+00:05:39,426 --> 0:05:41,336
+fonts or postscript fonts.
+
+197
+00:05:42,676 --> 0:05:44,166
+To obtain the entitlement is
+
+198
+00:05:44,356 --> 0:05:45,106
+fairly easy.
+
+199
+00:05:45,376 --> 0:05:46,666
+In Xcode, now there's a new
+
+200
+00:05:46,666 --> 0:05:47,906
+capability called Fonts.
+
+201
+00:05:48,616 --> 0:05:49,556
+Once you select it, you're
+
+202
+00:05:49,556 --> 0:05:51,766
+presented with two options.
+
+203
+00:05:52,106 --> 0:05:54,466
+The first option is to install
+
+204
+00:05:54,586 --> 0:05:55,046
+fonts.
+
+205
+00:05:55,546 --> 0:05:56,756
+And that gives the app the
+
+206
+00:05:56,756 --> 0:05:59,326
+ability to make fonts available
+
+207
+00:05:59,326 --> 0:06:00,046
+systemwide.
+
+208
+00:05:59,326 --> 0:06:00,046
+systemwide.
+
+209
+00:06:00,796 --> 0:06:03,126
+The second option is to use
+
+210
+00:06:03,126 --> 0:06:03,866
+installed fonts.
+
+211
+00:06:04,336 --> 0:06:05,946
+And why do we need this option?
+
+212
+00:06:06,396 --> 0:06:08,986
+Well, by default, apps do not
+
+213
+00:06:08,986 --> 0:06:11,066
+get access to user installed
+
+214
+00:06:11,066 --> 0:06:11,476
+fonts.
+
+215
+00:06:11,996 --> 0:06:13,496
+The app needs to opt in by
+
+216
+00:06:13,496 --> 0:06:15,916
+selecting this capability to be
+
+217
+00:06:15,916 --> 0:06:18,556
+able to see those fonts.
+
+218
+00:06:18,986 --> 0:06:22,336
+Now, clients of or users of
+
+219
+00:06:22,336 --> 0:06:23,516
+these applications will have
+
+220
+00:06:23,516 --> 0:06:24,556
+some expectations.
+
+221
+00:06:24,826 --> 0:06:27,096
+The first one will be that the
+
+222
+00:06:27,206 --> 0:06:28,656
+app should provide a meaningful
+
+223
+00:06:28,656 --> 0:06:30,386
+UI where users can browse fonts,
+
+224
+00:06:31,036 --> 0:06:32,536
+install, and remove fonts.
+
+225
+00:06:32,876 --> 0:06:34,106
+That's necessary because, in
+
+226
+00:06:34,216 --> 0:06:35,786
+iOS, we do not have an
+
+227
+00:06:35,786 --> 0:06:37,116
+application that can install
+
+228
+00:06:37,186 --> 0:06:38,966
+fonts in the OS like we have in
+
+229
+00:06:39,076 --> 0:06:39,346
+macOS.
+
+230
+00:06:41,056 --> 0:06:42,646
+Also, the application should
+
+231
+00:06:42,646 --> 0:06:44,246
+respond to system font change
+
+232
+00:06:44,246 --> 0:06:45,116
+notifications.
+
+233
+00:06:45,616 --> 0:06:47,006
+And the reason it needs to do so
+
+234
+00:06:47,006 --> 0:06:48,886
+is because the user is able to
+
+235
+00:06:48,886 --> 0:06:50,366
+remove fonts in the settings app
+
+236
+00:06:50,756 --> 0:06:52,446
+and the app should notice when
+
+237
+00:06:52,446 --> 0:06:54,076
+that happens and update its UI.
+
+238
+00:06:55,026 --> 0:06:56,336
+And finally, if you're a font
+
+239
+00:06:56,336 --> 0:06:57,756
+provider application that plans
+
+240
+00:06:57,796 --> 0:06:59,546
+to make a large set of fonts
+
+241
+00:06:59,546 --> 0:07:01,306
+available to the, to the user, a
+
+242
+00:06:59,546 --> 0:07:01,306
+available to the, to the user, a
+
+243
+00:07:01,416 --> 0:07:02,496
+large library of fonts.
+
+244
+00:07:03,186 --> 0:07:04,586
+We highly recommend that you use
+
+245
+00:07:04,666 --> 0:07:06,436
+On-Demand resources and package
+
+246
+00:07:06,436 --> 0:07:07,926
+your fonts in an asset catalog.
+
+247
+00:07:08,716 --> 0:07:10,486
+That's a far more effective way
+
+248
+00:07:10,486 --> 0:07:11,986
+to deliver fonts that your users
+
+249
+00:07:11,986 --> 0:07:13,776
+need because the users will only
+
+250
+00:07:13,776 --> 0:07:14,916
+download the fonts that they
+
+251
+00:07:14,996 --> 0:07:15,956
+actually are going to use.
+
+252
+00:07:16,236 --> 0:07:17,826
+Instead of downloading a huge
+
+253
+00:07:17,876 --> 0:07:19,296
+font library that may be sitting
+
+254
+00:07:19,556 --> 0:07:21,126
+where they only use a handful of
+
+255
+00:07:21,126 --> 0:07:21,396
+fonts.
+
+256
+00:07:22,706 --> 0:07:24,756
+So, let me walk over to the demo
+
+257
+00:07:24,756 --> 0:07:26,696
+machine and show you how this
+
+258
+00:07:26,696 --> 0:07:27,556
+feature works.
+
+259
+00:07:28,976 --> 0:07:30,746
+So, let's assume that the user
+
+260
+00:07:30,746 --> 0:07:32,406
+has downloaded from the store an
+
+261
+00:07:32,406 --> 0:07:34,566
+application that browses
+
+262
+00:07:34,906 --> 0:07:35,456
+documents.
+
+263
+00:07:36,016 --> 0:07:37,696
+And this is one such app.
+
+264
+00:07:37,836 --> 0:07:39,266
+I call it the Font Consumer app.
+
+265
+00:07:40,126 --> 0:07:41,676
+And here on the left, it has a
+
+266
+00:07:41,676 --> 0:07:42,916
+set of documents that I can
+
+267
+00:07:42,916 --> 0:07:43,366
+display.
+
+268
+00:07:43,776 --> 0:07:45,146
+On the right, it just shows the
+
+269
+00:07:45,146 --> 0:07:46,256
+contents of the document.
+
+270
+00:07:46,906 --> 0:07:48,016
+Let's go ahead and reload this
+
+271
+00:07:48,016 --> 0:07:48,486
+document.
+
+272
+00:07:48,976 --> 0:07:50,216
+Notice the sheet comes up.
+
+273
+00:07:50,436 --> 0:07:51,846
+This sheet is not put up by the
+
+274
+00:07:51,846 --> 0:07:52,016
+app.
+
+275
+00:07:52,446 --> 0:07:53,686
+It is put up by the OS.
+
+276
+00:07:54,486 --> 0:07:56,426
+And it does so because it
+
+277
+00:07:56,426 --> 0:07:58,056
+noticed that this app is trying
+
+278
+00:07:58,056 --> 0:08:01,106
+to access three fonts that have
+
+279
+00:07:58,056 --> 0:08:01,106
+to access three fonts that have
+
+280
+00:08:01,106 --> 0:08:02,466
+not been made available to this
+
+281
+00:08:02,466 --> 0:08:03,176
+application.
+
+282
+00:08:03,666 --> 0:08:06,316
+So, this application is just
+
+283
+00:08:06,756 --> 0:08:08,336
+substituting the fonts and
+
+284
+00:08:08,396 --> 0:08:09,496
+showing the contents of this
+
+285
+00:08:09,496 --> 0:08:10,556
+document in Helvetica.
+
+286
+00:08:11,376 --> 0:08:12,926
+So, what's left for the user to
+
+287
+00:08:12,926 --> 0:08:15,206
+do but to go ahead and try to
+
+288
+00:08:15,586 --> 0:08:17,606
+get an app that can make those
+
+289
+00:08:17,606 --> 0:08:19,016
+fonts available to the OS?
+
+290
+00:08:19,596 --> 0:08:20,656
+So, let's assume that they've
+
+291
+00:08:20,656 --> 0:08:21,946
+gone to the store and downloaded
+
+292
+00:08:21,946 --> 0:08:23,026
+such an app.
+
+293
+00:08:23,026 --> 0:08:24,486
+I call it the Font Provider App.
+
+294
+00:08:24,746 --> 0:08:26,006
+On the left, it has a set of
+
+295
+00:08:26,056 --> 0:08:27,336
+fonts that I can make available.
+
+296
+00:08:27,416 --> 0:08:28,666
+On the right, it shows just a
+
+297
+00:08:28,706 --> 0:08:30,336
+simple preview of the fonts.
+
+298
+00:08:30,696 --> 0:08:32,025
+Let's go ahead and register all
+
+299
+00:08:32,025 --> 0:08:32,346
+the fonts.
+
+300
+00:08:32,846 --> 0:08:34,186
+Notice again, this sheet comes
+
+301
+00:08:34,186 --> 0:08:34,616
+up.
+
+302
+00:08:34,895 --> 0:08:36,155
+This is not put up by the app.
+
+303
+00:08:36,275 --> 0:08:37,376
+It is put up by the OS.
+
+304
+00:08:37,456 --> 0:08:39,956
+And this is necessary because we
+
+305
+00:08:39,956 --> 0:08:42,096
+do not allow in the OS apps to
+
+306
+00:08:42,096 --> 0:08:44,035
+install fonts silently on the
+
+307
+00:08:44,035 --> 0:08:44,816
+user's behalf.
+
+308
+00:08:45,116 --> 0:08:47,226
+The user must provide consent.
+
+309
+00:08:47,226 --> 0:08:48,756
+And this is what this dialog
+
+310
+00:08:48,756 --> 0:08:49,026
+does.
+
+311
+00:08:49,516 --> 0:08:50,636
+So, let's go ahead and provide
+
+312
+00:08:50,636 --> 0:08:51,176
+the consent.
+
+313
+00:08:52,736 --> 0:08:54,726
+Notice the UI, the all the font
+
+314
+00:08:54,726 --> 0:08:56,416
+names went from red to black.
+
+315
+00:08:56,616 --> 0:08:57,976
+It's a simple way for the app
+
+316
+00:08:57,976 --> 0:08:59,036
+indicate that the fonts are
+
+317
+00:08:59,036 --> 0:08:59,666
+registered.
+
+318
+00:09:00,016 --> 0:09:01,036
+Let's make sure that they are
+
+319
+00:09:01,036 --> 0:09:01,556
+registered.
+
+320
+00:09:01,976 --> 0:09:03,456
+I can now go to the Settings app
+
+321
+00:09:04,066 --> 0:09:06,506
+and in General, Fonts.
+
+322
+00:09:06,656 --> 0:09:07,626
+It's a new setting here.
+
+323
+00:09:08,346 --> 0:09:09,466
+You have a list of fonts that
+
+324
+00:09:09,466 --> 0:09:10,936
+all font provider apps have made
+
+325
+00:09:10,936 --> 0:09:11,366
+available.
+
+326
+00:09:12,176 --> 0:09:13,316
+So, we see the fonts that the
+
+327
+00:09:13,366 --> 0:09:14,286
+Font Provider app made
+
+328
+00:09:14,286 --> 0:09:14,716
+available.
+
+329
+00:09:14,916 --> 0:09:16,016
+I can go browse one of the
+
+330
+00:09:16,016 --> 0:09:16,296
+fonts.
+
+331
+00:09:16,746 --> 0:09:17,826
+Century Schoolbook.
+
+332
+00:09:18,396 --> 0:09:19,846
+And you can see here different
+
+333
+00:09:19,846 --> 0:09:20,866
+previews of the fonts.
+
+334
+00:09:21,586 --> 0:09:23,166
+I will just at this stage, just
+
+335
+00:09:23,826 --> 0:09:25,096
+attempt to remove this font.
+
+336
+00:09:26,436 --> 0:09:27,516
+I'll go ahead and do so.
+
+337
+00:09:28,026 --> 0:09:29,266
+Century Schoolbook will be
+
+338
+00:09:29,266 --> 0:09:29,806
+removed.
+
+339
+00:09:30,076 --> 0:09:31,866
+Now, it's no longer in the list.
+
+340
+00:09:31,966 --> 0:09:34,096
+Now, the expectation is that my
+
+341
+00:09:34,096 --> 0:09:36,146
+app should have noticed that the
+
+342
+00:09:36,146 --> 0:09:37,056
+font was removed.
+
+343
+00:09:37,686 --> 0:09:39,556
+And indeed, it now shows in red
+
+344
+00:09:39,626 --> 0:09:40,596
+because it listened to font
+
+345
+00:09:40,596 --> 0:09:41,816
+change notifications and it
+
+346
+00:09:41,816 --> 0:09:42,556
+updated the UI.
+
+347
+00:09:42,556 --> 0:09:44,746
+Let's go ahead and reregister
+
+348
+00:09:45,096 --> 0:09:47,426
+all the fonts.
+
+349
+00:09:47,586 --> 0:09:49,386
+I'll go walk back to my Font
+
+350
+00:09:49,386 --> 0:09:52,316
+Consumer app and what I see now
+
+351
+00:09:52,316 --> 0:09:53,476
+is that the document no longer
+
+352
+00:09:53,476 --> 0:09:54,456
+displays with Helvetica.
+
+353
+00:09:54,866 --> 0:09:56,256
+It actually listened to font
+
+354
+00:09:56,256 --> 0:09:57,646
+change notifications that well
+
+355
+00:09:58,046 --> 0:09:59,586
+and took notice that all the
+
+356
+00:09:59,586 --> 0:10:00,666
+fonts have now been made
+
+357
+00:09:59,586 --> 0:10:00,666
+fonts have now been made
+
+358
+00:10:00,666 --> 0:10:00,966
+available.
+
+359
+00:10:01,186 --> 0:10:03,616
+If I look at other documents, I
+
+360
+00:10:03,616 --> 0:10:04,846
+see that they're not using
+
+361
+00:10:04,846 --> 0:10:05,346
+Helvetica.
+
+362
+00:10:05,516 --> 0:10:06,766
+They're using different fonts
+
+363
+00:10:06,826 --> 0:10:08,936
+that the Font Provider app made
+
+364
+00:10:08,936 --> 0:10:09,376
+available.
+
+365
+00:10:10,526 --> 0:10:13,036
+So, now let me show you in code
+
+366
+00:10:13,516 --> 0:10:14,826
+what it takes to build one of
+
+367
+00:10:14,826 --> 0:10:15,486
+these apps.
+
+368
+00:10:16,806 --> 0:10:19,786
+So, in CoreText, in particular
+
+369
+00:10:19,786 --> 0:10:21,696
+in CTFontManager.h, we've
+
+370
+00:10:21,696 --> 0:10:23,486
+introduced a brand-new set of
+
+371
+00:10:23,836 --> 0:10:23,956
+APIs.
+
+372
+00:10:24,116 --> 0:10:25,296
+And all these APIs are
+
+373
+00:10:25,296 --> 0:10:26,986
+documented in that header file.
+
+374
+00:10:27,636 --> 0:10:29,016
+There are three new ways to
+
+375
+00:10:29,016 --> 0:10:29,766
+register fonts.
+
+376
+00:10:30,406 --> 0:10:32,986
+One of them is by using the
+
+377
+00:10:32,986 --> 0:10:34,366
+FontURLs that point to font
+
+378
+00:10:34,406 --> 0:10:34,736
+files.
+
+379
+00:10:35,596 --> 0:10:36,856
+The other one is you can
+
+380
+00:10:36,856 --> 0:10:38,026
+register fonts by using
+
+381
+00:10:38,076 --> 0:10:38,966
+FontDescriptors.
+
+382
+00:10:39,586 --> 0:10:40,986
+And the final one is you can
+
+383
+00:10:40,986 --> 0:10:43,136
+register fonts that are present
+
+384
+00:10:43,216 --> 0:10:44,386
+in asset catalogs.
+
+385
+00:10:44,386 --> 0:10:45,346
+And this is the way that you
+
+386
+00:10:45,346 --> 0:10:46,736
+would use if you have a large
+
+387
+00:10:47,186 --> 0:10:48,066
+library of fonts.
+
+388
+00:10:48,516 --> 0:10:49,336
+You would create an asset
+
+389
+00:10:49,386 --> 0:10:50,606
+catalog and you would use
+
+390
+00:10:50,606 --> 0:10:52,096
+On-Demand resources to deliver
+
+391
+00:10:52,096 --> 0:10:52,936
+those to your user.
+
+392
+00:10:53,516 --> 0:10:55,026
+Please, note that this last API
+
+393
+00:10:55,206 --> 0:10:57,056
+is not available in the seed
+
+394
+00:10:57,056 --> 0:10:58,506
+that you have but it will be
+
+395
+00:10:58,506 --> 0:11:00,246
+available in the next upcoming
+
+396
+00:10:58,506 --> 0:11:00,246
+available in the next upcoming
+
+397
+00:11:00,816 --> 0:11:00,906
+seed.
+
+398
+00:11:02,516 --> 0:11:04,606
+There is also a new API, too,
+
+399
+00:11:04,856 --> 0:11:06,286
+that Font Provider applications
+
+400
+00:11:06,326 --> 0:11:08,266
+can use to get access to the
+
+401
+00:11:08,266 --> 0:11:09,116
+registered fonts.
+
+402
+00:11:09,806 --> 0:11:12,446
+And finally, an API that any
+
+403
+00:11:12,446 --> 0:11:14,056
+application can use to see what
+
+404
+00:11:14,136 --> 0:11:15,426
+fonts have been installed by the
+
+405
+00:11:15,426 --> 0:11:15,826
+user.
+
+406
+00:11:16,286 --> 0:11:18,126
+You gain access to this API by
+
+407
+00:11:18,126 --> 0:11:20,046
+selecting that entitlement of
+
+408
+00:11:20,046 --> 0:11:21,276
+use fonts that I showed you
+
+409
+00:11:21,276 --> 0:11:21,686
+earlier.
+
+410
+00:11:22,686 --> 0:11:24,906
+So, let's look at how these APIs
+
+411
+00:11:24,906 --> 0:11:26,436
+are used in the two demo apps.
+
+412
+00:11:26,506 --> 0:11:27,346
+Let's start with the Font
+
+413
+00:11:27,346 --> 0:11:27,916
+Provider app.
+
+414
+00:11:28,086 --> 0:11:29,446
+It's a very simple app that has
+
+415
+00:11:29,446 --> 0:11:30,356
+about 20 fonts.
+
+416
+00:11:31,086 --> 0:11:33,146
+And you basically register fonts
+
+417
+00:11:33,176 --> 0:11:33,766
+by family.
+
+418
+00:11:33,876 --> 0:11:35,306
+So, what we do is we gather all
+
+419
+00:11:35,306 --> 0:11:36,836
+the font files and the URLs that
+
+420
+00:11:36,916 --> 0:11:37,466
+points to them.
+
+421
+00:11:38,196 --> 0:11:40,376
+And once we have them, we call
+
+422
+00:11:40,376 --> 0:11:42,746
+our registration API and then,
+
+423
+00:11:42,746 --> 0:11:44,496
+we update our UI as necessary.
+
+424
+00:11:45,256 --> 0:11:46,276
+Let's start by looking at the
+
+425
+00:11:46,336 --> 0:11:47,496
+code that updates the UI.
+
+426
+00:11:49,056 --> 0:11:50,476
+You notice that both the Font
+
+427
+00:11:50,476 --> 0:11:51,586
+Consumer app and the Font
+
+428
+00:11:51,586 --> 0:11:53,506
+Provider app leverage font
+
+429
+00:11:53,506 --> 0:11:54,816
+notifications to update the UI.
+
+430
+00:11:54,816 --> 0:11:56,676
+We use the same technique when
+
+431
+00:11:56,676 --> 0:11:58,186
+we register fonts in this demo.
+
+432
+00:11:58,916 --> 0:12:00,476
+And to listen to one of these
+
+433
+00:11:58,916 --> 0:12:00,476
+And to listen to one of these
+
+434
+00:12:00,506 --> 0:12:02,046
+notifications is fairly simple.
+
+435
+00:12:03,396 --> 0:12:05,436
+We tell the notification service
+
+436
+00:12:05,716 --> 0:12:08,206
+center to observe KCTFontManager
+
+437
+00:12:08,596 --> 0:12:10,496
+registration, that's a handful.
+
+438
+00:12:10,706 --> 0:12:11,606
+RegisterFontsChanged
+
+439
+00:12:11,606 --> 0:12:12,436
+Notification.
+
+440
+00:12:13,716 --> 0:12:16,126
+And once we get one of these
+
+441
+00:12:16,186 --> 0:12:18,196
+notifications, simply in our
+
+442
+00:12:18,196 --> 0:12:20,406
+selector what we do is we update
+
+443
+00:12:20,406 --> 0:12:21,246
+the registered fonts.
+
+444
+00:12:21,306 --> 0:12:22,286
+And I'll show you the code for
+
+445
+00:12:22,286 --> 0:12:23,086
+that in a second.
+
+446
+00:12:23,476 --> 0:12:25,546
+And then, we update our UI which
+
+447
+00:12:25,546 --> 0:12:26,696
+you saw in the Font Provider
+
+448
+00:12:26,696 --> 0:12:26,906
+app.
+
+449
+00:12:27,336 --> 0:12:28,966
+Basically, for font families
+
+450
+00:12:28,966 --> 0:12:30,496
+that are registered, it shows
+
+451
+00:12:30,496 --> 0:12:31,606
+the names in black and
+
+452
+00:12:31,606 --> 0:12:32,696
+unregistered in red.
+
+453
+00:12:34,076 --> 0:12:37,386
+To register the fonts, we gather
+
+454
+00:12:37,386 --> 0:12:39,346
+the font files that represent
+
+455
+00:12:39,346 --> 0:12:40,436
+the families that we want to
+
+456
+00:12:40,436 --> 0:12:42,336
+register, and we call our new
+
+457
+00:12:42,336 --> 0:12:44,326
+API CTFontManagerRegister
+
+458
+00:12:44,326 --> 0:12:45,076
+FontURLs.
+
+459
+00:12:45,606 --> 0:12:47,176
+We pass the list of font URLs
+
+460
+00:12:47,656 --> 0:12:48,946
+along with a scope, a
+
+461
+00:12:48,946 --> 0:12:50,336
+registration scope called
+
+462
+00:12:50,336 --> 0:12:50,926
+persistent.
+
+463
+00:12:50,926 --> 0:12:53,136
+This is new to iOS 13 which
+
+464
+00:12:53,136 --> 0:12:54,536
+indicates make the fonts
+
+465
+00:12:54,536 --> 0:12:55,586
+available systemwide.
+
+466
+00:12:56,126 --> 0:12:58,226
+And also, a Boolean flag, in
+
+467
+00:12:58,226 --> 0:12:59,956
+this case, enabled, that we want
+
+468
+00:12:59,956 --> 0:13:01,146
+to make all those fonts visible
+
+469
+00:12:59,956 --> 0:13:01,146
+to make all those fonts visible
+
+470
+00:13:01,146 --> 0:13:02,586
+to the OS.
+
+471
+00:13:02,896 --> 0:13:04,936
+The API takes a closure.
+
+472
+00:13:05,336 --> 0:13:06,196
+And the reason it needs a
+
+473
+00:13:06,246 --> 0:13:07,716
+closure is because it is an
+
+474
+00:13:07,716 --> 0:13:08,676
+asynchronous API.
+
+475
+00:13:09,326 --> 0:13:10,596
+As you're registering fonts,
+
+476
+00:13:11,256 --> 0:13:12,706
+your closure will get called,
+
+477
+00:13:13,156 --> 0:13:15,596
+maybe multiple times as errors
+
+478
+00:13:15,596 --> 0:13:17,296
+are getting discovered would be
+
+479
+00:13:17,296 --> 0:13:17,946
+one example.
+
+480
+00:13:18,496 --> 0:13:19,656
+When the whole operation is
+
+481
+00:13:19,716 --> 0:13:21,706
+done, the done parameter in the
+
+482
+00:13:21,706 --> 0:13:22,916
+closure is set to true.
+
+483
+00:13:23,926 --> 0:13:25,326
+For this demo, the only thing I
+
+484
+00:13:25,326 --> 0:13:26,876
+do on the closure is I just look
+
+485
+00:13:26,876 --> 0:13:27,386
+for errors.
+
+486
+00:13:27,466 --> 0:13:28,576
+And I just logged into this.
+
+487
+00:13:28,786 --> 0:13:29,786
+I don't update my UI.
+
+488
+00:13:29,786 --> 0:13:32,696
+What I update, I use, I rely on
+
+489
+00:13:32,696 --> 0:13:34,376
+the notification mechanism to
+
+490
+00:13:34,376 --> 0:13:35,226
+update my UI.
+
+491
+00:13:35,806 --> 0:13:37,436
+And once I receive that
+
+492
+00:13:37,436 --> 0:13:39,016
+notification, this is the method
+
+493
+00:13:39,016 --> 0:13:39,696
+that gets called.
+
+494
+00:13:39,696 --> 0:13:41,576
+And simply, I call the new API
+
+495
+00:13:42,216 --> 0:13:43,776
+CTFontManagerCopyRegister
+
+496
+00:13:43,836 --> 0:13:45,716
+FontDescriptors to know what
+
+497
+00:13:45,766 --> 0:13:46,916
+fonts have been made available
+
+498
+00:13:46,916 --> 0:13:47,596
+by my app.
+
+499
+00:13:48,186 --> 0:13:49,686
+Once I have that, it's very
+
+500
+00:13:49,686 --> 0:13:50,056
+simple.
+
+501
+00:13:50,056 --> 0:13:51,356
+I just log my list of font
+
+502
+00:13:51,356 --> 0:13:53,306
+descriptors, update my model
+
+503
+00:13:53,306 --> 0:13:55,016
+inside for the families, and
+
+504
+00:13:55,016 --> 0:13:56,296
+update my UI from there on.
+
+505
+00:13:57,126 --> 0:13:59,366
+The font consuming app, it's,
+
+506
+00:13:59,836 --> 0:14:01,486
+it's a very simple app that just
+
+507
+00:13:59,836 --> 0:14:01,486
+it's a very simple app that just
+
+508
+00:14:01,546 --> 0:14:02,446
+parses documents.
+
+509
+00:14:03,716 --> 0:14:05,276
+And the key to this type of apps
+
+510
+00:14:05,316 --> 0:14:08,026
+that parse documents is to as
+
+511
+00:14:08,096 --> 0:14:09,496
+the whole document is getting
+
+512
+00:14:09,496 --> 0:14:11,096
+parsed, you figure out what
+
+513
+00:14:11,166 --> 0:14:12,796
+fonts can be instantiated and
+
+514
+00:14:12,796 --> 0:14:14,166
+you keep a list, a running list
+
+515
+00:14:14,166 --> 0:14:16,366
+of fonts that are essentially
+
+516
+00:14:16,366 --> 0:14:16,726
+missing.
+
+517
+00:14:17,696 --> 0:14:18,806
+Now, fonts may be missing
+
+518
+00:14:18,806 --> 0:14:20,256
+because the user never installed
+
+519
+00:14:20,256 --> 0:14:22,826
+the fonts, or the fonts have not
+
+520
+00:14:22,876 --> 0:14:24,106
+yet been made available to the
+
+521
+00:14:24,106 --> 0:14:24,616
+process.
+
+522
+00:14:25,086 --> 0:14:26,696
+You actually need to make use of
+
+523
+00:14:26,696 --> 0:14:28,306
+the new API to request those
+
+524
+00:14:28,306 --> 0:14:29,146
+fonts from the OS.
+
+525
+00:14:30,026 --> 0:14:31,386
+Once you have them, you go ahead
+
+526
+00:14:31,386 --> 0:14:32,936
+and update UI or update the
+
+527
+00:14:32,936 --> 0:14:33,406
+document.
+
+528
+00:14:33,916 --> 0:14:36,136
+So, for the app to parse a
+
+529
+00:14:36,136 --> 0:14:37,726
+document, this is a very simple
+
+530
+00:14:37,756 --> 0:14:39,126
+rich text format document
+
+531
+00:14:39,126 --> 0:14:40,146
+expressed as JSON.
+
+532
+00:14:41,136 --> 0:14:42,826
+And what it does, it just walks
+
+533
+00:14:42,826 --> 0:14:44,536
+every run, tries to instantiate
+
+534
+00:14:44,536 --> 0:14:44,966
+a font.
+
+535
+00:14:44,966 --> 0:14:46,776
+If it can't, it replaces with
+
+536
+00:14:46,776 --> 0:14:47,256
+Helvetica.
+
+537
+00:14:48,376 --> 0:14:50,386
+But as it replaces it, it keeps
+
+538
+00:14:50,386 --> 0:14:51,776
+a running tab of all the font
+
+539
+00:14:51,776 --> 0:14:52,616
+names that it couldn't
+
+540
+00:14:52,616 --> 0:14:53,316
+instantiate.
+
+541
+00:14:54,316 --> 0:14:55,886
+With that in hand, now I can
+
+542
+00:14:55,956 --> 0:14:57,806
+build a list or an array of font
+
+543
+00:14:57,806 --> 0:14:59,256
+descriptors that use those names
+
+544
+00:14:59,906 --> 0:15:01,156
+and pass that array to
+
+545
+00:14:59,906 --> 0:15:01,156
+and pass that array to
+
+546
+00:15:01,256 --> 0:15:03,036
+CTFontManagerRequestFont.
+
+547
+00:15:03,036 --> 0:15:05,366
+And what this new API will do is
+
+548
+00:15:05,366 --> 0:15:07,256
+it will notice or see if any
+
+549
+00:15:07,316 --> 0:15:08,516
+fonts have been installed by the
+
+550
+00:15:08,516 --> 0:15:10,646
+user using Font Provider apps.
+
+551
+00:15:10,846 --> 0:15:12,616
+And if so, it makes it available
+
+552
+00:15:12,616 --> 0:15:14,656
+for instantiation on the app.
+
+553
+00:15:15,386 --> 0:15:16,676
+If any fonts have not been made
+
+554
+00:15:16,676 --> 0:15:18,216
+available, then those fonts are
+
+555
+00:15:18,216 --> 0:15:19,986
+displayed using the missing font
+
+556
+00:15:19,986 --> 0:15:20,886
+dialog that you saw.
+
+557
+00:15:22,036 --> 0:15:23,736
+The API takes a closure.
+
+558
+00:15:24,096 --> 0:15:25,846
+And for this app, we simply for
+
+559
+00:15:25,846 --> 0:15:27,856
+the visible document we just
+
+560
+00:15:27,856 --> 0:15:29,466
+update all the missing fonts
+
+561
+00:15:29,766 --> 0:15:31,446
+with whatever fonts have become
+
+562
+00:15:31,446 --> 0:15:31,846
+available.
+
+563
+00:15:32,536 --> 0:15:33,516
+So, as you see, it's very
+
+564
+00:15:33,606 --> 0:15:34,876
+straightforward for an app to
+
+565
+00:15:34,876 --> 0:15:36,746
+make use of fonts that other
+
+566
+00:15:36,746 --> 0:15:37,916
+apps make available.
+
+567
+00:15:38,566 --> 0:15:41,566
+Now, I'd like to share with you
+
+568
+00:15:41,566 --> 0:15:42,946
+some considerations for font
+
+569
+00:15:42,946 --> 0:15:44,256
+provider apps that are
+
+570
+00:15:44,256 --> 0:15:44,616
+important.
+
+571
+00:15:45,956 --> 0:15:48,006
+First, a font provider app
+
+572
+00:15:48,726 --> 0:15:50,756
+cannot operate on fonts that
+
+573
+00:15:50,756 --> 0:15:51,766
+don't belong to it.
+
+574
+00:15:52,126 --> 0:15:54,006
+For example, it cannot try to
+
+575
+00:15:54,006 --> 0:15:55,656
+unregister a font that another
+
+576
+00:15:55,736 --> 0:15:57,236
+font provider app has
+
+577
+00:15:57,286 --> 0:15:57,796
+registered.
+
+578
+00:15:58,476 --> 0:16:00,546
+Similarly, a font provider app
+
+579
+00:15:58,476 --> 0:16:00,546
+Similarly, a font provider app
+
+580
+00:16:00,706 --> 0:16:02,896
+cannot override a font that
+
+581
+00:16:02,896 --> 0:16:04,376
+another font provider app has
+
+582
+00:16:04,376 --> 0:16:06,176
+made available or is installed
+
+583
+00:16:06,176 --> 0:16:06,866
+with the system.
+
+584
+00:16:08,226 --> 0:16:09,826
+There's a limit by the OS on how
+
+585
+00:16:09,826 --> 0:16:11,206
+many fonts can be registered.
+
+586
+00:16:11,826 --> 0:16:13,236
+There is not like a hard number
+
+587
+00:16:13,306 --> 0:16:13,706
+for it.
+
+588
+00:16:14,056 --> 0:16:15,866
+It's basically, it depends on
+
+589
+00:16:15,866 --> 0:16:17,056
+the type of fonts that have been
+
+590
+00:16:17,056 --> 0:16:18,366
+installed by the different font
+
+591
+00:16:18,366 --> 0:16:18,806
+providers.
+
+592
+00:16:19,426 --> 0:16:21,326
+Each font, it can consume
+
+593
+00:16:21,476 --> 0:16:22,816
+different amount of resources.
+
+594
+00:16:23,376 --> 0:16:27,026
+Fonts installed this way do not
+
+595
+00:16:27,026 --> 0:16:28,616
+participate in font fallback.
+
+596
+00:16:29,616 --> 0:16:31,736
+Basically, what it means is that
+
+597
+00:16:31,936 --> 0:16:33,906
+if the system determines that
+
+598
+00:16:33,906 --> 0:16:35,606
+your font is the only way that
+
+599
+00:16:36,316 --> 0:16:38,166
+it's possible to display a given
+
+600
+00:16:38,166 --> 0:16:39,806
+font, it won't be automatically
+
+601
+00:16:39,896 --> 0:16:41,606
+substituted to be used.
+
+602
+00:16:42,236 --> 0:16:44,366
+In essence, the only way to use
+
+603
+00:16:44,366 --> 0:16:47,086
+these fonts is if the font is
+
+604
+00:16:47,146 --> 0:16:47,956
+referenced by name.
+
+605
+00:16:49,146 --> 0:16:52,386
+Finally, font provider apps own
+
+606
+00:16:52,386 --> 0:16:53,576
+the fonts that they install.
+
+607
+00:16:54,636 --> 0:16:55,736
+What that means is that if the
+
+608
+00:16:55,736 --> 0:16:57,966
+user deletes an app that has
+
+609
+00:16:57,966 --> 0:17:00,156
+fonts installed, those fonts are
+
+610
+00:16:57,966 --> 0:17:00,156
+fonts installed, those fonts are
+
+611
+00:17:00,156 --> 0:17:00,856
+also removed.
+
+612
+00:17:01,336 --> 0:17:02,676
+Now, the system does warn the
+
+613
+00:17:02,676 --> 0:17:04,146
+user, indicates that it's trying
+
+614
+00:17:04,195 --> 0:17:05,586
+to delete an app that has fonts
+
+615
+00:17:05,586 --> 0:17:05,965
+installed.
+
+616
+00:17:05,965 --> 0:17:07,746
+And the user has the opportunity
+
+617
+00:17:07,856 --> 0:17:08,306
+to back out.
+
+618
+00:17:08,965 --> 0:17:10,695
+This concludes my section of the
+
+619
+00:17:10,746 --> 0:17:11,016
+talk.
+
+620
+00:17:11,425 --> 0:17:12,986
+But before I go, I just want to
+
+621
+00:17:12,986 --> 0:17:14,336
+share with you how excited we
+
+622
+00:17:14,336 --> 0:17:15,776
+all are about this feature.
+
+623
+00:17:16,445 --> 0:17:18,116
+Having the ability to install a
+
+624
+00:17:18,116 --> 0:17:20,116
+variety of fonts in the OS that
+
+625
+00:17:20,116 --> 0:17:21,715
+all apps can use at one point in
+
+626
+00:17:21,715 --> 0:17:24,106
+time, it's essential for great
+
+627
+00:17:24,185 --> 0:17:25,126
+content creation.
+
+628
+00:17:25,205 --> 0:17:26,836
+And having this feature in place
+
+629
+00:17:27,266 --> 0:17:29,116
+will allow us to unlock that
+
+630
+00:17:29,116 --> 0:17:30,226
+power in the platform,
+
+631
+00:17:30,226 --> 0:17:31,636
+especially in the iPad platform.
+
+632
+00:17:32,486 --> 0:17:33,666
+With that, I'd like to invite to
+
+633
+00:17:33,706 --> 0:17:36,376
+the stage Eric Dudiak, who will
+
+634
+00:17:36,376 --> 0:17:37,596
+be talking to you about some new
+
+635
+00:17:37,596 --> 0:17:39,756
+techniques for selecting fonts
+
+636
+00:17:39,756 --> 0:17:40,216
+in the OS.
+
+637
+00:17:41,516 --> 0:17:46,416
+[ Applause ]
+
+638
+00:17:46,916 --> 0:17:48,256
+&gt;&gt; Hi. Thank you, Julio.
+
+639
+00:17:48,966 --> 0:17:50,616
+So, I'm Eric Dudiak, an engineer
+
+640
+00:17:50,616 --> 0:17:51,616
+on the UIKit Team.
+
+641
+00:17:52,676 --> 0:17:53,756
+We've just seen how you can
+
+642
+00:17:53,806 --> 0:17:55,346
+provide and install custom
+
+643
+00:17:55,346 --> 0:17:55,846
+fonts.
+
+644
+00:17:56,346 --> 0:17:57,366
+But your application may also
+
+645
+00:17:57,366 --> 0:17:58,606
+want to consume those fonts.
+
+646
+00:17:59,116 --> 0:18:00,596
+So, let's take a look at how you
+
+647
+00:17:59,116 --> 0:18:00,596
+So, let's take a look at how you
+
+648
+00:18:00,596 --> 0:18:02,816
+allow users to select and use
+
+649
+00:18:02,816 --> 0:18:03,766
+the custom fonts that they've
+
+650
+00:18:03,796 --> 0:18:04,356
+installed.
+
+651
+00:18:04,996 --> 0:18:07,756
+The first thing an application
+
+652
+00:18:07,976 --> 0:18:10,016
+might do is try to enumerate all
+
+653
+00:18:10,016 --> 0:18:10,916
+the fonts available on the
+
+654
+00:18:10,916 --> 0:18:12,516
+system and simply present that
+
+655
+00:18:12,516 --> 0:18:13,086
+to the user.
+
+656
+00:18:13,646 --> 0:18:15,216
+Then, allowing them to pick from
+
+657
+00:18:15,216 --> 0:18:15,866
+one of those fonts.
+
+658
+00:18:16,946 --> 0:18:18,016
+However, enumerating all the
+
+659
+00:18:18,016 --> 0:18:19,626
+fonts on the system will only
+
+660
+00:18:19,676 --> 0:18:21,186
+provide the list of built-in
+
+661
+00:18:21,216 --> 0:18:21,556
+fonts.
+
+662
+00:18:21,636 --> 0:18:22,786
+It will not show any of the
+
+663
+00:18:22,786 --> 0:18:23,826
+custom fonts.
+
+664
+00:18:24,816 --> 0:18:25,956
+And this is not allowed out of a
+
+665
+00:18:25,956 --> 0:18:27,426
+concern for privacy.
+
+666
+00:18:29,436 --> 0:18:30,966
+So, instead, when your
+
+667
+00:18:30,966 --> 0:18:32,476
+application wants to allow the
+
+668
+00:18:32,476 --> 0:18:34,356
+user to select one of their
+
+669
+00:18:34,356 --> 0:18:36,436
+installed fonts, we've provided
+
+670
+00:18:36,436 --> 0:18:38,266
+a new View Controller in UIKit.
+
+671
+00:18:38,366 --> 0:18:38,906
+And that is
+
+672
+00:18:39,176 --> 0:18:41,106
+UIFontPickerViewController.
+
+673
+00:18:41,446 --> 0:18:44,136
+Now, it can be presented
+
+674
+00:18:44,136 --> 0:18:45,586
+modally, and it'll default to
+
+675
+00:18:45,586 --> 0:18:46,996
+that new sheet presentation that
+
+676
+00:18:46,996 --> 0:18:48,636
+you've seen in iOS 13.
+
+677
+00:18:49,676 --> 0:18:51,546
+Alternatively, if you, say a
+
+678
+00:18:51,546 --> 0:18:53,566
+productivity app with an
+
+679
+00:18:53,736 --> 0:18:55,526
+inspector, you might want to
+
+680
+00:18:55,526 --> 0:18:56,596
+embed it in the sidebar.
+
+681
+00:18:56,716 --> 0:18:58,056
+And that is also supported by
+
+682
+00:18:58,056 --> 0:18:58,616
+the Font Picker.
+
+683
+00:19:02,156 --> 0:19:03,436
+So, let's take a look at
+
+684
+00:19:03,436 --> 0:19:04,886
+UIFontPickerViewController.
+
+685
+00:19:05,876 --> 0:19:07,286
+So, for security purposes, it
+
+686
+00:19:07,286 --> 0:19:09,016
+runs entirely out of process
+
+687
+00:19:09,106 --> 0:19:09,976
+from your application.
+
+688
+00:19:11,726 --> 0:19:13,176
+And by default, it will also
+
+689
+00:19:13,176 --> 0:19:14,946
+only show the built-in fonts.
+
+690
+00:19:15,486 --> 0:19:16,136
+You'll need to use an
+
+691
+00:19:16,136 --> 0:19:17,626
+entitlement to see those
+
+692
+00:19:18,096 --> 0:19:19,856
+user-installed fonts.
+
+693
+00:19:20,446 --> 0:19:23,506
+After a user selects a font in
+
+694
+00:19:23,506 --> 0:19:25,216
+the Font Picker, that font will
+
+695
+00:19:25,216 --> 0:19:26,586
+be available to the presenting
+
+696
+00:19:26,586 --> 0:19:28,346
+application through the normal
+
+697
+00:19:28,466 --> 0:19:31,786
+font APIs, however, only after
+
+698
+00:19:31,786 --> 0:19:33,446
+the user selected it and only
+
+699
+00:19:33,446 --> 0:19:34,966
+the font that the user selected.
+
+700
+00:19:38,276 --> 0:19:39,636
+So, to facilitate all the
+
+701
+00:19:39,636 --> 0:19:40,596
+different kinds of apps out
+
+702
+00:19:40,626 --> 0:19:41,916
+there, there are some great
+
+703
+00:19:41,916 --> 0:19:43,346
+customization options on
+
+704
+00:19:43,346 --> 0:19:44,946
+UIFontPickerViewController.
+
+705
+00:19:45,566 --> 0:19:49,836
+For example, an application
+
+706
+00:19:49,956 --> 0:19:51,206
+might want to show specific
+
+707
+00:19:51,266 --> 0:19:51,776
+faces.
+
+708
+00:19:52,016 --> 0:19:53,866
+Now, by default, the Font Picker
+
+709
+00:19:53,866 --> 0:19:55,496
+will only show families of
+
+710
+00:19:55,546 --> 0:19:55,826
+fonts.
+
+711
+00:19:56,336 --> 0:19:57,686
+This is similar to applications
+
+712
+00:19:57,686 --> 0:19:59,166
+like Mail and is familiar to
+
+713
+00:19:59,166 --> 0:19:59,876
+many users.
+
+714
+00:20:00,446 --> 0:20:01,226
+However, if you have an
+
+715
+00:20:01,226 --> 0:20:02,526
+application where it makes sense
+
+716
+00:20:02,576 --> 0:20:04,516
+to show additional weights of
+
+717
+00:20:04,626 --> 0:20:05,746
+the different fonts, such as
+
+718
+00:20:05,796 --> 0:20:07,846
+semi-bold or medium, you can
+
+719
+00:20:07,846 --> 0:20:09,016
+optionally enable that in the
+
+720
+00:20:09,016 --> 0:20:10,406
+configuration of the Font
+
+721
+00:20:10,406 --> 0:20:10,676
+Picker.
+
+722
+00:20:11,776 --> 0:20:12,866
+Additionally, your application
+
+723
+00:20:12,866 --> 0:20:14,356
+gets to choose whether it gets
+
+724
+00:20:14,356 --> 0:20:15,716
+the WYSIWYG presentation seen
+
+725
+00:20:15,716 --> 0:20:17,666
+here or a more default
+
+726
+00:20:17,666 --> 0:20:19,296
+presentation of every font
+
+727
+00:20:19,296 --> 0:20:21,926
+displayed in the system font.
+
+728
+00:20:23,366 --> 0:20:24,896
+Now, your application may also
+
+729
+00:20:24,896 --> 0:20:26,676
+want to filter down the list of
+
+730
+00:20:26,676 --> 0:20:28,366
+fonts available to the user.
+
+731
+00:20:29,026 --> 0:20:29,996
+And you have two different ways
+
+732
+00:20:29,996 --> 0:20:30,526
+to do this.
+
+733
+00:20:31,726 --> 0:20:33,406
+First, you can filter by trait.
+
+734
+00:20:34,556 --> 0:20:36,476
+So, if your application shows
+
+735
+00:20:36,476 --> 0:20:37,926
+source code, for example, you
+
+736
+00:20:37,926 --> 0:20:40,226
+may only want to see or may only
+
+737
+00:20:40,226 --> 0:20:41,876
+want to show monospaced fonts to
+
+738
+00:20:41,876 --> 0:20:43,046
+the user, since that's going to
+
+739
+00:20:43,046 --> 0:20:44,806
+be a more natural experience for
+
+740
+00:20:44,806 --> 0:20:45,566
+seeing source code.
+
+741
+00:20:46,006 --> 0:20:47,276
+And here, we see filtering by
+
+742
+00:20:47,276 --> 0:20:49,196
+trait to just monospaced.
+
+743
+00:20:51,936 --> 0:20:53,626
+Additionally, your application
+
+744
+00:20:53,626 --> 0:20:55,446
+may need the font to support a
+
+745
+00:20:55,446 --> 0:20:56,976
+certain language in order to
+
+746
+00:20:56,976 --> 0:20:59,126
+make sense in the context it's
+
+747
+00:20:59,126 --> 0:20:59,776
+being used.
+
+748
+00:21:00,226 --> 0:21:01,226
+And for that, we provide a
+
+749
+00:21:01,336 --> 0:21:03,046
+Filter Predicate API that lets
+
+750
+00:21:03,046 --> 0:21:04,046
+you filter down to a single
+
+751
+00:21:04,046 --> 0:21:05,826
+language or combination of
+
+752
+00:21:05,826 --> 0:21:07,436
+languages that the font needs to
+
+753
+00:21:07,436 --> 0:21:09,056
+support in order to be
+
+754
+00:21:09,056 --> 0:21:09,626
+presented.
+
+755
+00:21:10,486 --> 0:21:11,506
+And in this case, we see the
+
+756
+00:21:11,506 --> 0:21:12,926
+Font Picker configured to show
+
+757
+00:21:12,926 --> 0:21:14,946
+only fonts that support Chinese.
+
+758
+00:21:19,126 --> 0:21:20,946
+Now, the Font Picker also exists
+
+759
+00:21:21,236 --> 0:21:24,126
+on macOS for UIKit apps.
+
+760
+00:21:25,476 --> 0:21:27,546
+If you just present the Font
+
+761
+00:21:27,546 --> 0:21:28,976
+Picker, instead of that modal
+
+762
+00:21:28,976 --> 0:21:30,096
+sheet presentation that we saw
+
+763
+00:21:30,096 --> 0:21:31,456
+earlier, you'll see something
+
+764
+00:21:31,456 --> 0:21:32,136
+like this.
+
+765
+00:21:32,526 --> 0:21:34,306
+A more traditional Mac menu.
+
+766
+00:21:34,306 --> 0:21:37,296
+In order to control the
+
+767
+00:21:37,366 --> 0:21:38,656
+presentation of where this menu
+
+768
+00:21:38,656 --> 0:21:40,046
+shows up in your applications
+
+769
+00:21:40,046 --> 0:21:41,356
+since it should show up over the
+
+770
+00:21:41,356 --> 0:21:42,876
+button the user just clicked,
+
+771
+00:21:43,466 --> 0:21:43,806
+use the
+
+772
+00:21:43,876 --> 0:21:46,436
+UIPopoverPresentationController
+
+773
+00:21:46,436 --> 0:21:48,286
+off the new controller to select
+
+774
+00:21:48,336 --> 0:21:49,396
+which view is presenting it.
+
+775
+00:21:51,346 --> 0:21:52,646
+Beyond that, the semantics of
+
+776
+00:21:52,646 --> 0:21:54,206
+using the menu are fundamentally
+
+777
+00:21:54,336 --> 0:21:56,736
+similar to the View Controller.
+
+778
+00:21:58,936 --> 0:22:00,636
+Clicking away from the menu, for
+
+779
+00:21:58,936 --> 0:22:00,636
+Clicking away from the menu, for
+
+780
+00:22:00,636 --> 0:22:01,736
+example, is the same as
+
+781
+00:22:01,766 --> 0:22:02,956
+dismissing the View Controller.
+
+782
+00:22:03,436 --> 0:22:04,806
+And when the user does select a
+
+783
+00:22:04,806 --> 0:22:06,686
+font in the menu, it'll
+
+784
+00:22:06,686 --> 0:22:08,226
+automatically send the Delegate
+
+785
+00:22:08,226 --> 0:22:09,636
+APIs just as the View Controller
+
+786
+00:22:09,636 --> 0:22:11,536
+normally would and will then
+
+787
+00:22:11,536 --> 0:22:12,226
+close the menu.
+
+788
+00:22:12,856 --> 0:22:15,726
+This is simply a way to provide
+
+789
+00:22:15,726 --> 0:22:17,286
+a much more traditional
+
+790
+00:22:17,286 --> 0:22:19,096
+experience on macOS around font
+
+791
+00:22:19,096 --> 0:22:20,616
+picking so that your app feels
+
+792
+00:22:20,876 --> 0:22:22,226
+like what a user expects on a
+
+793
+00:22:22,226 --> 0:22:25,966
+normal Mac app.
+
+794
+00:22:26,246 --> 0:22:28,186
+Of course, macOS has additional
+
+795
+00:22:28,256 --> 0:22:29,386
+font picking options.
+
+796
+00:22:30,416 --> 0:22:31,806
+And this is in the form of the
+
+797
+00:22:31,806 --> 0:22:33,666
+macOS Font Panel.
+
+798
+00:22:34,946 --> 0:22:36,786
+This is supported in UIKit apps
+
+799
+00:22:36,786 --> 0:22:37,876
+when running on macOS.
+
+800
+00:22:38,396 --> 0:22:40,006
+It's even part of the default
+
+801
+00:22:40,006 --> 0:22:41,246
+menu bar options.
+
+802
+00:22:41,596 --> 0:22:42,886
+So, a user can turn it on and
+
+803
+00:22:42,886 --> 0:22:44,776
+off at any time and select
+
+804
+00:22:45,146 --> 0:22:46,986
+different font settings anytime
+
+805
+00:22:46,986 --> 0:22:47,936
+your application is running.
+
+806
+00:22:51,596 --> 0:22:52,436
+Now, you can also
+
+807
+00:22:52,496 --> 0:22:54,386
+programmatically control the
+
+808
+00:22:54,386 --> 0:22:55,856
+presentation of the Font Panel.
+
+809
+00:22:56,426 --> 0:22:57,756
+And you can access that through
+
+810
+00:22:57,916 --> 0:22:59,806
+UITextFormattingCoordinator.
+
+811
+00:23:00,336 --> 0:23:01,256
+From there, you can see if the
+
+812
+00:23:01,256 --> 0:23:03,196
+panel is currently displayed as
+
+813
+00:23:03,196 --> 0:23:04,506
+well as manually toggle its
+
+814
+00:23:04,546 --> 0:23:08,666
+presentation on and off.
+
+815
+00:23:08,946 --> 0:23:10,416
+So, because of the nonmodal
+
+816
+00:23:10,416 --> 0:23:11,766
+nature of the Font Panel,
+
+817
+00:23:12,606 --> 0:23:14,436
+there's a few considerations for
+
+818
+00:23:14,436 --> 0:23:15,776
+your application when it's
+
+819
+00:23:15,876 --> 0:23:16,986
+running on macOS.
+
+820
+00:23:17,926 --> 0:23:18,976
+Changes that come in from the
+
+821
+00:23:18,976 --> 0:23:20,996
+Font Panel will go through the
+
+822
+00:23:20,996 --> 0:23:21,966
+responder chain.
+
+823
+00:23:23,026 --> 0:23:24,346
+When using standard UIKit
+
+824
+00:23:24,346 --> 0:23:25,826
+controls, this is handled for
+
+825
+00:23:25,826 --> 0:23:28,006
+you automatically through the
+
+826
+00:23:28,006 --> 0:23:30,526
+UITextFormattingCoordinator.
+
+827
+00:23:31,196 --> 0:23:32,296
+In fact, the shared
+
+828
+00:23:32,296 --> 0:23:34,266
+UITextFormattingCoordinator can
+
+829
+00:23:34,266 --> 0:23:36,346
+even be used as a delegate for
+
+830
+00:23:36,346 --> 0:23:37,876
+the Font Picker we saw earlier
+
+831
+00:23:37,876 --> 0:23:39,776
+so you can also route those
+
+832
+00:23:40,056 --> 0:23:41,926
+changes through your responder
+
+833
+00:23:41,926 --> 0:23:42,176
+chain.
+
+834
+00:23:43,776 --> 0:23:45,066
+However, if you have custom UI
+
+835
+00:23:45,066 --> 0:23:46,666
+responders in your application,
+
+836
+00:23:47,516 --> 0:23:48,496
+you may need to adopt some of
+
+837
+00:23:48,496 --> 0:23:49,066
+the new
+
+838
+00:23:49,126 --> 0:23:51,326
+UIResponderStandardEditActions
+
+839
+00:23:51,406 --> 0:23:53,156
+protocol methods in order to be
+
+840
+00:23:53,156 --> 0:23:55,506
+notified when changes are made
+
+841
+00:23:55,506 --> 0:23:56,556
+through the Font Panel.
+
+842
+00:23:58,046 --> 0:23:59,406
+This will allow your custom
+
+843
+00:23:59,406 --> 0:24:00,446
+responders to update their
+
+844
+00:23:59,406 --> 0:24:00,446
+responders to update their
+
+845
+00:24:00,446 --> 0:24:01,836
+displays accordingly.
+
+846
+00:24:04,636 --> 0:24:06,186
+Now, let's take a quick look at
+
+847
+00:24:06,186 --> 0:24:07,736
+a demo of how this all works.
+
+848
+00:24:14,606 --> 0:24:16,076
+Great. So, here's our Font
+
+849
+00:24:16,076 --> 0:24:17,086
+Consuming application.
+
+850
+00:24:17,576 --> 0:24:18,486
+And here we see it's already
+
+851
+00:24:18,486 --> 0:24:19,726
+using custom fonts.
+
+852
+00:24:19,726 --> 0:24:21,166
+But one of the great features of
+
+853
+00:24:21,166 --> 0:24:22,636
+this application is that it also
+
+854
+00:24:22,636 --> 0:24:24,666
+lets the user select the font
+
+855
+00:24:24,666 --> 0:24:26,136
+that they want to see rather
+
+856
+00:24:26,136 --> 0:24:27,486
+than just showing the font.
+
+857
+00:24:27,876 --> 0:24:28,776
+We can change the font for the
+
+858
+00:24:28,776 --> 0:24:29,596
+document at any time.
+
+859
+00:24:30,196 --> 0:24:31,496
+And I can do that simply by just
+
+860
+00:24:31,546 --> 0:24:32,976
+pushing this say Change Title
+
+861
+00:24:33,026 --> 0:24:33,306
+button.
+
+862
+00:24:34,426 --> 0:24:36,296
+And when I do, we see that I get
+
+863
+00:24:36,296 --> 0:24:38,156
+the Font Picker.
+
+864
+00:24:39,316 --> 0:24:40,946
+I get the list of recently used
+
+865
+00:24:40,946 --> 0:24:41,846
+fonts that I've used.
+
+866
+00:24:41,966 --> 0:24:43,476
+I can also search it and scrub
+
+867
+00:24:43,476 --> 0:24:44,496
+through it to find exactly the
+
+868
+00:24:44,496 --> 0:24:45,946
+font that I want.
+
+869
+00:24:46,876 --> 0:24:48,216
+Now, we've also gone ahead and
+
+870
+00:24:48,216 --> 0:24:50,516
+customized it to show additional
+
+871
+00:24:50,986 --> 0:24:51,476
+faces.
+
+872
+00:24:51,916 --> 0:24:53,066
+So, I can see any number of
+
+873
+00:24:53,096 --> 0:24:55,356
+faces on a given font and scrub
+
+874
+00:24:55,356 --> 0:24:57,306
+through it and find exactly the
+
+875
+00:24:57,376 --> 0:24:58,126
+font that I want.
+
+876
+00:24:59,406 --> 0:25:00,046
+Let's see.
+
+877
+00:24:59,406 --> 0:25:00,046
+Let's see.
+
+878
+00:25:00,676 --> 0:25:01,576
+Let's use Papyrus.
+
+879
+00:25:02,676 --> 0:25:04,286
+Great. So, I can change the
+
+880
+00:25:04,286 --> 0:25:05,666
+title just like that.
+
+881
+00:25:06,446 --> 0:25:07,886
+And you can do that in any
+
+882
+00:25:07,886 --> 0:25:08,486
+application.
+
+883
+00:25:08,486 --> 0:25:09,636
+Provides a great standard
+
+884
+00:25:09,636 --> 0:25:11,346
+control that users will get
+
+885
+00:25:11,346 --> 0:25:12,436
+accustomed to on iOS.
+
+886
+00:25:12,996 --> 0:25:15,956
+Of course, of course, since this
+
+887
+00:25:15,956 --> 0:25:17,436
+is an iPad app, we can also
+
+888
+00:25:17,586 --> 0:25:18,576
+build it for macOS.
+
+889
+00:25:19,796 --> 0:25:20,516
+And here, we see that.
+
+890
+00:25:20,646 --> 0:25:22,206
+This is the same app that I was
+
+891
+00:25:22,246 --> 0:25:23,946
+just showing you a second ago on
+
+892
+00:25:24,166 --> 0:25:26,886
+iPadOS, now running on macOS.
+
+893
+00:25:28,276 --> 0:25:29,356
+Now, since we didn't do much to
+
+894
+00:25:29,356 --> 0:25:30,846
+customize how we present that
+
+895
+00:25:31,256 --> 0:25:33,916
+Font Picker off the title menu.
+
+896
+00:25:34,276 --> 0:25:35,926
+If I go ahead and just push the
+
+897
+00:25:35,926 --> 0:25:37,396
+exact same button without
+
+898
+00:25:37,396 --> 0:25:39,286
+changing any of my code in my
+
+899
+00:25:39,286 --> 0:25:41,456
+app, we see that instead of a
+
+900
+00:25:41,556 --> 0:25:43,666
+Font Picker ViewController that
+
+901
+00:25:43,666 --> 0:25:44,906
+I saw when I was running on
+
+902
+00:25:44,906 --> 0:25:46,716
+iPadOS, I get a menu.
+
+903
+00:25:47,906 --> 0:25:48,856
+And in that menu, I still get
+
+904
+00:25:48,856 --> 0:25:50,046
+many of the same functionalities
+
+905
+00:25:50,046 --> 0:25:52,016
+that I got in the Font Picker
+
+906
+00:25:52,176 --> 0:25:53,026
+running on iPadOS.
+
+907
+00:25:53,026 --> 0:25:54,316
+I still see Recents at the top.
+
+908
+00:25:54,756 --> 0:25:55,676
+And I can still select
+
+909
+00:25:55,676 --> 0:25:56,636
+individual faces.
+
+910
+00:25:57,196 --> 0:25:58,246
+I'm also still getting that
+
+911
+00:25:58,246 --> 0:25:59,866
+WYSIWYG presentation so I get a
+
+912
+00:25:59,866 --> 0:26:01,076
+good idea of exactly what the
+
+913
+00:25:59,866 --> 0:26:01,076
+good idea of exactly what the
+
+914
+00:26:01,076 --> 0:26:02,746
+font that I pick will look like.
+
+915
+00:26:03,596 --> 0:26:04,506
+In this case, I'll just go ahead
+
+916
+00:26:04,506 --> 0:26:05,976
+and select Comic Sans.
+
+917
+00:26:06,296 --> 0:26:09,816
+Now, we've done some additional
+
+918
+00:26:09,816 --> 0:26:11,456
+customization in our app for
+
+919
+00:26:11,456 --> 0:26:12,576
+when it's running on macOS.
+
+920
+00:26:13,056 --> 0:26:14,286
+Since we have that Font Panel
+
+921
+00:26:14,286 --> 0:26:16,056
+available to us, we've gone
+
+922
+00:26:16,056 --> 0:26:18,326
+ahead and updated our body here
+
+923
+00:26:18,746 --> 0:26:20,396
+to go ahead and respond to any
+
+924
+00:26:20,396 --> 0:26:21,506
+changes coming in from the Font
+
+925
+00:26:21,506 --> 0:26:21,726
+Panel.
+
+926
+00:26:22,876 --> 0:26:24,096
+And since we've done that, we've
+
+927
+00:26:24,096 --> 0:26:25,456
+also made it so that the Change
+
+928
+00:26:25,516 --> 0:26:27,596
+Body button rather than showing
+
+929
+00:26:27,596 --> 0:26:28,956
+the Font Picker, when it's
+
+930
+00:26:28,956 --> 0:26:29,976
+running on macOS, we actually
+
+931
+00:26:29,976 --> 0:26:30,956
+show the Font Panel.
+
+932
+00:26:32,566 --> 0:26:33,616
+This lets us do some additional
+
+933
+00:26:33,616 --> 0:26:34,386
+customization.
+
+934
+00:26:35,296 --> 0:26:36,966
+So, I can change the font just
+
+935
+00:26:36,966 --> 0:26:38,196
+like I could in the Font Picker.
+
+936
+00:26:39,056 --> 0:26:40,176
+But on macOS, I can also make
+
+937
+00:26:40,176 --> 0:26:41,366
+some additional formatting
+
+938
+00:26:41,366 --> 0:26:42,106
+changes in here.
+
+939
+00:26:42,696 --> 0:26:44,286
+Can change, say, the text size
+
+940
+00:26:44,596 --> 0:26:46,156
+or even the text color.
+
+941
+00:26:46,736 --> 0:26:50,576
+And this provides a very rich
+
+942
+00:26:50,576 --> 0:26:52,186
+experience on macOS that users
+
+943
+00:26:52,186 --> 0:26:53,676
+are accustomed to from Mac apps
+
+944
+00:26:53,716 --> 0:26:54,406
+over the years.
+
+945
+00:26:54,986 --> 0:26:56,946
+So, that's great.
+
+946
+00:26:56,946 --> 0:26:58,026
+That's our sample app.
+
+947
+00:26:58,146 --> 0:26:59,336
+Let's take a look at how we did
+
+948
+00:26:59,336 --> 0:27:00,626
+that in our code.
+
+949
+00:26:59,336 --> 0:27:00,626
+that in our code.
+
+950
+00:27:06,486 --> 0:27:07,406
+So, first, let's take a look at
+
+951
+00:27:07,406 --> 0:27:08,696
+how we created the Font Picker.
+
+952
+00:27:08,696 --> 0:27:10,616
+And the very first step of that
+
+953
+00:27:10,886 --> 0:27:12,496
+is creating a configuration for
+
+954
+00:27:13,096 --> 0:27:13,176
+it.
+
+955
+00:27:13,396 --> 0:27:14,566
+In this case, we initialize the
+
+956
+00:27:14,566 --> 0:27:16,646
+configuration object and tell it
+
+957
+00:27:16,646 --> 0:27:17,856
+that we want to include faces
+
+958
+00:27:17,856 --> 0:27:19,306
+when we're showing the Font
+
+959
+00:27:19,306 --> 0:27:19,576
+Picker.
+
+960
+00:27:21,516 --> 0:27:23,346
+With our configuration set up,
+
+961
+00:27:23,556 --> 0:27:24,846
+we can now create the Font
+
+962
+00:27:24,846 --> 0:27:25,926
+Picker passing in that
+
+963
+00:27:25,926 --> 0:27:26,546
+configuration.
+
+964
+00:27:27,486 --> 0:27:28,646
+The configuration will determine
+
+965
+00:27:28,806 --> 0:27:30,686
+how the Font Picker behaves over
+
+966
+00:27:30,826 --> 0:27:32,206
+its entire lifecycle.
+
+967
+00:27:33,626 --> 0:27:34,926
+We also set ourselves up as the
+
+968
+00:27:34,926 --> 0:27:36,426
+delegate to the Font Picker so
+
+969
+00:27:36,646 --> 0:27:37,856
+that we get all the callbacks
+
+970
+00:27:37,856 --> 0:27:40,836
+when the user selects a font.
+
+971
+00:27:41,026 --> 0:27:42,486
+And finally, we just go ahead
+
+972
+00:27:42,486 --> 0:27:43,786
+and present the Font Picker like
+
+973
+00:27:43,786 --> 0:27:44,656
+we would any other View
+
+974
+00:27:44,656 --> 0:27:45,076
+Controller.
+
+975
+00:27:45,076 --> 0:27:50,496
+Now, in the delegate callbacks,
+
+976
+00:27:50,906 --> 0:27:53,576
+we see that we can get the font
+
+977
+00:27:53,576 --> 0:27:55,606
+that the user selected directly
+
+978
+00:27:55,606 --> 0:27:56,386
+off the Font Picker.
+
+979
+00:27:57,256 --> 0:27:58,046
+Here, we see the delegate
+
+980
+00:27:58,046 --> 0:27:59,246
+callback for when the user does
+
+981
+00:27:59,246 --> 0:27:59,916
+select a font.
+
+982
+00:28:00,716 --> 0:28:02,146
+And in this case, we're taking
+
+983
+00:28:02,146 --> 0:28:03,416
+the font off the Font Picker
+
+984
+00:28:03,526 --> 0:28:05,346
+that is the one selected and
+
+985
+00:28:05,346 --> 0:28:06,306
+sending it to an attributed
+
+986
+00:28:06,536 --> 0:28:07,936
+string in our application.
+
+987
+00:28:08,566 --> 0:28:11,136
+Of course, if the user cancels
+
+988
+00:28:11,136 --> 0:28:12,386
+selecting a font, we're also
+
+989
+00:28:12,386 --> 0:28:13,796
+notified of that so we can make
+
+990
+00:28:13,866 --> 0:28:14,836
+any appropriate changes
+
+991
+00:28:14,876 --> 0:28:16,626
+necessary for the cancelation.
+
+992
+00:28:17,246 --> 0:28:20,686
+Now, finally, let's look at our
+
+993
+00:28:20,746 --> 0:28:21,846
+custom responder code.
+
+994
+00:28:21,936 --> 0:28:23,156
+So, this is how we handled the
+
+995
+00:28:23,156 --> 0:28:24,526
+Font Panel when running on
+
+996
+00:28:24,526 --> 0:28:25,006
+macOS.
+
+997
+00:28:25,756 --> 0:28:26,986
+In this case, it's a single
+
+998
+00:28:26,986 --> 0:28:29,036
+method that we implemented that
+
+999
+00:28:29,036 --> 0:28:30,276
+lets us know when the user made
+
+1000
+00:28:30,276 --> 0:28:33,266
+changes to the attributes that
+
+1001
+00:28:33,266 --> 0:28:33,856
+we should be using.
+
+1002
+00:28:34,826 --> 0:28:35,706
+And rather than just getting the
+
+1003
+00:28:35,706 --> 0:28:36,896
+set of attributes that they
+
+1004
+00:28:36,896 --> 0:28:38,106
+changed, we actually get this
+
+1005
+00:28:38,106 --> 0:28:40,466
+convenient closure that takes in
+
+1006
+00:28:40,466 --> 0:28:41,196
+the set of attributes we
+
+1007
+00:28:41,196 --> 0:28:42,026
+currently have.
+
+1008
+00:28:42,486 --> 0:28:43,906
+And passes out the set of
+
+1009
+00:28:43,906 --> 0:28:45,266
+attributes as they should be
+
+1010
+00:28:45,266 --> 0:28:46,386
+after the user change was
+
+1011
+00:28:46,386 --> 0:28:46,806
+applied.
+
+1012
+00:28:47,636 --> 0:28:48,856
+Now, the reason for this is that
+
+1013
+00:28:48,996 --> 0:28:50,396
+current attributes may stay the
+
+1014
+00:28:50,456 --> 0:28:52,506
+same or may change based on what
+
+1015
+00:28:52,506 --> 0:28:53,346
+the user changed.
+
+1016
+00:28:53,926 --> 0:28:55,326
+So, for example, if underlining
+
+1017
+00:28:55,326 --> 0:28:57,466
+is currently in effect, the user
+
+1018
+00:28:57,466 --> 0:28:59,346
+changing the foreground color of
+
+1019
+00:28:59,346 --> 0:29:01,076
+the text shouldn't change that
+
+1020
+00:28:59,346 --> 0:29:01,076
+the text shouldn't change that
+
+1021
+00:29:01,076 --> 0:29:01,576
+underlining.
+
+1022
+00:29:02,286 --> 0:29:03,526
+And in this case, the
+
+1023
+00:29:03,526 --> 0:29:05,686
+conversionHandler will take care
+
+1024
+00:29:05,686 --> 0:29:07,186
+of that for us.
+
+1025
+00:29:10,176 --> 0:29:12,116
+So, let's just do a quick recap
+
+1026
+00:29:12,116 --> 0:29:12,876
+of font selection.
+
+1027
+00:29:13,946 --> 0:29:15,066
+Instead of enumerating through
+
+1028
+00:29:15,066 --> 0:29:16,336
+all the fonts on the system,
+
+1029
+00:29:17,216 --> 0:29:19,476
+when wanting to show user fonts
+
+1030
+00:29:19,756 --> 0:29:21,416
+there's a new View Controller,
+
+1031
+00:29:21,696 --> 0:29:23,276
+UIFontPickerViewController on
+
+1032
+00:29:23,386 --> 0:29:26,186
+iOS, iPadOS, and even macOS.
+
+1033
+00:29:27,366 --> 0:29:28,426
+Additionally, when running your
+
+1034
+00:29:28,426 --> 0:29:30,566
+UIKit app on macOS, the Font
+
+1035
+00:29:30,716 --> 0:29:31,546
+Panel is available.
+
+1036
+00:29:32,296 --> 0:29:33,226
+This has a few additional
+
+1037
+00:29:33,226 --> 0:29:35,356
+considerations as custom
+
+1038
+00:29:35,356 --> 0:29:36,766
+responders may need to handle
+
+1039
+00:29:36,766 --> 0:29:37,896
+attribute changes that can
+
+1040
+00:29:37,896 --> 0:29:39,366
+happen anytime your application
+
+1041
+00:29:39,366 --> 0:29:39,746
+is running.
+
+1042
+00:29:41,346 --> 0:29:42,726
+Standard text views will handle
+
+1043
+00:29:42,726 --> 0:29:43,466
+this automatically.
+
+1044
+00:29:43,466 --> 0:29:47,246
+Now, I'd like to invite Donna up
+
+1045
+00:29:47,766 --> 0:29:49,366
+to talk some about text scaling
+
+1046
+00:29:49,366 --> 0:29:50,786
+across Apple's platforms.
+
+1047
+00:29:52,516 --> 0:29:55,466
+[ Applause ]
+
+1048
+00:29:55,966 --> 0:29:57,566
+&gt;&gt; Thank you, Eric.
+
+1049
+00:29:59,916 --> 0:30:01,356
+So, text scaling is a new
+
+1050
+00:29:59,916 --> 0:30:01,356
+So, text scaling is a new
+
+1051
+00:30:01,356 --> 0:30:02,646
+concept that we're introducing
+
+1052
+00:30:02,876 --> 0:30:04,976
+in iOS 13 and macOS Catalina.
+
+1053
+00:30:05,666 --> 0:30:07,006
+And today, we're going to cover
+
+1054
+00:30:07,006 --> 0:30:08,396
+how to use this new concept to
+
+1055
+00:30:08,396 --> 0:30:09,936
+make sure that the text sizes in
+
+1056
+00:30:09,936 --> 0:30:11,226
+your app look consistent
+
+1057
+00:30:11,226 --> 0:30:11,816
+everywhere.
+
+1058
+00:30:12,426 --> 0:30:14,976
+So, now as iOS developers,
+
+1059
+00:30:15,276 --> 0:30:16,336
+you're probably familiar with
+
+1060
+00:30:16,336 --> 0:30:17,456
+the Human Interface Guidelines.
+
+1061
+00:30:18,506 --> 0:30:19,416
+And this table from the
+
+1062
+00:30:19,416 --> 0:30:21,226
+guidelines shows the font sizes
+
+1063
+00:30:21,226 --> 0:30:22,466
+for the default dynamic
+
+1064
+00:30:22,466 --> 0:30:22,836
+typesetting.
+
+1065
+00:30:23,946 --> 0:30:25,386
+Now, most text in UIKit apps
+
+1066
+00:30:25,386 --> 0:30:27,096
+uses the Body Text Style which
+
+1067
+00:30:27,096 --> 0:30:27,846
+is 17 points.
+
+1068
+00:30:27,846 --> 0:30:30,776
+And here's what that looks like
+
+1069
+00:30:30,776 --> 0:30:31,366
+on an iPad.
+
+1070
+00:30:31,766 --> 0:30:32,416
+It's pretty easy to read.
+
+1071
+00:30:32,416 --> 0:30:36,656
+Right. You look at that same
+
+1072
+00:30:36,656 --> 0:30:39,106
+17-point text on a Mac, it looks
+
+1073
+00:30:39,176 --> 0:30:40,046
+a little bit different.
+
+1074
+00:30:40,046 --> 0:30:42,846
+And when you put the two
+
+1075
+00:30:42,876 --> 0:30:44,396
+side-by-side, you can see that
+
+1076
+00:30:44,396 --> 0:30:46,466
+by comparison, the 17-point text
+
+1077
+00:30:46,466 --> 0:30:48,286
+on the Mac looks a bit big.
+
+1078
+00:30:48,286 --> 0:30:52,176
+And that's because on the Mac
+
+1079
+00:30:52,816 --> 0:30:53,906
+we're more accustomed to a
+
+1080
+00:30:53,906 --> 0:30:55,596
+smaller default font size closer
+
+1081
+00:30:55,596 --> 0:30:59,316
+to 13 points, as shown here.
+
+1082
+00:30:59,316 --> 0:31:00,506
+But again, if we take that same
+
+1083
+00:30:59,316 --> 0:31:00,506
+But again, if we take that same
+
+1084
+00:31:00,506 --> 0:31:02,386
+13-point text and we look at it
+
+1085
+00:31:02,386 --> 0:31:06,066
+on an iPad, it looks very small
+
+1086
+00:31:06,066 --> 0:31:07,046
+and it's difficult to read.
+
+1087
+00:31:07,906 --> 0:31:09,316
+Now, this inconsistency has
+
+1088
+00:31:09,316 --> 0:31:10,546
+existed for a long time.
+
+1089
+00:31:10,726 --> 0:31:13,076
+And we chose 17 points as the
+
+1090
+00:31:13,076 --> 0:31:14,856
+base size for our visual type
+
+1091
+00:31:14,926 --> 0:31:17,116
+scaling in iOS to make text easy
+
+1092
+00:31:17,116 --> 0:31:18,916
+to read and easy to interact
+
+1093
+00:31:18,916 --> 0:31:19,726
+with on touchscreens.
+
+1094
+00:31:20,426 --> 0:31:22,896
+But as we move forward, the
+
+1095
+00:31:22,896 --> 0:31:24,256
+cross-platform user experience
+
+1096
+00:31:24,256 --> 0:31:25,396
+is only going to become more
+
+1097
+00:31:25,396 --> 0:31:25,766
+important.
+
+1098
+00:31:25,766 --> 0:31:27,726
+Now, that you can bring your
+
+1099
+00:31:27,976 --> 0:31:29,656
+iPad apps to the Mac, users will
+
+1100
+00:31:29,656 --> 0:31:30,796
+notice this difference in text
+
+1101
+00:31:30,796 --> 0:31:32,206
+size when running your iPad app
+
+1102
+00:31:32,206 --> 0:31:33,646
+on the Mac alongside an AppKit
+
+1103
+00:31:33,646 --> 0:31:34,066
+app.
+
+1104
+00:31:34,326 --> 0:31:35,486
+When copying and pasting text
+
+1105
+00:31:35,656 --> 0:31:37,286
+between apps and when viewing
+
+1106
+00:31:37,286 --> 0:31:38,426
+documents side-by-side.
+
+1107
+00:31:38,476 --> 0:31:41,746
+And so, how do we make the text
+
+1108
+00:31:41,906 --> 0:31:43,836
+size look consistent everywhere?
+
+1109
+00:31:44,546 --> 0:31:45,906
+Ideally, if we're looking at the
+
+1110
+00:31:45,906 --> 0:31:47,666
+same text in the same font and
+
+1111
+00:31:47,706 --> 0:31:49,166
+size, we would want it to look
+
+1112
+00:31:49,206 --> 0:31:50,726
+something like this where the
+
+1113
+00:31:50,726 --> 0:31:51,996
+visual scaling fits each
+
+1114
+00:31:52,096 --> 0:31:52,566
+platform.
+
+1115
+00:31:53,086 --> 0:31:53,966
+And there are really two
+
+1116
+00:31:53,966 --> 0:31:55,116
+different visual scalings here.
+
+1117
+00:31:55,656 --> 0:31:57,786
+There's the scaling that's used
+
+1118
+00:31:57,786 --> 0:32:00,036
+on iOS and iPadOS where 17
+
+1119
+00:31:57,786 --> 0:32:00,036
+on iOS and iPadOS where 17
+
+1120
+00:32:00,036 --> 0:32:01,206
+points is the default size.
+
+1121
+00:32:01,206 --> 0:32:02,616
+And we will call this the iOS
+
+1122
+00:32:02,616 --> 0:32:03,596
+text scaling.
+
+1123
+00:32:03,596 --> 0:32:06,606
+And then, there's the scaling
+
+1124
+00:32:06,606 --> 0:32:07,906
+used on macOS and other
+
+1125
+00:32:07,906 --> 0:32:09,216
+non-Apple platforms where the
+
+1126
+00:32:09,216 --> 0:32:10,956
+default size is closer to 13
+
+1127
+00:32:10,956 --> 0:32:11,216
+points.
+
+1128
+00:32:11,216 --> 0:32:12,816
+And we'll call this the standard
+
+1129
+00:32:12,816 --> 0:32:13,336
+text scaling.
+
+1130
+00:32:13,396 --> 0:32:16,756
+And we want you as developers to
+
+1131
+00:32:16,756 --> 0:32:18,116
+be aware of these two different
+
+1132
+00:32:18,116 --> 0:32:19,876
+text scalings and to use the
+
+1133
+00:32:19,946 --> 0:32:21,186
+standard text scaling in
+
+1134
+00:32:21,246 --> 0:32:22,656
+situations where it will improve
+
+1135
+00:32:22,936 --> 0:32:24,026
+the cross-platform user
+
+1136
+00:32:24,026 --> 0:32:24,516
+experience.
+
+1137
+00:32:25,276 --> 0:32:26,326
+So, now let's take a look at
+
+1138
+00:32:26,326 --> 0:32:27,276
+some of these situations.
+
+1139
+00:32:29,196 --> 0:32:30,726
+First up, is iPad apps on the
+
+1140
+00:32:30,726 --> 0:32:30,836
+Mac.
+
+1141
+00:32:31,346 --> 0:32:34,956
+And since UITextViews are the
+
+1142
+00:32:34,956 --> 0:32:36,716
+control of choice for displaying
+
+1143
+00:32:36,716 --> 0:32:38,296
+large amounts of text, this is
+
+1144
+00:32:38,296 --> 0:32:39,136
+where you're most likely to
+
+1145
+00:32:39,136 --> 0:32:39,906
+notice the difference.
+
+1146
+00:32:39,906 --> 0:32:41,836
+And we wanted to give you an
+
+1147
+00:32:41,836 --> 0:32:45,086
+easy way to address this.
+
+1148
+00:32:45,446 --> 0:32:47,166
+So, in iOS 13, we've added a new
+
+1149
+00:32:47,166 --> 0:32:48,386
+property to UITextView.
+
+1150
+00:32:48,776 --> 0:32:49,196
+It's called
+
+1151
+00:32:49,406 --> 0:32:50,636
+usesStandardTextScaling.
+
+1152
+00:32:50,636 --> 0:32:53,026
+And when you turn this on, UIKit
+
+1153
+00:32:53,026 --> 0:32:54,526
+will automatically adjust the
+
+1154
+00:32:54,526 --> 0:32:56,036
+rendering of the text inside the
+
+1155
+00:32:56,036 --> 0:32:57,366
+Text View to match the standard
+
+1156
+00:32:57,366 --> 0:32:57,786
+text scaling.
+
+1157
+00:32:57,786 --> 0:33:00,826
+So, we go back to our text here.
+
+1158
+00:32:57,786 --> 0:33:00,826
+So, we go back to our text here.
+
+1159
+00:33:00,826 --> 0:33:02,506
+We can see that the scaling is
+
+1160
+00:33:02,506 --> 0:33:03,466
+looking a little bit off, right.
+
+1161
+00:33:03,466 --> 0:33:05,156
+Well, let's check out what
+
+1162
+00:33:05,156 --> 0:33:06,016
+happens when we turn on
+
+1163
+00:33:06,186 --> 0:33:07,326
+usesStandardTextScaling.
+
+1164
+00:33:07,936 --> 0:33:11,456
+Ah, that's much better.
+
+1165
+00:33:13,066 --> 0:33:14,456
+Using this new property is a
+
+1166
+00:33:14,556 --> 0:33:16,076
+really great way to ensure that
+
+1167
+00:33:16,076 --> 0:33:17,586
+your text displays in the
+
+1168
+00:33:17,586 --> 0:33:18,466
+standard text scaling.
+
+1169
+00:33:19,106 --> 0:33:21,206
+But do take note,
+
+1170
+00:33:21,896 --> 0:33:23,216
+usesStandardTextScaling is
+
+1171
+00:33:23,256 --> 0:33:24,236
+turned off by default.
+
+1172
+00:33:24,236 --> 0:33:25,926
+And that's because code that
+
+1173
+00:33:25,926 --> 0:33:27,576
+uses custom transforms on Text
+
+1174
+00:33:27,576 --> 0:33:28,926
+Views might have unexpected
+
+1175
+00:33:28,926 --> 0:33:30,036
+results when combined with this
+
+1176
+00:33:30,096 --> 0:33:30,446
+property.
+
+1177
+00:33:31,316 --> 0:33:32,226
+And so, if you want to use the
+
+1178
+00:33:32,276 --> 0:33:33,466
+standard text scaling, make sure
+
+1179
+00:33:33,466 --> 0:33:34,736
+you enable this for each of your
+
+1180
+00:33:34,736 --> 0:33:35,236
+Text Views.
+
+1181
+00:33:37,446 --> 0:33:38,766
+Next, let's talk about text
+
+1182
+00:33:38,766 --> 0:33:39,776
+scaling with copy and paste.
+
+1183
+00:33:40,886 --> 0:33:42,276
+Now, since iOS uses a unique
+
+1184
+00:33:42,316 --> 0:33:43,796
+text scaling, you might notice
+
+1185
+00:33:44,046 --> 0:33:45,256
+this visual size difference when
+
+1186
+00:33:45,256 --> 0:33:46,856
+copying and pasting text between
+
+1187
+00:33:46,856 --> 0:33:48,156
+UIKit and AppKit apps.
+
+1188
+00:33:48,156 --> 0:33:49,486
+And if you've ever used the
+
+1189
+00:33:49,486 --> 0:33:50,716
+Universal Clipboard, you might
+
+1190
+00:33:50,716 --> 0:33:51,716
+actually have already noticed
+
+1191
+00:33:51,716 --> 0:33:51,816
+this.
+
+1192
+00:33:51,816 --> 0:33:54,746
+Well, the good news is now you
+
+1193
+00:33:54,746 --> 0:33:55,646
+actually don't have to do
+
+1194
+00:33:55,646 --> 0:33:57,336
+anything to get this.
+
+1195
+00:33:57,336 --> 0:33:58,696
+Starting in the latest OS, you
+
+1196
+00:33:58,696 --> 0:34:00,406
+get visually consistent copy and
+
+1197
+00:33:58,696 --> 0:34:00,406
+get visually consistent copy and
+
+1198
+00:34:00,406 --> 0:34:01,226
+paste for free.
+
+1199
+00:34:01,226 --> 0:34:03,566
+And let's take a look at how
+
+1200
+00:34:03,566 --> 0:34:03,956
+that works.
+
+1201
+00:34:03,956 --> 0:34:05,756
+So, I got my two platforms here.
+
+1202
+00:34:05,756 --> 0:34:08,056
+iOS on the left and macOS on the
+
+1203
+00:34:08,056 --> 0:34:08,275
+right.
+
+1204
+00:34:08,275 --> 0:34:11,366
+And on each of these platforms,
+
+1205
+00:34:11,726 --> 0:34:13,346
+Copy and Paste moves text
+
+1206
+00:34:13,346 --> 0:34:14,726
+between two different layers of
+
+1207
+00:34:14,775 --> 0:34:15,116
+the system.
+
+1208
+00:34:15,735 --> 0:34:17,136
+The runtime layer depicted by
+
+1209
+00:34:17,136 --> 0:34:18,726
+our little runner here, and the
+
+1210
+00:34:18,726 --> 0:34:20,286
+persistence layer represented by
+
+1211
+00:34:20,286 --> 0:34:20,606
+these discs.
+
+1212
+00:34:20,606 --> 0:34:24,186
+Now, text in the Text View
+
+1213
+00:34:24,396 --> 0:34:25,956
+exists in the runtime layer as
+
+1214
+00:34:25,956 --> 0:34:26,775
+an attributed string.
+
+1215
+00:34:26,775 --> 0:34:29,255
+And when you copy that text, it
+
+1216
+00:34:29,255 --> 0:34:30,466
+moves if from the Text View in
+
+1217
+00:34:30,466 --> 0:34:31,266
+the runtime layer to the
+
+1218
+00:34:31,266 --> 0:34:32,936
+PasteBoard in the persistence
+
+1219
+00:34:32,936 --> 0:34:33,166
+layer.
+
+1220
+00:34:33,166 --> 0:34:35,116
+And it's serialized to rich text
+
+1221
+00:34:35,116 --> 0:34:36,056
+format or RTF for storage on the
+
+1222
+00:34:36,136 --> 0:34:36,896
+PasteBoard.
+
+1223
+00:34:39,576 --> 0:34:41,226
+Now, on the latest OS, we've
+
+1224
+00:34:41,226 --> 0:34:42,315
+added a new behavior for
+
+1225
+00:34:42,315 --> 0:34:43,516
+attributed string APIs that
+
+1226
+00:34:43,686 --> 0:34:44,356
+write RTF.
+
+1227
+00:34:44,985 --> 0:34:46,716
+So, now when you create your RTF
+
+1228
+00:34:46,716 --> 0:34:48,406
+from an attributed string it'll
+
+1229
+00:34:48,406 --> 0:34:49,966
+add metadata that indicates
+
+1230
+00:34:49,966 --> 0:34:51,286
+which text scaling it's using.
+
+1231
+00:34:51,926 --> 0:34:54,976
+So, now when text is copied on
+
+1232
+00:34:55,196 --> 0:34:56,606
+iOS it will be automatically
+
+1233
+00:34:56,606 --> 0:34:58,066
+tagged with that metadata this
+
+1234
+00:34:58,066 --> 0:35:00,966
+says it's using, the iOS text
+
+1235
+00:34:58,066 --> 0:35:00,966
+says it's using, the iOS text
+
+1236
+00:35:03,216 --> 0:35:03,446
+scaling.
+
+1237
+00:35:03,556 --> 0:35:04,556
+Now, we've also added new
+
+1238
+00:35:04,556 --> 0:35:06,196
+behavior for the RTF reading
+
+1239
+00:35:06,196 --> 0:35:07,616
+APIs on attributed string.
+
+1240
+00:35:07,616 --> 0:35:09,686
+And so, when you're creating an
+
+1241
+00:35:09,686 --> 0:35:10,766
+attributed string from RTF, the
+
+1242
+00:35:11,366 --> 0:35:12,556
+system will look for that text
+
+1243
+00:35:12,556 --> 0:35:13,936
+scaling metadata and it'll
+
+1244
+00:35:13,936 --> 0:35:15,736
+adjust the font sizes for you if
+
+1245
+00:35:15,736 --> 0:35:16,036
+it's needed.
+
+1246
+00:35:16,036 --> 0:35:19,426
+Going back to our original text,
+
+1247
+00:35:19,636 --> 0:35:20,746
+we have that text that we copied
+
+1248
+00:35:20,746 --> 0:35:21,136
+on iOS.
+
+1249
+00:35:21,216 --> 0:35:22,636
+And when we paste it on the Mac
+
+1250
+00:35:23,286 --> 0:35:24,186
+the system will see that
+
+1251
+00:35:24,186 --> 0:35:25,286
+metadata that says it's using
+
+1252
+00:35:25,286 --> 0:35:26,706
+the iOS text scaling.
+
+1253
+00:35:27,346 --> 0:35:28,816
+And then, the font point sizes
+
+1254
+00:35:28,816 --> 0:35:29,586
+will be adjusted in the
+
+1255
+00:35:29,586 --> 0:35:31,116
+attributes string so that when
+
+1256
+00:35:31,116 --> 0:35:32,376
+the text is displayed on the
+
+1257
+00:35:32,376 --> 0:35:34,086
+Mac, it looks visually similar
+
+1258
+00:35:34,086 --> 0:35:35,486
+in size to that original text in
+
+1259
+00:35:35,546 --> 0:35:35,636
+iOS.
+
+1260
+00:35:38,206 --> 0:35:40,456
+And the end result is a lot like
+
+1261
+00:35:40,456 --> 0:35:41,416
+this example from earlier.
+
+1262
+00:35:41,416 --> 0:35:43,526
+But the font sizes will be
+
+1263
+00:35:43,526 --> 0:35:43,876
+different.
+
+1264
+00:35:44,996 --> 0:35:46,356
+The original text we copied here
+
+1265
+00:35:46,496 --> 0:35:48,196
+on iOS is using a size of 17
+
+1266
+00:35:48,196 --> 0:35:48,476
+points.
+
+1267
+00:35:48,656 --> 0:35:51,326
+And the pasted text on the Mac
+
+1268
+00:35:51,576 --> 0:35:52,926
+is using a size of 13 points.
+
+1269
+00:35:53,616 --> 0:35:56,516
+Now, having different font sizes
+
+1270
+00:35:56,566 --> 0:35:57,896
+between these two platforms is
+
+1271
+00:35:57,896 --> 0:35:59,556
+okay for copy and paste because
+
+1272
+00:35:59,556 --> 0:36:00,816
+that font size information is
+
+1273
+00:35:59,556 --> 0:36:00,816
+that font size information is
+
+1274
+00:36:00,816 --> 0:36:01,166
+transient.
+
+1275
+00:36:01,686 --> 0:36:03,066
+It exists only in the runtime
+
+1276
+00:36:03,066 --> 0:36:03,256
+layer.
+
+1277
+00:36:04,246 --> 0:36:05,596
+But RTF is also a document
+
+1278
+00:36:05,596 --> 0:36:07,056
+format and this isn't a great
+
+1279
+00:36:07,056 --> 0:36:08,316
+solution for the persistence in
+
+1280
+00:36:08,316 --> 0:36:08,976
+the storage layer.
+
+1281
+00:36:08,976 --> 0:36:11,746
+And that leads to our final
+
+1282
+00:36:11,786 --> 0:36:13,366
+situation, working with text
+
+1283
+00:36:13,366 --> 0:36:14,306
+scaling for document
+
+1284
+00:36:14,306 --> 0:36:14,846
+interchange.
+
+1285
+00:36:15,006 --> 0:36:17,666
+And we need to weigh special
+
+1286
+00:36:17,666 --> 0:36:18,986
+considerations here to balance
+
+1287
+00:36:19,366 --> 0:36:20,666
+the desire for cross-platform
+
+1288
+00:36:20,666 --> 0:36:23,276
+visual consistency with the need
+
+1289
+00:36:23,276 --> 0:36:24,646
+for integrity in the document
+
+1290
+00:36:24,646 --> 0:36:24,846
+model.
+
+1291
+00:36:25,146 --> 0:36:28,546
+And so, to have the text look
+
+1292
+00:36:28,546 --> 0:36:30,036
+the same across platforms and
+
+1293
+00:36:30,036 --> 0:36:31,426
+also keep the same font sizes in
+
+1294
+00:36:31,426 --> 0:36:32,796
+the document, what we really
+
+1295
+00:36:32,796 --> 0:36:34,666
+need is the ability to use one
+
+1296
+00:36:34,666 --> 0:36:35,706
+text scaling for viewing the
+
+1297
+00:36:35,706 --> 0:36:37,706
+document and a different scaling
+
+1298
+00:36:37,706 --> 0:36:38,176
+for saving it.
+
+1299
+00:36:38,176 --> 0:36:41,216
+And there's two different ways
+
+1300
+00:36:41,276 --> 0:36:42,126
+that we can approach this.
+
+1301
+00:36:42,666 --> 0:36:44,046
+We can change the document model
+
+1302
+00:36:44,046 --> 0:36:45,266
+and use different font sizes for
+
+1303
+00:36:45,266 --> 0:36:46,276
+viewing versus saving.
+
+1304
+00:36:47,056 --> 0:36:48,696
+Or we can change the document
+
+1305
+00:36:48,696 --> 0:36:50,136
+view by changing the rendering
+
+1306
+00:36:50,196 --> 0:36:51,936
+scale and keep the font size the
+
+1307
+00:36:51,996 --> 0:36:52,716
+same when saving.
+
+1308
+00:36:53,476 --> 0:36:55,816
+We've actually implemented both
+
+1309
+00:36:55,816 --> 0:36:56,876
+of these approaches for RTF
+
+1310
+00:36:57,636 --> 0:36:58,866
+since this is a common format
+
+1311
+00:36:58,866 --> 0:37:00,226
+that we use internally.
+
+1312
+00:36:58,866 --> 0:37:00,226
+that we use internally.
+
+1313
+00:37:00,226 --> 0:37:02,286
+And I'd like to share with you
+
+1314
+00:37:02,286 --> 0:37:03,606
+the fundamental techniques that
+
+1315
+00:37:03,606 --> 0:37:04,996
+we use to do this so that you
+
+1316
+00:37:04,996 --> 0:37:06,206
+can apply some of our techniques
+
+1317
+00:37:06,526 --> 0:37:07,546
+to build support for text
+
+1318
+00:37:07,546 --> 0:37:09,096
+scaling into your own workflows
+
+1319
+00:37:09,096 --> 0:37:10,836
+and document formats.
+
+1320
+00:37:11,836 --> 0:37:13,416
+So, the first thing we did was
+
+1321
+00:37:13,416 --> 0:37:15,256
+we extended our format to tag
+
+1322
+00:37:15,256 --> 0:37:16,526
+documents with that text scaling
+
+1323
+00:37:16,526 --> 0:37:17,396
+metadata.
+
+1324
+00:37:17,716 --> 0:37:18,996
+Document parsers and viewers
+
+1325
+00:37:18,996 --> 0:37:20,386
+will need this information to
+
+1326
+00:37:20,386 --> 0:37:21,886
+understand which text scaling
+
+1327
+00:37:21,886 --> 0:37:22,736
+the document is using.
+
+1328
+00:37:23,256 --> 0:37:26,306
+Since preexisting documents are
+
+1329
+00:37:26,306 --> 0:37:27,566
+not going to have this metadata,
+
+1330
+00:37:27,566 --> 0:37:28,816
+we also needed to migrate them
+
+1331
+00:37:28,816 --> 0:37:29,686
+to use the new format.
+
+1332
+00:37:29,686 --> 0:37:31,946
+And for RTF, this happens
+
+1333
+00:37:31,996 --> 0:37:33,556
+automatically once the documents
+
+1334
+00:37:33,556 --> 0:37:35,586
+are saved with the latest OS.
+
+1335
+00:37:37,186 --> 0:37:38,866
+Now, we also needed to make sure
+
+1336
+00:37:38,866 --> 0:37:42,496
+that our documents have the
+
+1337
+00:37:42,496 --> 0:37:49,436
+correct text scaling associated
+
+1338
+00:37:49,436 --> 0:37:50,446
+with them.
+
+1339
+00:37:51,186 --> 0:37:56,126
+And this is especially important
+
+1340
+00:37:56,576 --> 0:37:59,036
+for that initial migration.
+
+1341
+00:37:59,246 --> 0:38:01,846
+So, we're introducing a new
+
+1342
+00:37:59,246 --> 0:38:01,846
+So, we're introducing a new
+
+1343
+00:38:02,096 --> 0:38:04,946
+attributed string API to help
+
+1344
+00:38:04,946 --> 0:38:08,046
+out with that in the form of new
+
+1345
+00:38:08,116 --> 0:38:09,446
+document attributes.
+
+1346
+00:38:12,066 --> 0:38:12,746
+Now, you can use the text
+
+1347
+00:38:12,746 --> 0:38:13,916
+scaling document attribute to
+
+1348
+00:38:13,916 --> 0:38:15,116
+set the metadata in the document
+
+1349
+00:38:15,116 --> 0:38:16,506
+on Save using attributed string
+
+1350
+00:38:16,506 --> 0:38:17,946
+writing APIs like data from
+
+1351
+00:38:17,976 --> 0:38:18,096
+range.
+
+1352
+00:38:18,126 --> 0:38:18,846
+If you need to, you can also
+
+1353
+00:38:18,876 --> 0:38:19,596
+convert the document to a
+
+1354
+00:38:19,626 --> 0:38:20,496
+particular text scaling when you
+
+1355
+00:38:20,526 --> 0:38:20,706
+save it.
+
+1356
+00:38:20,736 --> 0:38:21,516
+And you do this by specifying
+
+1357
+00:38:21,546 --> 0:38:22,206
+both of the new document
+
+1358
+00:38:22,236 --> 0:38:22,506
+attributes.
+
+1359
+00:38:22,536 --> 0:38:23,136
+Now, for the model-based
+
+1360
+00:38:23,166 --> 0:38:23,826
+approach, we needed a way to
+
+1361
+00:38:23,856 --> 0:38:24,756
+control conversions between text
+
+1362
+00:38:24,786 --> 0:38:25,656
+scalings when opening documents.
+
+1363
+00:38:25,686 --> 0:38:26,466
+And we've introduced even more
+
+1364
+00:38:26,496 --> 0:38:27,336
+attributed string API for that
+
+1365
+00:38:27,366 --> 0:38:27,516
+purpose.
+
+1366
+00:38:27,546 --> 0:38:28,326
+New reading options for target
+
+1367
+00:38:28,356 --> 0:38:28,986
+and source text scaling.
+
+1368
+00:38:29,016 --> 0:38:29,856
+And you can control which text
+
+1369
+00:38:29,886 --> 0:38:30,516
+scaling will be used by
+
+1370
+00:38:30,546 --> 0:38:31,326
+specifying these reading options
+
+1371
+00:38:31,356 --> 0:38:32,136
+when creating your attributed
+
+1372
+00:38:32,166 --> 0:38:32,976
+string from an RTF document.
+
+1373
+00:38:35,276 --> 0:38:36,856
+And finally, for the view-based
+
+1374
+00:38:36,856 --> 0:38:38,336
+approach, we recommend using the
+
+1375
+00:38:38,336 --> 0:38:39,356
+standard text scaling.
+
+1376
+00:38:40,266 --> 0:38:41,816
+Now, for RTF documents, you do
+
+1377
+00:38:41,816 --> 0:38:43,046
+this by combining the new API.
+
+1378
+00:38:43,676 --> 0:38:44,846
+You first set the target text
+
+1379
+00:38:44,846 --> 0:38:46,296
+scaling to standard when you're
+
+1380
+00:38:46,296 --> 0:38:47,436
+reading your RTF into an
+
+1381
+00:38:47,486 --> 0:38:48,346
+attributed string.
+
+1382
+00:38:48,346 --> 0:38:50,586
+And then, you set
+
+1383
+00:38:50,586 --> 0:38:52,446
+usesStandardTextScaling on your
+
+1384
+00:38:52,446 --> 0:38:53,826
+Text View that will display the
+
+1385
+00:38:53,826 --> 0:38:54,846
+document.
+
+1386
+00:38:56,116 --> 0:38:57,016
+Ooh, okay.
+
+1387
+00:38:57,876 --> 0:38:58,786
+We covered a lot of ground
+
+1388
+00:38:58,786 --> 0:38:59,026
+today.
+
+1389
+00:38:59,026 --> 0:39:00,946
+Now, as a reminder, here's what
+
+1390
+00:38:59,026 --> 0:39:00,946
+Now, as a reminder, here's what
+
+1391
+00:39:00,946 --> 0:39:01,256
+you've learned.
+
+1392
+00:39:01,256 --> 0:39:03,386
+IOS apps can now make fonts
+
+1393
+00:39:03,386 --> 0:39:04,356
+available systemwide.
+
+1394
+00:39:05,176 --> 0:39:06,826
+Use name instantiation only for
+
+1395
+00:39:06,826 --> 0:39:07,646
+non-system fonts.
+
+1396
+00:39:08,306 --> 0:39:09,706
+And remember, the name
+
+1397
+00:39:09,706 --> 0:39:11,236
+instantiation is not guaranteed.
+
+1398
+00:39:12,266 --> 0:39:13,516
+Use On-Demand resources to
+
+1399
+00:39:13,516 --> 0:39:14,546
+deliver fonts to the OS.
+
+1400
+00:39:14,546 --> 0:39:16,106
+And use standard text scaling
+
+1401
+00:39:16,106 --> 0:39:17,676
+for the best cross-platform user
+
+1402
+00:39:17,676 --> 0:39:18,056
+experience.
+
+1403
+00:39:18,056 --> 0:39:20,946
+Come visit us at the Text and
+
+1404
+00:39:20,946 --> 0:39:22,376
+Fonts Lab in a couple hours to
+
+1405
+00:39:22,376 --> 0:39:23,446
+learn more about all the topics
+
+1406
+00:39:23,446 --> 0:39:24,396
+that we've covered here today.
+
+1407
+00:39:24,396 --> 0:39:26,006
+And you can also come talk to us
+
+1408
+00:39:26,006 --> 0:39:27,336
+at the Labs for iPad apps and
+
+1409
+00:39:27,446 --> 0:39:28,526
+Mac to learn more about text
+
+1410
+00:39:28,646 --> 0:39:28,966
+scaling.
+
+1411
+00:39:30,526 --> 0:39:31,776
+We're really excited to see what
+
+1412
+00:39:31,776 --> 0:39:32,686
+you'll create with these new
+
+1413
+00:39:32,686 --> 0:39:33,296
+capabilities.
+
+1414
+00:39:33,296 --> 0:39:34,496
+Thank you and enjoy the rest of
+
+1415
+00:39:34,496 --> 0:39:34,896
+the conference.
+
+1416
+00:39:35,516 --> 0:39:39,500
+[ Applause ]

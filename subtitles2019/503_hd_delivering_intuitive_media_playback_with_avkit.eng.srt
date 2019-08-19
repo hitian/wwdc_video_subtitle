@@ -1,0 +1,5323 @@
+1
+00:00:01,516 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:11,776 --> 0:00:13,036
+&gt;&gt; Welcome to Delivering
+
+3
+00:00:13,036 --> 0:00:14,566
+Intuitive Media Playback with
+
+4
+00:00:14,566 --> 0:00:14,916
+AVKit.
+
+5
+00:00:15,516 --> 0:00:17,756
+[ Applause ]
+
+6
+00:00:18,256 --> 0:00:19,626
+My name is Jed Lewison, and I'll
+
+7
+00:00:19,626 --> 0:00:21,316
+be joined a little bit later by
+
+8
+00:00:21,316 --> 0:00:22,416
+my colleague Dan Wright.
+
+9
+00:00:22,916 --> 0:00:24,206
+And we're going to talk with you
+
+10
+00:00:24,206 --> 0:00:26,686
+about media playback with AVKit.
+
+11
+00:00:27,146 --> 0:00:29,756
+And what's new in best practices
+
+12
+00:00:30,036 --> 0:00:31,786
+with AVPlayerViewController on
+
+13
+00:00:31,976 --> 0:00:33,706
+iOS and tvOS.
+
+14
+00:00:35,256 --> 0:00:37,326
+AVKit is a cross platform media
+
+15
+00:00:37,326 --> 0:00:39,026
+playback UI framework built on
+
+16
+00:00:39,026 --> 0:00:40,676
+top of AVFoundation in
+
+17
+00:00:40,676 --> 0:00:41,356
+CoreMedia.
+
+18
+00:00:41,656 --> 0:00:43,176
+And our mission is to make it
+
+19
+00:00:43,176 --> 0:00:45,746
+easy for you to show and play
+
+20
+00:00:45,746 --> 0:00:47,266
+AVPlayer-based media content
+
+21
+00:00:47,646 --> 0:00:49,876
+using the same user interface
+
+22
+00:00:50,436 --> 0:00:51,976
+used by Apple's own apps.
+
+23
+00:00:53,326 --> 0:00:55,506
+For UIKit apps, we provide
+
+24
+00:00:55,666 --> 0:00:56,966
+AVPlayerViewController.
+
+25
+00:00:58,246 --> 0:01:00,236
+For APKit apps, we provide
+
+26
+00:00:58,246 --> 0:01:00,236
+For APKit apps, we provide
+
+27
+00:01:00,236 --> 0:01:00,876
+AVPlayerView.
+
+28
+00:01:01,316 --> 0:01:03,316
+And for both UIKit and APKit
+
+29
+00:01:03,316 --> 0:01:04,406
+apps, we provide
+
+30
+00:01:04,406 --> 0:01:05,906
+AVRoutePickerView, which lets
+
+31
+00:01:05,906 --> 0:01:07,546
+you add a wireless route picker
+
+32
+00:01:07,806 --> 0:01:09,706
+to your custom playback UI's.
+
+33
+00:01:11,166 --> 0:01:11,976
+So let's take a look at some
+
+34
+00:01:11,976 --> 0:01:12,266
+code.
+
+35
+00:01:12,736 --> 0:01:14,086
+Getting started with
+
+36
+00:01:14,086 --> 0:01:16,586
+AVPlayerViewController on iOS is
+
+37
+00:01:16,586 --> 0:01:18,546
+incredibly easy, and tvOS.
+
+38
+00:01:19,226 --> 0:01:20,286
+The first thing you do is you
+
+39
+00:01:20,286 --> 0:01:21,236
+create an AVPlayer.
+
+40
+00:01:22,396 --> 0:01:23,846
+Then, you create and
+
+41
+00:01:23,846 --> 0:01:25,356
+AVPlayerViewController and
+
+42
+00:01:25,356 --> 0:01:26,566
+assign to it the player that you
+
+43
+00:01:26,566 --> 0:01:27,346
+just created.
+
+44
+00:01:28,096 --> 0:01:29,976
+And finally, you present it.
+
+45
+00:01:29,976 --> 0:01:31,786
+And that's all there is to it.
+
+46
+00:01:32,516 --> 0:01:33,556
+That's all it takes to get a
+
+47
+00:01:33,556 --> 0:01:35,176
+rich and fully functional media
+
+48
+00:01:35,236 --> 0:01:37,026
+playback UI that will be
+
+49
+00:01:37,076 --> 0:01:39,216
+familiar to your users because
+
+50
+00:01:39,216 --> 0:01:41,136
+it's the same UI used by Apple
+
+51
+00:01:41,406 --> 0:01:42,676
+in its own apps.
+
+52
+00:01:43,356 --> 0:01:45,176
+But there's a lot of power below
+
+53
+00:01:45,176 --> 0:01:45,906
+the surface.
+
+54
+00:01:46,016 --> 0:01:48,066
+And that's because when you use
+
+55
+00:01:48,066 --> 0:01:50,726
+AVKit, you own the media
+
+56
+00:01:50,776 --> 0:01:51,926
+playback objects.
+
+57
+00:01:52,366 --> 0:01:54,496
+You are in control of creating
+
+58
+00:01:54,556 --> 0:01:55,576
+and managing them.
+
+59
+00:01:55,906 --> 0:01:57,906
+And video rendering is built on
+
+60
+00:01:57,906 --> 0:02:00,546
+top of the same core technology
+
+61
+00:01:57,906 --> 0:02:00,546
+top of the same core technology
+
+62
+00:02:00,766 --> 0:02:02,286
+that powers AVPlayerLayer.
+
+63
+00:02:03,066 --> 0:02:03,946
+That means you get the full
+
+64
+00:02:03,946 --> 0:02:05,586
+power of AVFoundation in
+
+65
+00:02:05,586 --> 0:02:06,996
+CoreMedia playback UI's,
+
+66
+00:02:07,576 --> 0:02:09,045
+including all the power
+
+67
+00:02:09,045 --> 0:02:10,186
+delivered by AVPlayer,
+
+68
+00:02:10,186 --> 0:02:12,746
+AVPlayerItem, and AVAsset.
+
+69
+00:02:12,926 --> 0:02:15,516
+But because AVKit also sit on
+
+70
+00:02:15,516 --> 0:02:18,276
+top of UIKit and AppKit, you get
+
+71
+00:02:18,276 --> 0:02:20,236
+a user experience tailored to
+
+72
+00:02:20,236 --> 0:02:21,606
+each of Apple's unique
+
+73
+00:02:21,836 --> 0:02:22,586
+platforms.
+
+74
+00:02:22,816 --> 0:02:24,746
+So AVKit gives you the best of
+
+75
+00:02:24,746 --> 0:02:25,456
+both worlds.
+
+76
+00:02:27,156 --> 0:02:28,936
+You get full control over your
+
+77
+00:02:28,936 --> 0:02:30,276
+media playback objects.
+
+78
+00:02:30,686 --> 0:02:33,746
+And a familiar API for showing
+
+79
+00:02:33,746 --> 0:02:35,746
+and displaying them using UIKit
+
+80
+00:02:35,746 --> 0:02:37,246
+and APKit-based APIs.
+
+81
+00:02:38,576 --> 0:02:40,666
+So, that's a high-level look at
+
+82
+00:02:40,666 --> 0:02:41,296
+AVKIt.
+
+83
+00:02:41,296 --> 0:02:43,476
+Let's dive right into what's new
+
+84
+00:02:43,836 --> 0:02:45,296
+in AVPlayerViewController and
+
+85
+00:02:45,406 --> 0:02:47,046
+iOS for iOS 13.
+
+86
+00:02:47,436 --> 0:02:49,936
+I'm going to start talking about
+
+87
+00:02:50,086 --> 0:02:51,936
+new full screen callbacks that
+
+88
+00:02:51,936 --> 0:02:53,296
+we added that inform you about
+
+89
+00:02:53,296 --> 0:02:55,676
+transitions from embedded inline
+
+90
+00:02:55,676 --> 0:02:58,096
+presentations to full screen and
+
+91
+00:02:58,096 --> 0:02:59,366
+entering full screen and exiting
+
+92
+00:02:59,366 --> 0:02:59,936
+full screens.
+
+93
+00:02:59,936 --> 0:03:02,746
+So, to motivate this, in this
+
+94
+00:02:59,936 --> 0:03:02,746
+So, to motivate this, in this
+
+95
+00:03:02,746 --> 0:03:05,096
+video, what we'll see is the
+
+96
+00:03:05,256 --> 0:03:06,416
+user's going to enter full
+
+97
+00:03:06,416 --> 0:03:08,156
+screen here and then start an
+
+98
+00:03:08,156 --> 0:03:09,626
+interactive dismissal.
+
+99
+00:03:10,206 --> 0:03:12,016
+But, they'll cancel that
+
+100
+00:03:12,016 --> 0:03:12,636
+dismissal.
+
+101
+00:03:12,836 --> 0:03:13,866
+So now we're back to full
+
+102
+00:03:13,866 --> 0:03:14,366
+screen.
+
+103
+00:03:14,686 --> 0:03:17,576
+And now the user has dismissed,
+
+104
+00:03:17,686 --> 0:03:19,246
+and we're back to where we
+
+105
+00:03:19,246 --> 0:03:20,056
+started with an
+
+106
+00:03:20,056 --> 0:03:21,936
+AVPlayerViewController embedded
+
+107
+00:03:21,936 --> 0:03:22,386
+inline.
+
+108
+00:03:23,336 --> 0:03:25,316
+So, the new API we're delivering
+
+109
+00:03:25,316 --> 0:03:27,456
+in iOS 13 informs you about all
+
+110
+00:03:27,456 --> 0:03:29,136
+of these states by extending
+
+111
+00:03:29,136 --> 0:03:30,656
+AVPlayerViewController Delegate.
+
+112
+00:03:32,056 --> 0:03:33,516
+You get notifications when a
+
+113
+00:03:33,606 --> 0:03:35,636
+full screen presentation begins
+
+114
+00:03:35,836 --> 0:03:36,456
+or ends.
+
+115
+00:03:36,606 --> 0:03:37,766
+And it looks like this.
+
+116
+00:03:38,966 --> 0:03:40,246
+Two new delegate methods.
+
+117
+00:03:41,076 --> 0:03:42,646
+If you link against the iOS 13
+
+118
+00:03:42,786 --> 0:03:44,366
+SDK, they will be available
+
+119
+00:03:44,366 --> 0:03:48,096
+starting with iOS 12, one for
+
+120
+00:03:48,096 --> 0:03:49,136
+beginning a full screen
+
+121
+00:03:49,136 --> 0:03:51,686
+presentation, and one that is
+
+122
+00:03:51,686 --> 0:03:52,516
+called when a full screen
+
+123
+00:03:52,516 --> 0:03:53,656
+presentation ends.
+
+124
+00:03:54,386 --> 0:03:55,386
+So, let's take a look at an
+
+125
+00:03:55,386 --> 0:03:56,426
+implementation here.
+
+126
+00:03:56,916 --> 0:03:58,356
+And the key object is the
+
+127
+00:03:58,356 --> 0:03:59,716
+UIViewControllerTransition
+
+128
+00:03:59,746 --> 0:04:00,316
+Coordinator.
+
+129
+00:03:59,746 --> 0:04:00,316
+Coordinator.
+
+130
+00:04:00,316 --> 0:04:01,896
+At that works exactly the same
+
+131
+00:04:02,186 --> 0:04:03,886
+as it does with any other view
+
+132
+00:04:03,886 --> 0:04:05,376
+controller transition in UIKit.
+
+133
+00:04:05,376 --> 0:04:06,486
+And you can learn about all
+
+134
+00:04:06,486 --> 0:04:07,446
+those details and the power
+
+135
+00:04:07,446 --> 0:04:10,106
+there from UIKit documentation.
+
+136
+00:04:10,106 --> 0:04:10,946
+But the key thing I want to
+
+137
+00:04:10,946 --> 0:04:13,996
+focus on here is the completion
+
+138
+00:04:13,996 --> 0:04:15,116
+handler for the animate
+
+139
+00:04:15,116 --> 0:04:17,206
+alongsideTransition callback.
+
+140
+00:04:17,206 --> 0:04:18,666
+And this is where you find out
+
+141
+00:04:18,666 --> 0:04:21,356
+whether a transition succeeded
+
+142
+00:04:21,596 --> 0:04:23,046
+or whether the user cancelled
+
+143
+00:04:23,046 --> 0:04:23,216
+it.
+
+144
+00:04:23,216 --> 0:04:24,706
+And this is the source of truth
+
+145
+00:04:24,766 --> 0:04:26,396
+for learning about entering full
+
+146
+00:04:26,396 --> 0:04:27,396
+screen from an inline
+
+147
+00:04:27,576 --> 0:04:28,256
+presentation.
+
+148
+00:04:29,306 --> 0:04:31,636
+And obviously it's interesting
+
+149
+00:04:31,636 --> 0:04:33,266
+to know whether the player view
+
+150
+00:04:33,266 --> 0:04:35,366
+controller is full screen or
+
+151
+00:04:35,476 --> 0:04:37,706
+whether it is embedded inline.
+
+152
+00:04:37,706 --> 0:04:39,486
+But why is it crucial?
+
+153
+00:04:40,066 --> 0:04:41,906
+It's important because, let's
+
+154
+00:04:41,906 --> 0:04:43,646
+take the case of where your
+
+155
+00:04:43,646 --> 0:04:45,166
+player view controller may have
+
+156
+00:04:45,166 --> 0:04:46,116
+been in a scroll view.
+
+157
+00:04:46,336 --> 0:04:47,896
+And the user has entered full
+
+158
+00:04:47,896 --> 0:04:48,376
+screen.
+
+159
+00:04:48,606 --> 0:04:50,056
+When the device rotates, as you
+
+160
+00:04:50,056 --> 0:04:51,606
+know, sometimes your scroll
+
+161
+00:04:51,606 --> 0:04:52,866
+view's offset might change.
+
+162
+00:04:52,866 --> 0:04:53,846
+And it's possible that the
+
+163
+00:04:53,846 --> 0:04:55,356
+player view controller will
+
+164
+00:04:55,356 --> 0:04:56,216
+scroll offscreen.
+
+165
+00:04:56,996 --> 0:04:59,696
+And that's okay for it to scroll
+
+166
+00:04:59,696 --> 0:05:00,756
+offscreen during the full screen
+
+167
+00:04:59,696 --> 0:05:00,756
+offscreen during the full screen
+
+168
+00:05:00,756 --> 0:05:01,966
+presentation because the user
+
+169
+00:05:01,966 --> 0:05:02,776
+can't see it.
+
+170
+00:05:03,266 --> 0:05:04,796
+But you need to make sure that
+
+171
+00:05:04,846 --> 0:05:06,186
+the player view controller does
+
+172
+00:05:06,186 --> 0:05:07,056
+stay alive.
+
+173
+00:05:07,206 --> 0:05:08,806
+If it is deallocated, the full
+
+174
+00:05:08,806 --> 0:05:11,046
+screen presentation will end.
+
+175
+00:05:11,736 --> 0:05:14,066
+So you can use the new API to
+
+176
+00:05:14,566 --> 0:05:16,366
+know when to take a strong
+
+177
+00:05:16,366 --> 0:05:17,436
+reference to the player view
+
+178
+00:05:17,436 --> 0:05:20,096
+controller if your table view
+
+179
+00:05:20,096 --> 0:05:21,666
+controller or collection view
+
+180
+00:05:21,996 --> 0:05:24,296
+happens to remove the player
+
+181
+00:05:24,296 --> 0:05:26,306
+view controller if it's scrolled
+
+182
+00:05:26,306 --> 0:05:26,896
+offscreen.
+
+183
+00:05:27,396 --> 0:05:28,356
+But you're still left with the
+
+184
+00:05:28,356 --> 0:05:29,766
+question of how do you get it
+
+185
+00:05:29,766 --> 0:05:31,866
+back in place when the user
+
+186
+00:05:31,866 --> 0:05:32,746
+exits full screen.
+
+187
+00:05:32,746 --> 0:05:35,036
+And for that, you use the
+
+188
+00:05:35,036 --> 0:05:36,766
+willEnd variant of the new API.
+
+189
+00:05:36,766 --> 0:05:38,646
+And this is called the before
+
+190
+00:05:38,646 --> 0:05:39,966
+the animation begins.
+
+191
+00:05:40,226 --> 0:05:42,756
+So you can reset the location of
+
+192
+00:05:42,756 --> 0:05:44,486
+the player view controller in
+
+193
+00:05:44,486 --> 0:05:45,596
+your UI.
+
+194
+00:05:45,596 --> 0:05:46,696
+And the user will be none the
+
+195
+00:05:46,696 --> 0:05:47,066
+wiser.
+
+196
+00:05:47,066 --> 0:05:48,466
+Everything will be back the way
+
+197
+00:05:48,776 --> 0:05:49,346
+they expect.
+
+198
+00:05:50,116 --> 0:05:51,126
+So those are full screen
+
+199
+00:05:51,126 --> 0:05:51,756
+callbacks.
+
+200
+00:05:53,536 --> 0:05:54,756
+Now let's take a look at
+
+201
+00:05:54,756 --> 0:05:56,106
+AVPlayerViewController in iPad
+
+202
+00:05:56,106 --> 0:05:56,856
+apps on the Mac.
+
+203
+00:05:56,856 --> 0:05:58,886
+And as you know, iPad apps can
+
+204
+00:05:58,886 --> 0:06:00,146
+now be built on the Mac.
+
+205
+00:05:58,886 --> 0:06:00,146
+now be built on the Mac.
+
+206
+00:06:00,596 --> 0:06:02,426
+And AVPlayerViewController is a
+
+207
+00:06:02,426 --> 0:06:03,676
+full participant in that.
+
+208
+00:06:04,716 --> 0:06:05,686
+And here's what it looks like.
+
+209
+00:06:05,866 --> 0:06:07,516
+You get the same user interface
+
+210
+00:06:07,746 --> 0:06:09,916
+that you expect from Apple's
+
+211
+00:06:09,916 --> 0:06:11,266
+playback UIs with all the
+
+212
+00:06:11,266 --> 0:06:12,606
+functionality that
+
+213
+00:06:12,606 --> 0:06:15,036
+AVPlayerViewController delivers
+
+214
+00:06:15,166 --> 0:06:15,916
+for iPad apps.
+
+215
+00:06:15,966 --> 0:06:17,766
+But you also get some platform
+
+216
+00:06:17,926 --> 0:06:19,386
+specific features for Mac.
+
+217
+00:06:19,746 --> 0:06:22,176
+Things like touch bar support,
+
+218
+00:06:22,176 --> 0:06:23,066
+which you get for free.
+
+219
+00:06:24,146 --> 0:06:25,296
+And keyboard support.
+
+220
+00:06:27,246 --> 0:06:28,756
+And we've also added
+
+221
+00:06:29,086 --> 0:06:31,326
+picture-in-picture support to
+
+222
+00:06:32,496 --> 0:06:34,206
+iPad apps on the Mac.
+
+223
+00:06:34,666 --> 0:06:35,926
+In fact, we've extended
+
+224
+00:06:35,926 --> 0:06:37,296
+picture-in-picture support to
+
+225
+00:06:37,576 --> 0:06:40,256
+all UIKit and APPKit-based apps
+
+226
+00:06:40,256 --> 0:06:41,396
+on the Mac for this release.
+
+227
+00:06:42,696 --> 0:06:44,176
+And how many new lines of code
+
+228
+00:06:44,176 --> 0:06:45,266
+to you need to use
+
+229
+00:06:45,266 --> 0:06:47,266
+AVPlayerViewController in an
+
+230
+00:06:47,266 --> 0:06:48,986
+iPad app on the Mac?
+
+231
+00:06:49,956 --> 0:06:50,416
+You guessed it.
+
+232
+00:06:51,006 --> 0:06:51,206
+None.
+
+233
+00:06:52,516 --> 0:06:55,776
+[ Applause ]
+
+234
+00:06:56,276 --> 0:06:58,436
+So that's AVPlayerViewController
+
+235
+00:06:58,436 --> 0:06:59,576
+and iPad apps on the Mac.
+
+236
+00:07:00,506 --> 0:07:01,646
+Now let's talk about external
+
+237
+00:07:01,646 --> 0:07:02,186
+metadata.
+
+238
+00:07:02,556 --> 0:07:05,056
+And to motivate this, imagine
+
+239
+00:07:05,056 --> 0:07:06,906
+that your AirPlaying content.
+
+240
+00:07:07,306 --> 0:07:09,446
+And imagine when you did that,
+
+241
+00:07:09,706 --> 0:07:11,576
+your locked screen looked like
+
+242
+00:07:11,576 --> 0:07:15,306
+this, instead of like this.
+
+243
+00:07:15,856 --> 0:07:17,986
+And there's two things that make
+
+244
+00:07:18,116 --> 0:07:20,076
+it possible to show this UI.
+
+245
+00:07:20,076 --> 0:07:20,966
+The first thing is you need to
+
+246
+00:07:20,966 --> 0:07:22,816
+handle remote control commands.
+
+247
+00:07:23,216 --> 0:07:24,846
+And AVKit handles that for you
+
+248
+00:07:24,846 --> 0:07:26,096
+automatically for free.
+
+249
+00:07:26,096 --> 0:07:27,336
+You don't have to do anything.
+
+250
+00:07:28,186 --> 0:07:29,616
+But you also sometimes have
+
+251
+00:07:29,616 --> 0:07:31,166
+media that doesn't have all the
+
+252
+00:07:31,166 --> 0:07:32,816
+metadata that you would want to
+
+253
+00:07:32,816 --> 0:07:34,076
+publish baked in.
+
+254
+00:07:34,496 --> 0:07:37,186
+And for that, we're adding this
+
+255
+00:07:37,186 --> 0:07:38,296
+new API to iOS.
+
+256
+00:07:38,296 --> 0:07:41,946
+It's actually existed on tvOS.
+
+257
+00:07:42,226 --> 0:07:44,776
+And you take your AVPlayerItem.
+
+258
+00:07:44,856 --> 0:07:47,136
+And you can supplement metadata
+
+259
+00:07:47,136 --> 0:07:48,636
+with things like title,
+
+260
+00:07:48,796 --> 0:07:51,236
+metadata, or artwork metadata.
+
+261
+00:07:51,486 --> 0:07:52,406
+It's super easy.
+
+262
+00:07:52,406 --> 0:07:54,286
+And when you do that, we'll take
+
+263
+00:07:54,286 --> 0:07:57,966
+care of the rest.
+
+264
+00:07:58,236 --> 0:08:02,006
+We've also, in iOS 13, improved
+
+265
+00:07:58,236 --> 0:08:02,006
+We've also, in iOS 13, improved
+
+266
+00:08:02,006 --> 0:08:04,446
+support for interactive -- for
+
+267
+00:08:04,616 --> 0:08:06,236
+custom controls from
+
+268
+00:08:06,236 --> 0:08:07,416
+AVPlayerViewController.
+
+269
+00:08:07,596 --> 0:08:08,776
+That's always been possible to
+
+270
+00:08:08,776 --> 0:08:10,746
+do, use custom controls with
+
+271
+00:08:10,746 --> 0:08:13,146
+AVPlayerViewController on iOS.
+
+272
+00:08:13,676 --> 0:08:15,456
+But when you did that, you lost
+
+273
+00:08:15,456 --> 0:08:16,726
+all the other things that
+
+274
+00:08:16,726 --> 0:08:18,136
+weren't onscreen.
+
+275
+00:08:18,656 --> 0:08:20,246
+Things like interactive
+
+276
+00:08:20,246 --> 0:08:21,096
+dismissals.
+
+277
+00:08:21,416 --> 0:08:23,706
+Or landscape support.
+
+278
+00:08:24,626 --> 0:08:25,996
+Things like keyboard.
+
+279
+00:08:26,356 --> 0:08:27,296
+And now in
+
+280
+00:08:27,366 --> 0:08:30,066
+AVPlayerViewController on iPad
+
+281
+00:08:30,066 --> 0:08:31,306
+apps for the Mac, touch bar
+
+282
+00:08:31,306 --> 0:08:31,696
+support.
+
+283
+00:08:31,696 --> 0:08:35,265
+So, what you can do now in iOS
+
+284
+00:08:35,265 --> 0:08:37,256
+13 is if you set
+
+285
+00:08:37,256 --> 0:08:38,706
+showsPlaybackControls to False.
+
+286
+00:08:39,686 --> 0:08:41,426
+And then you present
+
+287
+00:08:41,426 --> 0:08:43,096
+AVPlayerViewController modally.
+
+288
+00:08:44,176 --> 0:08:45,856
+And finally use the
+
+289
+00:08:45,856 --> 0:08:47,616
+contentOverlayView as a place
+
+290
+00:08:47,616 --> 0:08:48,736
+where you place your custom
+
+291
+00:08:48,736 --> 0:08:49,266
+controls.
+
+292
+00:08:50,026 --> 0:08:51,276
+You can have a completely custom
+
+293
+00:08:51,276 --> 0:08:53,406
+playback UI but still take
+
+294
+00:08:53,406 --> 0:08:55,416
+advantage of things like
+
+295
+00:08:55,506 --> 0:08:58,166
+nowPlayingInfo support
+
+296
+00:08:58,166 --> 0:08:59,776
+and interactive dismissals.
+
+297
+00:08:59,816 --> 0:09:01,426
+But there's some things, if you
+
+298
+00:08:59,816 --> 0:09:01,426
+But there's some things, if you
+
+299
+00:09:01,426 --> 0:09:02,706
+do this, some things you should
+
+300
+00:09:02,706 --> 0:09:04,486
+keep in mind.
+
+301
+00:09:04,486 --> 0:09:05,486
+You still are going to need to
+
+302
+00:09:05,486 --> 0:09:08,046
+take care of status bar and home
+
+303
+00:09:08,046 --> 0:09:09,686
+indicator appearance.
+
+304
+00:09:09,916 --> 0:09:11,136
+And you should always pass
+
+305
+00:09:11,136 --> 0:09:13,786
+unhandled touches through your
+
+306
+00:09:13,786 --> 0:09:15,546
+view hierarchy so that AVKit can
+
+307
+00:09:15,546 --> 0:09:17,006
+handle things like interactive
+
+308
+00:09:17,006 --> 0:09:19,396
+dismissals or double-tap for
+
+309
+00:09:19,396 --> 0:09:20,876
+zoom, which we'll talk about in
+
+310
+00:09:20,876 --> 0:09:21,376
+a little bit.
+
+311
+00:09:22,846 --> 0:09:24,846
+So, that's a look at what's new
+
+312
+00:09:25,136 --> 0:09:27,246
+in AVPlayerViewController on
+
+313
+00:09:27,356 --> 0:09:27,816
+iOS.
+
+314
+00:09:28,246 --> 0:09:29,956
+There's a bunch more things that
+
+315
+00:09:29,956 --> 0:09:30,526
+we've added.
+
+316
+00:09:31,406 --> 0:09:35,246
+And one of them is we've made
+
+317
+00:09:35,246 --> 0:09:36,476
+great strides in improving
+
+318
+00:09:36,476 --> 0:09:38,076
+performance in iOS 12.
+
+319
+00:09:38,466 --> 0:09:40,886
+And it's even better on iOS 13.
+
+320
+00:09:40,886 --> 0:09:43,276
+So if you're interested in using
+
+321
+00:09:43,276 --> 0:09:44,486
+AVPlayerViewController in scroll
+
+322
+00:09:44,486 --> 0:09:46,466
+view, it should be buttery
+
+323
+00:09:46,466 --> 0:09:47,076
+smooth now.
+
+324
+00:09:48,496 --> 0:09:49,976
+So, let's talk about some best
+
+325
+00:09:50,026 --> 0:09:51,056
+practices with
+
+326
+00:09:51,056 --> 0:09:52,146
+AVPlayerViewController.
+
+327
+00:09:54,416 --> 0:09:56,056
+I want to talk about three
+
+328
+00:09:56,056 --> 0:09:57,416
+different ways that we show
+
+329
+00:09:57,696 --> 0:09:59,486
+video on our devices.
+
+330
+00:09:59,956 --> 0:10:01,436
+And of course, there's a fourth
+
+331
+00:09:59,956 --> 0:10:01,436
+And of course, there's a fourth
+
+332
+00:10:01,436 --> 0:10:03,196
+way that we show video from an
+
+333
+00:10:03,196 --> 0:10:04,376
+iOS device AirPlay.
+
+334
+00:10:04,376 --> 0:10:06,226
+And there was a terrific talk on
+
+335
+00:10:06,226 --> 0:10:08,046
+Tuesday morning at 9:00 a.m. If
+
+336
+00:10:08,046 --> 0:10:09,136
+you haven't seen it, I would
+
+337
+00:10:09,136 --> 0:10:12,376
+strongly recommend watching that
+
+338
+00:10:12,376 --> 0:10:12,476
+talk.
+
+339
+00:10:12,476 --> 0:10:13,806
+But I'm going to focus on
+
+340
+00:10:13,866 --> 0:10:15,096
+on-device playback today.
+
+341
+00:10:16,146 --> 0:10:18,056
+And let's start with full screen
+
+342
+00:10:18,056 --> 0:10:18,866
+video playback.
+
+343
+00:10:18,866 --> 0:10:21,056
+And of course, what I mean by
+
+344
+00:10:21,056 --> 0:10:22,856
+that is full screen in the UIKit
+
+345
+00:10:22,856 --> 0:10:23,656
+sense of the word.
+
+346
+00:10:23,946 --> 0:10:25,356
+So, we're talking about covering
+
+347
+00:10:25,356 --> 0:10:27,076
+your UIWindowScene coordinate
+
+348
+00:10:27,076 --> 0:10:27,576
+space.
+
+349
+00:10:27,726 --> 0:10:29,296
+And if we think about it,
+
+350
+00:10:29,296 --> 0:10:31,456
+there's two different reasons
+
+351
+00:10:31,456 --> 0:10:32,616
+why we might play a video full
+
+352
+00:10:32,616 --> 0:10:33,086
+screen.
+
+353
+00:10:33,676 --> 0:10:35,046
+It could be for sort of a
+
+354
+00:10:35,046 --> 0:10:36,376
+background video in a splash
+
+355
+00:10:36,376 --> 0:10:37,186
+screen scenario.
+
+356
+00:10:37,536 --> 0:10:39,146
+Or because the video is the star
+
+357
+00:10:39,146 --> 0:10:39,686
+of the show.
+
+358
+00:10:39,686 --> 0:10:41,056
+And we want full playback
+
+359
+00:10:41,056 --> 0:10:41,556
+controls.
+
+360
+00:10:41,556 --> 0:10:43,306
+And let's take a quick look at
+
+361
+00:10:43,306 --> 0:10:44,976
+the splash screen scenario.
+
+362
+00:10:45,426 --> 0:10:47,866
+And you're going to have set of
+
+363
+00:10:47,866 --> 0:10:49,766
+these things that you're going
+
+364
+00:10:49,806 --> 0:10:52,606
+to want to implement in your
+
+365
+00:10:52,606 --> 0:10:53,406
+application.
+
+366
+00:10:54,136 --> 0:10:56,286
+And to do that, you're going to
+
+367
+00:10:56,626 --> 0:10:58,056
+take the playerViewController.
+
+368
+00:10:58,426 --> 0:10:59,476
+You're going to embed it as a
+
+369
+00:10:59,476 --> 0:10:59,936
+child.
+
+370
+00:10:59,936 --> 0:11:01,006
+So it can be at the bottom of
+
+371
+00:10:59,936 --> 0:11:01,006
+So it can be at the bottom of
+
+372
+00:11:01,006 --> 0:11:02,126
+your view hierarchy.
+
+373
+00:11:02,526 --> 0:11:03,356
+You're going to do things like
+
+374
+00:11:03,446 --> 0:11:05,466
+disabling playback controls and
+
+375
+00:11:05,646 --> 0:11:07,116
+setting the video gravity so
+
+376
+00:11:07,116 --> 0:11:08,526
+that the video scales to fill
+
+377
+00:11:08,526 --> 0:11:09,446
+the full screen.
+
+378
+00:11:10,296 --> 0:11:11,226
+If you're using the new video
+
+379
+00:11:11,226 --> 0:11:12,876
+with alpha APIs that are new in
+
+380
+00:11:12,876 --> 0:11:13,956
+this release, you're going to
+
+381
+00:11:13,956 --> 0:11:15,246
+want to set your view's
+
+382
+00:11:15,246 --> 0:11:17,296
+background color to clear or
+
+383
+00:11:17,296 --> 0:11:19,146
+some other color to leverage
+
+384
+00:11:19,146 --> 0:11:19,396
+that.
+
+385
+00:11:21,016 --> 0:11:22,226
+And there's some things to take
+
+386
+00:11:22,226 --> 0:11:23,956
+into account with AVFoundation.
+
+387
+00:11:24,456 --> 0:11:25,356
+You always want to make sure to
+
+388
+00:11:25,356 --> 0:11:27,436
+prevent external playback with
+
+389
+00:11:27,436 --> 0:11:28,566
+something that is playing as a
+
+390
+00:11:28,566 --> 0:11:29,396
+splash screen.
+
+391
+00:11:29,716 --> 0:11:30,276
+Because you don't want to
+
+392
+00:11:30,276 --> 0:11:32,026
+interrupt, say, music playing on
+
+393
+00:11:32,026 --> 0:11:33,086
+someone's Apple TV.
+
+394
+00:11:33,306 --> 0:11:35,316
+And you want to configure the
+
+395
+00:11:35,316 --> 0:11:36,136
+audio session.
+
+396
+00:11:36,136 --> 0:11:37,876
+And especially this last
+
+397
+00:11:37,986 --> 0:11:41,836
+property on AVAudioSession, that
+
+398
+00:11:42,066 --> 0:11:43,746
+this secondary audio should be
+
+399
+00:11:43,746 --> 0:11:44,216
+silenced.
+
+400
+00:11:44,216 --> 0:11:45,966
+It lets you know if the user is
+
+401
+00:11:46,026 --> 0:11:47,776
+playing audio from some other
+
+402
+00:11:47,776 --> 0:11:48,566
+application.
+
+403
+00:11:48,846 --> 0:11:50,206
+And they want that application
+
+404
+00:11:50,206 --> 0:11:51,476
+to be -- that audio to be
+
+405
+00:11:51,476 --> 0:11:52,026
+primary.
+
+406
+00:11:52,656 --> 0:11:53,946
+In that case, if you have audio
+
+407
+00:11:53,946 --> 0:11:55,056
+in your splash screen video,
+
+408
+00:11:55,216 --> 0:11:57,236
+make sure to mute it.
+
+409
+00:11:58,056 --> 0:11:59,546
+But then, let's look at full
+
+410
+00:11:59,546 --> 0:12:01,036
+screen playback where the video
+
+411
+00:11:59,546 --> 0:12:01,036
+screen playback where the video
+
+412
+00:12:01,036 --> 0:12:01,986
+is the star of the show.
+
+413
+00:12:01,986 --> 0:12:03,046
+And when we do this, of course
+
+414
+00:12:03,046 --> 0:12:06,456
+we want playback UI that adapts
+
+415
+00:12:06,886 --> 0:12:08,446
+beautifully whether it's a
+
+416
+00:12:08,446 --> 0:12:10,506
+portrait presentation like this
+
+417
+00:12:10,506 --> 0:12:12,696
+where we have a stacked playback
+
+418
+00:12:12,816 --> 0:12:14,326
+transport controls.
+
+419
+00:12:14,726 --> 0:12:16,696
+Or we're in landscape and we
+
+420
+00:12:16,696 --> 0:12:18,596
+need a slightly different layout
+
+421
+00:12:18,596 --> 0:12:20,086
+but the same -- but we need to
+
+422
+00:12:20,196 --> 0:12:21,716
+deliver the same functionality.
+
+423
+00:12:22,406 --> 0:12:23,806
+So AVPlayerViewController
+
+424
+00:12:24,396 --> 0:12:26,446
+delivers this to you for free.
+
+425
+00:12:26,916 --> 0:12:28,646
+And it also does things like,
+
+426
+00:12:28,646 --> 0:12:31,266
+you'll notice in those two
+
+427
+00:12:31,336 --> 0:12:34,256
+screen shots the video was
+
+428
+00:12:34,806 --> 0:12:36,066
+unzoomed in portrait.
+
+429
+00:12:36,066 --> 0:12:37,976
+And now it's zoomed in
+
+430
+00:12:38,206 --> 0:12:38,836
+landscape.
+
+431
+00:12:39,566 --> 0:12:40,546
+And it's zoomed to fill the
+
+432
+00:12:40,546 --> 0:12:42,096
+entire screen because the user
+
+433
+00:12:42,096 --> 0:12:43,946
+has generally, in this case, has
+
+434
+00:12:44,006 --> 0:12:46,766
+played video that is of similar
+
+435
+00:12:46,766 --> 0:12:48,186
+aspect ratio to the device
+
+436
+00:12:48,186 --> 0:12:50,976
+aspect ratio in a zoomed format.
+
+437
+00:12:51,286 --> 0:12:53,446
+But some users prefer to have
+
+438
+00:12:53,826 --> 0:12:56,856
+video unzoomed, like here.
+
+439
+00:12:57,136 --> 0:12:58,406
+And when that happens we want to
+
+440
+00:12:58,406 --> 0:13:00,836
+make sure that the video isn't
+
+441
+00:12:58,406 --> 0:13:00,836
+make sure that the video isn't
+
+442
+00:13:00,836 --> 0:13:02,856
+occluded by any physical
+
+443
+00:13:02,856 --> 0:13:04,116
+characteristic of the device.
+
+444
+00:13:04,706 --> 0:13:07,036
+AVKit is aware of all these
+
+445
+00:13:07,036 --> 0:13:08,186
+things and takes care of that
+
+446
+00:13:08,186 --> 0:13:09,276
+for you when you're using
+
+447
+00:13:09,746 --> 0:13:10,756
+PlayerViewController.
+
+448
+00:13:10,816 --> 0:13:12,086
+But rather than running through
+
+449
+00:13:12,496 --> 0:13:14,306
+every feature that we provide, I
+
+450
+00:13:14,306 --> 0:13:15,966
+just want to zoom in on two very
+
+451
+00:13:15,966 --> 0:13:17,816
+small things that we added in
+
+452
+00:13:17,896 --> 0:13:18,856
+iOS 13.
+
+453
+00:13:19,416 --> 0:13:22,876
+The first -- in this video,
+
+454
+00:13:23,096 --> 0:13:24,516
+you're going to hear audio
+
+455
+00:13:24,556 --> 0:13:24,956
+playing.
+
+456
+00:13:24,956 --> 0:13:26,186
+And the user's going to tap the
+
+457
+00:13:26,186 --> 0:13:26,766
+Mute button.
+
+458
+00:13:26,996 --> 0:13:30,276
+Notice when it mutes, there's a
+
+459
+00:13:30,366 --> 0:13:32,166
+subtle ramp to the audio.
+
+460
+00:13:32,826 --> 0:13:35,206
+And there's an animation in the
+
+461
+00:13:35,616 --> 0:13:36,256
+volume slider.
+
+462
+00:13:37,516 --> 0:13:40,546
+[ Music ]
+
+463
+00:13:41,046 --> 0:13:43,456
+And then in this example,
+
+464
+00:13:43,456 --> 0:13:44,286
+there's an interactive
+
+465
+00:13:44,286 --> 0:13:44,886
+dismissal.
+
+466
+00:13:44,886 --> 0:13:45,966
+And notice that the audio
+
+467
+00:13:45,966 --> 0:13:48,366
+gracefully fades with the user's
+
+468
+00:13:48,656 --> 0:13:49,146
+dismissal.
+
+469
+00:13:49,146 --> 0:13:50,226
+And then when the user cancels
+
+470
+00:13:50,226 --> 0:13:51,526
+the dismissal, the audio comes
+
+471
+00:13:51,526 --> 0:13:52,686
+back up.
+
+472
+00:13:53,516 --> 0:14:04,296
+[ Music ]
+
+473
+00:13:53,516 --> 0:14:04,296
+[ Music ]
+
+474
+00:14:04,796 --> 0:14:06,726
+So those are two small things,
+
+475
+00:14:06,726 --> 0:14:08,466
+but they illustrate the level of
+
+476
+00:14:08,466 --> 0:14:09,706
+attention to detail that we're
+
+477
+00:14:09,706 --> 0:14:10,746
+able to give to
+
+478
+00:14:10,746 --> 0:14:11,916
+AVPlayerViewController and that
+
+479
+00:14:11,916 --> 0:14:14,036
+your users will get for free if
+
+480
+00:14:14,036 --> 0:14:15,796
+you're able to adopt it in your
+
+481
+00:14:15,796 --> 0:14:16,126
+app.
+
+482
+00:14:17,816 --> 0:14:20,216
+You get a whole bunch of other
+
+483
+00:14:20,216 --> 0:14:20,356
+things.
+
+484
+00:14:20,356 --> 0:14:22,586
+And the question that you might
+
+485
+00:14:22,586 --> 0:14:23,986
+ask is how do you get all of
+
+486
+00:14:23,986 --> 0:14:24,466
+this?
+
+487
+00:14:24,786 --> 0:14:26,416
+And let's take another look at
+
+488
+00:14:26,416 --> 0:14:26,736
+code.
+
+489
+00:14:28,566 --> 0:14:30,446
+So, this is basically the same
+
+490
+00:14:30,446 --> 0:14:31,716
+thing that I showed earlier in
+
+491
+00:14:31,776 --> 0:14:32,506
+the talk.
+
+492
+00:14:33,126 --> 0:14:34,136
+The only addition is this
+
+493
+00:14:34,136 --> 0:14:35,216
+external metadata.
+
+494
+00:14:35,396 --> 0:14:36,336
+This line allows you to
+
+495
+00:14:36,496 --> 0:14:38,916
+supplement your metadata.
+
+496
+00:14:39,486 --> 0:14:41,366
+And it really is that easy to
+
+497
+00:14:41,366 --> 0:14:42,006
+get started.
+
+498
+00:14:43,486 --> 0:14:45,056
+But it's worth talking about why
+
+499
+00:14:45,056 --> 0:14:47,206
+it's possible for you to do so
+
+500
+00:14:47,206 --> 0:14:50,416
+little on the UI side and to get
+
+501
+00:14:50,416 --> 0:14:51,506
+such a good experience.
+
+502
+00:14:51,846 --> 0:14:53,416
+And so, for that I want to talk
+
+503
+00:14:53,416 --> 0:14:55,746
+about a couple of best practices
+
+504
+00:14:55,746 --> 0:14:55,906
+here.
+
+505
+00:14:56,446 --> 0:14:57,696
+So, when you use
+
+506
+00:14:57,696 --> 0:14:59,246
+AVPlayerViewController for a
+
+507
+00:14:59,246 --> 0:15:00,276
+full screen presentation you
+
+508
+00:14:59,246 --> 0:15:00,276
+full screen presentation you
+
+509
+00:15:00,276 --> 0:15:01,396
+should always present it
+
+510
+00:15:01,396 --> 0:15:03,506
+modally, not as a child view
+
+511
+00:15:03,506 --> 0:15:05,026
+controller of some other view
+
+512
+00:15:05,026 --> 0:15:05,566
+controller.
+
+513
+00:15:06,076 --> 0:15:07,226
+And sometimes you may have done
+
+514
+00:15:07,226 --> 0:15:08,376
+that because you wanted to learn
+
+515
+00:15:08,376 --> 0:15:10,666
+about presentation state, which
+
+516
+00:15:10,666 --> 0:15:11,466
+you can now do with the
+
+517
+00:15:11,466 --> 0:15:13,546
+callbacks that I discussed
+
+518
+00:15:13,546 --> 0:15:14,016
+earlier.
+
+519
+00:15:14,866 --> 0:15:16,276
+Presenting modally lets us
+
+520
+00:15:16,386 --> 0:15:17,816
+handle things like status bar
+
+521
+00:15:17,816 --> 0:15:18,656
+visibility.
+
+522
+00:15:18,656 --> 0:15:20,436
+Let's us optimize the screen's
+
+523
+00:15:20,716 --> 0:15:21,816
+display mode.
+
+524
+00:15:22,066 --> 0:15:25,156
+It lets us handle video gravity,
+
+525
+00:15:25,156 --> 0:15:27,806
+video zoom mode, interactive
+
+526
+00:15:27,806 --> 0:15:28,496
+dismissals.
+
+527
+00:15:29,166 --> 0:15:30,776
+And when you are presenting
+
+528
+00:15:31,036 --> 0:15:33,166
+modally full screen, you should
+
+529
+00:15:33,166 --> 0:15:35,246
+use the default modal
+
+530
+00:15:35,246 --> 0:15:36,086
+presentation style.
+
+531
+00:15:36,086 --> 0:15:38,676
+As you may know, in iOS 13, the
+
+532
+00:15:38,676 --> 0:15:40,906
+new default modal presentation
+
+533
+00:15:40,906 --> 0:15:42,486
+style is automatic.
+
+534
+00:15:43,076 --> 0:15:44,746
+And what that resolves to for
+
+535
+00:15:44,746 --> 0:15:46,836
+AVPlayerViewController is a full
+
+536
+00:15:46,836 --> 0:15:47,826
+screen presentation.
+
+537
+00:15:48,856 --> 0:15:50,106
+And there's two types of full
+
+538
+00:15:50,106 --> 0:15:51,456
+screen presentations: Full
+
+539
+00:15:51,456 --> 0:15:53,386
+screen and over full screen.
+
+540
+00:15:53,966 --> 0:15:55,336
+The reason why you want to use
+
+541
+00:15:55,486 --> 0:15:58,036
+the default is because when your
+
+542
+00:15:58,036 --> 0:15:59,836
+view controller is presented,
+
+543
+00:15:59,836 --> 0:16:01,966
+the presenting view can be
+
+544
+00:15:59,836 --> 0:16:01,966
+the presenting view can be
+
+545
+00:16:01,966 --> 0:16:03,506
+removed by UIKit.
+
+546
+00:16:04,026 --> 0:16:06,706
+This allows, because your view
+
+547
+00:16:06,706 --> 0:16:09,676
+is covering the newly presented
+
+548
+00:16:10,006 --> 0:16:12,206
+view hierarchy, removing the
+
+549
+00:16:12,206 --> 0:16:13,026
+presenting view is an
+
+550
+00:16:13,026 --> 0:16:14,606
+optimization during rotation.
+
+551
+00:16:14,606 --> 0:16:16,386
+You don't want to do layout when
+
+552
+00:16:16,386 --> 0:16:17,486
+your view's not even visible.
+
+553
+00:16:17,866 --> 0:16:19,526
+But it also allows things like
+
+554
+00:16:19,526 --> 0:16:21,306
+landscape playback if your app
+
+555
+00:16:21,306 --> 0:16:22,906
+is otherwise portrait only or
+
+556
+00:16:22,906 --> 0:16:24,476
+this view controller hierarchy
+
+557
+00:16:24,476 --> 0:16:26,046
+is otherwise portrait only.
+
+558
+00:16:27,746 --> 0:16:29,326
+It's also best just to leave the
+
+559
+00:16:29,326 --> 0:16:30,866
+video gravity property alone for
+
+560
+00:16:30,896 --> 0:16:31,886
+full screen playback.
+
+561
+00:16:32,206 --> 0:16:34,146
+That allows us to do automatic
+
+562
+00:16:34,146 --> 0:16:35,606
+behaviors like I was
+
+563
+00:16:35,606 --> 0:16:36,766
+illustrating before.
+
+564
+00:16:37,196 --> 0:16:39,326
+If you set the video gravity,
+
+565
+00:16:39,326 --> 0:16:40,506
+we'll give you exactly what you
+
+566
+00:16:40,506 --> 0:16:40,886
+want.
+
+567
+00:16:40,886 --> 0:16:42,376
+We'll zoom the video or unzoom
+
+568
+00:16:42,376 --> 0:16:42,766
+the video.
+
+569
+00:16:42,766 --> 0:16:43,726
+But once you do that, the
+
+570
+00:16:43,726 --> 0:16:45,046
+automatic behavior, we can't do
+
+571
+00:16:45,046 --> 0:16:46,416
+the automatic behavior anymore.
+
+572
+00:16:46,736 --> 0:16:48,236
+So your users generally would
+
+573
+00:16:48,236 --> 0:16:49,466
+prefer to have the automatic
+
+574
+00:16:49,906 --> 0:16:50,656
+behavior.
+
+575
+00:16:51,096 --> 0:16:52,496
+And of course, use the new
+
+576
+00:16:52,576 --> 0:16:53,736
+delegate methods to track the
+
+577
+00:16:53,736 --> 0:16:55,076
+full screen presentation state.
+
+578
+00:16:56,176 --> 0:16:59,506
+A couple of tips related to
+
+579
+00:16:59,506 --> 0:17:01,376
+AVFoundation best practices
+
+580
+00:16:59,506 --> 0:17:01,376
+AVFoundation best practices
+
+581
+00:17:01,376 --> 0:17:01,616
+here.
+
+582
+00:17:02,206 --> 0:17:04,796
+What this one is about, the way
+
+583
+00:17:04,796 --> 0:17:06,546
+I think about it, is if you're
+
+584
+00:17:06,546 --> 0:17:08,356
+starting a video, say halfway
+
+585
+00:17:08,356 --> 0:17:11,476
+into the video, seek the player
+
+586
+00:17:11,476 --> 0:17:14,046
+item to the resume time before
+
+587
+00:17:14,316 --> 0:17:15,425
+setting it on the player.
+
+588
+00:17:15,425 --> 0:17:16,606
+And make sure you're going to
+
+589
+00:17:16,606 --> 0:17:17,705
+have a playing player that it's
+
+590
+00:17:17,705 --> 0:17:18,455
+already playing.
+
+591
+00:17:18,455 --> 0:17:20,215
+And then provide that to
+
+592
+00:17:20,215 --> 0:17:21,316
+AVPlayerViewController.
+
+593
+00:17:21,316 --> 0:17:22,776
+And this allows the UI to look
+
+594
+00:17:23,126 --> 0:17:23,406
+correct.
+
+595
+00:17:23,406 --> 0:17:24,465
+And more importantly, it avoids
+
+596
+00:17:24,465 --> 0:17:27,636
+loading content that isn't going
+
+597
+00:17:27,636 --> 0:17:28,676
+to end up being played.
+
+598
+00:17:30,006 --> 0:17:32,426
+You should also always observe
+
+599
+00:17:32,426 --> 0:17:35,126
+AVPlayer's and AVPlayerItem
+
+600
+00:17:35,126 --> 0:17:36,106
+status property.
+
+601
+00:17:36,906 --> 0:17:39,356
+Though you can use KVO to
+
+602
+00:17:39,356 --> 0:17:39,876
+observe them.
+
+603
+00:17:39,876 --> 0:17:41,766
+When they fail, when the
+
+604
+00:17:41,766 --> 0:17:43,156
+property status becomes failed,
+
+605
+00:17:43,646 --> 0:17:45,286
+there's an easy path to recovery
+
+606
+00:17:45,286 --> 0:17:46,126
+in many cases.
+
+607
+00:17:46,386 --> 0:17:47,566
+Check the error property.
+
+608
+00:17:47,916 --> 0:17:49,416
+See if media services were
+
+609
+00:17:49,416 --> 0:17:49,806
+reset.
+
+610
+00:17:49,806 --> 0:17:51,986
+And if so, just rebuild your
+
+611
+00:17:51,986 --> 0:17:52,996
+player, player item, your
+
+612
+00:17:52,996 --> 0:17:55,036
+AVFoundation object ref and set
+
+613
+00:17:55,036 --> 0:17:55,446
+it back on the
+
+614
+00:17:55,446 --> 0:17:56,616
+PlayerViewController and
+
+615
+00:17:56,896 --> 0:17:59,976
+everything should be fine.
+
+616
+00:18:00,046 --> 0:18:02,576
+And this property gives you an
+
+617
+00:18:02,576 --> 0:18:04,356
+optimized video rendering when
+
+618
+00:18:04,706 --> 0:18:05,576
+you're mirroring.
+
+619
+00:18:06,116 --> 0:18:10,716
+And of course, always configure
+
+620
+00:18:10,716 --> 0:18:12,026
+your audio session for playback.
+
+621
+00:18:12,776 --> 0:18:18,056
+So, when we talk about embedding
+
+622
+00:18:18,256 --> 0:18:19,726
+AVPlayerViewController inline,
+
+623
+00:18:19,886 --> 0:18:20,956
+there's a little bit more to
+
+624
+00:18:20,956 --> 0:18:21,446
+consider.
+
+625
+00:18:22,266 --> 0:18:25,356
+And we've already talked about
+
+626
+00:18:25,356 --> 0:18:28,466
+the full screen, new full screen
+
+627
+00:18:28,466 --> 0:18:30,626
+presentation state callbacks in
+
+628
+00:18:30,626 --> 0:18:31,516
+iOS 13.
+
+629
+00:18:32,376 --> 0:18:34,236
+So I won't go over those again.
+
+630
+00:18:34,236 --> 0:18:35,976
+But, one thing I want to touch
+
+631
+00:18:35,976 --> 0:18:37,156
+on is if you've used
+
+632
+00:18:37,156 --> 0:18:38,326
+AVPlayerViewController in the
+
+633
+00:18:38,326 --> 0:18:41,566
+past, when we enter full screen
+
+634
+00:18:41,896 --> 0:18:42,926
+from an embedded inline
+
+635
+00:18:42,926 --> 0:18:44,246
+presentation, the modal
+
+636
+00:18:44,246 --> 0:18:46,296
+transition style has been in
+
+637
+00:18:46,296 --> 0:18:47,796
+over full screen style, which
+
+638
+00:18:47,796 --> 0:18:49,056
+means that your view, your
+
+639
+00:18:49,296 --> 0:18:50,746
+presenting view, isn't removed.
+
+640
+00:18:50,986 --> 0:18:53,326
+If your app links against iOS
+
+641
+00:18:53,326 --> 0:18:55,206
+13, the default presentation
+
+642
+00:18:55,206 --> 0:18:57,316
+style now will be full screen.
+
+643
+00:18:57,316 --> 0:18:58,426
+Which means that the presenting
+
+644
+00:18:58,426 --> 0:18:59,416
+view might be removed.
+
+645
+00:18:59,416 --> 0:19:00,606
+And that has all the benefits
+
+646
+00:18:59,416 --> 0:19:00,606
+And that has all the benefits
+
+647
+00:19:00,646 --> 0:19:01,876
+that I talked about earlier.
+
+648
+00:19:02,866 --> 0:19:04,566
+So, ideally you'll be able to
+
+649
+00:19:04,566 --> 0:19:07,216
+leave this modal presentation
+
+650
+00:19:07,216 --> 0:19:08,946
+style as full screen.
+
+651
+00:19:09,086 --> 0:19:10,446
+But if you don't, it's okay.
+
+652
+00:19:10,446 --> 0:19:12,126
+You can still set it to over
+
+653
+00:19:12,126 --> 0:19:12,696
+full screen.
+
+654
+00:19:12,976 --> 0:19:14,106
+But the recommendation is to
+
+655
+00:19:14,106 --> 0:19:15,096
+just stick with the default.
+
+656
+00:19:17,746 --> 0:19:19,036
+Another thing to consider is
+
+657
+00:19:19,496 --> 0:19:20,696
+when you have an embedded
+
+658
+00:19:20,826 --> 0:19:23,596
+presentation, your video, you
+
+659
+00:19:23,596 --> 0:19:25,506
+may want to zoom the video so
+
+660
+00:19:25,506 --> 0:19:26,946
+that you don't have black bars
+
+661
+00:19:26,946 --> 0:19:28,286
+on top or on bottom.
+
+662
+00:19:28,976 --> 0:19:30,216
+You also might want to have
+
+663
+00:19:30,216 --> 0:19:32,926
+things like a corner curve to
+
+664
+00:19:32,926 --> 0:19:35,776
+the video's view port.
+
+665
+00:19:36,486 --> 0:19:38,736
+And also, you may want to set
+
+666
+00:19:38,736 --> 0:19:40,316
+the background color of the
+
+667
+00:19:40,316 --> 0:19:40,656
+view.
+
+668
+00:19:41,006 --> 0:19:42,656
+You can do all that to
+
+669
+00:19:42,656 --> 0:19:44,106
+AVPlayerViewController's view or
+
+670
+00:19:44,106 --> 0:19:45,736
+to the video gravity when it's
+
+671
+00:19:45,776 --> 0:19:46,806
+embedded inline.
+
+672
+00:19:47,106 --> 0:19:48,446
+And we'll use that for the
+
+673
+00:19:48,706 --> 0:19:50,326
+inline part of the presentation.
+
+674
+00:19:51,026 --> 0:19:52,486
+If the user decides to go full
+
+675
+00:19:52,486 --> 0:19:53,916
+screen, then we'll do the right
+
+676
+00:19:53,916 --> 0:19:54,306
+thing there.
+
+677
+00:19:54,306 --> 0:19:56,496
+So, in contrast to, if you're
+
+678
+00:19:56,496 --> 0:19:57,426
+just presenting
+
+679
+00:19:57,426 --> 0:19:58,576
+AVPlayerViewController full
+
+680
+00:19:58,576 --> 0:20:01,006
+screen, it's okay to -- you can
+
+681
+00:19:58,576 --> 0:20:01,006
+screen, it's okay to -- you can
+
+682
+00:20:01,006 --> 0:20:02,066
+change these properties for the
+
+683
+00:20:02,126 --> 0:20:02,996
+inline portion of the
+
+684
+00:20:02,996 --> 0:20:03,676
+presentation.
+
+685
+00:20:03,886 --> 0:20:06,496
+No problem at all.
+
+686
+00:20:08,166 --> 0:20:09,616
+We also have a couple of
+
+687
+00:20:10,006 --> 0:20:11,966
+properties that provide
+
+688
+00:20:11,966 --> 0:20:14,336
+automatic behavior when you have
+
+689
+00:20:14,336 --> 0:20:15,636
+an inline presentation.
+
+690
+00:20:15,906 --> 0:20:18,266
+And these allow you to do things
+
+691
+00:20:18,266 --> 0:20:20,006
+like, if the user taps a big
+
+692
+00:20:20,006 --> 0:20:21,316
+play button, the
+
+693
+00:20:21,316 --> 0:20:23,166
+PlayerViewController will -- the
+
+694
+00:20:23,166 --> 0:20:23,706
+content of the
+
+695
+00:20:23,706 --> 0:20:24,576
+PlayerViewController will
+
+696
+00:20:24,576 --> 0:20:26,076
+automatically enter full screen.
+
+697
+00:20:26,806 --> 0:20:29,156
+And similarly, at the end of the
+
+698
+00:20:29,156 --> 0:20:31,616
+video, will exit full screen.
+
+699
+00:20:32,026 --> 0:20:34,696
+And it's really best for us to
+
+700
+00:20:34,906 --> 0:20:36,066
+handle those things on your
+
+701
+00:20:36,066 --> 0:20:36,386
+behalf.
+
+702
+00:20:36,486 --> 0:20:37,886
+Because for example, let's say
+
+703
+00:20:37,886 --> 0:20:40,626
+that a user is scrubbing to the
+
+704
+00:20:40,626 --> 0:20:41,476
+end of a video.
+
+705
+00:20:42,316 --> 0:20:43,176
+Well, the time's going to be the
+
+706
+00:20:43,176 --> 0:20:44,776
+end of the video, but you don't
+
+707
+00:20:44,776 --> 0:20:46,616
+want to dismiss the video at
+
+708
+00:20:46,616 --> 0:20:47,106
+that point.
+
+709
+00:20:47,106 --> 0:20:48,306
+Because they're probably just
+
+710
+00:20:48,306 --> 0:20:49,006
+seeking around.
+
+711
+00:20:49,276 --> 0:20:50,586
+We keep track of what the user
+
+712
+00:20:50,586 --> 0:20:51,056
+is doing.
+
+713
+00:20:51,056 --> 0:20:52,946
+And we'll only exit if it's
+
+714
+00:20:53,106 --> 0:20:53,726
+appropriate.
+
+715
+00:20:57,046 --> 0:20:57,866
+Of course, you're always going
+
+716
+00:20:57,866 --> 0:20:58,566
+to want to adopt
+
+717
+00:20:58,756 --> 0:21:00,646
+UIViewController containment
+
+718
+00:20:58,756 --> 0:21:00,646
+UIViewController containment
+
+719
+00:21:00,646 --> 0:21:01,286
+API.
+
+720
+00:21:01,806 --> 0:21:04,726
+And it looks like this.
+
+721
+00:21:09,566 --> 0:21:10,786
+One other thing to keep in mind
+
+722
+00:21:10,786 --> 0:21:12,406
+is if you have a lot of videos
+
+723
+00:21:12,406 --> 0:21:13,516
+that you're scrolling through,
+
+724
+00:21:14,056 --> 0:21:15,946
+you may find that having a
+
+725
+00:21:15,946 --> 0:21:19,196
+poster image is a good idea as a
+
+726
+00:21:19,196 --> 0:21:21,246
+way to show a frame of the video
+
+727
+00:21:21,486 --> 0:21:23,986
+without having to have the video
+
+728
+00:21:23,986 --> 0:21:24,716
+fully loaded.
+
+729
+00:21:24,716 --> 0:21:25,986
+And that can take a little bit
+
+730
+00:21:25,986 --> 0:21:26,556
+of time.
+
+731
+00:21:27,236 --> 0:21:28,246
+And so you use
+
+732
+00:21:28,246 --> 0:21:29,066
+AVPlayerViewController's
+
+733
+00:21:29,066 --> 0:21:30,656
+contentOverlayView for this.
+
+734
+00:21:31,086 --> 0:21:33,126
+But then you want to know when
+
+735
+00:21:33,236 --> 0:21:35,886
+is the video -- when is the
+
+736
+00:21:35,886 --> 0:21:37,106
+first frame of video ready so
+
+737
+00:21:37,106 --> 0:21:39,706
+that you can remove the content
+
+738
+00:21:39,706 --> 0:21:41,426
+that you just put in the overlay
+
+739
+00:21:41,426 --> 0:21:41,696
+view.
+
+740
+00:21:42,966 --> 0:21:43,926
+You do that by observing
+
+741
+00:21:43,926 --> 0:21:45,836
+isReadyForDisplay on
+
+742
+00:21:45,836 --> 0:21:46,816
+AVPlayerViewController.
+
+743
+00:21:46,816 --> 0:21:48,136
+It's a property that you can
+
+744
+00:21:48,136 --> 0:21:49,656
+observe using KVO.
+
+745
+00:21:49,656 --> 0:21:51,106
+And this is what it looks like
+
+746
+00:21:51,136 --> 0:21:51,836
+to observe it.
+
+747
+00:21:52,086 --> 0:21:52,766
+You always want to take the
+
+748
+00:21:52,766 --> 0:21:53,916
+initial value because it could
+
+749
+00:21:53,916 --> 0:21:55,686
+be the video frame is already
+
+750
+00:21:55,866 --> 0:21:56,276
+rendered.
+
+751
+00:22:00,506 --> 0:22:01,636
+I want to finish by talking a
+
+752
+00:22:01,636 --> 0:22:02,166
+little bit about
+
+753
+00:22:02,166 --> 0:22:03,026
+picture-in-picture, which is
+
+754
+00:22:03,026 --> 0:22:04,836
+super easy to add to your app.
+
+755
+00:22:04,836 --> 0:22:06,236
+AVPlayerViewController takes
+
+756
+00:22:06,266 --> 0:22:08,326
+care of most things for you.
+
+757
+00:22:08,326 --> 0:22:09,916
+You do have to configure your
+
+758
+00:22:09,916 --> 0:22:10,876
+application to support
+
+759
+00:22:10,876 --> 0:22:11,526
+picture-in-picture.
+
+760
+00:22:11,526 --> 0:22:12,266
+And it looks like this.
+
+761
+00:22:12,266 --> 0:22:14,566
+Just click a check box in XCode.
+
+762
+00:22:16,666 --> 0:22:19,476
+One thing, this applies whether
+
+763
+00:22:19,476 --> 0:22:20,066
+you're using
+
+764
+00:22:20,066 --> 0:22:22,186
+AVPictureInPictureController or
+
+765
+00:22:22,186 --> 0:22:23,206
+AVPlayerViewController.
+
+766
+00:22:23,556 --> 0:22:26,206
+When a user swipes up to go home
+
+767
+00:22:26,456 --> 0:22:29,566
+in iPad, picture-in-picture may
+
+768
+00:22:29,566 --> 0:22:30,636
+automatically start.
+
+769
+00:22:30,636 --> 0:22:33,116
+And that means when your app is
+
+770
+00:22:33,116 --> 0:22:34,876
+entering background, you should
+
+771
+00:22:34,876 --> 0:22:37,106
+not pause any playing video.
+
+772
+00:22:37,646 --> 0:22:38,606
+Because picture-in-picture may
+
+773
+00:22:38,606 --> 0:22:39,066
+be starting.
+
+774
+00:22:39,066 --> 0:22:40,276
+You don't want to pause the very
+
+775
+00:22:40,276 --> 0:22:42,396
+video that your user is trying
+
+776
+00:22:42,396 --> 0:22:43,326
+to keep on watching.
+
+777
+00:22:43,686 --> 0:22:45,606
+So, don't pause.
+
+778
+00:22:45,976 --> 0:22:48,006
+And AVFoundation will take care
+
+779
+00:22:48,006 --> 0:22:48,746
+of this for you.
+
+780
+00:22:49,066 --> 0:22:50,286
+But if you absolutely must
+
+781
+00:22:50,316 --> 0:22:51,806
+pause, you should wait for the
+
+782
+00:22:52,176 --> 0:22:53,686
+application's background state,
+
+783
+00:22:54,046 --> 0:22:56,266
+application state, or the window
+
+784
+00:22:56,306 --> 0:22:57,526
+scene state to reach background.
+
+785
+00:22:57,526 --> 0:22:58,856
+And this is how you do that.
+
+786
+00:23:01,556 --> 0:23:02,736
+You can track state about
+
+787
+00:23:02,736 --> 0:23:04,946
+whether you're in
+
+788
+00:23:04,946 --> 0:23:06,036
+picture-picture or leaving
+
+789
+00:23:06,036 --> 0:23:08,456
+picture-picture using the
+
+790
+00:23:08,456 --> 0:23:09,746
+AVPlayerViewControllerDelegate.
+
+791
+00:23:11,136 --> 0:23:12,106
+And always toggle
+
+792
+00:23:12,316 --> 0:23:13,486
+PictureInPicture Playback.
+
+793
+00:23:15,666 --> 0:23:16,966
+Be prepared for your view
+
+794
+00:23:16,966 --> 0:23:18,576
+controller to dismiss when
+
+795
+00:23:18,576 --> 0:23:20,526
+picture-in-picture is starting.
+
+796
+00:23:21,056 --> 0:23:22,466
+And unlike in the full screen
+
+797
+00:23:22,466 --> 0:23:23,576
+case, we will prevent
+
+798
+00:23:23,616 --> 0:23:24,466
+deallocation of
+
+799
+00:23:24,466 --> 0:23:26,876
+AVPlayerViewController while
+
+800
+00:23:27,946 --> 0:23:30,266
+picture-in-picture is active.
+
+801
+00:23:30,826 --> 0:23:32,506
+But if the view controller's
+
+802
+00:23:32,506 --> 0:23:33,656
+been dismissed, you're going to
+
+803
+00:23:33,656 --> 0:23:35,446
+want to restore the UI when the
+
+804
+00:23:35,446 --> 0:23:37,956
+user wants to go back to your
+
+805
+00:23:37,956 --> 0:23:38,356
+app.
+
+806
+00:23:38,356 --> 0:23:39,906
+And so, it's really easy to do
+
+807
+00:23:39,906 --> 0:23:40,166
+that.
+
+808
+00:23:40,636 --> 0:23:41,736
+This is the callback you're
+
+809
+00:23:41,736 --> 0:23:42,516
+going to get
+
+810
+00:23:42,516 --> 0:23:43,786
+AVPlayerViewControllerDelegate.
+
+811
+00:23:44,086 --> 0:23:45,396
+And all you have to do here is
+
+812
+00:23:45,686 --> 0:23:47,526
+get your UI back into a state
+
+813
+00:23:47,526 --> 0:23:49,206
+that works, that is what you
+
+814
+00:23:49,206 --> 0:23:49,506
+want.
+
+815
+00:23:49,696 --> 0:23:50,486
+In this case we're just
+
+816
+00:23:50,566 --> 0:23:51,686
+presenting the view controller
+
+817
+00:23:51,686 --> 0:23:51,846
+again.
+
+818
+00:23:51,846 --> 0:23:53,606
+And then when you're ready, call
+
+819
+00:23:53,606 --> 0:23:54,886
+the completion handler that is
+
+820
+00:23:54,886 --> 0:23:56,226
+passed into the callback.
+
+821
+00:23:56,726 --> 0:23:58,096
+Let us know that you're ready to
+
+822
+00:23:58,096 --> 0:23:58,376
+go.
+
+823
+00:23:58,376 --> 0:23:59,846
+And we will animate back in
+
+824
+00:23:59,846 --> 0:24:00,116
+place.
+
+825
+00:23:59,846 --> 0:24:00,116
+place.
+
+826
+00:24:00,116 --> 0:24:01,316
+You need to do it fairly
+
+827
+00:24:01,316 --> 0:24:02,736
+quickly, otherwise the
+
+828
+00:24:02,736 --> 0:24:03,846
+picture-in-picture window might
+
+829
+00:24:03,846 --> 0:24:05,266
+just go oop!
+
+830
+00:24:05,506 --> 0:24:07,576
+And no more picture-in-picture
+
+831
+00:24:07,576 --> 0:24:08,126
+for your user.
+
+832
+00:24:08,126 --> 0:24:09,096
+And they're not able to get back
+
+833
+00:24:09,096 --> 0:24:11,866
+to your app.
+
+834
+00:24:13,456 --> 0:24:15,716
+So, that's a look at what's new
+
+835
+00:24:15,876 --> 0:24:17,126
+in best practices for
+
+836
+00:24:17,126 --> 0:24:18,656
+AVPlayerViewController in iOS.
+
+837
+00:24:18,706 --> 0:24:20,096
+There's sample code illustrating
+
+838
+00:24:20,096 --> 0:24:21,936
+all these concepts at our
+
+839
+00:24:21,936 --> 0:24:23,116
+session website.
+
+840
+00:24:23,506 --> 0:24:24,756
+And now, I'd like to hand things
+
+841
+00:24:24,756 --> 0:24:26,496
+over to my colleague, Dan
+
+842
+00:24:26,496 --> 0:24:26,786
+Wright.
+
+843
+00:24:28,516 --> 0:24:31,656
+[ Applause ]
+
+844
+00:24:32,156 --> 0:24:33,266
+&gt;&gt; All right.
+
+845
+00:24:33,806 --> 0:24:35,786
+Let's talk about video playback
+
+846
+00:24:35,786 --> 0:24:36,476
+on TV.
+
+847
+00:24:40,956 --> 0:24:44,086
+On tvOS AVPlayerViewController
+
+848
+00:24:44,086 --> 0:24:45,796
+supports full screen interactive
+
+849
+00:24:45,796 --> 0:24:48,106
+playback with standard controls
+
+850
+00:24:48,106 --> 0:24:50,436
+for navigation, information, and
+
+851
+00:24:50,436 --> 0:24:51,106
+settings.
+
+852
+00:24:52,166 --> 0:24:53,376
+Built in support for advanced
+
+853
+00:24:53,376 --> 0:24:54,796
+Siri features such as "what did
+
+854
+00:24:54,796 --> 0:24:55,386
+she say?"
+
+855
+00:24:56,116 --> 0:24:57,856
+Publication of Now Playing info.
+
+856
+00:24:58,456 --> 0:25:00,386
+Interstitials such as for ads.
+
+857
+00:24:58,456 --> 0:25:00,386
+Interstitials such as for ads.
+
+858
+00:25:00,846 --> 0:25:02,526
+Content proposals, and more.
+
+859
+00:25:04,946 --> 0:25:06,796
+So, what's new for tvOS 13?
+
+860
+00:25:08,436 --> 0:25:10,806
+Since last year we've updated
+
+861
+00:25:10,806 --> 0:25:12,266
+the appearance of the controls.
+
+862
+00:25:12,836 --> 0:25:14,896
+And starting with tvOS 12.3,
+
+863
+00:25:14,896 --> 0:25:16,096
+introduced fine precision
+
+864
+00:25:16,096 --> 0:25:16,506
+scrubbing.
+
+865
+00:25:17,756 --> 0:25:19,406
+Today, we're introducing custom
+
+866
+00:25:19,406 --> 0:25:21,496
+interactive overlays, channel
+
+867
+00:25:21,496 --> 0:25:24,286
+flipping for live streams, and
+
+868
+00:25:24,286 --> 0:25:25,536
+automatic enforcement of
+
+869
+00:25:25,536 --> 0:25:26,976
+parental content restrictions.
+
+870
+00:25:30,066 --> 0:25:31,586
+Fine precision scrubbing makes
+
+871
+00:25:31,586 --> 0:25:32,786
+it easier to use your Siri
+
+872
+00:25:32,786 --> 0:25:34,346
+remote to find the precise
+
+873
+00:25:34,346 --> 0:25:35,706
+moment in the video that you're
+
+874
+00:25:35,706 --> 0:25:36,356
+looking for.
+
+875
+00:25:37,966 --> 0:25:39,266
+PlayerViewController has always
+
+876
+00:25:39,326 --> 0:25:41,546
+supported -- the scrubbing in
+
+877
+00:25:41,546 --> 0:25:42,616
+PlayerViewController has always
+
+878
+00:25:42,616 --> 0:25:44,546
+made it easy to navigate quickly
+
+879
+00:25:44,546 --> 0:25:45,656
+across a wide range of your
+
+880
+00:25:45,656 --> 0:25:46,166
+video.
+
+881
+00:25:46,706 --> 0:25:48,766
+But now fine scrubbing makes it
+
+882
+00:25:48,766 --> 0:25:51,566
+easier to find a very precise
+
+883
+00:25:51,566 --> 0:25:53,746
+moment, like within about a
+
+884
+00:25:53,846 --> 0:25:54,936
+second, as you're navigating.
+
+885
+00:25:56,046 --> 0:25:57,716
+And of course, the info views
+
+886
+00:25:57,766 --> 0:25:59,336
+have a new appearance to match
+
+887
+00:25:59,426 --> 0:26:01,966
+the TV app.
+
+888
+00:25:59,426 --> 0:26:01,966
+the TV app.
+
+889
+00:26:03,736 --> 0:26:05,266
+Custom interactive overlays
+
+890
+00:26:05,536 --> 0:26:07,486
+support application controls.
+
+891
+00:26:08,076 --> 0:26:09,696
+A custom overlay is normally
+
+892
+00:26:09,696 --> 0:26:10,106
+hidden.
+
+893
+00:26:11,606 --> 0:26:13,766
+A hint onscreen guides the user
+
+894
+00:26:13,896 --> 0:26:16,346
+to swipe up, which presents your
+
+895
+00:26:16,346 --> 0:26:16,726
+overlay.
+
+896
+00:26:17,336 --> 0:26:19,646
+The overlay is fully
+
+897
+00:26:19,646 --> 0:26:21,196
+interactive, and it can contain
+
+898
+00:26:21,196 --> 0:26:23,366
+buttons, collections, or any
+
+899
+00:26:23,366 --> 0:26:25,296
+other interactive elements that
+
+900
+00:26:25,296 --> 0:26:26,986
+you like as defined by your view
+
+901
+00:26:26,986 --> 0:26:27,456
+controller.
+
+902
+00:26:28,006 --> 0:26:31,516
+And then you should, for
+
+903
+00:26:31,846 --> 0:26:33,046
+persistent non-interactive
+
+904
+00:26:33,046 --> 0:26:34,626
+elements like a channel logo,
+
+905
+00:26:34,626 --> 0:26:35,856
+for example, you should continue
+
+906
+00:26:35,856 --> 0:26:37,686
+to use the contentOverlayView
+
+907
+00:26:37,686 --> 0:26:37,753
+too.
+
+908
+00:26:38,286 --> 0:26:41,776
+Let's see what custom overlays
+
+909
+00:26:41,776 --> 0:26:42,196
+look like.
+
+910
+00:26:42,816 --> 0:26:46,536
+When the video begins, you have
+
+911
+00:26:46,536 --> 0:26:48,016
+a hint at the bottom to guide
+
+912
+00:26:48,016 --> 0:26:49,096
+them to swipe up for more.
+
+913
+00:26:49,506 --> 0:26:50,916
+And when they swipe up, they get
+
+914
+00:26:50,916 --> 0:26:51,376
+your overlay.
+
+915
+00:26:51,446 --> 0:26:53,036
+Just like that.
+
+916
+00:26:53,226 --> 0:26:54,936
+They can dismiss by swiping down
+
+917
+00:26:54,936 --> 0:26:56,336
+or by clicking the Menu button.
+
+918
+00:27:01,456 --> 0:27:03,006
+So, your view controller is
+
+919
+00:27:03,006 --> 0:27:03,606
+presented.
+
+920
+00:27:03,676 --> 0:27:04,596
+You get all the usual
+
+921
+00:27:04,596 --> 0:27:06,186
+UIViewController notifications.
+
+922
+00:27:06,466 --> 0:27:08,556
+We handle dismissal and
+
+923
+00:27:08,756 --> 0:27:09,876
+animations.
+
+924
+00:27:10,176 --> 0:27:11,606
+And your users get a consistent
+
+925
+00:27:12,116 --> 0:27:13,926
+experience across applications.
+
+926
+00:27:14,196 --> 0:27:15,676
+So all you need to do to use it
+
+927
+00:27:15,896 --> 0:27:17,276
+is to define your view
+
+928
+00:27:17,276 --> 0:27:18,366
+controller with the content that
+
+929
+00:27:18,366 --> 0:27:19,116
+you want to display.
+
+930
+00:27:19,526 --> 0:27:19,946
+And set the
+
+931
+00:27:19,946 --> 0:27:21,946
+customOverlayViewController
+
+932
+00:27:21,946 --> 0:27:23,356
+property on your player view
+
+933
+00:27:23,356 --> 0:27:23,836
+controller.
+
+934
+00:27:29,326 --> 0:27:30,856
+Live broadcast channel flipping.
+
+935
+00:27:32,706 --> 0:27:33,936
+Channel flipping is for live
+
+936
+00:27:33,936 --> 0:27:34,476
+streams.
+
+937
+00:27:34,476 --> 0:27:36,466
+It provides support for flipping
+
+938
+00:27:36,466 --> 0:27:38,196
+between multiple live streams.
+
+939
+00:27:38,196 --> 0:27:39,886
+For example, different channels.
+
+940
+00:27:40,416 --> 0:27:43,366
+The user swipes horizontally to
+
+941
+00:27:43,366 --> 0:27:44,746
+go to the next or the previous
+
+942
+00:27:44,746 --> 0:27:45,336
+channels.
+
+943
+00:27:46,136 --> 0:27:48,926
+And a channel interstitial
+
+944
+00:27:48,966 --> 0:27:50,986
+screen describes each channel
+
+945
+00:27:51,386 --> 0:27:54,406
+while it loads.
+
+946
+00:27:54,526 --> 0:27:55,986
+So let's see what channel
+
+947
+00:27:55,986 --> 0:27:56,776
+flipping looks like.
+
+948
+00:27:57,476 --> 0:28:02,036
+As the user swipes between
+
+949
+00:27:57,476 --> 0:28:02,036
+As the user swipes between
+
+950
+00:28:02,036 --> 0:28:03,436
+channels, your channel
+
+951
+00:28:03,436 --> 0:28:04,646
+interstitial view is shown.
+
+952
+00:28:05,456 --> 0:28:06,616
+Here it has a simple green
+
+953
+00:28:06,616 --> 0:28:08,536
+background, some text, and a
+
+954
+00:28:08,536 --> 0:28:09,526
+loading indicator.
+
+955
+00:28:09,916 --> 0:28:11,526
+But, that's entirely within your
+
+956
+00:28:11,526 --> 0:28:11,956
+control.
+
+957
+00:28:11,956 --> 0:28:14,706
+You can make it look whatever
+
+958
+00:28:14,706 --> 0:28:15,836
+you like in there, including
+
+959
+00:28:15,836 --> 0:28:18,446
+pictures, a gradient background,
+
+960
+00:28:18,446 --> 0:28:19,596
+your custom spinner, whatever
+
+961
+00:28:19,596 --> 0:28:20,606
+you like.
+
+962
+00:28:21,216 --> 0:28:24,506
+The main thing is to orient your
+
+963
+00:28:24,816 --> 0:28:26,276
+user to where they are and where
+
+964
+00:28:26,276 --> 0:28:26,676
+they're going.
+
+965
+00:28:30,046 --> 0:28:31,436
+And the one other thing I would
+
+966
+00:28:31,436 --> 0:28:32,236
+add is that this a
+
+967
+00:28:32,236 --> 0:28:33,206
+non-interactive screen.
+
+968
+00:28:33,206 --> 0:28:34,866
+It's meant to guide the user to
+
+969
+00:28:34,866 --> 0:28:35,486
+the next channel.
+
+970
+00:28:35,486 --> 0:28:36,656
+So you shouldn't expect to have
+
+971
+00:28:36,656 --> 0:28:37,356
+controls here.
+
+972
+00:28:37,966 --> 0:28:40,366
+To support channel flipping,
+
+973
+00:28:40,656 --> 0:28:41,596
+extend your
+
+974
+00:28:41,596 --> 0:28:43,166
+AVPlayerViewControllerDelegate
+
+975
+00:28:43,746 --> 0:28:44,256
+to implement
+
+976
+00:28:44,636 --> 0:28:45,506
+playerViewController
+
+977
+00:28:45,506 --> 0:28:47,136
+skipToNextChannel and
+
+978
+00:28:47,176 --> 0:28:48,236
+skipToPreviousChannel.
+
+979
+00:28:49,616 --> 0:28:53,326
+All these methods do is replace
+
+980
+00:28:53,326 --> 0:28:54,396
+the content in your player view
+
+981
+00:28:54,396 --> 0:28:55,956
+controller with that of the new
+
+982
+00:28:55,956 --> 0:28:56,376
+channel.
+
+983
+00:28:56,936 --> 0:29:01,086
+You can wait until the content
+
+984
+00:28:56,936 --> 0:29:01,086
+You can wait until the content
+
+985
+00:29:01,086 --> 0:29:02,196
+is ready to play if you like.
+
+986
+00:29:03,306 --> 0:29:04,926
+When you're done, call the
+
+987
+00:29:04,926 --> 0:29:05,696
+completion block.
+
+988
+00:29:06,326 --> 0:29:07,786
+Pass True if it was successful.
+
+989
+00:29:07,786 --> 0:29:08,986
+And pass False if something
+
+990
+00:29:08,986 --> 0:29:09,396
+failed.
+
+991
+00:29:10,606 --> 0:29:11,836
+But whatever you do, make sure
+
+992
+00:29:11,836 --> 0:29:12,926
+that you call that completion
+
+993
+00:29:12,926 --> 0:29:14,436
+block eventually, because that's
+
+994
+00:29:14,436 --> 0:29:15,856
+what's going to dismiss the
+
+995
+00:29:15,856 --> 0:29:16,756
+channel interstitial.
+
+996
+00:29:19,846 --> 0:29:20,886
+Now, there are two additional
+
+997
+00:29:20,886 --> 0:29:21,206
+methods:
+
+998
+00:29:21,206 --> 0:29:22,506
+nextChannelInterstitialView
+
+999
+00:29:22,506 --> 0:29:23,206
+Controller and
+
+1000
+00:29:23,386 --> 0:29:24,846
+previousChannelInterstitialView
+
+1001
+00:29:24,846 --> 0:29:25,396
+Controller.
+
+1002
+00:29:25,576 --> 0:29:27,926
+And these are responsible for
+
+1003
+00:29:27,926 --> 0:29:30,466
+providing that view controller
+
+1004
+00:29:30,466 --> 0:29:32,266
+that displays between channels.
+
+1005
+00:29:33,476 --> 0:29:36,076
+So, you need to instantiate your
+
+1006
+00:29:36,076 --> 0:29:37,176
+view controller, if you have
+
+1007
+00:29:37,176 --> 0:29:38,056
+one, if you need to.
+
+1008
+00:29:38,506 --> 0:29:40,386
+And populate it with information
+
+1009
+00:29:40,386 --> 0:29:41,196
+about the new channel.
+
+1010
+00:29:42,326 --> 0:29:43,456
+And then just return it.
+
+1011
+00:29:43,896 --> 0:29:45,006
+In this example we're
+
+1012
+00:29:45,006 --> 0:29:46,526
+instantiating a new view
+
+1013
+00:29:46,526 --> 0:29:47,626
+controller every time.
+
+1014
+00:29:47,986 --> 0:29:50,106
+But in many cases, you could
+
+1015
+00:29:50,136 --> 0:29:52,086
+probably just instantiate it
+
+1016
+00:29:52,086 --> 0:29:53,766
+once and then reuse it.
+
+1017
+00:29:58,316 --> 0:30:00,396
+tvOS has built in support for
+
+1018
+00:29:58,316 --> 0:30:00,396
+tvOS has built in support for
+
+1019
+00:30:00,396 --> 0:30:02,056
+restricting access to content
+
+1020
+00:30:02,316 --> 0:30:04,646
+using a passcode, or with a
+
+1021
+00:30:04,646 --> 0:30:05,766
+device profile.
+
+1022
+00:30:06,066 --> 0:30:07,406
+Device profiles are commonly
+
+1023
+00:30:07,406 --> 0:30:09,756
+used in a classroom setting or
+
+1024
+00:30:09,756 --> 0:30:11,016
+perhaps a business setting.
+
+1025
+00:30:12,066 --> 0:30:14,766
+In tvOS 13, AVKit provides
+
+1026
+00:30:14,766 --> 0:30:16,876
+automatic support to help your
+
+1027
+00:30:16,876 --> 0:30:18,566
+users regain control of
+
+1028
+00:30:18,566 --> 0:30:19,896
+restricted content.
+
+1029
+00:30:20,506 --> 0:30:23,766
+So, to test content
+
+1030
+00:30:23,766 --> 0:30:25,866
+restrictions, go to Settings,
+
+1031
+00:30:26,156 --> 0:30:26,976
+Restrictions.
+
+1032
+00:30:30,076 --> 0:30:30,676
+Turn them on.
+
+1033
+00:30:31,316 --> 0:30:33,466
+Provide and confirm a passcode.
+
+1034
+00:30:36,046 --> 0:30:37,346
+Then change the allowed content
+
+1035
+00:30:37,346 --> 0:30:40,526
+rating under Movies, and/or TV
+
+1036
+00:30:40,526 --> 0:30:41,166
+Shows.
+
+1037
+00:30:42,226 --> 0:30:43,406
+In this case we'll change it to
+
+1038
+00:30:43,406 --> 0:30:43,976
+PG-13.
+
+1039
+00:30:49,046 --> 0:30:51,436
+So, what do you need to do to
+
+1040
+00:30:51,436 --> 0:30:53,036
+actually support it in your app?
+
+1041
+00:30:53,426 --> 0:30:54,616
+Well, the most important thing
+
+1042
+00:30:54,616 --> 0:30:55,806
+is you need to specify the media
+
+1043
+00:30:55,806 --> 0:31:00,026
+content rating in all of your
+
+1044
+00:30:55,806 --> 0:31:00,026
+content rating in all of your
+
+1045
+00:31:00,026 --> 0:31:00,466
+content.
+
+1046
+00:31:00,506 --> 0:31:02,006
+If your asset does not have this
+
+1047
+00:31:02,006 --> 0:31:03,226
+information, then you'll need to
+
+1048
+00:31:03,226 --> 0:31:05,116
+add it using the external
+
+1049
+00:31:05,116 --> 0:31:05,996
+metadata property of
+
+1050
+00:31:05,996 --> 0:31:06,756
+AVPlayerItem.
+
+1051
+00:31:07,216 --> 0:31:08,676
+And you're going to want to use
+
+1052
+00:31:08,676 --> 0:31:09,566
+the iTunes metadata content
+
+1053
+00:31:09,566 --> 0:31:10,646
+rating identifier.
+
+1054
+00:31:13,536 --> 0:31:14,446
+You'll want to provide this
+
+1055
+00:31:14,446 --> 0:31:15,956
+rating at the start of playback
+
+1056
+00:31:15,956 --> 0:31:18,866
+so that AVKit can test whether
+
+1057
+00:31:18,866 --> 0:31:20,886
+this is restricted content
+
+1058
+00:31:20,886 --> 0:31:22,956
+according to the user settings.
+
+1059
+00:31:24,126 --> 0:31:25,716
+And present the passcode to
+
+1060
+00:31:25,716 --> 0:31:26,626
+screen if necessary.
+
+1061
+00:31:30,046 --> 0:31:31,016
+Now, if the content is
+
+1062
+00:31:31,016 --> 0:31:32,486
+restricted by passcode, the user
+
+1063
+00:31:32,486 --> 0:31:34,446
+will be prompted to enter it.
+
+1064
+00:31:36,756 --> 0:31:38,386
+If it is restricted by a device
+
+1065
+00:31:38,386 --> 0:31:39,566
+profile, however, it could
+
+1066
+00:31:39,566 --> 0:31:40,936
+simply fail to play entirely.
+
+1067
+00:31:40,936 --> 0:31:42,206
+There may be no option for the
+
+1068
+00:31:42,206 --> 0:31:43,636
+user to override.
+
+1069
+00:31:44,766 --> 0:31:46,676
+Now, AVPlayerViewController will
+
+1070
+00:31:46,676 --> 0:31:48,326
+request access automatically to
+
+1071
+00:31:48,376 --> 0:31:49,636
+your content when playback
+
+1072
+00:31:49,636 --> 0:31:50,286
+begins.
+
+1073
+00:31:50,836 --> 0:31:52,476
+But you can request access
+
+1074
+00:31:52,476 --> 0:31:55,576
+earlier using a new API request
+
+1075
+00:31:55,576 --> 0:31:56,906
+playback restrictions
+
+1076
+00:31:56,906 --> 0:31:57,626
+authorization.
+
+1077
+00:32:01,736 --> 0:32:03,416
+And of course, any kind of
+
+1078
+00:32:03,496 --> 0:32:04,636
+failure here, if the user
+
+1079
+00:32:04,636 --> 0:32:06,346
+doesn't know the passcode or
+
+1080
+00:32:06,346 --> 0:32:07,176
+doesn't want to enter the
+
+1081
+00:32:07,176 --> 0:32:08,946
+passcode, or if it's a device
+
+1082
+00:32:08,996 --> 0:32:11,116
+profile that prohibits it, the
+
+1083
+00:32:11,366 --> 0:32:12,616
+player view controller will be
+
+1084
+00:32:12,616 --> 0:32:14,256
+automatically dismissed.
+
+1085
+00:32:14,736 --> 0:32:17,626
+And finally, if you have a
+
+1086
+00:32:17,626 --> 0:32:19,266
+custom playback user interface,
+
+1087
+00:32:19,266 --> 0:32:20,866
+you can also request access
+
+1088
+00:32:21,146 --> 0:32:23,246
+using the aforementioned API to
+
+1089
+00:32:23,246 --> 0:32:23,946
+restricted content.
+
+1090
+00:32:23,946 --> 0:32:27,876
+Now let's take a look at what
+
+1091
+00:32:27,876 --> 0:32:29,436
+the user sees when attempting to
+
+1092
+00:32:29,436 --> 0:32:30,776
+play restricted content.
+
+1093
+00:32:31,386 --> 0:32:35,176
+Now, the video's going to load.
+
+1094
+00:32:35,176 --> 0:32:36,236
+And as soon as it's ready to
+
+1095
+00:32:36,296 --> 0:32:37,556
+play and the metadata's
+
+1096
+00:32:37,556 --> 0:32:38,996
+available, the passcode screen
+
+1097
+00:32:38,996 --> 0:32:40,596
+is going to immediately appear.
+
+1098
+00:32:40,736 --> 0:32:41,856
+And as soon as the user enters
+
+1099
+00:32:41,856 --> 0:32:44,586
+the passcode, the passcode
+
+1100
+00:32:44,586 --> 0:32:45,766
+screen is dismissed and the
+
+1101
+00:32:45,766 --> 0:32:46,696
+video begins playing.
+
+1102
+00:32:46,696 --> 0:32:51,836
+So let's take a look at how to
+
+1103
+00:32:51,836 --> 0:32:52,866
+provide the media content
+
+1104
+00:32:52,866 --> 0:32:53,186
+rating.
+
+1105
+00:32:54,456 --> 0:32:56,106
+This metadata is sometimes part
+
+1106
+00:32:56,106 --> 0:32:57,086
+of your assets.
+
+1107
+00:32:57,266 --> 0:32:59,146
+But usually it is not.
+
+1108
+00:32:59,926 --> 0:33:01,146
+So you will need to provide it
+
+1109
+00:32:59,926 --> 0:33:01,146
+So you will need to provide it
+
+1110
+00:33:01,146 --> 0:33:02,546
+via the external metadata
+
+1111
+00:33:02,576 --> 0:33:04,146
+property of the AVPlayerItem.
+
+1112
+00:33:04,716 --> 0:33:07,766
+We've seen this code before in
+
+1113
+00:33:07,766 --> 0:33:08,856
+previous presentations.
+
+1114
+00:33:08,856 --> 0:33:10,086
+But we just have a helper
+
+1115
+00:33:10,086 --> 0:33:11,496
+function here that takes our
+
+1116
+00:33:11,496 --> 0:33:13,266
+rating in the form of a string
+
+1117
+00:33:13,566 --> 0:33:15,206
+and returns and AVMetadataItem.
+
+1118
+00:33:16,176 --> 0:33:18,236
+The value is that string.
+
+1119
+00:33:18,236 --> 0:33:19,706
+The extended language tag is set
+
+1120
+00:33:19,706 --> 0:33:21,796
+to und for Undefined because
+
+1121
+00:33:22,056 --> 0:33:22,996
+it's not any particular
+
+1122
+00:33:22,996 --> 0:33:23,586
+language.
+
+1123
+00:33:24,656 --> 0:33:26,296
+Your identifier is the
+
+1124
+00:33:26,296 --> 0:33:27,706
+iTunesMetadataContent Rating.
+
+1125
+00:33:28,796 --> 0:33:30,086
+And then finally, once we've
+
+1126
+00:33:30,156 --> 0:33:31,576
+created it, in this case with a
+
+1127
+00:33:31,576 --> 0:33:32,906
+rating of PG-13,
+
+1128
+00:33:37,336 --> 0:33:40,306
+we add it to the external
+
+1129
+00:33:40,306 --> 0:33:41,696
+metadata property of the player
+
+1130
+00:33:43,046 --> 0:33:43,166
+item.
+
+1131
+00:33:43,246 --> 0:33:45,316
+Now, AVPlayerViewController will
+
+1132
+00:33:45,316 --> 0:33:46,506
+prompt automatically, if
+
+1133
+00:33:46,506 --> 0:33:47,176
+necessary.
+
+1134
+00:33:47,506 --> 0:33:48,826
+But let's say you want to prompt
+
+1135
+00:33:48,826 --> 0:33:51,366
+earlier before you present the
+
+1136
+00:33:51,366 --> 0:33:53,056
+player view controller, or
+
+1137
+00:33:53,056 --> 0:33:54,666
+perhaps before earlier content.
+
+1138
+00:33:55,316 --> 0:33:57,876
+You can do this using the
+
+1139
+00:33:57,876 --> 0:33:59,296
+requestPlayback Restrictions
+
+1140
+00:33:59,296 --> 0:34:00,616
+Authorization API on
+
+1141
+00:33:59,296 --> 0:34:00,616
+Authorization API on
+
+1142
+00:34:00,616 --> 0:34:01,736
+AVPlayerItem.
+
+1143
+00:34:02,296 --> 0:34:05,176
+The closure will be called when
+
+1144
+00:34:05,176 --> 0:34:06,976
+the request is complete to
+
+1145
+00:34:06,976 --> 0:34:08,045
+indicate whether there the
+
+1146
+00:34:08,045 --> 0:34:10,235
+request succeeded or failed.
+
+1147
+00:34:11,016 --> 0:34:13,266
+And if it fails, the error
+
+1148
+00:34:13,266 --> 0:34:15,136
+provides information about why
+
+1149
+00:34:15,136 --> 0:34:15,646
+it failed.
+
+1150
+00:34:16,196 --> 0:34:18,176
+If it succeeded, you should
+
+1151
+00:34:18,176 --> 0:34:20,666
+proceed with playback.
+
+1152
+00:34:20,775 --> 0:34:22,906
+Otherwise, you should cancel,
+
+1153
+00:34:23,386 --> 0:34:25,186
+dismiss, go back to your menu
+
+1154
+00:34:25,186 --> 0:34:25,926
+screen or whatever.
+
+1155
+00:34:26,306 --> 0:34:27,556
+And don't try to play the
+
+1156
+00:34:27,556 --> 0:34:28,906
+content again unless the use
+
+1157
+00:34:28,906 --> 0:34:30,826
+explicitly requests it.
+
+1158
+00:34:35,166 --> 0:34:35,545
+All right.
+
+1159
+00:34:35,545 --> 0:34:38,356
+Let's do a brief demo and get a
+
+1160
+00:34:38,516 --> 0:34:39,446
+closer look at some of this.
+
+1161
+00:34:45,646 --> 0:34:45,996
+All right.
+
+1162
+00:34:46,065 --> 0:34:47,116
+So we have our little sample
+
+1163
+00:34:47,116 --> 0:34:47,306
+app.
+
+1164
+00:34:49,275 --> 0:34:51,206
+These videos may be familiar to
+
+1165
+00:34:51,206 --> 0:34:52,025
+some of you who have done
+
+1166
+00:34:52,025 --> 0:34:52,976
+testing with HLS.
+
+1167
+00:34:54,926 --> 0:34:55,936
+Here's our swipe up.
+
+1168
+00:34:55,936 --> 0:34:56,835
+Swipe for more hints at the
+
+1169
+00:34:56,835 --> 0:34:57,286
+bottom.
+
+1170
+00:34:57,376 --> 0:35:01,566
+And if we swipe up, we get our
+
+1171
+00:34:57,376 --> 0:35:01,566
+And if we swipe up, we get our
+
+1172
+00:35:02,136 --> 0:35:03,326
+custom overlay.
+
+1173
+00:35:03,326 --> 0:35:04,986
+And see that it actually works
+
+1174
+00:35:04,986 --> 0:35:05,376
+and everything.
+
+1175
+00:35:05,586 --> 0:35:07,986
+And I can just swipe down to get
+
+1176
+00:35:07,986 --> 0:35:08,846
+rid of it.
+
+1177
+00:35:09,376 --> 0:35:10,846
+And what else do we have here?
+
+1178
+00:35:12,426 --> 0:35:15,156
+Well, if I press and keep my
+
+1179
+00:35:15,156 --> 0:35:16,586
+finger down, we see the Hints on
+
+1180
+00:35:16,586 --> 0:35:17,666
+the left and the right sides of
+
+1181
+00:35:17,666 --> 0:35:18,316
+the screens.
+
+1182
+00:35:18,316 --> 0:35:19,726
+Those are the arrows to guide
+
+1183
+00:35:19,726 --> 0:35:21,106
+the user to channel flipping.
+
+1184
+00:35:21,376 --> 0:35:23,276
+And if I just swipe -- see
+
+1185
+00:35:23,426 --> 0:35:25,266
+what's going on next door.
+
+1186
+00:35:26,786 --> 0:35:29,196
+&gt;&gt; Using some great design
+
+1187
+00:35:29,346 --> 0:35:29,876
+patterns, including --
+
+1188
+00:35:29,876 --> 0:35:30,796
+&gt;&gt; Oh yeah, it's the bottom part
+
+1189
+00:35:30,796 --> 0:35:32,586
+is using a list to lay out --
+
+1190
+00:35:33,056 --> 0:35:34,976
+&gt;&gt; In the last month --
+
+1191
+00:35:35,476 --> 0:35:36,006
+&gt;&gt; Let's see.
+
+1192
+00:35:36,006 --> 0:35:37,016
+What else do we have?
+
+1193
+00:35:37,016 --> 0:35:37,476
+Is that it?
+
+1194
+00:35:37,476 --> 0:35:39,716
+Oh, what's going on over here?
+
+1195
+00:35:41,516 --> 0:35:44,706
+[ Laughter ]
+
+1196
+00:35:45,206 --> 0:35:45,626
+All right.
+
+1197
+00:35:46,516 --> 0:35:51,786
+[ Applause ]
+
+1198
+00:35:52,286 --> 0:35:52,616
+&gt;&gt; All right.
+
+1199
+00:35:52,736 --> 0:35:53,746
+So we have our little sample
+
+1200
+00:35:53,746 --> 0:35:53,966
+app.
+
+1201
+00:35:56,366 --> 0:35:57,066
+&gt;&gt; I passed me.
+
+1202
+00:35:57,066 --> 0:35:58,916
+Let's go back to -- let's see --
+
+1203
+00:35:58,916 --> 0:36:00,826
+back to the --
+
+1204
+00:35:58,916 --> 0:36:00,826
+back to the --
+
+1205
+00:36:01,576 --> 0:36:02,916
+&gt;&gt; Here's our Swipe up bar for
+
+1206
+00:36:02,916 --> 0:36:03,936
+more hints at the bottom.
+
+1207
+00:36:05,046 --> 0:36:08,396
+And if we swipe up, we get our
+
+1208
+00:36:08,886 --> 0:36:10,516
+custom overlay and see if it
+
+1209
+00:36:10,516 --> 0:36:10,976
+actually works --
+
+1210
+00:36:11,296 --> 0:36:12,466
+&gt;&gt; Let's pause.
+
+1211
+00:36:13,508 --> 0:36:15,508
+[ Laughter ]
+
+1212
+00:36:18,146 --> 0:36:18,556
+All right.
+
+1213
+00:36:18,556 --> 0:36:20,036
+So let's take a moment to talk
+
+1214
+00:36:20,036 --> 0:36:21,466
+about some best practices on
+
+1215
+00:36:21,466 --> 0:36:22,196
+tvOS now.
+
+1216
+00:36:23,296 --> 0:36:25,116
+Some of you already have
+
+1217
+00:36:25,116 --> 0:36:27,156
+controls in your apps that are
+
+1218
+00:36:27,156 --> 0:36:28,276
+revealed by swipe up.
+
+1219
+00:36:28,276 --> 0:36:30,116
+Often, it's Up Next list.
+
+1220
+00:36:31,776 --> 0:36:32,946
+And typically, you're doing this
+
+1221
+00:36:32,946 --> 0:36:34,376
+by installing your own custom
+
+1222
+00:36:34,376 --> 0:36:36,676
+swipe up gesture recognizer on
+
+1223
+00:36:36,676 --> 0:36:38,376
+the player view or a super view.
+
+1224
+00:36:38,716 --> 0:36:39,946
+And then presenting your view
+
+1225
+00:36:39,946 --> 0:36:40,516
+controller.
+
+1226
+00:36:41,086 --> 0:36:41,906
+Well, if you're doing that, we
+
+1227
+00:36:41,906 --> 0:36:44,056
+want to encourage you to migrate
+
+1228
+00:36:44,056 --> 0:36:45,646
+to using a custom overlay
+
+1229
+00:36:45,776 --> 0:36:46,346
+instead.
+
+1230
+00:36:47,366 --> 0:36:49,516
+What that gets you is much
+
+1231
+00:36:49,516 --> 0:36:50,906
+better compatibility in the
+
+1232
+00:36:50,906 --> 0:36:52,786
+future -- hint.
+
+1233
+00:36:53,346 --> 0:36:56,086
+And a better and more consistent
+
+1234
+00:36:56,086 --> 0:36:57,526
+experience for your users across
+
+1235
+00:36:57,526 --> 0:36:58,336
+applications.
+
+1236
+00:36:58,916 --> 0:37:03,566
+If you're using a UI tap gesture
+
+1237
+00:36:58,916 --> 0:37:03,566
+If you're using a UI tap gesture
+
+1238
+00:37:03,566 --> 0:37:05,636
+recognizer on the Menu button to
+
+1239
+00:37:05,636 --> 0:37:08,326
+detect dismissal of your player
+
+1240
+00:37:08,326 --> 0:37:11,236
+view controller, or in some
+
+1241
+00:37:11,276 --> 0:37:14,786
+cases to provide the dismissal
+
+1242
+00:37:14,786 --> 0:37:18,106
+animation, you should use the
+
+1243
+00:37:18,106 --> 0:37:19,136
+delegate to dismissal
+
+1244
+00:37:19,136 --> 0:37:20,476
+notifications instead.
+
+1245
+00:37:20,786 --> 0:37:22,726
+We introduced those in tvOS 11.
+
+1246
+00:37:23,036 --> 0:37:23,926
+And they should give you all the
+
+1247
+00:37:23,926 --> 0:37:24,996
+information that you need.
+
+1248
+00:37:25,586 --> 0:37:27,196
+This is important because it's
+
+1249
+00:37:27,196 --> 0:37:28,676
+no longer the case that the only
+
+1250
+00:37:28,676 --> 0:37:30,426
+way that your play view
+
+1251
+00:37:30,426 --> 0:37:31,636
+controller can be dismissed is
+
+1252
+00:37:31,666 --> 0:37:32,836
+by the user hitting the Menu
+
+1253
+00:37:32,836 --> 0:37:33,176
+button.
+
+1254
+00:37:33,566 --> 0:37:34,816
+It could now be automatically
+
+1255
+00:37:34,816 --> 0:37:35,356
+dismissed.
+
+1256
+00:37:39,456 --> 0:37:40,886
+I've said this one before, but
+
+1257
+00:37:40,886 --> 0:37:42,446
+showsPlaybackControls should not
+
+1258
+00:37:42,446 --> 0:37:44,026
+be abused to try to force
+
+1259
+00:37:44,026 --> 0:37:44,966
+immediate change in the
+
+1260
+00:37:44,966 --> 0:37:46,386
+visibility of the controls.
+
+1261
+00:37:46,786 --> 0:37:47,306
+The purpose of
+
+1262
+00:37:47,306 --> 0:37:48,896
+showsPlaybackControls is to
+
+1263
+00:37:48,896 --> 0:37:50,936
+configure the player view
+
+1264
+00:37:50,936 --> 0:37:52,536
+controller to indicate whether
+
+1265
+00:37:52,536 --> 0:37:54,446
+you want the user to have access
+
+1266
+00:37:54,446 --> 0:37:56,546
+to the playback controls at all.
+
+1267
+00:37:59,786 --> 0:38:00,946
+Provide media content ratings
+
+1268
+00:37:59,786 --> 0:38:00,946
+Provide media content ratings
+
+1269
+00:38:00,946 --> 0:38:01,936
+for all of your content.
+
+1270
+00:38:02,686 --> 0:38:05,456
+And of course, test with
+
+1271
+00:38:05,816 --> 0:38:07,086
+parental content restrictions
+
+1272
+00:38:07,086 --> 0:38:07,516
+enabled.
+
+1273
+00:38:08,276 --> 0:38:09,566
+Most of you will have no issues,
+
+1274
+00:38:09,566 --> 0:38:11,216
+but you might find that there's
+
+1275
+00:38:11,216 --> 0:38:12,296
+something that you're doing that
+
+1276
+00:38:12,296 --> 0:38:13,456
+doesn't work very well when a
+
+1277
+00:38:13,456 --> 0:38:14,696
+passcode stream comes up.
+
+1278
+00:38:14,996 --> 0:38:16,506
+For example, if you display a
+
+1279
+00:38:16,506 --> 0:38:17,966
+hint for a few seconds at the
+
+1280
+00:38:17,966 --> 0:38:20,056
+start of playback, you would
+
+1281
+00:38:20,056 --> 0:38:21,946
+want to not do that while the
+
+1282
+00:38:21,946 --> 0:38:24,026
+passcode is covering it or the
+
+1283
+00:38:24,026 --> 0:38:25,406
+user won't see it.
+
+1284
+00:38:27,316 --> 0:38:29,476
+So in summary, adopt
+
+1285
+00:38:29,476 --> 0:38:31,506
+AVPlayerViewController across
+
+1286
+00:38:31,506 --> 0:38:32,126
+platform.
+
+1287
+00:38:32,126 --> 0:38:34,816
+You get great functionality on
+
+1288
+00:38:34,966 --> 0:38:37,336
+iOS and on tvOS for a very low
+
+1289
+00:38:37,336 --> 0:38:37,936
+cost.
+
+1290
+00:38:38,846 --> 0:38:41,216
+And a wide range of
+
+1291
+00:38:41,216 --> 0:38:43,066
+compatibility for remotes and
+
+1292
+00:38:43,066 --> 0:38:43,806
+other features.
+
+1293
+00:38:45,986 --> 0:38:46,176
+Use
+
+1294
+00:38:46,176 --> 0:38:47,536
+AVPlayerViewControllerDelegate
+
+1295
+00:38:47,536 --> 0:38:49,026
+notifications to track
+
+1296
+00:38:49,026 --> 0:38:50,456
+presentation state, as seen
+
+1297
+00:38:50,456 --> 0:38:52,556
+today on iOS, and to handle
+
+1298
+00:38:52,556 --> 0:38:54,256
+dismissal, as on tvOS.
+
+1299
+00:38:54,676 --> 0:38:57,656
+Observe the player item status
+
+1300
+00:38:57,656 --> 0:38:58,616
+and handle errors.
+
+1301
+00:39:00,476 --> 0:39:02,696
+Use external metadata, now on
+
+1302
+00:39:02,696 --> 0:39:06,626
+both iOS and tvOS in addition to
+
+1303
+00:39:06,626 --> 0:39:08,206
+some of these uses we've seen
+
+1304
+00:39:08,206 --> 0:39:09,476
+today for parental content
+
+1305
+00:39:09,476 --> 0:39:10,606
+restrictions and in the info
+
+1306
+00:39:10,606 --> 0:39:11,076
+panel.
+
+1307
+00:39:11,386 --> 0:39:12,806
+External metadata is also used
+
+1308
+00:39:12,806 --> 0:39:14,106
+to publish Now Playing info,
+
+1309
+00:39:14,486 --> 0:39:15,656
+which means that if you use
+
+1310
+00:39:15,656 --> 0:39:16,746
+external metadata on both
+
+1311
+00:39:16,746 --> 0:39:18,546
+platforms, you can now remove
+
+1312
+00:39:18,546 --> 0:39:20,126
+all of your Now Playing info
+
+1313
+00:39:20,386 --> 0:39:20,886
+support.
+
+1314
+00:39:23,756 --> 0:39:26,426
+If you have a custom overlay on
+
+1315
+00:39:26,426 --> 0:39:27,966
+a swipe up action, migrate it --
+
+1316
+00:39:28,136 --> 0:39:29,306
+I'm sorry -- if you swipe up
+
+1317
+00:39:29,306 --> 0:39:31,056
+action presenting an overlay,
+
+1318
+00:39:31,056 --> 0:39:32,306
+migrate to custom overlays.
+
+1319
+00:39:33,106 --> 0:39:34,406
+And finally, support parental
+
+1320
+00:39:34,406 --> 0:39:35,286
+content restrictions.
+
+1321
+00:39:37,076 --> 0:39:38,706
+So, for more information,
+
+1322
+00:39:38,706 --> 0:39:39,926
+including sample code for this
+
+1323
+00:39:39,926 --> 0:39:41,856
+session, visit our session page
+
+1324
+00:39:41,856 --> 0:39:43,026
+at the URL on the screen.
+
+1325
+00:39:43,666 --> 0:39:45,306
+And come with your questions and
+
+1326
+00:39:45,306 --> 0:39:47,876
+your code to the AVKit Lab at
+
+1327
+00:39:47,876 --> 0:39:49,576
+2:00 p.m. today or to the
+
+1328
+00:39:49,576 --> 0:39:51,406
+AVFoundation lab at 4:00.
+
+1329
+00:39:52,116 --> 0:39:53,486
+Thank you, and enjoy the rest of
+
+1330
+00:39:53,486 --> 0:39:53,896
+conferences.
+
+1331
+00:39:54,516 --> 0:39:57,500
+[ Applause ]

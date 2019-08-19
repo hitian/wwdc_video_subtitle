@@ -1,0 +1,2739 @@
+1
+00:00:00,506 --> 0:00:06,456
+[ Music ]
+
+2
+00:00:06,955 --> 0:00:08,486
+&gt;&gt; Hello. My name is Simon
+
+3
+00:00:08,486 --> 0:00:09,886
+Gladman and I'm with the Vector
+
+4
+00:00:09,886 --> 0:00:10,696
+and Numerics group.
+
+5
+00:00:11,316 --> 0:00:12,396
+In this presentation, I'll be
+
+6
+00:00:12,396 --> 0:00:14,276
+talking about two topics.
+
+7
+00:00:14,546 --> 0:00:16,736
+First, our new Swift Overlay for
+
+8
+00:00:16,736 --> 0:00:17,426
+Accelerate.
+
+9
+00:00:17,466 --> 0:00:19,086
+And second, measuring
+
+10
+00:00:19,086 --> 0:00:20,636
+Accelerate's performance using
+
+11
+00:00:20,636 --> 0:00:21,816
+the Linpack benchmark.
+
+12
+00:00:22,166 --> 0:00:23,396
+Before we dive into the Swift
+
+13
+00:00:23,396 --> 0:00:25,806
+Overlay, let's recap exactly
+
+14
+00:00:25,806 --> 0:00:27,106
+what the Accelerate framework
+
+15
+00:00:27,106 --> 0:00:27,506
+is.
+
+16
+00:00:27,826 --> 0:00:30,476
+The primary purpose of
+
+17
+00:00:30,476 --> 0:00:31,796
+Accelerate is to provide
+
+18
+00:00:31,796 --> 0:00:33,486
+thousands of low-level math
+
+19
+00:00:33,486 --> 0:00:35,676
+primitives that run on a CPU and
+
+20
+00:00:35,676 --> 0:00:36,776
+support image and signal
+
+21
+00:00:36,776 --> 0:00:38,676
+processing, vector arithmetic,
+
+22
+00:00:38,866 --> 0:00:40,466
+linear algebra, and machine
+
+23
+00:00:40,466 --> 0:00:41,006
+learning.
+
+24
+00:00:41,716 --> 0:00:42,816
+Most of these primitives are
+
+25
+00:00:42,816 --> 0:00:43,956
+hand tuned to the
+
+26
+00:00:43,956 --> 0:00:45,076
+microarchitecture of the
+
+27
+00:00:45,076 --> 0:00:45,646
+processor.
+
+28
+00:00:46,206 --> 0:00:47,416
+This means we get excellent
+
+29
+00:00:47,416 --> 0:00:49,636
+performance and this performance
+
+30
+00:00:49,636 --> 0:00:51,356
+translates directly into energy
+
+31
+00:00:51,356 --> 0:00:52,036
+savings.
+
+32
+00:00:52,276 --> 0:00:54,776
+So, if you're an app developer
+
+33
+00:00:54,886 --> 0:00:56,096
+and you use the Accelerate
+
+34
+00:00:56,096 --> 0:00:57,666
+framework, not only will your
+
+35
+00:00:57,666 --> 0:00:59,456
+application run faster, but
+
+36
+00:00:59,456 --> 0:01:00,836
+you'll also use less battery
+
+37
+00:00:59,456 --> 0:01:00,836
+you'll also use less battery
+
+38
+00:01:00,836 --> 0:01:01,196
+life.
+
+39
+00:01:03,366 --> 0:01:05,215
+We provide the primitives across
+
+40
+00:01:05,215 --> 0:01:06,696
+all of Apple's platforms.
+
+41
+00:01:06,986 --> 0:01:09,616
+This includes not only macOS and
+
+42
+00:01:09,616 --> 0:01:13,966
+iOS but watchOS and tVOS as
+
+43
+00:01:13,966 --> 0:01:14,316
+well.
+
+44
+00:01:15,766 --> 0:01:17,236
+This means your users are going
+
+45
+00:01:17,236 --> 0:01:18,526
+to have an overall better
+
+46
+00:01:18,526 --> 0:01:19,296
+experience.
+
+47
+00:01:20,746 --> 0:01:22,856
+Accelerate's libraries are
+
+48
+00:01:22,856 --> 0:01:24,556
+immensely powerful but up until
+
+49
+00:01:24,556 --> 0:01:26,226
+now, their interfaces weren't
+
+50
+00:01:26,226 --> 0:01:27,266
+that friendly to Swift
+
+51
+00:01:27,266 --> 0:01:27,996
+developers.
+
+52
+00:01:28,516 --> 0:01:30,196
+We've looked at four libraries
+
+53
+00:01:30,196 --> 0:01:32,506
+and created new Swift-friendly
+
+54
+00:01:32,506 --> 0:01:33,946
+APIs to make using Acclerate in
+
+55
+00:01:33,946 --> 0:01:35,646
+Swift projects really easy.
+
+56
+00:01:36,446 --> 0:01:37,906
+The four libraries we focused on
+
+57
+00:01:37,906 --> 0:01:41,386
+are vDSP that provides digital
+
+58
+00:01:41,386 --> 0:01:42,806
+signal processing routines
+
+59
+00:01:42,966 --> 0:01:44,256
+including arithmetic on large
+
+60
+00:01:44,256 --> 0:01:46,506
+vectors, Fourier transforms,
+
+61
+00:01:46,696 --> 0:01:48,216
+biquadratic filtering, and
+
+62
+00:01:48,216 --> 0:01:49,696
+powerful type conversion.
+
+63
+00:01:49,876 --> 0:01:53,536
+vForce that provides arithmetic
+
+64
+00:01:53,536 --> 0:01:54,956
+and transcendental functions
+
+65
+00:01:54,956 --> 0:01:56,606
+including trig and logarithmic
+
+66
+00:01:56,606 --> 0:01:57,306
+routines.
+
+67
+00:01:57,686 --> 0:02:00,206
+Quadrature, that's dedicated to
+
+68
+00:01:57,686 --> 0:02:00,206
+Quadrature, that's dedicated to
+
+69
+00:02:00,206 --> 0:02:01,706
+the numerical integration of
+
+70
+00:02:01,706 --> 0:02:02,456
+functions.
+
+71
+00:02:02,836 --> 0:02:05,726
+And vImage, that provides a huge
+
+72
+00:02:05,726 --> 0:02:07,126
+selection of image processing
+
+73
+00:02:07,126 --> 0:02:09,096
+functions and integrates easily
+
+74
+00:02:09,096 --> 0:02:10,336
+with core graphics and core
+
+75
+00:02:10,336 --> 0:02:10,686
+video.
+
+76
+00:02:11,476 --> 0:02:13,716
+Accelerate gets its performance
+
+77
+00:02:13,716 --> 0:02:15,636
+benefits by using vectorization.
+
+78
+00:02:15,946 --> 0:02:18,806
+To understand vectorization,
+
+79
+00:02:18,876 --> 0:02:20,306
+let's first look at a simple
+
+80
+00:02:20,306 --> 0:02:21,956
+calculation over the elements of
+
+81
+00:02:21,956 --> 0:02:23,606
+an array using scalar code.
+
+82
+00:02:24,666 --> 0:02:26,576
+If, for example, you're writing
+
+83
+00:02:26,576 --> 0:02:28,006
+code that multiplies each
+
+84
+00:02:28,006 --> 0:02:29,916
+element of one array with the
+
+85
+00:02:29,916 --> 0:02:31,176
+corresponding element in
+
+86
+00:02:31,176 --> 0:02:32,936
+another, and you're using a four
+
+87
+00:02:32,936 --> 0:02:34,886
+loop, each pair of elements are
+
+88
+00:02:34,886 --> 0:02:36,676
+separately loaded, multiplied
+
+89
+00:02:36,676 --> 0:02:37,906
+together, and the results
+
+90
+00:02:37,906 --> 0:02:38,306
+stored.
+
+91
+00:02:39,496 --> 0:02:41,376
+So, after the first elements in
+
+92
+00:02:41,376 --> 0:02:42,866
+A and B are multiplied together
+
+93
+00:02:42,866 --> 0:02:44,166
+to calculate the first element
+
+94
+00:02:44,166 --> 0:02:46,026
+in C, the second pair are
+
+95
+00:02:46,026 --> 0:02:46,686
+processed.
+
+96
+00:02:47,256 --> 0:02:49,196
+Then, the third.
+
+97
+00:02:49,906 --> 0:02:54,686
+And, finally, the fourth.
+
+98
+00:02:55,006 --> 0:02:56,466
+However, if you're processing
+
+99
+00:02:56,466 --> 0:02:57,736
+the elements of an array using
+
+100
+00:02:57,736 --> 0:02:59,826
+Accelerate, your calculation is
+
+101
+00:02:59,826 --> 0:03:01,396
+performed on single instruction
+
+102
+00:02:59,826 --> 0:03:01,396
+performed on single instruction
+
+103
+00:03:01,396 --> 0:03:03,156
+multiple data, or simD
+
+104
+00:03:03,156 --> 0:03:03,816
+registers.
+
+105
+00:03:04,616 --> 0:03:05,886
+These registers can perform the
+
+106
+00:03:05,886 --> 0:03:07,506
+same instruction on multiple
+
+107
+00:03:07,506 --> 0:03:09,606
+items of data by packing those
+
+108
+00:03:09,606 --> 0:03:10,896
+multiple items into a single
+
+109
+00:03:10,896 --> 0:03:11,416
+register.
+
+110
+00:03:12,096 --> 0:03:14,676
+For example, a single 128-bit
+
+111
+00:03:14,676 --> 0:03:17,116
+register can actually store four
+
+112
+00:03:17,116 --> 0:03:19,486
+32-bit floating point values.
+
+113
+00:03:19,876 --> 0:03:21,146
+So, a vectorized multiply
+
+114
+00:03:21,146 --> 0:03:22,916
+operation can simultaneously
+
+115
+00:03:22,916 --> 0:03:24,666
+multiply four pairs of elements
+
+116
+00:03:24,666 --> 0:03:25,226
+at a time.
+
+117
+00:03:26,256 --> 0:03:27,636
+This means that not only will
+
+118
+00:03:27,636 --> 0:03:29,236
+the task be quicker, it will
+
+119
+00:03:29,236 --> 0:03:30,936
+also be significantly more
+
+120
+00:03:30,936 --> 0:03:31,756
+energy efficient.
+
+121
+00:03:34,276 --> 0:03:35,926
+The multiply function we just
+
+122
+00:03:35,926 --> 0:03:37,456
+looked at part of Accelerate's
+
+123
+00:03:37,456 --> 0:03:38,686
+digital signal processing
+
+124
+00:03:38,686 --> 0:03:40,146
+library, vDSP.
+
+125
+00:03:40,766 --> 0:03:42,236
+So, let's begin by looking at
+
+126
+00:03:42,236 --> 0:03:44,486
+how the new Swift API simplifies
+
+127
+00:03:44,486 --> 0:03:46,146
+using vDSP.
+
+128
+00:03:47,496 --> 0:03:51,176
+vDSP provides vectorized digital
+
+129
+00:03:51,176 --> 0:03:52,516
+signal processing functions
+
+130
+00:03:52,516 --> 0:03:53,956
+including Fourier transforms,
+
+131
+00:03:53,956 --> 0:03:56,116
+biquadratic filtering,
+
+132
+00:03:56,256 --> 0:03:58,496
+convolution, and correlation.
+
+133
+00:03:59,676 --> 0:04:02,226
+Furthermore, vDSP also provides
+
+134
+00:03:59,676 --> 0:04:02,226
+Furthermore, vDSP also provides
+
+135
+00:04:02,226 --> 0:04:03,506
+some powerful, more general
+
+136
+00:04:03,506 --> 0:04:05,166
+functions including element-wise
+
+137
+00:04:05,166 --> 0:04:07,326
+arithmetic and type conversion.
+
+138
+00:04:09,056 --> 0:04:10,656
+So, even if you don't have an
+
+139
+00:04:10,656 --> 0:04:12,396
+immediate need to, for example,
+
+140
+00:04:12,396 --> 0:04:13,686
+compute the coherence of two
+
+141
+00:04:13,686 --> 0:04:16,305
+signals, you may find that
+
+142
+00:04:16,305 --> 0:04:17,676
+vDSP's general computation
+
+143
+00:04:17,676 --> 0:04:19,586
+routines offer a solution to
+
+144
+00:04:19,586 --> 0:04:21,315
+improve your app's performance.
+
+145
+00:04:24,616 --> 0:04:26,096
+Let's take a look at some basic
+
+146
+00:04:26,096 --> 0:04:26,816
+arithmetic.
+
+147
+00:04:27,206 --> 0:04:29,776
+An example could be given four
+
+148
+00:04:29,776 --> 0:04:31,056
+arrays of single-precision
+
+149
+00:04:31,056 --> 0:04:33,066
+values, you need to calculate
+
+150
+00:04:33,066 --> 0:04:34,456
+the element-wise sum of two of
+
+151
+00:04:34,456 --> 0:04:36,266
+the array's the element-wise
+
+152
+00:04:36,266 --> 0:04:37,806
+difference in the other two, and
+
+153
+00:04:37,806 --> 0:04:40,306
+multiply those results with each
+
+154
+00:04:40,846 --> 0:04:40,966
+other.
+
+155
+00:04:41,666 --> 0:04:43,446
+Using a four loop is a perfectly
+
+156
+00:04:43,446 --> 0:04:44,496
+reasonable solution to this
+
+157
+00:04:44,496 --> 0:04:46,126
+problem and calculates the
+
+158
+00:04:46,126 --> 0:04:47,106
+expected results.
+
+159
+00:04:47,906 --> 0:04:49,706
+Here's how you perform that
+
+160
+00:04:49,706 --> 0:04:52,096
+calculation using vDSP's classic
+
+161
+00:04:52,096 --> 0:04:52,416
+API.
+
+162
+00:04:53,526 --> 0:04:55,276
+Using vDSP is approximately
+
+163
+00:04:55,276 --> 0:04:57,166
+three times faster than the four
+
+164
+00:04:57,166 --> 0:04:57,536
+loop.
+
+165
+00:04:59,536 --> 0:05:00,926
+Here's the same computation
+
+166
+00:04:59,536 --> 0:05:00,926
+Here's the same computation
+
+167
+00:05:00,926 --> 0:05:02,566
+using our new Swift API for
+
+168
+00:05:02,566 --> 0:05:03,206
+vDSP.
+
+169
+00:05:03,206 --> 0:05:05,426
+We're exposing the new
+
+170
+00:05:05,426 --> 0:05:06,906
+Swift-friendly functions through
+
+171
+00:05:06,906 --> 0:05:09,076
+our vDSP namespace and you can
+
+172
+00:05:09,076 --> 0:05:10,366
+see the function and parameter
+
+173
+00:05:10,366 --> 0:05:11,896
+names explain the operation.
+
+174
+00:05:12,806 --> 0:05:14,176
+Because the new functions work
+
+175
+00:05:14,176 --> 0:05:15,626
+with familiar types including
+
+176
+00:05:15,626 --> 0:05:17,146
+arrays and array slices rather
+
+177
+00:05:17,146 --> 0:05:18,866
+than pointers, you no longer
+
+178
+00:05:18,866 --> 0:05:20,296
+need to explicitly pass the
+
+179
+00:05:20,296 --> 0:05:20,736
+count.
+
+180
+00:05:21,246 --> 0:05:22,536
+So, the entire function call is
+
+181
+00:05:22,536 --> 0:05:24,616
+clearer and more concise.
+
+182
+00:05:25,776 --> 0:05:28,676
+Passing an initialized result
+
+183
+00:05:28,676 --> 0:05:29,686
+array offers the best
+
+184
+00:05:29,686 --> 0:05:31,236
+performance and you can
+
+185
+00:05:31,236 --> 0:05:32,936
+obviously reuse that array in
+
+186
+00:05:32,936 --> 0:05:34,476
+other operations for further
+
+187
+00:05:34,476 --> 0:05:35,646
+performance benefits.
+
+188
+00:05:36,446 --> 0:05:38,946
+However, we're also providing
+
+189
+00:05:38,946 --> 0:05:40,726
+self-allocating functions.
+
+190
+00:05:41,096 --> 0:05:42,846
+These make use of Swift's new
+
+191
+00:05:42,846 --> 0:05:44,596
+ability to access an array's
+
+192
+00:05:44,596 --> 0:05:46,786
+uninitialized buffer to return
+
+193
+00:05:46,786 --> 0:05:48,156
+the result of a computation.
+
+194
+00:05:48,936 --> 0:05:50,496
+Although not quite as fast as
+
+195
+00:05:50,496 --> 0:05:52,386
+passing existing storage, it's
+
+196
+00:05:52,386 --> 0:05:53,936
+still faster than the scalar
+
+197
+00:05:53,936 --> 0:05:55,936
+approach and, in some cases,
+
+198
+00:05:55,936 --> 0:05:58,846
+will simplify your code.
+
+199
+00:06:00,076 --> 0:06:02,006
+Another common task that vDSP
+
+200
+00:06:02,006 --> 0:06:03,286
+can vectorize is type
+
+201
+00:06:03,286 --> 0:06:03,976
+conversion.
+
+202
+00:06:04,536 --> 0:06:06,416
+This example converts an array
+
+203
+00:06:06,416 --> 0:06:07,566
+containing double precision
+
+204
+00:06:07,566 --> 0:06:10,256
+values to 16-bit unsigned
+
+205
+00:06:10,256 --> 0:06:11,846
+integer values rounding toward
+
+206
+00:06:11,846 --> 0:06:12,326
+zero.
+
+207
+00:06:13,676 --> 0:06:16,796
+The scalar version uses map with
+
+208
+00:06:16,796 --> 0:06:17,776
+explicit rounding.
+
+209
+00:06:18,136 --> 0:06:20,026
+Again, this is a perfectly
+
+210
+00:06:20,026 --> 0:06:21,776
+reasonable technique to use, but
+
+211
+00:06:21,776 --> 0:06:24,156
+vDSP can vectorize this task to
+
+212
+00:06:24,156 --> 0:06:25,266
+improve performance.
+
+213
+00:06:25,806 --> 0:06:29,196
+In this example, vDSP is
+
+214
+00:06:29,196 --> 0:06:31,036
+approximately four times faster
+
+215
+00:06:31,036 --> 0:06:32,616
+than the previous scalar
+
+216
+00:06:32,616 --> 0:06:33,446
+implementation.
+
+217
+00:06:34,876 --> 0:06:37,386
+The new Swift version of the
+
+218
+00:06:37,386 --> 0:06:38,996
+vDSP function offers a clear
+
+219
+00:06:38,996 --> 0:06:39,746
+interface.
+
+220
+00:06:40,596 --> 0:06:42,166
+The function accepts a source
+
+221
+00:06:42,166 --> 0:06:42,486
+array.
+
+222
+00:06:42,916 --> 0:06:44,116
+The integer type you ought to
+
+223
+00:06:44,116 --> 0:06:46,036
+convert each element to, and an
+
+224
+00:06:46,036 --> 0:06:47,636
+enumeration to specify the
+
+225
+00:06:47,636 --> 0:06:48,196
+rounding.
+
+226
+00:06:51,936 --> 0:06:54,416
+vDSP provides Fourier transforms
+
+227
+00:06:54,416 --> 0:06:55,946
+for transforming one-dimensional
+
+228
+00:06:56,056 --> 0:06:57,966
+and two-dimensional data between
+
+229
+00:06:57,966 --> 0:06:59,176
+the time domain and the
+
+230
+00:06:59,176 --> 0:07:00,176
+frequency domain.
+
+231
+00:06:59,176 --> 0:07:00,176
+frequency domain.
+
+232
+00:07:00,456 --> 0:07:03,276
+A forward Fourier transform of a
+
+233
+00:07:03,276 --> 0:07:05,286
+signal decomposes it into its
+
+234
+00:07:05,286 --> 0:07:06,486
+component sign waves.
+
+235
+00:07:06,896 --> 0:07:08,106
+That's the frequency domain
+
+236
+00:07:08,106 --> 0:07:08,926
+representation.
+
+237
+00:07:10,006 --> 0:07:12,056
+Conversely, an inverse transform
+
+238
+00:07:12,056 --> 0:07:13,076
+of that frequency domain
+
+239
+00:07:13,076 --> 0:07:14,886
+representation recreates the
+
+240
+00:07:14,886 --> 0:07:16,506
+original signal and that's the
+
+241
+00:07:16,506 --> 0:07:17,986
+time domain representation.
+
+242
+00:07:18,446 --> 0:07:20,576
+Fourier transforms have many
+
+243
+00:07:20,576 --> 0:07:22,296
+uses in both signal and image
+
+244
+00:07:22,296 --> 0:07:22,936
+processing.
+
+245
+00:07:23,436 --> 0:07:24,936
+For example, once an audio
+
+246
+00:07:24,936 --> 0:07:26,146
+signal has been forward
+
+247
+00:07:26,146 --> 0:07:27,816
+transformed, you can easily
+
+248
+00:07:27,816 --> 0:07:29,726
+reduce or increase certain
+
+249
+00:07:29,726 --> 0:07:31,026
+frequencies to equalize the
+
+250
+00:07:31,026 --> 0:07:31,406
+audio.
+
+251
+00:07:33,136 --> 0:07:35,056
+The classic API is reasonably
+
+252
+00:07:35,056 --> 0:07:36,086
+easy to follow if you're
+
+253
+00:07:36,086 --> 0:07:36,666
+familiar with it.
+
+254
+00:07:37,116 --> 0:07:38,686
+You begin by creating a setup
+
+255
+00:07:38,686 --> 0:07:40,346
+object specifying the number of
+
+256
+00:07:40,346 --> 0:07:41,666
+elements you want to transform
+
+257
+00:07:41,746 --> 0:07:42,766
+and the direction.
+
+258
+00:07:43,386 --> 0:07:45,166
+Then, after creating two arrays
+
+259
+00:07:45,166 --> 0:07:46,886
+to receive results, you call the
+
+260
+00:07:46,886 --> 0:07:47,776
+execute function.
+
+261
+00:07:47,776 --> 0:07:49,496
+Once you're done, you need to
+
+262
+00:07:49,496 --> 0:07:51,036
+remember to destroy the setup to
+
+263
+00:07:51,036 --> 0:07:52,796
+free the resources allocated to
+
+264
+00:07:53,256 --> 0:07:53,326
+it.
+
+265
+00:07:53,956 --> 0:07:56,476
+The new API simplifies the
+
+266
+00:07:56,476 --> 0:07:57,946
+instantiation of the setup
+
+267
+00:07:57,946 --> 0:08:00,596
+object and the transform itself
+
+268
+00:07:57,946 --> 0:08:00,596
+object and the transform itself
+
+269
+00:08:00,596 --> 0:08:02,536
+is a method with parameter names
+
+270
+00:08:02,606 --> 0:08:04,016
+on the DFT instance.
+
+271
+00:08:04,016 --> 0:08:06,336
+And now you don't need to worry
+
+272
+00:08:06,336 --> 0:08:07,576
+about freeing the resources.
+
+273
+00:08:07,576 --> 0:08:08,546
+We do that for you.
+
+274
+00:08:10,376 --> 0:08:12,686
+And much like the vDSP functions
+
+275
+00:08:12,686 --> 0:08:14,046
+we've looked at, there's a
+
+276
+00:08:14,046 --> 0:08:15,626
+self-allocating version of the
+
+277
+00:08:15,626 --> 0:08:17,796
+transform function that creates
+
+278
+00:08:17,796 --> 0:08:19,516
+and returns the result's arrays
+
+279
+00:08:19,516 --> 0:08:20,046
+for you.
+
+280
+00:08:23,996 --> 0:08:25,796
+If you work with audio data, you
+
+281
+00:08:25,796 --> 0:08:27,596
+may be familiar with biquadratic
+
+282
+00:08:27,596 --> 0:08:28,776
+or biquad filtering.
+
+283
+00:08:29,606 --> 0:08:31,036
+Biquad filters can be used to
+
+284
+00:08:31,036 --> 0:08:32,655
+equalize audio to shape the
+
+285
+00:08:32,655 --> 0:08:34,216
+frequency response, allowing you
+
+286
+00:08:34,216 --> 0:08:36,506
+to, for example, remove either
+
+287
+00:08:36,506 --> 0:08:37,966
+low or high frequencies.
+
+288
+00:08:39,186 --> 0:08:41,966
+vDSP's biquad feature operates
+
+289
+00:08:41,966 --> 0:08:43,395
+on single and multichannel
+
+290
+00:08:43,395 --> 0:08:45,356
+signals, and uses a set of
+
+291
+00:08:45,386 --> 0:08:46,996
+individual filter objects called
+
+292
+00:08:46,996 --> 0:08:47,716
+sections.
+
+293
+00:08:48,286 --> 0:08:49,986
+The filters are cascaded; that
+
+294
+00:08:49,986 --> 0:08:51,156
+is, they are set up in a
+
+295
+00:08:51,156 --> 0:08:53,006
+sequence and the entire signal
+
+296
+00:08:53,006 --> 0:08:54,476
+passes through each filter in
+
+297
+00:08:54,476 --> 0:08:54,956
+turn.
+
+298
+00:08:55,956 --> 0:08:57,166
+The filters are defined by a
+
+299
+00:08:57,166 --> 0:08:59,086
+series of coefficients that plug
+
+300
+00:08:59,086 --> 0:09:00,286
+into the equation shown here.
+
+301
+00:08:59,086 --> 0:09:00,286
+into the equation shown here.
+
+302
+00:09:00,896 --> 0:09:05,336
+In this example, these values
+
+303
+00:09:05,336 --> 0:09:07,286
+form a low pass filter; that is,
+
+304
+00:09:07,286 --> 0:09:08,756
+a filter that reduces high
+
+305
+00:09:08,756 --> 0:09:09,456
+frequencies.
+
+306
+00:09:09,876 --> 0:09:11,906
+Here's the code using vDSP's
+
+307
+00:09:11,906 --> 0:09:13,816
+classic API to create the biquad
+
+308
+00:09:13,816 --> 0:09:15,516
+setup using the coefficients in
+
+309
+00:09:15,516 --> 0:09:16,446
+the previous slide.
+
+310
+00:09:17,196 --> 0:09:19,506
+And here's the code to apply
+
+311
+00:09:19,506 --> 0:09:21,386
+that biquad filter to an array
+
+312
+00:09:21,386 --> 0:09:23,056
+named signal, returning the
+
+313
+00:09:23,056 --> 0:09:25,086
+result to an array named output.
+
+314
+00:09:25,086 --> 0:09:27,006
+Let's look at the same
+
+315
+00:09:27,006 --> 0:09:28,696
+functionality implemented with a
+
+316
+00:09:28,696 --> 0:09:29,436
+new API.
+
+317
+00:09:31,716 --> 0:09:33,906
+As you can see, the new API
+
+318
+00:09:34,036 --> 0:09:35,866
+vastly simplifies the creation
+
+319
+00:09:35,866 --> 0:09:36,846
+of the biquad structure.
+
+320
+00:09:37,596 --> 0:09:39,196
+You simply pass the coefficients
+
+321
+00:09:39,196 --> 0:09:40,896
+to the biquad initializer and
+
+322
+00:09:40,896 --> 0:09:42,466
+specify the number of channels
+
+323
+00:09:42,466 --> 0:09:43,326
+and sections.
+
+324
+00:09:44,286 --> 0:09:46,346
+Applying the biquad filter to a
+
+325
+00:09:46,346 --> 0:09:47,926
+signal is a single function
+
+326
+00:09:47,926 --> 0:09:48,226
+call.
+
+327
+00:09:51,496 --> 0:09:54,456
+Now, let's look at the new API
+
+328
+00:09:54,456 --> 0:09:55,686
+we've created for Accelerate's
+
+329
+00:09:55,686 --> 0:09:57,356
+library for fast mathematical
+
+330
+00:09:57,356 --> 0:09:58,856
+operations on large arrays,
+
+331
+00:09:59,146 --> 0:09:59,956
+vForce.
+
+332
+00:10:01,896 --> 0:10:03,856
+vForce provides transcendental
+
+333
+00:10:03,856 --> 0:10:05,976
+functions not included in vDSP.
+
+334
+00:10:06,526 --> 0:10:08,196
+These include exponential,
+
+335
+00:10:08,346 --> 0:10:09,576
+logarithmic, and trig
+
+336
+00:10:09,576 --> 0:10:10,376
+operations.
+
+337
+00:10:12,256 --> 0:10:13,996
+A typical example of vForce
+
+338
+00:10:13,996 --> 0:10:15,496
+would be to calculate the square
+
+339
+00:10:15,496 --> 0:10:16,956
+root of each element in a large
+
+340
+00:10:16,956 --> 0:10:17,356
+array.
+
+341
+00:10:18,006 --> 0:10:19,556
+The scalar version of this code
+
+342
+00:10:19,556 --> 0:10:20,466
+could use map.
+
+343
+00:10:22,196 --> 0:10:24,116
+vForce provides a vectorized
+
+344
+00:10:24,116 --> 0:10:25,806
+function to calculate the square
+
+345
+00:10:25,806 --> 0:10:27,666
+roots that in some situations
+
+346
+00:10:27,666 --> 0:10:29,436
+can be up to 10 times faster
+
+347
+00:10:29,586 --> 0:10:31,096
+than the scalar implementation.
+
+348
+00:10:32,856 --> 0:10:34,996
+The new Swift overlay offers an
+
+349
+00:10:34,996 --> 0:10:36,756
+API that's consistent with the
+
+350
+00:10:36,756 --> 0:10:39,536
+new vDSP functions and provides
+
+351
+00:10:39,536 --> 0:10:40,806
+the performance and energy
+
+352
+00:10:40,806 --> 0:10:41,866
+efficiency benefits of
+
+353
+00:10:41,866 --> 0:10:42,756
+vectorization.
+
+354
+00:10:43,296 --> 0:10:46,186
+And much like we've seen
+
+355
+00:10:46,186 --> 0:10:46,846
+earlier, there's a
+
+356
+00:10:46,846 --> 0:10:48,746
+self-allocating version that
+
+357
+00:10:48,746 --> 0:10:50,486
+returns an array containing the
+
+358
+00:10:50,486 --> 0:10:51,806
+square roots of each element in
+
+359
+00:10:51,806 --> 0:10:53,000
+the supplied array.
+
+360
+00:10:57,056 --> 0:10:58,256
+Next, we'll take a look at the
+
+361
+00:10:58,256 --> 0:11:01,036
+new API we've created for
+
+362
+00:10:58,256 --> 0:11:01,036
+new API we've created for
+
+363
+00:11:01,736 --> 0:11:02,456
+Quadrature.
+
+364
+00:11:02,566 --> 0:11:04,516
+Quadrature is a historic term
+
+365
+00:11:04,516 --> 0:11:06,006
+for determining the area under a
+
+366
+00:11:06,006 --> 0:11:06,416
+curve.
+
+367
+00:11:07,246 --> 0:11:09,126
+It provides an approximation of
+
+368
+00:11:09,126 --> 0:11:10,266
+the definite integrative
+
+369
+00:11:10,266 --> 0:11:11,946
+function over a finite or
+
+370
+00:11:11,946 --> 0:11:12,956
+infinite interval.
+
+371
+00:11:13,556 --> 0:11:15,736
+In this example, we'll use
+
+372
+00:11:15,736 --> 0:11:17,186
+Quadrature to approximate the
+
+373
+00:11:17,186 --> 0:11:19,046
+area of a semicircle, shown here
+
+374
+00:11:19,046 --> 0:11:21,026
+in green, by integrating the
+
+375
+00:11:21,026 --> 0:11:22,536
+functions shown.
+
+376
+00:11:24,396 --> 0:11:26,836
+Much like the Biquad code for
+
+377
+00:11:26,836 --> 0:11:28,896
+vDSP, there's a fair amount of
+
+378
+00:11:28,896 --> 0:11:30,376
+code required to use the
+
+379
+00:11:30,376 --> 0:11:31,926
+existing Quadrature API.
+
+380
+00:11:32,616 --> 0:11:35,006
+The first step is to define a
+
+381
+00:11:35,006 --> 0:11:36,346
+structure that describes a
+
+382
+00:11:36,346 --> 0:11:37,616
+function to integrate.
+
+383
+00:11:39,076 --> 0:11:41,716
+The second step is to define the
+
+384
+00:11:41,716 --> 0:11:43,456
+integration options including
+
+385
+00:11:43,456 --> 0:11:44,726
+the integration algorithm.
+
+386
+00:11:45,496 --> 0:11:48,296
+Finally, with the function on
+
+387
+00:11:48,296 --> 0:11:50,416
+options defined, you can perform
+
+388
+00:11:50,416 --> 0:11:51,566
+the integration using the
+
+389
+00:11:51,566 --> 0:11:53,016
+Quadrature integrate function.
+
+390
+00:11:55,946 --> 0:11:58,386
+The new API simplifies the code.
+
+391
+00:11:58,886 --> 0:12:00,476
+One great advantage is that you
+
+392
+00:11:58,886 --> 0:12:00,476
+One great advantage is that you
+
+393
+00:12:00,476 --> 0:12:02,256
+can specify the integrand, that
+
+394
+00:12:02,256 --> 0:12:03,196
+is, the function to be
+
+395
+00:12:03,196 --> 0:12:05,246
+integrated, as a trading closure
+
+396
+00:12:05,426 --> 0:12:06,626
+rather than as a C function
+
+397
+00:12:06,626 --> 0:12:07,066
+pointer.
+
+398
+00:12:07,636 --> 0:12:09,186
+This means you can easily pass
+
+399
+00:12:09,186 --> 0:12:10,646
+values into the integrand.
+
+400
+00:12:11,606 --> 0:12:13,716
+Also note that integrators are
+
+401
+00:12:13,716 --> 0:12:15,616
+now enumerations with associated
+
+402
+00:12:15,616 --> 0:12:16,286
+values.
+
+403
+00:12:16,736 --> 0:12:18,146
+So, there's no need to supply
+
+404
+00:12:18,146 --> 0:12:19,986
+unnecessary points for interval
+
+405
+00:12:20,016 --> 0:12:21,446
+or maximum intervals here.
+
+406
+00:12:21,806 --> 0:12:24,896
+For example, you can pass the
+
+407
+00:12:24,896 --> 0:12:26,236
+enumeration for the globally
+
+408
+00:12:26,236 --> 0:12:28,376
+adaptive integrator specifying
+
+409
+00:12:28,456 --> 0:12:29,596
+the points for interval and
+
+410
+00:12:29,596 --> 0:12:30,686
+maximum intervals.
+
+411
+00:12:33,456 --> 0:12:36,676
+Now, let's look at the new API
+
+412
+00:12:36,806 --> 0:12:38,316
+we've created for Accelerate's
+
+413
+00:12:38,316 --> 0:12:39,536
+image processing library,
+
+414
+00:12:39,536 --> 0:12:40,216
+vImage.
+
+415
+00:12:41,876 --> 0:12:43,606
+vImage is a library containing a
+
+416
+00:12:43,606 --> 0:12:44,936
+rich collection of image
+
+417
+00:12:44,936 --> 0:12:45,906
+processing tools.
+
+418
+00:12:46,536 --> 0:12:48,456
+It's designed to work seamlessly
+
+419
+00:12:48,456 --> 0:12:51,186
+with both core graphics and core
+
+420
+00:12:51,186 --> 0:12:51,736
+video.
+
+421
+00:12:51,786 --> 0:12:54,506
+It includes operations such as
+
+422
+00:12:54,506 --> 0:12:56,966
+alpha blending, format
+
+423
+00:12:56,966 --> 0:12:59,216
+conversions, histogram
+
+424
+00:12:59,216 --> 0:13:01,696
+operations, convolution,
+
+425
+00:12:59,216 --> 0:13:01,696
+operations, convolution,
+
+426
+00:13:02,596 --> 0:13:05,216
+geometry, and morphology.
+
+427
+00:13:07,516 --> 0:13:10,336
+Our new Swift API introduces
+
+428
+00:13:10,336 --> 0:13:11,806
+lots of new features that makes
+
+429
+00:13:11,806 --> 0:13:14,116
+using vImage in Swift easier and
+
+430
+00:13:14,116 --> 0:13:15,006
+more concise.
+
+431
+00:13:15,556 --> 0:13:16,906
+We've implemented flags as an
+
+432
+00:13:16,906 --> 0:13:17,576
+option set.
+
+433
+00:13:18,236 --> 0:13:20,436
+vImages throw Swift errors.
+
+434
+00:13:20,436 --> 0:13:21,886
+And we've hidden some of the
+
+435
+00:13:21,886 --> 0:13:23,466
+requirements for mutability and
+
+436
+00:13:23,466 --> 0:13:25,236
+working with unmanaged types.
+
+437
+00:13:27,646 --> 0:13:28,696
+If you're working with core
+
+438
+00:13:28,696 --> 0:13:30,076
+graphics images, there's a
+
+439
+00:13:30,076 --> 0:13:31,606
+common workflow to get that
+
+440
+00:13:31,606 --> 0:13:33,356
+image data into a vImage buffer.
+
+441
+00:13:35,076 --> 0:13:36,706
+First, you need to create a
+
+442
+00:13:36,706 --> 0:13:38,386
+description of the CG images
+
+443
+00:13:38,386 --> 0:13:38,916
+format.
+
+444
+00:13:40,286 --> 0:13:42,166
+Then, instantiate a vImage
+
+445
+00:13:42,166 --> 0:13:42,596
+buffer.
+
+446
+00:13:43,366 --> 0:13:44,766
+Initialize that buffer from the
+
+447
+00:13:44,766 --> 0:13:45,246
+image.
+
+448
+00:13:45,246 --> 0:13:46,986
+And finally, check for errors in
+
+449
+00:13:46,986 --> 0:13:48,426
+a non-Swift way.
+
+450
+00:13:48,696 --> 0:13:50,656
+And that's a lot of boilerplate
+
+451
+00:13:50,656 --> 0:13:52,236
+code for a common operation.
+
+452
+00:13:53,226 --> 0:13:55,936
+The new API wraps up all of that
+
+453
+00:13:55,936 --> 0:13:58,056
+code into a single throwable
+
+454
+00:13:58,056 --> 0:13:58,696
+initializer.
+
+455
+00:13:59,906 --> 0:14:02,396
+However, since we're going to
+
+456
+00:13:59,906 --> 0:14:02,396
+However, since we're going to
+
+457
+00:14:02,396 --> 0:14:04,196
+use a CG images format later,
+
+458
+00:14:04,356 --> 0:14:05,896
+here's similar functionality
+
+459
+00:14:05,966 --> 0:14:07,516
+implemented in two steps with a
+
+460
+00:14:07,516 --> 0:14:07,976
+new API.
+
+461
+00:14:08,726 --> 0:14:10,876
+We've added a new initializer to
+
+462
+00:14:10,876 --> 0:14:12,686
+CG image format using a CG
+
+463
+00:14:12,686 --> 0:14:15,086
+image, and an alternative buffer
+
+464
+00:14:15,086 --> 0:14:16,976
+initializer that accepts a CG
+
+465
+00:14:16,976 --> 0:14:18,716
+image and an explicit format
+
+466
+00:14:18,716 --> 0:14:19,266
+description.
+
+467
+00:14:19,666 --> 0:14:22,546
+Once you're finished working
+
+468
+00:14:22,546 --> 0:14:23,806
+with a buffer, here's the
+
+469
+00:14:23,806 --> 0:14:25,236
+classic vImage function to
+
+470
+00:14:25,236 --> 0:14:26,716
+create a CG image from the
+
+471
+00:14:26,716 --> 0:14:27,736
+buffer's contents.
+
+472
+00:14:28,696 --> 0:14:30,856
+And our new API simplifies that
+
+473
+00:14:30,856 --> 0:14:33,336
+operation too with a new create
+
+474
+00:14:33,336 --> 0:14:34,796
+CG image method that uses the
+
+475
+00:14:34,796 --> 0:14:36,296
+format we've just generated from
+
+476
+00:14:36,296 --> 0:14:36,776
+the image.
+
+477
+00:14:37,876 --> 0:14:40,156
+One important use case for
+
+478
+00:14:40,156 --> 0:14:41,916
+vImage is converting between
+
+479
+00:14:41,916 --> 0:14:43,286
+different domains and different
+
+480
+00:14:43,286 --> 0:14:44,026
+formats.
+
+481
+00:14:44,576 --> 0:14:46,636
+vImage's any-to-any convertors
+
+482
+00:14:46,636 --> 0:14:48,246
+can convert between core video
+
+483
+00:14:48,246 --> 0:14:50,206
+and core graphics, and convert
+
+484
+00:14:50,206 --> 0:14:51,966
+between different core graphics
+
+485
+00:14:51,966 --> 0:14:52,586
+formats.
+
+486
+00:14:53,926 --> 0:14:55,926
+For example, you might want to
+
+487
+00:14:55,926 --> 0:14:57,956
+convert a CMYK core graphics
+
+488
+00:14:57,956 --> 0:14:59,876
+image to RGB.
+
+489
+00:15:01,056 --> 0:15:03,706
+The existing API to create a
+
+490
+00:15:03,706 --> 0:15:05,516
+convertor accepts the source and
+
+491
+00:15:05,516 --> 0:15:06,756
+destination formats for the
+
+492
+00:15:06,756 --> 0:15:08,446
+conversion and returns an
+
+493
+00:15:08,446 --> 0:15:09,646
+unmanaged convertor.
+
+494
+00:15:11,036 --> 0:15:12,486
+You take the managed reference
+
+495
+00:15:12,486 --> 0:15:14,126
+of the convertor and pass that
+
+496
+00:15:14,126 --> 0:15:15,116
+to the function that does the
+
+497
+00:15:15,116 --> 0:15:15,756
+conversion.
+
+498
+00:15:17,216 --> 0:15:19,906
+Our new API adds a new static
+
+499
+00:15:19,906 --> 0:15:21,276
+make function to the existing
+
+500
+00:15:21,276 --> 0:15:22,996
+convertor type that returns a
+
+501
+00:15:22,996 --> 0:15:24,336
+convertor instance.
+
+502
+00:15:25,006 --> 0:15:27,566
+The conversion is done with the
+
+503
+00:15:27,566 --> 0:15:29,156
+convert method on the convertor
+
+504
+00:15:29,156 --> 0:15:29,856
+instance.
+
+505
+00:15:31,076 --> 0:15:33,176
+Finally, let's look at working
+
+506
+00:15:33,176 --> 0:15:34,896
+with core video image formats.
+
+507
+00:15:35,456 --> 0:15:37,396
+In a typical example, you may
+
+508
+00:15:37,396 --> 0:15:39,176
+want to create an image format
+
+509
+00:15:39,176 --> 0:15:40,926
+description from a core video
+
+510
+00:15:40,926 --> 0:15:43,276
+pixel buffer and calculate its
+
+511
+00:15:43,276 --> 0:15:43,996
+channel count.
+
+512
+00:15:45,406 --> 0:15:46,786
+Here's the code required by the
+
+513
+00:15:46,786 --> 0:15:49,366
+classic vImage API to create an
+
+514
+00:15:49,366 --> 0:15:50,756
+image format description from a
+
+515
+00:15:50,756 --> 0:15:52,406
+pixel buffer and get its channel
+
+516
+00:15:52,406 --> 0:15:52,766
+count.
+
+517
+00:15:53,216 --> 0:15:55,976
+The new API provides the same
+
+518
+00:15:55,976 --> 0:15:57,516
+functionality in two lines of
+
+519
+00:15:57,516 --> 0:15:57,946
+code.
+
+520
+00:15:58,756 --> 0:16:00,446
+You create an instance of a core
+
+521
+00:15:58,756 --> 0:16:00,446
+You create an instance of a core
+
+522
+00:16:00,446 --> 0:16:01,946
+video image format from a pixel
+
+523
+00:16:01,946 --> 0:16:03,826
+buffer using a new static make
+
+524
+00:16:03,826 --> 0:16:04,316
+function.
+
+525
+00:16:04,956 --> 0:16:07,136
+And simply access its channel
+
+526
+00:16:07,136 --> 0:16:11,866
+count as a property.
+
+527
+00:16:13,266 --> 0:16:14,806
+That was a quick tour of a
+
+528
+00:16:14,806 --> 0:16:15,936
+fraction of the new API.
+
+529
+00:16:16,426 --> 0:16:18,506
+Let's now take a look at Linpack
+
+530
+00:16:18,506 --> 0:16:20,126
+Benchmark and see just how much
+
+531
+00:16:20,126 --> 0:16:22,036
+faster and more energy efficient
+
+532
+00:16:22,036 --> 0:16:23,016
+Accelerate can be.
+
+533
+00:16:24,076 --> 0:16:25,696
+The Linpack Benchmark came out
+
+534
+00:16:25,696 --> 0:16:27,146
+of the Linpack library which
+
+535
+00:16:27,146 --> 0:16:28,776
+started as a set of routines for
+
+536
+00:16:28,776 --> 0:16:31,026
+providing fast computational
+
+537
+00:16:31,026 --> 0:16:31,856
+linear algebra.
+
+538
+00:16:32,206 --> 0:16:34,576
+This was later subsumed by a
+
+539
+00:16:34,576 --> 0:16:36,006
+library called LApack, which
+
+540
+00:16:36,006 --> 0:16:37,216
+stands for Linear algebra
+
+541
+00:16:37,216 --> 0:16:37,796
+package.
+
+542
+00:16:38,396 --> 0:16:40,536
+LApack was developed to take
+
+543
+00:16:40,536 --> 0:16:42,006
+advantage of these new things at
+
+544
+00:16:42,006 --> 0:16:43,066
+the time called caches.
+
+545
+00:16:43,066 --> 0:16:45,506
+LApack is comprised of many
+
+546
+00:16:45,616 --> 0:16:46,436
+blocked algorithms.
+
+547
+00:16:46,436 --> 0:16:48,426
+These algorit6thms are built on
+
+548
+00:16:48,426 --> 0:16:49,496
+top of another library called
+
+549
+00:16:49,496 --> 0:16:51,036
+BLAS, which stands for basic
+
+550
+00:16:51,036 --> 0:16:52,786
+linear algebra subroutines.
+
+551
+00:16:52,956 --> 0:16:55,416
+We'll talk more about BLAS later
+
+552
+00:16:55,416 --> 0:16:56,366
+in this presentation.
+
+553
+00:16:56,786 --> 0:16:58,806
+For now, keep in mind that the
+
+554
+00:16:58,806 --> 0:17:00,536
+Linpack Benchmark runs on top of
+
+555
+00:16:58,806 --> 0:17:00,536
+Linpack Benchmark runs on top of
+
+556
+00:17:00,536 --> 0:17:02,246
+LApack, which runs on top of
+
+557
+00:17:02,246 --> 0:17:03,000
+BLAS.
+
+558
+00:17:05,955 --> 0:17:07,435
+The Linpack Benchmark measures
+
+559
+00:17:07,435 --> 0:17:09,396
+how quickly a platform can solve
+
+560
+00:17:09,396 --> 0:17:10,675
+a general system of linear
+
+561
+00:17:10,675 --> 0:17:11,376
+equations.
+
+562
+00:17:12,156 --> 0:17:13,806
+It is comprised of two steps.
+
+563
+00:17:14,116 --> 0:17:15,896
+The matrix factorization step,
+
+564
+00:17:16,036 --> 0:17:17,665
+followed by the backsole step.
+
+565
+00:17:18,425 --> 0:17:19,935
+By fixing the algorithm, we're
+
+566
+00:17:19,935 --> 0:17:21,336
+able to see how well different
+
+567
+00:17:21,336 --> 0:17:22,596
+platforms are at running the
+
+568
+00:17:22,596 --> 0:17:23,146
+algorithm.
+
+569
+00:17:24,036 --> 0:17:25,415
+This provides us with a method
+
+570
+00:17:25,415 --> 0:17:26,425
+of comparing different
+
+571
+00:17:26,425 --> 0:17:27,096
+platforms.
+
+572
+00:17:27,776 --> 0:17:29,036
+The Linpack Benchmark has
+
+573
+00:17:29,036 --> 0:17:30,086
+evolved over time.
+
+574
+00:17:30,666 --> 0:17:32,626
+Originally, it solved a 100 by
+
+575
+00:17:32,626 --> 0:17:35,746
+100 system, and later a 1000 by
+
+576
+00:17:35,746 --> 0:17:36,826
+1000 system.
+
+577
+00:17:37,426 --> 0:17:39,556
+The variant most often used
+
+578
+00:17:39,556 --> 0:17:41,326
+today is the no holds barred
+
+579
+00:17:41,326 --> 0:17:43,476
+variant, where the problem size
+
+580
+00:17:43,536 --> 0:17:44,696
+can be as large as you want.
+
+581
+00:17:45,366 --> 0:17:47,206
+This is the variant we will be
+
+582
+00:17:47,206 --> 0:17:47,876
+running today.
+
+583
+00:17:48,476 --> 0:17:51,026
+We are now going to compare
+
+584
+00:17:51,026 --> 0:17:52,726
+Linpack performance on an iPhone
+
+585
+00:17:52,726 --> 0:17:53,316
+10S.
+
+586
+00:17:53,806 --> 0:17:55,876
+At the top in orange, we're
+
+587
+00:17:55,876 --> 0:17:57,676
+going to run an unoptimized
+
+588
+00:17:57,676 --> 0:17:58,226
+Linpack.
+
+589
+00:17:58,996 --> 0:18:00,656
+This Linpack Benchmark does not
+
+590
+00:17:58,996 --> 0:18:00,656
+This Linpack Benchmark does not
+
+591
+00:18:00,656 --> 0:18:01,766
+make use of the accelerate
+
+592
+00:18:01,766 --> 0:18:02,306
+framework.
+
+593
+00:18:02,966 --> 0:18:04,366
+It relies on software that is
+
+594
+00:18:04,366 --> 0:18:05,846
+not tuned to the process that it
+
+595
+00:18:05,846 --> 0:18:06,796
+is running on.
+
+596
+00:18:07,106 --> 0:18:10,976
+Let's see what that looks like.
+
+597
+00:18:11,046 --> 0:18:12,446
+We are now going to compare that
+
+598
+00:18:12,446 --> 0:18:13,436
+with using the Accelerate
+
+599
+00:18:13,436 --> 0:18:15,636
+framework; that is, we're going
+
+600
+00:18:15,636 --> 0:18:17,486
+to run the same benchmark on the
+
+601
+00:18:17,486 --> 0:18:19,346
+same platform, but using the
+
+602
+00:18:19,346 --> 0:18:21,086
+Accelerate framework which is
+
+603
+00:18:21,086 --> 0:18:22,286
+tuned to the platform.
+
+604
+00:18:25,856 --> 0:18:27,456
+We can see that by using the
+
+605
+00:18:27,456 --> 0:18:29,096
+Accelerate framework, we are
+
+606
+00:18:29,096 --> 0:18:30,996
+over 24 times faster.
+
+607
+00:18:31,836 --> 0:18:33,376
+This will not only save time,
+
+608
+00:18:33,376 --> 0:18:35,416
+but also energy, which improves
+
+609
+00:18:35,416 --> 0:18:36,166
+battery life.
+
+610
+00:18:36,936 --> 0:18:38,436
+We're now going to shift gears
+
+611
+00:18:38,436 --> 0:18:39,606
+and take a look at the primary
+
+612
+00:18:39,606 --> 0:18:40,876
+workhorse routine for the
+
+613
+00:18:40,876 --> 0:18:42,716
+Linpack Benchmark called GEMM.
+
+614
+00:18:44,396 --> 0:18:46,916
+As I mentioned earlier, Linpack,
+
+615
+00:18:47,166 --> 0:18:49,316
+which runs on LApack, is built
+
+616
+00:18:49,316 --> 0:18:50,276
+on top of BLAS.
+
+617
+00:18:51,036 --> 0:18:52,746
+Within BLAS is a routine called
+
+618
+00:18:52,746 --> 0:18:54,346
+GEMM, which stands for general
+
+619
+00:18:54,346 --> 0:18:55,446
+matrix multiplier.
+
+620
+00:18:56,086 --> 0:18:58,156
+This routine is used to
+
+621
+00:18:58,156 --> 0:18:59,746
+implement several other blocked
+
+622
+00:18:59,746 --> 0:19:01,866
+routines in BLAS, which are used
+
+623
+00:18:59,746 --> 0:19:01,866
+routines in BLAS, which are used
+
+624
+00:19:01,866 --> 0:19:03,536
+inside the blocked algorithms at
+
+625
+00:19:03,596 --> 0:19:06,106
+LApack, most notably the matrix
+
+626
+00:19:06,106 --> 0:19:07,556
+factorization and solver
+
+627
+00:19:07,556 --> 0:19:08,256
+routines.
+
+628
+00:19:09,516 --> 0:19:11,006
+Because of this, GEMM is
+
+629
+00:19:11,006 --> 0:19:12,746
+sometimes used as a proxy for
+
+630
+00:19:12,746 --> 0:19:13,456
+performance.
+
+631
+00:19:13,456 --> 0:19:15,246
+For this presentation, we are
+
+632
+00:19:15,246 --> 0:19:16,436
+specifically going to look at
+
+633
+00:19:16,436 --> 0:19:18,146
+the single-precision variant of
+
+634
+00:19:18,146 --> 0:19:18,526
+GEMM.
+
+635
+00:19:20,466 --> 0:19:21,846
+Here, we're going to compare the
+
+636
+00:19:21,846 --> 0:19:23,516
+performance of the Eigen library
+
+637
+00:19:23,516 --> 0:19:24,606
+with that of Accelerate.
+
+638
+00:19:25,436 --> 0:19:26,916
+Both the Eigen library and the
+
+639
+00:19:26,916 --> 0:19:28,856
+Accelerate framework will run on
+
+640
+00:19:28,856 --> 0:19:30,456
+top of an iPhone 10S.
+
+641
+00:19:30,916 --> 0:19:32,006
+Both will be performing a
+
+642
+00:19:32,006 --> 0:19:33,286
+single-precision matrix
+
+643
+00:19:33,286 --> 0:19:33,836
+multiplier.
+
+644
+00:19:34,236 --> 0:19:38,536
+Let's see how well Eigen does.
+
+645
+00:19:38,536 --> 0:19:40,346
+Eigen tops out at about 51
+
+646
+00:19:40,346 --> 0:19:41,096
+gigaflops.
+
+647
+00:19:41,296 --> 0:19:43,086
+Now, let's see how well
+
+648
+00:19:43,086 --> 0:19:43,916
+Accelerate does.
+
+649
+00:19:44,476 --> 0:19:47,616
+We can see that the Accelerate
+
+650
+00:19:47,616 --> 0:19:48,916
+framework is almost two and a
+
+651
+00:19:48,916 --> 0:19:50,716
+half times faster than Eigen on
+
+652
+00:19:50,716 --> 0:19:51,606
+the same platform.
+
+653
+00:19:52,636 --> 0:19:53,996
+This is because the Accelerate
+
+654
+00:19:53,996 --> 0:19:55,696
+framework is hand-tuned to the
+
+655
+00:19:55,696 --> 0:19:57,706
+platform, allowing us to fully
+
+656
+00:19:57,706 --> 0:19:59,146
+take advantage of what the
+
+657
+00:19:59,146 --> 0:20:01,046
+platform can offer.
+
+658
+00:19:59,146 --> 0:20:01,046
+platform can offer.
+
+659
+00:20:01,046 --> 0:20:03,706
+So, if you're a developer, using
+
+660
+00:20:03,706 --> 0:20:04,876
+Accelerate in your app will
+
+661
+00:20:04,876 --> 0:20:05,996
+offer better performance.
+
+662
+00:20:06,486 --> 0:20:08,106
+This performance translates into
+
+663
+00:20:08,106 --> 0:20:09,676
+less energy, which means better
+
+664
+00:20:09,676 --> 0:20:11,696
+battery life and an overall
+
+665
+00:20:11,886 --> 0:20:13,056
+better experience for your
+
+666
+00:20:13,056 --> 0:20:13,566
+users.
+
+667
+00:20:15,586 --> 0:20:17,896
+In summary, Accelerate provides
+
+668
+00:20:17,896 --> 0:20:19,036
+functions for performing
+
+669
+00:20:19,036 --> 0:20:20,756
+large-scale mathematical
+
+670
+00:20:20,756 --> 0:20:22,166
+computations and image
+
+671
+00:20:22,166 --> 0:20:24,136
+calculations that are fast and
+
+672
+00:20:24,136 --> 0:20:24,966
+energy efficient.
+
+673
+00:20:25,296 --> 0:20:27,006
+And now we've added a
+
+674
+00:20:27,006 --> 0:20:29,136
+Swift-friendly API that makes
+
+675
+00:20:29,136 --> 0:20:30,616
+Accelerate's libraries super
+
+676
+00:20:30,616 --> 0:20:32,396
+easy to work with so your users
+
+677
+00:20:32,396 --> 0:20:33,256
+will benefit from that
+
+678
+00:20:33,256 --> 0:20:34,536
+performance and energy
+
+679
+00:20:34,536 --> 0:20:35,126
+efficiency.
+
+680
+00:20:36,516 --> 0:20:37,866
+Please visit our site where we
+
+681
+00:20:37,866 --> 0:20:39,536
+have samples, articles, and
+
+682
+00:20:39,536 --> 0:20:41,036
+extensive reference material
+
+683
+00:20:41,036 --> 0:20:42,496
+that covers the entire
+
+684
+00:20:42,536 --> 0:20:43,906
+Accelerate framework.
+
+685
+00:20:44,266 --> 0:20:45,176
+Thank you very much.

@@ -1,0 +1,5291 @@
+1
+00:00:01,176 --> 0:00:06,516
+[ Music ]
+
+2
+00:00:07,516 --> 0:00:11,906
+[ Applause and Cheering ]
+
+3
+00:00:12,406 --> 0:00:13,346
+&gt;&gt; Good afternoon, everyone.
+
+4
+00:00:14,286 --> 0:00:15,266
+My name is Harlan.
+
+5
+00:00:15,266 --> 0:00:16,966
+And I am super excited to talk
+
+6
+00:00:16,966 --> 0:00:19,296
+to you about how Xcode 11 allows
+
+7
+00:00:19,296 --> 0:00:20,886
+you to create and distribute
+
+8
+00:00:21,156 --> 0:00:22,896
+Binary Frameworks in Swift.
+
+9
+00:00:24,126 --> 0:00:25,376
+Now, before I talk about binary
+
+10
+00:00:25,376 --> 0:00:26,856
+frameworks, I actually want to
+
+11
+00:00:26,856 --> 0:00:28,006
+take a moment to talk about
+
+12
+00:00:28,006 --> 0:00:29,106
+Swift Packages.
+
+13
+00:00:30,196 --> 0:00:31,386
+With the new support for Swift
+
+14
+00:00:31,386 --> 0:00:33,926
+Packages in Xcode 11, it's easy
+
+15
+00:00:33,926 --> 0:00:35,616
+to create and use them in your
+
+16
+00:00:35,616 --> 0:00:37,706
+projects and distribute them to
+
+17
+00:00:37,706 --> 0:00:38,136
+others.
+
+18
+00:00:38,586 --> 0:00:41,196
+And Swift Packages are a great
+
+19
+00:00:41,196 --> 0:00:42,416
+way to distribute your code,
+
+20
+00:00:42,756 --> 0:00:43,956
+because Xcode knows how to
+
+21
+00:00:43,956 --> 0:00:45,746
+manage their dependencies, and
+
+22
+00:00:45,746 --> 0:00:47,696
+it will figure out which version
+
+23
+00:00:47,696 --> 0:00:48,866
+of your Packages to use
+
+24
+00:00:48,866 --> 0:00:49,626
+automatically.
+
+25
+00:00:50,236 --> 0:00:52,346
+And because they are distributed
+
+26
+00:00:52,346 --> 0:00:54,716
+in Source form, there is no
+
+27
+00:00:54,716 --> 0:00:56,396
+requirement to maintain binary
+
+28
+00:00:56,396 --> 0:00:57,946
+compatibility with your clients.
+
+29
+00:00:58,676 --> 0:01:00,536
+If you have the ability to ship
+
+30
+00:00:58,676 --> 0:01:00,536
+If you have the ability to ship
+
+31
+00:01:00,716 --> 0:01:02,146
+the source code of your project,
+
+32
+00:01:02,746 --> 0:01:04,775
+then Swift Packages are really,
+
+33
+00:01:04,936 --> 0:01:06,266
+really great.
+
+34
+00:01:07,496 --> 0:01:09,166
+But not everyone has the ability
+
+35
+00:01:09,166 --> 0:01:10,226
+to ship the source of their
+
+36
+00:01:10,226 --> 0:01:12,366
+libraries, and if you don't,
+
+37
+00:01:13,376 --> 0:01:14,646
+then Xcode 11 supports
+
+38
+00:01:14,646 --> 0:01:16,386
+distributing binary libraries
+
+39
+00:01:16,456 --> 0:01:18,186
+using the new XCFrameworks
+
+40
+00:01:18,186 --> 0:01:18,616
+format.
+
+41
+00:01:19,516 --> 0:01:24,186
+[ Applause ]
+
+42
+00:01:24,686 --> 0:01:25,766
+So, in this talk, I'm going to
+
+43
+00:01:25,766 --> 0:01:27,766
+introduce you to XCFrameworks,
+
+44
+00:01:28,106 --> 0:01:29,486
+the new supported way to
+
+45
+00:01:29,486 --> 0:01:31,116
+distribute binary frameworks.
+
+46
+00:01:31,856 --> 0:01:33,156
+And I will also talk about some
+
+47
+00:01:33,156 --> 0:01:34,566
+things that clients should
+
+48
+00:01:34,566 --> 0:01:36,096
+consider when they're choosing
+
+49
+00:01:36,096 --> 0:01:38,956
+to use third-party code.
+
+50
+00:01:39,166 --> 0:01:40,756
+Next, I'll talk about what's
+
+51
+00:01:40,816 --> 0:01:43,026
+inside an XCFramework, and how
+
+52
+00:01:43,026 --> 0:01:44,346
+you can go about creating one
+
+53
+00:01:44,346 --> 0:01:45,116
+for your project.
+
+54
+00:01:46,476 --> 0:01:48,466
+And then finally, my colleague,
+
+55
+00:01:48,466 --> 0:01:50,126
+Jordan, will come up and talk to
+
+56
+00:01:50,126 --> 0:01:51,106
+you about some things that
+
+57
+00:01:51,106 --> 0:01:52,176
+framework authors should
+
+58
+00:01:52,176 --> 0:01:53,996
+consider to make using their
+
+59
+00:01:53,996 --> 0:01:55,926
+framework as smooth as possible.
+
+60
+00:01:58,476 --> 0:02:02,056
+So XCFrameworks are a new way to
+
+61
+00:01:58,476 --> 0:02:02,056
+So XCFrameworks are a new way to
+
+62
+00:02:02,056 --> 0:02:04,186
+bundle up multiple variants of
+
+63
+00:02:04,186 --> 0:02:06,876
+your framework in a way that
+
+64
+00:02:06,876 --> 0:02:08,786
+will work across Xcode versions
+
+65
+00:02:08,786 --> 0:02:09,526
+going forward.
+
+66
+00:02:10,166 --> 0:02:13,836
+A single XCFramework can contain
+
+67
+00:02:13,836 --> 0:02:16,116
+a variant for the simulator, and
+
+68
+00:02:16,116 --> 0:02:16,776
+for the device.
+
+69
+00:02:17,516 --> 0:02:21,606
+[ Applause ]
+
+70
+00:02:22,106 --> 0:02:22,666
+Not done yet.
+
+71
+00:02:22,976 --> 0:02:24,856
+Because a single XCFramework can
+
+72
+00:02:24,856 --> 0:02:26,866
+also contain a variant for any
+
+73
+00:02:26,866 --> 0:02:28,366
+of the platforms that Xcode
+
+74
+00:02:28,366 --> 0:02:28,926
+supports.
+
+75
+00:02:29,516 --> 0:02:33,546
+[ Applause ]
+
+76
+00:02:34,046 --> 0:02:35,376
+You can also have a variant for
+
+77
+00:02:35,376 --> 0:02:37,676
+Mac apps that use AppKit, and a
+
+78
+00:02:37,676 --> 0:02:38,866
+variant for Mac apps that use
+
+79
+00:02:38,866 --> 0:02:39,406
+UIKit.
+
+80
+00:02:39,806 --> 0:02:41,136
+So, no matter which API your
+
+81
+00:02:41,136 --> 0:02:42,986
+clients want to use, they will
+
+82
+00:02:42,986 --> 0:02:44,256
+be able to use your framework
+
+83
+00:02:44,256 --> 0:02:44,876
+effectively.
+
+84
+00:02:45,406 --> 0:02:48,396
+And not only can you bundle up
+
+85
+00:02:48,396 --> 0:02:50,556
+frameworks, but you can also use
+
+86
+00:02:50,556 --> 0:02:52,846
+XCFrameworks to bundle up static
+
+87
+00:02:52,846 --> 0:02:53,656
+libraries, and their
+
+88
+00:02:53,656 --> 0:02:54,746
+corresponding headers.
+
+89
+00:02:54,956 --> 0:02:56,096
+And Xcode will set up your
+
+90
+00:02:56,096 --> 0:02:57,056
+client's search pads
+
+91
+00:02:57,056 --> 0:02:57,806
+automatically.
+
+92
+00:02:59,046 --> 0:02:59,936
+And of course--
+
+93
+00:03:00,516 --> 0:03:03,576
+[ Applause ]
+
+94
+00:03:04,076 --> 0:03:05,636
+XCFrameworks support binary
+
+95
+00:03:05,636 --> 0:03:07,356
+distribution of Swift and
+
+96
+00:03:07,426 --> 0:03:10,306
+C-based code.
+
+97
+00:03:10,516 --> 0:03:11,706
+So, now I'd actually like to
+
+98
+00:03:11,706 --> 0:03:13,126
+just show you how easy it is to
+
+99
+00:03:13,126 --> 0:03:14,286
+get started using an
+
+100
+00:03:14,346 --> 0:03:14,926
+XCFramework.
+
+101
+00:03:17,936 --> 0:03:19,576
+So here, I've got a pretty
+
+102
+00:03:19,606 --> 0:03:20,646
+simple iOS app.
+
+103
+00:03:20,646 --> 0:03:22,906
+And I will go ahead and click
+
+104
+00:03:22,906 --> 0:03:24,916
+Run to run it on the iPad
+
+105
+00:03:24,916 --> 0:03:25,436
+Simulator.
+
+106
+00:03:25,616 --> 0:03:27,096
+You can see, it has got a big,
+
+107
+00:03:27,096 --> 0:03:28,266
+blue Launch button, and when you
+
+108
+00:03:28,296 --> 0:03:30,336
+click it, it does nothing.
+
+109
+00:03:30,336 --> 0:03:32,516
+Well, that is because it's
+
+110
+00:03:32,516 --> 0:03:33,956
+hooked up to this launch method
+
+111
+00:03:33,956 --> 0:03:35,566
+right here, and its body is
+
+112
+00:03:35,566 --> 0:03:36,246
+totally empty.
+
+113
+00:03:37,466 --> 0:03:39,046
+Well, I've actually got this
+
+114
+00:03:39,166 --> 0:03:40,766
+awesome XCFramework I'd like to
+
+115
+00:03:40,766 --> 0:03:42,666
+use, called FlightKit.
+
+116
+00:03:44,646 --> 0:03:46,106
+And FlightKit gives me some UI
+
+117
+00:03:46,306 --> 0:03:47,416
+that I'd to present in my
+
+118
+00:03:47,416 --> 0:03:48,156
+application.
+
+119
+00:03:49,136 --> 0:03:50,706
+So, to actually be able to use
+
+120
+00:03:50,736 --> 0:03:52,976
+the FlightKit XCFramework, all I
+
+121
+00:03:52,976 --> 0:03:54,496
+need to do is click on the
+
+122
+00:03:54,496 --> 0:03:55,566
+Project in the Project
+
+123
+00:03:55,566 --> 0:03:58,396
+Navigator, select my target, and
+
+124
+00:03:58,396 --> 0:03:59,456
+make sure the General tab is
+
+125
+00:03:59,456 --> 0:04:00,006
+selected.
+
+126
+00:03:59,456 --> 0:04:00,006
+selected.
+
+127
+00:04:01,286 --> 0:04:02,576
+Then, I'll scroll down to
+
+128
+00:04:02,576 --> 0:04:04,106
+Frameworks, Libraries, and
+
+129
+00:04:04,106 --> 0:04:04,996
+Embedded Content.
+
+130
+00:04:07,176 --> 0:04:08,646
+Then, I'll just drag in my
+
+131
+00:04:08,646 --> 0:04:10,916
+XCFramework, and that has been
+
+132
+00:04:10,916 --> 0:04:12,276
+wired up automatically as a
+
+133
+00:04:12,276 --> 0:04:13,766
+dependency of my target.
+
+134
+00:04:15,076 --> 0:04:16,226
+So let's go back to the code and
+
+135
+00:04:16,226 --> 0:04:17,486
+start using it.
+
+136
+00:04:18,516 --> 0:04:20,576
+Well, just like any framework
+
+137
+00:04:20,576 --> 0:04:21,696
+you're used to using already,
+
+138
+00:04:21,875 --> 0:04:23,306
+the first thing you'll do is
+
+139
+00:04:23,306 --> 0:04:23,766
+Import it.
+
+140
+00:04:25,196 --> 0:04:26,356
+And now, I'd like to go ahead
+
+141
+00:04:26,356 --> 0:04:27,556
+and get started using some of
+
+142
+00:04:27,556 --> 0:04:28,816
+the APIs from FlightKit.
+
+143
+00:04:29,366 --> 0:04:30,456
+So, either I could go look at
+
+144
+00:04:30,456 --> 0:04:33,446
+the documentation, or I can
+
+145
+00:04:33,446 --> 0:04:34,376
+Command click the name
+
+146
+00:04:34,376 --> 0:04:35,546
+FlightKit, and click Jump to
+
+147
+00:04:35,546 --> 0:04:36,166
+Definition.
+
+148
+00:04:37,146 --> 0:04:38,106
+What this will do is it will
+
+149
+00:04:38,106 --> 0:04:39,946
+take me to the generated
+
+150
+00:04:39,946 --> 0:04:41,156
+interface for FlightKit.
+
+151
+00:04:42,136 --> 0:04:43,826
+And this shows all the public
+
+152
+00:04:43,826 --> 0:04:44,146
+APIs.
+
+153
+00:04:44,146 --> 0:04:45,636
+Every public type, public
+
+154
+00:04:45,636 --> 0:04:47,626
+method, everything that I can
+
+155
+00:04:47,626 --> 0:04:49,116
+use when I import FlightKit.
+
+156
+00:04:49,856 --> 0:04:52,006
+So I can see that there is this
+
+157
+00:04:52,126 --> 0:04:53,606
+LaunchViewController, which is a
+
+158
+00:04:53,606 --> 0:04:55,116
+subclass of UIViewController.
+
+159
+00:04:55,976 --> 0:04:57,226
+That seems to be some little
+
+160
+00:04:57,226 --> 0:04:58,486
+piece of UI that I might want to
+
+161
+00:04:58,486 --> 0:04:58,786
+show.
+
+162
+00:05:00,026 --> 0:05:02,386
+Great. So, now I need to know
+
+163
+00:05:02,386 --> 0:05:03,406
+actually how to create one of
+
+164
+00:05:03,406 --> 0:05:05,026
+these, and I can see in the
+
+165
+00:05:05,026 --> 0:05:06,176
+interface that there is an
+
+166
+00:05:06,176 --> 0:05:07,606
+Initializer that takes a
+
+167
+00:05:07,606 --> 0:05:08,256
+Spaceship.
+
+168
+00:05:08,846 --> 0:05:10,216
+And that Spaceship is also part
+
+169
+00:05:10,216 --> 0:05:10,766
+of FlightKit.
+
+170
+00:05:12,196 --> 0:05:13,666
+So, if I jump to its definition,
+
+171
+00:05:13,776 --> 0:05:15,106
+it will take me further down in
+
+172
+00:05:15,106 --> 0:05:16,816
+this generated interface and
+
+173
+00:05:16,816 --> 0:05:17,946
+show me everything that is in
+
+174
+00:05:17,946 --> 0:05:19,276
+Spaceship that I can make use
+
+175
+00:05:19,276 --> 0:05:19,456
+of.
+
+176
+00:05:20,006 --> 0:05:23,746
+I can see that there is a public
+
+177
+00:05:23,746 --> 0:05:25,586
+stored property called Name, and
+
+178
+00:05:25,996 --> 0:05:26,926
+there is also a public
+
+179
+00:05:26,926 --> 0:05:28,396
+initializer that takes a name.
+
+180
+00:05:29,836 --> 0:05:31,246
+Okay, so I can create a
+
+181
+00:05:31,246 --> 0:05:32,766
+Spaceship, and I can create a
+
+182
+00:05:32,766 --> 0:05:34,166
+LaunchViewController, and then I
+
+183
+00:05:34,166 --> 0:05:34,796
+can present it.
+
+184
+00:05:36,186 --> 0:05:37,396
+So, let's go back to the code
+
+185
+00:05:37,396 --> 0:05:38,346
+and do exactly that.
+
+186
+00:05:39,376 --> 0:05:40,576
+So, first I'll create a ship,
+
+187
+00:05:41,576 --> 0:05:42,566
+and I can see that auto
+
+188
+00:05:42,566 --> 0:05:43,886
+completion is already suggesting
+
+189
+00:05:43,886 --> 0:05:45,446
+to me all the things that were
+
+190
+00:05:45,446 --> 0:05:47,326
+in FlightKit, again, just like
+
+191
+00:05:47,326 --> 0:05:48,306
+any framework that you are
+
+192
+00:05:48,306 --> 0:05:49,336
+already used to using.
+
+193
+00:05:50,276 --> 0:05:51,186
+I can accept this auto
+
+194
+00:05:51,186 --> 0:05:53,086
+completion, then I'll pick a
+
+195
+00:05:53,086 --> 0:05:53,866
+name for my ship.
+
+196
+00:05:54,506 --> 0:05:55,456
+Well, I've got this array of
+
+197
+00:05:55,456 --> 0:05:57,066
+ship names already, and any one
+
+198
+00:05:57,066 --> 0:05:58,186
+of them would be a great name
+
+199
+00:05:58,186 --> 0:05:58,696
+for this ship.
+
+200
+00:05:59,646 --> 0:06:01,006
+So I will actually go ahead and
+
+201
+00:05:59,646 --> 0:06:01,006
+So I will actually go ahead and
+
+202
+00:06:01,006 --> 0:06:02,896
+pick a random element out of the
+
+203
+00:06:02,896 --> 0:06:03,716
+ship names array.
+
+204
+00:06:04,306 --> 0:06:07,206
+Now, I will create a
+
+205
+00:06:07,206 --> 0:06:10,506
+LaunchViewController, and I'll
+
+206
+00:06:10,676 --> 0:06:12,016
+pass it the ship that I just
+
+207
+00:06:12,016 --> 0:06:12,416
+created.
+
+208
+00:06:12,956 --> 0:06:15,776
+And finally, I'll show the
+
+209
+00:06:15,776 --> 0:06:17,696
+controller passing myself as the
+
+210
+00:06:17,696 --> 0:06:18,136
+sender.
+
+211
+00:06:18,706 --> 0:06:21,866
+So, created a ship, created some
+
+212
+00:06:21,866 --> 0:06:23,666
+UI, and now I'll go to show it.
+
+213
+00:06:24,706 --> 0:06:26,266
+I'll build and run my program in
+
+214
+00:06:26,266 --> 0:06:26,866
+the Simulator.
+
+215
+00:06:26,866 --> 0:06:28,776
+And when I click the Launch
+
+216
+00:06:28,776 --> 0:06:30,416
+button, it picks a random name,
+
+217
+00:06:30,416 --> 0:06:31,466
+and launches the UI.
+
+218
+00:06:31,466 --> 0:06:34,586
+If I click it again, it will
+
+219
+00:06:34,586 --> 0:06:36,946
+pick another name, and another.
+
+220
+00:06:37,336 --> 0:06:37,896
+You get it.
+
+221
+00:06:39,186 --> 0:06:41,636
+So, that's how to use an
+
+222
+00:06:41,636 --> 0:06:43,136
+XCFramework for just one
+
+223
+00:06:43,136 --> 0:06:44,436
+platform, but one of the great
+
+224
+00:06:44,546 --> 0:06:46,536
+things about XCFrameworks is
+
+225
+00:06:46,536 --> 0:06:47,526
+that you can put multiple
+
+226
+00:06:47,526 --> 0:06:48,916
+variants in the same bundle.
+
+227
+00:06:49,606 --> 0:06:50,996
+So just by dragging the one
+
+228
+00:06:50,996 --> 0:06:52,956
+XCFramework in, not only am I
+
+229
+00:06:52,956 --> 0:06:54,036
+able to build and run for the
+
+230
+00:06:54,036 --> 0:06:57,196
+simulator, but if I select
+
+231
+00:06:57,196 --> 0:07:00,356
+Generic iOS Device, then I can
+
+232
+00:06:57,196 --> 0:07:00,356
+Generic iOS Device, then I can
+
+233
+00:07:00,356 --> 0:07:02,326
+go to Product Archive, and build
+
+234
+00:07:02,326 --> 0:07:03,686
+an archive for the App Store as
+
+235
+00:07:03,686 --> 0:07:04,006
+well.
+
+236
+00:07:04,676 --> 0:07:10,036
+So that is how easy it is to use
+
+237
+00:07:10,036 --> 0:07:11,456
+an XCFramework from your code.
+
+238
+00:07:12,516 --> 0:07:18,546
+[ Applause ]
+
+239
+00:07:19,046 --> 0:07:20,206
+So when you are making the
+
+240
+00:07:20,206 --> 0:07:23,346
+choice to use a framework, it's
+
+241
+00:07:23,386 --> 0:07:24,766
+really important to be aware of
+
+242
+00:07:24,766 --> 0:07:26,116
+what you're making available to
+
+243
+00:07:26,116 --> 0:07:27,046
+third party code.
+
+244
+00:07:28,426 --> 0:07:30,196
+Importantly, you want to make
+
+245
+00:07:30,196 --> 0:07:32,556
+sure that you trust the source
+
+246
+00:07:32,556 --> 0:07:33,156
+of the framework.
+
+247
+00:07:34,156 --> 0:07:35,226
+You trust that they're not going
+
+248
+00:07:35,226 --> 0:07:36,986
+to introduce bugs or instability
+
+249
+00:07:36,986 --> 0:07:38,946
+to your app, and you trust that
+
+250
+00:07:38,946 --> 0:07:40,276
+they'll respect your user's
+
+251
+00:07:40,316 --> 0:07:40,806
+privacy.
+
+252
+00:07:41,346 --> 0:07:44,366
+For example, if you've been
+
+253
+00:07:44,366 --> 0:07:46,006
+granted Entitlements for your
+
+254
+00:07:46,006 --> 0:07:47,546
+application, and you use a
+
+255
+00:07:47,546 --> 0:07:49,626
+framework, that framework is
+
+256
+00:07:49,696 --> 0:07:51,276
+also granted those entitlements.
+
+257
+00:07:51,806 --> 0:07:53,416
+And those permissions, if your
+
+258
+00:07:53,416 --> 0:07:54,256
+users have granted them
+
+259
+00:07:54,256 --> 0:07:54,766
+permissions.
+
+260
+00:07:56,736 --> 0:07:58,716
+Additionally, if you're adopting
+
+261
+00:07:58,716 --> 0:08:00,256
+a framework that expects a
+
+262
+00:07:58,716 --> 0:08:00,256
+a framework that expects a
+
+263
+00:08:00,256 --> 0:08:01,246
+certain entitlement to be
+
+264
+00:08:01,246 --> 0:08:02,916
+available, it's your
+
+265
+00:08:02,916 --> 0:08:04,266
+responsibility to add that
+
+266
+00:08:04,266 --> 0:08:06,186
+entitlement to your app.
+
+267
+00:08:07,836 --> 0:08:09,786
+Another thing to consider about
+
+268
+00:08:09,786 --> 0:08:11,036
+using frameworks is that
+
+269
+00:08:11,586 --> 0:08:12,436
+sometimes you will use a
+
+270
+00:08:12,436 --> 0:08:14,066
+framework that brings its own
+
+271
+00:08:14,066 --> 0:08:16,466
+dependencies along, and those
+
+272
+00:08:16,466 --> 0:08:18,076
+dependencies might have their
+
+273
+00:08:18,076 --> 0:08:20,396
+own dependencies, and it's your
+
+274
+00:08:20,396 --> 0:08:21,966
+responsibility not only to add
+
+275
+00:08:21,966 --> 0:08:23,276
+all of these to your project,
+
+276
+00:08:23,966 --> 0:08:25,836
+but also to extend the same
+
+277
+00:08:25,836 --> 0:08:27,966
+trust to each of them as well.
+
+278
+00:08:27,966 --> 0:08:30,896
+Now, it is worth noting that
+
+279
+00:08:30,966 --> 0:08:34,086
+this trust extends to using
+
+280
+00:08:34,086 --> 0:08:35,186
+Swift Packages as well.
+
+281
+00:08:36,126 --> 0:08:37,346
+One advantage of packages over
+
+282
+00:08:37,346 --> 0:08:38,525
+binary frameworks is that you
+
+283
+00:08:38,525 --> 0:08:40,116
+can inspect the code, and you
+
+284
+00:08:40,116 --> 0:08:41,285
+can step into it while you're
+
+285
+00:08:41,285 --> 0:08:41,676
+debugging.
+
+286
+00:08:42,285 --> 0:08:43,716
+If you want more information
+
+287
+00:08:43,716 --> 0:08:45,006
+about using Swift Packages in
+
+288
+00:08:45,046 --> 0:08:47,066
+Xcode, I'd recommend these talks
+
+289
+00:08:47,066 --> 0:08:48,066
+from earlier this week.
+
+290
+00:08:48,666 --> 0:08:52,126
+But whether you're using a
+
+291
+00:08:52,126 --> 0:08:54,096
+package or a binary framework,
+
+292
+00:08:54,516 --> 0:08:56,606
+Xcode 11 makes it easy to use
+
+293
+00:08:56,606 --> 0:09:00,686
+third party code that you trust.
+
+294
+00:08:56,606 --> 0:09:00,686
+third party code that you trust.
+
+295
+00:09:02,206 --> 0:09:03,846
+So now, I'd like to talk about
+
+296
+00:09:03,846 --> 0:09:05,706
+how to create an XCFramework.
+
+297
+00:09:06,846 --> 0:09:08,226
+Well, the first thing you'll
+
+298
+00:09:08,226 --> 0:09:10,086
+want to do is have some source
+
+299
+00:09:10,086 --> 0:09:10,886
+code that you'd like to
+
+300
+00:09:10,886 --> 0:09:11,386
+distribute.
+
+301
+00:09:11,386 --> 0:09:14,196
+So let's actually take a look at
+
+302
+00:09:14,196 --> 0:09:15,456
+some of the source code from
+
+303
+00:09:15,456 --> 0:09:16,826
+FlightKit, from earlier.
+
+304
+00:09:18,056 --> 0:09:19,296
+This is just a subset of the
+
+305
+00:09:19,296 --> 0:09:21,086
+objects in FlightKit, just for
+
+306
+00:09:21,086 --> 0:09:21,666
+an example.
+
+307
+00:09:22,346 --> 0:09:24,886
+But you can see that Spaceship
+
+308
+00:09:24,916 --> 0:09:26,686
+type that we looked at earlier.
+
+309
+00:09:28,136 --> 0:09:29,806
+You can also see an enum called
+
+310
+00:09:29,806 --> 0:09:31,606
+Speed, that describes how fast
+
+311
+00:09:31,606 --> 0:09:32,716
+something can move in space.
+
+312
+00:09:34,066 --> 0:09:35,296
+You also see a struct called
+
+313
+00:09:35,296 --> 0:09:36,926
+Location, that describes the
+
+314
+00:09:36,926 --> 0:09:38,676
+location of an object in space.
+
+315
+00:09:40,156 --> 0:09:42,566
+Great. So we have this code.
+
+316
+00:09:43,196 --> 0:09:44,336
+Now, how do we make sure that we
+
+317
+00:09:44,336 --> 0:09:45,736
+build this library for
+
+318
+00:09:45,736 --> 0:09:46,496
+distribution?
+
+319
+00:09:47,446 --> 0:09:49,436
+Well, in Xcode 11, there's a new
+
+320
+00:09:49,436 --> 0:09:51,046
+Build setting called Build
+
+321
+00:09:51,046 --> 0:09:52,576
+Libraries for Distribution.
+
+322
+00:09:53,556 --> 0:09:54,786
+And it does exactly that.
+
+323
+00:09:54,966 --> 0:09:56,256
+It turns on all the features
+
+324
+00:09:56,256 --> 0:09:58,116
+that are necessary to build your
+
+325
+00:09:58,116 --> 0:09:59,636
+library in such a way that it
+
+326
+00:09:59,636 --> 0:10:00,496
+can be distributed.
+
+327
+00:09:59,636 --> 0:10:00,496
+can be distributed.
+
+328
+00:10:02,046 --> 0:10:04,166
+Now, let's talk about one of
+
+329
+00:10:04,166 --> 0:10:05,386
+those features right now.
+
+330
+00:10:06,906 --> 0:10:08,536
+If you've tried sending somebody
+
+331
+00:10:08,756 --> 0:10:10,586
+a built Swift Framework before,
+
+332
+00:10:11,286 --> 0:10:12,716
+you may have seen a variant of
+
+333
+00:10:12,716 --> 0:10:13,536
+this error.
+
+334
+00:10:14,956 --> 0:10:17,126
+Compiled module was created by a
+
+335
+00:10:17,126 --> 0:10:18,446
+newer version of the compiler.
+
+336
+00:10:18,986 --> 0:10:21,846
+What does this error actually
+
+337
+00:10:21,846 --> 0:10:21,976
+mean?
+
+338
+00:10:23,506 --> 0:10:24,626
+Well, when the Swift compiler
+
+339
+00:10:24,626 --> 0:10:26,656
+goes to import a module, it
+
+340
+00:10:26,656 --> 0:10:27,956
+looks for a file called the
+
+341
+00:10:27,956 --> 0:10:29,596
+Compiled Module for that
+
+342
+00:10:29,596 --> 0:10:30,156
+library.
+
+343
+00:10:31,676 --> 0:10:33,286
+If it finds one of these files,
+
+344
+00:10:33,646 --> 0:10:35,206
+it reads off the manifest of
+
+345
+00:10:35,246 --> 0:10:36,946
+public APIs that you can call
+
+346
+00:10:36,946 --> 0:10:39,996
+into, and lets you use them.
+
+347
+00:10:40,326 --> 0:10:42,206
+Now, this Compiled Module Format
+
+348
+00:10:42,746 --> 0:10:45,746
+is a binary format that
+
+349
+00:10:45,746 --> 0:10:47,876
+basically contains internal
+
+350
+00:10:47,876 --> 0:10:49,236
+compiler data structures.
+
+351
+00:10:50,096 --> 0:10:51,376
+And since they're just internal
+
+352
+00:10:51,376 --> 0:10:52,996
+data structures, they're subject
+
+353
+00:10:52,996 --> 0:10:55,116
+to change with every version of
+
+354
+00:10:55,116 --> 0:10:55,966
+the Swift Compiler.
+
+355
+00:10:57,096 --> 0:10:58,986
+So what this means is that if
+
+356
+00:10:59,216 --> 0:11:00,756
+one person tries to import a
+
+357
+00:10:59,216 --> 0:11:00,756
+one person tries to import a
+
+358
+00:11:00,756 --> 0:11:02,566
+module using one version of
+
+359
+00:11:02,566 --> 0:11:04,436
+Swift, and that module was
+
+360
+00:11:04,496 --> 0:11:05,596
+created by another version of
+
+361
+00:11:05,596 --> 0:11:07,666
+Swift, their compiler can't
+
+362
+00:11:07,666 --> 0:11:08,806
+understand it, and they won't be
+
+363
+00:11:08,806 --> 0:11:10,126
+able to use it.
+
+364
+00:11:11,176 --> 0:11:13,516
+Well, in order to solve this
+
+365
+00:11:13,516 --> 0:11:16,406
+version lock, Xcode 11
+
+366
+00:11:16,406 --> 0:11:17,916
+introduces a new format for
+
+367
+00:11:17,916 --> 0:11:19,586
+Swift Modules, called Swift
+
+368
+00:11:19,586 --> 0:11:20,746
+Module Interfaces.
+
+369
+00:11:21,886 --> 0:11:23,186
+And just like the Compiled
+
+370
+00:11:23,186 --> 0:11:25,376
+Module Format, they list out all
+
+371
+00:11:25,376 --> 0:11:27,756
+the public APIs of a module, but
+
+372
+00:11:27,756 --> 0:11:29,956
+in a textual form that behaves
+
+373
+00:11:29,956 --> 0:11:30,966
+more like source code.
+
+374
+00:11:32,086 --> 0:11:33,356
+And since they behave like
+
+375
+00:11:33,356 --> 0:11:35,546
+source code, then future
+
+376
+00:11:35,546 --> 0:11:37,006
+versions of the Swift Compiler
+
+377
+00:11:37,436 --> 0:11:39,026
+will be able to import module
+
+378
+00:11:39,026 --> 0:11:40,676
+interfaces created with older
+
+379
+00:11:40,676 --> 0:11:41,066
+versions.
+
+380
+00:11:41,716 --> 0:11:45,396
+And when you enable Build
+
+381
+00:11:45,396 --> 0:11:46,696
+Libraries for Distribution,
+
+382
+00:11:47,416 --> 0:11:48,606
+you're telling the compiler to
+
+383
+00:11:48,606 --> 0:11:50,076
+generate one of these stable
+
+384
+00:11:50,076 --> 0:11:52,316
+interfaces whenever it builds
+
+385
+00:11:52,316 --> 0:11:52,926
+your framework.
+
+386
+00:11:53,606 --> 0:11:57,406
+So, what does one of these
+
+387
+00:11:57,406 --> 0:11:58,836
+interfaces actually look like?
+
+388
+00:11:59,586 --> 0:12:01,176
+Let's take a look again at the
+
+389
+00:11:59,586 --> 0:12:01,176
+Let's take a look again at the
+
+390
+00:12:01,176 --> 0:12:02,566
+source of FlightKit.
+
+391
+00:12:03,716 --> 0:12:04,856
+So that is the source from
+
+392
+00:12:04,856 --> 0:12:05,326
+FlightKit.
+
+393
+00:12:05,326 --> 0:12:08,116
+And on the right, you'll see the
+
+394
+00:12:08,116 --> 0:12:09,606
+Module Interface for FlightKit.
+
+395
+00:12:10,286 --> 0:12:11,546
+Now, this is a lot, and it goes
+
+396
+00:12:11,546 --> 0:12:12,816
+off the screen, so we are going
+
+397
+00:12:12,816 --> 0:12:15,206
+to look at it piece by piece.
+
+398
+00:12:15,416 --> 0:12:17,146
+So first you'll see this section
+
+399
+00:12:17,146 --> 0:12:17,916
+of meta data.
+
+400
+00:12:18,826 --> 0:12:20,916
+So this includes the version of
+
+401
+00:12:20,916 --> 0:12:22,116
+the compiler that produced this
+
+402
+00:12:22,116 --> 0:12:24,276
+interface, but it also contains
+
+403
+00:12:24,306 --> 0:12:26,026
+the subset of command line flags
+
+404
+00:12:26,316 --> 0:12:27,696
+that the Swift Compiler needs to
+
+405
+00:12:27,696 --> 0:12:29,256
+import this as a module.
+
+406
+00:12:32,156 --> 0:12:34,636
+Next, you'll see all the modules
+
+407
+00:12:34,636 --> 0:12:36,986
+that this framework imports, and
+
+408
+00:12:37,836 --> 0:12:39,306
+then we'll start seeing the
+
+409
+00:12:39,306 --> 0:12:40,586
+types that are part of the
+
+410
+00:12:40,586 --> 0:12:41,096
+interface.
+
+411
+00:12:42,356 --> 0:12:43,976
+So, here's the public API of the
+
+412
+00:12:43,976 --> 0:12:44,846
+Spaceship class.
+
+413
+00:12:44,976 --> 0:12:46,926
+Now, I want you to notice three
+
+414
+00:12:46,926 --> 0:12:48,126
+things here.
+
+415
+00:12:48,766 --> 0:12:50,516
+Number one is that the public
+
+416
+00:12:50,516 --> 0:12:52,706
+name property is included in the
+
+417
+00:12:52,706 --> 0:12:54,806
+interface, but the private
+
+418
+00:12:54,806 --> 0:12:56,266
+current location property is
+
+419
+00:12:56,266 --> 0:12:56,706
+not.
+
+420
+00:12:57,896 --> 0:13:00,686
+It's not part of the public API.
+
+421
+00:12:57,896 --> 0:13:00,686
+It's not part of the public API.
+
+422
+00:13:01,426 --> 0:13:04,176
+Next, notice that the public
+
+423
+00:13:04,216 --> 0:13:06,356
+initializer and the fly method
+
+424
+00:13:06,496 --> 0:13:07,876
+are included in the interface.
+
+425
+00:13:09,006 --> 0:13:10,796
+But their bodies are not
+
+426
+00:13:10,796 --> 0:13:11,986
+included, again, because they're
+
+427
+00:13:11,986 --> 0:13:14,116
+not part of the public API.
+
+428
+00:13:15,276 --> 0:13:16,656
+And finally, notice that the
+
+429
+00:13:16,656 --> 0:13:18,596
+class has a de-initializer in
+
+430
+00:13:18,596 --> 0:13:20,286
+the interface, but there wasn't
+
+431
+00:13:20,286 --> 0:13:21,416
+one written in the original
+
+432
+00:13:21,416 --> 0:13:22,626
+source code.
+
+433
+00:13:23,186 --> 0:13:26,036
+Now, when you write a class in
+
+434
+00:13:26,036 --> 0:13:27,676
+Swift, and you don't provide an
+
+435
+00:13:27,676 --> 0:13:29,456
+explicit de-initializer, the
+
+436
+00:13:29,456 --> 0:13:31,086
+compiler generates one for you.
+
+437
+00:13:31,616 --> 0:13:34,296
+And this sort of highlights one
+
+438
+00:13:34,296 --> 0:13:35,666
+of the underlying principles of
+
+439
+00:13:35,666 --> 0:13:36,606
+Module Interfaces.
+
+440
+00:13:37,146 --> 0:13:38,416
+If this format is supposed to be
+
+441
+00:13:38,416 --> 0:13:39,936
+stable across versions of the
+
+442
+00:13:39,936 --> 0:13:42,156
+compiler, then the compiler
+
+443
+00:13:42,156 --> 0:13:43,976
+should not make any assumptions
+
+444
+00:13:44,196 --> 0:13:45,626
+about the underlying source
+
+445
+00:13:45,626 --> 0:13:45,886
+code.
+
+446
+00:13:46,786 --> 0:13:48,466
+So we include it in the Module
+
+447
+00:13:48,466 --> 0:13:48,926
+Interface.
+
+448
+00:13:49,506 --> 0:13:53,316
+Next, let's look at that Speed
+
+449
+00:13:53,316 --> 0:13:53,516
+enum.
+
+450
+00:13:54,466 --> 0:13:55,666
+Well, the first thing to see is
+
+451
+00:13:55,666 --> 0:13:57,796
+that both cases of the enum are
+
+452
+00:13:57,796 --> 0:13:58,316
+included.
+
+453
+00:13:58,506 --> 0:14:01,996
+Those are part of the public
+
+454
+00:13:58,506 --> 0:14:01,996
+Those are part of the public
+
+455
+00:14:01,996 --> 0:14:02,086
+API.
+
+456
+00:14:02,086 --> 0:14:03,956
+However, in the interface,
+
+457
+00:14:03,956 --> 0:14:05,626
+there's an explicit conformance
+
+458
+00:14:05,626 --> 0:14:06,316
+to Hashable.
+
+459
+00:14:07,116 --> 0:14:08,876
+And we list off the methods that
+
+460
+00:14:08,876 --> 0:14:11,476
+are required to conform to both
+
+461
+00:14:11,476 --> 0:14:12,566
+Hashable and Equitable.
+
+462
+00:14:13,396 --> 0:14:14,846
+Well, this is because in Swift,
+
+463
+00:14:15,146 --> 0:14:16,666
+if you make an enum without any
+
+464
+00:14:16,666 --> 0:14:19,496
+associated values, then the
+
+465
+00:14:19,496 --> 0:14:21,026
+compiler implicitly makes that
+
+466
+00:14:21,026 --> 0:14:22,626
+conform to an Equitable and
+
+467
+00:14:22,626 --> 0:14:24,546
+Hashable, and automatically
+
+468
+00:14:24,546 --> 0:14:25,756
+derives the methods that are
+
+469
+00:14:25,756 --> 0:14:26,276
+required.
+
+470
+00:14:26,916 --> 0:14:28,166
+So, in the spirit of being
+
+471
+00:14:28,166 --> 0:14:29,306
+explicit, and not making
+
+472
+00:14:29,306 --> 0:14:31,696
+assumptions, it's included in
+
+473
+00:14:31,696 --> 0:14:32,576
+the Module Interface.
+
+474
+00:14:33,956 --> 0:14:36,476
+And finally, the Location struct
+
+475
+00:14:36,656 --> 0:14:38,746
+is included as is, because it
+
+476
+00:14:38,746 --> 0:14:39,876
+only has public stored
+
+477
+00:14:39,876 --> 0:14:41,626
+properties, and does not declare
+
+478
+00:14:41,626 --> 0:14:42,696
+any conformances.
+
+479
+00:14:43,326 --> 0:14:45,686
+So that's a quick look at the
+
+480
+00:14:45,686 --> 0:14:46,976
+Module Interface for FlightKit.
+
+481
+00:14:51,496 --> 0:14:52,676
+Now that you've taken a look at
+
+482
+00:14:52,676 --> 0:14:54,966
+what's inside a framework, let's
+
+483
+00:14:54,966 --> 0:14:56,296
+talk about how to build a
+
+484
+00:14:56,336 --> 0:14:58,766
+distributable binary XCFramework
+
+485
+00:14:58,766 --> 0:14:59,156
+yourself.
+
+486
+00:14:59,746 --> 0:15:02,246
+Well, the first step to building
+
+487
+00:14:59,746 --> 0:15:02,246
+Well, the first step to building
+
+488
+00:15:02,246 --> 0:15:03,936
+your framework is by building an
+
+489
+00:15:03,936 --> 0:15:04,406
+archive.
+
+490
+00:15:05,326 --> 0:15:06,626
+Archiving Your Framework will
+
+491
+00:15:06,626 --> 0:15:08,656
+build it in Release Mode, and it
+
+492
+00:15:08,656 --> 0:15:09,576
+will package it up for
+
+493
+00:15:09,576 --> 0:15:11,186
+distribution and you can see
+
+494
+00:15:11,186 --> 0:15:12,716
+that in the Organizer window.
+
+495
+00:15:13,746 --> 0:15:15,636
+And as an added benefit, this
+
+496
+00:15:15,686 --> 0:15:17,376
+archive will also contain the
+
+497
+00:15:17,376 --> 0:15:18,776
+debug information that
+
+498
+00:15:18,776 --> 0:15:20,196
+corresponds to that build of
+
+499
+00:15:20,196 --> 0:15:21,906
+your framework, which means if
+
+500
+00:15:21,906 --> 0:15:23,776
+your clients have any crashes or
+
+501
+00:15:23,776 --> 0:15:25,116
+any instability that originate
+
+502
+00:15:25,116 --> 0:15:26,526
+in your framework, they'll be
+
+503
+00:15:26,526 --> 0:15:27,936
+able to send it to you, and you
+
+504
+00:15:27,936 --> 0:15:29,056
+will be able to look at the
+
+505
+00:15:29,146 --> 0:15:31,606
+symbols and debug it.
+
+506
+00:15:32,336 --> 0:15:34,626
+To Archive your framework, you
+
+507
+00:15:34,626 --> 0:15:36,336
+can use the xcodebuild archive
+
+508
+00:15:36,336 --> 0:15:36,776
+command.
+
+509
+00:15:37,836 --> 0:15:39,166
+You'll pass in the scheme of
+
+510
+00:15:39,166 --> 0:15:40,596
+your framework in your project,
+
+511
+00:15:41,606 --> 0:15:43,166
+and list out the destinations
+
+512
+00:15:43,166 --> 0:15:44,146
+that you'd like to compile it
+
+513
+00:15:44,146 --> 0:15:44,406
+for.
+
+514
+00:15:45,186 --> 0:15:46,606
+So if you're building for iOS,
+
+515
+00:15:46,976 --> 0:15:47,836
+this can be one for the
+
+516
+00:15:47,836 --> 0:15:49,676
+simulator, one for the device,
+
+517
+00:15:50,266 --> 0:15:51,456
+and one for the Mac that's
+
+518
+00:15:51,456 --> 0:15:52,216
+running UIKit.
+
+519
+00:15:52,836 --> 0:15:55,486
+You will also need to pass the
+
+520
+00:15:55,486 --> 0:15:57,416
+Skip Install build setting, and
+
+521
+00:15:57,416 --> 0:15:58,276
+set it to No.
+
+522
+00:15:59,096 --> 0:16:01,316
+This tells xcodebuild archive to
+
+523
+00:15:59,096 --> 0:16:01,316
+This tells xcodebuild archive to
+
+524
+00:16:01,316 --> 0:16:03,256
+install your framework in the
+
+525
+00:16:03,256 --> 0:16:04,286
+resulting archive.
+
+526
+00:16:04,926 --> 0:16:09,276
+So, by doing this, you will be
+
+527
+00:16:09,276 --> 0:16:11,636
+building archives of each
+
+528
+00:16:11,636 --> 0:16:13,666
+variant of your framework, and
+
+529
+00:16:13,666 --> 0:16:15,056
+those will be available in the
+
+530
+00:16:15,056 --> 0:16:17,186
+Archives directory in the Xcode
+
+531
+00:16:17,186 --> 0:16:19,226
+Locations tab, in the
+
+532
+00:16:19,226 --> 0:16:20,096
+Preferences window.
+
+533
+00:16:20,606 --> 0:16:24,186
+Once you've built these
+
+534
+00:16:24,186 --> 0:16:25,966
+archives, you can extract the
+
+535
+00:16:25,966 --> 0:16:27,456
+frameworks, and bundle them up
+
+536
+00:16:27,456 --> 0:16:29,546
+together in one XCFramework.
+
+537
+00:16:30,056 --> 0:16:32,486
+And to do this, you'll run the
+
+538
+00:16:32,486 --> 0:16:34,716
+xcodebuild -create-xcframework
+
+539
+00:16:34,926 --> 0:16:35,366
+command.
+
+540
+00:16:36,456 --> 0:16:38,106
+You'll pass in the path to each
+
+541
+00:16:38,106 --> 0:16:40,186
+framework on disk, and then
+
+542
+00:16:40,186 --> 0:16:41,956
+provide a path that you'd like
+
+543
+00:16:42,006 --> 0:16:43,836
+the output XCFramework to be
+
+544
+00:16:43,836 --> 0:16:46,456
+output to.
+
+545
+00:16:46,696 --> 0:16:48,906
+So, that's how to build an
+
+546
+00:16:48,906 --> 0:16:49,526
+XCFramework.
+
+547
+00:16:49,526 --> 0:16:51,946
+And in summary, remember, you'll
+
+548
+00:16:51,946 --> 0:16:53,916
+want to enable Build Libraries
+
+549
+00:16:53,916 --> 0:16:55,626
+for Distribution, to make sure
+
+550
+00:16:55,626 --> 0:16:56,826
+that your library is built to be
+
+551
+00:16:56,826 --> 0:16:57,356
+distributed.
+
+552
+00:16:57,436 --> 0:17:00,996
+You'll run xcodebuild archive,
+
+553
+00:16:57,436 --> 0:17:00,996
+You'll run xcodebuild archive,
+
+554
+00:17:01,536 --> 0:17:02,536
+to build archives of your
+
+555
+00:17:02,536 --> 0:17:05,576
+framework, and finally you'll
+
+556
+00:17:05,576 --> 0:17:06,536
+run xcodebuild
+
+557
+00:17:06,566 --> 0:17:09,185
+-create-xcframework, to package
+
+558
+00:17:09,185 --> 0:17:10,705
+it up for distribution.
+
+559
+00:17:11,146 --> 0:17:12,165
+And then you can start sending
+
+560
+00:17:12,165 --> 0:17:13,205
+it to your clients, and they can
+
+561
+00:17:13,205 --> 0:17:14,586
+start adopting it.
+
+562
+00:17:15,195 --> 0:17:16,925
+So that was XCFrameworks.
+
+563
+00:17:18,326 --> 0:17:19,846
+Now, my teammate, Jordan, will
+
+564
+00:17:19,846 --> 0:17:21,026
+come up to talk to you about
+
+565
+00:17:21,026 --> 0:17:22,656
+what you should consider as a
+
+566
+00:17:22,656 --> 0:17:24,646
+framework author to make using
+
+567
+00:17:24,646 --> 0:17:26,185
+your framework as smooth as
+
+568
+00:17:26,185 --> 0:17:26,685
+possible.
+
+569
+00:17:28,516 --> 0:17:34,546
+[ Applause and Cheering ]
+
+570
+00:17:35,046 --> 0:17:35,736
+&gt;&gt; Thanks Harlan.
+
+571
+00:17:36,006 --> 0:17:36,466
+All right.
+
+572
+00:17:36,836 --> 0:17:38,086
+So we saw how easy it was to
+
+573
+00:17:38,376 --> 0:17:39,876
+bring one of these XCFrameworks
+
+574
+00:17:40,066 --> 0:17:42,256
+into an app that is a client of
+
+575
+00:17:42,256 --> 0:17:43,906
+the framework, and we saw the
+
+576
+00:17:43,906 --> 0:17:45,556
+steps required to produce an
+
+577
+00:17:45,586 --> 0:17:46,276
+XCFramework.
+
+578
+00:17:47,016 --> 0:17:48,316
+But that's just the first step,
+
+579
+00:17:48,576 --> 0:17:49,476
+because you're framework
+
+580
+00:17:49,476 --> 0:17:51,096
+authors, and you're developing
+
+581
+00:17:51,096 --> 0:17:53,326
+new capabilities every year, and
+
+582
+00:17:53,326 --> 0:17:54,606
+making things better and better
+
+583
+00:17:54,606 --> 0:17:55,446
+for your clients.
+
+584
+00:17:56,236 --> 0:17:57,296
+So, in this section, I'm going
+
+585
+00:17:57,296 --> 0:17:58,926
+to talk about three major
+
+586
+00:17:58,926 --> 0:17:59,456
+things.
+
+587
+00:18:00,386 --> 0:18:01,556
+Evolving your framework from
+
+588
+00:18:01,556 --> 0:18:02,556
+release to release.
+
+589
+00:18:03,366 --> 0:18:04,726
+Trading some flexibility that
+
+590
+00:18:04,726 --> 0:18:05,936
+Swift gives you for
+
+591
+00:18:05,936 --> 0:18:07,546
+optimizability of your clients,
+
+592
+00:18:08,296 --> 0:18:09,536
+and helping your clients have
+
+593
+00:18:09,536 --> 0:18:10,606
+the smoothest experience
+
+594
+00:18:10,606 --> 0:18:11,196
+possible.
+
+595
+00:18:11,736 --> 0:18:14,096
+So, start with evolving your
+
+596
+00:18:14,096 --> 0:18:14,596
+framework.
+
+597
+00:18:15,196 --> 0:18:17,186
+And what do I mean when I say
+
+598
+00:18:17,186 --> 0:18:18,456
+evolving your framework?
+
+599
+00:18:19,496 --> 0:18:22,966
+Well, like I said, every time
+
+600
+00:18:22,966 --> 0:18:24,366
+you release a new version of
+
+601
+00:18:24,366 --> 0:18:25,736
+your framework, it will have new
+
+602
+00:18:25,736 --> 0:18:27,746
+capabilities, new APIs, maybe
+
+603
+00:18:27,746 --> 0:18:29,936
+some bug fixes, and we want to
+
+604
+00:18:29,936 --> 0:18:31,866
+be able to do that without
+
+605
+00:18:31,866 --> 0:18:33,736
+breaking source or binary
+
+606
+00:18:33,736 --> 0:18:34,726
+compatibility.
+
+607
+00:18:35,586 --> 0:18:37,776
+Now, why is binary compatibility
+
+608
+00:18:37,776 --> 0:18:38,686
+important here?
+
+609
+00:18:39,876 --> 0:18:41,156
+It's because you don't
+
+610
+00:18:41,156 --> 0:18:42,766
+necessarily know who your
+
+611
+00:18:42,766 --> 0:18:44,256
+clients are going to be.
+
+612
+00:18:44,746 --> 0:18:46,486
+A lot of times it will just be
+
+613
+00:18:46,486 --> 0:18:47,266
+an app target.
+
+614
+00:18:47,576 --> 0:18:48,526
+They'll take your framework,
+
+615
+00:18:48,766 --> 0:18:50,466
+bundle it up, and send it off to
+
+616
+00:18:50,466 --> 0:18:50,956
+the store.
+
+617
+00:18:52,246 --> 0:18:53,806
+But other times, you'll have
+
+618
+00:18:53,836 --> 0:18:55,396
+clients that are themselves
+
+619
+00:18:55,476 --> 0:18:57,246
+binary frameworks, either from
+
+620
+00:18:57,246 --> 0:18:59,206
+your company or another company
+
+621
+00:18:59,206 --> 0:18:59,846
+entirely.
+
+622
+00:18:59,896 --> 0:19:02,756
+And in that case, the two of you
+
+623
+00:18:59,896 --> 0:19:02,756
+And in that case, the two of you
+
+624
+00:19:02,836 --> 0:19:04,396
+probably have separate release
+
+625
+00:19:04,396 --> 0:19:04,926
+schedules.
+
+626
+00:19:05,576 --> 0:19:06,596
+They might get all the way up to
+
+627
+00:19:06,596 --> 0:19:08,896
+version 2.1, while you're still
+
+628
+00:19:08,896 --> 0:19:10,816
+working on your newest version.
+
+629
+00:19:10,816 --> 0:19:13,156
+And when you finally do release
+
+630
+00:19:13,156 --> 0:19:16,246
+that version 1.1, well, they
+
+631
+00:19:16,246 --> 0:19:17,566
+shouldn't have to do any extra
+
+632
+00:19:17,566 --> 0:19:18,636
+effort to adopt it.
+
+633
+00:19:19,116 --> 0:19:19,906
+You don't want to get in a
+
+634
+00:19:19,906 --> 0:19:21,946
+situation where two binary
+
+635
+00:19:21,946 --> 0:19:23,436
+frameworks are version locked
+
+636
+00:19:23,436 --> 0:19:25,066
+with one another, because then
+
+637
+00:19:25,066 --> 0:19:26,506
+the application who is using
+
+638
+00:19:26,506 --> 0:19:30,766
+them might decide not to update.
+
+639
+00:19:30,976 --> 0:19:32,266
+So, I'm saying here that the
+
+640
+00:19:32,266 --> 0:19:33,426
+version of your framework is
+
+641
+00:19:33,426 --> 0:19:35,366
+important, and not only do you
+
+642
+00:19:35,366 --> 0:19:36,756
+want to put that on your
+
+643
+00:19:36,756 --> 0:19:38,556
+website, and your documentation,
+
+644
+00:19:38,806 --> 0:19:40,066
+but you should also put it in
+
+645
+00:19:40,066 --> 0:19:41,686
+the framework itself, and the
+
+646
+00:19:41,686 --> 0:19:43,736
+place to do that is the Bundle
+
+647
+00:19:43,736 --> 0:19:45,426
+version string setting in the
+
+648
+00:19:45,426 --> 0:19:46,636
+framework's Info.plist.
+
+649
+00:19:47,486 --> 0:19:49,326
+This is the place for a human
+
+650
+00:19:49,326 --> 0:19:50,906
+readable version number to
+
+651
+00:19:50,906 --> 0:19:52,886
+communicate to your clients what
+
+652
+00:19:52,886 --> 0:19:54,586
+changes you've made since the
+
+653
+00:19:54,586 --> 0:19:55,396
+last release.
+
+654
+00:19:55,986 --> 0:19:58,576
+And the way that we recommend to
+
+655
+00:19:58,576 --> 0:20:00,356
+do that is with Semantic
+
+656
+00:19:58,576 --> 0:20:00,356
+do that is with Semantic
+
+657
+00:20:00,396 --> 0:20:00,966
+Versioning.
+
+658
+00:20:01,616 --> 0:20:02,416
+Now, if you weren't in the
+
+659
+00:20:02,416 --> 0:20:04,156
+Packages talk, I'll do a quick
+
+660
+00:20:04,246 --> 0:20:05,446
+review of what Semantic
+
+661
+00:20:05,446 --> 0:20:06,866
+Versioning is.
+
+662
+00:20:07,676 --> 0:20:09,326
+The smallest component is the
+
+663
+00:20:09,326 --> 0:20:11,306
+Patch Version, and represents
+
+664
+00:20:11,456 --> 0:20:12,856
+when you make bug fixes, or
+
+665
+00:20:12,856 --> 0:20:14,156
+implementation changes to your
+
+666
+00:20:14,156 --> 0:20:15,886
+framework that shouldn't affect
+
+667
+00:20:15,886 --> 0:20:17,266
+your clients.
+
+668
+00:20:18,076 --> 0:20:20,216
+The middle component is for
+
+669
+00:20:20,416 --> 0:20:22,106
+backwards compatible editions,
+
+670
+00:20:22,466 --> 0:20:24,746
+new APIs, or new capabilities.
+
+671
+00:20:25,386 --> 0:20:28,796
+And the Major component is for
+
+672
+00:20:28,796 --> 0:20:30,416
+any breaking changes that you
+
+673
+00:20:30,416 --> 0:20:32,356
+have to make, whether that's
+
+674
+00:20:32,436 --> 0:20:34,486
+source breaking, binary
+
+675
+00:20:34,486 --> 0:20:37,016
+breaking, or semantics breaking
+
+676
+00:20:37,506 --> 0:20:38,986
+in a way where clients will have
+
+677
+00:20:39,046 --> 0:20:41,916
+to rebuild, and possibly redo
+
+678
+00:20:41,916 --> 0:20:43,606
+some of their client code, in
+
+679
+00:20:43,606 --> 0:20:45,216
+order to adopt the new version
+
+680
+00:20:45,216 --> 0:20:46,156
+of the framework.
+
+681
+00:20:46,586 --> 0:20:49,036
+Let's see what this looks like
+
+682
+00:20:49,036 --> 0:20:50,746
+in practice, with the FlightKit
+
+683
+00:20:50,746 --> 0:20:51,676
+model objects.
+
+684
+00:20:52,586 --> 0:20:53,826
+So here is the same thing on the
+
+685
+00:20:53,826 --> 0:20:56,096
+left that we had from before.
+
+686
+00:20:57,366 --> 0:20:59,136
+And now, on the right, I've made
+
+687
+00:20:59,136 --> 0:21:00,466
+a bunch of changes to this
+
+688
+00:20:59,136 --> 0:21:00,466
+a bunch of changes to this
+
+689
+00:21:00,466 --> 0:21:00,946
+framework.
+
+690
+00:21:02,096 --> 0:21:03,406
+Let's go through them piece by
+
+691
+00:21:03,476 --> 0:21:05,316
+piece and see how each change
+
+692
+00:21:05,406 --> 0:21:06,526
+can affect the framework's
+
+693
+00:21:06,526 --> 0:21:07,246
+version number.
+
+694
+00:21:08,506 --> 0:21:09,446
+We'll start at the top.
+
+695
+00:21:10,466 --> 0:21:12,286
+I've added a new private
+
+696
+00:21:12,286 --> 0:21:13,896
+property to the Spaceship class.
+
+697
+00:21:14,396 --> 0:21:15,966
+And I'm using it in the
+
+698
+00:21:15,966 --> 0:21:17,226
+Spaceship's initializer.
+
+699
+00:21:18,556 --> 0:21:20,996
+Now, neither of these things are
+
+700
+00:21:20,996 --> 0:21:22,506
+going to appear in the module
+
+701
+00:21:22,506 --> 0:21:23,156
+interface.
+
+702
+00:21:23,466 --> 0:21:24,446
+They're not part of your
+
+703
+00:21:24,446 --> 0:21:25,696
+framework's public API.
+
+704
+00:21:26,976 --> 0:21:28,796
+So this sort of change only
+
+705
+00:21:28,796 --> 0:21:30,556
+requires updating the minor, or
+
+706
+00:21:30,556 --> 0:21:32,116
+the Patch Version component.
+
+707
+00:21:33,916 --> 0:21:36,086
+Keep in mind though that I did
+
+708
+00:21:36,146 --> 0:21:37,786
+change the behavior of the
+
+709
+00:21:37,786 --> 0:21:39,776
+initializer, and so if this was
+
+710
+00:21:39,776 --> 0:21:42,536
+documented behavior before, then
+
+711
+00:21:42,536 --> 0:21:43,806
+this would be a semantics
+
+712
+00:21:43,856 --> 0:21:45,826
+breaking change, and clients
+
+713
+00:21:45,826 --> 0:21:46,786
+would have to consider whether
+
+714
+00:21:46,786 --> 0:21:48,866
+to update, and therefore, I
+
+715
+00:21:48,866 --> 0:21:50,386
+should change the major version
+
+716
+00:21:50,386 --> 0:21:51,356
+number instead.
+
+717
+00:21:51,986 --> 0:21:55,206
+Now, the next change I've made
+
+718
+00:21:55,206 --> 0:21:57,376
+here is to add a new method to
+
+719
+00:21:57,376 --> 0:21:58,496
+the Spaceship class.
+
+720
+00:21:58,796 --> 0:22:00,616
+It's a new public method, which
+
+721
+00:21:58,796 --> 0:22:00,616
+It's a new public method, which
+
+722
+00:22:00,616 --> 0:22:01,926
+means clients will start using
+
+723
+00:22:01,926 --> 0:22:02,886
+it and depending on it.
+
+724
+00:22:03,846 --> 0:22:05,566
+So, the right thing to do is to
+
+725
+00:22:05,566 --> 0:22:07,256
+increment the Minor Version
+
+726
+00:22:07,256 --> 0:22:07,636
+number.
+
+727
+00:22:08,146 --> 0:22:09,676
+And you'll notice, I also reset
+
+728
+00:22:09,676 --> 0:22:13,846
+the Patch Version to zero.
+
+729
+00:22:13,966 --> 0:22:16,516
+Finally, I've also added a new
+
+730
+00:22:16,516 --> 0:22:18,406
+parameter to the fly method.
+
+731
+00:22:19,356 --> 0:22:21,486
+I've given it a default, so that
+
+732
+00:22:21,486 --> 0:22:23,536
+most of the use sites won't have
+
+733
+00:22:23,586 --> 0:22:24,206
+to change.
+
+734
+00:22:24,986 --> 0:22:27,126
+But in Swift, a function is
+
+735
+00:22:27,126 --> 0:22:29,686
+uniquely identified by its name,
+
+736
+00:22:30,216 --> 0:22:31,466
+and its parameters.
+
+737
+00:22:31,466 --> 0:22:32,996
+Both the argument labels, and
+
+738
+00:22:32,996 --> 0:22:33,616
+the types.
+
+739
+00:22:34,286 --> 0:22:36,626
+So, here I've broken both source
+
+740
+00:22:36,966 --> 0:22:39,726
+and binary compatibility, so
+
+741
+00:22:39,726 --> 0:22:41,706
+this requires updating the Major
+
+742
+00:22:41,706 --> 0:22:43,636
+Version number, and asking any
+
+743
+00:22:43,636 --> 0:22:44,926
+clients to re-compile.
+
+744
+00:22:45,616 --> 0:22:46,696
+Maybe I should have made a new
+
+745
+00:22:46,696 --> 0:22:47,686
+overload instead?
+
+746
+00:22:48,286 --> 0:22:51,426
+Now, these are all changes to
+
+747
+00:22:51,426 --> 0:22:52,856
+the Spaceship class, but I've
+
+748
+00:22:52,856 --> 0:22:54,266
+also changed some of the value
+
+749
+00:22:54,266 --> 0:22:55,796
+types in FlightKit as well.
+
+750
+00:22:55,796 --> 0:22:58,046
+I've added a new case to the
+
+751
+00:22:58,046 --> 0:22:58,786
+Speed edum.
+
+752
+00:23:00,256 --> 0:23:02,516
+I've made locations Hashable, so
+
+753
+00:23:02,516 --> 0:23:03,836
+that clients can have sets of
+
+754
+00:23:03,836 --> 0:23:06,436
+them, and this is my favorite
+
+755
+00:23:06,436 --> 0:23:08,726
+change, I've added a new stored
+
+756
+00:23:08,726 --> 0:23:10,626
+property to the Location struct,
+
+757
+00:23:10,896 --> 0:23:12,516
+without breaking source or
+
+758
+00:23:12,516 --> 0:23:13,816
+binary compatibility.
+
+759
+00:23:14,516 --> 0:23:19,546
+[ Applause ]
+
+760
+00:23:20,046 --> 0:23:21,706
+Now, in Swift, all of these
+
+761
+00:23:21,706 --> 0:23:23,126
+changes are backwards
+
+762
+00:23:23,166 --> 0:23:24,866
+compatible, so I only need to
+
+763
+00:23:24,866 --> 0:23:26,606
+bump the Minor Version number.
+
+764
+00:23:27,186 --> 0:23:30,266
+Now, this flexibility here has
+
+765
+00:23:30,266 --> 0:23:31,866
+some implications for how you
+
+766
+00:23:31,866 --> 0:23:33,186
+design the API of your
+
+767
+00:23:33,186 --> 0:23:33,906
+frameworks.
+
+768
+00:23:34,616 --> 0:23:36,426
+The most important one is to
+
+769
+00:23:36,426 --> 0:23:37,536
+start small.
+
+770
+00:23:38,086 --> 0:23:39,436
+It's easy to add new
+
+771
+00:23:39,436 --> 0:23:41,026
+capabilities if you find out
+
+772
+00:23:41,026 --> 0:23:42,736
+that you need them, or if your
+
+773
+00:23:42,736 --> 0:23:44,896
+clients file feedback saying
+
+774
+00:23:44,896 --> 0:23:46,016
+that more capabilities are
+
+775
+00:23:46,016 --> 0:23:46,526
+needed.
+
+776
+00:23:47,086 --> 0:23:48,576
+But it's really hard to remove
+
+777
+00:23:48,626 --> 0:23:50,296
+something, because it will most
+
+778
+00:23:50,296 --> 0:23:51,946
+likely break source or binary
+
+779
+00:23:51,946 --> 0:23:53,816
+compatibility for at least one
+
+780
+00:23:53,816 --> 0:23:55,326
+of your clients.
+
+781
+00:23:56,316 --> 0:23:57,866
+For the things that you won't be
+
+782
+00:23:57,866 --> 0:23:59,016
+able to change after the fact,
+
+783
+00:23:59,526 --> 0:24:00,906
+like the names of your types,
+
+784
+00:23:59,526 --> 0:24:00,906
+like the names of your types,
+
+785
+00:24:01,276 --> 0:24:02,366
+make sure you consider them
+
+786
+00:24:02,366 --> 0:24:04,136
+carefully up front, that those
+
+787
+00:24:04,136 --> 0:24:05,286
+names are not just going to make
+
+788
+00:24:05,286 --> 0:24:07,666
+sense in this release, but also
+
+789
+00:24:07,666 --> 0:24:09,076
+in all future releases.
+
+790
+00:24:09,616 --> 0:24:13,386
+And finally, don't add
+
+791
+00:24:13,386 --> 0:24:15,026
+extensibility too early.
+
+792
+00:24:15,606 --> 0:24:16,556
+You don't need to make your
+
+793
+00:24:16,556 --> 0:24:18,406
+classes open, or to provide
+
+794
+00:24:18,406 --> 0:24:20,476
+arbitrary callbacks in the first
+
+795
+00:24:20,476 --> 0:24:21,756
+version of your framework.
+
+796
+00:24:22,666 --> 0:24:23,706
+Why is this important?
+
+797
+00:24:24,386 --> 0:24:25,806
+Because it makes reasoning about
+
+798
+00:24:25,876 --> 0:24:27,926
+your framework's behavior much
+
+799
+00:24:27,996 --> 0:24:29,986
+harder when you have to consider
+
+800
+00:24:29,986 --> 0:24:31,526
+what your clients might be doing
+
+801
+00:24:31,526 --> 0:24:32,516
+at the same time.
+
+802
+00:24:33,666 --> 0:24:35,776
+So, you can always make your
+
+803
+00:24:35,776 --> 0:24:37,226
+classes open in the future.
+
+804
+00:24:37,826 --> 0:24:39,196
+You can always add properties
+
+805
+00:24:39,196 --> 0:24:40,146
+that represent additional
+
+806
+00:24:40,146 --> 0:24:42,696
+callbacks, but you can't remove
+
+807
+00:24:42,696 --> 0:24:44,396
+the flexibility that you put in
+
+808
+00:24:44,396 --> 0:24:45,036
+by default.
+
+809
+00:24:45,706 --> 0:24:49,336
+So, how does this all work?
+
+810
+00:24:50,546 --> 0:24:51,356
+Indirection.
+
+811
+00:24:52,546 --> 0:24:53,906
+That's just a word, so let's
+
+812
+00:24:53,906 --> 0:24:55,226
+step through an example.
+
+813
+00:24:55,356 --> 0:24:58,166
+On the left, here again, I have
+
+814
+00:24:58,446 --> 0:24:59,796
+the Spaceship class, stripped
+
+815
+00:24:59,796 --> 0:25:01,066
+down to its module interface
+
+816
+00:24:59,796 --> 0:25:01,066
+down to its module interface
+
+817
+00:25:01,116 --> 0:25:03,206
+this time, and on the right, I
+
+818
+00:25:03,206 --> 0:25:04,806
+have a use of the fly method.
+
+819
+00:25:06,106 --> 0:25:07,396
+This is from a client code
+
+820
+00:25:07,516 --> 0:25:09,016
+that's outside of the FlightKit
+
+821
+00:25:09,016 --> 0:25:09,456
+framework.
+
+822
+00:25:10,536 --> 0:25:11,936
+And what's going to happen here
+
+823
+00:25:11,936 --> 0:25:13,616
+at runtime is that the client is
+
+824
+00:25:13,616 --> 0:25:15,526
+going to have to ask which
+
+825
+00:25:15,526 --> 0:25:17,266
+method is the fly method?
+
+826
+00:25:17,786 --> 0:25:20,176
+And the framework will respond,
+
+827
+00:25:20,756 --> 0:25:22,326
+it's the second one.
+
+828
+00:25:23,076 --> 0:25:25,556
+This is how Swift ensures binary
+
+829
+00:25:25,556 --> 0:25:27,766
+compatibility even when you add
+
+830
+00:25:27,766 --> 0:25:28,866
+new methods to a class.
+
+831
+00:25:30,156 --> 0:25:31,826
+And it's basically the same way
+
+832
+00:25:32,026 --> 0:25:33,526
+that Objective-C does message
+
+833
+00:25:33,566 --> 0:25:35,776
+dispatch, doing it in a call
+
+834
+00:25:36,046 --> 0:25:38,426
+from one Library to another, but
+
+835
+00:25:38,426 --> 0:25:40,156
+Swift only does it when you're
+
+836
+00:25:40,196 --> 0:25:42,986
+crossing this client framework
+
+837
+00:25:43,196 --> 0:25:43,766
+boundary.
+
+838
+00:25:45,716 --> 0:25:46,876
+There's another form of
+
+839
+00:25:46,876 --> 0:25:48,396
+indirection as well.
+
+840
+00:25:48,796 --> 0:25:50,016
+And that's when clients are
+
+841
+00:25:50,016 --> 0:25:51,786
+using the structs or enums
+
+842
+00:25:52,086 --> 0:25:53,466
+defined in the framework.
+
+843
+00:25:54,536 --> 0:25:55,826
+So in this case, one of the
+
+844
+00:25:55,826 --> 0:25:57,906
+arguments to the fly method is
+
+845
+00:25:57,906 --> 0:25:59,696
+that fast case from the Speed
+
+846
+00:26:00,416 --> 0:26:00,546
+edum.
+
+847
+00:26:01,176 --> 0:26:03,506
+And I said before that enums
+
+848
+00:26:03,506 --> 0:26:05,046
+could have new cases added
+
+849
+00:26:05,326 --> 0:26:06,316
+without breaking binary
+
+850
+00:26:06,316 --> 0:26:07,106
+compatibility.
+
+851
+00:26:08,576 --> 0:26:10,296
+That means that the client can't
+
+852
+00:26:10,296 --> 0:26:12,906
+assume that it knows how big the
+
+853
+00:26:12,906 --> 0:26:14,936
+enum is going to be in memory.
+
+854
+00:26:16,026 --> 0:26:18,286
+So this use of the enum requires
+
+855
+00:26:18,286 --> 0:26:19,836
+the client to ask the framework
+
+856
+00:26:20,586 --> 0:26:21,396
+how big is it?
+
+857
+00:26:22,236 --> 0:26:24,096
+And the framework responds, it's
+
+858
+00:26:24,096 --> 0:26:25,546
+just one byte.
+
+859
+00:26:26,976 --> 0:26:29,386
+The other possibility here is
+
+860
+00:26:29,386 --> 0:26:30,876
+that one of the new cases added
+
+861
+00:26:30,876 --> 0:26:32,236
+in the future might have
+
+862
+00:26:32,236 --> 0:26:33,316
+associated values.
+
+863
+00:26:34,156 --> 0:26:35,636
+And those associated values
+
+864
+00:26:35,636 --> 0:26:36,936
+might require some kind of
+
+865
+00:26:36,936 --> 0:26:37,396
+cleanup.
+
+866
+00:26:38,606 --> 0:26:40,376
+And so the client will also ask
+
+867
+00:26:40,376 --> 0:26:41,906
+the framework to cleanup the
+
+868
+00:26:41,906 --> 0:26:43,606
+enum value when it's done with
+
+869
+00:26:43,606 --> 0:26:45,216
+it, and the framework will do
+
+870
+00:26:45,216 --> 0:26:45,526
+so.
+
+871
+00:26:46,106 --> 0:26:48,986
+Now, a couple of you in the
+
+872
+00:26:48,986 --> 0:26:50,596
+audience at this point are
+
+873
+00:26:50,596 --> 0:26:52,206
+probably getting a little antsy
+
+874
+00:26:52,766 --> 0:26:54,446
+because we're talking about all
+
+875
+00:26:54,446 --> 0:26:56,436
+this extra communication between
+
+876
+00:26:56,436 --> 0:26:57,716
+the client and the framework,
+
+877
+00:26:58,766 --> 0:26:59,796
+and that's because you have
+
+878
+00:26:59,986 --> 0:27:01,076
+performance sensitive
+
+879
+00:26:59,986 --> 0:27:01,076
+performance sensitive
+
+880
+00:27:01,076 --> 0:27:02,636
+frameworks, and that's why the
+
+881
+00:27:02,636 --> 0:27:04,086
+next section is about trading
+
+882
+00:27:04,086 --> 0:27:05,506
+the flexibility that Swift is
+
+883
+00:27:05,506 --> 0:27:07,206
+giving you for the
+
+884
+00:27:07,206 --> 0:27:12,966
+optimizability of your clients.
+
+885
+00:27:14,416 --> 0:27:16,696
+Now, this really is a tradeoff.
+
+886
+00:27:17,386 --> 0:27:19,156
+As framework authors, we want
+
+887
+00:27:19,156 --> 0:27:20,586
+the flexibility to change
+
+888
+00:27:20,586 --> 0:27:22,046
+things, to add things, to
+
+889
+00:27:22,046 --> 0:27:24,626
+improve things, without breaking
+
+890
+00:27:24,626 --> 0:27:26,556
+source or binary compatibility.
+
+891
+00:27:27,976 --> 0:27:29,616
+But in order for the compiler to
+
+892
+00:27:29,616 --> 0:27:31,356
+make the client code as fast as
+
+893
+00:27:31,356 --> 0:27:33,356
+possible, it needs to make
+
+894
+00:27:33,356 --> 0:27:34,966
+assumptions about what's in the
+
+895
+00:27:34,966 --> 0:27:35,556
+framework.
+
+896
+00:27:35,996 --> 0:27:40,146
+And so Swift needs to be able to
+
+897
+00:27:40,146 --> 0:27:41,926
+handle both sides of the
+
+898
+00:27:41,926 --> 0:27:42,656
+spectrum.
+
+899
+00:27:43,066 --> 0:27:45,646
+And the way that this works is
+
+900
+00:27:45,676 --> 0:27:46,866
+through the Build Libraries for
+
+901
+00:27:46,866 --> 0:27:48,186
+Distribution build setting.
+
+902
+00:27:48,826 --> 0:27:50,046
+Harlan said before that this has
+
+903
+00:27:50,046 --> 0:27:52,046
+multiple effects in addition to
+
+904
+00:27:52,046 --> 0:27:53,426
+generating the Module Interface
+
+905
+00:27:53,426 --> 0:27:55,576
+file, and one of those effects
+
+906
+00:27:55,886 --> 0:27:57,446
+is to set the default to the
+
+907
+00:27:57,446 --> 0:27:59,426
+Flexibility side.
+
+908
+00:28:00,736 --> 0:28:02,736
+But again, Swift needs to be
+
+909
+00:28:02,736 --> 0:28:04,576
+able to handle all of these use
+
+910
+00:28:04,576 --> 0:28:06,646
+cases, and so in this section,
+
+911
+00:28:06,816 --> 0:28:07,966
+I'm going to talk about what you
+
+912
+00:28:07,966 --> 0:28:10,306
+can do once you've profiled the
+
+913
+00:28:10,506 --> 0:28:11,906
+behavior of your framework from
+
+914
+00:28:11,906 --> 0:28:13,466
+the outside, and seen that you
+
+915
+00:28:13,466 --> 0:28:14,956
+need additional performance.
+
+916
+00:28:15,046 --> 0:28:16,346
+And there's three ways to do
+
+917
+00:28:16,346 --> 0:28:18,206
+that: inlinable functions,
+
+918
+00:28:18,876 --> 0:28:20,756
+frozen enums, and frozen
+
+919
+00:28:20,756 --> 0:28:21,326
+structs.
+
+920
+00:28:21,926 --> 0:28:24,836
+So, we'll start with inlinable
+
+921
+00:28:24,836 --> 0:28:26,576
+functions, a feature introduced
+
+922
+00:28:26,576 --> 0:28:28,536
+last year in Swift 4.2.
+
+923
+00:28:29,426 --> 0:28:31,526
+In this case, I have a CargoShip
+
+924
+00:28:31,526 --> 0:28:33,326
+subclass of the Spaceship class
+
+925
+00:28:33,326 --> 0:28:35,286
+we saw earlier, and it has a
+
+926
+00:28:35,286 --> 0:28:37,376
+method canCarry that just
+
+927
+00:28:37,376 --> 0:28:39,466
+determines whether the CargoShip
+
+928
+00:28:39,826 --> 0:28:41,606
+is able to carry some piece of
+
+929
+00:28:41,606 --> 0:28:42,076
+cargo.
+
+930
+00:28:43,376 --> 0:28:45,046
+And I've made this inlinable,
+
+931
+00:28:45,416 --> 0:28:46,426
+because I think that this is
+
+932
+00:28:46,426 --> 0:28:47,726
+important for the performance of
+
+933
+00:28:47,726 --> 0:28:48,576
+my clients.
+
+934
+00:28:49,736 --> 0:28:51,986
+What this will do is make this
+
+935
+00:28:51,986 --> 0:28:54,056
+method part of my public
+
+936
+00:28:54,056 --> 0:28:55,906
+interface, not just its
+
+937
+00:28:55,906 --> 0:28:57,806
+declaration, but also its body.
+
+938
+00:28:58,916 --> 0:29:00,486
+And the effect of that is to
+
+939
+00:28:58,916 --> 0:29:00,486
+And the effect of that is to
+
+940
+00:29:00,486 --> 0:29:02,636
+copy that body into the Module
+
+941
+00:29:02,636 --> 0:29:03,646
+Interface file.
+
+942
+00:29:04,236 --> 0:29:07,076
+If you're reading very quickly,
+
+943
+00:29:07,366 --> 0:29:08,876
+you'll also see that this method
+
+944
+00:29:08,946 --> 0:29:10,836
+references an internal property
+
+945
+00:29:11,026 --> 0:29:12,356
+of the CargoShip class.
+
+946
+00:29:13,766 --> 0:29:15,326
+And that's possible, because
+
+947
+00:29:15,326 --> 0:29:16,936
+I've marked that property as
+
+948
+00:29:16,936 --> 0:29:18,296
+usable from inline.
+
+949
+00:29:19,386 --> 0:29:20,786
+This lets you get the best of
+
+950
+00:29:20,786 --> 0:29:21,516
+both worlds.
+
+951
+00:29:22,246 --> 0:29:24,046
+The property is available as
+
+952
+00:29:24,096 --> 0:29:25,446
+part of your framework's public
+
+953
+00:29:25,446 --> 0:29:27,526
+interface, but it's only
+
+954
+00:29:27,526 --> 0:29:29,656
+available to the inlinable code.
+
+955
+00:29:29,956 --> 0:29:31,476
+It's still protected from being
+
+956
+00:29:31,476 --> 0:29:33,736
+arbitrarily read or written by
+
+957
+00:29:33,736 --> 0:29:34,866
+outside clients.
+
+958
+00:29:35,426 --> 0:29:37,556
+So it's still internal, but
+
+959
+00:29:37,556 --> 0:29:38,556
+usable from inline.
+
+960
+00:29:39,876 --> 0:29:41,866
+And it's important to note that
+
+961
+00:29:41,866 --> 0:29:43,286
+this is a per declaration
+
+962
+00:29:43,286 --> 0:29:43,906
+decision.
+
+963
+00:29:44,486 --> 0:29:46,016
+The current cargo property here
+
+964
+00:29:46,016 --> 0:29:47,986
+that's also internal is not
+
+965
+00:29:47,986 --> 0:29:48,996
+included in the Module
+
+966
+00:29:48,996 --> 0:29:49,476
+Interface.
+
+967
+00:29:51,936 --> 0:29:54,336
+So, okay, we have the body of
+
+968
+00:29:54,336 --> 0:29:55,726
+the canCarry method in the
+
+969
+00:29:55,726 --> 0:29:56,676
+Module Interface.
+
+970
+00:29:57,366 --> 0:29:59,046
+And when a client is compiling
+
+971
+00:29:59,046 --> 0:30:00,746
+against that interface, they'll
+
+972
+00:29:59,046 --> 0:30:00,746
+against that interface, they'll
+
+973
+00:30:00,746 --> 0:30:02,146
+be able to copy that body
+
+974
+00:30:02,296 --> 0:30:03,916
+directly into their own code,
+
+975
+00:30:04,326 --> 0:30:05,896
+and possibly optimize it even
+
+976
+00:30:05,966 --> 0:30:07,486
+further if they know something
+
+977
+00:30:07,486 --> 0:30:08,676
+about the cargo that's being
+
+978
+00:30:09,706 --> 0:30:09,826
+checked.
+
+979
+00:30:10,376 --> 0:30:12,046
+But what happens if the
+
+980
+00:30:12,046 --> 0:30:14,126
+framework owner changes the body
+
+981
+00:30:14,126 --> 0:30:15,926
+of the method, and the clients
+
+982
+00:30:15,986 --> 0:30:17,136
+aren't recompiled?
+
+983
+00:30:17,826 --> 0:30:21,466
+For example, what if there's a
+
+984
+00:30:21,466 --> 0:30:22,756
+new rule that says that
+
+985
+00:30:22,756 --> 0:30:24,116
+CargoShips are not allowed to
+
+986
+00:30:24,116 --> 0:30:25,686
+carry Radioactive cargo?
+
+987
+00:30:26,936 --> 0:30:28,556
+Well, in this case, we're going
+
+988
+00:30:28,556 --> 0:30:29,476
+to run into trouble.
+
+989
+00:30:29,906 --> 0:30:31,266
+Because now two different parts
+
+990
+00:30:31,266 --> 0:30:32,516
+of the program have different
+
+991
+00:30:32,516 --> 0:30:34,216
+ideas about what this method is
+
+992
+00:30:34,216 --> 0:30:34,976
+supposed to do.
+
+993
+00:30:35,946 --> 0:30:37,296
+And on some inputs, they're
+
+994
+00:30:37,296 --> 0:30:39,766
+still going to agree, for some
+
+995
+00:30:39,766 --> 0:30:42,196
+regular cargo, both the client
+
+996
+00:30:42,976 --> 0:30:46,166
+and the framework will say that
+
+997
+00:30:46,706 --> 0:30:47,076
+it's okay.
+
+998
+00:30:47,076 --> 0:30:48,196
+But if we try to test
+
+999
+00:30:48,196 --> 0:30:50,616
+Radioactive cargo, then the
+
+1000
+00:30:50,616 --> 0:30:52,426
+client code will say that it's
+
+1001
+00:30:52,426 --> 0:30:54,336
+okay, because that's what it saw
+
+1002
+00:30:54,336 --> 0:30:55,566
+in the Module Interface when it
+
+1003
+00:30:55,566 --> 0:30:56,326
+was compiled.
+
+1004
+00:30:57,376 --> 0:30:58,846
+While the framework has the new
+
+1005
+00:30:58,846 --> 0:31:00,706
+version of the method, and will
+
+1006
+00:30:58,846 --> 0:31:00,706
+version of the method, and will
+
+1007
+00:31:00,706 --> 0:31:01,556
+disallow it.
+
+1008
+00:31:02,216 --> 0:31:03,946
+This could indicate a serious
+
+1009
+00:31:03,946 --> 0:31:05,456
+logic error in the program.
+
+1010
+00:31:06,526 --> 0:31:08,566
+So, as a rule of thumb, if
+
+1011
+00:31:08,566 --> 0:31:09,646
+you're a framework author who
+
+1012
+00:31:09,646 --> 0:31:11,116
+has made a function inlinable,
+
+1013
+00:31:11,666 --> 0:31:13,236
+make sure not to change the
+
+1014
+00:31:13,236 --> 0:31:14,976
+output or observable behavior.
+
+1015
+00:31:16,176 --> 0:31:17,606
+It's okay to add a better
+
+1016
+00:31:17,606 --> 0:31:19,966
+algorithm, or some additional
+
+1017
+00:31:20,036 --> 0:31:21,866
+fast pads, but if you change the
+
+1018
+00:31:21,866 --> 0:31:23,166
+observable behavior of the
+
+1019
+00:31:23,166 --> 0:31:25,286
+function, then you could end up
+
+1020
+00:31:25,286 --> 0:31:26,256
+with these really subtle
+
+1021
+00:31:26,256 --> 0:31:27,836
+problems that are only visible
+
+1022
+00:31:27,836 --> 0:31:29,776
+at runtime, and possibly only
+
+1023
+00:31:29,776 --> 0:31:30,796
+under certain inputs.
+
+1024
+00:31:31,096 --> 0:31:32,556
+If you need to do this, all your
+
+1025
+00:31:32,556 --> 0:31:34,096
+clients need to recompile.
+
+1026
+00:31:34,686 --> 0:31:39,046
+So next I want to talk about
+
+1027
+00:31:39,046 --> 0:31:39,836
+enums.
+
+1028
+00:31:40,946 --> 0:31:42,756
+Swift enums are great.
+
+1029
+00:31:43,006 --> 0:31:43,756
+I love them.
+
+1030
+00:31:44,556 --> 0:31:45,496
+And one thing that we talked
+
+1031
+00:31:45,496 --> 0:31:47,036
+about here is that you can add
+
+1032
+00:31:47,036 --> 0:31:48,946
+new cases to an enum without
+
+1033
+00:31:48,976 --> 0:31:50,236
+breaking source or binary
+
+1034
+00:31:50,236 --> 0:31:51,096
+compatibility.
+
+1035
+00:31:51,946 --> 0:31:53,796
+What this means for clients is
+
+1036
+00:31:53,796 --> 0:31:54,996
+that they always have to have a
+
+1037
+00:31:54,996 --> 0:31:56,816
+default case when they switch
+
+1038
+00:31:56,816 --> 0:31:57,566
+over the enum.
+
+1039
+00:31:58,346 --> 0:31:59,976
+And in this client, they've
+
+1040
+00:31:59,976 --> 0:32:01,536
+decided to use the unknown
+
+1041
+00:31:59,976 --> 0:32:01,536
+decided to use the unknown
+
+1042
+00:32:01,536 --> 0:32:03,276
+default syntax that was also
+
+1043
+00:32:03,276 --> 0:32:06,276
+introduced in Swift 4.2.
+
+1044
+00:32:06,516 --> 0:32:08,466
+What this means is that they've
+
+1045
+00:32:08,466 --> 0:32:10,766
+handled all the known cases in
+
+1046
+00:32:10,766 --> 0:32:13,506
+the enum but will still handle
+
+1047
+00:32:13,506 --> 0:32:15,146
+any future cases that are added,
+
+1048
+00:32:15,616 --> 0:32:16,906
+and this is necessary when
+
+1049
+00:32:16,906 --> 0:32:19,896
+switching over C enums, and also
+
+1050
+00:32:19,896 --> 0:32:22,166
+enums built in binary
+
+1051
+00:32:22,166 --> 0:32:22,906
+frameworks.
+
+1052
+00:32:23,456 --> 0:32:26,346
+The other effect that this has
+
+1053
+00:32:26,576 --> 0:32:28,026
+is what I talked about earlier,
+
+1054
+00:32:28,376 --> 0:32:30,026
+this sort of handshake between
+
+1055
+00:32:30,026 --> 0:32:31,286
+the client and the framework,
+
+1056
+00:32:31,586 --> 0:32:33,446
+about how big the enum is, and
+
+1057
+00:32:33,446 --> 0:32:34,866
+whether it needs any cleanup.
+
+1058
+00:32:35,306 --> 0:32:37,826
+But the example I've picked here
+
+1059
+00:32:37,826 --> 0:32:38,946
+is a Flight Plan.
+
+1060
+00:32:39,746 --> 0:32:41,666
+You can really only have one-way
+
+1061
+00:32:41,666 --> 0:32:43,446
+flights, or round-trip flights.
+
+1062
+00:32:44,826 --> 0:32:46,666
+So by marking this enum with the
+
+1063
+00:32:46,666 --> 0:32:49,336
+frozen attribute, then I as the
+
+1064
+00:32:49,336 --> 0:32:50,786
+framework author can promise
+
+1065
+00:32:51,906 --> 0:32:53,286
+that there are no new cases
+
+1066
+00:32:53,286 --> 0:32:55,146
+added in future releases of the
+
+1067
+00:32:55,146 --> 0:32:55,526
+framework.
+
+1068
+00:32:56,956 --> 0:32:58,796
+The first effect of this is that
+
+1069
+00:32:58,796 --> 0:33:00,436
+clients no longer have to write
+
+1070
+00:32:58,796 --> 0:33:00,436
+clients no longer have to write
+
+1071
+00:33:00,436 --> 0:33:01,406
+that default case.
+
+1072
+00:33:01,596 --> 0:33:02,686
+It can just go away.
+
+1073
+00:33:04,276 --> 0:33:07,316
+And next, the compiler is able
+
+1074
+00:33:07,316 --> 0:33:09,226
+to compile it more efficiently.
+
+1075
+00:33:09,946 --> 0:33:12,476
+The clients are able to assume
+
+1076
+00:33:12,976 --> 0:33:14,266
+that this enum won't have any
+
+1077
+00:33:14,266 --> 0:33:16,236
+additional cases and won't
+
+1078
+00:33:16,236 --> 0:33:17,436
+require any cleanup.
+
+1079
+00:33:18,756 --> 0:33:19,486
+So that's great.
+
+1080
+00:33:21,096 --> 0:33:22,346
+Except I forgot something.
+
+1081
+00:33:22,996 --> 0:33:24,416
+There is another kind of Flight
+
+1082
+00:33:24,486 --> 0:33:24,786
+Plan.
+
+1083
+00:33:24,786 --> 0:33:26,026
+A multiHop flight.
+
+1084
+00:33:27,186 --> 0:33:28,246
+And now we're in trouble,
+
+1085
+00:33:28,746 --> 0:33:30,546
+because that client code no
+
+1086
+00:33:30,546 --> 0:33:32,956
+longer has a default case, so
+
+1087
+00:33:32,956 --> 0:33:35,206
+adding a new case to a frozen
+
+1088
+00:33:35,206 --> 0:33:37,946
+enum is both source and binary
+
+1089
+00:33:37,946 --> 0:33:39,476
+breaking and requires
+
+1090
+00:33:39,476 --> 0:33:41,006
+incrementing the Major Version
+
+1091
+00:33:41,326 --> 0:33:42,706
+and asking all clients to
+
+1092
+00:33:42,706 --> 0:33:43,366
+recompile.
+
+1093
+00:33:43,986 --> 0:33:48,296
+Now, after frozen enums, frozen
+
+1094
+00:33:48,296 --> 0:33:49,946
+structs are much the same.
+
+1095
+00:33:50,516 --> 0:33:52,886
+By default, a Struct in a binary
+
+1096
+00:33:52,886 --> 0:33:54,646
+framework can have new stored
+
+1097
+00:33:54,646 --> 0:33:55,756
+properties added, or the
+
+1098
+00:33:55,756 --> 0:33:57,686
+existing ones reordered without
+
+1099
+00:33:57,686 --> 0:33:59,856
+any trouble, but that does
+
+1100
+00:33:59,916 --> 0:34:01,716
+result in that same sort of
+
+1101
+00:33:59,916 --> 0:34:01,716
+result in that same sort of
+
+1102
+00:34:02,096 --> 0:34:03,066
+handshake and extra
+
+1103
+00:34:03,066 --> 0:34:04,856
+communication between the client
+
+1104
+00:34:05,136 --> 0:34:06,036
+and the framework.
+
+1105
+00:34:06,746 --> 0:34:10,485
+So, in order to avoid this, for
+
+1106
+00:34:10,485 --> 0:34:12,386
+structs that are known to have a
+
+1107
+00:34:12,386 --> 0:34:14,956
+frozen layout, the frozen
+
+1108
+00:34:14,956 --> 0:34:16,926
+attribute can be used to promise
+
+1109
+00:34:17,216 --> 0:34:18,525
+that the stored properties will
+
+1110
+00:34:18,525 --> 0:34:19,306
+not change.
+
+1111
+00:34:19,616 --> 0:34:20,936
+They will not be added, or
+
+1112
+00:34:20,936 --> 0:34:22,166
+reordered, or removed.
+
+1113
+00:34:22,835 --> 0:34:25,596
+And the other thing that this
+
+1114
+00:34:25,656 --> 0:34:27,726
+does is require that the stored
+
+1115
+00:34:27,726 --> 0:34:30,126
+properties all have types that
+
+1116
+00:34:30,126 --> 0:34:31,866
+are public, or usable from
+
+1117
+00:34:31,866 --> 0:34:32,315
+inline.
+
+1118
+00:34:32,876 --> 0:34:34,255
+Because remember what the goal
+
+1119
+00:34:34,255 --> 0:34:34,775
+is here.
+
+1120
+00:34:35,156 --> 0:34:37,146
+We want the compiler when it's
+
+1121
+00:34:37,146 --> 0:34:39,505
+working with client code, to be
+
+1122
+00:34:39,505 --> 0:34:40,846
+able to manipulate the stored
+
+1123
+00:34:40,846 --> 0:34:42,045
+properties of this struct
+
+1124
+00:34:42,045 --> 0:34:43,616
+directly, so that it can
+
+1125
+00:34:43,616 --> 0:34:45,396
+generate more efficient code on
+
+1126
+00:34:45,396 --> 0:34:46,926
+the client side.
+
+1127
+00:34:47,815 --> 0:34:49,966
+This also has a semantic effect,
+
+1128
+00:34:50,386 --> 0:34:51,416
+which is that the framework
+
+1129
+00:34:51,416 --> 0:34:53,156
+author can now write inlinable
+
+1130
+00:34:53,156 --> 0:34:53,936
+initializers.
+
+1131
+00:34:54,525 --> 0:34:55,996
+An initializer is already
+
+1132
+00:34:55,996 --> 0:34:57,836
+required to set up all of the
+
+1133
+00:34:57,836 --> 0:34:59,256
+stored properties in the struct,
+
+1134
+00:34:59,826 --> 0:35:01,866
+but now the compiler can be sure
+
+1135
+00:34:59,826 --> 0:35:01,866
+but now the compiler can be sure
+
+1136
+00:35:02,066 --> 0:35:03,726
+that it will also do so in
+
+1137
+00:35:03,726 --> 0:35:04,816
+future versions of the
+
+1138
+00:35:04,816 --> 0:35:05,236
+framework.
+
+1139
+00:35:05,326 --> 0:35:09,196
+Now, I want to close up this
+
+1140
+00:35:09,196 --> 0:35:11,156
+section by reminding you that
+
+1141
+00:35:11,156 --> 0:35:13,036
+flexibility is the default for
+
+1142
+00:35:13,036 --> 0:35:13,736
+reasons.
+
+1143
+00:35:14,536 --> 0:35:15,896
+And the main one of these is
+
+1144
+00:35:15,896 --> 0:35:17,656
+that breaking changes are really
+
+1145
+00:35:17,656 --> 0:35:19,226
+inconvenient for their clients.
+
+1146
+00:35:20,136 --> 0:35:21,926
+A client is going to have-- make
+
+1147
+00:35:21,926 --> 0:35:23,516
+a second guess over whether or
+
+1148
+00:35:23,516 --> 0:35:25,026
+not to take the new version of
+
+1149
+00:35:25,026 --> 0:35:26,606
+your framework, because it might
+
+1150
+00:35:26,606 --> 0:35:27,686
+break them in some way.
+
+1151
+00:35:28,366 --> 0:35:29,446
+And you could also get into
+
+1152
+00:35:29,446 --> 0:35:31,316
+trouble when you have one binary
+
+1153
+00:35:31,316 --> 0:35:32,706
+framework depending on another.
+
+1154
+00:35:34,136 --> 0:35:35,666
+It's also worth the reminder
+
+1155
+00:35:36,836 --> 0:35:38,076
+that these attributes only
+
+1156
+00:35:38,106 --> 0:35:39,286
+affect client code.
+
+1157
+00:35:39,696 --> 0:35:41,196
+Within your framework, you still
+
+1158
+00:35:41,196 --> 0:35:42,686
+get the full power of the
+
+1159
+00:35:42,686 --> 0:35:44,186
+compiler optimizations.
+
+1160
+00:35:45,586 --> 0:35:47,856
+So, before reaching for frozen
+
+1161
+00:35:47,856 --> 0:35:49,716
+or inlinable, make sure that you
+
+1162
+00:35:49,716 --> 0:35:51,156
+have profiled the behavior of
+
+1163
+00:35:51,156 --> 0:35:52,826
+your framework form the outside,
+
+1164
+00:35:53,256 --> 0:35:54,636
+and demonstrated that you have a
+
+1165
+00:35:54,636 --> 0:35:56,216
+need for additional performance.
+
+1166
+00:35:56,796 --> 0:35:58,936
+Otherwise, keep that flexibility
+
+1167
+00:35:58,936 --> 0:36:00,546
+because you may need it.
+
+1168
+00:35:58,936 --> 0:36:00,546
+because you may need it.
+
+1169
+00:36:02,696 --> 0:36:04,106
+Now, the last section I want to
+
+1170
+00:36:04,106 --> 0:36:05,836
+talk about is making sure that
+
+1171
+00:36:05,836 --> 0:36:07,606
+your client's experience is the
+
+1172
+00:36:07,606 --> 0:36:08,516
+best it can be.
+
+1173
+00:36:09,266 --> 0:36:11,086
+And this is going to mirror
+
+1174
+00:36:11,086 --> 0:36:12,826
+Harlan's section a lot from the
+
+1175
+00:36:12,826 --> 0:36:13,916
+first half of the talk.
+
+1176
+00:36:14,496 --> 0:36:15,976
+And so we'll start off with
+
+1177
+00:36:15,976 --> 0:36:16,726
+Entitlements.
+
+1178
+00:36:17,636 --> 0:36:19,036
+If your framework has certain
+
+1179
+00:36:19,036 --> 0:36:20,276
+Entitlements that it needs to
+
+1180
+00:36:20,276 --> 0:36:22,316
+get its job done, well, let's
+
+1181
+00:36:22,316 --> 0:36:23,216
+start with the basics.
+
+1182
+00:36:23,456 --> 0:36:24,636
+Make sure that you document
+
+1183
+00:36:24,636 --> 0:36:26,226
+them, so that any potential
+
+1184
+00:36:26,226 --> 0:36:28,146
+client knows what it needs to do
+
+1185
+00:36:28,456 --> 0:36:29,676
+to successfully adopt your
+
+1186
+00:36:29,676 --> 0:36:30,096
+framework.
+
+1187
+00:36:30,606 --> 0:36:34,536
+And furthermore, try to minimize
+
+1188
+00:36:34,536 --> 0:36:36,246
+the entitlement requests of your
+
+1189
+00:36:36,246 --> 0:36:38,486
+particular framework, because
+
+1190
+00:36:38,486 --> 0:36:39,676
+that means that it will be
+
+1191
+00:36:39,676 --> 0:36:41,676
+applicable in more contexts.
+
+1192
+00:36:42,126 --> 0:36:43,816
+And you can get more clients
+
+1193
+00:36:44,086 --> 0:36:45,056
+using your framework.
+
+1194
+00:36:45,516 --> 0:36:49,636
+And finally, keep in mind that
+
+1195
+00:36:49,636 --> 0:36:51,486
+while both the framework and the
+
+1196
+00:36:51,486 --> 0:36:53,036
+application can request
+
+1197
+00:36:53,096 --> 0:36:54,656
+permissions from the user, it's
+
+1198
+00:36:54,726 --> 0:36:56,686
+ultimately the user's choice
+
+1199
+00:36:57,286 --> 0:36:58,446
+whether or not to grant them.
+
+1200
+00:36:59,606 --> 0:37:00,976
+So if you get denied a
+
+1201
+00:36:59,606 --> 0:37:00,976
+So if you get denied a
+
+1202
+00:37:00,976 --> 0:37:02,746
+particular permission, make sure
+
+1203
+00:37:02,746 --> 0:37:04,016
+your framework handles that
+
+1204
+00:37:04,016 --> 0:37:05,026
+denial gracefully.
+
+1205
+00:37:05,316 --> 0:37:07,026
+It should not crash the app, it
+
+1206
+00:37:07,026 --> 0:37:08,156
+should not stop working.
+
+1207
+00:37:08,646 --> 0:37:09,716
+Make sure it still does
+
+1208
+00:37:09,756 --> 0:37:11,456
+something useful so that your
+
+1209
+00:37:11,456 --> 0:37:12,916
+clients can use the framework
+
+1210
+00:37:13,236 --> 0:37:15,166
+without having to give up.
+
+1211
+00:37:16,996 --> 0:37:19,186
+Now, Dependencies have a lot of
+
+1212
+00:37:19,186 --> 0:37:20,416
+the same concerns as
+
+1213
+00:37:20,416 --> 0:37:21,176
+Entitlements.
+
+1214
+00:37:21,926 --> 0:37:23,506
+Because like Entitlements, your
+
+1215
+00:37:23,506 --> 0:37:25,416
+framework's Dependencies become
+
+1216
+00:37:25,416 --> 0:37:26,986
+the application's Dependencies.
+
+1217
+00:37:27,986 --> 0:37:30,136
+And so again, you should start
+
+1218
+00:37:30,136 --> 0:37:31,906
+off by documenting them, so that
+
+1219
+00:37:31,906 --> 0:37:33,816
+a potential client knows what
+
+1220
+00:37:33,816 --> 0:37:34,826
+they are signing up for.
+
+1221
+00:37:35,486 --> 0:37:36,776
+And you should minimize your
+
+1222
+00:37:36,776 --> 0:37:38,156
+Dependencies, so that you're
+
+1223
+00:37:38,156 --> 0:37:39,796
+asking less of your clients.
+
+1224
+00:37:40,106 --> 0:37:42,036
+Less in extending trust, and
+
+1225
+00:37:42,036 --> 0:37:43,986
+even practical matters like the
+
+1226
+00:37:43,986 --> 0:37:45,696
+code size taken up by your
+
+1227
+00:37:45,696 --> 0:37:46,346
+Dependencies.
+
+1228
+00:37:48,006 --> 0:37:50,046
+And finally, all of your
+
+1229
+00:37:50,046 --> 0:37:51,876
+Dependencies do have to be built
+
+1230
+00:37:52,106 --> 0:37:53,216
+with the Build Libraries for
+
+1231
+00:37:53,216 --> 0:37:55,096
+Distribution build setting in
+
+1232
+00:37:55,096 --> 0:37:56,416
+order to get that binary
+
+1233
+00:37:56,416 --> 0:37:58,516
+compatibility guarantee that we
+
+1234
+00:37:58,516 --> 0:37:59,926
+talked about.
+
+1235
+00:38:00,476 --> 0:38:02,096
+This does have a particular
+
+1236
+00:38:02,096 --> 0:38:04,156
+implication that binary
+
+1237
+00:38:04,156 --> 0:38:05,806
+frameworks cannot depend on
+
+1238
+00:38:05,806 --> 0:38:06,436
+Packages.
+
+1239
+00:38:07,446 --> 0:38:08,456
+Let's look at a Dependency
+
+1240
+00:38:08,456 --> 0:38:08,936
+graph.
+
+1241
+00:38:10,366 --> 0:38:11,946
+I said just a few minutes ago
+
+1242
+00:38:12,276 --> 0:38:13,396
+that the Dependencies of the
+
+1243
+00:38:13,396 --> 0:38:14,706
+framework become the
+
+1244
+00:38:14,706 --> 0:38:15,746
+Dependencies of the app.
+
+1245
+00:38:15,976 --> 0:38:18,326
+But when an app builds a
+
+1246
+00:38:18,326 --> 0:38:19,926
+package, it has to pick a
+
+1247
+00:38:19,926 --> 0:38:21,586
+particular tag to do so.
+
+1248
+00:38:22,416 --> 0:38:23,496
+And that may not match the
+
+1249
+00:38:23,496 --> 0:38:25,096
+version that your framework was
+
+1250
+00:38:25,096 --> 0:38:25,746
+built against.
+
+1251
+00:38:26,076 --> 0:38:27,686
+It may not be compatible at all.
+
+1252
+00:38:28,596 --> 0:38:30,806
+And beyond that, not all
+
+1253
+00:38:30,806 --> 0:38:32,666
+frameworks can necessarily be
+
+1254
+00:38:32,666 --> 0:38:34,036
+built in a mode that is
+
+1255
+00:38:34,036 --> 0:38:35,526
+compatible with Build Libraries
+
+1256
+00:38:35,526 --> 0:38:36,406
+for Distribution.
+
+1257
+00:38:37,246 --> 0:38:39,136
+So this configuration is not
+
+1258
+00:38:39,136 --> 0:38:39,626
+supported.
+
+1259
+00:38:39,626 --> 0:38:42,776
+Now, the last thing I want to
+
+1260
+00:38:42,776 --> 0:38:44,636
+talk about is your Objective-C
+
+1261
+00:38:44,636 --> 0:38:45,216
+Interface.
+
+1262
+00:38:45,986 --> 0:38:47,546
+Yes, you, Swift framework
+
+1263
+00:38:47,546 --> 0:38:49,416
+authors, you have an Objective-C
+
+1264
+00:38:49,416 --> 0:38:51,546
+Interface, most likely, because
+
+1265
+00:38:51,546 --> 0:38:53,216
+Xcode's default template is set
+
+1266
+00:38:53,216 --> 0:38:54,906
+up for a mixed source framework
+
+1267
+00:38:55,096 --> 0:38:56,346
+that has both an Objective-C
+
+1268
+00:38:56,346 --> 0:38:58,616
+Umbrella Header, and a generated
+
+1269
+00:38:58,616 --> 0:38:59,486
+header containing the
+
+1270
+00:38:59,486 --> 0:39:01,206
+Objective-C parts of the Swift
+
+1271
+00:38:59,486 --> 0:39:01,206
+Objective-C parts of the Swift
+
+1272
+00:39:01,206 --> 0:39:01,926
+in your framework.
+
+1273
+00:39:02,566 --> 0:39:05,456
+But if your Swift code doesn't
+
+1274
+00:39:05,456 --> 0:39:07,326
+have any Objective-C API that
+
+1275
+00:39:07,566 --> 0:39:09,716
+it's trying to publish, well,
+
+1276
+00:39:09,916 --> 0:39:11,216
+you don't need to install that
+
+1277
+00:39:11,216 --> 0:39:12,116
+second header at all.
+
+1278
+00:39:12,476 --> 0:39:14,066
+There's an Install Objective-C
+
+1279
+00:39:14,066 --> 0:39:15,376
+Compatibility Header build
+
+1280
+00:39:15,376 --> 0:39:17,156
+setting that you can just turn
+
+1281
+00:39:17,156 --> 0:39:17,546
+off.
+
+1282
+00:39:18,096 --> 0:39:20,686
+And if your framework doesn't
+
+1283
+00:39:20,686 --> 0:39:23,386
+vend any Objective-C API, well
+
+1284
+00:39:23,386 --> 0:39:24,216
+then there's no reason to
+
+1285
+00:39:24,216 --> 0:39:25,866
+support this Objective-C Import
+
+1286
+00:39:25,866 --> 0:39:27,596
+Syntax, and you can turn that
+
+1287
+00:39:27,596 --> 0:39:29,186
+off as well, with the Defines
+
+1288
+00:39:29,186 --> 0:39:30,186
+Module Build setting.
+
+1289
+00:39:30,846 --> 0:39:32,666
+Set it to No, and that will no
+
+1290
+00:39:32,666 --> 0:39:33,976
+longer be valid Objective-C
+
+1291
+00:39:33,976 --> 0:39:34,306
+code.
+
+1292
+00:39:35,386 --> 0:39:36,856
+Once you've done that, you can
+
+1293
+00:39:36,856 --> 0:39:38,886
+delete the Umbrella Header that
+
+1294
+00:39:38,886 --> 0:39:40,716
+Xcode generated for you.
+
+1295
+00:39:42,376 --> 0:39:43,966
+So, let's wrap things up.
+
+1296
+00:39:44,576 --> 0:39:45,756
+We talked about a lot of things
+
+1297
+00:39:45,756 --> 0:39:48,116
+today, but the most important is
+
+1298
+00:39:48,116 --> 0:39:49,046
+XCFrameworks.
+
+1299
+00:39:49,376 --> 0:39:50,516
+They're the new Bundle format
+
+1300
+00:39:50,516 --> 0:39:51,606
+for distributing multiple
+
+1301
+00:39:51,606 --> 0:39:53,496
+framework variants in a way that
+
+1302
+00:39:53,496 --> 0:39:54,906
+is super easy for your users to
+
+1303
+00:39:54,906 --> 0:39:55,376
+use.
+
+1304
+00:39:56,606 --> 0:39:57,506
+In order to build an
+
+1305
+00:39:57,506 --> 0:39:58,996
+XCFramework, you'll need to turn
+
+1306
+00:39:58,996 --> 0:40:00,076
+on the Build Libraries for
+
+1307
+00:39:58,996 --> 0:40:00,076
+on the Build Libraries for
+
+1308
+00:40:00,076 --> 0:40:01,176
+Distribution build setting,
+
+1309
+00:40:01,476 --> 0:40:02,656
+which activates everything that
+
+1310
+00:40:02,656 --> 0:40:04,896
+you need to get a proper binary
+
+1311
+00:40:04,896 --> 0:40:05,886
+compatible framework.
+
+1312
+00:40:06,426 --> 0:40:08,876
+And as framework owners, make
+
+1313
+00:40:08,876 --> 0:40:09,676
+sure that you know the
+
+1314
+00:40:09,676 --> 0:40:11,186
+responsibilities that you have
+
+1315
+00:40:11,186 --> 0:40:12,676
+to your clients, so that you can
+
+1316
+00:40:12,676 --> 0:40:14,826
+serve them the best.
+
+1317
+00:40:14,996 --> 0:40:16,096
+Harlan and I will be down in the
+
+1318
+00:40:16,096 --> 0:40:17,536
+Lab immediately after this
+
+1319
+00:40:17,536 --> 0:40:19,376
+session, but for everyone who
+
+1320
+00:40:19,376 --> 0:40:20,656
+came here, thank you very much,
+
+1321
+00:40:20,716 --> 0:40:21,506
+and let's see some great
+
+1322
+00:40:21,506 --> 0:40:21,966
+frameworks.
+
+1323
+00:40:22,516 --> 0:40:25,500
+[ Applause and Cheering ]

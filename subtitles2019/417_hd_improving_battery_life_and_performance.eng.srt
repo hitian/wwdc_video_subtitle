@@ -1,0 +1,5779 @@
+1
+00:00:00,506 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:09,516 --> 0:00:11,576
+[ Applause ]
+
+3
+00:00:12,076 --> 0:00:13,866
+&gt;&gt; Thanks, everyone.
+
+4
+00:00:14,946 --> 0:00:15,966
+Hi, how are you all doing?
+
+5
+00:00:16,046 --> 0:00:17,246
+Welcome to WWDC.
+
+6
+00:00:17,436 --> 0:00:18,936
+My name is Phillip Azar and I'm
+
+7
+00:00:18,936 --> 0:00:20,206
+proud and happy to be able to
+
+8
+00:00:20,206 --> 0:00:21,606
+share with you our talk on
+
+9
+00:00:21,606 --> 0:00:22,726
+Improving Battery Life and
+
+10
+00:00:22,726 --> 0:00:25,466
+Performance today.
+
+11
+00:00:25,656 --> 0:00:27,026
+Your apps are the backbone of
+
+12
+00:00:27,026 --> 0:00:28,166
+our software experience.
+
+13
+00:00:28,496 --> 0:00:29,826
+They enable our users to do so
+
+14
+00:00:29,826 --> 0:00:31,346
+many things and engage in so
+
+15
+00:00:31,346 --> 0:00:32,676
+many experiences that without
+
+16
+00:00:32,676 --> 0:00:33,916
+your apps, they could never do.
+
+17
+00:00:34,706 --> 0:00:36,996
+And so you can imagine when your
+
+18
+00:00:36,996 --> 0:00:38,376
+apps don't give good battery
+
+19
+00:00:38,376 --> 0:00:39,446
+life and don't give good
+
+20
+00:00:39,446 --> 0:00:40,606
+performance, this really
+
+21
+00:00:40,606 --> 0:00:41,736
+disappoints your users.
+
+22
+00:00:42,086 --> 0:00:43,506
+And so today we want to talk
+
+23
+00:00:43,506 --> 0:00:44,356
+about a few things.
+
+24
+00:00:44,986 --> 0:00:46,426
+We want to go over a set of
+
+25
+00:00:46,426 --> 0:00:48,286
+tools that you can use that are
+
+26
+00:00:48,286 --> 0:00:50,136
+both new and old to be able to
+
+27
+00:00:50,136 --> 0:00:51,596
+optimize your application for
+
+28
+00:00:51,596 --> 0:00:53,306
+battery life and performance.
+
+29
+00:00:53,826 --> 0:00:55,296
+We want to go over a set of
+
+30
+00:00:55,296 --> 0:00:56,816
+metrics that you can collect
+
+31
+00:00:57,066 --> 0:00:59,016
+using those tools to be able to
+
+32
+00:00:59,016 --> 0:01:00,916
+understand and quantify your
+
+33
+00:00:59,016 --> 0:01:00,916
+understand and quantify your
+
+34
+00:01:00,916 --> 0:01:02,256
+application's impact on battery
+
+35
+00:01:02,256 --> 0:01:03,146
+life and performance.
+
+36
+00:01:03,756 --> 0:01:04,775
+And then I'm going to hand it
+
+37
+00:01:04,775 --> 0:01:06,056
+over to my colleagues, who are
+
+38
+00:01:06,056 --> 0:01:07,296
+going to go into these tools in
+
+39
+00:01:07,296 --> 0:01:08,916
+more depth and go through some
+
+40
+00:01:08,916 --> 0:01:10,396
+demos with you and show you how
+
+41
+00:01:10,396 --> 0:01:11,826
+you can use these tools in your
+
+42
+00:01:11,826 --> 0:01:13,666
+application to improve battery
+
+43
+00:01:13,666 --> 0:01:14,546
+life and performance.
+
+44
+00:01:14,766 --> 0:01:15,856
+And then I'll come back and
+
+45
+00:01:15,856 --> 0:01:16,496
+we'll wrap it up.
+
+46
+00:01:16,986 --> 0:01:19,566
+So, let's get started by talking
+
+47
+00:01:19,566 --> 0:01:20,336
+about some tools.
+
+48
+00:01:20,846 --> 0:01:22,876
+And in order to get started
+
+49
+00:01:22,876 --> 0:01:23,866
+talking about tools, we need to
+
+50
+00:01:23,866 --> 0:01:24,776
+talk about the development
+
+51
+00:01:24,776 --> 0:01:26,146
+process and get all familiar
+
+52
+00:01:26,146 --> 0:01:27,196
+with it.
+
+53
+00:01:27,366 --> 0:01:28,666
+Development comes in phases.
+
+54
+00:01:29,106 --> 0:01:30,396
+We've set it up into three
+
+55
+00:01:30,396 --> 0:01:31,126
+different phases.
+
+56
+00:01:31,456 --> 0:01:32,866
+Development and testing is the
+
+57
+00:01:32,866 --> 0:01:33,516
+first phase.
+
+58
+00:01:33,946 --> 0:01:35,136
+And at this stage, we're
+
+59
+00:01:35,136 --> 0:01:36,666
+ideating and creating, and it's
+
+60
+00:01:36,666 --> 0:01:38,056
+a very iterative process.
+
+61
+00:01:38,486 --> 0:01:39,716
+We're either at our desks or
+
+62
+00:01:39,716 --> 0:01:40,846
+maybe in the park, and we're
+
+63
+00:01:40,846 --> 0:01:41,846
+really trying to understand
+
+64
+00:01:42,416 --> 0:01:43,376
+what's going to make our app
+
+65
+00:01:43,376 --> 0:01:43,616
+great.
+
+66
+00:01:45,066 --> 0:01:46,876
+The next phase is called beta.
+
+67
+00:01:47,436 --> 0:01:48,546
+After we've solidified the
+
+68
+00:01:48,546 --> 0:01:49,846
+features in our application and
+
+69
+00:01:49,846 --> 0:01:52,876
+we're ready for a test run, we
+
+70
+00:01:52,876 --> 0:01:54,556
+give it to a few people, our
+
+71
+00:01:54,556 --> 0:01:56,146
+beta users, and we try to get
+
+72
+00:01:56,146 --> 0:01:56,516
+feedback.
+
+73
+00:01:56,986 --> 0:01:59,286
+And then finally, when we're
+
+74
+00:01:59,286 --> 0:02:00,546
+really proud of our application,
+
+75
+00:01:59,286 --> 0:02:00,546
+really proud of our application,
+
+76
+00:02:00,546 --> 0:02:01,396
+when we've collected all the
+
+77
+00:02:01,396 --> 0:02:02,696
+feedback, we're ready for
+
+78
+00:02:02,696 --> 0:02:03,206
+primetime.
+
+79
+00:02:03,766 --> 0:02:04,686
+It's public release.
+
+80
+00:02:05,286 --> 0:02:06,186
+And this is when it's on the
+
+81
+00:02:06,186 --> 0:02:07,226
+AppStore and available to
+
+82
+00:02:07,226 --> 0:02:08,416
+millions of customers around the
+
+83
+00:02:08,416 --> 0:02:08,606
+world.
+
+84
+00:02:09,996 --> 0:02:10,705
+For battery life and
+
+85
+00:02:10,705 --> 0:02:12,886
+performance, every step is
+
+86
+00:02:12,886 --> 0:02:13,976
+critically important.
+
+87
+00:02:14,846 --> 0:02:16,146
+We need to optimize at every
+
+88
+00:02:16,146 --> 0:02:17,546
+step of the way to make sure
+
+89
+00:02:17,546 --> 0:02:18,756
+that we're fixing bugs and
+
+90
+00:02:18,756 --> 0:02:20,186
+making our experience as good as
+
+91
+00:02:20,186 --> 0:02:21,286
+possible for our customers.
+
+92
+00:02:22,516 --> 0:02:24,246
+And so with that in mind, before
+
+93
+00:02:24,246 --> 0:02:26,356
+iOS 13 and Xcode 11, we offered
+
+94
+00:02:26,356 --> 0:02:27,456
+a great set of tools for you to
+
+95
+00:02:27,456 --> 0:02:28,966
+understand the impact of your
+
+96
+00:02:28,966 --> 0:02:30,266
+application's battery life and
+
+97
+00:02:30,266 --> 0:02:30,806
+performance.
+
+98
+00:02:31,876 --> 0:02:33,246
+During development and testing,
+
+99
+00:02:33,246 --> 0:02:34,506
+we have Xcode and all the tools
+
+100
+00:02:34,506 --> 0:02:35,436
+it contains within it.
+
+101
+00:02:35,686 --> 0:02:36,956
+Things like Instruments, the
+
+102
+00:02:36,956 --> 0:02:38,446
+Energy Gauges, and Profiling
+
+103
+00:02:38,446 --> 0:02:38,846
+tools.
+
+104
+00:02:40,026 --> 0:02:41,726
+And then in beta, you can
+
+105
+00:02:41,726 --> 0:02:43,206
+collect traces directly on beta
+
+106
+00:02:43,206 --> 0:02:44,496
+devices using the developer
+
+107
+00:02:44,496 --> 0:02:45,906
+settings and open those up in
+
+108
+00:02:45,906 --> 0:02:46,476
+Instruments.
+
+109
+00:02:46,846 --> 0:02:47,616
+And these are great for
+
+110
+00:02:47,616 --> 0:02:48,786
+understanding problems that may
+
+111
+00:02:48,786 --> 0:02:50,816
+not occur in your development
+
+112
+00:02:50,816 --> 0:02:52,096
+environment but occur in the
+
+113
+00:02:52,096 --> 0:02:53,786
+field such as when you don't
+
+114
+00:02:53,786 --> 0:02:54,546
+have good cell reception.
+
+115
+00:02:55,006 --> 0:02:57,336
+And then finally, the Xcode
+
+116
+00:02:57,336 --> 0:02:58,716
+organizer gives you access to a
+
+117
+00:02:58,716 --> 0:03:00,226
+powerful set of logs that you
+
+118
+00:02:58,716 --> 0:03:00,226
+powerful set of logs that you
+
+119
+00:03:00,226 --> 0:03:01,856
+can see from your public release
+
+120
+00:03:01,966 --> 0:03:03,596
+such as crashes and CPU energy
+
+121
+00:03:03,596 --> 0:03:04,066
+reports.
+
+122
+00:03:04,406 --> 0:03:05,426
+And these help you understand
+
+123
+00:03:05,426 --> 0:03:06,786
+problems that are maybe specific
+
+124
+00:03:06,786 --> 0:03:08,746
+to certain regions or specific
+
+125
+00:03:08,746 --> 0:03:09,856
+to certain customers that may
+
+126
+00:03:09,856 --> 0:03:11,016
+not have the same conditions as
+
+127
+00:03:11,016 --> 0:03:11,186
+you.
+
+128
+00:03:11,666 --> 0:03:14,756
+And so with these tools, we
+
+129
+00:03:14,946 --> 0:03:16,026
+thought to ourselves long and
+
+130
+00:03:16,026 --> 0:03:17,156
+hard over the last few years and
+
+131
+00:03:17,436 --> 0:03:18,876
+wondered there are probably some
+
+132
+00:03:18,876 --> 0:03:19,656
+gaps we can fill.
+
+133
+00:03:20,396 --> 0:03:21,936
+And we spoke to many of you,
+
+134
+00:03:22,416 --> 0:03:23,606
+both indirectly and directly,
+
+135
+00:03:23,926 --> 0:03:24,986
+and the feedback that we got
+
+136
+00:03:24,986 --> 0:03:26,896
+that was most of the gaps are in
+
+137
+00:03:26,896 --> 0:03:27,426
+metrics.
+
+138
+00:03:27,926 --> 0:03:29,576
+How do we quantify our
+
+139
+00:03:29,856 --> 0:03:31,056
+application's battery life and
+
+140
+00:03:31,056 --> 0:03:31,636
+performance?
+
+141
+00:03:31,956 --> 0:03:32,976
+How do we make a decision about
+
+142
+00:03:32,976 --> 0:03:34,466
+feature A versus feature B?
+
+143
+00:03:35,516 --> 0:03:37,426
+Well today, as a part of Xcode
+
+144
+00:03:37,426 --> 0:03:39,736
+11 and iOS 13, I'm super happy
+
+145
+00:03:39,736 --> 0:03:41,296
+to announce that we think we've
+
+146
+00:03:41,296 --> 0:03:42,446
+solved that gap and we've
+
+147
+00:03:42,446 --> 0:03:44,036
+bridged it with three new tools
+
+148
+00:03:44,036 --> 0:03:45,196
+that you can start using today,
+
+149
+00:03:46,536 --> 0:03:48,116
+starting with XCTest Metrics.
+
+150
+00:03:48,576 --> 0:03:49,956
+This is the first new tool that
+
+151
+00:03:49,956 --> 0:03:51,786
+we've shipped with Xcode 11 and
+
+152
+00:03:51,786 --> 0:03:52,816
+this is going to allow you to
+
+153
+00:03:52,816 --> 0:03:54,086
+collect directly within your
+
+154
+00:03:54,086 --> 0:03:56,406
+XCTest performance and battery
+
+155
+00:03:56,406 --> 0:03:58,166
+life metrics of measure blocks.
+
+156
+00:03:58,646 --> 0:03:59,716
+This is going to give you some
+
+157
+00:03:59,716 --> 0:04:01,376
+critical advantage when you're
+
+158
+00:03:59,716 --> 0:04:01,376
+critical advantage when you're
+
+159
+00:04:01,376 --> 0:04:02,686
+running XCTest and trying to
+
+160
+00:04:02,686 --> 0:04:04,416
+understand at a very early stage
+
+161
+00:04:04,776 --> 0:04:06,306
+what is the impact of a certain
+
+162
+00:04:06,306 --> 0:04:06,576
+feature.
+
+163
+00:04:07,796 --> 0:04:10,026
+The next is MetricKit, and this
+
+164
+00:04:10,026 --> 0:04:11,266
+is a powerful new framework that
+
+165
+00:04:11,266 --> 0:04:12,766
+we've built specifically for
+
+166
+00:04:12,766 --> 0:04:14,076
+battery and performance metric
+
+167
+00:04:14,076 --> 0:04:14,496
+collection.
+
+168
+00:04:14,946 --> 0:04:15,896
+And this is going to give you
+
+169
+00:04:15,896 --> 0:04:17,036
+metrics directly in your
+
+170
+00:04:17,036 --> 0:04:18,426
+application and help you
+
+171
+00:04:18,426 --> 0:04:20,016
+understand from all different
+
+172
+00:04:20,016 --> 0:04:21,466
+users how your application is
+
+173
+00:04:21,466 --> 0:04:22,366
+doing in the field.
+
+174
+00:04:23,516 --> 0:04:25,126
+And then finally, we've beefed
+
+175
+00:04:25,126 --> 0:04:27,626
+up the Xcode Organizer with
+
+176
+00:04:27,626 --> 0:04:28,876
+Xcode Metrics Organizer.
+
+177
+00:04:29,126 --> 0:04:30,346
+And this is going to be a
+
+178
+00:04:30,346 --> 0:04:31,966
+high-level aggregated set of
+
+179
+00:04:31,966 --> 0:04:33,176
+metrics that you're going to be
+
+180
+00:04:33,176 --> 0:04:34,876
+able to look at directly in the
+
+181
+00:04:34,876 --> 0:04:36,496
+Xcode Organizer without changing
+
+182
+00:04:36,496 --> 0:04:37,026
+any code.
+
+183
+00:04:37,026 --> 0:04:38,426
+And this is going to give you a
+
+184
+00:04:38,426 --> 0:04:39,896
+great high-level overview of how
+
+185
+00:04:39,896 --> 0:04:41,006
+your application is doing across
+
+186
+00:04:41,006 --> 0:04:42,116
+the world for all your
+
+187
+00:04:42,116 --> 0:04:42,636
+customers.
+
+188
+00:04:43,126 --> 0:04:44,966
+And so looking back at this
+
+189
+00:04:44,966 --> 0:04:46,276
+graph we just talked about, you
+
+190
+00:04:46,276 --> 0:04:47,606
+can imagine all these tools fit
+
+191
+00:04:47,606 --> 0:04:48,986
+really well in the development
+
+192
+00:04:48,986 --> 0:04:50,906
+process, starting with XCTest
+
+193
+00:04:50,906 --> 0:04:52,086
+Metrics during development and
+
+194
+00:04:52,126 --> 0:04:52,346
+testing.
+
+195
+00:04:53,276 --> 0:04:54,926
+Then, MetricKit, as you might
+
+196
+00:04:54,926 --> 0:04:56,576
+imagine, falls really well into
+
+197
+00:04:56,576 --> 0:04:57,956
+beta and public release when you
+
+198
+00:04:57,956 --> 0:04:58,906
+may not have access to the
+
+199
+00:04:58,906 --> 0:04:59,906
+devices that you're interested
+
+200
+00:04:59,906 --> 0:05:01,386
+in collecting metrics about.
+
+201
+00:04:59,906 --> 0:05:01,386
+in collecting metrics about.
+
+202
+00:05:01,896 --> 0:05:04,086
+And then finally, the Xcode
+
+203
+00:05:04,086 --> 0:05:06,056
+Metrics Organizer beefs up your
+
+204
+00:05:06,056 --> 0:05:06,936
+knowledge about the public
+
+205
+00:05:06,936 --> 0:05:08,266
+release and helps you understand
+
+206
+00:05:08,266 --> 0:05:10,826
+problems from primetime users.
+
+207
+00:05:11,206 --> 0:05:13,706
+And so when you put these all
+
+208
+00:05:13,706 --> 0:05:14,776
+together, we see that we have
+
+209
+00:05:14,816 --> 0:05:17,176
+more metrics to quantify battery
+
+210
+00:05:17,176 --> 0:05:18,726
+life and performance at every
+
+211
+00:05:18,726 --> 0:05:19,686
+stage in development.
+
+212
+00:05:19,976 --> 0:05:21,096
+And we think this is awesome.
+
+213
+00:05:21,276 --> 0:05:24,476
+So, we've talked about these
+
+214
+00:05:24,476 --> 0:05:26,106
+tools then a little bit and my
+
+215
+00:05:26,106 --> 0:05:27,076
+colleagues will go into depth
+
+216
+00:05:27,076 --> 0:05:28,166
+later about each of them.
+
+217
+00:05:28,816 --> 0:05:29,656
+But right now I want to talk
+
+218
+00:05:29,656 --> 0:05:30,526
+about the metrics that they
+
+219
+00:05:30,526 --> 0:05:30,916
+provide.
+
+220
+00:05:31,726 --> 0:05:32,766
+Because without these metrics,
+
+221
+00:05:32,766 --> 0:05:33,866
+we wouldn't be able to quantify
+
+222
+00:05:33,866 --> 0:05:34,426
+our impact.
+
+223
+00:05:35,016 --> 0:05:36,586
+So, let's go through them now.
+
+224
+00:05:37,556 --> 0:05:38,776
+This year we're providing two
+
+225
+00:05:38,776 --> 0:05:41,116
+sets of metrics - battery and
+
+226
+00:05:41,116 --> 0:05:41,716
+performance.
+
+227
+00:05:42,816 --> 0:05:44,866
+Who would've guessed?
+
+228
+00:05:45,046 --> 0:05:45,766
+Starting with the battery
+
+229
+00:05:45,766 --> 0:05:47,036
+metrics, we're providing a
+
+230
+00:05:47,036 --> 0:05:48,196
+really great set this year that
+
+231
+00:05:48,196 --> 0:05:49,266
+are going to help you quantify
+
+232
+00:05:49,266 --> 0:05:50,556
+your impact on battery life.
+
+233
+00:05:51,836 --> 0:05:55,656
+Processing, location, display,
+
+234
+00:05:56,476 --> 0:05:59,016
+networking, Bluetooth and
+
+235
+00:05:59,016 --> 0:06:01,366
+accessory metrics, multimedia
+
+236
+00:05:59,016 --> 0:06:01,366
+accessory metrics, multimedia
+
+237
+00:06:01,366 --> 0:06:03,366
+metrics, and camera metrics.
+
+238
+00:06:04,386 --> 0:06:05,646
+This is a huge set of metrics
+
+239
+00:06:05,646 --> 0:06:06,956
+that are really powerful but I
+
+240
+00:06:06,956 --> 0:06:08,076
+want to go through a certain
+
+241
+00:06:08,346 --> 0:06:09,636
+subset of these that we think
+
+242
+00:06:09,636 --> 0:06:10,786
+are really important for
+
+243
+00:06:10,786 --> 0:06:11,146
+everyone.
+
+244
+00:06:12,136 --> 0:06:13,056
+Starting with the processing
+
+245
+00:06:13,056 --> 0:06:13,516
+metrics.
+
+246
+00:06:14,906 --> 0:06:15,956
+Processing metrics, as you might
+
+247
+00:06:15,956 --> 0:06:17,476
+imagine, are things like CPU and
+
+248
+00:06:17,476 --> 0:06:19,326
+GPU time, and we want you to use
+
+249
+00:06:19,326 --> 0:06:21,056
+these metrics to quantify and
+
+250
+00:06:21,056 --> 0:06:22,236
+understand the workload of your
+
+251
+00:06:22,236 --> 0:06:22,746
+application.
+
+252
+00:06:23,136 --> 0:06:24,716
+So for example, you can do
+
+253
+00:06:24,716 --> 0:06:26,706
+things like find CPU spinners in
+
+254
+00:06:26,706 --> 0:06:27,796
+areas where you might not expect
+
+255
+00:06:27,796 --> 0:06:28,166
+them to be.
+
+256
+00:06:28,916 --> 0:06:30,446
+Additionally, you can use, you
+
+257
+00:06:30,446 --> 0:06:31,706
+can find unexpected rendering in
+
+258
+00:06:31,706 --> 0:06:32,616
+your application using these
+
+259
+00:06:32,616 --> 0:06:33,106
+metrics.
+
+260
+00:06:34,436 --> 0:06:35,456
+And critically, we want you to
+
+261
+00:06:35,456 --> 0:06:37,006
+use the processing metrics to
+
+262
+00:06:37,006 --> 0:06:38,106
+compare the algorithmic
+
+263
+00:06:38,106 --> 0:06:39,276
+efficiency of your features,
+
+264
+00:06:39,506 --> 0:06:40,606
+just like we discussed before.
+
+265
+00:06:40,606 --> 0:06:41,626
+If you have feature A and
+
+266
+00:06:41,626 --> 0:06:43,066
+feature B, you can use these
+
+267
+00:06:43,066 --> 0:06:44,146
+metrics to determine which one
+
+268
+00:06:44,146 --> 0:06:45,476
+is better for battery life.
+
+269
+00:06:45,916 --> 0:06:48,636
+Next up we have the location
+
+270
+00:06:48,636 --> 0:06:49,116
+metrics.
+
+271
+00:06:49,376 --> 0:06:50,666
+And these are going to be
+
+272
+00:06:50,666 --> 0:06:51,756
+metrics that are going to help
+
+273
+00:06:51,756 --> 0:06:52,816
+you understand and quantify your
+
+274
+00:06:52,816 --> 0:06:54,236
+location usage, such as your
+
+275
+00:06:54,236 --> 0:06:55,896
+cumulative usage, different
+
+276
+00:06:55,896 --> 0:06:57,356
+accuracy buckets, and your
+
+277
+00:06:57,356 --> 0:06:58,476
+background location usage.
+
+278
+00:06:58,746 --> 0:07:01,636
+Use these metrics to understand
+
+279
+00:06:58,746 --> 0:07:01,636
+Use these metrics to understand
+
+280
+00:07:01,636 --> 0:07:02,816
+your location usage, because
+
+281
+00:07:02,816 --> 0:07:04,126
+it's a common pitfall when it
+
+282
+00:07:04,126 --> 0:07:04,886
+comes to battery life.
+
+283
+00:07:05,436 --> 0:07:06,936
+For example, you might find
+
+284
+00:07:06,936 --> 0:07:08,116
+cases where you leave location
+
+285
+00:07:08,116 --> 0:07:09,206
+running when you don't expect it
+
+286
+00:07:09,206 --> 0:07:09,606
+to be running.
+
+287
+00:07:10,266 --> 0:07:12,376
+Or you may use an accuracy
+
+288
+00:07:12,376 --> 0:07:13,906
+bucket that's too powerful for
+
+289
+00:07:13,906 --> 0:07:14,716
+the use case that you've
+
+290
+00:07:15,136 --> 0:07:16,516
+implemented location for.
+
+291
+00:07:17,086 --> 0:07:18,236
+So, these measures are going to
+
+292
+00:07:18,236 --> 0:07:19,596
+help you understand and optimize
+
+293
+00:07:19,596 --> 0:07:20,326
+those scenarios.
+
+294
+00:07:20,786 --> 0:07:24,166
+Next, we're providing display
+
+295
+00:07:24,166 --> 0:07:24,636
+metrics.
+
+296
+00:07:25,316 --> 0:07:26,326
+And this year we're giving you a
+
+297
+00:07:26,326 --> 0:07:27,516
+variety of display metrics but I
+
+298
+00:07:27,516 --> 0:07:28,226
+want to talk about one in
+
+299
+00:07:28,226 --> 0:07:30,026
+particular called average pixel
+
+300
+00:07:30,026 --> 0:07:30,506
+luminance.
+
+301
+00:07:31,856 --> 0:07:33,696
+On your OLED devices such as the
+
+302
+00:07:33,696 --> 0:07:35,856
+iPhone X and XS, the color of
+
+303
+00:07:35,856 --> 0:07:37,376
+your UI in your application has
+
+304
+00:07:37,376 --> 0:07:38,836
+a direct impact on the amount of
+
+305
+00:07:38,836 --> 0:07:40,316
+energy that you consume on the
+
+306
+00:07:40,316 --> 0:07:40,706
+display.
+
+307
+00:07:40,706 --> 0:07:43,306
+And we represent this through a
+
+308
+00:07:43,306 --> 0:07:44,416
+metric called average pixel
+
+309
+00:07:44,416 --> 0:07:45,496
+luminance or APL.
+
+310
+00:07:46,096 --> 0:07:48,936
+And in a nutshell, the lighter
+
+311
+00:07:48,936 --> 0:07:50,446
+colors that you use in your UI,
+
+312
+00:07:51,076 --> 0:07:52,196
+the more energy you'll consume
+
+313
+00:07:52,196 --> 0:07:53,316
+on OLED devices, and this is
+
+314
+00:07:53,316 --> 0:07:54,476
+what we call a higher APL.
+
+315
+00:07:55,546 --> 0:07:56,886
+And the darker colors you use in
+
+316
+00:07:56,886 --> 0:07:59,296
+your UI, this is what you call a
+
+317
+00:07:59,336 --> 0:08:01,046
+lower APL, and this will consume
+
+318
+00:07:59,336 --> 0:08:01,046
+lower APL, and this will consume
+
+319
+00:08:01,046 --> 0:08:03,336
+less energy, so keep an eye on
+
+320
+00:08:03,336 --> 0:08:04,246
+average pixel luminance this
+
+321
+00:08:04,246 --> 0:08:04,386
+year.
+
+322
+00:08:04,896 --> 0:08:06,796
+Last but not least, we have the
+
+323
+00:08:06,796 --> 0:08:07,676
+networking metrics.
+
+324
+00:08:08,476 --> 0:08:09,766
+And as you might already
+
+325
+00:08:09,766 --> 0:08:11,146
+imagine, these are going to be
+
+326
+00:08:11,146 --> 0:08:12,676
+metrics such as upload and
+
+327
+00:08:12,676 --> 0:08:14,146
+download bytes over cellular and
+
+328
+00:08:14,146 --> 0:08:15,826
+wifi and connectivity metrics.
+
+329
+00:08:16,346 --> 0:08:18,456
+We want you to optimize
+
+330
+00:08:18,456 --> 0:08:19,466
+networking usage whenever
+
+331
+00:08:19,466 --> 0:08:20,366
+possible because it is a
+
+332
+00:08:20,366 --> 0:08:21,336
+high-energy subsystem.
+
+333
+00:08:22,246 --> 0:08:23,556
+So do things with these metrics
+
+334
+00:08:23,656 --> 0:08:25,106
+such as validating your expected
+
+335
+00:08:25,106 --> 0:08:26,186
+upload and download counts.
+
+336
+00:08:26,996 --> 0:08:27,796
+Maybe you have an upload that
+
+337
+00:08:27,796 --> 0:08:29,106
+should've occurred at a later
+
+338
+00:08:29,106 --> 0:08:29,406
+time.
+
+339
+00:08:29,756 --> 0:08:30,556
+You can use these metrics to
+
+340
+00:08:30,556 --> 0:08:31,156
+figure that out.
+
+341
+00:08:31,576 --> 0:08:33,976
+And more importantly, we want
+
+342
+00:08:33,976 --> 0:08:34,946
+you to understand the impact of
+
+343
+00:08:34,946 --> 0:08:36,316
+connectivity on your network
+
+344
+00:08:36,316 --> 0:08:36,876
+transfers.
+
+345
+00:08:37,346 --> 0:08:38,336
+It plays a huge role in the
+
+346
+00:08:38,336 --> 0:08:39,166
+amount of energy that you
+
+347
+00:08:39,166 --> 0:08:40,556
+consume when doing networking.
+
+348
+00:08:40,556 --> 0:08:41,996
+So, these metrics will help you
+
+349
+00:08:41,996 --> 0:08:43,556
+understand if you're staying in
+
+350
+00:08:43,556 --> 0:08:45,016
+poor connectivity condition for
+
+351
+00:08:45,016 --> 0:08:45,996
+long periods of time.
+
+352
+00:08:46,386 --> 0:08:49,146
+And those are the battery
+
+353
+00:08:49,146 --> 0:08:49,616
+metrics.
+
+354
+00:08:50,156 --> 0:08:51,436
+We think these are a great set
+
+355
+00:08:51,646 --> 0:08:52,496
+of metrics that are going to
+
+356
+00:08:52,496 --> 0:08:54,046
+help you quantify the impact of
+
+357
+00:08:54,046 --> 0:08:55,156
+your application on battery
+
+358
+00:08:55,156 --> 0:08:55,476
+life.
+
+359
+00:08:55,986 --> 0:08:57,946
+Let's move onto the performance
+
+360
+00:08:57,946 --> 0:08:59,786
+metrics and this year we're
+
+361
+00:08:59,786 --> 0:09:02,646
+providing hangs, disk metrics,
+
+362
+00:08:59,786 --> 0:09:02,646
+providing hangs, disk metrics,
+
+363
+00:09:03,736 --> 0:09:05,026
+application launch metrics,
+
+364
+00:09:06,036 --> 0:09:08,406
+memory metrics, and custom
+
+365
+00:09:08,406 --> 0:09:09,096
+interval metrics.
+
+366
+00:09:10,226 --> 0:09:11,406
+And as with the battery metrics,
+
+367
+00:09:11,406 --> 0:09:12,666
+I want to focus on a subset of
+
+368
+00:09:12,666 --> 0:09:13,756
+these that are going to be
+
+369
+00:09:13,756 --> 0:09:14,956
+really important for all of us
+
+370
+00:09:14,956 --> 0:09:17,046
+here, starting with the hang
+
+371
+00:09:17,046 --> 0:09:17,536
+metrics.
+
+372
+00:09:18,036 --> 0:09:21,066
+Hang metrics this year are going
+
+373
+00:09:21,066 --> 0:09:22,376
+to be a histogram of the amount
+
+374
+00:09:22,376 --> 0:09:23,546
+of time your application spends
+
+375
+00:09:23,586 --> 0:09:24,906
+unresponsive to user input.
+
+376
+00:09:25,936 --> 0:09:27,906
+And this is a huge user impact.
+
+377
+00:09:28,396 --> 0:09:29,576
+You can imagine if your user is
+
+378
+00:09:29,576 --> 0:09:30,596
+user your application and
+
+379
+00:09:30,596 --> 0:09:31,816
+suddenly it stops working,
+
+380
+00:09:32,186 --> 0:09:32,766
+that's not good.
+
+381
+00:09:33,996 --> 0:09:36,206
+So, use these metrics to work,
+
+382
+00:09:36,206 --> 0:09:37,496
+to understand where you can move
+
+383
+00:09:37,496 --> 0:09:38,376
+work off the main thread of
+
+384
+00:09:38,376 --> 0:09:40,466
+possible and utilize things like
+
+385
+00:09:40,466 --> 0:09:41,976
+dispatches and asynchronous cues
+
+386
+00:09:42,286 --> 0:09:43,366
+to reduce your hang rates.
+
+387
+00:09:43,806 --> 0:09:46,486
+Next we have the disk metrics.
+
+388
+00:09:47,196 --> 0:09:48,486
+And this year we're going to be
+
+389
+00:09:48,486 --> 0:09:50,306
+focusing on disc logical writes.
+
+390
+00:09:50,836 --> 0:09:52,956
+And we want you to quantify disk
+
+391
+00:09:52,956 --> 0:09:54,546
+usage whenever possible because
+
+392
+00:09:54,546 --> 0:09:55,556
+disk usage, as with all
+
+393
+00:09:55,556 --> 0:09:57,316
+subsystems, is a resource that
+
+394
+00:09:57,316 --> 0:09:58,346
+you should only use when you
+
+395
+00:09:58,346 --> 0:09:58,936
+really need to.
+
+396
+00:09:59,776 --> 0:10:01,286
+So, use these metrics to verify
+
+397
+00:09:59,776 --> 0:10:01,286
+So, use these metrics to verify
+
+398
+00:10:01,286 --> 0:10:02,236
+if you have instances of
+
+399
+00:10:02,236 --> 0:10:04,076
+unexpected disk writes and if
+
+400
+00:10:04,076 --> 0:10:05,516
+you're employing any coalescing
+
+401
+00:10:05,516 --> 0:10:06,706
+strategies for your disk writes,
+
+402
+00:10:06,706 --> 0:10:07,846
+you can use these disk metrics
+
+403
+00:10:07,846 --> 0:10:08,986
+to verify those as well.
+
+404
+00:10:11,016 --> 0:10:12,366
+Next are the application launch
+
+405
+00:10:12,366 --> 0:10:12,806
+metrics.
+
+406
+00:10:13,826 --> 0:10:15,146
+And this is super great, because
+
+407
+00:10:15,146 --> 0:10:16,596
+this year we're providing launch
+
+408
+00:10:16,666 --> 0:10:18,496
+and resume time histograms to
+
+409
+00:10:18,496 --> 0:10:19,556
+help you understand your launch
+
+410
+00:10:19,556 --> 0:10:20,576
+and resume times of your
+
+411
+00:10:20,576 --> 0:10:21,056
+application.
+
+412
+00:10:22,656 --> 0:10:24,016
+We want you to quantify the
+
+413
+00:10:24,016 --> 0:10:26,276
+impact on performance that
+
+414
+00:10:26,276 --> 0:10:27,276
+launch and resume have using
+
+415
+00:10:27,276 --> 0:10:27,896
+these metrics.
+
+416
+00:10:28,436 --> 0:10:31,146
+And we want you to understand
+
+417
+00:10:31,146 --> 0:10:31,976
+the impact of the launch
+
+418
+00:10:31,976 --> 0:10:33,696
+activities, so when you do
+
+419
+00:10:33,696 --> 0:10:34,916
+things before your application
+
+420
+00:10:34,916 --> 0:10:35,956
+launches such as a database
+
+421
+00:10:35,956 --> 0:10:37,546
+update, this can directly impact
+
+422
+00:10:37,546 --> 0:10:38,556
+your launch and resume times.
+
+423
+00:10:39,016 --> 0:10:39,996
+These metrics will help you see
+
+424
+00:10:39,996 --> 0:10:40,616
+that in real time.
+
+425
+00:10:41,156 --> 0:10:44,086
+And we also want you to see the
+
+426
+00:10:44,086 --> 0:10:45,396
+difference between launch and
+
+427
+00:10:45,396 --> 0:10:47,026
+resume, because they're two very
+
+428
+00:10:47,026 --> 0:10:47,866
+different paths.
+
+429
+00:10:48,746 --> 0:10:49,866
+And for more information on
+
+430
+00:10:49,866 --> 0:10:51,336
+that, and how to optimize App
+
+431
+00:10:51,336 --> 0:10:52,816
+Lauch, I recommend that you go
+
+432
+00:10:52,816 --> 0:10:53,846
+see the talk tomorrow on
+
+433
+00:10:53,846 --> 0:10:55,536
+Optimizing App Launch at 4:20
+
+434
+00:10:55,536 --> 0:10:55,776
+pm.
+
+435
+00:10:56,286 --> 0:10:58,886
+Last but not least, we have the
+
+436
+00:10:58,886 --> 0:10:59,646
+memory metrics.
+
+437
+00:10:59,746 --> 0:11:01,586
+And for memory this year, we're
+
+438
+00:10:59,746 --> 0:11:01,586
+And for memory this year, we're
+
+439
+00:11:01,586 --> 0:11:02,626
+going to be providing things
+
+440
+00:11:02,626 --> 0:11:04,506
+like average suspended memory
+
+441
+00:11:05,056 --> 0:11:06,966
+and peak memory.
+
+442
+00:11:06,966 --> 0:11:08,076
+Memory management can really
+
+443
+00:11:08,076 --> 0:11:10,226
+impact launch times, and so we
+
+444
+00:11:10,226 --> 0:11:11,256
+want you to use these metrics to
+
+445
+00:11:11,256 --> 0:11:12,356
+keep an eye and keep tabs on
+
+446
+00:11:12,356 --> 0:11:13,966
+your memory usage, which is a
+
+447
+00:11:13,966 --> 0:11:15,416
+critical metric for performance.
+
+448
+00:11:15,906 --> 0:11:18,426
+Use these metrics to understand
+
+449
+00:11:18,426 --> 0:11:19,746
+your memory usage and if you
+
+450
+00:11:19,746 --> 0:11:20,846
+have spikes of peak memory that
+
+451
+00:11:20,846 --> 0:11:21,636
+are way higher than your
+
+452
+00:11:21,636 --> 0:11:23,076
+expectation, this could be
+
+453
+00:11:23,076 --> 0:11:24,846
+indicative of a problem such a
+
+454
+00:11:24,846 --> 0:11:26,086
+hard-to-reproduce memory leak.
+
+455
+00:11:27,606 --> 0:11:28,766
+If you focus on reducing your
+
+456
+00:11:28,766 --> 0:11:30,156
+average memory on suspend, which
+
+457
+00:11:30,156 --> 0:11:30,936
+you can quantify with these
+
+458
+00:11:30,936 --> 0:11:32,356
+metrics, you'll also be able to
+
+459
+00:11:32,356 --> 0:11:33,546
+reduce your launch times and
+
+460
+00:11:33,546 --> 0:11:34,406
+your susceptibility to
+
+461
+00:11:34,406 --> 0:11:35,306
+background termination.
+
+462
+00:11:35,856 --> 0:11:38,466
+And so those are the performance
+
+463
+00:11:38,466 --> 0:11:41,106
+metrics or subset of them, and
+
+464
+00:11:41,276 --> 0:11:42,016
+we think these are going to be
+
+465
+00:11:42,016 --> 0:11:42,926
+really key I helping you
+
+466
+00:11:42,926 --> 0:11:44,426
+understand your performance both
+
+467
+00:11:44,426 --> 0:11:45,336
+on and off device.
+
+468
+00:11:45,856 --> 0:11:49,706
+And so to recap, we talked about
+
+469
+00:11:49,706 --> 0:11:50,876
+the tools that you had before
+
+470
+00:11:50,876 --> 0:11:52,786
+Xcode 11 and iOS 13 to
+
+471
+00:11:52,786 --> 0:11:54,246
+understand and quantify power
+
+472
+00:11:54,246 --> 0:11:54,846
+and performance.
+
+473
+00:11:56,016 --> 0:11:57,026
+Then we talked about the new set
+
+474
+00:11:57,026 --> 0:11:58,056
+of tools that we're offering you
+
+475
+00:11:58,056 --> 0:11:59,376
+this year to be able to take
+
+476
+00:11:59,376 --> 0:12:00,626
+that quantification one step
+
+477
+00:11:59,376 --> 0:12:00,626
+that quantification one step
+
+478
+00:12:00,626 --> 0:12:02,236
+further and help you optimize
+
+479
+00:12:02,236 --> 0:12:02,886
+your application.
+
+480
+00:12:03,786 --> 0:12:05,016
+And these great set of metrics
+
+481
+00:12:05,016 --> 0:12:06,326
+that they provide that are going
+
+482
+00:12:06,326 --> 0:12:07,506
+to really help you take your app
+
+483
+00:12:07,506 --> 0:12:08,246
+to the next level.
+
+484
+00:12:08,806 --> 0:12:09,876
+And so without further ado, I
+
+485
+00:12:09,876 --> 0:12:10,726
+want to hand it off to my
+
+486
+00:12:10,726 --> 0:12:12,056
+colleagues who are going to go
+
+487
+00:12:12,056 --> 0:12:13,166
+into some deep dives with each
+
+488
+00:12:13,166 --> 0:12:14,226
+of the tools that we discussed,
+
+489
+00:12:14,756 --> 0:12:16,046
+starting with Sastry, who's
+
+490
+00:12:16,046 --> 0:12:16,866
+going to talk to you about
+
+491
+00:12:16,866 --> 0:12:18,146
+measuring app impact during
+
+492
+00:12:18,146 --> 0:12:19,466
+development and testing with
+
+493
+00:12:19,466 --> 0:12:20,356
+XCTest Metrics.
+
+494
+00:12:20,856 --> 0:12:21,246
+Sastry?
+
+495
+00:12:23,516 --> 0:12:26,500
+[ Applause ]
+
+496
+00:12:29,176 --> 0:12:30,126
+&gt;&gt; Thank you, Phil.
+
+497
+00:12:30,926 --> 0:12:31,566
+Hello, everyone.
+
+498
+00:12:31,676 --> 0:12:33,196
+My name is Sastry Vadlamari.
+
+499
+00:12:33,446 --> 0:12:34,836
+I'm a software engineer here at
+
+500
+00:12:34,836 --> 0:12:35,286
+Apple.
+
+501
+00:12:35,936 --> 0:12:37,366
+Let's recap some of the tools at
+
+502
+00:12:37,366 --> 0:12:38,486
+your disposal to measure
+
+503
+00:12:38,486 --> 0:12:39,886
+application impact during
+
+504
+00:12:39,886 --> 0:12:40,946
+development and testing.
+
+505
+00:12:41,936 --> 0:12:43,366
+Right inside the debug navigator
+
+506
+00:12:43,366 --> 0:12:44,946
+of XCode, you can get a
+
+507
+00:12:44,946 --> 0:12:46,816
+high-level overview of the CPU
+
+508
+00:12:46,816 --> 0:12:48,566
+memory and energy subsystems.
+
+509
+00:12:48,566 --> 0:12:50,816
+And when you want to dig into
+
+510
+00:12:50,816 --> 0:12:52,556
+the details or diagnose some
+
+511
+00:12:52,556 --> 0:12:54,616
+issues, Instruments is a real
+
+512
+00:12:54,616 --> 0:12:55,346
+useful tool.
+
+513
+00:12:55,906 --> 0:12:57,106
+It comes with templates that
+
+514
+00:12:57,106 --> 0:12:59,306
+help you diagnose memory issues,
+
+515
+00:13:00,096 --> 0:13:03,526
+system unresponsiveness, and
+
+516
+00:13:03,526 --> 0:13:06,636
+excessive disk usage, and energy
+
+517
+00:13:06,636 --> 0:13:07,066
+issues.
+
+518
+00:13:08,446 --> 0:13:10,376
+You can also use XCTest to
+
+519
+00:13:10,376 --> 0:13:11,536
+measure performance.
+
+520
+00:13:12,116 --> 0:13:13,886
+XCTest is a program that lets
+
+521
+00:13:13,886 --> 0:13:15,986
+you write UI and unit tests that
+
+522
+00:13:15,986 --> 0:13:18,006
+are seamlessly integrated into
+
+523
+00:13:18,176 --> 0:13:19,886
+XCode testing workflow.
+
+524
+00:13:21,326 --> 0:13:22,316
+You can not only measure
+
+525
+00:13:22,316 --> 0:13:23,666
+performance, but you can catch
+
+526
+00:13:23,666 --> 0:13:25,356
+regressions who have baselines.
+
+527
+00:13:25,986 --> 0:13:29,446
+But then until last year, the
+
+528
+00:13:29,446 --> 0:13:31,136
+only metric you could measure
+
+529
+00:13:31,136 --> 0:13:32,216
+was world clock time.
+
+530
+00:13:32,816 --> 0:13:34,526
+Performance has more dimensions.
+
+531
+00:13:34,836 --> 0:13:36,386
+So this year we've added new
+
+532
+00:13:36,386 --> 0:13:40,286
+performance metrics into XCTest.
+
+533
+00:13:40,366 --> 0:13:41,896
+So, let's take a look into the
+
+534
+00:13:41,896 --> 0:13:42,346
+details.
+
+535
+00:13:42,696 --> 0:13:44,946
+This is how a sample performance
+
+536
+00:13:44,946 --> 0:13:46,016
+XCTest looks like.
+
+537
+00:13:46,396 --> 0:13:47,846
+You need to pattern a block of
+
+538
+00:13:47,936 --> 0:13:49,386
+code where you specify the
+
+539
+00:13:49,386 --> 0:13:50,916
+actions you want to perform into
+
+540
+00:13:50,916 --> 0:13:52,376
+the measure method and it would
+
+541
+00:13:52,376 --> 0:13:53,936
+measure the time it takes to
+
+542
+00:13:53,936 --> 0:13:55,406
+perform - to execute this
+
+543
+00:13:55,406 --> 0:13:56,176
+this block of code.
+
+544
+00:13:56,666 --> 0:13:58,306
+Now, in order to convert this
+
+545
+00:13:58,306 --> 0:13:59,556
+into the new style of
+
+546
+00:13:59,556 --> 0:14:01,536
+performance test and to get more
+
+547
+00:13:59,556 --> 0:14:01,536
+performance test and to get more
+
+548
+00:14:01,536 --> 0:14:03,646
+details, we just need to pattern
+
+549
+00:14:03,766 --> 0:14:05,536
+your time, memory, and CPU
+
+550
+00:14:05,536 --> 0:14:07,246
+objects, pack them into a list
+
+551
+00:14:07,246 --> 0:14:08,816
+and pass them in as a parameter
+
+552
+00:14:08,816 --> 0:14:09,776
+to the measure method.
+
+553
+00:14:10,296 --> 0:14:11,986
+And with such minor changes,
+
+554
+00:14:11,986 --> 0:14:13,376
+your existing performance test
+
+555
+00:14:13,376 --> 0:14:15,026
+can measure multiple dimensions.
+
+556
+00:14:16,076 --> 0:14:18,396
+We've gone a little further.
+
+557
+00:14:18,396 --> 0:14:21,286
+With every new UI testing target
+
+558
+00:14:21,286 --> 0:14:22,856
+that you create using XCTest,
+
+559
+00:14:23,426 --> 0:14:24,516
+we're going to give you an
+
+560
+00:14:24,516 --> 0:14:25,746
+application launch test for
+
+561
+00:14:25,746 --> 0:14:25,986
+free.
+
+562
+00:14:26,156 --> 0:14:27,796
+So, without writing any code,
+
+563
+00:14:27,796 --> 0:14:29,486
+you will have a test that'll
+
+564
+00:14:29,486 --> 0:14:30,716
+measure your application's
+
+565
+00:14:30,716 --> 0:14:32,886
+launch time.
+
+566
+00:14:33,056 --> 0:14:33,976
+Let's jump into a demo.
+
+567
+00:14:39,156 --> 0:14:40,976
+So, for the purpose of this
+
+568
+00:14:41,036 --> 0:14:42,236
+session, we created an
+
+569
+00:14:42,296 --> 0:14:44,026
+application that we call an
+
+570
+00:14:44,126 --> 0:14:46,596
+Awesome Photo App.
+
+571
+00:14:46,656 --> 0:14:48,026
+Now, it has a few features.
+
+572
+00:14:48,416 --> 0:14:49,506
+Let me walk you through that.
+
+573
+00:14:49,506 --> 0:14:51,026
+So, it lets you take images.
+
+574
+00:14:52,646 --> 0:14:54,946
+And when you take an image, it
+
+575
+00:14:55,046 --> 0:14:56,526
+geotags it so you can see the
+
+576
+00:14:56,526 --> 0:14:57,436
+location below.
+
+577
+00:14:58,076 --> 0:14:59,696
+And then you can apply some
+
+578
+00:14:59,766 --> 0:15:01,246
+fancy effects to the picture.
+
+579
+00:14:59,766 --> 0:15:01,246
+fancy effects to the picture.
+
+580
+00:15:02,226 --> 0:15:03,156
+We'll be referencing this
+
+581
+00:15:03,156 --> 0:15:04,886
+application tool for the rest of
+
+582
+00:15:04,886 --> 0:15:05,296
+the demo.
+
+583
+00:15:05,886 --> 0:15:07,176
+You also have standard features
+
+584
+00:15:07,176 --> 0:15:08,236
+like being able to load a
+
+585
+00:15:08,236 --> 0:15:09,406
+picture from your photo screen,
+
+586
+00:15:09,536 --> 0:15:11,036
+save the picture, and upload the
+
+587
+00:15:11,036 --> 0:15:12,666
+picture to the server.
+
+588
+00:15:13,046 --> 0:15:14,226
+So, what does this mean?
+
+589
+00:15:14,226 --> 0:15:16,196
+How do you test this application
+
+590
+00:15:16,196 --> 0:15:16,796
+from Xcode?
+
+591
+00:15:17,746 --> 0:15:19,786
+Well, as I mentioned earlier,
+
+592
+00:15:20,436 --> 0:15:24,996
+every new XCTest UI target that
+
+593
+00:15:25,046 --> 0:15:26,016
+you create comes with an
+
+594
+00:15:26,086 --> 0:15:27,276
+application launch test for
+
+595
+00:15:27,276 --> 0:15:27,626
+free.
+
+596
+00:15:28,216 --> 0:15:29,416
+So, I've already taken the
+
+597
+00:15:29,416 --> 0:15:30,916
+liberty of running this test
+
+598
+00:15:31,376 --> 0:15:33,326
+prior to this presentation and
+
+599
+00:15:33,326 --> 0:15:34,716
+here's how the results look
+
+600
+00:15:34,716 --> 0:15:34,866
+like.
+
+601
+00:15:34,866 --> 0:15:38,086
+As you can see, it takes about
+
+602
+00:15:38,086 --> 0:15:39,746
+.2 seconds for launching my
+
+603
+00:15:39,746 --> 0:15:40,386
+application.
+
+604
+00:15:40,456 --> 0:15:41,546
+That's acceptable.
+
+605
+00:15:42,066 --> 0:15:43,496
+You can see the results of the
+
+606
+00:15:43,496 --> 0:15:45,536
+multiple iterations and all of
+
+607
+00:15:45,536 --> 0:15:46,376
+them are around the same
+
+608
+00:15:46,376 --> 0:15:46,826
+numbers.
+
+609
+00:15:47,586 --> 0:15:49,306
+And this is an interesting fact.
+
+610
+00:15:49,306 --> 0:15:50,636
+You can set your baseline.
+
+611
+00:15:51,156 --> 0:15:53,316
+The baselines are a mechanism
+
+612
+00:15:53,316 --> 0:15:54,906
+wherein you set guidelines for
+
+613
+00:15:54,906 --> 0:15:56,166
+what you expect your performance
+
+614
+00:15:56,166 --> 0:15:56,916
+numbers to be.
+
+615
+00:15:57,266 --> 0:15:58,286
+So, whenever your performance
+
+616
+00:15:58,286 --> 0:16:00,236
+numbers go off them, your tests
+
+617
+00:15:58,286 --> 0:16:00,236
+numbers go off them, your tests
+
+618
+00:16:00,236 --> 0:16:01,386
+would fail and that's how you
+
+619
+00:16:01,386 --> 0:16:02,316
+catch regressions.
+
+620
+00:16:02,366 --> 0:16:04,156
+So, you can set the average, you
+
+621
+00:16:04,156 --> 0:16:05,636
+can set the standard deviation,
+
+622
+00:16:06,776 --> 0:16:08,796
+and whenever you run your test
+
+623
+00:16:08,796 --> 0:16:10,176
+next time, if any of the numbers
+
+624
+00:16:10,176 --> 0:16:11,816
+exceed these conditions, your
+
+625
+00:16:11,816 --> 0:16:12,436
+tests would fail.
+
+626
+00:16:13,236 --> 0:16:14,556
+So, I've made a change in the
+
+627
+00:16:14,616 --> 0:16:17,736
+code and I want to ensure that
+
+628
+00:16:17,736 --> 0:16:18,976
+my application launch time
+
+629
+00:16:18,976 --> 0:16:20,286
+hasn't regressed.
+
+630
+00:16:20,316 --> 0:16:21,746
+So, let me just run the test
+
+631
+00:16:21,746 --> 0:16:21,976
+again.
+
+632
+00:16:23,356 --> 0:16:25,486
+There's a couple of points you
+
+633
+00:16:25,486 --> 0:16:26,396
+need to keep in mind when
+
+634
+00:16:26,396 --> 0:16:27,836
+running performance tests.
+
+635
+00:16:28,076 --> 0:16:29,696
+It's a good idea to not have the
+
+636
+00:16:29,846 --> 0:16:31,066
+debugger attached to your
+
+637
+00:16:31,066 --> 0:16:32,806
+process at it adds some overhead
+
+638
+00:16:32,806 --> 0:16:34,246
+and it's also a good idea to
+
+639
+00:16:34,246 --> 0:16:35,996
+turn off all diagnostic options
+
+640
+00:16:35,996 --> 0:16:36,836
+like sanitizers.
+
+641
+00:16:36,836 --> 0:16:39,516
+You can do this easily by either
+
+642
+00:16:39,516 --> 0:16:41,156
+creating a separate scheme or
+
+643
+00:16:41,156 --> 0:16:42,696
+you could use the test plan
+
+644
+00:16:42,896 --> 0:16:44,106
+feature that was recently
+
+645
+00:16:44,106 --> 0:16:45,526
+introduced to turn it off
+
+646
+00:16:45,526 --> 0:16:45,876
+easily.
+
+647
+00:16:46,506 --> 0:16:47,406
+So, now you can see that the
+
+648
+00:16:47,406 --> 0:16:49,336
+test has run and it has failed.
+
+649
+00:16:49,406 --> 0:16:50,306
+If you were to dig into the
+
+650
+00:16:50,306 --> 0:16:51,966
+details, you will see that's
+
+651
+00:16:51,966 --> 0:16:53,566
+becuase the average has
+
+652
+00:16:53,566 --> 0:16:54,706
+really exceeded.
+
+653
+00:16:54,706 --> 0:16:56,466
+I mean, what was .2 seconds has
+
+654
+00:16:56,466 --> 0:16:58,406
+now become about 1.2 seconds.
+
+655
+00:16:59,036 --> 0:17:00,676
+So, in order to debug this, you
+
+656
+00:16:59,036 --> 0:17:00,676
+So, in order to debug this, you
+
+657
+00:17:00,676 --> 0:17:02,396
+can attach this to Instruments
+
+658
+00:17:02,396 --> 0:17:03,696
+and use the Timer Profiler
+
+659
+00:17:03,696 --> 0:17:05,616
+template and find out why your
+
+660
+00:17:05,616 --> 0:17:06,896
+app launch time has gone so bad.
+
+661
+00:17:07,465 --> 0:17:09,165
+I'll spare you the mystery and
+
+662
+00:17:09,165 --> 0:17:10,506
+I'll tell you what I did.
+
+663
+00:17:10,616 --> 0:17:12,026
+So, I'm actually trying to look
+
+664
+00:17:12,026 --> 0:17:13,316
+for a database, checking for
+
+665
+00:17:13,316 --> 0:17:14,915
+database updates in my main
+
+666
+00:17:14,915 --> 0:17:15,185
+thread.
+
+667
+00:17:15,185 --> 0:17:16,435
+And as Phil mentioned earlier,
+
+668
+00:17:16,616 --> 0:17:17,746
+it's a real bad thing to do.
+
+669
+00:17:18,326 --> 0:17:19,886
+So, the right solution for this
+
+670
+00:17:19,886 --> 0:17:21,185
+is to dispatch this into a
+
+671
+00:17:21,185 --> 0:17:24,195
+background queue and hopefully
+
+672
+00:17:24,195 --> 0:17:25,226
+this fixes our problem.
+
+673
+00:17:25,576 --> 0:17:27,286
+Let's run the test again and
+
+674
+00:17:27,286 --> 0:17:29,646
+ensure that the numbers are well
+
+675
+00:17:29,646 --> 0:17:31,356
+within what we expect it to be.
+
+676
+00:17:32,266 --> 0:17:34,536
+The point here is you can,
+
+677
+00:17:34,536 --> 0:17:35,656
+XCTest not only helps you
+
+678
+00:17:35,656 --> 0:17:37,256
+measure but it also helps you
+
+679
+00:17:37,256 --> 0:17:38,506
+ensure things don't regress.
+
+680
+00:17:38,656 --> 0:17:40,206
+So, it's more for you write your
+
+681
+00:17:40,206 --> 0:17:41,676
+test once and you can forget
+
+682
+00:17:41,676 --> 0:17:43,076
+about it and keep running it in
+
+683
+00:17:43,196 --> 0:17:44,996
+your CI system and ensure that,
+
+684
+00:17:45,056 --> 0:17:46,346
+you know your performance
+
+685
+00:17:46,346 --> 0:17:47,026
+doesn't degrade.
+
+686
+00:17:47,026 --> 0:17:49,476
+As you can see, the test passed
+
+687
+00:17:49,666 --> 0:17:50,896
+and yay, we fixed our bug.
+
+688
+00:17:51,516 --> 0:17:56,896
+[ Applause ]
+
+689
+00:17:57,396 --> 0:17:59,566
+So, it's pretty easy to convert
+
+690
+00:17:59,566 --> 0:18:01,536
+your existing XCTest performance
+
+691
+00:17:59,566 --> 0:18:01,536
+your existing XCTest performance
+
+692
+00:18:01,576 --> 0:18:03,526
+tests into to have more
+
+693
+00:18:03,526 --> 0:18:04,566
+dimensions, as I mentioned
+
+694
+00:18:04,566 --> 0:18:04,856
+earlier.
+
+695
+00:18:05,306 --> 0:18:06,826
+So, all you need to do is
+
+696
+00:18:06,936 --> 0:18:09,186
+pattern the objects in a list of
+
+697
+00:18:09,186 --> 0:18:10,406
+what you intend to measure.
+
+698
+00:18:10,586 --> 0:18:11,726
+Like for instance, I had a
+
+699
+00:18:11,726 --> 0:18:13,056
+performance test that was
+
+700
+00:18:13,056 --> 0:18:14,586
+measuring the time it took to
+
+701
+00:18:14,656 --> 0:18:17,836
+take a picture and, you know,
+
+702
+00:18:17,836 --> 0:18:20,346
+use the photo and apply an
+
+703
+00:18:20,486 --> 0:18:20,696
+effect.
+
+704
+00:18:20,696 --> 0:18:21,766
+And earlier, this would've just
+
+705
+00:18:21,766 --> 0:18:22,686
+measured the amount of time.
+
+706
+00:18:23,206 --> 0:18:25,016
+But now, by just passing the
+
+707
+00:18:25,016 --> 0:18:26,986
+additional memory metric object,
+
+708
+00:18:27,316 --> 0:18:28,496
+I can now even measure the
+
+709
+00:18:28,496 --> 0:18:30,196
+memory, in fact, of performing
+
+710
+00:18:30,196 --> 0:18:30,776
+these actions.
+
+711
+00:18:32,266 --> 0:18:34,176
+XCTest doesn't have to be
+
+712
+00:18:34,176 --> 0:18:35,846
+restricted to only UI tests.
+
+713
+00:18:35,846 --> 0:18:37,236
+You can also use it for unit
+
+714
+00:18:37,236 --> 0:18:37,496
+tests.
+
+715
+00:18:38,216 --> 0:18:40,226
+And I'll give you an example
+
+716
+00:18:40,226 --> 0:18:40,466
+here.
+
+717
+00:18:40,466 --> 0:18:42,036
+So I have the Apply Effects
+
+718
+00:18:42,036 --> 0:18:43,296
+feature, and I have an option of
+
+719
+00:18:43,296 --> 0:18:44,506
+selecting whether I want to use
+
+720
+00:18:44,506 --> 0:18:46,386
+one photo or multiple photos.
+
+721
+00:18:46,936 --> 0:18:48,636
+It adds very little value from a
+
+722
+00:18:48,716 --> 0:18:51,296
+feature perspective but if the
+
+723
+00:18:51,296 --> 0:18:52,376
+overhead isn't much, I would
+
+724
+00:18:52,376 --> 0:18:53,196
+rather like to do it.
+
+725
+00:18:53,686 --> 0:18:54,906
+So, I took the liberty of
+
+726
+00:18:54,906 --> 0:18:56,896
+running this test and measuring
+
+727
+00:18:56,896 --> 0:18:59,326
+the time it takes to run this,
+
+728
+00:18:59,326 --> 0:19:00,956
+to apply the effect with one
+
+729
+00:18:59,326 --> 0:19:00,956
+to apply the effect with one
+
+730
+00:19:00,956 --> 0:19:01,156
+photo.
+
+731
+00:19:01,156 --> 0:19:03,176
+And it's about 1000KB.
+
+732
+00:19:03,666 --> 0:19:05,596
+But now it's really easy to
+
+733
+00:19:05,596 --> 0:19:08,096
+measure the impact of adding, of
+
+734
+00:19:08,556 --> 0:19:09,486
+a different scenario.
+
+735
+00:19:09,486 --> 0:19:10,646
+All you need to do is change the
+
+736
+00:19:10,646 --> 0:19:10,936
+code.
+
+737
+00:19:10,936 --> 0:19:11,966
+I've changed the code to choose
+
+738
+00:19:12,006 --> 0:19:13,636
+filters, and you run the test
+
+739
+00:19:13,636 --> 0:19:13,946
+again.
+
+740
+00:19:14,516 --> 0:19:16,516
+And the test runs and you'll get
+
+741
+00:19:16,516 --> 0:19:18,566
+back your numbers immediately.
+
+742
+00:19:18,766 --> 0:19:20,716
+And when that happens, you can
+
+743
+00:19:20,796 --> 0:19:22,816
+check your impact.
+
+744
+00:19:23,096 --> 0:19:26,656
+So, as you can see, the impact
+
+745
+00:19:27,066 --> 0:19:29,936
+is, the test failed because this
+
+746
+00:19:29,936 --> 0:19:32,796
+one is about 100% worse.
+
+747
+00:19:32,796 --> 0:19:34,286
+It's about 2000KB.
+
+748
+00:19:34,366 --> 0:19:35,866
+So probably I'm going to stick
+
+749
+00:19:35,866 --> 0:19:37,886
+with one photo.
+
+750
+00:19:38,446 --> 0:19:43,216
+So, to summarize, I gave you a
+
+751
+00:19:43,216 --> 0:19:45,806
+demo of using a few metrics like
+
+752
+00:19:45,806 --> 0:19:46,166
+memory.
+
+753
+00:19:46,436 --> 0:19:48,136
+But we added a whole bunch of
+
+754
+00:19:48,136 --> 0:19:48,296
+them.
+
+755
+00:19:48,296 --> 0:19:49,176
+We added memory.
+
+756
+00:19:49,176 --> 0:19:50,126
+We added storage.
+
+757
+00:19:50,126 --> 0:19:50,916
+We added CPU.
+
+758
+00:19:50,916 --> 0:19:52,376
+We added OS Signpost.
+
+759
+00:19:52,606 --> 0:19:54,396
+But we didn't stop there.
+
+760
+00:19:54,396 --> 0:19:56,386
+We put away generic underlying
+
+761
+00:19:56,386 --> 0:19:57,956
+system, so you can actually
+
+762
+00:19:57,956 --> 0:19:59,316
+implement your own custom
+
+763
+00:19:59,316 --> 0:20:00,636
+metrics and use the underlying
+
+764
+00:19:59,316 --> 0:20:00,636
+metrics and use the underlying
+
+765
+00:20:00,636 --> 0:20:01,946
+reporting system to catch
+
+766
+00:20:01,946 --> 0:20:02,466
+regressions.
+
+767
+00:20:03,116 --> 0:20:03,746
+Please look into the
+
+768
+00:20:03,746 --> 0:20:05,286
+documentation for more details.
+
+769
+00:20:06,326 --> 0:20:07,836
+And then as I demonstrated in
+
+770
+00:20:07,836 --> 0:20:09,526
+the last example, you can also
+
+771
+00:20:09,526 --> 0:20:11,796
+use XCTest to do some sort of AB
+
+772
+00:20:11,796 --> 0:20:12,076
+testing.
+
+773
+00:20:12,076 --> 0:20:14,386
+It's really a low-cost, easy way
+
+774
+00:20:14,816 --> 0:20:16,536
+to check if algorithm A is
+
+775
+00:20:16,536 --> 0:20:17,586
+better than algorithm B.
+
+776
+00:20:17,786 --> 0:20:19,166
+Just wrap them around on simple
+
+777
+00:20:19,166 --> 0:20:20,736
+unit tests and you can have your
+
+778
+00:20:20,736 --> 0:20:20,996
+numbers.
+
+779
+00:20:21,966 --> 0:20:25,176
+And because XCTest works so well
+
+780
+00:20:25,176 --> 0:20:26,716
+with both Xcode and Xcode
+
+781
+00:20:26,716 --> 0:20:28,646
+server, you could use this
+
+782
+00:20:28,646 --> 0:20:30,866
+performance test, both in your
+
+783
+00:20:30,866 --> 0:20:32,256
+development and testing phase
+
+784
+00:20:32,256 --> 0:20:33,376
+and also as part of your
+
+785
+00:20:33,376 --> 0:20:34,846
+continuous integration system
+
+786
+00:20:34,956 --> 0:20:36,456
+and ensure that your app doesn't
+
+787
+00:20:36,456 --> 0:20:37,586
+regress on the performance
+
+788
+00:20:37,586 --> 0:20:37,806
+front.
+
+789
+00:20:38,356 --> 0:20:40,346
+So, that's what's new with
+
+790
+00:20:40,406 --> 0:20:42,386
+performance testing with XCTest.
+
+791
+00:20:42,816 --> 0:20:43,836
+Next, I'd like to call upon
+
+792
+00:20:43,926 --> 0:20:45,016
+Ashish, who's going to talk to
+
+793
+00:20:45,016 --> 0:20:46,026
+you about measuring your
+
+794
+00:20:46,026 --> 0:20:47,526
+application's impact out in the
+
+795
+00:20:47,526 --> 0:20:47,796
+field.
+
+796
+00:20:49,516 --> 0:20:54,500
+[ Applause ]
+
+797
+00:20:59,586 --> 0:21:00,266
+&gt;&gt; Thanks, Sastry.
+
+798
+00:20:59,586 --> 0:21:00,266
+&gt;&gt; Thanks, Sastry.
+
+799
+00:21:00,976 --> 0:21:02,566
+So, after your initial testing
+
+800
+00:21:02,566 --> 0:21:04,256
+and development phase, there are
+
+801
+00:21:04,256 --> 0:21:05,546
+many benefits of collecting
+
+802
+00:21:05,546 --> 0:21:06,616
+field metrics to further
+
+803
+00:21:06,616 --> 0:21:08,016
+optimize your battery life and
+
+804
+00:21:08,016 --> 0:21:09,396
+performance of your application.
+
+805
+00:21:10,456 --> 0:21:11,726
+This includes leveraging your
+
+806
+00:21:11,726 --> 0:21:13,486
+beta population of a few users
+
+807
+00:21:13,916 --> 0:21:15,256
+as well as your broader customer
+
+808
+00:21:15,256 --> 0:21:15,876
+population.
+
+809
+00:21:16,456 --> 0:21:18,786
+In the field, your application
+
+810
+00:21:18,786 --> 0:21:19,746
+goes through a wide range of
+
+811
+00:21:19,746 --> 0:21:21,516
+user scenarios such as different
+
+812
+00:21:21,516 --> 0:21:22,876
+cellular networks, signal
+
+813
+00:21:22,876 --> 0:21:24,666
+conditions, different types of
+
+814
+00:21:24,666 --> 0:21:26,216
+devices, as well as different
+
+815
+00:21:26,216 --> 0:21:26,726
+locations.
+
+816
+00:21:27,396 --> 0:21:29,076
+These help identify issues that
+
+817
+00:21:29,076 --> 0:21:30,406
+may not have been caught during
+
+818
+00:21:30,406 --> 0:21:31,326
+on-desk testing.
+
+819
+00:21:31,836 --> 0:21:34,106
+You can also use this field
+
+820
+00:21:34,106 --> 0:21:35,596
+metrics to compare the battery
+
+821
+00:21:35,596 --> 0:21:36,666
+life and performance with
+
+822
+00:21:36,666 --> 0:21:37,716
+previous operations.
+
+823
+00:21:38,176 --> 0:21:39,496
+You can use this data to figure
+
+824
+00:21:39,496 --> 0:21:40,716
+out whether there are any new
+
+825
+00:21:40,716 --> 0:21:42,966
+regressions or egregious issues.
+
+826
+00:21:43,536 --> 0:21:45,056
+These field metrics already
+
+827
+00:21:45,056 --> 0:21:46,286
+helps you to also understand the
+
+828
+00:21:46,286 --> 0:21:48,326
+impact of new features and do AB
+
+829
+00:21:48,326 --> 0:21:49,396
+testing in the field with a
+
+830
+00:21:49,396 --> 0:21:50,486
+broader set of users.
+
+831
+00:21:51,156 --> 0:21:53,956
+To solve this problem, I am very
+
+832
+00:21:53,956 --> 0:21:55,166
+happy to announce we are
+
+833
+00:21:55,166 --> 0:21:56,936
+releasing MetricKit, which is an
+
+834
+00:21:56,976 --> 0:21:58,556
+on-device framework to collect
+
+835
+00:21:58,556 --> 0:21:59,906
+battery life and performance
+
+836
+00:21:59,906 --> 0:22:01,116
+metrics for your application.
+
+837
+00:21:59,906 --> 0:22:01,116
+metrics for your application.
+
+838
+00:22:02,436 --> 0:22:04,236
+We also added a capability in
+
+839
+00:22:04,236 --> 0:22:05,746
+MetricKit to collect metrics
+
+840
+00:22:05,746 --> 0:22:07,116
+around the critical sections in
+
+841
+00:22:07,116 --> 0:22:07,956
+your application.
+
+842
+00:22:08,396 --> 0:22:10,226
+We have built all these features
+
+843
+00:22:10,226 --> 0:22:11,936
+into MetricKit while protecting
+
+844
+00:22:11,936 --> 0:22:13,676
+your users' privacy in our data
+
+845
+00:22:13,706 --> 0:22:14,856
+collection aggregation
+
+846
+00:22:14,856 --> 0:22:15,446
+mechanisms.
+
+847
+00:22:16,116 --> 0:22:18,946
+It's very easy to adopt
+
+848
+00:22:18,946 --> 0:22:20,516
+MetricKit and get started, as
+
+849
+00:22:20,516 --> 0:22:21,266
+I'll show you next.
+
+850
+00:22:21,866 --> 0:22:24,256
+So, the code here is all you
+
+851
+00:22:24,256 --> 0:22:25,176
+need to get started.
+
+852
+00:22:25,636 --> 0:22:27,276
+First, you import the MetricKit
+
+853
+00:22:27,336 --> 0:22:29,256
+framework and create a class in
+
+854
+00:22:29,256 --> 0:22:30,616
+your application which conforms
+
+855
+00:22:30,616 --> 0:22:32,086
+to the metric manager subscriber
+
+856
+00:22:32,086 --> 0:22:32,566
+protocol.
+
+857
+00:22:33,146 --> 0:22:35,956
+And inside the class, you have
+
+858
+00:22:35,956 --> 0:22:37,026
+the subscribe for metrics.
+
+859
+00:22:37,686 --> 0:22:39,016
+This lets the device know that
+
+860
+00:22:39,016 --> 0:22:40,366
+your application is interested
+
+861
+00:22:40,366 --> 0:22:41,416
+in receiving metrics for the
+
+862
+00:22:41,416 --> 0:22:43,196
+metric kit so that it can start
+
+863
+00:22:43,196 --> 0:22:46,756
+collecting that on the device.
+
+864
+00:22:46,896 --> 0:22:48,596
+Finally, as a developer, you
+
+865
+00:22:48,596 --> 0:22:49,666
+have to implement a delegate
+
+866
+00:22:49,666 --> 0:22:50,776
+method called didReceive.
+
+867
+00:22:51,316 --> 0:22:52,866
+This method is involved whenever
+
+868
+00:22:52,866 --> 0:22:54,266
+there is a metric payload to be
+
+869
+00:22:54,266 --> 0:22:55,656
+delivered to your application on
+
+870
+00:22:55,656 --> 0:22:56,006
+the device.
+
+871
+00:22:56,716 --> 0:22:58,086
+And it's up to you to take any
+
+872
+00:22:58,086 --> 0:22:59,386
+actions once you receive this
+
+873
+00:22:59,386 --> 0:23:00,196
+payload on the device.
+
+874
+00:22:59,386 --> 0:23:00,196
+payload on the device.
+
+875
+00:23:00,796 --> 0:23:02,356
+For example, you can choose to
+
+876
+00:23:02,356 --> 0:23:03,946
+save it to a file, or you can
+
+877
+00:23:03,946 --> 0:23:05,126
+also upload to your server so
+
+878
+00:23:05,206 --> 0:23:06,176
+you can collect this from the
+
+879
+00:23:06,176 --> 0:23:07,496
+field for multiple users.
+
+880
+00:23:09,576 --> 0:23:11,306
+After using metric, after
+
+881
+00:23:11,306 --> 0:23:12,636
+adopting MetricKit, as your
+
+882
+00:23:12,636 --> 0:23:13,996
+application gets used during the
+
+883
+00:23:13,996 --> 0:23:15,856
+day, we automatically collect an
+
+884
+00:23:15,856 --> 0:23:17,006
+aggregate metrics for our
+
+885
+00:23:17,006 --> 0:23:17,506
+application.
+
+886
+00:23:18,756 --> 0:23:20,476
+And at the end of a 24-hour
+
+887
+00:23:20,476 --> 0:23:22,226
+period, we generate a metric
+
+888
+00:23:22,226 --> 0:23:23,796
+summary for the entire day, the
+
+889
+00:23:23,796 --> 0:23:25,716
+last 24 hours, and return this
+
+890
+00:23:25,716 --> 0:23:28,776
+payload back on the device.
+
+891
+00:23:28,926 --> 0:23:30,246
+Now, let's understand how we can
+
+892
+00:23:30,246 --> 0:23:31,436
+measure the impact of critical
+
+893
+00:23:31,436 --> 0:23:32,556
+code sections in our
+
+894
+00:23:32,556 --> 0:23:33,096
+applications.
+
+895
+00:23:34,516 --> 0:23:35,576
+Going back to the awesome
+
+896
+00:23:35,576 --> 0:23:37,076
+PhotoApp example which Sastry
+
+897
+00:23:37,076 --> 0:23:38,716
+described earlier, users can
+
+898
+00:23:38,716 --> 0:23:39,926
+perform any activities in there.
+
+899
+00:23:40,796 --> 0:23:42,286
+For example, they can choose to
+
+900
+00:23:42,286 --> 0:23:44,386
+take a photo and on that photo,
+
+901
+00:23:44,386 --> 0:23:45,366
+they can apply many cool
+
+902
+00:23:45,366 --> 0:23:45,866
+effects.
+
+903
+00:23:46,486 --> 0:23:47,996
+If they like the effect that
+
+904
+00:23:47,996 --> 0:23:49,556
+they took, they can choose to
+
+905
+00:23:49,556 --> 0:23:50,586
+save the photo on the device.
+
+906
+00:23:51,656 --> 0:23:52,966
+MetricKit provides the ability
+
+907
+00:23:52,966 --> 0:23:54,236
+to capture the precise battery
+
+908
+00:23:54,236 --> 0:23:56,036
+life and performance impact of
+
+909
+00:23:56,036 --> 0:23:57,216
+each of these features of your
+
+910
+00:23:57,216 --> 0:23:57,776
+application.
+
+911
+00:23:59,436 --> 0:24:00,776
+Now, let's see how we can do
+
+912
+00:23:59,436 --> 0:24:00,776
+Now, let's see how we can do
+
+913
+00:24:00,776 --> 0:24:01,016
+that.
+
+914
+00:24:01,716 --> 0:24:03,316
+We are happy to introduce a new
+
+915
+00:24:03,316 --> 0:24:04,776
+API inside MetricKit called
+
+916
+00:24:04,776 --> 0:24:06,856
+mxSignposts which is implemented
+
+917
+00:24:06,856 --> 0:24:08,596
+as a wraparound OS Signpost.
+
+918
+00:24:09,426 --> 0:24:10,596
+By bookending the critical
+
+919
+00:24:10,596 --> 0:24:11,926
+sections in your application
+
+920
+00:24:11,926 --> 0:24:13,686
+with mxSignpost, you can capture
+
+921
+00:24:13,686 --> 0:24:14,626
+the precise impact.
+
+922
+00:24:15,206 --> 0:24:16,136
+Let's take an example.
+
+923
+00:24:17,736 --> 0:24:20,026
+So, to use mxSignpost, all you
+
+924
+00:24:20,026 --> 0:24:22,756
+need to do is to use MetricKit's
+
+925
+00:24:22,756 --> 0:24:25,166
+make log handle maker and create
+
+926
+00:24:25,166 --> 0:24:26,166
+a log handle with it.
+
+927
+00:24:26,866 --> 0:24:28,506
+And use that log handle to drop
+
+928
+00:24:28,506 --> 0:24:30,276
+mxSignpost around critical code
+
+929
+00:24:30,276 --> 0:24:30,786
+sections.
+
+930
+00:24:31,696 --> 0:24:32,876
+In this example, I want to
+
+931
+00:24:32,876 --> 0:24:34,066
+measure the impact of the save
+
+932
+00:24:34,066 --> 0:24:35,396
+photo feature that we have in
+
+933
+00:24:35,396 --> 0:24:36,236
+our awesome photo app.
+
+934
+00:24:36,646 --> 0:24:37,956
+So, I've dropped in mxSignpost
+
+935
+00:24:37,956 --> 0:24:38,986
+just before and after this
+
+936
+00:24:38,986 --> 0:24:39,796
+application code.
+
+937
+00:24:40,776 --> 0:24:42,396
+MetricKit will automatically
+
+938
+00:24:42,396 --> 0:24:44,006
+collect metrics and process them
+
+939
+00:24:44,116 --> 0:24:46,976
+for you on the device.
+
+940
+00:24:47,136 --> 0:24:48,296
+Now, let's jump into a demo
+
+941
+00:24:48,296 --> 0:24:49,386
+where I'll show you how to adopt
+
+942
+00:24:49,386 --> 0:24:50,216
+MetricKit in your own
+
+943
+00:24:50,216 --> 0:24:52,000
+application.
+
+944
+00:24:59,966 --> 0:25:01,396
+So, now I'm back in the Xcode
+
+945
+00:24:59,966 --> 0:25:01,396
+So, now I'm back in the Xcode
+
+946
+00:25:01,396 --> 0:25:03,566
+project of my application and
+
+947
+00:25:04,066 --> 0:25:05,666
+I'm in the view controller.swift
+
+948
+00:25:05,666 --> 0:25:07,266
+file after my application.
+
+949
+00:25:07,466 --> 0:25:08,576
+As you can see, I have already
+
+950
+00:25:08,576 --> 0:25:10,156
+adopted the MetricKit framework
+
+951
+00:25:10,156 --> 0:25:12,056
+here and created a class which
+
+952
+00:25:12,056 --> 0:25:13,376
+conforms to the metric manager
+
+953
+00:25:13,376 --> 0:25:14,366
+subscriber protocol.
+
+954
+00:25:14,956 --> 0:25:16,606
+And inside that class, I've
+
+955
+00:25:16,606 --> 0:25:18,046
+added some code already for the
+
+956
+00:25:18,046 --> 0:25:19,006
+didReceive method.
+
+957
+00:25:19,476 --> 0:25:20,586
+So, this method is involved
+
+958
+00:25:20,586 --> 0:25:21,516
+whenever there's a metric
+
+959
+00:25:21,516 --> 0:25:22,256
+payload available.
+
+960
+00:25:23,116 --> 0:25:24,606
+For my application, I've decided
+
+961
+00:25:24,606 --> 0:25:26,156
+to save the data to a file so
+
+962
+00:25:26,156 --> 0:25:27,466
+that I can do some on-device
+
+963
+00:25:27,466 --> 0:25:28,426
+processing later.
+
+964
+00:25:29,026 --> 0:25:30,276
+For the purposes of today's
+
+965
+00:25:30,276 --> 0:25:31,156
+demo, I've also written a
+
+966
+00:25:31,156 --> 0:25:33,166
+function to print this data so I
+
+967
+00:25:33,166 --> 0:25:33,886
+can walk you through the
+
+968
+00:25:33,886 --> 0:25:34,946
+contents of the payload.
+
+969
+00:25:35,866 --> 0:25:36,946
+Finally, I have written this
+
+970
+00:25:37,006 --> 0:25:38,616
+function to upload this data to
+
+971
+00:25:38,616 --> 0:25:40,266
+my own server so that it can
+
+972
+00:25:40,266 --> 0:25:41,526
+collect this data from multiple
+
+973
+00:25:41,526 --> 0:25:43,356
+users during beta testing as
+
+974
+00:25:43,596 --> 0:25:45,916
+well as customers.
+
+975
+00:25:45,966 --> 0:25:48,026
+Now, as this method is only
+
+976
+00:25:48,026 --> 0:25:49,446
+involved at most once per day,
+
+977
+00:25:49,806 --> 0:25:50,756
+whenever there's a payload
+
+978
+00:25:50,756 --> 0:25:52,056
+available for our application,
+
+979
+00:25:52,426 --> 0:25:54,026
+we built a new feature in Xcode
+
+980
+00:25:54,026 --> 0:25:55,016
+to help you test this out.
+
+981
+00:25:55,426 --> 0:25:56,386
+So, let me show you how that
+
+982
+00:25:56,386 --> 0:25:56,746
+works.
+
+983
+00:25:57,556 --> 0:25:58,806
+We're first going to run this
+
+984
+00:25:58,806 --> 0:25:59,836
+application on my test device
+
+985
+00:25:59,836 --> 0:25:59,976
+here.
+
+986
+00:26:05,096 --> 0:26:06,546
+So the application is running
+
+987
+00:26:06,546 --> 0:26:06,716
+now.
+
+988
+00:26:07,196 --> 0:26:08,816
+Now, I'm going to go into debug
+
+989
+00:26:08,816 --> 0:26:10,286
+and click on select MetricKit
+
+990
+00:26:10,286 --> 0:26:10,736
+payloads.
+
+991
+00:26:11,696 --> 0:26:12,936
+What this does is it sends a
+
+992
+00:26:12,936 --> 0:26:13,796
+dummy payload to your
+
+993
+00:26:13,796 --> 0:26:15,346
+application so that you can test
+
+994
+00:26:15,346 --> 0:26:16,986
+the code inside the did receive
+
+995
+00:26:16,986 --> 0:26:17,356
+method.
+
+996
+00:26:17,996 --> 0:26:18,846
+Now, let's walk through some of
+
+997
+00:26:18,846 --> 0:26:19,936
+the contents in MetricKit
+
+998
+00:26:19,976 --> 0:26:21,366
+payload that is available today.
+
+999
+00:26:22,656 --> 0:26:23,946
+So, the first example here shows
+
+1000
+00:26:23,946 --> 0:26:25,196
+a meta data related to the
+
+1001
+00:26:25,196 --> 0:26:26,786
+application such as the build
+
+1002
+00:26:26,786 --> 0:26:28,696
+version, device type, and the OS
+
+1003
+00:26:28,696 --> 0:26:29,186
+version.
+
+1004
+00:26:29,846 --> 0:26:31,216
+Then we get a few histographs
+
+1005
+00:26:31,216 --> 0:26:32,236
+related to very useful
+
+1006
+00:26:32,236 --> 0:26:33,456
+performance metrics such as
+
+1007
+00:26:33,456 --> 0:26:35,246
+application launch, resume, and
+
+1008
+00:26:35,246 --> 0:26:35,566
+hangs.
+
+1009
+00:26:36,686 --> 0:26:38,226
+Then we get metrics related to
+
+1010
+00:26:38,226 --> 0:26:39,716
+the application usage such as
+
+1011
+00:26:39,716 --> 0:26:40,986
+foreground and background times
+
+1012
+00:26:41,666 --> 0:26:43,126
+and a few background metrics
+
+1013
+00:26:43,126 --> 0:26:44,576
+such as CPU time and GPU time.
+
+1014
+00:26:45,336 --> 0:26:46,356
+Then there are metrics around
+
+1015
+00:26:46,356 --> 0:26:48,616
+location usage as well as
+
+1016
+00:26:48,616 --> 0:26:50,826
+networking, disk IO memory, and
+
+1017
+00:26:50,826 --> 0:26:51,246
+disk play.
+
+1018
+00:26:52,176 --> 0:26:53,426
+And finally we have a section
+
+1019
+00:26:53,426 --> 0:26:55,246
+around the mxSignpost summary
+
+1020
+00:26:55,466 --> 0:26:56,356
+for your application.
+
+1021
+00:26:56,946 --> 0:26:57,826
+As you can see, there are a lot
+
+1022
+00:26:57,826 --> 0:26:59,166
+of metrics that are available
+
+1023
+00:26:59,166 --> 0:27:00,376
+right now in MetricKit.
+
+1024
+00:26:59,166 --> 0:27:00,376
+right now in MetricKit.
+
+1025
+00:27:00,376 --> 0:27:01,486
+So, I would highly recommend you
+
+1026
+00:27:01,486 --> 0:27:02,846
+to check out our documentation
+
+1027
+00:27:02,846 --> 0:27:04,436
+to learn more about the details
+
+1028
+00:27:05,086 --> 0:27:05,196
+here.
+
+1029
+00:27:05,196 --> 0:27:06,566
+So, let's go back to the slides
+
+1030
+00:27:06,566 --> 0:27:06,716
+now.
+
+1031
+00:27:10,166 --> 0:27:12,066
+So, as you see, as we saw during
+
+1032
+00:27:12,066 --> 0:27:13,226
+the demo, it's very easy to get
+
+1033
+00:27:13,226 --> 0:27:15,146
+started with using MetricKit and
+
+1034
+00:27:15,146 --> 0:27:16,296
+start getting metrics on your
+
+1035
+00:27:16,296 --> 0:27:16,976
+devices right now.
+
+1036
+00:27:19,556 --> 0:27:20,776
+So, for the, also for the
+
+1037
+00:27:20,776 --> 0:27:22,476
+application, we decided to take
+
+1038
+00:27:22,476 --> 0:27:24,026
+a road trip and collect some
+
+1039
+00:27:24,026 --> 0:27:25,256
+field metrics as well as some
+
+1040
+00:27:25,256 --> 0:27:25,866
+fun photos.
+
+1041
+00:27:27,416 --> 0:27:28,816
+The next day after using
+
+1042
+00:27:28,816 --> 0:27:30,176
+MetricKit in the field with our
+
+1043
+00:27:30,176 --> 0:27:31,766
+awesome photo application, we
+
+1044
+00:27:31,766 --> 0:27:33,146
+get, we got a payload on the
+
+1045
+00:27:33,146 --> 0:27:34,786
+device which is uploaded to my
+
+1046
+00:27:34,826 --> 0:27:35,766
+own service using the
+
+1047
+00:27:35,766 --> 0:27:37,026
+application code that I showed
+
+1048
+00:27:37,026 --> 0:27:37,556
+you earlier.
+
+1049
+00:27:39,286 --> 0:27:40,936
+Now, let's use this data that we
+
+1050
+00:27:40,936 --> 0:27:42,076
+received from the field to
+
+1051
+00:27:42,076 --> 0:27:43,476
+identify some hotspots in our
+
+1052
+00:27:43,476 --> 0:27:44,636
+awesome photo application.
+
+1053
+00:27:45,946 --> 0:27:47,166
+Following the first example,
+
+1054
+00:27:47,746 --> 0:27:48,936
+this data shows the overall
+
+1055
+00:27:48,936 --> 0:27:49,786
+foreground time and the
+
+1056
+00:27:49,786 --> 0:27:50,476
+background time of the
+
+1057
+00:27:50,476 --> 0:27:52,026
+application as well as the
+
+1058
+00:27:52,026 --> 0:27:53,416
+overall location sage by
+
+1059
+00:27:53,416 --> 0:27:54,746
+different accuracy markets.
+
+1060
+00:27:55,566 --> 0:27:57,396
+It shows that the location uses
+
+1061
+00:27:57,396 --> 0:27:58,246
+by the application which is
+
+1062
+00:27:58,246 --> 0:27:59,756
+around 720 seconds, is very
+
+1063
+00:27:59,756 --> 0:28:00,816
+close to the foreground time,
+
+1064
+00:27:59,756 --> 0:28:00,816
+close to the foreground time,
+
+1065
+00:28:01,446 --> 0:28:02,666
+which is very unexpected.
+
+1066
+00:28:03,306 --> 0:28:04,816
+All I'm using the location for
+
+1067
+00:28:04,816 --> 0:28:06,436
+is to geotag a photo whenever I
+
+1068
+00:28:06,436 --> 0:28:08,706
+capture it on the device.
+
+1069
+00:28:08,706 --> 0:28:10,686
+Going back to the application, I
+
+1070
+00:28:10,686 --> 0:28:11,936
+found that if I'm going to close
+
+1071
+00:28:11,936 --> 0:28:13,266
+the location after I started
+
+1072
+00:28:13,266 --> 0:28:13,756
+taking it.
+
+1073
+00:28:14,336 --> 0:28:15,616
+So, this is a very good example
+
+1074
+00:28:15,616 --> 0:28:16,956
+of how you can use MetricKit to
+
+1075
+00:28:16,956 --> 0:28:18,576
+identify an expected application
+
+1076
+00:28:18,576 --> 0:28:19,006
+behavior.
+
+1077
+00:28:19,926 --> 0:28:21,136
+Another thing we can optimize
+
+1078
+00:28:21,136 --> 0:28:23,096
+using this data is to reduce the
+
+1079
+00:28:23,096 --> 0:28:24,726
+location usage if it works for
+
+1080
+00:28:24,726 --> 0:28:25,276
+our use case.
+
+1081
+00:28:25,796 --> 0:28:27,076
+Because the higher the location
+
+1082
+00:28:27,076 --> 0:28:28,566
+accuracy, the more the battery
+
+1083
+00:28:29,096 --> 0:28:29,216
+drain.
+
+1084
+00:28:30,156 --> 0:28:31,646
+The next example shows the
+
+1085
+00:28:31,646 --> 0:28:33,056
+histogram of application hang
+
+1086
+00:28:33,056 --> 0:28:33,536
+durations.
+
+1087
+00:28:33,906 --> 0:28:35,366
+So, the data shows there are
+
+1088
+00:28:35,366 --> 0:28:36,776
+many instances of hang durations
+
+1089
+00:28:36,776 --> 0:28:38,476
+of more than 5 seconds, which is
+
+1090
+00:28:38,476 --> 0:28:39,966
+very bad for user experience.
+
+1091
+00:28:40,926 --> 0:28:42,406
+So, one of the ways you can
+
+1092
+00:28:42,406 --> 0:28:43,606
+solve this as Phil described
+
+1093
+00:28:43,606 --> 0:28:44,626
+earlier is to avoid long
+
+1094
+00:28:44,626 --> 0:28:45,906
+blocking calls in the mainframe,
+
+1095
+00:28:46,296 --> 0:28:47,626
+so we can reduce any hang
+
+1096
+00:28:47,626 --> 0:28:48,276
+instances.
+
+1097
+00:28:48,856 --> 0:28:51,706
+The final example shows how you
+
+1098
+00:28:51,706 --> 0:28:53,286
+can use the mxSignpost data in
+
+1099
+00:28:53,286 --> 0:28:55,536
+MetricKit to identify hotspots
+
+1100
+00:28:55,536 --> 0:28:57,036
+from a specific application code
+
+1101
+00:28:57,036 --> 0:28:57,386
+region.
+
+1102
+00:28:58,866 --> 0:29:00,456
+In my application, I decided to
+
+1103
+00:28:58,866 --> 0:29:00,456
+In my application, I decided to
+
+1104
+00:29:00,456 --> 0:29:01,796
+put mxSignpost around all the
+
+1105
+00:29:01,796 --> 0:29:02,416
+main features.
+
+1106
+00:29:02,416 --> 0:29:04,706
+For example, load photo, apply
+
+1107
+00:29:04,706 --> 0:29:06,206
+effect, date photo, save photo,
+
+1108
+00:29:06,206 --> 0:29:06,936
+and upload photo.
+
+1109
+00:29:07,646 --> 0:29:09,236
+Using mxSignpost, MetricKit was
+
+1110
+00:29:09,236 --> 0:29:10,456
+able to figure out how many
+
+1111
+00:29:10,456 --> 0:29:12,126
+times each of these instances
+
+1112
+00:29:12,126 --> 0:29:14,086
+run in the field as well as a
+
+1113
+00:29:14,086 --> 0:29:15,396
+few back to life and performance
+
+1114
+00:29:15,396 --> 0:29:17,336
+metrics such as this CPU time,
+
+1115
+00:29:18,176 --> 0:29:19,856
+and the overall CPU time for the
+
+1116
+00:29:19,856 --> 0:29:20,786
+entire application.
+
+1117
+00:29:22,296 --> 0:29:23,436
+This data shows that there were
+
+1118
+00:29:23,436 --> 0:29:25,886
+many, so the CP usage by the
+
+1119
+00:29:25,886 --> 0:29:27,516
+ApplyEffect feature was more
+
+1120
+00:29:27,516 --> 0:29:28,446
+than 50%.
+
+1121
+00:29:28,976 --> 0:29:30,756
+So, now I know where I can go
+
+1122
+00:29:30,756 --> 0:29:31,676
+and further optimize my
+
+1123
+00:29:31,676 --> 0:29:33,526
+application so that I can reduce
+
+1124
+00:29:33,526 --> 0:29:34,776
+the battery usage overall.
+
+1125
+00:29:36,876 --> 0:29:38,166
+So, following are the key
+
+1126
+00:29:38,166 --> 0:29:39,466
+takeaways from this section.
+
+1127
+00:29:40,576 --> 0:29:42,276
+You can use MetricKit to collect
+
+1128
+00:29:42,276 --> 0:29:43,286
+field battery life and
+
+1129
+00:29:43,286 --> 0:29:44,536
+performance metrics for your
+
+1130
+00:29:44,536 --> 0:29:45,956
+application starting from iOS
+
+1131
+00:29:45,956 --> 0:29:46,366
+13.
+
+1132
+00:29:46,906 --> 0:29:49,546
+You can use MetricKit to
+
+1133
+00:29:49,546 --> 0:29:50,976
+identify hotspots early from
+
+1134
+00:29:50,976 --> 0:29:51,986
+your application, such as the
+
+1135
+00:29:51,986 --> 0:29:53,246
+example I showed today with the
+
+1136
+00:29:53,246 --> 0:29:55,076
+beta population, and you can do
+
+1137
+00:29:55,076 --> 0:29:56,396
+so in the customer population,
+
+1138
+00:29:56,396 --> 0:29:56,566
+too.
+
+1139
+00:29:56,936 --> 0:30:00,046
+Another example we saw today is
+
+1140
+00:29:56,936 --> 0:30:00,046
+Another example we saw today is
+
+1141
+00:30:00,046 --> 0:30:01,666
+how I use MetricKit data from a
+
+1142
+00:30:01,716 --> 0:30:02,806
+single user to identify
+
+1143
+00:30:02,806 --> 0:30:03,396
+hotspots.
+
+1144
+00:30:03,706 --> 0:30:05,276
+Aggregating the same data from
+
+1145
+00:30:05,276 --> 0:30:06,586
+multiple users can provide you
+
+1146
+00:30:06,586 --> 0:30:08,136
+much deeper insights about
+
+1147
+00:30:08,136 --> 0:30:09,306
+improving your application.
+
+1148
+00:30:11,226 --> 0:30:12,616
+So, now I hand over the stage to
+
+1149
+00:30:12,616 --> 0:30:13,676
+Anshul, who's going to talk
+
+1150
+00:30:13,676 --> 0:30:14,576
+about an out-of-the-box
+
+1151
+00:30:14,576 --> 0:30:16,016
+telemetry solution in Xcode.
+
+1152
+00:30:16,236 --> 0:30:16,596
+Anshul?
+
+1153
+00:30:17,516 --> 0:30:21,756
+[ Applause ]
+
+1154
+00:30:22,256 --> 0:30:23,366
+&gt;&gt; Thank you very much, Ashish.
+
+1155
+00:30:23,936 --> 0:30:25,096
+Hi, I'm Anshul Davra.
+
+1156
+00:30:25,096 --> 0:30:26,656
+I'm here to talk about Xcode
+
+1157
+00:30:26,656 --> 0:30:27,906
+Metric Core Organizer.
+
+1158
+00:30:28,006 --> 0:30:29,676
+That's a new cool tool that we
+
+1159
+00:30:29,676 --> 0:30:31,576
+are introducing this year with
+
+1160
+00:30:31,616 --> 0:30:32,546
+Xcode 11.
+
+1161
+00:30:33,796 --> 0:30:35,506
+Xcode Metrics Organizer is an
+
+1162
+00:30:35,506 --> 0:30:37,036
+out-of-box solution that we are
+
+1163
+00:30:37,196 --> 0:30:40,236
+providing with Xcode 11 to view
+
+1164
+00:30:40,236 --> 0:30:42,206
+your power and performance app
+
+1165
+00:30:42,466 --> 0:30:43,096
+analytics.
+
+1166
+00:30:43,606 --> 0:30:45,366
+You can see how your app is
+
+1167
+00:30:45,366 --> 0:30:47,276
+doing on the customer devices in
+
+1168
+00:30:47,276 --> 0:30:49,126
+terms of battery life and
+
+1169
+00:30:49,126 --> 0:30:49,716
+performance.
+
+1170
+00:30:49,816 --> 0:30:52,736
+There is no change required to
+
+1171
+00:30:52,736 --> 0:30:53,176
+your app.
+
+1172
+00:30:53,386 --> 0:30:55,716
+It is available as-is in Xcode
+
+1173
+00:30:55,716 --> 0:30:56,426
+11 for you.
+
+1174
+00:30:57,486 --> 0:30:59,696
+We have built in privacy into
+
+1175
+00:30:59,696 --> 0:31:01,666
+this whole process right from
+
+1176
+00:30:59,696 --> 0:31:01,666
+this whole process right from
+
+1177
+00:31:01,856 --> 0:31:03,026
+collecting the data on the
+
+1178
+00:31:03,026 --> 0:31:05,696
+device to aggregating the data
+
+1179
+00:31:05,696 --> 0:31:06,646
+on the server.
+
+1180
+00:31:07,006 --> 0:31:09,086
+So, you can start using this
+
+1181
+00:31:09,086 --> 0:31:11,996
+data as of today.
+
+1182
+00:31:12,186 --> 0:31:14,436
+The way it works is when
+
+1183
+00:31:14,436 --> 0:31:16,636
+somebody, when a user uses your
+
+1184
+00:31:16,636 --> 0:31:19,716
+app, we collect metrics around
+
+1185
+00:31:19,716 --> 0:31:20,156
+your app.
+
+1186
+00:31:21,096 --> 0:31:22,826
+These metrics are aggregated on
+
+1187
+00:31:22,826 --> 0:31:24,736
+the device and then sent over to
+
+1188
+00:31:24,736 --> 0:31:25,296
+our server.
+
+1189
+00:31:25,646 --> 0:31:27,436
+On the server side, we run
+
+1190
+00:31:27,436 --> 0:31:28,966
+analytics on this data and
+
+1191
+00:31:28,966 --> 0:31:30,146
+extract insights.
+
+1192
+00:31:30,666 --> 0:31:32,676
+These insights are what show up
+
+1193
+00:31:32,676 --> 0:31:34,086
+in metrics organizer.
+
+1194
+00:31:35,396 --> 0:31:37,016
+Please note that insights only
+
+1195
+00:31:37,016 --> 0:31:38,856
+show up in metrics organizer if
+
+1196
+00:31:38,856 --> 0:31:40,436
+there is enough usage of your
+
+1197
+00:31:40,706 --> 0:31:41,816
+app that meet our threshold.
+
+1198
+00:31:43,186 --> 0:31:45,176
+And all of this is available
+
+1199
+00:31:45,176 --> 0:31:47,396
+out-of-the-box with no changes
+
+1200
+00:31:47,396 --> 0:31:49,486
+to your app or your development
+
+1201
+00:31:49,486 --> 0:31:51,286
+process, and is available for
+
+1202
+00:31:51,286 --> 0:31:51,846
+you today.
+
+1203
+00:31:52,736 --> 0:31:55,396
+Now, without further ado, let's
+
+1204
+00:31:55,436 --> 0:31:56,226
+jump into the demo.
+
+1205
+00:31:57,516 --> 0:32:02,846
+[ Applause ]
+
+1206
+00:31:57,516 --> 0:32:02,846
+[ Applause ]
+
+1207
+00:32:03,346 --> 0:32:05,496
+So, to open Metrics Organizer,
+
+1208
+00:32:05,646 --> 0:32:07,686
+go to window, organizer.
+
+1209
+00:32:08,226 --> 0:32:10,566
+That brings up a familiar
+
+1210
+00:32:10,566 --> 0:32:12,356
+organizer window with archive,
+
+1211
+00:32:12,476 --> 0:32:14,096
+crashes, and energy tab, and
+
+1212
+00:32:14,096 --> 0:32:16,106
+brand-new tab called metrics.
+
+1213
+00:32:16,826 --> 0:32:19,416
+If you click on metrics, you see
+
+1214
+00:32:19,476 --> 0:32:21,006
+all your apps on the left-hand
+
+1215
+00:32:21,006 --> 0:32:23,066
+side that you have published to
+
+1216
+00:32:23,066 --> 0:32:24,516
+the iOS app store.
+
+1217
+00:32:25,426 --> 0:32:27,286
+Let's say our awesome photo app
+
+1218
+00:32:27,356 --> 0:32:29,666
+that we publish shows up here.
+
+1219
+00:32:29,666 --> 0:32:31,366
+When we click that awesome photo
+
+1220
+00:32:31,366 --> 0:32:33,516
+app, metrics around that app
+
+1221
+00:32:33,806 --> 0:32:35,256
+show up in the middle pane.
+
+1222
+00:32:35,366 --> 0:32:37,286
+So, metrics like battery life,
+
+1223
+00:32:37,286 --> 0:32:38,836
+launch time, hang rate memory,
+
+1224
+00:32:38,836 --> 0:32:39,466
+and disk write.
+
+1225
+00:32:39,886 --> 0:32:41,556
+Metrics that we think that you
+
+1226
+00:32:41,556 --> 0:32:43,196
+should consider for an awesome
+
+1227
+00:32:43,196 --> 0:32:44,996
+app experience show up here.
+
+1228
+00:32:46,306 --> 0:32:47,666
+When you click on a metrics,
+
+1229
+00:32:47,806 --> 0:32:49,376
+details about the metrics show
+
+1230
+00:32:49,376 --> 0:32:50,556
+up on the right-hand side.
+
+1231
+00:32:50,986 --> 0:32:52,466
+You can look at the metrics for
+
+1232
+00:32:52,466 --> 0:32:55,276
+a given version of an app or you
+
+1233
+00:32:55,276 --> 0:32:56,766
+can compare it with a previous
+
+1234
+00:32:56,766 --> 0:32:57,176
+version.
+
+1235
+00:32:57,176 --> 0:32:58,176
+So, X axis is here.
+
+1236
+00:32:58,176 --> 0:33:00,456
+It represents app version and Y
+
+1237
+00:32:58,176 --> 0:33:00,456
+It represents app version and Y
+
+1238
+00:33:00,456 --> 0:33:02,466
+axis represent the metric value.
+
+1239
+00:33:03,486 --> 0:33:05,666
+Let's start by looking at the
+
+1240
+00:33:05,666 --> 0:33:06,826
+battery metrics.
+
+1241
+00:33:07,376 --> 0:33:10,136
+Two kinds of metrics show up for
+
+1242
+00:33:10,136 --> 0:33:10,526
+a battery.
+
+1243
+00:33:10,526 --> 0:33:11,946
+The first one is onscreen
+
+1244
+00:33:11,946 --> 0:33:13,166
+battery usage.
+
+1245
+00:33:13,516 --> 0:33:15,576
+That is the amount of energy
+
+1246
+00:33:15,576 --> 0:33:18,186
+that is drained when a user is
+
+1247
+00:33:18,186 --> 0:33:19,446
+interacting with your app
+
+1248
+00:33:20,276 --> 0:33:20,896
+onscreen.
+
+1249
+00:33:20,896 --> 0:33:22,526
+And then background battery
+
+1250
+00:33:22,526 --> 0:33:23,896
+usage is amount of battery
+
+1251
+00:33:23,896 --> 0:33:26,226
+drained when, if the app is
+
+1252
+00:33:26,226 --> 0:33:27,266
+running in the background.
+
+1253
+00:33:28,006 --> 0:33:30,326
+Now, and each of these metrics
+
+1254
+00:33:30,326 --> 0:33:32,476
+are further subdivided by system
+
+1255
+00:33:32,476 --> 0:33:34,466
+components like processing,
+
+1256
+00:33:34,466 --> 0:33:37,056
+networking, display location, so
+
+1257
+00:33:37,056 --> 0:33:38,906
+that you get an idea of which of
+
+1258
+00:33:38,906 --> 0:33:40,536
+these components are consuming
+
+1259
+00:33:40,786 --> 0:33:41,736
+most of the energy.
+
+1260
+00:33:42,066 --> 0:33:44,826
+Let's start with the background
+
+1261
+00:33:45,006 --> 0:33:47,086
+battery usage, because we know
+
+1262
+00:33:47,086 --> 0:33:48,876
+our awesome photo app is
+
+1263
+00:33:48,876 --> 0:33:49,786
+foreground only.
+
+1264
+00:33:50,676 --> 0:33:52,406
+But looking at the background,
+
+1265
+00:33:52,566 --> 0:33:53,876
+it seems like it's consuming
+
+1266
+00:33:53,876 --> 0:33:56,006
+around 10% of the user battery
+
+1267
+00:33:56,006 --> 0:33:57,796
+daily, which is pretty high.
+
+1268
+00:33:59,006 --> 0:34:00,606
+Out of this, it seems like
+
+1269
+00:33:59,006 --> 0:34:00,606
+Out of this, it seems like
+
+1270
+00:34:00,686 --> 0:34:03,526
+processing is consuming 5% and
+
+1271
+00:34:03,526 --> 0:34:06,336
+networking is consuming 3.66%,
+
+1272
+00:34:06,646 --> 0:34:08,096
+which is quite high and we need
+
+1273
+00:34:08,096 --> 0:34:09,696
+to debug it further to figure
+
+1274
+00:34:09,696 --> 0:34:12,295
+out why the app is consuming
+
+1275
+00:34:12,295 --> 0:34:13,906
+battery in the background.
+
+1276
+00:34:17,426 --> 0:34:18,906
+Let's look at the latest version
+
+1277
+00:34:18,906 --> 0:34:20,505
+of the app when it is onscreen.
+
+1278
+00:34:21,216 --> 0:34:22,295
+The latest version of the app
+
+1279
+00:34:22,525 --> 0:34:24,585
+when it is onscreen seems like
+
+1280
+00:34:24,585 --> 0:34:27,656
+there is a 10% degradation in
+
+1281
+00:34:27,656 --> 0:34:29,166
+the latest version as compared
+
+1282
+00:34:29,166 --> 0:34:30,196
+to the prior version.
+
+1283
+00:34:30,826 --> 0:34:32,985
+Of which, display seems to be
+
+1284
+00:34:33,755 --> 0:34:34,226
+static.
+
+1285
+00:34:34,656 --> 0:34:35,786
+There is a slight increase in
+
+1286
+00:34:35,786 --> 0:34:37,016
+networking and decrease in
+
+1287
+00:34:37,016 --> 0:34:38,775
+other, but the main culprit here
+
+1288
+00:34:38,775 --> 0:34:40,146
+is processing.
+
+1289
+00:34:40,946 --> 0:34:42,815
+We can look at this data for the
+
+1290
+00:34:42,815 --> 0:34:44,186
+90 the percentile user
+
+1291
+00:34:44,186 --> 0:34:46,746
+population or look at the 50th
+
+1292
+00:34:46,786 --> 0:34:48,286
+percentile user population to
+
+1293
+00:34:48,286 --> 0:34:49,786
+see if the user population is
+
+1294
+00:34:49,846 --> 0:34:52,065
+playing any role in battery
+
+1295
+00:34:52,065 --> 0:34:52,335
+drain.
+
+1296
+00:34:53,186 --> 0:34:55,206
+We can also look at this data
+
+1297
+00:34:55,606 --> 0:34:59,326
+for all iPhone categories or all
+
+1298
+00:34:59,326 --> 0:35:01,546
+iPad categories, or we can jump
+
+1299
+00:34:59,326 --> 0:35:01,546
+iPad categories, or we can jump
+
+1300
+00:35:01,586 --> 0:35:03,016
+to individual devices.
+
+1301
+00:35:03,496 --> 0:35:04,696
+Let's jump to, let's say,
+
+1302
+00:35:04,696 --> 0:35:06,346
+individual device called iPhone
+
+1303
+00:35:06,346 --> 0:35:06,786
+6.
+
+1304
+00:35:07,546 --> 0:35:10,446
+For iPhone 6, it seems like the
+
+1305
+00:35:10,446 --> 0:35:11,996
+battery drain is pretty static.
+
+1306
+00:35:12,376 --> 0:35:15,996
+Slight decrease in 1.0.8 as
+
+1307
+00:35:16,156 --> 0:35:17,886
+compared to 1.0.7.
+
+1308
+00:35:18,776 --> 0:35:20,196
+Let's look at a newer version of
+
+1309
+00:35:20,196 --> 0:35:21,916
+the device like iPhone X.
+
+1310
+00:35:22,506 --> 0:35:24,986
+Ah, iPhone X has a big jump.
+
+1311
+00:35:25,156 --> 0:35:28,256
+If you see here, there's a 14.4%
+
+1312
+00:35:28,256 --> 0:35:30,956
+jump from the prior version and
+
+1313
+00:35:30,956 --> 0:35:32,326
+the main culprit here is
+
+1314
+00:35:32,376 --> 0:35:32,886
+processing.
+
+1315
+00:35:32,886 --> 0:35:34,716
+There are a couple of ways we
+
+1316
+00:35:34,716 --> 0:35:36,456
+can debug this further.
+
+1317
+00:35:36,456 --> 0:35:39,146
+We can directly jump to our code
+
+1318
+00:35:39,566 --> 0:35:41,896
+or we can jump to our familiar
+
+1319
+00:35:41,896 --> 0:35:43,446
+energy tab that we saw last
+
+1320
+00:35:43,446 --> 0:35:43,666
+year.
+
+1321
+00:35:44,456 --> 0:35:46,616
+Energy tab shows you energy
+
+1322
+00:35:46,616 --> 0:35:47,876
+exception reports from the
+
+1323
+00:35:47,966 --> 0:35:48,346
+field.
+
+1324
+00:35:49,006 --> 0:35:50,526
+You can look at the stack frame
+
+1325
+00:35:50,526 --> 0:35:52,426
+to figure out where it is
+
+1326
+00:35:52,426 --> 0:35:54,026
+consuming the most energy.
+
+1327
+00:35:54,546 --> 0:35:58,466
+I know Ashish was talking about
+
+1328
+00:35:58,466 --> 0:36:00,626
+a new feature that he added only
+
+1329
+00:35:58,466 --> 0:36:00,626
+a new feature that he added only
+
+1330
+00:36:00,626 --> 0:36:03,136
+for the newer devices and 1.0.8
+
+1331
+00:36:03,136 --> 0:36:05,596
+version of our app,
+
+1332
+00:36:05,596 --> 0:36:07,296
+applyFilter caused it so we can go
+
+1333
+00:36:07,296 --> 0:36:08,726
+there and start debugging it.
+
+1334
+00:36:09,056 --> 0:36:10,886
+So, this is one way we have
+
+1335
+00:36:10,886 --> 0:36:13,736
+shown you can use metrics and
+
+1336
+00:36:13,736 --> 0:36:15,656
+energy tab to figure out the
+
+1337
+00:36:15,656 --> 0:36:17,086
+problem and fix the problem.
+
+1338
+00:36:17,626 --> 0:36:20,646
+Now, let's look at the other
+
+1339
+00:36:20,646 --> 0:36:21,986
+metrics that are available.
+
+1340
+00:36:22,446 --> 0:36:24,616
+Launch time is pretty important
+
+1341
+00:36:24,616 --> 0:36:26,796
+to our users because apps that
+
+1342
+00:36:26,796 --> 0:36:28,756
+are slow to launch can frustrate
+
+1343
+00:36:28,756 --> 0:36:29,536
+our users.
+
+1344
+00:36:29,816 --> 0:36:31,796
+Ideally, a launch time should be
+
+1345
+00:36:31,796 --> 0:36:32,736
+in low seconds.
+
+1346
+00:36:33,166 --> 0:36:36,286
+Our awesome photo app for all
+
+1347
+00:36:36,286 --> 0:36:38,596
+iPhones is taking around 6
+
+1348
+00:36:38,596 --> 0:36:39,556
+seconds to launch.
+
+1349
+00:36:39,856 --> 0:36:41,616
+You can use the tools that
+
+1350
+00:36:41,616 --> 0:36:43,306
+Sastry talked about in his
+
+1351
+00:36:43,306 --> 0:36:45,536
+earlier demo to debug it
+
+1352
+00:36:45,586 --> 0:36:45,956
+further.
+
+1353
+00:36:47,246 --> 0:36:49,806
+Hang time is unresponsive time
+
+1354
+00:36:49,806 --> 0:36:51,786
+of your app, in seconds per
+
+1355
+00:36:51,786 --> 0:36:52,136
+hour.
+
+1356
+00:36:52,606 --> 0:36:54,446
+Ideally, the hang time should be
+
+1357
+00:36:54,446 --> 0:36:56,516
+0 to avoid user frustration.
+
+1358
+00:36:57,056 --> 0:37:00,316
+We showed two kinds of memory -
+
+1359
+00:36:57,056 --> 0:37:00,316
+We showed two kinds of memory -
+
+1360
+00:37:00,386 --> 0:37:02,286
+peak memory and average memory.
+
+1361
+00:37:02,796 --> 0:37:04,156
+Memory is a resource and we
+
+1362
+00:37:04,156 --> 0:37:06,546
+should be, we should only use
+
+1363
+00:37:06,546 --> 0:37:07,916
+what is absolutely needed.
+
+1364
+00:37:09,136 --> 0:37:12,316
+Disk write is the logical writes
+
+1365
+00:37:12,316 --> 0:37:13,396
+your app is doing.
+
+1366
+00:37:14,026 --> 0:37:15,466
+we need to be mindful of how
+
+1367
+00:37:15,466 --> 0:37:19,206
+much write we are doing and we
+
+1368
+00:37:19,206 --> 0:37:20,746
+can use Instruments to debug it
+
+1369
+00:37:20,746 --> 0:37:20,976
+further.
+
+1370
+00:37:24,046 --> 0:37:26,166
+Now, that was Xcode Metrics
+
+1371
+00:37:26,166 --> 0:37:28,426
+Organizer, an out-of-the-box
+
+1372
+00:37:28,566 --> 0:37:30,856
+tool to view your battery and
+
+1373
+00:37:30,906 --> 0:37:33,116
+performance analytics and start
+
+1374
+00:37:33,196 --> 0:37:34,946
+debugging the problems around
+
+1375
+00:37:35,086 --> 0:37:38,346
+high battery drain, performance
+
+1376
+00:37:38,786 --> 0:37:40,956
+like high launch time.
+
+1377
+00:37:41,226 --> 0:37:44,186
+You can detect, you can look at
+
+1378
+00:37:44,186 --> 0:37:46,146
+the data for the latest version
+
+1379
+00:37:46,146 --> 0:37:47,786
+of the app, compare it with the
+
+1380
+00:37:47,786 --> 0:37:49,606
+prior version, and create a
+
+1381
+00:37:49,606 --> 0:37:50,096
+baseline.
+
+1382
+00:37:50,686 --> 0:37:53,026
+And this tool is available today
+
+1383
+00:37:53,026 --> 0:37:54,826
+to you without any changes to
+
+1384
+00:37:54,826 --> 0:37:56,826
+your app or your development
+
+1385
+00:37:56,826 --> 0:37:57,346
+lifecycle.
+
+1386
+00:37:57,726 --> 0:38:00,286
+So, please, try to use it and
+
+1387
+00:37:57,726 --> 0:38:00,286
+So, please, try to use it and
+
+1388
+00:38:00,286 --> 0:38:01,246
+let us know the feedback.
+
+1389
+00:38:01,446 --> 0:38:02,256
+Thank you very much for
+
+1390
+00:38:02,256 --> 0:38:03,526
+listening, and back to Phil.
+
+1391
+00:38:04,516 --> 0:38:08,156
+[ Applause ]
+
+1392
+00:38:08,656 --> 0:38:09,206
+&gt;&gt; Thank you, Anshul.
+
+1393
+00:38:09,206 --> 0:38:12,746
+We saw those great tools and I
+
+1394
+00:38:12,746 --> 0:38:13,626
+want to talk quickly about a
+
+1395
+00:38:13,626 --> 0:38:14,706
+summary of everything we spoke
+
+1396
+00:38:14,706 --> 0:38:15,136
+about today.
+
+1397
+00:38:16,456 --> 0:38:17,236
+We talked about the tools that
+
+1398
+00:38:17,236 --> 0:38:18,906
+were available before Xcode 11
+
+1399
+00:38:19,256 --> 0:38:20,686
+to debug and understand your
+
+1400
+00:38:20,686 --> 0:38:22,276
+power and performance impact on
+
+1401
+00:38:22,406 --> 0:38:22,946
+device.
+
+1402
+00:38:23,676 --> 0:38:25,166
+And then we showed you some new
+
+1403
+00:38:25,166 --> 0:38:26,126
+tools that we think are really
+
+1404
+00:38:26,126 --> 0:38:27,286
+powerful and are going to help
+
+1405
+00:38:27,286 --> 0:38:29,146
+take your quantification of your
+
+1406
+00:38:29,146 --> 0:38:30,026
+performance and battery life
+
+1407
+00:38:30,026 --> 0:38:31,296
+impact to the next level.
+
+1408
+00:38:31,766 --> 0:38:32,936
+And a set of metrics that you'll
+
+1409
+00:38:32,936 --> 0:38:34,126
+be able to collect from those
+
+1410
+00:38:34,126 --> 0:38:35,696
+tools to be able to understand
+
+1411
+00:38:36,056 --> 0:38:37,326
+and debug your code further.
+
+1412
+00:38:37,916 --> 0:38:39,806
+If you take anything away from
+
+1413
+00:38:39,806 --> 0:38:41,616
+this demo, I want you to leave
+
+1414
+00:38:41,616 --> 0:38:43,056
+knowing that we've built three
+
+1415
+00:38:43,056 --> 0:38:44,656
+great tools for you and we'd
+
+1416
+00:38:44,656 --> 0:38:45,846
+love to hear your feedback about
+
+1417
+00:38:45,846 --> 0:38:46,046
+them.
+
+1418
+00:38:46,486 --> 0:38:47,576
+And these tools are going to
+
+1419
+00:38:47,576 --> 0:38:49,106
+help you quantify the impact
+
+1420
+00:38:49,376 --> 0:38:50,466
+that your application has on
+
+1421
+00:38:50,466 --> 0:38:51,656
+battery life and performance.
+
+1422
+00:38:52,716 --> 0:38:54,146
+And that quantification is going
+
+1423
+00:38:54,146 --> 0:38:55,196
+to be able to help you make
+
+1424
+00:38:55,196 --> 0:38:56,586
+decisions about your application
+
+1425
+00:38:56,986 --> 0:38:58,076
+to better your experience for
+
+1426
+00:38:58,076 --> 0:38:58,876
+all your users.
+
+1427
+00:39:00,146 --> 0:39:02,386
+For more information, go online
+
+1428
+00:39:02,386 --> 0:39:03,406
+and check out our session
+
+1429
+00:39:03,406 --> 0:39:04,136
+documentation.
+
+1430
+00:39:05,066 --> 0:39:06,906
+Or, visit us at the Power and
+
+1431
+00:39:06,906 --> 0:39:09,286
+Performance Lab tomorrow, and
+
+1432
+00:39:09,286 --> 0:39:10,316
+we'd love to see you there and
+
+1433
+00:39:10,316 --> 0:39:10,946
+walk you through how to
+
+1434
+00:39:10,946 --> 0:39:12,026
+implement these tools in your
+
+1435
+00:39:12,026 --> 0:39:13,616
+application and use them to make
+
+1436
+00:39:13,616 --> 0:39:14,696
+your experiences great for your
+
+1437
+00:39:14,696 --> 0:39:15,146
+users.
+
+1438
+00:39:15,786 --> 0:39:16,406
+Don't forget about the
+
+1439
+00:39:16,406 --> 0:39:17,526
+Optimizing App Launch talk
+
+1440
+00:39:17,526 --> 0:39:18,716
+tomorrow, where they'll go in
+
+1441
+00:39:18,716 --> 0:39:19,796
+depth about app launch
+
+1442
+00:39:19,796 --> 0:39:20,406
+performance.
+
+1443
+00:39:21,256 --> 0:39:22,166
+Thanks again for coming and
+
+1444
+00:39:22,246 --> 0:39:22,976
+enjoy the rest of your WWDC.
+
+1445
+00:39:23,516 --> 0:39:27,500
+[ Applause ]

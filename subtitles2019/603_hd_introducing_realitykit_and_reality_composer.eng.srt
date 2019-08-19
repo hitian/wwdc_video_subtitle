@@ -1,0 +1,4975 @@
+1
+00:00:00,506 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:14,516 --> 0:00:16,566
+[ Applause ]
+
+3
+00:00:17,066 --> 0:00:17,476
+&gt;&gt; Hi, everybody.
+
+4
+00:00:19,376 --> 0:00:20,856
+My name is Cody and I'd like to
+
+5
+00:00:20,856 --> 0:00:22,196
+welcome you to the introduction
+
+6
+00:00:22,306 --> 0:00:23,976
+to RealityKit and Reality
+
+7
+00:00:23,976 --> 0:00:24,436
+Composer.
+
+8
+00:00:27,056 --> 0:00:30,046
+So today, the App Store is full
+
+9
+00:00:30,046 --> 0:00:32,006
+of many different AR experiences
+
+10
+00:00:32,095 --> 0:00:34,026
+that utilize the power of ARKit.
+
+11
+00:00:34,756 --> 0:00:37,116
+And developers of these apps
+
+12
+00:00:37,116 --> 0:00:39,416
+have a lot of common needs, for
+
+13
+00:00:39,416 --> 0:00:41,536
+example, rendering, physics and
+
+14
+00:00:41,536 --> 0:00:41,996
+animation.
+
+15
+00:00:42,666 --> 0:00:45,416
+And ARKit makes building AR
+
+16
+00:00:45,416 --> 0:00:47,656
+experiences pretty simple but
+
+17
+00:00:47,656 --> 0:00:48,646
+now we're going to make it even
+
+18
+00:00:48,646 --> 0:00:48,976
+easier.
+
+19
+00:00:52,776 --> 0:00:54,776
+The developing applications for
+
+20
+00:00:54,896 --> 0:00:57,036
+AR, provides very unique
+
+21
+00:00:57,036 --> 0:00:58,316
+challenges that really don't
+
+22
+00:00:58,316 --> 0:01:00,166
+exist anywhere else, and it
+
+23
+00:00:58,316 --> 0:01:00,166
+exist anywhere else, and it
+
+24
+00:01:00,166 --> 0:01:01,606
+mostly centers around the fact
+
+25
+00:01:01,656 --> 0:01:03,516
+that your virtual content will
+
+26
+00:01:03,516 --> 0:01:05,096
+now interact with the real world
+
+27
+00:01:05,495 --> 0:01:06,196
+and vice versa.
+
+28
+00:01:06,786 --> 0:01:09,246
+So if you put like a virtual
+
+29
+00:01:09,246 --> 0:01:11,936
+lamp into a real living room, it
+
+30
+00:01:11,936 --> 0:01:13,476
+should probably light up the
+
+31
+00:01:13,476 --> 0:01:14,786
+surrounding objects whether
+
+32
+00:01:14,786 --> 0:01:16,176
+they're real or virtual.
+
+33
+00:01:17,026 --> 0:01:18,686
+And additionally, any content
+
+34
+00:01:18,786 --> 0:01:20,166
+that gets placed in the real
+
+35
+00:01:20,166 --> 0:01:22,076
+world should look like it
+
+36
+00:01:22,076 --> 0:01:22,676
+belongs there.
+
+37
+00:01:23,266 --> 0:01:25,976
+And this can be very important
+
+38
+00:01:26,476 --> 0:01:28,216
+in a case like online shopping,
+
+39
+00:01:28,706 --> 0:01:30,586
+where you want to see how the
+
+40
+00:01:30,646 --> 0:01:32,246
+product will look in your home.
+
+41
+00:01:32,986 --> 0:01:35,546
+So this gives us a very strong
+
+42
+00:01:35,546 --> 0:01:38,506
+requirement for a very realistic
+
+43
+00:01:38,506 --> 0:01:41,226
+render, otherwise, you'll lose
+
+44
+00:01:41,226 --> 0:01:43,286
+the illusion of augmented
+
+45
+00:01:43,776 --> 0:01:43,996
+reality.
+
+46
+00:01:45,456 --> 0:01:47,916
+So enter RealityKit, which is a
+
+47
+00:01:47,916 --> 0:01:49,616
+brand new Swift framework
+
+48
+00:01:50,586 --> 0:01:52,166
+designed to help you build your
+
+49
+00:01:52,246 --> 0:01:54,196
+AR applications and easily
+
+50
+00:01:54,196 --> 0:01:58,846
+exploit the power of ARKit.
+
+51
+00:01:59,416 --> 0:02:01,326
+RealityKit is an AR first
+
+52
+00:01:59,416 --> 0:02:01,326
+RealityKit is an AR first
+
+53
+00:02:01,376 --> 0:02:03,176
+framework, which means that it's
+
+54
+00:02:03,216 --> 0:02:04,556
+been completely designed from
+
+55
+00:02:04,556 --> 0:02:06,546
+the ground up with an emphasis
+
+56
+00:02:06,546 --> 0:02:08,366
+on AR application development.
+
+57
+00:02:10,076 --> 0:02:10,936
+So the framework heavily
+
+58
+00:02:10,936 --> 0:02:12,566
+emphasizes highly realistic
+
+59
+00:02:12,716 --> 0:02:14,376
+physically-based rendering and
+
+60
+00:02:14,376 --> 0:02:16,576
+accurate object simulation with
+
+61
+00:02:16,576 --> 0:02:17,726
+the real life environment.
+
+62
+00:02:19,666 --> 0:02:21,076
+We also take full advantage of
+
+63
+00:02:21,076 --> 0:02:23,626
+the power of Swift to deliver a
+
+64
+00:02:23,626 --> 0:02:25,796
+high-quality framework that has
+
+65
+00:02:25,796 --> 0:02:27,046
+a very simple API.
+
+66
+00:02:30,516 --> 0:02:32,606
+In addition to RealityKit, we're
+
+67
+00:02:32,606 --> 0:02:34,056
+also introducing Reality
+
+68
+00:02:34,056 --> 0:02:36,836
+Composer, which is a Mac and iOS
+
+69
+00:02:36,836 --> 0:02:38,356
+tool that enables simple
+
+70
+00:02:38,426 --> 0:02:40,186
+AR-based content creation.
+
+71
+00:02:40,696 --> 0:02:42,816
+And its intuitive design is
+
+72
+00:02:42,816 --> 0:02:44,386
+really targeted at anybody who
+
+73
+00:02:44,386 --> 0:02:46,056
+wants to make their own content
+
+74
+00:02:46,326 --> 0:02:48,636
+exist in the world around them,
+
+75
+00:02:49,566 --> 0:02:50,766
+even allowing you to lay out
+
+76
+00:02:50,766 --> 0:02:53,016
+your scenes directly in AR.
+
+77
+00:02:54,506 --> 0:02:55,556
+But before we get into that,
+
+78
+00:02:56,276 --> 0:02:58,656
+let's focus on RealityKit and
+
+79
+00:02:58,656 --> 0:03:01,416
+see it in action.
+
+80
+00:02:58,656 --> 0:03:01,416
+see it in action.
+
+81
+00:03:01,876 --> 0:03:03,066
+So here we have a real living
+
+82
+00:03:03,066 --> 0:03:04,686
+room with a couch and a table
+
+83
+00:03:04,686 --> 0:03:05,916
+and some small objects that are
+
+84
+00:03:05,916 --> 0:03:06,616
+on the table.
+
+85
+00:03:08,166 --> 0:03:09,336
+It's purposely a bit blurry
+
+86
+00:03:09,336 --> 0:03:11,186
+because the focus of the camera
+
+87
+00:03:11,586 --> 0:03:12,456
+is very shallow here.
+
+88
+00:03:13,386 --> 0:03:15,456
+So with RealityKit, we can add
+
+89
+00:03:15,576 --> 0:03:17,156
+virtual objects to this world
+
+90
+00:03:17,956 --> 0:03:19,406
+and believe that they're really
+
+91
+00:03:19,406 --> 0:03:20,186
+in our environment.
+
+92
+00:03:22,876 --> 0:03:25,466
+So notice here how very accurate
+
+93
+00:03:25,466 --> 0:03:27,736
+lighting and shadows and camera
+
+94
+00:03:27,736 --> 0:03:29,856
+effects, really helped to make
+
+95
+00:03:29,886 --> 0:03:31,706
+the object feel like it belongs,
+
+96
+00:03:32,316 --> 0:03:34,846
+even something fantastical like
+
+97
+00:03:35,696 --> 0:03:35,806
+this.
+
+98
+00:03:36,026 --> 0:03:37,486
+RealityKit helps with the heavy
+
+99
+00:03:37,486 --> 0:03:38,966
+lifting and making your content
+
+100
+00:03:39,226 --> 0:03:41,436
+fit in the world automatically.
+
+101
+00:03:42,296 --> 0:03:43,506
+All you have to do is tell the
+
+102
+00:03:43,506 --> 0:03:45,416
+framework where you want to show
+
+103
+00:03:45,416 --> 0:03:47,516
+up and then supply any custom
+
+104
+00:03:47,516 --> 0:03:48,886
+logic that's specific to your
+
+105
+00:03:49,576 --> 0:03:49,646
+app.
+
+106
+00:03:52,186 --> 0:03:53,766
+And it's really easy to get up
+
+107
+00:03:53,766 --> 0:03:55,006
+and running with your very first
+
+108
+00:03:55,006 --> 0:03:55,196
+app.
+
+109
+00:03:55,196 --> 0:03:56,716
+And in fact for that app you
+
+110
+00:03:56,746 --> 0:03:58,706
+just saw, I only needed to write
+
+111
+00:03:58,916 --> 0:03:59,756
+four lines of code.
+
+112
+00:04:01,276 --> 0:04:03,716
+So here, I'm placing a
+
+113
+00:04:03,716 --> 0:04:05,046
+horizontal anchor in the world.
+
+114
+00:04:05,646 --> 0:04:06,836
+I'm loading a model that's
+
+115
+00:04:06,836 --> 0:04:08,556
+called flyer from my asset
+
+116
+00:04:08,596 --> 0:04:08,976
+bundle.
+
+117
+00:04:09,746 --> 0:04:11,766
+And I'm attaching that model to
+
+118
+00:04:11,766 --> 0:04:12,156
+the anchor.
+
+119
+00:04:12,496 --> 0:04:15,076
+So over the course of this talk,
+
+120
+00:04:15,126 --> 0:04:16,336
+I'll dive deeper into what each
+
+121
+00:04:16,336 --> 0:04:17,906
+of these concepts mean.
+
+122
+00:04:20,266 --> 0:04:21,065
+But now that we've seen this
+
+123
+00:04:21,065 --> 0:04:22,666
+framework in action, let's go
+
+124
+00:04:22,666 --> 0:04:23,766
+into some of the systems that
+
+125
+00:04:23,766 --> 0:04:26,166
+make up RealityKit and the
+
+126
+00:04:26,166 --> 0:04:27,776
+basics to help you get started
+
+127
+00:04:27,776 --> 0:04:28,686
+right away.
+
+128
+00:04:31,336 --> 0:04:32,816
+So to help build your apps,
+
+129
+00:04:33,626 --> 0:04:35,156
+RealityKit takes care of a lot
+
+130
+00:04:35,266 --> 0:04:37,156
+for you to all of its built-in
+
+131
+00:04:37,156 --> 0:04:37,616
+systems.
+
+132
+00:04:39,816 --> 0:04:41,426
+All of which are integrated with
+
+133
+00:04:41,496 --> 0:04:43,536
+other Apple frameworks such as
+
+134
+00:04:43,536 --> 0:04:44,816
+ARKit and Metal.
+
+135
+00:04:47,526 --> 0:04:49,806
+So first off, the rendering
+
+136
+00:04:49,806 --> 0:04:51,566
+system has a job of making your
+
+137
+00:04:51,566 --> 0:04:53,276
+content look amazing and
+
+138
+00:04:53,276 --> 0:04:55,846
+realistic in a real environment.
+
+139
+00:04:56,856 --> 0:04:57,886
+And it does this with a
+
+140
+00:04:57,886 --> 0:04:59,426
+physically-based shading system
+
+141
+00:04:59,856 --> 0:05:01,296
+that accurately simulates
+
+142
+00:04:59,856 --> 0:05:01,296
+that accurately simulates
+
+143
+00:05:01,626 --> 0:05:02,626
+lighting and material
+
+144
+00:05:02,626 --> 0:05:03,176
+interactions.
+
+145
+00:05:04,146 --> 0:05:05,806
+It's all built on top of Metal,
+
+146
+00:05:05,976 --> 0:05:07,566
+it means that it's highly
+
+147
+00:05:07,566 --> 0:05:09,326
+optimized for Apple devices.
+
+148
+00:05:10,706 --> 0:05:11,936
+The system takes advantage of
+
+149
+00:05:11,996 --> 0:05:13,986
+all the Metal has to offer, such
+
+150
+00:05:13,986 --> 0:05:15,706
+as multithreaded rendering and
+
+151
+00:05:15,706 --> 0:05:17,096
+other low level functionality.
+
+152
+00:05:17,716 --> 0:05:20,606
+And since RealityKit is designed
+
+153
+00:05:20,606 --> 0:05:22,516
+for AR applications, the feature
+
+154
+00:05:22,516 --> 0:05:24,506
+set of the render is entirely
+
+155
+00:05:24,506 --> 0:05:25,526
+focused around making your
+
+156
+00:05:25,526 --> 0:05:27,986
+content look great and in a real
+
+157
+00:05:27,986 --> 0:05:28,416
+environment.
+
+158
+00:05:32,716 --> 0:05:35,406
+On top of rendering, animations
+
+159
+00:05:35,406 --> 0:05:36,956
+really helped to breathe life to
+
+160
+00:05:36,956 --> 0:05:38,686
+your content and really enrich
+
+161
+00:05:38,686 --> 0:05:39,126
+your scene.
+
+162
+00:05:39,966 --> 0:05:41,296
+And RealityKit's animation
+
+163
+00:05:41,296 --> 0:05:43,866
+system achieves this through
+
+164
+00:05:43,866 --> 0:05:45,596
+supporting both skeletal and
+
+165
+00:05:45,666 --> 0:05:47,736
+transform animations, both of
+
+166
+00:05:47,986 --> 0:05:49,576
+which can be imported directly
+
+167
+00:05:49,576 --> 0:05:50,026
+from USDZ.
+
+168
+00:05:50,026 --> 0:05:52,696
+And you can even animate your
+
+169
+00:05:52,696 --> 0:05:54,346
+objects procedurally through
+
+170
+00:05:54,346 --> 0:05:55,646
+ARKit's motion capture
+
+171
+00:05:55,646 --> 0:05:56,196
+technology.
+
+172
+00:06:00,396 --> 0:06:01,916
+The physics system is
+
+173
+00:06:01,916 --> 0:06:03,276
+responsible for simulating
+
+174
+00:06:03,276 --> 0:06:05,106
+complex interactions between
+
+175
+00:06:05,106 --> 0:06:07,096
+content, including real world
+
+176
+00:06:07,096 --> 0:06:07,516
+objects.
+
+177
+00:06:08,526 --> 0:06:09,656
+And it provides a collision
+
+178
+00:06:09,656 --> 0:06:12,166
+detection system that supports
+
+179
+00:06:12,256 --> 0:06:14,116
+several different proxy shapes,
+
+180
+00:06:14,176 --> 0:06:16,676
+such as box, sphere, or even
+
+181
+00:06:16,676 --> 0:06:17,526
+compound shapes.
+
+182
+00:06:18,766 --> 0:06:20,596
+And it also simulates rigid body
+
+183
+00:06:20,596 --> 0:06:22,966
+dynamics, such as mass, inertia,
+
+184
+00:06:23,446 --> 0:06:24,876
+friction, and restitution.
+
+185
+00:06:31,436 --> 0:06:33,096
+RealityKit has built-in support
+
+186
+00:06:33,096 --> 0:06:34,156
+for networking and it
+
+187
+00:06:34,156 --> 0:06:35,986
+synchronizes the entire scene
+
+188
+00:06:36,256 --> 0:06:39,186
+across devices, including shared
+
+189
+00:06:39,186 --> 0:06:40,826
+representations of real world
+
+190
+00:06:40,826 --> 0:06:41,136
+data.
+
+191
+00:06:41,726 --> 0:06:44,006
+And it's all built on top of
+
+192
+00:06:44,006 --> 0:06:45,416
+Apple's multipeer networking
+
+193
+00:06:45,416 --> 0:06:45,776
+library.
+
+194
+00:06:47,256 --> 0:06:48,696
+This system it works out of the
+
+195
+00:06:48,696 --> 0:06:50,456
+box, and it really makes
+
+196
+00:06:50,736 --> 0:06:53,156
+building connected apps simple
+
+197
+00:06:53,846 --> 0:06:57,486
+and automatic.
+
+198
+00:06:57,576 --> 0:06:58,906
+RealityKit uses an entity
+
+199
+00:06:58,906 --> 0:07:00,476
+component system to represent
+
+200
+00:06:58,906 --> 0:07:00,476
+component system to represent
+
+201
+00:07:00,476 --> 0:07:02,536
+object data which gives users a
+
+202
+00:07:02,596 --> 0:07:04,646
+really powerful tool to easily
+
+203
+00:07:04,646 --> 0:07:06,286
+make content through composition
+
+204
+00:07:06,286 --> 0:07:07,886
+of properties as opposed to
+
+205
+00:07:07,886 --> 0:07:09,546
+large object inheritance
+
+206
+00:07:09,546 --> 0:07:09,946
+hierarchies.
+
+207
+00:07:11,066 --> 0:07:12,176
+And you can even create your own
+
+208
+00:07:12,176 --> 0:07:14,186
+custom components to add your
+
+209
+00:07:14,186 --> 0:07:16,346
+own data and functionality to
+
+210
+00:07:16,436 --> 0:07:17,166
+any entity.
+
+211
+00:07:18,146 --> 0:07:20,446
+And additionally, all components
+
+212
+00:07:20,546 --> 0:07:21,996
+automatically synchronize their
+
+213
+00:07:21,996 --> 0:07:24,036
+data with other devices in a
+
+214
+00:07:24,036 --> 0:07:26,886
+network setting, even custom
+
+215
+00:07:26,886 --> 0:07:27,336
+components.
+
+216
+00:07:27,786 --> 0:07:29,886
+So sharing data is a very easy
+
+217
+00:07:29,886 --> 0:07:30,416
+operation.
+
+218
+00:07:34,226 --> 0:07:35,736
+So far, all the systems that we
+
+219
+00:07:35,786 --> 0:07:37,126
+focused on are really
+
+220
+00:07:37,126 --> 0:07:38,486
+emphasizing a lot of the visual
+
+221
+00:07:38,486 --> 0:07:40,176
+side of AR, but that really
+
+222
+00:07:40,176 --> 0:07:41,106
+doesn't capture the whole
+
+223
+00:07:41,106 --> 0:07:41,446
+picture.
+
+224
+00:07:42,056 --> 0:07:44,436
+Audio is also an important
+
+225
+00:07:44,436 --> 0:07:46,396
+aspect in helping to create very
+
+226
+00:07:46,396 --> 0:07:47,796
+immersive content that you can
+
+227
+00:07:47,796 --> 0:07:49,326
+believe is in the real world.
+
+228
+00:07:50,796 --> 0:07:52,286
+RealityKit's audio system
+
+229
+00:07:52,286 --> 0:07:55,326
+understands 3D space and can
+
+230
+00:07:55,326 --> 0:07:57,336
+place audio sources on dynamic
+
+231
+00:07:57,406 --> 0:07:57,826
+content.
+
+232
+00:07:58,246 --> 0:08:00,636
+So this has the effect of making
+
+233
+00:07:58,246 --> 0:08:00,636
+So this has the effect of making
+
+234
+00:08:00,636 --> 0:08:02,766
+virtual objects further from you
+
+235
+00:08:03,076 --> 0:08:04,166
+actually sound like they're
+
+236
+00:08:04,166 --> 0:08:05,946
+farther away, and vice versa.
+
+237
+00:08:10,966 --> 0:08:12,436
+I'd also like to mention that
+
+238
+00:08:12,436 --> 0:08:15,436
+RealityKit has defined a new
+
+239
+00:08:15,546 --> 0:08:17,336
+file type, known as the Reality
+
+240
+00:08:17,436 --> 0:08:20,016
+File, which stores optimized
+
+241
+00:08:20,016 --> 0:08:21,806
+content that's ready for loading
+
+242
+00:08:21,806 --> 0:08:22,276
+into your app.
+
+243
+00:08:22,986 --> 0:08:24,816
+And this file can include
+
+244
+00:08:24,816 --> 0:08:25,916
+everything that your app would
+
+245
+00:08:25,956 --> 0:08:26,226
+need.
+
+246
+00:08:27,256 --> 0:08:28,316
+For example, meshes and
+
+247
+00:08:28,316 --> 0:08:30,236
+materials and physics properties
+
+248
+00:08:30,236 --> 0:08:33,066
+or even audio sources.
+
+249
+00:08:33,196 --> 0:08:34,866
+RealityKit does also support
+
+250
+00:08:34,866 --> 0:08:36,895
+importing directly from USDZ
+
+251
+00:08:36,895 --> 0:08:38,785
+files, similar to how AR Quick
+
+252
+00:08:38,785 --> 0:08:39,196
+Look works.
+
+253
+00:08:39,666 --> 0:08:41,515
+But using Reality Files will
+
+254
+00:08:41,515 --> 0:08:42,996
+give you much faster uploading
+
+255
+00:08:42,996 --> 0:08:44,856
+time and much greater control
+
+256
+00:08:44,856 --> 0:08:45,576
+over your content.
+
+257
+00:08:46,106 --> 0:08:48,756
+And you can export these files
+
+258
+00:08:48,756 --> 0:08:50,576
+directly from Reality Composer,
+
+259
+00:08:51,116 --> 0:08:52,116
+which will be covered later in
+
+260
+00:08:52,116 --> 0:08:53,066
+this talk.
+
+261
+00:08:56,556 --> 0:08:58,336
+So while using the RealityKit
+
+262
+00:08:58,336 --> 0:09:00,116
+API, there's going to be four
+
+263
+00:08:58,336 --> 0:09:00,116
+API, there's going to be four
+
+264
+00:09:00,116 --> 0:09:01,606
+main areas that you're going to
+
+265
+00:09:01,606 --> 0:09:03,086
+use no matter what type of
+
+266
+00:09:03,086 --> 0:09:04,176
+application that you're going to
+
+267
+00:09:04,176 --> 0:09:04,546
+be building.
+
+268
+00:09:05,376 --> 0:09:07,216
+And those include ARView,
+
+269
+00:09:07,396 --> 0:09:10,186
+anchors, scenes, and entities.
+
+270
+00:09:10,606 --> 0:09:13,666
+So let's start with the View or
+
+271
+00:09:13,666 --> 0:09:15,166
+ARView as it's called in
+
+272
+00:09:15,166 --> 0:09:15,886
+RealityKit.
+
+273
+00:09:16,756 --> 0:09:18,476
+So the View takes care of a lot
+
+274
+00:09:18,476 --> 0:09:19,746
+of the heavy lifting of building
+
+275
+00:09:19,746 --> 0:09:21,866
+your AR apps, so that you can
+
+276
+00:09:21,866 --> 0:09:22,956
+start focusing on your
+
+277
+00:09:22,956 --> 0:09:24,526
+experience right away.
+
+278
+00:09:24,766 --> 0:09:26,846
+And it comes with a lot of
+
+279
+00:09:26,936 --> 0:09:28,366
+useful functionality for you.
+
+280
+00:09:29,016 --> 0:09:30,716
+For example, full gesture
+
+281
+00:09:30,716 --> 0:09:33,526
+support so that you can add-- so
+
+282
+00:09:33,526 --> 0:09:35,276
+that you can respond to any
+
+283
+00:09:35,276 --> 0:09:37,926
+gesture on iOS devices, which
+
+284
+00:09:37,926 --> 0:09:40,236
+allows any entity to easily
+
+285
+00:09:40,236 --> 0:09:43,166
+respond to user input, as well
+
+286
+00:09:43,166 --> 0:09:44,456
+as very realistic camera
+
+287
+00:09:44,456 --> 0:09:46,206
+effects, which are powered by
+
+288
+00:09:46,206 --> 0:09:47,776
+the render that really helped to
+
+289
+00:09:47,826 --> 0:09:49,466
+integrate your virtual content
+
+290
+00:09:49,796 --> 0:09:50,716
+into the real world.
+
+291
+00:09:51,846 --> 0:09:54,166
+And in fact, ARView will give
+
+292
+00:09:54,166 --> 0:09:56,266
+you the exact same quality and
+
+293
+00:09:56,266 --> 0:09:57,746
+feature set as AR Quick Look
+
+294
+00:09:58,216 --> 0:09:58,946
+right out of the box.
+
+295
+00:10:00,046 --> 0:10:00,826
+So let's take a look at some of
+
+296
+00:10:00,826 --> 0:10:02,426
+these camera effects in action.
+
+297
+00:10:05,756 --> 0:10:07,286
+So one of the most important
+
+298
+00:10:07,286 --> 0:10:09,186
+effects to help content feel
+
+299
+00:10:09,186 --> 0:10:10,996
+like it's part of the real world
+
+300
+00:10:11,516 --> 0:10:12,946
+is very convincing shadows,
+
+301
+00:10:13,706 --> 0:10:14,566
+grounding shadows.
+
+302
+00:10:15,936 --> 0:10:17,186
+So notice in this video how when
+
+303
+00:10:17,186 --> 0:10:19,086
+the shadow isn't present, it
+
+304
+00:10:19,086 --> 0:10:20,536
+becomes difficult to determine
+
+305
+00:10:20,536 --> 0:10:22,336
+where this robot is relative to
+
+306
+00:10:22,336 --> 0:10:23,446
+the table underneath it.
+
+307
+00:10:23,846 --> 0:10:25,306
+Is it floating in space, is it
+
+308
+00:10:25,306 --> 0:10:26,606
+sitting on these blocks, it's
+
+309
+00:10:26,606 --> 0:10:27,376
+really hard to tell.
+
+310
+00:10:27,376 --> 0:10:29,476
+But when the shadow is there, it
+
+311
+00:10:29,476 --> 0:10:31,276
+becomes very clear where this
+
+312
+00:10:31,526 --> 0:10:32,756
+robot is in 3D space.
+
+313
+00:10:34,036 --> 0:10:35,646
+And ARView provides two
+
+314
+00:10:35,646 --> 0:10:36,806
+different grounding shadowing
+
+315
+00:10:36,806 --> 0:10:38,256
+techniques which you can choose
+
+316
+00:10:38,256 --> 0:10:39,556
+from to balance performance for
+
+317
+00:10:39,556 --> 0:10:40,746
+your particular application.
+
+318
+00:10:41,266 --> 0:10:43,486
+So either a simple drop shadow,
+
+319
+00:10:44,096 --> 0:10:45,936
+or the much more realistic
+
+320
+00:10:45,936 --> 0:10:47,046
+[inaudible] shadow, which is
+
+321
+00:10:47,046 --> 0:10:47,626
+what you see here.
+
+322
+00:10:52,996 --> 0:10:54,916
+ARView automatically reads the
+
+323
+00:10:54,916 --> 0:10:57,076
+camera exposure time, which is
+
+324
+00:10:57,076 --> 0:10:59,186
+provided by ARKit to perform
+
+325
+00:10:59,186 --> 0:11:01,516
+camera-based motion blur on all
+
+326
+00:10:59,186 --> 0:11:01,516
+camera-based motion blur on all
+
+327
+00:11:01,516 --> 0:11:02,926
+virtual content in your scene,
+
+328
+00:11:03,996 --> 0:11:05,516
+which helps to match the blur
+
+329
+00:11:05,846 --> 0:11:06,856
+that's already present in the
+
+330
+00:11:06,856 --> 0:11:07,856
+live camera feed.
+
+331
+00:11:08,686 --> 0:11:10,336
+I hope I don't make anybody
+
+332
+00:11:10,866 --> 0:11:10,966
+sick.
+
+333
+00:11:12,196 --> 0:11:15,296
+OK. So notice how when motion
+
+334
+00:11:15,296 --> 0:11:16,996
+blur is not enabled, this
+
+335
+00:11:16,996 --> 0:11:18,296
+content feels like it's just
+
+336
+00:11:18,336 --> 0:11:19,976
+stuck on top of the video feed.
+
+337
+00:11:28,656 --> 0:11:32,316
+Cool. We built a realistic depth
+
+338
+00:11:32,316 --> 0:11:34,126
+of field algorithm to model
+
+339
+00:11:34,186 --> 0:11:36,186
+varying camera focus, which is
+
+340
+00:11:36,186 --> 0:11:38,156
+again using information provided
+
+341
+00:11:38,156 --> 0:11:38,776
+by ARKit.
+
+342
+00:11:39,716 --> 0:11:40,806
+So when the device camera
+
+343
+00:11:40,806 --> 0:11:42,506
+focuses on a particular feature
+
+344
+00:11:42,506 --> 0:11:45,536
+of the world, ARView will ensure
+
+345
+00:11:45,536 --> 0:11:46,926
+that that virtual content
+
+346
+00:11:47,466 --> 0:11:48,936
+follows the same focusing
+
+347
+00:11:48,936 --> 0:11:49,246
+pattern.
+
+348
+00:11:50,076 --> 0:11:52,546
+So for this video, the focus of
+
+349
+00:11:52,546 --> 0:11:53,876
+the camera is continually
+
+350
+00:11:53,876 --> 0:11:56,656
+shifting back and forth to focus
+
+351
+00:11:56,656 --> 0:11:57,626
+on each of these columns
+
+352
+00:11:57,626 --> 0:11:57,976
+individually.
+
+353
+00:12:01,516 --> 0:12:06,500
+[ Applause ]
+
+354
+00:12:10,206 --> 0:12:12,376
+Finally ARView adds digital film
+
+355
+00:12:12,376 --> 0:12:13,856
+grain to the virtual content
+
+356
+00:12:14,196 --> 0:12:15,516
+provided by the new ARKit
+
+357
+00:12:15,516 --> 0:12:16,556
+feature camera grain.
+
+358
+00:12:17,556 --> 0:12:18,946
+And since all digital cameras
+
+359
+00:12:18,946 --> 0:12:20,446
+have some amount of noise and
+
+360
+00:12:20,446 --> 0:12:21,846
+especially in really low light
+
+361
+00:12:21,916 --> 0:12:23,856
+situations, adding it to your
+
+362
+00:12:23,856 --> 0:12:26,076
+virtual content can really help
+
+363
+00:12:26,076 --> 0:12:28,266
+users feel like the content is
+
+364
+00:12:28,336 --> 0:12:29,346
+part of that world that they're
+
+365
+00:12:29,346 --> 0:12:30,766
+seeing and not just something
+
+366
+00:12:30,766 --> 0:12:33,276
+that's stuck on top of a camera
+
+367
+00:12:33,866 --> 0:12:34,026
+image.
+
+368
+00:12:35,096 --> 0:12:36,426
+So notice here how when that
+
+369
+00:12:36,426 --> 0:12:38,006
+robot doesn't have any noise.
+
+370
+00:12:38,686 --> 0:12:39,766
+It doesn't feel like it fits in
+
+371
+00:12:39,766 --> 0:12:40,806
+the environment very well,
+
+372
+00:12:41,366 --> 0:12:42,706
+whereas when the noise comes in,
+
+373
+00:12:42,806 --> 0:12:43,936
+it really feels like it's
+
+374
+00:12:44,676 --> 0:12:46,146
+beneath the camera image and not
+
+375
+00:12:46,146 --> 0:12:46,916
+just on top of it.
+
+376
+00:12:53,496 --> 0:12:54,666
+So next let's talk about
+
+377
+00:12:54,666 --> 0:12:56,206
+entities which form the main
+
+378
+00:12:56,206 --> 0:12:57,386
+building block for any
+
+379
+00:12:57,386 --> 0:12:58,396
+experience that you're going to
+
+380
+00:12:58,396 --> 0:12:58,746
+create.
+
+381
+00:12:59,586 --> 0:13:01,646
+All virtual content in your
+
+382
+00:12:59,586 --> 0:13:01,646
+All virtual content in your
+
+383
+00:13:01,646 --> 0:13:03,196
+scene is an entity with
+
+384
+00:13:03,196 --> 0:13:05,026
+different types of components to
+
+385
+00:13:05,026 --> 0:13:06,156
+give it very specific
+
+386
+00:13:06,366 --> 0:13:07,056
+functionality.
+
+387
+00:13:08,366 --> 0:13:10,366
+Any entity can be parented to
+
+388
+00:13:10,436 --> 0:13:13,316
+any other entity, which helps to
+
+389
+00:13:13,316 --> 0:13:14,656
+establish the structure of a
+
+390
+00:13:14,656 --> 0:13:17,076
+scene and build out a transform
+
+391
+00:13:17,076 --> 0:13:18,456
+hierarchy, so it's easier to
+
+392
+00:13:18,456 --> 0:13:19,836
+reason about objects within
+
+393
+00:13:19,836 --> 0:13:20,626
+their local space.
+
+394
+00:13:21,276 --> 0:13:24,086
+So for example, if you have a
+
+395
+00:13:24,086 --> 0:13:25,766
+virtual table and a virtual cup
+
+396
+00:13:26,346 --> 0:13:27,526
+and you want that cup to sit on
+
+397
+00:13:27,526 --> 0:13:30,146
+the table, you might parent that
+
+398
+00:13:30,596 --> 0:13:32,116
+table entity to the cup entity
+
+399
+00:13:32,116 --> 0:13:32,856
+so that they move together in
+
+400
+00:13:32,856 --> 0:13:32,976
+space.
+
+401
+00:13:39,496 --> 0:13:41,206
+Next, let's talk about anchoring
+
+402
+00:13:41,526 --> 0:13:43,046
+and why it's such an important
+
+403
+00:13:43,046 --> 0:13:43,966
+concept in AR.
+
+404
+00:13:45,296 --> 0:13:46,946
+So in the real world, objects
+
+405
+00:13:46,946 --> 0:13:48,056
+are often in motion.
+
+406
+00:13:48,746 --> 0:13:49,956
+And if we're projecting virtual
+
+407
+00:13:49,956 --> 0:13:51,496
+content into a real environment,
+
+408
+00:13:51,746 --> 0:13:53,686
+adapting to that motion is
+
+409
+00:13:53,686 --> 0:13:55,526
+crucial for a realistic
+
+410
+00:13:55,526 --> 0:13:56,016
+experience.
+
+411
+00:13:56,666 --> 0:13:59,646
+For example, if you have content
+
+412
+00:13:59,646 --> 0:14:01,116
+that's anchored to an image such
+
+413
+00:13:59,646 --> 0:14:01,116
+that's anchored to an image such
+
+414
+00:14:01,116 --> 0:14:02,546
+as like a magazine on your
+
+415
+00:14:02,546 --> 0:14:04,726
+table, that content should stick
+
+416
+00:14:04,726 --> 0:14:06,066
+to it regardless of how that
+
+417
+00:14:06,066 --> 0:14:07,836
+magazine moves in the real
+
+418
+00:14:07,836 --> 0:14:08,116
+world.
+
+419
+00:14:08,756 --> 0:14:11,436
+And RealityKit solves this
+
+420
+00:14:11,486 --> 0:14:13,186
+problem by exposing ARKit's
+
+421
+00:14:13,336 --> 0:14:15,486
+anchors as first-class citizens
+
+422
+00:14:15,486 --> 0:14:17,876
+of the API, supporting all of
+
+423
+00:14:17,876 --> 0:14:19,156
+the anchoring types available
+
+424
+00:14:19,416 --> 0:14:21,446
+such as plane, body, face, or
+
+425
+00:14:21,446 --> 0:14:21,826
+camera.
+
+426
+00:14:22,386 --> 0:14:25,456
+And since many surfaces in the
+
+427
+00:14:25,456 --> 0:14:27,446
+world can be anchors for
+
+428
+00:14:27,446 --> 0:14:29,296
+content, we treat each of these
+
+429
+00:14:29,296 --> 0:14:31,416
+anchors as a local root for
+
+430
+00:14:31,416 --> 0:14:32,116
+entity hierarchies.
+
+431
+00:14:33,586 --> 0:14:34,606
+So to illustrate how anchors
+
+432
+00:14:34,606 --> 0:14:36,346
+work in RealityKit, let's
+
+433
+00:14:36,346 --> 0:14:37,226
+consider that there are
+
+434
+00:14:37,226 --> 0:14:39,066
+horizontal and vertical planes
+
+435
+00:14:39,066 --> 0:14:40,016
+in the world that we want to
+
+436
+00:14:40,016 --> 0:14:42,286
+attach content to such as tables
+
+437
+00:14:42,286 --> 0:14:42,746
+or walls.
+
+438
+00:14:43,386 --> 0:14:45,676
+Each of these could be utilized
+
+439
+00:14:46,116 --> 0:14:47,316
+as an anchor.
+
+440
+00:14:48,826 --> 0:14:50,406
+And all anchors can have a
+
+441
+00:14:50,406 --> 0:14:51,776
+hierarchy of entities that are
+
+442
+00:14:51,776 --> 0:14:52,536
+attached to them.
+
+443
+00:14:53,276 --> 0:14:55,376
+And it's important to note that
+
+444
+00:14:55,376 --> 0:14:56,816
+the entire hierarchy of entities
+
+445
+00:14:56,846 --> 0:14:59,486
+will not be active until a
+
+446
+00:14:59,486 --> 0:15:01,116
+matching anchor is spotted in
+
+447
+00:14:59,486 --> 0:15:01,116
+matching anchor is spotted in
+
+448
+00:15:01,116 --> 0:15:02,776
+the world by ARKit.
+
+449
+00:15:04,166 --> 0:15:05,276
+So for example, if you were to
+
+450
+00:15:05,276 --> 0:15:07,816
+define a horizontal plane anchor
+
+451
+00:15:07,816 --> 0:15:09,256
+and attach entities to it, you
+
+452
+00:15:09,256 --> 0:15:10,236
+won't actually see those
+
+453
+00:15:10,236 --> 0:15:12,246
+entities in your world until
+
+454
+00:15:12,316 --> 0:15:13,456
+ARKit has successfully
+
+455
+00:15:13,456 --> 0:15:15,206
+recognized a horizontal plane.
+
+456
+00:15:15,776 --> 0:15:17,136
+So this prevents content from
+
+457
+00:15:17,136 --> 0:15:19,256
+just floating in space until all
+
+458
+00:15:19,256 --> 0:15:20,206
+the anchors have been found.
+
+459
+00:15:20,786 --> 0:15:26,206
+So at one time, new anchors can
+
+460
+00:15:26,206 --> 0:15:27,876
+be introduced to your scene, for
+
+461
+00:15:27,876 --> 0:15:30,056
+example, an image anchor, which
+
+462
+00:15:30,056 --> 0:15:31,886
+maybe it's being used to display
+
+463
+00:15:31,886 --> 0:15:33,916
+a virtual frame around a real
+
+464
+00:15:33,996 --> 0:15:35,366
+life photograph that you have on
+
+465
+00:15:35,366 --> 0:15:35,756
+your wall.
+
+466
+00:15:36,766 --> 0:15:38,096
+So if you decide to move that
+
+467
+00:15:38,096 --> 0:15:40,656
+photograph for some reason, say
+
+468
+00:15:40,656 --> 0:15:41,956
+you decide you just want it on a
+
+469
+00:15:41,956 --> 0:15:43,106
+different wall or it just needs
+
+470
+00:15:43,106 --> 0:15:44,236
+to be a little bit to the left,
+
+471
+00:15:45,456 --> 0:15:47,046
+the virtual frame will move
+
+472
+00:15:47,046 --> 0:15:47,606
+right along with it.
+
+473
+00:15:52,346 --> 0:15:53,796
+And finally, let's take a look
+
+474
+00:15:53,796 --> 0:15:55,706
+at the makeup of an AR scene,
+
+475
+00:15:56,546 --> 0:15:58,436
+any of which is going to follow
+
+476
+00:15:58,436 --> 0:16:00,706
+what you see here.
+
+477
+00:15:58,436 --> 0:16:00,706
+what you see here.
+
+478
+00:16:00,926 --> 0:16:02,326
+So you start with the ARView,
+
+479
+00:16:03,456 --> 0:16:05,646
+which is the entry point to your
+
+480
+00:16:05,646 --> 0:16:07,956
+AR world and it contains a
+
+481
+00:16:07,956 --> 0:16:09,606
+reference to your scene.
+
+482
+00:16:10,346 --> 0:16:11,956
+And a scene has different
+
+483
+00:16:11,956 --> 0:16:13,306
+anchors which you can add
+
+484
+00:16:13,306 --> 0:16:14,486
+manually as you saw before.
+
+485
+00:16:15,006 --> 0:16:18,026
+And every time you load a new
+
+486
+00:16:18,026 --> 0:16:20,676
+entity, you can attach it to the
+
+487
+00:16:20,676 --> 0:16:23,626
+anchor of your choosing, or to a
+
+488
+00:16:23,626 --> 0:16:26,006
+previously loaded entity to form
+
+489
+00:16:26,006 --> 0:16:26,826
+an entity hierarchy.
+
+490
+00:16:26,886 --> 0:16:30,936
+So in this example, we have two
+
+491
+00:16:30,936 --> 0:16:32,996
+anchors that each form their own
+
+492
+00:16:32,996 --> 0:16:33,606
+entity hierarchies.
+
+493
+00:16:37,416 --> 0:16:38,796
+So now given all the things
+
+494
+00:16:38,796 --> 0:16:40,406
+we've just seen, let's see a
+
+495
+00:16:40,406 --> 0:16:41,606
+live demo of some of the stuff
+
+496
+00:16:41,606 --> 0:16:42,006
+in action.
+
+497
+00:16:44,516 --> 0:16:49,186
+[ Applause ]
+
+498
+00:16:49,686 --> 0:16:52,126
+So what we'll be doing here is
+
+499
+00:16:52,476 --> 0:16:54,006
+we'll be detecting this plane in
+
+500
+00:16:54,006 --> 0:16:56,746
+front of me and we'll be placing
+
+501
+00:16:57,496 --> 0:16:59,826
+virtual content on this plane
+
+502
+00:17:00,436 --> 0:17:02,776
+using the procedural mesh--
+
+503
+00:17:03,426 --> 0:17:04,685
+procedural mesh generation
+
+504
+00:17:04,685 --> 0:17:06,445
+library in RealityKit.
+
+505
+00:17:07,536 --> 0:17:08,976
+So let's bring them out there.
+
+506
+00:17:08,976 --> 0:17:11,226
+And I'll also bring in some
+
+507
+00:17:11,226 --> 0:17:14,316
+virtual toys that are going to
+
+508
+00:17:14,316 --> 0:17:15,336
+interact with these boxes.
+
+509
+00:17:16,296 --> 0:17:16,935
+So there we go.
+
+510
+00:17:21,476 --> 0:17:22,526
+So notice that the physics
+
+511
+00:17:22,526 --> 0:17:23,715
+system is handling the
+
+512
+00:17:23,715 --> 0:17:25,036
+interactions between all the
+
+513
+00:17:25,036 --> 0:17:25,806
+different objects.
+
+514
+00:17:26,276 --> 0:17:27,346
+The animation system is
+
+515
+00:17:27,346 --> 0:17:28,986
+animating this airplane as it
+
+516
+00:17:28,986 --> 0:17:30,246
+flies around me.
+
+517
+00:17:30,806 --> 0:17:33,126
+And notice how RealityKit is
+
+518
+00:17:33,126 --> 0:17:34,536
+automatically handling the
+
+519
+00:17:34,536 --> 0:17:36,556
+lighting, the shadowing, and all
+
+520
+00:17:36,556 --> 0:17:37,686
+the different camera effects to
+
+521
+00:17:37,686 --> 0:17:39,296
+try to make this fit in the
+
+522
+00:17:39,296 --> 0:17:41,156
+environment as much as possible.
+
+523
+00:17:42,266 --> 0:17:43,806
+So this whole app is only a few
+
+524
+00:17:43,806 --> 0:17:45,106
+lines of code and really just
+
+525
+00:17:45,156 --> 0:17:48,096
+involves loading in the cubes,
+
+526
+00:17:48,096 --> 0:17:49,896
+loading in the meshes, and
+
+527
+00:17:49,896 --> 0:17:52,016
+telling RealityKit where I want
+
+528
+00:17:52,016 --> 0:17:52,406
+them to be.
+
+529
+00:17:53,766 --> 0:17:54,406
+And that's that.
+
+530
+00:17:56,516 --> 0:18:01,966
+[ Applause ]
+
+531
+00:17:56,516 --> 0:18:01,966
+[ Applause ]
+
+532
+00:18:02,466 --> 0:18:03,826
+So next I'd like to invite Tyler
+
+533
+00:18:03,826 --> 0:18:06,016
+on the stage to dive deeper into
+
+534
+00:18:06,016 --> 0:18:07,426
+RealityKit and talk more about
+
+535
+00:18:07,426 --> 0:18:07,806
+how it works.
+
+536
+00:18:08,516 --> 0:18:11,836
+[ Applause ]
+
+537
+00:18:12,336 --> 0:18:12,876
+&gt;&gt; Thanks, Cody.
+
+538
+00:18:14,986 --> 0:18:16,266
+I'm Tyler Casella and I'll be
+
+539
+00:18:16,266 --> 0:18:17,366
+walking you through some of the
+
+540
+00:18:17,366 --> 0:18:19,336
+features available in RealityKit
+
+541
+00:18:19,336 --> 0:18:20,266
+and Reality Composer.
+
+542
+00:18:21,576 --> 0:18:23,346
+Let's dive right into it by
+
+543
+00:18:24,026 --> 0:18:25,056
+looking at what you'll need to
+
+544
+00:18:25,056 --> 0:18:26,976
+get started with your AR
+
+545
+00:18:26,976 --> 0:18:27,566
+application.
+
+546
+00:18:33,796 --> 0:18:35,336
+So as Cody showed you earlier,
+
+547
+00:18:35,526 --> 0:18:37,006
+RealityKit uses the entity
+
+548
+00:18:37,006 --> 0:18:38,566
+component design pattern to
+
+549
+00:18:38,566 --> 0:18:40,126
+build objects within the world.
+
+550
+00:18:41,026 --> 0:18:42,476
+Entities establish the structure
+
+551
+00:18:42,476 --> 0:18:43,696
+of your scene and build out a
+
+552
+00:18:43,696 --> 0:18:45,206
+transform hierarchy so that it's
+
+553
+00:18:45,206 --> 0:18:46,246
+easier for you to reason about
+
+554
+00:18:46,246 --> 0:18:47,596
+objects within their local
+
+555
+00:18:47,596 --> 0:18:48,076
+space.
+
+556
+00:18:48,836 --> 0:18:49,846
+Now if you're not familiar with
+
+557
+00:18:49,846 --> 0:18:50,916
+the entity component design
+
+558
+00:18:50,916 --> 0:18:52,386
+pattern, it's no problem, it's
+
+559
+00:18:52,386 --> 0:18:53,806
+actually pretty straightforward
+
+560
+00:18:55,456 --> 0:18:56,266
+to use.
+
+561
+00:18:56,266 --> 0:18:58,066
+Entities themselves are actually
+
+562
+00:18:58,066 --> 0:18:59,076
+comprised of many different
+
+563
+00:18:59,076 --> 0:19:00,726
+pieces called components.
+
+564
+00:18:59,076 --> 0:19:00,726
+pieces called components.
+
+565
+00:19:01,066 --> 0:19:02,526
+And components defined to be the
+
+566
+00:19:02,526 --> 0:19:04,996
+specific behaviors and data that
+
+567
+00:19:04,996 --> 0:19:06,296
+can be added to individual
+
+568
+00:19:06,296 --> 0:19:06,866
+entities.
+
+569
+00:19:07,936 --> 0:19:08,986
+Now, unlike strictly
+
+570
+00:19:08,986 --> 0:19:10,926
+inheritance-based patterns,
+
+571
+00:19:10,956 --> 0:19:12,286
+using entities and components
+
+572
+00:19:12,486 --> 0:19:13,936
+allows you to greater use of
+
+573
+00:19:13,936 --> 0:19:17,246
+code and more flexibility.
+
+574
+00:19:17,806 --> 0:19:19,766
+It actually also provides huge
+
+575
+00:19:19,766 --> 0:19:21,026
+performance benefits under the
+
+576
+00:19:21,026 --> 0:19:22,736
+hood, both in terms of memory
+
+577
+00:19:22,736 --> 0:19:24,126
+layout and multithreading.
+
+578
+00:19:24,406 --> 0:19:26,176
+So to help illustrate entity and
+
+579
+00:19:26,176 --> 0:19:27,406
+components, let's take a look at
+
+580
+00:19:27,406 --> 0:19:28,006
+an example.
+
+581
+00:19:28,946 --> 0:19:31,256
+So let's say for example we have
+
+582
+00:19:31,256 --> 0:19:32,576
+a couple of object types that we
+
+583
+00:19:32,576 --> 0:19:33,576
+commonly use within our
+
+584
+00:19:33,576 --> 0:19:35,906
+application, like a ball, lamp,
+
+585
+00:19:35,906 --> 0:19:36,696
+and camera.
+
+586
+00:19:37,346 --> 0:19:39,316
+Now there's often many pieces of
+
+587
+00:19:39,316 --> 0:19:41,106
+behavior that are shared across
+
+588
+00:19:41,106 --> 0:19:41,696
+all of them.
+
+589
+00:19:42,296 --> 0:19:43,276
+Let's take for example,
+
+590
+00:19:43,316 --> 0:19:43,946
+anchoring.
+
+591
+00:19:44,776 --> 0:19:46,416
+All of these objects need to be
+
+592
+00:19:46,416 --> 0:19:48,026
+anchored within the world, and
+
+593
+00:19:48,026 --> 0:19:49,126
+so we can add an anchoring
+
+594
+00:19:49,126 --> 0:19:52,306
+component to all of them.
+
+595
+00:19:52,526 --> 0:19:53,726
+Now since both the ball and the
+
+596
+00:19:53,726 --> 0:19:55,136
+lamp has-- have a visual
+
+597
+00:19:55,136 --> 0:19:57,066
+representation, we can add a
+
+598
+00:19:57,066 --> 0:19:59,096
+model component to both of them
+
+599
+00:19:59,096 --> 0:20:00,966
+but we omit it from the camera
+
+600
+00:19:59,096 --> 0:20:00,966
+but we omit it from the camera
+
+601
+00:20:01,136 --> 0:20:02,066
+because it's invisible.
+
+602
+00:20:03,046 --> 0:20:03,466
+And this is where the
+
+603
+00:20:03,466 --> 0:20:05,046
+compositional aspect of entity
+
+604
+00:20:05,046 --> 0:20:06,206
+component design starts to
+
+605
+00:20:06,206 --> 0:20:07,136
+become really powerful.
+
+606
+00:20:08,126 --> 0:20:09,906
+Now, to allow objects to collide
+
+607
+00:20:09,906 --> 0:20:11,326
+with each other, we can add a
+
+608
+00:20:11,326 --> 0:20:13,456
+collision component to them, and
+
+609
+00:20:13,456 --> 0:20:14,576
+then we continue this until we
+
+610
+00:20:14,576 --> 0:20:15,716
+have the combination that
+
+611
+00:20:15,716 --> 0:20:17,026
+exhibits the behavior that we're
+
+612
+00:20:17,026 --> 0:20:17,596
+looking for.
+
+613
+00:20:18,306 --> 0:20:19,226
+And you'll notice that all of
+
+614
+00:20:19,226 --> 0:20:21,536
+these objects behave in very
+
+615
+00:20:21,536 --> 0:20:22,346
+unique ways.
+
+616
+00:20:22,766 --> 0:20:23,906
+But by structuring your code in
+
+617
+00:20:23,906 --> 0:20:25,346
+this manner, you're able to
+
+618
+00:20:25,346 --> 0:20:27,446
+avoid duplicating code and reuse
+
+619
+00:20:27,446 --> 0:20:27,956
+behavior.
+
+620
+00:20:28,606 --> 0:20:31,386
+So here we can see how entities
+
+621
+00:20:31,496 --> 0:20:32,276
+look in code.
+
+622
+00:20:32,806 --> 0:20:34,516
+An entity itself doesn't take
+
+623
+00:20:34,516 --> 0:20:36,166
+any parameters to create, but
+
+624
+00:20:36,396 --> 0:20:37,956
+once you have an entity, you can
+
+625
+00:20:37,956 --> 0:20:39,356
+start adding components to it
+
+626
+00:20:39,496 --> 0:20:40,906
+using the subscript operator.
+
+627
+00:20:41,756 --> 0:20:43,636
+And in the same manner, you're
+
+628
+00:20:43,636 --> 0:20:44,936
+able to remove and modify
+
+629
+00:20:44,936 --> 0:20:46,426
+components on these entities.
+
+630
+00:20:47,066 --> 0:20:48,216
+This allows you to dynamically
+
+631
+00:20:48,216 --> 0:20:49,996
+modify the behavior of an
+
+632
+00:20:49,996 --> 0:20:50,376
+entity.
+
+633
+00:20:51,006 --> 0:20:53,666
+Now all entities also contain
+
+634
+00:20:53,666 --> 0:20:55,136
+children on them and you can add
+
+635
+00:20:55,136 --> 0:20:56,816
+a child using the addChild
+
+636
+00:20:56,816 --> 0:20:57,246
+method.
+
+637
+00:20:58,196 --> 0:21:01,876
+And with this hierarchy, setting
+
+638
+00:20:58,196 --> 0:21:01,876
+And with this hierarchy, setting
+
+639
+00:21:01,876 --> 0:21:03,156
+entities position, you're
+
+640
+00:21:03,156 --> 0:21:04,966
+defining its position relative
+
+641
+00:21:04,966 --> 0:21:05,686
+to its parent.
+
+642
+00:21:06,626 --> 0:21:07,736
+Now if you're interested in its
+
+643
+00:21:07,736 --> 0:21:09,256
+position in the world, you can
+
+644
+00:21:09,256 --> 0:21:11,556
+use the set position relative to
+
+645
+00:21:11,716 --> 0:21:14,316
+method and define nil as that
+
+646
+00:21:14,316 --> 0:21:15,076
+relative entity.
+
+647
+00:21:15,386 --> 0:21:16,756
+And this indicates you want
+
+648
+00:21:16,756 --> 0:21:17,506
+world space.
+
+649
+00:21:18,946 --> 0:21:19,906
+Now we also understand
+
+650
+00:21:19,906 --> 0:21:21,096
+developers just want to get
+
+651
+00:21:21,096 --> 0:21:21,986
+started building their
+
+652
+00:21:21,986 --> 0:21:23,586
+applications, so we provide a
+
+653
+00:21:23,586 --> 0:21:25,126
+number of useful variations of
+
+654
+00:21:25,126 --> 0:21:27,066
+entities that come preconfigured
+
+655
+00:21:27,226 --> 0:21:28,116
+and ready to use.
+
+656
+00:21:28,886 --> 0:21:30,136
+These cover all of the common
+
+657
+00:21:30,136 --> 0:21:31,866
+usages such as establishing
+
+658
+00:21:31,866 --> 0:21:34,466
+anchoring, adding visual content
+
+659
+00:21:34,466 --> 0:21:36,446
+to your scene or dynamic lights.
+
+660
+00:21:37,086 --> 0:21:38,446
+And by instantiating any of
+
+661
+00:21:38,446 --> 0:21:40,456
+these entities, all of the
+
+662
+00:21:40,456 --> 0:21:41,836
+necessary components come
+
+663
+00:21:41,836 --> 0:21:43,466
+preconfigured and ready to use.
+
+664
+00:21:43,926 --> 0:21:45,006
+So let's take a look at some of
+
+665
+00:21:45,006 --> 0:21:46,106
+these entities and how you can
+
+666
+00:21:46,106 --> 0:21:46,536
+use them.
+
+667
+00:21:47,336 --> 0:21:48,836
+The first of which is
+
+668
+00:21:48,836 --> 0:21:49,596
+AnchorEntity.
+
+669
+00:21:50,246 --> 0:21:51,476
+And this is our glue to the real
+
+670
+00:21:51,476 --> 0:21:52,906
+world and often the first thing
+
+671
+00:21:52,906 --> 0:21:53,426
+that you're going to be
+
+672
+00:21:53,426 --> 0:21:54,626
+establishing within your AR
+
+673
+00:21:54,626 --> 0:21:55,256
+application.
+
+674
+00:21:56,456 --> 0:21:57,656
+AnchorEntity-- With
+
+675
+00:21:57,656 --> 0:21:59,336
+AnchorEntity, you specify what
+
+676
+00:21:59,336 --> 0:22:00,726
+it should be anchored to within
+
+677
+00:21:59,336 --> 0:22:00,726
+it should be anchored to within
+
+678
+00:22:00,726 --> 0:22:01,306
+the real world.
+
+679
+00:22:01,726 --> 0:22:03,326
+And as that object moves in your
+
+680
+00:22:03,326 --> 0:22:04,966
+environment, the AnchorEntity is
+
+681
+00:22:04,966 --> 0:22:06,266
+going to stay attached to it.
+
+682
+00:22:06,886 --> 0:22:08,036
+And because of this, the
+
+683
+00:22:08,036 --> 0:22:09,416
+AnchorEntity is often going to
+
+684
+00:22:09,416 --> 0:22:11,326
+be the root of your experience
+
+685
+00:22:11,486 --> 0:22:12,636
+and then additional content is
+
+686
+00:22:12,696 --> 0:22:15,686
+built on top of it.
+
+687
+00:22:15,946 --> 0:22:17,446
+AnchorEntity supports all of the
+
+688
+00:22:17,446 --> 0:22:19,176
+anchor types available within
+
+689
+00:22:19,176 --> 0:22:19,616
+ARKit.
+
+690
+00:22:20,076 --> 0:22:21,046
+This allows you to quickly get
+
+691
+00:22:21,046 --> 0:22:22,156
+your content into the real
+
+692
+00:22:22,156 --> 0:22:22,556
+world.
+
+693
+00:22:22,876 --> 0:22:24,636
+For instance, you can specify an
+
+694
+00:22:24,636 --> 0:22:26,346
+image or an object that your
+
+695
+00:22:26,346 --> 0:22:28,376
+content should be glued to, and
+
+696
+00:22:28,376 --> 0:22:29,656
+then upon detecting that anchor
+
+697
+00:22:29,746 --> 0:22:31,136
+that matches your specification,
+
+698
+00:22:31,566 --> 0:22:32,606
+it'll automatically become
+
+699
+00:22:32,606 --> 0:22:33,616
+attached and appear in the
+
+700
+00:22:33,616 --> 0:22:33,956
+world.
+
+701
+00:22:35,526 --> 0:22:37,006
+And if you already have an AR
+
+702
+00:22:37,006 --> 0:22:39,076
+anchor or an AR raycast result,
+
+703
+00:22:39,466 --> 0:22:40,926
+you can anchor to that directly
+
+704
+00:22:41,076 --> 0:22:41,486
+as well.
+
+705
+00:22:41,486 --> 0:22:43,576
+So let's take a look at how you
+
+706
+00:22:43,576 --> 0:22:45,096
+can create anchor entities in
+
+707
+00:22:45,096 --> 0:22:45,446
+code.
+
+708
+00:22:46,506 --> 0:22:47,956
+Now when you're creating anchor
+
+709
+00:22:47,956 --> 0:22:49,926
+entities, you're describing what
+
+710
+00:22:49,926 --> 0:22:51,156
+you would like to be anchored
+
+711
+00:22:51,156 --> 0:22:51,406
+to.
+
+712
+00:22:52,116 --> 0:22:53,426
+So here I'm describing, I would
+
+713
+00:22:53,426 --> 0:22:54,576
+like this AnchorEntity to be
+
+714
+00:22:54,576 --> 0:22:56,366
+attached to a horizontal plane
+
+715
+00:22:56,816 --> 0:22:58,146
+that has a classification of
+
+716
+00:22:58,146 --> 0:23:00,506
+table and has a minimum bounds
+
+717
+00:22:58,146 --> 0:23:00,506
+table and has a minimum bounds
+
+718
+00:23:00,506 --> 0:23:02,356
+of half a meter by half a meter.
+
+719
+00:23:02,886 --> 0:23:05,916
+Next, we add that anchor to the
+
+720
+00:23:05,916 --> 0:23:08,066
+ARView scene and once added to
+
+721
+00:23:08,066 --> 0:23:09,816
+the scene, the anchor doesn't
+
+722
+00:23:09,816 --> 0:23:10,866
+necessarily immediately become
+
+723
+00:23:10,866 --> 0:23:11,286
+active.
+
+724
+00:23:12,026 --> 0:23:13,576
+Remember, if ARKit hasn't
+
+725
+00:23:13,576 --> 0:23:15,216
+detected an anchor that matches
+
+726
+00:23:15,216 --> 0:23:16,806
+that specification, it will
+
+727
+00:23:16,806 --> 0:23:17,716
+remain inactive.
+
+728
+00:23:18,526 --> 0:23:19,836
+And then once we do detect an
+
+729
+00:23:19,836 --> 0:23:22,056
+anchor that matches it, both the
+
+730
+00:23:22,056 --> 0:23:23,176
+AnchorEntity and all of its
+
+731
+00:23:23,176 --> 0:23:25,126
+sub-entities will become active.
+
+732
+00:23:26,706 --> 0:23:28,446
+Now although AnchorEntity is
+
+733
+00:23:28,446 --> 0:23:29,726
+often the root entity of your
+
+734
+00:23:29,726 --> 0:23:31,616
+experience, there are situations
+
+735
+00:23:31,616 --> 0:23:32,706
+in which you're going to want
+
+736
+00:23:32,706 --> 0:23:33,696
+multiple of them.
+
+737
+00:23:34,946 --> 0:23:36,376
+Take this for example where I
+
+738
+00:23:36,376 --> 0:23:37,666
+have content that I would like
+
+739
+00:23:37,706 --> 0:23:39,506
+to be anchored to a table, but
+
+740
+00:23:39,506 --> 0:23:40,936
+also separate content, I would
+
+741
+00:23:40,936 --> 0:23:42,406
+like to be anchored to an image.
+
+742
+00:23:43,166 --> 0:23:44,596
+These all exist within the same
+
+743
+00:23:44,596 --> 0:23:46,616
+scene but I have two different
+
+744
+00:23:46,616 --> 0:23:48,566
+real-world objects that content
+
+745
+00:23:48,566 --> 0:23:49,616
+is being glued to.
+
+746
+00:23:51,186 --> 0:23:52,216
+Now once you've established what
+
+747
+00:23:52,216 --> 0:23:53,236
+you want your content to be
+
+748
+00:23:53,236 --> 0:23:54,566
+attached to, the next is
+
+749
+00:23:54,566 --> 0:23:55,756
+actually getting content in
+
+750
+00:23:55,756 --> 0:23:55,966
+there.
+
+751
+00:23:56,396 --> 0:23:57,416
+And that's where ModelEntity
+
+752
+00:23:57,416 --> 0:23:58,306
+comes into the picture.
+
+753
+00:23:58,496 --> 0:23:59,856
+And this is really the workhorse
+
+754
+00:23:59,856 --> 0:24:00,716
+of RealityKit.
+
+755
+00:23:59,856 --> 0:24:00,716
+of RealityKit.
+
+756
+00:24:01,176 --> 0:24:02,106
+This is what you're going to
+
+757
+00:24:02,106 --> 0:24:03,566
+find yourself using very often.
+
+758
+00:24:04,626 --> 0:24:05,836
+ModelEntity comes with all the
+
+759
+00:24:05,836 --> 0:24:07,176
+building blocks that you need to
+
+760
+00:24:07,176 --> 0:24:09,156
+integrate physics, animation,
+
+761
+00:24:09,416 --> 0:24:10,726
+and rendering in the virtual
+
+762
+00:24:10,726 --> 0:24:11,026
+world.
+
+763
+00:24:11,896 --> 0:24:13,566
+In entity component terms, a
+
+764
+00:24:13,566 --> 0:24:15,266
+ModelEntity is an entity with a
+
+765
+00:24:15,266 --> 0:24:16,776
+model component, a physics
+
+766
+00:24:16,776 --> 0:24:18,176
+component, and a collision
+
+767
+00:24:18,176 --> 0:24:18,676
+component.
+
+768
+00:24:18,676 --> 0:24:20,246
+And these entities can be
+
+769
+00:24:20,246 --> 0:24:22,136
+created dynamically in code or
+
+770
+00:24:22,136 --> 0:24:23,706
+you can load them directly from
+
+771
+00:24:23,706 --> 0:24:25,316
+USDZ or Reality File.
+
+772
+00:24:25,946 --> 0:24:28,236
+So here we're loading a
+
+773
+00:24:28,236 --> 0:24:30,116
+ModelEntity from a file and
+
+774
+00:24:30,116 --> 0:24:31,036
+you'll notice that we make the
+
+775
+00:24:31,036 --> 0:24:32,656
+load very explicit with the
+
+776
+00:24:32,656 --> 0:24:33,546
+loadModel call.
+
+777
+00:24:34,516 --> 0:24:35,506
+This is so that you're always
+
+778
+00:24:35,506 --> 0:24:36,556
+aware when you're doing
+
+779
+00:24:36,556 --> 0:24:37,586
+something that's potentially
+
+780
+00:24:37,586 --> 0:24:38,736
+heavyweight and could be
+
+781
+00:24:38,736 --> 0:24:39,906
+blocking the render thread.
+
+782
+00:24:40,246 --> 0:24:41,516
+And in all of these cases we
+
+783
+00:24:41,516 --> 0:24:42,736
+provide you asynchronous
+
+784
+00:24:42,736 --> 0:24:44,766
+variants to address that, which
+
+785
+00:24:44,766 --> 0:24:45,786
+we'll cover in later-- in a
+
+786
+00:24:45,786 --> 0:24:46,416
+later session.
+
+787
+00:24:47,636 --> 0:24:49,106
+Now once your model is loaded,
+
+788
+00:24:49,106 --> 0:24:50,506
+you simply attach it to your
+
+789
+00:24:50,506 --> 0:24:51,836
+anchor and you're good to go.
+
+790
+00:24:52,326 --> 0:24:53,176
+As soon as that anchor is
+
+791
+00:24:53,176 --> 0:24:54,566
+detected, your model will show
+
+792
+00:24:54,566 --> 0:24:55,666
+up in the world and remain
+
+793
+00:24:55,666 --> 0:24:56,116
+attached.
+
+794
+00:24:56,546 --> 0:24:59,156
+Now let's take a look at the
+
+795
+00:24:59,156 --> 0:25:01,206
+actual anatomy of a ModelEntity.
+
+796
+00:24:59,156 --> 0:25:01,206
+actual anatomy of a ModelEntity.
+
+797
+00:25:01,966 --> 0:25:03,456
+The first item every ModelEntity
+
+798
+00:25:03,456 --> 0:25:05,456
+contains is a mesh resource,
+
+799
+00:25:05,966 --> 0:25:07,136
+which provides the geometric
+
+800
+00:25:07,136 --> 0:25:09,036
+representation of the model.
+
+801
+00:25:10,486 --> 0:25:11,636
+Mesh resources can either be
+
+802
+00:25:11,636 --> 0:25:12,936
+generated directly as a
+
+803
+00:25:12,936 --> 0:25:14,536
+primitive or the result of
+
+804
+00:25:14,536 --> 0:25:16,506
+loading from a USDZ or Reality
+
+805
+00:25:16,506 --> 0:25:16,856
+File.
+
+806
+00:25:17,426 --> 0:25:19,786
+And because meshes are often
+
+807
+00:25:19,786 --> 0:25:21,266
+heavyweight, they can be shared
+
+808
+00:25:21,266 --> 0:25:22,926
+across multiple entities and
+
+809
+00:25:22,926 --> 0:25:24,386
+this also allows us to optimize
+
+810
+00:25:24,386 --> 0:25:25,886
+our rendering to match draw
+
+811
+00:25:25,886 --> 0:25:27,156
+calls together under the hood.
+
+812
+00:25:28,606 --> 0:25:29,656
+Now if you're not getting your
+
+813
+00:25:29,656 --> 0:25:31,526
+mesh from a file, you can also
+
+814
+00:25:31,786 --> 0:25:32,906
+generate them directly from a
+
+815
+00:25:32,906 --> 0:25:34,246
+concise set of primitives.
+
+816
+00:25:34,816 --> 0:25:37,036
+This includes boxes, spheres,
+
+817
+00:25:37,316 --> 0:25:39,176
+planes, and texts which supports
+
+818
+00:25:39,176 --> 0:25:41,206
+all of the fonts on our
+
+819
+00:25:42,296 --> 0:25:42,586
+platform.
+
+820
+00:25:42,626 --> 0:25:43,936
+Now although mesh has defined
+
+821
+00:25:43,936 --> 0:25:45,096
+the geometric structure of a
+
+822
+00:25:45,096 --> 0:25:46,696
+model, you still need a way to
+
+823
+00:25:46,696 --> 0:25:48,346
+define how a model should look.
+
+824
+00:25:48,886 --> 0:25:50,106
+And this is where materials come
+
+825
+00:25:50,106 --> 0:25:50,526
+into play.
+
+826
+00:25:51,526 --> 0:25:52,966
+Materials provide the look and
+
+827
+00:25:53,016 --> 0:25:54,566
+feel of an object and how it
+
+828
+00:25:54,566 --> 0:25:55,936
+interacts with the light around
+
+829
+00:25:56,516 --> 0:25:56,586
+it.
+
+830
+00:25:59,566 --> 0:26:00,856
+Now RealityKit provides
+
+831
+00:25:59,566 --> 0:26:00,856
+Now RealityKit provides
+
+832
+00:26:00,856 --> 0:26:01,866
+rendering that's physically
+
+833
+00:26:01,866 --> 0:26:03,516
+based, which means we simulate
+
+834
+00:26:03,516 --> 0:26:05,056
+how light actually behaves in
+
+835
+00:26:05,056 --> 0:26:06,736
+the real world, to help ensure
+
+836
+00:26:06,736 --> 0:26:07,466
+that it's going to blend
+
+837
+00:26:07,466 --> 0:26:08,396
+seamlessly within it.
+
+838
+00:26:08,906 --> 0:26:10,646
+And materials customize how an
+
+839
+00:26:10,646 --> 0:26:12,266
+object participates within the
+
+840
+00:26:12,266 --> 0:26:12,916
+simulation.
+
+841
+00:26:14,126 --> 0:26:15,046
+Materials can either be
+
+842
+00:26:15,046 --> 0:26:16,166
+predefined when you load a
+
+843
+00:26:16,166 --> 0:26:18,106
+ModelEntity or you can create a
+
+844
+00:26:18,106 --> 0:26:19,436
+material yourself with some of
+
+845
+00:26:19,436 --> 0:26:20,276
+the material types that we
+
+846
+00:26:20,276 --> 0:26:21,686
+provide in RealityKit which we
+
+847
+00:26:21,686 --> 0:26:23,026
+can take a look at.
+
+848
+00:26:23,736 --> 0:26:25,286
+The first of these is
+
+849
+00:26:25,286 --> 0:26:26,096
+SimpleMaterial.
+
+850
+00:26:26,906 --> 0:26:28,606
+Now typically a physically-based
+
+851
+00:26:28,606 --> 0:26:29,916
+material has a lot of
+
+852
+00:26:29,916 --> 0:26:31,406
+parameters, and that's because
+
+853
+00:26:31,406 --> 0:26:32,536
+lighting in the real world is
+
+854
+00:26:32,596 --> 0:26:33,426
+really complex.
+
+855
+00:26:34,176 --> 0:26:35,536
+Now SimpleMaterial condenses
+
+856
+00:26:35,576 --> 0:26:36,896
+these into a concise set of
+
+857
+00:26:36,896 --> 0:26:38,606
+parameters that take either
+
+858
+00:26:38,606 --> 0:26:40,866
+scalar inputs or a texture if
+
+859
+00:26:40,866 --> 0:26:42,436
+you want to vary an input across
+
+860
+00:26:42,436 --> 0:26:43,106
+a surface.
+
+861
+00:26:44,796 --> 0:26:46,446
+Simple material allows you to
+
+862
+00:26:46,446 --> 0:26:49,076
+create a glossy plastic or a
+
+863
+00:26:49,126 --> 0:26:51,086
+brushed metal or even a tinted
+
+864
+00:26:51,086 --> 0:26:51,546
+glass.
+
+865
+00:26:52,266 --> 0:26:53,696
+And you can do this with the
+
+866
+00:26:53,696 --> 0:26:54,846
+three main properties,
+
+867
+00:26:55,266 --> 0:26:57,366
+basecolor, roughness, and
+
+868
+00:26:57,366 --> 0:26:57,776
+metallic.
+
+869
+00:26:59,126 --> 0:27:00,676
+As the name implies, basecolor
+
+870
+00:26:59,126 --> 0:27:00,676
+As the name implies, basecolor
+
+871
+00:27:00,676 --> 0:27:02,236
+establishes the overall color of
+
+872
+00:27:02,236 --> 0:27:03,766
+the material, allowing you to
+
+873
+00:27:03,766 --> 0:27:05,406
+change an object from red to
+
+874
+00:27:05,406 --> 0:27:06,436
+blue for example.
+
+875
+00:27:07,536 --> 0:27:09,426
+And a metallic parameter itself
+
+876
+00:27:09,596 --> 0:27:10,596
+actually simulates how
+
+877
+00:27:10,596 --> 0:27:12,716
+conductive that material is and
+
+878
+00:27:12,716 --> 0:27:14,006
+affects how the light interacts
+
+879
+00:27:14,006 --> 0:27:14,826
+with that surface.
+
+880
+00:27:16,066 --> 0:27:17,786
+So, having a metallic value of
+
+881
+00:27:17,876 --> 0:27:19,406
+zero indicates that it's a poor
+
+882
+00:27:19,406 --> 0:27:19,966
+conductor.
+
+883
+00:27:19,966 --> 0:27:21,006
+And this actually means that
+
+884
+00:27:21,006 --> 0:27:22,526
+light tends to transmit into
+
+885
+00:27:22,526 --> 0:27:24,486
+that surface making the color of
+
+886
+00:27:24,486 --> 0:27:25,926
+the subsurface dominate the
+
+887
+00:27:25,926 --> 0:27:26,556
+appearance.
+
+888
+00:27:27,806 --> 0:27:29,406
+Now if we up that parameter to
+
+889
+00:27:29,406 --> 0:27:31,856
+1.0, this indicates it's a good
+
+890
+00:27:31,856 --> 0:27:33,326
+conductor which causes an
+
+891
+00:27:33,326 --> 0:27:34,826
+immediate reemission of light at
+
+892
+00:27:34,826 --> 0:27:35,596
+the surface level.
+
+893
+00:27:35,596 --> 0:27:36,686
+And this is what gives it that
+
+894
+00:27:36,686 --> 0:27:37,376
+metallic look.
+
+895
+00:27:38,636 --> 0:27:39,776
+And the roughness parameter
+
+896
+00:27:40,016 --> 0:27:41,666
+affects that perceived roughness
+
+897
+00:27:41,666 --> 0:27:43,516
+of the object and how reflective
+
+898
+00:27:43,516 --> 0:27:44,816
+the surface appears.
+
+899
+00:27:48,786 --> 0:27:50,286
+Now we also have unlit material,
+
+900
+00:27:50,546 --> 0:27:52,166
+which also provides coloring of
+
+901
+00:27:52,166 --> 0:27:53,616
+an object, but unlike
+
+902
+00:27:53,616 --> 0:27:55,346
+SimpleMaterial, it does not
+
+903
+00:27:55,346 --> 0:27:56,336
+participate within the
+
+904
+00:27:56,336 --> 0:27:57,706
+physically-based rendering and
+
+905
+00:27:57,706 --> 0:27:59,066
+is unaffected by the lights in
+
+906
+00:27:59,066 --> 0:27:59,496
+the scene.
+
+907
+00:28:00,276 --> 0:28:01,896
+So this gives it an overall flat
+
+908
+00:28:02,006 --> 0:28:02,416
+coloring.
+
+909
+00:28:03,176 --> 0:28:05,016
+This is often useful for text or
+
+910
+00:28:05,016 --> 0:28:06,356
+any content that should remain
+
+911
+00:28:06,726 --> 0:28:07,926
+bright, even when the
+
+912
+00:28:07,956 --> 0:28:08,826
+environment is dark.
+
+913
+00:28:09,856 --> 0:28:11,246
+So here we can see an example of
+
+914
+00:28:11,246 --> 0:28:12,146
+that in usage.
+
+915
+00:28:12,586 --> 0:28:13,876
+Here I placed a virtual
+
+916
+00:28:13,876 --> 0:28:14,946
+television within the
+
+917
+00:28:14,946 --> 0:28:16,586
+environment and I've used
+
+918
+00:28:16,586 --> 0:28:18,516
+SimpleMaterial for the TV box,
+
+919
+00:28:18,806 --> 0:28:20,396
+but unlit material for the
+
+920
+00:28:20,396 --> 0:28:21,286
+actual screen.
+
+921
+00:28:21,916 --> 0:28:23,116
+And you'll see as I turn off the
+
+922
+00:28:23,116 --> 0:28:25,496
+lights, the TV dims but the
+
+923
+00:28:25,496 --> 0:28:27,146
+screen remains bright, and this
+
+924
+00:28:27,146 --> 0:28:28,326
+is because it's unaffected by
+
+925
+00:28:28,326 --> 0:28:29,246
+the environment's lighting.
+
+926
+00:28:31,106 --> 0:28:32,676
+Both SimpleMaterial and unlit
+
+927
+00:28:32,676 --> 0:28:34,276
+material allow for a wide range
+
+928
+00:28:34,326 --> 0:28:36,276
+of appearances but RealityKit
+
+929
+00:28:36,276 --> 0:28:37,916
+also provides a third material
+
+930
+00:28:37,916 --> 0:28:39,386
+that behaves very different but
+
+931
+00:28:39,386 --> 0:28:41,016
+it's just as important and
+
+932
+00:28:41,016 --> 0:28:42,276
+that's OcclusionMaterial.
+
+933
+00:28:43,646 --> 0:28:44,816
+Now instead of affecting in
+
+934
+00:28:44,816 --> 0:28:45,886
+object's appearance,
+
+935
+00:28:46,106 --> 0:28:47,946
+OcclusionMaterial instead masks
+
+936
+00:28:47,946 --> 0:28:49,976
+any objects behind it and falls
+
+937
+00:28:49,976 --> 0:28:51,336
+back to the camera pass through.
+
+938
+00:28:52,186 --> 0:28:53,076
+This gives the appearance of
+
+939
+00:28:53,076 --> 0:28:54,966
+objects moving behind real-world
+
+940
+00:28:54,966 --> 0:28:55,556
+objects.
+
+941
+00:28:57,016 --> 0:28:58,486
+So here we can see common usage
+
+942
+00:28:58,576 --> 0:29:00,006
+in which I've created a plane on
+
+943
+00:28:58,576 --> 0:29:00,006
+in which I've created a plane on
+
+944
+00:29:00,006 --> 0:29:01,656
+top of the real-world table and
+
+945
+00:29:02,576 --> 0:29:03,496
+then I've applied that
+
+946
+00:29:03,496 --> 0:29:04,706
+OcclusionMaterial to it.
+
+947
+00:29:05,516 --> 0:29:07,006
+This gives the illusion that the
+
+948
+00:29:07,006 --> 0:29:08,466
+object is coming up out of the
+
+949
+00:29:08,466 --> 0:29:08,886
+table.
+
+950
+00:29:08,886 --> 0:29:10,076
+And you may have noticed this
+
+951
+00:29:10,076 --> 0:29:11,636
+during Cody's demo as well.
+
+952
+00:29:12,986 --> 0:29:15,186
+Now if you don't do this, it can
+
+953
+00:29:15,186 --> 0:29:16,476
+often be difficult to gauge the
+
+954
+00:29:16,476 --> 0:29:18,016
+position of an object and can
+
+955
+00:29:18,016 --> 0:29:19,216
+really break that immersive
+
+956
+00:29:19,276 --> 0:29:20,956
+experience for the user.
+
+957
+00:29:21,546 --> 0:29:24,306
+So these cover basic building
+
+958
+00:29:24,306 --> 0:29:25,746
+blocks of ModelEntity, and we
+
+959
+00:29:25,746 --> 0:29:26,786
+can take a quick look of how you
+
+960
+00:29:26,786 --> 0:29:28,596
+can use mesh resource and
+
+961
+00:29:28,596 --> 0:29:30,266
+materials in code.
+
+962
+00:29:31,046 --> 0:29:33,186
+Here we're generating a box mesh
+
+963
+00:29:33,666 --> 0:29:34,566
+and all of our calls to
+
+964
+00:29:34,566 --> 0:29:35,696
+dynamically generate mesh
+
+965
+00:29:35,696 --> 0:29:37,406
+resources, use the generate
+
+966
+00:29:37,406 --> 0:29:38,366
+prefix convention.
+
+967
+00:29:38,716 --> 0:29:39,696
+And this is again to make sure
+
+968
+00:29:39,696 --> 0:29:40,786
+it's clear that work is being
+
+969
+00:29:40,786 --> 0:29:43,146
+done under the hood.
+
+970
+00:29:43,416 --> 0:29:44,286
+Now since materials are
+
+971
+00:29:44,286 --> 0:29:45,596
+lightweight and fast to
+
+972
+00:29:45,596 --> 0:29:47,126
+initialize, they can be created
+
+973
+00:29:47,126 --> 0:29:48,426
+directly from their initializer.
+
+974
+00:29:49,766 --> 0:29:51,116
+And once you have both your mesh
+
+975
+00:29:51,116 --> 0:29:52,626
+and your material, you simply
+
+976
+00:29:52,626 --> 0:29:54,356
+create a ModelEntity and pass
+
+977
+00:29:54,386 --> 0:29:54,866
+these along.
+
+978
+00:29:55,416 --> 0:29:58,356
+And with this, you have your
+
+979
+00:29:58,356 --> 0:29:59,646
+basic building block from which
+
+980
+00:29:59,646 --> 0:30:00,646
+you can begin building the
+
+981
+00:29:59,646 --> 0:30:00,646
+you can begin building the
+
+982
+00:30:00,646 --> 0:30:02,176
+visual content within your AR
+
+983
+00:30:02,176 --> 0:30:02,866
+experience.
+
+984
+00:30:03,526 --> 0:30:04,606
+But if you really want to bring
+
+985
+00:30:04,606 --> 0:30:05,996
+it to life, you're going to want
+
+986
+00:30:05,996 --> 0:30:07,476
+to add animation as well.
+
+987
+00:30:07,476 --> 0:30:09,636
+And as Cody showed you,
+
+988
+00:30:10,016 --> 0:30:11,456
+RealityKit supports two primary
+
+989
+00:30:11,456 --> 0:30:14,136
+forms of animation, skeletal and
+
+990
+00:30:14,136 --> 0:30:15,286
+transform animations.
+
+991
+00:30:16,296 --> 0:30:17,306
+These can both be loaded from
+
+992
+00:30:17,306 --> 0:30:19,166
+file but transform animations
+
+993
+00:30:19,166 --> 0:30:20,506
+can also be created directly
+
+994
+00:30:20,506 --> 0:30:21,416
+within RealityKit.
+
+995
+00:30:21,906 --> 0:30:25,186
+Both types of animations can be
+
+996
+00:30:25,186 --> 0:30:26,666
+played from the playAnimation
+
+997
+00:30:26,666 --> 0:30:28,276
+method on all entities.
+
+998
+00:30:28,696 --> 0:30:30,006
+And when you play an animation,
+
+999
+00:30:30,126 --> 0:30:31,706
+you're given back an animation
+
+1000
+00:30:31,706 --> 0:30:32,646
+controller object.
+
+1001
+00:30:33,606 --> 0:30:34,796
+This controller allows you to
+
+1002
+00:30:34,796 --> 0:30:36,186
+control the playback of the
+
+1003
+00:30:36,186 --> 0:30:36,806
+animation.
+
+1004
+00:30:37,706 --> 0:30:39,166
+So with it, you can pause a
+
+1005
+00:30:39,166 --> 0:30:40,896
+playing animation to maintain
+
+1006
+00:30:40,896 --> 0:30:42,616
+its current timing, or you can
+
+1007
+00:30:42,616 --> 0:30:43,616
+check the current state of the
+
+1008
+00:30:43,616 --> 0:30:46,186
+animation and resume it, or even
+
+1009
+00:30:46,466 --> 0:30:47,386
+stop the animation.
+
+1010
+00:30:47,386 --> 0:30:50,736
+Now if you don't have any
+
+1011
+00:30:50,736 --> 0:30:51,766
+animations baked into your
+
+1012
+00:30:51,766 --> 0:30:53,376
+assets directly, you can still
+
+1013
+00:30:53,376 --> 0:30:54,626
+animate your entities with the
+
+1014
+00:30:54,626 --> 0:30:55,576
+move to function.
+
+1015
+00:30:56,786 --> 0:30:58,016
+With this, you first provide the
+
+1016
+00:30:58,016 --> 0:30:59,266
+transform that you'd like to
+
+1017
+00:30:59,266 --> 0:31:00,676
+animate to, and here we're
+
+1018
+00:30:59,266 --> 0:31:00,676
+animate to, and here we're
+
+1019
+00:31:00,676 --> 0:31:02,676
+moving 5 meters forward.
+
+1020
+00:31:03,126 --> 0:31:04,936
+And then you optionally define
+
+1021
+00:31:05,226 --> 0:31:07,176
+the relative space that
+
+1022
+00:31:07,176 --> 0:31:08,006
+transform is in.
+
+1023
+00:31:08,316 --> 0:31:09,736
+Here it's in the world space, so
+
+1024
+00:31:09,736 --> 0:31:10,536
+I provide nil.
+
+1025
+00:31:12,216 --> 0:31:13,376
+Next you provide the duration
+
+1026
+00:31:13,376 --> 0:31:14,396
+that you'd like the animation to
+
+1027
+00:31:14,396 --> 0:31:16,226
+take place, and then the easing
+
+1028
+00:31:16,226 --> 0:31:17,706
+function to define how smooth
+
+1029
+00:31:17,706 --> 0:31:19,116
+that animation should be from
+
+1030
+00:31:19,116 --> 0:31:19,876
+start to finish.
+
+1031
+00:31:20,266 --> 0:31:21,486
+And with that, you've created a
+
+1032
+00:31:21,486 --> 0:31:23,016
+simple transform animation.
+
+1033
+00:31:23,646 --> 0:31:27,186
+So by combining all of these
+
+1034
+00:31:27,186 --> 0:31:29,746
+together, RealityKit focuses on
+
+1035
+00:31:29,746 --> 0:31:31,086
+enabling you to build AR
+
+1036
+00:31:31,086 --> 0:31:31,856
+experiences.
+
+1037
+00:31:32,356 --> 0:31:33,656
+And this year, in addition to a
+
+1038
+00:31:33,656 --> 0:31:35,126
+new framework, we're also
+
+1039
+00:31:35,126 --> 0:31:36,426
+introducing a new tool to
+
+1040
+00:31:36,426 --> 0:31:37,906
+accompany your AR development
+
+1041
+00:31:37,906 --> 0:31:39,506
+workflow, and that's Reality
+
+1042
+00:31:39,506 --> 0:31:40,026
+Composer.
+
+1043
+00:31:40,616 --> 0:31:43,396
+We're introducing Reality
+
+1044
+00:31:43,396 --> 0:31:45,146
+Composer for both macOS
+
+1045
+00:31:45,236 --> 0:31:47,976
+available in Xcode 11, in iPad
+
+1046
+00:31:47,976 --> 0:31:49,636
+and iPhone available in the App
+
+1047
+00:31:49,636 --> 0:31:49,986
+Store.
+
+1048
+00:31:51,126 --> 0:31:52,286
+And with Reality Composer, we're
+
+1049
+00:31:52,286 --> 0:31:53,876
+really focusing on helping iOS
+
+1050
+00:31:53,906 --> 0:31:56,626
+developers to easily create AR
+
+1051
+00:31:56,626 --> 0:31:58,166
+and 3D experiences.
+
+1052
+00:31:58,896 --> 0:32:00,486
+We know that moving to 3D can be
+
+1053
+00:31:58,896 --> 0:32:00,486
+We know that moving to 3D can be
+
+1054
+00:32:00,486 --> 0:32:01,916
+a really daunting task, and with
+
+1055
+00:32:01,916 --> 0:32:03,096
+Reality Composer we want you to
+
+1056
+00:32:03,096 --> 0:32:04,626
+feel right at home building out
+
+1057
+00:32:04,626 --> 0:32:05,606
+your AR scenes.
+
+1058
+00:32:06,416 --> 0:32:07,386
+There's a number of features
+
+1059
+00:32:07,386 --> 0:32:08,366
+that we've integrated into the
+
+1060
+00:32:08,366 --> 0:32:09,616
+tool to help you with this,
+
+1061
+00:32:09,686 --> 0:32:10,646
+which we can dive into.
+
+1062
+00:32:11,266 --> 0:32:13,356
+Now one of the first things that
+
+1063
+00:32:13,356 --> 0:32:14,306
+you tackle when you're starting
+
+1064
+00:32:14,306 --> 0:32:15,936
+a new project is often simply
+
+1065
+00:32:15,936 --> 0:32:17,046
+just getting stuff into the
+
+1066
+00:32:17,046 --> 0:32:17,436
+world.
+
+1067
+00:32:17,746 --> 0:32:18,696
+And we wanted to make sure this
+
+1068
+00:32:18,696 --> 0:32:20,446
+was easy, by already providing
+
+1069
+00:32:20,446 --> 0:32:21,846
+you a set of content that you
+
+1070
+00:32:21,846 --> 0:32:23,596
+can either directly integrate
+
+1071
+00:32:23,596 --> 0:32:25,596
+into your scene or you can use
+
+1072
+00:32:25,596 --> 0:32:27,126
+as a placeholder until you land
+
+1073
+00:32:27,126 --> 0:32:28,066
+your final content.
+
+1074
+00:32:28,886 --> 0:32:30,126
+This library ranges from simple
+
+1075
+00:32:30,126 --> 0:32:32,376
+shapes to common objects to even
+
+1076
+00:32:32,416 --> 0:32:33,246
+large buildings.
+
+1077
+00:32:33,796 --> 0:32:36,516
+And these aren't static assets
+
+1078
+00:32:36,516 --> 0:32:36,916
+either.
+
+1079
+00:32:37,256 --> 0:32:38,596
+Here we have a spiral shape,
+
+1080
+00:32:39,336 --> 0:32:40,256
+which provides a number of
+
+1081
+00:32:40,256 --> 0:32:41,556
+parameters that give you a
+
+1082
+00:32:41,556 --> 0:32:42,936
+flexible range of creativity.
+
+1083
+00:32:43,276 --> 0:32:44,526
+Here I'm able to take it and
+
+1084
+00:32:44,526 --> 0:32:46,176
+extrude it and compress it and
+
+1085
+00:32:46,656 --> 0:32:48,526
+then apply an aluminum material
+
+1086
+00:32:48,526 --> 0:32:49,826
+to it to really give it the look
+
+1087
+00:32:49,826 --> 0:32:51,216
+and feel of a metal spring.
+
+1088
+00:32:51,806 --> 0:32:54,876
+And we provide rich models as
+
+1089
+00:32:54,876 --> 0:32:56,126
+well that you can integrate your
+
+1090
+00:32:56,126 --> 0:32:57,966
+own content into directly, such
+
+1091
+00:32:57,966 --> 0:32:58,826
+as this picture frame.
+
+1092
+00:32:59,556 --> 0:33:00,856
+Here I'm able to pick a photo
+
+1093
+00:32:59,556 --> 0:33:00,856
+Here I'm able to pick a photo
+
+1094
+00:33:01,126 --> 0:33:02,606
+and then place it within it and
+
+1095
+00:33:02,806 --> 0:33:03,956
+then pick and choose a different
+
+1096
+00:33:03,956 --> 0:33:05,496
+frame that matches the style of
+
+1097
+00:33:05,536 --> 0:33:06,476
+the experience that I'm
+
+1098
+00:33:06,476 --> 0:33:06,836
+building.
+
+1099
+00:33:07,336 --> 0:33:10,446
+Reality Composer also gives you
+
+1100
+00:33:10,446 --> 0:33:11,876
+a "what you see is what you get"
+
+1101
+00:33:12,276 --> 0:33:14,166
+environment, making it easy for
+
+1102
+00:33:14,166 --> 0:33:15,726
+you to lay out and pre-visualize
+
+1103
+00:33:15,726 --> 0:33:17,296
+your scenes, as you're building
+
+1104
+00:33:17,296 --> 0:33:17,416
+it.
+
+1105
+00:33:18,176 --> 0:33:19,316
+Here I'm able to duplicate the
+
+1106
+00:33:19,316 --> 0:33:21,246
+row of pawns and swap out their
+
+1107
+00:33:21,246 --> 0:33:22,616
+appearance to build out the
+
+1108
+00:33:22,616 --> 0:33:24,056
+other side of the chessboard.
+
+1109
+00:33:24,616 --> 0:33:28,566
+And a big part of
+
+1110
+00:33:28,566 --> 0:33:30,026
+pre-visualization is actually
+
+1111
+00:33:30,026 --> 0:33:31,616
+seeing your content in AR so
+
+1112
+00:33:31,846 --> 0:33:32,876
+that you can ensure that it's
+
+1113
+00:33:32,876 --> 0:33:34,896
+correctly scaled and fits well
+
+1114
+00:33:34,956 --> 0:33:36,386
+within that real-world
+
+1115
+00:33:36,386 --> 0:33:37,036
+environment.
+
+1116
+00:33:37,606 --> 0:33:41,066
+Now reality composer also allows
+
+1117
+00:33:41,066 --> 0:33:42,066
+you to add behavior into your
+
+1118
+00:33:42,066 --> 0:33:43,696
+scene and provide simple
+
+1119
+00:33:43,696 --> 0:33:45,026
+interactions that help bring
+
+1120
+00:33:45,026 --> 0:33:46,486
+that AR experience to life.
+
+1121
+00:33:46,836 --> 0:33:47,766
+So let's walk through a quick
+
+1122
+00:33:47,766 --> 0:33:48,286
+example.
+
+1123
+00:33:49,246 --> 0:33:50,726
+Here I've got a chessboard that
+
+1124
+00:33:50,846 --> 0:33:52,246
+I'd like to make an interaction
+
+1125
+00:33:52,326 --> 0:33:54,326
+in, where I'd like to make it so
+
+1126
+00:33:54,326 --> 0:33:55,956
+that when I tap the black rook
+
+1127
+00:33:55,956 --> 0:33:57,586
+at the top, it will move over
+
+1128
+00:33:57,586 --> 0:33:58,796
+and put the king into check
+
+1129
+00:33:58,796 --> 0:33:58,986
+mate.
+
+1130
+00:34:00,016 --> 0:34:01,506
+So my first step is to open up
+
+1131
+00:34:01,546 --> 0:34:04,046
+the behavior panel and add a new
+
+1132
+00:34:04,046 --> 0:34:04,536
+behavior.
+
+1133
+00:34:06,056 --> 0:34:07,236
+Now there's a number of
+
+1134
+00:34:07,276 --> 0:34:08,746
+predefined behaviors provided,
+
+1135
+00:34:08,956 --> 0:34:10,466
+so I'll go ahead and pick tap to
+
+1136
+00:34:10,466 --> 0:34:10,726
+flip.
+
+1137
+00:34:11,946 --> 0:34:12,856
+Now, this gives me a tap
+
+1138
+00:34:12,916 --> 0:34:14,255
+trigger, which will cause a
+
+1139
+00:34:14,255 --> 0:34:15,545
+sequence of actions to play,
+
+1140
+00:34:16,306 --> 0:34:17,226
+which currently plays an
+
+1141
+00:34:17,226 --> 0:34:19,025
+emphasis animation on my rook.
+
+1142
+00:34:19,985 --> 0:34:21,176
+For my interaction, I'm going to
+
+1143
+00:34:21,176 --> 0:34:22,826
+modify the motion type to
+
+1144
+00:34:22,826 --> 0:34:24,436
+instead be a jiggle instead of a
+
+1145
+00:34:24,436 --> 0:34:24,735
+flip.
+
+1146
+00:34:26,216 --> 0:34:28,396
+Next, I'll add a move by action
+
+1147
+00:34:28,696 --> 0:34:30,856
+to move that rook into place and
+
+1148
+00:34:30,856 --> 0:34:32,306
+I'll adjust my movement just
+
+1149
+00:34:32,306 --> 0:34:32,735
+slightly.
+
+1150
+00:34:33,806 --> 0:34:35,196
+And now we're good to go and I
+
+1151
+00:34:35,196 --> 0:34:36,525
+can preview my interaction.
+
+1152
+00:34:37,295 --> 0:34:39,235
+Now when I tap on my rook, it
+
+1153
+00:34:39,235 --> 0:34:40,856
+does a little jiggle, and then
+
+1154
+00:34:40,856 --> 0:34:42,136
+it moves over to put the king
+
+1155
+00:34:42,136 --> 0:34:42,696
+into checkmate.
+
+1156
+00:34:43,516 --> 0:34:48,485
+[ Applause ]
+
+1157
+00:34:48,985 --> 0:34:50,166
+So with all of these features,
+
+1158
+00:34:50,196 --> 0:34:51,676
+we really wanted it to be easy
+
+1159
+00:34:51,676 --> 0:34:52,896
+for you to make great looking
+
+1160
+00:34:52,896 --> 0:34:54,436
+content ready to view and
+
+1161
+00:34:54,436 --> 0:34:55,596
+experience in AR.
+
+1162
+00:34:55,985 --> 0:34:57,136
+And all of these features that
+
+1163
+00:34:57,136 --> 0:34:58,446
+I've shown you here on the iPad
+
+1164
+00:34:59,006 --> 0:35:02,266
+are also available on macOS and
+
+1165
+00:34:59,006 --> 0:35:02,266
+are also available on macOS and
+
+1166
+00:35:02,906 --> 0:35:03,056
+iPhone.
+
+1167
+00:35:03,656 --> 0:35:04,796
+Now although Reality Composer
+
+1168
+00:35:04,796 --> 0:35:06,266
+runs as a separate application,
+
+1169
+00:35:06,686 --> 0:35:08,026
+it's tightly integrated within
+
+1170
+00:35:08,026 --> 0:35:09,056
+Xcode's development and
+
+1171
+00:35:09,056 --> 0:35:09,726
+ecosystem.
+
+1172
+00:35:10,506 --> 0:35:11,426
+When building your Xcode
+
+1173
+00:35:11,426 --> 0:35:13,906
+project, the content within your
+
+1174
+00:35:13,906 --> 0:35:15,966
+project is integrated and
+
+1175
+00:35:15,966 --> 0:35:17,696
+optimized into your application.
+
+1176
+00:35:18,276 --> 0:35:19,566
+But there's some magic that
+
+1177
+00:35:19,566 --> 0:35:21,186
+happens in between building your
+
+1178
+00:35:21,186 --> 0:35:23,026
+Xcode project and producing your
+
+1179
+00:35:23,026 --> 0:35:23,676
+application.
+
+1180
+00:35:24,106 --> 0:35:25,306
+And that's code generation.
+
+1181
+00:35:26,536 --> 0:35:27,836
+As part of this step, the
+
+1182
+00:35:27,836 --> 0:35:29,206
+content from your project is
+
+1183
+00:35:29,206 --> 0:35:31,106
+compiled and optimized into a
+
+1184
+00:35:31,106 --> 0:35:31,896
+Reality File.
+
+1185
+00:35:32,486 --> 0:35:34,656
+And next we introspect that file
+
+1186
+00:35:34,916 --> 0:35:36,616
+and generate customized code for
+
+1187
+00:35:36,616 --> 0:35:37,846
+accessing objects that you've
+
+1188
+00:35:37,886 --> 0:35:39,226
+created within your scene.
+
+1189
+00:35:40,936 --> 0:35:42,186
+Now this code generation step is
+
+1190
+00:35:42,186 --> 0:35:43,656
+performed automatically behind
+
+1191
+00:35:43,656 --> 0:35:45,196
+the scenes by Xcode and
+
+1192
+00:35:45,266 --> 0:35:47,086
+establishes a strongly typed
+
+1193
+00:35:47,086 --> 0:35:48,526
+access to the content within
+
+1194
+00:35:48,526 --> 0:35:49,036
+your scene.
+
+1195
+00:35:49,686 --> 0:35:50,686
+And this has the wonderful
+
+1196
+00:35:50,686 --> 0:35:51,886
+advantage that if there's any
+
+1197
+00:35:51,886 --> 0:35:53,836
+mismatches between the naming of
+
+1198
+00:35:53,836 --> 0:35:55,286
+the objects in your scene, you
+
+1199
+00:35:55,286 --> 0:35:57,156
+get a compilation error instead
+
+1200
+00:35:57,156 --> 0:35:58,316
+of a runtime crash.
+
+1201
+00:35:59,486 --> 0:36:01,136
+Code generation also gives you
+
+1202
+00:35:59,486 --> 0:36:01,136
+Code generation also gives you
+
+1203
+00:36:01,136 --> 0:36:03,176
+direct access to invoke triggers
+
+1204
+00:36:03,606 --> 0:36:04,796
+within the behaviors of your
+
+1205
+00:36:04,796 --> 0:36:06,856
+scene and create custom actions
+
+1206
+00:36:06,856 --> 0:36:07,576
+within your code.
+
+1207
+00:36:08,816 --> 0:36:10,456
+We feel that with this-- the
+
+1208
+00:36:10,456 --> 0:36:11,776
+experience of building content
+
+1209
+00:36:11,776 --> 0:36:13,356
+in Reality Composer and coding
+
+1210
+00:36:13,356 --> 0:36:14,706
+in Xcode is seamless.
+
+1211
+00:36:15,256 --> 0:36:18,176
+And that's a quick overview of
+
+1212
+00:36:18,176 --> 0:36:19,076
+Reality Composer.
+
+1213
+00:36:19,366 --> 0:36:20,706
+Now there's a ton more I'd love
+
+1214
+00:36:20,706 --> 0:36:22,376
+to show you, because we've
+
+1215
+00:36:22,376 --> 0:36:23,496
+really only covered the tip of
+
+1216
+00:36:23,496 --> 0:36:24,286
+the iceberg today.
+
+1217
+00:36:24,876 --> 0:36:25,966
+There's many other areas that I
+
+1218
+00:36:25,966 --> 0:36:27,656
+haven't tackled like networking,
+
+1219
+00:36:27,656 --> 0:36:29,566
+physics bodies, ray casting,
+
+1220
+00:36:29,756 --> 0:36:31,516
+gestures and more, so I
+
+1221
+00:36:31,516 --> 0:36:32,596
+encourage you to come to some of
+
+1222
+00:36:32,596 --> 0:36:33,506
+our other sessions.
+
+1223
+00:36:34,556 --> 0:36:36,066
+Tomorrow at 10:00 a.m., we have
+
+1224
+00:36:36,066 --> 0:36:37,346
+the Building Apps with Reality
+
+1225
+00:36:37,346 --> 0:36:38,796
+Composer session, which is going
+
+1226
+00:36:38,796 --> 0:36:40,596
+to showcase how to build an AR
+
+1227
+00:36:40,596 --> 0:36:42,476
+application which is multiplayer
+
+1228
+00:36:42,696 --> 0:36:43,526
+in RealityKit.
+
+1229
+00:36:44,796 --> 0:36:46,556
+And Thursday at 11:00 a.m., we
+
+1230
+00:36:46,556 --> 0:36:48,136
+have the building AR Experiences
+
+1231
+00:36:48,136 --> 0:36:49,446
+with Reality Composer session,
+
+1232
+00:36:49,736 --> 0:36:50,996
+which explores how you can
+
+1233
+00:36:51,026 --> 0:36:52,776
+integrate Reality Composer into
+
+1234
+00:36:52,776 --> 0:36:54,466
+your AR application workflow.
+
+1235
+00:36:55,166 --> 0:36:56,346
+And please come join us in the
+
+1236
+00:36:56,346 --> 0:36:57,606
+labs tomorrow at noon.
+
+1237
+00:36:57,756 --> 0:36:58,646
+We're happy to answer any
+
+1238
+00:36:58,646 --> 0:37:00,026
+questions you may have and help
+
+1239
+00:36:58,646 --> 0:37:00,026
+questions you may have and help
+
+1240
+00:37:00,056 --> 0:37:00,756
+get you started.
+
+1241
+00:37:01,306 --> 0:37:02,316
+So thank you for coming.
+
+1242
+00:37:02,656 --> 0:37:03,556
+And I hope you have a great
+
+1243
+00:37:03,556 --> 0:37:03,926
+WWDC.
+
+1244
+00:37:04,516 --> 0:37:12,640
+[ Applause ]

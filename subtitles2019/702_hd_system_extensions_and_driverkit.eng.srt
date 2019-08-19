@@ -1,0 +1,4299 @@
+1
+00:00:00,506 --> 0:00:05,500
+[ Music ]
+
+2
+00:00:09,516 --> 0:00:12,616
+[ Applause ]
+
+3
+00:00:13,116 --> 0:00:14,076
+&gt;&gt; My name is Joe.
+
+4
+00:00:14,076 --> 0:00:15,666
+And later, I'll be joined by my
+
+5
+00:00:15,666 --> 0:00:17,276
+colleagues Simon and Scott.
+
+6
+00:00:17,696 --> 0:00:19,766
+We're from the Core OS Group and
+
+7
+00:00:19,766 --> 0:00:21,246
+we'd like to tell you about some
+
+8
+00:00:21,296 --> 0:00:22,816
+new developments with Kernel
+
+9
+00:00:22,816 --> 0:00:25,526
+Extensions in macOS 10.15
+
+10
+00:00:25,526 --> 0:00:26,046
+Catalina.
+
+11
+00:00:28,276 --> 0:00:31,266
+Kernel Extensions or Kexts, are
+
+12
+00:00:31,266 --> 0:00:32,896
+a technology that's been part of
+
+13
+00:00:32,896 --> 0:00:34,786
+macOS from the very beginning.
+
+14
+00:00:36,046 --> 0:00:37,796
+Using Kexts, you can build
+
+15
+00:00:37,846 --> 0:00:39,846
+powerful and innovative apps
+
+16
+00:00:40,246 --> 0:00:41,656
+that extend the built-in
+
+17
+00:00:41,656 --> 0:00:43,446
+functionality of the operating
+
+18
+00:00:43,446 --> 0:00:43,816
+system.
+
+19
+00:00:44,406 --> 0:00:47,386
+This power to extend the system
+
+20
+00:00:47,836 --> 0:00:49,556
+is an important part of what
+
+21
+00:00:49,556 --> 0:00:51,246
+makes the Mac the Mac.
+
+22
+00:00:51,806 --> 0:00:54,866
+But there are some problems with
+
+23
+00:00:54,866 --> 0:00:55,926
+Kernel Extensions.
+
+24
+00:00:57,326 --> 0:00:59,166
+They can be difficult to develop
+
+25
+00:00:59,166 --> 0:01:02,406
+and to debug, they can be a risk
+
+26
+00:00:59,166 --> 0:01:02,406
+and to debug, they can be a risk
+
+27
+00:01:02,456 --> 0:01:04,846
+to security and privacy on the
+
+28
+00:01:04,846 --> 0:01:07,086
+machine, and they can be a risk
+
+29
+00:01:07,086 --> 0:01:08,216
+to the reliability of the
+
+30
+00:01:08,216 --> 0:01:08,676
+system.
+
+31
+00:01:09,756 --> 0:01:11,356
+It's time for an upgrade.
+
+32
+00:01:12,816 --> 0:01:15,076
+MacOS Catalina introduces two
+
+33
+00:01:15,076 --> 0:01:17,066
+new technologies called System
+
+34
+00:01:17,066 --> 0:01:18,916
+Extensions and DriverKit.
+
+35
+00:01:20,106 --> 0:01:22,566
+Using them, your apps can extend
+
+36
+00:01:22,736 --> 0:01:24,486
+the operating system in ways
+
+37
+00:01:24,486 --> 0:01:26,656
+that are more reliable, more
+
+38
+00:01:26,656 --> 0:01:29,436
+secure, and easier to develop
+
+39
+00:01:29,706 --> 0:01:30,536
+than ever before.
+
+40
+00:01:31,056 --> 0:01:34,516
+Here's what we'll talk about
+
+41
+00:01:34,516 --> 0:01:34,936
+today.
+
+42
+00:01:35,466 --> 0:01:37,136
+First, I'll introduce these new
+
+43
+00:01:37,136 --> 0:01:40,196
+technologies and show you how
+
+44
+00:01:40,196 --> 0:01:41,626
+they avoid the problems of
+
+45
+00:01:41,666 --> 0:01:42,676
+Kernel Extensions.
+
+46
+00:01:43,896 --> 0:01:46,166
+Then, Simon will come up and
+
+47
+00:01:46,166 --> 0:01:47,586
+show us how to build Driver
+
+48
+00:01:47,586 --> 0:01:49,366
+Extensions using DriverKit.
+
+49
+00:01:51,056 --> 0:01:53,176
+Scott will show us how to write
+
+50
+00:01:53,236 --> 0:01:55,526
+and debug a simple USB driver.
+
+51
+00:01:57,016 --> 0:01:58,346
+And then, I'll tell you how to
+
+52
+00:01:58,346 --> 0:01:59,946
+include System Extensions in
+
+53
+00:01:59,946 --> 0:02:02,166
+your apps.
+
+54
+00:01:59,946 --> 0:02:02,166
+your apps.
+
+55
+00:02:02,166 --> 0:02:04,576
+Let's get started.
+
+56
+00:02:04,656 --> 0:02:07,466
+System Extensions are our first
+
+57
+00:02:07,466 --> 0:02:08,895
+new technology in macOS
+
+58
+00:02:08,946 --> 0:02:09,425
+Catalina.
+
+59
+00:02:10,126 --> 0:02:12,686
+A System Extension is part of
+
+60
+00:02:12,686 --> 0:02:14,326
+your app that extends the
+
+61
+00:02:14,326 --> 0:02:15,926
+functionality of the operating
+
+62
+00:02:15,926 --> 0:02:18,176
+system in ways similar to a
+
+63
+00:02:18,176 --> 0:02:20,176
+Kernel Extension but running in
+
+64
+00:02:20,176 --> 0:02:22,456
+user space outside the kernel.
+
+65
+00:02:24,376 --> 0:02:26,256
+There are three kinds of System
+
+66
+00:02:26,256 --> 0:02:27,696
+Extensions that you can build in
+
+67
+00:02:27,696 --> 0:02:28,266
+Catalina.
+
+68
+00:02:28,956 --> 0:02:30,656
+They are Network Extensions,
+
+69
+00:02:31,246 --> 0:02:33,696
+Driver Extensions, and Endpoint
+
+70
+00:02:33,696 --> 0:02:34,936
+Security Extensions.
+
+71
+00:02:36,826 --> 0:02:38,136
+Network Extensions are a
+
+72
+00:02:38,136 --> 0:02:40,176
+replacement for Network Kernel
+
+73
+00:02:40,176 --> 0:02:40,956
+Extensions.
+
+74
+00:02:42,616 --> 0:02:44,316
+They can filter and reroute
+
+75
+00:02:44,316 --> 0:02:46,706
+network traffic or connect to a
+
+76
+00:02:47,246 --> 0:02:47,330
+VPN.
+
+77
+00:02:48,516 --> 0:02:50,026
+For more information on Network
+
+78
+00:02:50,026 --> 0:02:51,866
+Extensions, there's a session
+
+79
+00:02:51,866 --> 0:02:53,306
+dedicated to them on Friday
+
+80
+00:02:53,306 --> 0:02:53,726
+morning.
+
+81
+00:02:56,596 --> 0:02:59,446
+Endpoint Security Extensions are
+
+82
+00:02:59,446 --> 0:03:01,656
+a replacement for Kexts that
+
+83
+00:02:59,446 --> 0:03:01,656
+a replacement for Kexts that
+
+84
+00:03:01,846 --> 0:03:03,066
+intercept and monitor
+
+85
+00:03:03,066 --> 0:03:05,346
+security-related events with the
+
+86
+00:03:05,346 --> 0:03:06,636
+KAUTH interfaces.
+
+87
+00:03:07,616 --> 0:03:08,836
+Some of the apps you can build
+
+88
+00:03:08,836 --> 0:03:10,866
+this way are Endpoint Detection
+
+89
+00:03:10,866 --> 0:03:12,306
+and Response and Data Loss
+
+90
+00:03:12,306 --> 0:03:13,306
+Prevention apps.
+
+91
+00:03:14,406 --> 0:03:15,706
+If you're interested in Endpoint
+
+92
+00:03:15,706 --> 0:03:17,456
+Security Extensions, please,
+
+93
+00:03:17,456 --> 0:03:18,956
+come to the Security Labs.
+
+94
+00:03:19,476 --> 0:03:20,966
+There's one happening right now
+
+95
+00:03:20,966 --> 0:03:22,566
+and continuing after this talk
+
+96
+00:03:23,056 --> 0:03:24,696
+and one on Thursday afternoon.
+
+97
+00:03:25,276 --> 0:03:29,796
+The third type of extension is
+
+98
+00:03:29,796 --> 0:03:31,826
+Driver Extensions which are a
+
+99
+00:03:31,826 --> 0:03:33,526
+replacement for Device Driver
+
+100
+00:03:33,526 --> 0:03:34,856
+Kexts using IOKit.
+
+101
+00:03:35,576 --> 0:03:38,326
+In Catalina, you can control
+
+102
+00:03:38,446 --> 0:03:41,396
+USB, Serial, Network Interface,
+
+103
+00:03:41,526 --> 0:03:43,206
+and Human Interface devices.
+
+104
+00:03:45,056 --> 0:03:47,146
+Driver Extensions are built with
+
+105
+00:03:47,186 --> 0:03:49,196
+DriverKit which is our second
+
+106
+00:03:49,196 --> 0:03:51,146
+new technology in Catalina.
+
+107
+00:03:52,566 --> 0:03:56,636
+DriverKit is a new SDK with all
+
+108
+00:03:56,636 --> 0:03:59,896
+new frameworks based on IOKit
+
+109
+00:03:59,976 --> 0:04:01,726
+but updated and modernized,
+
+110
+00:03:59,976 --> 0:04:01,726
+but updated and modernized,
+
+111
+00:04:03,106 --> 0:04:04,566
+designed for building Driver
+
+112
+00:04:04,566 --> 0:04:07,256
+Extensions in user space outside
+
+113
+00:04:07,256 --> 0:04:07,836
+the kernel.
+
+114
+00:04:08,446 --> 0:04:11,386
+Now, that we've met these new
+
+115
+00:04:11,386 --> 0:04:15,056
+technologies let's see how they
+
+116
+00:04:15,056 --> 0:04:16,716
+avoid the problems of Kernel
+
+117
+00:04:16,716 --> 0:04:17,396
+Extensions.
+
+118
+00:04:19,036 --> 0:04:20,826
+There's a phrase I used in both
+
+119
+00:04:20,826 --> 0:04:23,046
+of those definitions; in user
+
+120
+00:04:23,046 --> 0:04:24,946
+space, outside the kernel.
+
+121
+00:04:26,016 --> 0:04:27,046
+Why does this matter?
+
+122
+00:04:28,386 --> 0:04:30,136
+The kernel is a very unforgiving
+
+123
+00:04:30,136 --> 0:04:31,896
+and difficult environment to
+
+124
+00:04:31,896 --> 0:04:32,806
+program within.
+
+125
+00:04:33,286 --> 0:04:36,816
+The kernel is the conductor of
+
+126
+00:04:36,926 --> 0:04:38,146
+everything that happens on the
+
+127
+00:04:38,146 --> 0:04:40,946
+machine, so it must never stop
+
+128
+00:04:40,946 --> 0:04:43,016
+running, must never wait for
+
+129
+00:04:43,016 --> 0:04:44,466
+anything to happen, and must
+
+130
+00:04:44,466 --> 0:04:45,386
+never crash.
+
+131
+00:04:46,776 --> 0:04:49,216
+Code in the kernel has to be
+
+132
+00:04:49,216 --> 0:04:53,186
+fast, has to be predictable, has
+
+133
+00:04:53,186 --> 0:04:54,626
+to be frugal with its use of
+
+134
+00:04:54,626 --> 0:04:56,706
+resources like memory, and has
+
+135
+00:04:56,706 --> 0:04:58,116
+to be essentially bug-free.
+
+136
+00:04:59,316 --> 0:05:00,796
+It's very difficult to write
+
+137
+00:04:59,316 --> 0:05:00,796
+It's very difficult to write
+
+138
+00:05:00,856 --> 0:05:02,526
+code that meets all of these
+
+139
+00:05:02,576 --> 0:05:03,256
+restrictions.
+
+140
+00:05:05,236 --> 0:05:07,326
+System Extensions run in user
+
+141
+00:05:07,326 --> 0:05:09,516
+space outside the kernel which
+
+142
+00:05:09,516 --> 0:05:11,246
+means they run in a comfortable
+
+143
+00:05:11,246 --> 0:05:13,046
+modern programming environment.
+
+144
+00:05:14,516 --> 0:05:16,596
+This makes them easier to
+
+145
+00:05:16,596 --> 0:05:19,606
+develop than Kexts where kernel
+
+146
+00:05:19,606 --> 0:05:21,816
+code has restrictions on when
+
+147
+00:05:21,816 --> 0:05:23,556
+and how it can allocate memory
+
+148
+00:05:23,556 --> 0:05:25,186
+or synchronize between threads.
+
+149
+00:05:26,326 --> 0:05:27,736
+This means it cannot use most
+
+150
+00:05:27,736 --> 0:05:29,526
+system frameworks such as
+
+151
+00:05:29,526 --> 0:05:31,106
+Foundation since they are not
+
+152
+00:05:31,106 --> 0:05:32,106
+designed to run in this
+
+153
+00:05:32,106 --> 0:05:32,656
+environment.
+
+154
+00:05:33,946 --> 0:05:35,416
+The only supported language for
+
+155
+00:05:35,416 --> 0:05:38,526
+Kext development is C and C++.
+
+156
+00:05:39,906 --> 0:05:41,536
+System Extensions, on the other
+
+157
+00:05:41,536 --> 0:05:43,456
+hand, have no such restrictions
+
+158
+00:05:44,006 --> 0:05:45,206
+which means they can be built
+
+159
+00:05:45,566 --> 0:05:49,006
+using any framework in the macOS
+
+160
+00:05:49,416 --> 0:05:49,506
+SDK
+
+161
+00:05:50,026 --> 0:05:51,496
+and can be written in any
+
+162
+00:05:51,496 --> 0:05:53,056
+language including Swift.
+
+163
+00:05:54,516 --> 0:05:58,446
+[ Applause ]
+
+164
+00:05:58,946 --> 0:06:00,266
+There is one exception to this.
+
+165
+00:05:58,946 --> 0:06:00,266
+There is one exception to this.
+
+166
+00:06:00,926 --> 0:06:02,706
+Driver Extensions, because of
+
+167
+00:06:02,706 --> 0:06:04,046
+their close relationship with
+
+168
+00:06:04,076 --> 0:06:06,106
+hardware, still have some
+
+169
+00:06:06,106 --> 0:06:06,866
+restrictions.
+
+170
+00:06:08,026 --> 0:06:09,386
+They must use the DriverKit
+
+171
+00:06:09,386 --> 0:06:11,526
+frameworks and run in a tailored
+
+172
+00:06:11,526 --> 0:06:13,476
+runtime which isolates them from
+
+173
+00:06:13,576 --> 0:06:16,026
+the rest of the system.
+
+174
+00:06:16,216 --> 0:06:18,356
+Driver Extensions must be
+
+175
+00:06:18,356 --> 0:06:20,126
+written in C or C++.
+
+176
+00:06:20,206 --> 0:06:22,736
+However, the default is C++17.
+
+177
+00:06:23,516 --> 0:06:27,586
+[ Applause ]
+
+178
+00:06:28,086 --> 0:06:29,436
+System Extensions are also
+
+179
+00:06:29,436 --> 0:06:31,086
+easier to debug than Kernel
+
+180
+00:06:31,086 --> 0:06:31,796
+Extensions.
+
+181
+00:06:32,716 --> 0:06:34,326
+Attaching a debugger to the
+
+182
+00:06:34,326 --> 0:06:36,296
+kernel halts the kernel and the
+
+183
+00:06:36,296 --> 0:06:38,676
+entire machine including the
+
+184
+00:06:38,676 --> 0:06:39,166
+debugger.
+
+185
+00:06:40,126 --> 0:06:41,456
+This means you usually need a
+
+186
+00:06:41,456 --> 0:06:43,616
+second machine to debug and you
+
+187
+00:06:43,616 --> 0:06:44,886
+may need special cables or
+
+188
+00:06:44,886 --> 0:06:46,566
+network configuration to connect
+
+189
+00:06:46,566 --> 0:06:47,286
+the machines.
+
+190
+00:06:47,816 --> 0:06:50,756
+The cycle of building, testing,
+
+191
+00:06:50,926 --> 0:06:53,376
+and debugging a Kext can be slow
+
+192
+00:06:53,496 --> 0:06:55,146
+because any crash in the Kext
+
+193
+00:06:55,146 --> 0:06:56,556
+means the whole system has to
+
+194
+00:06:56,556 --> 0:06:57,006
+restart.
+
+195
+00:06:57,656 --> 0:07:00,716
+And the kernel debugger has
+
+196
+00:06:57,656 --> 0:07:00,716
+And the kernel debugger has
+
+197
+00:07:00,716 --> 0:07:01,646
+limited support.
+
+198
+00:07:01,976 --> 0:07:02,956
+It cannot do things like
+
+199
+00:07:02,956 --> 0:07:04,646
+evaluate expressions or print
+
+200
+00:07:04,646 --> 0:07:05,906
+the value of objects.
+
+201
+00:07:06,346 --> 0:07:09,686
+System Extensions, on the other
+
+202
+00:07:09,686 --> 0:07:13,946
+hand, can be debugged and the
+
+203
+00:07:14,196 --> 0:07:15,396
+kernel keeps running.
+
+204
+00:07:16,966 --> 0:07:18,526
+There's no need to restart if an
+
+205
+00:07:18,526 --> 0:07:19,706
+extension crashes.
+
+206
+00:07:20,836 --> 0:07:22,796
+You can build, test, and debug
+
+207
+00:07:23,016 --> 0:07:25,196
+all on one machine with full
+
+208
+00:07:25,196 --> 0:07:25,966
+debugger support.
+
+209
+00:07:26,556 --> 0:07:30,246
+But the biggest improvements of
+
+210
+00:07:30,246 --> 0:07:32,246
+System Extensions over Kernel
+
+211
+00:07:32,246 --> 0:07:34,406
+Extensions are in the areas of
+
+212
+00:07:34,406 --> 0:07:36,646
+security, privacy, and
+
+213
+00:07:36,646 --> 0:07:37,316
+reliability.
+
+214
+00:07:37,936 --> 0:07:42,436
+The kernel has many jobs, but
+
+215
+00:07:42,436 --> 0:07:44,196
+one of the most important is to
+
+216
+00:07:44,196 --> 0:07:46,746
+define and enforce the rules of
+
+217
+00:07:46,746 --> 0:07:48,276
+the system's Security Policy.
+
+218
+00:07:49,266 --> 0:07:51,186
+The kernel separates apps from
+
+219
+00:07:51,186 --> 0:07:52,806
+each other and from direct
+
+220
+00:07:52,806 --> 0:07:53,836
+access to hardware.
+
+221
+00:07:54,606 --> 0:07:56,126
+Then, it allows them to share
+
+222
+00:07:56,126 --> 0:07:57,816
+data and system services
+
+223
+00:07:58,036 --> 0:07:59,716
+following the rules of the
+
+224
+00:07:59,716 --> 0:08:00,706
+Security Policy.
+
+225
+00:07:59,716 --> 0:08:00,706
+Security Policy.
+
+226
+00:08:01,226 --> 0:08:04,436
+When a Kernel Extension loads,
+
+227
+00:08:04,846 --> 0:08:06,786
+it becomes part of the kernel.
+
+228
+00:08:07,896 --> 0:08:09,686
+It has access to everything on
+
+229
+00:08:09,686 --> 0:08:10,186
+the machine.
+
+230
+00:08:11,066 --> 0:08:12,666
+This is where a Kext's power
+
+231
+00:08:12,666 --> 0:08:13,186
+comes from.
+
+232
+00:08:13,686 --> 0:08:16,566
+But it can also be a danger.
+
+233
+00:08:16,716 --> 0:08:18,886
+Because the Kernel Extension is
+
+234
+00:08:18,886 --> 0:08:20,416
+part of the kernel which makes
+
+235
+00:08:20,416 --> 0:08:22,936
+the security rules, it is above
+
+236
+00:08:22,936 --> 0:08:23,686
+the rules.
+
+237
+00:08:24,256 --> 0:08:27,576
+If a Kext has a bug that allows
+
+238
+00:08:27,576 --> 0:08:30,396
+it to be compromised, it can
+
+239
+00:08:30,396 --> 0:08:32,116
+take over the entire machine
+
+240
+00:08:33,155 --> 0:08:34,576
+doing things its developers
+
+241
+00:08:34,576 --> 0:08:36,556
+never intended and its users
+
+242
+00:08:36,556 --> 0:08:37,176
+don't want.
+
+243
+00:08:37,916 --> 0:08:39,716
+There are no security rules that
+
+244
+00:08:39,716 --> 0:08:40,486
+can restrain it.
+
+245
+00:08:41,626 --> 0:08:43,166
+This means that any bug in a
+
+246
+00:08:43,166 --> 0:08:45,606
+Kext can be a critical security
+
+247
+00:08:45,606 --> 0:08:45,996
+problem.
+
+248
+00:08:46,546 --> 0:08:51,406
+Any bug in a Kext can also be a,
+
+249
+00:08:52,416 --> 0:08:55,226
+can also be a, what's happening?
+
+250
+00:08:55,226 --> 0:08:56,166
+Where are my slides?
+
+251
+00:08:57,376 --> 0:09:01,066
+Any bug in a Kext can also be a
+
+252
+00:08:57,376 --> 0:09:01,066
+Any bug in a Kext can also be a
+
+253
+00:09:01,066 --> 0:09:02,746
+critical reliability problem.
+
+254
+00:09:03,516 --> 0:09:05,596
+[ Applause ]
+
+255
+00:09:06,096 --> 0:09:08,116
+Because the kernel does not just
+
+256
+00:09:08,116 --> 0:09:09,956
+crash, it panics, and the entire
+
+257
+00:09:09,956 --> 0:09:11,236
+machine has to restart.
+
+258
+00:09:11,916 --> 0:09:13,846
+If you're a Kext developer,
+
+259
+00:09:13,846 --> 0:09:15,476
+you've surely seen this dialog a
+
+260
+00:09:15,476 --> 0:09:15,826
+lot.
+
+261
+00:09:15,976 --> 0:09:18,136
+And unfortunately, so have too
+
+262
+00:09:18,136 --> 0:09:19,186
+many of our users.
+
+263
+00:09:19,726 --> 0:09:22,166
+Let's see how the picture
+
+264
+00:09:22,166 --> 0:09:23,876
+changes with System Extensions.
+
+265
+00:09:25,136 --> 0:09:27,036
+A System Extension runs in
+
+266
+00:09:27,036 --> 0:09:27,776
+userspace.
+
+267
+00:09:28,386 --> 0:09:30,406
+Like other apps, it has to
+
+268
+00:09:30,406 --> 0:09:31,786
+follow the rules of the System
+
+269
+00:09:31,786 --> 0:09:32,796
+Security Policy.
+
+270
+00:09:33,746 --> 0:09:35,476
+Unlike other apps, System
+
+271
+00:09:35,476 --> 0:09:37,166
+Extensions are granted special
+
+272
+00:09:37,166 --> 0:09:39,106
+privileges to do special jobs.
+
+273
+00:09:40,126 --> 0:09:41,566
+For example, they may have
+
+274
+00:09:41,566 --> 0:09:42,726
+direct access to their
+
+275
+00:09:42,726 --> 0:09:44,786
+associated hardware devices or
+
+276
+00:09:44,786 --> 0:09:46,706
+use special APIs to communicate
+
+277
+00:09:46,706 --> 0:09:48,256
+directly with kernel systems.
+
+278
+00:09:49,706 --> 0:09:51,356
+If a System Extension crashes,
+
+279
+00:09:52,016 --> 0:09:53,636
+the rest of the system and apps
+
+280
+00:09:53,636 --> 0:09:58,736
+are unaffected and keep running.
+
+281
+00:09:58,966 --> 0:10:00,906
+For all these reasons, we think
+
+282
+00:09:58,966 --> 0:10:00,906
+For all these reasons, we think
+
+283
+00:10:00,906 --> 0:10:02,916
+that System Extensions are a big
+
+284
+00:10:02,916 --> 0:10:04,466
+step forward for the Mac
+
+285
+00:10:04,466 --> 0:10:04,976
+platform.
+
+286
+00:10:05,566 --> 0:10:08,216
+In fact, we think they're such
+
+287
+00:10:08,216 --> 0:10:09,906
+an improvement that we recommend
+
+288
+00:10:09,906 --> 0:10:11,426
+you adopt them immediately.
+
+289
+00:10:12,016 --> 0:10:14,726
+As Sebastian said in the State
+
+290
+00:10:14,726 --> 0:10:17,006
+of the Union yesterday, "We are
+
+291
+00:10:17,006 --> 0:10:18,526
+beginning the process of
+
+292
+00:10:18,556 --> 0:10:20,196
+deprecating Kernel Extensions.
+
+293
+00:10:20,926 --> 0:10:23,256
+MacOS 10.15 Catalina will be the
+
+294
+00:10:23,256 --> 0:10:25,446
+last release to fully support
+
+295
+00:10:25,446 --> 0:10:26,726
+Kernel Extensions without
+
+296
+00:10:26,726 --> 0:10:27,416
+compromises."
+
+297
+00:10:28,516 --> 0:10:32,036
+[ Applause ]
+
+298
+00:10:32,536 --> 0:10:33,946
+Specifically, for the
+
+299
+00:10:33,946 --> 0:10:35,876
+capabilities supported by System
+
+300
+00:10:35,876 --> 0:10:37,296
+Extensions and the device
+
+301
+00:10:37,296 --> 0:10:39,036
+families supported by DriverKit,
+
+302
+00:10:39,646 --> 0:10:41,246
+using a Kernel Extension to do
+
+303
+00:10:41,246 --> 0:10:43,506
+that same job is now deprecated
+
+304
+00:10:44,336 --> 0:10:46,026
+and a future release of macOS
+
+305
+00:10:46,026 --> 0:10:47,826
+will not load Kernel Extensions
+
+306
+00:10:47,826 --> 0:10:48,846
+of these kinds.
+
+307
+00:10:49,416 --> 0:10:53,326
+In future releases, we will add
+
+308
+00:10:53,326 --> 0:10:55,196
+more kinds of System Extensions
+
+309
+00:10:55,446 --> 0:10:56,776
+and more device families to
+
+310
+00:10:56,776 --> 0:10:57,406
+DriverKit.
+
+311
+00:10:58,576 --> 0:11:00,536
+In turn, Kernel Extensions of
+
+312
+00:10:58,576 --> 0:11:00,536
+In turn, Kernel Extensions of
+
+313
+00:11:00,536 --> 0:11:02,366
+those kinds will also be
+
+314
+00:11:02,366 --> 0:11:02,976
+deprecated.
+
+315
+00:11:07,046 --> 0:11:09,056
+So, that's a brief introduction
+
+316
+00:11:09,056 --> 0:11:10,356
+to System Extensions.
+
+317
+00:11:11,726 --> 0:11:13,566
+They avoid the difficulties of
+
+318
+00:11:13,566 --> 0:11:15,406
+kernel programming by running in
+
+319
+00:11:15,406 --> 0:11:17,336
+user space which lets your apps
+
+320
+00:11:17,336 --> 0:11:19,266
+extend the system in ways that
+
+321
+00:11:19,266 --> 0:11:22,176
+are easier to develop and debug,
+
+322
+00:11:22,866 --> 0:11:25,856
+that protect the security and
+
+323
+00:11:25,856 --> 0:11:28,766
+reliability of our users' data.
+
+324
+00:11:29,246 --> 0:11:32,666
+And now, I'd like to turn it
+
+325
+00:11:32,666 --> 0:11:34,136
+over to Simon, who will show you
+
+326
+00:11:34,136 --> 0:11:35,696
+how to build Driver Extensions
+
+327
+00:11:35,956 --> 0:11:37,606
+using the new DriverKit Runtime.
+
+328
+00:11:38,516 --> 0:11:44,546
+[ Applause ]
+
+329
+00:11:45,046 --> 0:11:46,986
+Well, thanks, Joe.
+
+330
+00:11:47,696 --> 0:11:50,006
+As Joe just said, a Driver
+
+331
+00:11:50,006 --> 0:11:51,276
+Extension is a new type of
+
+332
+00:11:51,276 --> 0:11:53,296
+System Extension that controls
+
+333
+00:11:53,296 --> 0:11:55,236
+the hardware device and makes
+
+334
+00:11:55,236 --> 0:11:56,616
+its services available across
+
+335
+00:11:56,616 --> 0:11:57,386
+the whole OS.
+
+336
+00:11:58,726 --> 0:11:59,676
+We call these new Driver
+
+337
+00:11:59,676 --> 0:12:01,346
+Extensions a Dext.
+
+338
+00:11:59,676 --> 0:12:01,346
+Extensions a Dext.
+
+339
+00:12:02,726 --> 0:12:03,726
+And our goal is to make the
+
+340
+00:12:03,726 --> 0:12:05,046
+transition from our Kernel
+
+341
+00:12:05,046 --> 0:12:07,066
+Extension to a Driver Extension
+
+342
+00:12:07,486 --> 0:12:08,496
+as easy as possible.
+
+343
+00:12:10,306 --> 0:12:11,286
+To show you how Driver
+
+344
+00:12:11,286 --> 0:12:12,826
+Extensions work and how you can
+
+345
+00:12:12,826 --> 0:12:14,356
+build your own or transition
+
+346
+00:12:14,356 --> 0:12:16,396
+from a Kext, we're going to talk
+
+347
+00:12:16,396 --> 0:12:17,000
+about four things.
+
+348
+00:12:19,736 --> 0:12:21,466
+We're going to talk about their
+
+349
+00:12:21,806 --> 0:12:22,126
+lifecycle
+
+350
+00:12:22,976 --> 0:12:25,000
+and how they match and start.
+
+351
+00:12:31,266 --> 0:12:32,766
+And how they compete with Kexts,
+
+352
+00:12:33,246 --> 0:12:34,616
+and we're going to talk about
+
+353
+00:12:34,616 --> 0:12:36,056
+how to build them with the new
+
+354
+00:12:36,056 --> 0:12:36,856
+DriverKit SDK.
+
+355
+00:12:36,856 --> 0:12:39,596
+And we're going to go over some
+
+356
+00:12:39,596 --> 0:12:40,856
+security features such as
+
+357
+00:12:40,856 --> 0:12:41,656
+entitlements.
+
+358
+00:12:42,206 --> 0:12:44,486
+And finally, we'll talk about
+
+359
+00:12:44,486 --> 0:12:45,816
+some compatibility questions
+
+360
+00:12:45,816 --> 0:12:47,146
+about how you can deploy an app
+
+361
+00:12:47,726 --> 0:12:49,546
+to macOS Catalina and Mojave.
+
+362
+00:12:55,596 --> 0:12:56,276
+So, let's talk about the
+
+363
+00:12:56,276 --> 0:12:57,526
+lifecycle of a Kext.
+
+364
+00:13:02,066 --> 0:13:03,186
+Let's look at the process that
+
+365
+00:13:03,186 --> 0:13:04,396
+happens when a device appears
+
+366
+00:13:04,396 --> 0:13:05,626
+that has a Driver Extension.
+
+367
+00:13:06,566 --> 0:13:07,956
+We start with IOKit Matching
+
+368
+00:13:07,956 --> 0:13:09,596
+creating a kernel service to
+
+369
+00:13:09,596 --> 0:13:10,746
+represent your service.
+
+370
+00:13:11,406 --> 0:13:12,386
+This is written by Apple.
+
+371
+00:13:13,076 --> 0:13:17,856
+We then start a process hosting
+
+372
+00:13:17,856 --> 0:13:19,236
+your driver with your DriverKit
+
+373
+00:13:19,236 --> 0:13:20,266
+class instantiated.
+
+374
+00:13:20,876 --> 0:13:23,936
+And the process also as proxy
+
+375
+00:13:23,936 --> 0:13:26,896
+objects for any services it uses
+
+376
+00:13:27,116 --> 0:13:28,096
+such as its provider.
+
+377
+00:13:29,446 --> 0:13:31,476
+This device is using a USB
+
+378
+00:13:31,476 --> 0:13:32,636
+device or device.
+
+379
+00:13:33,136 --> 0:13:34,776
+This, this device is using a USB
+
+380
+00:13:34,776 --> 0:13:36,846
+device so it has a proxy object
+
+381
+00:13:36,846 --> 0:13:37,876
+to call that represents the
+
+382
+00:13:37,876 --> 0:13:38,706
+kernel device.
+
+383
+00:13:39,246 --> 0:13:41,796
+This means that DriverKit
+
+384
+00:13:42,306 --> 0:13:43,866
+drivers appears to Kernel
+
+385
+00:13:43,866 --> 0:13:45,876
+Extensions and can compete in
+
+386
+00:13:45,876 --> 0:13:47,286
+matching with kernel drivers.
+
+387
+00:13:47,956 --> 0:13:50,126
+You can see them in the registry
+
+388
+00:13:50,496 --> 0:13:52,186
+with tools like IOReg and you
+
+389
+00:13:52,186 --> 0:13:54,286
+can use the IOKit Framework APIs
+
+390
+00:13:54,966 --> 0:13:56,986
+with them.
+
+391
+00:13:57,186 --> 0:13:58,966
+Since DriverKit drivers are
+
+392
+00:13:58,966 --> 0:14:00,566
+separated from the kernel and
+
+393
+00:13:58,966 --> 0:14:00,566
+separated from the kernel and
+
+394
+00:14:00,566 --> 0:14:02,606
+from each other, another device
+
+395
+00:14:02,606 --> 0:14:03,946
+will have its own process and
+
+396
+00:14:03,946 --> 0:14:08,256
+another instance of the driver.
+
+397
+00:14:08,416 --> 0:14:11,326
+In macOS Catalina, Apple has
+
+398
+00:14:11,326 --> 0:14:12,596
+started to move several of its
+
+399
+00:14:12,596 --> 0:14:13,696
+own drivers to Driver
+
+400
+00:14:13,696 --> 0:14:14,256
+Extensions.
+
+401
+00:14:15,566 --> 0:14:16,886
+Here, you can see a process that
+
+402
+00:14:16,886 --> 0:14:18,526
+is hosting a USB networking
+
+403
+00:14:18,526 --> 0:14:21,006
+device which is visible in the
+
+404
+00:14:21,006 --> 0:14:22,736
+registry as a normal ethernet
+
+405
+00:14:22,736 --> 0:14:26,896
+device to the rest of the OS.
+
+406
+00:14:26,896 --> 0:14:27,966
+And you can also see some other
+
+407
+00:14:27,966 --> 0:14:29,366
+processes in the registry
+
+408
+00:14:29,926 --> 0:14:31,516
+hosting several HID and serial
+
+409
+00:14:31,516 --> 0:14:31,936
+drivers.
+
+410
+00:14:31,936 --> 0:14:35,806
+So, now we're going to talk
+
+411
+00:14:35,806 --> 0:14:36,896
+about building your Driver
+
+412
+00:14:36,896 --> 0:14:39,206
+Extension with the DriverKit
+
+413
+00:14:39,916 --> 0:14:40,006
+SDK.
+
+414
+00:14:42,056 --> 0:14:43,456
+We wanted to make building
+
+415
+00:14:43,456 --> 0:14:44,756
+Driver Extensions an easy
+
+416
+00:14:44,756 --> 0:14:46,136
+transition for those of you who
+
+417
+00:14:46,136 --> 0:14:47,866
+currently build Kexts so we
+
+418
+00:14:48,276 --> 0:14:50,396
+started with the IOKit C++ APIs
+
+419
+00:14:50,396 --> 0:14:52,406
+that you are familiar with.
+
+420
+00:14:53,556 --> 0:14:55,206
+The DriverKit APIs are an
+
+421
+00:14:55,206 --> 0:14:57,036
+extension of the IOKit APIs to
+
+422
+00:14:57,036 --> 0:14:57,816
+userspace.
+
+423
+00:14:58,366 --> 0:14:59,436
+And we have collected them into
+
+424
+00:14:59,436 --> 0:15:01,496
+a new DriverKit SDK that is
+
+425
+00:14:59,436 --> 0:15:01,496
+a new DriverKit SDK that is
+
+426
+00:15:01,496 --> 0:15:04,916
+separate to the macOS SDK.
+
+427
+00:15:05,166 --> 0:15:07,456
+This SDK has a limited API
+
+428
+00:15:07,646 --> 0:15:09,186
+surface for reliability and
+
+429
+00:15:09,186 --> 0:15:12,036
+security and there is no direct
+
+430
+00:15:12,036 --> 0:15:13,536
+access to the file system,
+
+431
+00:15:14,086 --> 0:15:15,536
+networking, or mock messaging.
+
+432
+00:15:16,166 --> 0:15:19,306
+This allows Apple to tailor the
+
+433
+00:15:19,306 --> 0:15:21,066
+userspace process to running
+
+434
+00:15:21,066 --> 0:15:24,666
+drivers and can give it elevated
+
+435
+00:15:24,666 --> 0:15:25,726
+priority and increased
+
+436
+00:15:25,726 --> 0:15:26,306
+capabilities.
+
+437
+00:15:27,026 --> 0:15:30,006
+So, let's talk about some of the
+
+438
+00:15:30,006 --> 0:15:31,536
+classes in the DriverKit SDK.
+
+439
+00:15:32,326 --> 0:15:35,686
+First, the IOService class
+
+440
+00:15:35,686 --> 0:15:37,146
+exists in DriverKit and is very
+
+441
+00:15:37,146 --> 0:15:40,736
+similar to the IOKit class.
+
+442
+00:15:40,916 --> 0:15:42,706
+There also IOMemoryDescriptor
+
+443
+00:15:42,706 --> 0:15:44,056
+and IOBufferMemoryDescriptor
+
+444
+00:15:44,056 --> 0:15:45,356
+classes available that are,
+
+445
+00:15:45,356 --> 0:15:49,556
+again, very similar to IOKit.
+
+446
+00:15:49,656 --> 0:15:50,886
+We also have replacements for
+
+447
+00:15:50,886 --> 0:15:52,286
+the IOWorkLoop and EventSource
+
+448
+00:15:52,286 --> 0:15:53,376
+classes in IOKit.
+
+449
+00:15:54,176 --> 0:15:57,546
+And finally, there's a new class
+
+450
+00:15:57,546 --> 0:15:59,746
+called OSAction that is required
+
+451
+00:15:59,746 --> 0:16:00,966
+to represent a C Function
+
+452
+00:15:59,746 --> 0:16:00,966
+to represent a C Function
+
+453
+00:16:00,966 --> 0:16:01,316
+Pointer.
+
+454
+00:16:04,716 --> 0:16:06,246
+So, let's take a look, closer
+
+455
+00:16:06,246 --> 0:16:11,396
+look at some of these classes.
+
+456
+00:16:11,466 --> 0:16:13,196
+The IOService class has the
+
+457
+00:16:13,196 --> 0:16:14,876
+lifecycle APIs from IOKit like
+
+458
+00:16:14,876 --> 0:16:16,186
+Start, Stop, and Terminate.
+
+459
+00:16:17,596 --> 0:16:22,096
+For synchronization, every
+
+460
+00:16:22,256 --> 0:16:23,846
+IOService has a default
+
+461
+00:16:23,846 --> 0:16:26,366
+DispatchQueue and all methods
+
+462
+00:16:26,366 --> 0:16:27,816
+are invoked on a queue including
+
+463
+00:16:27,816 --> 0:16:28,856
+interrupts, timers, and
+
+464
+00:16:28,856 --> 0:16:29,556
+completions.
+
+465
+00:16:30,876 --> 0:16:33,246
+IODispatchQueue is built on the
+
+466
+00:16:33,246 --> 0:16:34,136
+pre-run Grand Central
+
+467
+00:16:34,136 --> 0:16:36,286
+Dispatch code and is a special
+
+468
+00:16:36,286 --> 0:16:37,666
+version optimized for running in
+
+469
+00:16:37,666 --> 0:16:38,846
+the restricted DriverKit
+
+470
+00:16:38,846 --> 0:16:39,406
+environment.
+
+471
+00:16:40,876 --> 0:16:42,556
+Drivers do have control over
+
+472
+00:16:42,556 --> 0:16:44,746
+their queues and which methods
+
+473
+00:16:44,746 --> 0:16:46,266
+are invoked on which queues for
+
+474
+00:16:46,266 --> 0:16:47,086
+advanced use.
+
+475
+00:16:47,656 --> 0:16:52,336
+The event APIs are similar to
+
+476
+00:16:52,336 --> 0:16:53,776
+the IOWorkLoop model in IOKit
+
+477
+00:16:53,776 --> 0:16:56,286
+but are now based on the Grand
+
+478
+00:16:56,286 --> 0:17:00,136
+Central Dispatch APIs with
+
+479
+00:16:56,286 --> 0:17:00,136
+Central Dispatch APIs with
+
+480
+00:17:00,336 --> 0:17:01,876
+queues and dispatch sources for
+
+481
+00:17:01,876 --> 0:17:02,936
+interrupts and timers.
+
+482
+00:17:04,256 --> 0:17:05,935
+The block API is replaced by a
+
+483
+00:17:05,935 --> 0:17:09,056
+command gate and GCD provides
+
+484
+00:17:09,056 --> 0:17:10,866
+synchronization parameters that
+
+485
+00:17:10,866 --> 0:17:12,296
+are easy to use and very likely
+
+486
+00:17:12,296 --> 0:17:13,736
+familiar to you.
+
+487
+00:17:15,056 --> 0:17:16,146
+There is also an
+
+488
+00:17:16,146 --> 0:17:18,006
+IOSharedDataQueueDispatchSource
+
+489
+00:17:18,006 --> 0:17:19,806
+class that provides a shared
+
+490
+00:17:19,806 --> 0:17:23,425
+memory ring buffer for fast, for
+
+491
+00:17:23,425 --> 0:17:24,476
+low overhead message passing.
+
+492
+00:17:24,776 --> 0:17:28,556
+The last class we'll talk about
+
+493
+00:17:28,556 --> 0:17:31,636
+is OSAction which encapsulates
+
+494
+00:17:31,636 --> 0:17:32,906
+what would be a callback in the
+
+495
+00:17:32,906 --> 0:17:34,986
+IOKit APIs.
+
+496
+00:17:35,576 --> 0:17:38,196
+They are always asynchronous and
+
+497
+00:17:38,196 --> 0:17:39,686
+they hold the callback client's
+
+498
+00:17:39,686 --> 0:17:40,566
+state privately.
+
+499
+00:17:41,236 --> 0:17:43,806
+And they allow the callback to
+
+500
+00:17:43,806 --> 0:17:45,086
+be defined with arbitrary
+
+501
+00:17:45,086 --> 0:17:46,936
+arguments and with type checking
+
+502
+00:17:46,936 --> 0:17:48,166
+in compile and runtime.
+
+503
+00:17:48,806 --> 0:17:51,036
+So, there were some of the
+
+504
+00:17:51,036 --> 0:17:52,136
+classes in DriverKit.
+
+505
+00:17:52,366 --> 0:17:53,396
+Let's look at how we define
+
+506
+00:17:53,396 --> 0:17:55,046
+these classes which is a little
+
+507
+00:17:55,046 --> 0:17:56,726
+different from IOKit.
+
+508
+00:17:58,576 --> 0:17:59,996
+DriverKit interfaces are
+
+509
+00:17:59,996 --> 0:18:01,656
+described with a new file type
+
+510
+00:17:59,996 --> 0:18:01,656
+described with a new file type
+
+511
+00:18:01,656 --> 0:18:04,876
+with the .iig extension and they
+
+512
+00:18:04,876 --> 0:18:06,396
+are processed by a tool also
+
+513
+00:18:06,396 --> 0:18:08,000
+called IIG.
+
+514
+00:18:09,116 --> 0:18:11,376
+The IIG file is a class
+
+515
+00:18:11,376 --> 0:18:12,976
+definition that is compiled by
+
+516
+00:18:12,976 --> 0:18:15,086
+Clang and can import C and
+
+517
+00:18:15,086 --> 0:18:17,986
+C++ headers for common types and
+
+518
+00:18:17,986 --> 0:18:18,596
+structures.
+
+519
+00:18:19,166 --> 0:18:21,796
+But it does have some extra
+
+520
+00:18:21,796 --> 0:18:23,006
+attributes to its class and
+
+521
+00:18:23,006 --> 0:18:25,016
+method definitions that allow it
+
+522
+00:18:25,016 --> 0:18:27,396
+to be used, to be used for
+
+523
+00:18:27,396 --> 0:18:28,526
+calling from separate address
+
+524
+00:18:28,526 --> 0:18:29,046
+spaces.
+
+525
+00:18:29,516 --> 0:18:34,046
+Here, you can see a basic class
+
+526
+00:18:34,046 --> 0:18:35,346
+definition that looks mostly
+
+527
+00:18:35,346 --> 0:18:37,356
+normal but it has some extra
+
+528
+00:18:37,356 --> 0:18:39,296
+attributes such as kernel on the
+
+529
+00:18:39,296 --> 0:18:40,706
+class, which means the class is
+
+530
+00:18:40,706 --> 0:18:41,696
+defined in the kernel.
+
+531
+00:18:42,856 --> 0:18:44,146
+And local on some method
+
+532
+00:18:44,146 --> 0:18:45,846
+declarations which means the
+
+533
+00:18:45,846 --> 0:18:47,156
+method is implemented in a user
+
+534
+00:18:47,156 --> 0:18:47,576
+driver.
+
+535
+00:18:47,576 --> 0:18:51,646
+Some of the families that are
+
+536
+00:18:51,646 --> 0:18:54,006
+available in the macOS Catalina
+
+537
+00:18:54,006 --> 0:18:56,266
+developer preview today are
+
+538
+00:18:56,266 --> 0:18:57,826
+NetworkingDriverKit for creating
+
+539
+00:18:57,826 --> 0:18:58,836
+network interfaces.
+
+540
+00:19:00,276 --> 0:19:01,936
+HIDDriverKit for creating HID
+
+541
+00:19:01,936 --> 0:19:02,606
+devices,
+
+542
+00:19:04,836 --> 0:19:07,336
+USBSerialDriverKit to make a USB
+
+543
+00:19:07,476 --> 0:19:09,306
+serial device available to the
+
+544
+00:19:09,306 --> 0:19:12,756
+OS, and USB DriverKit to make
+
+545
+00:19:12,786 --> 0:19:14,486
+use of USB device providers in
+
+546
+00:19:14,486 --> 0:19:15,166
+your drivers.
+
+547
+00:19:17,326 --> 0:19:18,226
+Shortly, Scott will be
+
+548
+00:19:18,226 --> 0:19:20,016
+demonstrating what a USB device
+
+549
+00:19:20,536 --> 0:19:21,926
+support looks like with
+
+550
+00:19:21,926 --> 0:19:22,506
+USBDriverKit.
+
+551
+00:19:22,506 --> 0:19:26,456
+So, now we're going to talk
+
+552
+00:19:26,456 --> 0:19:28,376
+about some security aspects of
+
+553
+00:19:28,596 --> 0:19:30,186
+developing Driver Extensions.
+
+554
+00:19:30,866 --> 0:19:34,196
+There are a few types of driver,
+
+555
+00:19:34,276 --> 0:19:36,006
+of, of entitlement that your
+
+556
+00:19:36,006 --> 0:19:37,236
+Driver Extension will need to
+
+557
+00:19:37,236 --> 0:19:37,636
+obtain.
+
+558
+00:19:38,976 --> 0:19:40,346
+There's one for all Driver
+
+559
+00:19:40,346 --> 0:19:42,886
+Extensions and there's one to
+
+560
+00:19:42,886 --> 0:19:44,466
+take control of, of a device
+
+561
+00:19:44,466 --> 0:19:45,886
+called the transport entitlement
+
+562
+00:19:46,626 --> 0:19:47,826
+which is specific to the kind of
+
+563
+00:19:47,826 --> 0:19:48,376
+device.
+
+564
+00:19:48,926 --> 0:19:51,806
+And there is also a family
+
+565
+00:19:51,806 --> 0:19:53,206
+entitlement that is required to
+
+566
+00:19:53,206 --> 0:19:54,806
+make available a service into
+
+567
+00:19:54,806 --> 0:19:56,086
+the OS.
+
+568
+00:19:56,786 --> 0:19:58,256
+And Joe will talk later in this
+
+569
+00:19:58,296 --> 0:19:59,716
+session about code signing and
+
+570
+00:19:59,716 --> 0:20:00,776
+the approval process for
+
+571
+00:19:59,716 --> 0:20:00,776
+the approval process for
+
+572
+00:20:00,776 --> 0:20:01,976
+obtaining these entitlements.
+
+573
+00:20:02,716 --> 0:20:07,466
+Now, we'll have a quick word on
+
+574
+00:20:07,466 --> 0:20:08,686
+shipping products that work on
+
+575
+00:20:08,686 --> 0:20:10,276
+all versions of macOS.
+
+576
+00:20:11,866 --> 0:20:14,266
+Shipping a product for both
+
+577
+00:20:14,266 --> 0:20:15,806
+macOS Catalina and earlier
+
+578
+00:20:15,806 --> 0:20:17,756
+releases will require you to
+
+579
+00:20:17,756 --> 0:20:19,836
+install a Kernel Extension for
+
+580
+00:20:19,836 --> 0:20:21,806
+older releases but use the
+
+581
+00:20:21,806 --> 0:20:23,476
+System Extensions Framework and
+
+582
+00:20:23,476 --> 0:20:25,366
+provide a Driver Extension on
+
+583
+00:20:25,366 --> 0:20:26,356
+macOS Catalina.
+
+584
+00:20:27,026 --> 0:20:29,876
+So, now Scott will be
+
+585
+00:20:29,876 --> 0:20:31,256
+demonstrating how to make use of
+
+586
+00:20:31,256 --> 0:20:33,096
+the new USBDriverKit Framework.
+
+587
+00:20:34,096 --> 0:20:34,556
+Thanks, Scott.
+
+588
+00:20:35,516 --> 0:20:41,936
+[ Applause ]
+
+589
+00:20:42,436 --> 0:20:43,366
+&gt;&gt; Thanks, Simon.
+
+590
+00:20:43,686 --> 0:20:45,116
+So, today I'm going to show you
+
+591
+00:20:45,116 --> 0:20:47,396
+how to build a simple USB driver
+
+592
+00:20:47,396 --> 0:20:48,356
+that reads data from an
+
+593
+00:20:48,356 --> 0:20:50,156
+interrupt endpoint using the new
+
+594
+00:20:50,156 --> 0:20:52,016
+USBDriverKit Framework.
+
+595
+00:20:52,316 --> 0:20:53,786
+We'll briefly go over how to
+
+596
+00:20:53,786 --> 0:20:55,396
+create a new project in Xcode
+
+597
+00:20:55,396 --> 0:20:56,626
+using the DriverKit Template.
+
+598
+00:20:57,376 --> 0:20:58,636
+After that, we'll take a look at
+
+599
+00:20:58,636 --> 0:20:59,966
+a kernel class versus a
+
+600
+00:20:59,966 --> 0:21:00,916
+DriverKit class.
+
+601
+00:20:59,966 --> 0:21:00,916
+DriverKit class.
+
+602
+00:21:01,786 --> 0:21:02,816
+Then, next, I'll go into the
+
+603
+00:21:02,816 --> 0:21:04,176
+details of the implementation in
+
+604
+00:21:04,176 --> 0:21:04,966
+DriverKit.
+
+605
+00:21:05,326 --> 0:21:06,566
+And finally, I'll give a short
+
+606
+00:21:06,566 --> 0:21:08,056
+demonstration of the driver in
+
+607
+00:21:08,056 --> 0:21:09,326
+action and how you can debug
+
+608
+00:21:09,326 --> 0:21:10,676
+your Dext live with LLDB.
+
+609
+00:21:10,676 --> 0:21:15,776
+Creating a new DriverKit project
+
+610
+00:21:15,776 --> 0:21:17,556
+with Xcode is as simple as
+
+611
+00:21:17,556 --> 0:21:18,746
+selecting the proper template
+
+612
+00:21:18,746 --> 0:21:20,386
+during Xcode's new Project
+
+613
+00:21:20,386 --> 0:21:20,836
+Workflow.
+
+614
+00:21:21,516 --> 0:21:23,126
+Once completed, Xcode will have
+
+615
+00:21:23,126 --> 0:21:24,316
+autogenerated a few files to
+
+616
+00:21:24,316 --> 0:21:24,876
+help you begin.
+
+617
+00:21:25,416 --> 0:21:28,906
+The generated project includes
+
+618
+00:21:28,906 --> 0:21:29,956
+the standard files needed to
+
+619
+00:21:29,956 --> 0:21:30,896
+successfully build.
+
+620
+00:21:30,896 --> 0:21:33,316
+As with the Kernel Extension,
+
+621
+00:21:33,416 --> 0:21:34,996
+the project includes the C++
+
+622
+00:21:34,996 --> 0:21:36,616
+implementation, entitlements,
+
+623
+00:21:36,616 --> 0:21:37,666
+and an info.pist.
+
+624
+00:21:38,866 --> 0:21:41,076
+In addition to those, Xcode has
+
+625
+00:21:41,076 --> 0:21:43,106
+also generated the IIG file that
+
+626
+00:21:43,106 --> 0:21:44,286
+Simon mentioned earlier.
+
+627
+00:21:45,106 --> 0:21:46,206
+This file contains the class
+
+628
+00:21:46,256 --> 0:21:47,806
+definition for your driver.
+
+629
+00:21:49,026 --> 0:21:49,996
+So, let's take a look at the
+
+630
+00:21:49,996 --> 0:21:51,056
+class definition for
+
+631
+00:21:51,056 --> 0:21:53,146
+MyUserUSBInterfaceDriver.
+
+632
+00:21:53,686 --> 0:21:56,916
+You can see how this looks very
+
+633
+00:21:56,916 --> 0:21:58,486
+similar to a kernel driver.
+
+634
+00:21:59,116 --> 0:22:01,016
+For example, the same public
+
+635
+00:21:59,116 --> 0:22:01,016
+For example, the same public
+
+636
+00:22:01,016 --> 0:22:02,476
+IOKit Lifecycle method, start
+
+637
+00:22:02,476 --> 0:22:03,786
+and stop existing DriverKit
+
+638
+00:22:03,786 --> 0:22:04,786
+would have been capitalized.
+
+639
+00:22:05,976 --> 0:22:07,866
+That said, there are a few small
+
+640
+00:22:07,866 --> 0:22:08,966
+but important differences.
+
+641
+00:22:10,746 --> 0:22:12,346
+First, the DriverKit class
+
+642
+00:22:12,346 --> 0:22:13,766
+requires a different callback
+
+643
+00:22:13,766 --> 0:22:14,936
+with an additional attribute.
+
+644
+00:22:15,416 --> 0:22:17,246
+This attribute indicates that
+
+645
+00:22:17,306 --> 0:22:18,346
+this method conforms to the
+
+646
+00:22:18,346 --> 0:22:20,276
+callback type defined by the
+
+647
+00:22:20,276 --> 0:22:21,766
+IOUSBHostPipe object and
+
+648
+00:22:21,766 --> 0:22:23,596
+enforces compile-time type
+
+649
+00:22:23,636 --> 0:22:23,986
+checking.
+
+650
+00:22:24,816 --> 0:22:26,486
+And second, there are no
+
+651
+00:22:26,486 --> 0:22:28,006
+instance variables declared in a
+
+652
+00:22:28,006 --> 0:22:28,996
+DriverKit class.
+
+653
+00:22:29,816 --> 0:22:31,786
+This is because all instance
+
+654
+00:22:31,786 --> 0:22:33,296
+variables must be allocated by
+
+655
+00:22:33,296 --> 0:22:34,306
+the driver during
+
+656
+00:22:34,306 --> 0:22:35,086
+initialization.
+
+657
+00:22:35,636 --> 0:22:36,836
+So, let's take a look at how
+
+658
+00:22:36,836 --> 0:22:37,466
+that's done for
+
+659
+00:22:37,466 --> 0:22:39,556
+MyUserUSBInterfaceDriver.
+
+660
+00:22:41,116 --> 0:22:42,876
+First, you need to declare a
+
+661
+00:22:42,876 --> 0:22:44,446
+structure to hold all of your
+
+662
+00:22:44,446 --> 0:22:45,166
+instance variables.
+
+663
+00:22:45,926 --> 0:22:47,046
+All instance variables that
+
+664
+00:22:47,046 --> 0:22:48,496
+would have previously been part
+
+665
+00:22:48,496 --> 0:22:49,916
+of your kernel class should be
+
+666
+00:22:49,916 --> 0:22:50,796
+part of this structure.
+
+667
+00:22:51,656 --> 0:22:53,096
+For this class, we have pointers
+
+668
+00:22:53,096 --> 0:22:54,586
+to the same USB kernel types
+
+669
+00:22:55,066 --> 0:22:55,726
+that a Kext would.
+
+670
+00:22:56,326 --> 0:22:58,296
+Such as an IOUSBHostInterface
+
+671
+00:22:58,296 --> 0:23:01,226
+provider and IOUSBHostPipe
+
+672
+00:22:58,296 --> 0:23:01,226
+provider and IOUSBHostPipe
+
+673
+00:23:01,226 --> 0:23:02,396
+object for performing IO.
+
+674
+00:23:02,396 --> 0:23:05,086
+And there's also an OSAction
+
+675
+00:23:05,086 --> 0:23:06,186
+object that will be used to
+
+676
+00:23:06,186 --> 0:23:07,346
+encapsulate the callback for
+
+677
+00:23:07,346 --> 0:23:08,196
+asynchronous IO.
+
+678
+00:23:08,776 --> 0:23:10,646
+Then, you simply need to
+
+679
+00:23:10,646 --> 0:23:11,886
+allocate the structure during
+
+680
+00:23:11,886 --> 0:23:12,576
+your INIT routine.
+
+681
+00:23:13,126 --> 0:23:16,536
+And here's the INIT routine for
+
+682
+00:23:16,536 --> 0:23:18,516
+MyUserUSBInterfaceDriver.
+
+683
+00:23:19,016 --> 0:23:21,136
+It calls INIT on the superclass
+
+684
+00:23:21,136 --> 0:23:22,246
+in the same way a Kext would.
+
+685
+00:23:22,596 --> 0:23:24,046
+And then, it allocates the IVAR
+
+686
+00:23:24,046 --> 0:23:24,486
+structure.
+
+687
+00:23:25,826 --> 0:23:27,546
+It should be noted that the
+
+688
+00:23:27,546 --> 0:23:29,116
+superclass defines an IVAR's
+
+689
+00:23:29,646 --> 0:23:31,156
+member that must be used to
+
+690
+00:23:31,156 --> 0:23:32,106
+assign the result of the
+
+691
+00:23:32,106 --> 0:23:32,706
+allocation.
+
+692
+00:23:33,726 --> 0:23:35,436
+So, next, we'll take a look at
+
+693
+00:23:35,436 --> 0:23:37,206
+the implementation of Start.
+
+694
+00:23:38,136 --> 0:23:40,216
+This portion of Start is
+
+695
+00:23:40,216 --> 0:23:41,386
+responsible for calling into the
+
+696
+00:23:41,386 --> 0:23:42,786
+superclass and validating the
+
+697
+00:23:42,786 --> 0:23:43,256
+provider.
+
+698
+00:23:44,476 --> 0:23:45,756
+Here, things are slightly
+
+699
+00:23:45,756 --> 0:23:46,746
+different than the kernel
+
+700
+00:23:46,746 --> 0:23:47,466
+implementation.
+
+701
+00:23:49,596 --> 0:23:50,946
+You can see the definition is
+
+702
+00:23:50,946 --> 0:23:52,156
+wrapped in a macro IMPL.
+
+703
+00:23:52,156 --> 0:23:53,986
+And this macro is required to
+
+704
+00:23:53,986 --> 0:23:55,706
+support the IPC communication
+
+705
+00:23:55,706 --> 0:23:57,386
+between the user process and the
+
+706
+00:23:57,386 --> 0:23:58,556
+kernel proxy object.
+
+707
+00:23:59,736 --> 0:24:01,616
+And you can also see that
+
+708
+00:23:59,736 --> 0:24:01,616
+And you can also see that
+
+709
+00:24:01,616 --> 0:24:03,586
+calling super start takes a
+
+710
+00:24:04,036 --> 0:24:06,266
+different form.
+
+711
+00:24:07,236 --> 0:24:09,806
+Next, using the USB DriverKit
+
+712
+00:24:09,806 --> 0:24:11,596
+APIs, you open your IOUSB host
+
+713
+00:24:11,596 --> 0:24:15,116
+interface provider and you
+
+714
+00:24:15,246 --> 0:24:16,666
+allocate your Pipe object.
+
+715
+00:24:18,826 --> 0:24:19,806
+And then, allocate a memory
+
+716
+00:24:19,806 --> 0:24:20,976
+descriptor to be used for IO.
+
+717
+00:24:22,096 --> 0:24:23,286
+This should be a fairly familiar
+
+718
+00:24:23,286 --> 0:24:24,606
+paradigm and is basically
+
+719
+00:24:24,606 --> 0:24:25,716
+identical to what's done in a
+
+720
+00:24:25,716 --> 0:24:26,000
+Kext.
+
+721
+00:24:30,096 --> 0:24:31,196
+In this case, we're performing
+
+722
+00:24:31,296 --> 0:24:32,926
+asynchronous IO, so we need to
+
+723
+00:24:32,926 --> 0:24:34,766
+allocate an OS attribute object
+
+724
+00:24:34,856 --> 0:24:35,926
+to encapsulate the callback.
+
+725
+00:24:37,566 --> 0:24:38,636
+And then, finally, all that
+
+726
+00:24:38,636 --> 0:24:40,136
+remains is to enqueue the IO.
+
+727
+00:24:41,756 --> 0:24:43,576
+At this point, assuming the
+
+728
+00:24:43,576 --> 0:24:45,846
+setup was successful, there's an
+
+729
+00:24:45,846 --> 0:24:47,136
+asynchronous read which we'll
+
+730
+00:24:47,136 --> 0:24:48,736
+call ReadComplete when finished.
+
+731
+00:24:49,026 --> 0:24:50,406
+And the ReadComplete method for
+
+732
+00:24:50,406 --> 0:24:51,616
+this driver just prints the
+
+733
+00:24:51,616 --> 0:24:53,206
+number of bytes transferred and
+
+734
+00:24:53,206 --> 0:24:53,866
+the status.
+
+735
+00:24:54,116 --> 0:24:55,556
+If successful, it re-enqueues
+
+736
+00:24:55,556 --> 0:24:55,916
+the IO.
+
+737
+00:24:56,356 --> 0:24:58,456
+So, next, let's take a look at
+
+738
+00:24:58,456 --> 0:25:01,536
+the driver in action.
+
+739
+00:24:58,456 --> 0:25:01,536
+the driver in action.
+
+740
+00:25:02,246 --> 0:25:04,026
+So, in this demo, you'll see
+
+741
+00:25:04,026 --> 0:25:05,186
+some logging I've added to
+
+742
+00:25:05,186 --> 0:25:07,516
+MyUserUSBInterfaceDriver that
+
+743
+00:25:07,516 --> 0:25:11,076
+will print some of the lifecycle
+
+744
+00:25:11,076 --> 0:25:11,646
+methods.
+
+745
+00:25:15,426 --> 0:25:17,966
+I've also added an infinite loop
+
+746
+00:25:18,556 --> 0:25:20,536
+which we'll debug using LDB.
+
+747
+00:25:20,536 --> 0:25:23,856
+And then, I've also introduced a
+
+748
+00:25:23,856 --> 0:25:27,946
+crash which we can see how is
+
+749
+00:25:27,986 --> 0:25:29,236
+recoverable now using the new
+
+750
+00:25:29,236 --> 0:25:30,326
+DriverKit Framework.
+
+751
+00:25:30,956 --> 0:25:32,676
+So, if I plug in the device you
+
+752
+00:25:32,676 --> 0:25:34,396
+can see INIT and start run just
+
+753
+00:25:34,396 --> 0:25:35,416
+like they would in a Kext.
+
+754
+00:25:35,726 --> 0:25:37,226
+And ReadComplete is being called
+
+755
+00:25:37,326 --> 0:25:39,176
+as data is being transferred to
+
+756
+00:25:39,246 --> 0:25:41,236
+and from the device.
+
+757
+00:25:41,236 --> 0:25:46,396
+Using PS, we can see that our
+
+758
+00:25:46,956 --> 0:25:47,926
+driver is running.
+
+759
+00:25:48,826 --> 0:25:50,506
+And now, we've hit my infinite
+
+760
+00:25:50,506 --> 0:25:51,506
+loop that I added and we can
+
+761
+00:25:51,506 --> 0:25:53,326
+take a look with LDB at what's
+
+762
+00:25:53,326 --> 0:25:54,976
+happening in the driver.
+
+763
+00:26:02,356 --> 0:26:03,616
+So, from earlier, we can see our
+
+764
+00:26:03,616 --> 0:26:06,086
+PID is 2572, so we need to
+
+765
+00:26:06,086 --> 0:26:07,586
+attach to that process.
+
+766
+00:26:15,116 --> 0:26:16,456
+We need to find the thread
+
+767
+00:26:16,456 --> 0:26:17,906
+running the ReadComplete method.
+
+768
+00:26:19,386 --> 0:26:22,286
+You can see, that's thread two.
+
+769
+00:26:24,436 --> 0:26:26,656
+And here, we've definitely got
+
+770
+00:26:26,656 --> 0:26:27,436
+an infinite loop.
+
+771
+00:26:27,496 --> 0:26:28,356
+And because we're running in
+
+772
+00:26:28,356 --> 0:26:30,266
+userspace, we can modify our
+
+773
+00:26:30,266 --> 0:26:30,976
+loop variable.
+
+774
+00:26:36,306 --> 0:26:37,726
+And before I continue, if you
+
+775
+00:26:37,726 --> 0:26:39,316
+look closely, you can see
+
+776
+00:26:39,836 --> 0:26:41,506
+there's definitely a null
+
+777
+00:26:41,506 --> 0:26:43,346
+pointer D reference, which will
+
+778
+00:26:43,346 --> 0:26:44,276
+crash the driver.
+
+779
+00:26:44,796 --> 0:26:48,206
+And you can see it's crashed.
+
+780
+00:26:49,646 --> 0:26:51,146
+But then, immediately restarted
+
+781
+00:26:51,576 --> 0:26:52,566
+without affecting the rest of
+
+782
+00:26:52,566 --> 0:26:53,036
+the system.
+
+783
+00:26:53,956 --> 0:26:55,716
+And then, on unplug you can see
+
+784
+00:26:55,716 --> 0:26:57,156
+your stop and free methods would
+
+785
+00:26:57,156 --> 0:26:58,206
+run as normal.
+
+786
+00:27:01,516 --> 0:27:04,086
+[ Applause ]
+
+787
+00:27:04,586 --> 0:27:05,106
+And so, that's--
+
+788
+00:27:06,516 --> 0:27:08,826
+[ Applause ]
+
+789
+00:27:09,326 --> 0:27:10,476
+-- that's how easy it is to
+
+790
+00:27:10,476 --> 0:27:12,626
+build and debug a new driver
+
+791
+00:27:12,826 --> 0:27:13,796
+with the new DriverKit
+
+792
+00:27:13,796 --> 0:27:14,236
+Framework.
+
+793
+00:27:14,426 --> 0:27:16,046
+Now, I'll hand it back to Joe to
+
+794
+00:27:16,516 --> 0:27:17,936
+talk about how to deliver System
+
+795
+00:27:17,936 --> 0:27:19,056
+Extensions in your apps.
+
+796
+00:27:21,546 --> 0:27:22,586
+&gt;&gt; Thank you, Scott.
+
+797
+00:27:23,886 --> 0:27:24,946
+Now, that we've seen how to
+
+798
+00:27:24,946 --> 0:27:26,526
+build a Driver Extension, I'd
+
+799
+00:27:26,526 --> 0:27:27,986
+like to tell you how to ship a
+
+800
+00:27:27,986 --> 0:27:30,176
+driver or other type of System
+
+801
+00:27:30,176 --> 0:27:32,326
+Extension in your app.
+
+802
+00:27:33,816 --> 0:27:35,476
+We'll talk about how your
+
+803
+00:27:35,476 --> 0:27:36,926
+extension relates to your app,
+
+804
+00:27:38,486 --> 0:27:39,976
+how to build and package the
+
+805
+00:27:39,976 --> 0:27:41,196
+extension bundle.
+
+806
+00:27:42,056 --> 0:27:43,406
+We'll talk about code signing
+
+807
+00:27:43,446 --> 0:27:45,886
+and entitlements and how to
+
+808
+00:27:45,886 --> 0:27:48,056
+install, update, and uninstall
+
+809
+00:27:48,056 --> 0:27:49,066
+your System Extension.
+
+810
+00:27:49,666 --> 0:27:54,526
+A System Extension is always
+
+811
+00:27:54,666 --> 0:27:55,436
+part of an app.
+
+812
+00:27:56,196 --> 0:27:57,836
+This is a basic principle of the
+
+813
+00:27:57,836 --> 0:27:58,326
+design.
+
+814
+00:27:58,926 --> 0:28:00,286
+There's no such thing as a
+
+815
+00:27:58,926 --> 0:28:00,286
+There's no such thing as a
+
+816
+00:28:00,286 --> 0:28:02,056
+standalone System Extension.
+
+817
+00:28:03,586 --> 0:28:05,426
+This is because users think in
+
+818
+00:28:05,426 --> 0:28:06,326
+terms of apps.
+
+819
+00:28:06,806 --> 0:28:09,056
+They purchase apps, install
+
+820
+00:28:09,056 --> 0:28:11,196
+apps, and run apps.
+
+821
+00:28:12,116 --> 0:28:14,066
+Your System Extension should be
+
+822
+00:28:14,066 --> 0:28:16,026
+an implementation detail of your
+
+823
+00:28:16,026 --> 0:28:16,206
+app.
+
+824
+00:28:17,566 --> 0:28:18,986
+The app is how the user
+
+825
+00:28:19,616 --> 0:28:21,596
+interacts with and controls your
+
+826
+00:28:21,596 --> 0:28:22,166
+extension.
+
+827
+00:28:22,736 --> 0:28:25,986
+Once you've packaged your System
+
+828
+00:28:25,986 --> 0:28:28,226
+Extension into an app, you can
+
+829
+00:28:28,226 --> 0:28:29,666
+distribute that app directly to
+
+830
+00:28:29,666 --> 0:28:32,816
+your users using Developer ID or
+
+831
+00:28:32,816 --> 0:28:34,366
+through the Mac App Store, which
+
+832
+00:28:34,366 --> 0:28:35,646
+has never been possible with
+
+833
+00:28:35,646 --> 0:28:36,386
+Kernel Extensions.
+
+834
+00:28:37,516 --> 0:28:41,256
+[ Applause ]
+
+835
+00:28:41,756 --> 0:28:42,716
+Because of the close
+
+836
+00:28:42,716 --> 0:28:44,266
+relationship between your app
+
+837
+00:28:44,266 --> 0:28:46,556
+and its extensions, your System
+
+838
+00:28:46,556 --> 0:28:48,646
+Extension should be identifiable
+
+839
+00:28:48,646 --> 0:28:51,026
+by the user as related to your
+
+840
+00:28:52,046 --> 0:28:52,116
+app.
+
+841
+00:28:52,336 --> 0:28:52,956
+You should use the
+
+842
+00:28:52,956 --> 0:28:55,476
+CFBundleDisplayName key in the
+
+843
+00:28:55,476 --> 0:28:57,386
+extension's info.plist to give
+
+844
+00:28:57,386 --> 0:28:59,456
+it a good localized name and
+
+845
+00:28:59,456 --> 0:29:00,686
+give it a custom icon that
+
+846
+00:28:59,456 --> 0:29:00,686
+give it a custom icon that
+
+847
+00:29:00,686 --> 0:29:02,496
+relates to your app's main icon.
+
+848
+00:29:03,246 --> 0:29:04,696
+This way, if the extension is
+
+849
+00:29:04,696 --> 0:29:06,106
+ever shown in the user
+
+850
+00:29:06,106 --> 0:29:08,156
+interface, a user will recognize
+
+851
+00:29:08,156 --> 0:29:09,796
+it as part of an app that they
+
+852
+00:29:09,796 --> 0:29:10,330
+use.
+
+853
+00:29:13,096 --> 0:29:14,826
+You should also include a usage
+
+854
+00:29:14,826 --> 0:29:16,466
+description string in your
+
+855
+00:29:16,466 --> 0:29:18,926
+extension's info.pList that
+
+856
+00:29:18,926 --> 0:29:20,536
+explains simply what the
+
+857
+00:29:20,536 --> 0:29:22,956
+extension is and does and why a
+
+858
+00:29:22,956 --> 0:29:23,866
+user would run it.
+
+859
+00:29:24,626 --> 0:29:26,076
+Think of this as similar to the
+
+860
+00:29:26,076 --> 0:29:27,516
+usage stings required for
+
+861
+00:29:27,516 --> 0:29:31,816
+calendar or camera access.
+
+862
+00:29:33,336 --> 0:29:35,896
+For Driver Extensions, use the
+
+863
+00:29:35,896 --> 0:29:38,256
+key OSBundleUsageDescription.
+
+864
+00:29:38,526 --> 0:29:39,716
+And for other types of System
+
+865
+00:29:39,716 --> 0:29:41,616
+Extensions, use the key
+
+866
+00:29:41,616 --> 0:29:43,356
+NSSystemExtensionUsage
+
+867
+00:29:43,356 --> 0:29:43,896
+Description.
+
+868
+00:29:45,056 --> 0:29:46,656
+Remember to localize these and
+
+869
+00:29:46,656 --> 0:29:48,206
+all other strings for all the
+
+870
+00:29:48,206 --> 0:29:49,846
+languages your app supports.
+
+871
+00:29:50,416 --> 0:29:54,546
+The System Extension itself is a
+
+872
+00:29:54,586 --> 0:29:56,466
+separate sub-bundle of your app
+
+873
+00:29:56,466 --> 0:29:58,176
+with its own executable and
+
+874
+00:29:58,176 --> 0:30:00,626
+info.plist embedded within your
+
+875
+00:29:58,176 --> 0:30:00,626
+info.plist embedded within your
+
+876
+00:30:00,626 --> 0:30:00,906
+application.
+
+877
+00:30:01,986 --> 0:30:03,436
+Here's a peek inside a sample
+
+878
+00:30:03,436 --> 0:30:05,206
+application showing a System
+
+879
+00:30:05,206 --> 0:30:06,906
+Extension in its Contents
+
+880
+00:30:07,006 --> 0:30:08,676
+Library System Extension's
+
+881
+00:30:08,746 --> 0:30:09,176
+folder.
+
+882
+00:30:11,606 --> 0:30:14,066
+Driver Extension bundles use the
+
+883
+00:30:14,066 --> 0:30:16,286
+.dext filename suffix and the
+
+884
+00:30:16,286 --> 0:30:17,866
+package type DEXT.
+
+885
+00:30:18,806 --> 0:30:21,066
+They use OSBundle keys in their
+
+886
+00:30:21,066 --> 0:30:23,046
+info.plist similarly to Kernel
+
+887
+00:30:23,046 --> 0:30:24,026
+Extension bundles.
+
+888
+00:30:25,516 --> 0:30:27,036
+Driver Extension bundles should
+
+889
+00:30:27,036 --> 0:30:30,016
+be flat bundles with no contents
+
+890
+00:30:30,016 --> 0:30:32,756
+folder, similar to iOS apps.
+
+891
+00:30:34,156 --> 0:30:35,976
+System Extension bundles of
+
+892
+00:30:35,976 --> 0:30:38,186
+other types use the .system
+
+893
+00:30:38,186 --> 0:30:40,216
+extension filename suffix and
+
+894
+00:30:40,216 --> 0:30:43,576
+the CFBundlePackageType SYSX,
+
+895
+00:30:44,386 --> 0:30:45,846
+System X tension.
+
+896
+00:30:46,476 --> 0:30:50,496
+In Xcode, your System Extension
+
+897
+00:30:50,496 --> 0:30:51,606
+is a separate target.
+
+898
+00:30:52,206 --> 0:30:56,046
+Xcode has templates for Network
+
+899
+00:30:56,046 --> 0:30:58,306
+Extensions and DriverKit drivers
+
+900
+00:30:58,566 --> 0:30:59,806
+built in.
+
+901
+00:31:01,986 --> 0:31:03,606
+When you create such a target,
+
+902
+00:31:03,606 --> 0:31:05,026
+Xcode will ask if you want to
+
+903
+00:31:05,026 --> 0:31:06,686
+embed it in an application
+
+904
+00:31:06,686 --> 0:31:07,806
+that's already part of your
+
+905
+00:31:07,806 --> 0:31:08,186
+project.
+
+906
+00:31:08,806 --> 0:31:11,016
+If you do, it will create a Copy
+
+907
+00:31:11,016 --> 0:31:13,056
+Files phase that copies the
+
+908
+00:31:13,056 --> 0:31:14,706
+extension build product into
+
+909
+00:31:14,706 --> 0:31:15,566
+your application.
+
+910
+00:31:16,166 --> 0:31:20,946
+Once you've built your System
+
+911
+00:31:20,946 --> 0:31:23,346
+Extension, you sign it with the
+
+912
+00:31:23,346 --> 0:31:24,886
+same certificate that you sign
+
+913
+00:31:24,886 --> 0:31:25,336
+your app.
+
+914
+00:31:25,776 --> 0:31:27,486
+There is no need for a special
+
+915
+00:31:27,486 --> 0:31:29,936
+Kext certificate, Kext specific
+
+916
+00:31:29,936 --> 0:31:31,346
+signing certificate, anymore.
+
+917
+00:31:32,516 --> 0:31:36,146
+[ Applause ]
+
+918
+00:31:36,646 --> 0:31:39,056
+Normally, the Team ID used to
+
+919
+00:31:39,056 --> 0:31:40,526
+sign your System Extension and
+
+920
+00:31:40,526 --> 0:31:41,936
+your main app must match.
+
+921
+00:31:42,266 --> 0:31:43,486
+This is a security measure.
+
+922
+00:31:44,206 --> 0:31:45,976
+However, you may be building an
+
+923
+00:31:45,976 --> 0:31:47,676
+extension that's intended to be
+
+924
+00:31:47,676 --> 0:31:49,336
+packaged in other developers'
+
+925
+00:31:49,336 --> 0:31:49,786
+apps.
+
+926
+00:31:50,036 --> 0:31:52,026
+For example, a Driver Extension
+
+927
+00:31:52,276 --> 0:31:54,596
+for a common type of USB serial
+
+928
+00:31:54,596 --> 0:31:56,036
+interface chip that's included
+
+929
+00:31:56,036 --> 0:31:56,956
+in many products.
+
+930
+00:31:57,676 --> 0:31:59,206
+If so, there is an entitlement
+
+931
+00:31:59,246 --> 0:32:00,356
+you can use on the System
+
+932
+00:31:59,246 --> 0:32:00,356
+you can use on the System
+
+933
+00:32:00,356 --> 0:32:02,166
+Extension to allow it to be
+
+934
+00:32:02,166 --> 0:32:03,216
+packaged in a different
+
+935
+00:32:03,276 --> 0:32:04,866
+developer's app.
+
+936
+00:32:08,196 --> 0:32:09,436
+If you sign your System
+
+937
+00:32:09,436 --> 0:32:11,546
+Extension with Developer ID, it
+
+938
+00:32:11,546 --> 0:32:13,296
+must be notarized before it will
+
+939
+00:32:13,296 --> 0:32:15,386
+run on a user's system.
+
+940
+00:32:16,416 --> 0:32:17,316
+For more information on
+
+941
+00:32:17,316 --> 0:32:19,236
+notarization, please watch the
+
+942
+00:32:19,236 --> 0:32:21,986
+session from last year or come
+
+943
+00:32:21,986 --> 0:32:23,606
+to the Notarization Lab later
+
+944
+00:32:23,606 --> 0:32:24,296
+this afternoon.
+
+945
+00:32:26,976 --> 0:32:29,136
+Your System Extension uses
+
+946
+00:32:29,136 --> 0:32:31,296
+entitlements to describe its
+
+947
+00:32:31,296 --> 0:32:32,846
+capabilities to the operating
+
+948
+00:32:32,846 --> 0:32:35,026
+system; what type of extension
+
+949
+00:32:35,026 --> 0:32:36,366
+it is and what it can do.
+
+950
+00:32:37,236 --> 0:32:39,506
+For example, DriverKit Drive--
+
+951
+00:32:39,506 --> 0:32:41,626
+Extensions use the Transport and
+
+952
+00:32:41,626 --> 0:32:43,296
+Family entitlements that Simon
+
+953
+00:32:43,296 --> 0:32:44,000
+showed.
+
+954
+00:32:46,076 --> 0:32:47,536
+Your app that contains System
+
+955
+00:32:47,536 --> 0:32:49,686
+Extensions also should use the
+
+956
+00:32:49,686 --> 0:32:51,476
+com-apple-developer-system
+
+957
+00:32:51,476 --> 0:32:53,256
+extension-install entitlement.
+
+958
+00:32:55,256 --> 0:32:56,866
+For more information on these
+
+959
+00:32:56,866 --> 0:32:58,706
+entitlements and to request the
+
+960
+00:32:58,706 --> 0:33:00,146
+use of them by your development
+
+961
+00:32:58,706 --> 0:33:00,146
+use of them by your development
+
+962
+00:33:00,146 --> 0:33:03,596
+team, visit developer.apple.com
+
+963
+00:33:03,596 --> 0:33:05,096
+/system-extensions.
+
+964
+00:33:05,636 --> 0:33:09,106
+In the Developer Seed of
+
+965
+00:33:09,106 --> 0:33:12,276
+Catalina for local development,
+
+966
+00:33:12,926 --> 0:33:14,386
+you can turn System Integrity
+
+967
+00:33:14,386 --> 0:33:16,346
+Protection off to disable some
+
+968
+00:33:16,346 --> 0:33:17,766
+of the checks for code signing
+
+969
+00:33:17,766 --> 0:33:19,386
+and entitlements while you are
+
+970
+00:33:19,386 --> 0:33:19,796
+testing.
+
+971
+00:33:21,046 --> 0:33:22,316
+Please, remember to turn System
+
+972
+00:33:22,316 --> 0:33:23,836
+Integrity Protection on again
+
+973
+00:33:23,836 --> 0:33:24,806
+when you're finished testing.
+
+974
+00:33:25,446 --> 0:33:28,856
+Now that you've built your app
+
+975
+00:33:29,216 --> 0:33:30,786
+with the System Extension, how
+
+976
+00:33:31,556 --> 0:33:33,466
+does the extension get installed
+
+977
+00:33:33,466 --> 0:33:35,066
+on a user's system?
+
+978
+00:33:35,796 --> 0:33:38,096
+There's no need for an installer
+
+979
+00:33:38,096 --> 0:33:38,836
+or a package.
+
+980
+00:33:39,316 --> 0:33:41,236
+Your System Extension stays in
+
+981
+00:33:41,476 --> 0:33:43,546
+your app bundle.
+
+982
+00:33:43,676 --> 0:33:45,316
+Your app uses the new System
+
+983
+00:33:45,316 --> 0:33:47,426
+Extensions Framework and creates
+
+984
+00:33:47,426 --> 0:33:50,076
+an activation request to request
+
+985
+00:33:50,076 --> 0:33:51,136
+that the extension be made
+
+986
+00:33:51,136 --> 0:33:52,866
+available for the system to use.
+
+987
+00:33:52,866 --> 0:33:55,206
+A system administrator will
+
+988
+00:33:55,206 --> 0:33:58,586
+approve this request.
+
+989
+00:33:59,026 --> 0:34:00,876
+Most apps should probably create
+
+990
+00:33:59,026 --> 0:34:00,876
+Most apps should probably create
+
+991
+00:34:00,876 --> 0:34:02,746
+an activation request during app
+
+992
+00:34:02,746 --> 0:34:04,536
+launch so the extension is made
+
+993
+00:34:04,536 --> 0:34:05,636
+available right away.
+
+994
+00:34:06,306 --> 0:34:08,266
+If your extension has previously
+
+995
+00:34:08,466 --> 0:34:10,716
+been activated and approved, the
+
+996
+00:34:10,716 --> 0:34:12,206
+activation request will return
+
+997
+00:34:12,206 --> 0:34:13,335
+quickly with success.
+
+998
+00:34:14,235 --> 0:34:16,106
+However, you may wish to
+
+999
+00:34:16,106 --> 0:34:17,746
+activate your System Extensions
+
+1000
+00:34:17,746 --> 0:34:18,706
+at different points in your
+
+1001
+00:34:18,706 --> 0:34:20,676
+app's lifecycle such as after a
+
+1002
+00:34:20,676 --> 0:34:22,346
+user has agreed to a license
+
+1003
+00:34:22,346 --> 0:34:24,166
+agreement or made an in-app
+
+1004
+00:34:24,266 --> 0:34:25,576
+purchase if that's required for
+
+1005
+00:34:25,576 --> 0:34:26,156
+your extension.
+
+1006
+00:34:28,956 --> 0:34:30,476
+Once your extension has been
+
+1007
+00:34:30,476 --> 0:34:32,306
+activated, the system will
+
+1008
+00:34:32,306 --> 0:34:34,366
+manage its lifecycle starting it
+
+1009
+00:34:34,436 --> 0:34:35,936
+automatically when it is needed.
+
+1010
+00:34:36,676 --> 0:34:38,376
+For example, a Driver Extension
+
+1011
+00:34:38,376 --> 0:34:40,005
+will start when a matching
+
+1012
+00:34:40,005 --> 0:34:41,366
+hardware device is connected.
+
+1013
+00:34:45,126 --> 0:34:47,116
+To update your System Extension,
+
+1014
+00:34:47,806 --> 0:34:49,166
+update your app bundle.
+
+1015
+00:34:50,206 --> 0:34:52,406
+A user may install a new version
+
+1016
+00:34:52,406 --> 0:34:53,496
+that they download from your
+
+1017
+00:34:53,496 --> 0:34:56,156
+website, your auto-updater may
+
+1018
+00:34:56,156 --> 0:34:57,616
+update the app bundle in place,
+
+1019
+00:34:58,156 --> 0:34:59,846
+or if you release a new version
+
+1020
+00:34:59,846 --> 0:35:01,156
+on the app store it will be
+
+1021
+00:34:59,846 --> 0:35:01,156
+on the app store it will be
+
+1022
+00:35:01,156 --> 0:35:02,096
+updated for the user.
+
+1023
+00:35:02,716 --> 0:35:06,226
+The next time your app runs and
+
+1024
+00:35:06,226 --> 0:35:07,746
+submits an activation request,
+
+1025
+00:35:08,406 --> 0:35:09,766
+the system will notice that the
+
+1026
+00:35:09,766 --> 0:35:11,906
+extension's version has changed.
+
+1027
+00:35:12,336 --> 0:35:13,816
+It will ask your activation
+
+1028
+00:35:13,816 --> 0:35:15,826
+request delegate to compare the
+
+1029
+00:35:15,826 --> 0:35:17,686
+version numbers following your
+
+1030
+00:35:17,686 --> 0:35:19,426
+own version number rules.
+
+1031
+00:35:20,756 --> 0:35:22,146
+If your delegate determines that
+
+1032
+00:35:22,146 --> 0:35:24,456
+this is an upgrade, the system
+
+1033
+00:35:24,456 --> 0:35:25,936
+will stop the old version of the
+
+1034
+00:35:25,936 --> 0:35:27,616
+System Extension and start the
+
+1035
+00:35:27,616 --> 0:35:27,986
+new one.
+
+1036
+00:35:28,616 --> 0:35:32,546
+If a user wishes to uninstall
+
+1037
+00:35:32,546 --> 0:35:35,126
+your application, when they move
+
+1038
+00:35:35,126 --> 0:35:36,716
+it to the Trash, all of its
+
+1039
+00:35:36,716 --> 0:35:38,276
+extensions will automatically be
+
+1040
+00:35:38,276 --> 0:35:39,606
+deactivated, as well.
+
+1041
+00:35:40,686 --> 0:35:42,226
+There is a deactivationRequest
+
+1042
+00:35:42,286 --> 0:35:44,766
+API if you wish to use it, but
+
+1043
+00:35:44,766 --> 0:35:46,296
+there's no need for a dedicated
+
+1044
+00:35:46,296 --> 0:35:47,086
+uninstaller.
+
+1045
+00:35:53,536 --> 0:35:56,146
+So, today we introduced System
+
+1046
+00:35:56,146 --> 0:35:58,276
+Extensions, the replacement for
+
+1047
+00:35:58,276 --> 0:35:59,746
+Kernel Extensions that lets your
+
+1048
+00:35:59,746 --> 0:36:02,246
+apps extend the system in ways
+
+1049
+00:35:59,746 --> 0:36:02,246
+apps extend the system in ways
+
+1050
+00:36:02,246 --> 0:36:04,426
+that are more reliable, more
+
+1051
+00:36:04,426 --> 0:36:07,066
+secure, and easier to develop
+
+1052
+00:36:07,066 --> 0:36:07,736
+than ever before.
+
+1053
+00:36:09,256 --> 0:36:11,406
+We saw how to use the DriverKit
+
+1054
+00:36:11,406 --> 0:36:14,256
+SDK and frameworks, which are a
+
+1055
+00:36:14,256 --> 0:36:16,986
+modernized update of IOKit to
+
+1056
+00:36:16,986 --> 0:36:17,796
+build a driver.
+
+1057
+00:36:18,386 --> 0:36:21,306
+And we saw how to write and then
+
+1058
+00:36:21,306 --> 0:36:23,696
+debug an example USB driver all
+
+1059
+00:36:23,696 --> 0:36:24,456
+on one machine.
+
+1060
+00:36:25,786 --> 0:36:27,156
+Finally, we talked about how to
+
+1061
+00:36:27,156 --> 0:36:28,766
+include System Extensions in
+
+1062
+00:36:28,766 --> 0:36:30,036
+your apps.
+
+1063
+00:36:32,776 --> 0:36:34,626
+If you have any questions, we
+
+1064
+00:36:34,626 --> 0:36:36,446
+would love to answer them at the
+
+1065
+00:36:36,446 --> 0:36:37,726
+Core OS Labs.
+
+1066
+00:36:37,946 --> 0:36:39,576
+There's one later today and one
+
+1067
+00:36:39,576 --> 0:36:40,486
+Thursday morning.
+
+1068
+00:36:41,946 --> 0:36:43,066
+You may also wish to visit the
+
+1069
+00:36:43,066 --> 0:36:45,466
+Security Lab happening now or on
+
+1070
+00:36:45,466 --> 0:36:46,796
+Thursday afternoon or the
+
+1071
+00:36:46,796 --> 0:36:48,146
+Networking Lab on Friday
+
+1072
+00:36:48,146 --> 0:36:48,456
+morning.
+
+1073
+00:36:48,996 --> 0:36:51,726
+Thanks, very much, and enjoy the
+
+1074
+00:36:51,726 --> 0:36:52,756
+rest of WWDC.
+
+1075
+00:36:53,516 --> 0:36:58,506
+[ Applause ]

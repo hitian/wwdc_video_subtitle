@@ -1,0 +1,7895 @@
+1
+00:00:01,176 --> 0:00:04,500
+[ Music ]
+
+2
+00:00:08,321 --> 0:00:10,321
+[ Applause ]
+
+3
+00:00:10,626 --> 0:00:10,896
+&gt;&gt; Good morning.
+
+4
+00:00:11,516 --> 0:00:15,736
+[ Applause ]
+
+5
+00:00:16,236 --> 0:00:16,826
+Good morning.
+
+6
+00:00:17,016 --> 0:00:18,316
+And welcome to SwiftUI
+
+7
+00:00:18,436 --> 0:00:19,136
+Essentials.
+
+8
+00:00:19,696 --> 0:00:21,376
+My name is Matt Ricketson and I
+
+9
+00:00:21,376 --> 0:00:23,276
+work on SwiftUI and later I'll
+
+10
+00:00:23,276 --> 0:00:24,296
+be joined by my colleague
+
+11
+00:00:24,296 --> 0:00:24,676
+Taylor.
+
+12
+00:00:25,276 --> 0:00:26,326
+So what do you all think of
+
+13
+00:00:26,326 --> 0:00:26,906
+SwiftUI so far?
+
+14
+00:00:27,516 --> 0:00:32,396
+[ Applause ]
+
+15
+00:00:32,896 --> 0:00:34,566
+Me too. I'm incredibly excited
+
+16
+00:00:34,566 --> 0:00:36,016
+to talk to you today about
+
+17
+00:00:36,016 --> 0:00:36,436
+SwiftUI.
+
+18
+00:00:37,266 --> 0:00:38,126
+Now we have a lot to cover in
+
+19
+00:00:38,126 --> 0:00:39,476
+this session, so let's dive
+
+20
+00:00:39,476 --> 0:00:39,846
+right in.
+
+21
+00:00:42,036 --> 0:00:44,606
+SwiftUI is a new framework that
+
+22
+00:00:45,066 --> 0:00:46,876
+is designed to give you the
+
+23
+00:00:46,876 --> 0:00:49,266
+shortest path to building a
+
+24
+00:00:49,266 --> 0:00:49,686
+great app.
+
+25
+00:00:50,456 --> 0:00:51,736
+And that means giving you the
+
+26
+00:00:51,736 --> 0:00:53,846
+shortest path to building great
+
+27
+00:00:54,006 --> 0:00:55,026
+user interfaces.
+
+28
+00:00:55,886 --> 0:00:57,876
+But even though SwiftUI is a new
+
+29
+00:00:57,876 --> 0:00:59,846
+framework, a lot of it will
+
+30
+00:00:59,846 --> 0:01:01,156
+already look familiar to you.
+
+31
+00:00:59,846 --> 0:01:01,156
+already look familiar to you.
+
+32
+00:01:01,766 --> 0:01:04,056
+And that's because it has all of
+
+33
+00:01:04,056 --> 0:01:05,626
+the basic components that you'd
+
+34
+00:01:05,626 --> 0:01:06,916
+expect from a UI framework.
+
+35
+00:01:07,846 --> 0:01:10,356
+It has controls like buttons and
+
+36
+00:01:10,356 --> 0:01:10,966
+text fields.
+
+37
+00:01:11,856 --> 0:01:13,896
+It has layout containers like
+
+38
+00:01:13,896 --> 0:01:15,236
+stacks and lists.
+
+39
+00:01:15,886 --> 0:01:18,586
+It has drawing, animations and
+
+40
+00:01:18,586 --> 0:01:19,106
+gestures.
+
+41
+00:01:19,476 --> 0:01:21,236
+And SwiftUI even embraces
+
+42
+00:01:21,536 --> 0:01:23,586
+platform-specific concepts like
+
+43
+00:01:23,586 --> 0:01:25,756
+menus on the Mac, the Digital
+
+44
+00:01:25,756 --> 0:01:27,946
+Crown on Apple Watch, and the
+
+45
+00:01:27,946 --> 0:01:29,596
+Siri remote on Apple TV.
+
+46
+00:01:29,596 --> 0:01:33,066
+And so the takeaway here is that
+
+47
+00:01:33,066 --> 0:01:34,596
+we're not trying to reinvent the
+
+48
+00:01:34,596 --> 0:01:35,546
+wheel with SwiftUI.
+
+49
+00:01:36,776 --> 0:01:39,196
+But as we all know, the reality
+
+50
+00:01:39,196 --> 0:01:40,666
+is that just knowing how to use
+
+51
+00:01:40,666 --> 0:01:42,906
+these kinds of components is not
+
+52
+00:01:42,906 --> 0:01:45,026
+what it takes to build a great
+
+53
+00:01:45,916 --> 0:01:48,186
+app, because a great app also
+
+54
+00:01:48,186 --> 0:01:50,186
+needs to account for these kinds
+
+55
+00:01:50,186 --> 0:01:50,636
+of things.
+
+56
+00:01:51,346 --> 0:01:53,326
+It needs to be accessible and
+
+57
+00:01:53,326 --> 0:01:54,916
+work with features like dynamic
+
+58
+00:01:55,046 --> 0:01:55,246
+type.
+
+59
+00:01:56,366 --> 0:01:57,546
+It needs to adapt to different
+
+60
+00:01:57,546 --> 0:02:00,216
+devices and screen sizes and
+
+61
+00:01:57,546 --> 0:02:00,216
+devices and screen sizes and
+
+62
+00:02:00,216 --> 0:02:00,936
+input types.
+
+63
+00:02:01,366 --> 0:02:03,216
+And it needs to come alive with
+
+64
+00:02:03,466 --> 0:02:04,386
+things like interactive
+
+65
+00:02:04,386 --> 0:02:06,636
+animations and support for
+
+66
+00:02:06,636 --> 0:02:08,066
+system features like Dark Mode
+
+67
+00:02:08,526 --> 0:02:09,256
+and Drag and Drop.
+
+68
+00:02:10,795 --> 0:02:12,216
+These are the kinds of things
+
+69
+00:02:12,646 --> 0:02:14,386
+that help your app to reach the
+
+70
+00:02:14,386 --> 0:02:16,146
+largest possible audience and
+
+71
+00:02:16,146 --> 0:02:18,056
+also help keep it feeling
+
+72
+00:02:18,056 --> 0:02:18,436
+modern.
+
+73
+00:02:19,046 --> 0:02:23,206
+Now we all know that even this
+
+74
+00:02:23,206 --> 0:02:24,916
+though is not the whole picture,
+
+75
+00:02:26,056 --> 0:02:27,516
+because of course you also add
+
+76
+00:02:27,516 --> 0:02:29,346
+in your own unique features that
+
+77
+00:02:29,346 --> 0:02:31,016
+make your apps stand out from
+
+78
+00:02:31,016 --> 0:02:31,416
+the crowd.
+
+79
+00:02:32,476 --> 0:02:34,206
+So I just want to take a moment
+
+80
+00:02:34,206 --> 0:02:35,756
+to step back and acknowledge
+
+81
+00:02:36,546 --> 0:02:38,156
+that this is a lot of stuff to
+
+82
+00:02:38,156 --> 0:02:38,756
+have to learn.
+
+83
+00:02:39,796 --> 0:02:40,706
+It's a lot of stuff to have to
+
+84
+00:02:40,706 --> 0:02:43,116
+code and maintain, and so how
+
+85
+00:02:43,116 --> 0:02:45,496
+can SwiftUI help you with all
+
+86
+00:02:47,416 --> 0:02:47,526
+this?
+
+87
+00:02:48,036 --> 0:02:49,136
+Well, think about your own apps
+
+88
+00:02:49,136 --> 0:02:49,586
+for a moment.
+
+89
+00:02:50,606 --> 0:02:51,636
+First, you have those basic
+
+90
+00:02:51,636 --> 0:02:53,546
+features that everyone expects
+
+91
+00:02:53,546 --> 0:02:55,596
+from your app, like controls and
+
+92
+00:02:55,596 --> 0:02:57,576
+navigation, being accessible and
+
+93
+00:02:57,696 --> 0:02:58,786
+adapting your layout to
+
+94
+00:02:58,786 --> 0:02:59,536
+different devices.
+
+95
+00:03:00,856 --> 0:03:02,956
+We need to do these things and
+
+96
+00:03:02,956 --> 0:03:04,596
+we need to do them right in
+
+97
+00:03:04,596 --> 0:03:06,136
+order to build a really great
+
+98
+00:03:06,136 --> 0:03:06,206
+app.
+
+99
+00:03:08,606 --> 0:03:09,296
+But then there are those
+
+100
+00:03:09,296 --> 0:03:11,636
+exciting custom features that
+
+101
+00:03:11,636 --> 0:03:12,476
+are unique to your app.
+
+102
+00:03:12,476 --> 0:03:14,776
+And these are also the fun
+
+103
+00:03:14,776 --> 0:03:16,996
+features, the features that we
+
+104
+00:03:16,996 --> 0:03:19,046
+pour our passion into, the
+
+105
+00:03:19,046 --> 0:03:20,886
+features that make us feel proud
+
+106
+00:03:20,886 --> 0:03:21,606
+of what we've built.
+
+107
+00:03:22,856 --> 0:03:24,816
+And so the goal of SwiftUI is
+
+108
+00:03:24,896 --> 0:03:27,376
+pretty simple: we want you to
+
+109
+00:03:27,376 --> 0:03:28,736
+spend as much of your time as
+
+110
+00:03:28,736 --> 0:03:30,966
+possible on that fun stuff and
+
+111
+00:03:30,966 --> 0:03:32,666
+less time on the basic stuff,
+
+112
+00:03:32,756 --> 0:03:35,236
+but without compromising on
+
+113
+00:03:35,236 --> 0:03:35,746
+quality.
+
+114
+00:03:36,856 --> 0:03:38,986
+And this is what we mean by
+
+115
+00:03:38,986 --> 0:03:40,846
+giving you the shortest path to
+
+116
+00:03:40,846 --> 0:03:41,956
+a great app.
+
+117
+00:03:42,176 --> 0:03:43,346
+Because all of you are building
+
+118
+00:03:43,346 --> 0:03:44,346
+great apps already.
+
+119
+00:03:45,116 --> 0:03:46,056
+We just want to help you get
+
+120
+00:03:46,096 --> 0:03:47,956
+there a little bit faster.
+
+121
+00:03:50,056 --> 0:03:51,536
+This session is about giving you
+
+122
+00:03:51,576 --> 0:03:52,856
+a better understanding of
+
+123
+00:03:52,856 --> 0:03:53,206
+SwiftUI.
+
+124
+00:03:53,206 --> 0:03:54,986
+We're going to look at some
+
+125
+00:03:54,986 --> 0:03:56,736
+code, but we're also going to
+
+126
+00:03:56,736 --> 0:03:58,796
+talk about SwiftUI's design and
+
+127
+00:03:58,796 --> 0:04:00,356
+how it helps you build better
+
+128
+00:03:58,796 --> 0:04:00,356
+how it helps you build better
+
+129
+00:04:00,506 --> 0:04:00,746
+apps.
+
+130
+00:04:01,846 --> 0:04:02,816
+By the end of this session,
+
+131
+00:04:03,586 --> 0:04:04,916
+you'll be able to build a
+
+132
+00:04:04,916 --> 0:04:06,826
+complete user interface with
+
+133
+00:04:06,826 --> 0:04:07,176
+SwiftUI.
+
+134
+00:04:07,916 --> 0:04:10,886
+And we're going to start by
+
+135
+00:04:10,886 --> 0:04:12,866
+covering the basics of views and
+
+136
+00:04:12,866 --> 0:04:13,646
+modifiers.
+
+137
+00:04:14,636 --> 0:04:16,266
+And for that we'll need an
+
+138
+00:04:16,266 --> 0:04:16,796
+example.
+
+139
+00:04:17,055 --> 0:04:18,166
+And I always try to pick an
+
+140
+00:04:18,166 --> 0:04:20,446
+example that I care about to
+
+141
+00:04:20,755 --> 0:04:21,546
+help motivate me.
+
+142
+00:04:22,896 --> 0:04:24,726
+Now if any of you have been on
+
+143
+00:04:24,726 --> 0:04:26,416
+the internet lately, you've
+
+144
+00:04:26,416 --> 0:04:27,446
+probably read about what
+
+145
+00:04:27,506 --> 0:04:30,576
+Millennials like myself consider
+
+146
+00:04:30,756 --> 0:04:33,766
+to be the most important part of
+
+147
+00:04:33,766 --> 0:04:34,266
+our lives.
+
+148
+00:04:35,956 --> 0:04:38,876
+That's right, avocado toast.
+
+149
+00:04:39,016 --> 0:04:41,016
+[ Laughter ]
+
+150
+00:04:41,516 --> 0:04:44,566
+[ Applause ]
+
+151
+00:04:45,066 --> 0:04:45,966
+We've got some Millennials in
+
+152
+00:04:45,966 --> 0:04:46,806
+the audience.
+
+153
+00:04:47,116 --> 0:04:49,196
+So today we're going to build an
+
+154
+00:04:49,196 --> 0:04:51,306
+app for ordering avocado toast.
+
+155
+00:04:51,896 --> 0:04:53,136
+And I've already done a little
+
+156
+00:04:53,136 --> 0:04:54,416
+bit of work on it already and it
+
+157
+00:04:54,416 --> 0:04:55,496
+looks a little like this.
+
+158
+00:04:56,616 --> 0:04:58,596
+It's a simple form that lets me
+
+159
+00:04:58,596 --> 0:04:59,896
+quickly order just what I want
+
+160
+00:04:59,896 --> 0:05:01,066
+right from my phone.
+
+161
+00:04:59,896 --> 0:05:01,066
+right from my phone.
+
+162
+00:05:02,096 --> 0:05:03,536
+Now this is not much so far,
+
+163
+00:05:03,536 --> 0:05:04,876
+clearly, but we're going to
+
+164
+00:05:04,876 --> 0:05:05,616
+build on this throughout the
+
+165
+00:05:05,616 --> 0:05:06,016
+talk.
+
+166
+00:05:07,026 --> 0:05:07,866
+But before we dive into the
+
+167
+00:05:07,866 --> 0:05:09,456
+code, I want to talk a little
+
+168
+00:05:09,456 --> 0:05:11,016
+bit about views.
+
+169
+00:05:11,586 --> 0:05:15,346
+And that's because views are the
+
+170
+00:05:15,346 --> 0:05:17,146
+basic building blocks of user
+
+171
+00:05:17,146 --> 0:05:17,746
+interfaces.
+
+172
+00:05:18,636 --> 0:05:19,856
+And they're important to
+
+173
+00:05:19,856 --> 0:05:21,596
+everything that we do in
+
+174
+00:05:21,596 --> 0:05:21,996
+SwiftUI.
+
+175
+00:05:23,776 --> 0:05:25,586
+If you've ever used another UI
+
+176
+00:05:25,586 --> 0:05:27,806
+framework before like UIKit or
+
+177
+00:05:27,806 --> 0:05:30,066
+AppKit, you've probably already
+
+178
+00:05:30,136 --> 0:05:31,196
+heard of the term view.
+
+179
+00:05:32,676 --> 0:05:34,756
+SwiftUI also has views and they
+
+180
+00:05:34,756 --> 0:05:36,726
+serve the same primary role as
+
+181
+00:05:36,726 --> 0:05:38,146
+they do in those frameworks.
+
+182
+00:05:39,676 --> 0:05:42,146
+Which is that at a high level, a
+
+183
+00:05:42,146 --> 0:05:43,506
+view is just something that
+
+184
+00:05:43,506 --> 0:05:47,306
+defines a piece of your UI.
+
+185
+00:05:47,566 --> 0:05:49,146
+When you look at an app,
+
+186
+00:05:49,146 --> 0:05:50,826
+everything that you see is
+
+187
+00:05:50,826 --> 0:05:52,096
+defined by a view.
+
+188
+00:05:53,656 --> 0:05:55,116
+Individual controls are views.
+
+189
+00:05:56,426 --> 0:05:58,616
+The containers holding them are
+
+190
+00:05:58,616 --> 0:05:59,306
+also views.
+
+191
+00:05:59,656 --> 0:06:02,026
+And in fact, every single pixel
+
+192
+00:05:59,656 --> 0:06:02,026
+And in fact, every single pixel
+
+193
+00:06:02,026 --> 0:06:03,616
+that you see onscreen can be
+
+194
+00:06:03,616 --> 0:06:05,316
+traced back in some way to a
+
+195
+00:06:05,316 --> 0:06:05,606
+view.
+
+196
+00:06:06,206 --> 0:06:09,306
+And we build user interfaces by
+
+197
+00:06:09,306 --> 0:06:11,226
+composing these views into a
+
+198
+00:06:11,226 --> 0:06:12,826
+hierarchy of containment.
+
+199
+00:06:13,306 --> 0:06:16,026
+From the containers at the root,
+
+200
+00:06:16,866 --> 0:06:20,906
+to the text, images and shapes
+
+201
+00:06:21,136 --> 0:06:21,776
+that are at the bottom.
+
+202
+00:06:24,076 --> 0:06:25,446
+Now if you've used UIKit or
+
+203
+00:06:25,446 --> 0:06:26,826
+AppKit before, this picture
+
+204
+00:06:26,826 --> 0:06:28,176
+should look familiar to you.
+
+205
+00:06:28,316 --> 0:06:29,526
+And the important thing to
+
+206
+00:06:29,526 --> 0:06:31,666
+understand is that this is also
+
+207
+00:06:31,666 --> 0:06:33,706
+true of views in SwiftUI.
+
+208
+00:06:33,706 --> 0:06:36,636
+Where SwiftUI may be different
+
+209
+00:06:36,636 --> 0:06:38,316
+than what you're used to is in
+
+210
+00:06:38,316 --> 0:06:40,256
+the way that views are expressed
+
+211
+00:06:40,556 --> 0:06:41,166
+in code.
+
+212
+00:06:42,116 --> 0:06:44,966
+So let's look at some code.
+
+213
+00:06:45,516 --> 0:06:47,356
+In our example app, we just have
+
+214
+00:06:47,356 --> 0:06:49,176
+a vertical stack of controls and
+
+215
+00:06:49,176 --> 0:06:49,676
+text.
+
+216
+00:06:50,276 --> 0:06:51,936
+And it's easy to see that just
+
+217
+00:06:51,936 --> 0:06:52,656
+by reading the code.
+
+218
+00:06:55,186 --> 0:06:56,236
+But in fact you'll notice how
+
+219
+00:06:56,286 --> 0:06:57,886
+closely the code on the left
+
+220
+00:06:58,776 --> 0:07:00,086
+matches the equivalent view
+
+221
+00:06:58,776 --> 0:07:00,086
+matches the equivalent view
+
+222
+00:07:00,086 --> 0:07:01,666
+hierarchy diagram on the right.
+
+223
+00:07:03,276 --> 0:07:04,586
+We see that in the stack at the
+
+224
+00:07:04,586 --> 0:07:07,866
+root, to the text and controls
+
+225
+00:07:07,866 --> 0:07:09,506
+contained in the stack.
+
+226
+00:07:10,276 --> 0:07:12,316
+To the individual text labels
+
+227
+00:07:12,646 --> 0:07:13,716
+contained in each of our
+
+228
+00:07:13,716 --> 0:07:14,306
+controls.
+
+229
+00:07:18,046 --> 0:07:19,816
+Now what you don't see is calls
+
+230
+00:07:19,816 --> 0:07:21,526
+to functions like Add subviews
+
+231
+00:07:21,526 --> 0:07:21,936
+anywhere.
+
+232
+00:07:23,146 --> 0:07:24,356
+Because instead of building up
+
+233
+00:07:24,356 --> 0:07:25,426
+our view hierarchy piece by
+
+234
+00:07:25,426 --> 0:07:27,636
+piece, we initialize it as a
+
+235
+00:07:27,636 --> 0:07:29,976
+complete, composed structure.
+
+236
+00:07:31,626 --> 0:07:34,006
+This is because SwiftUI defines
+
+237
+00:07:34,006 --> 0:07:36,926
+its views declaratively as
+
+238
+00:07:36,926 --> 0:07:38,266
+opposed to imperatively.
+
+239
+00:07:39,136 --> 0:07:41,126
+And I can't think of a better
+
+240
+00:07:41,126 --> 0:07:42,286
+analogy to help explain these
+
+241
+00:07:42,286 --> 0:07:44,376
+concepts than of course with
+
+242
+00:07:44,376 --> 0:07:45,526
+avocado toast.
+
+243
+00:07:45,776 --> 0:07:47,036
+So let's try making avocado
+
+244
+00:07:47,036 --> 0:07:47,976
+toast imperatively.
+
+245
+00:07:50,556 --> 0:07:51,956
+Imperative code involves
+
+246
+00:07:51,956 --> 0:07:53,676
+building a result by sending
+
+247
+00:07:53,676 --> 0:07:54,826
+explicit commands.
+
+248
+00:07:55,966 --> 0:07:57,116
+That's sort of like teaching a
+
+249
+00:07:57,116 --> 0:07:58,696
+friend how to make avocado toast
+
+250
+00:07:58,836 --> 0:07:59,686
+over the phone.
+
+251
+00:08:01,186 --> 0:08:02,186
+You start by telling them what
+
+252
+00:08:02,186 --> 0:08:03,766
+ingredients to get and what
+
+253
+00:08:03,766 --> 0:08:06,496
+equipment they'll need, then you
+
+254
+00:08:06,496 --> 0:08:07,496
+start guiding them through
+
+255
+00:08:07,496 --> 0:08:08,876
+making the toast and cutting the
+
+256
+00:08:08,876 --> 0:08:10,506
+avocado and all these
+
+257
+00:08:10,506 --> 0:08:12,466
+instructions start getting a
+
+258
+00:08:12,466 --> 0:08:13,366
+little tedious.
+
+259
+00:08:13,666 --> 0:08:16,126
+And if your friend messes up any
+
+260
+00:08:16,126 --> 0:08:17,956
+little step like forgetting to
+
+261
+00:08:17,956 --> 0:08:20,146
+toast the bread, then the final
+
+262
+00:08:20,206 --> 0:08:21,686
+result is ruined.
+
+263
+00:08:24,216 --> 0:08:25,626
+Now let's compare that to making
+
+264
+00:08:25,626 --> 0:08:27,606
+avocado toast declaratively.
+
+265
+00:08:29,466 --> 0:08:30,526
+Declarative code involves
+
+266
+00:08:30,526 --> 0:08:32,546
+building a result by describing
+
+267
+00:08:32,546 --> 0:08:33,655
+what you want but letting
+
+268
+00:08:33,655 --> 0:08:35,306
+someone else figure out how to
+
+269
+00:08:35,306 --> 0:08:36,126
+make it for you.
+
+270
+00:08:36,696 --> 0:08:39,476
+That's sort of like ordering
+
+271
+00:08:39,476 --> 0:08:41,746
+avocado toast from an avocado
+
+272
+00:08:42,155 --> 0:08:42,655
+artisan.
+
+273
+00:08:45,596 --> 0:08:47,236
+Luckily, we have a lot of those
+
+274
+00:08:47,236 --> 0:08:47,766
+in California.
+
+275
+00:08:49,726 --> 0:08:50,936
+Now all you have to do is say
+
+276
+00:08:50,936 --> 0:08:51,886
+exactly what you want.
+
+277
+00:08:52,416 --> 0:08:54,876
+You can even throw in a custom
+
+278
+00:08:54,876 --> 0:08:55,336
+instruction.
+
+279
+00:08:55,936 --> 0:08:58,156
+And that's all there is to it.
+
+280
+00:08:58,416 --> 0:08:59,826
+And because an expert is making
+
+281
+00:08:59,826 --> 0:09:01,326
+it for us, we're guaranteed to
+
+282
+00:08:59,826 --> 0:09:01,326
+it for us, we're guaranteed to
+
+283
+00:09:01,326 --> 0:09:02,766
+get a high-quality result.
+
+284
+00:09:03,446 --> 0:09:06,006
+Now going back to our code,
+
+285
+00:09:06,176 --> 0:09:08,476
+SwiftUI is serving that role of
+
+286
+00:09:08,476 --> 0:09:10,426
+the expert ready to assist you.
+
+287
+00:09:11,376 --> 0:09:13,506
+In code, we declare the
+
+288
+00:09:13,506 --> 0:09:15,046
+hierarchical relationships
+
+289
+00:09:15,236 --> 0:09:17,136
+between our views by
+
+290
+00:09:17,136 --> 0:09:19,176
+initializing a structure that
+
+291
+00:09:19,176 --> 0:09:20,976
+encodes those relationships.
+
+292
+00:09:23,416 --> 0:09:25,726
+And SwiftUI does the hard work
+
+293
+00:09:26,086 --> 0:09:29,326
+of translating your views into a
+
+294
+00:09:29,326 --> 0:09:30,736
+rendered result onscreen.
+
+295
+00:09:33,166 --> 0:09:34,186
+Now there's a lot more to say
+
+296
+00:09:34,186 --> 0:09:35,776
+about that, but for now let's
+
+297
+00:09:35,776 --> 0:09:37,456
+just get used to the syntax in
+
+298
+00:09:37,456 --> 0:09:37,876
+the code.
+
+299
+00:09:38,326 --> 0:09:39,966
+And we'll start with container
+
+300
+00:09:39,966 --> 0:09:40,326
+views.
+
+301
+00:09:43,356 --> 0:09:44,706
+container views are declared as
+
+302
+00:09:44,706 --> 0:09:46,686
+a composition of other views
+
+303
+00:09:46,746 --> 0:09:47,816
+serving as their content.
+
+304
+00:09:49,806 --> 0:09:51,096
+Those Content views are declared
+
+305
+00:09:51,096 --> 0:09:53,066
+within a special kind of closer
+
+306
+00:09:53,146 --> 0:09:54,366
+known as a view builder.
+
+307
+00:09:55,946 --> 0:09:57,156
+For example, we already saw
+
+308
+00:09:57,156 --> 0:09:59,916
+VStack or Vertical Stack which
+
+309
+00:09:59,916 --> 0:10:01,066
+is an example of one of these
+
+310
+00:09:59,916 --> 0:10:01,066
+is an example of one of these
+
+311
+00:10:01,066 --> 0:10:01,686
+containers.
+
+312
+00:10:02,206 --> 0:10:04,586
+view Builders allow us to write
+
+313
+00:10:04,586 --> 0:10:06,646
+declarative code in the body of
+
+314
+00:10:06,646 --> 0:10:07,206
+the closure.
+
+315
+00:10:08,186 --> 0:10:09,466
+Instead of calling a function
+
+316
+00:10:09,466 --> 0:10:11,446
+like AddSubViews, we can just
+
+317
+00:10:11,446 --> 0:10:13,346
+list out our contents within the
+
+318
+00:10:13,346 --> 0:10:13,726
+closure.
+
+319
+00:10:14,476 --> 0:10:16,716
+To see a little bit more about
+
+320
+00:10:16,716 --> 0:10:17,916
+how this works, let's take a
+
+321
+00:10:17,916 --> 0:10:19,226
+look at the actual API for
+
+322
+00:10:19,226 --> 0:10:19,876
+VStack.
+
+323
+00:10:20,366 --> 0:10:23,306
+You can see the content
+
+324
+00:10:23,306 --> 0:10:25,776
+parameter defined as a closure
+
+325
+00:10:26,296 --> 0:10:27,706
+but marked with this ViewBuilder
+
+326
+00:10:27,706 --> 0:10:28,176
+attribute.
+
+327
+00:10:29,446 --> 0:10:31,426
+The Swift Compiler knows how to
+
+328
+00:10:31,426 --> 0:10:33,196
+translate a closure marked by
+
+329
+00:10:33,236 --> 0:10:35,076
+this attribute into a new
+
+330
+00:10:35,076 --> 0:10:37,166
+closure that returns a single
+
+331
+00:10:37,166 --> 0:10:38,846
+view representing all of the
+
+332
+00:10:38,886 --> 0:10:40,576
+contents within our stack.
+
+333
+00:10:42,106 --> 0:10:43,636
+This is an example of SwiftUI
+
+334
+00:10:44,256 --> 0:10:46,046
+using the power of Swift to help
+
+335
+00:10:46,046 --> 0:10:47,966
+you write less code.
+
+336
+00:10:51,416 --> 0:10:53,066
+views like VStack can also take
+
+337
+00:10:53,066 --> 0:10:54,436
+other parameters in addition to
+
+338
+00:10:54,436 --> 0:10:55,006
+their content.
+
+339
+00:10:55,426 --> 0:10:57,136
+For example, we could configure
+
+340
+00:10:57,136 --> 0:10:59,136
+our VStack to align its content
+
+341
+00:10:59,136 --> 0:11:00,856
+along its leading edge instead
+
+342
+00:10:59,136 --> 0:11:00,856
+along its leading edge instead
+
+343
+00:11:00,856 --> 0:11:02,306
+of using the default center
+
+344
+00:11:02,306 --> 0:11:02,696
+alignment.
+
+345
+00:11:06,486 --> 0:11:08,356
+Taken together, this is a really
+
+346
+00:11:08,356 --> 0:11:10,986
+nice and natural syntax that
+
+347
+00:11:10,986 --> 0:11:12,676
+lets us use braces and
+
+348
+00:11:12,676 --> 0:11:15,416
+indentation to differentiate our
+
+349
+00:11:15,416 --> 0:11:17,336
+container views and their
+
+350
+00:11:17,336 --> 0:11:19,726
+configuration from the contents
+
+351
+00:11:19,726 --> 0:11:21,076
+inside of them.
+
+352
+00:11:24,046 --> 0:11:24,966
+And we also follow the syntax
+
+353
+00:11:24,966 --> 0:11:26,506
+for many controls since most
+
+354
+00:11:26,506 --> 0:11:28,526
+controls in SwiftUI are also
+
+355
+00:11:28,526 --> 0:11:28,976
+containers.
+
+356
+00:11:31,046 --> 0:11:32,476
+You saw this in our example app.
+
+357
+00:11:32,476 --> 0:11:34,566
+In each case here, our controls
+
+358
+00:11:34,566 --> 0:11:36,776
+define a piece of text serving
+
+359
+00:11:36,776 --> 0:11:38,786
+as their label which describes
+
+360
+00:11:38,786 --> 0:11:39,396
+their purpose.
+
+361
+00:11:42,046 --> 0:11:43,026
+Now we can put more than just
+
+362
+00:11:43,086 --> 0:11:43,516
+text here.
+
+363
+00:11:43,516 --> 0:11:44,516
+We can put any kind of view.
+
+364
+00:11:45,396 --> 0:11:46,886
+And we'll go into more depth on
+
+365
+00:11:46,886 --> 0:11:47,716
+that later in the talk.
+
+366
+00:11:49,636 --> 0:11:51,466
+Now another kind of syntax you
+
+367
+00:11:51,466 --> 0:11:53,266
+see here are those dollar signs
+
+368
+00:11:53,676 --> 0:11:54,946
+preceding the arguments to our
+
+369
+00:11:54,946 --> 0:11:55,976
+Toggles and stepper.
+
+370
+00:11:57,426 --> 0:11:58,466
+The leading dollar sign
+
+371
+00:11:58,546 --> 0:12:00,206
+indicates that we're passing a
+
+372
+00:11:58,546 --> 0:12:00,206
+indicates that we're passing a
+
+373
+00:12:00,316 --> 0:12:02,166
+binding to the control instead
+
+374
+00:12:02,166 --> 0:12:03,366
+of just a normal value.
+
+375
+00:12:04,796 --> 0:12:05,886
+So what are bindings?
+
+376
+00:12:06,356 --> 0:12:09,366
+In our example app, our stepper
+
+377
+00:12:09,366 --> 0:12:11,106
+is contained within a view that
+
+378
+00:12:11,106 --> 0:12:12,606
+depends on persistent state to
+
+379
+00:12:12,606 --> 0:12:13,676
+track the current order.
+
+380
+00:12:13,966 --> 0:12:15,786
+It declares a property for its
+
+381
+00:12:15,786 --> 0:12:18,386
+order using a state attribute.
+
+382
+00:12:19,536 --> 0:12:21,116
+When SwiftUI sees a property
+
+383
+00:12:21,116 --> 0:12:22,926
+marked with this attribute, it
+
+384
+00:12:22,926 --> 0:12:24,346
+automatically creates and
+
+385
+00:12:24,346 --> 0:12:26,226
+manages persistent state behind
+
+386
+00:12:26,226 --> 0:12:28,336
+the scenes and then exposes the
+
+387
+00:12:28,336 --> 0:12:30,606
+value of that state through this
+
+388
+00:12:30,606 --> 0:12:30,976
+property.
+
+389
+00:12:34,106 --> 0:12:36,096
+In this case, our state contains
+
+390
+00:12:36,096 --> 0:12:37,656
+a struct that I defined myself
+
+391
+00:12:38,746 --> 0:12:40,176
+that represents all of our order
+
+392
+00:12:40,176 --> 0:12:40,696
+information.
+
+393
+00:12:43,096 --> 0:12:45,276
+If we just want to read or write
+
+394
+00:12:45,336 --> 0:12:46,996
+to the data in our state, it's
+
+395
+00:12:46,996 --> 0:12:47,616
+really easy.
+
+396
+00:12:47,806 --> 0:12:49,106
+We can just read or write to a
+
+397
+00:12:49,106 --> 0:12:50,116
+property directly.
+
+398
+00:12:51,316 --> 0:12:52,376
+And we did that here when we
+
+399
+00:12:52,376 --> 0:12:53,806
+made the label for our stepper.
+
+400
+00:12:56,136 --> 0:12:58,016
+However, a stepper also needs to
+
+401
+00:12:58,016 --> 0:12:59,896
+be able to edit the state when
+
+402
+00:12:59,896 --> 0:13:01,056
+its buttons are tapped.
+
+403
+00:12:59,896 --> 0:13:01,056
+its buttons are tapped.
+
+404
+00:13:02,306 --> 0:13:03,946
+And we use this dollar sign
+
+405
+00:13:03,946 --> 0:13:05,886
+prefix to indicate that we
+
+406
+00:13:05,886 --> 0:13:08,306
+should pass a binding to that
+
+407
+00:13:08,306 --> 0:13:09,846
+Quantity Property in our state
+
+408
+00:13:10,656 --> 0:13:12,146
+instead of just passing a
+
+409
+00:13:12,186 --> 0:13:13,296
+read-only value.
+
+410
+00:13:14,836 --> 0:13:17,056
+A binding is a kind of managed
+
+411
+00:13:17,136 --> 0:13:19,106
+reference that allows one view
+
+412
+00:13:19,506 --> 0:13:21,266
+to edit the state of another
+
+413
+00:13:21,266 --> 0:13:21,456
+view.
+
+414
+00:13:24,456 --> 0:13:26,016
+Now to learn more about state
+
+415
+00:13:26,016 --> 0:13:27,976
+and bindings and how to manage
+
+416
+00:13:28,146 --> 0:13:29,196
+all other kinds of data
+
+417
+00:13:29,196 --> 0:13:31,056
+dependencies that you'll use in
+
+418
+00:13:31,056 --> 0:13:32,796
+your app, I highly recommend
+
+419
+00:13:32,796 --> 0:13:34,216
+that you watch the Data Flow
+
+420
+00:13:34,216 --> 0:13:35,296
+Through SwiftUI talk.
+
+421
+00:13:35,906 --> 0:13:38,066
+But for now, the important thing
+
+422
+00:13:38,066 --> 0:13:40,496
+to remember is that if you ever
+
+423
+00:13:40,496 --> 0:13:41,866
+see a property attribute like
+
+424
+00:13:41,866 --> 0:13:44,536
+state that usually represents
+
+425
+00:13:44,986 --> 0:13:46,616
+some kind of data dependency
+
+426
+00:13:47,016 --> 0:13:48,806
+that SwiftUI is managing on your
+
+427
+00:13:48,806 --> 0:13:50,546
+behalf behind the scenes.
+
+428
+00:13:52,156 --> 0:13:53,726
+And if you ever see a dollar
+
+429
+00:13:53,726 --> 0:13:55,876
+sign prefix, that usually means
+
+430
+00:13:55,876 --> 0:13:57,596
+that we're passing a binding to
+
+431
+00:13:57,676 --> 0:13:57,976
+another view.
+
+432
+00:14:03,046 --> 0:14:04,106
+Now going back to our example
+
+433
+00:14:04,106 --> 0:14:06,256
+app, there's one more important
+
+434
+00:14:06,256 --> 0:14:07,866
+piece of syntax that we haven't
+
+435
+00:14:07,866 --> 0:14:08,236
+covered yet.
+
+436
+00:14:08,516 --> 0:14:09,556
+And you can see it up there at
+
+437
+00:14:09,556 --> 0:14:11,446
+the top where we set the font
+
+438
+00:14:11,876 --> 0:14:12,476
+for our title.
+
+439
+00:14:14,016 --> 0:14:14,726
+Let's zoom in on that.
+
+440
+00:14:18,046 --> 0:14:19,676
+First we initialized our text,
+
+441
+00:14:21,106 --> 0:14:22,476
+which again is just another kind
+
+442
+00:14:22,476 --> 0:14:23,466
+of view in SwiftUI.
+
+443
+00:14:26,046 --> 0:14:27,556
+Then we called a method on the
+
+444
+00:14:27,556 --> 0:14:29,906
+text named font and passed it a
+
+445
+00:14:29,906 --> 0:14:32,296
+system-defined text style.
+
+446
+00:14:32,936 --> 0:14:35,116
+This kind of method is known as
+
+447
+00:14:35,116 --> 0:14:36,736
+a modifier in SwiftUI.
+
+448
+00:14:37,526 --> 0:14:39,626
+And a modifier is just a method
+
+449
+00:14:40,076 --> 0:14:42,076
+that creates a new view from an
+
+450
+00:14:42,076 --> 0:14:42,766
+existing view.
+
+451
+00:14:45,086 --> 0:14:46,406
+Let's see what I mean.
+
+452
+00:14:47,516 --> 0:14:48,846
+This is what our UI would have
+
+453
+00:14:48,846 --> 0:14:49,976
+looked like without the font
+
+454
+00:14:49,976 --> 0:14:52,046
+modifier, in which case our
+
+455
+00:14:52,046 --> 0:14:53,176
+title would have rendered with
+
+456
+00:14:53,176 --> 0:14:55,146
+just the default body font.
+
+457
+00:14:56,356 --> 0:14:57,966
+This is what the view hierarchy
+
+458
+00:14:57,966 --> 0:14:58,746
+diagram looks like.
+
+459
+00:14:59,536 --> 0:15:01,226
+We just see our text contained
+
+460
+00:14:59,536 --> 0:15:01,226
+We just see our text contained
+
+461
+00:15:01,446 --> 0:15:02,806
+by our VStack.
+
+462
+00:15:06,076 --> 0:15:07,766
+When the text is modified, a new
+
+463
+00:15:07,766 --> 0:15:10,076
+view is inserted that wraps our
+
+464
+00:15:10,076 --> 0:15:10,826
+existing text.
+
+465
+00:15:11,656 --> 0:15:13,616
+The new view tells SwiftUI to
+
+466
+00:15:13,616 --> 0:15:15,256
+render that text with its new
+
+467
+00:15:15,256 --> 0:15:15,586
+font.
+
+468
+00:15:17,396 --> 0:15:18,436
+These modifiers can even be
+
+469
+00:15:18,436 --> 0:15:18,996
+chained together.
+
+470
+00:15:20,076 --> 0:15:21,356
+For example, we could change the
+
+471
+00:15:21,356 --> 0:15:22,886
+text color of our title by
+
+472
+00:15:22,886 --> 0:15:23,986
+adding a foreground color
+
+473
+00:15:23,986 --> 0:15:24,506
+modifier.
+
+474
+00:15:25,986 --> 0:15:27,436
+This adds another view into the
+
+475
+00:15:27,436 --> 0:15:29,556
+view Tree that wraps our font
+
+476
+00:15:29,686 --> 0:15:30,386
+modifier view.
+
+477
+00:15:34,286 --> 0:15:35,866
+Now clearly our view hierarchy
+
+478
+00:15:36,426 --> 0:15:37,886
+is starting to get bigger pretty
+
+479
+00:15:37,886 --> 0:15:38,236
+quickly.
+
+480
+00:15:38,236 --> 0:15:40,546
+And for the experienced UI
+
+481
+00:15:40,546 --> 0:15:42,236
+programmers among you, this may
+
+482
+00:15:42,236 --> 0:15:43,506
+be setting off some internal
+
+483
+00:15:43,596 --> 0:15:44,186
+alarm bells.
+
+484
+00:15:45,006 --> 0:15:46,586
+Because over the years we've
+
+485
+00:15:46,716 --> 0:15:48,606
+trained ourselves to optimize
+
+486
+00:15:48,606 --> 0:15:50,396
+the performance of our apps by
+
+487
+00:15:50,396 --> 0:15:52,046
+keeping our view hierarchies as
+
+488
+00:15:52,046 --> 0:15:54,506
+small and light as possible.
+
+489
+00:15:55,046 --> 0:15:58,366
+But remember, we're writing
+
+490
+00:15:58,506 --> 0:15:59,556
+declarative code.
+
+491
+00:16:00,976 --> 0:16:03,486
+And SwiftUI is our expert chef
+
+492
+00:16:03,876 --> 0:16:05,786
+taking our views and skillfully
+
+493
+00:16:05,786 --> 0:16:07,366
+producing a rendered result
+
+494
+00:16:07,766 --> 0:16:09,086
+according to just what we
+
+495
+00:16:09,086 --> 0:16:09,426
+ordered.
+
+496
+00:16:10,326 --> 0:16:11,326
+And so even though we had to
+
+497
+00:16:11,326 --> 0:16:13,236
+wrap our text in multiple
+
+498
+00:16:13,236 --> 0:16:16,026
+wrapper views, SwiftUI collapses
+
+499
+00:16:16,026 --> 0:16:17,916
+that down behind the scenes into
+
+500
+00:16:17,966 --> 0:16:20,376
+an efficient data structure that
+
+501
+00:16:20,376 --> 0:16:21,856
+is then used by the render
+
+502
+00:16:21,856 --> 0:16:22,236
+system.
+
+503
+00:16:23,786 --> 0:16:25,066
+And without having to worry
+
+504
+00:16:25,066 --> 0:16:26,506
+about the performance impact,
+
+505
+00:16:27,376 --> 0:16:29,526
+you'll find that this chaining
+
+506
+00:16:29,526 --> 0:16:31,596
+modifier syntax actually
+
+507
+00:16:31,596 --> 0:16:32,746
+provides a lot of really nice
+
+508
+00:16:32,746 --> 0:16:33,236
+benefits.
+
+509
+00:16:34,836 --> 0:16:37,406
+For example, modifier chains
+
+510
+00:16:37,686 --> 0:16:40,006
+enforce a deterministic ordering
+
+511
+00:16:40,366 --> 0:16:41,476
+of visual effects.
+
+512
+00:16:43,586 --> 0:16:44,856
+So here we have a piece of text
+
+513
+00:16:44,856 --> 0:16:45,796
+with a green background.
+
+514
+00:16:46,736 --> 0:16:48,726
+But the text is looking a little
+
+515
+00:16:48,726 --> 0:16:50,446
+cramped, so let's try expanding
+
+516
+00:16:50,446 --> 0:16:51,906
+that background by adding some
+
+517
+00:16:52,226 --> 0:16:53,496
+padding around our text.
+
+518
+00:16:56,046 --> 0:16:57,436
+So we added the padding modifier
+
+519
+00:16:57,436 --> 0:16:59,606
+and you can see it adding a new
+
+520
+00:16:59,606 --> 0:17:00,766
+view to our view hierarchy.
+
+521
+00:16:59,606 --> 0:17:00,766
+view to our view hierarchy.
+
+522
+00:17:01,896 --> 0:17:02,976
+But nothing changed onscreen.
+
+523
+00:17:06,046 --> 0:17:07,406
+In fact, the padding is there;
+
+524
+00:17:07,406 --> 0:17:08,415
+we just can't see it.
+
+525
+00:17:09,996 --> 0:17:11,195
+Looking at the code, our
+
+526
+00:17:11,195 --> 0:17:12,876
+background modifier is only
+
+527
+00:17:12,876 --> 0:17:14,586
+wrapping our text, not our
+
+528
+00:17:14,586 --> 0:17:15,036
+padding.
+
+529
+00:17:15,586 --> 0:17:16,935
+Which means that the padding
+
+530
+00:17:16,935 --> 0:17:18,336
+gets applied outside of our
+
+531
+00:17:18,336 --> 0:17:18,786
+background.
+
+532
+00:17:21,046 --> 0:17:22,646
+And luckily, it's really easy to
+
+533
+00:17:22,646 --> 0:17:23,976
+fix this by just moving that
+
+534
+00:17:23,976 --> 0:17:25,656
+background modifier to wrap both
+
+535
+00:17:25,656 --> 0:17:26,996
+the text and the padding
+
+536
+00:17:27,046 --> 0:17:27,455
+instead.
+
+537
+00:17:32,046 --> 0:17:32,856
+Now let's take a step back and
+
+538
+00:17:32,856 --> 0:17:33,806
+appreciate what we just did
+
+539
+00:17:33,806 --> 0:17:34,026
+there.
+
+540
+00:17:35,466 --> 0:17:36,716
+Imagine if padding and
+
+541
+00:17:36,716 --> 0:17:38,116
+background were properties on
+
+542
+00:17:38,116 --> 0:17:40,226
+our text instead of separate
+
+543
+00:17:40,226 --> 0:17:40,946
+modifiers.
+
+544
+00:17:42,206 --> 0:17:43,726
+In that case, we would have no
+
+545
+00:17:43,726 --> 0:17:45,416
+way to know which order they get
+
+546
+00:17:45,416 --> 0:17:47,366
+applied in without trial and
+
+547
+00:17:47,366 --> 0:17:49,246
+error or reading documentation.
+
+548
+00:17:50,416 --> 0:17:52,566
+Instead, by chaining modifiers
+
+549
+00:17:52,566 --> 0:17:54,656
+together like this, we make that
+
+550
+00:17:54,656 --> 0:17:55,646
+order explicit.
+
+551
+00:17:56,686 --> 0:17:57,976
+And we also make it super easy
+
+552
+00:17:57,976 --> 0:17:59,966
+to customize like we just did.
+
+553
+00:18:02,096 --> 0:18:03,036
+Now another benefit of these
+
+554
+00:18:03,036 --> 0:18:04,476
+modifiers is that they can be
+
+555
+00:18:04,476 --> 0:18:06,056
+shared across views.
+
+556
+00:18:06,486 --> 0:18:08,686
+For example, here we've applied
+
+557
+00:18:08,796 --> 0:18:11,256
+an opacity effect to multiple
+
+558
+00:18:11,256 --> 0:18:12,566
+different kinds of controls.
+
+559
+00:18:13,836 --> 0:18:14,846
+And we can even apply that
+
+560
+00:18:14,846 --> 0:18:16,376
+opacity to the entire stack
+
+561
+00:18:17,356 --> 0:18:18,386
+instead of each individual
+
+562
+00:18:18,386 --> 0:18:18,786
+control.
+
+563
+00:18:19,906 --> 0:18:21,466
+None of these views had to
+
+564
+00:18:21,466 --> 0:18:23,036
+define their own opacity
+
+565
+00:18:23,036 --> 0:18:23,476
+property.
+
+566
+00:18:24,146 --> 0:18:25,766
+Which means that they're free to
+
+567
+00:18:25,766 --> 0:18:28,156
+have simpler, more focused
+
+568
+00:18:28,416 --> 0:18:29,526
+interfaces of their own.
+
+569
+00:18:30,576 --> 0:18:31,866
+And this gets at a general
+
+570
+00:18:31,866 --> 0:18:33,316
+principle of SwiftUI.
+
+571
+00:18:36,046 --> 0:18:37,196
+Which is to prefer smaller,
+
+572
+00:18:37,936 --> 0:18:39,216
+single-purpose views.
+
+573
+00:18:40,446 --> 0:18:42,106
+These kinds of simpler views are
+
+574
+00:18:42,106 --> 0:18:44,296
+easier to understand and also
+
+575
+00:18:44,296 --> 0:18:45,966
+easier to maintain over time.
+
+576
+00:18:47,436 --> 0:18:48,296
+And once you have all of these
+
+577
+00:18:48,296 --> 0:18:50,076
+little views, you can compose
+
+578
+00:18:50,076 --> 0:18:51,376
+them together to create bigger,
+
+579
+00:18:51,476 --> 0:18:52,556
+more complex views.
+
+580
+00:18:54,016 --> 0:18:56,986
+The entire SwiftUI framework is
+
+581
+00:18:57,086 --> 0:18:59,336
+oriented around composition of
+
+582
+00:18:59,336 --> 0:19:01,466
+small pieces and you should
+
+583
+00:18:59,336 --> 0:19:01,466
+small pieces and you should
+
+584
+00:19:01,466 --> 0:19:02,796
+organize your code in the same
+
+585
+00:19:02,796 --> 0:19:02,976
+way.
+
+586
+00:19:05,246 --> 0:19:06,446
+So you can start with something
+
+587
+00:19:06,446 --> 0:19:07,636
+simple like our text.
+
+588
+00:19:09,086 --> 0:19:10,086
+You can modify that into
+
+589
+00:19:10,086 --> 0:19:10,786
+something better.
+
+590
+00:19:10,896 --> 0:19:12,666
+And you can compose that
+
+591
+00:19:12,666 --> 0:19:14,006
+together to build something
+
+592
+00:19:14,006 --> 0:19:14,316
+great.
+
+593
+00:19:15,406 --> 0:19:17,066
+You know, like an app for
+
+594
+00:19:17,066 --> 0:19:18,766
+avocado toast.
+
+595
+00:19:18,766 --> 0:19:20,216
+And personally I can't wait to
+
+596
+00:19:20,216 --> 0:19:21,966
+see the kinds of user interfaces
+
+597
+00:19:22,046 --> 0:19:23,226
+that all of you are going to
+
+598
+00:19:23,226 --> 0:19:23,976
+build with SwiftUI.
+
+599
+00:19:26,466 --> 0:19:27,506
+But before you can do that,
+
+600
+00:19:27,506 --> 0:19:28,366
+we're first going to need to
+
+601
+00:19:28,366 --> 0:19:30,586
+know how to build our own custom
+
+602
+00:19:30,586 --> 0:19:31,056
+views.
+
+603
+00:19:31,056 --> 0:19:32,226
+And so let's build something new
+
+604
+00:19:32,226 --> 0:19:32,456
+now.
+
+605
+00:19:35,616 --> 0:19:37,296
+Looking at our app, I'd really
+
+606
+00:19:37,296 --> 0:19:38,726
+love to be able to see a history
+
+607
+00:19:38,726 --> 0:19:39,666
+of my previous orders.
+
+608
+00:19:40,856 --> 0:19:41,806
+I've already sketched out a
+
+609
+00:19:41,806 --> 0:19:42,266
+design.
+
+610
+00:19:42,896 --> 0:19:44,346
+It's just a simple list showing
+
+611
+00:19:44,346 --> 0:19:46,186
+a summary of each order and some
+
+612
+00:19:46,186 --> 0:19:47,716
+icons for the toppings that I
+
+613
+00:19:47,716 --> 0:19:48,446
+chose to include.
+
+614
+00:19:50,136 --> 0:19:51,516
+I've already gotten started on
+
+615
+00:19:51,516 --> 0:19:53,306
+the code, so let's just go
+
+616
+00:19:53,306 --> 0:19:54,306
+through this quickly step by
+
+617
+00:19:54,306 --> 0:19:54,566
+step.
+
+618
+00:19:55,926 --> 0:19:58,286
+First, I declared a new view
+
+619
+00:19:58,896 --> 0:20:01,296
+called OrderHistory as a struct
+
+620
+00:19:58,896 --> 0:20:01,296
+called OrderHistory as a struct
+
+621
+00:20:01,366 --> 0:20:02,446
+that conforms to the view
+
+622
+00:20:02,446 --> 0:20:02,926
+protocol.
+
+623
+00:20:04,176 --> 0:20:05,436
+We'll come back to that.
+
+624
+00:20:06,466 --> 0:20:07,716
+My view has a single input
+
+625
+00:20:07,716 --> 0:20:09,956
+property, previousOrders, which
+
+626
+00:20:09,956 --> 0:20:11,196
+is just a collection of all of
+
+627
+00:20:11,196 --> 0:20:12,066
+my order information.
+
+628
+00:20:14,726 --> 0:20:16,136
+My view has a computed property
+
+629
+00:20:16,136 --> 0:20:17,926
+called body returning the
+
+630
+00:20:17,926 --> 0:20:18,856
+contents of the view.
+
+631
+00:20:19,936 --> 0:20:21,246
+And the sum keyword that we use
+
+632
+00:20:21,246 --> 0:20:22,956
+here is a Swift feature that
+
+633
+00:20:22,956 --> 0:20:25,726
+lets Swift infer our return type
+
+634
+00:20:25,726 --> 0:20:26,306
+automatically.
+
+635
+00:20:30,046 --> 0:20:32,216
+Our body property returns a list
+
+636
+00:20:32,466 --> 0:20:34,676
+which generates its contents by
+
+637
+00:20:34,676 --> 0:20:36,056
+mapping each of our previous
+
+638
+00:20:36,056 --> 0:20:39,036
+orders into a collection of new
+
+639
+00:20:39,036 --> 0:20:41,736
+views, one for each order using
+
+640
+00:20:41,956 --> 0:20:43,286
+another one of those trailing
+
+641
+00:20:43,286 --> 0:20:43,976
+ViewBuilders.
+
+642
+00:20:48,046 --> 0:20:49,566
+So now that we understand this
+
+643
+00:20:49,726 --> 0:20:51,316
+code, let's go back and take a
+
+644
+00:20:51,316 --> 0:20:52,786
+deeper dive and learn why
+
+645
+00:20:52,786 --> 0:20:55,416
+SwiftUI defines custom views in
+
+646
+00:20:55,416 --> 0:20:55,766
+this way.
+
+647
+00:20:57,286 --> 0:20:58,736
+And let's start with how views
+
+648
+00:20:58,796 --> 0:21:00,816
+are structs that conform to the
+
+649
+00:20:58,796 --> 0:21:00,816
+are structs that conform to the
+
+650
+00:21:00,816 --> 0:21:01,716
+view protocol.
+
+651
+00:21:02,466 --> 0:21:04,066
+If you're coming from UIKit or
+
+652
+00:21:04,066 --> 0:21:06,456
+AppKitt, you've probably gotten
+
+653
+00:21:06,456 --> 0:21:07,786
+used to views being defined as
+
+654
+00:21:07,786 --> 0:21:09,696
+classes that inherit from a
+
+655
+00:21:09,696 --> 0:21:12,176
+common view superclass instead
+
+656
+00:21:12,256 --> 0:21:13,506
+of as structs conforming to
+
+657
+00:21:13,506 --> 0:21:14,076
+protocols.
+
+658
+00:21:14,546 --> 0:21:17,686
+For example, custom views in
+
+659
+00:21:17,686 --> 0:21:20,616
+UIKit inherit from the UIView
+
+660
+00:21:20,866 --> 0:21:21,546
+superclass.
+
+661
+00:21:22,556 --> 0:21:24,736
+And UIView defines storage for
+
+662
+00:21:24,736 --> 0:21:26,076
+common view properties like
+
+663
+00:21:26,076 --> 0:21:27,356
+alpha and backgroundColor.
+
+664
+00:21:27,906 --> 0:21:30,886
+Let's imagine we built our
+
+665
+00:21:30,886 --> 0:21:33,186
+OrderHistory using UIKit instead
+
+666
+00:21:33,186 --> 0:21:33,636
+of SwiftUI.
+
+667
+00:21:33,636 --> 0:21:36,586
+Our Custom View would inherit
+
+668
+00:21:36,586 --> 0:21:38,316
+the stored properties of UIView
+
+669
+00:21:38,556 --> 0:21:39,856
+as well as adding more
+
+670
+00:21:39,856 --> 0:21:41,096
+properties for its own custom
+
+671
+00:21:41,096 --> 0:21:41,506
+behavior.
+
+672
+00:21:43,116 --> 0:21:44,816
+So how is SwiftUI different than
+
+673
+00:21:46,246 --> 0:21:46,346
+this?
+
+674
+00:21:46,676 --> 0:21:47,736
+Well, remember that in SwiftUI
+
+675
+00:21:48,486 --> 0:21:50,146
+we represent those same kinds of
+
+676
+00:21:50,146 --> 0:21:51,816
+common view properties as
+
+677
+00:21:51,816 --> 0:21:53,836
+separate modifiers instead, like
+
+678
+00:21:53,836 --> 0:21:54,976
+we did for opacity and
+
+679
+00:21:54,976 --> 0:21:55,416
+background.
+
+680
+00:21:55,986 --> 0:21:58,116
+And each of these modifiers
+
+681
+00:21:58,306 --> 0:21:59,286
+creates their own view.
+
+682
+00:22:00,536 --> 0:22:02,216
+And this means that the storage
+
+683
+00:22:02,546 --> 0:22:03,856
+for those properties is
+
+684
+00:22:03,906 --> 0:22:05,456
+distributed across our view
+
+685
+00:22:05,456 --> 0:22:07,206
+hierarchy in each of these
+
+686
+00:22:07,206 --> 0:22:09,416
+modifier views instead of being
+
+687
+00:22:09,416 --> 0:22:11,736
+inherited by every individual
+
+688
+00:22:11,736 --> 0:22:12,046
+view.
+
+689
+00:22:13,576 --> 0:22:14,936
+Now this allows our views to be
+
+690
+00:22:14,936 --> 0:22:16,856
+lighter weight, optimizing their
+
+691
+00:22:16,856 --> 0:22:18,916
+storage for just their unique
+
+692
+00:22:19,126 --> 0:22:19,636
+purpose.
+
+693
+00:22:22,046 --> 0:22:23,366
+And in this world, it makes a
+
+694
+00:22:23,366 --> 0:22:25,336
+lot of sense that view just
+
+695
+00:22:25,336 --> 0:22:27,126
+becomes a protocol because it's
+
+696
+00:22:27,126 --> 0:22:28,956
+no longer needing to serve a
+
+697
+00:22:28,956 --> 0:22:30,506
+common storage template for all
+
+698
+00:22:30,506 --> 0:22:31,066
+of your views.
+
+699
+00:22:31,176 --> 0:22:33,626
+But what does this view protocol
+
+700
+00:22:33,626 --> 0:22:34,126
+actually do?
+
+701
+00:22:34,626 --> 0:22:35,976
+Well, let's remember our
+
+702
+00:22:35,976 --> 0:22:37,796
+conceptual definition of a view.
+
+703
+00:22:38,946 --> 0:22:41,296
+Which is that a view defines a
+
+704
+00:22:41,356 --> 0:22:43,306
+piece of our UI and we build
+
+705
+00:22:43,306 --> 0:22:45,076
+bigger views by composing
+
+706
+00:22:45,076 --> 0:22:46,716
+together smaller views.
+
+707
+00:22:47,216 --> 0:22:49,706
+And that's all that the view
+
+708
+00:22:49,706 --> 0:22:50,506
+protocol does.
+
+709
+00:22:51,306 --> 0:22:52,716
+It defines a piece of our view
+
+710
+00:22:52,716 --> 0:22:54,446
+hierarchy, giving it a name so
+
+711
+00:22:54,446 --> 0:22:55,986
+that it can be composed and
+
+712
+00:22:55,986 --> 0:22:58,366
+reused across your entire app.
+
+713
+00:22:59,026 --> 0:23:00,956
+And each concrete type of view
+
+714
+00:22:59,026 --> 0:23:00,956
+And each concrete type of view
+
+715
+00:23:01,266 --> 0:23:03,506
+is just an encapsulation of some
+
+716
+00:23:03,506 --> 0:23:04,886
+other view representing its
+
+717
+00:23:04,886 --> 0:23:06,616
+contents in its body property
+
+718
+00:23:07,776 --> 0:23:09,516
+and all of the inputs required
+
+719
+00:23:09,666 --> 0:23:11,566
+to create that view represented
+
+720
+00:23:11,566 --> 0:23:12,386
+by its properties.
+
+721
+00:23:15,116 --> 0:23:16,916
+Now the actual protocol just
+
+722
+00:23:16,916 --> 0:23:18,906
+defines that one body property
+
+723
+00:23:19,176 --> 0:23:20,606
+returning just another kind of
+
+724
+00:23:20,606 --> 0:23:20,916
+view.
+
+725
+00:23:23,076 --> 0:23:24,736
+But looking at this definition
+
+726
+00:23:24,736 --> 0:23:26,416
+for a second, some of you may be
+
+727
+00:23:26,416 --> 0:23:28,936
+asking yourselves, isn't that
+
+728
+00:23:28,936 --> 0:23:29,726
+kind of recursive?
+
+729
+00:23:31,336 --> 0:23:33,246
+If I have some view and it
+
+730
+00:23:33,246 --> 0:23:35,186
+defines as body as another kind
+
+731
+00:23:35,186 --> 0:23:38,256
+of view, well, then that view is
+
+732
+00:23:38,256 --> 0:23:39,306
+going to define its body as
+
+733
+00:23:39,306 --> 0:23:41,976
+another kind of view.
+
+734
+00:23:42,196 --> 0:23:44,526
+And it has to end somewhere,
+
+735
+00:23:44,526 --> 0:23:44,686
+right?
+
+736
+00:23:44,686 --> 0:23:47,746
+It can't just go on forever.
+
+737
+00:23:50,046 --> 0:23:51,176
+So the reason this works is
+
+738
+00:23:51,176 --> 0:23:52,806
+because SwiftUI provides many
+
+739
+00:23:52,806 --> 0:23:54,746
+kinds of primitive views,
+
+740
+00:23:55,616 --> 0:23:56,756
+meaning views that don't have
+
+741
+00:23:56,756 --> 0:23:59,756
+any contents of their own and
+
+742
+00:23:59,756 --> 0:24:01,736
+that represent those atomic
+
+743
+00:23:59,756 --> 0:24:01,736
+that represent those atomic
+
+744
+00:24:01,736 --> 0:24:03,676
+building blocks on which all
+
+745
+00:24:03,676 --> 0:24:04,976
+other views are built.
+
+746
+00:24:07,046 --> 0:24:09,046
+We've already seen text.
+
+747
+00:24:09,046 --> 0:24:10,626
+An image is another example of a
+
+748
+00:24:10,626 --> 0:24:11,876
+primitive view.
+
+749
+00:24:13,336 --> 0:24:15,426
+SwiftUI also offers primitives
+
+750
+00:24:15,586 --> 0:24:16,596
+for drawing like Color and
+
+751
+00:24:16,596 --> 0:24:18,246
+Shape, as well as layout
+
+752
+00:24:18,246 --> 0:24:19,276
+primitives like Spacer.
+
+753
+00:24:19,676 --> 0:24:23,096
+In fact, you can do some pretty
+
+754
+00:24:23,096 --> 0:24:25,196
+sophisticated drawing just using
+
+755
+00:24:25,196 --> 0:24:26,736
+primitive views in SwiftUI.
+
+756
+00:24:27,766 --> 0:24:28,936
+And to learn more about that,
+
+757
+00:24:29,206 --> 0:24:30,166
+you should definitely watch
+
+758
+00:24:30,366 --> 0:24:31,826
+Building Custom Views in SwiftUI
+
+759
+00:24:31,826 --> 0:24:31,976
+talk.
+
+760
+00:24:35,066 --> 0:24:36,156
+Our example uses text.
+
+761
+00:24:37,256 --> 0:24:38,866
+But our list actually adds in
+
+762
+00:24:38,866 --> 0:24:40,836
+its own primitive views that you
+
+763
+00:24:40,836 --> 0:24:42,326
+can see as the dividers in
+
+764
+00:24:42,326 --> 0:24:42,976
+between each of our rows.
+
+765
+00:24:46,066 --> 0:24:46,976
+Now we also saw that our Custom
+
+766
+00:24:46,976 --> 0:24:48,246
+View is defined as a struct
+
+767
+00:24:48,446 --> 0:24:49,416
+instead of a class.
+
+768
+00:24:49,496 --> 0:24:51,166
+And this goes back to how views
+
+769
+00:24:51,166 --> 0:24:52,776
+are defined declaratively in
+
+770
+00:24:52,776 --> 0:24:53,176
+SwiftUI.
+
+771
+00:24:54,346 --> 0:24:55,606
+In this case, that means our
+
+772
+00:24:55,606 --> 0:24:58,106
+views are not persistent objects
+
+773
+00:24:58,356 --> 0:25:00,346
+that we update over time using
+
+774
+00:24:58,356 --> 0:25:00,346
+that we update over time using
+
+775
+00:25:00,346 --> 0:25:02,976
+imperative event-based code.
+
+776
+00:25:05,556 --> 0:25:07,756
+Instead, our views are defined
+
+777
+00:25:07,886 --> 0:25:10,376
+declaratively as a function of
+
+778
+00:25:10,376 --> 0:25:10,876
+their inputs.
+
+779
+00:25:13,046 --> 0:25:14,096
+So whenever one of our inputs
+
+780
+00:25:14,096 --> 0:25:16,506
+changes, SwiftUI will call our
+
+781
+00:25:16,506 --> 0:25:18,746
+body property again to fetch an
+
+782
+00:25:18,746 --> 0:25:19,976
+updated version of our view.
+
+783
+00:25:23,096 --> 0:25:24,766
+Now List that we're using here
+
+784
+00:25:25,536 --> 0:25:26,896
+-- List is a great example of
+
+785
+00:25:26,896 --> 0:25:29,576
+the power of declarative code.
+
+786
+00:25:29,766 --> 0:25:31,126
+If our previousOrders collection
+
+787
+00:25:31,126 --> 0:25:33,716
+changes, SwiftUI will compare
+
+788
+00:25:33,876 --> 0:25:35,116
+the old and new versions of our
+
+789
+00:25:35,116 --> 0:25:37,096
+list and efficiently update the
+
+790
+00:25:37,096 --> 0:25:39,506
+rendered result onscreen just
+
+791
+00:25:39,546 --> 0:25:40,646
+based on what's changed.
+
+792
+00:25:42,066 --> 0:25:43,996
+For example, I've been working
+
+793
+00:25:43,996 --> 0:25:45,416
+on cloud sync for my app.
+
+794
+00:25:45,736 --> 0:25:47,196
+And it's really important to me
+
+795
+00:25:47,196 --> 0:25:48,776
+that all of my avocado toast
+
+796
+00:25:48,776 --> 0:25:50,996
+data is available on all of my
+
+797
+00:25:50,996 --> 0:25:51,536
+devices.
+
+798
+00:25:52,586 --> 0:25:53,486
+So let's see what happens if
+
+799
+00:25:53,486 --> 0:25:55,586
+another device starts adding and
+
+800
+00:25:55,586 --> 0:25:56,566
+removing orders from our
+
+801
+00:25:56,566 --> 0:25:56,916
+history.
+
+802
+00:25:59,356 --> 0:26:00,946
+What you see on the right is
+
+803
+00:25:59,356 --> 0:26:00,946
+What you see on the right is
+
+804
+00:26:00,946 --> 0:26:03,056
+SwiftUI automatically diffing
+
+805
+00:26:03,306 --> 0:26:04,506
+the changes in our collection
+
+806
+00:26:05,086 --> 0:26:07,036
+and synthesizing insertions and
+
+807
+00:26:07,036 --> 0:26:08,636
+deletions and then rendering
+
+808
+00:26:08,636 --> 0:26:10,496
+them with appropriate default
+
+809
+00:26:10,496 --> 0:26:11,216
+animations.
+
+810
+00:26:12,126 --> 0:26:13,676
+And this is all functionality
+
+811
+00:26:13,676 --> 0:26:15,426
+that you get for free without
+
+812
+00:26:15,426 --> 0:26:16,956
+writing any additional code.
+
+813
+00:26:17,516 --> 0:26:25,546
+[ Applause ]
+
+814
+00:26:26,046 --> 0:26:26,566
+It's pretty awesome.
+
+815
+00:26:26,966 --> 0:26:29,556
+And the reason this works is
+
+816
+00:26:29,556 --> 0:26:31,306
+because you don't have to manage
+
+817
+00:26:31,306 --> 0:26:32,456
+that persistent render state
+
+818
+00:26:32,456 --> 0:26:33,076
+yourselves.
+
+819
+00:26:34,136 --> 0:26:36,086
+Instead, you can just generate
+
+820
+00:26:36,146 --> 0:26:38,426
+new values for your view based
+
+821
+00:26:38,426 --> 0:26:40,106
+on your current data in that
+
+822
+00:26:40,286 --> 0:26:40,896
+body property.
+
+823
+00:26:43,046 --> 0:26:44,666
+And you can let SwiftUI generate
+
+824
+00:26:44,666 --> 0:26:46,646
+the necessary changes between
+
+825
+00:26:46,646 --> 0:26:47,676
+those two versions on your
+
+826
+00:26:47,676 --> 0:26:47,966
+behalf.
+
+827
+00:26:50,066 --> 0:26:51,036
+And that's the power of
+
+828
+00:26:51,036 --> 0:26:51,706
+declarative code.
+
+829
+00:26:54,236 --> 0:26:55,126
+So let's build out the rest of
+
+830
+00:26:55,126 --> 0:26:55,946
+our orderHistory view.
+
+831
+00:26:56,156 --> 0:26:57,536
+And if you recall, our original
+
+832
+00:26:57,536 --> 0:26:59,466
+design included these icons for
+
+833
+00:26:59,466 --> 0:27:00,776
+any extra toppings that I
+
+834
+00:26:59,466 --> 0:27:00,776
+any extra toppings that I
+
+835
+00:27:01,206 --> 0:27:02,956
+included in my order, like salt
+
+836
+00:27:03,096 --> 0:27:04,166
+and red pepper flakes.
+
+837
+00:27:05,136 --> 0:27:06,256
+So let's start by showing that
+
+838
+00:27:06,256 --> 0:27:07,026
+icon for salt.
+
+839
+00:27:07,906 --> 0:27:09,396
+First, we'll add a horizontal
+
+840
+00:27:09,396 --> 0:27:10,916
+stack with a Spacer after our
+
+841
+00:27:10,916 --> 0:27:11,266
+text.
+
+842
+00:27:12,826 --> 0:27:14,826
+And then I'll show my SaltIcon
+
+843
+00:27:14,826 --> 0:27:16,746
+view but only if our order
+
+844
+00:27:16,826 --> 0:27:17,536
+contains salt.
+
+845
+00:27:20,176 --> 0:27:21,306
+As you can see in the code here,
+
+846
+00:27:22,166 --> 0:27:23,406
+that ViewBuilder syntax that we
+
+847
+00:27:23,406 --> 0:27:25,316
+talked about earlier, it lets us
+
+848
+00:27:25,316 --> 0:27:27,676
+use natural control flow like if
+
+849
+00:27:27,676 --> 0:27:29,426
+statements to declaratively
+
+850
+00:27:29,426 --> 0:27:31,356
+define when a view should be
+
+851
+00:27:31,356 --> 0:27:32,316
+included in our stack.
+
+852
+00:27:35,476 --> 0:27:36,656
+And using if statements like
+
+853
+00:27:36,686 --> 0:27:38,616
+this in our declarative code
+
+854
+00:27:38,956 --> 0:27:39,946
+feels really natural.
+
+855
+00:27:40,666 --> 0:27:42,296
+But there are also other ways to
+
+856
+00:27:42,296 --> 0:27:43,446
+write conditional code within
+
+857
+00:27:43,446 --> 0:27:43,976
+your views.
+
+858
+00:27:44,386 --> 0:27:45,686
+And it's important to choose the
+
+859
+00:27:45,686 --> 0:27:47,006
+right tool to get the correct
+
+860
+00:27:47,006 --> 0:27:48,006
+result onscreen.
+
+861
+00:27:48,316 --> 0:27:49,986
+So let's look at a quick example
+
+862
+00:27:49,986 --> 0:27:50,696
+to see what I mean.
+
+863
+00:27:51,286 --> 0:27:53,976
+I built another screen for our
+
+864
+00:27:53,976 --> 0:27:55,486
+app which lets you choose
+
+865
+00:27:55,486 --> 0:27:57,456
+between a normal and flipped
+
+866
+00:27:57,456 --> 0:27:57,976
+AppIcon.
+
+867
+00:27:59,726 --> 0:28:01,676
+And my first pass at this was
+
+868
+00:27:59,726 --> 0:28:01,676
+And my first pass at this was
+
+869
+00:28:01,676 --> 0:28:04,066
+writing a custom view that takes
+
+870
+00:28:04,066 --> 0:28:05,846
+a flipped state as an input and
+
+871
+00:28:05,846 --> 0:28:07,466
+conditionally applies a rotation
+
+872
+00:28:07,466 --> 0:28:11,246
+modifier based on my state.
+
+873
+00:28:13,386 --> 0:28:15,186
+However, this produces an ugly
+
+874
+00:28:15,186 --> 0:28:16,556
+crossfade animation when we
+
+875
+00:28:16,556 --> 0:28:19,886
+actually try to flip that icon.
+
+876
+00:28:20,116 --> 0:28:21,686
+This is because our code is
+
+877
+00:28:21,736 --> 0:28:23,546
+telling SwiftUI to switch
+
+878
+00:28:23,546 --> 0:28:25,106
+between two different kinds of
+
+879
+00:28:25,106 --> 0:28:25,606
+views.
+
+880
+00:28:26,716 --> 0:28:28,816
+A view wrapped in that rotation
+
+881
+00:28:28,816 --> 0:28:32,196
+modifier versus our AppIcon just
+
+882
+00:28:32,196 --> 0:28:32,756
+by itself.
+
+883
+00:28:33,326 --> 0:28:37,426
+And by default, SwiftUI fades in
+
+884
+00:28:37,426 --> 0:28:39,936
+and out views when they're added
+
+885
+00:28:39,936 --> 0:28:40,676
+and removed.
+
+886
+00:28:41,596 --> 0:28:42,506
+Which is why we get this
+
+887
+00:28:42,506 --> 0:28:43,966
+crossfade effect.
+
+888
+00:28:46,156 --> 0:28:47,426
+Now instead I'd really like that
+
+889
+00:28:47,426 --> 0:28:48,876
+icon to rotate when it's
+
+890
+00:28:48,876 --> 0:28:49,156
+flipped.
+
+891
+00:28:50,136 --> 0:28:52,556
+And so to do that, I define a
+
+892
+00:28:52,556 --> 0:28:54,096
+single view with a single
+
+893
+00:28:54,096 --> 0:28:56,786
+rotationEffect modifier and
+
+894
+00:28:57,126 --> 0:28:59,086
+conditonalize its input based on
+
+895
+00:28:59,086 --> 0:28:59,526
+our state.
+
+896
+00:29:00,116 --> 0:29:02,986
+By defining our condition inside
+
+897
+00:29:02,986 --> 0:29:05,026
+of our modifier, SwiftUI can
+
+898
+00:29:05,026 --> 0:29:06,136
+provide a better default
+
+899
+00:29:06,136 --> 0:29:08,266
+animation, rotating our icon to
+
+900
+00:29:08,266 --> 0:29:09,186
+the new orientation.
+
+901
+00:29:10,396 --> 0:29:11,856
+And the lesson here is that you
+
+902
+00:29:11,856 --> 0:29:12,736
+should try to push your
+
+903
+00:29:12,736 --> 0:29:15,066
+conditions into your modifiers
+
+904
+00:29:15,066 --> 0:29:16,306
+as much as possible.
+
+905
+00:29:16,996 --> 0:29:18,286
+Because that will help SwiftUI
+
+906
+00:29:19,126 --> 0:29:20,476
+detect those changes and give
+
+907
+00:29:20,476 --> 0:29:21,566
+you better animations.
+
+908
+00:29:23,116 --> 0:29:24,926
+That if statement syntax that we
+
+909
+00:29:24,926 --> 0:29:26,806
+saw earlier, that's really great
+
+910
+00:29:27,106 --> 0:29:28,666
+if your intention is to actually
+
+911
+00:29:28,706 --> 0:29:30,916
+add or remove views from your
+
+912
+00:29:30,916 --> 0:29:31,316
+hierarchy.
+
+913
+00:29:36,046 --> 0:29:37,136
+So going back to our example
+
+914
+00:29:37,316 --> 0:29:39,886
+app, our orderHistory view is
+
+915
+00:29:40,006 --> 0:29:40,966
+starting to get a little bit
+
+916
+00:29:40,966 --> 0:29:41,166
+big.
+
+917
+00:29:41,526 --> 0:29:42,686
+So it would be nice to start
+
+918
+00:29:42,686 --> 0:29:43,656
+breaking this down into some
+
+919
+00:29:43,656 --> 0:29:44,446
+smaller pieces.
+
+920
+00:29:45,226 --> 0:29:46,346
+So let's try factoring out the
+
+921
+00:29:46,346 --> 0:29:48,096
+code for each List row into its
+
+922
+00:29:48,096 --> 0:29:48,936
+own custom view.
+
+923
+00:29:51,116 --> 0:29:52,166
+First, I'm going to create a new
+
+924
+00:29:52,166 --> 0:29:53,506
+custom view called OrderCell.
+
+925
+00:29:53,506 --> 0:29:56,356
+Now I'll need a body for this
+
+926
+00:29:56,356 --> 0:29:58,436
+view, and luckily we've pretty
+
+927
+00:29:58,436 --> 0:30:00,326
+much already built that just
+
+928
+00:29:58,436 --> 0:30:00,326
+much already built that just
+
+929
+00:30:00,326 --> 0:30:01,606
+within our lists in our
+
+930
+00:30:01,606 --> 0:30:02,296
+OrderHistory view.
+
+931
+00:30:02,366 --> 0:30:03,936
+So let's move that code over.
+
+932
+00:30:06,316 --> 0:30:09,176
+Our OrderCell requires input
+
+933
+00:30:09,176 --> 0:30:10,516
+data in order to generate its
+
+934
+00:30:10,516 --> 0:30:10,836
+body.
+
+935
+00:30:11,416 --> 0:30:12,616
+So we're also going to need to
+
+936
+00:30:12,616 --> 0:30:14,216
+add a property to represent
+
+937
+00:30:14,886 --> 0:30:14,976
+that.
+
+938
+00:30:16,156 --> 0:30:18,096
+And finally, we'll finish up by
+
+939
+00:30:18,096 --> 0:30:19,396
+creating an instance of our new
+
+940
+00:30:19,396 --> 0:30:21,386
+view for each row within our
+
+941
+00:30:21,386 --> 0:30:21,736
+list.
+
+942
+00:30:24,076 --> 0:30:25,746
+And the takeaway here is that
+
+943
+00:30:25,746 --> 0:30:27,896
+it's really easy to break down
+
+944
+00:30:27,896 --> 0:30:29,406
+your UI into smaller pieces and
+
+945
+00:30:29,406 --> 0:30:31,016
+to factor out code into new
+
+946
+00:30:31,016 --> 0:30:31,466
+views.
+
+947
+00:30:32,106 --> 0:30:34,056
+And remember, with declarative
+
+948
+00:30:34,056 --> 0:30:36,046
+code, adding a new wrapper view
+
+949
+00:30:36,306 --> 0:30:38,436
+is effectively free since
+
+950
+00:30:38,436 --> 0:30:40,526
+SwiftUI will optimize it down
+
+951
+00:30:40,926 --> 0:30:41,766
+behind the scenes.
+
+952
+00:30:42,366 --> 0:30:44,656
+And so the important thing here
+
+953
+00:30:44,856 --> 0:30:46,136
+is that you no longer have to
+
+954
+00:30:46,136 --> 0:30:48,096
+compromise between organizing
+
+955
+00:30:48,096 --> 0:30:49,416
+your view code the way that
+
+956
+00:30:49,416 --> 0:30:51,566
+makes the most sense to you and
+
+957
+00:30:51,566 --> 0:30:52,886
+getting the best performance
+
+958
+00:30:53,126 --> 0:30:53,796
+from your app.
+
+959
+00:30:54,516 --> 0:31:01,736
+[ Applause ]
+
+960
+00:30:54,516 --> 0:31:01,736
+[ Applause ]
+
+961
+00:31:02,236 --> 0:31:03,386
+So let's finish by including
+
+962
+00:31:03,386 --> 0:31:05,136
+that final icon for red pepper
+
+963
+00:31:05,136 --> 0:31:05,526
+flakes.
+
+964
+00:31:06,126 --> 0:31:07,486
+And it's easy to do that just by
+
+965
+00:31:07,486 --> 0:31:08,936
+adding another condition like we
+
+966
+00:31:08,936 --> 0:31:09,446
+did before.
+
+967
+00:31:10,616 --> 0:31:12,476
+Now this works but it doesn't
+
+968
+00:31:12,476 --> 0:31:13,396
+seem very scalable.
+
+969
+00:31:13,896 --> 0:31:15,286
+If we add new toppings in the
+
+970
+00:31:15,286 --> 0:31:17,306
+future, we'll have to add them
+
+971
+00:31:17,306 --> 0:31:18,476
+with new conditions into our
+
+972
+00:31:18,476 --> 0:31:18,726
+code.
+
+973
+00:31:18,726 --> 0:31:20,686
+What would be really great
+
+974
+00:31:20,686 --> 0:31:22,896
+instead would be to
+
+975
+00:31:22,896 --> 0:31:24,406
+conditionally generate a
+
+976
+00:31:24,406 --> 0:31:26,256
+collection of icons from our
+
+977
+00:31:26,256 --> 0:31:26,716
+order data.
+
+978
+00:31:29,306 --> 0:31:30,226
+To generate a collection of
+
+979
+00:31:30,226 --> 0:31:32,306
+views, we can use a ForEach
+
+980
+00:31:32,306 --> 0:31:32,576
+view.
+
+981
+00:31:34,086 --> 0:31:35,976
+Just like our List, ForEach
+
+982
+00:31:36,376 --> 0:31:38,316
+takes a collection of data and a
+
+983
+00:31:38,316 --> 0:31:40,266
+ViewBuilder that maps each data
+
+984
+00:31:40,316 --> 0:31:42,076
+item into its own view.
+
+985
+00:31:43,366 --> 0:31:46,056
+But unlike List, ForEach doesn't
+
+986
+00:31:46,056 --> 0:31:47,716
+add any visual effects of its
+
+987
+00:31:47,716 --> 0:31:47,976
+own.
+
+988
+00:31:49,056 --> 0:31:51,116
+Instead, it just adds its own
+
+989
+00:31:51,116 --> 0:31:53,076
+contents to its container.
+
+990
+00:31:56,106 --> 0:31:57,206
+So this code is a lot better
+
+991
+00:31:57,476 --> 0:31:58,626
+because now our order history
+
+992
+00:31:58,746 --> 0:32:00,046
+will automatically support new
+
+993
+00:31:58,746 --> 0:32:00,046
+will automatically support new
+
+994
+00:32:00,046 --> 0:32:01,446
+toppings in the future without
+
+995
+00:32:01,486 --> 0:32:03,316
+us having to add any more code
+
+996
+00:32:03,316 --> 0:32:03,776
+to our view.
+
+997
+00:32:06,066 --> 0:32:07,116
+For example, we could add a
+
+998
+00:32:07,116 --> 0:32:08,686
+third icon for eggs.
+
+999
+00:32:11,286 --> 0:32:13,236
+So taking a step back, it's
+
+1000
+00:32:13,236 --> 0:32:14,806
+pretty amazing how much
+
+1001
+00:32:14,806 --> 0:32:16,096
+functionality we were able to
+
+1002
+00:32:16,096 --> 0:32:18,066
+just build with just about a
+
+1003
+00:32:18,066 --> 0:32:19,306
+dozen or so lines of code.
+
+1004
+00:32:20,476 --> 0:32:22,386
+And what's even more amazing is
+
+1005
+00:32:22,456 --> 0:32:24,346
+all of the code that we didn't
+
+1006
+00:32:24,346 --> 0:32:25,226
+have to write.
+
+1007
+00:32:26,776 --> 0:32:28,026
+We already saw how SwiftUI
+
+1008
+00:32:28,256 --> 0:32:29,866
+automatically handled changing
+
+1009
+00:32:29,866 --> 0:32:31,956
+data, even inserting default
+
+1010
+00:32:31,956 --> 0:32:33,476
+animations when our data is
+
+1011
+00:32:33,476 --> 0:32:34,396
+added and removed.
+
+1012
+00:32:37,046 --> 0:32:38,736
+But I didn't mention that our
+
+1013
+00:32:38,736 --> 0:32:40,496
+app also adapts to dynamic type.
+
+1014
+00:32:41,686 --> 0:32:43,066
+And it even supports Dark Mode.
+
+1015
+00:32:43,266 --> 0:32:44,896
+And we got all of this support
+
+1016
+00:32:44,896 --> 0:32:46,346
+for free without writing any
+
+1017
+00:32:46,346 --> 0:32:46,976
+additional code.
+
+1018
+00:32:48,516 --> 0:32:55,226
+[ Applause ]
+
+1019
+00:32:55,726 --> 0:32:57,566
+This is pretty great and this is
+
+1020
+00:32:57,566 --> 0:32:59,566
+what we mean by SwiftUI giving
+
+1021
+00:32:59,566 --> 0:33:01,746
+you that shorter path to a great
+
+1022
+00:32:59,566 --> 0:33:01,746
+you that shorter path to a great
+
+1023
+00:33:01,746 --> 0:33:01,886
+app.
+
+1024
+00:33:04,106 --> 0:33:05,716
+So that's a lesson on building
+
+1025
+00:33:05,716 --> 0:33:07,426
+custom views with SwiftUI.
+
+1026
+00:33:08,786 --> 0:33:10,256
+And now I'd like to invite up my
+
+1027
+00:33:10,256 --> 0:33:12,116
+colleague Taylor to talk to you
+
+1028
+00:33:12,306 --> 0:33:13,716
+about how to take full advantage
+
+1029
+00:33:13,996 --> 0:33:15,416
+of the views that SwiftUI
+
+1030
+00:33:15,416 --> 0:33:17,616
+provides for you out of the box.
+
+1031
+00:33:18,276 --> 0:33:18,596
+Thanks.
+
+1032
+00:33:19,516 --> 0:33:24,656
+[ Applause ]
+
+1033
+00:33:25,156 --> 0:33:25,716
+&gt;&gt; Thank you, Matt.
+
+1034
+00:33:28,046 --> 0:33:28,646
+Hello, everybody.
+
+1035
+00:33:29,396 --> 0:33:31,376
+At this point, we have a pretty
+
+1036
+00:33:31,376 --> 0:33:33,216
+good start to our app, with Matt
+
+1037
+00:33:33,216 --> 0:33:34,276
+building out the initial order
+
+1038
+00:33:34,276 --> 0:33:35,586
+form and history screens.
+
+1039
+00:33:35,586 --> 0:33:37,516
+But one thing that stands out is
+
+1040
+00:33:37,516 --> 0:33:38,746
+that this doesn't quite look
+
+1041
+00:33:39,006 --> 0:33:40,536
+like iOS apps we're used to.
+
+1042
+00:33:40,886 --> 0:33:41,986
+They're usually not these simple
+
+1043
+00:33:41,986 --> 0:33:43,866
+vertical stacks of controls.
+
+1044
+00:33:44,756 --> 0:33:46,246
+And typically, this type of UI
+
+1045
+00:33:46,246 --> 0:33:47,096
+looks something more like you'd
+
+1046
+00:33:47,096 --> 0:33:47,616
+see on the right.
+
+1047
+00:33:47,796 --> 0:33:49,456
+And one of the biggest
+
+1048
+00:33:49,456 --> 0:33:51,126
+differences is the container
+
+1049
+00:33:51,206 --> 0:33:52,796
+around the controls themselves
+
+1050
+00:33:54,006 --> 0:33:55,636
+having this standardized group
+
+1051
+00:33:55,636 --> 0:33:56,176
+list style.
+
+1052
+00:33:57,056 --> 0:33:58,836
+Now in SwiftUI we refer to this
+
+1053
+00:33:59,236 --> 0:33:59,816
+as a form.
+
+1054
+00:33:59,816 --> 0:34:02,406
+And a form is a container just
+
+1055
+00:33:59,816 --> 0:34:02,406
+And a form is a container just
+
+1056
+00:34:02,406 --> 0:34:03,926
+like VStack, but one built
+
+1057
+00:34:03,926 --> 0:34:05,536
+specifically for building these
+
+1058
+00:34:05,596 --> 0:34:06,696
+sections of heterogeneous
+
+1059
+00:34:06,726 --> 0:34:08,616
+controls, giving the overall
+
+1060
+00:34:08,616 --> 0:34:10,436
+result a standard look and feel
+
+1061
+00:34:10,786 --> 0:34:11,956
+no matter what the platform.
+
+1062
+00:34:14,045 --> 0:34:15,916
+Now we've already defined the
+
+1063
+00:34:15,916 --> 0:34:17,476
+exact set of functionalities we
+
+1064
+00:34:17,476 --> 0:34:18,376
+want in our app.
+
+1065
+00:34:19,025 --> 0:34:21,446
+The title, Toggles, stepper and
+
+1066
+00:34:21,446 --> 0:34:21,726
+button.
+
+1067
+00:34:23,036 --> 0:34:24,616
+And all we're doing is changing
+
+1068
+00:34:24,616 --> 0:34:26,186
+the container itself from the
+
+1069
+00:34:26,186 --> 0:34:29,005
+existing VStack into a form.
+
+1070
+00:34:29,005 --> 0:34:30,936
+And then we can easily add in
+
+1071
+00:34:30,936 --> 0:34:32,795
+some sections to divide up that
+
+1072
+00:34:32,795 --> 0:34:33,255
+content.
+
+1073
+00:34:34,565 --> 0:34:35,596
+Now just as Matt previously
+
+1074
+00:34:35,596 --> 0:34:37,596
+discussed, our code continues to
+
+1075
+00:34:37,596 --> 0:34:39,206
+reflect the resulting UI.
+
+1076
+00:34:40,346 --> 0:34:41,646
+And since the core definition of
+
+1077
+00:34:41,646 --> 0:34:43,696
+our controls didn't change, our
+
+1078
+00:34:43,696 --> 0:34:44,626
+code really didn't have to
+
+1079
+00:34:44,626 --> 0:34:44,946
+either.
+
+1080
+00:34:45,985 --> 0:34:47,106
+Just by changing the container
+
+1081
+00:34:47,106 --> 0:34:49,356
+from a VStack to a form resulted
+
+1082
+00:34:49,356 --> 0:34:50,596
+in the controls automatically
+
+1083
+00:34:50,596 --> 0:34:52,156
+adapting to that context.
+
+1084
+00:34:52,966 --> 0:34:54,045
+From the overall background and
+
+1085
+00:34:54,045 --> 0:34:55,666
+scrollability to the lines
+
+1086
+00:34:55,806 --> 0:34:57,256
+separating each of the controls,
+
+1087
+00:34:57,566 --> 0:34:58,766
+to even the styling of things
+
+1088
+00:34:58,766 --> 0:34:59,196
+like button.
+
+1089
+00:35:00,316 --> 0:35:02,316
+This is yet again SwiftUI taking
+
+1090
+00:35:02,316 --> 0:35:03,816
+care of the details for what
+
+1091
+00:35:03,816 --> 0:35:05,626
+exactly it takes to render those
+
+1092
+00:35:05,626 --> 0:35:07,786
+elements, and allowing us to
+
+1093
+00:35:07,786 --> 0:35:09,356
+focus on the functionality of
+
+1094
+00:35:09,356 --> 0:35:09,846
+our app.
+
+1095
+00:35:11,676 --> 0:35:12,986
+Now one subtle change that
+
+1096
+00:35:12,986 --> 0:35:14,706
+happened isn't visible from this
+
+1097
+00:35:14,706 --> 0:35:15,546
+static screenshot.
+
+1098
+00:35:16,556 --> 0:35:17,966
+Focusing on the buttons, you can
+
+1099
+00:35:17,966 --> 0:35:19,216
+see that the alignment, padding
+
+1100
+00:35:19,216 --> 0:35:20,486
+and decoration has all changed
+
+1101
+00:35:20,486 --> 0:35:22,646
+around the button, but the press
+
+1102
+00:35:22,646 --> 0:35:24,436
+state has even taken on the
+
+1103
+00:35:24,436 --> 0:35:25,996
+special full bleed effect that
+
+1104
+00:35:25,996 --> 0:35:27,346
+you would expect from this type
+
+1105
+00:35:27,346 --> 0:35:30,516
+of UI, all the while showing the
+
+1106
+00:35:30,516 --> 0:35:32,276
+same exact definition of being a
+
+1107
+00:35:32,276 --> 0:35:32,546
+button.
+
+1108
+00:35:34,116 --> 0:35:35,536
+Like you might expect, this same
+
+1109
+00:35:35,536 --> 0:35:36,516
+definition works in other
+
+1110
+00:35:36,516 --> 0:35:37,936
+contexts or other platforms,
+
+1111
+00:35:38,306 --> 0:35:39,316
+having a wide variety of
+
+1112
+00:35:39,316 --> 0:35:41,896
+possible looks and feel.
+
+1113
+00:35:42,126 --> 0:35:43,076
+button also demonstrates the
+
+1114
+00:35:43,076 --> 0:35:44,556
+same inherent ability for
+
+1115
+00:35:44,556 --> 0:35:46,086
+composability that we've seen in
+
+1116
+00:35:46,086 --> 0:35:46,816
+other views.
+
+1117
+00:35:47,396 --> 0:35:48,286
+The label is of course not
+
+1118
+00:35:48,286 --> 0:35:49,586
+constrained to just being a text
+
+1119
+00:35:49,586 --> 0:35:51,016
+but could also be an image.
+
+1120
+00:35:51,016 --> 0:35:52,696
+It really could be any type of
+
+1121
+00:35:52,696 --> 0:35:54,996
+view that we could define, even
+
+1122
+00:35:54,996 --> 0:35:56,656
+an explicit vertical stack of an
+
+1123
+00:35:56,656 --> 0:35:58,876
+image and a text.
+
+1124
+00:35:59,516 --> 0:36:05,846
+[ Applause ]
+
+1125
+00:35:59,516 --> 0:36:05,846
+[ Applause ]
+
+1126
+00:36:06,346 --> 0:36:07,856
+And this inherent composability
+
+1127
+00:36:07,856 --> 0:36:08,946
+enables a wide variety of
+
+1128
+00:36:08,946 --> 0:36:10,826
+possibilities while at the same
+
+1129
+00:36:10,826 --> 0:36:12,186
+time enabling button to be
+
+1130
+00:36:12,186 --> 0:36:13,636
+distilled down to two
+
+1131
+00:36:13,636 --> 0:36:14,556
+fundamental properties.
+
+1132
+00:36:15,576 --> 0:36:16,556
+The action it performs when
+
+1133
+00:36:16,556 --> 0:36:18,036
+activated and the label
+
+1134
+00:36:18,176 --> 0:36:19,256
+describing what that action is.
+
+1135
+00:36:20,596 --> 0:36:21,756
+And that's the entire API
+
+1136
+00:36:21,756 --> 0:36:22,886
+surface of button.
+
+1137
+00:36:24,046 --> 0:36:25,176
+This is of course not to say
+
+1138
+00:36:25,176 --> 0:36:26,496
+that these are the only two ways
+
+1139
+00:36:26,546 --> 0:36:27,996
+that buttons can be customized.
+
+1140
+00:36:28,736 --> 0:36:29,556
+Like we saw before and will
+
+1141
+00:36:29,556 --> 0:36:31,426
+continue to see, both context
+
+1142
+00:36:31,476 --> 0:36:33,346
+and modifiers enable adding many
+
+1143
+00:36:33,346 --> 0:36:35,036
+more rich behaviors from
+
+1144
+00:36:35,036 --> 0:36:36,716
+disabled state to the styling of
+
+1145
+00:36:36,716 --> 0:36:38,446
+the button to even control sizes
+
+1146
+00:36:38,446 --> 0:36:39,196
+on macOS.
+
+1147
+00:36:40,016 --> 0:36:41,826
+But this core definition plus
+
+1148
+00:36:41,826 --> 0:36:43,776
+adaptive behaviors enables any
+
+1149
+00:36:43,776 --> 0:36:44,336
+type of button.
+
+1150
+00:36:45,196 --> 0:36:46,366
+And over time and across the
+
+1151
+00:36:46,366 --> 0:36:48,186
+different platforms, we've seen
+
+1152
+00:36:48,186 --> 0:36:49,166
+a lot of different buttons.
+
+1153
+00:36:49,956 --> 0:36:51,006
+Not only did they vary based on
+
+1154
+00:36:51,006 --> 0:36:52,756
+how they look but also in how we
+
+1155
+00:36:52,756 --> 0:36:54,686
+interact with them, from a click
+
+1156
+00:36:54,686 --> 0:36:56,376
+to a tap, to being selected
+
+1157
+00:36:56,376 --> 0:36:57,726
+using the switch control or the
+
+1158
+00:36:57,726 --> 0:37:00,206
+Siri Remote, but they can all be
+
+1159
+00:36:57,726 --> 0:37:00,206
+Siri Remote, but they can all be
+
+1160
+00:37:00,206 --> 0:37:02,016
+distilled down to having an
+
+1161
+00:37:02,016 --> 0:37:03,296
+action and a label.
+
+1162
+00:37:05,096 --> 0:37:07,116
+Now just like button, every
+
+1163
+00:37:07,116 --> 0:37:08,736
+control in SwiftUI carries the
+
+1164
+00:37:08,736 --> 0:37:10,666
+same ability to have this
+
+1165
+00:37:10,666 --> 0:37:11,966
+adaptive behavior.
+
+1166
+00:37:13,276 --> 0:37:15,066
+Controls describe the purpose or
+
+1167
+00:37:15,066 --> 0:37:16,466
+the role that they serve instead
+
+1168
+00:37:16,466 --> 0:37:17,126
+of just how they look.
+
+1169
+00:37:17,126 --> 0:37:18,816
+And this allows them to be
+
+1170
+00:37:18,816 --> 0:37:19,896
+reused across these different
+
+1171
+00:37:19,896 --> 0:37:21,886
+contexts and platforms and adapt
+
+1172
+00:37:21,886 --> 0:37:22,716
+to those situations.
+
+1173
+00:37:23,696 --> 0:37:24,606
+And this also helps them have
+
+1174
+00:37:24,606 --> 0:37:26,716
+that smaller API surface catered
+
+1175
+00:37:26,716 --> 0:37:27,606
+to that exact role.
+
+1176
+00:37:27,606 --> 0:37:29,726
+And at the same time still
+
+1177
+00:37:29,726 --> 0:37:31,426
+having fewer controls rather
+
+1178
+00:37:31,426 --> 0:37:32,746
+than need a control for every
+
+1179
+00:37:32,746 --> 0:37:33,926
+context you might need to use it
+
+1180
+00:37:33,926 --> 0:37:34,206
+in.
+
+1181
+00:37:35,726 --> 0:37:37,386
+And all the while still enabling
+
+1182
+00:37:37,386 --> 0:37:38,766
+really powerful customization
+
+1183
+00:37:39,046 --> 0:37:40,356
+such as completely redefining
+
+1184
+00:37:40,356 --> 0:37:41,836
+how buttons should look in your
+
+1185
+00:37:42,736 --> 0:37:42,826
+app.
+
+1186
+00:37:43,756 --> 0:37:46,016
+Now we saw how this adaptivity
+
+1187
+00:37:46,016 --> 0:37:47,406
+allowed us to quickly transform
+
+1188
+00:37:47,406 --> 0:37:49,206
+from a simple stack of controls
+
+1189
+00:37:49,486 --> 0:37:50,576
+into the standard look and feel
+
+1190
+00:37:50,746 --> 0:37:51,546
+of a system form.
+
+1191
+00:37:52,416 --> 0:37:53,666
+But this same adaptivity also
+
+1192
+00:37:53,666 --> 0:37:54,516
+enables us to take these
+
+1193
+00:37:54,516 --> 0:37:55,996
+controls to other platforms such
+
+1194
+00:37:56,446 --> 0:37:58,126
+as the Watch, so we can quickly
+
+1195
+00:37:58,126 --> 0:37:59,316
+order our toast on the go.
+
+1196
+00:38:01,596 --> 0:38:02,456
+Now the other control we're
+
+1197
+00:38:02,456 --> 0:38:04,236
+already using is Toggle.
+
+1198
+00:38:04,956 --> 0:38:06,126
+And you've already seen how
+
+1199
+00:38:06,126 --> 0:38:07,916
+Toggle in SwiftUI is more than
+
+1200
+00:38:07,916 --> 0:38:09,006
+just a literal switch.
+
+1201
+00:38:09,696 --> 0:38:11,586
+And this is true regardless of
+
+1202
+00:38:11,586 --> 0:38:12,686
+the platform it's on.
+
+1203
+00:38:13,616 --> 0:38:15,086
+And like button, Toggle has two
+
+1204
+00:38:15,086 --> 0:38:16,926
+fundamental properties, whether
+
+1205
+00:38:16,926 --> 0:38:18,486
+it's on or off, and the label
+
+1206
+00:38:18,486 --> 0:38:19,766
+describing the overall purpose
+
+1207
+00:38:20,156 --> 0:38:20,596
+of the Toggle.
+
+1208
+00:38:21,656 --> 0:38:22,736
+And again, that's reflected in
+
+1209
+00:38:22,876 --> 0:38:23,926
+the construction itself.
+
+1210
+00:38:26,046 --> 0:38:26,916
+Now one notable difference from
+
+1211
+00:38:26,916 --> 0:38:28,226
+button is that it doesn't take
+
+1212
+00:38:28,226 --> 0:38:30,086
+an action, but instead takes a
+
+1213
+00:38:30,086 --> 0:38:31,816
+binding to a Boolean value.
+
+1214
+00:38:32,336 --> 0:38:33,876
+And this binding is a direct
+
+1215
+00:38:33,916 --> 0:38:35,176
+read/write connection to some
+
+1216
+00:38:35,176 --> 0:38:36,706
+piece of state or model in your
+
+1217
+00:38:36,706 --> 0:38:38,176
+application and allows the
+
+1218
+00:38:38,176 --> 0:38:39,706
+Toggle to reflect and update
+
+1219
+00:38:39,706 --> 0:38:41,366
+that without manually needing to
+
+1220
+00:38:41,366 --> 0:38:42,966
+respond to an action, pull the
+
+1221
+00:38:42,966 --> 0:38:44,136
+value out and then set it in
+
+1222
+00:38:44,136 --> 0:38:44,636
+your model.
+
+1223
+00:38:45,246 --> 0:38:46,616
+It takes care of it all for
+
+1224
+00:38:46,616 --> 0:38:46,956
+yourself.
+
+1225
+00:38:48,516 --> 0:38:54,566
+[ Applause ]
+
+1226
+00:38:55,066 --> 0:38:56,446
+Now Toggle and the other
+
+1227
+00:38:56,446 --> 0:38:58,426
+controls are also adaptive in
+
+1228
+00:38:58,426 --> 0:38:59,616
+one other very important way.
+
+1229
+00:39:00,606 --> 0:39:01,986
+For some people, UI's are a
+
+1230
+00:39:01,986 --> 0:39:03,816
+visual experience while others
+
+1231
+00:39:03,816 --> 0:39:04,906
+might predominantly use their
+
+1232
+00:39:04,906 --> 0:39:06,736
+other senses to experience that
+
+1233
+00:39:06,736 --> 0:39:07,846
+exact same UI.
+
+1234
+00:39:07,846 --> 0:39:10,436
+For instance, people with
+
+1235
+00:39:10,436 --> 0:39:11,926
+impaired vision are able to use
+
+1236
+00:39:11,926 --> 0:39:13,306
+VoiceOver to navigate and
+
+1237
+00:39:13,306 --> 0:39:14,746
+interact with your app using
+
+1238
+00:39:14,746 --> 0:39:15,106
+audio.
+
+1239
+00:39:15,106 --> 0:39:16,996
+And for those of you who haven't
+
+1240
+00:39:16,996 --> 0:39:18,116
+heard it, this is what it sounds
+
+1241
+00:39:18,116 --> 0:39:19,566
+like to begin using VoiceOver.
+
+1242
+00:39:19,956 --> 0:39:21,016
+&gt;&gt; VoiceOver On.
+
+1243
+00:39:22,406 --> 0:39:23,876
+&gt;&gt; Now VoiceOver is just one of
+
+1244
+00:39:23,876 --> 0:39:25,196
+the system-wide features that
+
+1245
+00:39:25,196 --> 0:39:26,896
+are able to take your UI and
+
+1246
+00:39:26,896 --> 0:39:28,166
+surface it in these alternate
+
+1247
+00:39:28,166 --> 0:39:28,706
+forms.
+
+1248
+00:39:29,326 --> 0:39:30,766
+And because Toggle and the other
+
+1249
+00:39:30,766 --> 0:39:32,056
+controls are defined based on
+
+1250
+00:39:32,056 --> 0:39:34,216
+their purpose and include that
+
+1251
+00:39:34,216 --> 0:39:35,816
+human interpretable label, they
+
+1252
+00:39:35,816 --> 0:39:37,026
+can automatically adapt for
+
+1253
+00:39:37,396 --> 0:39:38,206
+these features.
+
+1254
+00:39:39,216 --> 0:39:40,176
+So when we navigate to this
+
+1255
+00:39:40,176 --> 0:39:41,236
+Toggle using VoiceOver --
+
+1256
+00:39:41,946 --> 0:39:44,126
+&gt;&gt; Include Salt, Switch button,
+
+1257
+00:39:44,516 --> 0:39:48,236
+On Double-Tap to Toggle Setting.
+
+1258
+00:39:48,806 --> 0:39:50,386
+&gt;&gt; It is able to reflect that
+
+1259
+00:39:50,386 --> 0:39:50,846
+same label.
+
+1260
+00:39:50,846 --> 0:39:52,766
+And this is true even when the
+
+1261
+00:39:52,766 --> 0:39:53,716
+label isn't text.
+
+1262
+00:39:54,606 --> 0:39:56,166
+Now for images, if the image
+
+1263
+00:39:56,166 --> 0:39:57,476
+name isn't descriptive enough,
+
+1264
+00:39:57,696 --> 0:39:58,806
+you can explicitly provide a
+
+1265
+00:39:58,806 --> 0:40:00,406
+label directly alongside the
+
+1266
+00:39:58,806 --> 0:40:00,406
+label directly alongside the
+
+1267
+00:40:00,406 --> 0:40:00,886
+image.
+
+1268
+00:40:03,046 --> 0:40:03,956
+And of course even for
+
+1269
+00:40:03,956 --> 0:40:04,746
+completely custom --
+
+1270
+00:40:05,151 --> 0:40:07,151
+[ Applause ]
+
+1271
+00:40:07,286 --> 0:40:08,216
+It's really exciting, yeah.
+
+1272
+00:40:09,041 --> 0:40:11,041
+[ Applause ]
+
+1273
+00:40:11,066 --> 0:40:11,696
+And of course even for
+
+1274
+00:40:11,696 --> 0:40:13,386
+completely custom views, you can
+
+1275
+00:40:13,386 --> 0:40:14,426
+always explicitly provide the
+
+1276
+00:40:14,426 --> 0:40:15,846
+label using the accessibility
+
+1277
+00:40:15,846 --> 0:40:16,706
+label modifier.
+
+1278
+00:40:18,086 --> 0:40:19,176
+Now in addition to VoiceOver,
+
+1279
+00:40:19,376 --> 0:40:20,706
+this information also admits use
+
+1280
+00:40:20,706 --> 0:40:22,186
+for other features, like the new
+
+1281
+00:40:22,186 --> 0:40:24,276
+Voice Control on iOS and macOS
+
+1282
+00:40:24,736 --> 0:40:26,096
+so that we can say, "Tap Include
+
+1283
+00:40:26,146 --> 0:40:28,046
+Salt," and our UI behaves as we
+
+1284
+00:40:28,046 --> 0:40:28,416
+expect.
+
+1285
+00:40:29,676 --> 0:40:30,646
+And making sure your app is
+
+1286
+00:40:30,646 --> 0:40:32,016
+accessible means it will work
+
+1287
+00:40:32,016 --> 0:40:32,906
+with all these different
+
+1288
+00:40:32,906 --> 0:40:34,236
+technologies and means that
+
+1289
+00:40:34,236 --> 0:40:36,026
+everyone can use your app.
+
+1290
+00:40:36,026 --> 0:40:38,086
+And SwiftUI is here to help.
+
+1291
+00:40:39,676 --> 0:40:40,666
+There's a great talk this year
+
+1292
+00:40:40,666 --> 0:40:41,626
+that will go into a lot more
+
+1293
+00:40:41,626 --> 0:40:43,116
+detail about how you can make
+
+1294
+00:40:43,116 --> 0:40:45,306
+sure that your SwiftUI app is
+
+1295
+00:40:45,306 --> 0:40:45,976
+fully accessible.
+
+1296
+00:40:48,656 --> 0:40:49,766
+Now at this point we've been
+
+1297
+00:40:49,766 --> 0:40:50,916
+able to quickly build up this
+
+1298
+00:40:50,916 --> 0:40:52,566
+initial basic interface that has
+
+1299
+00:40:52,566 --> 0:40:53,636
+all the behaviors we expect:
+
+1300
+00:40:54,466 --> 0:40:56,356
+dynamic type, Dark Mode and
+
+1301
+00:40:56,356 --> 0:40:57,066
+accessibility.
+
+1302
+00:40:57,066 --> 0:40:58,956
+But we've really only added a
+
+1303
+00:40:58,956 --> 0:41:00,576
+few customization options for
+
+1304
+00:40:58,956 --> 0:41:00,576
+few customization options for
+
+1305
+00:41:00,576 --> 0:41:01,466
+the toast itself.
+
+1306
+00:41:02,476 --> 0:41:04,256
+And of course everyone knows
+
+1307
+00:41:04,316 --> 0:41:05,636
+that a professional artisanal
+
+1308
+00:41:05,636 --> 0:41:07,076
+toast repertoire comes with a
+
+1309
+00:41:07,076 --> 0:41:08,026
+variety of different bread
+
+1310
+00:41:08,026 --> 0:41:09,716
+types, methods to prepare the
+
+1311
+00:41:09,716 --> 0:41:11,676
+avocado and of course a variety
+
+1312
+00:41:11,676 --> 0:41:13,056
+of spreads and add-ons.
+
+1313
+00:41:13,786 --> 0:41:15,826
+To add in these more advanced
+
+1314
+00:41:15,826 --> 0:41:17,986
+configuration options, we can
+
+1315
+00:41:17,986 --> 0:41:19,386
+look for some inspiration from
+
+1316
+00:41:19,386 --> 0:41:21,786
+the flexibility that is macOS.
+
+1317
+00:41:22,016 --> 0:41:23,026
+Or we might want to have a
+
+1318
+00:41:23,026 --> 0:41:24,496
+little utility window to allow
+
+1319
+00:41:24,496 --> 0:41:26,206
+us to order toast right from our
+
+1320
+00:41:26,206 --> 0:41:26,546
+desk.
+
+1321
+00:41:28,276 --> 0:41:29,576
+You can see here that the
+
+1322
+00:41:29,576 --> 0:41:30,706
+existing controls we're already
+
+1323
+00:41:30,706 --> 0:41:32,396
+using take on the expected look
+
+1324
+00:41:32,586 --> 0:41:34,376
+for macOS -- the Toggles, the
+
+1325
+00:41:34,376 --> 0:41:35,446
+stepper, the button.
+
+1326
+00:41:35,446 --> 0:41:37,036
+But we also have a few
+
+1327
+00:41:37,036 --> 0:41:38,666
+additional controls that allow
+
+1328
+00:41:38,666 --> 0:41:39,646
+us to pick from the type of
+
+1329
+00:41:39,686 --> 0:41:42,676
+bread, the spread to add, and
+
+1330
+00:41:42,706 --> 0:41:43,976
+how to prepare the avocado.
+
+1331
+00:41:46,436 --> 0:41:48,046
+Now these are all examples of
+
+1332
+00:41:48,046 --> 0:41:49,436
+the Picker control in SwiftUI.
+
+1333
+00:41:50,206 --> 0:41:51,906
+Picker is built for the purpose
+
+1334
+00:41:51,906 --> 0:41:53,666
+of selecting one value out of a
+
+1335
+00:41:53,666 --> 0:41:54,316
+set of options.
+
+1336
+00:41:55,606 --> 0:41:56,796
+Now Picker is obviously a little
+
+1337
+00:41:56,796 --> 0:41:58,206
+more complicated than the other
+
+1338
+00:41:58,206 --> 0:42:00,196
+controls and in fact has three
+
+1339
+00:41:58,206 --> 0:42:00,196
+controls and in fact has three
+
+1340
+00:42:00,196 --> 0:42:01,416
+core properties instead of two.
+
+1341
+00:42:02,596 --> 0:42:03,456
+The options that you can pick
+
+1342
+00:42:03,456 --> 0:42:05,356
+from, the current selection from
+
+1343
+00:42:05,356 --> 0:42:06,816
+those options and the label
+
+1344
+00:42:06,946 --> 0:42:08,146
+describing the overall purpose
+
+1345
+00:42:08,436 --> 0:42:11,006
+of the Picker.
+
+1346
+00:42:11,186 --> 0:42:13,216
+Now the selection is a binding,
+
+1347
+00:42:13,796 --> 0:42:14,896
+just like Toggles is on
+
+1348
+00:42:14,896 --> 0:42:15,276
+property.
+
+1349
+00:42:15,856 --> 0:42:17,016
+Which allows us to directly
+
+1350
+00:42:17,016 --> 0:42:18,896
+connect it again to our modeler
+
+1351
+00:42:18,896 --> 0:42:19,256
+state.
+
+1352
+00:42:19,346 --> 0:42:21,416
+And the type of this binding
+
+1353
+00:42:21,656 --> 0:42:23,376
+corresponds to the tag values
+
+1354
+00:42:23,456 --> 0:42:24,506
+associated with each of these
+
+1355
+00:42:24,506 --> 0:42:24,886
+options.
+
+1356
+00:42:25,926 --> 0:42:26,746
+When one of the options is
+
+1357
+00:42:26,746 --> 0:42:28,636
+selected, that tag value is
+
+1358
+00:42:28,636 --> 0:42:29,826
+written back into the selection
+
+1359
+00:42:30,096 --> 0:42:31,556
+and back into our model, all
+
+1360
+00:42:31,556 --> 0:42:32,946
+with no work.
+
+1361
+00:42:35,046 --> 0:42:36,676
+Now of course Pickers on macOS
+
+1362
+00:42:36,776 --> 0:42:38,366
+don't always manifest as pop-up
+
+1363
+00:42:38,366 --> 0:42:38,656
+buttons.
+
+1364
+00:42:39,416 --> 0:42:40,736
+In this single window, we can
+
+1365
+00:42:40,736 --> 0:42:41,766
+see two different styles of
+
+1366
+00:42:41,766 --> 0:42:44,356
+Picker, both a pop-up button and
+
+1367
+00:42:44,356 --> 0:42:45,726
+a radio group.
+
+1368
+00:42:46,396 --> 0:42:47,926
+While SwiftUI automatically
+
+1369
+00:42:47,926 --> 0:42:49,476
+provides a default style that's
+
+1370
+00:42:49,476 --> 0:42:50,686
+adaptive to where controls are
+
+1371
+00:42:50,686 --> 0:42:53,176
+used, controls also inherently
+
+1372
+00:42:53,176 --> 0:42:54,756
+have the ability to customize
+
+1373
+00:42:54,756 --> 0:42:56,486
+their styling, both to
+
+1374
+00:42:56,486 --> 0:42:58,136
+system-provided styles and even
+
+1375
+00:42:58,136 --> 0:42:59,246
+custom-built ones.
+
+1376
+00:43:00,336 --> 0:43:01,436
+In this case, we want to
+
+1377
+00:43:01,436 --> 0:43:02,996
+override the default style and
+
+1378
+00:43:02,996 --> 0:43:04,636
+impose an explicit radio group
+
+1379
+00:43:04,976 --> 0:43:05,946
+since we know that we are only
+
+1380
+00:43:05,946 --> 0:43:07,106
+picking from two options.
+
+1381
+00:43:08,986 --> 0:43:10,336
+Now we can consider doing the
+
+1382
+00:43:10,336 --> 0:43:11,386
+same for our spreads.
+
+1383
+00:43:12,566 --> 0:43:13,636
+But what might start out as a
+
+1384
+00:43:13,636 --> 0:43:14,786
+humble set of four possible
+
+1385
+00:43:14,786 --> 0:43:16,916
+spreads could quickly grow into
+
+1386
+00:43:16,916 --> 0:43:17,716
+a wide variety.
+
+1387
+00:43:18,466 --> 0:43:20,486
+So when it comes to building our
+
+1388
+00:43:20,486 --> 0:43:22,826
+Picker, we obviously wouldn't
+
+1389
+00:43:22,826 --> 0:43:23,716
+want to splay out each of these
+
+1390
+00:43:23,716 --> 0:43:26,236
+options one by one, just as we
+
+1391
+00:43:26,236 --> 0:43:27,516
+wouldn't want to build a UI that
+
+1392
+00:43:27,516 --> 0:43:29,046
+displays them all as radio
+
+1393
+00:43:29,046 --> 0:43:29,356
+buttons.
+
+1394
+00:43:31,006 --> 0:43:32,406
+We've already seen using ForEach
+
+1395
+00:43:32,406 --> 0:43:33,826
+to build data-driven views.
+
+1396
+00:43:34,476 --> 0:43:35,666
+And since each of these options
+
+1397
+00:43:35,776 --> 0:43:37,576
+are views themselves, we can use
+
+1398
+00:43:37,576 --> 0:43:38,206
+it here as well.
+
+1399
+00:43:39,836 --> 0:43:40,546
+This is a lot better.
+
+1400
+00:43:41,876 --> 0:43:42,846
+Here we're going through each of
+
+1401
+00:43:42,846 --> 0:43:44,406
+the cases of spread and creating
+
+1402
+00:43:44,406 --> 0:43:45,666
+a new option with the spread's
+
+1403
+00:43:45,666 --> 0:43:47,456
+name and the spread itself as
+
+1404
+00:43:47,456 --> 0:43:47,836
+the tag.
+
+1405
+00:43:50,236 --> 0:43:50,546
+Now --
+
+1406
+00:43:51,516 --> 0:43:56,676
+[ Applause ]
+
+1407
+00:43:57,176 --> 0:43:58,946
+Now obviously Pickers exist on
+
+1408
+00:43:58,946 --> 0:43:59,906
+more than just macOS.
+
+1409
+00:44:00,306 --> 0:44:02,066
+And then isolation -- a Picker
+
+1410
+00:44:02,066 --> 0:44:03,096
+on iOS looks like the
+
+1411
+00:44:03,096 --> 0:44:04,456
+traditional wheel-style Picker.
+
+1412
+00:44:05,446 --> 0:44:06,806
+However, since we're building up
+
+1413
+00:44:06,806 --> 0:44:08,406
+a form, SwiftUI will
+
+1414
+00:44:08,406 --> 0:44:09,816
+automatically adapt Picker to
+
+1415
+00:44:09,816 --> 0:44:11,226
+take on another really common
+
+1416
+00:44:11,226 --> 0:44:12,696
+style of this type of UI.
+
+1417
+00:44:14,686 --> 0:44:16,276
+Here we can see that the spread
+
+1418
+00:44:16,276 --> 0:44:18,006
+Picker is now represented by a
+
+1419
+00:44:18,006 --> 0:44:19,866
+navigation row displaying both
+
+1420
+00:44:19,866 --> 0:44:21,396
+its label and currently selected
+
+1421
+00:44:21,396 --> 0:44:21,786
+value.
+
+1422
+00:44:22,936 --> 0:44:24,266
+Tapping on that row brings us to
+
+1423
+00:44:24,266 --> 0:44:25,636
+a list of all of our options.
+
+1424
+00:44:26,076 --> 0:44:27,326
+And tapping one of those selects
+
+1425
+00:44:27,326 --> 0:44:28,146
+it and brings us back.
+
+1426
+00:44:29,516 --> 0:44:36,646
+[ Applause ]
+
+1427
+00:44:37,146 --> 0:44:38,096
+You stole my punch line.
+
+1428
+00:44:38,286 --> 0:44:39,856
+This is SwiftUI taking care and
+
+1429
+00:44:39,856 --> 0:44:41,266
+creating that entire interaction
+
+1430
+00:44:41,526 --> 0:44:43,166
+just with our simple creation of
+
+1431
+00:44:43,166 --> 0:44:43,726
+a Picker.
+
+1432
+00:44:44,516 --> 0:44:49,646
+[ Applause ]
+
+1433
+00:44:50,146 --> 0:44:51,246
+Making it trivial to build out
+
+1434
+00:44:51,246 --> 0:44:52,306
+the rest of our three Pickers.
+
+1435
+00:44:53,196 --> 0:44:54,666
+And just like in macOS, we still
+
+1436
+00:44:54,666 --> 0:44:56,206
+have explicit control over the
+
+1437
+00:44:56,206 --> 0:44:56,866
+ultimate style.
+
+1438
+00:44:57,406 --> 0:44:58,426
+If we wanted a wheel-style
+
+1439
+00:44:58,426 --> 0:44:59,796
+Picker here, we could again just
+
+1440
+00:44:59,796 --> 0:45:00,976
+impose that.
+
+1441
+00:44:59,796 --> 0:45:00,976
+impose that.
+
+1442
+00:45:04,046 --> 0:45:06,376
+Now we have a pretty nice set of
+
+1443
+00:45:06,376 --> 0:45:07,086
+apps at this point.
+
+1444
+00:45:07,836 --> 0:45:08,906
+But it's one thing to order
+
+1445
+00:45:08,906 --> 0:45:10,866
+toast at our desk or while on
+
+1446
+00:45:10,866 --> 0:45:12,946
+the go, and it's another thing
+
+1447
+00:45:12,946 --> 0:45:14,526
+entirely to have heated debates
+
+1448
+00:45:14,696 --> 0:45:16,096
+with friends and family about
+
+1449
+00:45:16,096 --> 0:45:17,546
+what exactly makes the best
+
+1450
+00:45:17,546 --> 0:45:18,366
+avocado toast.
+
+1451
+00:45:21,066 --> 0:45:21,736
+The form on the right side
+
+1452
+00:45:21,736 --> 0:45:23,026
+consists of the same content
+
+1453
+00:45:23,026 --> 0:45:24,556
+that we saw in the other apps
+
+1454
+00:45:25,136 --> 0:45:26,186
+and taking a look at the code
+
+1455
+00:45:26,186 --> 0:45:27,846
+that's used to build it, it's
+
+1456
+00:45:27,846 --> 0:45:28,896
+not a surprise that it's using
+
+1457
+00:45:28,896 --> 0:45:30,296
+the same structure and control
+
+1458
+00:45:30,296 --> 0:45:31,666
+creation that we used before.
+
+1459
+00:45:32,406 --> 0:45:33,556
+And again, the difference is
+
+1460
+00:45:33,556 --> 0:45:34,726
+that automatic adaptation.
+
+1461
+00:45:35,436 --> 0:45:36,536
+For instance, Toggle being
+
+1462
+00:45:36,536 --> 0:45:37,916
+represented using on/off buttons
+
+1463
+00:45:38,266 --> 0:45:38,976
+instead of switches.
+
+1464
+00:45:41,286 --> 0:45:42,146
+And this gets to the heart of
+
+1465
+00:45:42,146 --> 0:45:43,146
+something really important
+
+1466
+00:45:43,356 --> 0:45:44,266
+across all of SwiftUI.
+
+1467
+00:45:44,266 --> 0:45:46,886
+The idea that you can learn a
+
+1468
+00:45:46,886 --> 0:45:48,726
+concept once and apply it
+
+1469
+00:45:48,726 --> 0:45:49,136
+anywhere.
+
+1470
+00:45:50,456 --> 0:45:51,986
+SwiftUI is not just a means to
+
+1471
+00:45:51,986 --> 0:45:53,676
+write once and run anywhere, but
+
+1472
+00:45:53,676 --> 0:45:54,726
+it's a framework that enables
+
+1473
+00:45:54,726 --> 0:45:56,086
+you to learn these core concepts
+
+1474
+00:45:56,376 --> 0:45:57,376
+and use them in a variety of
+
+1475
+00:45:57,376 --> 0:45:58,366
+different contexts and
+
+1476
+00:45:58,366 --> 0:45:58,866
+platforms.
+
+1477
+00:45:59,966 --> 0:46:01,386
+This scales from the modifiers
+
+1478
+00:45:59,966 --> 0:46:01,386
+This scales from the modifiers
+
+1479
+00:46:01,386 --> 0:46:02,906
+and ViewBuilder syntax to the
+
+1480
+00:46:02,906 --> 0:46:04,686
+shared core types like color,
+
+1481
+00:46:04,686 --> 0:46:06,776
+image and ForEach, to even these
+
+1482
+00:46:06,836 --> 0:46:07,886
+higher-level controls.
+
+1483
+00:46:08,476 --> 0:46:11,056
+One example that really
+
+1484
+00:46:11,056 --> 0:46:12,366
+illustrates to me this reuse of
+
+1485
+00:46:12,366 --> 0:46:14,096
+knowledge is a slightly
+
+1486
+00:46:14,096 --> 0:46:16,726
+platform-specific example of
+
+1487
+00:46:16,726 --> 0:46:17,786
+building a contextMenu.
+
+1488
+00:46:18,376 --> 0:46:20,696
+The contextMenu itself can be
+
+1489
+00:46:20,696 --> 0:46:22,526
+attached to an associated view
+
+1490
+00:46:22,526 --> 0:46:23,326
+using a modifier.
+
+1491
+00:46:23,416 --> 0:46:25,446
+And this modifier uses the
+
+1492
+00:46:25,446 --> 0:46:27,136
+ViewBuilder syntax to define its
+
+1493
+00:46:27,136 --> 0:46:27,816
+menu contents.
+
+1494
+00:46:28,586 --> 0:46:29,516
+Now if we take a look at the
+
+1495
+00:46:29,516 --> 0:46:31,066
+menu, we can see a few familiar
+
+1496
+00:46:31,066 --> 0:46:31,746
+concepts.
+
+1497
+00:46:32,636 --> 0:46:33,806
+Some elements that on click
+
+1498
+00:46:34,136 --> 0:46:35,456
+perform an action and have a
+
+1499
+00:46:35,456 --> 0:46:36,656
+label describing that action,
+
+1500
+00:46:37,356 --> 0:46:38,946
+and others that specifically get
+
+1501
+00:46:38,946 --> 0:46:39,756
+turned on and off.
+
+1502
+00:46:39,756 --> 0:46:42,186
+So it's not a surprise that the
+
+1503
+00:46:42,186 --> 0:46:43,896
+contents themselves are built up
+
+1504
+00:46:43,996 --> 0:46:45,456
+using the same controls we've
+
+1505
+00:46:45,456 --> 0:46:46,406
+already learned how to use.
+
+1506
+00:46:47,026 --> 0:46:48,576
+buttons, dividers and Toggles.
+
+1507
+00:46:49,636 --> 0:46:51,516
+But still, automatically taking
+
+1508
+00:46:51,516 --> 0:46:52,766
+on the expected look and feel
+
+1509
+00:46:53,066 --> 0:46:54,906
+for our macOS menu, from the
+
+1510
+00:46:54,906 --> 0:46:56,316
+hover and accelerated gesture
+
+1511
+00:46:56,316 --> 0:46:57,506
+handling, to the special
+
+1512
+00:46:57,506 --> 0:46:58,976
+highlight and selection styling.
+
+1513
+00:47:01,516 --> 0:47:03,016
+From these few examples, you can
+
+1514
+00:47:03,016 --> 0:47:04,266
+already tell that controls in
+
+1515
+00:47:04,266 --> 0:47:05,606
+SwiftUI are a little bit
+
+1516
+00:47:05,606 --> 0:47:05,936
+special.
+
+1517
+00:47:06,796 --> 0:47:07,556
+They're defined based on their
+
+1518
+00:47:07,556 --> 0:47:08,836
+purpose, the role that they
+
+1519
+00:47:08,836 --> 0:47:10,506
+serve, their connection to your
+
+1520
+00:47:10,506 --> 0:47:11,936
+app's model, rather than
+
+1521
+00:47:11,936 --> 0:47:12,936
+specifically to their visual
+
+1522
+00:47:12,936 --> 0:47:13,266
+appearance.
+
+1523
+00:47:14,236 --> 0:47:14,866
+And this means that they're
+
+1524
+00:47:14,866 --> 0:47:16,506
+inherently reusable across a
+
+1525
+00:47:16,506 --> 0:47:17,746
+variety of historic contexts,
+
+1526
+00:47:18,236 --> 0:47:19,076
+and the appropriate look and
+
+1527
+00:47:19,076 --> 0:47:20,466
+feel can be determined based on
+
+1528
+00:47:20,466 --> 0:47:22,436
+that context, platform or other
+
+1529
+00:47:22,436 --> 0:47:23,016
+information.
+
+1530
+00:47:23,936 --> 0:47:25,306
+And at the same time, they're
+
+1531
+00:47:25,426 --> 0:47:27,636
+customizable, both in their use
+
+1532
+00:47:27,636 --> 0:47:29,546
+of views as labels and options
+
+1533
+00:47:29,626 --> 0:47:30,506
+as well as being able to
+
+1534
+00:47:30,506 --> 0:47:32,386
+arbitrarily style these controls
+
+1535
+00:47:32,696 --> 0:47:33,856
+from the system styles like you
+
+1536
+00:47:33,856 --> 0:47:35,066
+saw with Picker to even
+
+1537
+00:47:35,066 --> 0:47:36,406
+completely custom-built styles.
+
+1538
+00:47:37,216 --> 0:47:38,176
+And no matter what the style,
+
+1539
+00:47:38,616 --> 0:47:39,616
+still having accessibility
+
+1540
+00:47:39,616 --> 0:47:40,976
+support built right in.
+
+1541
+00:47:44,046 --> 0:47:45,236
+Now earlier Matt showed a few
+
+1542
+00:47:45,236 --> 0:47:47,126
+examples of using modifiers to
+
+1543
+00:47:47,126 --> 0:47:49,406
+impose additional behavior on
+
+1544
+00:47:49,406 --> 0:47:49,846
+views.
+
+1545
+00:47:50,296 --> 0:47:51,596
+And the same is true for
+
+1546
+00:47:51,596 --> 0:47:52,746
+controls as well.
+
+1547
+00:47:54,606 --> 0:47:55,846
+One example that those of you on
+
+1548
+00:47:55,846 --> 0:47:56,776
+iOS will already be familiar
+
+1549
+00:47:56,776 --> 0:47:58,226
+with is changing the tint or
+
+1550
+00:47:58,296 --> 0:48:00,556
+accent color for your UI, which
+
+1551
+00:47:58,296 --> 0:48:00,556
+accent color for your UI, which
+
+1552
+00:48:00,556 --> 0:48:01,356
+affects how many different
+
+1553
+00:48:01,356 --> 0:48:02,236
+system controls appear.
+
+1554
+00:48:03,016 --> 0:48:04,346
+And if we want to apply this to
+
+1555
+00:48:04,346 --> 0:48:06,156
+our entire app, we can apply the
+
+1556
+00:48:06,156 --> 0:48:07,696
+accentColor modifier to our
+
+1557
+00:48:07,696 --> 0:48:09,126
+outermost view and it will be
+
+1558
+00:48:09,126 --> 0:48:10,106
+inherited by the entire
+
+1559
+00:48:10,106 --> 0:48:11,666
+hierarchy such as this button.
+
+1560
+00:48:11,666 --> 0:48:14,486
+Now when it comes to disabling
+
+1561
+00:48:14,486 --> 0:48:15,956
+controls, we can use the
+
+1562
+00:48:15,956 --> 0:48:16,846
+disabled modifier.
+
+1563
+00:48:17,686 --> 0:48:18,736
+For instance, disabling the
+
+1564
+00:48:18,736 --> 0:48:19,846
+Order button when maybe there
+
+1565
+00:48:19,846 --> 0:48:21,086
+are no toasts being ordered.
+
+1566
+00:48:21,086 --> 0:48:23,016
+But there also might be
+
+1567
+00:48:23,016 --> 0:48:24,106
+scenarios when we need to
+
+1568
+00:48:24,106 --> 0:48:25,236
+disable entire groups of
+
+1569
+00:48:25,236 --> 0:48:25,836
+controls.
+
+1570
+00:48:26,536 --> 0:48:27,616
+For instance, when we're unable
+
+1571
+00:48:27,616 --> 0:48:28,646
+to connect to the toast network
+
+1572
+00:48:28,876 --> 0:48:30,606
+to even place our order, we
+
+1573
+00:48:30,606 --> 0:48:32,146
+probably want to disable each
+
+1574
+00:48:32,146 --> 0:48:33,596
+and every control in our form.
+
+1575
+00:48:34,726 --> 0:48:36,046
+But this looks a little tedious
+
+1576
+00:48:36,046 --> 0:48:37,566
+and error-prone if we ever add
+
+1577
+00:48:37,566 --> 0:48:38,456
+additional controls.
+
+1578
+00:48:39,066 --> 0:48:40,146
+But like you saw with modifiers
+
+1579
+00:48:40,146 --> 0:48:41,986
+in general, we can instead lift
+
+1580
+00:48:41,986 --> 0:48:43,696
+this modifier up and apply the
+
+1581
+00:48:43,696 --> 0:48:45,126
+modifier to our entire form,
+
+1582
+00:48:45,536 --> 0:48:46,226
+just like we did with the
+
+1583
+00:48:46,226 --> 0:48:47,226
+accentColor modifier.
+
+1584
+00:48:48,516 --> 0:48:54,546
+[ Applause ]
+
+1585
+00:48:55,046 --> 0:48:56,226
+Now all the controls in our form
+
+1586
+00:48:56,226 --> 0:48:57,236
+will be disabled based on this
+
+1587
+00:48:57,236 --> 0:48:58,126
+single statement.
+
+1588
+00:48:59,156 --> 0:49:01,286
+And all of this adaptivity and
+
+1589
+00:48:59,156 --> 0:49:01,286
+And all of this adaptivity and
+
+1590
+00:49:01,286 --> 0:49:03,176
+inherited behavior is pretty
+
+1591
+00:49:03,176 --> 0:49:04,976
+powerful and potentially comes
+
+1592
+00:49:04,976 --> 0:49:06,516
+as a surprise since we're using
+
+1593
+00:49:06,516 --> 0:49:08,686
+these simple value-type views.
+
+1594
+00:49:09,316 --> 0:49:10,286
+But let's take a little look
+
+1595
+00:49:10,336 --> 0:49:11,666
+under the hood for how some of
+
+1596
+00:49:11,666 --> 0:49:12,336
+this works.
+
+1597
+00:49:12,866 --> 0:49:15,116
+These examples are built on top
+
+1598
+00:49:15,116 --> 0:49:16,146
+of something called the
+
+1599
+00:49:16,146 --> 0:49:16,686
+environment.
+
+1600
+00:49:17,706 --> 0:49:18,976
+And the environment consists of
+
+1601
+00:49:18,976 --> 0:49:20,436
+all the context for where your
+
+1602
+00:49:20,436 --> 0:49:21,056
+views appear in.
+
+1603
+00:49:22,486 --> 0:49:23,256
+These are things that you might
+
+1604
+00:49:23,256 --> 0:49:24,276
+have previously thought of as
+
+1605
+00:49:24,276 --> 0:49:26,066
+being shared global state, part
+
+1606
+00:49:26,066 --> 0:49:26,936
+of our trait collection or
+
+1607
+00:49:26,936 --> 0:49:28,256
+properties on your view, or
+
+1608
+00:49:28,256 --> 0:49:29,346
+maybe even had to reach up to
+
+1609
+00:49:29,346 --> 0:49:30,796
+some ancestor object to pull the
+
+1610
+00:49:30,796 --> 0:49:31,326
+value out.
+
+1611
+00:49:32,376 --> 0:49:33,866
+But now this is all packaged up
+
+1612
+00:49:34,026 --> 0:49:34,796
+into the environment.
+
+1613
+00:49:35,326 --> 0:49:36,916
+And it's accessible to any of
+
+1614
+00:49:36,916 --> 0:49:38,076
+you that might want to access
+
+1615
+00:49:38,076 --> 0:49:38,276
+it.
+
+1616
+00:49:39,246 --> 0:49:40,286
+And each view inherits that
+
+1617
+00:49:40,286 --> 0:49:41,696
+environment from its parent.
+
+1618
+00:49:43,076 --> 0:49:44,826
+Now as an example, when running
+
+1619
+00:49:44,826 --> 0:49:46,196
+in an Arabic locale, the
+
+1620
+00:49:46,196 --> 0:49:47,476
+environment at the root of our
+
+1621
+00:49:47,476 --> 0:49:48,776
+app has a right-to-left layout
+
+1622
+00:49:48,776 --> 0:49:49,166
+direction.
+
+1623
+00:49:49,886 --> 0:49:51,156
+And every view inherits that
+
+1624
+00:49:51,156 --> 0:49:51,746
+layout direction.
+
+1625
+00:49:52,716 --> 0:49:54,136
+But at any given point, the
+
+1626
+00:49:54,136 --> 0:49:55,086
+environment can also be
+
+1627
+00:49:55,086 --> 0:49:56,526
+overridden for a subtree of
+
+1628
+00:49:56,526 --> 0:49:57,016
+views.
+
+1629
+00:49:58,176 --> 0:49:59,046
+So if we were building up some
+
+1630
+00:49:59,046 --> 0:50:00,526
+media playback controls, we'd
+
+1631
+00:49:59,046 --> 0:50:00,526
+media playback controls, we'd
+
+1632
+00:50:00,526 --> 0:50:01,616
+want to ensure that they're laid
+
+1633
+00:50:01,616 --> 0:50:02,686
+out left-to-right.
+
+1634
+00:50:03,546 --> 0:50:04,636
+And so by using the environment
+
+1635
+00:50:04,636 --> 0:50:06,216
+modifier, we can impose that on
+
+1636
+00:50:06,216 --> 0:50:06,976
+that hierarchy.
+
+1637
+00:50:10,046 --> 0:50:11,666
+Now the environment is also one
+
+1638
+00:50:11,666 --> 0:50:12,776
+of the important technologies
+
+1639
+00:50:12,956 --> 0:50:14,596
+that helps make previews so
+
+1640
+00:50:14,596 --> 0:50:15,156
+powerful.
+
+1641
+00:50:15,756 --> 0:50:16,836
+It enables showing the same
+
+1642
+00:50:16,836 --> 0:50:18,466
+exact UI in a variety of these
+
+1643
+00:50:18,466 --> 0:50:19,936
+different contexts so we can
+
+1644
+00:50:19,936 --> 0:50:21,206
+really preview our app against
+
+1645
+00:50:21,206 --> 0:50:22,516
+all the ways people might be
+
+1646
+00:50:22,516 --> 0:50:22,976
+using them.
+
+1647
+00:50:25,276 --> 0:50:26,196
+Now you've seen how the
+
+1648
+00:50:26,196 --> 0:50:26,986
+environment automatically
+
+1649
+00:50:26,986 --> 0:50:28,416
+affects various system views,
+
+1650
+00:50:28,416 --> 0:50:29,696
+and custom views are able to use
+
+1651
+00:50:29,696 --> 0:50:30,986
+the environment as well.
+
+1652
+00:50:31,746 --> 0:50:32,516
+So I've been working on a little
+
+1653
+00:50:32,516 --> 0:50:33,886
+control for our next update,
+
+1654
+00:50:34,696 --> 0:50:36,406
+which allows deciding exactly
+
+1655
+00:50:36,406 --> 0:50:38,076
+where on top of our toast an egg
+
+1656
+00:50:38,076 --> 0:50:38,766
+should be placed.
+
+1657
+00:50:39,646 --> 0:50:41,156
+You can see it's built up using
+
+1658
+00:50:41,156 --> 0:50:43,116
+a simple ZStack of two images: a
+
+1659
+00:50:43,116 --> 0:50:44,676
+toast on the bottom and an image
+
+1660
+00:50:44,676 --> 0:50:45,436
+being positioned with a
+
+1661
+00:50:45,436 --> 0:50:46,666
+dragGesture on top.
+
+1662
+00:50:47,526 --> 0:50:48,686
+With that, we can tap and drag
+
+1663
+00:50:48,686 --> 0:50:50,066
+the egg into just the right
+
+1664
+00:50:50,066 --> 0:50:50,426
+spot.
+
+1665
+00:50:51,756 --> 0:50:53,466
+Now if we go to use our Egg
+
+1666
+00:50:53,466 --> 0:50:55,476
+View, there may be some cases we
+
+1667
+00:50:55,476 --> 0:50:56,246
+need to disable it.
+
+1668
+00:50:56,466 --> 0:50:57,766
+Maybe the shop ran out of eggs.
+
+1669
+00:50:58,986 --> 0:51:00,106
+But since we're using a system
+
+1670
+00:50:58,986 --> 0:51:00,106
+But since we're using a system
+
+1671
+00:51:00,106 --> 0:51:01,416
+dragGesture, it will
+
+1672
+00:51:01,466 --> 0:51:03,176
+automatically be disabled by the
+
+1673
+00:51:03,176 --> 0:51:04,036
+disabled modifier.
+
+1674
+00:51:04,036 --> 0:51:05,316
+So if somebody comes in and
+
+1675
+00:51:05,316 --> 0:51:06,946
+tries to drag that egg, it won't
+
+1676
+00:51:06,946 --> 0:51:07,306
+budge.
+
+1677
+00:51:08,496 --> 0:51:09,826
+Of course, we should also offer
+
+1678
+00:51:09,826 --> 0:51:10,956
+some visual feedback that it's
+
+1679
+00:51:10,986 --> 0:51:12,526
+disabled as well, and thankfully
+
+1680
+00:51:12,526 --> 0:51:13,206
+that's pretty easy.
+
+1681
+00:51:14,606 --> 0:51:15,706
+We can add an environment
+
+1682
+00:51:15,706 --> 0:51:17,506
+property that's connected to the
+
+1683
+00:51:17,506 --> 0:51:18,586
+isEnabled value from the
+
+1684
+00:51:18,586 --> 0:51:19,036
+environment.
+
+1685
+00:51:19,886 --> 0:51:21,276
+And we can use its value just
+
+1686
+00:51:21,276 --> 0:51:22,146
+like any other property.
+
+1687
+00:51:22,966 --> 0:51:24,206
+For instance, reducing the
+
+1688
+00:51:24,206 --> 0:51:25,276
+saturation of our overall
+
+1689
+00:51:25,276 --> 0:51:26,976
+construction when it's disabled.
+
+1690
+00:51:30,066 --> 0:51:30,766
+And if the egg placement view
+
+1691
+00:51:30,766 --> 0:51:32,126
+ever becomes no longer disabled,
+
+1692
+00:51:32,446 --> 0:51:33,816
+SwiftUI will automatically
+
+1693
+00:51:33,816 --> 0:51:35,286
+recall our view's body and
+
+1694
+00:51:35,286 --> 0:51:36,606
+re-render it to the now
+
+1695
+00:51:37,026 --> 0:51:37,896
+undisabled state.
+
+1696
+00:51:37,976 --> 0:51:41,126
+And again, this is SwiftUI
+
+1697
+00:51:41,126 --> 0:51:42,026
+automatically managing our
+
+1698
+00:51:42,026 --> 0:51:43,106
+dependencies on the environment
+
+1699
+00:51:43,106 --> 0:51:44,276
+so we can just express our
+
+1700
+00:51:44,276 --> 0:51:45,676
+view's relationship to it and
+
+1701
+00:51:45,676 --> 0:51:46,846
+not have to worry about
+
+1702
+00:51:46,846 --> 0:51:47,966
+observing for when things
+
+1703
+00:51:47,966 --> 0:51:48,416
+change.
+
+1704
+00:51:51,436 --> 0:51:53,236
+Now we've covered a number of
+
+1705
+00:51:53,236 --> 0:51:54,396
+controls and how to compose
+
+1706
+00:51:54,396 --> 0:51:55,096
+those all together.
+
+1707
+00:51:55,096 --> 0:51:56,766
+But we're still missing one
+
+1708
+00:51:56,766 --> 0:51:58,376
+really important piece of every
+
+1709
+00:51:58,376 --> 0:52:00,286
+app, and that's navigating
+
+1710
+00:51:58,376 --> 0:52:00,286
+app, and that's navigating
+
+1711
+00:52:00,286 --> 0:52:02,246
+between these screens, from the
+
+1712
+00:52:02,246 --> 0:52:03,896
+order form to the egg placement
+
+1713
+00:52:03,896 --> 0:52:05,496
+Picker to the order history.
+
+1714
+00:52:06,236 --> 0:52:06,946
+Now let's start in with the
+
+1715
+00:52:06,946 --> 0:52:07,456
+order form.
+
+1716
+00:52:07,456 --> 0:52:09,166
+Now a problem that some of you
+
+1717
+00:52:09,166 --> 0:52:10,186
+might have already noticed is
+
+1718
+00:52:10,186 --> 0:52:11,276
+the look of the title in the
+
+1719
+00:52:11,276 --> 0:52:11,606
+form.
+
+1720
+00:52:12,196 --> 0:52:13,086
+It doesn't use the standard
+
+1721
+00:52:13,086 --> 0:52:14,106
+navigation bar styling.
+
+1722
+00:52:14,106 --> 0:52:16,286
+So we can first wrap our
+
+1723
+00:52:16,286 --> 0:52:17,976
+Orderform in a NavigationView as
+
+1724
+00:52:17,976 --> 0:52:18,836
+the content of our app.
+
+1725
+00:52:19,606 --> 0:52:20,596
+NavigationView provides the
+
+1726
+00:52:20,596 --> 0:52:21,776
+ability to navigate through
+
+1727
+00:52:21,776 --> 0:52:23,326
+screens of our app revealing
+
+1728
+00:52:23,326 --> 0:52:24,446
+more nested or detailed
+
+1729
+00:52:24,446 --> 0:52:24,946
+information.
+
+1730
+00:52:25,696 --> 0:52:27,646
+On iOS, NavigationView also adds
+
+1731
+00:52:27,646 --> 0:52:28,796
+in the standard navigation bar
+
+1732
+00:52:28,796 --> 0:52:29,146
+Chrome.
+
+1733
+00:52:29,146 --> 0:52:31,096
+And then we can use the
+
+1734
+00:52:31,096 --> 0:52:32,846
+NavigationBarTitle modifier to
+
+1735
+00:52:32,846 --> 0:52:34,056
+produce that large beautiful
+
+1736
+00:52:34,056 --> 0:52:35,156
+title for our form.
+
+1737
+00:52:35,976 --> 0:52:37,196
+Now this modifier is a little
+
+1738
+00:52:37,196 --> 0:52:37,706
+bit special.
+
+1739
+00:52:38,306 --> 0:52:39,336
+It provides information that's
+
+1740
+00:52:39,336 --> 0:52:40,716
+able to be interpreted by a
+
+1741
+00:52:40,716 --> 0:52:41,976
+NavigationView ancestor.
+
+1742
+00:52:43,006 --> 0:52:44,056
+We saw earlier examples of
+
+1743
+00:52:44,056 --> 0:52:46,136
+modifiers that have information
+
+1744
+00:52:46,136 --> 0:52:47,316
+flow down the view hierarchy
+
+1745
+00:52:47,516 --> 0:52:49,066
+using the environment, and this
+
+1746
+00:52:49,066 --> 0:52:50,386
+is an example of one that flows
+
+1747
+00:52:50,386 --> 0:52:51,816
+information upwards using
+
+1748
+00:52:51,816 --> 0:52:52,696
+something called preferences.
+
+1749
+00:52:52,696 --> 0:52:54,576
+Now we're not going to go into
+
+1750
+00:52:54,576 --> 0:52:55,646
+too much detail on that, but
+
+1751
+00:52:55,646 --> 0:52:56,456
+you'll see other similar
+
+1752
+00:52:56,456 --> 0:52:57,596
+examples later.
+
+1753
+00:52:59,336 --> 0:53:00,816
+So focusing on the form, the
+
+1754
+00:52:59,336 --> 0:53:00,816
+So focusing on the form, the
+
+1755
+00:53:00,816 --> 0:53:01,726
+next thing we want to do is add
+
+1756
+00:53:01,726 --> 0:53:03,296
+support for including an egg in
+
+1757
+00:53:03,296 --> 0:53:03,656
+our order.
+
+1758
+00:53:04,276 --> 0:53:05,476
+So we can add a little Toggle
+
+1759
+00:53:05,476 --> 0:53:06,966
+here and then whenever somebody
+
+1760
+00:53:06,966 --> 0:53:08,946
+opts into including an egg, we
+
+1761
+00:53:08,946 --> 0:53:10,426
+can add a navigation row which
+
+1762
+00:53:10,426 --> 0:53:11,706
+takes us to our
+
+1763
+00:53:11,706 --> 0:53:12,466
+EggLocationPicker.
+
+1764
+00:53:13,156 --> 0:53:14,456
+So let's expand out the form to
+
+1765
+00:53:14,456 --> 0:53:15,396
+see how this works.
+
+1766
+00:53:16,506 --> 0:53:18,226
+It's built using a Toggle bound
+
+1767
+00:53:18,226 --> 0:53:19,246
+to whether or not our order
+
+1768
+00:53:19,246 --> 0:53:19,856
+includes an egg.
+
+1769
+00:53:19,856 --> 0:53:21,546
+And then it uses the same
+
+1770
+00:53:21,546 --> 0:53:22,456
+ViewBuilder conditional that
+
+1771
+00:53:22,456 --> 0:53:23,756
+Matt showed us earlier to
+
+1772
+00:53:23,756 --> 0:53:24,796
+optionally include that
+
+1773
+00:53:24,796 --> 0:53:25,506
+navigation row.
+
+1774
+00:53:26,446 --> 0:53:28,516
+Now the really cool thing is
+
+1775
+00:53:28,516 --> 0:53:29,926
+that we provided an animated
+
+1776
+00:53:29,926 --> 0:53:31,196
+binding to the Toggle.
+
+1777
+00:53:31,796 --> 0:53:32,936
+So whenever somebody taps that
+
+1778
+00:53:32,936 --> 0:53:34,836
+switch, our navigation row will
+
+1779
+00:53:34,836 --> 0:53:36,336
+be animatedly inserted in for
+
+1780
+00:53:36,336 --> 0:53:37,676
+the formList just with the
+
+1781
+00:53:37,676 --> 0:53:37,976
+setup.
+
+1782
+00:53:40,046 --> 0:53:40,976
+And expressing the navigation
+
+1783
+00:53:40,976 --> 0:53:42,536
+row is also amazingly simple.
+
+1784
+00:53:43,246 --> 0:53:44,556
+It's using a specialized control
+
+1785
+00:53:44,556 --> 0:53:46,776
+called a Navigationbutton which
+
+1786
+00:53:47,116 --> 0:53:48,346
+allows us to provide some
+
+1787
+00:53:48,346 --> 0:53:49,986
+destination content to navigate
+
+1788
+00:53:49,986 --> 0:53:50,816
+to when interacted.
+
+1789
+00:53:51,636 --> 0:53:52,786
+Navigationbutton automatically
+
+1790
+00:53:52,786 --> 0:53:53,826
+comes with all of the right look
+
+1791
+00:53:53,826 --> 0:53:55,366
+and feel such as the disclosure
+
+1792
+00:53:55,366 --> 0:53:56,866
+indicator on the trailing edge.
+
+1793
+00:53:57,446 --> 0:53:58,966
+Now because views are
+
+1794
+00:53:58,966 --> 0:54:00,156
+lightweight, we don't have to
+
+1795
+00:53:58,966 --> 0:54:00,156
+lightweight, we don't have to
+
+1796
+00:54:00,156 --> 0:54:01,276
+worry about having created the
+
+1797
+00:54:01,276 --> 0:54:02,416
+EggLocationPicker here.
+
+1798
+00:54:03,106 --> 0:54:04,426
+SwiftUI takes care to only
+
+1799
+00:54:04,426 --> 0:54:06,046
+render these views once they're
+
+1800
+00:54:06,046 --> 0:54:07,446
+actually presented.
+
+1801
+00:54:08,596 --> 0:54:10,256
+Now inside the EggLocationPicker
+
+1802
+00:54:10,256 --> 0:54:11,516
+we can use our PlacementView,
+
+1803
+00:54:12,146 --> 0:54:13,526
+customize the navigation bar so
+
+1804
+00:54:13,526 --> 0:54:14,546
+that once it's presented, the
+
+1805
+00:54:14,546 --> 0:54:15,936
+title reflects its current
+
+1806
+00:54:15,936 --> 0:54:16,346
+state.
+
+1807
+00:54:16,966 --> 0:54:17,936
+We could also add a trailing
+
+1808
+00:54:17,936 --> 0:54:19,416
+BarItem to quickly reset the egg
+
+1809
+00:54:19,416 --> 0:54:20,756
+back to its start state.
+
+1810
+00:54:21,726 --> 0:54:22,686
+Like you hopefully expect at
+
+1811
+00:54:22,686 --> 0:54:24,176
+this point, the items here are
+
+1812
+00:54:24,176 --> 0:54:25,176
+the same views we've already
+
+1813
+00:54:25,176 --> 0:54:26,466
+learned how to use, so we can
+
+1814
+00:54:26,466 --> 0:54:27,326
+just provide a button.
+
+1815
+00:54:28,346 --> 0:54:29,046
+And that's all it takes to
+
+1816
+00:54:29,046 --> 0:54:30,436
+create this complete navigation
+
+1817
+00:54:30,436 --> 0:54:30,976
+experience.
+
+1818
+00:54:33,096 --> 0:54:34,376
+Now we can turn our attention to
+
+1819
+00:54:34,376 --> 0:54:35,176
+the OrderHistory.
+
+1820
+00:54:36,116 --> 0:54:37,346
+Now we want to navigate to this,
+
+1821
+00:54:37,456 --> 0:54:38,646
+but it isn't more detailed or
+
+1822
+00:54:38,646 --> 0:54:39,966
+nested information of the form,
+
+1823
+00:54:40,436 --> 0:54:41,756
+but it's instead an entirely
+
+1824
+00:54:41,756 --> 0:54:43,316
+different section of our app.
+
+1825
+00:54:44,556 --> 0:54:45,406
+This is more appropriate for the
+
+1826
+00:54:45,406 --> 0:54:46,576
+use of a TabbedView.
+
+1827
+00:54:47,796 --> 0:54:49,186
+As such, we can wrap our form in
+
+1828
+00:54:49,186 --> 0:54:50,596
+a TabbedView just like we did
+
+1829
+00:54:50,596 --> 0:54:52,856
+NavigationView and then add the
+
+1830
+00:54:52,856 --> 0:54:54,436
+OrderHistory as another child.
+
+1831
+00:54:55,616 --> 0:54:56,976
+Both have tabItemLabel modifiers
+
+1832
+00:54:56,976 --> 0:54:57,896
+that it described to the
+
+1833
+00:54:57,896 --> 0:54:59,636
+TabbedView how to label them in
+
+1834
+00:54:59,636 --> 0:55:00,096
+the TabBar.
+
+1835
+00:54:59,636 --> 0:55:00,096
+the TabBar.
+
+1836
+00:55:03,046 --> 0:55:03,996
+Now we can quickly jump over to
+
+1837
+00:55:03,996 --> 0:55:04,746
+our OrderHistory.
+
+1838
+00:55:04,916 --> 0:55:06,196
+But at this point we've a pretty
+
+1839
+00:55:06,196 --> 0:55:07,596
+simple level of detail for the
+
+1840
+00:55:07,596 --> 0:55:09,226
+OrderHistory and we might want
+
+1841
+00:55:09,226 --> 0:55:10,316
+to expand this into a much more
+
+1842
+00:55:10,316 --> 0:55:12,046
+detailed set of information that
+
+1843
+00:55:12,046 --> 0:55:13,446
+we navigate to from our history
+
+1844
+00:55:13,446 --> 0:55:13,736
+list.
+
+1845
+00:55:14,646 --> 0:55:15,796
+This is another case of nesting
+
+1846
+00:55:15,796 --> 0:55:16,676
+or showing more detailed
+
+1847
+00:55:16,676 --> 0:55:18,236
+information like we saw earlier
+
+1848
+00:55:18,236 --> 0:55:19,626
+with NavigationView and button.
+
+1849
+00:55:19,626 --> 0:55:22,156
+So we can replace the contents
+
+1850
+00:55:22,156 --> 0:55:23,356
+of our OrderHistory list so
+
+1851
+00:55:23,646 --> 0:55:24,896
+instead of it being in list with
+
+1852
+00:55:24,896 --> 0:55:25,896
+the OrderDetail displayed
+
+1853
+00:55:25,896 --> 0:55:27,646
+inline, we can instead use this
+
+1854
+00:55:27,646 --> 0:55:28,926
+new OrderDetail as the
+
+1855
+00:55:28,926 --> 0:55:30,066
+destination for our
+
+1856
+00:55:30,066 --> 0:55:30,856
+NavigationButtons.
+
+1857
+00:55:31,786 --> 0:55:32,986
+And really it's this simple to
+
+1858
+00:55:32,986 --> 0:55:34,516
+build a data-driven list that's
+
+1859
+00:55:34,516 --> 0:55:35,846
+able to navigate to additional
+
+1860
+00:55:35,846 --> 0:55:36,336
+content.
+
+1861
+00:55:37,606 --> 0:55:38,796
+This works great on the iPhone
+
+1862
+00:55:38,796 --> 0:55:40,206
+but if we take a look at the
+
+1863
+00:55:40,206 --> 0:55:41,736
+iPad, we want this to be set up
+
+1864
+00:55:41,736 --> 0:55:43,176
+using a master detail with a
+
+1865
+00:55:43,176 --> 0:55:43,726
+SplitView.
+
+1866
+00:55:44,486 --> 0:55:45,926
+Unlike NavigationStacks on
+
+1867
+00:55:45,926 --> 0:55:47,456
+iPhone that push onto a single
+
+1868
+00:55:47,456 --> 0:55:49,226
+RootView, here we know we have
+
+1869
+00:55:49,226 --> 0:55:50,966
+two points of navigation: the
+
+1870
+00:55:50,966 --> 0:55:52,336
+Master which is able to push
+
+1871
+00:55:52,336 --> 0:55:55,476
+content onto the Detail.
+
+1872
+00:55:55,646 --> 0:55:56,716
+So while our NavigationView
+
+1873
+00:55:56,716 --> 0:55:57,626
+behaved correctly with just the
+
+1874
+00:55:57,626 --> 0:55:59,776
+single RootContent on iPhone, we
+
+1875
+00:55:59,776 --> 0:56:00,606
+want to indicate that it
+
+1876
+00:55:59,776 --> 0:56:00,606
+want to indicate that it
+
+1877
+00:56:00,606 --> 0:56:01,826
+intrinsically has these two
+
+1878
+00:56:01,826 --> 0:56:03,656
+pieces of content: the
+
+1879
+00:56:03,656 --> 0:56:05,326
+OrderHistory Master and the
+
+1880
+00:56:05,326 --> 0:56:05,936
+DetailView.
+
+1881
+00:56:06,696 --> 0:56:07,636
+Here we can use an
+
+1882
+00:56:07,636 --> 0:56:09,276
+OrderDetailPlaceholder View to
+
+1883
+00:56:09,276 --> 0:56:10,456
+act as the placeholder for when
+
+1884
+00:56:10,456 --> 0:56:11,276
+nothing is selected.
+
+1885
+00:56:12,196 --> 0:56:12,956
+Now with this, when a
+
+1886
+00:56:12,956 --> 0:56:14,516
+Navigationbutton is interacted
+
+1887
+00:56:14,516 --> 0:56:15,566
+with in the OrderHistory, it
+
+1888
+00:56:15,746 --> 0:56:17,016
+will automatically get pushed
+
+1889
+00:56:17,336 --> 0:56:18,286
+onto the OrderDetail.
+
+1890
+00:56:18,286 --> 0:56:20,196
+This will behave as we expect on
+
+1891
+00:56:20,196 --> 0:56:21,406
+the iPad and other wide-size
+
+1892
+00:56:21,436 --> 0:56:23,306
+classes using a SplitView.
+
+1893
+00:56:23,776 --> 0:56:24,966
+And for narrow-size classes,
+
+1894
+00:56:25,276 --> 0:56:26,566
+will automatically collapse into
+
+1895
+00:56:26,566 --> 0:56:27,606
+a single NavigationStack.
+
+1896
+00:56:28,176 --> 0:56:30,656
+And of course, this works on
+
+1897
+00:56:30,656 --> 0:56:32,376
+macOS as well, resulting in a
+
+1898
+00:56:32,376 --> 0:56:32,946
+SplitView there.
+
+1899
+00:56:32,946 --> 0:56:35,606
+And this isn't really write once
+
+1900
+00:56:35,606 --> 0:56:36,596
+and run anywhere; there are
+
+1901
+00:56:36,596 --> 0:56:37,706
+still these additional design
+
+1902
+00:56:37,706 --> 0:56:38,906
+considerations such as the
+
+1903
+00:56:38,906 --> 0:56:40,666
+increased information density on
+
+1904
+00:56:40,666 --> 0:56:41,276
+macOS.
+
+1905
+00:56:42,656 --> 0:56:43,936
+But SwiftUI is automatically
+
+1906
+00:56:43,936 --> 0:56:45,606
+taking care of a base level of
+
+1907
+00:56:45,606 --> 0:56:47,206
+platform look and feel from how
+
+1908
+00:56:47,206 --> 0:56:48,656
+the SplitView behaves to the
+
+1909
+00:56:48,656 --> 0:56:50,086
+height of the table rows, et
+
+1910
+00:56:50,086 --> 0:56:50,396
+cetera.
+
+1911
+00:56:51,426 --> 0:56:52,436
+So that we can learn how to use
+
+1912
+00:56:52,436 --> 0:56:53,526
+these different concepts once
+
+1913
+00:56:53,526 --> 0:56:55,306
+and then apply them anywhere.
+
+1914
+00:56:56,406 --> 0:56:57,556
+And then we can focus our time
+
+1915
+00:56:57,826 --> 0:56:59,206
+on those exciting and custom
+
+1916
+00:56:59,206 --> 0:57:00,706
+features that make each of your
+
+1917
+00:56:59,206 --> 0:57:00,706
+features that make each of your
+
+1918
+00:57:00,706 --> 0:57:00,976
+apps great.
+
+1919
+00:57:03,256 --> 0:57:04,436
+Now we've covered a reasonable
+
+1920
+00:57:04,436 --> 0:57:05,516
+amount of breadth in this last
+
+1921
+00:57:05,516 --> 0:57:06,966
+hour and there are a number of
+
+1922
+00:57:06,966 --> 0:57:07,946
+other talks that go into a lot
+
+1923
+00:57:07,946 --> 0:57:08,486
+more detail.
+
+1924
+00:57:09,366 --> 0:57:10,456
+We showed how state and bindings
+
+1925
+00:57:10,456 --> 0:57:11,426
+will change how you interact
+
+1926
+00:57:11,426 --> 0:57:12,926
+with controls, but data flow in
+
+1927
+00:57:12,926 --> 0:57:14,266
+SwiftUI will make you rethink
+
+1928
+00:57:14,266 --> 0:57:16,226
+altogether about data-driven UI
+
+1929
+00:57:16,226 --> 0:57:16,506
+updates.
+
+1930
+00:57:17,916 --> 0:57:19,056
+We built up a few custom views
+
+1931
+00:57:19,056 --> 0:57:20,346
+using layout adjusters, but
+
+1932
+00:57:20,346 --> 0:57:21,636
+Custom Controls in SwiftUI will
+
+1933
+00:57:21,636 --> 0:57:23,266
+go into a deep dive on advanced
+
+1934
+00:57:23,266 --> 0:57:24,826
+used of layout, graphics and
+
+1935
+00:57:24,826 --> 0:57:26,226
+animations and has the most
+
+1936
+00:57:26,226 --> 0:57:26,886
+awesome demo.
+
+1937
+00:57:28,256 --> 0:57:29,116
+We know that many of you are
+
+1938
+00:57:29,116 --> 0:57:30,116
+going to be eager to jump into
+
+1939
+00:57:30,116 --> 0:57:31,546
+SwiftUI right away and might be
+
+1940
+00:57:31,546 --> 0:57:32,486
+wondering if you can integrate
+
+1941
+00:57:32,486 --> 0:57:33,426
+this into your existing app.
+
+1942
+00:57:33,426 --> 0:57:34,706
+And the good news is yes,
+
+1943
+00:57:35,036 --> 0:57:36,106
+SwiftUI is designed to be
+
+1944
+00:57:36,106 --> 0:57:37,616
+integrated seamlessly alongside
+
+1945
+00:57:37,616 --> 0:57:39,116
+your existing views and models.
+
+1946
+00:57:39,766 --> 0:57:40,686
+And we have an entire talk
+
+1947
+00:57:40,776 --> 0:57:41,626
+showing you how to do that.
+
+1948
+00:57:43,026 --> 0:57:44,036
+We touched upon how SwiftUI is
+
+1949
+00:57:44,036 --> 0:57:44,906
+designed to make your app
+
+1950
+00:57:44,906 --> 0:57:46,426
+accessible to everyone out of
+
+1951
+00:57:46,426 --> 0:57:46,926
+the box.
+
+1952
+00:57:47,446 --> 0:57:48,166
+Of course, there will always be
+
+1953
+00:57:48,166 --> 0:57:49,236
+some additional considerations
+
+1954
+00:57:49,346 --> 0:57:50,296
+and this talk will go into
+
+1955
+00:57:50,296 --> 0:57:51,186
+additional detail.
+
+1956
+00:57:52,086 --> 0:57:53,096
+And finally, last but certainly
+
+1957
+00:57:53,096 --> 0:57:54,446
+not least, we've shown how
+
+1958
+00:57:54,446 --> 0:57:56,066
+SwiftUI raises the bar for how
+
+1959
+00:57:56,066 --> 0:57:57,196
+much you can share across
+
+1960
+00:57:57,196 --> 0:57:57,746
+platforms.
+
+1961
+00:57:58,616 --> 0:57:59,986
+SwiftUI on all devices takes
+
+1962
+00:57:59,986 --> 0:58:01,426
+that as a baseline and goes into
+
+1963
+00:57:59,986 --> 0:58:01,426
+that as a baseline and goes into
+
+1964
+00:58:01,426 --> 0:58:02,786
+additional detail on how you can
+
+1965
+00:58:02,786 --> 0:58:04,156
+make a great app on any
+
+1966
+00:58:04,156 --> 0:58:04,646
+platform.
+
+1967
+00:58:05,606 --> 0:58:06,756
+There are a few additional talks
+
+1968
+00:58:06,756 --> 0:58:08,526
+such as WatchOS Specifics for
+
+1969
+00:58:08,526 --> 0:58:09,706
+more details on what's driving
+
+1970
+00:58:09,706 --> 0:58:11,416
+this and What's New in Swift.
+
+1971
+00:58:12,266 --> 0:58:13,666
+And finally, thank all of you
+
+1972
+00:58:13,666 --> 0:58:14,216
+for watching.
+
+1973
+00:58:14,566 --> 0:58:15,526
+We are so excited.
+
+1974
+00:58:16,516 --> 0:58:23,500
+[ Applause ]

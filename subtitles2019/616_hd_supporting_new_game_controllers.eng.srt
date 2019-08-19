@@ -1,0 +1,2339 @@
+1
+00:00:00,506 --> 0:00:06,076
+[ Music ]
+
+2
+00:00:06,576 --> 0:00:08,306
+&gt;&gt; Hello, my name is James
+
+3
+00:00:08,306 --> 0:00:09,656
+Kelly, and I'm a Software
+
+4
+00:00:09,656 --> 0:00:10,746
+Engineer on the Game
+
+5
+00:00:10,746 --> 0:00:12,146
+Technologies Team at Apple.
+
+6
+00:00:12,936 --> 0:00:14,506
+In this video, we'll be talking
+
+7
+00:00:14,506 --> 0:00:15,866
+about the new features and
+
+8
+00:00:15,866 --> 0:00:17,136
+changes coming to the Game
+
+9
+00:00:17,136 --> 0:00:18,576
+Controller framework this year
+
+10
+00:00:19,006 --> 0:00:20,366
+to help you adopt newly
+
+11
+00:00:20,366 --> 0:00:21,706
+supported game controllers.
+
+12
+00:00:24,066 --> 0:00:25,126
+The Game Controller framework
+
+13
+00:00:25,126 --> 0:00:26,506
+has been making it easy to add
+
+14
+00:00:26,506 --> 0:00:28,356
+support for MFi Game Controllers
+
+15
+00:00:28,616 --> 0:00:31,126
+to your games on iOS, tvOS, and
+
+16
+00:00:31,126 --> 0:00:31,726
+macOS.
+
+17
+00:00:32,786 --> 0:00:33,856
+By abstracting controller
+
+18
+00:00:33,856 --> 0:00:35,166
+hardware through a common API,
+
+19
+00:00:35,916 --> 0:00:37,026
+the Game Controller framework
+
+20
+00:00:37,376 --> 0:00:38,676
+lets you write your code once
+
+21
+00:00:39,206 --> 0:00:40,166
+without you having to worry
+
+22
+00:00:40,166 --> 0:00:41,606
+about how controller data is
+
+23
+00:00:41,606 --> 0:00:41,966
+mapped.
+
+24
+00:00:43,986 --> 0:00:45,806
+And this year, we're excited to
+
+25
+00:00:45,806 --> 0:00:47,456
+announce new support for some
+
+26
+00:00:47,456 --> 0:00:48,746
+fantastic controllers.
+
+27
+00:00:49,416 --> 0:00:51,096
+First is the Bluetooth-enabled
+
+28
+00:00:51,096 --> 0:00:52,916
+Xbox Wireless controller from
+
+29
+00:00:52,916 --> 0:00:53,536
+Microsoft.
+
+30
+00:00:54,066 --> 0:00:55,236
+This will now seamlessly
+
+31
+00:00:55,236 --> 0:00:56,526
+integrate into any Game
+
+32
+00:00:56,526 --> 0:00:57,726
+Controller framework-enabled
+
+33
+00:00:57,726 --> 0:00:58,036
+game.
+
+34
+00:00:58,436 --> 0:01:00,156
+And that's not all.
+
+35
+00:00:58,436 --> 0:01:00,156
+And that's not all.
+
+36
+00:01:00,996 --> 0:01:02,606
+The DualShock 4 Controller from
+
+37
+00:01:02,606 --> 0:01:04,416
+Sony is now supported by the
+
+38
+00:01:04,416 --> 0:01:05,436
+Game Controller framework.
+
+39
+00:01:05,826 --> 0:01:07,856
+It will just work with any games
+
+40
+00:01:07,896 --> 0:01:08,906
+that already have controller
+
+41
+00:01:08,906 --> 0:01:09,936
+support through the Game
+
+42
+00:01:09,936 --> 0:01:10,716
+Controller framework.
+
+43
+00:01:13,406 --> 0:01:14,766
+Many developers have already
+
+44
+00:01:14,766 --> 0:01:16,136
+been creating some great games
+
+45
+00:01:16,136 --> 0:01:17,026
+with controller support.
+
+46
+00:01:18,076 --> 0:01:20,446
+Rayman Adventures, Transistor,
+
+47
+00:01:21,146 --> 0:01:23,276
+Sky Force Reloaded, and Alto's
+
+48
+00:01:23,276 --> 0:01:24,426
+Adventure are some great
+
+49
+00:01:24,426 --> 0:01:26,276
+examples, and just a few of the
+
+50
+00:01:26,276 --> 0:01:27,546
+games on the App Store that
+
+51
+00:01:27,546 --> 0:01:28,396
+support controllers.
+
+52
+00:01:29,316 --> 0:01:30,286
+By using the Game Controller
+
+53
+00:01:30,286 --> 0:01:31,476
+framework, games will
+
+54
+00:01:31,476 --> 0:01:32,966
+automatically support the Xbox
+
+55
+00:01:32,966 --> 0:01:34,126
+Wireless and DualShock 4
+
+56
+00:01:34,126 --> 0:01:37,486
+Controllers in iOS 13, tvOS 13,
+
+57
+00:01:37,796 --> 0:01:39,056
+and macOS Catalina.
+
+58
+00:01:40,826 --> 0:01:42,276
+In this video, we'll talk about
+
+59
+00:01:42,276 --> 0:01:43,526
+how to grab a reference to these
+
+60
+00:01:43,526 --> 0:01:44,876
+new controllers through the Game
+
+61
+00:01:44,876 --> 0:01:46,096
+Controller framework, how to
+
+62
+00:01:46,096 --> 0:01:48,166
+access their inputs, some UI
+
+63
+00:01:48,166 --> 0:01:49,406
+best practices for probably
+
+64
+00:01:49,406 --> 0:01:51,746
+supporting MFi, Xbox Wireless,
+
+65
+00:01:51,746 --> 0:01:53,716
+and DualShock 4 Controllers, and
+
+66
+00:01:53,716 --> 0:01:55,236
+our recommendations for how to
+
+67
+00:01:55,236 --> 0:01:57,156
+update your games on macOS, if
+
+68
+00:01:57,156 --> 0:01:58,626
+they previously supported Game
+
+69
+00:01:58,626 --> 0:01:59,836
+Controllers through lower level
+
+70
+00:01:59,836 --> 0:02:01,606
+frameworks such as IOKit.
+
+71
+00:01:59,836 --> 0:02:01,606
+frameworks such as IOKit.
+
+72
+00:02:02,716 --> 0:02:04,546
+First, let's talk about changes
+
+73
+00:02:04,546 --> 0:02:05,556
+coming to the Game Controller
+
+74
+00:02:05,556 --> 0:02:06,886
+framework in support of these
+
+75
+00:02:06,886 --> 0:02:07,616
+new controllers.
+
+76
+00:02:08,086 --> 0:02:11,706
+As a quick reminder, games that
+
+77
+00:02:11,706 --> 0:02:12,776
+already use the Game Controller
+
+78
+00:02:12,776 --> 0:02:13,996
+framework will gain support for
+
+79
+00:02:13,996 --> 0:02:15,936
+free, meaning if your game
+
+80
+00:02:15,936 --> 0:02:17,536
+supports MFi controllers, it
+
+81
+00:02:17,536 --> 0:02:19,106
+will also automatically support
+
+82
+00:02:19,166 --> 0:02:20,746
+the Xbox Wireless controller and
+
+83
+00:02:20,746 --> 0:02:21,486
+the DualShock 4.
+
+84
+00:02:22,016 --> 0:02:24,576
+The controller's inputs can be
+
+85
+00:02:24,576 --> 0:02:26,586
+accessed via a GCController's
+
+86
+00:02:26,736 --> 0:02:28,716
+GCExtendedGamepad profile.
+
+87
+00:02:31,146 --> 0:02:32,366
+For those of you who are new to
+
+88
+00:02:32,366 --> 0:02:33,446
+the Game Controller framework,
+
+89
+00:02:33,606 --> 0:02:34,856
+let's talk briefly about how to
+
+90
+00:02:34,856 --> 0:02:35,866
+detect a controller.
+
+91
+00:02:36,846 --> 0:02:38,356
+Each controller is represented
+
+92
+00:02:38,356 --> 0:02:40,566
+by a class named GCController.
+
+93
+00:02:41,206 --> 0:02:42,426
+It's the same class for all
+
+94
+00:02:42,426 --> 0:02:45,246
+controllers, MFi, Xbox Wireless,
+
+95
+00:02:45,486 --> 0:02:47,166
+and DualShock 4 controllers, as
+
+96
+00:02:47,166 --> 0:02:48,506
+well as the serial remote, are
+
+97
+00:02:48,506 --> 0:02:50,316
+all instances of GCController.
+
+98
+00:02:52,366 --> 0:02:53,456
+The first thing you want to do
+
+99
+00:02:53,456 --> 0:02:54,566
+is get a list of currently
+
+100
+00:02:54,566 --> 0:02:55,586
+connected controllers.
+
+101
+00:02:56,326 --> 0:02:58,516
+To do this, use GCController's
+
+102
+00:02:58,636 --> 0:03:00,036
+controllers class method.
+
+103
+00:02:58,636 --> 0:03:00,036
+controllers class method.
+
+104
+00:03:01,006 --> 0:03:02,376
+It returns an array of
+
+105
+00:03:02,376 --> 0:03:03,766
+GCController instances
+
+106
+00:03:04,146 --> 0:03:05,326
+representing all connected
+
+107
+00:03:05,326 --> 0:03:05,936
+controllers.
+
+108
+00:03:06,476 --> 0:03:08,226
+The array will be empty if no
+
+109
+00:03:08,226 --> 0:03:09,216
+controllers are connected.
+
+110
+00:03:10,216 --> 0:03:11,656
+You should check this array when
+
+111
+00:03:11,656 --> 0:03:12,996
+your app launches and set up the
+
+112
+00:03:12,996 --> 0:03:14,106
+controllers as appropriate.
+
+113
+00:03:17,576 --> 0:03:18,836
+Now it's common for controllers
+
+114
+00:03:18,836 --> 0:03:20,376
+to connect and disconnect while
+
+115
+00:03:20,376 --> 0:03:21,056
+your app is running.
+
+116
+00:03:21,596 --> 0:03:23,386
+For example, the player may turn
+
+117
+00:03:23,386 --> 0:03:24,326
+on their controller after
+
+118
+00:03:24,326 --> 0:03:25,856
+launching your game, their
+
+119
+00:03:25,856 --> 0:03:26,716
+controller may run out of
+
+120
+00:03:26,716 --> 0:03:28,546
+batteries, or they may just take
+
+121
+00:03:28,546 --> 0:03:29,776
+the controller out of range.
+
+122
+00:03:31,226 --> 0:03:32,596
+To be notified of these events,
+
+123
+00:03:32,946 --> 0:03:34,996
+add observers for GCController
+
+124
+00:03:34,996 --> 0:03:37,146
+did connect notification and
+
+125
+00:03:37,146 --> 0:03:38,886
+GCController did disconnect
+
+126
+00:03:38,886 --> 0:03:39,636
+notification.
+
+127
+00:03:40,406 --> 0:03:41,856
+Your application did finish
+
+128
+00:03:41,856 --> 0:03:43,626
+launching with options method is
+
+129
+00:03:43,626 --> 0:03:44,736
+a great place to do this.
+
+130
+00:03:46,606 --> 0:03:48,306
+So, now that you've grabbed onto
+
+131
+00:03:48,306 --> 0:03:49,406
+an instance of a connected
+
+132
+00:03:49,406 --> 0:03:50,886
+controller, let's talk about the
+
+133
+00:03:50,886 --> 0:03:52,316
+buttons and other inputs it may
+
+134
+00:03:52,316 --> 0:03:53,916
+have and how to access them.
+
+135
+00:03:56,076 --> 0:03:57,856
+First, let's recap what inputs
+
+136
+00:03:57,856 --> 0:03:59,176
+are available on a controller.
+
+137
+00:04:00,186 --> 0:04:02,356
+There are two triggers, a
+
+138
+00:04:02,356 --> 0:04:04,556
+directional pad, two
+
+139
+00:04:04,556 --> 0:04:08,896
+thumbsticks, a menu button, four
+
+140
+00:04:08,896 --> 0:04:11,746
+face buttons, a programmable
+
+141
+00:04:11,746 --> 0:04:14,226
+4-LED strip, and two shoulder
+
+142
+00:04:14,226 --> 0:04:14,746
+buttons.
+
+143
+00:04:18,336 --> 0:04:19,776
+Let's take a closer look at how
+
+144
+00:04:19,776 --> 0:04:21,565
+physical buttons map to the API
+
+145
+00:04:22,276 --> 0:04:23,906
+using the four face buttons as
+
+146
+00:04:23,906 --> 0:04:24,426
+an example.
+
+147
+00:04:25,586 --> 0:04:27,156
+Here we can see a table listing
+
+148
+00:04:27,156 --> 0:04:28,436
+the four face button properties
+
+149
+00:04:28,786 --> 0:04:30,556
+found on a controller's extended
+
+150
+00:04:30,556 --> 0:04:31,526
+gamepad profile.
+
+151
+00:04:32,456 --> 0:04:33,956
+The face buttons of MFi
+
+152
+00:04:33,956 --> 0:04:35,436
+controllers map directly to this
+
+153
+00:04:35,436 --> 0:04:38,306
+API as do the face buttons of an
+
+154
+00:04:38,306 --> 0:04:39,596
+Xbox Wireless controller.
+
+155
+00:04:42,196 --> 0:04:43,706
+Note that there is some subtlety
+
+156
+00:04:43,706 --> 0:04:45,246
+to consider with DualShock 4
+
+157
+00:04:45,246 --> 0:04:47,226
+controllers as they use symbols
+
+158
+00:04:47,276 --> 0:04:48,826
+instead of letters to represent
+
+159
+00:04:48,826 --> 0:04:49,666
+their face buttons.
+
+160
+00:04:50,656 --> 0:04:51,766
+In cases where there may be
+
+161
+00:04:51,766 --> 0:04:53,476
+ambiguity when mapping an input
+
+162
+00:04:53,476 --> 0:04:55,786
+to API, we use the notion of
+
+163
+00:04:55,786 --> 0:04:57,146
+positional equivalents to
+
+164
+00:04:57,146 --> 0:04:58,206
+resolve these mappings.
+
+165
+00:04:59,716 --> 0:05:01,546
+For example, if we consider the
+
+166
+00:04:59,716 --> 0:05:01,546
+For example, if we consider the
+
+167
+00:05:01,546 --> 0:05:03,266
+face buttons to be four buttons
+
+168
+00:05:03,266 --> 0:05:04,576
+arranged in a diamond on the
+
+169
+00:05:04,576 --> 0:05:06,726
+right side of a controller, then
+
+170
+00:05:06,726 --> 0:05:08,246
+the bottom cross button is
+
+171
+00:05:08,246 --> 0:05:09,736
+positionally equivalent to the
+
+172
+00:05:09,736 --> 0:05:11,566
+bottom A button of an MFi
+
+173
+00:05:11,566 --> 0:05:12,056
+controller.
+
+174
+00:05:12,476 --> 0:05:14,036
+So, it maps to the button A
+
+175
+00:05:14,036 --> 0:05:14,556
+property.
+
+176
+00:05:15,076 --> 0:05:18,286
+The right face button with a
+
+177
+00:05:18,286 --> 0:05:20,186
+circle button maps to the button
+
+178
+00:05:20,186 --> 0:05:21,636
+B property and so on.
+
+179
+00:05:24,286 --> 0:05:26,066
+Next, let's talk about clickable
+
+180
+00:05:26,066 --> 0:05:27,976
+thumbsticks or L3 and R3.
+
+181
+00:05:30,906 --> 0:05:31,846
+We added support for these
+
+182
+00:05:31,846 --> 0:05:33,146
+inputs to the Game Controller
+
+183
+00:05:33,146 --> 0:05:35,936
+framework in iOS 12.1, tvOS
+
+184
+00:05:35,936 --> 0:05:39,596
+12.1, and macOS Mojave 10.14.1.
+
+185
+00:05:40,496 --> 0:05:41,926
+While the Xbox Wireless and
+
+186
+00:05:41,926 --> 0:05:43,676
+DualShock 4 controllers all have
+
+187
+00:05:43,676 --> 0:05:44,636
+clickable thumbsticks,
+
+188
+00:05:45,046 --> 0:05:46,656
+thumbsticks on some models of
+
+189
+00:05:46,656 --> 0:05:48,086
+MFi controllers may not be
+
+190
+00:05:48,086 --> 0:05:48,516
+clickable.
+
+191
+00:05:49,186 --> 0:05:50,466
+Let's dive into a code example
+
+192
+00:05:50,466 --> 0:05:51,676
+to see how we can handle this.
+
+193
+00:05:53,346 --> 0:05:54,236
+Let's say we want to make the
+
+194
+00:05:54,236 --> 0:05:55,926
+player character crouch when the
+
+195
+00:05:55,926 --> 0:05:57,296
+player clicks L3.
+
+196
+00:05:57,296 --> 0:05:59,786
+If we're supporting older
+
+197
+00:05:59,786 --> 0:06:02,606
+versions of iOS, tvOS, or macOS,
+
+198
+00:05:59,786 --> 0:06:02,606
+versions of iOS, tvOS, or macOS,
+
+199
+00:06:03,086 --> 0:06:04,446
+we should first check to see if
+
+200
+00:06:04,446 --> 0:06:05,396
+we have the clickable
+
+201
+00:06:05,396 --> 0:06:07,376
+thumbsticks API available to us.
+
+202
+00:06:09,926 --> 0:06:11,436
+Even if we do though, the
+
+203
+00:06:11,436 --> 0:06:12,346
+specific controller we're
+
+204
+00:06:12,346 --> 0:06:14,216
+mapping may not physically have
+
+205
+00:06:14,216 --> 0:06:15,306
+clickable thumbsticks.
+
+206
+00:06:16,176 --> 0:06:17,856
+So, we check to see if the left
+
+207
+00:06:17,856 --> 0:06:19,086
+thumbstick button is new.
+
+208
+00:06:19,636 --> 0:06:21,406
+And if it is, we should ensure
+
+209
+00:06:21,406 --> 0:06:22,616
+that the user interaction we
+
+210
+00:06:22,616 --> 0:06:24,566
+were intending to map to L3, in
+
+211
+00:06:24,566 --> 0:06:25,856
+this case, crouching the player,
+
+212
+00:06:26,386 --> 0:06:27,676
+is available through some other
+
+213
+00:06:27,676 --> 0:06:28,056
+means.
+
+214
+00:06:31,486 --> 0:06:32,506
+Once we are working with a
+
+215
+00:06:32,506 --> 0:06:33,866
+controller that we know has
+
+216
+00:06:33,866 --> 0:06:35,256
+clickable thumbsticks, we can
+
+217
+00:06:35,256 --> 0:06:36,856
+just assign our behavior to the
+
+218
+00:06:36,856 --> 0:06:38,626
+press handler of L3.
+
+219
+00:06:38,946 --> 0:06:40,136
+Now, when a player clicks the
+
+220
+00:06:40,136 --> 0:06:41,936
+left thumbstick button, the game
+
+221
+00:06:41,936 --> 0:06:42,716
+will toggle the player
+
+222
+00:06:42,716 --> 0:06:43,576
+character's crouch.
+
+223
+00:06:46,476 --> 0:06:47,706
+If our game is running on
+
+224
+00:06:47,706 --> 0:06:50,226
+versions of iOS, tvOS, or macOS
+
+225
+00:06:50,226 --> 0:06:52,176
+that don't have this API, we
+
+226
+00:06:52,176 --> 0:06:52,956
+still need to code an
+
+227
+00:06:52,956 --> 0:06:54,416
+alternative path to the player
+
+228
+00:06:54,416 --> 0:06:54,906
+crouch.
+
+229
+00:06:57,856 --> 0:06:59,336
+Next, let's talk about some new
+
+230
+00:06:59,336 --> 0:07:00,846
+buttons that have been added to
+
+231
+00:06:59,336 --> 0:07:00,846
+buttons that have been added to
+
+232
+00:07:00,846 --> 0:07:02,516
+the API in support of the Xbox
+
+233
+00:07:02,516 --> 0:07:03,786
+wireless and DualShock 4
+
+234
+00:07:03,786 --> 0:07:05,466
+Controllers, what we're calling
+
+235
+00:07:05,646 --> 0:07:06,806
+the auxiliary buttons.
+
+236
+00:07:07,546 --> 0:07:08,636
+These buttons are typically
+
+237
+00:07:08,636 --> 0:07:09,656
+found in the middle of
+
+238
+00:07:09,656 --> 0:07:10,306
+controllers.
+
+239
+00:07:12,526 --> 0:07:13,966
+First, we have the menu button.
+
+240
+00:07:14,546 --> 0:07:15,606
+It should be used to pause
+
+241
+00:07:15,606 --> 0:07:16,766
+gameplay and bring up the
+
+242
+00:07:16,766 --> 0:07:17,806
+in-game pause menu.
+
+243
+00:07:18,476 --> 0:07:19,986
+All supported controllers have
+
+244
+00:07:19,986 --> 0:07:20,516
+this button.
+
+245
+00:07:22,186 --> 0:07:23,306
+Now let's look at the options
+
+246
+00:07:23,306 --> 0:07:23,646
+button.
+
+247
+00:07:24,336 --> 0:07:25,646
+It's a general purpose button,
+
+248
+00:07:25,896 --> 0:07:26,956
+but you should avoid using it
+
+249
+00:07:26,956 --> 0:07:28,546
+for time critical actions, as
+
+250
+00:07:28,546 --> 0:07:29,966
+it's generally positioned out of
+
+251
+00:07:29,966 --> 0:07:30,286
+the way.
+
+252
+00:07:31,296 --> 0:07:32,386
+Note that not all controllers
+
+253
+00:07:32,386 --> 0:07:33,116
+have this button.
+
+254
+00:07:36,316 --> 0:07:37,596
+Let's take a look at how these
+
+255
+00:07:37,596 --> 0:07:39,566
+new APIs map to existing MFi
+
+256
+00:07:39,566 --> 0:07:40,216
+controllers.
+
+257
+00:07:41,596 --> 0:07:43,086
+The center menu button maps
+
+258
+00:07:43,086 --> 0:07:44,266
+directly to the button menu
+
+259
+00:07:44,266 --> 0:07:46,506
+property of GCExtendedGamepad.
+
+260
+00:07:48,236 --> 0:07:49,876
+Note that in this example, this
+
+261
+00:07:49,906 --> 0:07:51,346
+MFi controller doesn't have an
+
+262
+00:07:51,346 --> 0:07:52,056
+options button.
+
+263
+00:07:52,396 --> 0:07:53,966
+So, the button options property
+
+264
+00:07:54,056 --> 0:07:55,836
+of GCExtendedGamepad is new.
+
+265
+00:07:57,496 --> 0:07:59,276
+Next up is the Xbox Wireless
+
+266
+00:07:59,276 --> 0:07:59,786
+controller.
+
+267
+00:07:59,856 --> 0:08:02,606
+When a controller has multiple
+
+268
+00:07:59,856 --> 0:08:02,606
+When a controller has multiple
+
+269
+00:08:02,646 --> 0:08:04,506
+auxiliary buttons, we determine
+
+270
+00:08:04,506 --> 0:08:05,796
+its button mapping using
+
+271
+00:08:05,796 --> 0:08:06,856
+positional equivalents.
+
+272
+00:08:08,426 --> 0:08:10,176
+The right auxiliary button, in
+
+273
+00:08:10,176 --> 0:08:11,756
+this case, the Xbox Wireless
+
+274
+00:08:11,756 --> 0:08:13,606
+controller's menu button maps
+
+275
+00:08:13,606 --> 0:08:14,956
+directly to the button menu
+
+276
+00:08:14,956 --> 0:08:18,326
+property, whereas the left
+
+277
+00:08:18,326 --> 0:08:20,276
+Auxiliary button or the Xbox
+
+278
+00:08:20,276 --> 0:08:21,276
+Wireless controller's view
+
+279
+00:08:21,276 --> 0:08:22,886
+button maps to the button
+
+280
+00:08:22,886 --> 0:08:23,796
+options property.
+
+281
+00:08:25,786 --> 0:08:27,626
+The Xbox button in the center of
+
+282
+00:08:27,626 --> 0:08:29,046
+the controller has been reserved
+
+283
+00:08:29,046 --> 0:08:29,896
+for system use.
+
+284
+00:08:32,395 --> 0:08:33,856
+The same approach can be applied
+
+285
+00:08:33,966 --> 0:08:35,006
+for the DualShock 4.
+
+286
+00:08:36,486 --> 0:08:38,096
+Again, we can use positional
+
+287
+00:08:38,096 --> 0:08:39,336
+equivalents to determine the
+
+288
+00:08:39,336 --> 0:08:40,155
+button mappings.
+
+289
+00:08:41,905 --> 0:08:43,366
+The right auxiliary button or
+
+290
+00:08:43,366 --> 0:08:45,046
+the DualShock 4's options button
+
+291
+00:08:45,396 --> 0:08:46,526
+maps to the button menu
+
+292
+00:08:46,526 --> 0:08:49,376
+property, whereas the left
+
+293
+00:08:49,376 --> 0:08:51,276
+auxiliary button, the DualShock
+
+294
+00:08:51,276 --> 0:08:53,276
+4's share button maps to the
+
+295
+00:08:53,276 --> 0:08:54,486
+button options property.
+
+296
+00:08:54,986 --> 0:08:57,566
+The PS button in the center of
+
+297
+00:08:57,566 --> 0:08:58,846
+the controller has also been
+
+298
+00:08:58,846 --> 0:08:59,286
+reserved.
+
+299
+00:09:03,276 --> 0:09:04,676
+Note that we've deprecated the
+
+300
+00:09:04,676 --> 0:09:05,876
+controller paused handler.
+
+301
+00:09:06,716 --> 0:09:07,976
+You should now use the new
+
+302
+00:09:07,976 --> 0:09:09,576
+button menu API instead.
+
+303
+00:09:10,346 --> 0:09:11,696
+Let's dive into a code example
+
+304
+00:09:11,696 --> 0:09:12,986
+to see how we can handle this.
+
+305
+00:09:17,036 --> 0:09:18,256
+Let's say we want to pause or
+
+306
+00:09:18,256 --> 0:09:19,686
+unpause the game whenever the
+
+307
+00:09:19,686 --> 0:09:21,156
+player presses the menu button.
+
+308
+00:09:21,766 --> 0:09:23,426
+If we're supporting older
+
+309
+00:09:23,426 --> 0:09:26,136
+versions of iOS, tvOS or macOS,
+
+310
+00:09:26,426 --> 0:09:27,576
+we should first check to see if
+
+311
+00:09:27,576 --> 0:09:29,536
+we have the new menu button API.
+
+312
+00:09:31,226 --> 0:09:33,076
+If we do, we simply register a
+
+313
+00:09:33,076 --> 0:09:35,056
+pressed changed handler on the
+
+314
+00:09:35,056 --> 0:09:36,816
+extended gamepad's button menu
+
+315
+00:09:36,816 --> 0:09:37,306
+property.
+
+316
+00:09:39,566 --> 0:09:41,046
+Within the handler, we toggle
+
+317
+00:09:41,046 --> 0:09:41,816
+the pause menu.
+
+318
+00:09:42,386 --> 0:09:43,746
+Typically, when players want to
+
+319
+00:09:43,746 --> 0:09:45,316
+pause the game, they want to do
+
+320
+00:09:45,316 --> 0:09:47,066
+it as fast as possible, so we
+
+321
+00:09:47,066 --> 0:09:47,886
+make sure to trigger this
+
+322
+00:09:47,886 --> 0:09:49,946
+behavior on button press rather
+
+323
+00:09:49,946 --> 0:09:50,906
+than button release.
+
+324
+00:09:53,686 --> 0:09:55,426
+If the new API isn't available,
+
+325
+00:09:55,826 --> 0:09:56,736
+we should still register our
+
+326
+00:09:56,736 --> 0:09:58,046
+functionality with the old
+
+327
+00:09:58,046 --> 0:09:59,226
+controller PausedHandler.
+
+328
+00:09:59,546 --> 0:10:01,026
+This will trigger whenever the
+
+329
+00:09:59,546 --> 0:10:01,026
+This will trigger whenever the
+
+330
+00:10:01,026 --> 0:10:02,196
+menu button is pressed.
+
+331
+00:10:02,196 --> 0:10:06,076
+So that was the menu button.
+
+332
+00:10:07,496 --> 0:10:08,736
+Now let's look at the options
+
+333
+00:10:08,736 --> 0:10:09,076
+button.
+
+334
+00:10:09,816 --> 0:10:11,456
+Again, remember that not all
+
+335
+00:10:11,456 --> 0:10:12,526
+controllers may have this
+
+336
+00:10:12,526 --> 0:10:12,926
+button.
+
+337
+00:10:13,756 --> 0:10:14,816
+Let's dive into another code
+
+338
+00:10:14,816 --> 0:10:16,036
+example to see how we should
+
+339
+00:10:16,036 --> 0:10:16,626
+handle this.
+
+340
+00:10:18,656 --> 0:10:20,076
+Here, we want to bring up an
+
+341
+00:10:20,076 --> 0:10:21,726
+in-game settings menu whenever
+
+342
+00:10:21,726 --> 0:10:23,106
+the player presses the options
+
+343
+00:10:23,106 --> 0:10:23,556
+button.
+
+344
+00:10:24,016 --> 0:10:26,026
+If we're supporting older
+
+345
+00:10:26,026 --> 0:10:28,476
+versions of iOS, tvOS, or macOS,
+
+346
+00:10:28,906 --> 0:10:30,186
+we should first check to see if
+
+347
+00:10:30,186 --> 0:10:31,616
+we have the new options button.
+
+348
+00:10:33,496 --> 0:10:34,926
+But even if we do, the
+
+349
+00:10:34,926 --> 0:10:36,176
+controller we're mapping may not
+
+350
+00:10:36,176 --> 0:10:37,576
+physically have an options
+
+351
+00:10:37,576 --> 0:10:37,986
+button.
+
+352
+00:10:39,026 --> 0:10:40,056
+So we check to see if the
+
+353
+00:10:40,056 --> 0:10:41,076
+options button is new.
+
+354
+00:10:41,546 --> 0:10:43,386
+And if it is, we need to ensure
+
+355
+00:10:43,386 --> 0:10:44,506
+that the settings menu is
+
+356
+00:10:44,506 --> 0:10:46,256
+accessible via some other means.
+
+357
+00:10:46,496 --> 0:10:48,616
+For example, we can list it as
+
+358
+00:10:48,616 --> 0:10:49,906
+an item in the pause menu.
+
+359
+00:10:51,736 --> 0:10:53,196
+If the controller has an options
+
+360
+00:10:53,196 --> 0:10:54,616
+button, we can just assign our
+
+361
+00:10:54,616 --> 0:10:56,256
+behavior to the button options
+
+362
+00:10:56,396 --> 0:10:57,146
+pressed handler.
+
+363
+00:10:57,936 --> 0:10:59,056
+Now, when a player clicks the
+
+364
+00:10:59,056 --> 0:11:00,446
+options button, the game will
+
+365
+00:10:59,056 --> 0:11:00,446
+options button, the game will
+
+366
+00:11:00,446 --> 0:11:01,656
+toggle the settings menu.
+
+367
+00:11:04,236 --> 0:11:06,076
+If the new API isn't available,
+
+368
+00:11:06,406 --> 0:11:07,436
+we still need to make sure
+
+369
+00:11:07,576 --> 0:11:08,916
+there's an alternative path to
+
+370
+00:11:08,916 --> 0:11:09,946
+reach the settings menu.
+
+371
+00:11:10,436 --> 0:11:12,326
+So that was a quick look at the
+
+372
+00:11:12,326 --> 0:11:13,676
+new API coming to the Game
+
+373
+00:11:13,676 --> 0:11:14,826
+Controller framework this year
+
+374
+00:11:15,036 --> 0:11:16,106
+in support of the newly added
+
+375
+00:11:16,106 --> 0:11:17,876
+Xbox Wireless and DualShock 4
+
+376
+00:11:17,876 --> 0:11:18,486
+controllers.
+
+377
+00:11:20,666 --> 0:11:22,276
+Now, let's talk about some UI
+
+378
+00:11:22,276 --> 0:11:23,876
+best practices for handling
+
+379
+00:11:23,876 --> 0:11:25,086
+different controllers so that
+
+380
+00:11:25,086 --> 0:11:26,426
+your users can experience your
+
+381
+00:11:26,426 --> 0:11:27,896
+game in the best possible way.
+
+382
+00:11:30,496 --> 0:11:31,166
+With the Game Controller
+
+383
+00:11:31,166 --> 0:11:32,416
+framework being expanded to
+
+384
+00:11:32,416 --> 0:11:33,866
+support more than just MFi
+
+385
+00:11:33,866 --> 0:11:35,606
+controllers, a new consideration
+
+386
+00:11:35,606 --> 0:11:36,176
+arises.
+
+387
+00:11:36,776 --> 0:11:38,616
+Buttons and other inputs may no
+
+388
+00:11:38,616 --> 0:11:40,066
+longer be visually consistent
+
+389
+00:11:40,116 --> 0:11:40,996
+between controllers.
+
+390
+00:11:41,736 --> 0:11:43,426
+In this example, the B button in
+
+391
+00:11:43,426 --> 0:11:45,346
+the prompt only matches the MFi
+
+392
+00:11:45,346 --> 0:11:47,346
+controller while the Xbox
+
+393
+00:11:47,346 --> 0:11:48,806
+Wireless controller's B button
+
+394
+00:11:48,976 --> 0:11:51,476
+is red and the DualShock 4 has a
+
+395
+00:11:51,476 --> 0:11:52,616
+circle button instead.
+
+396
+00:11:54,306 --> 0:11:55,346
+Let's dive deeper into this
+
+397
+00:11:55,346 --> 0:11:56,536
+example to see how we could
+
+398
+00:11:56,536 --> 0:11:57,086
+handle this.
+
+399
+00:11:57,836 --> 0:11:58,816
+Let's say you're introducing
+
+400
+00:11:58,816 --> 0:11:59,776
+your player to the base
+
+401
+00:11:59,776 --> 0:12:01,356
+mechanics of your game and you
+
+402
+00:11:59,776 --> 0:12:01,356
+mechanics of your game and you
+
+403
+00:12:01,356 --> 0:12:02,486
+want to display an in-game
+
+404
+00:12:02,486 --> 0:12:03,676
+prompt that tells them how to
+
+405
+00:12:03,676 --> 0:12:04,006
+block.
+
+406
+00:12:04,006 --> 0:12:05,876
+In this case, your block
+
+407
+00:12:05,876 --> 0:12:07,336
+function is mapped to the button
+
+408
+00:12:07,336 --> 0:12:09,926
+B property of GCExtendedGamepad.
+
+409
+00:12:11,406 --> 0:12:13,026
+For an MFi controller, we
+
+410
+00:12:13,026 --> 0:12:14,976
+display our MFi B button asset
+
+411
+00:12:15,076 --> 0:12:15,906
+as we did before.
+
+412
+00:12:16,216 --> 0:12:18,876
+For the Xbox Wireless
+
+413
+00:12:18,876 --> 0:12:20,356
+controller, however, we need to
+
+414
+00:12:20,356 --> 0:12:22,066
+slightly tweak the asset, in
+
+415
+00:12:22,066 --> 0:12:23,196
+this case, by making the B
+
+416
+00:12:23,196 --> 0:12:23,766
+button red.
+
+417
+00:12:25,256 --> 0:12:26,736
+Finally, we display a circle
+
+418
+00:12:26,736 --> 0:12:28,396
+button when the DualShock 4 is
+
+419
+00:12:28,396 --> 0:12:29,336
+the active controller.
+
+420
+00:12:30,036 --> 0:12:31,126
+Now, regardless of what
+
+421
+00:12:31,126 --> 0:12:32,466
+controller the player is using,
+
+422
+00:12:32,656 --> 0:12:34,136
+they can easily understand your
+
+423
+00:12:34,136 --> 0:12:34,926
+in-game prompts.
+
+424
+00:12:35,676 --> 0:12:36,616
+Let's take a look at a code
+
+425
+00:12:36,616 --> 0:12:37,746
+example to see how we can
+
+426
+00:12:37,746 --> 0:12:38,376
+achieve this.
+
+427
+00:12:41,346 --> 0:12:42,736
+Here, we have a simple function
+
+428
+00:12:42,736 --> 0:12:45,576
+called getBlockButtonAsset that
+
+429
+00:12:45,576 --> 0:12:46,566
+returns the appropriate art
+
+430
+00:12:46,566 --> 0:12:47,846
+asset for the block button.
+
+431
+00:12:49,216 --> 0:12:50,806
+First, we switch over the
+
+432
+00:12:50,806 --> 0:12:53,026
+controller's product category, a
+
+433
+00:12:53,026 --> 0:12:54,676
+new property added this year to
+
+434
+00:12:54,676 --> 0:12:56,406
+GCController to determine what
+
+435
+00:12:56,406 --> 0:12:57,456
+kind of controller it is.
+
+436
+00:12:57,536 --> 0:12:59,936
+If it's an Xbox Wireless
+
+437
+00:12:59,936 --> 0:13:01,766
+controller, we will return the
+
+438
+00:12:59,936 --> 0:13:01,766
+controller, we will return the
+
+439
+00:13:01,766 --> 0:13:03,156
+red B button asset.
+
+440
+00:13:03,616 --> 0:13:05,666
+If it's a DualShock 4
+
+441
+00:13:05,666 --> 0:13:07,456
+controller, we'll return the red
+
+442
+00:13:07,596 --> 0:13:08,566
+circle button asset.
+
+443
+00:13:09,696 --> 0:13:11,106
+And finally, by default,
+
+444
+00:13:11,556 --> 0:13:13,636
+overturn the MFi green B button
+
+445
+00:13:13,636 --> 0:13:14,026
+asset.
+
+446
+00:13:14,886 --> 0:13:16,346
+This way, your game will support
+
+447
+00:13:16,346 --> 0:13:17,566
+the diverse range of MFi
+
+448
+00:13:17,566 --> 0:13:18,896
+controllers currently available
+
+449
+00:13:19,146 --> 0:13:20,446
+and gracefully fall back to a
+
+450
+00:13:20,446 --> 0:13:21,816
+sensible asset should new
+
+451
+00:13:21,816 --> 0:13:22,966
+controller support be added in
+
+452
+00:13:22,966 --> 0:13:23,416
+the future.
+
+453
+00:13:24,356 --> 0:13:25,516
+Let's return to our previous
+
+454
+00:13:25,516 --> 0:13:26,286
+block example.
+
+455
+00:13:27,176 --> 0:13:28,496
+Instead of creating unique art
+
+456
+00:13:28,496 --> 0:13:29,516
+assets for each type of
+
+457
+00:13:29,516 --> 0:13:31,556
+controller, another option is to
+
+458
+00:13:31,556 --> 0:13:32,826
+use generic symbols in your
+
+459
+00:13:32,826 --> 0:13:34,246
+in-game tutorials and prompts.
+
+460
+00:13:36,226 --> 0:13:37,706
+By providing a generic prompt
+
+461
+00:13:37,916 --> 0:13:39,126
+that doesn't rely on anything
+
+462
+00:13:39,126 --> 0:13:39,926
+other than positional
+
+463
+00:13:39,926 --> 0:13:41,446
+equivalents, you can rest
+
+464
+00:13:41,446 --> 0:13:42,336
+assured knowing that your
+
+465
+00:13:42,336 --> 0:13:43,966
+players will be able to easily
+
+466
+00:13:43,966 --> 0:13:45,576
+understand your in-game guidance
+
+467
+00:13:45,966 --> 0:13:46,926
+regardless of what type of
+
+468
+00:13:46,926 --> 0:13:48,046
+controller is connected.
+
+469
+00:13:48,786 --> 0:13:50,726
+In this example, it's clear that
+
+470
+00:13:50,726 --> 0:13:51,746
+the players should press the
+
+471
+00:13:51,746 --> 0:13:52,696
+right face button.
+
+472
+00:13:54,966 --> 0:13:57,246
+One last note, players may have
+
+473
+00:13:57,246 --> 0:13:58,506
+multiple controllers connected
+
+474
+00:13:58,506 --> 0:14:00,016
+to their device at the same time
+
+475
+00:13:58,506 --> 0:14:00,016
+to their device at the same time
+
+476
+00:14:00,406 --> 0:14:01,446
+even if they're playing alone.
+
+477
+00:14:02,316 --> 0:14:03,566
+You should gracefully support
+
+478
+00:14:03,666 --> 0:14:04,726
+all connected controllers in
+
+479
+00:14:04,726 --> 0:14:06,216
+this case, as a player may
+
+480
+00:14:06,216 --> 0:14:07,476
+switch between them at any
+
+481
+00:14:07,476 --> 0:14:07,886
+moment.
+
+482
+00:14:08,816 --> 0:14:09,656
+This means that you'll need to
+
+483
+00:14:09,656 --> 0:14:10,936
+recognize input from all
+
+484
+00:14:10,936 --> 0:14:12,746
+connected controllers either by
+
+485
+00:14:12,746 --> 0:14:14,186
+pulling them each frame or
+
+486
+00:14:14,186 --> 0:14:15,606
+registering input handlers with
+
+487
+00:14:15,606 --> 0:14:16,146
+each of them.
+
+488
+00:14:17,226 --> 0:14:18,396
+You should also update your
+
+489
+00:14:18,396 --> 0:14:20,216
+in-game guidance and visuals to
+
+490
+00:14:20,216 --> 0:14:21,356
+match the most recently used
+
+491
+00:14:21,356 --> 0:14:21,966
+controllers.
+
+492
+00:14:22,326 --> 0:14:25,426
+For example, if a player is
+
+493
+00:14:25,426 --> 0:14:26,656
+using their MFi controller,
+
+494
+00:14:26,926 --> 0:14:28,876
+display the appropriate MFi art
+
+495
+00:14:28,876 --> 0:14:29,406
+assets.
+
+496
+00:14:30,856 --> 0:14:32,356
+But if the player pressed an
+
+497
+00:14:32,356 --> 0:14:33,526
+input on their connected
+
+498
+00:14:33,526 --> 0:14:35,926
+DualShock 4, all in-game visuals
+
+499
+00:14:35,926 --> 0:14:37,356
+should automatically adjust to
+
+500
+00:14:37,356 --> 0:14:39,176
+use the DualShock 4 art assets.
+
+501
+00:14:40,246 --> 0:14:41,396
+By dynamically adapting your
+
+502
+00:14:41,396 --> 0:14:42,586
+visuals to the most recently
+
+503
+00:14:42,586 --> 0:14:43,966
+used controller, you will
+
+504
+00:14:43,966 --> 0:14:45,036
+provide your players an
+
+505
+00:14:45,036 --> 0:14:46,176
+intuitive and polished
+
+506
+00:14:46,176 --> 0:14:47,426
+controller-driven experience.
+
+507
+00:14:49,566 --> 0:14:50,786
+Now, for those of you who have
+
+508
+00:14:50,786 --> 0:14:52,086
+previously implemented the game
+
+509
+00:14:52,086 --> 0:14:53,536
+controller support outside of
+
+510
+00:14:53,536 --> 0:14:54,526
+the Game Controller framework on
+
+511
+00:14:54,526 --> 0:14:56,386
+macOS, we have some new guidance
+
+512
+00:14:56,386 --> 0:14:57,096
+for your games.
+
+513
+00:14:58,976 --> 0:14:59,866
+When you adopt the Game
+
+514
+00:14:59,866 --> 0:15:01,026
+Controller framework, game
+
+515
+00:14:59,866 --> 0:15:01,026
+Controller framework, game
+
+516
+00:15:01,026 --> 0:15:02,896
+controllers will just work, so
+
+517
+00:15:02,896 --> 0:15:05,036
+you should use it for MFi, Xbox
+
+518
+00:15:05,036 --> 0:15:06,326
+Wireless, and DualShock 4
+
+519
+00:15:06,326 --> 0:15:07,886
+controller support on macOS.
+
+520
+00:15:08,476 --> 0:15:10,716
+As we abstract away any hardware
+
+521
+00:15:10,716 --> 0:15:11,906
+intricacies that may differ
+
+522
+00:15:11,906 --> 0:15:13,936
+between controllers, we provide
+
+523
+00:15:13,936 --> 0:15:15,196
+you consistency in your app
+
+524
+00:15:15,246 --> 0:15:17,886
+across iOS, tvOS, and macOS.
+
+525
+00:15:18,946 --> 0:15:20,256
+This will also help to ensure
+
+526
+00:15:20,256 --> 0:15:21,806
+that your apps remain compatible
+
+527
+00:15:21,806 --> 0:15:23,226
+with current and future OS
+
+528
+00:15:23,226 --> 0:15:23,766
+updates.
+
+529
+00:15:24,196 --> 0:15:26,886
+For those of you who have
+
+530
+00:15:26,886 --> 0:15:28,286
+previously hardcoded support for
+
+531
+00:15:28,286 --> 0:15:29,576
+these controllers through lower
+
+532
+00:15:29,576 --> 0:15:31,896
+level APIs such as IOKit, we
+
+533
+00:15:31,896 --> 0:15:33,306
+highly recommend that you move
+
+534
+00:15:33,306 --> 0:15:34,686
+your implementation over to the
+
+535
+00:15:34,686 --> 0:15:35,666
+Game Controller framework.
+
+536
+00:15:36,786 --> 0:15:38,086
+As new controllers will appear
+
+537
+00:15:38,086 --> 0:15:39,426
+in both IOKit and the Game
+
+538
+00:15:39,426 --> 0:15:41,156
+Controller framework, you should
+
+539
+00:15:41,156 --> 0:15:42,756
+drop your IOKit implementation
+
+540
+00:15:42,806 --> 0:15:43,556
+to ensure there are no
+
+541
+00:15:43,556 --> 0:15:44,226
+conflicts.
+
+542
+00:15:45,496 --> 0:15:46,856
+This will allow you to code to a
+
+543
+00:15:46,856 --> 0:15:48,496
+single interface and receive new
+
+544
+00:15:48,496 --> 0:15:49,716
+game controller support for
+
+545
+00:15:49,716 --> 0:15:50,036
+free.
+
+546
+00:15:53,746 --> 0:15:55,016
+So let's summarize what we've
+
+547
+00:15:55,016 --> 0:15:56,046
+discussed in this video.
+
+548
+00:15:57,776 --> 0:15:59,006
+The Game Controller framework
+
+549
+00:15:59,006 --> 0:16:00,196
+abstracts hardware through a
+
+550
+00:15:59,006 --> 0:16:00,196
+abstracts hardware through a
+
+551
+00:16:00,196 --> 0:16:01,586
+common API, letting you write
+
+552
+00:16:01,586 --> 0:16:03,356
+your code once without having to
+
+553
+00:16:03,356 --> 0:16:04,336
+worry about the low-level
+
+554
+00:16:04,336 --> 0:16:05,786
+differences between controller
+
+555
+00:16:05,786 --> 0:16:06,286
+models.
+
+556
+00:16:07,256 --> 0:16:08,466
+This has the great benefit of
+
+557
+00:16:08,466 --> 0:16:09,446
+allowing your game to
+
+558
+00:16:09,446 --> 0:16:10,726
+automatically support newly
+
+559
+00:16:10,726 --> 0:16:12,096
+added controllers such as the
+
+560
+00:16:12,096 --> 0:16:13,776
+Xbox Wireless and the DualShock
+
+561
+00:16:13,776 --> 0:16:14,506
+4 controllers.
+
+562
+00:16:15,816 --> 0:16:17,706
+However, in order to provide the
+
+563
+00:16:17,706 --> 0:16:18,926
+best user experience for your
+
+564
+00:16:18,926 --> 0:16:20,716
+players, you should take care to
+
+565
+00:16:20,716 --> 0:16:22,216
+adapt your game's UI and
+
+566
+00:16:22,216 --> 0:16:23,536
+on-screen indicators to the
+
+567
+00:16:23,536 --> 0:16:24,316
+active controller.
+
+568
+00:16:25,576 --> 0:16:27,396
+And finally, ensure your macOS
+
+569
+00:16:27,396 --> 0:16:29,096
+apps stay compatible with future
+
+570
+00:16:29,096 --> 0:16:31,066
+OS updates by migrating existing
+
+571
+00:16:31,066 --> 0:16:32,436
+controller support from lower
+
+572
+00:16:32,436 --> 0:16:33,746
+level APIs to the Game
+
+573
+00:16:33,746 --> 0:16:34,546
+Controller framework.
+
+574
+00:16:35,966 --> 0:16:37,136
+More information about this
+
+575
+00:16:37,136 --> 0:16:38,616
+year's game controller update
+
+576
+00:16:38,616 --> 0:16:39,616
+can be found on the Apple
+
+577
+00:16:39,616 --> 0:16:40,296
+developer site.
+
+578
+00:16:43,106 --> 0:16:44,236
+That's it for this year's game
+
+579
+00:16:44,236 --> 0:16:44,946
+controller's update.
+
+580
+00:16:45,296 --> 0:16:46,346
+Thank you for watching.
+
+581
+00:16:46,886 --> 0:16:47,626
+We hope you found this
+
+582
+00:16:47,626 --> 0:16:49,386
+information helpful and you can
+
+583
+00:16:49,386 --> 0:16:50,486
+use it to create some awesome
+
+584
+00:16:50,486 --> 0:16:51,546
+games with game controller
+
+585
+00:16:51,546 --> 0:16:51,936
+support.
