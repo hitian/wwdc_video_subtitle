@@ -1,5 +1,5 @@
 module github.com/hitian/wwdc_video_subtitle
 
-go 1.20
+go 1.22
 
-require golang.org/x/net v0.18.0
+require golang.org/x/net v0.24.0
